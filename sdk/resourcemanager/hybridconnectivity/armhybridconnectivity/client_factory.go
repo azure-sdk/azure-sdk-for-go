@@ -45,3 +45,8 @@ func (c *ClientFactory) NewEndpointsClient() *EndpointsClient {
 	subClient, _ := NewEndpointsClient(c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewServiceConfigurationsClient() *ServiceConfigurationsClient {
+	subClient, _ := NewServiceConfigurationsClient(c.credential, c.options)
+	return subClient
+}

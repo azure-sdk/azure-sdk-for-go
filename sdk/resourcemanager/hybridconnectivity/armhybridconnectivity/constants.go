@@ -11,7 +11,7 @@ package armhybridconnectivity
 
 const (
 	moduleName    = "armhybridconnectivity"
-	moduleVersion = "v0.6.1"
+	moduleVersion = "v1.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -64,6 +64,44 @@ func PossibleOriginValues() []Origin {
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
+	}
+}
+
+// ProvisioningState - The resource provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating  ProvisioningState = "Updating"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
+	}
+}
+
+// ServiceName - Name of the service.
+type ServiceName string
+
+const (
+	ServiceNameSSH ServiceName = "SSH"
+	ServiceNameWAC ServiceName = "WAC"
+)
+
+// PossibleServiceNameValues returns the possible values for the ServiceName const type.
+func PossibleServiceNameValues() []ServiceName {
+	return []ServiceName{
+		ServiceNameSSH,
+		ServiceNameWAC,
 	}
 }
 

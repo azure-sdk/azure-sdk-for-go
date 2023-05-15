@@ -43,13 +43,13 @@ type EndpointResource struct {
 	// The endpoint properties.
 	Properties *EndpointProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; System data of endpoint resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -75,6 +75,17 @@ type EndpointsClientGetOptions struct {
 type EndpointsClientListCredentialsOptions struct {
 	// The is how long the endpoint access token is valid (in seconds).
 	Expiresin *int64
+	// Object of type ListCredentialsRequest
+	ListCredentialsRequest *ListCredentialsRequest
+}
+
+// EndpointsClientListIngressGatewayCredentialsOptions contains the optional parameters for the EndpointsClient.ListIngressGatewayCredentials
+// method.
+type EndpointsClientListIngressGatewayCredentialsOptions struct {
+	// The is how long the endpoint access token is valid (in seconds).
+	Expiresin *int64
+	// Object of type ListIngressGatewayCredentialsRequest
+	ListIngressGatewayCredentialsRequest *ListIngressGatewayCredentialsRequest
 }
 
 // EndpointsClientListManagedProxyDetailsOptions contains the optional parameters for the EndpointsClient.ListManagedProxyDetails
@@ -154,6 +165,18 @@ type IngressProfileProperties struct {
 	Hostname *string
 }
 
+// ListCredentialsRequest - The details of the service for which credentials needs to be returned.
+type ListCredentialsRequest struct {
+	// The name of the service. If not provided, the request will by pass the generation of service configuration token
+	ServiceName *ServiceName
+}
+
+// ListIngressGatewayCredentialsRequest - Represent ListIngressGatewayCredentials Request object.
+type ListIngressGatewayCredentialsRequest struct {
+	// The name of the service.
+	ServiceName *ServiceName
+}
+
 // ManagedProxyRequest - Represent ManageProxy Request object.
 type ManagedProxyRequest struct {
 	// REQUIRED; The name of the service.
@@ -161,6 +184,10 @@ type ManagedProxyRequest struct {
 
 	// The target host name.
 	Hostname *string
+
+	// The name of the service. It is an optional property, if not provided, service configuration tokens issue code would be
+	// by passed.
+	ServiceName *ServiceName
 }
 
 // ManagedProxyResource - Managed Proxy
@@ -229,11 +256,14 @@ type OperationsClientListOptions struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -253,20 +283,107 @@ type RelayNamespaceAccessProperties struct {
 	// The expiration of access key in unix time.
 	ExpiresOn *int64
 
+	// The token to access the enabled service.
+	ServiceConfigurationToken *string
+
 	// READ-ONLY; Access key for hybrid connection.
 	AccessKey *string
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// ServiceConfigurationList - The paginated list of serviceConfigurations
+type ServiceConfigurationList struct {
+	// The link to fetch the next page of connected cluster
+	NextLink *string
+
+	// The list of service configuration
+	Value []*ServiceConfigurationResource
+}
+
+// ServiceConfigurationProperties - Service configuration details
+type ServiceConfigurationProperties struct {
+	// REQUIRED; Name of the service.
+	ServiceName *ServiceName
+
+	// The port on which service is enabled.
+	Port *int64
+
+	// The resource Id of the connectivity endpoint (optional).
+	ResourceID *string
+
+	// READ-ONLY; The resource provisioning state.
+	ProvisioningState *ProvisioningState
+}
+
+// ServiceConfigurationPropertiesPatch - Service configuration details
+type ServiceConfigurationPropertiesPatch struct {
+	// The port on which service is enabled.
+	Port *int64
+}
+
+// ServiceConfigurationResource - The service configuration details associated with the target resource.
+type ServiceConfigurationResource struct {
+	// The service configuration properties.
+	Properties *ServiceConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServiceConfigurationResourcePatch - The service details under service configuration for the target endpoint resource.
+type ServiceConfigurationResourcePatch struct {
+	// The service configuration properties.
+	Properties *ServiceConfigurationPropertiesPatch
+}
+
+// ServiceConfigurationsClientCreateOrupdateOptions contains the optional parameters for the ServiceConfigurationsClient.CreateOrupdate
+// method.
+type ServiceConfigurationsClientCreateOrupdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServiceConfigurationsClientDeleteOptions contains the optional parameters for the ServiceConfigurationsClient.Delete method.
+type ServiceConfigurationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServiceConfigurationsClientGetOptions contains the optional parameters for the ServiceConfigurationsClient.Get method.
+type ServiceConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServiceConfigurationsClientListByEndpointResourceOptions contains the optional parameters for the ServiceConfigurationsClient.NewListByEndpointResourcePager
+// method.
+type ServiceConfigurationsClientListByEndpointResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServiceConfigurationsClientUpdateOptions contains the optional parameters for the ServiceConfigurationsClient.Update method.
+type ServiceConfigurationsClientUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
