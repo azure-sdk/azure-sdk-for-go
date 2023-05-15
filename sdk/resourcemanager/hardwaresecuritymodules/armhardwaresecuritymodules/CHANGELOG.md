@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2023-05-15)
+### Breaking Changes
+
+- Type of `DedicatedHsmOperation.IsDataAction` has been changed from `*string` to `*bool`
+
+### Features Added
+
+- New field `Origin` in struct `DedicatedHsmOperation`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
