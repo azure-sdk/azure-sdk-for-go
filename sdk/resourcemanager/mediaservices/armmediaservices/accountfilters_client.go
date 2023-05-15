@@ -47,7 +47,7 @@ func NewAccountFiltersClient(subscriptionID string, credential azcore.TokenCrede
 // CreateOrUpdate - Creates or updates an Account Filter in the Media Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - filterName - The Account Filter name
@@ -93,7 +93,7 @@ func (client *AccountFiltersClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -111,7 +111,7 @@ func (client *AccountFiltersClient) createOrUpdateHandleResponse(resp *http.Resp
 // Delete - Deletes an Account Filter in the Media Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - filterName - The Account Filter name
@@ -155,7 +155,7 @@ func (client *AccountFiltersClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -164,7 +164,7 @@ func (client *AccountFiltersClient) deleteCreateRequest(ctx context.Context, res
 // Get - Get the details of an Account Filter in the Media Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - filterName - The Account Filter name
@@ -208,7 +208,7 @@ func (client *AccountFiltersClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -225,7 +225,7 @@ func (client *AccountFiltersClient) getHandleResponse(resp *http.Response) (Acco
 
 // NewListPager - List Account Filters in the Media Services account.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - options - AccountFiltersClientListOptions contains the optional parameters for the AccountFiltersClient.NewListPager method.
@@ -277,7 +277,7 @@ func (client *AccountFiltersClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -295,7 +295,7 @@ func (client *AccountFiltersClient) listHandleResponse(resp *http.Response) (Acc
 // Update - Updates an existing Account Filter in the Media Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - filterName - The Account Filter name
@@ -340,7 +340,7 @@ func (client *AccountFiltersClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

@@ -651,6 +651,7 @@ func (a AssetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "container", a.Container)
 	populateTimeRFC3339(objectMap, "created", a.Created)
 	populate(objectMap, "description", a.Description)
+	populate(objectMap, "encryptionScope", a.EncryptionScope)
 	populateTimeRFC3339(objectMap, "lastModified", a.LastModified)
 	populate(objectMap, "storageAccountName", a.StorageAccountName)
 	populate(objectMap, "storageEncryptionFormat", a.StorageEncryptionFormat)
@@ -680,6 +681,9 @@ func (a *AssetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "description":
 			err = unpopulate(val, "Description", &a.Description)
+			delete(rawMsg, key)
+		case "encryptionScope":
+			err = unpopulate(val, "EncryptionScope", &a.EncryptionScope)
 			delete(rawMsg, key)
 		case "lastModified":
 			err = unpopulateTimeRFC3339(val, "LastModified", &a.LastModified)
@@ -4926,6 +4930,169 @@ func (l *LiveEventEndpoint) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type LiveEventGetStatusResult.
+func (l LiveEventGetStatusResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "value", l.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventGetStatusResult.
+func (l *LiveEventGetStatusResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &l.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventGetStreamEventsResult.
+func (l LiveEventGetStreamEventsResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "value", l.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventGetStreamEventsResult.
+func (l *LiveEventGetStreamEventsResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &l.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventGetTrackIngestHeartbeatsResult.
+func (l LiveEventGetTrackIngestHeartbeatsResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "value", l.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventGetTrackIngestHeartbeatsResult.
+func (l *LiveEventGetTrackIngestHeartbeatsResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &l.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventIngestInterruption.
+func (l LiveEventIngestInterruption) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateTimeRFC3339(objectMap, "begin", l.Begin)
+	populate(objectMap, "duration", l.Duration)
+	populateTimeRFC3339(objectMap, "end", l.End)
+	populate(objectMap, "reason", l.Reason)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventIngestInterruption.
+func (l *LiveEventIngestInterruption) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "begin":
+			err = unpopulateTimeRFC3339(val, "Begin", &l.Begin)
+			delete(rawMsg, key)
+		case "duration":
+			err = unpopulate(val, "Duration", &l.Duration)
+			delete(rawMsg, key)
+		case "end":
+			err = unpopulateTimeRFC3339(val, "End", &l.End)
+			delete(rawMsg, key)
+		case "reason":
+			err = unpopulate(val, "Reason", &l.Reason)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventIngestion.
+func (l LiveEventIngestion) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateTimeRFC3339(objectMap, "begin", l.Begin)
+	populateTimeRFC3339(objectMap, "end", l.End)
+	populate(objectMap, "endReason", l.EndReason)
+	populate(objectMap, "ingestInterruptions", l.IngestInterruptions)
+	populate(objectMap, "streamName", l.StreamName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventIngestion.
+func (l *LiveEventIngestion) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "begin":
+			err = unpopulateTimeRFC3339(val, "Begin", &l.Begin)
+			delete(rawMsg, key)
+		case "end":
+			err = unpopulateTimeRFC3339(val, "End", &l.End)
+			delete(rawMsg, key)
+		case "endReason":
+			err = unpopulate(val, "EndReason", &l.EndReason)
+			delete(rawMsg, key)
+		case "ingestInterruptions":
+			err = unpopulate(val, "IngestInterruptions", &l.IngestInterruptions)
+			delete(rawMsg, key)
+		case "streamName":
+			err = unpopulate(val, "StreamName", &l.StreamName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type LiveEventInput.
 func (l LiveEventInput) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4934,6 +5101,7 @@ func (l LiveEventInput) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "endpoints", l.Endpoints)
 	populate(objectMap, "keyFrameIntervalDuration", l.KeyFrameIntervalDuration)
 	populate(objectMap, "streamingProtocol", l.StreamingProtocol)
+	populate(objectMap, "timedMetadataEndpoints", l.TimedMetadataEndpoints)
 	return json.Marshal(objectMap)
 }
 
@@ -4960,6 +5128,9 @@ func (l *LiveEventInput) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "streamingProtocol":
 			err = unpopulate(val, "StreamingProtocol", &l.StreamingProtocol)
+			delete(rawMsg, key)
+		case "timedMetadataEndpoints":
+			err = unpopulate(val, "TimedMetadataEndpoints", &l.TimedMetadataEndpoints)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -5229,6 +5400,427 @@ func (l *LiveEventProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "useStaticHostname":
 			err = unpopulate(val, "UseStaticHostname", &l.UseStaticHostname)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventStatus.
+func (l LiveEventStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "healthDescriptions", l.HealthDescriptions)
+	populate(objectMap, "healthStatus", l.HealthStatus)
+	populate(objectMap, "ingestion", l.Ingestion)
+	populateTimeRFC3339(objectMap, "lastUpdatedTime", l.LastUpdatedTime)
+	populate(objectMap, "state", l.State)
+	populate(objectMap, "trackStatus", l.TrackStatus)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventStatus.
+func (l *LiveEventStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "healthDescriptions":
+			err = unpopulate(val, "HealthDescriptions", &l.HealthDescriptions)
+			delete(rawMsg, key)
+		case "healthStatus":
+			err = unpopulate(val, "HealthStatus", &l.HealthStatus)
+			delete(rawMsg, key)
+		case "ingestion":
+			err = unpopulate(val, "Ingestion", &l.Ingestion)
+			delete(rawMsg, key)
+		case "lastUpdatedTime":
+			err = unpopulateTimeRFC3339(val, "LastUpdatedTime", &l.LastUpdatedTime)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &l.State)
+			delete(rawMsg, key)
+		case "trackStatus":
+			err = unpopulate(val, "TrackStatus", &l.TrackStatus)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventStreamEvent.
+func (l LiveEventStreamEvent) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "data", l.Data)
+	populate(objectMap, "eventLevel", l.EventLevel)
+	populateTimeRFC3339(objectMap, "eventTime", l.EventTime)
+	populate(objectMap, "eventType", l.EventType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventStreamEvent.
+func (l *LiveEventStreamEvent) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "data":
+			err = unpopulate(val, "Data", &l.Data)
+			delete(rawMsg, key)
+		case "eventLevel":
+			err = unpopulate(val, "EventLevel", &l.EventLevel)
+			delete(rawMsg, key)
+		case "eventTime":
+			err = unpopulateTimeRFC3339(val, "EventTime", &l.EventTime)
+			delete(rawMsg, key)
+		case "eventType":
+			err = unpopulate(val, "EventType", &l.EventType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventStreamEventData.
+func (l LiveEventStreamEventData) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "bitrate", l.Bitrate)
+	populate(objectMap, "currentFragmentTimestamp", l.CurrentFragmentTimestamp)
+	populate(objectMap, "discontinuityGap", l.DiscontinuityGap)
+	populate(objectMap, "duration", l.Duration)
+	populate(objectMap, "fragmentDropReason", l.FragmentDropReason)
+	populate(objectMap, "fragmentOneDuration", l.FragmentOneDuration)
+	populate(objectMap, "fragmentOneTimestamp", l.FragmentOneTimestamp)
+	populate(objectMap, "fragmentTwoDuration", l.FragmentTwoDuration)
+	populate(objectMap, "fragmentTwoTimestamp", l.FragmentTwoTimestamp)
+	populate(objectMap, "maxTime", l.MaxTime)
+	populate(objectMap, "maxTimeMediaType", l.MaxTimeMediaType)
+	populate(objectMap, "mediaTimestamp", l.MediaTimestamp)
+	populate(objectMap, "mediaType", l.MediaType)
+	populate(objectMap, "minTime", l.MinTime)
+	populate(objectMap, "minTimeMediaType", l.MinTimeMediaType)
+	populate(objectMap, "previousFragmentDuration", l.PreviousFragmentDuration)
+	populate(objectMap, "previousFragmentTimestamp", l.PreviousFragmentTimestamp)
+	populate(objectMap, "remoteIp", l.RemoteIP)
+	populate(objectMap, "remotePort", l.RemotePort)
+	populate(objectMap, "resolution", l.Resolution)
+	populate(objectMap, "resultCode", l.ResultCode)
+	populate(objectMap, "resultMessage", l.ResultMessage)
+	populate(objectMap, "streamId", l.StreamID)
+	populate(objectMap, "streamName", l.StreamName)
+	populate(objectMap, "timescale", l.Timescale)
+	populate(objectMap, "timescaleOfMaxTime", l.TimescaleOfMaxTime)
+	populate(objectMap, "timescaleOfMinTime", l.TimescaleOfMinTime)
+	populate(objectMap, "trackId", l.TrackID)
+	populate(objectMap, "trackName", l.TrackName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventStreamEventData.
+func (l *LiveEventStreamEventData) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "bitrate":
+			err = unpopulate(val, "Bitrate", &l.Bitrate)
+			delete(rawMsg, key)
+		case "currentFragmentTimestamp":
+			err = unpopulate(val, "CurrentFragmentTimestamp", &l.CurrentFragmentTimestamp)
+			delete(rawMsg, key)
+		case "discontinuityGap":
+			err = unpopulate(val, "DiscontinuityGap", &l.DiscontinuityGap)
+			delete(rawMsg, key)
+		case "duration":
+			err = unpopulate(val, "Duration", &l.Duration)
+			delete(rawMsg, key)
+		case "fragmentDropReason":
+			err = unpopulate(val, "FragmentDropReason", &l.FragmentDropReason)
+			delete(rawMsg, key)
+		case "fragmentOneDuration":
+			err = unpopulate(val, "FragmentOneDuration", &l.FragmentOneDuration)
+			delete(rawMsg, key)
+		case "fragmentOneTimestamp":
+			err = unpopulate(val, "FragmentOneTimestamp", &l.FragmentOneTimestamp)
+			delete(rawMsg, key)
+		case "fragmentTwoDuration":
+			err = unpopulate(val, "FragmentTwoDuration", &l.FragmentTwoDuration)
+			delete(rawMsg, key)
+		case "fragmentTwoTimestamp":
+			err = unpopulate(val, "FragmentTwoTimestamp", &l.FragmentTwoTimestamp)
+			delete(rawMsg, key)
+		case "maxTime":
+			err = unpopulate(val, "MaxTime", &l.MaxTime)
+			delete(rawMsg, key)
+		case "maxTimeMediaType":
+			err = unpopulate(val, "MaxTimeMediaType", &l.MaxTimeMediaType)
+			delete(rawMsg, key)
+		case "mediaTimestamp":
+			err = unpopulate(val, "MediaTimestamp", &l.MediaTimestamp)
+			delete(rawMsg, key)
+		case "mediaType":
+			err = unpopulate(val, "MediaType", &l.MediaType)
+			delete(rawMsg, key)
+		case "minTime":
+			err = unpopulate(val, "MinTime", &l.MinTime)
+			delete(rawMsg, key)
+		case "minTimeMediaType":
+			err = unpopulate(val, "MinTimeMediaType", &l.MinTimeMediaType)
+			delete(rawMsg, key)
+		case "previousFragmentDuration":
+			err = unpopulate(val, "PreviousFragmentDuration", &l.PreviousFragmentDuration)
+			delete(rawMsg, key)
+		case "previousFragmentTimestamp":
+			err = unpopulate(val, "PreviousFragmentTimestamp", &l.PreviousFragmentTimestamp)
+			delete(rawMsg, key)
+		case "remoteIp":
+			err = unpopulate(val, "RemoteIP", &l.RemoteIP)
+			delete(rawMsg, key)
+		case "remotePort":
+			err = unpopulate(val, "RemotePort", &l.RemotePort)
+			delete(rawMsg, key)
+		case "resolution":
+			err = unpopulate(val, "Resolution", &l.Resolution)
+			delete(rawMsg, key)
+		case "resultCode":
+			err = unpopulate(val, "ResultCode", &l.ResultCode)
+			delete(rawMsg, key)
+		case "resultMessage":
+			err = unpopulate(val, "ResultMessage", &l.ResultMessage)
+			delete(rawMsg, key)
+		case "streamId":
+			err = unpopulate(val, "StreamID", &l.StreamID)
+			delete(rawMsg, key)
+		case "streamName":
+			err = unpopulate(val, "StreamName", &l.StreamName)
+			delete(rawMsg, key)
+		case "timescale":
+			err = unpopulate(val, "Timescale", &l.Timescale)
+			delete(rawMsg, key)
+		case "timescaleOfMaxTime":
+			err = unpopulate(val, "TimescaleOfMaxTime", &l.TimescaleOfMaxTime)
+			delete(rawMsg, key)
+		case "timescaleOfMinTime":
+			err = unpopulate(val, "TimescaleOfMinTime", &l.TimescaleOfMinTime)
+			delete(rawMsg, key)
+		case "trackId":
+			err = unpopulate(val, "TrackID", &l.TrackID)
+			delete(rawMsg, key)
+		case "trackName":
+			err = unpopulate(val, "TrackName", &l.TrackName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventTimedMetadataEndpoint.
+func (l LiveEventTimedMetadataEndpoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "url", l.URL)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventTimedMetadataEndpoint.
+func (l *LiveEventTimedMetadataEndpoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "url":
+			err = unpopulate(val, "URL", &l.URL)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventTrackEvent.
+func (l LiveEventTrackEvent) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "data", l.Data)
+	populateTimeRFC3339(objectMap, "eventTime", l.EventTime)
+	populate(objectMap, "eventType", l.EventType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventTrackEvent.
+func (l *LiveEventTrackEvent) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "data":
+			err = unpopulate(val, "Data", &l.Data)
+			delete(rawMsg, key)
+		case "eventTime":
+			err = unpopulateTimeRFC3339(val, "EventTime", &l.EventTime)
+			delete(rawMsg, key)
+		case "eventType":
+			err = unpopulate(val, "EventType", &l.EventType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventTrackEventData.
+func (l LiveEventTrackEventData) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "bitrate", l.Bitrate)
+	populate(objectMap, "discontinuityCount", l.DiscontinuityCount)
+	populate(objectMap, "healthy", l.Healthy)
+	populate(objectMap, "incomingBitrate", l.IncomingBitrate)
+	populate(objectMap, "ingestDriftValue", l.IngestDriftValue)
+	populateTimeRFC3339(objectMap, "lastFragmentArrivalTime", l.LastFragmentArrivalTime)
+	populate(objectMap, "lastTimestamp", l.LastTimestamp)
+	populate(objectMap, "nonincreasingCount", l.NonincreasingCount)
+	populate(objectMap, "overlapCount", l.OverlapCount)
+	populate(objectMap, "state", l.State)
+	populate(objectMap, "timescale", l.Timescale)
+	populate(objectMap, "trackName", l.TrackName)
+	populate(objectMap, "trackType", l.TrackType)
+	populate(objectMap, "transcriptionLanguage", l.TranscriptionLanguage)
+	populate(objectMap, "transcriptionState", l.TranscriptionState)
+	populate(objectMap, "unexpectedBitrate", l.UnexpectedBitrate)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventTrackEventData.
+func (l *LiveEventTrackEventData) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "bitrate":
+			err = unpopulate(val, "Bitrate", &l.Bitrate)
+			delete(rawMsg, key)
+		case "discontinuityCount":
+			err = unpopulate(val, "DiscontinuityCount", &l.DiscontinuityCount)
+			delete(rawMsg, key)
+		case "healthy":
+			err = unpopulate(val, "Healthy", &l.Healthy)
+			delete(rawMsg, key)
+		case "incomingBitrate":
+			err = unpopulate(val, "IncomingBitrate", &l.IncomingBitrate)
+			delete(rawMsg, key)
+		case "ingestDriftValue":
+			err = unpopulate(val, "IngestDriftValue", &l.IngestDriftValue)
+			delete(rawMsg, key)
+		case "lastFragmentArrivalTime":
+			err = unpopulateTimeRFC3339(val, "LastFragmentArrivalTime", &l.LastFragmentArrivalTime)
+			delete(rawMsg, key)
+		case "lastTimestamp":
+			err = unpopulate(val, "LastTimestamp", &l.LastTimestamp)
+			delete(rawMsg, key)
+		case "nonincreasingCount":
+			err = unpopulate(val, "NonincreasingCount", &l.NonincreasingCount)
+			delete(rawMsg, key)
+		case "overlapCount":
+			err = unpopulate(val, "OverlapCount", &l.OverlapCount)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &l.State)
+			delete(rawMsg, key)
+		case "timescale":
+			err = unpopulate(val, "Timescale", &l.Timescale)
+			delete(rawMsg, key)
+		case "trackName":
+			err = unpopulate(val, "TrackName", &l.TrackName)
+			delete(rawMsg, key)
+		case "trackType":
+			err = unpopulate(val, "TrackType", &l.TrackType)
+			delete(rawMsg, key)
+		case "transcriptionLanguage":
+			err = unpopulate(val, "TranscriptionLanguage", &l.TranscriptionLanguage)
+			delete(rawMsg, key)
+		case "transcriptionState":
+			err = unpopulate(val, "TranscriptionState", &l.TranscriptionState)
+			delete(rawMsg, key)
+		case "unexpectedBitrate":
+			err = unpopulate(val, "UnexpectedBitrate", &l.UnexpectedBitrate)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiveEventTrackStatus.
+func (l LiveEventTrackStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "expectedBitrate", l.ExpectedBitrate)
+	populate(objectMap, "incomingBitrate", l.IncomingBitrate)
+	populate(objectMap, "ingestDrift", l.IngestDrift)
+	populate(objectMap, "requestReceived", l.RequestReceived)
+	populate(objectMap, "requestSucceeded", l.RequestSucceeded)
+	populate(objectMap, "trackId", l.TrackID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiveEventTrackStatus.
+func (l *LiveEventTrackStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expectedBitrate":
+			err = unpopulate(val, "ExpectedBitrate", &l.ExpectedBitrate)
+			delete(rawMsg, key)
+		case "incomingBitrate":
+			err = unpopulate(val, "IncomingBitrate", &l.IncomingBitrate)
+			delete(rawMsg, key)
+		case "ingestDrift":
+			err = unpopulate(val, "IngestDrift", &l.IngestDrift)
+			delete(rawMsg, key)
+		case "requestReceived":
+			err = unpopulate(val, "RequestReceived", &l.RequestReceived)
+			delete(rawMsg, key)
+		case "requestSucceeded":
+			err = unpopulate(val, "RequestSucceeded", &l.RequestSucceeded)
+			delete(rawMsg, key)
+		case "trackId":
+			err = unpopulate(val, "TrackID", &l.TrackID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -5666,6 +6258,7 @@ func (m MediaServiceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "encryption", m.Encryption)
 	populate(objectMap, "keyDelivery", m.KeyDelivery)
 	populate(objectMap, "mediaServiceId", m.MediaServiceID)
+	populate(objectMap, "minimumTlsVersion", m.MinimumTLSVersion)
 	populate(objectMap, "privateEndpointConnections", m.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", m.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", m.PublicNetworkAccess)
@@ -5691,6 +6284,9 @@ func (m *MediaServiceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "mediaServiceId":
 			err = unpopulate(val, "MediaServiceID", &m.MediaServiceID)
+			delete(rawMsg, key)
+		case "minimumTlsVersion":
+			err = unpopulate(val, "MinimumTLSVersion", &m.MinimumTLSVersion)
 			delete(rawMsg, key)
 		case "privateEndpointConnections":
 			err = unpopulate(val, "PrivateEndpointConnections", &m.PrivateEndpointConnections)

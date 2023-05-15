@@ -242,6 +242,21 @@ type LiveEventsClientGetResponse struct {
 	LiveEvent
 }
 
+// LiveEventsClientListGetStatusResponse contains the response from method LiveEventsClient.BeginListGetStatus.
+type LiveEventsClientListGetStatusResponse struct {
+	LiveEventGetStatusResult
+}
+
+// LiveEventsClientListGetStreamEventsResponse contains the response from method LiveEventsClient.BeginListGetStreamEvents.
+type LiveEventsClientListGetStreamEventsResponse struct {
+	LiveEventGetStreamEventsResult
+}
+
+// LiveEventsClientListGetTrackIngestHeartbeatsResponse contains the response from method LiveEventsClient.BeginListGetTrackIngestHeartbeats.
+type LiveEventsClientListGetTrackIngestHeartbeatsResponse struct {
+	LiveEventGetTrackIngestHeartbeatsResult
+}
+
 // LiveEventsClientListResponse contains the response from method LiveEventsClient.NewListPager.
 type LiveEventsClientListResponse struct {
 	LiveEventListResult

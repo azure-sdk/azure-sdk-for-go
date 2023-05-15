@@ -47,7 +47,7 @@ func NewLiveOutputsClient(subscriptionID string, credential azcore.TokenCredenti
 // AsyncOperation - Get a Live Output operation status.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - operationID - The ID of an ongoing async operation.
@@ -92,7 +92,7 @@ func (client *LiveOutputsClient) asyncOperationCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -110,7 +110,7 @@ func (client *LiveOutputsClient) asyncOperationHandleResponse(resp *http.Respons
 // BeginCreate - Creates a new live output.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - liveEventName - The name of the live event, maximum length is 32.
@@ -132,7 +132,7 @@ func (client *LiveOutputsClient) BeginCreate(ctx context.Context, resourceGroupN
 // Create - Creates a new live output.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 func (client *LiveOutputsClient) create(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, liveOutputName string, parameters LiveOutput, options *LiveOutputsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, liveEventName, liveOutputName, parameters, options)
 	if err != nil {
@@ -176,7 +176,7 @@ func (client *LiveOutputsClient) createCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -185,7 +185,7 @@ func (client *LiveOutputsClient) createCreateRequest(ctx context.Context, resour
 // BeginDelete - Deletes a live output. Deleting a live output does not delete the asset the live output is writing to.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - liveEventName - The name of the live event, maximum length is 32.
@@ -206,7 +206,7 @@ func (client *LiveOutputsClient) BeginDelete(ctx context.Context, resourceGroupN
 // Delete - Deletes a live output. Deleting a live output does not delete the asset the live output is writing to.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 func (client *LiveOutputsClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, liveOutputName string, options *LiveOutputsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, liveEventName, liveOutputName, options)
 	if err != nil {
@@ -250,7 +250,7 @@ func (client *LiveOutputsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,7 +259,7 @@ func (client *LiveOutputsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Gets a live output.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - liveEventName - The name of the live event, maximum length is 32.
@@ -308,7 +308,7 @@ func (client *LiveOutputsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -325,7 +325,7 @@ func (client *LiveOutputsClient) getHandleResponse(resp *http.Response) (LiveOut
 
 // NewListPager - Lists the live outputs of a live event.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - liveEventName - The name of the live event, maximum length is 32.
@@ -382,7 +382,7 @@ func (client *LiveOutputsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -400,7 +400,7 @@ func (client *LiveOutputsClient) listHandleResponse(resp *http.Response) (LiveOu
 // OperationLocation - Get a Live Output operation status.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - liveEventName - The name of the live event, maximum length is 32.
@@ -455,7 +455,7 @@ func (client *LiveOutputsClient) operationLocationCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

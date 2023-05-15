@@ -47,7 +47,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // CreateOrUpdate - Update an existing private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - parameters - The request parameters
@@ -92,7 +92,7 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -110,7 +110,7 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateHandleResponse(res
 // Delete - Deletes a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
@@ -154,7 +154,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -163,7 +163,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 // Get - Get the details of a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
@@ -207,7 +207,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -225,7 +225,7 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 // List - List all private endpoint connections.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
@@ -265,7 +265,7 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

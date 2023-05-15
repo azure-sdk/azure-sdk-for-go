@@ -47,7 +47,7 @@ func NewAssetFiltersClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Creates or updates an Asset Filter associated with the specified Asset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - assetName - The Asset name.
@@ -98,7 +98,7 @@ func (client *AssetFiltersClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -116,7 +116,7 @@ func (client *AssetFiltersClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Deletes an Asset Filter associated with the specified Asset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - assetName - The Asset name.
@@ -165,7 +165,7 @@ func (client *AssetFiltersClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,7 +174,7 @@ func (client *AssetFiltersClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get the details of an Asset Filter associated with the specified Asset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - assetName - The Asset name.
@@ -223,7 +223,7 @@ func (client *AssetFiltersClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -240,7 +240,7 @@ func (client *AssetFiltersClient) getHandleResponse(resp *http.Response) (AssetF
 
 // NewListPager - List Asset Filters associated with the specified Asset.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - assetName - The Asset name.
@@ -297,7 +297,7 @@ func (client *AssetFiltersClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -315,7 +315,7 @@ func (client *AssetFiltersClient) listHandleResponse(resp *http.Response) (Asset
 // Update - Updates an existing Asset Filter associated with the specified Asset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group within the Azure subscription.
 //   - accountName - The Media Services account name.
 //   - assetName - The Asset name.
@@ -365,7 +365,7 @@ func (client *AssetFiltersClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
