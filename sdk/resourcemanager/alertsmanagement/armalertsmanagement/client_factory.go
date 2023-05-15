@@ -18,6 +18,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
+	targetType     string
 	credential     azcore.TokenCredential
 	options        *arm.ClientOptions
 }
@@ -25,17 +26,23 @@ type ClientFactory struct {
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription.
+//   - targetType - The recommendations target type.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, targetType string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, targetType: targetType, credential: credential,
 		options: options.Clone(),
 	}, nil
+}
+
+func (c *ClientFactory) NewPrometheusRuleGroupsClient() *PrometheusRuleGroupsClient {
+	subClient, _ := NewPrometheusRuleGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
 }
 
 func (c *ClientFactory) NewAlertProcessingRulesClient() *AlertProcessingRulesClient {
@@ -55,5 +62,10 @@ func (c *ClientFactory) NewAlertsClient() *AlertsClient {
 
 func (c *ClientFactory) NewSmartGroupsClient() *SmartGroupsClient {
 	subClient, _ := NewSmartGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAlertRuleRecommendationsClient() *AlertRuleRecommendationsClient {
+	subClient, _ := NewAlertRuleRecommendationsClient(c.subscriptionID, c.targetType, c.credential, c.options)
 	return subClient
 }
