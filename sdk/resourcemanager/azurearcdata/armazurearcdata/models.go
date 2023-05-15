@@ -28,11 +28,11 @@ type ActiveDirectoryConnectorDNSDetails struct {
 
 // ActiveDirectoryConnectorDomainDetails - Active Directory domain details
 type ActiveDirectoryConnectorDomainDetails struct {
-	// REQUIRED; null
-	DomainControllers *ActiveDirectoryDomainControllers
-
 	// REQUIRED; Name (uppercase) of the Active Directory domain that this AD connector will be associated with.
 	Realm *string
+
+	// null
+	DomainControllers *ActiveDirectoryDomainControllers
 
 	// NETBIOS name of the Active Directory domain.
 	NetbiosDomainName *string
@@ -156,6 +156,15 @@ type ActiveDirectoryDomainControllers struct {
 type ActiveDirectoryInformation struct {
 	// Keytab information that is used for the Sql Managed Instance when Active Directory authentication is used.
 	KeytabInformation *KeytabInformation
+}
+
+// ArcSQLServerDatabaseListResult - A list of Arc Sql Server database.
+type ArcSQLServerDatabaseListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Server database.
+	Value []*SQLServerDatabaseResource
 }
 
 // BasicLoginInformation - Username and password for basic login authentication.
@@ -332,6 +341,101 @@ type ExtendedLocation struct {
 
 	// The type of the extended location.
 	Type *ExtendedLocationTypes
+}
+
+// FailoverGroupListResult - A list of failover groups.
+type FailoverGroupListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of failover group results.
+	Value []*FailoverGroupResource
+}
+
+// FailoverGroupProperties - The properties of a failover group resource.
+type FailoverGroupProperties struct {
+	// REQUIRED; The resource ID of the partner SQL managed instance.
+	PartnerManagedInstanceID *string
+
+	// REQUIRED; The specifications of the failover group resource.
+	Spec *FailoverGroupSpec
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The status of the failover group custom resource.
+	Status any
+
+	// READ-ONLY; The provisioning state of the failover group resource.
+	ProvisioningState *ProvisioningState
+}
+
+// FailoverGroupResource - A failover group resource.
+type FailoverGroupResource struct {
+	// REQUIRED; null
+	Properties *FailoverGroupProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FailoverGroupSpec - The specifications of the failover group resource.
+type FailoverGroupSpec struct {
+	// REQUIRED; The role of the SQL managed instance in this failover group.
+	Role *InstanceFailoverGroupRole
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The name of the partner SQL managed instance.
+	PartnerMI *string
+
+	// The mirroring endpoint public certificate for the partner SQL managed instance. Only PEM format is supported.
+	PartnerMirroringCert *string
+
+	// The mirroring endpoint URL of the partner SQL managed instance.
+	PartnerMirroringURL *string
+
+	// The partner sync mode of the SQL managed instance.
+	PartnerSyncMode *FailoverGroupPartnerSyncMode
+
+	// The shared name of the failover group for this SQL managed instance. Both SQL managed instance and its partner have to
+	// use the same shared name.
+	SharedName *string
+
+	// The name of the SQL managed instance with this failover group role.
+	SourceMI *string
+}
+
+// FailoverGroupsClientBeginCreateOptions contains the optional parameters for the FailoverGroupsClient.BeginCreate method.
+type FailoverGroupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FailoverGroupsClientBeginDeleteOptions contains the optional parameters for the FailoverGroupsClient.BeginDelete method.
+type FailoverGroupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FailoverGroupsClientGetOptions contains the optional parameters for the FailoverGroupsClient.Get method.
+type FailoverGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FailoverGroupsClientListOptions contains the optional parameters for the FailoverGroupsClient.NewListPager method.
+type FailoverGroupsClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // K8SResourceRequirements - The kubernetes resource limits and requests used to restrict or reserve resource usage.
@@ -774,6 +878,119 @@ type SQLManagedInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SQLServerDatabaseResource - Arc Sql Server database
+type SQLServerDatabaseResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Server database
+	Properties *SQLServerDatabaseResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerDatabaseResourceProperties - The properties of Arc Sql Server database resource
+type SQLServerDatabaseResourceProperties struct {
+	BackupInformation *SQLServerDatabaseResourcePropertiesBackupInformation
+
+	// Collation of the database.
+	CollationName *string
+
+	// Compatibility level of the database
+	CompatibilityLevel *int32
+
+	// Creation date of the database.
+	DatabaseCreationDate *time.Time
+
+	// List of features that are enabled for the database
+	DatabaseOptions *SQLServerDatabaseResourcePropertiesDatabaseOptions
+
+	// Whether the database is read only or not.
+	IsReadOnly *bool
+
+	// Status of the database.
+	RecoveryMode *RecoveryMode
+
+	// Size of the database.
+	SizeMB *float32
+
+	// Space left of the database.
+	SpaceAvailableMB *float32
+
+	// State of the database.
+	State *DatabaseState
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server database resource.
+	ProvisioningState *string
+}
+
+type SQLServerDatabaseResourcePropertiesBackupInformation struct {
+	// Date time of last full backup.
+	LastFullBackup *time.Time
+
+	// Date time of last log backup.
+	LastLogBackup *time.Time
+}
+
+// SQLServerDatabaseResourcePropertiesDatabaseOptions - List of features that are enabled for the database
+type SQLServerDatabaseResourcePropertiesDatabaseOptions struct {
+	IsAutoCloseOn               *bool
+	IsAutoCreateStatsOn         *bool
+	IsAutoShrinkOn              *bool
+	IsAutoUpdateStatsOn         *bool
+	IsEncrypted                 *bool
+	IsMemoryOptimizationEnabled *bool
+	IsRemoteDataArchiveEnabled  *bool
+	IsTrustworthyOn             *bool
+}
+
+// SQLServerDatabaseUpdate - An update to database resource.
+type SQLServerDatabaseUpdate struct {
+	// The data controller's properties
+	Properties *SQLServerDatabaseResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerDatabasesClientCreateOptions contains the optional parameters for the SQLServerDatabasesClient.Create method.
+type SQLServerDatabasesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientDeleteOptions contains the optional parameters for the SQLServerDatabasesClient.Delete method.
+type SQLServerDatabasesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientGetOptions contains the optional parameters for the SQLServerDatabasesClient.Get method.
+type SQLServerDatabasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientListOptions contains the optional parameters for the SQLServerDatabasesClient.NewListPager method.
+type SQLServerDatabasesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientUpdateOptions contains the optional parameters for the SQLServerDatabasesClient.Update method.
+type SQLServerDatabasesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SQLServerInstance - A SqlServerInstance.
 type SQLServerInstance struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -823,6 +1040,9 @@ type SQLServerInstanceProperties struct {
 
 	// SQL Server collation.
 	Collation *string
+
+	// The number of total cores of the Operating System Environment (OSE) hosting the SQL Server instance.
+	Cores *string
 
 	// SQL Server current version.
 	CurrentVersion *string
