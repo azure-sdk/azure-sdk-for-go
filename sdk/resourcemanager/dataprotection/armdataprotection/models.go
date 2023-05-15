@@ -336,6 +336,9 @@ type AzureBackupRecoveryPointBasedRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -353,6 +356,7 @@ func (a *AzureBackupRecoveryPointBasedRestoreRequest) GetAzureBackupRestoreReque
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -397,6 +401,9 @@ type AzureBackupRecoveryTimeBasedRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -408,6 +415,7 @@ func (a *AzureBackupRecoveryTimeBasedRestoreRequest) GetAzureBackupRestoreReques
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -444,6 +452,9 @@ type AzureBackupRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -473,6 +484,9 @@ type AzureBackupRestoreWithRehydrationRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -486,6 +500,7 @@ func (a *AzureBackupRestoreWithRehydrationRequest) GetAzureBackupRecoveryPointBa
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -496,6 +511,7 @@ func (a *AzureBackupRestoreWithRehydrationRequest) GetAzureBackupRestoreRequest(
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -629,6 +645,9 @@ type BackupInstance struct {
 	// Gets or sets the Backup Instance friendly name.
 	FriendlyName *string
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Specifies the type of validation. In case of DeepValidation, all validations from /validateForBackup API will run again.
 	ValidationType *ValidationType
 
@@ -730,6 +749,13 @@ type BackupInstancesClientBeginSyncBackupInstanceOptions struct {
 	ResumeToken string
 }
 
+// BackupInstancesClientBeginTriggerCrossRegionRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginTriggerCrossRegionRestore
+// method.
+type BackupInstancesClientBeginTriggerCrossRegionRestoreOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BackupInstancesClientBeginTriggerRehydrateOptions contains the optional parameters for the BackupInstancesClient.BeginTriggerRehydrate
 // method.
 type BackupInstancesClientBeginTriggerRehydrateOptions struct {
@@ -740,6 +766,13 @@ type BackupInstancesClientBeginTriggerRehydrateOptions struct {
 // BackupInstancesClientBeginTriggerRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginTriggerRestore
 // method.
 type BackupInstancesClientBeginTriggerRestoreOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BackupInstancesClientBeginValidateCrossRegionRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginValidateCrossRegionRestore
+// method.
+type BackupInstancesClientBeginValidateCrossRegionRestoreOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -771,6 +804,12 @@ type BackupInstancesClientGetOptions struct {
 
 // BackupInstancesClientListOptions contains the optional parameters for the BackupInstancesClient.NewListPager method.
 type BackupInstancesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BackupInstancesExtensionRoutingClientListOptions contains the optional parameters for the BackupInstancesExtensionRoutingClient.NewListPager
+// method.
+type BackupInstancesExtensionRoutingClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -867,6 +906,9 @@ type BackupVault struct {
 
 	// READ-ONLY; Resource move state for backup vault
 	ResourceMoveState *ResourceMoveState
+
+	// READ-ONLY; Secure Score of Backup Vault
+	SecureScore *SecureScoreLevel
 }
 
 // BackupVaultOperationResultsClientGetOptions contains the optional parameters for the BackupVaultOperationResultsClient.Get
@@ -1164,6 +1206,59 @@ type CopyOption struct {
 // GetCopyOption implements the CopyOptionClassification interface for type CopyOption.
 func (c *CopyOption) GetCopyOption() *CopyOption { return c }
 
+// CrossRegionRestoreDetails - Cross Region Restore details
+type CrossRegionRestoreDetails struct {
+	// REQUIRED
+	SourceBackupInstanceID *string
+
+	// REQUIRED
+	SourceRegion *string
+}
+
+// CrossRegionRestoreJobClientGetOptions contains the optional parameters for the CrossRegionRestoreJobClient.Get method.
+type CrossRegionRestoreJobClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+type CrossRegionRestoreJobRequest struct {
+	// REQUIRED
+	JobID *string
+
+	// REQUIRED
+	SourceBackupVaultID *string
+
+	// REQUIRED
+	SourceRegion *string
+}
+
+// CrossRegionRestoreJobsClientListOptions contains the optional parameters for the CrossRegionRestoreJobsClient.NewListPager
+// method.
+type CrossRegionRestoreJobsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+type CrossRegionRestoreJobsRequest struct {
+	// REQUIRED
+	SourceBackupVaultID *string
+
+	// REQUIRED
+	SourceRegion *string
+}
+
+// CrossRegionRestoreRequestObject - Cross Region Restore Request Object
+type CrossRegionRestoreRequestObject struct {
+	// REQUIRED; Cross region restore details.
+	CrossRegionRestoreDetails *CrossRegionRestoreDetails
+
+	// REQUIRED; Gets or sets the restore request object.
+	RestoreRequestObject AzureBackupRestoreRequestClassification
+}
+
+type CrossRegionRestoreSettings struct {
+	// CrossRegionRestore state
+	State *CrossRegionRestoreState
+}
+
 // CrossSubscriptionRestoreSettings - CrossSubscriptionRestore Settings
 type CrossSubscriptionRestoreSettings struct {
 	// CrossSubscriptionRestore state
@@ -1316,6 +1411,9 @@ type DeletedBackupInstance struct {
 	// Gets or sets the Backup Instance friendly name.
 	FriendlyName *string
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Specifies the type of validation. In case of DeepValidation, all validations from /validateForBackup API will run again.
 	ValidationType *ValidationType
 
@@ -1441,8 +1539,11 @@ type DppBaseTrackedResource struct {
 
 // DppIdentityDetails - Identity details
 type DppIdentityDetails struct {
-	// The identityType which can be either SystemAssigned or None
+	// The identityType which can be either SystemAssigned, UserAssigned, 'SystemAssigned,UserAssigned' or None
 	Type *string
+
+	// Gets or sets the user assigned identities.
+	UserAssignedIdentities map[string]*UserAssignedIdentityDetails
 
 	// READ-ONLY; The object ID of the service principal object for the managed identity that is used to grant role-based access
 	// to an Azure resource.
@@ -1482,6 +1583,34 @@ type DppResource struct {
 
 	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
 	Type *string
+}
+
+// DppResourceGuardProxyClientCreateOrUpdateOptions contains the optional parameters for the DppResourceGuardProxyClient.CreateOrUpdate
+// method.
+type DppResourceGuardProxyClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientDeleteOptions contains the optional parameters for the DppResourceGuardProxyClient.Delete method.
+type DppResourceGuardProxyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientGetOptions contains the optional parameters for the DppResourceGuardProxyClient.Get method.
+type DppResourceGuardProxyClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientListOptions contains the optional parameters for the DppResourceGuardProxyClient.NewListPager
+// method.
+type DppResourceGuardProxyClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientUnlockDeleteOptions contains the optional parameters for the DppResourceGuardProxyClient.UnlockDelete
+// method.
+type DppResourceGuardProxyClientUnlockDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DppResourceList - ListResource
@@ -1591,6 +1720,8 @@ type ExportJobsResult struct {
 
 // FeatureSettings - Class containing feature settings of vault
 type FeatureSettings struct {
+	CrossRegionRestoreSettings *CrossRegionRestoreSettings
+
 	// CrossSubscriptionRestore Settings
 	CrossSubscriptionRestoreSettings *CrossSubscriptionRestoreSettings
 }
@@ -1671,6 +1802,24 @@ type FeatureValidationResponseBase struct {
 // GetFeatureValidationResponseBase implements the FeatureValidationResponseBaseClassification interface for type FeatureValidationResponseBase.
 func (f *FeatureValidationResponseBase) GetFeatureValidationResponseBase() *FeatureValidationResponseBase {
 	return f
+}
+
+// FetchSecondaryRPsRequestParameters - Information about BI whose secondary RecoveryPoints are requested Source region and
+// BI ARM path
+type FetchSecondaryRPsRequestParameters struct {
+	// ARM Path of BackupInstance
+	SourceBackupInstanceID *string
+
+	// Source region in which BackupInstance is located
+	SourceRegion *string
+}
+
+type IdentityDetails struct {
+	// Specifies if the BI is protected by System Identity.
+	UseSystemAssignedIdentity *bool
+
+	// ARM URL for User Assigned Identity.
+	UserAssignedIdentityArmURL *string
 }
 
 // ImmediateCopyOption - Immediate copy Option
@@ -2182,6 +2331,47 @@ type ResourceGuardOperation struct {
 	VaultCriticalOperation *string
 }
 
+// ResourceGuardOperationDetail - VaultCritical Operation protected by a resource guard
+type ResourceGuardOperationDetail struct {
+	DefaultResourceRequest *string
+	VaultCriticalOperation *string
+}
+
+// ResourceGuardProxyBase object, used in ResourceGuardProxyBaseResource
+type ResourceGuardProxyBase struct {
+	Description                   *string
+	LastUpdatedTime               *string
+	ResourceGuardOperationDetails []*ResourceGuardOperationDetail
+	ResourceGuardResourceID       *string
+}
+
+// ResourceGuardProxyBaseResource object, used for response and request bodies for ResourceGuardProxy APIs
+type ResourceGuardProxyBaseResource struct {
+	// ResourceGuardProxyBaseResource properties
+	Properties *ResourceGuardProxyBase
+
+	// READ-ONLY; Resource Id represents the complete path to the resource.
+	ID *string
+
+	// READ-ONLY; Resource name associated with the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
+	Type *string
+}
+
+// ResourceGuardProxyBaseResourceList - List of ResourceGuardProxyBase resources
+type ResourceGuardProxyBaseResourceList struct {
+	// The uri to fetch the next page of resources. Call ListNext() fetches next page of resources.
+	NextLink *string
+
+	// List of resources.
+	Value []*ResourceGuardProxyBaseResource
+}
+
 type ResourceGuardResource struct {
 	// Optional ETag.
 	ETag *string
@@ -2499,6 +2689,14 @@ func (s *ScheduleBasedTriggerContext) GetTriggerContext() *TriggerContext {
 	}
 }
 
+// SecondaryRPsClientFetchOptions contains the optional parameters for the SecondaryRPsClient.NewFetchPager method.
+type SecondaryRPsClientFetchOptions struct {
+	// OData filter options.
+	Filter *string
+	// skipToken Filter.
+	SkipToken *string
+}
+
 // SecretStoreBasedAuthCredentials - Secret store based authentication credentials.
 type SecretStoreBasedAuthCredentials struct {
 	// REQUIRED; Type of the specific object - used for deserializing
@@ -2669,6 +2867,27 @@ type TriggerContext struct {
 // GetTriggerContext implements the TriggerContextClassification interface for type TriggerContext.
 func (t *TriggerContext) GetTriggerContext() *TriggerContext { return t }
 
+// UnlockDeleteRequest - Request body of unlock delete API.
+type UnlockDeleteRequest struct {
+	ResourceGuardOperationRequests []*string
+	ResourceToBeDeleted            *string
+}
+
+// UnlockDeleteResponse - Response of Unlock Delete API.
+type UnlockDeleteResponse struct {
+	// This is the time when unlock delete privileges will get expired.
+	UnlockDeleteExpiryTime *string
+}
+
+// UserAssignedIdentityDetails - User Assigned Identity Details
+type UserAssignedIdentityDetails struct {
+	// READ-ONLY; The Client Id of the User Assigned Managed Identity.
+	ClientID *string
+
+	// READ-ONLY; The Object Id of the User Assigned Managed Identity.
+	PrincipalID *string
+}
+
 // UserFacingError - Error object used by layers that have access to localized content, and propagate that to user
 type UserFacingError struct {
 	// Unique code for this error
@@ -2695,6 +2914,15 @@ type UserFacingError struct {
 
 	// Target of the error.
 	Target *string
+}
+
+// ValidateCrossRegionRestoreRequestObject - Cross Region Restore Request Object
+type ValidateCrossRegionRestoreRequestObject struct {
+	// REQUIRED; Cross region restore details.
+	CrossRegionRestoreDetails *CrossRegionRestoreDetails
+
+	// REQUIRED; Gets or sets the restore request object.
+	RestoreRequestObject AzureBackupRestoreRequestClassification
 }
 
 // ValidateForBackupRequest - Validate for backup request
