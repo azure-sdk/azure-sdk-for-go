@@ -11,7 +11,7 @@ package armhealthbot
 
 const (
 	moduleName    = "armhealthbot"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v2.0.0"
 )
 
 // IdentityType - The type of identity that creates/modifies resources

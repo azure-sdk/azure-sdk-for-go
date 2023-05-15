@@ -1,5 +1,21 @@
 # Release History
 
+## 2.0.0 (2023-05-15)
+### Breaking Changes
+
+- Operation `*BotsClient.Update` has been changed to LRO, use `*BotsClient.BeginUpdate` instead.
+
+### Features Added
+
+- New function `*BotsClient.ListSecrets(context.Context, string, string, *BotsClientListSecretsOptions) (BotsClientListSecretsResponse, error)`
+- New function `*BotsClient.RegenerateAPIJwtSecret(context.Context, string, string, *BotsClientRegenerateAPIJwtSecretOptions) (BotsClientRegenerateAPIJwtSecretResponse, error)`
+- New struct `Key`
+- New struct `KeyVaultProperties`
+- New struct `KeysResponse`
+- New field `KeyVaultProperties` in struct `Properties`
+- New field `Properties` in struct `UpdateParameters`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
