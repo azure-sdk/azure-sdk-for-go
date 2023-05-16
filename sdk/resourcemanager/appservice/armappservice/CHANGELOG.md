@@ -1,5 +1,21 @@
 # Release History
 
+## 3.0.0 (2023-05-16)
+### Breaking Changes
+
+- Field `Interface` of struct `WebAppsClientCreateOneDeployOperationResponse` has been removed
+- Field `Interface` of struct `WebAppsClientGetOneDeployStatusResponse` has been removed
+
+### Features Added
+
+- New function `*WebSiteManagementClient.GetUsagesInLocation(context.Context, string, *WebSiteManagementClientGetUsagesInLocationOptions) (WebSiteManagementClientGetUsagesInLocationResponse, error)`
+- New function `*WebSiteManagementClient.GetZoneRedundantUsagesInLocation(context.Context, string, *WebSiteManagementClientGetZoneRedundantUsagesInLocationOptions) (WebSiteManagementClientGetZoneRedundantUsagesInLocationResponse, error)`
+- New struct `OneDeployRequest`
+- New field `Request` in struct `WebAppsClientCreateOneDeployOperationOptions`
+- New anonymous field `Deployment` in struct `WebAppsClientCreateOneDeployOperationResponse`
+- New anonymous field `Deployment` in struct `WebAppsClientGetOneDeployStatusResponse`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 

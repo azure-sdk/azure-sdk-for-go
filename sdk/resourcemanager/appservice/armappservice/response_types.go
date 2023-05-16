@@ -1491,8 +1491,7 @@ type WebAppsClientCreateMSDeployOperationSlotResponse struct {
 
 // WebAppsClientCreateOneDeployOperationResponse contains the response from method WebAppsClient.CreateOneDeployOperation.
 type WebAppsClientCreateOneDeployOperationResponse struct {
-	// Anything
-	Interface any
+	Deployment
 }
 
 // WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.CreateOrUpdateConfiguration.
@@ -2226,8 +2225,7 @@ type WebAppsClientGetNetworkTracesV2Response struct {
 
 // WebAppsClientGetOneDeployStatusResponse contains the response from method WebAppsClient.GetOneDeployStatus.
 type WebAppsClientGetOneDeployStatusResponse struct {
-	// Anything
-	Interface any
+	Deployment
 }
 
 // WebAppsClientGetPremierAddOnResponse contains the response from method WebAppsClient.GetPremierAddOn.
@@ -3510,6 +3508,16 @@ type WebSiteManagementClientGetSourceControlResponse struct {
 // WebSiteManagementClientGetSubscriptionDeploymentLocationsResponse contains the response from method WebSiteManagementClient.GetSubscriptionDeploymentLocations.
 type WebSiteManagementClientGetSubscriptionDeploymentLocationsResponse struct {
 	DeploymentLocations
+}
+
+// WebSiteManagementClientGetUsagesInLocationResponse contains the response from method WebSiteManagementClient.GetUsagesInLocation.
+type WebSiteManagementClientGetUsagesInLocationResponse struct {
+	CsmUsageQuotaCollection
+}
+
+// WebSiteManagementClientGetZoneRedundantUsagesInLocationResponse contains the response from method WebSiteManagementClient.GetZoneRedundantUsagesInLocation.
+type WebSiteManagementClientGetZoneRedundantUsagesInLocationResponse struct {
+	CsmUsageQuotaCollection
 }
 
 // WebSiteManagementClientListBillingMetersResponse contains the response from method WebSiteManagementClient.NewListBillingMetersPager.
