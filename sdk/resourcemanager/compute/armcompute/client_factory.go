@@ -64,6 +64,11 @@ func (c *ClientFactory) NewVirtualMachineScaleSetExtensionsClient() *VirtualMach
 	return subClient
 }
 
+func (c *ClientFactory) NewVirtualMachineScaleSetApplicationsClient() *VirtualMachineScaleSetApplicationsClient {
+	subClient, _ := NewVirtualMachineScaleSetApplicationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewVirtualMachineScaleSetRollingUpgradesClient() *VirtualMachineScaleSetRollingUpgradesClient {
 	subClient, _ := NewVirtualMachineScaleSetRollingUpgradesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -79,6 +84,11 @@ func (c *ClientFactory) NewVirtualMachineScaleSetVMsClient() *VirtualMachineScal
 	return subClient
 }
 
+func (c *ClientFactory) NewVirtualMachineScaleSetVirtualMachineApplicationsClient() *VirtualMachineScaleSetVirtualMachineApplicationsClient {
+	subClient, _ := NewVirtualMachineScaleSetVirtualMachineApplicationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewVirtualMachineExtensionsClient() *VirtualMachineExtensionsClient {
 	subClient, _ := NewVirtualMachineExtensionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -86,6 +96,11 @@ func (c *ClientFactory) NewVirtualMachineExtensionsClient() *VirtualMachineExten
 
 func (c *ClientFactory) NewVirtualMachinesClient() *VirtualMachinesClient {
 	subClient, _ := NewVirtualMachinesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewVirtualMachineApplicationsClient() *VirtualMachineApplicationsClient {
+	subClient, _ := NewVirtualMachineApplicationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

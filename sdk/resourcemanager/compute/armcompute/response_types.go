@@ -322,6 +322,11 @@ type DedicatedHostsClientGetResponse struct {
 	DedicatedHost
 }
 
+// DedicatedHostsClientListAvailableSizesResponse contains the response from method DedicatedHostsClient.NewListAvailableSizesPager.
+type DedicatedHostsClientListAvailableSizesResponse struct {
+	DedicatedHostSizeListResult
+}
+
 // DedicatedHostsClientListByHostGroupResponse contains the response from method DedicatedHostsClient.NewListByHostGroupPager.
 type DedicatedHostsClientListByHostGroupResponse struct {
 	DedicatedHostListResult
@@ -857,6 +862,31 @@ type UsageClientListResponse struct {
 	ListUsagesResult
 }
 
+// VirtualMachineApplicationsClientDeleteResponse contains the response from method VirtualMachineApplicationsClient.BeginDelete.
+type VirtualMachineApplicationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineApplicationsClientGetInstanceViewResponse contains the response from method VirtualMachineApplicationsClient.GetInstanceView.
+type VirtualMachineApplicationsClientGetInstanceViewResponse struct {
+	VMApplicationProxyResourceWithInstanceView
+}
+
+// VirtualMachineApplicationsClientGetResponse contains the response from method VirtualMachineApplicationsClient.Get.
+type VirtualMachineApplicationsClientGetResponse struct {
+	VMApplicationProxyResourceWithInstanceView
+}
+
+// VirtualMachineApplicationsClientListResponse contains the response from method VirtualMachineApplicationsClient.List.
+type VirtualMachineApplicationsClientListResponse struct {
+	VirtualMachineApplicationsProxyResourceListResult
+}
+
+// VirtualMachineApplicationsClientPutResponse contains the response from method VirtualMachineApplicationsClient.BeginPut.
+type VirtualMachineApplicationsClientPutResponse struct {
+	VMApplicationProxyResource
+}
+
 // VirtualMachineExtensionImagesClientGetResponse contains the response from method VirtualMachineExtensionImagesClient.Get.
 type VirtualMachineExtensionImagesClientGetResponse struct {
 	VirtualMachineExtensionImage
@@ -995,6 +1025,26 @@ type VirtualMachineRunCommandsClientListResponse struct {
 // VirtualMachineRunCommandsClientUpdateResponse contains the response from method VirtualMachineRunCommandsClient.BeginUpdate.
 type VirtualMachineRunCommandsClientUpdateResponse struct {
 	VirtualMachineRunCommand
+}
+
+// VirtualMachineScaleSetApplicationsClientDeleteResponse contains the response from method VirtualMachineScaleSetApplicationsClient.BeginDelete.
+type VirtualMachineScaleSetApplicationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineScaleSetApplicationsClientGetResponse contains the response from method VirtualMachineScaleSetApplicationsClient.Get.
+type VirtualMachineScaleSetApplicationsClientGetResponse struct {
+	VMApplicationProxyResource
+}
+
+// VirtualMachineScaleSetApplicationsClientListResponse contains the response from method VirtualMachineScaleSetApplicationsClient.List.
+type VirtualMachineScaleSetApplicationsClientListResponse struct {
+	VirtualMachineApplicationsProxyResourceListResult
+}
+
+// VirtualMachineScaleSetApplicationsClientPutResponse contains the response from method VirtualMachineScaleSetApplicationsClient.BeginPut.
+type VirtualMachineScaleSetApplicationsClientPutResponse struct {
+	VMApplicationProxyResource
 }
 
 // VirtualMachineScaleSetExtensionsClientCreateOrUpdateResponse contains the response from method VirtualMachineScaleSetExtensionsClient.BeginCreateOrUpdate.
@@ -1172,6 +1222,16 @@ type VirtualMachineScaleSetVMsClientUpdateResponse struct {
 	VirtualMachineScaleSetVM
 }
 
+// VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewResponse contains the response from method VirtualMachineScaleSetVirtualMachineApplicationsClient.GetInstanceView.
+type VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewResponse struct {
+	VMApplicationProxyResourceWithInstanceView
+}
+
+// VirtualMachineScaleSetVirtualMachineApplicationsClientGetResponse contains the response from method VirtualMachineScaleSetVirtualMachineApplicationsClient.Get.
+type VirtualMachineScaleSetVirtualMachineApplicationsClientGetResponse struct {
+	VMApplicationProxyResourceWithInstanceView
+}
+
 // VirtualMachineScaleSetsClientConvertToSinglePlacementGroupResponse contains the response from method VirtualMachineScaleSetsClient.ConvertToSinglePlacementGroup.
 type VirtualMachineScaleSetsClientConvertToSinglePlacementGroupResponse struct {
 	// placeholder for future response values
@@ -1245,6 +1305,11 @@ type VirtualMachineScaleSetsClientPerformMaintenanceResponse struct {
 
 // VirtualMachineScaleSetsClientPowerOffResponse contains the response from method VirtualMachineScaleSetsClient.BeginPowerOff.
 type VirtualMachineScaleSetsClientPowerOffResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineScaleSetsClientReapplyResponse contains the response from method VirtualMachineScaleSetsClient.BeginReapply.
+type VirtualMachineScaleSetsClientReapplyResponse struct {
 	// placeholder for future response values
 }
 
