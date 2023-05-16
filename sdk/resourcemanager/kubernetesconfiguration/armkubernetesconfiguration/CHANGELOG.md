@@ -1,5 +1,30 @@
 # Release History
 
+## 2.0.0 (2023-05-16)
+### Breaking Changes
+
+- Field `InstalledVersion` of struct `ExtensionProperties` has been removed
+
+### Features Added
+
+- New value `SourceKindTypeAzureBlob` added to enum type `SourceKindType`
+- New struct `AzureBlobDefinition`
+- New struct `AzureBlobPatchDefinition`
+- New struct `ManagedIdentityDefinition`
+- New struct `ManagedIdentityPatchDefinition`
+- New struct `Plan`
+- New struct `PostBuildDefinition`
+- New struct `ServicePrincipalDefinition`
+- New struct `ServicePrincipalPatchDefinition`
+- New struct `SubstituteFromDefinition`
+- New field `Plan` in struct `Extension`
+- New field `CurrentVersion`, `IsSystemExtension` in struct `ExtensionProperties`
+- New field `AzureBlob` in struct `FluxConfigurationPatchProperties`
+- New field `AzureBlob`, `ReconciliationWaitDuration`, `WaitForReconciliation` in struct `FluxConfigurationProperties`
+- New field `PostBuild`, `Wait` in struct `KustomizationDefinition`
+- New field `PostBuild`, `Wait` in struct `KustomizationPatchDefinition`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
