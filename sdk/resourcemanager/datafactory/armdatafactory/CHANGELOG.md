@@ -1,5 +1,142 @@
 # Release History
 
+## 4.0.0 (2023-05-16)
+### Breaking Changes
+
+- Type of `AmazonMWSLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AmazonRdsForLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AmazonRdsForSQLServerLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AmazonRedshiftLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AmazonS3CompatibleLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AmazonS3LinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AsanaLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureBatchLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureBlobFSLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureDataLakeAnalyticsLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureDataLakeStoreLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureDatabricksDetltaLakeLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureDatabricksLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureFileStorageLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureFunctionLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureMLLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureMLServiceLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureMariaDBLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureMySQLLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzurePostgreSQLLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureSQLDWLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureSQLDatabaseLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureSQLMILinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `AzureSearchLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `CassandraLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `CommonDataServiceForAppsLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ConcurLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `CosmosDbLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `CouchbaseLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `DataworldLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `Db2LinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `DrillLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `DynamicsAXLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `DynamicsCrmLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `DynamicsLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `EloquaLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `FileServerLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `FtpServerLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `GoogleAdWordsLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `GoogleBigQueryLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `GoogleCloudStorageLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `GoogleSheetsLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `GreenplumLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HBaseLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HDInsightHiveActivityTypeProperties.Variables` has been changed from `[]any` to `map[string]any`
+- Type of `HDInsightLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HDInsightOnDemandLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HTTPLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HdfsLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HiveLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `HubspotLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ImpalaLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `InformixLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `JiraLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `MagentoLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `MariaDBLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `MarketoLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `MicrosoftAccessLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `MongoDbLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `MySQLLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `NetezzaLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ODataLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `OdbcLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `Office365LinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `OracleCloudStorageLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `OracleLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `OracleServiceCloudLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `PaypalLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `PhoenixLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `PostgreSQLLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `PrestoLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `QuickBooksLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `QuickbaseLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ResponsysLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `RestResourceDatasetTypeProperties.AdditionalHeaders` has been changed from `any` to `map[string]any`
+- Type of `RestResourceDatasetTypeProperties.PaginationRules` has been changed from `any` to `map[string]any`
+- Type of `RestServiceLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SQLServerLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SalesforceLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SalesforceMarketingCloudLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SalesforceServiceCloudLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SapBWLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SapCloudForCustomerLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SapHanaLinkedServiceProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SapOdpLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SapOpenHubLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SapTableLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ServiceNowLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SftpServerLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SharePointOnlineListLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ShopifyLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SmartsheetLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SnowflakeLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SparkLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SquareLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `SybaseLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `TeamDeskLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `TeradataLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `VerticaLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `XeroLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ZendeskLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Type of `ZohoLinkedServiceTypeProperties.EncryptedCredential` has been changed from `any` to `*string`
+- Enum `CosmosDbServicePrincipalCredentialType` has been removed
+- Field `EnablePartitionDiscovery`, `PartitionRootPath` of struct `HTTPReadSettings` has been removed
+
+### Features Added
+
+- Type of `AmazonS3CompatibleReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `AmazonS3ReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `AzureBlobFSReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `AzureBlobStorageLinkedServiceTypeProperties.AccountKind` has been changed from `*string` to `any`
+- Type of `AzureBlobStorageLinkedServiceTypeProperties.ServiceEndpoint` has been changed from `*string` to `any`
+- Type of `AzureBlobStorageReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `AzureDataLakeStoreReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `AzureFileStorageReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `CosmosDbLinkedServiceTypeProperties.ServicePrincipalCredentialType` has been changed from `*CosmosDbServicePrincipalCredentialType` to `any`
+- Type of `FileServerReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `FtpReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `FtpReadSettings.UseBinaryTransfer` has been changed from `*bool` to `any`
+- Type of `GoogleCloudStorageReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `HdfsReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `OracleCloudStorageReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `SapEccLinkedServiceTypeProperties.URL` has been changed from `*string` to `any`
+- Type of `SapEccLinkedServiceTypeProperties.Username` has been changed from `*string` to `any`
+- Type of `SftpReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `SynapseNotebookActivityTypeProperties.NumExecutors` has been changed from `*int32` to `any`
+- New struct `IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem`
+- New field `AdditionalColumns` in struct `HTTPReadSettings`
+- New field `CustomProperties` in struct `IntegrationRuntimeDataFlowProperties`
+- New field `MongoDbAtlasDriverVersion` in struct `MongoDbAtlasLinkedServiceTypeProperties`
+- New field `SetSystemVariable` in struct `SetVariableActivityTypeProperties`
+- New field `ConfigurationType`, `SparkConfig`, `TargetSparkConfiguration` in struct `SynapseNotebookActivityTypeProperties`
+
+
 ## 3.2.1 (2023-04-14)
 ### Bug Fixes
 
