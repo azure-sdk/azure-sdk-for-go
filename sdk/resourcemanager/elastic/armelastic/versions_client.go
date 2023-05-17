@@ -29,57 +29,56 @@ import (
 	"strings"
 )
 
-// VMHostClient contains the methods for the VMHost group.
-// Don't use this type directly, use NewVMHostClient() instead.
-type VMHostClient struct {
+// VersionsClient contains the methods for the ElasticVersions group.
+// Don't use this type directly, use NewVersionsClient() instead.
+type VersionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewVMHostClient creates a new instance of VMHostClient with the specified values.
+// NewVersionsClient creates a new instance of VersionsClient with the specified values.
 //   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewVMHostClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMHostClient, error) {
-	cl, err := arm.NewClient(moduleName+".VMHostClient", moduleVersion, credential, options)
+func NewVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VersionsClient, error) {
+	cl, err := arm.NewClient(moduleName+".VersionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &VMHostClient{
+	client := &VersionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List the vm resources currently being monitored by the Elastic monitor resource.
+// NewListPager - Get a list of available versions for a region.
 //
 // Generated from API version 2023-05-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-//   - monitorName - Monitor resource name
-//   - options - VMHostClientListOptions contains the optional parameters for the VMHostClient.NewListPager method.
-func (client *VMHostClient) NewListPager(resourceGroupName string, monitorName string, options *VMHostClientListOptions) *runtime.Pager[VMHostClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[VMHostClientListResponse]{
-		More: func(page VMHostClientListResponse) bool {
+//   - region - Region where elastic deployment will take place.
+//   - options - VersionsClientListOptions contains the optional parameters for the VersionsClient.NewListPager method.
+func (client *VersionsClient) NewListPager(region string, options *VersionsClientListOptions) *runtime.Pager[VersionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[VersionsClientListResponse]{
+		More: func(page VersionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *VMHostClientListResponse) (VMHostClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *VersionsClientListResponse) (VersionsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceGroupName, monitorName, options)
+				req, err = client.listCreateRequest(ctx, region, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return VMHostClientListResponse{}, err
+				return VersionsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return VMHostClientListResponse{}, err
+				return VersionsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return VMHostClientListResponse{}, runtime.NewResponseError(resp)
+				return VersionsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -87,36 +86,29 @@ func (client *VMHostClient) NewListPager(resourceGroupName string, monitorName s
 }
 
 // listCreateRequest creates the List request.
-func (client *VMHostClient) listCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMHostClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listVMHost"
+func (client *VersionsClient) listCreateRequest(ctx context.Context, region string, options *VersionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Elastic/elasticVersions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if monitorName == "" {
-		return nil, errors.New("parameter monitorName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{monitorName}", url.PathEscape(monitorName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("region", region)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *VMHostClient) listHandleResponse(resp *http.Response) (VMHostClientListResponse, error) {
-	result := VMHostClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VMHostListResponse); err != nil {
-		return VMHostClientListResponse{}, err
+func (client *VersionsClient) listHandleResponse(resp *http.Response) (VersionsClientListResponse, error) {
+	result := VersionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.VersionsListResponse); err != nil {
+		return VersionsClientListResponse{}, err
 	}
 	return result, nil
 }
