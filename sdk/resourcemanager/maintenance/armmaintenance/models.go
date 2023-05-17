@@ -151,6 +151,17 @@ type ConfigurationAssignmentsClientDeleteParentOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConfigurationAssignmentsClientGetOptions contains the optional parameters for the ConfigurationAssignmentsClient.Get method.
+type ConfigurationAssignmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsClientGetParentOptions contains the optional parameters for the ConfigurationAssignmentsClient.GetParent
+// method.
+type ConfigurationAssignmentsClientGetParentOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ConfigurationAssignmentsClientListOptions contains the optional parameters for the ConfigurationAssignmentsClient.NewListPager
 // method.
 type ConfigurationAssignmentsClientListOptions struct {
@@ -163,10 +174,25 @@ type ConfigurationAssignmentsClientListParentOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.NewListPager
+// method.
+type ConfigurationAssignmentsWithinSubscriptionClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationOverrides - List of Override Properties for the maintenance Configuration.
+type ConfigurationOverrides struct {
+	// Override Properties for the maintenance Configuration.
+	Overrides []*OverrideProperties
+}
+
 // ConfigurationProperties - Properties for maintenance configuration
 type ConfigurationProperties struct {
 	// Gets or sets extensionProperties of the maintenanceConfiguration
 	ExtensionProperties map[string]*string
+
+	// The input parameters to be passed to the patch run operation.
+	InstallPatches *InputPatchConfiguration
 
 	// Gets or sets maintenanceScope of the configuration
 	MaintenanceScope *MaintenanceScope
@@ -176,6 +202,9 @@ type ConfigurationProperties struct {
 
 	// Gets or sets namespace of the resource
 	Namespace *string
+
+	// Override the Maintenance Window for a specific period
+	Overrides *ConfigurationOverrides
 
 	// Gets or sets the visibility of the configuration. The default value is 'Custom'
 	Visibility *Visibility
@@ -226,6 +255,108 @@ type ErrorDetails struct {
 
 	// Human-readable representation of the error.
 	Message *string
+}
+
+// EventFilter - Properties describing the filtering behavior of the event grid filter.
+type EventFilter struct {
+	// The event types that will be sent to Event Grid.
+	IncludedEventTypes []*string
+
+	// READ-ONLY; The subject prefix used for filtering events
+	SubjectBeginsWith *string
+
+	// READ-ONLY; The subject suffix used for filtering events
+	SubjectEndsWith *string
+}
+
+// EventGridFilter - The event grid filter resource along with all resource properties.
+type EventGridFilter struct {
+	// All event grid filter properties.
+	Properties *EventGridFilterProperties
+
+	// READ-ONLY; The resource ID.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// EventGridFilterListResult - The result of a request to list event grid filters.
+type EventGridFilterListResult struct {
+	// The URI that can be used to request the next set of paged results.
+	NextLink *string
+
+	// The collection value.
+	Value []*EventGridFilter
+}
+
+// EventGridFilterProperties - All event grid filter properties.
+type EventGridFilterProperties struct {
+	// READ-ONLY; Properties describing the filtering behavior of the event grid filter.
+	Filter *EventFilter
+
+	// READ-ONLY; The provisioning state of the event grid filter.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Information describing the event subscriber.
+	SubscriberIdentityInfo *SubscriberIdentityInfo
+}
+
+// EventGridFiltersClientGetOptions contains the optional parameters for the EventGridFiltersClient.Get method.
+type EventGridFiltersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EventGridFiltersClientListByMaintenanceConfigurationOptions contains the optional parameters for the EventGridFiltersClient.ListByMaintenanceConfiguration
+// method.
+type EventGridFiltersClientListByMaintenanceConfigurationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// InputLinuxParameters - Input properties for patching a Linux machine.
+type InputLinuxParameters struct {
+	// Classification category of patches to be patched
+	ClassificationsToInclude []*string
+
+	// Package names to be excluded for patching.
+	PackageNameMasksToExclude []*string
+
+	// Package names to be included for patching.
+	PackageNameMasksToInclude []*string
+}
+
+// InputPatchConfiguration - Input configuration for a patch run
+type InputPatchConfiguration struct {
+	// Input parameters specific to patching Linux machine. For Windows machines, do not pass this property.
+	LinuxParameters *InputLinuxParameters
+
+	// Possible reboot preference as defined by the user based on which it would be decided to reboot the machine or not after
+	// the patch operation is completed.
+	RebootSetting *RebootOptions
+
+	// Tasks information for the Software update configuration.
+	Tasks *SoftwareUpdateConfigurationTasks
+
+	// Input parameters specific to patching a Windows machine. For Linux machines, do not pass this property.
+	WindowsParameters *InputWindowsParameters
+}
+
+// InputWindowsParameters - Input properties for patching a Windows machine.
+type InputWindowsParameters struct {
+	// Classification category of patches to be patched
+	ClassificationsToInclude []*string
+
+	// Exclude patches which need reboot
+	ExcludeKbsRequiringReboot *bool
+
+	// Windows KBID to be excluded for patching.
+	KbNumbersToExclude []*string
+
+	// Windows KBID to be included for patching.
+	KbNumbersToInclude []*string
 }
 
 // ListApplyUpdate - Response for ApplyUpdate list
@@ -296,6 +427,27 @@ type OperationsListResult struct {
 	Value []*Operation
 }
 
+// OverrideProperties - Definition of a MaintenanceOverrideProperties
+type OverrideProperties struct {
+	// Effective end date of the maintenance override window in YYYY-MM-DD hh:mm format. The window will be created in the time
+	// zone provided and adjusted to daylight savings according to that time zone.
+	// Expiration date must be set to a future date. If not provided, it will be set to the maximum datetime 9999-12-31 23:59:59.
+	EndDateTime *time.Time
+
+	// Gets or sets overrideProperties of the maintenanceConfiguration
+	OverrideProperties map[string]*string
+
+	// Effective start date of the maintenance override window in YYYY-MM-DD hh:mm format. The start date can be set to either
+	// the current date or future date. The window will be created in the time zone
+	// provided and adjusted to daylight savings according to that time zone.
+	StartDateTime *time.Time
+
+	// Name of the timezone. List of timezones can be obtained by executing [System.TimeZoneInfo]::GetSystemTimeZones() in PowerShell.
+	// Example: Pacific Standard Time, UTC, W. Europe Standard Time, Korea
+	// Standard Time, Cen. Australia Standard Time.
+	TimeZone *string
+}
+
 // PublicMaintenanceConfigurationsClientGetOptions contains the optional parameters for the PublicMaintenanceConfigurationsClient.Get
 // method.
 type PublicMaintenanceConfigurationsClientGetOptions struct {
@@ -323,6 +475,33 @@ type Resource struct {
 	Type *string
 }
 
+// SoftwareUpdateConfigurationTasks - Task properties of the software update configuration.
+type SoftwareUpdateConfigurationTasks struct {
+	// List of post tasks. e.g. [{'source' :'runbook', 'taskScope': 'Resource', 'parameters': { 'arg1': 'value1'}}]
+	PostTasks []*TaskProperties
+
+	// List of pre tasks. e.g. [{'source' :'runbook', 'taskScope': 'Global', 'parameters': { 'arg1': 'value1'}}]
+	PreTasks []*TaskProperties
+}
+
+// SubscriberIdentityInfo - Information describing the event subscriber.
+type SubscriberIdentityInfo struct {
+	// READ-ONLY; The application id of the subscriber.
+	ClientApplicationID *string
+
+	// READ-ONLY; The authorization source of the subscriber.
+	ClientAuthorizationSource *string
+
+	// READ-ONLY; The object id of the subscriber.
+	ClientObjectID *string
+
+	// READ-ONLY; The principal id of the subscriber.
+	ClientPrincipalID *string
+
+	// READ-ONLY; The client id of the subscriber.
+	ClientTenantID *string
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -342,6 +521,18 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TaskProperties - Task properties of the software update configuration.
+type TaskProperties struct {
+	// Gets or sets the parameters of the task.
+	Parameters map[string]*string
+
+	// Gets or sets the name of the runbook.
+	Source *string
+
+	// Global Task execute once when schedule trigger. Resource task execute for each VM.
+	TaskScope *TaskScope
 }
 
 // Update - Maintenance update on a resource
@@ -399,9 +590,10 @@ type Window struct {
 	// [Optional comma separated list of weekdays Monday-Sunday]. Weekly schedule examples are recurEvery: 3Weeks, recurEvery:
 	// Week Saturday,Sunday. Monthly schedules are formatted as [Frequency as
 	// integer]['Month(s)'] [Comma separated list of month days] or [Frequency as integer]['Month(s)'] [Week of Month (First,
-	// Second, Third, Fourth, Last)] [Weekday Monday-Sunday]. Monthly schedule examples
-	// are recurEvery: Month, recurEvery: 2Months, recurEvery: Month day23,day24, recurEvery: Month Last Sunday, recurEvery: Month
-	// Fourth Monday.
+	// Second, Third, Fourth, Last)] [Weekday Monday-Sunday] [Optional Offset(No. of
+	// days)]. Offset value must be between -6 to 6 inclusive. Monthly schedule examples are recurEvery: Month, recurEvery: 2Months,
+	// recurEvery: Month day23,day24, recurEvery: Month Last Sunday, recurEvery:
+	// Month Fourth Monday, recurEvery: Month Last Sunday Offset-3, recurEvery: Month Third Sunday Offset6.
 	RecurEvery *string
 
 	// Effective start date of the maintenance window in YYYY-MM-DD hh:mm format. The start date can be set to either the current

@@ -59,6 +59,16 @@ type ConfigurationAssignmentsClientDeleteResponse struct {
 	ConfigurationAssignment
 }
 
+// ConfigurationAssignmentsClientGetParentResponse contains the response from method ConfigurationAssignmentsClient.GetParent.
+type ConfigurationAssignmentsClientGetParentResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsClientGetResponse contains the response from method ConfigurationAssignmentsClient.Get.
+type ConfigurationAssignmentsClientGetResponse struct {
+	ConfigurationAssignment
+}
+
 // ConfigurationAssignmentsClientListParentResponse contains the response from method ConfigurationAssignmentsClient.NewListParentPager.
 type ConfigurationAssignmentsClientListParentResponse struct {
 	ListConfigurationAssignmentsResult
@@ -66,6 +76,11 @@ type ConfigurationAssignmentsClientListParentResponse struct {
 
 // ConfigurationAssignmentsClientListResponse contains the response from method ConfigurationAssignmentsClient.NewListPager.
 type ConfigurationAssignmentsClientListResponse struct {
+	ListConfigurationAssignmentsResult
+}
+
+// ConfigurationAssignmentsWithinSubscriptionClientListResponse contains the response from method ConfigurationAssignmentsWithinSubscriptionClient.NewListPager.
+type ConfigurationAssignmentsWithinSubscriptionClientListResponse struct {
 	ListConfigurationAssignmentsResult
 }
 
@@ -97,6 +112,16 @@ type ConfigurationsClientUpdateResponse struct {
 // ConfigurationsForResourceGroupClientListResponse contains the response from method ConfigurationsForResourceGroupClient.NewListPager.
 type ConfigurationsForResourceGroupClientListResponse struct {
 	ListMaintenanceConfigurationsResult
+}
+
+// EventGridFiltersClientGetResponse contains the response from method EventGridFiltersClient.Get.
+type EventGridFiltersClientGetResponse struct {
+	EventGridFilter
+}
+
+// EventGridFiltersClientListByMaintenanceConfigurationResponse contains the response from method EventGridFiltersClient.ListByMaintenanceConfiguration.
+type EventGridFiltersClientListByMaintenanceConfigurationResponse struct {
+	EventGridFilterListResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.

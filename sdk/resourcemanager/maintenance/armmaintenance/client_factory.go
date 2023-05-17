@@ -69,6 +69,11 @@ func (c *ClientFactory) NewApplyUpdateForResourceGroupClient() *ApplyUpdateForRe
 	return subClient
 }
 
+func (c *ClientFactory) NewConfigurationAssignmentsWithinSubscriptionClient() *ConfigurationAssignmentsWithinSubscriptionClient {
+	subClient, _ := NewConfigurationAssignmentsWithinSubscriptionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
@@ -76,5 +81,10 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 
 func (c *ClientFactory) NewUpdatesClient() *UpdatesClient {
 	subClient, _ := NewUpdatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewEventGridFiltersClient() *EventGridFiltersClient {
+	subClient, _ := NewEventGridFiltersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
