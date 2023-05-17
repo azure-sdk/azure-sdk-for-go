@@ -48,7 +48,7 @@ func NewServerAzureADOnlyAuthenticationsClient(subscriptionID string, credential
 // only authentication property.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -72,7 +72,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) BeginCreateOrUpdate(ctx co
 // only authentication property.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ServerAzureADOnlyAuthenticationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, authenticationName AuthenticationName, parameters ServerAzureADOnlyAuthentication, options *ServerAzureADOnlyAuthenticationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, authenticationName, parameters, options)
 	if err != nil {
@@ -112,7 +112,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) createOrUpdateCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,7 +121,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) createOrUpdateCreateReques
 // BeginDelete - Deletes an existing server Active Directory only authentication property.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -143,7 +143,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) BeginDelete(ctx context.Co
 // Delete - Deletes an existing server Active Directory only authentication property.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ServerAzureADOnlyAuthenticationsClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, authenticationName AuthenticationName, options *ServerAzureADOnlyAuthenticationsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, authenticationName, options)
 	if err != nil {
@@ -183,7 +183,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) deleteCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -191,7 +191,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) deleteCreateRequest(ctx co
 // Get - Gets a specific Azure Active Directory only authentication property.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -237,7 +237,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -254,7 +254,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) getHandleResponse(resp *ht
 
 // NewListByServerPager - Gets a list of server Azure Active Directory only authentications.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -308,7 +308,7 @@ func (client *ServerAzureADOnlyAuthenticationsClient) listByServerCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
