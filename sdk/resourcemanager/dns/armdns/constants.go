@@ -11,8 +11,28 @@ package armdns
 
 const (
 	moduleName    = "armdns"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
 
 type RecordType string
 
@@ -27,6 +47,9 @@ const (
 	RecordTypeSOA   RecordType = "SOA"
 	RecordTypeSRV   RecordType = "SRV"
 	RecordTypeTXT   RecordType = "TXT"
+	RecordTypeTLSA  RecordType = "TLSA"
+	RecordTypeDS    RecordType = "DS"
+	RecordTypeNAPTR RecordType = "NAPTR"
 )
 
 // PossibleRecordTypeValues returns the possible values for the RecordType const type.
@@ -42,6 +65,9 @@ func PossibleRecordTypeValues() []RecordType {
 		RecordTypeSOA,
 		RecordTypeSRV,
 		RecordTypeTXT,
+		RecordTypeTLSA,
+		RecordTypeDS,
+		RecordTypeNAPTR,
 	}
 }
 

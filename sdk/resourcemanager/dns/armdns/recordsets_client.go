@@ -30,7 +30,7 @@ type RecordSetsClient struct {
 }
 
 // NewRecordSetsClient creates a new instance of RecordSetsClient with the specified values.
-//   - subscriptionID - Specifies the Azure subscription ID, which uniquely identifies the Microsoft Azure subscription.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRecordSetsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RecordSetsClient, error) {
@@ -45,15 +45,15 @@ func NewRecordSetsClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates a record set within a DNS zone.
+// CreateOrUpdate - Creates or updates a record set within a DNS zone. Record sets of type SOA can be updated but not created
+// (they are created when the DNS zone is created).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
 //   - relativeRecordSetName - The name of the record set, relative to the name of the zone.
-//   - recordType - The type of DNS record in this record set. Record sets of type SOA can be updated but not created (they are
-//     created when the DNS zone is created).
+//   - recordType - The type of DNS record in this record set.
 //   - parameters - Parameters supplied to the CreateOrUpdate operation.
 //   - options - RecordSetsClientCreateOrUpdateOptions contains the optional parameters for the RecordSetsClient.CreateOrUpdate
 //     method.
@@ -97,7 +97,7 @@ func (client *RecordSetsClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -118,15 +118,15 @@ func (client *RecordSetsClient) createOrUpdateHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// Delete - Deletes a record set from a DNS zone. This operation cannot be undone.
+// Delete - Deletes a record set from a DNS zone. This operation cannot be undone. Record sets of type SOA cannot be deleted
+// (they are deleted when the DNS zone is deleted).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
 //   - relativeRecordSetName - The name of the record set, relative to the name of the zone.
-//   - recordType - The type of DNS record in this record set. Record sets of type SOA cannot be deleted (they are deleted when
-//     the DNS zone is deleted).
+//   - recordType - The type of DNS record in this record set.
 //   - options - RecordSetsClientDeleteOptions contains the optional parameters for the RecordSetsClient.Delete method.
 func (client *RecordSetsClient) Delete(ctx context.Context, resourceGroupName string, zoneName string, relativeRecordSetName string, recordType RecordType, options *RecordSetsClientDeleteOptions) (RecordSetsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, zoneName, relativeRecordSetName, recordType, options)
@@ -168,7 +168,7 @@ func (client *RecordSetsClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -180,8 +180,8 @@ func (client *RecordSetsClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets a record set.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
 //   - relativeRecordSetName - The name of the record set, relative to the name of the zone.
 //   - recordType - The type of DNS record in this record set.
@@ -226,7 +226,7 @@ func (client *RecordSetsClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -243,8 +243,8 @@ func (client *RecordSetsClient) getHandleResponse(resp *http.Response) (RecordSe
 
 // NewListAllByDNSZonePager - Lists all record sets in a DNS zone.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
 //   - options - RecordSetsClientListAllByDNSZoneOptions contains the optional parameters for the RecordSetsClient.NewListAllByDNSZonePager
 //     method.
@@ -302,7 +302,7 @@ func (client *RecordSetsClient) listAllByDNSZoneCreateRequest(ctx context.Contex
 	if options != nil && options.RecordSetNameSuffix != nil {
 		reqQP.Set("$recordsetnamesuffix", *options.RecordSetNameSuffix)
 	}
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -319,8 +319,8 @@ func (client *RecordSetsClient) listAllByDNSZoneHandleResponse(resp *http.Respon
 
 // NewListByDNSZonePager - Lists all record sets in a DNS zone.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
 //   - options - RecordSetsClientListByDNSZoneOptions contains the optional parameters for the RecordSetsClient.NewListByDNSZonePager
 //     method.
@@ -378,7 +378,7 @@ func (client *RecordSetsClient) listByDNSZoneCreateRequest(ctx context.Context, 
 	if options != nil && options.Recordsetnamesuffix != nil {
 		reqQP.Set("$recordsetnamesuffix", *options.Recordsetnamesuffix)
 	}
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -395,10 +395,10 @@ func (client *RecordSetsClient) listByDNSZoneHandleResponse(resp *http.Response)
 
 // NewListByTypePager - Lists the record sets of a specified type in a DNS zone.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
-//   - recordType - The type of record sets to enumerate.
+//   - recordType - The type of DNS record in this record set.
 //   - options - RecordSetsClientListByTypeOptions contains the optional parameters for the RecordSetsClient.NewListByTypePager
 //     method.
 func (client *RecordSetsClient) NewListByTypePager(resourceGroupName string, zoneName string, recordType RecordType, options *RecordSetsClientListByTypeOptions) *runtime.Pager[RecordSetsClientListByTypeResponse] {
@@ -459,7 +459,7 @@ func (client *RecordSetsClient) listByTypeCreateRequest(ctx context.Context, res
 	if options != nil && options.Recordsetnamesuffix != nil {
 		reqQP.Set("$recordsetnamesuffix", *options.Recordsetnamesuffix)
 	}
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -477,8 +477,8 @@ func (client *RecordSetsClient) listByTypeHandleResponse(resp *http.Response) (R
 // Update - Updates a record set within a DNS zone.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - zoneName - The name of the DNS zone (without a terminating dot).
 //   - relativeRecordSetName - The name of the record set, relative to the name of the zone.
 //   - recordType - The type of DNS record in this record set.
@@ -524,7 +524,7 @@ func (client *RecordSetsClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}

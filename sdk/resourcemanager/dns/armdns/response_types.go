@@ -9,6 +9,26 @@
 
 package armdns
 
+// DnssecConfigsClientCreateOrUpdateResponse contains the response from method DnssecConfigsClient.BeginCreateOrUpdate.
+type DnssecConfigsClientCreateOrUpdateResponse struct {
+	DnssecConfig
+}
+
+// DnssecConfigsClientDeleteResponse contains the response from method DnssecConfigsClient.BeginDelete.
+type DnssecConfigsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DnssecConfigsClientGetResponse contains the response from method DnssecConfigsClient.Get.
+type DnssecConfigsClientGetResponse struct {
+	DnssecConfig
+}
+
+// DnssecConfigsClientListByDNSZoneResponse contains the response from method DnssecConfigsClient.NewListByDNSZonePager.
+type DnssecConfigsClientListByDNSZoneResponse struct {
+	DnssecConfigListResult
+}
+
 // RecordSetsClientCreateOrUpdateResponse contains the response from method RecordSetsClient.CreateOrUpdate.
 type RecordSetsClientCreateOrUpdateResponse struct {
 	RecordSet
