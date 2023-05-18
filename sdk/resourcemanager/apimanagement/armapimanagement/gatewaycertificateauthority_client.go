@@ -30,8 +30,7 @@ type GatewayCertificateAuthorityClient struct {
 }
 
 // NewGatewayCertificateAuthorityClient creates a new instance of GatewayCertificateAuthorityClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewGatewayCertificateAuthorityClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GatewayCertificateAuthorityClient, error) {
@@ -49,8 +48,8 @@ func NewGatewayCertificateAuthorityClient(subscriptionID string, credential azco
 // CreateOrUpdate - Assign Certificate entity to Gateway entity as Certificate Authority.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -100,7 +99,7 @@ func (client *GatewayCertificateAuthorityClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -124,8 +123,8 @@ func (client *GatewayCertificateAuthorityClient) createOrUpdateHandleResponse(re
 // Delete - Remove relationship between Certificate Authority and Gateway entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -177,7 +176,7 @@ func (client *GatewayCertificateAuthorityClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -187,8 +186,8 @@ func (client *GatewayCertificateAuthorityClient) deleteCreateRequest(ctx context
 // Get - Get assigned Gateway Certificate Authority details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -238,7 +237,7 @@ func (client *GatewayCertificateAuthorityClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -258,8 +257,8 @@ func (client *GatewayCertificateAuthorityClient) getHandleResponse(resp *http.Re
 
 // GetEntityTag - Checks if Certificate entity is assigned to Gateway entity as Certificate Authority.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -309,7 +308,7 @@ func (client *GatewayCertificateAuthorityClient) getEntityTagCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -327,8 +326,8 @@ func (client *GatewayCertificateAuthorityClient) getEntityTagHandleResponse(resp
 
 // NewListByServicePager - Lists the collection of Certificate Authorities for the specified Gateway entity.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -395,7 +394,7 @@ func (client *GatewayCertificateAuthorityClient) listByServiceCreateRequest(ctx 
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

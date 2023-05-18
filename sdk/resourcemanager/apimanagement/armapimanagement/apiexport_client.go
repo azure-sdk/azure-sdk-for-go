@@ -29,8 +29,7 @@ type APIExportClient struct {
 }
 
 // NewAPIExportClient creates a new instance of APIExportClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAPIExportClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIExportClient, error) {
@@ -49,12 +48,13 @@ func NewAPIExportClient(subscriptionID string, credential azcore.TokenCredential
 // valid for 5 minutes.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
-//   - formatParam - Format in which to export the Api Details to the Storage Blob with Sas Key valid for 5 minutes.
+//   - formatParam - Format in which to export the Api Details to the Storage Blob with Sas Key valid for 5 minutes. New formats
+//     can be added in the future.
 //   - export - Query parameter required to export the API details.
 //   - options - APIExportClientGetOptions contains the optional parameters for the APIExportClient.Get method.
 func (client *APIExportClient) Get(ctx context.Context, resourceGroupName string, serviceName string, apiID string, formatParam ExportFormat, export ExportAPI, options *APIExportClientGetOptions) (APIExportClientGetResponse, error) {
@@ -98,7 +98,7 @@ func (client *APIExportClient) getCreateRequest(ctx context.Context, resourceGro
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("format", string(formatParam))
 	reqQP.Set("export", string(export))
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
