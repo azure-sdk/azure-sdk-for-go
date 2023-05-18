@@ -47,7 +47,7 @@ func NewReplicationNetworkMappingsClient(subscriptionID string, credential azcor
 // BeginCreate - The operation to create an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -71,7 +71,7 @@ func (client *ReplicationNetworkMappingsClient) BeginCreate(ctx context.Context,
 // Create - The operation to create an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 func (client *ReplicationNetworkMappingsClient) create(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, input CreateNetworkMappingInput, options *ReplicationNetworkMappingsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, input, options)
 	if err != nil {
@@ -119,7 +119,7 @@ func (client *ReplicationNetworkMappingsClient) createCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -128,7 +128,7 @@ func (client *ReplicationNetworkMappingsClient) createCreateRequest(ctx context.
 // BeginDelete - The operation to delete a network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -151,7 +151,7 @@ func (client *ReplicationNetworkMappingsClient) BeginDelete(ctx context.Context,
 // Delete - The operation to delete a network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 func (client *ReplicationNetworkMappingsClient) deleteOperation(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, options *ReplicationNetworkMappingsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, options)
 	if err != nil {
@@ -199,7 +199,7 @@ func (client *ReplicationNetworkMappingsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -207,7 +207,7 @@ func (client *ReplicationNetworkMappingsClient) deleteCreateRequest(ctx context.
 // Get - Gets the details of an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -262,7 +262,7 @@ func (client *ReplicationNetworkMappingsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -279,7 +279,7 @@ func (client *ReplicationNetworkMappingsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - Lists all ASR network mappings in the vault.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - ReplicationNetworkMappingsClientListOptions contains the optional parameters for the ReplicationNetworkMappingsClient.NewListPager
@@ -332,7 +332,7 @@ func (client *ReplicationNetworkMappingsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -349,7 +349,7 @@ func (client *ReplicationNetworkMappingsClient) listHandleResponse(resp *http.Re
 
 // NewListByReplicationNetworksPager - Lists all ASR network mappings for the specified network.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -412,7 +412,7 @@ func (client *ReplicationNetworkMappingsClient) listByReplicationNetworksCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -430,7 +430,7 @@ func (client *ReplicationNetworkMappingsClient) listByReplicationNetworksHandleR
 // BeginUpdate - The operation to update an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -454,7 +454,7 @@ func (client *ReplicationNetworkMappingsClient) BeginUpdate(ctx context.Context,
 // Update - The operation to update an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01
 func (client *ReplicationNetworkMappingsClient) update(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, input UpdateNetworkMappingInput, options *ReplicationNetworkMappingsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, input, options)
 	if err != nil {
@@ -502,7 +502,7 @@ func (client *ReplicationNetworkMappingsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)

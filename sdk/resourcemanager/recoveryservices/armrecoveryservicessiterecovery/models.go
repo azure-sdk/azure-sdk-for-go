@@ -364,6 +364,45 @@ type A2AExtendedLocationDetails struct {
 	RecoveryExtendedLocation *ExtendedLocation
 }
 
+// A2AFabricSpecificLocationDetails - ExtendedLocation details data.
+type A2AFabricSpecificLocationDetails struct {
+	// The initial primary ExtendedLocation.
+	InitialPrimaryExtendedLocation *ExtendedLocation
+
+	// Initial primary fabric location info.
+	InitialPrimaryFabricLocation *string
+
+	// The initial source zone info.
+	InitialPrimaryZone *string
+
+	// The initial recovery ExtendedLocation.
+	InitialRecoveryExtendedLocation *ExtendedLocation
+
+	// The initial recovery fabric location info.
+	InitialRecoveryFabricLocation *string
+
+	// The initial target zone info.
+	InitialRecoveryZone *string
+
+	// The primary ExtendedLocation.
+	PrimaryExtendedLocation *ExtendedLocation
+
+	// Primary fabric location info.
+	PrimaryFabricLocation *string
+
+	// Source zone info.
+	PrimaryZone *string
+
+	// The recovery ExtendedLocation.
+	RecoveryExtendedLocation *ExtendedLocation
+
+	// The recovery fabric location info.
+	RecoveryFabricLocation *string
+
+	// The target zone info.
+	RecoveryZone *string
+}
+
 // A2APolicyCreationInput - A2A Policy creation input.
 type A2APolicyCreationInput struct {
 	// REQUIRED; The class type.
@@ -1559,6 +1598,9 @@ type AzureFabricSpecificDetails struct {
 	// The Location for the Azure fabric.
 	Location *string
 
+	// The location details.
+	LocationDetails []*A2AFabricSpecificLocationDetails
+
 	// The zones.
 	Zones []*A2AZoneDetails
 }
@@ -2488,11 +2530,17 @@ type FabricQueryParameter struct {
 	// The type of the discovered machine to be used for fetching agent details.
 	DiscoveryType *string
 
+	// A value indicating whether the Extended Location mappings are to be returned.
+	ExtendedLocationMappings *string
+
 	// A value indicating whether the agent details are to be fetched.
 	FetchAgentDetails *string
 
 	// The FQDN to be used for fetching agent details.
 	Fqdn *string
+
+	// A value indicating whether the location details are to be returned.
+	LocationDetails *string
 
 	// The OS type to be used for fetching agent details.
 	OSType *string
@@ -11503,6 +11551,9 @@ type VMwareCbtEnableMigrationInput struct {
 	// REQUIRED; The ARM Id of the VM discovered in VMware.
 	VmwareMachineID *string
 
+	// The confidential VM key vault Id for ADE installation.
+	ConfidentialVMKeyVaultID *string
+
 	// License type.
 	LicenseType *LicenseType
 
@@ -11541,6 +11592,9 @@ type VMwareCbtEnableMigrationInput struct {
 
 	// The target VM name.
 	TargetVMName *string
+
+	// The target VM security profile.
+	TargetVMSecurityProfile *VMwareCbtSecurityProfileProperties
 
 	// The target VM size.
 	TargetVMSize *string
@@ -11586,6 +11640,9 @@ type VMwareCbtMigrateInput struct {
 
 	// REQUIRED; A value indicating whether VM is to be shutdown.
 	PerformShutdown *string
+
+	// A value indicating the inplace OS Upgrade version.
+	OSUpgradeVersion *string
 }
 
 // GetMigrateProviderSpecificInput implements the MigrateProviderSpecificInputClassification interface for type VMwareCbtMigrateInput.
@@ -11599,6 +11656,9 @@ func (v *VMwareCbtMigrateInput) GetMigrateProviderSpecificInput() *MigrateProvid
 type VMwareCbtMigrationDetails struct {
 	// REQUIRED; Gets the instance type.
 	InstanceType *string
+
+	// The confidential VM key vault Id for ADE installation.
+	ConfidentialVMKeyVaultID *string
 
 	// License Type of the VM to be used.
 	LicenseType *string
@@ -11614,6 +11674,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// The tags for the seed disks.
 	SeedDiskTags map[string]*string
+
+	// List of supported inplace OS Upgrade versions.
+	SupportedOSVersions []*string
 
 	// The target availability set Id.
 	TargetAvailabilitySetID *string
@@ -11641,6 +11704,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// Target VM name.
 	TargetVMName *string
+
+	// The target VM security profile.
+	TargetVMSecurityProfile *VMwareCbtSecurityProfileProperties
 
 	// The target VM size.
 	TargetVMSize *string
@@ -11677,6 +11743,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// READ-ONLY; The recovery point Id to which the VM was migrated.
 	MigrationRecoveryPointID *string
+
+	// READ-ONLY; The name of the OS on the VM.
+	OSName *string
 
 	// READ-ONLY; The type of the OS on the VM.
 	OSType *string
@@ -11867,6 +11936,9 @@ type VMwareCbtProtectionContainerMappingDetails struct {
 	// REQUIRED; Gets the class type. Overridden in derived classes.
 	InstanceType *string
 
+	// The SKUs to be excluded.
+	ExcludedSKUs []*string
+
 	// READ-ONLY; The target key vault ARM Id.
 	KeyVaultID *string
 
@@ -11930,6 +12002,24 @@ func (v *VMwareCbtResyncInput) GetResyncProviderSpecificInput() *ResyncProviderS
 	}
 }
 
+// VMwareCbtSecurityProfileProperties - VMwareCbt security profile input.
+type VMwareCbtSecurityProfileProperties struct {
+	// A value indicating whether confidential compute encryption to be enabled.
+	IsTargetVMConfidentialEncryptionEnabled *string
+
+	// A value indicating whether integrity monitoring to be enabled.
+	IsTargetVMIntegrityMonitoringEnabled *string
+
+	// A value indicating whether secure boot to be enabled.
+	IsTargetVMSecureBootEnabled *string
+
+	// A value indicating whether trusted platform module to be enabled.
+	IsTargetVMTpmEnabled *string
+
+	// The target VM security type.
+	TargetVMSecurityType *SecurityType
+}
+
 // VMwareCbtTestMigrateInput - VMwareCbt specific test migrate input.
 type VMwareCbtTestMigrateInput struct {
 	// REQUIRED; The class type.
@@ -11940,6 +12030,9 @@ type VMwareCbtTestMigrateInput struct {
 
 	// REQUIRED; The recovery point Id.
 	RecoveryPointID *string
+
+	// A value indicating the inplace OS Upgrade version.
+	OSUpgradeVersion *string
 
 	// The list of NIC details.
 	VMNics []*VMwareCbtNicInput
