@@ -44,10 +44,59 @@ func NewAzureBareMetalInstancesClient(subscriptionID string, credential azcore.T
 	return client, nil
 }
 
+// Delete - Deletes an Azure BareMetal instance for the specified subscription, resource group, and instance name.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-06
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - azureBareMetalInstanceName - Name of the Azure BareMetal on Azure instance.
+//   - options - AzureBareMetalInstancesClientDeleteOptions contains the optional parameters for the AzureBareMetalInstancesClient.Delete
+//     method.
+func (client *AzureBareMetalInstancesClient) Delete(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientDeleteOptions) (AzureBareMetalInstancesClientDeleteResponse, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, azureBareMetalInstanceName, options)
+	if err != nil {
+		return AzureBareMetalInstancesClientDeleteResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AzureBareMetalInstancesClientDeleteResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent) {
+		return AzureBareMetalInstancesClientDeleteResponse{}, runtime.NewResponseError(resp)
+	}
+	return AzureBareMetalInstancesClientDeleteResponse{}, nil
+}
+
+// deleteCreateRequest creates the Delete request.
+func (client *AzureBareMetalInstancesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BareMetalInfrastructure/bareMetalInstances/{azureBareMetalInstanceName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if azureBareMetalInstanceName == "" {
+		return nil, errors.New("parameter azureBareMetalInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{azureBareMetalInstanceName}", url.PathEscape(azureBareMetalInstanceName))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-06")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // Get - Gets an Azure BareMetal instance for the specified subscription, resource group, and instance name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-09
+// Generated from API version 2023-04-06
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure BareMetal on Azure instance.
 //   - options - AzureBareMetalInstancesClientGetOptions contains the optional parameters for the AzureBareMetalInstancesClient.Get
@@ -87,7 +136,7 @@ func (client *AzureBareMetalInstancesClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-09")
+	reqQP.Set("api-version", "2023-04-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -105,7 +154,7 @@ func (client *AzureBareMetalInstancesClient) getHandleResponse(resp *http.Respon
 // NewListByResourceGroupPager - Gets a list of AzureBareMetal instances in the specified subscription and resource group.
 // The operations returns various properties of each Azure BareMetal instance.
 //
-// Generated from API version 2021-08-09
+// Generated from API version 2023-04-06
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AzureBareMetalInstancesClientListByResourceGroupOptions contains the optional parameters for the AzureBareMetalInstancesClient.NewListByResourceGroupPager
 //     method.
@@ -153,7 +202,7 @@ func (client *AzureBareMetalInstancesClient) listByResourceGroupCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-09")
+	reqQP.Set("api-version", "2023-04-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,7 +220,7 @@ func (client *AzureBareMetalInstancesClient) listByResourceGroupHandleResponse(r
 // NewListBySubscriptionPager - Gets a list of AzureBareMetal instances in the specified subscription. The operations returns
 // various properties of each Azure BareMetal instance.
 //
-// Generated from API version 2021-08-09
+// Generated from API version 2023-04-06
 //   - options - AzureBareMetalInstancesClientListBySubscriptionOptions contains the optional parameters for the AzureBareMetalInstancesClient.NewListBySubscriptionPager
 //     method.
 func (client *AzureBareMetalInstancesClient) NewListBySubscriptionPager(options *AzureBareMetalInstancesClientListBySubscriptionOptions) *runtime.Pager[AzureBareMetalInstancesClientListBySubscriptionResponse] {
@@ -214,7 +263,7 @@ func (client *AzureBareMetalInstancesClient) listBySubscriptionCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-09")
+	reqQP.Set("api-version", "2023-04-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -229,11 +278,63 @@ func (client *AzureBareMetalInstancesClient) listBySubscriptionHandleResponse(re
 	return result, nil
 }
 
+// Put - Adds an Azure BareMetal instance for the specified subscription, resource group, and instance name.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-06
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - azureBareMetalInstanceName - Name of the Azure BareMetal on Azure instance.
+//   - options - AzureBareMetalInstancesClientPutOptions contains the optional parameters for the AzureBareMetalInstancesClient.Put
+//     method.
+func (client *AzureBareMetalInstancesClient) Put(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientPutOptions) (AzureBareMetalInstancesClientPutResponse, error) {
+	req, err := client.putCreateRequest(ctx, resourceGroupName, azureBareMetalInstanceName, options)
+	if err != nil {
+		return AzureBareMetalInstancesClientPutResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AzureBareMetalInstancesClientPutResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent) {
+		return AzureBareMetalInstancesClientPutResponse{}, runtime.NewResponseError(resp)
+	}
+	return AzureBareMetalInstancesClientPutResponse{}, nil
+}
+
+// putCreateRequest creates the Put request.
+func (client *AzureBareMetalInstancesClient) putCreateRequest(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientPutOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BareMetalInfrastructure/bareMetalInstances/{azureBareMetalInstanceName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if azureBareMetalInstanceName == "" {
+		return nil, errors.New("parameter azureBareMetalInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{azureBareMetalInstanceName}", url.PathEscape(azureBareMetalInstanceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-06")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.RequestBodyParameters != nil {
+		return req, runtime.MarshalAsJSON(req, *options.RequestBodyParameters)
+	}
+	return req, nil
+}
+
 // Update - Patches the Tags field of a Azure BareMetal instance for the specified subscription, resource group, and instance
 // name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-09
+// Generated from API version 2023-04-06
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure BareMetal on Azure instance.
 //   - tagsParameter - Request body that only contains the new Tags field
@@ -274,7 +375,7 @@ func (client *AzureBareMetalInstancesClient) updateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-09")
+	reqQP.Set("api-version", "2023-04-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, tagsParameter)
