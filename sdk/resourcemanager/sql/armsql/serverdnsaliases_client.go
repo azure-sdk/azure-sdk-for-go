@@ -47,7 +47,7 @@ func NewServerDNSAliasesClient(subscriptionID string, credential azcore.TokenCre
 // BeginAcquire - Acquires server DNS alias from another server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server that the alias is pointing to.
@@ -69,7 +69,7 @@ func (client *ServerDNSAliasesClient) BeginAcquire(ctx context.Context, resource
 // Acquire - Acquires server DNS alias from another server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ServerDNSAliasesClient) acquire(ctx context.Context, resourceGroupName string, serverName string, dnsAliasName string, parameters ServerDNSAliasAcquisition, options *ServerDNSAliasesClientBeginAcquireOptions) (*http.Response, error) {
 	req, err := client.acquireCreateRequest(ctx, resourceGroupName, serverName, dnsAliasName, parameters, options)
 	if err != nil {
@@ -109,7 +109,7 @@ func (client *ServerDNSAliasesClient) acquireCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -118,7 +118,7 @@ func (client *ServerDNSAliasesClient) acquireCreateRequest(ctx context.Context, 
 // BeginCreateOrUpdate - Creates a server DNS alias.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server that the alias is pointing to.
@@ -140,7 +140,7 @@ func (client *ServerDNSAliasesClient) BeginCreateOrUpdate(ctx context.Context, r
 // CreateOrUpdate - Creates a server DNS alias.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ServerDNSAliasesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, dnsAliasName string, options *ServerDNSAliasesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, dnsAliasName, options)
 	if err != nil {
@@ -180,7 +180,7 @@ func (client *ServerDNSAliasesClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -189,7 +189,7 @@ func (client *ServerDNSAliasesClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - Deletes the server DNS alias with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server that the alias is pointing to.
@@ -211,7 +211,7 @@ func (client *ServerDNSAliasesClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Deletes the server DNS alias with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ServerDNSAliasesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, dnsAliasName string, options *ServerDNSAliasesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, dnsAliasName, options)
 	if err != nil {
@@ -251,7 +251,7 @@ func (client *ServerDNSAliasesClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -259,7 +259,7 @@ func (client *ServerDNSAliasesClient) deleteCreateRequest(ctx context.Context, r
 // Get - Gets a server DNS alias.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server that the alias is pointing to.
@@ -304,7 +304,7 @@ func (client *ServerDNSAliasesClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -321,7 +321,7 @@ func (client *ServerDNSAliasesClient) getHandleResponse(resp *http.Response) (Se
 
 // NewListByServerPager - Gets a list of server DNS aliases for a server.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server that the alias is pointing to.
@@ -375,7 +375,7 @@ func (client *ServerDNSAliasesClient) listByServerCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
