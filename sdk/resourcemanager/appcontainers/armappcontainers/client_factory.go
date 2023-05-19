@@ -17,29 +17,63 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	subscriptionID   string
+	jobName          string
+	jobExecutionName string
+	credential       azcore.TokenCredential
+	options          *arm.ClientOptions
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription.
+//   - jobName - Job Name
+//   - jobExecutionName - Job execution name.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, jobName string, jobExecutionName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, jobName: jobName, jobExecutionName: jobExecutionName, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
 
 func (c *ClientFactory) NewContainerAppsAuthConfigsClient() *ContainerAppsAuthConfigsClient {
 	subClient, _ := NewContainerAppsAuthConfigsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAvailableWorkloadProfilesClient() *AvailableWorkloadProfilesClient {
+	subClient, _ := NewAvailableWorkloadProfilesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
+	subClient, _ := NewBillingMetersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsClient() *ConnectedEnvironmentsClient {
+	subClient, _ := NewConnectedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsCertificatesClient() *ConnectedEnvironmentsCertificatesClient {
+	subClient, _ := NewConnectedEnvironmentsCertificatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsDaprComponentsClient() *ConnectedEnvironmentsDaprComponentsClient {
+	subClient, _ := NewConnectedEnvironmentsDaprComponentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsStoragesClient() *ConnectedEnvironmentsStoragesClient {
+	subClient, _ := NewConnectedEnvironmentsStoragesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -58,13 +92,38 @@ func (c *ClientFactory) NewContainerAppsRevisionReplicasClient() *ContainerAppsR
 	return subClient
 }
 
-func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
-	subClient, _ := NewDaprComponentsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewContainerAppsDiagnosticsClient() *ContainerAppsDiagnosticsClient {
+	subClient, _ := NewContainerAppsDiagnosticsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewManagedEnvironmentDiagnosticsClient() *ManagedEnvironmentDiagnosticsClient {
+	subClient, _ := NewManagedEnvironmentDiagnosticsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewManagedEnvironmentsDiagnosticsClient() *ManagedEnvironmentsDiagnosticsClient {
+	subClient, _ := NewManagedEnvironmentsDiagnosticsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsClient() *JobsClient {
+	subClient, _ := NewJobsClient(c.subscriptionID, c.jobName, c.jobExecutionName, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
+	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.jobName, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewContainerAppsAPIClient() *ContainerAppsAPIClient {
+	subClient, _ := NewContainerAppsAPIClient(c.subscriptionID, c.jobName, c.jobExecutionName, c.credential, c.options)
 	return subClient
 }
 
@@ -78,8 +137,18 @@ func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewManagedCertificatesClient() *ManagedCertificatesClient {
+	subClient, _ := NewManagedCertificatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewNamespacesClient() *NamespacesClient {
 	subClient, _ := NewNamespacesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
+	subClient, _ := NewDaprComponentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
