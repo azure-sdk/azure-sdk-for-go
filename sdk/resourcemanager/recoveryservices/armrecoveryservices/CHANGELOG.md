@@ -1,5 +1,21 @@
 # Release History
 
+## 2.0.0 (2023-05-22)
+### Breaking Changes
+
+- Operation `*VaultsClient.Delete` has been changed to LRO, use `*VaultsClient.BeginDelete` instead.
+
+### Features Added
+
+- New enum type `CrossSubscriptionRestoreState` with values `CrossSubscriptionRestoreStateDisabled`, `CrossSubscriptionRestoreStateEnabled`, `CrossSubscriptionRestoreStatePermanentlyDisabled`
+- New enum type `SecureScoreLevel` with values `SecureScoreLevelAdequate`, `SecureScoreLevelMaximum`, `SecureScoreLevelMinimum`, `SecureScoreLevelNone`
+- New struct `CrossSubscriptionRestoreSettings`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `RestoreSettings`
+- New field `RestoreSettings`, `SecureScore` in struct `VaultProperties`
+
+
 ## 1.3.1 (2023-04-14)
 ### Bug Fixes
 

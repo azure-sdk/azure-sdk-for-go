@@ -151,6 +151,11 @@ type CmkKeyVaultProperties struct {
 	KeyURI *string
 }
 
+// CrossSubscriptionRestoreSettings - Settings for Cross Subscription Restore Settings
+type CrossSubscriptionRestoreSettings struct {
+	CrossSubscriptionRestoreState *CrossSubscriptionRestoreState
+}
+
 // DNSZone information
 type DNSZone struct {
 	// Subresource type for vault AzureBackup, AzureBackup_secondary or AzureSiteRecovery
@@ -191,6 +196,31 @@ type ErrorAdditionalInfo struct {
 
 	// READ-ONLY; The additional info type.
 	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
 }
 
 // IdentityData - Identity for the resource.
@@ -697,6 +727,12 @@ func (r *ResourceCertificateDetails) GetResourceCertificateDetails() *ResourceCe
 	return r
 }
 
+// RestoreSettings - Restore Settings of the vault
+type RestoreSettings struct {
+	// Settings for CrossSubscriptionRestore
+	CrossSubscriptionRestoreSettings *CrossSubscriptionRestoreSettings
+}
+
 // SKU - Identifies the unique system identifier for each Azure resource.
 type SKU struct {
 	// REQUIRED; Name of SKU is RS0 (Recovery Services 0th version) and the tier is standard tier. They do not have affect on
@@ -937,6 +973,9 @@ type VaultProperties struct {
 	// The redundancy Settings of a Vault
 	RedundancySettings *VaultPropertiesRedundancySettings
 
+	// Restore Settings of the vault
+	RestoreSettings *RestoreSettings
+
 	// Security Settings of the vault
 	SecuritySettings *SecuritySettings
 
@@ -960,6 +999,9 @@ type VaultProperties struct {
 
 	// READ-ONLY; Provisioning State.
 	ProvisioningState *string
+
+	// READ-ONLY; Secure Score of Recovery Services Vault
+	SecureScore *SecureScoreLevel
 }
 
 // VaultPropertiesEncryption - Customer Managed Key details of the resource.
@@ -1034,15 +1076,16 @@ type VaultsClientBeginCreateOrUpdateOptions struct {
 	ResumeToken string
 }
 
-// VaultsClientBeginUpdateOptions contains the optional parameters for the VaultsClient.BeginUpdate method.
-type VaultsClientBeginUpdateOptions struct {
+// VaultsClientBeginDeleteOptions contains the optional parameters for the VaultsClient.BeginDelete method.
+type VaultsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// VaultsClientDeleteOptions contains the optional parameters for the VaultsClient.Delete method.
-type VaultsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// VaultsClientBeginUpdateOptions contains the optional parameters for the VaultsClient.BeginUpdate method.
+type VaultsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // VaultsClientGetOptions contains the optional parameters for the VaultsClient.Get method.
