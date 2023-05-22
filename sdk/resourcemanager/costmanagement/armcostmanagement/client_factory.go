@@ -36,8 +36,38 @@ func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOpti
 	}, nil
 }
 
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBenefitRecommendationsClient() *BenefitRecommendationsClient {
+	subClient, _ := NewBenefitRecommendationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBenefitUtilizationSummariesClient() *BenefitUtilizationSummariesClient {
+	subClient, _ := NewBenefitUtilizationSummariesClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGenerateBenefitUtilizationSummariesReportClient() *GenerateBenefitUtilizationSummariesReportClient {
+	subClient, _ := NewGenerateBenefitUtilizationSummariesReportClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGenerateBenefitUtilizationSummariesReportAsyncClient() *GenerateBenefitUtilizationSummariesReportAsyncClient {
+	subClient, _ := NewGenerateBenefitUtilizationSummariesReportAsyncClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewExportsClient() *ExportsClient {
 	subClient, _ := NewExportsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGenerateCostDetailsReportClient() *GenerateCostDetailsReportClient {
+	subClient, _ := NewGenerateCostDetailsReportClient(c.credential, c.options)
 	return subClient
 }
 
@@ -86,7 +116,12 @@ func (c *ClientFactory) NewGenerateReservationDetailsReportClient() *GenerateRes
 	return subClient
 }
 
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
+func (c *ClientFactory) NewPriceSheetClient() *PriceSheetClient {
+	subClient, _ := NewPriceSheetClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewScheduledActionsClient() *ScheduledActionsClient {
+	subClient, _ := NewScheduledActionsClient(c.credential, c.options)
 	return subClient
 }
