@@ -11,8 +11,43 @@ package armdatafactory
 
 const (
 	moduleName    = "armdatafactory"
-	moduleVersion = "v3.2.1"
+	moduleVersion = "v4.0.0"
 )
+
+// ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
+// and if not provided when the activity is inactive, the status will be Succeeded by default.
+type ActivityOnInactiveMarkAs string
+
+const (
+	ActivityOnInactiveMarkAsFailed    ActivityOnInactiveMarkAs = "Failed"
+	ActivityOnInactiveMarkAsSkipped   ActivityOnInactiveMarkAs = "Skipped"
+	ActivityOnInactiveMarkAsSucceeded ActivityOnInactiveMarkAs = "Succeeded"
+)
+
+// PossibleActivityOnInactiveMarkAsValues returns the possible values for the ActivityOnInactiveMarkAs const type.
+func PossibleActivityOnInactiveMarkAsValues() []ActivityOnInactiveMarkAs {
+	return []ActivityOnInactiveMarkAs{
+		ActivityOnInactiveMarkAsFailed,
+		ActivityOnInactiveMarkAsSkipped,
+		ActivityOnInactiveMarkAsSucceeded,
+	}
+}
+
+// ActivityState - Activity state. This is an optional property and if not provided, the state will be Active by default.
+type ActivityState string
+
+const (
+	ActivityStateActive   ActivityState = "Active"
+	ActivityStateInactive ActivityState = "Inactive"
+)
+
+// PossibleActivityStateValues returns the possible values for the ActivityState const type.
+func PossibleActivityStateValues() []ActivityState {
+	return []ActivityState{
+		ActivityStateActive,
+		ActivityStateInactive,
+	}
+}
 
 // AzureFunctionActivityMethod - The list of HTTP methods supported by a AzureFunctionActivity.
 type AzureFunctionActivityMethod string
@@ -160,8 +195,7 @@ func PossibleConfigurationTypeValues() []ConfigurationType {
 	}
 }
 
-// CosmosDbConnectionMode - The connection mode used to access CosmosDB account. Type: string (or Expression with resultType
-// string).
+// CosmosDbConnectionMode - The connection mode used to access CosmosDB account. Type: string.
 type CosmosDbConnectionMode string
 
 const (
@@ -174,24 +208,6 @@ func PossibleCosmosDbConnectionModeValues() []CosmosDbConnectionMode {
 	return []CosmosDbConnectionMode{
 		CosmosDbConnectionModeDirect,
 		CosmosDbConnectionModeGateway,
-	}
-}
-
-// CosmosDbServicePrincipalCredentialType - The service principal credential type to use in Server-To-Server authentication.
-// 'ServicePrincipalKey' for key/secret, 'ServicePrincipalCert' for certificate. Type: string (or Expression with
-// resultType string).
-type CosmosDbServicePrincipalCredentialType string
-
-const (
-	CosmosDbServicePrincipalCredentialTypeServicePrincipalCert CosmosDbServicePrincipalCredentialType = "ServicePrincipalCert"
-	CosmosDbServicePrincipalCredentialTypeServicePrincipalKey  CosmosDbServicePrincipalCredentialType = "ServicePrincipalKey"
-)
-
-// PossibleCosmosDbServicePrincipalCredentialTypeValues returns the possible values for the CosmosDbServicePrincipalCredentialType const type.
-func PossibleCosmosDbServicePrincipalCredentialTypeValues() []CosmosDbServicePrincipalCredentialType {
-	return []CosmosDbServicePrincipalCredentialType{
-		CosmosDbServicePrincipalCredentialTypeServicePrincipalCert,
-		CosmosDbServicePrincipalCredentialTypeServicePrincipalKey,
 	}
 }
 
@@ -1225,8 +1241,7 @@ func PossibleRunQueryOrderByFieldValues() []RunQueryOrderByField {
 	}
 }
 
-// SQLAlwaysEncryptedAkvAuthType - Sql always encrypted AKV authentication type. Type: string (or Expression with resultType
-// string).
+// SQLAlwaysEncryptedAkvAuthType - Sql always encrypted AKV authentication type. Type: string.
 type SQLAlwaysEncryptedAkvAuthType string
 
 const (
