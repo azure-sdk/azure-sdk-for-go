@@ -54,6 +54,31 @@ type APIPortalsClientValidateDomainResponse struct {
 	CustomDomainValidateResult
 }
 
+// ApmsClientCreateOrUpdateResponse contains the response from method ApmsClient.BeginCreateOrUpdate.
+type ApmsClientCreateOrUpdateResponse struct {
+	ApmResource
+}
+
+// ApmsClientDeleteResponse contains the response from method ApmsClient.BeginDelete.
+type ApmsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ApmsClientGetResponse contains the response from method ApmsClient.Get.
+type ApmsClientGetResponse struct {
+	ApmResource
+}
+
+// ApmsClientListResponse contains the response from method ApmsClient.NewListPager.
+type ApmsClientListResponse struct {
+	ApmResourceCollection
+}
+
+// ApmsClientListSecretKeysResponse contains the response from method ApmsClient.ListSecretKeys.
+type ApmsClientListSecretKeysResponse struct {
+	ApmSecretKeys
+}
+
 // ApplicationAcceleratorsClientCreateOrUpdateResponse contains the response from method ApplicationAcceleratorsClient.BeginCreateOrUpdate.
 type ApplicationAcceleratorsClientCreateOrUpdateResponse struct {
 	ApplicationAcceleratorResource
@@ -202,6 +227,16 @@ type BuildServiceBuilderClientListResponse struct {
 // BuildServiceClientCreateOrUpdateBuildResponse contains the response from method BuildServiceClient.CreateOrUpdateBuild.
 type BuildServiceClientCreateOrUpdateBuildResponse struct {
 	Build
+}
+
+// BuildServiceClientCreateOrUpdateResponse contains the response from method BuildServiceClient.BeginCreateOrUpdate.
+type BuildServiceClientCreateOrUpdateResponse struct {
+	BuildService
+}
+
+// BuildServiceClientDeleteBuildResponse contains the response from method BuildServiceClient.BeginDeleteBuild.
+type BuildServiceClientDeleteBuildResponse struct {
+	// placeholder for future response values
 }
 
 // BuildServiceClientGetBuildResponse contains the response from method BuildServiceClient.GetBuild.
@@ -354,6 +389,31 @@ type ConfigurationServicesClientValidateResponse struct {
 	ConfigurationServiceSettingsValidateResult
 }
 
+// ContainerRegistriesClientCreateOrUpdateResponse contains the response from method ContainerRegistriesClient.BeginCreateOrUpdate.
+type ContainerRegistriesClientCreateOrUpdateResponse struct {
+	ContainerRegistryResource
+}
+
+// ContainerRegistriesClientDeleteResponse contains the response from method ContainerRegistriesClient.BeginDelete.
+type ContainerRegistriesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerRegistriesClientGetResponse contains the response from method ContainerRegistriesClient.Get.
+type ContainerRegistriesClientGetResponse struct {
+	ContainerRegistryResource
+}
+
+// ContainerRegistriesClientListResponse contains the response from method ContainerRegistriesClient.NewListPager.
+type ContainerRegistriesClientListResponse struct {
+	ContainerRegistryResourceCollection
+}
+
+// ContainerRegistriesClientValidateResponse contains the response from method ContainerRegistriesClient.BeginValidate.
+type ContainerRegistriesClientValidateResponse struct {
+	ContainerRegistryValidateResult
+}
+
 // CustomDomainsClientCreateOrUpdateResponse contains the response from method CustomDomainsClient.BeginCreateOrUpdate.
 type CustomDomainsClientCreateOrUpdateResponse struct {
 	CustomDomainResource
@@ -504,6 +564,26 @@ type DevToolPortalsClientListResponse struct {
 	DevToolPortalResourceCollection
 }
 
+// EurekaServersClientGetResponse contains the response from method EurekaServersClient.Get.
+type EurekaServersClientGetResponse struct {
+	EurekaServerResource
+}
+
+// EurekaServersClientListResponse contains the response from method EurekaServersClient.List.
+type EurekaServersClientListResponse struct {
+	EurekaServerResourceCollection
+}
+
+// EurekaServersClientUpdatePatchResponse contains the response from method EurekaServersClient.BeginUpdatePatch.
+type EurekaServersClientUpdatePatchResponse struct {
+	EurekaServerResource
+}
+
+// EurekaServersClientUpdatePutResponse contains the response from method EurekaServersClient.BeginUpdatePut.
+type EurekaServersClientUpdatePutResponse struct {
+	EurekaServerResource
+}
+
 // GatewayCustomDomainsClientCreateOrUpdateResponse contains the response from method GatewayCustomDomainsClient.BeginCreateOrUpdate.
 type GatewayCustomDomainsClientCreateOrUpdateResponse struct {
 	GatewayCustomDomainResource
@@ -568,6 +648,11 @@ type GatewaysClientListEnvSecretsResponse struct {
 // GatewaysClientListResponse contains the response from method GatewaysClient.NewListPager.
 type GatewaysClientListResponse struct {
 	GatewayResourceCollection
+}
+
+// GatewaysClientRestartResponse contains the response from method GatewaysClient.BeginRestart.
+type GatewaysClientRestartResponse struct {
+	// placeholder for future response values
 }
 
 // GatewaysClientUpdateCapacityResponse contains the response from method GatewaysClient.BeginUpdateCapacity.
@@ -665,8 +750,18 @@ type ServicesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// ServicesClientDisableApmGloballyResponse contains the response from method ServicesClient.BeginDisableApmGlobally.
+type ServicesClientDisableApmGloballyResponse struct {
+	// placeholder for future response values
+}
+
 // ServicesClientDisableTestEndpointResponse contains the response from method ServicesClient.DisableTestEndpoint.
 type ServicesClientDisableTestEndpointResponse struct {
+	// placeholder for future response values
+}
+
+// ServicesClientEnableApmGloballyResponse contains the response from method ServicesClient.BeginEnableApmGlobally.
+type ServicesClientEnableApmGloballyResponse struct {
 	// placeholder for future response values
 }
 
@@ -685,9 +780,19 @@ type ServicesClientListBySubscriptionResponse struct {
 	ServiceResourceList
 }
 
+// ServicesClientListGloballyEnabledApmsResponse contains the response from method ServicesClient.ListGloballyEnabledApms.
+type ServicesClientListGloballyEnabledApmsResponse struct {
+	GloballyEnabledApms
+}
+
 // ServicesClientListResponse contains the response from method ServicesClient.NewListPager.
 type ServicesClientListResponse struct {
 	ServiceResourceList
+}
+
+// ServicesClientListSupportedApmTypesResponse contains the response from method ServicesClient.NewListSupportedApmTypesPager.
+type ServicesClientListSupportedApmTypesResponse struct {
+	SupportedApmTypes
 }
 
 // ServicesClientListTestKeysResponse contains the response from method ServicesClient.ListTestKeys.
