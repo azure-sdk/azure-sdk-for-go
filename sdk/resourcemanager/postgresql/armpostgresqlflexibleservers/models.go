@@ -523,12 +523,16 @@ type NameAvailability struct {
 	Type *string
 }
 
-// Network properties of a server
+// Network properties of a server.
 type Network struct {
-	// delegated subnet arm resource id.
+	// Delegated subnet arm resource id. This is required to be passed during create, in case we want the server to be VNET injected,
+	// i.e. Private access server. During update, pass this only if we want to
+	// update the value for Private DNS zone.
 	DelegatedSubnetResourceID *string
 
-	// private dns zone arm resource id.
+	// Private dns zone arm resource id. This is required to be passed during create, in case we want the server to be VNET injected,
+	// i.e. Private access server. During update, pass this only if we want to
+	// update the value for Private DNS zone.
 	PrivateDNSZoneArmResourceID *string
 
 	// READ-ONLY; public network access is enabled or not
@@ -740,7 +744,8 @@ type ServerProperties struct {
 	// Maintenance window properties of a server.
 	MaintenanceWindow *MaintenanceWindow
 
-	// Network properties of a server.
+	// Network properties of a server. This Network property is required to be passed only in case you want the server to be Private
+	// access server.
 	Network *Network
 
 	// Restore point creation time (ISO8601 format), specifying the time to restore from. It's required when 'createMode' is 'PointInTimeRestore'
@@ -794,6 +799,9 @@ type ServerPropertiesForUpdate struct {
 
 	// Maintenance window properties of a server.
 	MaintenanceWindow *MaintenanceWindow
+
+	// Network properties of a server. These are required to be passed only in case if server is a private access server.
+	Network *Network
 
 	// Replication role of the server
 	ReplicationRole *ReplicationRole

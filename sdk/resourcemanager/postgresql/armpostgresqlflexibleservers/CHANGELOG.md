@@ -1,5 +1,15 @@
 # Release History
 
+## 4.0.0 (2023-05-22)
+### Breaking Changes
+
+- `IdentityTypeSystemAssigned` from enum `IdentityType` has been removed
+
+### Features Added
+
+- New field `Network` in struct `ServerPropertiesForUpdate`
+
+
 ## 3.0.0 (2023-04-28)
 ### Breaking Changes
 
