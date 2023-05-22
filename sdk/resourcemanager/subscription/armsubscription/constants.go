@@ -11,7 +11,7 @@ package armsubscription
 
 const (
 	moduleName    = "armsubscription"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0"
 )
 
 // AcceptOwnership - The accept ownership state of the resource.
@@ -49,6 +49,24 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// Provisioning - The provisioning state of the resource.
+type Provisioning string
+
+const (
+	ProvisioningAccepted  Provisioning = "Accepted"
+	ProvisioningPending   Provisioning = "Pending"
+	ProvisioningSucceeded Provisioning = "Succeeded"
+)
+
+// PossibleProvisioningValues returns the possible values for the Provisioning const type.
+func PossibleProvisioningValues() []Provisioning {
+	return []Provisioning{
+		ProvisioningAccepted,
+		ProvisioningPending,
+		ProvisioningSucceeded,
 	}
 }
 

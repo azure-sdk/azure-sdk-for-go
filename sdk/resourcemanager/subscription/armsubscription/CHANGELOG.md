@@ -1,5 +1,14 @@
 # Release History
 
+## 1.2.0 (2023-05-22)
+### Features Added
+
+- New enum type `Provisioning` with values `ProvisioningAccepted`, `ProvisioningPending`, `ProvisioningSucceeded`
+- New field `ProvisioningState` in struct `AcceptOwnershipStatusResponse`
+- New field `Tags`, `TenantID` in struct `Subscription`
+- New field `Country`, `CountryCode`, `DefaultDomain`, `DisplayName`, `Domains`, `TenantCategory`, `TenantType` in struct `TenantIDDescription`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
