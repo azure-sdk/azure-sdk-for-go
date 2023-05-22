@@ -164,6 +164,11 @@ type ExemptionsClientListResponse struct {
 	ExemptionListResult
 }
 
+// ExemptionsClientUpdateResponse contains the response from method ExemptionsClient.Update.
+type ExemptionsClientUpdateResponse struct {
+	Exemption
+}
+
 // SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method SetDefinitionsClient.CreateOrUpdateAtManagementGroup.
 type SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse struct {
 	SetDefinition
@@ -212,4 +217,84 @@ type SetDefinitionsClientListByManagementGroupResponse struct {
 // SetDefinitionsClientListResponse contains the response from method SetDefinitionsClient.NewListPager.
 type SetDefinitionsClientListResponse struct {
 	SetDefinitionListResult
+}
+
+// VariableValuesClientCreateOrUpdateAtManagementGroupResponse contains the response from method VariableValuesClient.CreateOrUpdateAtManagementGroup.
+type VariableValuesClientCreateOrUpdateAtManagementGroupResponse struct {
+	VariableValue
+}
+
+// VariableValuesClientCreateOrUpdateResponse contains the response from method VariableValuesClient.CreateOrUpdate.
+type VariableValuesClientCreateOrUpdateResponse struct {
+	VariableValue
+}
+
+// VariableValuesClientDeleteAtManagementGroupResponse contains the response from method VariableValuesClient.DeleteAtManagementGroup.
+type VariableValuesClientDeleteAtManagementGroupResponse struct {
+	// placeholder for future response values
+}
+
+// VariableValuesClientDeleteResponse contains the response from method VariableValuesClient.Delete.
+type VariableValuesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VariableValuesClientGetAtManagementGroupResponse contains the response from method VariableValuesClient.GetAtManagementGroup.
+type VariableValuesClientGetAtManagementGroupResponse struct {
+	VariableValue
+}
+
+// VariableValuesClientGetResponse contains the response from method VariableValuesClient.Get.
+type VariableValuesClientGetResponse struct {
+	VariableValue
+}
+
+// VariableValuesClientListForManagementGroupResponse contains the response from method VariableValuesClient.NewListForManagementGroupPager.
+type VariableValuesClientListForManagementGroupResponse struct {
+	VariableValueListResult
+}
+
+// VariableValuesClientListResponse contains the response from method VariableValuesClient.NewListPager.
+type VariableValuesClientListResponse struct {
+	VariableValueListResult
+}
+
+// VariablesClientCreateOrUpdateAtManagementGroupResponse contains the response from method VariablesClient.CreateOrUpdateAtManagementGroup.
+type VariablesClientCreateOrUpdateAtManagementGroupResponse struct {
+	Variable
+}
+
+// VariablesClientCreateOrUpdateResponse contains the response from method VariablesClient.CreateOrUpdate.
+type VariablesClientCreateOrUpdateResponse struct {
+	Variable
+}
+
+// VariablesClientDeleteAtManagementGroupResponse contains the response from method VariablesClient.DeleteAtManagementGroup.
+type VariablesClientDeleteAtManagementGroupResponse struct {
+	// placeholder for future response values
+}
+
+// VariablesClientDeleteResponse contains the response from method VariablesClient.Delete.
+type VariablesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VariablesClientGetAtManagementGroupResponse contains the response from method VariablesClient.GetAtManagementGroup.
+type VariablesClientGetAtManagementGroupResponse struct {
+	Variable
+}
+
+// VariablesClientGetResponse contains the response from method VariablesClient.Get.
+type VariablesClientGetResponse struct {
+	Variable
+}
+
+// VariablesClientListForManagementGroupResponse contains the response from method VariablesClient.NewListForManagementGroupPager.
+type VariablesClientListForManagementGroupResponse struct {
+	VariableListResult
+}
+
+// VariablesClientListResponse contains the response from method VariablesClient.NewListPager.
+type VariablesClientListResponse struct {
+	VariableListResult
 }
