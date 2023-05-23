@@ -1,5 +1,11 @@
 # Release History
 
+## 2.2.0 (2023-05-23)
+### Features Added
+
+- New field `EnvironmentID` in struct `ResourceNameAvailabilityRequest`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 

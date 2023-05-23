@@ -16388,6 +16388,7 @@ func (r *ResourceNameAvailability) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ResourceNameAvailabilityRequest.
 func (r ResourceNameAvailabilityRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "environmentId", r.EnvironmentID)
 	populate(objectMap, "isFqdn", r.IsFqdn)
 	populate(objectMap, "name", r.Name)
 	populate(objectMap, "type", r.Type)
@@ -16403,6 +16404,9 @@ func (r *ResourceNameAvailabilityRequest) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "environmentId":
+			err = unpopulate(val, "EnvironmentID", &r.EnvironmentID)
+			delete(rawMsg, key)
 		case "isFqdn":
 			err = unpopulate(val, "IsFqdn", &r.IsFqdn)
 			delete(rawMsg, key)

@@ -7713,6 +7713,11 @@ type ResourceNameAvailabilityRequest struct {
 	// REQUIRED; Resource type used for verification.
 	Type *CheckNameResourceTypes
 
+	// Azure Resource Manager ID of the customer's selected Container Apps Environment on which to host the Function app. This
+	// must be of the form
+	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.App/managedEnvironments/{managedEnvironmentName}
+	EnvironmentID *string
+
 	// Is fully qualified domain name.
 	IsFqdn *bool
 }
