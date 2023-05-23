@@ -52,3 +52,8 @@ func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointCo
 	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
+	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
