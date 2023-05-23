@@ -393,6 +393,41 @@ func (a *AllSavingsList) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AsyncOperationStatusProperties.
+func (a AsyncOperationStatusProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "reportUrl", a.ReportURL)
+	populate(objectMap, "secondaryReportUrl", a.SecondaryReportURL)
+	populateTimeRFC3339(objectMap, "validUntil", a.ValidUntil)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AsyncOperationStatusProperties.
+func (a *AsyncOperationStatusProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "reportUrl":
+			err = unpopulate(val, "ReportURL", &a.ReportURL)
+			delete(rawMsg, key)
+		case "secondaryReportUrl":
+			err = unpopulate(val, "SecondaryReportURL", &a.SecondaryReportURL)
+			delete(rawMsg, key)
+		case "validUntil":
+			err = unpopulateTimeRFC3339(val, "ValidUntil", &a.ValidUntil)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type BenefitRecommendationModel.
 func (b BenefitRecommendationModel) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -564,6 +599,96 @@ func (b *BenefitUtilizationSummariesListResult) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "value":
 			b.Value, err = unmarshalBenefitUtilizationSummaryClassificationArray(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", b, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type BenefitUtilizationSummariesOperationStatus.
+func (b BenefitUtilizationSummariesOperationStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "input", b.Input)
+	populate(objectMap, "properties", b.Properties)
+	populate(objectMap, "status", b.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type BenefitUtilizationSummariesOperationStatus.
+func (b *BenefitUtilizationSummariesOperationStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", b, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "input":
+			err = unpopulate(val, "Input", &b.Input)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &b.Properties)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &b.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", b, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type BenefitUtilizationSummariesRequest.
+func (b BenefitUtilizationSummariesRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "benefitId", b.BenefitID)
+	populate(objectMap, "benefitOrderId", b.BenefitOrderID)
+	populate(objectMap, "billingAccountId", b.BillingAccountID)
+	populate(objectMap, "billingProfileId", b.BillingProfileID)
+	populateTimeRFC3339(objectMap, "endDate", b.EndDate)
+	populate(objectMap, "grain", b.Grain)
+	populate(objectMap, "kind", b.Kind)
+	populateTimeRFC3339(objectMap, "startDate", b.StartDate)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type BenefitUtilizationSummariesRequest.
+func (b *BenefitUtilizationSummariesRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", b, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "benefitId":
+			err = unpopulate(val, "BenefitID", &b.BenefitID)
+			delete(rawMsg, key)
+		case "benefitOrderId":
+			err = unpopulate(val, "BenefitOrderID", &b.BenefitOrderID)
+			delete(rawMsg, key)
+		case "billingAccountId":
+			err = unpopulate(val, "BillingAccountID", &b.BillingAccountID)
+			delete(rawMsg, key)
+		case "billingProfileId":
+			err = unpopulate(val, "BillingProfileID", &b.BillingProfileID)
+			delete(rawMsg, key)
+		case "endDate":
+			err = unpopulateTimeRFC3339(val, "EndDate", &b.EndDate)
+			delete(rawMsg, key)
+		case "grain":
+			err = unpopulate(val, "Grain", &b.Grain)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &b.Kind)
+			delete(rawMsg, key)
+		case "startDate":
+			err = unpopulateTimeRFC3339(val, "StartDate", &b.StartDate)
 			delete(rawMsg, key)
 		}
 		if err != nil {

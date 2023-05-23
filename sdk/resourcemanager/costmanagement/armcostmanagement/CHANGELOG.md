@@ -1,5 +1,33 @@
 # Release History
 
+## 2.1.0 (2023-05-23)
+### Features Added
+
+- New value `OperationStatusTypeComplete` added to enum type `OperationStatusType`
+- New enum type `BenefitUtilizationSummaryReportSchema` with values `BenefitUtilizationSummaryReportSchemaAvgUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaBenefitID`, `BenefitUtilizationSummaryReportSchemaBenefitOrderID`, `BenefitUtilizationSummaryReportSchemaBenefitType`, `BenefitUtilizationSummaryReportSchemaKind`, `BenefitUtilizationSummaryReportSchemaMaxUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaMinUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaUsageDate`, `BenefitUtilizationSummaryReportSchemaUtilizedPercentage`
+- New function `NewBillingAccountScopeClient(azcore.TokenCredential, *arm.ClientOptions) (*BillingAccountScopeClient, error)`
+- New function `*BillingAccountScopeClient.BeginGenerateBenefitUtilizationSummariesReport(context.Context, string, BenefitUtilizationSummariesRequest, *BillingAccountScopeClientBeginGenerateBenefitUtilizationSummariesReportOptions) (*runtime.Poller[BillingAccountScopeClientGenerateBenefitUtilizationSummariesReportResponse], error)`
+- New function `NewBillingProfileScopeClient(azcore.TokenCredential, *arm.ClientOptions) (*BillingProfileScopeClient, error)`
+- New function `*BillingProfileScopeClient.BeginGenerateBenefitUtilizationSummariesReport(context.Context, string, string, BenefitUtilizationSummariesRequest, *BillingProfileScopeClientBeginGenerateBenefitUtilizationSummariesReportOptions) (*runtime.Poller[BillingProfileScopeClientGenerateBenefitUtilizationSummariesReportResponse], error)`
+- New function `*ClientFactory.NewBillingAccountScopeClient() *BillingAccountScopeClient`
+- New function `*ClientFactory.NewBillingProfileScopeClient() *BillingProfileScopeClient`
+- New function `*ClientFactory.NewReservationOrderScopeClient() *ReservationOrderScopeClient`
+- New function `*ClientFactory.NewReservationScopeClient() *ReservationScopeClient`
+- New function `*ClientFactory.NewSavingsPlanOrderScopeClient() *SavingsPlanOrderScopeClient`
+- New function `*ClientFactory.NewSavingsPlanScopeClient() *SavingsPlanScopeClient`
+- New function `NewReservationOrderScopeClient(azcore.TokenCredential, *arm.ClientOptions) (*ReservationOrderScopeClient, error)`
+- New function `*ReservationOrderScopeClient.BeginGenerateBenefitUtilizationSummariesReport(context.Context, string, BenefitUtilizationSummariesRequest, *ReservationOrderScopeClientBeginGenerateBenefitUtilizationSummariesReportOptions) (*runtime.Poller[ReservationOrderScopeClientGenerateBenefitUtilizationSummariesReportResponse], error)`
+- New function `NewReservationScopeClient(azcore.TokenCredential, *arm.ClientOptions) (*ReservationScopeClient, error)`
+- New function `*ReservationScopeClient.BeginGenerateBenefitUtilizationSummariesReport(context.Context, string, string, BenefitUtilizationSummariesRequest, *ReservationScopeClientBeginGenerateBenefitUtilizationSummariesReportOptions) (*runtime.Poller[ReservationScopeClientGenerateBenefitUtilizationSummariesReportResponse], error)`
+- New function `NewSavingsPlanOrderScopeClient(azcore.TokenCredential, *arm.ClientOptions) (*SavingsPlanOrderScopeClient, error)`
+- New function `*SavingsPlanOrderScopeClient.BeginGenerateBenefitUtilizationSummariesReport(context.Context, string, BenefitUtilizationSummariesRequest, *SavingsPlanOrderScopeClientBeginGenerateBenefitUtilizationSummariesReportOptions) (*runtime.Poller[SavingsPlanOrderScopeClientGenerateBenefitUtilizationSummariesReportResponse], error)`
+- New function `NewSavingsPlanScopeClient(azcore.TokenCredential, *arm.ClientOptions) (*SavingsPlanScopeClient, error)`
+- New function `*SavingsPlanScopeClient.BeginGenerateBenefitUtilizationSummariesReportAsync(context.Context, string, string, BenefitUtilizationSummariesRequest, *SavingsPlanScopeClientBeginGenerateBenefitUtilizationSummariesReportAsyncOptions) (*runtime.Poller[SavingsPlanScopeClientGenerateBenefitUtilizationSummariesReportAsyncResponse], error)`
+- New struct `AsyncOperationStatusProperties`
+- New struct `BenefitUtilizationSummariesOperationStatus`
+- New struct `BenefitUtilizationSummariesRequest`
+
+
 ## 2.0.0 (2023-05-26)
 ### Breaking Changes
 
