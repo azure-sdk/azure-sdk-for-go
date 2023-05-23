@@ -44,19 +44,20 @@ func NewDataMaskingPoliciesClient(subscriptionID string, credential azcore.Token
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates a database data masking policy
+// CreateOrUpdate - Creates or updates a database data masking policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2014-04-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
 //   - databaseName - The name of the database.
+//   - dataMaskingPolicyName - The name of the database for which the data masking policy applies.
 //   - parameters - Parameters for creating or updating a data masking policy.
 //   - options - DataMaskingPoliciesClientCreateOrUpdateOptions contains the optional parameters for the DataMaskingPoliciesClient.CreateOrUpdate
 //     method.
-func (client *DataMaskingPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters DataMaskingPolicy, options *DataMaskingPoliciesClientCreateOrUpdateOptions) (DataMaskingPoliciesClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
+func (client *DataMaskingPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, databaseName string, dataMaskingPolicyName DataMaskingPolicyName, parameters DataMaskingPolicy, options *DataMaskingPoliciesClientCreateOrUpdateOptions) (DataMaskingPoliciesClientCreateOrUpdateResponse, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, databaseName, dataMaskingPolicyName, parameters, options)
 	if err != nil {
 		return DataMaskingPoliciesClientCreateOrUpdateResponse{}, err
 	}
@@ -64,19 +65,15 @@ func (client *DataMaskingPoliciesClient) CreateOrUpdate(ctx context.Context, res
 	if err != nil {
 		return DataMaskingPoliciesClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return DataMaskingPoliciesClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateHandleResponse(resp)
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *DataMaskingPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters DataMaskingPolicy, options *DataMaskingPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *DataMaskingPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, dataMaskingPolicyName DataMaskingPolicyName, parameters DataMaskingPolicy, options *DataMaskingPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/dataMaskingPolicies/{dataMaskingPolicyName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -89,13 +86,20 @@ func (client *DataMaskingPoliciesClient) createOrUpdateCreateRequest(ctx context
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	urlPath = strings.ReplaceAll(urlPath, "{dataMaskingPolicyName}", url.PathEscape("Default"))
+	if dataMaskingPolicyName == "" {
+		return nil, errors.New("parameter dataMaskingPolicyName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{dataMaskingPolicyName}", url.PathEscape(string(dataMaskingPolicyName)))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -110,17 +114,18 @@ func (client *DataMaskingPoliciesClient) createOrUpdateHandleResponse(resp *http
 	return result, nil
 }
 
-// Get - Gets a database data masking policy.
+// Get - Gets the database data masking policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2014-04-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
 //   - databaseName - The name of the database.
+//   - dataMaskingPolicyName - The name of the database for which the data masking policy applies.
 //   - options - DataMaskingPoliciesClientGetOptions contains the optional parameters for the DataMaskingPoliciesClient.Get method.
-func (client *DataMaskingPoliciesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DataMaskingPoliciesClientGetOptions) (DataMaskingPoliciesClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
+func (client *DataMaskingPoliciesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, dataMaskingPolicyName DataMaskingPolicyName, options *DataMaskingPoliciesClientGetOptions) (DataMaskingPoliciesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, databaseName, dataMaskingPolicyName, options)
 	if err != nil {
 		return DataMaskingPoliciesClientGetResponse{}, err
 	}
@@ -135,12 +140,8 @@ func (client *DataMaskingPoliciesClient) Get(ctx context.Context, resourceGroupN
 }
 
 // getCreateRequest creates the Get request.
-func (client *DataMaskingPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DataMaskingPoliciesClientGetOptions) (*policy.Request, error) {
+func (client *DataMaskingPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, dataMaskingPolicyName DataMaskingPolicyName, options *DataMaskingPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/dataMaskingPolicies/{dataMaskingPolicyName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -153,13 +154,20 @@ func (client *DataMaskingPoliciesClient) getCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	urlPath = strings.ReplaceAll(urlPath, "{dataMaskingPolicyName}", url.PathEscape("Default"))
+	if dataMaskingPolicyName == "" {
+		return nil, errors.New("parameter dataMaskingPolicyName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{dataMaskingPolicyName}", url.PathEscape(string(dataMaskingPolicyName)))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
