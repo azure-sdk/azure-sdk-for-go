@@ -523,12 +523,16 @@ type NameAvailability struct {
 	Type *string
 }
 
-// Network properties of a server
+// Network properties of a server.
 type Network struct {
-	// delegated subnet arm resource id.
+	// Delegated subnet arm resource id. This is required to be passed during create, in case we want the server to be VNET injected,
+	// i.e. Private access server. During update, pass this only if we want to
+	// update the value for Private DNS zone.
 	DelegatedSubnetResourceID *string
 
-	// private dns zone arm resource id.
+	// Private dns zone arm resource id. This is required to be passed during create, in case we want the server to be VNET injected,
+	// i.e. Private access server. During update, pass this only if we want to
+	// update the value for Private DNS zone.
 	PrivateDNSZoneArmResourceID *string
 
 	// READ-ONLY; public network access is enabled or not
@@ -740,21 +744,19 @@ type ServerProperties struct {
 	// Maintenance window properties of a server.
 	MaintenanceWindow *MaintenanceWindow
 
-	// Network properties of a server.
+	// Network properties of a server. This Network property is required to be passed only in case you want the server to be Private
+	// access server.
 	Network *Network
 
 	// Restore point creation time (ISO8601 format), specifying the time to restore from. It's required when 'createMode' is 'PointInTimeRestore'
 	// or 'GeoRestore'.
 	PointInTimeUTC *time.Time
 
-	// Replicas allowed for a server.
-	ReplicaCapacity *int32
-
 	// Replication role of the server
 	ReplicationRole *ReplicationRole
 
 	// The source server resource ID to restore from. It's required when 'createMode' is 'PointInTimeRestore' or 'GeoRestore'
-	// or 'Replica'.
+	// or 'Replica'. This property is returned only for Replica server
 	SourceServerResourceID *string
 
 	// Storage properties of a server.
@@ -768,6 +770,9 @@ type ServerProperties struct {
 
 	// READ-ONLY; The minor version of the server.
 	MinorVersion *string
+
+	// READ-ONLY; Replicas allowed for a server.
+	ReplicaCapacity *int32
 
 	// READ-ONLY; A state of a server that is visible to user.
 	State *ServerState
@@ -794,6 +799,9 @@ type ServerPropertiesForUpdate struct {
 
 	// Maintenance window properties of a server.
 	MaintenanceWindow *MaintenanceWindow
+
+	// Network properties of a server. These are required to be passed only in case if server is a private access server.
+	Network *Network
 
 	// Replication role of the server
 	ReplicationRole *ReplicationRole
@@ -950,11 +958,14 @@ type SystemData struct {
 
 // UserAssignedIdentity - Information describing the identities associated with this application.
 type UserAssignedIdentity struct {
-	// REQUIRED; the types of identities associated with this resource; currently restricted to 'SystemAssigned and UserAssigned'
+	// REQUIRED; the types of identities associated with this resource; currently restricted to 'None and UserAssigned'
 	Type *IdentityType
 
 	// represents user assigned identities map.
 	UserAssignedIdentities map[string]*UserIdentity
+
+	// READ-ONLY; Tenant id of the server.
+	TenantID *string
 }
 
 // UserIdentity - Describes a single user-assigned identity associated with the application.
