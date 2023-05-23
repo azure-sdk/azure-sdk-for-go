@@ -44,7 +44,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Approve or reject a private endpoint connection with a given name.
+// CreateOrUpdate - Approve or reject a private endpoint connection with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-10-30-preview
@@ -52,41 +52,25 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 //   - enterprisePolicyName - EnterprisePolicy for the Microsoft Azure subscription.
 //   - privateEndpointConnectionName - The name of the private endpoint connection.
 //   - parameters - Parameters supplied to create or update a private endpoint connection.
-//   - options - PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
+//   - options - PrivateEndpointConnectionsClientCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.CreateOrUpdate
 //     method.
-func (client *PrivateEndpointConnectionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, parameters PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientCreateOrUpdateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, enterprisePolicyName, privateEndpointConnectionName, parameters, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller[PrivateEndpointConnectionsClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
-	} else {
-		return runtime.NewPollerFromResumeToken[PrivateEndpointConnectionsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
-	}
-}
-
-// CreateOrUpdate - Approve or reject a private endpoint connection with a given name.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2020-10-30-preview
-func (client *PrivateEndpointConnectionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, parameters PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *PrivateEndpointConnectionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, parameters PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOrUpdateOptions) (PrivateEndpointConnectionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, enterprisePolicyName, privateEndpointConnectionName, parameters, options)
 	if err != nil {
-		return nil, err
+		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return client.createOrUpdateHandleResponse(resp)
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, parameters PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, parameters PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerPlatform/enterprisePolicies/{enterprisePolicyName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -115,48 +99,41 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// BeginDelete - Deletes a private endpoint connection with a given name.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2020-10-30-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - enterprisePolicyName - EnterprisePolicy for the Microsoft Azure subscription.
-//   - privateEndpointConnectionName - The name of the private endpoint connection.
-//   - options - PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
-//     method.
-func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, enterprisePolicyName, privateEndpointConnectionName, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller[PrivateEndpointConnectionsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
-	} else {
-		return runtime.NewPollerFromResumeToken[PrivateEndpointConnectionsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+// createOrUpdateHandleResponse handles the CreateOrUpdate response.
+func (client *PrivateEndpointConnectionsClient) createOrUpdateHandleResponse(resp *http.Response) (PrivateEndpointConnectionsClientCreateOrUpdateResponse, error) {
+	result := PrivateEndpointConnectionsClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateEndpointConnection); err != nil {
+		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, err
 	}
+	return result, nil
 }
 
 // Delete - Deletes a private endpoint connection with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-10-30-preview
-func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - enterprisePolicyName - EnterprisePolicy for the Microsoft Azure subscription.
+//   - privateEndpointConnectionName - The name of the private endpoint connection.
+//   - options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
+//     method.
+func (client *PrivateEndpointConnectionsClient) Delete(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientDeleteOptions) (PrivateEndpointConnectionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, enterprisePolicyName, privateEndpointConnectionName, options)
 	if err != nil {
-		return nil, err
+		return PrivateEndpointConnectionsClientDeleteResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return PrivateEndpointConnectionsClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
-		return nil, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
+		return PrivateEndpointConnectionsClientDeleteResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return PrivateEndpointConnectionsClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, enterprisePolicyName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerPlatform/enterprisePolicies/{enterprisePolicyName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")

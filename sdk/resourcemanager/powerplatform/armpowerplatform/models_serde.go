@@ -102,6 +102,7 @@ func (a *AccountList) UnmarshalJSON(data []byte) error {
 func (a AccountProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "description", a.Description)
+	populate(objectMap, "systemId", a.SystemID)
 	return json.Marshal(objectMap)
 }
 
@@ -116,6 +117,9 @@ func (a *AccountProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "description":
 			err = unpopulate(val, "Description", &a.Description)
+			delete(rawMsg, key)
+		case "systemId":
+			err = unpopulate(val, "SystemID", &a.SystemID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -951,8 +955,10 @@ func (p *PrivateLinkServiceConnectionState) UnmarshalJSON(data []byte) error {
 func (p Properties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "encryption", p.Encryption)
+	populate(objectMap, "healthStatus", p.HealthStatus)
 	populate(objectMap, "lockbox", p.Lockbox)
 	populate(objectMap, "networkInjection", p.NetworkInjection)
+	populate(objectMap, "systemId", p.SystemID)
 	return json.Marshal(objectMap)
 }
 
@@ -968,11 +974,17 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 		case "encryption":
 			err = unpopulate(val, "Encryption", &p.Encryption)
 			delete(rawMsg, key)
+		case "healthStatus":
+			err = unpopulate(val, "HealthStatus", &p.HealthStatus)
+			delete(rawMsg, key)
 		case "lockbox":
 			err = unpopulate(val, "Lockbox", &p.Lockbox)
 			delete(rawMsg, key)
 		case "networkInjection":
 			err = unpopulate(val, "NetworkInjection", &p.NetworkInjection)
+			delete(rawMsg, key)
+		case "systemId":
+			err = unpopulate(val, "SystemID", &p.SystemID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
