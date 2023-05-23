@@ -384,6 +384,7 @@ func (m MarketplaceSaaSInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "marketplaceName", m.MarketplaceName)
 	populate(objectMap, "marketplaceResourceId", m.MarketplaceResourceID)
+	populate(objectMap, "marketplaceStatus", m.MarketplaceStatus)
 	populate(objectMap, "marketplaceSubscription", m.MarketplaceSubscription)
 	return json.Marshal(objectMap)
 }
@@ -402,6 +403,9 @@ func (m *MarketplaceSaaSInfo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "marketplaceResourceId":
 			err = unpopulate(val, "MarketplaceResourceID", &m.MarketplaceResourceID)
+			delete(rawMsg, key)
+		case "marketplaceStatus":
+			err = unpopulate(val, "MarketplaceStatus", &m.MarketplaceStatus)
 			delete(rawMsg, key)
 		case "marketplaceSubscription":
 			err = unpopulate(val, "MarketplaceSubscription", &m.MarketplaceSubscription)
