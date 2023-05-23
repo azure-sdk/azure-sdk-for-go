@@ -11,7 +11,7 @@ package armpolicy
 
 const (
 	moduleName    = "armpolicy"
-	moduleVersion = "v0.7.1"
+	moduleVersion = "v0.8.0"
 )
 
 // AliasPathAttributes - The attributes of the token that the alias path is referring to.
@@ -107,6 +107,25 @@ func PossibleAliasTypeValues() []AliasType {
 	}
 }
 
+// AssignmentScopeValidation - The option whether validate the exemption is at or under the assignment scope.
+type AssignmentScopeValidation string
+
+const (
+	// AssignmentScopeValidationDefault - This option will validate the exemption is at or under the assignment scope.
+	AssignmentScopeValidationDefault AssignmentScopeValidation = "Default"
+	// AssignmentScopeValidationDoNotValidate - This option will bypass the validation the exemption scope is at or under the
+	// policy assignment scope.
+	AssignmentScopeValidationDoNotValidate AssignmentScopeValidation = "DoNotValidate"
+)
+
+// PossibleAssignmentScopeValidationValues returns the possible values for the AssignmentScopeValidation const type.
+func PossibleAssignmentScopeValidationValues() []AssignmentScopeValidation {
+	return []AssignmentScopeValidation{
+		AssignmentScopeValidationDefault,
+		AssignmentScopeValidationDoNotValidate,
+	}
+}
+
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
 
@@ -161,6 +180,21 @@ func PossibleExemptionCategoryValues() []ExemptionCategory {
 	return []ExemptionCategory{
 		ExemptionCategoryMitigated,
 		ExemptionCategoryWaiver,
+	}
+}
+
+// OverrideKind - The override kind.
+type OverrideKind string
+
+const (
+	// OverrideKindPolicyEffect - It will override the policy effect type.
+	OverrideKindPolicyEffect OverrideKind = "policyEffect"
+)
+
+// PossibleOverrideKindValues returns the possible values for the OverrideKind const type.
+func PossibleOverrideKindValues() []OverrideKind {
+	return []OverrideKind{
+		OverrideKindPolicyEffect,
 	}
 }
 
@@ -230,5 +264,29 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 		ResourceIdentityTypeSystemAssigned,
 		ResourceIdentityTypeUserAssigned,
 		ResourceIdentityTypeNone,
+	}
+}
+
+// SelectorKind - The selector kind.
+type SelectorKind string
+
+const (
+	// SelectorKindPolicyDefinitionReferenceID - The selector kind to filter policies by the policy definition reference ID.
+	SelectorKindPolicyDefinitionReferenceID SelectorKind = "policyDefinitionReferenceId"
+	// SelectorKindResourceLocation - The selector kind to filter policies by the resource location.
+	SelectorKindResourceLocation SelectorKind = "resourceLocation"
+	// SelectorKindResourceType - The selector kind to filter policies by the resource type.
+	SelectorKindResourceType SelectorKind = "resourceType"
+	// SelectorKindResourceWithoutLocation - The selector kind to filter policies by the resource without location.
+	SelectorKindResourceWithoutLocation SelectorKind = "resourceWithoutLocation"
+)
+
+// PossibleSelectorKindValues returns the possible values for the SelectorKind const type.
+func PossibleSelectorKindValues() []SelectorKind {
+	return []SelectorKind{
+		SelectorKindPolicyDefinitionReferenceID,
+		SelectorKindResourceLocation,
+		SelectorKindResourceType,
+		SelectorKindResourceWithoutLocation,
 	}
 }
