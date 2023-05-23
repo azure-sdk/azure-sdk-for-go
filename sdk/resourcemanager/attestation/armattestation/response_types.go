@@ -34,6 +34,11 @@ type PrivateEndpointConnectionsClientListResponse struct {
 	PrivateEndpointConnectionListResult
 }
 
+// PrivateLinkResourcesClientListByProviderResponse contains the response from method PrivateLinkResourcesClient.ListByProvider.
+type PrivateLinkResourcesClientListByProviderResponse struct {
+	PrivateLinkResourceListResult
+}
+
 // ProvidersClientCreateResponse contains the response from method ProvidersClient.Create.
 type ProvidersClientCreateResponse struct {
 	Provider
