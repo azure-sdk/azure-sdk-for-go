@@ -47,7 +47,7 @@ func NewResourceHealthMetadataClient(subscriptionID string, credential azcore.To
 // GetBySite - Description for Gets the category of ResourceHealthMetadata to use for the given site
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of web app
 //   - options - ResourceHealthMetadataClientGetBySiteOptions contains the optional parameters for the ResourceHealthMetadataClient.GetBySite
@@ -87,7 +87,7 @@ func (client *ResourceHealthMetadataClient) getBySiteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -105,7 +105,7 @@ func (client *ResourceHealthMetadataClient) getBySiteHandleResponse(resp *http.R
 // GetBySiteSlot - Description for Gets the category of ResourceHealthMetadata to use for the given site
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of web app
 //   - slot - Name of web app slot. If not specified then will default to production slot.
@@ -150,7 +150,7 @@ func (client *ResourceHealthMetadataClient) getBySiteSlotCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -167,7 +167,7 @@ func (client *ResourceHealthMetadataClient) getBySiteSlotHandleResponse(resp *ht
 
 // NewListPager - Description for List all ResourceHealthMetadata for all sites in the subscription.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2023-01-01
 //   - options - ResourceHealthMetadataClientListOptions contains the optional parameters for the ResourceHealthMetadataClient.NewListPager
 //     method.
 func (client *ResourceHealthMetadataClient) NewListPager(options *ResourceHealthMetadataClientListOptions) *runtime.Pager[ResourceHealthMetadataClientListResponse] {
@@ -210,7 +210,7 @@ func (client *ResourceHealthMetadataClient) listCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -228,7 +228,7 @@ func (client *ResourceHealthMetadataClient) listHandleResponse(resp *http.Respon
 // NewListByResourceGroupPager - Description for List all ResourceHealthMetadata for all sites in the resource group in the
 // subscription.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - options - ResourceHealthMetadataClientListByResourceGroupOptions contains the optional parameters for the ResourceHealthMetadataClient.NewListByResourceGroupPager
 //     method.
@@ -276,7 +276,7 @@ func (client *ResourceHealthMetadataClient) listByResourceGroupCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -293,7 +293,7 @@ func (client *ResourceHealthMetadataClient) listByResourceGroupHandleResponse(re
 
 // NewListBySitePager - Description for Gets the category of ResourceHealthMetadata to use for the given site as a collection
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of web app.
 //   - options - ResourceHealthMetadataClientListBySiteOptions contains the optional parameters for the ResourceHealthMetadataClient.NewListBySitePager
@@ -346,7 +346,7 @@ func (client *ResourceHealthMetadataClient) listBySiteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -363,7 +363,7 @@ func (client *ResourceHealthMetadataClient) listBySiteHandleResponse(resp *http.
 
 // NewListBySiteSlotPager - Description for Gets the category of ResourceHealthMetadata to use for the given site as a collection
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2023-01-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of web app.
 //   - slot - Name of web app slot. If not specified then will default to production slot.
@@ -421,7 +421,7 @@ func (client *ResourceHealthMetadataClient) listBySiteSlotCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
