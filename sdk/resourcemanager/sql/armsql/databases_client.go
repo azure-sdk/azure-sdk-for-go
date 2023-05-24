@@ -47,7 +47,7 @@ func NewDatabasesClient(subscriptionID string, credential azcore.TokenCredential
 // BeginCreateOrUpdate - Creates a new database or updates an existing database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -61,7 +61,9 @@ func (client *DatabasesClient) BeginCreateOrUpdate(ctx context.Context, resource
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[DatabasesClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
@@ -70,7 +72,7 @@ func (client *DatabasesClient) BeginCreateOrUpdate(ctx context.Context, resource
 // CreateOrUpdate - Creates a new database or updates an existing database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
 	if err != nil {
@@ -110,7 +112,7 @@ func (client *DatabasesClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -119,7 +121,7 @@ func (client *DatabasesClient) createOrUpdateCreateRequest(ctx context.Context, 
 // BeginDelete - Deletes the database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -131,7 +133,9 @@ func (client *DatabasesClient) BeginDelete(ctx context.Context, resourceGroupNam
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[DatabasesClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
@@ -140,7 +144,7 @@ func (client *DatabasesClient) BeginDelete(ctx context.Context, resourceGroupNam
 // Delete - Deletes the database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
@@ -180,7 +184,7 @@ func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -188,7 +192,7 @@ func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resource
 // BeginExport - Exports a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -210,7 +214,7 @@ func (client *DatabasesClient) BeginExport(ctx context.Context, resourceGroupNam
 // Export - Exports a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) export(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters ExportDatabaseDefinition, options *DatabasesClientBeginExportOptions) (*http.Response, error) {
 	req, err := client.exportCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
 	if err != nil {
@@ -250,7 +254,7 @@ func (client *DatabasesClient) exportCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -259,7 +263,7 @@ func (client *DatabasesClient) exportCreateRequest(ctx context.Context, resource
 // BeginFailover - Failovers a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -280,7 +284,7 @@ func (client *DatabasesClient) BeginFailover(ctx context.Context, resourceGroupN
 // Failover - Failovers a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) failover(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginFailoverOptions) (*http.Response, error) {
 	req, err := client.failoverCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
@@ -323,7 +327,7 @@ func (client *DatabasesClient) failoverCreateRequest(ctx context.Context, resour
 	if options != nil && options.ReplicaType != nil {
 		reqQP.Set("replicaType", string(*options.ReplicaType))
 	}
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -331,7 +335,7 @@ func (client *DatabasesClient) failoverCreateRequest(ctx context.Context, resour
 // Get - Gets a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -376,7 +380,13 @@ func (client *DatabasesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	if options != nil && options.Expand != nil {
+		reqQP.Set("$expand", *options.Expand)
+	}
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -394,7 +404,7 @@ func (client *DatabasesClient) getHandleResponse(resp *http.Response) (Databases
 // BeginImport - Imports a bacpac into a new database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -416,7 +426,7 @@ func (client *DatabasesClient) BeginImport(ctx context.Context, resourceGroupNam
 // Import - Imports a bacpac into a new database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) importOperation(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters ImportExistingDatabaseDefinition, options *DatabasesClientBeginImportOptions) (*http.Response, error) {
 	req, err := client.importCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
 	if err != nil {
@@ -456,7 +466,7 @@ func (client *DatabasesClient) importCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -464,7 +474,7 @@ func (client *DatabasesClient) importCreateRequest(ctx context.Context, resource
 
 // NewListByElasticPoolPager - Gets a list of databases in an elastic pool.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -523,7 +533,7 @@ func (client *DatabasesClient) listByElasticPoolCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -540,7 +550,7 @@ func (client *DatabasesClient) listByElasticPoolHandleResponse(resp *http.Respon
 
 // NewListByServerPager - Gets a list of databases.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -597,7 +607,7 @@ func (client *DatabasesClient) listByServerCreateRequest(ctx context.Context, re
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -614,7 +624,7 @@ func (client *DatabasesClient) listByServerHandleResponse(resp *http.Response) (
 
 // NewListInaccessibleByServerPager - Gets a list of inaccessible databases in a logical server
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -668,7 +678,7 @@ func (client *DatabasesClient) listInaccessibleByServerCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -683,152 +693,10 @@ func (client *DatabasesClient) listInaccessibleByServerHandleResponse(resp *http
 	return result, nil
 }
 
-// NewListMetricDefinitionsPager - Returns database metric definitions.
-//
-// Generated from API version 2014-04-01
-//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-//     Resource Manager API or the portal.
-//   - serverName - The name of the server.
-//   - databaseName - The name of the database.
-//   - options - DatabasesClientListMetricDefinitionsOptions contains the optional parameters for the DatabasesClient.NewListMetricDefinitionsPager
-//     method.
-func (client *DatabasesClient) NewListMetricDefinitionsPager(resourceGroupName string, serverName string, databaseName string, options *DatabasesClientListMetricDefinitionsOptions) *runtime.Pager[DatabasesClientListMetricDefinitionsResponse] {
-	return runtime.NewPager(runtime.PagingHandler[DatabasesClientListMetricDefinitionsResponse]{
-		More: func(page DatabasesClientListMetricDefinitionsResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *DatabasesClientListMetricDefinitionsResponse) (DatabasesClientListMetricDefinitionsResponse, error) {
-			req, err := client.listMetricDefinitionsCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
-			if err != nil {
-				return DatabasesClientListMetricDefinitionsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return DatabasesClientListMetricDefinitionsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return DatabasesClientListMetricDefinitionsResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listMetricDefinitionsHandleResponse(resp)
-		},
-	})
-}
-
-// listMetricDefinitionsCreateRequest creates the ListMetricDefinitions request.
-func (client *DatabasesClient) listMetricDefinitionsCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientListMetricDefinitionsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/metricDefinitions"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverName == "" {
-		return nil, errors.New("parameter serverName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverName}", url.PathEscape(serverName))
-	if databaseName == "" {
-		return nil, errors.New("parameter databaseName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listMetricDefinitionsHandleResponse handles the ListMetricDefinitions response.
-func (client *DatabasesClient) listMetricDefinitionsHandleResponse(resp *http.Response) (DatabasesClientListMetricDefinitionsResponse, error) {
-	result := DatabasesClientListMetricDefinitionsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MetricDefinitionListResult); err != nil {
-		return DatabasesClientListMetricDefinitionsResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListMetricsPager - Returns database metrics.
-//
-// Generated from API version 2014-04-01
-//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-//     Resource Manager API or the portal.
-//   - serverName - The name of the server.
-//   - databaseName - The name of the database.
-//   - filter - An OData filter expression that describes a subset of metrics to return.
-//   - options - DatabasesClientListMetricsOptions contains the optional parameters for the DatabasesClient.NewListMetricsPager
-//     method.
-func (client *DatabasesClient) NewListMetricsPager(resourceGroupName string, serverName string, databaseName string, filter string, options *DatabasesClientListMetricsOptions) *runtime.Pager[DatabasesClientListMetricsResponse] {
-	return runtime.NewPager(runtime.PagingHandler[DatabasesClientListMetricsResponse]{
-		More: func(page DatabasesClientListMetricsResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *DatabasesClientListMetricsResponse) (DatabasesClientListMetricsResponse, error) {
-			req, err := client.listMetricsCreateRequest(ctx, resourceGroupName, serverName, databaseName, filter, options)
-			if err != nil {
-				return DatabasesClientListMetricsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return DatabasesClientListMetricsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return DatabasesClientListMetricsResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listMetricsHandleResponse(resp)
-		},
-	})
-}
-
-// listMetricsCreateRequest creates the ListMetrics request.
-func (client *DatabasesClient) listMetricsCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, filter string, options *DatabasesClientListMetricsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/metrics"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverName == "" {
-		return nil, errors.New("parameter serverName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverName}", url.PathEscape(serverName))
-	if databaseName == "" {
-		return nil, errors.New("parameter databaseName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
-	reqQP.Set("$filter", filter)
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listMetricsHandleResponse handles the ListMetrics response.
-func (client *DatabasesClient) listMetricsHandleResponse(resp *http.Response) (DatabasesClientListMetricsResponse, error) {
-	result := DatabasesClientListMetricsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MetricListResult); err != nil {
-		return DatabasesClientListMetricsResponse{}, err
-	}
-	return result, nil
-}
-
 // BeginPause - Pauses a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -849,7 +717,7 @@ func (client *DatabasesClient) BeginPause(ctx context.Context, resourceGroupName
 // Pause - Pauses a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) pause(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginPauseOptions) (*http.Response, error) {
 	req, err := client.pauseCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
@@ -889,7 +757,7 @@ func (client *DatabasesClient) pauseCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -898,7 +766,7 @@ func (client *DatabasesClient) pauseCreateRequest(ctx context.Context, resourceG
 // Rename - Renames a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -944,7 +812,7 @@ func (client *DatabasesClient) renameCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
@@ -952,7 +820,7 @@ func (client *DatabasesClient) renameCreateRequest(ctx context.Context, resource
 // BeginResume - Resumes a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -973,7 +841,7 @@ func (client *DatabasesClient) BeginResume(ctx context.Context, resourceGroupNam
 // Resume - Resumes a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) resume(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginResumeOptions) (*http.Response, error) {
 	req, err := client.resumeCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
@@ -1013,7 +881,7 @@ func (client *DatabasesClient) resumeCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1022,7 +890,7 @@ func (client *DatabasesClient) resumeCreateRequest(ctx context.Context, resource
 // BeginUpdate - Updates an existing database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -1035,7 +903,9 @@ func (client *DatabasesClient) BeginUpdate(ctx context.Context, resourceGroupNam
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[DatabasesClientUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
@@ -1044,7 +914,7 @@ func (client *DatabasesClient) BeginUpdate(ctx context.Context, resourceGroupNam
 // Update - Updates an existing database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) update(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters DatabaseUpdate, options *DatabasesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
 	if err != nil {
@@ -1084,7 +954,7 @@ func (client *DatabasesClient) updateCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -1093,7 +963,7 @@ func (client *DatabasesClient) updateCreateRequest(ctx context.Context, resource
 // BeginUpgradeDataWarehouse - Upgrades a data warehouse.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -1115,7 +985,7 @@ func (client *DatabasesClient) BeginUpgradeDataWarehouse(ctx context.Context, re
 // UpgradeDataWarehouse - Upgrades a data warehouse.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *DatabasesClient) upgradeDataWarehouse(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginUpgradeDataWarehouseOptions) (*http.Response, error) {
 	req, err := client.upgradeDataWarehouseCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
@@ -1155,7 +1025,7 @@ func (client *DatabasesClient) upgradeDataWarehouseCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }

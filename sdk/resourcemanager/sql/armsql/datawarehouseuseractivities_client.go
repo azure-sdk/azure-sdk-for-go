@@ -47,7 +47,7 @@ func NewDataWarehouseUserActivitiesClient(subscriptionID string, credential azco
 // Get - Gets the user activities of a data warehouse which includes running and suspended queries
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -98,7 +98,7 @@ func (client *DataWarehouseUserActivitiesClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -115,7 +115,7 @@ func (client *DataWarehouseUserActivitiesClient) getHandleResponse(resp *http.Re
 
 // NewListByDatabasePager - List the user activities of a data warehouse which includes running and suspended queries
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -174,7 +174,7 @@ func (client *DataWarehouseUserActivitiesClient) listByDatabaseCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
