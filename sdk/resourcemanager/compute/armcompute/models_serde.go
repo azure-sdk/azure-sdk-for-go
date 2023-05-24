@@ -1927,41 +1927,6 @@ func (c *CommunityGalleryImage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageIdentifier.
-func (c CommunityGalleryImageIdentifier) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "offer", c.Offer)
-	populate(objectMap, "publisher", c.Publisher)
-	populate(objectMap, "sku", c.SKU)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CommunityGalleryImageIdentifier.
-func (c *CommunityGalleryImageIdentifier) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "offer":
-			err = unpopulate(val, "Offer", &c.Offer)
-			delete(rawMsg, key)
-		case "publisher":
-			err = unpopulate(val, "Publisher", &c.Publisher)
-			delete(rawMsg, key)
-		case "sku":
-			err = unpopulate(val, "SKU", &c.SKU)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageList.
 func (c CommunityGalleryImageList) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -9445,6 +9410,37 @@ func (p *PurchasePlan) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type RebootNotificationProfile.
+func (r RebootNotificationProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enable", r.Enable)
+	populate(objectMap, "notBeforeTimeout", r.NotBeforeTimeout)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RebootNotificationProfile.
+func (r *RebootNotificationProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enable":
+			err = unpopulate(val, "Enable", &r.Enable)
+			delete(rawMsg, key)
+		case "notBeforeTimeout":
+			err = unpopulate(val, "NotBeforeTimeout", &r.NotBeforeTimeout)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type RecommendedMachineConfiguration.
 func (r RecommendedMachineConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -9498,6 +9494,37 @@ func (r *RecoveryWalkResponse) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "walkPerformed":
 			err = unpopulate(val, "WalkPerformed", &r.WalkPerformed)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RedeployNotificationProfile.
+func (r RedeployNotificationProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enable", r.Enable)
+	populate(objectMap, "notBeforeTimeout", r.NotBeforeTimeout)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RedeployNotificationProfile.
+func (r *RedeployNotificationProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enable":
+			err = unpopulate(val, "Enable", &r.Enable)
+			delete(rawMsg, key)
+		case "notBeforeTimeout":
+			err = unpopulate(val, "NotBeforeTimeout", &r.NotBeforeTimeout)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -11826,6 +11853,8 @@ func (s *ScaleInPolicy) UnmarshalJSON(data []byte) error {
 func (s ScheduledEventsProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "osImageNotificationProfile", s.OSImageNotificationProfile)
+	populate(objectMap, "rebootNotificationProfile", s.RebootNotificationProfile)
+	populate(objectMap, "redeployNotificationProfile", s.RedeployNotificationProfile)
 	populate(objectMap, "terminateNotificationProfile", s.TerminateNotificationProfile)
 	return json.Marshal(objectMap)
 }
@@ -11841,6 +11870,12 @@ func (s *ScheduledEventsProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "osImageNotificationProfile":
 			err = unpopulate(val, "OSImageNotificationProfile", &s.OSImageNotificationProfile)
+			delete(rawMsg, key)
+		case "rebootNotificationProfile":
+			err = unpopulate(val, "RebootNotificationProfile", &s.RebootNotificationProfile)
+			delete(rawMsg, key)
+		case "redeployNotificationProfile":
+			err = unpopulate(val, "RedeployNotificationProfile", &s.RedeployNotificationProfile)
 			delete(rawMsg, key)
 		case "terminateNotificationProfile":
 			err = unpopulate(val, "TerminateNotificationProfile", &s.TerminateNotificationProfile)

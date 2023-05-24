@@ -1,5 +1,21 @@
 # Release History
 
+## 6.0.0 (2023-05-24)
+### Breaking Changes
+
+- Type of `CommunityGalleryImageProperties.Identifier` has been changed from `*CommunityGalleryImageIdentifier` to `*GalleryImageIdentifier`
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Struct `CommunityGalleryImageIdentifier` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New struct `RebootNotificationProfile`
+- New struct `RedeployNotificationProfile`
+- New field `RebootNotificationProfile`, `RedeployNotificationProfile` in struct `ScheduledEventsProfile`
+
+
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes
 

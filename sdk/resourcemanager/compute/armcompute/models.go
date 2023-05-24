@@ -1120,18 +1120,6 @@ type CommunityGalleryImage struct {
 	Type *string
 }
 
-// CommunityGalleryImageIdentifier - This is the community gallery image definition identifier.
-type CommunityGalleryImageIdentifier struct {
-	// The name of the gallery image definition offer.
-	Offer *string
-
-	// The name of the gallery image definition publisher.
-	Publisher *string
-
-	// The name of the gallery image definition SKU.
-	SKU *string
-}
-
 // CommunityGalleryImageList - The List Community Gallery Images operation response.
 type CommunityGalleryImageList struct {
 	// REQUIRED; A list of community gallery images.
@@ -1144,8 +1132,8 @@ type CommunityGalleryImageList struct {
 
 // CommunityGalleryImageProperties - Describes the properties of a gallery image definition.
 type CommunityGalleryImageProperties struct {
-	// REQUIRED; This is the community gallery image definition identifier.
-	Identifier *CommunityGalleryImageIdentifier
+	// REQUIRED; This is the gallery image definition identifier.
+	Identifier *GalleryImageIdentifier
 
 	// REQUIRED; This property allows the user to specify whether the virtual machines created under this image are 'Generalized'
 	// or 'Specialized'.
@@ -3423,7 +3411,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -4862,6 +4850,16 @@ type PurchasePlan struct {
 	Publisher *string
 }
 
+type RebootNotificationProfile struct {
+	// Specifies whether the Reboot Scheduled event is enabled or disabled.
+	Enable *bool
+
+	// Length of time a Virtual Machine being rebooted will have to potentially approve the reboot Scheduled Event before the
+	// event is auto approved (timed out). The configuration is specified in ISO 8601
+	// format, and the value must be 15 minutes (PT15M)
+	NotBeforeTimeout *string
+}
+
 // RecommendedMachineConfiguration - The properties describe the recommended machine configuration for this Image Definition.
 // These properties are updatable.
 type RecommendedMachineConfiguration struct {
@@ -4879,6 +4877,16 @@ type RecoveryWalkResponse struct {
 
 	// READ-ONLY; Whether the recovery walk was performed
 	WalkPerformed *bool
+}
+
+type RedeployNotificationProfile struct {
+	// Specifies whether the Redeploy Scheduled event is enabled or disabled.
+	Enable *bool
+
+	// Length of time a Virtual Machine being redeployed will have to potentially approve the redeploy Scheduled Event before
+	// the event is auto approved (timed out). The configuration is specified in ISO
+	// 8601 format, and the value must be 15 minutes (PT15M)
+	NotBeforeTimeout *string
 }
 
 // RegionalReplicationStatus - This is the regional replication status.
@@ -5915,6 +5923,12 @@ type ScaleInPolicy struct {
 type ScheduledEventsProfile struct {
 	// Specifies OS Image Scheduled Event related configurations.
 	OSImageNotificationProfile *OSImageNotificationProfile
+
+	// Specifies Reboot Scheduled Event related configurations.
+	RebootNotificationProfile *RebootNotificationProfile
+
+	// Specifies Redeply Scheduled Event related configurations.
+	RedeployNotificationProfile *RedeployNotificationProfile
 
 	// Specifies Terminate Scheduled Event related configurations.
 	TerminateNotificationProfile *TerminateNotificationProfile
