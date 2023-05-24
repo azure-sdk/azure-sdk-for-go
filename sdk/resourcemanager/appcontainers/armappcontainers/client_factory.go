@@ -17,23 +17,27 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	subscriptionID   string
+	jobName          string
+	jobExecutionName string
+	credential       azcore.TokenCredential
+	options          *arm.ClientOptions
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription.
+//   - jobName - Job Name
+//   - jobExecutionName - Job execution name.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, jobName string, jobExecutionName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, jobName: jobName, jobExecutionName: jobExecutionName, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
@@ -78,16 +82,6 @@ func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewJobsClient() *JobsClient {
-	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
-	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewContainerAppsRevisionsClient() *ContainerAppsRevisionsClient {
 	subClient, _ := NewContainerAppsRevisionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -115,6 +109,21 @@ func (c *ClientFactory) NewManagedEnvironmentsDiagnosticsClient() *ManagedEnviro
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsClient() *JobsClient {
+	subClient, _ := NewJobsClient(c.subscriptionID, c.jobName, c.jobExecutionName, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
+	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.jobName, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewContainerAppsAPIClient() *ContainerAppsAPIClient {
+	subClient, _ := NewContainerAppsAPIClient(c.subscriptionID, c.jobName, c.jobExecutionName, c.credential, c.options)
 	return subClient
 }
 

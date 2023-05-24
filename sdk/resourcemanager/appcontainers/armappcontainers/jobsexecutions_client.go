@@ -26,19 +26,22 @@ import (
 type JobsExecutionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	jobName        string
 }
 
 // NewJobsExecutionsClient creates a new instance of JobsExecutionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
+//   - jobName - Job Name
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewJobsExecutionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobsExecutionsClient, error) {
+func NewJobsExecutionsClient(subscriptionID string, jobName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobsExecutionsClient, error) {
 	cl, err := arm.NewClient(moduleName+".JobsExecutionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &JobsExecutionsClient{
 		subscriptionID: subscriptionID,
+		jobName:        jobName,
 		internal:       cl,
 	}
 	return client, nil
@@ -46,11 +49,10 @@ func NewJobsExecutionsClient(subscriptionID string, credential azcore.TokenCrede
 
 // NewListPager - Get a Container Apps Job's executions
 //
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - jobName - Name of the Container Apps Job.
 //   - options - JobsExecutionsClientListOptions contains the optional parameters for the JobsExecutionsClient.NewListPager method.
-func (client *JobsExecutionsClient) NewListPager(resourceGroupName string, jobName string, options *JobsExecutionsClientListOptions) *runtime.Pager[JobsExecutionsClientListResponse] {
+func (client *JobsExecutionsClient) NewListPager(resourceGroupName string, options *JobsExecutionsClientListOptions) *runtime.Pager[JobsExecutionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JobsExecutionsClientListResponse]{
 		More: func(page JobsExecutionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -59,7 +61,7 @@ func (client *JobsExecutionsClient) NewListPager(resourceGroupName string, jobNa
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceGroupName, jobName, options)
+				req, err = client.listCreateRequest(ctx, resourceGroupName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
@@ -79,7 +81,7 @@ func (client *JobsExecutionsClient) NewListPager(resourceGroupName string, jobNa
 }
 
 // listCreateRequest creates the List request.
-func (client *JobsExecutionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, jobName string, options *JobsExecutionsClientListOptions) (*policy.Request, error) {
+func (client *JobsExecutionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, options *JobsExecutionsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/jobs/{jobName}/executions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -89,16 +91,16 @@ func (client *JobsExecutionsClient) listCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if jobName == "" {
-		return nil, errors.New("parameter jobName cannot be empty")
+	if client.jobName == "" {
+		return nil, errors.New("parameter client.jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(client.jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

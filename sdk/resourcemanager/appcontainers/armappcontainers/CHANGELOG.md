@@ -1,5 +1,51 @@
 # Release History
 
+## 2.0.0-beta.4 (2023-05-24)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewJobsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*JobsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, Job, *JobsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, Job, *JobsClientBeginCreateOrUpdateOptions)`
+- Function `*JobsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, *JobsClientBeginDeleteOptions)` to `(context.Context, string, *JobsClientBeginDeleteOptions)`
+- Function `*JobsClient.BeginStart` parameter(s) have been changed from `(context.Context, string, string, JobExecutionTemplate, *JobsClientBeginStartOptions)` to `(context.Context, string, JobExecutionTemplate, *JobsClientBeginStartOptions)`
+- Function `*JobsClient.BeginStopExecution` parameter(s) have been changed from `(context.Context, string, string, string, *JobsClientBeginStopExecutionOptions)` to `(context.Context, string, *JobsClientBeginStopExecutionOptions)`
+- Function `*JobsClient.BeginStopMultipleExecutions` parameter(s) have been changed from `(context.Context, string, string, JobExecutionNamesCollection, *JobsClientBeginStopMultipleExecutionsOptions)` to `(context.Context, string, *JobsClientBeginStopMultipleExecutionsOptions)`
+- Function `*JobsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, JobPatchProperties, *JobsClientBeginUpdateOptions)` to `(context.Context, string, JobPatchProperties, *JobsClientBeginUpdateOptions)`
+- Function `*JobsClient.Get` parameter(s) have been changed from `(context.Context, string, string, *JobsClientGetOptions)` to `(context.Context, string, *JobsClientGetOptions)`
+- Function `*JobsClient.ListSecrets` parameter(s) have been changed from `(context.Context, string, string, *JobsClientListSecretsOptions)` to `(context.Context, string, *JobsClientListSecretsOptions)`
+- Function `NewJobsExecutionsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*JobsExecutionsClient.NewListPager` parameter(s) have been changed from `(string, string, *JobsExecutionsClientListOptions)` to `(string, *JobsExecutionsClientListOptions)`
+
+### Features Added
+
+- New enum type `ContainerAppContainerRunningState` with values `ContainerAppContainerRunningStateRunning`, `ContainerAppContainerRunningStateTerminated`, `ContainerAppContainerRunningStateWaiting`
+- New enum type `ContainerAppReplicaRunningState` with values `ContainerAppReplicaRunningStateNotRunning`, `ContainerAppReplicaRunningStateRunning`, `ContainerAppReplicaRunningStateUnknown`
+- New enum type `RevisionRunningState` with values `RevisionRunningStateDegraded`, `RevisionRunningStateFailed`, `RevisionRunningStateProcessing`, `RevisionRunningStateRunning`, `RevisionRunningStateStopped`, `RevisionRunningStateUnknown`
+- New function `*ClientFactory.NewContainerAppsAPIClient() *ContainerAppsAPIClient`
+- New function `NewContainerAppsAPIClient(string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsAPIClient, error)`
+- New function `*ContainerAppsAPIClient.JobExecution(context.Context, string, *ContainerAppsAPIClientJobExecutionOptions) (ContainerAppsAPIClientJobExecutionResponse, error)`
+- New function `*ContainerAppsClient.BeginStart(context.Context, string, string, *ContainerAppsClientBeginStartOptions) (*runtime.Poller[ContainerAppsClientStartResponse], error)`
+- New function `*ContainerAppsClient.BeginStop(context.Context, string, string, *ContainerAppsClientBeginStopOptions) (*runtime.Poller[ContainerAppsClientStopResponse], error)`
+- New struct `JobConfigurationEventTriggerConfig`
+- New struct `JobScale`
+- New struct `JobScaleRule`
+- New struct `ManagedEnvironmentPropertiesPeerAuthentication`
+- New struct `Mtls`
+- New struct `Service`
+- New struct `ServiceBind`
+- New field `Kind` in struct `AzureCredentials`
+- New field `Service` in struct `Configuration`
+- New field `GithubPersonalAccessToken` in struct `GithubActionConfiguration`
+- New field `EventTriggerConfig` in struct `JobConfiguration`
+- New field `PeerAuthentication` in struct `ManagedEnvironmentProperties`
+- New field `RunningState`, `RunningStateDetails` in struct `ReplicaContainer`
+- New field `InitContainers`, `RunningState`, `RunningStateDetails` in struct `ReplicaProperties`
+- New field `RunningState` in struct `RevisionProperties`
+- New field `ServiceBinds`, `TerminationGracePeriodSeconds` in struct `Template`
+- New field `MountOptions` in struct `Volume`
+- New field `SubPath` in struct `VolumeMount`
+
+
 ## 2.0.0-beta.3 (2023-05-26)
 ### Breaking Changes
 
