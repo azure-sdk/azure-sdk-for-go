@@ -11,7 +11,7 @@ package armkeyvault
 
 const (
 	moduleName    = "armkeyvault"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 type AccessPolicyUpdateKind string
@@ -353,6 +353,7 @@ type ManagedHsmSKUName string
 const (
 	ManagedHsmSKUNameStandardB1 ManagedHsmSKUName = "Standard_B1"
 	ManagedHsmSKUNameCustomB32  ManagedHsmSKUName = "Custom_B32"
+	ManagedHsmSKUNameCustomB6   ManagedHsmSKUName = "Custom_B6"
 )
 
 // PossibleManagedHsmSKUNameValues returns the possible values for the ManagedHsmSKUName const type.
@@ -360,6 +361,7 @@ func PossibleManagedHsmSKUNameValues() []ManagedHsmSKUName {
 	return []ManagedHsmSKUName{
 		ManagedHsmSKUNameStandardB1,
 		ManagedHsmSKUNameCustomB32,
+		ManagedHsmSKUNameCustomB6,
 	}
 }
 
@@ -477,7 +479,7 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// PublicNetworkAccess - Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+// PublicNetworkAccess - Control permission to the managed HSM from public networks.
 type PublicNetworkAccess string
 
 const (
