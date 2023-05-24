@@ -460,6 +460,7 @@ func (a AdminPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "priority", a.Priority)
 	populate(objectMap, "protocol", a.Protocol)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "resourceGuid", a.ResourceGUID)
 	populate(objectMap, "sourcePortRanges", a.SourcePortRanges)
 	populate(objectMap, "sources", a.Sources)
 	return json.Marshal(objectMap)
@@ -497,6 +498,9 @@ func (a *AdminPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &a.ResourceGUID)
 			delete(rawMsg, key)
 		case "sourcePortRanges":
 			err = unpopulate(val, "SourcePortRanges", &a.SourcePortRanges)
@@ -647,6 +651,7 @@ func (a AdminRuleCollectionPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "appliesToGroups", a.AppliesToGroups)
 	populate(objectMap, "description", a.Description)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "resourceGuid", a.ResourceGUID)
 	return json.Marshal(objectMap)
 }
 
@@ -667,6 +672,9 @@ func (a *AdminRuleCollectionPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &a.ResourceGUID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -9041,6 +9049,7 @@ func (c ConnectivityConfigurationProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "hubs", c.Hubs)
 	populate(objectMap, "isGlobal", c.IsGlobal)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
+	populate(objectMap, "resourceGuid", c.ResourceGUID)
 	return json.Marshal(objectMap)
 }
 
@@ -9073,6 +9082,9 @@ func (c *ConnectivityConfigurationProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &c.ResourceGUID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -10218,6 +10230,7 @@ func (d DefaultAdminPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "priority", d.Priority)
 	populate(objectMap, "protocol", d.Protocol)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
+	populate(objectMap, "resourceGuid", d.ResourceGUID)
 	populate(objectMap, "sourcePortRanges", d.SourcePortRanges)
 	populate(objectMap, "sources", d.Sources)
 	return json.Marshal(objectMap)
@@ -10258,6 +10271,9 @@ func (d *DefaultAdminPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &d.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &d.ResourceGUID)
 			delete(rawMsg, key)
 		case "sourcePortRanges":
 			err = unpopulate(val, "SourcePortRanges", &d.SourcePortRanges)
@@ -16012,6 +16028,7 @@ func (g GroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "description", g.Description)
 	populate(objectMap, "provisioningState", g.ProvisioningState)
+	populate(objectMap, "resourceGuid", g.ResourceGUID)
 	return json.Marshal(objectMap)
 }
 
@@ -16029,6 +16046,9 @@ func (g *GroupProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &g.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &g.ResourceGUID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -20330,6 +20350,7 @@ func (m ManagerProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "networkManagerScopeAccesses", m.NetworkManagerScopeAccesses)
 	populate(objectMap, "networkManagerScopes", m.NetworkManagerScopes)
 	populate(objectMap, "provisioningState", m.ProvisioningState)
+	populate(objectMap, "resourceGuid", m.ResourceGUID)
 	return json.Marshal(objectMap)
 }
 
@@ -20353,6 +20374,9 @@ func (m *ManagerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &m.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &m.ResourceGUID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -25899,6 +25923,7 @@ func (s SecurityAdminConfigurationPropertiesFormat) MarshalJSON() ([]byte, error
 	populate(objectMap, "applyOnNetworkIntentPolicyBasedServices", s.ApplyOnNetworkIntentPolicyBasedServices)
 	populate(objectMap, "description", s.Description)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
+	populate(objectMap, "resourceGuid", s.ResourceGUID)
 	return json.Marshal(objectMap)
 }
 
@@ -25919,6 +25944,9 @@ func (s *SecurityAdminConfigurationPropertiesFormat) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &s.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &s.ResourceGUID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
