@@ -147,3 +147,8 @@ func (c *ClientFactory) NewGlobalParametersClient() *GlobalParametersClient {
 	subClient, _ := NewGlobalParametersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewChangeDataCaptureClient() *ChangeDataCaptureClient {
+	subClient, _ := NewChangeDataCaptureClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
