@@ -47,15 +47,15 @@ func NewOutboundFirewallRulesClient(subscriptionID string, credential azcore.Tok
 // BeginCreateOrUpdate - Create a outbound firewall rule with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-02-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
 //   - options - OutboundFirewallRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the OutboundFirewallRulesClient.BeginCreateOrUpdate
 //     method.
-func (client *OutboundFirewallRulesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, parameters OutboundFirewallRule, options *OutboundFirewallRulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[OutboundFirewallRulesClientCreateOrUpdateResponse], error) {
+func (client *OutboundFirewallRulesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, options *OutboundFirewallRulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[OutboundFirewallRulesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, serverName, outboundRuleFqdn, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, serverName, outboundRuleFqdn, options)
 		if err != nil {
 			return nil, err
 		}
@@ -68,9 +68,9 @@ func (client *OutboundFirewallRulesClient) BeginCreateOrUpdate(ctx context.Conte
 // CreateOrUpdate - Create a outbound firewall rule with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-02-01-preview
-func (client *OutboundFirewallRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, parameters OutboundFirewallRule, options *OutboundFirewallRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, outboundRuleFqdn, parameters, options)
+// Generated from API version 2023-02-01-preview
+func (client *OutboundFirewallRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, options *OutboundFirewallRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, outboundRuleFqdn, options)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (client *OutboundFirewallRulesClient) createOrUpdate(ctx context.Context, r
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *OutboundFirewallRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, parameters OutboundFirewallRule, options *OutboundFirewallRulesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *OutboundFirewallRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, options *OutboundFirewallRulesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/outboundFirewallRules/{outboundRuleFqdn}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -108,16 +108,16 @@ func (client *OutboundFirewallRulesClient) createOrUpdateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-02-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, nil
 }
 
 // BeginDelete - Deletes a outbound firewall rule with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-02-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -138,7 +138,7 @@ func (client *OutboundFirewallRulesClient) BeginDelete(ctx context.Context, reso
 // Delete - Deletes a outbound firewall rule with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-02-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *OutboundFirewallRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, outboundRuleFqdn string, options *OutboundFirewallRulesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, outboundRuleFqdn, options)
 	if err != nil {
@@ -178,7 +178,7 @@ func (client *OutboundFirewallRulesClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-02-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -186,7 +186,7 @@ func (client *OutboundFirewallRulesClient) deleteCreateRequest(ctx context.Conte
 // Get - Gets an outbound firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-02-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -231,7 +231,7 @@ func (client *OutboundFirewallRulesClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-02-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *OutboundFirewallRulesClient) getHandleResponse(resp *http.Response
 
 // NewListByServerPager - Gets all outbound firewall rules on a server.
 //
-// Generated from API version 2021-02-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -302,7 +302,7 @@ func (client *OutboundFirewallRulesClient) listByServerCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-02-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
