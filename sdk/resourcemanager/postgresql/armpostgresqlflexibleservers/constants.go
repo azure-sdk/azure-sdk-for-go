@@ -11,7 +11,7 @@ package armpostgresqlflexibleservers
 
 const (
 	moduleName    = "armpostgresqlflexibleservers"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v4.0.0"
 )
 
 // ActiveDirectoryAuthEnum - If Enabled, Azure Active Directory authentication is enabled.
@@ -196,20 +196,18 @@ func PossibleHighAvailabilityModeValues() []HighAvailabilityMode {
 	}
 }
 
-// IdentityType - the types of identities associated with this resource; currently restricted to 'SystemAssigned and UserAssigned'
+// IdentityType - the types of identities associated with this resource; currently restricted to 'None and UserAssigned'
 type IdentityType string
 
 const (
-	IdentityTypeNone           IdentityType = "None"
-	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
-	IdentityTypeUserAssigned   IdentityType = "UserAssigned"
+	IdentityTypeNone         IdentityType = "None"
+	IdentityTypeUserAssigned IdentityType = "UserAssigned"
 )
 
 // PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
 func PossibleIdentityTypeValues() []IdentityType {
 	return []IdentityType{
 		IdentityTypeNone,
-		IdentityTypeSystemAssigned,
 		IdentityTypeUserAssigned,
 	}
 }

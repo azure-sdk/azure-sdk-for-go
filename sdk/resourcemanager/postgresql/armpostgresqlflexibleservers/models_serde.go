@@ -1656,6 +1656,7 @@ func (s ServerPropertiesForUpdate) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dataEncryption", s.DataEncryption)
 	populate(objectMap, "highAvailability", s.HighAvailability)
 	populate(objectMap, "maintenanceWindow", s.MaintenanceWindow)
+	populate(objectMap, "network", s.Network)
 	populate(objectMap, "replicationRole", s.ReplicationRole)
 	populate(objectMap, "storage", s.Storage)
 	populate(objectMap, "version", s.Version)
@@ -1691,6 +1692,9 @@ func (s *ServerPropertiesForUpdate) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maintenanceWindow":
 			err = unpopulate(val, "MaintenanceWindow", &s.MaintenanceWindow)
+			delete(rawMsg, key)
+		case "network":
+			err = unpopulate(val, "Network", &s.Network)
 			delete(rawMsg, key)
 		case "replicationRole":
 			err = unpopulate(val, "ReplicationRole", &s.ReplicationRole)
@@ -1946,6 +1950,7 @@ func (s *SystemData) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type UserAssignedIdentity.
 func (u UserAssignedIdentity) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "tenantId", u.TenantID)
 	populate(objectMap, "type", u.Type)
 	populate(objectMap, "userAssignedIdentities", u.UserAssignedIdentities)
 	return json.Marshal(objectMap)
@@ -1960,6 +1965,9 @@ func (u *UserAssignedIdentity) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "tenantId":
+			err = unpopulate(val, "TenantID", &u.TenantID)
+			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &u.Type)
 			delete(rawMsg, key)
