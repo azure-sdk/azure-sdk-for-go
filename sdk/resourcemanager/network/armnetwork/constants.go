@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v3.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -79,6 +79,23 @@ func PossibleAdminRuleKindValues() []AdminRuleKind {
 	return []AdminRuleKind{
 		AdminRuleKindCustom,
 		AdminRuleKindDefault,
+	}
+}
+
+// AdminState - Property to indicate if the Express Route Gateway serves traffic when there are multiple Express Route Gateways
+// in the vnet
+type AdminState string
+
+const (
+	AdminStateDisabled AdminState = "Disabled"
+	AdminStateEnabled  AdminState = "Enabled"
+)
+
+// PossibleAdminStateValues returns the possible values for the AdminState const type.
+func PossibleAdminStateValues() []AdminState {
+	return []AdminState{
+		AdminStateDisabled,
+		AdminStateEnabled,
 	}
 }
 

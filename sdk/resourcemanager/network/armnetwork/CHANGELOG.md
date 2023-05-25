@@ -1,5 +1,12 @@
 # Release History
 
+## 3.1.0 (2023-05-25)
+### Features Added
+
+- New enum type `AdminState` with values `AdminStateDisabled`, `AdminStateEnabled`
+- New field `AdminState` in struct `VirtualNetworkGatewayPropertiesFormat`
+
+
 ## 3.0.0 (2023-05-26)
 ### Breaking Changes
 

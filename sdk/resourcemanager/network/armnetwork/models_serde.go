@@ -32681,6 +32681,7 @@ func (v *VirtualNetworkGatewayPolicyGroupProperties) UnmarshalJSON(data []byte) 
 func (v VirtualNetworkGatewayPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "activeActive", v.Active)
+	populate(objectMap, "adminState", v.AdminState)
 	populate(objectMap, "allowRemoteVnetTraffic", v.AllowRemoteVnetTraffic)
 	populate(objectMap, "allowVirtualWanTraffic", v.AllowVirtualWanTraffic)
 	populate(objectMap, "bgpSettings", v.BgpSettings)
@@ -32717,6 +32718,9 @@ func (v *VirtualNetworkGatewayPropertiesFormat) UnmarshalJSON(data []byte) error
 		switch key {
 		case "activeActive":
 			err = unpopulate(val, "Active", &v.Active)
+			delete(rawMsg, key)
+		case "adminState":
+			err = unpopulate(val, "AdminState", &v.AdminState)
 			delete(rawMsg, key)
 		case "allowRemoteVnetTraffic":
 			err = unpopulate(val, "AllowRemoteVnetTraffic", &v.AllowRemoteVnetTraffic)

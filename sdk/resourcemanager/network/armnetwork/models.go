@@ -15375,10 +15375,10 @@ type VirtualAppliance struct {
 
 // VirtualApplianceAdditionalNicProperties - Network Virtual Appliance Additional NIC properties.
 type VirtualApplianceAdditionalNicProperties struct {
-	// Customer Intent for Public Ip on additional nic
+	// Flag (true alse) for Intent for Public Ip on additional nic
 	HasPublicIP *bool
 
-	// Customer Name for additional nic
+	// Name of additional nic
 	Name *string
 }
 
@@ -16591,6 +16591,10 @@ type VirtualNetworkGatewayPolicyGroupProperties struct {
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
 	Active *bool
+
+	// Property to indicate if the Express Route Gateway serves traffic when there are multiple Express Route Gateways in the
+	// vnet
+	AdminState *AdminState
 
 	// Configure this gateway to accept traffic from other Azure Virtual Networks. This configuration does not support connectivity
 	// to Azure Virtual WAN.
