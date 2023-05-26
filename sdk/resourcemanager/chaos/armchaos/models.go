@@ -175,11 +175,23 @@ type CapabilityTypeListResult struct {
 
 // CapabilityTypeProperties - Model that represents the Capability Type properties model.
 type CapabilityTypeProperties struct {
+	// Control plane actions necessary to execute capability type.
+	AzureRbacActions []*string
+
+	// Data plane actions necessary to execute capability type.
+	AzureRbacDataActions []*string
+
+	// Runtime properties of this Capability Type.
+	RuntimeProperties *CapabilityTypePropertiesRuntimeProperties
+
 	// READ-ONLY; Localized string of the description.
 	Description *string
 
 	// READ-ONLY; Localized string of the display name.
 	DisplayName *string
+
+	// READ-ONLY; String of the kind of this Capability Type.
+	Kind *string
 
 	// READ-ONLY; URL to retrieve JSON schema of the Capability Type parameters.
 	ParametersSchema *string
@@ -192,6 +204,12 @@ type CapabilityTypeProperties struct {
 
 	// READ-ONLY; String of the URN for this Capability Type.
 	Urn *string
+}
+
+// CapabilityTypePropertiesRuntimeProperties - Runtime properties of this Capability Type.
+type CapabilityTypePropertiesRuntimeProperties struct {
+	// READ-ONLY; String of the kind of the resource's action type (continuous or discrete).
+	Kind *string
 }
 
 // CapabilityTypesClientGetOptions contains the optional parameters for the CapabilityTypesClient.Get method.
@@ -441,7 +459,7 @@ type ExperimentListResult struct {
 // ExperimentProperties - Model that represents the Experiment properties model.
 type ExperimentProperties struct {
 	// REQUIRED; List of selectors.
-	Selectors []*Selector
+	Selectors []SelectorClassification
 
 	// REQUIRED; List of steps.
 	Steps []*Step
@@ -495,17 +513,20 @@ type ExperimentStatusProperties struct {
 	Status *string
 }
 
-// ExperimentsClientBeginCancelOptions contains the optional parameters for the ExperimentsClient.BeginCancel method.
-type ExperimentsClientBeginCancelOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+// ExperimentUpdate - Describes an experiment update.
+type ExperimentUpdate struct {
+	// The identity of the experiment resource.
+	Identity *ResourceIdentity
 }
 
-// ExperimentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.BeginCreateOrUpdate
-// method.
-type ExperimentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+// ExperimentsClientCancelOptions contains the optional parameters for the ExperimentsClient.Cancel method.
+type ExperimentsClientCancelOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ExperimentsClientCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.CreateOrUpdate method.
+type ExperimentsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ExperimentsClientDeleteOptions contains the optional parameters for the ExperimentsClient.Delete method.
@@ -564,6 +585,29 @@ type ExperimentsClientStartOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ExperimentsClientUpdateOptions contains the optional parameters for the ExperimentsClient.Update method.
+type ExperimentsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FilterClassification provides polymorphic access to related types.
+// Call the interface's GetFilter() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *Filter, *SimpleFilter
+type FilterClassification interface {
+	// GetFilter returns the Filter content of the underlying type.
+	GetFilter() *Filter
+}
+
+// Filter - Model that represents available filter types that can be applied to a targets list.
+type Filter struct {
+	// REQUIRED; Enum that discriminates between filter types. Currently only Simple type is supported.
+	Type *FilterType
+}
+
+// GetFilter implements the FilterClassification interface for type Filter.
+func (f *Filter) GetFilter() *Filter { return f }
+
 // KeyValuePair - A map to describe the settings of an action.
 type KeyValuePair struct {
 	// REQUIRED; The name of the setting for the action.
@@ -571,6 +615,34 @@ type KeyValuePair struct {
 
 	// REQUIRED; The value of the setting for the action.
 	Value *string
+}
+
+// ListSelector - Model that represents a list selector.
+type ListSelector struct {
+	// REQUIRED; String of the selector ID.
+	ID *string
+
+	// REQUIRED; List of Target references.
+	Targets []*TargetReference
+
+	// REQUIRED; Enum of the selector type.
+	Type *SelectorType
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Model that represents available filter types that can be applied to a targets list.
+	Filter FilterClassification
+}
+
+// GetSelector implements the SelectorClassification interface for type ListSelector.
+func (l *ListSelector) GetSelector() *Selector {
+	return &Selector{
+		Type:                 l.Type,
+		ID:                   l.ID,
+		Filter:               l.Filter,
+		AdditionalProperties: l.AdditionalProperties,
+	}
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -627,6 +699,37 @@ type OperationsClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
+// QuerySelector - Model that represents a query selector.
+type QuerySelector struct {
+	// REQUIRED; String of the selector ID.
+	ID *string
+
+	// REQUIRED; Azure Resource Graph (ARG) Query Language query for target resources.
+	QueryString *string
+
+	// REQUIRED; Subscription id list to scope resource query.
+	SubscriptionIDs []*string
+
+	// REQUIRED; Enum of the selector type.
+	Type *SelectorType
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Model that represents available filter types that can be applied to a targets list.
+	Filter FilterClassification
+}
+
+// GetSelector implements the SelectorClassification interface for type QuerySelector.
+func (q *QuerySelector) GetSelector() *Selector {
+	return &Selector{
+		Type:                 q.Type,
+		ID:                   q.ID,
+		Filter:               q.Filter,
+		AdditionalProperties: q.AdditionalProperties,
+	}
+}
+
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -639,10 +742,15 @@ type Resource struct {
 	Type *string
 }
 
-// ResourceIdentity - The managed identity of a resource.
+// ResourceIdentity - The identity of a resource.
 type ResourceIdentity struct {
 	// REQUIRED; String of the resource identity type.
 	Type *ResourceIdentityType
+
+	// The list of user identities associated with the Experiment. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
 
 	// READ-ONLY; GUID that represents the principal ID of this resource identity.
 	PrincipalID *string
@@ -651,16 +759,53 @@ type ResourceIdentity struct {
 	TenantID *string
 }
 
+// SelectorClassification provides polymorphic access to related types.
+// Call the interface's GetSelector() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ListSelector, *QuerySelector, *Selector
+type SelectorClassification interface {
+	// GetSelector returns the Selector content of the underlying type.
+	GetSelector() *Selector
+}
+
 // Selector - Model that represents a selector in the Experiment resource.
 type Selector struct {
 	// REQUIRED; String of the selector ID.
 	ID *string
 
-	// REQUIRED; List of Target references.
-	Targets []*TargetReference
-
 	// REQUIRED; Enum of the selector type.
 	Type *SelectorType
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Model that represents available filter types that can be applied to a targets list.
+	Filter FilterClassification
+}
+
+// GetSelector implements the SelectorClassification interface for type Selector.
+func (s *Selector) GetSelector() *Selector { return s }
+
+// SimpleFilter - Model that represents a simple target filter.
+type SimpleFilter struct {
+	// REQUIRED; Enum that discriminates between filter types. Currently only Simple type is supported.
+	Type *FilterType
+
+	// Model that represents the Simple filter parameters.
+	Parameters *SimpleFilterParameters
+}
+
+// GetFilter implements the FilterClassification interface for type SimpleFilter.
+func (s *SimpleFilter) GetFilter() *Filter {
+	return &Filter{
+		Type: s.Type,
+	}
+}
+
+// SimpleFilterParameters - Model that represents the Simple filter parameters.
+type SimpleFilterParameters struct {
+	// List of Azure availability zones to filter targets by.
+	Zones []*string
 }
 
 // Step - Model that represents a step in the Experiment resource.
@@ -743,9 +888,8 @@ type TargetReference struct {
 	// REQUIRED; String of the resource ID of a Target resource.
 	ID *string
 
-	// CONSTANT; Enum of the Target reference type.
-	// Field has constant value "ChaosTarget", any specified value is ignored.
-	Type *string
+	// REQUIRED; Enum of the Target reference type.
+	Type *TargetReferenceType
 }
 
 // TargetType - Model that represents a Target Type resource.
@@ -842,4 +986,13 @@ type TrackedResource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }

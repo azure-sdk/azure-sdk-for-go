@@ -43,6 +43,11 @@ func (c *ClientFactory) NewCapabilitiesClient() *CapabilitiesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewCapabilityTypesClient() *CapabilityTypesClient {
+	subClient, _ := NewCapabilityTypesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewExperimentsClient() *ExperimentsClient {
 	subClient, _ := NewExperimentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -53,17 +58,12 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewTargetsClient() *TargetsClient {
-	subClient, _ := NewTargetsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewTargetTypesClient() *TargetTypesClient {
 	subClient, _ := NewTargetTypesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewCapabilityTypesClient() *CapabilityTypesClient {
-	subClient, _ := NewCapabilityTypesClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewTargetsClient() *TargetsClient {
+	subClient, _ := NewTargetsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

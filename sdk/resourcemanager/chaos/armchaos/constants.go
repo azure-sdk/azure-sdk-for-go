@@ -11,7 +11,7 @@ package armchaos
 
 const (
 	moduleName    = "armchaos"
-	moduleVersion = "v0.6.1"
+	moduleVersion = "v0.7.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -48,6 +48,20 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// FilterType - Enum that discriminates between filter types. Currently only Simple type is supported.
+type FilterType string
+
+const (
+	FilterTypeSimple FilterType = "Simple"
+)
+
+// PossibleFilterTypeValues returns the possible values for the FilterType const type.
+func PossibleFilterTypeValues() []FilterType {
+	return []FilterType{
+		FilterTypeSimple,
+	}
+}
+
 // Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
 // value is "user,system"
 type Origin string
@@ -73,6 +87,7 @@ type ResourceIdentityType string
 const (
 	ResourceIdentityTypeNone           ResourceIdentityType = "None"
 	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+	ResourceIdentityTypeUserAssigned   ResourceIdentityType = "UserAssigned"
 )
 
 // PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
@@ -80,6 +95,7 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 	return []ResourceIdentityType{
 		ResourceIdentityTypeNone,
 		ResourceIdentityTypeSystemAssigned,
+		ResourceIdentityTypeUserAssigned,
 	}
 }
 
@@ -87,18 +103,28 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 type SelectorType string
 
 const (
-	SelectorTypePercent SelectorType = "Percent"
-	SelectorTypeRandom  SelectorType = "Random"
-	SelectorTypeTag     SelectorType = "Tag"
-	SelectorTypeList    SelectorType = "List"
+	SelectorTypeList  SelectorType = "List"
+	SelectorTypeQuery SelectorType = "Query"
 )
 
 // PossibleSelectorTypeValues returns the possible values for the SelectorType const type.
 func PossibleSelectorTypeValues() []SelectorType {
 	return []SelectorType{
-		SelectorTypePercent,
-		SelectorTypeRandom,
-		SelectorTypeTag,
 		SelectorTypeList,
+		SelectorTypeQuery,
+	}
+}
+
+// TargetReferenceType - Enum of the Target reference type.
+type TargetReferenceType string
+
+const (
+	TargetReferenceTypeChaosTarget TargetReferenceType = "ChaosTarget"
+)
+
+// PossibleTargetReferenceTypeValues returns the possible values for the TargetReferenceType const type.
+func PossibleTargetReferenceTypeValues() []TargetReferenceType {
+	return []TargetReferenceType{
+		TargetReferenceTypeChaosTarget,
 	}
 }
