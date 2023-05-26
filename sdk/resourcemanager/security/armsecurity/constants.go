@@ -11,7 +11,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.11.0"
+	moduleVersion = "v0.12.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -1596,26 +1596,6 @@ const (
 func PossibleScanningModeValues() []ScanningMode {
 	return []ScanningMode{
 		ScanningModeDefault,
-	}
-}
-
-// ScopeName - The resource scope of the health report
-type ScopeName string
-
-const (
-	ScopeNameClusters        ScopeName = "Clusters"
-	ScopeNameConnectors      ScopeName = "Connectors"
-	ScopeNameUnknown         ScopeName = "Unknown"
-	ScopeNameVirtualMachines ScopeName = "VirtualMachines"
-)
-
-// PossibleScopeNameValues returns the possible values for the ScopeName const type.
-func PossibleScopeNameValues() []ScopeName {
-	return []ScopeName{
-		ScopeNameClusters,
-		ScopeNameConnectors,
-		ScopeNameUnknown,
-		ScopeNameVirtualMachines,
 	}
 }
 
