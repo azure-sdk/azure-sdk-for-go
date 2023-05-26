@@ -48,7 +48,7 @@ func NewManagedDatabaseSensitivityLabelsClient(subscriptionID string, credential
 // CreateOrUpdate - Creates or updates the sensitivity label of a given column
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -111,7 +111,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) createOrUpdateCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -129,7 +129,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) createOrUpdateHandleRespon
 // Delete - Deletes the sensitivity label of a given column
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -191,7 +191,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) deleteCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -199,7 +199,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) deleteCreateRequest(ctx co
 // DisableRecommendation - Disables sensitivity recommendations on a given column
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -261,7 +261,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) disableRecommendationCreat
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -270,7 +270,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) disableRecommendationCreat
 // all columns)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -332,7 +332,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) enableRecommendationCreate
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -340,7 +340,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) enableRecommendationCreate
 // Get - Gets the sensitivity label of a given column
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -348,11 +348,10 @@ func (client *ManagedDatabaseSensitivityLabelsClient) enableRecommendationCreate
 //   - schemaName - The name of the schema.
 //   - tableName - The name of the table.
 //   - columnName - The name of the column.
-//   - sensitivityLabelSource - The source of the sensitivity label.
 //   - options - ManagedDatabaseSensitivityLabelsClientGetOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.Get
 //     method.
-func (client *ManagedDatabaseSensitivityLabelsClient) Get(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, sensitivityLabelSource SensitivityLabelSource, options *ManagedDatabaseSensitivityLabelsClientGetOptions) (ManagedDatabaseSensitivityLabelsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, schemaName, tableName, columnName, sensitivityLabelSource, options)
+func (client *ManagedDatabaseSensitivityLabelsClient) Get(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, options *ManagedDatabaseSensitivityLabelsClientGetOptions) (ManagedDatabaseSensitivityLabelsClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, schemaName, tableName, columnName, options)
 	if err != nil {
 		return ManagedDatabaseSensitivityLabelsClientGetResponse{}, err
 	}
@@ -367,7 +366,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) Get(ctx context.Context, r
 }
 
 // getCreateRequest creates the Get request.
-func (client *ManagedDatabaseSensitivityLabelsClient) getCreateRequest(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, sensitivityLabelSource SensitivityLabelSource, options *ManagedDatabaseSensitivityLabelsClientGetOptions) (*policy.Request, error) {
+func (client *ManagedDatabaseSensitivityLabelsClient) getCreateRequest(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, options *ManagedDatabaseSensitivityLabelsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}/databases/{databaseName}/schemas/{schemaName}/tables/{tableName}/columns/{columnName}/sensitivityLabels/{sensitivityLabelSource}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -393,10 +392,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) getCreateRequest(ctx conte
 		return nil, errors.New("parameter columnName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{columnName}", url.PathEscape(columnName))
-	if sensitivityLabelSource == "" {
-		return nil, errors.New("parameter sensitivityLabelSource cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{sensitivityLabelSource}", url.PathEscape(string(sensitivityLabelSource)))
+	urlPath = strings.ReplaceAll(urlPath, "{sensitivityLabelSource}", url.PathEscape("current"))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -406,7 +402,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -421,9 +417,167 @@ func (client *ManagedDatabaseSensitivityLabelsClient) getHandleResponse(resp *ht
 	return result, nil
 }
 
+// GetRecommended - Gets the sensitivity label recommendations for a given column
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - managedInstanceName - The name of the managed instance.
+//   - databaseName - The name of the database.
+//   - schemaName - The name of the schema.
+//   - tableName - The name of the table.
+//   - columnName - The name of the column.
+//   - options - ManagedDatabaseSensitivityLabelsClientGetRecommendedOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.GetRecommended
+//     method.
+func (client *ManagedDatabaseSensitivityLabelsClient) GetRecommended(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, options *ManagedDatabaseSensitivityLabelsClientGetRecommendedOptions) (ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse, error) {
+	req, err := client.getRecommendedCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, schemaName, tableName, columnName, options)
+	if err != nil {
+		return ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getRecommendedHandleResponse(resp)
+}
+
+// getRecommendedCreateRequest creates the GetRecommended request.
+func (client *ManagedDatabaseSensitivityLabelsClient) getRecommendedCreateRequest(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, options *ManagedDatabaseSensitivityLabelsClientGetRecommendedOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}/databases/{databaseName}/schemas/{schemaName}/tables/{tableName}/columns/{columnName}/sensitivityLabels/recommended"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if managedInstanceName == "" {
+		return nil, errors.New("parameter managedInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{managedInstanceName}", url.PathEscape(managedInstanceName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if schemaName == "" {
+		return nil, errors.New("parameter schemaName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{schemaName}", url.PathEscape(schemaName))
+	if tableName == "" {
+		return nil, errors.New("parameter tableName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{tableName}", url.PathEscape(tableName))
+	if columnName == "" {
+		return nil, errors.New("parameter columnName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{columnName}", url.PathEscape(columnName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getRecommendedHandleResponse handles the GetRecommended response.
+func (client *ManagedDatabaseSensitivityLabelsClient) getRecommendedHandleResponse(resp *http.Response) (ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse, error) {
+	result := ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SensitivityLabel); err != nil {
+		return ManagedDatabaseSensitivityLabelsClientGetRecommendedResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListByDatabasePager - Gets the sensitivity labels of a given database
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - managedInstanceName - The name of the managed instance.
+//   - databaseName - The name of the database.
+//   - options - ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager
+//     method.
+func (client *ManagedDatabaseSensitivityLabelsClient) NewListByDatabasePager(resourceGroupName string, managedInstanceName string, databaseName string, options *ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions) *runtime.Pager[ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse]{
+		More: func(page ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse) (ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByDatabaseCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByDatabaseHandleResponse(resp)
+		},
+	})
+}
+
+// listByDatabaseCreateRequest creates the ListByDatabase request.
+func (client *ManagedDatabaseSensitivityLabelsClient) listByDatabaseCreateRequest(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, options *ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}/databases/{databaseName}/sensitivityLabels"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if managedInstanceName == "" {
+		return nil, errors.New("parameter managedInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{managedInstanceName}", url.PathEscape(managedInstanceName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	reqQP.Set("api-version", "2022-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByDatabaseHandleResponse handles the ListByDatabase response.
+func (client *ManagedDatabaseSensitivityLabelsClient) listByDatabaseHandleResponse(resp *http.Response) (ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse, error) {
+	result := ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SensitivityLabelListResult); err != nil {
+		return ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListCurrentByDatabasePager - Gets the sensitivity labels of a given database
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -491,7 +645,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) listCurrentByDatabaseCreat
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -508,7 +662,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) listCurrentByDatabaseHandl
 
 // NewListRecommendedByDatabasePager - Gets the sensitivity labels of a given database
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -576,7 +730,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) listRecommendedByDatabaseC
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -594,7 +748,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) listRecommendedByDatabaseH
 // Update - Update sensitivity labels of a given database using an operations batch.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -640,7 +794,7 @@ func (client *ManagedDatabaseSensitivityLabelsClient) updateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
