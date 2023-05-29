@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.3"
+	moduleVersion = "v2.0.0-beta.4"
 )
 
 // AccessMode - Access mode for storage
@@ -128,6 +128,28 @@ func PossibleBindingTypeValues() []BindingType {
 	}
 }
 
+// BuildStatus - Status of the build once it has been provisioned.
+type BuildStatus string
+
+const (
+	BuildStatusCanceled   BuildStatus = "Canceled"
+	BuildStatusFailed     BuildStatus = "Failed"
+	BuildStatusInProgress BuildStatus = "InProgress"
+	BuildStatusNotStarted BuildStatus = "NotStarted"
+	BuildStatusSucceeded  BuildStatus = "Succeeded"
+)
+
+// PossibleBuildStatusValues returns the possible values for the BuildStatus const type.
+func PossibleBuildStatusValues() []BuildStatus {
+	return []BuildStatus{
+		BuildStatusCanceled,
+		BuildStatusFailed,
+		BuildStatusInProgress,
+		BuildStatusNotStarted,
+		BuildStatusSucceeded,
+	}
+}
+
 // CertificateProvisioningState - Provisioning state of the certificate.
 type CertificateProvisioningState string
 
@@ -194,6 +216,24 @@ func PossibleConnectedEnvironmentProvisioningStateValues() []ConnectedEnvironmen
 	}
 }
 
+// ContainerAppContainerRunningState - Current running state of the container
+type ContainerAppContainerRunningState string
+
+const (
+	ContainerAppContainerRunningStateRunning    ContainerAppContainerRunningState = "Running"
+	ContainerAppContainerRunningStateTerminated ContainerAppContainerRunningState = "Terminated"
+	ContainerAppContainerRunningStateWaiting    ContainerAppContainerRunningState = "Waiting"
+)
+
+// PossibleContainerAppContainerRunningStateValues returns the possible values for the ContainerAppContainerRunningState const type.
+func PossibleContainerAppContainerRunningStateValues() []ContainerAppContainerRunningState {
+	return []ContainerAppContainerRunningState{
+		ContainerAppContainerRunningStateRunning,
+		ContainerAppContainerRunningStateTerminated,
+		ContainerAppContainerRunningStateWaiting,
+	}
+}
+
 // ContainerAppProvisioningState - Provisioning state of the Container App.
 type ContainerAppProvisioningState string
 
@@ -213,6 +253,24 @@ func PossibleContainerAppProvisioningStateValues() []ContainerAppProvisioningSta
 		ContainerAppProvisioningStateFailed,
 		ContainerAppProvisioningStateInProgress,
 		ContainerAppProvisioningStateSucceeded,
+	}
+}
+
+// ContainerAppReplicaRunningState - Current running state of the replica
+type ContainerAppReplicaRunningState string
+
+const (
+	ContainerAppReplicaRunningStateNotRunning ContainerAppReplicaRunningState = "NotRunning"
+	ContainerAppReplicaRunningStateRunning    ContainerAppReplicaRunningState = "Running"
+	ContainerAppReplicaRunningStateUnknown    ContainerAppReplicaRunningState = "Unknown"
+)
+
+// PossibleContainerAppReplicaRunningStateValues returns the possible values for the ContainerAppReplicaRunningState const type.
+func PossibleContainerAppReplicaRunningStateValues() []ContainerAppReplicaRunningState {
+	return []ContainerAppReplicaRunningState{
+		ContainerAppReplicaRunningStateNotRunning,
+		ContainerAppReplicaRunningStateRunning,
+		ContainerAppReplicaRunningStateUnknown,
 	}
 }
 
@@ -477,6 +535,28 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 		ManagedServiceIdentityTypeSystemAssigned,
 		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
 		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// ProvisioningState - Resource instance provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled   ProvisioningState = "Canceled"
+	ProvisioningStateDeleting   ProvisioningState = "Deleting"
+	ProvisioningStateFailed     ProvisioningState = "Failed"
+	ProvisioningStateInProgress ProvisioningState = "InProgress"
+	ProvisioningStateSucceeded  ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateInProgress,
+		ProvisioningStateSucceeded,
 	}
 }
 

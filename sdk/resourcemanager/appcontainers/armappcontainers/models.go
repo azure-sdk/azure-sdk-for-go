@@ -372,6 +372,196 @@ type BillingMetersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BuildCollection - The response of a BuildResource list operation.
+type BuildCollection struct {
+	// REQUIRED; The BuildResource items on this page
+	Value []*BuildResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// BuildConfiguration - Configuration of the build.
+type BuildConfiguration struct {
+	// Base OS used to build and run the app.
+	BaseOs *string
+
+	// List of environment variables to be passed to the build and application runtime.
+	EnvironmentVariables []*EnvironmentVariable
+
+	// Platform to be used to build and run the app.
+	Platform *string
+
+	// Platform version to be used to build and run the app.
+	PlatformVersion *string
+
+	// List of steps to perform before the build.
+	PreBuildSteps []*PreBuildStep
+}
+
+// BuildProperties - The build properties.
+type BuildProperties struct {
+	// Configuration of the build.
+	Configuration *BuildConfiguration
+
+	// Container registry that the final image will be uploaded to.
+	DestinationContainerRegistry *ContainerRegistryWithCustomImage
+
+	// READ-ONLY; Status of the build once it has been provisioned.
+	BuildStatus *BuildStatus
+
+	// READ-ONLY; Build provisioning state.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Endpoint to which the source code should be uploaded.
+	UploadEndpoint *string
+}
+
+// BuildResource - Information pertaining to an individual build.
+type BuildResource struct {
+	// The resource-specific properties for this resource.
+	Properties *BuildProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// BuilderCollection - The response of a BuilderResource list operation.
+type BuilderCollection struct {
+	// REQUIRED; The BuilderResource items on this page
+	Value []*BuilderResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// BuilderProperties - The builder properties.
+type BuilderProperties struct {
+	// REQUIRED; Resource ID of the container apps environment that the builder is associated with.
+	EnvironmentID *string
+
+	// READ-ONLY; Resource ID of the compute that the builds will be performed on.
+	BuildComputeID *string
+
+	// READ-ONLY; Resource ID of the compute that the patching will be performed on.
+	PatchComputeID *string
+
+	// READ-ONLY; Provisioning state of a builder resource.
+	ProvisioningState *ProvisioningState
+}
+
+// BuilderResource - Information about the SourceToCloud builder resource.
+type BuilderResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
+
+	// The resource-specific properties for this resource.
+	Properties *BuilderProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// BuilderResourceUpdate - The type used for update operations of the BuilderResource.
+type BuilderResourceUpdate struct {
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
+
+	// The updatable properties of the BuilderResource.
+	Properties *BuilderResourceUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// BuilderResourceUpdateProperties - The updatable properties of the BuilderResource.
+type BuilderResourceUpdateProperties struct {
+	// Resource ID of the container apps environment that the builder is associated with.
+	EnvironmentID *string
+}
+
+// BuildersClientBeginCreateOrUpdateOptions contains the optional parameters for the BuildersClient.BeginCreateOrUpdate method.
+type BuildersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildersClientBeginDeleteOptions contains the optional parameters for the BuildersClient.BeginDelete method.
+type BuildersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildersClientBeginUpdateOptions contains the optional parameters for the BuildersClient.BeginUpdate method.
+type BuildersClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildersClientGetOptions contains the optional parameters for the BuildersClient.Get method.
+type BuildersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildersClientListByResourceGroupOptions contains the optional parameters for the BuildersClient.NewListByResourceGroupPager
+// method.
+type BuildersClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildersClientListBySubscriptionOptions contains the optional parameters for the BuildersClient.NewListBySubscriptionPager
+// method.
+type BuildersClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildsClientBeginCreateOrUpdateOptions contains the optional parameters for the BuildsClient.BeginCreateOrUpdate method.
+type BuildsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildsClientBeginDeleteOptions contains the optional parameters for the BuildsClient.BeginDelete method.
+type BuildsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildsClientGetOptions contains the optional parameters for the BuildsClient.Get method.
+type BuildsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildsClientListByBuilderResourceOptions contains the optional parameters for the BuildsClient.NewListByBuilderResourcePager
+// method.
+type BuildsClientListByBuilderResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
 // Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
 type Certificate struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -987,6 +1177,12 @@ type ContainerAppSecret struct {
 	Value *string
 }
 
+// ContainerAppsAPIClientGetVerificationIDOptions contains the optional parameters for the ContainerAppsAPIClient.GetVerificationID
+// method.
+type ContainerAppsAPIClientGetVerificationIDOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ContainerAppsAuthConfigsClientCreateOrUpdateOptions contains the optional parameters for the ContainerAppsAuthConfigsClient.CreateOrUpdate
 // method.
 type ContainerAppsAuthConfigsClientCreateOrUpdateOptions struct {
@@ -1161,6 +1357,19 @@ type ContainerAppsSourceControlsClientGetOptions struct {
 // method.
 type ContainerAppsSourceControlsClientListByContainerAppOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ContainerRegistryWithCustomImage - Container registry that the final image will be uploaded to.
+type ContainerRegistryWithCustomImage struct {
+	// REQUIRED; Full user-assigned identity Resource ID for the managed identity that should be used to connect to the container
+	// registry.
+	Identity *string
+
+	// REQUIRED; Login server of the container registry that the final image should be uploaded to.
+	Server *string
+
+	// Full name that the final image should be uploaded as, including both image name and tag.
+	Image *string
 }
 
 // ContainerResources - Container App container resource requirements.
@@ -1718,6 +1927,15 @@ type EnvironmentVar struct {
 	Value *string
 }
 
+// EnvironmentVariable - Model representing an environment variable.
+type EnvironmentVariable struct {
+	// REQUIRED; Environment variable name.
+	Name *string
+
+	// REQUIRED; Environment variable value.
+	Value *string
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -1854,6 +2072,18 @@ type Google struct {
 
 	// The configuration settings of the Azure Active Directory token validation flow.
 	Validation *AllowedAudiencesValidation
+}
+
+// HTTPGet - Model representing a http get request.
+type HTTPGet struct {
+	// REQUIRED; URL to make HTTP GET request against.
+	URL *string
+
+	// Name of the file that the request should be saved to.
+	FileName *string
+
+	// List of headers to send with the request.
+	Headers []*string
 }
 
 // HTTPScaleRule - Container App container Http scaling rule.
@@ -2758,6 +2988,18 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PreBuildStep - Model representing a pre-build step.
+type PreBuildStep struct {
+	// Description of the pre-build step.
+	Description *string
+
+	// Http get request to send before the build.
+	HTTPGet *HTTPGet
+
+	// List of custom commands to run.
+	Scripts []*string
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -2860,6 +3102,12 @@ type ReplicaContainer struct {
 
 	// READ-ONLY; Log Stream endpoint
 	LogStreamEndpoint *string
+
+	// READ-ONLY; Current running state of the container
+	RunningState *ContainerAppContainerRunningState
+
+	// READ-ONLY; The details of container current running state
+	RunningStateDetails *string
 }
 
 // ReplicaProperties - Replica resource specific properties
@@ -2867,8 +3115,17 @@ type ReplicaProperties struct {
 	// The containers collection under a replica.
 	Containers []*ReplicaContainer
 
+	// The init containers collection under a replica.
+	InitContainers []*ReplicaContainer
+
 	// READ-ONLY; Timestamp describing when the pod was created by controller
 	CreatedTime *time.Time
+
+	// READ-ONLY; Current running state of the replica
+	RunningState *ContainerAppReplicaRunningState
+
+	// READ-ONLY; The details of replica current running state
+	RunningStateDetails *string
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
@@ -3104,6 +3361,12 @@ type Template struct {
 	// Scaling properties for the Container App.
 	Scale *Scale
 
+	// Optional duration in seconds the Container App Instance needs to terminate gracefully. Value must be non-negative integer.
+	// The value zero indicates stop immediately via the kill signal (no opportunity
+	// to shut down). If this value is nil, the default grace period will be used instead. Set this value longer than the expected
+	// cleanup time for your process. Defaults to 30 seconds.
+	TerminationGracePeriodSeconds *int64
+
 	// List of volume definitions for the Container App.
 	Volumes []*Volume
 }
@@ -3195,6 +3458,9 @@ type VnetConfiguration struct {
 
 // Volume definitions for the Container App.
 type Volume struct {
+	// Mount options used while mounting the AzureFile. Must be a comma-separated string.
+	MountOptions *string
+
 	// Volume name.
 	Name *string
 
@@ -3212,6 +3478,9 @@ type Volume struct {
 type VolumeMount struct {
 	// Path within the container at which the volume should be mounted.Must not contain ':'.
 	MountPath *string
+
+	// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+	SubPath *string
 
 	// This must match the Name of a Volume.
 	VolumeName *string
