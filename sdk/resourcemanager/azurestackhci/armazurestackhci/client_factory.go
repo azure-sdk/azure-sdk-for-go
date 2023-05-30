@@ -53,7 +53,37 @@ func (c *ClientFactory) NewExtensionsClient() *ExtensionsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewOffersClient() *OffersClient {
+	subClient, _ := NewOffersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPublishersClient() *PublishersClient {
+	subClient, _ := NewPublishersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSKUsClient() *SKUsClient {
+	subClient, _ := NewSKUsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewUpdateRunsClient() *UpdateRunsClient {
+	subClient, _ := NewUpdateRunsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewUpdateSummariesClient() *UpdateSummariesClient {
+	subClient, _ := NewUpdateSummariesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewUpdatesClient() *UpdatesClient {
+	subClient, _ := NewUpdatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
