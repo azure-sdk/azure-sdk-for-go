@@ -44,10 +44,78 @@ func NewMachinesClient(subscriptionID string, credential azcore.TokenCredential,
 	return client, nil
 }
 
-// CreateOrUpdate - The operation to create or update a hybrid machine resource identity in Azure.
+// BeginAssessPatches - The operation to assess patches on a hybrid machine identity in Azure.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
+//   - resourceGroupName - The name of the resource group.
+//   - name - The name of the hybrid machine.
+//   - options - MachinesClientBeginAssessPatchesOptions contains the optional parameters for the MachinesClient.BeginAssessPatches
+//     method.
+func (client *MachinesClient) BeginAssessPatches(ctx context.Context, resourceGroupName string, name string, options *MachinesClientBeginAssessPatchesOptions) (*runtime.Poller[MachinesClientAssessPatchesResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.assessPatches(ctx, resourceGroupName, name, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MachinesClientAssessPatchesResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[MachinesClientAssessPatchesResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// AssessPatches - The operation to assess patches on a hybrid machine identity in Azure.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-25-preview
+func (client *MachinesClient) assessPatches(ctx context.Context, resourceGroupName string, name string, options *MachinesClientBeginAssessPatchesOptions) (*http.Response, error) {
+	req, err := client.assessPatchesCreateRequest(ctx, resourceGroupName, name, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// assessPatchesCreateRequest creates the AssessPatches request.
+func (client *MachinesClient) assessPatchesCreateRequest(ctx context.Context, resourceGroupName string, name string, options *MachinesClientBeginAssessPatchesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/machines/{name}/assessPatches"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-25-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// CreateOrUpdate - The operation to create or update a hybrid machine. Please note some properties can be set only during
+// machine creation.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the hybrid machine.
 //   - parameters - Parameters supplied to the Create hybrid machine operation.
@@ -87,7 +155,7 @@ func (client *MachinesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -102,10 +170,10 @@ func (client *MachinesClient) createOrUpdateHandleResponse(resp *http.Response) 
 	return result, nil
 }
 
-// Delete - The operation to remove a hybrid machine identity in Azure.
+// Delete - The operation to delete a hybrid machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the hybrid machine.
 //   - options - MachinesClientDeleteOptions contains the optional parameters for the MachinesClient.Delete method.
@@ -144,7 +212,7 @@ func (client *MachinesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -153,7 +221,7 @@ func (client *MachinesClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Retrieves information about the model view or the instance view of a hybrid machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the hybrid machine.
 //   - options - MachinesClientGetOptions contains the optional parameters for the MachinesClient.Get method.
@@ -192,7 +260,7 @@ func (client *MachinesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
@@ -210,10 +278,78 @@ func (client *MachinesClient) getHandleResponse(resp *http.Response) (MachinesCl
 	return result, nil
 }
 
+// BeginInstallPatches - The operation to install patches on a hybrid machine identity in Azure.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-25-preview
+//   - resourceGroupName - The name of the resource group.
+//   - name - The name of the hybrid machine.
+//   - installPatchesInput - Input for InstallPatches as directly received by the API
+//   - options - MachinesClientBeginInstallPatchesOptions contains the optional parameters for the MachinesClient.BeginInstallPatches
+//     method.
+func (client *MachinesClient) BeginInstallPatches(ctx context.Context, resourceGroupName string, name string, installPatchesInput MachineInstallPatchesParameters, options *MachinesClientBeginInstallPatchesOptions) (*runtime.Poller[MachinesClientInstallPatchesResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.installPatches(ctx, resourceGroupName, name, installPatchesInput, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MachinesClientInstallPatchesResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[MachinesClientInstallPatchesResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// InstallPatches - The operation to install patches on a hybrid machine identity in Azure.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-25-preview
+func (client *MachinesClient) installPatches(ctx context.Context, resourceGroupName string, name string, installPatchesInput MachineInstallPatchesParameters, options *MachinesClientBeginInstallPatchesOptions) (*http.Response, error) {
+	req, err := client.installPatchesCreateRequest(ctx, resourceGroupName, name, installPatchesInput, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// installPatchesCreateRequest creates the InstallPatches request.
+func (client *MachinesClient) installPatchesCreateRequest(ctx context.Context, resourceGroupName string, name string, installPatchesInput MachineInstallPatchesParameters, options *MachinesClientBeginInstallPatchesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/machines/{name}/installPatches"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-25-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, installPatchesInput)
+}
+
 // NewListByResourceGroupPager - Lists all the hybrid machines in the specified resource group. Use the nextLink property
 // in the response to get the next page of hybrid machines.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - MachinesClientListByResourceGroupOptions contains the optional parameters for the MachinesClient.NewListByResourceGroupPager
 //     method.
@@ -261,7 +397,7 @@ func (client *MachinesClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -279,7 +415,7 @@ func (client *MachinesClient) listByResourceGroupHandleResponse(resp *http.Respo
 // NewListBySubscriptionPager - Lists all the hybrid machines in the specified subscription. Use the nextLink property in
 // the response to get the next page of hybrid machines.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - options - MachinesClientListBySubscriptionOptions contains the optional parameters for the MachinesClient.NewListBySubscriptionPager
 //     method.
 func (client *MachinesClient) NewListBySubscriptionPager(options *MachinesClientListBySubscriptionOptions) *runtime.Pager[MachinesClientListBySubscriptionResponse] {
@@ -322,7 +458,7 @@ func (client *MachinesClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -340,7 +476,7 @@ func (client *MachinesClient) listBySubscriptionHandleResponse(resp *http.Respon
 // Update - The operation to update a hybrid machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the hybrid machine.
 //   - parameters - Parameters supplied to the Update hybrid machine operation.
@@ -380,7 +516,7 @@ func (client *MachinesClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

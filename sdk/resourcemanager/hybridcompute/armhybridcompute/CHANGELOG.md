@@ -1,5 +1,91 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-05-30)
+### Breaking Changes
+
+- Type of `MachineExtensionProperties.ProtectedSettings` has been changed from `any` to `map[string]any`
+- Type of `MachineExtensionProperties.Settings` has been changed from `any` to `map[string]any`
+- Type of `MachineExtensionUpdateProperties.ProtectedSettings` has been changed from `any` to `map[string]any`
+- Type of `MachineExtensionUpdateProperties.Settings` has been changed from `any` to `map[string]any`
+
+### Features Added
+
+- New enum type `AgentConfigurationMode` with values `AgentConfigurationModeFull`, `AgentConfigurationModeMonitor`
+- New enum type `LastAttemptStatusEnum` with values `LastAttemptStatusEnumFailed`, `LastAttemptStatusEnumSuccess`
+- New enum type `OsType` with values `OsTypeLinux`, `OsTypeWindows`
+- New enum type `PatchOperationStartedBy` with values `PatchOperationStartedByPlatform`, `PatchOperationStartedByUser`
+- New enum type `PatchOperationStatus` with values `PatchOperationStatusCompletedWithWarnings`, `PatchOperationStatusFailed`, `PatchOperationStatusInProgress`, `PatchOperationStatusSucceeded`, `PatchOperationStatusUnknown`
+- New enum type `PatchServiceUsed` with values `PatchServiceUsedAPT`, `PatchServiceUsedUnknown`, `PatchServiceUsedWU`, `PatchServiceUsedWUWSUS`, `PatchServiceUsedYUM`, `PatchServiceUsedZypper`
+- New enum type `PrivateCloudKind` with values `PrivateCloudKindAVS`, `PrivateCloudKindHCI`, `PrivateCloudKindSCVMM`, `PrivateCloudKindVMware`
+- New enum type `VMGuestPatchClassificationLinux` with values `VMGuestPatchClassificationLinuxCritical`, `VMGuestPatchClassificationLinuxOther`, `VMGuestPatchClassificationLinuxSecurity`
+- New enum type `VMGuestPatchClassificationWindows` with values `VMGuestPatchClassificationWindowsCritical`, `VMGuestPatchClassificationWindowsDefinition`, `VMGuestPatchClassificationWindowsFeaturePack`, `VMGuestPatchClassificationWindowsSecurity`, `VMGuestPatchClassificationWindowsServicePack`, `VMGuestPatchClassificationWindowsTools`, `VMGuestPatchClassificationWindowsUpdateRollUp`, `VMGuestPatchClassificationWindowsUpdates`
+- New enum type `VMGuestPatchRebootSetting` with values `VMGuestPatchRebootSettingAlways`, `VMGuestPatchRebootSettingIfRequired`, `VMGuestPatchRebootSettingNever`
+- New enum type `VMGuestPatchRebootStatus` with values `VMGuestPatchRebootStatusCompleted`, `VMGuestPatchRebootStatusFailed`, `VMGuestPatchRebootStatusNotNeeded`, `VMGuestPatchRebootStatusRequired`, `VMGuestPatchRebootStatusStarted`, `VMGuestPatchRebootStatusUnknown`
+- New function `NewAgentVersionClient(azcore.TokenCredential, *arm.ClientOptions) (*AgentVersionClient, error)`
+- New function `*AgentVersionClient.Get(context.Context, string, string, *AgentVersionClientGetOptions) (AgentVersionClientGetResponse, error)`
+- New function `*AgentVersionClient.List(context.Context, string, *AgentVersionClientListOptions) (AgentVersionClientListResponse, error)`
+- New function `*ClientFactory.NewAgentVersionClient() *AgentVersionClient`
+- New function `*ClientFactory.NewExtensionMetadataClient() *ExtensionMetadataClient`
+- New function `*ClientFactory.NewHybridIdentityMetadataClient() *HybridIdentityMetadataClient`
+- New function `*ClientFactory.NewMachineRunCommandsClient() *MachineRunCommandsClient`
+- New function `*ClientFactory.NewNetworkProfileClient() *NetworkProfileClient`
+- New function `NewExtensionMetadataClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ExtensionMetadataClient, error)`
+- New function `*ExtensionMetadataClient.Get(context.Context, string, string, string, string, *ExtensionMetadataClientGetOptions) (ExtensionMetadataClientGetResponse, error)`
+- New function `*ExtensionMetadataClient.NewListPager(string, string, string, *ExtensionMetadataClientListOptions) *runtime.Pager[ExtensionMetadataClientListResponse]`
+- New function `NewHybridIdentityMetadataClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HybridIdentityMetadataClient, error)`
+- New function `*HybridIdentityMetadataClient.Get(context.Context, string, string, string, *HybridIdentityMetadataClientGetOptions) (HybridIdentityMetadataClientGetResponse, error)`
+- New function `*HybridIdentityMetadataClient.NewListByMachinesPager(string, string, *HybridIdentityMetadataClientListByMachinesOptions) *runtime.Pager[HybridIdentityMetadataClientListByMachinesResponse]`
+- New function `NewMachineRunCommandsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachineRunCommandsClient, error)`
+- New function `*MachineRunCommandsClient.BeginCreateOrUpdate(context.Context, string, string, string, MachineRunCommand, *MachineRunCommandsClientBeginCreateOrUpdateOptions) (*runtime.Poller[MachineRunCommandsClientCreateOrUpdateResponse], error)`
+- New function `*MachineRunCommandsClient.BeginDelete(context.Context, string, string, string, *MachineRunCommandsClientBeginDeleteOptions) (*runtime.Poller[MachineRunCommandsClientDeleteResponse], error)`
+- New function `*MachineRunCommandsClient.Get(context.Context, string, string, string, *MachineRunCommandsClientGetOptions) (MachineRunCommandsClientGetResponse, error)`
+- New function `*MachineRunCommandsClient.NewListPager(string, string, *MachineRunCommandsClientListOptions) *runtime.Pager[MachineRunCommandsClientListResponse]`
+- New function `*MachineRunCommandsClient.BeginUpdate(context.Context, string, string, string, MachineRunCommandUpdate, *MachineRunCommandsClientBeginUpdateOptions) (*runtime.Poller[MachineRunCommandsClientUpdateResponse], error)`
+- New function `*MachinesClient.BeginAssessPatches(context.Context, string, string, *MachinesClientBeginAssessPatchesOptions) (*runtime.Poller[MachinesClientAssessPatchesResponse], error)`
+- New function `*MachinesClient.BeginInstallPatches(context.Context, string, string, MachineInstallPatchesParameters, *MachinesClientBeginInstallPatchesOptions) (*runtime.Poller[MachinesClientInstallPatchesResponse], error)`
+- New function `NewNetworkProfileClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkProfileClient, error)`
+- New function `*NetworkProfileClient.Get(context.Context, string, string, *NetworkProfileClientGetOptions) (NetworkProfileClientGetResponse, error)`
+- New struct `AgentUpgrade`
+- New struct `AgentVersion`
+- New struct `AgentVersionsList`
+- New struct `AvailablePatchCountByClassification`
+- New struct `ErrorDetailAutoGenerated`
+- New struct `ErrorResponseAutoGenerated`
+- New struct `ExtensionValue`
+- New struct `ExtensionValueListResult`
+- New struct `ExtensionValueProperties`
+- New struct `HybridIdentityMetadata`
+- New struct `HybridIdentityMetadataList`
+- New struct `HybridIdentityMetadataProperties`
+- New struct `IPAddress`
+- New struct `LinuxParameters`
+- New struct `MachineAssessPatchesResult`
+- New struct `MachineInstallPatchesParameters`
+- New struct `MachineInstallPatchesResult`
+- New struct `MachineRunCommand`
+- New struct `MachineRunCommandInstanceView`
+- New struct `MachineRunCommandInstanceViewStatus`
+- New struct `MachineRunCommandProperties`
+- New struct `MachineRunCommandScriptSource`
+- New struct `MachineRunCommandUpdate`
+- New struct `MachineRunCommandsListResult`
+- New struct `NetworkInterface`
+- New struct `NetworkProfile`
+- New struct `RunCommandInputParameter`
+- New struct `RunCommandManagedIdentity`
+- New struct `Subnet`
+- New struct `WindowsParameters`
+- New field `ConfigMode` in struct `AgentConfiguration`
+- New field `Kind`, `Resources` in struct `Machine`
+- New field `EnableAutomaticUpgrade` in struct `MachineExtensionUpdateProperties`
+- New field `AgentUpgrade`, `NetworkProfile` in struct `MachineProperties`
+- New field `Kind` in struct `MachineUpdate`
+- New field `AgentUpgrade` in struct `MachineUpdateProperties`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 

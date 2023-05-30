@@ -53,8 +53,33 @@ func (c *ClientFactory) NewManagementClient() *ManagementClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewExtensionMetadataClient() *ExtensionMetadataClient {
+	subClient, _ := NewExtensionMetadataClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewNetworkProfileClient() *NetworkProfileClient {
+	subClient, _ := NewNetworkProfileClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHybridIdentityMetadataClient() *HybridIdentityMetadataClient {
+	subClient, _ := NewHybridIdentityMetadataClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAgentVersionClient() *AgentVersionClient {
+	subClient, _ := NewAgentVersionClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewMachineRunCommandsClient() *MachineRunCommandsClient {
+	subClient, _ := NewMachineRunCommandsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
