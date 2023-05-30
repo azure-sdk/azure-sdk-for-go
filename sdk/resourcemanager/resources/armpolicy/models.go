@@ -120,22 +120,41 @@ type AssignmentProperties struct {
 	// The policy's excluded scopes.
 	NotScopes []*string
 
+	// The policy property value override.
+	Overrides []*Override
+
 	// The parameter values for the assigned policy rule. The keys are the parameter names.
 	Parameters map[string]*ParameterValuesValue
 
 	// The ID of the policy definition or policy set definition being assigned.
 	PolicyDefinitionID *string
 
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
+
 	// READ-ONLY; The scope for the policy assignment.
 	Scope *string
 }
 
+// AssignmentUpdate - The policy assignment for Patch request.
 type AssignmentUpdate struct {
 	// The managed identity associated with the policy assignment.
 	Identity *Identity
 
 	// The location of the policy assignment. Only required when utilizing managed identity.
 	Location *string
+
+	// The policy assignment properties for Patch request.
+	Properties *AssignmentUpdateProperties
+}
+
+// AssignmentUpdateProperties - The policy assignment properties for Patch request.
+type AssignmentUpdateProperties struct {
+	// The policy property value override.
+	Overrides []*Override
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
 }
 
 // AssignmentsClientCreateByIDOptions contains the optional parameters for the AssignmentsClient.CreateByID method.
@@ -562,6 +581,9 @@ type ExemptionProperties struct {
 	// REQUIRED; The ID of the policy assignment that is being exempted.
 	PolicyAssignmentID *string
 
+	// The option whether validate the exemption is at or under the assignment scope.
+	AssignmentScopeValidation *AssignmentScopeValidation
+
 	// The description of the policy exemption.
 	Description *string
 
@@ -576,6 +598,24 @@ type ExemptionProperties struct {
 
 	// The policy definition reference ID list when the associated policy assignment is an assignment of a policy set definition.
 	PolicyDefinitionReferenceIDs []*string
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
+}
+
+// ExemptionUpdate - The policy exemption for Patch request.
+type ExemptionUpdate struct {
+	// The policy exemption properties for Patch request.
+	Properties *ExemptionUpdateProperties
+}
+
+// ExemptionUpdateProperties - The policy exemption properties for Patch request.
+type ExemptionUpdateProperties struct {
+	// The option whether validate the exemption is at or under the assignment scope.
+	AssignmentScopeValidation *AssignmentScopeValidation
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
 }
 
 // ExemptionsClientCreateOrUpdateOptions contains the optional parameters for the ExemptionsClient.CreateOrUpdate method.
@@ -660,6 +700,11 @@ type ExemptionsClientListOptions struct {
 	Filter *string
 }
 
+// ExemptionsClientUpdateOptions contains the optional parameters for the ExemptionsClient.Update method.
+type ExemptionsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // Identity for the resource. Policy assignments support a maximum of one identity. That is either a system assigned identity
 // or a single user assigned identity.
 type Identity struct {
@@ -689,6 +734,18 @@ type NonComplianceMessage struct {
 	// if the policy assignment assigns a policy set definition. If this is not provided
 	// the message applies to all policies assigned by this policy assignment.
 	PolicyDefinitionReferenceID *string
+}
+
+// Override - The policy property value override.
+type Override struct {
+	// The override kind.
+	Kind *OverrideKind
+
+	// The list of the selector expressions.
+	Selectors []*Selector
+
+	// The value to override the policy property.
+	Value *string
 }
 
 // ParameterDefinitionsValue - The definition of a parameter that can be provided to the policy.
@@ -733,6 +790,15 @@ type ParameterValuesValue struct {
 	Value any
 }
 
+// ResourceSelector - The resource selector to filter policies by resource properties.
+type ResourceSelector struct {
+	// The name of the resource selector.
+	Name *string
+
+	// The list of the selector expressions.
+	Selectors []*Selector
+}
+
 // ResourceTypeAliases - The resource type aliases definition.
 type ResourceTypeAliases struct {
 	// The aliases for property names.
@@ -740,6 +806,18 @@ type ResourceTypeAliases struct {
 
 	// The resource type name.
 	ResourceType *string
+}
+
+// Selector - The selector expression.
+type Selector struct {
+	// The list of values to filter in.
+	In []*string
+
+	// The selector kind.
+	Kind *SelectorKind
+
+	// The list of values to filter out.
+	NotIn []*string
 }
 
 // SetDefinition - The policy set definition.
@@ -903,4 +981,174 @@ type UserAssignedIdentitiesValue struct {
 
 	// READ-ONLY; The principal id of user assigned identity.
 	PrincipalID *string
+}
+
+// Variable - The variable.
+type Variable struct {
+	// REQUIRED; Properties for the variable.
+	Properties *VariableProperties
+
+	// READ-ONLY; The ID of the variable.
+	ID *string
+
+	// READ-ONLY; The name of the variable.
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/variables).
+	Type *string
+}
+
+// VariableColumn - The variable column.
+type VariableColumn struct {
+	// REQUIRED; The name of this policy variable column.
+	ColumnName *string
+}
+
+// VariableListResult - List of variables.
+type VariableListResult struct {
+	// An array of variables.
+	Value []*Variable
+
+	// READ-ONLY; The URL to use for getting the next set of results.
+	NextLink *string
+}
+
+// VariableProperties - The variable properties.
+type VariableProperties struct {
+	// REQUIRED; Variable column definitions.
+	Columns []*VariableColumn
+}
+
+// VariableValue - The variable value.
+type VariableValue struct {
+	// REQUIRED; Properties for the variable value.
+	Properties *VariableValueProperties
+
+	// READ-ONLY; The ID of the variable.
+	ID *string
+
+	// READ-ONLY; The name of the variable.
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/variables/values).
+	Type *string
+}
+
+// VariableValueColumnValue - The name value tuple for this variable value column.
+type VariableValueColumnValue struct {
+	// REQUIRED; Column name for the variable value
+	ColumnName *string
+
+	// REQUIRED; Column value for the variable value; this can be an integer, double, boolean, null or a string.
+	ColumnValue any
+}
+
+// VariableValueListResult - List of variable values.
+type VariableValueListResult struct {
+	// An array of variable values.
+	Value []*VariableValue
+
+	// READ-ONLY; The URL to use for getting the next set of results.
+	NextLink *string
+}
+
+// VariableValueProperties - The variable value properties.
+type VariableValueProperties struct {
+	// REQUIRED; Variable value column value array.
+	Values []*VariableValueColumnValue
+}
+
+// VariableValuesClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the VariableValuesClient.CreateOrUpdateAtManagementGroup
+// method.
+type VariableValuesClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientCreateOrUpdateOptions contains the optional parameters for the VariableValuesClient.CreateOrUpdate
+// method.
+type VariableValuesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientDeleteAtManagementGroupOptions contains the optional parameters for the VariableValuesClient.DeleteAtManagementGroup
+// method.
+type VariableValuesClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientDeleteOptions contains the optional parameters for the VariableValuesClient.Delete method.
+type VariableValuesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientGetAtManagementGroupOptions contains the optional parameters for the VariableValuesClient.GetAtManagementGroup
+// method.
+type VariableValuesClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientGetOptions contains the optional parameters for the VariableValuesClient.Get method.
+type VariableValuesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientListForManagementGroupOptions contains the optional parameters for the VariableValuesClient.NewListForManagementGroupPager
+// method.
+type VariableValuesClientListForManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariableValuesClientListOptions contains the optional parameters for the VariableValuesClient.NewListPager method.
+type VariableValuesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the VariablesClient.CreateOrUpdateAtManagementGroup
+// method.
+type VariablesClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientCreateOrUpdateOptions contains the optional parameters for the VariablesClient.CreateOrUpdate method.
+type VariablesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientDeleteAtManagementGroupOptions contains the optional parameters for the VariablesClient.DeleteAtManagementGroup
+// method.
+type VariablesClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientDeleteOptions contains the optional parameters for the VariablesClient.Delete method.
+type VariablesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientGetAtManagementGroupOptions contains the optional parameters for the VariablesClient.GetAtManagementGroup
+// method.
+type VariablesClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientGetOptions contains the optional parameters for the VariablesClient.Get method.
+type VariablesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientListForManagementGroupOptions contains the optional parameters for the VariablesClient.NewListForManagementGroupPager
+// method.
+type VariablesClientListForManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VariablesClientListOptions contains the optional parameters for the VariablesClient.NewListPager method.
+type VariablesClientListOptions struct {
+	// placeholder for future optional parameters
 }
