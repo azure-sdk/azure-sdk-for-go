@@ -392,6 +392,9 @@ type FluxConfigurationProperties struct {
 	// period only.
 	Namespace *string
 
+	// Maximum duration to wait for flux configuration reconciliation. E.g PT1H, PT5M, P1D
+	ReconciliationWaitDuration *string
+
 	// Scope at which the operator will be installed.
 	Scope *ScopeType
 
@@ -400,6 +403,9 @@ type FluxConfigurationProperties struct {
 
 	// Whether this configuration should suspend its reconciliation of its kustomizations and sources.
 	Suspend *bool
+
+	// Whether flux configuration deployment should wait for cluster to reconcile the kustomizations.
+	WaitForReconciliation *bool
 
 	// READ-ONLY; Combined status of the Flux Kubernetes resources created by the fluxConfiguration or created by the managed
 	// objects.
@@ -578,6 +584,9 @@ type KustomizationDefinition struct {
 	// The path in the source reference to reconcile on the cluster.
 	Path *string
 
+	// Used for variable substitution for this Kustomization after kustomize build.
+	PostBuild *PostBuildDefinition
+
 	// Enable/disable garbage collections of Kubernetes objects created by this Kustomization.
 	Prune *bool
 
@@ -589,6 +598,9 @@ type KustomizationDefinition struct {
 
 	// The maximum time to attempt to reconcile the Kustomization on the cluster.
 	TimeoutInSeconds *int64
+
+	// Enable/disable health check for all Kubernetes objects created by this Kustomization.
+	Wait *bool
 
 	// READ-ONLY; Name of the Kustomization, matching the key in the Kustomizations object map.
 	Name *string
@@ -607,6 +619,9 @@ type KustomizationPatchDefinition struct {
 	// The path in the source reference to reconcile on the cluster.
 	Path *string
 
+	// Used for variable substitution for this Kustomization after kustomize build.
+	PostBuild *PostBuildDefinition
+
 	// Enable/disable garbage collections of Kubernetes objects created by this Kustomization.
 	Prune *bool
 
@@ -618,6 +633,9 @@ type KustomizationPatchDefinition struct {
 
 	// The maximum time to attempt to reconcile the Kustomization on the cluster.
 	TimeoutInSeconds *int64
+
+	// Enable/disable health check for all Kubernetes objects created by this Kustomization.
+	Wait *bool
 }
 
 // ManagedIdentityDefinition - Parameters to authenticate using a Managed Identity.
@@ -767,6 +785,16 @@ type Plan struct {
 
 	// The version of the desired product/artifact.
 	Version *string
+}
+
+// PostBuildDefinition - The postBuild definitions defining variable substitutions for this Kustomization after kustomize
+// build.
+type PostBuildDefinition struct {
+	// Key/value pairs holding the variables to be substituted in this Kustomization.
+	Substitute map[string]*string
+
+	// Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
+	SubstituteFrom []*SubstituteFromDefinition
 }
 
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
@@ -1010,6 +1038,18 @@ type SourceControlConfigurationsClientGetOptions struct {
 // method.
 type SourceControlConfigurationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SubstituteFromDefinition - Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
+type SubstituteFromDefinition struct {
+	// Define whether it is ConfigMap or Secret that holds the variables to be used in substitution.
+	Kind *string
+
+	// Name of the ConfigMap/Secret that holds the variables to be used in substitution.
+	Name *string
+
+	// Set to True to proceed without ConfigMap/Secret, if it is not present.
+	Optional *bool
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
