@@ -1,5 +1,40 @@
 # Release History
 
+## 2.0.0-beta.4 (2023-05-31)
+### Breaking Changes
+
+- Function `*JobsClient.BeginStopMultipleExecutions` parameter(s) have been changed from `(context.Context, string, string, JobExecutionNamesCollection, *JobsClientBeginStopMultipleExecutionsOptions)` to `(context.Context, string, string, *JobsClientBeginStopMultipleExecutionsOptions)`
+
+### Features Added
+
+- New enum type `ContainerAppContainerRunningState` with values `ContainerAppContainerRunningStateRunning`, `ContainerAppContainerRunningStateTerminated`, `ContainerAppContainerRunningStateWaiting`
+- New enum type `ContainerAppReplicaRunningState` with values `ContainerAppReplicaRunningStateNotRunning`, `ContainerAppReplicaRunningStateRunning`, `ContainerAppReplicaRunningStateUnknown`
+- New enum type `RevisionRunningState` with values `RevisionRunningStateDegraded`, `RevisionRunningStateFailed`, `RevisionRunningStateProcessing`, `RevisionRunningStateRunning`, `RevisionRunningStateStopped`, `RevisionRunningStateUnknown`
+- New function `*ClientFactory.NewContainerAppsAPIClient() *ContainerAppsAPIClient`
+- New function `NewContainerAppsAPIClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsAPIClient, error)`
+- New function `*ContainerAppsAPIClient.JobExecution(context.Context, string, string, string, *ContainerAppsAPIClientJobExecutionOptions) (ContainerAppsAPIClientJobExecutionResponse, error)`
+- New function `*ContainerAppsClient.BeginStart(context.Context, string, string, *ContainerAppsClientBeginStartOptions) (*runtime.Poller[ContainerAppsClientStartResponse], error)`
+- New function `*ContainerAppsClient.BeginStop(context.Context, string, string, *ContainerAppsClientBeginStopOptions) (*runtime.Poller[ContainerAppsClientStopResponse], error)`
+- New struct `JobConfigurationEventTriggerConfig`
+- New struct `JobScale`
+- New struct `JobScaleRule`
+- New struct `ManagedEnvironmentPropertiesPeerAuthentication`
+- New struct `Mtls`
+- New struct `Service`
+- New struct `ServiceBind`
+- New field `Kind` in struct `AzureCredentials`
+- New field `Service` in struct `Configuration`
+- New field `GithubPersonalAccessToken` in struct `GithubActionConfiguration`
+- New field `EventTriggerConfig` in struct `JobConfiguration`
+- New field `PeerAuthentication` in struct `ManagedEnvironmentProperties`
+- New field `RunningState`, `RunningStateDetails` in struct `ReplicaContainer`
+- New field `InitContainers`, `RunningState`, `RunningStateDetails` in struct `ReplicaProperties`
+- New field `RunningState` in struct `RevisionProperties`
+- New field `ServiceBinds`, `TerminationGracePeriodSeconds` in struct `Template`
+- New field `MountOptions` in struct `Volume`
+- New field `SubPath` in struct `VolumeMount`
+
+
 ## 2.0.0-beta.3 (2023-05-26)
 ### Breaking Changes
 
