@@ -571,8 +571,8 @@ type GovernanceRulesClientOperationResultsResponse struct {
 	Location *string
 }
 
-// HealthReportClientGetResponse contains the response from method HealthReportClient.Get.
-type HealthReportClientGetResponse struct {
+// HealthReportsClientGetResponse contains the response from method HealthReportsClient.Get.
+type HealthReportsClientGetResponse struct {
 	HealthReport
 }
 

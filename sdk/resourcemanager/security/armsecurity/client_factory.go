@@ -318,16 +318,6 @@ func (c *ClientFactory) NewAPICollectionOffboardingClient() *APICollectionOffboa
 	return subClient
 }
 
-func (c *ClientFactory) NewHealthReportsClient() *HealthReportsClient {
-	subClient, _ := NewHealthReportsClient(c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewHealthReportClient() *HealthReportClient {
-	subClient, _ := NewHealthReportClient(c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewSQLVulnerabilityAssessmentScansClient() *SQLVulnerabilityAssessmentScansClient {
 	subClient, _ := NewSQLVulnerabilityAssessmentScansClient(c.credential, c.options)
 	return subClient
@@ -350,5 +340,10 @@ func (c *ClientFactory) NewConnectorsClient() *ConnectorsClient {
 
 func (c *ClientFactory) NewOperatorsClient() *OperatorsClient {
 	subClient, _ := NewOperatorsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHealthReportsClient() *HealthReportsClient {
+	subClient, _ := NewHealthReportsClient(c.credential, c.options)
 	return subClient
 }
