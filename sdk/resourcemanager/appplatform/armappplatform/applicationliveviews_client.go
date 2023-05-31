@@ -48,7 +48,7 @@ func NewApplicationLiveViewsClient(subscriptionID string, credential azcore.Toke
 // BeginCreateOrUpdate - Create the default Application Live View or update the existing Application Live View.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -71,7 +71,7 @@ func (client *ApplicationLiveViewsClient) BeginCreateOrUpdate(ctx context.Contex
 // CreateOrUpdate - Create the default Application Live View or update the existing Application Live View.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *ApplicationLiveViewsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, applicationLiveViewName string, applicationLiveViewResource ApplicationLiveViewResource, options *ApplicationLiveViewsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, applicationLiveViewName, applicationLiveViewResource, options)
 	if err != nil {
@@ -111,7 +111,7 @@ func (client *ApplicationLiveViewsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, applicationLiveViewResource)
@@ -120,7 +120,7 @@ func (client *ApplicationLiveViewsClient) createOrUpdateCreateRequest(ctx contex
 // BeginDelete - Disable the default Application Live View.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -142,7 +142,7 @@ func (client *ApplicationLiveViewsClient) BeginDelete(ctx context.Context, resou
 // Delete - Disable the default Application Live View.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *ApplicationLiveViewsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, applicationLiveViewName string, options *ApplicationLiveViewsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, applicationLiveViewName, options)
 	if err != nil {
@@ -182,7 +182,7 @@ func (client *ApplicationLiveViewsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *ApplicationLiveViewsClient) deleteCreateRequest(ctx context.Contex
 // Get - Get the Application Live and its properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -237,7 +237,7 @@ func (client *ApplicationLiveViewsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -254,7 +254,7 @@ func (client *ApplicationLiveViewsClient) getHandleResponse(resp *http.Response)
 
 // NewListPager - Handles requests to list all resources in a Service.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -308,7 +308,7 @@ func (client *ApplicationLiveViewsClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
