@@ -47,7 +47,7 @@ func NewNameAvailabilityClient(subscriptionID string, credential azcore.TokenCre
 // CheckLocal - Check whether the resource name is available in the given region.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2023-04-03
 //   - location - The location in which uniqueness will be verified.
 //   - body - The check availability request body.
 //   - options - NameAvailabilityClientCheckLocalOptions contains the optional parameters for the NameAvailabilityClient.CheckLocal
@@ -83,7 +83,7 @@ func (client *NameAvailabilityClient) checkLocalCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
