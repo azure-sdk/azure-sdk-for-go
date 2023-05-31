@@ -1,5 +1,18 @@
 # Release History
 
+## 3.1.0 (2023-05-31)
+### Features Added
+
+- New field `ResourceGUID` in struct `AdminPropertiesFormat`
+- New field `ResourceGUID` in struct `AdminRuleCollectionPropertiesFormat`
+- New field `DefaultPredefinedSSLPolicy` in struct `ApplicationGatewayPropertiesFormat`
+- New field `ResourceGUID` in struct `ConnectivityConfigurationProperties`
+- New field `ResourceGUID` in struct `DefaultAdminPropertiesFormat`
+- New field `ResourceGUID` in struct `GroupProperties`
+- New field `ResourceGUID` in struct `ManagerProperties`
+- New field `ResourceGUID` in struct `SecurityAdminConfigurationPropertiesFormat`
+
+
 ## 3.0.0 (2023-05-26)
 ### Breaking Changes
 
