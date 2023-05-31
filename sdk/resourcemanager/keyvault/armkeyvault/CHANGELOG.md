@@ -1,5 +1,11 @@
 # Release History
 
+## 1.3.0 (2023-05-31)
+### Features Added
+
+- New value `ManagedHsmSKUNameCustomB6` added to enum type `ManagedHsmSKUName`
+
+
 ## 1.2.0 (2023-04-28)
 ### Features Added
 
