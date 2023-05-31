@@ -1,5 +1,36 @@
 # Release History
 
+## 3.0.0 (2023-05-31)
+### Breaking Changes
+
+- Function `*AzureVMWorkloadSAPHanaHSR.GetAzureVMWorkloadProtectableItem` has been removed
+- Function `*AzureVMWorkloadSAPHanaHSR.GetWorkloadProtectableItem` has been removed
+- Struct `AzureVMWorkloadSAPHanaHSR` has been removed
+- Field `ActionRequired` of struct `PrivateLinkServiceConnectionState` has been removed
+
+### Features Added
+
+- New enum type `VaultSubResourceType` with values `VaultSubResourceTypeAzureBackup`, `VaultSubResourceTypeAzureBackupSecondary`, `VaultSubResourceTypeAzureSiteRecovery`
+- New function `*AzureVMWorkloadSAPHanaHSRProtectableItem.GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem`
+- New function `*AzureVMWorkloadSAPHanaHSRProtectableItem.GetWorkloadProtectableItem() *WorkloadProtectableItem`
+- New struct `AzureVMWorkloadSAPHanaHSRProtectableItem`
+- New field `NodesList` in struct `AzureVMWorkloadProtectedItem`
+- New field `NodesList` in struct `AzureVMWorkloadSAPAseDatabaseProtectedItem`
+- New field `IsProtectable` in struct `AzureVMWorkloadSAPAseSystemProtectableItem`
+- New field `IsProtectable` in struct `AzureVMWorkloadSAPHanaDBInstance`
+- New field `NodesList` in struct `AzureVMWorkloadSAPHanaDBInstanceProtectedItem`
+- New field `IsProtectable` in struct `AzureVMWorkloadSAPHanaDatabaseProtectableItem`
+- New field `NodesList` in struct `AzureVMWorkloadSAPHanaDatabaseProtectedItem`
+- New field `IsProtectable` in struct `AzureVMWorkloadSAPHanaSystemProtectableItem`
+- New field `IsProtectable`, `NodesList` in struct `AzureVMWorkloadSQLAvailabilityGroupProtectableItem`
+- New field `IsProtectable` in struct `AzureVMWorkloadSQLDatabaseProtectableItem`
+- New field `NodesList` in struct `AzureVMWorkloadSQLDatabaseProtectedItem`
+- New field `IsProtectable` in struct `AzureVMWorkloadSQLInstanceProtectableItem`
+- New field `SourceResourceID` in struct `DistributedNodesInfo`
+- New field `GroupIDs` in struct `PrivateEndpointConnection`
+- New field `ActionsRequired` in struct `PrivateLinkServiceConnectionState`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 
