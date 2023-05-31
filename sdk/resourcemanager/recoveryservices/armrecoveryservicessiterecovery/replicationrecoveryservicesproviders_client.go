@@ -47,7 +47,7 @@ func NewReplicationRecoveryServicesProvidersClient(subscriptionID string, creden
 // BeginCreate - The operation to add a recovery services provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -70,7 +70,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) BeginCreate(ctx contex
 // Create - The operation to add a recovery services provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationRecoveryServicesProvidersClient) create(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, providerName string, addProviderInput AddRecoveryServicesProviderInput, options *ReplicationRecoveryServicesProvidersClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceName, resourceGroupName, fabricName, providerName, addProviderInput, options)
 	if err != nil {
@@ -114,7 +114,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) createCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, addProviderInput)
@@ -123,7 +123,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) createCreateRequest(ct
 // BeginDelete - The operation to removes/delete(unregister) a recovery services provider from the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -145,7 +145,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) BeginDelete(ctx contex
 // Delete - The operation to removes/delete(unregister) a recovery services provider from the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationRecoveryServicesProvidersClient) deleteOperation(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, providerName string, options *ReplicationRecoveryServicesProvidersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceName, resourceGroupName, fabricName, providerName, options)
 	if err != nil {
@@ -189,7 +189,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) deleteCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -197,7 +197,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) deleteCreateRequest(ct
 // Get - Gets the details of registered recovery services provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -247,7 +247,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) getCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +264,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) getHandleResponse(resp
 
 // NewListPager - Lists the registered recovery services providers in the vault.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - ReplicationRecoveryServicesProvidersClientListOptions contains the optional parameters for the ReplicationRecoveryServicesProvidersClient.NewListPager
@@ -317,7 +317,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) listCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -334,7 +334,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) listHandleResponse(res
 
 // NewListByReplicationFabricsPager - Lists the registered recovery services providers for the specified fabric.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -392,7 +392,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) listByReplicationFabri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -410,7 +410,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) listByReplicationFabri
 // BeginPurge - The operation to purge(force delete) a recovery services provider from the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -432,7 +432,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) BeginPurge(ctx context
 // Purge - The operation to purge(force delete) a recovery services provider from the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationRecoveryServicesProvidersClient) purge(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, providerName string, options *ReplicationRecoveryServicesProvidersClientBeginPurgeOptions) (*http.Response, error) {
 	req, err := client.purgeCreateRequest(ctx, resourceName, resourceGroupName, fabricName, providerName, options)
 	if err != nil {
@@ -476,7 +476,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) purgeCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -484,7 +484,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) purgeCreateRequest(ctx
 // BeginRefreshProvider - The operation to refresh the information from the recovery services provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -506,7 +506,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) BeginRefreshProvider(c
 // RefreshProvider - The operation to refresh the information from the recovery services provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationRecoveryServicesProvidersClient) refreshProvider(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, providerName string, options *ReplicationRecoveryServicesProvidersClientBeginRefreshProviderOptions) (*http.Response, error) {
 	req, err := client.refreshProviderCreateRequest(ctx, resourceName, resourceGroupName, fabricName, providerName, options)
 	if err != nil {
@@ -550,7 +550,7 @@ func (client *ReplicationRecoveryServicesProvidersClient) refreshProviderCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

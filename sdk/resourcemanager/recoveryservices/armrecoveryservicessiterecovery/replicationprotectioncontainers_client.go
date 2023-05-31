@@ -47,7 +47,7 @@ func NewReplicationProtectionContainersClient(subscriptionID string, credential 
 // BeginCreate - Operation to create a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Unique fabric ARM name.
@@ -70,7 +70,7 @@ func (client *ReplicationProtectionContainersClient) BeginCreate(ctx context.Con
 // Create - Operation to create a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationProtectionContainersClient) create(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, creationInput CreateProtectionContainerInput, options *ReplicationProtectionContainersClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceName, resourceGroupName, fabricName, protectionContainerName, creationInput, options)
 	if err != nil {
@@ -114,7 +114,7 @@ func (client *ReplicationProtectionContainersClient) createCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, creationInput)
@@ -123,7 +123,7 @@ func (client *ReplicationProtectionContainersClient) createCreateRequest(ctx con
 // BeginDelete - Operation to remove a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Unique fabric ARM name.
@@ -145,7 +145,7 @@ func (client *ReplicationProtectionContainersClient) BeginDelete(ctx context.Con
 // Delete - Operation to remove a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationProtectionContainersClient) deleteOperation(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, options *ReplicationProtectionContainersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceName, resourceGroupName, fabricName, protectionContainerName, options)
 	if err != nil {
@@ -189,7 +189,7 @@ func (client *ReplicationProtectionContainersClient) deleteCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -197,7 +197,7 @@ func (client *ReplicationProtectionContainersClient) deleteCreateRequest(ctx con
 // BeginDiscoverProtectableItem - The operation to a add a protectable item to a protection container(Add physical server).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - The name of the fabric.
@@ -220,7 +220,7 @@ func (client *ReplicationProtectionContainersClient) BeginDiscoverProtectableIte
 // DiscoverProtectableItem - The operation to a add a protectable item to a protection container(Add physical server).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationProtectionContainersClient) discoverProtectableItem(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, discoverProtectableItemRequest DiscoverProtectableItemRequest, options *ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions) (*http.Response, error) {
 	req, err := client.discoverProtectableItemCreateRequest(ctx, resourceName, resourceGroupName, fabricName, protectionContainerName, discoverProtectableItemRequest, options)
 	if err != nil {
@@ -264,7 +264,7 @@ func (client *ReplicationProtectionContainersClient) discoverProtectableItemCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, discoverProtectableItemRequest)
@@ -273,7 +273,7 @@ func (client *ReplicationProtectionContainersClient) discoverProtectableItemCrea
 // Get - Gets the details of a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -323,7 +323,7 @@ func (client *ReplicationProtectionContainersClient) getCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -340,7 +340,7 @@ func (client *ReplicationProtectionContainersClient) getHandleResponse(resp *htt
 
 // NewListPager - Lists the protection containers in a vault.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - ReplicationProtectionContainersClientListOptions contains the optional parameters for the ReplicationProtectionContainersClient.NewListPager
@@ -393,7 +393,7 @@ func (client *ReplicationProtectionContainersClient) listCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -410,7 +410,7 @@ func (client *ReplicationProtectionContainersClient) listHandleResponse(resp *ht
 
 // NewListByReplicationFabricsPager - Lists the protection containers in the specified fabric.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -468,7 +468,7 @@ func (client *ReplicationProtectionContainersClient) listByReplicationFabricsCre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -486,7 +486,7 @@ func (client *ReplicationProtectionContainersClient) listByReplicationFabricsHan
 // BeginSwitchProtection - Operation to switch protection from one container to another or one replication provider to another.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Unique fabric name.
@@ -509,7 +509,7 @@ func (client *ReplicationProtectionContainersClient) BeginSwitchProtection(ctx c
 // SwitchProtection - Operation to switch protection from one container to another or one replication provider to another.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 func (client *ReplicationProtectionContainersClient) switchProtection(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, switchInput SwitchProtectionInput, options *ReplicationProtectionContainersClientBeginSwitchProtectionOptions) (*http.Response, error) {
 	req, err := client.switchProtectionCreateRequest(ctx, resourceName, resourceGroupName, fabricName, protectionContainerName, switchInput, options)
 	if err != nil {
@@ -553,7 +553,7 @@ func (client *ReplicationProtectionContainersClient) switchProtectionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, switchInput)

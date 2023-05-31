@@ -607,6 +607,77 @@ func (a *A2AExtendedLocationDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type A2AFabricSpecificLocationDetails.
+func (a A2AFabricSpecificLocationDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "initialPrimaryExtendedLocation", a.InitialPrimaryExtendedLocation)
+	populate(objectMap, "initialPrimaryFabricLocation", a.InitialPrimaryFabricLocation)
+	populate(objectMap, "initialPrimaryZone", a.InitialPrimaryZone)
+	populate(objectMap, "initialRecoveryExtendedLocation", a.InitialRecoveryExtendedLocation)
+	populate(objectMap, "initialRecoveryFabricLocation", a.InitialRecoveryFabricLocation)
+	populate(objectMap, "initialRecoveryZone", a.InitialRecoveryZone)
+	populate(objectMap, "primaryExtendedLocation", a.PrimaryExtendedLocation)
+	populate(objectMap, "primaryFabricLocation", a.PrimaryFabricLocation)
+	populate(objectMap, "primaryZone", a.PrimaryZone)
+	populate(objectMap, "recoveryExtendedLocation", a.RecoveryExtendedLocation)
+	populate(objectMap, "recoveryFabricLocation", a.RecoveryFabricLocation)
+	populate(objectMap, "recoveryZone", a.RecoveryZone)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type A2AFabricSpecificLocationDetails.
+func (a *A2AFabricSpecificLocationDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "initialPrimaryExtendedLocation":
+			err = unpopulate(val, "InitialPrimaryExtendedLocation", &a.InitialPrimaryExtendedLocation)
+			delete(rawMsg, key)
+		case "initialPrimaryFabricLocation":
+			err = unpopulate(val, "InitialPrimaryFabricLocation", &a.InitialPrimaryFabricLocation)
+			delete(rawMsg, key)
+		case "initialPrimaryZone":
+			err = unpopulate(val, "InitialPrimaryZone", &a.InitialPrimaryZone)
+			delete(rawMsg, key)
+		case "initialRecoveryExtendedLocation":
+			err = unpopulate(val, "InitialRecoveryExtendedLocation", &a.InitialRecoveryExtendedLocation)
+			delete(rawMsg, key)
+		case "initialRecoveryFabricLocation":
+			err = unpopulate(val, "InitialRecoveryFabricLocation", &a.InitialRecoveryFabricLocation)
+			delete(rawMsg, key)
+		case "initialRecoveryZone":
+			err = unpopulate(val, "InitialRecoveryZone", &a.InitialRecoveryZone)
+			delete(rawMsg, key)
+		case "primaryExtendedLocation":
+			err = unpopulate(val, "PrimaryExtendedLocation", &a.PrimaryExtendedLocation)
+			delete(rawMsg, key)
+		case "primaryFabricLocation":
+			err = unpopulate(val, "PrimaryFabricLocation", &a.PrimaryFabricLocation)
+			delete(rawMsg, key)
+		case "primaryZone":
+			err = unpopulate(val, "PrimaryZone", &a.PrimaryZone)
+			delete(rawMsg, key)
+		case "recoveryExtendedLocation":
+			err = unpopulate(val, "RecoveryExtendedLocation", &a.RecoveryExtendedLocation)
+			delete(rawMsg, key)
+		case "recoveryFabricLocation":
+			err = unpopulate(val, "RecoveryFabricLocation", &a.RecoveryFabricLocation)
+			delete(rawMsg, key)
+		case "recoveryZone":
+			err = unpopulate(val, "RecoveryZone", &a.RecoveryZone)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type A2APolicyCreationInput.
 func (a A2APolicyCreationInput) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2794,6 +2865,7 @@ func (a AzureFabricSpecificDetails) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "extendedLocations", a.ExtendedLocations)
 	objectMap["instanceType"] = "Azure"
 	populate(objectMap, "location", a.Location)
+	populate(objectMap, "locationDetails", a.LocationDetails)
 	populate(objectMap, "zones", a.Zones)
 	return json.Marshal(objectMap)
 }
@@ -2818,6 +2890,9 @@ func (a *AzureFabricSpecificDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "location":
 			err = unpopulate(val, "Location", &a.Location)
+			delete(rawMsg, key)
+		case "locationDetails":
+			err = unpopulate(val, "LocationDetails", &a.LocationDetails)
 			delete(rawMsg, key)
 		case "zones":
 			err = unpopulate(val, "Zones", &a.Zones)
@@ -4991,8 +5066,10 @@ func (f FabricQueryParameter) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "biosId", f.BiosID)
 	populate(objectMap, "discoveryType", f.DiscoveryType)
+	populate(objectMap, "extendedLocationMappings", f.ExtendedLocationMappings)
 	populate(objectMap, "fetchAgentDetails", f.FetchAgentDetails)
 	populate(objectMap, "fqdn", f.Fqdn)
+	populate(objectMap, "locationDetails", f.LocationDetails)
 	populate(objectMap, "osType", f.OSType)
 	populate(objectMap, "zoneToZoneMappings", f.ZoneToZoneMappings)
 	return json.Marshal(objectMap)
@@ -5013,11 +5090,17 @@ func (f *FabricQueryParameter) UnmarshalJSON(data []byte) error {
 		case "discoveryType":
 			err = unpopulate(val, "DiscoveryType", &f.DiscoveryType)
 			delete(rawMsg, key)
+		case "extendedLocationMappings":
+			err = unpopulate(val, "ExtendedLocationMappings", &f.ExtendedLocationMappings)
+			delete(rawMsg, key)
 		case "fetchAgentDetails":
 			err = unpopulate(val, "FetchAgentDetails", &f.FetchAgentDetails)
 			delete(rawMsg, key)
 		case "fqdn":
 			err = unpopulate(val, "Fqdn", &f.Fqdn)
+			delete(rawMsg, key)
+		case "locationDetails":
+			err = unpopulate(val, "LocationDetails", &f.LocationDetails)
 			delete(rawMsg, key)
 		case "osType":
 			err = unpopulate(val, "OSType", &f.OSType)
@@ -20573,6 +20656,7 @@ func (v *VMwareCbtDiskInput) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type VMwareCbtEnableMigrationInput.
 func (v VMwareCbtEnableMigrationInput) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "confidentialVmKeyVaultId", v.ConfidentialVMKeyVaultID)
 	populate(objectMap, "dataMoverRunAsAccountId", v.DataMoverRunAsAccountID)
 	populate(objectMap, "disksToInclude", v.DisksToInclude)
 	objectMap["instanceType"] = "VMwareCbt"
@@ -20592,6 +20676,7 @@ func (v VMwareCbtEnableMigrationInput) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "targetResourceGroupId", v.TargetResourceGroupID)
 	populate(objectMap, "targetSubnetName", v.TargetSubnetName)
 	populate(objectMap, "targetVmName", v.TargetVMName)
+	populate(objectMap, "targetVmSecurityProfile", v.TargetVMSecurityProfile)
 	populate(objectMap, "targetVmSize", v.TargetVMSize)
 	populate(objectMap, "targetVmTags", v.TargetVMTags)
 	populate(objectMap, "testNetworkId", v.TestNetworkID)
@@ -20609,6 +20694,9 @@ func (v *VMwareCbtEnableMigrationInput) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "confidentialVmKeyVaultId":
+			err = unpopulate(val, "ConfidentialVMKeyVaultID", &v.ConfidentialVMKeyVaultID)
+			delete(rawMsg, key)
 		case "dataMoverRunAsAccountId":
 			err = unpopulate(val, "DataMoverRunAsAccountID", &v.DataMoverRunAsAccountID)
 			delete(rawMsg, key)
@@ -20665,6 +20753,9 @@ func (v *VMwareCbtEnableMigrationInput) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetVmName":
 			err = unpopulate(val, "TargetVMName", &v.TargetVMName)
+			delete(rawMsg, key)
+		case "targetVmSecurityProfile":
+			err = unpopulate(val, "TargetVMSecurityProfile", &v.TargetVMSecurityProfile)
 			delete(rawMsg, key)
 		case "targetVmSize":
 			err = unpopulate(val, "TargetVMSize", &v.TargetVMSize)
@@ -20724,6 +20815,7 @@ func (v *VMwareCbtEventDetails) UnmarshalJSON(data []byte) error {
 func (v VMwareCbtMigrateInput) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	objectMap["instanceType"] = "VMwareCbt"
+	populate(objectMap, "osUpgradeVersion", v.OSUpgradeVersion)
 	populate(objectMap, "performShutdown", v.PerformShutdown)
 	return json.Marshal(objectMap)
 }
@@ -20740,6 +20832,9 @@ func (v *VMwareCbtMigrateInput) UnmarshalJSON(data []byte) error {
 		case "instanceType":
 			err = unpopulate(val, "InstanceType", &v.InstanceType)
 			delete(rawMsg, key)
+		case "osUpgradeVersion":
+			err = unpopulate(val, "OSUpgradeVersion", &v.OSUpgradeVersion)
+			delete(rawMsg, key)
 		case "performShutdown":
 			err = unpopulate(val, "PerformShutdown", &v.PerformShutdown)
 			delete(rawMsg, key)
@@ -20754,6 +20849,7 @@ func (v *VMwareCbtMigrateInput) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type VMwareCbtMigrationDetails.
 func (v VMwareCbtMigrationDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "confidentialVmKeyVaultId", v.ConfidentialVMKeyVaultID)
 	populate(objectMap, "dataMoverRunAsAccountId", v.DataMoverRunAsAccountID)
 	populate(objectMap, "firmwareType", v.FirmwareType)
 	populate(objectMap, "initialSeedingProgressPercentage", v.InitialSeedingProgressPercentage)
@@ -20764,6 +20860,7 @@ func (v VMwareCbtMigrationDetails) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "licenseType", v.LicenseType)
 	populate(objectMap, "migrationProgressPercentage", v.MigrationProgressPercentage)
 	populate(objectMap, "migrationRecoveryPointId", v.MigrationRecoveryPointID)
+	populate(objectMap, "osName", v.OSName)
 	populate(objectMap, "osType", v.OSType)
 	populate(objectMap, "performAutoResync", v.PerformAutoResync)
 	populate(objectMap, "protectedDisks", v.ProtectedDisks)
@@ -20777,6 +20874,7 @@ func (v VMwareCbtMigrationDetails) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "seedDiskTags", v.SeedDiskTags)
 	populate(objectMap, "snapshotRunAsAccountId", v.SnapshotRunAsAccountID)
 	populate(objectMap, "storageAccountId", v.StorageAccountID)
+	populate(objectMap, "supportedOSVersions", v.SupportedOSVersions)
 	populate(objectMap, "targetAvailabilitySetId", v.TargetAvailabilitySetID)
 	populate(objectMap, "targetAvailabilityZone", v.TargetAvailabilityZone)
 	populate(objectMap, "targetBootDiagnosticsStorageAccountId", v.TargetBootDiagnosticsStorageAccountID)
@@ -20788,6 +20886,7 @@ func (v VMwareCbtMigrationDetails) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "targetProximityPlacementGroupId", v.TargetProximityPlacementGroupID)
 	populate(objectMap, "targetResourceGroupId", v.TargetResourceGroupID)
 	populate(objectMap, "targetVmName", v.TargetVMName)
+	populate(objectMap, "targetVmSecurityProfile", v.TargetVMSecurityProfile)
 	populate(objectMap, "targetVmSize", v.TargetVMSize)
 	populate(objectMap, "targetVmTags", v.TargetVMTags)
 	populate(objectMap, "testNetworkId", v.TestNetworkID)
@@ -20805,6 +20904,9 @@ func (v *VMwareCbtMigrationDetails) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "confidentialVmKeyVaultId":
+			err = unpopulate(val, "ConfidentialVMKeyVaultID", &v.ConfidentialVMKeyVaultID)
+			delete(rawMsg, key)
 		case "dataMoverRunAsAccountId":
 			err = unpopulate(val, "DataMoverRunAsAccountID", &v.DataMoverRunAsAccountID)
 			delete(rawMsg, key)
@@ -20834,6 +20936,9 @@ func (v *VMwareCbtMigrationDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "migrationRecoveryPointId":
 			err = unpopulate(val, "MigrationRecoveryPointID", &v.MigrationRecoveryPointID)
+			delete(rawMsg, key)
+		case "osName":
+			err = unpopulate(val, "OSName", &v.OSName)
 			delete(rawMsg, key)
 		case "osType":
 			err = unpopulate(val, "OSType", &v.OSType)
@@ -20874,6 +20979,9 @@ func (v *VMwareCbtMigrationDetails) UnmarshalJSON(data []byte) error {
 		case "storageAccountId":
 			err = unpopulate(val, "StorageAccountID", &v.StorageAccountID)
 			delete(rawMsg, key)
+		case "supportedOSVersions":
+			err = unpopulate(val, "SupportedOSVersions", &v.SupportedOSVersions)
+			delete(rawMsg, key)
 		case "targetAvailabilitySetId":
 			err = unpopulate(val, "TargetAvailabilitySetID", &v.TargetAvailabilitySetID)
 			delete(rawMsg, key)
@@ -20906,6 +21014,9 @@ func (v *VMwareCbtMigrationDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetVmName":
 			err = unpopulate(val, "TargetVMName", &v.TargetVMName)
+			delete(rawMsg, key)
+		case "targetVmSecurityProfile":
+			err = unpopulate(val, "TargetVMSecurityProfile", &v.TargetVMSecurityProfile)
 			delete(rawMsg, key)
 		case "targetVmSize":
 			err = unpopulate(val, "TargetVMSize", &v.TargetVMSize)
@@ -21185,6 +21296,7 @@ func (v *VMwareCbtProtectedDiskDetails) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type VMwareCbtProtectionContainerMappingDetails.
 func (v VMwareCbtProtectionContainerMappingDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "excludedSkus", v.ExcludedSKUs)
 	objectMap["instanceType"] = "VMwareCbt"
 	populate(objectMap, "keyVaultId", v.KeyVaultID)
 	populate(objectMap, "keyVaultUri", v.KeyVaultURI)
@@ -21205,6 +21317,9 @@ func (v *VMwareCbtProtectionContainerMappingDetails) UnmarshalJSON(data []byte) 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "excludedSkus":
+			err = unpopulate(val, "ExcludedSKUs", &v.ExcludedSKUs)
+			delete(rawMsg, key)
 		case "instanceType":
 			err = unpopulate(val, "InstanceType", &v.InstanceType)
 			delete(rawMsg, key)
@@ -21299,11 +21414,55 @@ func (v *VMwareCbtResyncInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type VMwareCbtSecurityProfileProperties.
+func (v VMwareCbtSecurityProfileProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "isTargetVmConfidentialEncryptionEnabled", v.IsTargetVMConfidentialEncryptionEnabled)
+	populate(objectMap, "isTargetVmIntegrityMonitoringEnabled", v.IsTargetVMIntegrityMonitoringEnabled)
+	populate(objectMap, "isTargetVmSecureBootEnabled", v.IsTargetVMSecureBootEnabled)
+	populate(objectMap, "isTargetVmTpmEnabled", v.IsTargetVMTpmEnabled)
+	populate(objectMap, "targetVmSecurityType", v.TargetVMSecurityType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VMwareCbtSecurityProfileProperties.
+func (v *VMwareCbtSecurityProfileProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "isTargetVmConfidentialEncryptionEnabled":
+			err = unpopulate(val, "IsTargetVMConfidentialEncryptionEnabled", &v.IsTargetVMConfidentialEncryptionEnabled)
+			delete(rawMsg, key)
+		case "isTargetVmIntegrityMonitoringEnabled":
+			err = unpopulate(val, "IsTargetVMIntegrityMonitoringEnabled", &v.IsTargetVMIntegrityMonitoringEnabled)
+			delete(rawMsg, key)
+		case "isTargetVmSecureBootEnabled":
+			err = unpopulate(val, "IsTargetVMSecureBootEnabled", &v.IsTargetVMSecureBootEnabled)
+			delete(rawMsg, key)
+		case "isTargetVmTpmEnabled":
+			err = unpopulate(val, "IsTargetVMTpmEnabled", &v.IsTargetVMTpmEnabled)
+			delete(rawMsg, key)
+		case "targetVmSecurityType":
+			err = unpopulate(val, "TargetVMSecurityType", &v.TargetVMSecurityType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type VMwareCbtTestMigrateInput.
 func (v VMwareCbtTestMigrateInput) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	objectMap["instanceType"] = "VMwareCbt"
 	populate(objectMap, "networkId", v.NetworkID)
+	populate(objectMap, "osUpgradeVersion", v.OSUpgradeVersion)
 	populate(objectMap, "recoveryPointId", v.RecoveryPointID)
 	populate(objectMap, "vmNics", v.VMNics)
 	return json.Marshal(objectMap)
@@ -21323,6 +21482,9 @@ func (v *VMwareCbtTestMigrateInput) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "networkId":
 			err = unpopulate(val, "NetworkID", &v.NetworkID)
+			delete(rawMsg, key)
+		case "osUpgradeVersion":
+			err = unpopulate(val, "OSUpgradeVersion", &v.OSUpgradeVersion)
 			delete(rawMsg, key)
 		case "recoveryPointId":
 			err = unpopulate(val, "RecoveryPointID", &v.RecoveryPointID)
