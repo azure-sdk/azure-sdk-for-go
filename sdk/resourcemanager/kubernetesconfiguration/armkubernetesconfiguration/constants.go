@@ -11,7 +11,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "armkubernetesconfiguration"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // AKSIdentityType - The identity type.
