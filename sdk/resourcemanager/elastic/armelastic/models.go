@@ -240,6 +240,9 @@ type MarketplaceSaaSInfo struct {
 	// Marketplace Subscription Details: Resource URI
 	MarketplaceResourceID *string
 
+	// Marketplace Subscription Details: SaaS Subscription Status
+	MarketplaceStatus *string
+
 	// Marketplace Subscription
 	MarketplaceSubscription *MarketplaceSaaSInfoMarketplaceSubscription
 }

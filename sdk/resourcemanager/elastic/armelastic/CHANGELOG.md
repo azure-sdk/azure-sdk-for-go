@@ -1,5 +1,11 @@
 # Release History
 
+## 1.0.0 (2023-05-31)
+### Features Added
+
+- New field `MarketplaceStatus` in struct `MarketplaceSaaSInfo`
+
+
 ## 0.9.0 (2023-05-26)
 ### Breaking Changes
 
