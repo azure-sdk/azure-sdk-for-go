@@ -47,7 +47,7 @@ func NewSecurityPoliciesClient(subscriptionID string, credential azcore.TokenCre
 // BeginCreate - Creates a new security policy within the specified profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -72,7 +72,7 @@ func (client *SecurityPoliciesClient) BeginCreate(ctx context.Context, resourceG
 // Create - Creates a new security policy within the specified profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *SecurityPoliciesClient) create(ctx context.Context, resourceGroupName string, profileName string, securityPolicyName string, securityPolicy SecurityPolicy, options *SecurityPoliciesClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, profileName, securityPolicyName, securityPolicy, options)
 	if err != nil {
@@ -112,7 +112,7 @@ func (client *SecurityPoliciesClient) createCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, securityPolicy)
@@ -121,7 +121,7 @@ func (client *SecurityPoliciesClient) createCreateRequest(ctx context.Context, r
 // BeginDelete - Deletes an existing security policy within profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -145,7 +145,7 @@ func (client *SecurityPoliciesClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Deletes an existing security policy within profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *SecurityPoliciesClient) deleteOperation(ctx context.Context, resourceGroupName string, profileName string, securityPolicyName string, options *SecurityPoliciesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, profileName, securityPolicyName, options)
 	if err != nil {
@@ -185,7 +185,7 @@ func (client *SecurityPoliciesClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *SecurityPoliciesClient) deleteCreateRequest(ctx context.Context, r
 // Get - Gets an existing security policy within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -239,7 +239,7 @@ func (client *SecurityPoliciesClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -256,7 +256,7 @@ func (client *SecurityPoliciesClient) getHandleResponse(resp *http.Response) (Se
 
 // NewListByProfilePager - Lists security policies associated with the profile
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -310,7 +310,7 @@ func (client *SecurityPoliciesClient) listByProfileCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +328,7 @@ func (client *SecurityPoliciesClient) listByProfileHandleResponse(resp *http.Res
 // BeginPatch - Updates an existing security policy within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -353,7 +353,7 @@ func (client *SecurityPoliciesClient) BeginPatch(ctx context.Context, resourceGr
 // Patch - Updates an existing security policy within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *SecurityPoliciesClient) patch(ctx context.Context, resourceGroupName string, profileName string, securityPolicyName string, securityPolicyUpdateProperties SecurityPolicyUpdateParameters, options *SecurityPoliciesClientBeginPatchOptions) (*http.Response, error) {
 	req, err := client.patchCreateRequest(ctx, resourceGroupName, profileName, securityPolicyName, securityPolicyUpdateProperties, options)
 	if err != nil {
@@ -393,7 +393,7 @@ func (client *SecurityPoliciesClient) patchCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, securityPolicyUpdateProperties)
