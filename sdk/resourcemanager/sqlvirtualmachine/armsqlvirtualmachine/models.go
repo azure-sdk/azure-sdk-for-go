@@ -429,7 +429,8 @@ type Properties struct {
 	// SQL Server edition type.
 	SQLImageSKU *SQLImageSKU
 
-	// SQL Server Management type.
+	// SQL Server Management type. NOTE: This parameter is not used anymore. API will automatically detect the Sql Management,
+	// refrain from using it.
 	SQLManagement *SQLManagementMode
 
 	// SQL Server license type.
@@ -519,6 +520,9 @@ type SQLStorageSettings struct {
 
 	// Logical Unit Numbers for the disks.
 	Luns []*int32
+
+	// Use storage pool to build a drive if true or not provided
+	UseStoragePool *bool
 }
 
 // SQLStorageUpdateSettings - Set disk storage settings for SQL Server.
@@ -561,6 +565,9 @@ type SQLTempDbSettings struct {
 
 	// SQL Server tempdb persist folder location
 	PersistFolderPath *string
+
+	// Use storage pool to build a drive if true or not provided
+	UseStoragePool *bool
 }
 
 // SQLVMTroubleshooting - Details required for SQL VM troubleshooting
@@ -717,6 +724,9 @@ type StorageConfigurationSettings struct {
 	// Disk configuration to apply to SQL Server.
 	DiskConfigurationType *DiskConfigurationType
 
+	// Enable SQL IaaS Agent storage configuration blade in Azure Portal.
+	EnableStorageConfigBlade *bool
+
 	// SQL Server Data Storage Settings.
 	SQLDataSettings *SQLStorageSettings
 
@@ -829,6 +839,9 @@ type WsfcDomainProfile struct {
 
 	// Optional path for fileshare witness.
 	FileShareWitnessPath *string
+
+	// The flag to check if SQL service account is GMSA.
+	IsSQLServiceAccountGmsa *bool
 
 	// Organizational Unit path in which the nodes and cluster will be present.
 	OuPath *string

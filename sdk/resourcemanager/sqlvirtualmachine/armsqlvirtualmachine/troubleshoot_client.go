@@ -47,7 +47,7 @@ func NewTroubleshootClient(subscriptionID string, credential azcore.TokenCredent
 // BeginTroubleshoot - Starts SQL virtual machine troubleshooting.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-01-01-preview
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -71,7 +71,7 @@ func (client *TroubleshootClient) BeginTroubleshoot(ctx context.Context, resourc
 // Troubleshoot - Starts SQL virtual machine troubleshooting.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-01-01-preview
 func (client *TroubleshootClient) troubleshoot(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters SQLVMTroubleshooting, options *TroubleshootClientBeginTroubleshootOptions) (*http.Response, error) {
 	req, err := client.troubleshootCreateRequest(ctx, resourceGroupName, sqlVirtualMachineName, parameters, options)
 	if err != nil {
@@ -107,7 +107,7 @@ func (client *TroubleshootClient) troubleshootCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

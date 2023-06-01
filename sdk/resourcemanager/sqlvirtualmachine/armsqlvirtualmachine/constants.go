@@ -11,7 +11,7 @@ package armsqlvirtualmachine
 
 const (
 	moduleName    = "armsqlvirtualmachine"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // AssessmentDayOfWeek - Day of the week to run assessment.
@@ -130,15 +130,15 @@ func PossibleClusterSubnetTypeValues() []ClusterSubnetType {
 type Commit string
 
 const (
-	CommitASYNCHRONOUSCOMMIT Commit = "ASYNCHRONOUS_COMMIT"
-	CommitSYNCHRONOUSCOMMIT  Commit = "SYNCHRONOUS_COMMIT"
+	CommitAsynchronousCommit Commit = "Asynchronous_Commit"
+	CommitSynchronousCommit  Commit = "Synchronous_Commit"
 )
 
 // PossibleCommitValues returns the possible values for the Commit const type.
 func PossibleCommitValues() []Commit {
 	return []Commit{
-		CommitASYNCHRONOUSCOMMIT,
-		CommitSYNCHRONOUSCOMMIT,
+		CommitAsynchronousCommit,
+		CommitSynchronousCommit,
 	}
 }
 
@@ -230,15 +230,15 @@ func PossibleDiskConfigurationTypeValues() []DiskConfigurationType {
 type Failover string
 
 const (
-	FailoverAUTOMATIC Failover = "AUTOMATIC"
-	FailoverMANUAL    Failover = "MANUAL"
+	FailoverAutomatic Failover = "Automatic"
+	FailoverManual    Failover = "Manual"
 )
 
 // PossibleFailoverValues returns the possible values for the Failover const type.
 func PossibleFailoverValues() []Failover {
 	return []Failover{
-		FailoverAUTOMATIC,
-		FailoverMANUAL,
+		FailoverAutomatic,
+		FailoverManual,
 	}
 }
 
@@ -311,17 +311,17 @@ func PossibleOperationOriginValues() []OperationOrigin {
 type ReadableSecondary string
 
 const (
-	ReadableSecondaryALL      ReadableSecondary = "ALL"
-	ReadableSecondaryNO       ReadableSecondary = "NO"
-	ReadableSecondaryREADONLY ReadableSecondary = "READ_ONLY"
+	ReadableSecondaryAll      ReadableSecondary = "All"
+	ReadableSecondaryNo       ReadableSecondary = "No"
+	ReadableSecondaryReadOnly ReadableSecondary = "Read_Only"
 )
 
 // PossibleReadableSecondaryValues returns the possible values for the ReadableSecondary const type.
 func PossibleReadableSecondaryValues() []ReadableSecondary {
 	return []ReadableSecondary{
-		ReadableSecondaryALL,
-		ReadableSecondaryNO,
-		ReadableSecondaryREADONLY,
+		ReadableSecondaryAll,
+		ReadableSecondaryNo,
+		ReadableSecondaryReadOnly,
 	}
 }
 
@@ -329,15 +329,15 @@ func PossibleReadableSecondaryValues() []ReadableSecondary {
 type Role string
 
 const (
-	RolePRIMARY   Role = "PRIMARY"
-	RoleSECONDARY Role = "SECONDARY"
+	RolePrimary   Role = "Primary"
+	RoleSecondary Role = "Secondary"
 )
 
 // PossibleRoleValues returns the possible values for the Role const type.
 func PossibleRoleValues() []Role {
 	return []Role{
-		RolePRIMARY,
-		RoleSECONDARY,
+		RolePrimary,
+		RoleSecondary,
 	}
 }
 
@@ -363,7 +363,8 @@ func PossibleSQLImageSKUValues() []SQLImageSKU {
 	}
 }
 
-// SQLManagementMode - SQL Server Management type.
+// SQLManagementMode - SQL Server Management type. NOTE: This parameter is not used anymore. API will automatically detect
+// the Sql Management, refrain from using it.
 type SQLManagementMode string
 
 const (

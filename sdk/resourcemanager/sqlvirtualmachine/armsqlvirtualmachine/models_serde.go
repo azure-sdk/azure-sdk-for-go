@@ -1091,6 +1091,7 @@ func (s SQLStorageSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "defaultFilePath", s.DefaultFilePath)
 	populate(objectMap, "luns", s.Luns)
+	populate(objectMap, "useStoragePool", s.UseStoragePool)
 	return json.Marshal(objectMap)
 }
 
@@ -1108,6 +1109,9 @@ func (s *SQLStorageSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "luns":
 			err = unpopulate(val, "Luns", &s.Luns)
+			delete(rawMsg, key)
+		case "useStoragePool":
+			err = unpopulate(val, "UseStoragePool", &s.UseStoragePool)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1164,6 +1168,7 @@ func (s SQLTempDbSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "luns", s.Luns)
 	populate(objectMap, "persistFolder", s.PersistFolder)
 	populate(objectMap, "persistFolderPath", s.PersistFolderPath)
+	populate(objectMap, "useStoragePool", s.UseStoragePool)
 	return json.Marshal(objectMap)
 }
 
@@ -1202,6 +1207,9 @@ func (s *SQLTempDbSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "persistFolderPath":
 			err = unpopulate(val, "PersistFolderPath", &s.PersistFolderPath)
+			delete(rawMsg, key)
+		case "useStoragePool":
+			err = unpopulate(val, "UseStoragePool", &s.UseStoragePool)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1430,6 +1438,7 @@ func (s *ServerConfigurationsManagementSettings) UnmarshalJSON(data []byte) erro
 func (s StorageConfigurationSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "diskConfigurationType", s.DiskConfigurationType)
+	populate(objectMap, "enableStorageConfigBlade", s.EnableStorageConfigBlade)
 	populate(objectMap, "sqlDataSettings", s.SQLDataSettings)
 	populate(objectMap, "sqlLogSettings", s.SQLLogSettings)
 	populate(objectMap, "sqlSystemDbOnDataDisk", s.SQLSystemDbOnDataDisk)
@@ -1449,6 +1458,9 @@ func (s *StorageConfigurationSettings) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "diskConfigurationType":
 			err = unpopulate(val, "DiskConfigurationType", &s.DiskConfigurationType)
+			delete(rawMsg, key)
+		case "enableStorageConfigBlade":
+			err = unpopulate(val, "EnableStorageConfigBlade", &s.EnableStorageConfigBlade)
 			delete(rawMsg, key)
 		case "sqlDataSettings":
 			err = unpopulate(val, "SQLDataSettings", &s.SQLDataSettings)
@@ -1691,6 +1703,7 @@ func (w WsfcDomainProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "clusterSubnetType", w.ClusterSubnetType)
 	populate(objectMap, "domainFqdn", w.DomainFqdn)
 	populate(objectMap, "fileShareWitnessPath", w.FileShareWitnessPath)
+	populate(objectMap, "isSqlServiceAccountGmsa", w.IsSQLServiceAccountGmsa)
 	populate(objectMap, "ouPath", w.OuPath)
 	populate(objectMap, "sqlServiceAccount", w.SQLServiceAccount)
 	populate(objectMap, "storageAccountPrimaryKey", w.StorageAccountPrimaryKey)
@@ -1721,6 +1734,9 @@ func (w *WsfcDomainProfile) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "fileShareWitnessPath":
 			err = unpopulate(val, "FileShareWitnessPath", &w.FileShareWitnessPath)
+			delete(rawMsg, key)
+		case "isSqlServiceAccountGmsa":
+			err = unpopulate(val, "IsSQLServiceAccountGmsa", &w.IsSQLServiceAccountGmsa)
 			delete(rawMsg, key)
 		case "ouPath":
 			err = unpopulate(val, "OuPath", &w.OuPath)
