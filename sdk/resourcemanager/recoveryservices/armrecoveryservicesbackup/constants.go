@@ -11,7 +11,7 @@ package armrecoveryservicesbackup
 
 const (
 	moduleName    = "armrecoveryservicesbackup"
-	moduleVersion = "v2.1.1"
+	moduleVersion = "v3.0.0"
 )
 
 // AcquireStorageAccountLock - Whether storage account lock is to be acquired for this container or not.
@@ -1577,6 +1577,24 @@ func PossibleValidationStatusValues() []ValidationStatus {
 		ValidationStatusFailed,
 		ValidationStatusInvalid,
 		ValidationStatusSucceeded,
+	}
+}
+
+// VaultSubResourceType - GroupId for the PrivateEndpointConnection - AzureBackup, AzureBackup_secondary or AzureSiteRecovery
+type VaultSubResourceType string
+
+const (
+	VaultSubResourceTypeAzureBackup          VaultSubResourceType = "AzureBackup"
+	VaultSubResourceTypeAzureBackupSecondary VaultSubResourceType = "AzureBackup_secondary"
+	VaultSubResourceTypeAzureSiteRecovery    VaultSubResourceType = "AzureSiteRecovery"
+)
+
+// PossibleVaultSubResourceTypeValues returns the possible values for the VaultSubResourceType const type.
+func PossibleVaultSubResourceTypeValues() []VaultSubResourceType {
+	return []VaultSubResourceType{
+		VaultSubResourceTypeAzureBackup,
+		VaultSubResourceTypeAzureBackupSecondary,
+		VaultSubResourceTypeAzureSiteRecovery,
 	}
 }
 

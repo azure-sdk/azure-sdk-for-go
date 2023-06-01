@@ -2048,7 +2048,7 @@ func (a *AzureVMWorkloadItem) GetWorkloadItem() *WorkloadItem {
 // Call the interface's GetAzureVMWorkloadProtectableItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureVMWorkloadProtectableItem, *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaHSR, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
+// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
 // - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem
 type AzureVMWorkloadProtectableItemClassification interface {
 	WorkloadProtectableItemClassification
@@ -3178,8 +3178,8 @@ func (a *AzureVMWorkloadSAPHanaDatabaseWorkloadItem) GetWorkloadItem() *Workload
 	}
 }
 
-// AzureVMWorkloadSAPHanaHSR - Azure VM workload-specific protectable item representing SAP HANA Dbinstance.
-type AzureVMWorkloadSAPHanaHSR struct {
+// AzureVMWorkloadSAPHanaHSRProtectableItem - Azure VM workload-specific protectable item representing HANA HSR.
+type AzureVMWorkloadSAPHanaHSRProtectableItem struct {
 	// REQUIRED; Type of the backup item.
 	ProtectableItemType *string
 
@@ -3221,8 +3221,8 @@ type AzureVMWorkloadSAPHanaHSR struct {
 	WorkloadType *string
 }
 
-// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSR.
-func (a *AzureVMWorkloadSAPHanaHSR) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
+// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
 	return &AzureVMWorkloadProtectableItem{
 		ParentName:              a.ParentName,
 		ParentUniqueName:        a.ParentUniqueName,
@@ -3240,8 +3240,8 @@ func (a *AzureVMWorkloadSAPHanaHSR) GetAzureVMWorkloadProtectableItem() *AzureVM
 	}
 }
 
-// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSR.
-func (a *AzureVMWorkloadSAPHanaHSR) GetWorkloadProtectableItem() *WorkloadProtectableItem {
+// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetWorkloadProtectableItem() *WorkloadProtectableItem {
 	return &WorkloadProtectableItem{
 		BackupManagementType: a.BackupManagementType,
 		WorkloadType:         a.WorkloadType,
@@ -5822,6 +5822,9 @@ type BackupResourceVaultConfig struct {
 	// Soft Delete feature state
 	SoftDeleteFeatureState *SoftDeleteFeatureState
 
+	// Soft delete retention period in days
+	SoftDeleteRetentionPeriod *int32
+
 	// Storage type.
 	StorageModelType *StorageType
 
@@ -8300,6 +8303,9 @@ type PrivateEndpointClientGetOperationStatusOptions struct {
 
 // PrivateEndpointConnection - Private Endpoint Connection Response Properties
 type PrivateEndpointConnection struct {
+	// Group Ids for the Private Endpoint
+	GroupIDs []*VaultSubResourceType
+
 	// Gets or sets private endpoint associated with the private endpoint connection
 	PrivateEndpoint *PrivateEndpoint
 
@@ -8357,7 +8363,7 @@ type PrivateEndpointConnectionResource struct {
 // PrivateLinkServiceConnectionState - Private Link Service Connection State
 type PrivateLinkServiceConnectionState struct {
 	// Gets or sets actions required
-	ActionRequired *string
+	ActionsRequired *string
 
 	// Gets or sets description
 	Description *string
@@ -9817,7 +9823,7 @@ type WorkloadItemResourceList struct {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureFileShareProtectableItem, *AzureIaaSClassicComputeVMProtectableItem, *AzureIaaSComputeVMProtectableItem, *AzureVMWorkloadProtectableItem,
 // - *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaHSR, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
+// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
 // - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem, *IaaSVMProtectableItem, *WorkloadProtectableItem
 type WorkloadProtectableItemClassification interface {
 	// GetWorkloadProtectableItem returns the WorkloadProtectableItem content of the underlying type.
