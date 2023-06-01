@@ -1758,6 +1758,7 @@ func (n *NetworkSecurityPerimeter) UnmarshalJSON(data []byte) error {
 func (n NetworkSecurityPerimeterConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", n.ID)
+	populate(objectMap, "location", n.Location)
 	populate(objectMap, "name", n.Name)
 	populate(objectMap, "properties", n.Properties)
 	populate(objectMap, "type", n.Type)
@@ -1775,6 +1776,9 @@ func (n *NetworkSecurityPerimeterConfiguration) UnmarshalJSON(data []byte) error
 		switch key {
 		case "id":
 			err = unpopulate(val, "ID", &n.ID)
+			delete(rawMsg, key)
+		case "location":
+			err = unpopulate(val, "Location", &n.Location)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &n.Name)
