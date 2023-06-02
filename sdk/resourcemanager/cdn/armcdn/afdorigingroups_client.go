@@ -47,7 +47,7 @@ func NewAFDOriginGroupsClient(subscriptionID string, credential azcore.TokenCred
 // BeginCreate - Creates a new origin group within the specified profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -72,7 +72,7 @@ func (client *AFDOriginGroupsClient) BeginCreate(ctx context.Context, resourceGr
 // Create - Creates a new origin group within the specified profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *AFDOriginGroupsClient) create(ctx context.Context, resourceGroupName string, profileName string, originGroupName string, originGroup AFDOriginGroup, options *AFDOriginGroupsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, profileName, originGroupName, originGroup, options)
 	if err != nil {
@@ -112,7 +112,7 @@ func (client *AFDOriginGroupsClient) createCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, originGroup)
@@ -121,7 +121,7 @@ func (client *AFDOriginGroupsClient) createCreateRequest(ctx context.Context, re
 // BeginDelete - Deletes an existing origin group within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -145,7 +145,7 @@ func (client *AFDOriginGroupsClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Deletes an existing origin group within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *AFDOriginGroupsClient) deleteOperation(ctx context.Context, resourceGroupName string, profileName string, originGroupName string, options *AFDOriginGroupsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, profileName, originGroupName, options)
 	if err != nil {
@@ -185,7 +185,7 @@ func (client *AFDOriginGroupsClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *AFDOriginGroupsClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets an existing origin group within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -239,7 +239,7 @@ func (client *AFDOriginGroupsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -256,7 +256,7 @@ func (client *AFDOriginGroupsClient) getHandleResponse(resp *http.Response) (AFD
 
 // NewListByProfilePager - Lists all of the existing origin groups within a profile.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -310,7 +310,7 @@ func (client *AFDOriginGroupsClient) listByProfileCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -325,10 +325,9 @@ func (client *AFDOriginGroupsClient) listByProfileHandleResponse(resp *http.Resp
 	return result, nil
 }
 
-// NewListResourceUsagePager - Checks the quota and actual usage of the given AzureFrontDoor origin group under the given
-// CDN profile.
+// NewListResourceUsagePager - Checks the quota and actual usage of endpoints under the given Azure Front Door profile..
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -387,7 +386,7 @@ func (client *AFDOriginGroupsClient) listResourceUsageCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -405,7 +404,7 @@ func (client *AFDOriginGroupsClient) listResourceUsageHandleResponse(resp *http.
 // BeginUpdate - Updates an existing origin group within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -430,7 +429,7 @@ func (client *AFDOriginGroupsClient) BeginUpdate(ctx context.Context, resourceGr
 // Update - Updates an existing origin group within a profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *AFDOriginGroupsClient) update(ctx context.Context, resourceGroupName string, profileName string, originGroupName string, originGroupUpdateProperties AFDOriginGroupUpdateParameters, options *AFDOriginGroupsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, profileName, originGroupName, originGroupUpdateProperties, options)
 	if err != nil {
@@ -470,7 +469,7 @@ func (client *AFDOriginGroupsClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, originGroupUpdateProperties)
