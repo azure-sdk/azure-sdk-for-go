@@ -11,7 +11,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v2.1.1"
+	moduleVersion = "v3.0.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -2012,6 +2012,52 @@ func PossibleSupportedTLSVersionsValues() []SupportedTLSVersions {
 	}
 }
 
+// TLSCipherSuites - The minimum strength TLS cipher suite allowed for an application
+type TLSCipherSuites string
+
+const (
+	TLSCipherSuitesTLSAES128GCMSHA256               TLSCipherSuites = "TLS_AES_128_GCM_SHA256"
+	TLSCipherSuitesTLSAES256GCMSHA384               TLSCipherSuites = "TLS_AES_256_GCM_SHA384"
+	TLSCipherSuitesTLSECDHEECDSAWITHAES128CBCSHA256 TLSCipherSuites = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256"
+	TLSCipherSuitesTLSECDHEECDSAWITHAES128GCMSHA256 TLSCipherSuites = "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+	TLSCipherSuitesTLSECDHEECDSAWITHAES256GCMSHA384 TLSCipherSuites = "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+	TLSCipherSuitesTLSECDHERSAWITHAES128CBCSHA      TLSCipherSuites = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+	TLSCipherSuitesTLSECDHERSAWITHAES128CBCSHA256   TLSCipherSuites = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+	TLSCipherSuitesTLSECDHERSAWITHAES128GCMSHA256   TLSCipherSuites = "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+	TLSCipherSuitesTLSECDHERSAWITHAES256CBCSHA      TLSCipherSuites = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+	TLSCipherSuitesTLSECDHERSAWITHAES256CBCSHA384   TLSCipherSuites = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384"
+	TLSCipherSuitesTLSECDHERSAWITHAES256GCMSHA384   TLSCipherSuites = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+	TLSCipherSuitesTLSRSAWITHAES128CBCSHA           TLSCipherSuites = "TLS_RSA_WITH_AES_128_CBC_SHA"
+	TLSCipherSuitesTLSRSAWITHAES128CBCSHA256        TLSCipherSuites = "TLS_RSA_WITH_AES_128_CBC_SHA256"
+	TLSCipherSuitesTLSRSAWITHAES128GCMSHA256        TLSCipherSuites = "TLS_RSA_WITH_AES_128_GCM_SHA256"
+	TLSCipherSuitesTLSRSAWITHAES256CBCSHA           TLSCipherSuites = "TLS_RSA_WITH_AES_256_CBC_SHA"
+	TLSCipherSuitesTLSRSAWITHAES256CBCSHA256        TLSCipherSuites = "TLS_RSA_WITH_AES_256_CBC_SHA256"
+	TLSCipherSuitesTLSRSAWITHAES256GCMSHA384        TLSCipherSuites = "TLS_RSA_WITH_AES_256_GCM_SHA384"
+)
+
+// PossibleTLSCipherSuitesValues returns the possible values for the TLSCipherSuites const type.
+func PossibleTLSCipherSuitesValues() []TLSCipherSuites {
+	return []TLSCipherSuites{
+		TLSCipherSuitesTLSAES128GCMSHA256,
+		TLSCipherSuitesTLSAES256GCMSHA384,
+		TLSCipherSuitesTLSECDHEECDSAWITHAES128CBCSHA256,
+		TLSCipherSuitesTLSECDHEECDSAWITHAES128GCMSHA256,
+		TLSCipherSuitesTLSECDHEECDSAWITHAES256GCMSHA384,
+		TLSCipherSuitesTLSECDHERSAWITHAES128CBCSHA,
+		TLSCipherSuitesTLSECDHERSAWITHAES128CBCSHA256,
+		TLSCipherSuitesTLSECDHERSAWITHAES128GCMSHA256,
+		TLSCipherSuitesTLSECDHERSAWITHAES256CBCSHA,
+		TLSCipherSuitesTLSECDHERSAWITHAES256CBCSHA384,
+		TLSCipherSuitesTLSECDHERSAWITHAES256GCMSHA384,
+		TLSCipherSuitesTLSRSAWITHAES128CBCSHA,
+		TLSCipherSuitesTLSRSAWITHAES128CBCSHA256,
+		TLSCipherSuitesTLSRSAWITHAES128GCMSHA256,
+		TLSCipherSuitesTLSRSAWITHAES256CBCSHA,
+		TLSCipherSuitesTLSRSAWITHAES256CBCSHA256,
+		TLSCipherSuitesTLSRSAWITHAES256GCMSHA384,
+	}
+}
+
 // TriggerTypes - The trigger type of the function
 type TriggerTypes string
 
@@ -2313,26 +2359,26 @@ func PossibleWorkflowSKUNameValues() []WorkflowSKUName {
 	}
 }
 
-// WorkflowState - Gets or sets the state of the workflow.
+// WorkflowState - The workflow state.
 type WorkflowState string
 
 const (
-	WorkflowStateNotSpecified WorkflowState = "NotSpecified"
 	WorkflowStateCompleted    WorkflowState = "Completed"
-	WorkflowStateEnabled      WorkflowState = "Enabled"
-	WorkflowStateDisabled     WorkflowState = "Disabled"
 	WorkflowStateDeleted      WorkflowState = "Deleted"
+	WorkflowStateDisabled     WorkflowState = "Disabled"
+	WorkflowStateEnabled      WorkflowState = "Enabled"
+	WorkflowStateNotSpecified WorkflowState = "NotSpecified"
 	WorkflowStateSuspended    WorkflowState = "Suspended"
 )
 
 // PossibleWorkflowStateValues returns the possible values for the WorkflowState const type.
 func PossibleWorkflowStateValues() []WorkflowState {
 	return []WorkflowState{
-		WorkflowStateNotSpecified,
 		WorkflowStateCompleted,
-		WorkflowStateEnabled,
-		WorkflowStateDisabled,
 		WorkflowStateDeleted,
+		WorkflowStateDisabled,
+		WorkflowStateEnabled,
+		WorkflowStateNotSpecified,
 		WorkflowStateSuspended,
 	}
 }

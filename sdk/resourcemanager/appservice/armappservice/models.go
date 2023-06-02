@@ -5632,6 +5632,45 @@ type Nonce struct {
 	ValidateNonce *bool
 }
 
+// OneDeployRequest - OneDeploy settings defined by user
+type OneDeployRequest struct {
+	// Specifies whether the deployment should be performed asynchronously
+	Async *bool
+
+	// Specifies whether to clean the target deployment directory
+	Clean *bool
+
+	// Disables any language-specific defaults
+	IgnoreStack *bool
+
+	// Kind of resource.
+	Kind *string
+
+	// The Uri where the source artifact can be pulled from
+	PackageURI *string
+
+	// The absolute path to deploy the artifact to
+	Path *string
+
+	// Resets Java apps to the default parking page if set to true with no type specified
+	Reset *bool
+
+	// Specifies whether to restart the app following the deployment
+	Restart *bool
+
+	// The type of the artifact being deployed
+	TrackDeploymentProgress *bool
+
+	// READ-ONLY; Resource Id.
+	ID *string
+
+	// READ-ONLY; Resource Name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
 // OpenAuthenticationAccessPolicies - AuthenticationPolicy of type Open.
 type OpenAuthenticationAccessPolicies struct {
 	// Open authentication policies.
@@ -8481,6 +8520,9 @@ type SiteConfig struct {
 
 	// Application metadata. This property cannot be retrieved, since it may contain secrets.
 	Metadata []*NameValuePair
+
+	// The minimum strength TLS cipher suite allowed for an application
+	MinTLSCipherSuite *TLSCipherSuites
 
 	// MinTlsVersion: configures the minimum version of TLS required for SSL requests
 	MinTLSVersion *SupportedTLSVersions
@@ -12123,7 +12165,8 @@ type WebAppsClientCreateDeploymentSlotOptions struct {
 // WebAppsClientCreateOneDeployOperationOptions contains the optional parameters for the WebAppsClient.CreateOneDeployOperation
 // method.
 type WebAppsClientCreateOneDeployOperationOptions struct {
-	// placeholder for future optional parameters
+	// Information on OneDeploy request
+	Request *OneDeployRequest
 }
 
 // WebAppsClientCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateConfiguration
