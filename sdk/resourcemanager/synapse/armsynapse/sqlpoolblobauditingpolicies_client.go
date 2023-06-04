@@ -47,15 +47,16 @@ func NewSQLPoolBlobAuditingPoliciesClient(subscriptionID string, credential azco
 // CreateOrUpdate - Creates or updates a SQL pool's blob auditing policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
+//   - blobAuditingPolicyName - The name of the blob auditing policy.
 //   - parameters - The database blob auditing policy.
 //   - options - SQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions contains the optional parameters for the SQLPoolBlobAuditingPoliciesClient.CreateOrUpdate
 //     method.
-func (client *SQLPoolBlobAuditingPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, parameters SQLPoolBlobAuditingPolicy, options *SQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions) (SQLPoolBlobAuditingPoliciesClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, parameters, options)
+func (client *SQLPoolBlobAuditingPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, blobAuditingPolicyName BlobAuditingPolicyName, parameters SQLPoolBlobAuditingPolicy, options *SQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions) (SQLPoolBlobAuditingPoliciesClientCreateOrUpdateResponse, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, blobAuditingPolicyName, parameters, options)
 	if err != nil {
 		return SQLPoolBlobAuditingPoliciesClientCreateOrUpdateResponse{}, err
 	}
@@ -70,7 +71,7 @@ func (client *SQLPoolBlobAuditingPoliciesClient) CreateOrUpdate(ctx context.Cont
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *SQLPoolBlobAuditingPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, parameters SQLPoolBlobAuditingPolicy, options *SQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *SQLPoolBlobAuditingPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, blobAuditingPolicyName BlobAuditingPolicyName, parameters SQLPoolBlobAuditingPolicy, options *SQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/auditingSettings/{blobAuditingPolicyName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -88,13 +89,16 @@ func (client *SQLPoolBlobAuditingPoliciesClient) createOrUpdateCreateRequest(ctx
 		return nil, errors.New("parameter sqlPoolName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{sqlPoolName}", url.PathEscape(sqlPoolName))
-	urlPath = strings.ReplaceAll(urlPath, "{blobAuditingPolicyName}", url.PathEscape("default"))
+	if blobAuditingPolicyName == "" {
+		return nil, errors.New("parameter blobAuditingPolicyName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobAuditingPolicyName}", url.PathEscape(string(blobAuditingPolicyName)))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -112,14 +116,15 @@ func (client *SQLPoolBlobAuditingPoliciesClient) createOrUpdateHandleResponse(re
 // Get - Get a SQL pool's blob auditing policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
+//   - blobAuditingPolicyName - The name of the blob auditing policy.
 //   - options - SQLPoolBlobAuditingPoliciesClientGetOptions contains the optional parameters for the SQLPoolBlobAuditingPoliciesClient.Get
 //     method.
-func (client *SQLPoolBlobAuditingPoliciesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolBlobAuditingPoliciesClientGetOptions) (SQLPoolBlobAuditingPoliciesClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, options)
+func (client *SQLPoolBlobAuditingPoliciesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, blobAuditingPolicyName BlobAuditingPolicyName, options *SQLPoolBlobAuditingPoliciesClientGetOptions) (SQLPoolBlobAuditingPoliciesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, blobAuditingPolicyName, options)
 	if err != nil {
 		return SQLPoolBlobAuditingPoliciesClientGetResponse{}, err
 	}
@@ -134,7 +139,7 @@ func (client *SQLPoolBlobAuditingPoliciesClient) Get(ctx context.Context, resour
 }
 
 // getCreateRequest creates the Get request.
-func (client *SQLPoolBlobAuditingPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolBlobAuditingPoliciesClientGetOptions) (*policy.Request, error) {
+func (client *SQLPoolBlobAuditingPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, blobAuditingPolicyName BlobAuditingPolicyName, options *SQLPoolBlobAuditingPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/auditingSettings/{blobAuditingPolicyName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -152,13 +157,16 @@ func (client *SQLPoolBlobAuditingPoliciesClient) getCreateRequest(ctx context.Co
 		return nil, errors.New("parameter sqlPoolName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{sqlPoolName}", url.PathEscape(sqlPoolName))
-	urlPath = strings.ReplaceAll(urlPath, "{blobAuditingPolicyName}", url.PathEscape("default"))
+	if blobAuditingPolicyName == "" {
+		return nil, errors.New("parameter blobAuditingPolicyName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobAuditingPolicyName}", url.PathEscape(string(blobAuditingPolicyName)))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -175,7 +183,7 @@ func (client *SQLPoolBlobAuditingPoliciesClient) getHandleResponse(resp *http.Re
 
 // NewListBySQLPoolPager - Lists auditing settings of a Sql pool.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -233,7 +241,7 @@ func (client *SQLPoolBlobAuditingPoliciesClient) listBySQLPoolCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

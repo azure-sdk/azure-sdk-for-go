@@ -47,7 +47,7 @@ func NewSQLPoolWorkloadClassifierClient(subscriptionID string, credential azcore
 // BeginCreateOrUpdate - Create Or Update workload classifier for a Sql pool's workload group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -71,7 +71,7 @@ func (client *SQLPoolWorkloadClassifierClient) BeginCreateOrUpdate(ctx context.C
 // CreateOrUpdate - Create Or Update workload classifier for a Sql pool's workload group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolWorkloadClassifierClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, workloadGroupName string, workloadClassifierName string, parameters WorkloadClassifier, options *SQLPoolWorkloadClassifierClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, workloadGroupName, workloadClassifierName, parameters, options)
 	if err != nil {
@@ -119,7 +119,7 @@ func (client *SQLPoolWorkloadClassifierClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -128,7 +128,7 @@ func (client *SQLPoolWorkloadClassifierClient) createOrUpdateCreateRequest(ctx c
 // BeginDelete - Remove workload classifier of a Sql pool's workload group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -151,7 +151,7 @@ func (client *SQLPoolWorkloadClassifierClient) BeginDelete(ctx context.Context, 
 // Delete - Remove workload classifier of a Sql pool's workload group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolWorkloadClassifierClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, workloadGroupName string, workloadClassifierName string, options *SQLPoolWorkloadClassifierClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, workloadGroupName, workloadClassifierName, options)
 	if err != nil {
@@ -199,7 +199,7 @@ func (client *SQLPoolWorkloadClassifierClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -207,7 +207,7 @@ func (client *SQLPoolWorkloadClassifierClient) deleteCreateRequest(ctx context.C
 // Get - Get a workload classifier of Sql pool's workload group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -262,7 +262,7 @@ func (client *SQLPoolWorkloadClassifierClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -279,7 +279,7 @@ func (client *SQLPoolWorkloadClassifierClient) getHandleResponse(resp *http.Resp
 
 // NewListPager - Get list of Sql pool's workload classifier for workload groups.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -342,7 +342,7 @@ func (client *SQLPoolWorkloadClassifierClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -47,7 +47,7 @@ func NewSQLPoolsClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreate - Create a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -70,7 +70,7 @@ func (client *SQLPoolsClient) BeginCreate(ctx context.Context, resourceGroupName
 // Create - Create a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolsClient) create(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, sqlPoolInfo SQLPool, options *SQLPoolsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, sqlPoolInfo, options)
 	if err != nil {
@@ -110,7 +110,7 @@ func (client *SQLPoolsClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, sqlPoolInfo)
@@ -119,7 +119,7 @@ func (client *SQLPoolsClient) createCreateRequest(ctx context.Context, resourceG
 // BeginDelete - Delete a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -141,7 +141,7 @@ func (client *SQLPoolsClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Delete a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, options)
 	if err != nil {
@@ -181,7 +181,7 @@ func (client *SQLPoolsClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -190,7 +190,7 @@ func (client *SQLPoolsClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Get SQL pool properties
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -234,7 +234,7 @@ func (client *SQLPoolsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *SQLPoolsClient) getHandleResponse(resp *http.Response) (SQLPoolsCl
 
 // NewListByWorkspacePager - List all SQL pools
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - SQLPoolsClientListByWorkspaceOptions contains the optional parameters for the SQLPoolsClient.NewListByWorkspacePager
@@ -304,7 +304,7 @@ func (client *SQLPoolsClient) listByWorkspaceCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -322,7 +322,7 @@ func (client *SQLPoolsClient) listByWorkspaceHandleResponse(resp *http.Response)
 // BeginPause - Pause a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -344,7 +344,7 @@ func (client *SQLPoolsClient) BeginPause(ctx context.Context, resourceGroupName 
 // Pause - Pause a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolsClient) pause(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolsClientBeginPauseOptions) (*http.Response, error) {
 	req, err := client.pauseCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, options)
 	if err != nil {
@@ -384,7 +384,7 @@ func (client *SQLPoolsClient) pauseCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -393,7 +393,7 @@ func (client *SQLPoolsClient) pauseCreateRequest(ctx context.Context, resourceGr
 // Rename - Rename a SQL pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -438,7 +438,7 @@ func (client *SQLPoolsClient) renameCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
@@ -446,7 +446,7 @@ func (client *SQLPoolsClient) renameCreateRequest(ctx context.Context, resourceG
 // BeginResume - Resume a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -468,7 +468,7 @@ func (client *SQLPoolsClient) BeginResume(ctx context.Context, resourceGroupName
 // Resume - Resume a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolsClient) resume(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolsClientBeginResumeOptions) (*http.Response, error) {
 	req, err := client.resumeCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, options)
 	if err != nil {
@@ -508,7 +508,7 @@ func (client *SQLPoolsClient) resumeCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -517,7 +517,7 @@ func (client *SQLPoolsClient) resumeCreateRequest(ctx context.Context, resourceG
 // BeginUpdate - Apply a partial update to a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -538,7 +538,7 @@ func (client *SQLPoolsClient) BeginUpdate(ctx context.Context, resourceGroupName
 // Update - Apply a partial update to a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *SQLPoolsClient) update(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, sqlPoolInfo SQLPoolPatchInfo, options *SQLPoolsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, sqlPoolInfo, options)
 	if err != nil {
@@ -578,7 +578,7 @@ func (client *SQLPoolsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, sqlPoolInfo)

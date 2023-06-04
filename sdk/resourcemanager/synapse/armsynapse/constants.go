@@ -11,28 +11,46 @@ package armsynapse
 
 const (
 	moduleName    = "armsynapse"
-	moduleVersion = "v0.7.1"
+	moduleVersion = "v0.8.0"
 )
 
 // ActualState - Actual state
 type ActualState string
 
 const (
-	ActualStateEnabling  ActualState = "Enabling"
-	ActualStateEnabled   ActualState = "Enabled"
-	ActualStateDisabling ActualState = "Disabling"
 	ActualStateDisabled  ActualState = "Disabled"
+	ActualStateDisabling ActualState = "Disabling"
+	ActualStateEnabled   ActualState = "Enabled"
+	ActualStateEnabling  ActualState = "Enabling"
 	ActualStateUnknown   ActualState = "Unknown"
 )
 
 // PossibleActualStateValues returns the possible values for the ActualState const type.
 func PossibleActualStateValues() []ActualState {
 	return []ActualState{
-		ActualStateEnabling,
-		ActualStateEnabled,
-		ActualStateDisabling,
 		ActualStateDisabled,
+		ActualStateDisabling,
+		ActualStateEnabled,
+		ActualStateEnabling,
 		ActualStateUnknown,
+	}
+}
+
+// AuthenticationState - Azure Active Directory Only Authentication configuration state
+type AuthenticationState string
+
+const (
+	AuthenticationStateConsistent   AuthenticationState = "Consistent"
+	AuthenticationStateInConsistent AuthenticationState = "InConsistent"
+	AuthenticationStateUpdating     AuthenticationState = "Updating"
+)
+
+// PossibleAuthenticationStateValues returns the possible values for the AuthenticationState const type.
+func PossibleAuthenticationStateValues() []AuthenticationState {
+	return []AuthenticationState{
+		AuthenticationStateConsistent,
+		AuthenticationStateInConsistent,
+		AuthenticationStateUpdating,
 	}
 }
 
@@ -434,6 +452,26 @@ func PossibleDatabasePrincipalRoleValues() []DatabasePrincipalRole {
 	}
 }
 
+// DatawarehousequeriesResourceClass - Requested ResourceClass
+type DatawarehousequeriesResourceClass string
+
+const (
+	DatawarehousequeriesResourceClassXlargerc DatawarehousequeriesResourceClass = "xlargerc"
+	DatawarehousequeriesResourceClassLargerc  DatawarehousequeriesResourceClass = "largerc"
+	DatawarehousequeriesResourceClassMediumrc DatawarehousequeriesResourceClass = "mediumrc"
+	DatawarehousequeriesResourceClassSmallrc  DatawarehousequeriesResourceClass = "smallrc"
+)
+
+// PossibleDatawarehousequeriesResourceClassValues returns the possible values for the DatawarehousequeriesResourceClass const type.
+func PossibleDatawarehousequeriesResourceClassValues() []DatawarehousequeriesResourceClass {
+	return []DatawarehousequeriesResourceClass{
+		DatawarehousequeriesResourceClassXlargerc,
+		DatawarehousequeriesResourceClassLargerc,
+		DatawarehousequeriesResourceClassMediumrc,
+		DatawarehousequeriesResourceClassSmallrc,
+	}
+}
+
 // DayOfWeek - Day of maintenance window.
 type DayOfWeek string
 
@@ -495,15 +533,15 @@ func PossibleDefaultPrincipalsModificationKindValues() []DefaultPrincipalsModifi
 type DesiredState string
 
 const (
-	DesiredStateEnabled  DesiredState = "Enabled"
 	DesiredStateDisabled DesiredState = "Disabled"
+	DesiredStateEnabled  DesiredState = "Enabled"
 )
 
 // PossibleDesiredStateValues returns the possible values for the DesiredState const type.
 func PossibleDesiredStateValues() []DesiredState {
 	return []DesiredState{
-		DesiredStateEnabled,
 		DesiredStateDisabled,
+		DesiredStateEnabled,
 	}
 }
 
@@ -940,6 +978,22 @@ func PossibleManagementOperationStateValues() []ManagementOperationState {
 		ManagementOperationStateInProgress,
 		ManagementOperationStatePending,
 		ManagementOperationStateSucceeded,
+	}
+}
+
+// MigrationClusterRole - The role of the cluster in the migration process.
+type MigrationClusterRole string
+
+const (
+	MigrationClusterRoleDestination MigrationClusterRole = "Destination"
+	MigrationClusterRoleSource      MigrationClusterRole = "Source"
+)
+
+// PossibleMigrationClusterRoleValues returns the possible values for the MigrationClusterRole const type.
+func PossibleMigrationClusterRoleValues() []MigrationClusterRole {
+	return []MigrationClusterRole{
+		MigrationClusterRoleDestination,
+		MigrationClusterRoleSource,
 	}
 }
 
@@ -1483,6 +1537,7 @@ const (
 	StateCreating    State = "Creating"
 	StateDeleted     State = "Deleted"
 	StateDeleting    State = "Deleting"
+	StateMigrated    State = "Migrated"
 	StateRunning     State = "Running"
 	StateStarting    State = "Starting"
 	StateStopped     State = "Stopped"
@@ -1497,6 +1552,7 @@ func PossibleStateValues() []State {
 		StateCreating,
 		StateDeleted,
 		StateDeleting,
+		StateMigrated,
 		StateRunning,
 		StateStarting,
 		StateStopped,
@@ -1506,21 +1562,139 @@ func PossibleStateValues() []State {
 	}
 }
 
-// StateValue - property configuration state
-type StateValue string
+// StepsDistributionType - Type of distribution
+type StepsDistributionType string
 
 const (
-	StateValueConsistent   StateValue = "Consistent"
-	StateValueInConsistent StateValue = "InConsistent"
-	StateValueUpdating     StateValue = "Updating"
+	StepsDistributionTypeAllAzureEndpoints   StepsDistributionType = "AllAzureEndpoints"
+	StepsDistributionTypeAllComputeNodes     StepsDistributionType = "AllComputeNodes"
+	StepsDistributionTypeAllDistributions    StepsDistributionType = "AllDistributions"
+	StepsDistributionTypeAllNodes            StepsDistributionType = "AllNodes"
+	StepsDistributionTypeComputeNode         StepsDistributionType = "ComputeNode"
+	StepsDistributionTypeDistribution        StepsDistributionType = "Distribution"
+	StepsDistributionTypeSubsetDistributions StepsDistributionType = "SubsetDistributions"
+	StepsDistributionTypeSubsetNodes         StepsDistributionType = "SubsetNodes"
+	StepsDistributionTypeUnspecified         StepsDistributionType = "Unspecified"
 )
 
-// PossibleStateValueValues returns the possible values for the StateValue const type.
-func PossibleStateValueValues() []StateValue {
-	return []StateValue{
-		StateValueConsistent,
-		StateValueInConsistent,
-		StateValueUpdating,
+// PossibleStepsDistributionTypeValues returns the possible values for the StepsDistributionType const type.
+func PossibleStepsDistributionTypeValues() []StepsDistributionType {
+	return []StepsDistributionType{
+		StepsDistributionTypeAllAzureEndpoints,
+		StepsDistributionTypeAllComputeNodes,
+		StepsDistributionTypeAllDistributions,
+		StepsDistributionTypeAllNodes,
+		StepsDistributionTypeComputeNode,
+		StepsDistributionTypeDistribution,
+		StepsDistributionTypeSubsetDistributions,
+		StepsDistributionTypeSubsetNodes,
+		StepsDistributionTypeUnspecified,
+	}
+}
+
+// StepsLocationType - Type of location
+type StepsLocationType string
+
+const (
+	StepsLocationTypeCompute StepsLocationType = "Compute"
+	StepsLocationTypeControl StepsLocationType = "Control"
+	StepsLocationTypeDMS     StepsLocationType = "DMS"
+)
+
+// PossibleStepsLocationTypeValues returns the possible values for the StepsLocationType const type.
+func PossibleStepsLocationTypeValues() []StepsLocationType {
+	return []StepsLocationType{
+		StepsLocationTypeCompute,
+		StepsLocationTypeControl,
+		StepsLocationTypeDMS,
+	}
+}
+
+// StepsOperationType - Type of operation
+type StepsOperationType string
+
+const (
+	StepsOperationTypeBackupAzureDatabaseOperation           StepsOperationType = "BackupAzureDatabaseOperation"
+	StepsOperationTypeBroadcastMoveOperation                 StepsOperationType = "BroadcastMoveOperation"
+	StepsOperationTypeCheckEncryptionStatusOperation         StepsOperationType = "CheckEncryptionStatusOperation"
+	StepsOperationTypeCopyOperation                          StepsOperationType = "CopyOperation"
+	StepsOperationTypeCreateDiagnosticsOperation             StepsOperationType = "CreateDiagnosticsOperation"
+	StepsOperationTypeDSQLCallBackOperation                  StepsOperationType = "DSQLCallBackOperation"
+	StepsOperationTypeDbccShowStatisticsOperation            StepsOperationType = "DbccShowStatisticsOperation"
+	StepsOperationTypeDistributedExchangeOperation           StepsOperationType = "DistributedExchangeOperation"
+	StepsOperationTypeDistributeReplicatedTableMoveOperation StepsOperationType = "DistributeReplicatedTableMoveOperation"
+	StepsOperationTypeDropDiagnosticsNotifyOperation         StepsOperationType = "DropDiagnosticsNotifyOperation"
+	StepsOperationTypeDropDiagnosticsSynchronizeOperation    StepsOperationType = "DropDiagnosticsSynchronizeOperation"
+	StepsOperationTypeExternalBroadcastMove                  StepsOperationType = "ExternalBroadcastMove"
+	StepsOperationTypeExternalExportControlMove              StepsOperationType = "ExternalExportControlMove"
+	StepsOperationTypeExternalExportControlOperation         StepsOperationType = "ExternalExportControlOperation"
+	StepsOperationTypeExternalExportDistributedMove          StepsOperationType = "ExternalExportDistributedMove"
+	StepsOperationTypeExternalExportDistributedOperation     StepsOperationType = "ExternalExportDistributedOperation"
+	StepsOperationTypeExternalExportReplicatedMove           StepsOperationType = "ExternalExportReplicatedMove"
+	StepsOperationTypeExternalExportReplicatedOperation      StepsOperationType = "ExternalExportReplicatedOperation"
+	StepsOperationTypeExternalShuffleOperation               StepsOperationType = "ExternalShuffleOperation"
+	StepsOperationTypeExternalStatisticsOperation            StepsOperationType = "ExternalStatisticsOperation"
+	StepsOperationTypeHadoopBroadcastOperation               StepsOperationType = "HadoopBroadcastOperation"
+	StepsOperationTypeHadoopRoundRobinOperation              StepsOperationType = "HadoopRoundRobinOperation"
+	StepsOperationTypeHadoopShuffleOperation                 StepsOperationType = "HadoopShuffleOperation"
+	StepsOperationTypeInsertBulkOperation                    StepsOperationType = "InsertBulkOperation"
+	StepsOperationTypeMetaDataCreateOperation                StepsOperationType = "MetaDataCreateOperation"
+	StepsOperationTypeMoveOperation                          StepsOperationType = "MoveOperation"
+	StepsOperationTypeOnOperation                            StepsOperationType = "OnOperation"
+	StepsOperationTypePartitionMoveOperation                 StepsOperationType = "PartitionMoveOperation"
+	StepsOperationTypeRandomIDOperation                      StepsOperationType = "RandomIDOperation"
+	StepsOperationTypeReconfigureOperation                   StepsOperationType = "ReconfigureOperation"
+	StepsOperationTypeReturnOperation                        StepsOperationType = "ReturnOperation"
+	StepsOperationTypeRoundRobinMoveOperation                StepsOperationType = "RoundRobinMoveOperation"
+	StepsOperationTypeSetIdentityInsertOperation             StepsOperationType = "SetIdentityInsertOperation"
+	StepsOperationTypeSetOptionsOperation                    StepsOperationType = "SetOptionsOperation"
+	StepsOperationTypeShuffleMoveOperation                   StepsOperationType = "ShuffleMoveOperation"
+	StepsOperationTypeSingleSourceRoundRobinMoveOperation    StepsOperationType = "SingleSourceRoundRobinMoveOperation"
+	StepsOperationTypeTempTablePropertiesOperation           StepsOperationType = "TempTablePropertiesOperation"
+	StepsOperationTypeTrimMoveOperation                      StepsOperationType = "TrimMoveOperation"
+)
+
+// PossibleStepsOperationTypeValues returns the possible values for the StepsOperationType const type.
+func PossibleStepsOperationTypeValues() []StepsOperationType {
+	return []StepsOperationType{
+		StepsOperationTypeBackupAzureDatabaseOperation,
+		StepsOperationTypeBroadcastMoveOperation,
+		StepsOperationTypeCheckEncryptionStatusOperation,
+		StepsOperationTypeCopyOperation,
+		StepsOperationTypeCreateDiagnosticsOperation,
+		StepsOperationTypeDSQLCallBackOperation,
+		StepsOperationTypeDbccShowStatisticsOperation,
+		StepsOperationTypeDistributedExchangeOperation,
+		StepsOperationTypeDistributeReplicatedTableMoveOperation,
+		StepsOperationTypeDropDiagnosticsNotifyOperation,
+		StepsOperationTypeDropDiagnosticsSynchronizeOperation,
+		StepsOperationTypeExternalBroadcastMove,
+		StepsOperationTypeExternalExportControlMove,
+		StepsOperationTypeExternalExportControlOperation,
+		StepsOperationTypeExternalExportDistributedMove,
+		StepsOperationTypeExternalExportDistributedOperation,
+		StepsOperationTypeExternalExportReplicatedMove,
+		StepsOperationTypeExternalExportReplicatedOperation,
+		StepsOperationTypeExternalShuffleOperation,
+		StepsOperationTypeExternalStatisticsOperation,
+		StepsOperationTypeHadoopBroadcastOperation,
+		StepsOperationTypeHadoopRoundRobinOperation,
+		StepsOperationTypeHadoopShuffleOperation,
+		StepsOperationTypeInsertBulkOperation,
+		StepsOperationTypeMetaDataCreateOperation,
+		StepsOperationTypeMoveOperation,
+		StepsOperationTypeOnOperation,
+		StepsOperationTypePartitionMoveOperation,
+		StepsOperationTypeRandomIDOperation,
+		StepsOperationTypeReconfigureOperation,
+		StepsOperationTypeReturnOperation,
+		StepsOperationTypeRoundRobinMoveOperation,
+		StepsOperationTypeSetIdentityInsertOperation,
+		StepsOperationTypeSetOptionsOperation,
+		StepsOperationTypeShuffleMoveOperation,
+		StepsOperationTypeSingleSourceRoundRobinMoveOperation,
+		StepsOperationTypeTempTablePropertiesOperation,
+		StepsOperationTypeTrimMoveOperation,
 	}
 }
 
@@ -1646,6 +1820,30 @@ func PossibleVulnerabilityAssessmentScanTriggerTypeValues() []VulnerabilityAsses
 	return []VulnerabilityAssessmentScanTriggerType{
 		VulnerabilityAssessmentScanTriggerTypeOnDemand,
 		VulnerabilityAssessmentScanTriggerTypeRecurring,
+	}
+}
+
+// WorkspaceProvisioningState - Provisioning State of Scope Pool
+type WorkspaceProvisioningState string
+
+const (
+	WorkspaceProvisioningStateDeleteError  WorkspaceProvisioningState = "DeleteError"
+	WorkspaceProvisioningStateDeleting     WorkspaceProvisioningState = "Deleting"
+	WorkspaceProvisioningStateFailed       WorkspaceProvisioningState = "Failed"
+	WorkspaceProvisioningStateProvisioning WorkspaceProvisioningState = "Provisioning"
+	WorkspaceProvisioningStateSucceeded    WorkspaceProvisioningState = "Succeeded"
+	WorkspaceProvisioningStateUpdateError  WorkspaceProvisioningState = "UpdateError"
+)
+
+// PossibleWorkspaceProvisioningStateValues returns the possible values for the WorkspaceProvisioningState const type.
+func PossibleWorkspaceProvisioningStateValues() []WorkspaceProvisioningState {
+	return []WorkspaceProvisioningState{
+		WorkspaceProvisioningStateDeleteError,
+		WorkspaceProvisioningStateDeleting,
+		WorkspaceProvisioningStateFailed,
+		WorkspaceProvisioningStateProvisioning,
+		WorkspaceProvisioningStateSucceeded,
+		WorkspaceProvisioningStateUpdateError,
 	}
 }
 

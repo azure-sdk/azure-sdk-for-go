@@ -47,7 +47,7 @@ func NewKustoPoolDatabasePrincipalAssignmentsClient(subscriptionID string, crede
 // CheckNameAvailability - Checks that the database principal assignment is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - databaseName - The name of the database in the Kusto pool.
@@ -98,7 +98,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) checkNameAvailability
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, principalAssignmentName)
@@ -116,7 +116,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) checkNameAvailability
 // BeginCreateOrUpdate - Creates a Kusto pool database principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - databaseName - The name of the database in the Kusto pool.
@@ -140,7 +140,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) BeginCreateOrUpdate(c
 // CreateOrUpdate - Creates a Kusto pool database principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolDatabasePrincipalAssignmentsClient) createOrUpdate(ctx context.Context, workspaceName string, kustoPoolName string, databaseName string, principalAssignmentName string, resourceGroupName string, parameters DatabasePrincipalAssignment, options *KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, workspaceName, kustoPoolName, databaseName, principalAssignmentName, resourceGroupName, parameters, options)
 	if err != nil {
@@ -188,7 +188,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) createOrUpdateCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -197,7 +197,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) createOrUpdateCreateR
 // BeginDelete - Deletes a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - databaseName - The name of the database in the Kusto pool.
@@ -220,7 +220,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) BeginDelete(ctx conte
 // Delete - Deletes a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolDatabasePrincipalAssignmentsClient) deleteOperation(ctx context.Context, workspaceName string, kustoPoolName string, databaseName string, principalAssignmentName string, resourceGroupName string, options *KustoPoolDatabasePrincipalAssignmentsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, workspaceName, kustoPoolName, databaseName, principalAssignmentName, resourceGroupName, options)
 	if err != nil {
@@ -268,7 +268,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) deleteCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +277,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) deleteCreateRequest(c
 // Get - Gets a Kusto pool database principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - databaseName - The name of the database in the Kusto pool.
@@ -332,7 +332,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) getCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -349,7 +349,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) getHandleResponse(res
 
 // NewListPager - Lists all Kusto pool database principalAssignments.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - databaseName - The name of the database in the Kusto pool.
@@ -406,7 +406,7 @@ func (client *KustoPoolDatabasePrincipalAssignmentsClient) listCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -47,7 +47,7 @@ func NewOperationsClient(subscriptionID string, credential azcore.TokenCredentia
 // CheckNameAvailability - Check whether a workspace name is available
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - request - The check request
 //   - options - OperationsClientCheckNameAvailabilityOptions contains the optional parameters for the OperationsClient.CheckNameAvailability
 //     method.
@@ -78,7 +78,7 @@ func (client *OperationsClient) checkNameAvailabilityCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, request)
@@ -96,7 +96,7 @@ func (client *OperationsClient) checkNameAvailabilityHandleResponse(resp *http.R
 // GetAzureAsyncHeaderResult - Get the status of an operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - operationID - Operation ID
@@ -141,7 +141,7 @@ func (client *OperationsClient) getAzureAsyncHeaderResultCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -159,7 +159,7 @@ func (client *OperationsClient) getAzureAsyncHeaderResultHandleResponse(resp *ht
 // GetLocationHeaderResult - Get the result of an operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - operationID - Operation ID
@@ -204,7 +204,7 @@ func (client *OperationsClient) getLocationHeaderResultCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *OperationsClient) getLocationHeaderResultCreateRequest(ctx context
 // List - Get all available operations
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 func (client *OperationsClient) List(ctx context.Context, options *OperationsClientListOptions) (OperationsClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, options)

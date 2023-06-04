@@ -47,7 +47,7 @@ func NewIPFirewallRulesClient(subscriptionID string, credential azcore.TokenCred
 // BeginCreateOrUpdate - Creates or updates a firewall rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - ruleName - The IP firewall rule name
@@ -71,7 +71,7 @@ func (client *IPFirewallRulesClient) BeginCreateOrUpdate(ctx context.Context, re
 // CreateOrUpdate - Creates or updates a firewall rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *IPFirewallRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, ruleName string, ipFirewallRuleInfo IPFirewallRuleInfo, options *IPFirewallRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, ruleName, ipFirewallRuleInfo, options)
 	if err != nil {
@@ -81,7 +81,7 @@ func (client *IPFirewallRulesClient) createOrUpdate(ctx context.Context, resourc
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
@@ -111,7 +111,7 @@ func (client *IPFirewallRulesClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, ipFirewallRuleInfo)
@@ -120,7 +120,7 @@ func (client *IPFirewallRulesClient) createOrUpdateCreateRequest(ctx context.Con
 // BeginDelete - Deletes a firewall rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - ruleName - The IP firewall rule name
@@ -143,7 +143,7 @@ func (client *IPFirewallRulesClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Deletes a firewall rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *IPFirewallRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, ruleName string, options *IPFirewallRulesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, ruleName, options)
 	if err != nil {
@@ -183,7 +183,7 @@ func (client *IPFirewallRulesClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -192,7 +192,7 @@ func (client *IPFirewallRulesClient) deleteCreateRequest(ctx context.Context, re
 // Get - Get a firewall rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - ruleName - The IP firewall rule name
@@ -236,7 +236,7 @@ func (client *IPFirewallRulesClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *IPFirewallRulesClient) getHandleResponse(resp *http.Response) (IPF
 
 // NewListByWorkspacePager - Returns a list of firewall rules
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - IPFirewallRulesClientListByWorkspaceOptions contains the optional parameters for the IPFirewallRulesClient.NewListByWorkspacePager
@@ -306,7 +306,7 @@ func (client *IPFirewallRulesClient) listByWorkspaceCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -324,7 +324,7 @@ func (client *IPFirewallRulesClient) listByWorkspaceHandleResponse(resp *http.Re
 // BeginReplaceAll - Replaces firewall rules
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - request - Replace all IP firewall rules request
@@ -347,7 +347,7 @@ func (client *IPFirewallRulesClient) BeginReplaceAll(ctx context.Context, resour
 // ReplaceAll - Replaces firewall rules
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *IPFirewallRulesClient) replaceAll(ctx context.Context, resourceGroupName string, workspaceName string, request ReplaceAllIPFirewallRulesRequest, options *IPFirewallRulesClientBeginReplaceAllOptions) (*http.Response, error) {
 	req, err := client.replaceAllCreateRequest(ctx, resourceGroupName, workspaceName, request, options)
 	if err != nil {
@@ -383,7 +383,7 @@ func (client *IPFirewallRulesClient) replaceAllCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, request)

@@ -43,6 +43,11 @@ func (c *ClientFactory) NewAzureADOnlyAuthenticationsClient() *AzureADOnlyAuthen
 	return subClient
 }
 
+func (c *ClientFactory) NewBigDataPoolsClient() *BigDataPoolsClient {
+	subClient, _ := NewBigDataPoolsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -53,8 +58,118 @@ func (c *ClientFactory) NewIPFirewallRulesClient() *IPFirewallRulesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewIntegrationRuntimesClient() *IntegrationRuntimesClient {
+	subClient, _ := NewIntegrationRuntimesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeNodeIPAddressClient() *IntegrationRuntimeNodeIPAddressClient {
+	subClient, _ := NewIntegrationRuntimeNodeIPAddressClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeObjectMetadataClient() *IntegrationRuntimeObjectMetadataClient {
+	subClient, _ := NewIntegrationRuntimeObjectMetadataClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeNodesClient() *IntegrationRuntimeNodesClient {
+	subClient, _ := NewIntegrationRuntimeNodesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeCredentialsClient() *IntegrationRuntimeCredentialsClient {
+	subClient, _ := NewIntegrationRuntimeCredentialsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeConnectionInfosClient() *IntegrationRuntimeConnectionInfosClient {
+	subClient, _ := NewIntegrationRuntimeConnectionInfosClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeAuthKeysClient() *IntegrationRuntimeAuthKeysClient {
+	subClient, _ := NewIntegrationRuntimeAuthKeysClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeMonitoringDataClient() *IntegrationRuntimeMonitoringDataClient {
+	subClient, _ := NewIntegrationRuntimeMonitoringDataClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewIntegrationRuntimeStatusClient() *IntegrationRuntimeStatusClient {
+	subClient, _ := NewIntegrationRuntimeStatusClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGetClient() *GetClient {
+	subClient, _ := NewGetClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewKeysClient() *KeysClient {
 	subClient, _ := NewKeysClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoOperationsClient() *KustoOperationsClient {
+	subClient, _ := NewKustoOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolsClient() *KustoPoolsClient {
+	subClient, _ := NewKustoPoolsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolChildResourceClient() *KustoPoolChildResourceClient {
+	subClient, _ := NewKustoPoolChildResourceClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolAttachedDatabaseConfigurationsClient() *KustoPoolAttachedDatabaseConfigurationsClient {
+	subClient, _ := NewKustoPoolAttachedDatabaseConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolDatabasesClient() *KustoPoolDatabasesClient {
+	subClient, _ := NewKustoPoolDatabasesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolDataConnectionsClient() *KustoPoolDataConnectionsClient {
+	subClient, _ := NewKustoPoolDataConnectionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolPrincipalAssignmentsClient() *KustoPoolPrincipalAssignmentsClient {
+	subClient, _ := NewKustoPoolPrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolDatabaseClient() *KustoPoolDatabaseClient {
+	subClient, _ := NewKustoPoolDatabaseClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolDatabasePrincipalAssignmentsClient() *KustoPoolDatabasePrincipalAssignmentsClient {
+	subClient, _ := NewKustoPoolDatabasePrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewKustoPoolPrivateLinkResourcesClient() *KustoPoolPrivateLinkResourcesClient {
+	subClient, _ := NewKustoPoolPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewLibraryClient() *LibraryClient {
+	subClient, _ := NewLibraryClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewLibrariesClient() *LibrariesClient {
+	subClient, _ := NewLibrariesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -80,6 +195,16 @@ func (c *ClientFactory) NewPrivateLinkHubsClient() *PrivateLinkHubsClient {
 
 func (c *ClientFactory) NewPrivateEndpointConnectionsPrivateLinkHubClient() *PrivateEndpointConnectionsPrivateLinkHubClient {
 	subClient, _ := NewPrivateEndpointConnectionsPrivateLinkHubClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSparkConfigurationClient() *SparkConfigurationClient {
+	subClient, _ := NewSparkConfigurationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSparkConfigurationsClient() *SparkConfigurationsClient {
+	subClient, _ := NewSparkConfigurationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -228,6 +353,16 @@ func (c *ClientFactory) NewSQLPoolWorkloadClassifierClient() *SQLPoolWorkloadCla
 	return subClient
 }
 
+func (c *ClientFactory) NewSQLPoolsDatawareHouseQueriesClient() *SQLPoolsDatawareHouseQueriesClient {
+	subClient, _ := NewSQLPoolsDatawareHouseQueriesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLPoolsDatawareHouseQueriesStepsClient() *SQLPoolsDatawareHouseQueriesStepsClient {
+	subClient, _ := NewSQLPoolsDatawareHouseQueriesStepsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewWorkspaceManagedSQLServerBlobAuditingPoliciesClient() *WorkspaceManagedSQLServerBlobAuditingPoliciesClient {
 	subClient, _ := NewWorkspaceManagedSQLServerBlobAuditingPoliciesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -293,122 +428,17 @@ func (c *ClientFactory) NewRestorableDroppedSQLPoolsClient() *RestorableDroppedS
 	return subClient
 }
 
-func (c *ClientFactory) NewBigDataPoolsClient() *BigDataPoolsClient {
-	subClient, _ := NewBigDataPoolsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewWorkspaceTrustedServiceByPassConfigurationClient() *WorkspaceTrustedServiceByPassConfigurationClient {
+	subClient, _ := NewWorkspaceTrustedServiceByPassConfigurationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewLibraryClient() *LibraryClient {
-	subClient, _ := NewLibraryClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewWorkspaceCheckDefaultStorageAccountStatusClient() *WorkspaceCheckDefaultStorageAccountStatusClient {
+	subClient, _ := NewWorkspaceCheckDefaultStorageAccountStatusClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewLibrariesClient() *LibrariesClient {
-	subClient, _ := NewLibrariesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimesClient() *IntegrationRuntimesClient {
-	subClient, _ := NewIntegrationRuntimesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeNodeIPAddressClient() *IntegrationRuntimeNodeIPAddressClient {
-	subClient, _ := NewIntegrationRuntimeNodeIPAddressClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeObjectMetadataClient() *IntegrationRuntimeObjectMetadataClient {
-	subClient, _ := NewIntegrationRuntimeObjectMetadataClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeNodesClient() *IntegrationRuntimeNodesClient {
-	subClient, _ := NewIntegrationRuntimeNodesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeCredentialsClient() *IntegrationRuntimeCredentialsClient {
-	subClient, _ := NewIntegrationRuntimeCredentialsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeConnectionInfosClient() *IntegrationRuntimeConnectionInfosClient {
-	subClient, _ := NewIntegrationRuntimeConnectionInfosClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeAuthKeysClient() *IntegrationRuntimeAuthKeysClient {
-	subClient, _ := NewIntegrationRuntimeAuthKeysClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeMonitoringDataClient() *IntegrationRuntimeMonitoringDataClient {
-	subClient, _ := NewIntegrationRuntimeMonitoringDataClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewIntegrationRuntimeStatusClient() *IntegrationRuntimeStatusClient {
-	subClient, _ := NewIntegrationRuntimeStatusClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewGetClient() *GetClient {
-	subClient, _ := NewGetClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewSparkConfigurationClient() *SparkConfigurationClient {
-	subClient, _ := NewSparkConfigurationClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewSparkConfigurationsClient() *SparkConfigurationsClient {
-	subClient, _ := NewSparkConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoOperationsClient() *KustoOperationsClient {
-	subClient, _ := NewKustoOperationsClient(c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolsClient() *KustoPoolsClient {
-	subClient, _ := NewKustoPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolChildResourceClient() *KustoPoolChildResourceClient {
-	subClient, _ := NewKustoPoolChildResourceClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolAttachedDatabaseConfigurationsClient() *KustoPoolAttachedDatabaseConfigurationsClient {
-	subClient, _ := NewKustoPoolAttachedDatabaseConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolDatabasesClient() *KustoPoolDatabasesClient {
-	subClient, _ := NewKustoPoolDatabasesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolDataConnectionsClient() *KustoPoolDataConnectionsClient {
-	subClient, _ := NewKustoPoolDataConnectionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolPrincipalAssignmentsClient() *KustoPoolPrincipalAssignmentsClient {
-	subClient, _ := NewKustoPoolPrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolDatabasePrincipalAssignmentsClient() *KustoPoolDatabasePrincipalAssignmentsClient {
-	subClient, _ := NewKustoPoolDatabasePrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewKustoPoolPrivateLinkResourcesClient() *KustoPoolPrivateLinkResourcesClient {
-	subClient, _ := NewKustoPoolPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewScopePoolsListByWorkspaceClient() *ScopePoolsListByWorkspaceClient {
+	subClient, _ := NewScopePoolsListByWorkspaceClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

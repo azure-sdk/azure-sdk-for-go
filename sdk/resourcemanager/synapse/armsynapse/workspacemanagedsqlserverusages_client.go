@@ -46,7 +46,7 @@ func NewWorkspaceManagedSQLServerUsagesClient(subscriptionID string, credential 
 
 // NewListPager - Get list of server usages metric for workspace managed sql server.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - WorkspaceManagedSQLServerUsagesClientListOptions contains the optional parameters for the WorkspaceManagedSQLServerUsagesClient.NewListPager
@@ -99,7 +99,7 @@ func (client *WorkspaceManagedSQLServerUsagesClient) listCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

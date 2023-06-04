@@ -40,7 +40,7 @@ func NewKustoOperationsClient(credential azcore.TokenCredential, options *arm.Cl
 
 // NewListPager - Lists available operations for the Kusto sub-resources inside Microsoft.Synapse provider.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - options - KustoOperationsClientListOptions contains the optional parameters for the KustoOperationsClient.NewListPager
 //     method.
 func (client *KustoOperationsClient) NewListPager(options *KustoOperationsClientListOptions) *runtime.Pager[KustoOperationsClientListResponse] {
@@ -79,7 +79,7 @@ func (client *KustoOperationsClient) listCreateRequest(ctx context.Context, opti
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

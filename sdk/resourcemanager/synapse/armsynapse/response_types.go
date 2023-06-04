@@ -9,6 +9,8 @@
 
 package armsynapse
 
+import "encoding/json"
+
 // AzureADOnlyAuthenticationsClientCreateResponse contains the response from method AzureADOnlyAuthenticationsClient.BeginCreate.
 type AzureADOnlyAuthenticationsClientCreateResponse struct {
 	AzureADOnlyAuthentication
@@ -111,7 +113,13 @@ type IPFirewallRulesClientCreateOrUpdateResponse struct {
 
 // IPFirewallRulesClientDeleteResponse contains the response from method IPFirewallRulesClient.BeginDelete.
 type IPFirewallRulesClientDeleteResponse struct {
-	IPFirewallRuleInfo
+	// Anything
+	Interface any
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IPFirewallRulesClientDeleteResponse.
+func (i *IPFirewallRulesClientDeleteResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &i.Interface)
 }
 
 // IPFirewallRulesClientGetResponse contains the response from method IPFirewallRulesClient.Get.
@@ -359,6 +367,11 @@ func (k *KustoPoolDataConnectionsClientUpdateResponse) UnmarshalJSON(data []byte
 	return nil
 }
 
+// KustoPoolDatabaseClientInviteFollowerResponse contains the response from method KustoPoolDatabaseClient.InviteFollower.
+type KustoPoolDatabaseClientInviteFollowerResponse struct {
+	DatabaseInviteFollowerResult
+}
+
 // KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.CheckNameAvailability.
 type KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityResponse struct {
 	CheckNameResult
@@ -522,6 +535,11 @@ type KustoPoolsClientListSKUsByResourceResponse struct {
 // KustoPoolsClientListSKUsResponse contains the response from method KustoPoolsClient.NewListSKUsPager.
 type KustoPoolsClientListSKUsResponse struct {
 	SKUDescriptionList
+}
+
+// KustoPoolsClientMigrateResponse contains the response from method KustoPoolsClient.BeginMigrate.
+type KustoPoolsClientMigrateResponse struct {
+	// placeholder for future response values
 }
 
 // KustoPoolsClientRemoveLanguageExtensionsResponse contains the response from method KustoPoolsClient.BeginRemoveLanguageExtensions.
@@ -1015,6 +1033,21 @@ type SQLPoolsClientUpdateResponse struct {
 	SQLPool
 }
 
+// SQLPoolsDatawareHouseQueriesClientGetResponse contains the response from method SQLPoolsDatawareHouseQueriesClient.Get.
+type SQLPoolsDatawareHouseQueriesClientGetResponse struct {
+	DataWarehouseQueriesList
+}
+
+// SQLPoolsDatawareHouseQueriesStepsClientListResponse contains the response from method SQLPoolsDatawareHouseQueriesStepsClient.List.
+type SQLPoolsDatawareHouseQueriesStepsClientListResponse struct {
+	DataWarehouseQueriesStepsList
+}
+
+// ScopePoolsListByWorkspaceClientGetResponse contains the response from method ScopePoolsListByWorkspaceClient.NewGetPager.
+type ScopePoolsListByWorkspaceClientGetResponse struct {
+	ScopePoolsListResult
+}
+
 // SparkConfigurationClientGetResponse contains the response from method SparkConfigurationClient.Get.
 type SparkConfigurationClientGetResponse struct {
 	SparkConfigurationResource
@@ -1038,6 +1071,12 @@ type WorkspaceAADAdminsClientDeleteResponse struct {
 // WorkspaceAADAdminsClientGetResponse contains the response from method WorkspaceAADAdminsClient.Get.
 type WorkspaceAADAdminsClientGetResponse struct {
 	WorkspaceAADAdminInfo
+}
+
+// WorkspaceCheckDefaultStorageAccountStatusClientCreateResponse contains the response from method WorkspaceCheckDefaultStorageAccountStatusClient.Create.
+type WorkspaceCheckDefaultStorageAccountStatusClientCreateResponse struct {
+	// Array of CheckDefaultStorageAccountStatus
+	CheckDefaultStorageAccountStatusArray []*CheckDefaultStorageAccountStatus
 }
 
 // WorkspaceManagedIdentitySQLControlSettingsClientCreateOrUpdateResponse contains the response from method WorkspaceManagedIdentitySQLControlSettingsClient.BeginCreateOrUpdate.
@@ -1178,6 +1217,12 @@ type WorkspaceSQLAADAdminsClientDeleteResponse struct {
 // WorkspaceSQLAADAdminsClientGetResponse contains the response from method WorkspaceSQLAADAdminsClient.Get.
 type WorkspaceSQLAADAdminsClientGetResponse struct {
 	WorkspaceAADAdminInfo
+}
+
+// WorkspaceTrustedServiceByPassConfigurationClientCreateOrUpdateResponse contains the response from method WorkspaceTrustedServiceByPassConfigurationClient.CreateOrUpdate.
+type WorkspaceTrustedServiceByPassConfigurationClientCreateOrUpdateResponse struct {
+	// Array of TrustedServiceByPassConfiguration
+	TrustedServiceByPassConfigurationArray []*TrustedServiceByPassConfiguration
 }
 
 // WorkspacesClientCreateOrUpdateResponse contains the response from method WorkspacesClient.BeginCreateOrUpdate.

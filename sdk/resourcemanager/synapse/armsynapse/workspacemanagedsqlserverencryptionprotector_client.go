@@ -47,7 +47,7 @@ func NewWorkspaceManagedSQLServerEncryptionProtectorClient(subscriptionID string
 // BeginCreateOrUpdate - Updates workspace managed sql server's encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - encryptionProtectorName - The name of the encryption protector.
@@ -69,7 +69,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) BeginCreateOrU
 // CreateOrUpdate - Updates workspace managed sql server's encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, encryptionProtectorName EncryptionProtectorName, parameters EncryptionProtector, options *WorkspaceManagedSQLServerEncryptionProtectorClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, encryptionProtectorName, parameters, options)
 	if err != nil {
@@ -109,7 +109,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) createOrUpdate
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -118,7 +118,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) createOrUpdate
 // Get - Get workspace managed sql server's encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - encryptionProtectorName - The name of the encryption protector.
@@ -163,7 +163,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) getCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) getHandleRespo
 
 // NewListPager - Get list of encryption protectors for workspace managed sql server.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - WorkspaceManagedSQLServerEncryptionProtectorClientListOptions contains the optional parameters for the WorkspaceManagedSQLServerEncryptionProtectorClient.NewListPager
@@ -233,7 +233,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) listCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) listHandleResp
 // BeginRevalidate - Revalidates workspace managed sql server's existing encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - encryptionProtectorName - The name of the encryption protector.
@@ -272,7 +272,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) BeginRevalidat
 // Revalidate - Revalidates workspace managed sql server's existing encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) revalidate(ctx context.Context, resourceGroupName string, workspaceName string, encryptionProtectorName EncryptionProtectorName, options *WorkspaceManagedSQLServerEncryptionProtectorClientBeginRevalidateOptions) (*http.Response, error) {
 	req, err := client.revalidateCreateRequest(ctx, resourceGroupName, workspaceName, encryptionProtectorName, options)
 	if err != nil {
@@ -312,7 +312,7 @@ func (client *WorkspaceManagedSQLServerEncryptionProtectorClient) revalidateCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }

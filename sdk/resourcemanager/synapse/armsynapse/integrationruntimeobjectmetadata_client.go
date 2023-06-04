@@ -47,7 +47,7 @@ func NewIntegrationRuntimeObjectMetadataClient(subscriptionID string, credential
 // List - Get object metadata from an integration runtime
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - integrationRuntimeName - Integration runtime name
@@ -92,7 +92,7 @@ func (client *IntegrationRuntimeObjectMetadataClient) listCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.GetMetadataRequest != nil {
@@ -113,7 +113,7 @@ func (client *IntegrationRuntimeObjectMetadataClient) listHandleResponse(resp *h
 // BeginRefresh - Refresh the object metadata in an integration runtime
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - integrationRuntimeName - Integration runtime name
@@ -136,7 +136,7 @@ func (client *IntegrationRuntimeObjectMetadataClient) BeginRefresh(ctx context.C
 // Refresh - Refresh the object metadata in an integration runtime
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *IntegrationRuntimeObjectMetadataClient) refresh(ctx context.Context, resourceGroupName string, workspaceName string, integrationRuntimeName string, options *IntegrationRuntimeObjectMetadataClientBeginRefreshOptions) (*http.Response, error) {
 	req, err := client.refreshCreateRequest(ctx, resourceGroupName, workspaceName, integrationRuntimeName, options)
 	if err != nil {
@@ -176,7 +176,7 @@ func (client *IntegrationRuntimeObjectMetadataClient) refreshCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

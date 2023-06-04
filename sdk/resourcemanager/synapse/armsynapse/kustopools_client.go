@@ -47,7 +47,7 @@ func NewKustoPoolsClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginAddLanguageExtensions - Add a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -69,7 +69,7 @@ func (client *KustoPoolsClient) BeginAddLanguageExtensions(ctx context.Context, 
 // AddLanguageExtensions - Add a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) addLanguageExtensions(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, languageExtensionsToAdd LanguageExtensionsList, options *KustoPoolsClientBeginAddLanguageExtensionsOptions) (*http.Response, error) {
 	req, err := client.addLanguageExtensionsCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, languageExtensionsToAdd, options)
 	if err != nil {
@@ -109,7 +109,7 @@ func (client *KustoPoolsClient) addLanguageExtensionsCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, languageExtensionsToAdd)
@@ -118,7 +118,7 @@ func (client *KustoPoolsClient) addLanguageExtensionsCreateRequest(ctx context.C
 // CheckNameAvailability - Checks that the kusto pool name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - location - The name of Azure region.
 //   - kustoPoolName - The name of the cluster.
 //   - options - KustoPoolsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolsClient.CheckNameAvailability
@@ -154,7 +154,7 @@ func (client *KustoPoolsClient) checkNameAvailabilityCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, kustoPoolName)
@@ -172,7 +172,7 @@ func (client *KustoPoolsClient) checkNameAvailabilityHandleResponse(resp *http.R
 // BeginCreateOrUpdate - Create or update a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -194,7 +194,7 @@ func (client *KustoPoolsClient) BeginCreateOrUpdate(ctx context.Context, workspa
 // CreateOrUpdate - Create or update a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) createOrUpdate(ctx context.Context, workspaceName string, resourceGroupName string, kustoPoolName string, parameters KustoPool, options *KustoPoolsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, workspaceName, resourceGroupName, kustoPoolName, parameters, options)
 	if err != nil {
@@ -234,7 +234,7 @@ func (client *KustoPoolsClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -249,7 +249,7 @@ func (client *KustoPoolsClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Deletes a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -269,7 +269,7 @@ func (client *KustoPoolsClient) BeginDelete(ctx context.Context, workspaceName s
 // Delete - Deletes a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) deleteOperation(ctx context.Context, workspaceName string, resourceGroupName string, kustoPoolName string, options *KustoPoolsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, workspaceName, resourceGroupName, kustoPoolName, options)
 	if err != nil {
@@ -309,7 +309,7 @@ func (client *KustoPoolsClient) deleteCreateRequest(ctx context.Context, workspa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -318,7 +318,7 @@ func (client *KustoPoolsClient) deleteCreateRequest(ctx context.Context, workspa
 // BeginDetachFollowerDatabases - Detaches all followers of a database owned by this Kusto Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -340,7 +340,7 @@ func (client *KustoPoolsClient) BeginDetachFollowerDatabases(ctx context.Context
 // DetachFollowerDatabases - Detaches all followers of a database owned by this Kusto Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) detachFollowerDatabases(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, followerDatabaseToRemove FollowerDatabaseDefinition, options *KustoPoolsClientBeginDetachFollowerDatabasesOptions) (*http.Response, error) {
 	req, err := client.detachFollowerDatabasesCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, followerDatabaseToRemove, options)
 	if err != nil {
@@ -380,7 +380,7 @@ func (client *KustoPoolsClient) detachFollowerDatabasesCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, followerDatabaseToRemove)
@@ -389,7 +389,7 @@ func (client *KustoPoolsClient) detachFollowerDatabasesCreateRequest(ctx context
 // Get - Gets a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -433,7 +433,7 @@ func (client *KustoPoolsClient) getCreateRequest(ctx context.Context, workspaceN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -451,7 +451,7 @@ func (client *KustoPoolsClient) getHandleResponse(resp *http.Response) (KustoPoo
 // ListByWorkspace - List all Kusto pools
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - KustoPoolsClientListByWorkspaceOptions contains the optional parameters for the KustoPoolsClient.ListByWorkspace
@@ -491,7 +491,7 @@ func (client *KustoPoolsClient) listByWorkspaceCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -509,7 +509,7 @@ func (client *KustoPoolsClient) listByWorkspaceHandleResponse(resp *http.Respons
 // NewListFollowerDatabasesPager - Returns a list of databases that are owned by this Kusto Pool and were followed by another
 // Kusto Pool.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -561,7 +561,7 @@ func (client *KustoPoolsClient) listFollowerDatabasesCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -578,7 +578,7 @@ func (client *KustoPoolsClient) listFollowerDatabasesHandleResponse(resp *http.R
 
 // NewListLanguageExtensionsPager - Returns a list of language extensions that can run within KQL queries.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -630,7 +630,7 @@ func (client *KustoPoolsClient) listLanguageExtensionsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -647,7 +647,7 @@ func (client *KustoPoolsClient) listLanguageExtensionsHandleResponse(resp *http.
 
 // NewListSKUsPager - Lists eligible SKUs for Kusto Pool resource.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - options - KustoPoolsClientListSKUsOptions contains the optional parameters for the KustoPoolsClient.NewListSKUsPager method.
 func (client *KustoPoolsClient) NewListSKUsPager(options *KustoPoolsClientListSKUsOptions) *runtime.Pager[KustoPoolsClientListSKUsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[KustoPoolsClientListSKUsResponse]{
@@ -683,7 +683,7 @@ func (client *KustoPoolsClient) listSKUsCreateRequest(ctx context.Context, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -700,7 +700,7 @@ func (client *KustoPoolsClient) listSKUsHandleResponse(resp *http.Response) (Kus
 
 // NewListSKUsByResourcePager - Returns the SKUs available for the provided resource.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -752,7 +752,7 @@ func (client *KustoPoolsClient) listSKUsByResourceCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -767,10 +767,82 @@ func (client *KustoPoolsClient) listSKUsByResourceHandleResponse(resp *http.Resp
 	return result, nil
 }
 
+// BeginMigrate - Migrate data from a Kusto pool to another cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-08-01-preview
+//   - workspaceName - The name of the workspace.
+//   - kustoPoolName - The name of the Kusto pool.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - kustoPoolMigrateRequest - The kusto pool migrate request parameters.
+//   - options - KustoPoolsClientBeginMigrateOptions contains the optional parameters for the KustoPoolsClient.BeginMigrate method.
+func (client *KustoPoolsClient) BeginMigrate(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, kustoPoolMigrateRequest KustoPoolMigrateRequest, options *KustoPoolsClientBeginMigrateOptions) (*runtime.Poller[KustoPoolsClientMigrateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.migrate(ctx, workspaceName, kustoPoolName, resourceGroupName, kustoPoolMigrateRequest, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[KustoPoolsClientMigrateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[KustoPoolsClientMigrateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Migrate - Migrate data from a Kusto pool to another cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-08-01-preview
+func (client *KustoPoolsClient) migrate(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, kustoPoolMigrateRequest KustoPoolMigrateRequest, options *KustoPoolsClientBeginMigrateOptions) (*http.Response, error) {
+	req, err := client.migrateCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, kustoPoolMigrateRequest, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// migrateCreateRequest creates the Migrate request.
+func (client *KustoPoolsClient) migrateCreateRequest(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, kustoPoolMigrateRequest KustoPoolMigrateRequest, options *KustoPoolsClientBeginMigrateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/kustoPools/{kustoPoolName}/migrate"
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if kustoPoolName == "" {
+		return nil, errors.New("parameter kustoPoolName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{kustoPoolName}", url.PathEscape(kustoPoolName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-08-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, kustoPoolMigrateRequest)
+}
+
 // BeginRemoveLanguageExtensions - Remove a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -792,7 +864,7 @@ func (client *KustoPoolsClient) BeginRemoveLanguageExtensions(ctx context.Contex
 // RemoveLanguageExtensions - Remove a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) removeLanguageExtensions(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, languageExtensionsToRemove LanguageExtensionsList, options *KustoPoolsClientBeginRemoveLanguageExtensionsOptions) (*http.Response, error) {
 	req, err := client.removeLanguageExtensionsCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, languageExtensionsToRemove, options)
 	if err != nil {
@@ -832,7 +904,7 @@ func (client *KustoPoolsClient) removeLanguageExtensionsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, languageExtensionsToRemove)
@@ -841,7 +913,7 @@ func (client *KustoPoolsClient) removeLanguageExtensionsCreateRequest(ctx contex
 // BeginStart - Starts a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -861,7 +933,7 @@ func (client *KustoPoolsClient) BeginStart(ctx context.Context, workspaceName st
 // Start - Starts a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) start(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, options *KustoPoolsClientBeginStartOptions) (*http.Response, error) {
 	req, err := client.startCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, options)
 	if err != nil {
@@ -901,7 +973,7 @@ func (client *KustoPoolsClient) startCreateRequest(ctx context.Context, workspac
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -910,7 +982,7 @@ func (client *KustoPoolsClient) startCreateRequest(ctx context.Context, workspac
 // BeginStop - Stops a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -930,7 +1002,7 @@ func (client *KustoPoolsClient) BeginStop(ctx context.Context, workspaceName str
 // Stop - Stops a Kusto pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) stop(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, options *KustoPoolsClientBeginStopOptions) (*http.Response, error) {
 	req, err := client.stopCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, options)
 	if err != nil {
@@ -970,7 +1042,7 @@ func (client *KustoPoolsClient) stopCreateRequest(ctx context.Context, workspace
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -979,7 +1051,7 @@ func (client *KustoPoolsClient) stopCreateRequest(ctx context.Context, workspace
 // BeginUpdate - Update a Kusto Kusto Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -1000,7 +1072,7 @@ func (client *KustoPoolsClient) BeginUpdate(ctx context.Context, workspaceName s
 // Update - Update a Kusto Kusto Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolsClient) update(ctx context.Context, workspaceName string, resourceGroupName string, kustoPoolName string, parameters KustoPoolUpdate, options *KustoPoolsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, workspaceName, resourceGroupName, kustoPoolName, parameters, options)
 	if err != nil {
@@ -1040,7 +1112,7 @@ func (client *KustoPoolsClient) updateCreateRequest(ctx context.Context, workspa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}

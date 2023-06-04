@@ -47,7 +47,7 @@ func NewKustoPoolPrincipalAssignmentsClient(subscriptionID string, credential az
 // CheckNameAvailability - Checks that the principal assignment name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -93,7 +93,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) checkNameAvailabilityCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, principalAssignmentName)
@@ -111,7 +111,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) checkNameAvailabilityHandleRe
 // BeginCreateOrUpdate - Create a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - principalAssignmentName - The name of the Kusto principalAssignment.
@@ -134,7 +134,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) BeginCreateOrUpdate(ctx conte
 // CreateOrUpdate - Create a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolPrincipalAssignmentsClient) createOrUpdate(ctx context.Context, workspaceName string, kustoPoolName string, principalAssignmentName string, resourceGroupName string, parameters ClusterPrincipalAssignment, options *KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, workspaceName, kustoPoolName, principalAssignmentName, resourceGroupName, parameters, options)
 	if err != nil {
@@ -178,7 +178,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) createOrUpdateCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -187,7 +187,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) createOrUpdateCreateRequest(c
 // BeginDelete - Deletes a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - principalAssignmentName - The name of the Kusto principalAssignment.
@@ -209,7 +209,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) BeginDelete(ctx context.Conte
 // Delete - Deletes a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolPrincipalAssignmentsClient) deleteOperation(ctx context.Context, workspaceName string, kustoPoolName string, principalAssignmentName string, resourceGroupName string, options *KustoPoolPrincipalAssignmentsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, workspaceName, kustoPoolName, principalAssignmentName, resourceGroupName, options)
 	if err != nil {
@@ -253,7 +253,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) deleteCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) deleteCreateRequest(ctx conte
 // Get - Gets a Kusto pool principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - principalAssignmentName - The name of the Kusto principalAssignment.
@@ -312,7 +312,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,7 +329,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) getHandleResponse(resp *http.
 
 // NewListPager - Lists all Kusto pool principalAssignments.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -381,7 +381,7 @@ func (client *KustoPoolPrincipalAssignmentsClient) listCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -47,7 +47,7 @@ func NewWorkspaceManagedSQLServerRecoverableSQLPoolsClient(subscriptionID string
 // Get - Get recoverable sql pools for workspace managed sql server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - The name of the sql pool
@@ -92,7 +92,7 @@ func (client *WorkspaceManagedSQLServerRecoverableSQLPoolsClient) getCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -109,7 +109,7 @@ func (client *WorkspaceManagedSQLServerRecoverableSQLPoolsClient) getHandleRespo
 
 // NewListPager - Get list of recoverable sql pools for workspace managed sql server.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - WorkspaceManagedSQLServerRecoverableSQLPoolsClientListOptions contains the optional parameters for the WorkspaceManagedSQLServerRecoverableSQLPoolsClient.NewListPager
@@ -162,7 +162,7 @@ func (client *WorkspaceManagedSQLServerRecoverableSQLPoolsClient) listCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

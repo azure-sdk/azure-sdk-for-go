@@ -47,7 +47,7 @@ func NewKustoPoolDataConnectionsClient(subscriptionID string, credential azcore.
 // CheckNameAvailability - Checks that the data connection name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -98,7 +98,7 @@ func (client *KustoPoolDataConnectionsClient) checkNameAvailabilityCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, dataConnectionName)
@@ -116,7 +116,7 @@ func (client *KustoPoolDataConnectionsClient) checkNameAvailabilityHandleRespons
 // BeginCreateOrUpdate - Creates or updates a data connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -140,7 +140,7 @@ func (client *KustoPoolDataConnectionsClient) BeginCreateOrUpdate(ctx context.Co
 // CreateOrUpdate - Creates or updates a data connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolDataConnectionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, kustoPoolName string, databaseName string, dataConnectionName string, parameters DataConnectionClassification, options *KustoPoolDataConnectionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, kustoPoolName, databaseName, dataConnectionName, parameters, options)
 	if err != nil {
@@ -188,7 +188,7 @@ func (client *KustoPoolDataConnectionsClient) createOrUpdateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -197,7 +197,7 @@ func (client *KustoPoolDataConnectionsClient) createOrUpdateCreateRequest(ctx co
 // BeginDataConnectionValidation - Checks that the data connection parameters are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -222,7 +222,7 @@ func (client *KustoPoolDataConnectionsClient) BeginDataConnectionValidation(ctx 
 // DataConnectionValidation - Checks that the data connection parameters are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolDataConnectionsClient) dataConnectionValidation(ctx context.Context, resourceGroupName string, workspaceName string, kustoPoolName string, databaseName string, parameters DataConnectionValidation, options *KustoPoolDataConnectionsClientBeginDataConnectionValidationOptions) (*http.Response, error) {
 	req, err := client.dataConnectionValidationCreateRequest(ctx, resourceGroupName, workspaceName, kustoPoolName, databaseName, parameters, options)
 	if err != nil {
@@ -266,7 +266,7 @@ func (client *KustoPoolDataConnectionsClient) dataConnectionValidationCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -275,7 +275,7 @@ func (client *KustoPoolDataConnectionsClient) dataConnectionValidationCreateRequ
 // BeginDelete - Deletes the data connection with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -298,7 +298,7 @@ func (client *KustoPoolDataConnectionsClient) BeginDelete(ctx context.Context, r
 // Delete - Deletes the data connection with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolDataConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, kustoPoolName string, databaseName string, dataConnectionName string, options *KustoPoolDataConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, kustoPoolName, databaseName, dataConnectionName, options)
 	if err != nil {
@@ -346,7 +346,7 @@ func (client *KustoPoolDataConnectionsClient) deleteCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -355,7 +355,7 @@ func (client *KustoPoolDataConnectionsClient) deleteCreateRequest(ctx context.Co
 // Get - Returns a data connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -410,7 +410,7 @@ func (client *KustoPoolDataConnectionsClient) getCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -427,7 +427,7 @@ func (client *KustoPoolDataConnectionsClient) getHandleResponse(resp *http.Respo
 
 // NewListByDatabasePager - Returns the list of data connections of the given Kusto pool database.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -484,7 +484,7 @@ func (client *KustoPoolDataConnectionsClient) listByDatabaseCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -502,7 +502,7 @@ func (client *KustoPoolDataConnectionsClient) listByDatabaseHandleResponse(resp 
 // BeginUpdate - Updates a data connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
@@ -526,7 +526,7 @@ func (client *KustoPoolDataConnectionsClient) BeginUpdate(ctx context.Context, r
 // Update - Updates a data connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolDataConnectionsClient) update(ctx context.Context, resourceGroupName string, workspaceName string, kustoPoolName string, databaseName string, dataConnectionName string, parameters DataConnectionClassification, options *KustoPoolDataConnectionsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, kustoPoolName, databaseName, dataConnectionName, parameters, options)
 	if err != nil {
@@ -574,7 +574,7 @@ func (client *KustoPoolDataConnectionsClient) updateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

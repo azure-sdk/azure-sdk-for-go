@@ -47,7 +47,7 @@ func NewRestorableDroppedSQLPoolsClient(subscriptionID string, credential azcore
 // Get - Gets a deleted sql pool that can be restored
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - restorableDroppedSQLPoolID - The id of the deleted Sql Pool in the form of sqlPoolName,deletionTimeInFileTimeFormat
@@ -92,7 +92,7 @@ func (client *RestorableDroppedSQLPoolsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -109,7 +109,7 @@ func (client *RestorableDroppedSQLPoolsClient) getHandleResponse(resp *http.Resp
 
 // NewListByWorkspacePager - Gets a list of deleted Sql pools that can be restored
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - RestorableDroppedSQLPoolsClientListByWorkspaceOptions contains the optional parameters for the RestorableDroppedSQLPoolsClient.NewListByWorkspacePager
@@ -156,7 +156,7 @@ func (client *RestorableDroppedSQLPoolsClient) listByWorkspaceCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

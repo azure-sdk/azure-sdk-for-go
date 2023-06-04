@@ -21,57 +21,56 @@ import (
 	"strings"
 )
 
-// SQLPoolMaintenanceWindowOptionsClient contains the methods for the SQLPoolMaintenanceWindowOptions group.
-// Don't use this type directly, use NewSQLPoolMaintenanceWindowOptionsClient() instead.
-type SQLPoolMaintenanceWindowOptionsClient struct {
+// SQLPoolsDatawareHouseQueriesClient contains the methods for the SQLPoolsDatawareHouseQueries group.
+// Don't use this type directly, use NewSQLPoolsDatawareHouseQueriesClient() instead.
+type SQLPoolsDatawareHouseQueriesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewSQLPoolMaintenanceWindowOptionsClient creates a new instance of SQLPoolMaintenanceWindowOptionsClient with the specified values.
+// NewSQLPoolsDatawareHouseQueriesClient creates a new instance of SQLPoolsDatawareHouseQueriesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSQLPoolMaintenanceWindowOptionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SQLPoolMaintenanceWindowOptionsClient, error) {
-	cl, err := arm.NewClient(moduleName+".SQLPoolMaintenanceWindowOptionsClient", moduleVersion, credential, options)
+func NewSQLPoolsDatawareHouseQueriesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SQLPoolsDatawareHouseQueriesClient, error) {
+	cl, err := arm.NewClient(moduleName+".SQLPoolsDatawareHouseQueriesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &SQLPoolMaintenanceWindowOptionsClient{
+	client := &SQLPoolsDatawareHouseQueriesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Get list of SQL pool's available maintenance windows.
+// Get - SQL pool DatawareHouse Queries
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
-//   - maintenanceWindowOptionsName - Maintenance window options name.
-//   - options - SQLPoolMaintenanceWindowOptionsClientGetOptions contains the optional parameters for the SQLPoolMaintenanceWindowOptionsClient.Get
+//   - options - SQLPoolsDatawareHouseQueriesClientGetOptions contains the optional parameters for the SQLPoolsDatawareHouseQueriesClient.Get
 //     method.
-func (client *SQLPoolMaintenanceWindowOptionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, maintenanceWindowOptionsName string, options *SQLPoolMaintenanceWindowOptionsClientGetOptions) (SQLPoolMaintenanceWindowOptionsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, maintenanceWindowOptionsName, options)
+func (client *SQLPoolsDatawareHouseQueriesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolsDatawareHouseQueriesClientGetOptions) (SQLPoolsDatawareHouseQueriesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, options)
 	if err != nil {
-		return SQLPoolMaintenanceWindowOptionsClientGetResponse{}, err
+		return SQLPoolsDatawareHouseQueriesClientGetResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SQLPoolMaintenanceWindowOptionsClientGetResponse{}, err
+		return SQLPoolsDatawareHouseQueriesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return SQLPoolMaintenanceWindowOptionsClientGetResponse{}, runtime.NewResponseError(resp)
+		return SQLPoolsDatawareHouseQueriesClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *SQLPoolMaintenanceWindowOptionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, maintenanceWindowOptionsName string, options *SQLPoolMaintenanceWindowOptionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/maintenanceWindowOptions/current"
+func (client *SQLPoolsDatawareHouseQueriesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *SQLPoolsDatawareHouseQueriesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/dataWarehouseQueries"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -94,17 +93,16 @@ func (client *SQLPoolMaintenanceWindowOptionsClient) getCreateRequest(ctx contex
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-08-01-preview")
-	reqQP.Set("maintenanceWindowOptionsName", maintenanceWindowOptionsName)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // getHandleResponse handles the Get response.
-func (client *SQLPoolMaintenanceWindowOptionsClient) getHandleResponse(resp *http.Response) (SQLPoolMaintenanceWindowOptionsClientGetResponse, error) {
-	result := SQLPoolMaintenanceWindowOptionsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MaintenanceWindowOptions); err != nil {
-		return SQLPoolMaintenanceWindowOptionsClientGetResponse{}, err
+func (client *SQLPoolsDatawareHouseQueriesClient) getHandleResponse(resp *http.Response) (SQLPoolsDatawareHouseQueriesClientGetResponse, error) {
+	result := SQLPoolsDatawareHouseQueriesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DataWarehouseQueriesList); err != nil {
+		return SQLPoolsDatawareHouseQueriesClientGetResponse{}, err
 	}
 	return result, nil
 }

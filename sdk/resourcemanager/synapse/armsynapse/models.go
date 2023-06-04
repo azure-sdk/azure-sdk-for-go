@@ -131,7 +131,7 @@ type AvailableRpOperationDisplayInfo struct {
 
 // AzureADOnlyAuthentication - Azure Active Directory Only Authentication Info
 type AzureADOnlyAuthentication struct {
-	// azureADOnlyAuthentication resource properties
+	// Azure Active Directory Only Authentication resource properties
 	Properties *AzureADOnlyAuthenticationProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -144,7 +144,7 @@ type AzureADOnlyAuthentication struct {
 	Type *string
 }
 
-// AzureADOnlyAuthenticationListResult - A list of active directory only authentications.
+// AzureADOnlyAuthenticationListResult - A list of Azure Active Directory only authentications.
 type AzureADOnlyAuthenticationListResult struct {
 	// READ-ONLY; Link to retrieve next page of results.
 	NextLink *string
@@ -153,16 +153,16 @@ type AzureADOnlyAuthenticationListResult struct {
 	Value []*AzureADOnlyAuthentication
 }
 
-// AzureADOnlyAuthenticationProperties - Properties of a active directory only authentication.
+// AzureADOnlyAuthenticationProperties - Azure Active Directory Only Authentication properties
 type AzureADOnlyAuthenticationProperties struct {
-	// REQUIRED; Azure Active Directory only Authentication enabled.
+	// REQUIRED; Azure Active Directory Only Authentication enabled
 	AzureADOnlyAuthentication *bool
 
 	// READ-ONLY; property configuration date
 	CreationDate *time.Time
 
-	// READ-ONLY; property configuration state
-	State *StateValue
+	// READ-ONLY; Azure Active Directory Only Authentication configuration state
+	State *AuthenticationState
 }
 
 // AzureADOnlyAuthenticationsClientBeginCreateOptions contains the optional parameters for the AzureADOnlyAuthenticationsClient.BeginCreate
@@ -282,9 +282,6 @@ type BigDataPoolResourceProperties struct {
 	// Auto-scaling properties
 	AutoScale *AutoScaleProperties
 
-	// The cache size
-	CacheSize *int32
-
 	// List of custom libraries/packages associated with the spark pool.
 	CustomLibraries []*LibraryInfo
 
@@ -327,6 +324,9 @@ type BigDataPoolResourceProperties struct {
 	// The Apache Spark version.
 	SparkVersion *string
 
+	// READ-ONLY; The cache size
+	CacheSize *int32
+
 	// READ-ONLY; The time when the Big Data pool was created.
 	CreationDate *time.Time
 
@@ -363,6 +363,33 @@ type BigDataPoolsClientListByWorkspaceOptions struct {
 // BigDataPoolsClientUpdateOptions contains the optional parameters for the BigDataPoolsClient.Update method.
 type BigDataPoolsClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// CheckDefaultStorageAccountStatus - Workspace Check Default Storage Account Status.
+type CheckDefaultStorageAccountStatus struct {
+	// Workspace Check Default Storage Account Status Properties.
+	Properties *CheckDefaultStorageAccountStatusProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The geo-location where the resource lives
+	Location *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// CheckDefaultStorageAccountStatusProperties - Properties of the Check Default Storage Account Status.
+type CheckDefaultStorageAccountStatusProperties struct {
+	// READ-ONLY; Is Storage Account Status Linked.
+	IsPrivateLinked *bool
+
+	// READ-ONLY; Endpoint ResourceId.
+	PrivateEndpointResourceID *string
 }
 
 // CheckNameAvailabilityRequest - A request about whether a workspace name is available
@@ -778,6 +805,138 @@ type DataMaskingRulesClientListBySQLPoolOptions struct {
 	// placeholder for future optional parameters
 }
 
+// DataWareHouseQueriesProperties - Properties of a datawarehousequeries.
+type DataWareHouseQueriesProperties struct {
+	// Requested ResourceClass
+	ResourceClass *DatawarehousequeriesResourceClass
+
+	// READ-ONLY; Requested ClassifierName
+	ClassifierName *string
+
+	// READ-ONLY; Requested ConcurrencySlots
+	ConcurrencySlots *string
+
+	// READ-ONLY; The duration of requested queries.
+	Duration *int32
+
+	// READ-ONLY; The end time for queries
+	EndTime *time.Time
+
+	// READ-ONLY; The operation error message.
+	Error *string
+
+	// READ-ONLY; Requested GroupName
+	GroupName *string
+
+	// READ-ONLY; dataWarehouseQueries Importance
+	Importance *string
+
+	// READ-ONLY; Login Details
+	Login *string
+
+	// READ-ONLY; Progress value
+	Progress *int32
+
+	// READ-ONLY; Requested QueryId. of datawarehousequeries
+	QueryID *string
+
+	// READ-ONLY; QueryText Message
+	QueryText *string
+
+	// READ-ONLY; AllocationPercentage of the Resource
+	ResourceAllocationPercentage *string
+
+	// READ-ONLY; SessionId for Resource
+	SessionID *string
+
+	// READ-ONLY; The start time for queries datawarehousequeries
+	StartTime *time.Time
+
+	// READ-ONLY; Status of dataWarehouseQueries.
+	Status *string
+}
+
+// DataWarehouseQueries - The response to a list datawarehouse queries.
+type DataWarehouseQueries struct {
+	// Resource properties.
+	Properties *DataWareHouseQueriesProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataWarehouseQueriesList - The response to a list datawarehouse queries.
+type DataWarehouseQueriesList struct {
+	// The response to a list datawarehouse queries.
+	Value []*DataWarehouseQueries
+}
+
+// DataWarehouseQueriesSteps - The response to a list datawarehouse queries.steps
+type DataWarehouseQueriesSteps struct {
+	// Resource properties.
+	Properties *DataWarehouseQueriesStepsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataWarehouseQueriesStepsList - The response to a list datawarehouse queries.steps
+type DataWarehouseQueriesStepsList struct {
+	// Link to the next page of results
+	NextLink *string
+
+	// Resource properties.
+	Value []*DataWarehouseQueriesSteps
+}
+
+// DataWarehouseQueriesStepsProperties - Properties of a datawarehousequeries.
+type DataWarehouseQueriesStepsProperties struct {
+	// Type of distribution
+	DistributionType *StepsDistributionType
+
+	// Type of location
+	LocationType *StepsLocationType
+
+	// Type of operation
+	OperationType *StepsOperationType
+
+	// READ-ONLY; The duration of requested dataWarehouseQueries Steps.
+	Duration *int32
+
+	// READ-ONLY; The end time of dataWarehouseQueries Steps.
+	EndTime *time.Time
+
+	// READ-ONLY; Requested QueryId. of datawarehousequeries steps
+	QueryID *string
+
+	// READ-ONLY; QueryText Message
+	QueryText *string
+
+	// READ-ONLY; Number of rows count
+	RowCount *string
+
+	// READ-ONLY; The start time of dataWarehouseQueries Steps.
+	StartTime *time.Time
+
+	// READ-ONLY; Status of dataWarehouseQueries Steps
+	Status *string
+
+	// READ-ONLY; dataWarehouseQueries step index
+	StepIndex *string
+}
+
 // DataWarehouseUserActivities - User activities of a data warehouse
 type DataWarehouseUserActivities struct {
 	// Resource properties.
@@ -840,6 +999,21 @@ type DatabaseCheckNameRequest struct {
 
 	// REQUIRED; The type of resource, for instance Microsoft.Synapse/workspaces/kustoPools/databases.
 	Type *Type
+}
+
+// DatabaseInviteFollowerRequest - The request to invite a follower to a database.
+type DatabaseInviteFollowerRequest struct {
+	// REQUIRED; The email of the invited user for which the follower invitation is generated.
+	InviteeEmail *string
+
+	// Table level sharing specifications
+	TableLevelSharingProperties *TableLevelSharingProperties
+}
+
+// DatabaseInviteFollowerResult - The result returned from a follower invitation generation request.
+type DatabaseInviteFollowerResult struct {
+	// The generated invitation token.
+	GeneratedInvitation *string
 }
 
 // DatabaseListResult - The list Kusto databases operation response.
@@ -942,12 +1116,6 @@ type DedicatedSQLminimalTLSSettingsListResult struct {
 
 	// READ-ONLY; Array of results.
 	Value []*DedicatedSQLminimalTLSSettings
-}
-
-// DedicatedSQLminimalTLSSettingsPatchInfo - Dedicated SQL minimal tls settings patch info
-type DedicatedSQLminimalTLSSettingsPatchInfo struct {
-	// minimal tls version
-	MinimalTLSVersion *string
 }
 
 // DedicatedSQLminimalTLSSettingsProperties - Properties of a dedicated sql minimal tls settings.
@@ -1429,17 +1597,6 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsAzureMonitorTargetEnabled *bool
-
-	// Specifies the state of devops audit. If state is Enabled, devops logs will be sent to Azure Monitor. In order to send the
-	// events to Azure Monitor, specify 'State' as 'Enabled',
-	// 'IsAzureMonitorTargetEnabled' as true and 'IsDevopsAuditEnabled' as true
-	// When using REST API to configure auditing, Diagnostic Settings with 'DevOpsOperationsAudit' diagnostic logs category on
-	// the master database should also be created.
-	// Diagnostic Settings URI format: PUT
-	// https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Sql/servers/{serverName}/databases/master/providers/microsoft.insights/diagnosticSettings/{settingsName}?api-version=2017-05-01-preview
-	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
-	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
-	IsDevopsAuditEnabled *bool
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool
@@ -2381,6 +2538,12 @@ type KustoPoolDataConnectionsClientListByDatabaseOptions struct {
 	// placeholder for future optional parameters
 }
 
+// KustoPoolDatabaseClientInviteFollowerOptions contains the optional parameters for the KustoPoolDatabaseClient.InviteFollower
+// method.
+type KustoPoolDatabaseClientInviteFollowerOptions struct {
+	// placeholder for future optional parameters
+}
+
 // KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.BeginCreateOrUpdate
 // method.
 type KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions struct {
@@ -2449,6 +2612,12 @@ type KustoPoolDatabasesClientListByKustoPoolOptions struct {
 type KustoPoolListResult struct {
 	// The list of Kusto pools.
 	Value []*KustoPool
+}
+
+// KustoPoolMigrateRequest - A kusto pool migrate request.
+type KustoPoolMigrateRequest struct {
+	// REQUIRED; Resource ID of the destination cluster or kusto pool.
+	ClusterResourceID *string
 }
 
 // KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.BeginCreateOrUpdate
@@ -2527,6 +2696,9 @@ type KustoPoolProperties struct {
 	// READ-ONLY; List of the Kusto Pool's language extensions.
 	LanguageExtensions *LanguageExtensionsList
 
+	// READ-ONLY; Properties of the peer cluster involved in a migration to/from this cluster.
+	MigrationCluster *MigrationClusterProperties
+
 	// READ-ONLY; The provisioned state of the resource.
 	ProvisioningState *ResourceProvisioningState
 
@@ -2590,6 +2762,12 @@ type KustoPoolsClientBeginDeleteOptions struct {
 // KustoPoolsClientBeginDetachFollowerDatabasesOptions contains the optional parameters for the KustoPoolsClient.BeginDetachFollowerDatabases
 // method.
 type KustoPoolsClientBeginDetachFollowerDatabasesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// KustoPoolsClientBeginMigrateOptions contains the optional parameters for the KustoPoolsClient.BeginMigrate method.
+type KustoPoolsClientBeginMigrateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2698,14 +2876,14 @@ type LibraryInfo struct {
 	// Type of the library.
 	Type *string
 
-	// The last update time of the library.
-	UploadedTimestamp *time.Time
-
 	// READ-ONLY; Creator Id of the library/package.
 	CreatorID *string
 
 	// READ-ONLY; Provisioning status of the library/package.
 	ProvisioningStatus *string
+
+	// READ-ONLY; The last update time of the library.
+	UploadedTimestamp *time.Time
 }
 
 // LibraryListResponse - A list of Library resources.
@@ -3140,8 +3318,23 @@ type MetadataSyncConfigProperties struct {
 	// Indicates whether the metadata sync is enabled or disabled
 	Enabled *bool
 
-	// The Sync Interval in minutes.
+	// READ-ONLY; The Sync Interval in minutes.
 	SyncIntervalInMinutes *int32
+}
+
+// MigrationClusterProperties - Represents a properties of a cluster that is part of a migration.
+type MigrationClusterProperties struct {
+	// READ-ONLY; The public data ingestion URL of the cluster.
+	DataIngestionURI *string
+
+	// READ-ONLY; The resource ID of the cluster.
+	ID *string
+
+	// READ-ONLY; The role of the cluster in the migration process.
+	Role *MigrationClusterRole
+
+	// READ-ONLY; The public URL of the cluster.
+	URI *string
 }
 
 // Operation - A REST API operation
@@ -5024,6 +5217,87 @@ type SQLPoolsClientRenameOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SQLPoolsDatawareHouseQueriesClientGetOptions contains the optional parameters for the SQLPoolsDatawareHouseQueriesClient.Get
+// method.
+type SQLPoolsDatawareHouseQueriesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLPoolsDatawareHouseQueriesStepsClientListOptions contains the optional parameters for the SQLPoolsDatawareHouseQueriesStepsClient.List
+// method.
+type SQLPoolsDatawareHouseQueriesStepsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScopePoolProperties - Properties for Scope Pool
+type ScopePoolProperties struct {
+	// Scope Pool Extended Properties
+	ExtendedProperties *ScopePoolPropertiesExtendedProperties
+
+	// Provisioning State of Scope Pool
+	ProvisioningState *WorkspaceProvisioningState
+
+	// READ-ONLY; The Creation Date for Scope Pool
+	CreationDate *time.Time
+
+	// READ-ONLY; The max ECO tokens per pool
+	MaxEcoTokens *int32
+
+	// READ-ONLY; The maximum numbers of jobs that can queue up
+	MaxQueuedJobs *int32
+
+	// READ-ONLY; The maximum number of jobs that can run simultaneously
+	MaxRunningJobs *int32
+
+	// READ-ONLY; The max tokens per pool
+	MaxTokens *int32
+}
+
+// ScopePoolPropertiesExtendedProperties - Scope Pool Extended Properties
+type ScopePoolPropertiesExtendedProperties struct {
+	// Scope pool Limit And Policies
+	PoolLimitAndPolicies *ScopePoolPropertiesExtendedPropertiesPoolLimitAndPolicies
+}
+
+// ScopePoolPropertiesExtendedPropertiesPoolLimitAndPolicies - Scope pool Limit And Policies
+type ScopePoolPropertiesExtendedPropertiesPoolLimitAndPolicies struct {
+	// Max ECO Tokens Per Job
+	MaxEcoTokensPerJob *int32
+
+	// Max Tokens Per Job
+	MaxTokensPerJob *int32
+}
+
+// ScopePools - Scope pool for workspace
+type ScopePools struct {
+	// The properties of a Scope pool
+	Properties *ScopePoolProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The geo-location where the resource lives
+	Location *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ScopePoolsListByWorkspaceClientGetOptions contains the optional parameters for the ScopePoolsListByWorkspaceClient.NewGetPager
+// method.
+type ScopePoolsListByWorkspaceClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScopePoolsListResult - The response to a list Scope pools request
+type ScopePoolsListResult struct {
+	// A list of Scope pools
+	Value any
+}
+
 // SecretBaseClassification provides polymorphic access to related types.
 // Call the interface's GetSecretBase() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -5241,6 +5515,9 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 	// READ-ONLY; The node communication Channel encryption mode
 	NodeCommunicationChannelEncryptionMode *string
 
+	// READ-ONLY
+	OSType *int32
+
 	// READ-ONLY; The version that the integration runtime is going to update to.
 	PushedVersion *string
 
@@ -5249,6 +5526,9 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 
 	// READ-ONLY; The URLs for the services used in integration runtime backend service.
 	ServiceUrls []*string
+
+	// READ-ONLY
+	TargetFramework *int32
 
 	// READ-ONLY; The task queue id of the integration runtime.
 	TaskQueueID *string
@@ -5979,6 +6259,12 @@ type TableLevelSharingProperties struct {
 	// List of external tables to include in the follower database
 	ExternalTablesToInclude []*string
 
+	// List of functions to exclude from the follower database
+	FunctionsToExclude []*string
+
+	// List of functions to include in the follower database
+	FunctionsToInclude []*string
+
 	// List of materialized views exclude from the follower database
 	MaterializedViewsToExclude []*string
 
@@ -6075,6 +6361,34 @@ type TransparentDataEncryptionListResult struct {
 type TransparentDataEncryptionProperties struct {
 	// The status of the database transparent data encryption.
 	Status *TransparentDataEncryptionStatus
+}
+
+// TrustedServiceByPassConfiguration - Trusted Service By Pass Configuration
+type TrustedServiceByPassConfiguration struct {
+	// Trusted Service By Pass Configuration properties
+	Properties *TrustedServiceByPassConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TrustedServiceByPassConfigurationProperties - Trusted Service By Pass Configuration properties
+type TrustedServiceByPassConfigurationProperties struct {
+	// Trusted Service By pass Configuration Info
+	TrustedServiceBypassConfigurationInfo *TrustedServiceByPassConfigurationPropertiesTrustedServiceBypassConfigurationInfo
+}
+
+// TrustedServiceByPassConfigurationPropertiesTrustedServiceBypassConfigurationInfo - Trusted Service By pass Configuration
+// Info
+type TrustedServiceByPassConfigurationPropertiesTrustedServiceBypassConfigurationInfo struct {
+	// Trusted Service By pass Enabled
+	TrustedServiceBypassEnabled *bool
 }
 
 // UpdateIntegrationRuntimeNodeRequest - Update integration runtime node request.
@@ -6331,6 +6645,12 @@ type WorkspaceAADAdminsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WorkspaceCheckDefaultStorageAccountStatusClientCreateOptions contains the optional parameters for the WorkspaceCheckDefaultStorageAccountStatusClient.Create
+// method.
+type WorkspaceCheckDefaultStorageAccountStatusClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WorkspaceInfoListResult - List of workspaces
 type WorkspaceInfoListResult struct {
 	// Link to the next page of results
@@ -6547,9 +6867,6 @@ type WorkspaceProperties struct {
 	// Enable or Disable AzureADOnlyAuthentication on All Workspace subresource
 	AzureADOnlyAuthentication *bool
 
-	// Connectivity endpoints
-	ConnectivityEndpoints map[string]*string
-
 	// Initial workspace AAD admin properties for a CSP subscription
 	CspWorkspaceAdminProperties *CspWorkspaceAdminProperties
 
@@ -6599,8 +6916,11 @@ type WorkspaceProperties struct {
 	// READ-ONLY; The ADLA resource ID.
 	AdlaResourceID *string
 
+	// READ-ONLY; Connectivity endpoints
+	ConnectivityEndpoints map[string]*string
+
 	// READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]any
+	ExtraProperties any
 
 	// READ-ONLY; Resource provisioning state
 	ProvisioningState *string
@@ -6658,6 +6978,12 @@ type WorkspaceSQLAADAdminsClientBeginDeleteOptions struct {
 
 // WorkspaceSQLAADAdminsClientGetOptions contains the optional parameters for the WorkspaceSQLAADAdminsClient.Get method.
 type WorkspaceSQLAADAdminsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTrustedServiceByPassConfigurationClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceTrustedServiceByPassConfigurationClient.CreateOrUpdate
+// method.
+type WorkspaceTrustedServiceByPassConfigurationClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 

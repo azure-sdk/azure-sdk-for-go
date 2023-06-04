@@ -46,7 +46,7 @@ func NewSparkConfigurationsClient(subscriptionID string, credential azcore.Token
 
 // NewListByWorkspacePager - List sparkConfigurations in a workspace.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - SparkConfigurationsClientListByWorkspaceOptions contains the optional parameters for the SparkConfigurationsClient.NewListByWorkspacePager
@@ -99,7 +99,7 @@ func (client *SparkConfigurationsClient) listByWorkspaceCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

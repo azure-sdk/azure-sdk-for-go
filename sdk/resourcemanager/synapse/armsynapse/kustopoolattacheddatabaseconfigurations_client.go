@@ -47,7 +47,7 @@ func NewKustoPoolAttachedDatabaseConfigurationsClient(subscriptionID string, cre
 // BeginCreateOrUpdate - Creates or updates an attached database configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - attachedDatabaseConfigurationName - The name of the attached database configuration.
@@ -70,7 +70,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) BeginCreateOrUpdate
 // CreateOrUpdate - Creates or updates an attached database configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolAttachedDatabaseConfigurationsClient) createOrUpdate(ctx context.Context, workspaceName string, kustoPoolName string, attachedDatabaseConfigurationName string, resourceGroupName string, parameters AttachedDatabaseConfiguration, options *KustoPoolAttachedDatabaseConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, workspaceName, kustoPoolName, attachedDatabaseConfigurationName, resourceGroupName, parameters, options)
 	if err != nil {
@@ -114,7 +114,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) createOrUpdateCreat
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,7 +123,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) createOrUpdateCreat
 // BeginDelete - Deletes the attached database configuration with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - attachedDatabaseConfigurationName - The name of the attached database configuration.
@@ -145,7 +145,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) BeginDelete(ctx con
 // Delete - Deletes the attached database configuration with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *KustoPoolAttachedDatabaseConfigurationsClient) deleteOperation(ctx context.Context, workspaceName string, kustoPoolName string, attachedDatabaseConfigurationName string, resourceGroupName string, options *KustoPoolAttachedDatabaseConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, workspaceName, kustoPoolName, attachedDatabaseConfigurationName, resourceGroupName, options)
 	if err != nil {
@@ -189,7 +189,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) deleteCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -198,7 +198,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) deleteCreateRequest
 // Get - Returns an attached database configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - attachedDatabaseConfigurationName - The name of the attached database configuration.
@@ -248,7 +248,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) getCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,7 +265,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) getHandleResponse(r
 
 // NewListByKustoPoolPager - Returns the list of attached database configurations of the given Kusto Pool.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - workspaceName - The name of the workspace.
 //   - kustoPoolName - The name of the Kusto pool.
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -317,7 +317,7 @@ func (client *KustoPoolAttachedDatabaseConfigurationsClient) listByKustoPoolCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

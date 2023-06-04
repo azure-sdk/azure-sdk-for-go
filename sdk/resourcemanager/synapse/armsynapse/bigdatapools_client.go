@@ -48,7 +48,7 @@ func NewBigDataPoolsClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - Create a new Big Data pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - bigDataPoolName - Big Data pool name
@@ -72,7 +72,7 @@ func (client *BigDataPoolsClient) BeginCreateOrUpdate(ctx context.Context, resou
 // CreateOrUpdate - Create a new Big Data pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *BigDataPoolsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, bigDataPoolName string, bigDataPoolInfo BigDataPoolResourceInfo, options *BigDataPoolsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, bigDataPoolName, bigDataPoolInfo, options)
 	if err != nil {
@@ -112,7 +112,7 @@ func (client *BigDataPoolsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -124,7 +124,7 @@ func (client *BigDataPoolsClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Delete a Big Data pool from the workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - bigDataPoolName - Big Data pool name
@@ -147,7 +147,7 @@ func (client *BigDataPoolsClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Delete a Big Data pool from the workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *BigDataPoolsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, bigDataPoolName string, options *BigDataPoolsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, bigDataPoolName, options)
 	if err != nil {
@@ -187,7 +187,7 @@ func (client *BigDataPoolsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -196,7 +196,7 @@ func (client *BigDataPoolsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a Big Data pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - bigDataPoolName - Big Data pool name
@@ -240,7 +240,7 @@ func (client *BigDataPoolsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -257,7 +257,7 @@ func (client *BigDataPoolsClient) getHandleResponse(resp *http.Response) (BigDat
 
 // NewListByWorkspacePager - List Big Data pools in a workspace.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - BigDataPoolsClientListByWorkspaceOptions contains the optional parameters for the BigDataPoolsClient.NewListByWorkspacePager
@@ -310,7 +310,7 @@ func (client *BigDataPoolsClient) listByWorkspaceCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +328,7 @@ func (client *BigDataPoolsClient) listByWorkspaceHandleResponse(resp *http.Respo
 // Update - Patch a Big Data pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - bigDataPoolName - Big Data pool name
@@ -373,7 +373,7 @@ func (client *BigDataPoolsClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, bigDataPoolPatchInfo)
