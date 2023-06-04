@@ -1160,6 +1160,7 @@ func (s SavingsPlanOrderAliasProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "commitment", s.Commitment)
 	populate(objectMap, "displayName", s.DisplayName)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
+	populate(objectMap, "renew", s.Renew)
 	populate(objectMap, "savingsPlanOrderId", s.SavingsPlanOrderID)
 	populate(objectMap, "term", s.Term)
 	return json.Marshal(objectMap)
@@ -1194,6 +1195,9 @@ func (s *SavingsPlanOrderAliasProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &s.ProvisioningState)
+			delete(rawMsg, key)
+		case "renew":
+			err = unpopulate(val, "Renew", &s.Renew)
 			delete(rawMsg, key)
 		case "savingsPlanOrderId":
 			err = unpopulate(val, "SavingsPlanOrderID", &s.SavingsPlanOrderID)

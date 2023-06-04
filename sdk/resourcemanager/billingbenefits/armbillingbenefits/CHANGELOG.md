@@ -1,5 +1,11 @@
 # Release History
 
+## 2.1.0 (2023-06-04)
+### Features Added
+
+- New field `Renew` in struct `SavingsPlanOrderAliasProperties`
+
+
 ## 2.0.0 (2023-04-03)
 ### Breaking Changes
 
