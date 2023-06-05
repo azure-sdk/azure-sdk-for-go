@@ -1,5 +1,12 @@
 # Release History
 
+## 1.2.0 (2023-06-05)
+### Features Added
+
+- New struct `Encryption`
+- New field `Encryption` in struct `AccountProperties`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 

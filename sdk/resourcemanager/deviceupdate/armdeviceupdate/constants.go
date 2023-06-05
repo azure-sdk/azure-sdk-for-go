@@ -11,7 +11,7 @@ package armdeviceupdate
 
 const (
 	moduleName    = "armdeviceupdate"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.2.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
