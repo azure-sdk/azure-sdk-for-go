@@ -202,6 +202,9 @@ type AcceleratorBasicAuthSetting struct {
 	// REQUIRED; Username of git repository basic auth.
 	Username *string
 
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string
+
 	// Password of git repository basic auth.
 	Password *string
 }
@@ -237,6 +240,9 @@ type AcceleratorGitRepository struct {
 type AcceleratorPublicSetting struct {
 	// REQUIRED; The type of the auth setting.
 	AuthType *string
+
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string
 }
 
 // GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorPublicSetting.
@@ -272,6 +278,87 @@ func (a *AcceleratorSSHSetting) GetAcceleratorAuthSetting() *AcceleratorAuthSett
 type ActiveDeploymentCollection struct {
 	// Collection of Deployment name.
 	ActiveDeploymentNames []*string
+}
+
+// ApmProperties - Properties of an APM
+type ApmProperties struct {
+	// REQUIRED; APM Type
+	Type *string
+
+	// Non-sensitive properties for the APM
+	Properties map[string]*string
+
+	// Sensitive properties for the APM
+	Secrets map[string]*string
+
+	// READ-ONLY; State of the APM.
+	ProvisioningState *ApmProvisioningState
+}
+
+// ApmReference - A reference to the APM
+type ApmReference struct {
+	// REQUIRED; Resource Id of the APM
+	ResourceID *string
+}
+
+// ApmResource - APM Resource object
+type ApmResource struct {
+	// Properties of an APM
+	Properties *ApmProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ApmResourceCollection - Object that includes an array of APM resources and a possible link for next set
+type ApmResourceCollection struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of APM resources
+	Value []*ApmResource
+}
+
+// ApmSecretKeys - Keys of APM sensitive properties
+type ApmSecretKeys struct {
+	// Collection of the keys for the APM sensitive properties
+	Value []*string
+}
+
+// ApmsClientBeginCreateOrUpdateOptions contains the optional parameters for the ApmsClient.BeginCreateOrUpdate method.
+type ApmsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ApmsClientBeginDeleteOptions contains the optional parameters for the ApmsClient.BeginDelete method.
+type ApmsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ApmsClientGetOptions contains the optional parameters for the ApmsClient.Get method.
+type ApmsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ApmsClientListOptions contains the optional parameters for the ApmsClient.NewListPager method.
+type ApmsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ApmsClientListSecretKeysOptions contains the optional parameters for the ApmsClient.ListSecretKeys method.
+type ApmsClientListSecretKeysOptions struct {
+	// placeholder for future optional parameters
 }
 
 // AppResource - App resource payload
@@ -341,6 +428,9 @@ type AppResourceProperties struct {
 
 	// Additional App settings in vnet injection instance
 	VnetAddons *AppVNetAddons
+
+	// The workload profile used for this app. Supported for Consumption + Dedicated plan.
+	WorkloadProfileName *string
 
 	// READ-ONLY; Fully qualified dns Name.
 	Fqdn *string
@@ -763,8 +853,14 @@ type BuildProperties struct {
 	// The resource id of agent pool
 	AgentPool *string
 
+	// The APMs for this build
+	Apms []*ApmReference
+
 	// The resource id of builder to build the source code
 	Builder *string
+
+	// The CA Certificates for this build
+	Certificates []*CertificateReference
 
 	// The environment variables for this build
 	Env map[string]*string
@@ -839,6 +935,9 @@ type BuildResultProperties struct {
 
 	// READ-ONLY; All of the build stage (init-container and container) resources in build pod.
 	BuildStages []*BuildStageProperties
+
+	// READ-ONLY; The container registry image of this build result.
+	Image *string
 
 	// READ-ONLY; Provisioning state of the KPack build result
 	ProvisioningState *BuildResultProvisioningState
@@ -979,6 +1078,20 @@ type BuildServiceBuilderClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BuildServiceClientBeginCreateOrUpdateOptions contains the optional parameters for the BuildServiceClient.BeginCreateOrUpdate
+// method.
+type BuildServiceClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildServiceClientBeginDeleteBuildOptions contains the optional parameters for the BuildServiceClient.BeginDeleteBuild
+// method.
+type BuildServiceClientBeginDeleteBuildOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BuildServiceClientCreateOrUpdateBuildOptions contains the optional parameters for the BuildServiceClient.CreateOrUpdateBuild
 // method.
 type BuildServiceClientCreateOrUpdateBuildOptions struct {
@@ -1064,13 +1177,16 @@ type BuildServiceCollection struct {
 
 // BuildServiceProperties - Build service resource properties payload
 type BuildServiceProperties struct {
-	// The installed KPack version in this build service.
-	KPackVersion *string
+	// The resource id of the container registry used in this build service.
+	ContainerRegistry *string
 
 	// The runtime resource configuration of this build service.
 	ResourceRequests *BuildServicePropertiesResourceRequests
 
-	// READ-ONLY; Provisioning state of the KPack build result
+	// READ-ONLY; The installed KPack version in this build service.
+	KPackVersion *string
+
+	// READ-ONLY; Provisioning state of the KPack build service
 	ProvisioningState *BuildServiceProvisioningState
 }
 
@@ -1272,6 +1388,12 @@ type CertificateProperties struct {
 // GetCertificateProperties implements the CertificatePropertiesClassification interface for type CertificateProperties.
 func (c *CertificateProperties) GetCertificateProperties() *CertificateProperties { return c }
 
+// CertificateReference - A reference to the certificate
+type CertificateReference struct {
+	// REQUIRED; Resource Id of the certificate
+	ResourceID *string
+}
+
 // CertificateResource - Certificate resource payload.
 type CertificateResource struct {
 	// Properties of the certificate resource payload.
@@ -1394,6 +1516,9 @@ type ConfigServerProperties struct {
 	// Settings of config server.
 	ConfigServer *ConfigServerSettings
 
+	// Enabled state of the config server. This is only used in Consumption tier.
+	EnabledState *ConfigServerEnabledState
+
 	// Error when apply config server settings.
 	Error *Error
 
@@ -1499,6 +1624,12 @@ type ConfigurationServiceGitRepository struct {
 	// REQUIRED; URI of the repository
 	URI *string
 
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string
+
+	// Git libraries used to support various repository providers
+	GitImplementation *GitImplementation
+
 	// Public sshKey of git repository.
 	HostKey *string
 
@@ -1532,6 +1663,9 @@ type ConfigurationServiceInstance struct {
 
 // ConfigurationServiceProperties - Application Configuration Service properties payload
 type ConfigurationServiceProperties struct {
+	// The generation of the Application Configuration Service.
+	Generation *ConfigurationServiceGeneration
+
 	// The settings of Application Configuration Service.
 	Settings *ConfigurationServiceSettings
 
@@ -1633,6 +1767,125 @@ type ConfigurationServicesClientListOptions struct {
 type ContainerProbeSettings struct {
 	// Indicates whether disable the liveness and readiness probe
 	DisableProbe *bool
+}
+
+// ContainerRegistriesClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerRegistriesClient.BeginCreateOrUpdate
+// method.
+type ContainerRegistriesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerRegistriesClientBeginDeleteOptions contains the optional parameters for the ContainerRegistriesClient.BeginDelete
+// method.
+type ContainerRegistriesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerRegistriesClientBeginValidateOptions contains the optional parameters for the ContainerRegistriesClient.BeginValidate
+// method.
+type ContainerRegistriesClientBeginValidateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerRegistriesClientGetOptions contains the optional parameters for the ContainerRegistriesClient.Get method.
+type ContainerRegistriesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerRegistriesClientListOptions contains the optional parameters for the ContainerRegistriesClient.NewListPager method.
+type ContainerRegistriesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerRegistryBasicCredentials - The basic authentication properties for the container registry resource.
+type ContainerRegistryBasicCredentials struct {
+	// REQUIRED; The password of the Container Registry.
+	Password *string
+
+	// REQUIRED; The login server of the Container Registry.
+	Server *string
+
+	// REQUIRED; The credential type of the container registry credentials.
+	Type *string
+
+	// REQUIRED; The username of the Container Registry.
+	Username *string
+}
+
+// GetContainerRegistryCredentials implements the ContainerRegistryCredentialsClassification interface for type ContainerRegistryBasicCredentials.
+func (c *ContainerRegistryBasicCredentials) GetContainerRegistryCredentials() *ContainerRegistryCredentials {
+	return &ContainerRegistryCredentials{
+		Type: c.Type,
+	}
+}
+
+// ContainerRegistryCredentialsClassification provides polymorphic access to related types.
+// Call the interface's GetContainerRegistryCredentials() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ContainerRegistryBasicCredentials, *ContainerRegistryCredentials
+type ContainerRegistryCredentialsClassification interface {
+	// GetContainerRegistryCredentials returns the ContainerRegistryCredentials content of the underlying type.
+	GetContainerRegistryCredentials() *ContainerRegistryCredentials
+}
+
+// ContainerRegistryCredentials - The credential for the container registry resource.
+type ContainerRegistryCredentials struct {
+	// REQUIRED; The credential type of the container registry credentials.
+	Type *string
+}
+
+// GetContainerRegistryCredentials implements the ContainerRegistryCredentialsClassification interface for type ContainerRegistryCredentials.
+func (c *ContainerRegistryCredentials) GetContainerRegistryCredentials() *ContainerRegistryCredentials {
+	return c
+}
+
+// ContainerRegistryProperties - Container registry resource payload.
+type ContainerRegistryProperties struct {
+	// REQUIRED; The credentials of the container registry resource.
+	Credentials ContainerRegistryCredentialsClassification
+
+	// READ-ONLY; State of the Container Registry.
+	ProvisioningState *ContainerRegistryProvisioningState
+}
+
+// ContainerRegistryResource - Container registry resource payload.
+type ContainerRegistryResource struct {
+	// Properties of the container registry resource payload.
+	Properties *ContainerRegistryProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ContainerRegistryResourceCollection - Collection compose of container registry resources list and a possible link for next
+// page.
+type ContainerRegistryResourceCollection struct {
+	// The link to next page of storage list.
+	NextLink *string
+
+	// The container registry resources list.
+	Value []*ContainerRegistryResource
+}
+
+// ContainerRegistryValidateResult - Validation result for container registry properties
+type ContainerRegistryValidateResult struct {
+	// Indicate if the container registry properties are valid
+	IsValid *bool
+
+	// Detailed validation messages.
+	Message *string
 }
 
 // ContentCertificateProperties - Properties of certificate imported from key vault.
@@ -2025,6 +2278,9 @@ type DeploymentSettings struct {
 	// Collection of addons
 	AddonConfigs map[string]any
 
+	// Collection of ApmReferences
+	Apms []*ApmReference
+
 	// Container liveness and readiness probe settings
 	ContainerProbeSettings *ContainerProbeSettings
 
@@ -2316,6 +2572,69 @@ type Error struct {
 	Message *string
 }
 
+// EurekaServerProperties - Eureka server properties payload
+type EurekaServerProperties struct {
+	// Enabled state of the eureka server. This is only used in Consumption tier.
+	EnabledState *EurekaServerEnabledState
+
+	// Error when applying eureka server settings.
+	Error *Error
+
+	// READ-ONLY; State of the eureka server.
+	ProvisioningState *EurekaServerState
+}
+
+// EurekaServerResource - Eureka server resource
+type EurekaServerResource struct {
+	// Properties of the eureka server resource
+	Properties *EurekaServerProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// EurekaServerResourceCollection - Object that includes an array of Eureka server resources and a possible link for next
+// set
+type EurekaServerResourceCollection struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of Eureka server resources
+	Value []*EurekaServerResource
+}
+
+// EurekaServersClientBeginUpdatePatchOptions contains the optional parameters for the EurekaServersClient.BeginUpdatePatch
+// method.
+type EurekaServersClientBeginUpdatePatchOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EurekaServersClientBeginUpdatePutOptions contains the optional parameters for the EurekaServersClient.BeginUpdatePut method.
+type EurekaServersClientBeginUpdatePutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EurekaServersClientGetOptions contains the optional parameters for the EurekaServersClient.Get method.
+type EurekaServersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EurekaServersClientListOptions contains the optional parameters for the EurekaServersClient.List method.
+type EurekaServersClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ExecAction describes a "run in container" action.
 type ExecAction struct {
 	// REQUIRED; The type of the action to take to perform the health check.
@@ -2397,6 +2716,9 @@ type GatewayCorsProperties struct {
 	// Allowed HTTP methods on cross-site requests. The special value * allows all methods. If not set, GET and HEAD are allowed
 	// by default.
 	AllowedMethods []*string
+
+	// Allowed origin patterns to make cross-site requests.
+	AllowedOriginPatterns []*string
 
 	// Allowed origins to make cross-site requests. The special value * allows all domains.
 	AllowedOrigins []*string
@@ -2502,8 +2824,14 @@ type GatewayProperties struct {
 	// API metadata property for Spring Cloud Gateway
 	APIMetadataProperties *GatewayAPIMetadataProperties
 
+	// Collection of addons for Spring Cloud Gateway
+	AddonConfigs map[string]any
+
 	// Collection of APM type used in Spring Cloud Gateway
 	ApmTypes []*ApmType
+
+	// Client-Certification Authentication.
+	ClientAuth *GatewayPropertiesClientAuth
 
 	// Cross-Origin Resource Sharing property
 	CorsProperties *GatewayCorsProperties
@@ -2534,6 +2862,15 @@ type GatewayProperties struct {
 
 	// READ-ONLY; URL of the Spring Cloud Gateway, exposed when 'public' is true.
 	URL *string
+}
+
+// GatewayPropertiesClientAuth - Client-Certification Authentication.
+type GatewayPropertiesClientAuth struct {
+	// Whether to enable certificate verification or not
+	CertificateVerification *GatewayCertificateVerification
+
+	// Collection of certificate resource Ids in Azure Spring Apps.
+	Certificates []*string
 }
 
 // GatewayPropertiesEnvironmentVariables - Environment variables of Spring Cloud Gateway
@@ -2683,6 +3020,12 @@ type GatewaysClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// GatewaysClientBeginRestartOptions contains the optional parameters for the GatewaysClient.BeginRestart method.
+type GatewaysClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // GatewaysClientBeginUpdateCapacityOptions contains the optional parameters for the GatewaysClient.BeginUpdateCapacity method.
 type GatewaysClientBeginUpdateCapacityOptions struct {
 	// Resumes the LRO from the provided token.
@@ -2743,6 +3086,12 @@ type GitPatternRepository struct {
 
 	// Username of git repository basic auth.
 	Username *string
+}
+
+// GloballyEnabledApms - Globally enabled APMs payload
+type GloballyEnabledApms struct {
+	// Collection of the globally enabled APMs
+	Value []*string
 }
 
 // HTTPGetAction describes an action based on HTTP Get requests.
@@ -3752,6 +4101,10 @@ type ServiceSpecification struct {
 
 // ServiceVNetAddons - Additional Service settings in vnet injection instance
 type ServiceVNetAddons struct {
+	// Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could
+	// be accessed from internet.
+	DataPlanePublicEndpoint *bool
+
 	// Indicates whether the log stream in vnet injection instance could be accessed from internet.
 	LogStreamPublicEndpoint *bool
 }
@@ -3764,6 +4117,20 @@ type ServicesClientBeginCreateOrUpdateOptions struct {
 
 // ServicesClientBeginDeleteOptions contains the optional parameters for the ServicesClient.BeginDelete method.
 type ServicesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServicesClientBeginDisableApmGloballyOptions contains the optional parameters for the ServicesClient.BeginDisableApmGlobally
+// method.
+type ServicesClientBeginDisableApmGloballyOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServicesClientBeginEnableApmGloballyOptions contains the optional parameters for the ServicesClient.BeginEnableApmGlobally
+// method.
+type ServicesClientBeginEnableApmGloballyOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -3813,8 +4180,20 @@ type ServicesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ServicesClientListGloballyEnabledApmsOptions contains the optional parameters for the ServicesClient.ListGloballyEnabledApms
+// method.
+type ServicesClientListGloballyEnabledApmsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ServicesClientListOptions contains the optional parameters for the ServicesClient.NewListPager method.
 type ServicesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServicesClientListSupportedApmTypesOptions contains the optional parameters for the ServicesClient.NewListSupportedApmTypesPager
+// method.
+type ServicesClientListSupportedApmTypesOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3972,6 +4351,21 @@ type StoragesClientGetOptions struct {
 // StoragesClientListOptions contains the optional parameters for the StoragesClient.NewListPager method.
 type StoragesClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SupportedApmType - Supported APM type
+type SupportedApmType struct {
+	// The name of the supported APM type
+	Name *string
+}
+
+// SupportedApmTypes - Supported APM types payload
+type SupportedApmTypes struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of the supported APM type
+	Value []*SupportedApmType
 }
 
 // SupportedBuildpackResource - Supported buildpack resource payload

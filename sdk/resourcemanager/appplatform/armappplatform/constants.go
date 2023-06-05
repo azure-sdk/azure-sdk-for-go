@@ -11,7 +11,7 @@ package armappplatform
 
 const (
 	moduleName    = "armappplatform"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // APIPortalProvisioningState - State of the API portal.
@@ -47,6 +47,30 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// ApmProvisioningState - State of the APM.
+type ApmProvisioningState string
+
+const (
+	ApmProvisioningStateCanceled  ApmProvisioningState = "Canceled"
+	ApmProvisioningStateCreating  ApmProvisioningState = "Creating"
+	ApmProvisioningStateDeleting  ApmProvisioningState = "Deleting"
+	ApmProvisioningStateFailed    ApmProvisioningState = "Failed"
+	ApmProvisioningStateSucceeded ApmProvisioningState = "Succeeded"
+	ApmProvisioningStateUpdating  ApmProvisioningState = "Updating"
+)
+
+// PossibleApmProvisioningStateValues returns the possible values for the ApmProvisioningState const type.
+func PossibleApmProvisioningStateValues() []ApmProvisioningState {
+	return []ApmProvisioningState{
+		ApmProvisioningStateCanceled,
+		ApmProvisioningStateCreating,
+		ApmProvisioningStateDeleting,
+		ApmProvisioningStateFailed,
+		ApmProvisioningStateSucceeded,
+		ApmProvisioningStateUpdating,
 	}
 }
 
@@ -226,7 +250,7 @@ func PossibleBuildResultProvisioningStateValues() []BuildResultProvisioningState
 	}
 }
 
-// BuildServiceProvisioningState - Provisioning state of the KPack build result
+// BuildServiceProvisioningState - Provisioning state of the KPack build service
 type BuildServiceProvisioningState string
 
 const (
@@ -314,6 +338,24 @@ func PossibleCertificateResourceProvisioningStateValues() []CertificateResourceP
 	}
 }
 
+// ConfigServerEnabledState - Enabled state of the config server. This is only used in Consumption tier.
+type ConfigServerEnabledState string
+
+const (
+	// ConfigServerEnabledStateDisabled - Disable the config server.
+	ConfigServerEnabledStateDisabled ConfigServerEnabledState = "Disabled"
+	// ConfigServerEnabledStateEnabled - Enable the config server.
+	ConfigServerEnabledStateEnabled ConfigServerEnabledState = "Enabled"
+)
+
+// PossibleConfigServerEnabledStateValues returns the possible values for the ConfigServerEnabledState const type.
+func PossibleConfigServerEnabledStateValues() []ConfigServerEnabledState {
+	return []ConfigServerEnabledState{
+		ConfigServerEnabledStateDisabled,
+		ConfigServerEnabledStateEnabled,
+	}
+}
+
 // ConfigServerState - State of the config server.
 type ConfigServerState string
 
@@ -336,6 +378,22 @@ func PossibleConfigServerStateValues() []ConfigServerState {
 	}
 }
 
+// ConfigurationServiceGeneration - The generation of the Application Configuration Service.
+type ConfigurationServiceGeneration string
+
+const (
+	ConfigurationServiceGenerationGen1 ConfigurationServiceGeneration = "Gen1"
+	ConfigurationServiceGenerationGen2 ConfigurationServiceGeneration = "Gen2"
+)
+
+// PossibleConfigurationServiceGenerationValues returns the possible values for the ConfigurationServiceGeneration const type.
+func PossibleConfigurationServiceGenerationValues() []ConfigurationServiceGeneration {
+	return []ConfigurationServiceGeneration{
+		ConfigurationServiceGenerationGen1,
+		ConfigurationServiceGenerationGen2,
+	}
+}
+
 // ConfigurationServiceProvisioningState - State of the Application Configuration Service.
 type ConfigurationServiceProvisioningState string
 
@@ -355,6 +413,30 @@ func PossibleConfigurationServiceProvisioningStateValues() []ConfigurationServic
 		ConfigurationServiceProvisioningStateFailed,
 		ConfigurationServiceProvisioningStateSucceeded,
 		ConfigurationServiceProvisioningStateUpdating,
+	}
+}
+
+// ContainerRegistryProvisioningState - State of the Container Registry.
+type ContainerRegistryProvisioningState string
+
+const (
+	ContainerRegistryProvisioningStateCanceled  ContainerRegistryProvisioningState = "Canceled"
+	ContainerRegistryProvisioningStateCreating  ContainerRegistryProvisioningState = "Creating"
+	ContainerRegistryProvisioningStateDeleting  ContainerRegistryProvisioningState = "Deleting"
+	ContainerRegistryProvisioningStateFailed    ContainerRegistryProvisioningState = "Failed"
+	ContainerRegistryProvisioningStateSucceeded ContainerRegistryProvisioningState = "Succeeded"
+	ContainerRegistryProvisioningStateUpdating  ContainerRegistryProvisioningState = "Updating"
+)
+
+// PossibleContainerRegistryProvisioningStateValues returns the possible values for the ContainerRegistryProvisioningState const type.
+func PossibleContainerRegistryProvisioningStateValues() []ContainerRegistryProvisioningState {
+	return []ContainerRegistryProvisioningState{
+		ContainerRegistryProvisioningStateCanceled,
+		ContainerRegistryProvisioningStateCreating,
+		ContainerRegistryProvisioningStateDeleting,
+		ContainerRegistryProvisioningStateFailed,
+		ContainerRegistryProvisioningStateSucceeded,
+		ContainerRegistryProvisioningStateUpdating,
 	}
 }
 
@@ -518,6 +600,62 @@ func PossibleDevToolPortalProvisioningStateValues() []DevToolPortalProvisioningS
 	}
 }
 
+// EurekaServerEnabledState - Enabled state of the eureka server. This is only used in Consumption tier.
+type EurekaServerEnabledState string
+
+const (
+	// EurekaServerEnabledStateDisabled - Disable the eureka server.
+	EurekaServerEnabledStateDisabled EurekaServerEnabledState = "Disabled"
+	// EurekaServerEnabledStateEnabled - Enable the eureka server.
+	EurekaServerEnabledStateEnabled EurekaServerEnabledState = "Enabled"
+)
+
+// PossibleEurekaServerEnabledStateValues returns the possible values for the EurekaServerEnabledState const type.
+func PossibleEurekaServerEnabledStateValues() []EurekaServerEnabledState {
+	return []EurekaServerEnabledState{
+		EurekaServerEnabledStateDisabled,
+		EurekaServerEnabledStateEnabled,
+	}
+}
+
+// EurekaServerState - State of the eureka server.
+type EurekaServerState string
+
+const (
+	EurekaServerStateCanceled  EurekaServerState = "Canceled"
+	EurekaServerStateFailed    EurekaServerState = "Failed"
+	EurekaServerStateSucceeded EurekaServerState = "Succeeded"
+	EurekaServerStateUpdating  EurekaServerState = "Updating"
+)
+
+// PossibleEurekaServerStateValues returns the possible values for the EurekaServerState const type.
+func PossibleEurekaServerStateValues() []EurekaServerState {
+	return []EurekaServerState{
+		EurekaServerStateCanceled,
+		EurekaServerStateFailed,
+		EurekaServerStateSucceeded,
+		EurekaServerStateUpdating,
+	}
+}
+
+// GatewayCertificateVerification - Whether to enable certificate verification or not
+type GatewayCertificateVerification string
+
+const (
+	// GatewayCertificateVerificationDisabled - Disable certificate verification in Spring Cloud Gateway.
+	GatewayCertificateVerificationDisabled GatewayCertificateVerification = "Disabled"
+	// GatewayCertificateVerificationEnabled - Enable certificate verification in Spring Cloud Gateway.
+	GatewayCertificateVerificationEnabled GatewayCertificateVerification = "Enabled"
+)
+
+// PossibleGatewayCertificateVerificationValues returns the possible values for the GatewayCertificateVerification const type.
+func PossibleGatewayCertificateVerificationValues() []GatewayCertificateVerification {
+	return []GatewayCertificateVerification{
+		GatewayCertificateVerificationDisabled,
+		GatewayCertificateVerificationEnabled,
+	}
+}
+
 // GatewayProvisioningState - State of the Spring Cloud Gateway.
 type GatewayProvisioningState string
 
@@ -553,6 +691,22 @@ func PossibleGatewayRouteConfigProtocolValues() []GatewayRouteConfigProtocol {
 	return []GatewayRouteConfigProtocol{
 		GatewayRouteConfigProtocolHTTP,
 		GatewayRouteConfigProtocolHTTPS,
+	}
+}
+
+// GitImplementation - Git libraries used to support various repository providers
+type GitImplementation string
+
+const (
+	GitImplementationGoGit   GitImplementation = "go-git"
+	GitImplementationLibgit2 GitImplementation = "libgit2"
+)
+
+// PossibleGitImplementationValues returns the possible values for the GitImplementation const type.
+func PossibleGitImplementationValues() []GitImplementation {
+	return []GitImplementation{
+		GitImplementationGoGit,
+		GitImplementationLibgit2,
 	}
 }
 
