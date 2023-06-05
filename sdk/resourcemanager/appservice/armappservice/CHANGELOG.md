@@ -1,5 +1,20 @@
 # Release History
 
+## 3.0.0 (2023-06-05)
+### Breaking Changes
+
+- Field `Interface` of struct `WebAppsClientCreateOneDeployOperationResponse` has been removed
+- Field `Interface` of struct `WebAppsClientGetOneDeployStatusResponse` has been removed
+
+### Features Added
+
+- New struct `OneDeployRequest`
+- New field `EnvironmentID` in struct `ResourceNameAvailabilityRequest`
+- New field `Request` in struct `WebAppsClientCreateOneDeployOperationOptions`
+- New anonymous field `Deployment` in struct `WebAppsClientCreateOneDeployOperationResponse`
+- New anonymous field `Deployment` in struct `WebAppsClientGetOneDeployStatusResponse`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 

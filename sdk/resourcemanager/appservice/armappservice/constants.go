@@ -11,7 +11,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v2.1.1"
+	moduleVersion = "v3.0.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -2313,26 +2313,26 @@ func PossibleWorkflowSKUNameValues() []WorkflowSKUName {
 	}
 }
 
-// WorkflowState - Gets or sets the state of the workflow.
+// WorkflowState - The workflow state.
 type WorkflowState string
 
 const (
-	WorkflowStateNotSpecified WorkflowState = "NotSpecified"
 	WorkflowStateCompleted    WorkflowState = "Completed"
-	WorkflowStateEnabled      WorkflowState = "Enabled"
-	WorkflowStateDisabled     WorkflowState = "Disabled"
 	WorkflowStateDeleted      WorkflowState = "Deleted"
+	WorkflowStateDisabled     WorkflowState = "Disabled"
+	WorkflowStateEnabled      WorkflowState = "Enabled"
+	WorkflowStateNotSpecified WorkflowState = "NotSpecified"
 	WorkflowStateSuspended    WorkflowState = "Suspended"
 )
 
 // PossibleWorkflowStateValues returns the possible values for the WorkflowState const type.
 func PossibleWorkflowStateValues() []WorkflowState {
 	return []WorkflowState{
-		WorkflowStateNotSpecified,
 		WorkflowStateCompleted,
-		WorkflowStateEnabled,
-		WorkflowStateDisabled,
 		WorkflowStateDeleted,
+		WorkflowStateDisabled,
+		WorkflowStateEnabled,
+		WorkflowStateNotSpecified,
 		WorkflowStateSuspended,
 	}
 }

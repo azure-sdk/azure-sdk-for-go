@@ -1491,8 +1491,7 @@ type WebAppsClientCreateMSDeployOperationSlotResponse struct {
 
 // WebAppsClientCreateOneDeployOperationResponse contains the response from method WebAppsClient.CreateOneDeployOperation.
 type WebAppsClientCreateOneDeployOperationResponse struct {
-	// Anything
-	Interface any
+	Deployment
 }
 
 // WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.CreateOrUpdateConfiguration.
@@ -2226,8 +2225,7 @@ type WebAppsClientGetNetworkTracesV2Response struct {
 
 // WebAppsClientGetOneDeployStatusResponse contains the response from method WebAppsClient.GetOneDeployStatus.
 type WebAppsClientGetOneDeployStatusResponse struct {
-	// Anything
-	Interface any
+	Deployment
 }
 
 // WebAppsClientGetPremierAddOnResponse contains the response from method WebAppsClient.GetPremierAddOn.
