@@ -56,6 +56,9 @@ type DomainProperties struct {
 	// Describes whether user engagement tracking is enabled or disabled.
 	UserEngagementTracking *UserEngagementTracking
 
+	// Collection of valid sender usernames. This is a key-value pair where key=username and value=display name.
+	ValidSenderUsernames map[string]*string
+
 	// READ-ONLY; The location where the Domains resource data is stored at rest.
 	DataLocation *string
 
@@ -122,7 +125,7 @@ type DomainResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -207,7 +210,7 @@ type EmailServiceResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -389,22 +392,6 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
-// location
-type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
 // RegenerateKeyParameters - Parameters describes the request to regenerate access keys
 type RegenerateKeyParameters struct {
 	// The keyType to regenerate. Must be either 'primary' or 'secondary'(case-insensitive).
@@ -413,7 +400,7 @@ type RegenerateKeyParameters struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -424,70 +411,6 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// SenderUsernameProperties - A class that describes the properties of a SenderUsername resource.
-type SenderUsernameProperties struct {
-	// REQUIRED; A sender senderUsername to be used when sending emails.
-	Username *string
-
-	// The display name for the senderUsername.
-	DisplayName *string
-
-	// READ-ONLY; The location where the SenderUsername resource data is stored at rest.
-	DataLocation *string
-
-	// READ-ONLY; Provisioning state of the resource. Unknown is the default state for Communication Services.
-	ProvisioningState *ProvisioningState
-}
-
-// SenderUsernameResource - A class representing a SenderUsername resource.
-type SenderUsernameResource struct {
-	// The properties of a SenderUsername resource.
-	Properties *SenderUsernameProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// SenderUsernameResourceCollection - A class representing a Domains SenderUsernames collection.
-type SenderUsernameResourceCollection struct {
-	// The URL the client should use to fetch the next page (per server side paging).
-	NextLink *string
-
-	// List of SenderUsernames
-	Value []*SenderUsernameResource
-}
-
-// SenderUsernamesClientCreateOrUpdateOptions contains the optional parameters for the SenderUsernamesClient.CreateOrUpdate
-// method.
-type SenderUsernamesClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SenderUsernamesClientDeleteOptions contains the optional parameters for the SenderUsernamesClient.Delete method.
-type SenderUsernamesClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SenderUsernamesClientGetOptions contains the optional parameters for the SenderUsernamesClient.Get method.
-type SenderUsernamesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SenderUsernamesClientListByDomainsOptions contains the optional parameters for the SenderUsernamesClient.NewListByDomainsPager
-// method.
-type SenderUsernamesClientListByDomainsOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ServiceKeys - A class representing the access keys of a CommunicationService.
@@ -540,7 +463,7 @@ type ServiceResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -589,6 +512,18 @@ type ServicesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// ServicesClientBeginRegenerateKeyOptions contains the optional parameters for the ServicesClient.BeginRegenerateKey method.
+type ServicesClientBeginRegenerateKeyOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServicesClientBeginUpdateOptions contains the optional parameters for the ServicesClient.BeginUpdate method.
+type ServicesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ServicesClientCheckNameAvailabilityOptions contains the optional parameters for the ServicesClient.CheckNameAvailability
 // method.
 type ServicesClientCheckNameAvailabilityOptions struct {
@@ -620,16 +555,6 @@ type ServicesClientListBySubscriptionOptions struct {
 
 // ServicesClientListKeysOptions contains the optional parameters for the ServicesClient.ListKeys method.
 type ServicesClientListKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServicesClientRegenerateKeyOptions contains the optional parameters for the ServicesClient.RegenerateKey method.
-type ServicesClientRegenerateKeyOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServicesClientUpdateOptions contains the optional parameters for the ServicesClient.Update method.
-type ServicesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -669,7 +594,7 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -686,6 +611,9 @@ type TrackedResource struct {
 type UpdateDomainProperties struct {
 	// Describes whether user engagement tracking is enabled or disabled.
 	UserEngagementTracking *UserEngagementTracking
+
+	// Collection of valid sender usernames. This is a key-value pair where key=username and value=display name.
+	ValidSenderUsernames map[string]*string
 }
 
 // UpdateDomainRequestParameters - A class that describes the PATCH request parameters of a Domains resource.

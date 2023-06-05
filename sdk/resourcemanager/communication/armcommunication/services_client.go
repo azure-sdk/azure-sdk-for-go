@@ -29,7 +29,7 @@ type ServicesClient struct {
 }
 
 // NewServicesClient creates a new instance of ServicesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewServicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServicesClient, error) {
@@ -47,7 +47,7 @@ func NewServicesClient(subscriptionID string, credential azcore.TokenCredential,
 // CheckNameAvailability - Checks that the CommunicationService name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - nameAvailabilityParameters - Parameters supplied to the operation.
 //   - options - ServicesClientCheckNameAvailabilityOptions contains the optional parameters for the ServicesClient.CheckNameAvailability
 //     method.
@@ -69,13 +69,16 @@ func (client *ServicesClient) CheckNameAvailability(ctx context.Context, nameAva
 // checkNameAvailabilityCreateRequest creates the CheckNameAvailability request.
 func (client *ServicesClient) checkNameAvailabilityCreateRequest(ctx context.Context, nameAvailabilityParameters NameAvailabilityParameters, options *ServicesClientCheckNameAvailabilityOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Communication/checkNameAvailability"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, nameAvailabilityParameters)
@@ -93,7 +96,7 @@ func (client *ServicesClient) checkNameAvailabilityHandleResponse(resp *http.Res
 // BeginCreateOrUpdate - Create a new CommunicationService or update an existing CommunicationService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - parameters - Parameters for the create or update operation
@@ -116,7 +119,7 @@ func (client *ServicesClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // CreateOrUpdate - Create a new CommunicationService or update an existing CommunicationService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 func (client *ServicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResource, options *ServicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, communicationServiceName, parameters, options)
 	if err != nil {
@@ -135,6 +138,9 @@ func (client *ServicesClient) createOrUpdate(ctx context.Context, resourceGroupN
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResource, options *ServicesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -149,7 +155,7 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -158,7 +164,7 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 // BeginDelete - Operation to delete a CommunicationService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - options - ServicesClientBeginDeleteOptions contains the optional parameters for the ServicesClient.BeginDelete method.
@@ -179,7 +185,7 @@ func (client *ServicesClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Operation to delete a CommunicationService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 func (client *ServicesClient) deleteOperation(ctx context.Context, resourceGroupName string, communicationServiceName string, options *ServicesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, communicationServiceName, options)
 	if err != nil {
@@ -198,6 +204,9 @@ func (client *ServicesClient) deleteOperation(ctx context.Context, resourceGroup
 // deleteCreateRequest creates the Delete request.
 func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, options *ServicesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -212,7 +221,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -221,7 +230,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Get the CommunicationService and its properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - options - ServicesClientGetOptions contains the optional parameters for the ServicesClient.Get method.
@@ -243,6 +252,9 @@ func (client *ServicesClient) Get(ctx context.Context, resourceGroupName string,
 // getCreateRequest creates the Get request.
 func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, options *ServicesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -257,7 +269,7 @@ func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -275,7 +287,7 @@ func (client *ServicesClient) getHandleResponse(resp *http.Response) (ServicesCl
 // LinkNotificationHub - Links an Azure Notification Hub to this communication service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - options - ServicesClientLinkNotificationHubOptions contains the optional parameters for the ServicesClient.LinkNotificationHub
@@ -298,6 +310,9 @@ func (client *ServicesClient) LinkNotificationHub(ctx context.Context, resourceG
 // linkNotificationHubCreateRequest creates the LinkNotificationHub request.
 func (client *ServicesClient) linkNotificationHubCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, options *ServicesClientLinkNotificationHubOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}/linkNotificationHub"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -312,7 +327,7 @@ func (client *ServicesClient) linkNotificationHubCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.LinkNotificationHubParameters != nil {
@@ -332,7 +347,7 @@ func (client *ServicesClient) linkNotificationHubHandleResponse(resp *http.Respo
 
 // NewListByResourceGroupPager - Handles requests to list all resources in a resource group.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ServicesClientListByResourceGroupOptions contains the optional parameters for the ServicesClient.NewListByResourceGroupPager
 //     method.
@@ -367,6 +382,9 @@ func (client *ServicesClient) NewListByResourceGroupPager(resourceGroupName stri
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *ServicesClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ServicesClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -377,7 +395,7 @@ func (client *ServicesClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -394,7 +412,7 @@ func (client *ServicesClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - Handles requests to list all resources in a subscription.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - options - ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.NewListBySubscriptionPager
 //     method.
 func (client *ServicesClient) NewListBySubscriptionPager(options *ServicesClientListBySubscriptionOptions) *runtime.Pager[ServicesClientListBySubscriptionResponse] {
@@ -428,13 +446,16 @@ func (client *ServicesClient) NewListBySubscriptionPager(options *ServicesClient
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
 func (client *ServicesClient) listBySubscriptionCreateRequest(ctx context.Context, options *ServicesClientListBySubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Communication/communicationServices"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -452,7 +473,7 @@ func (client *ServicesClient) listBySubscriptionHandleResponse(resp *http.Respon
 // ListKeys - Get the access keys of the CommunicationService resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - options - ServicesClientListKeysOptions contains the optional parameters for the ServicesClient.ListKeys method.
@@ -474,6 +495,9 @@ func (client *ServicesClient) ListKeys(ctx context.Context, resourceGroupName st
 // listKeysCreateRequest creates the ListKeys request.
 func (client *ServicesClient) listKeysCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, options *ServicesClientListKeysOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}/listKeys"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -488,7 +512,7 @@ func (client *ServicesClient) listKeysCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -503,33 +527,56 @@ func (client *ServicesClient) listKeysHandleResponse(resp *http.Response) (Servi
 	return result, nil
 }
 
+// BeginRegenerateKey - Regenerate CommunicationService access key. PrimaryKey and SecondaryKey cannot be regenerated at the
+// same time.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-06-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - communicationServiceName - The name of the CommunicationService resource.
+//   - parameters - Parameter that describes the Regenerate Key Operation.
+//   - options - ServicesClientBeginRegenerateKeyOptions contains the optional parameters for the ServicesClient.BeginRegenerateKey
+//     method.
+func (client *ServicesClient) BeginRegenerateKey(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters RegenerateKeyParameters, options *ServicesClientBeginRegenerateKeyOptions) (*runtime.Poller[ServicesClientRegenerateKeyResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.regenerateKey(ctx, resourceGroupName, communicationServiceName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ServicesClientRegenerateKeyResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[ServicesClientRegenerateKeyResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
 // RegenerateKey - Regenerate CommunicationService access key. PrimaryKey and SecondaryKey cannot be regenerated at the same
 // time.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - communicationServiceName - The name of the CommunicationService resource.
-//   - parameters - Parameter that describes the Regenerate Key Operation.
-//   - options - ServicesClientRegenerateKeyOptions contains the optional parameters for the ServicesClient.RegenerateKey method.
-func (client *ServicesClient) RegenerateKey(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters RegenerateKeyParameters, options *ServicesClientRegenerateKeyOptions) (ServicesClientRegenerateKeyResponse, error) {
+// Generated from API version 2023-06-01-preview
+func (client *ServicesClient) regenerateKey(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters RegenerateKeyParameters, options *ServicesClientBeginRegenerateKeyOptions) (*http.Response, error) {
 	req, err := client.regenerateKeyCreateRequest(ctx, resourceGroupName, communicationServiceName, parameters, options)
 	if err != nil {
-		return ServicesClientRegenerateKeyResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ServicesClientRegenerateKeyResponse{}, err
+		return nil, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ServicesClientRegenerateKeyResponse{}, runtime.NewResponseError(resp)
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.regenerateKeyHandleResponse(resp)
+	return resp, nil
 }
 
 // regenerateKeyCreateRequest creates the RegenerateKey request.
-func (client *ServicesClient) regenerateKeyCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters RegenerateKeyParameters, options *ServicesClientRegenerateKeyOptions) (*policy.Request, error) {
+func (client *ServicesClient) regenerateKeyCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters RegenerateKeyParameters, options *ServicesClientBeginRegenerateKeyOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}/regenerateKey"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -544,47 +591,59 @@ func (client *ServicesClient) regenerateKeyCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// regenerateKeyHandleResponse handles the RegenerateKey response.
-func (client *ServicesClient) regenerateKeyHandleResponse(resp *http.Response) (ServicesClientRegenerateKeyResponse, error) {
-	result := ServicesClientRegenerateKeyResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceKeys); err != nil {
-		return ServicesClientRegenerateKeyResponse{}, err
+// BeginUpdate - Operation to update an existing CommunicationService.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-06-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - communicationServiceName - The name of the CommunicationService resource.
+//   - parameters - Parameters for the update operation
+//   - options - ServicesClientBeginUpdateOptions contains the optional parameters for the ServicesClient.BeginUpdate method.
+func (client *ServicesClient) BeginUpdate(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResourceUpdate, options *ServicesClientBeginUpdateOptions) (*runtime.Poller[ServicesClientUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.update(ctx, resourceGroupName, communicationServiceName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ServicesClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[ServicesClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
-	return result, nil
 }
 
 // Update - Operation to update an existing CommunicationService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-31
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - communicationServiceName - The name of the CommunicationService resource.
-//   - parameters - Parameters for the update operation
-//   - options - ServicesClientUpdateOptions contains the optional parameters for the ServicesClient.Update method.
-func (client *ServicesClient) Update(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResourceUpdate, options *ServicesClientUpdateOptions) (ServicesClientUpdateResponse, error) {
+// Generated from API version 2023-06-01-preview
+func (client *ServicesClient) update(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResourceUpdate, options *ServicesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, communicationServiceName, parameters, options)
 	if err != nil {
-		return ServicesClientUpdateResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ServicesClientUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ServicesClientUpdateResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.updateHandleResponse(resp)
+	return resp, nil
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResourceUpdate, options *ServicesClientUpdateOptions) (*policy.Request, error) {
+func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, communicationServiceName string, parameters ServiceResourceUpdate, options *ServicesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -599,17 +658,8 @@ func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-31")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
-}
-
-// updateHandleResponse handles the Update response.
-func (client *ServicesClient) updateHandleResponse(resp *http.Response) (ServicesClientUpdateResponse, error) {
-	result := ServicesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceResource); err != nil {
-		return ServicesClientUpdateResponse{}, err
-	}
-	return result, nil
 }

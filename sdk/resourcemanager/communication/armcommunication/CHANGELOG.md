@@ -1,5 +1,28 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-06-05)
+### Breaking Changes
+
+- Enum `ProvisioningState` has been removed
+- Function `*ClientFactory.NewSenderUsernamesClient` has been removed
+- Function `NewSenderUsernamesClient` has been removed
+- Function `*SenderUsernamesClient.CreateOrUpdate` has been removed
+- Function `*SenderUsernamesClient.Delete` has been removed
+- Function `*SenderUsernamesClient.Get` has been removed
+- Function `*SenderUsernamesClient.NewListByDomainsPager` has been removed
+- Operation `*ServicesClient.RegenerateKey` has been changed to LRO, use `*ServicesClient.BeginRegenerateKey` instead.
+- Operation `*ServicesClient.Update` has been changed to LRO, use `*ServicesClient.BeginUpdate` instead.
+- Struct `ProxyResource` has been removed
+- Struct `SenderUsernameProperties` has been removed
+- Struct `SenderUsernameResource` has been removed
+- Struct `SenderUsernameResourceCollection` has been removed
+
+### Features Added
+
+- New field `ValidSenderUsernames` in struct `DomainProperties`
+- New field `ValidSenderUsernames` in struct `UpdateDomainProperties`
+
+
 ## 2.0.1 (2023-04-14)
 ### Bug Fixes
 

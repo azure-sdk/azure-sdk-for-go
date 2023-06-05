@@ -85,26 +85,6 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// SenderUsernamesClientCreateOrUpdateResponse contains the response from method SenderUsernamesClient.CreateOrUpdate.
-type SenderUsernamesClientCreateOrUpdateResponse struct {
-	SenderUsernameResource
-}
-
-// SenderUsernamesClientDeleteResponse contains the response from method SenderUsernamesClient.Delete.
-type SenderUsernamesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// SenderUsernamesClientGetResponse contains the response from method SenderUsernamesClient.Get.
-type SenderUsernamesClientGetResponse struct {
-	SenderUsernameResource
-}
-
-// SenderUsernamesClientListByDomainsResponse contains the response from method SenderUsernamesClient.NewListByDomainsPager.
-type SenderUsernamesClientListByDomainsResponse struct {
-	SenderUsernameResourceCollection
-}
-
 // ServicesClientCheckNameAvailabilityResponse contains the response from method ServicesClient.CheckNameAvailability.
 type ServicesClientCheckNameAvailabilityResponse struct {
 	CheckNameAvailabilityResponse
@@ -145,12 +125,12 @@ type ServicesClientListKeysResponse struct {
 	ServiceKeys
 }
 
-// ServicesClientRegenerateKeyResponse contains the response from method ServicesClient.RegenerateKey.
+// ServicesClientRegenerateKeyResponse contains the response from method ServicesClient.BeginRegenerateKey.
 type ServicesClientRegenerateKeyResponse struct {
 	ServiceKeys
 }
 
-// ServicesClientUpdateResponse contains the response from method ServicesClient.Update.
+// ServicesClientUpdateResponse contains the response from method ServicesClient.BeginUpdate.
 type ServicesClientUpdateResponse struct {
 	ServiceResource
 }
