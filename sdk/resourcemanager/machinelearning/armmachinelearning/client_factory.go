@@ -83,6 +83,66 @@ func (c *ClientFactory) NewWorkspaceConnectionsClient() *WorkspaceConnectionsCli
 	return subClient
 }
 
+func (c *ClientFactory) NewManagedNetworkSettingsRuleClient() *ManagedNetworkSettingsRuleClient {
+	subClient, _ := NewManagedNetworkSettingsRuleClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewManagedNetworkProvisionsClient() *ManagedNetworkProvisionsClient {
+	subClient, _ := NewManagedNetworkProvisionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryCodeContainersClient() *RegistryCodeContainersClient {
+	subClient, _ := NewRegistryCodeContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryCodeVersionsClient() *RegistryCodeVersionsClient {
+	subClient, _ := NewRegistryCodeVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryComponentContainersClient() *RegistryComponentContainersClient {
+	subClient, _ := NewRegistryComponentContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryComponentVersionsClient() *RegistryComponentVersionsClient {
+	subClient, _ := NewRegistryComponentVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryDataContainersClient() *RegistryDataContainersClient {
+	subClient, _ := NewRegistryDataContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryDataVersionsClient() *RegistryDataVersionsClient {
+	subClient, _ := NewRegistryDataVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryEnvironmentContainersClient() *RegistryEnvironmentContainersClient {
+	subClient, _ := NewRegistryEnvironmentContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryEnvironmentVersionsClient() *RegistryEnvironmentVersionsClient {
+	subClient, _ := NewRegistryEnvironmentVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryModelContainersClient() *RegistryModelContainersClient {
+	subClient, _ := NewRegistryModelContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistryModelVersionsClient() *RegistryModelVersionsClient {
+	subClient, _ := NewRegistryModelVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewBatchEndpointsClient() *BatchEndpointsClient {
 	subClient, _ := NewBatchEndpointsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -138,8 +198,38 @@ func (c *ClientFactory) NewEnvironmentVersionsClient() *EnvironmentVersionsClien
 	return subClient
 }
 
+func (c *ClientFactory) NewFeaturesetContainersClient() *FeaturesetContainersClient {
+	subClient, _ := NewFeaturesetContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewFeaturesClient() *FeaturesClient {
+	subClient, _ := NewFeaturesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewFeaturesetVersionsClient() *FeaturesetVersionsClient {
+	subClient, _ := NewFeaturesetVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewFeaturestoreEntityContainersClient() *FeaturestoreEntityContainersClient {
+	subClient, _ := NewFeaturestoreEntityContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewFeaturestoreEntityVersionsClient() *FeaturestoreEntityVersionsClient {
+	subClient, _ := NewFeaturestoreEntityVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewJobsClient() *JobsClient {
 	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewLabelingJobsClient() *LabelingJobsClient {
+	subClient, _ := NewLabelingJobsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -165,6 +255,11 @@ func (c *ClientFactory) NewOnlineDeploymentsClient() *OnlineDeploymentsClient {
 
 func (c *ClientFactory) NewSchedulesClient() *SchedulesClient {
 	subClient, _ := NewSchedulesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewRegistriesClient() *RegistriesClient {
+	subClient, _ := NewRegistriesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
