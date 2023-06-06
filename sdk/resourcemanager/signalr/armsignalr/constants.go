@@ -11,7 +11,7 @@ package armsignalr
 
 const (
 	moduleName    = "armsignalr"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // ACLAction - Azure Networking ACL Action.
@@ -185,7 +185,7 @@ func PossibleScaleTypeValues() []ScaleType {
 	}
 }
 
-// ServiceKind - The kind of the service, it can be SignalR or RawWebSockets
+// ServiceKind - The kind of the service
 type ServiceKind string
 
 const (
