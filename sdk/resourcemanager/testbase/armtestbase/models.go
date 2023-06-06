@@ -28,22 +28,19 @@ type AccountResource struct {
 	// Properties of a Test Base Account.
 	Properties *AccountResourceProperties
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Resource Etag.
-	Etag *string
-
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -203,6 +200,62 @@ type AccountsClientListBySubscriptionOptions struct {
 	GetDeleted *bool
 }
 
+type ActionRequest struct {
+	// Test Base Draft Package properties.
+	Properties *ActionRequestProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type ActionRequestProperties struct {
+	// REQUIRED
+	RequestType                 *RequestTypes
+	PreReleaseAccessRequestSpec *PreReleaseAccessRequestSpec
+
+	// READ-ONLY
+	CreationDate *time.Time
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY
+	Status *RequestStatus
+}
+
+type ActionRequests struct {
+	Value []*ActionRequest
+
+	// READ-ONLY; Link to the next set of results. Not empty if value contains incomplete list of results.
+	NextLink *string
+}
+
+// ActionRequestsClientDeleteOptions contains the optional parameters for the ActionRequestsClient.Delete method.
+type ActionRequestsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActionRequestsClientListOptions contains the optional parameters for the ActionRequestsClient.List method.
+type ActionRequestsClientListOptions struct {
+	RequestType *string
+	// According to the reverse order of time, how many first ones are taken.
+	Top *int32
+}
+
+// ActionRequestsClientPutOptions contains the optional parameters for the ActionRequestsClient.Put method.
+type ActionRequestsClientPutOptions struct {
+	ActionRequest *ActionRequest
+}
+
 // AnalysisResultListResult - A list of Analysis Results. It will only contain one element as all the data will be nested
 // in a singleton object.
 type AnalysisResultListResult struct {
@@ -218,16 +271,16 @@ type AnalysisResultSingletonResource struct {
 	// Properties of an Analysis Result.
 	Properties AnalysisResultSingletonResourcePropertiesClassification
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -265,6 +318,60 @@ type AnalysisResultsClientGetOptions struct {
 // AnalysisResultsClientListOptions contains the optional parameters for the AnalysisResultsClient.NewListPager method.
 type AnalysisResultsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// AvailableInplaceUpgradeOSClientGetOptions contains the optional parameters for the AvailableInplaceUpgradeOSClient.Get
+// method.
+type AvailableInplaceUpgradeOSClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvailableInplaceUpgradeOSClientListOptions contains the optional parameters for the AvailableInplaceUpgradeOSClient.NewListPager
+// method.
+type AvailableInplaceUpgradeOSClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvailableInplaceUpgradeOSListResult - A list of available In-place Upgrade OSs.
+type AvailableInplaceUpgradeOSListResult struct {
+	// The list of available In-place Upgrade OS.
+	Value []*AvailableInplaceUpgradeOSResource
+
+	// READ-ONLY; Link to the next set of results. Not empty if value contains incomplete list of results.
+	NextLink *string
+}
+
+// AvailableInplaceUpgradeOSProperties - The Available In-place Upgrade OS properties.
+type AvailableInplaceUpgradeOSProperties struct {
+	// The name of an Available In-place Upgrade source OS of a Test Base Account.
+	SourceOsName *string
+
+	// The the release list of the source os.
+	SourceOsReleases []*ReleaseProperties
+
+	// The list of the corresponding Available In-place Upgrade target OS name of a Test Base Account.
+	SupportedTargetOsNameList []*string
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+// AvailableInplaceUpgradeOSResource - The Available In-place Upgrade OS Map resource.
+type AvailableInplaceUpgradeOSResource struct {
+	// Available In-place Upgrade OS Map properties.
+	Properties *AvailableInplaceUpgradeOSProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // AvailableOSClientGetOptions contains the optional parameters for the AvailableOSClient.Get method.
@@ -312,17 +419,117 @@ type AvailableOSResource struct {
 	// Available OS properties.
 	Properties *AvailableOSProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+type BillingHubExecutionUsageDetail struct {
+	ApplicationName    *string
+	ApplicationVersion *string
+	BilledCharges      *float64
+	EndTimeStamp       *time.Time
+	ExecutionRequestID *string
+	MeterID            *string
+	OSBuild            *string
+	Release            *string
+	SKU                *string
+	StartTimeStamp     *time.Time
+	TestType           *string
+	UpdateType         *string
+	UsedBillableHours  *float64
+	UsedFreeHours      *float64
+}
+
+type BillingHubFreeHourIncrementEntry struct {
+	CreateTimeStamp      *time.Time
+	ExpirationTimeStamp  *time.Time
+	IncrementalFreeHours *float64
+	RemainingFreeHours   *float64
+}
+
+type BillingHubGetFreeHourBalanceResponse struct {
+	IncrementEntries        []*BillingHubFreeHourIncrementEntry
+	TotalRemainingFreeHours *float64
+}
+
+type BillingHubGetUsageRequest struct {
+	// REQUIRED
+	EndTimeStamp *time.Time
+
+	// REQUIRED
+	StartTimeStamp *time.Time
+	PageIndex      *int32
+	PageSize       *int32
+}
+
+type BillingHubGetUsageResponse struct {
+	NextRequest            *BillingHubGetUsageRequest
+	PackageUsageEntries    []*BillingHubPackageUsage
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+}
+
+type BillingHubPackageUsage struct {
+	ApplicationName                 *string
+	ApplicationVersion              *string
+	AzureResourceURI                *string
+	TotalCharges                    *float64
+	TotalUsedBillableHours          *float64
+	TotalUsedFreeHours              *float64
+	UsageEntriesGroupedByUpdateType []*BillingHubUsageGroupedByUpdateType
+}
+
+// BillingHubServiceClientGetFreeHourBalanceOptions contains the optional parameters for the BillingHubServiceClient.GetFreeHourBalance
+// method.
+type BillingHubServiceClientGetFreeHourBalanceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BillingHubServiceClientGetUsageOptions contains the optional parameters for the BillingHubServiceClient.GetUsage method.
+type BillingHubServiceClientGetUsageOptions struct {
+	GetUsageRequest *BillingHubGetUsageRequest
+}
+
+type BillingHubUsage struct {
+	ApplicationName        *string
+	ApplicationVersion     *string
+	AzureResourceURI       *string
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+	UsageGroups            []*BillingHubUsageGroup
+}
+
+type BillingHubUsageGroup struct {
+	ExecutionUsageDetails  []*BillingHubExecutionUsageDetail
+	OSBuild                *string
+	ProductFamily          *string
+	Release                *string
+	ReleaseBuildDate       *time.Time
+	ReleaseBuildNumber     *int64
+	ReleaseBuildRevision   *int64
+	TestType               *string
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+}
+
+type BillingHubUsageGroupedByUpdateType struct {
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+	UpdateType             *string
+	UsageGroups            []*BillingHubUsageGroup
 }
 
 // CPURegressionResultSingletonResourceProperties - The properties of CPU Regression Result.
@@ -399,8 +606,17 @@ type Command struct {
 	// Specifies whether to apply update before the command.
 	ApplyUpdateBefore *bool
 
+	// Specifies whether to install first party applications before running the command.
+	Install1PAppBefore *bool
+
 	// Specifies the max run time of the command.
 	MaxRunTime *int32
+
+	// Specifies whether the command is assigned to be executed after in-place upgrade.
+	PostUpgrade *bool
+
+	// Specifies whether the command is assigned to be executed before in-place upgrade.
+	PreUpgrade *bool
 
 	// Specifies whether to restart the VM after the command executed.
 	RestartAfter *bool
@@ -410,6 +626,12 @@ type Command struct {
 
 	// Specifies whether to run the command as administrator.
 	RunElevated *bool
+}
+
+// CopyFromPackageOperationParameters - Parameters body to pass to copy-from-package operation of Draft Package.
+type CopyFromPackageOperationParameters struct {
+	// REQUIRED; The id of the package to copy from.
+	PackageID *string
 }
 
 // CustomerEventListResult - A list of Test Base Customer Events.
@@ -435,16 +657,16 @@ type CustomerEventResource struct {
 	// Customer Notification Event properties.
 	Properties *CustomerEventProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -486,6 +708,313 @@ type DownloadURLResponse struct {
 	ExpirationTime *time.Time
 }
 
+// DraftPackageGetPathResponse - The response of getting a download URL.
+type DraftPackageGetPathResponse struct {
+	// READ-ONLY; The base URL of the storage account.
+	BaseURL *string
+
+	// READ-ONLY; The relative path of the folder hosting package files.
+	DraftPackagePath *string
+
+	// READ-ONLY; Expiry date of the SAS token.
+	ExpirationTime *time.Time
+
+	// READ-ONLY; A SAS token for the storage account to access workspace.
+	SasToken *string
+
+	// READ-ONLY; The relative path for a temporary folder for package creation work.
+	WorkingPath *string
+}
+
+// DraftPackageIntuneAppMetadata - The metadata of Intune app used for generation.
+type DraftPackageIntuneAppMetadata struct {
+	// The Metadata of the Intune App.
+	IntuneApp *DraftPackageIntuneAppMetadataItem
+
+	// The Metadata of dependencies of the Intune App.
+	IntuneAppDependencies []*DraftPackageIntuneAppMetadataItem
+}
+
+// DraftPackageIntuneAppMetadataItem - The Metadata of a single Intune App.
+type DraftPackageIntuneAppMetadataItem struct {
+	// Intune app id.
+	AppID *string
+
+	// Intune app name.
+	AppName *string
+
+	// Creation date of the app.
+	CreateDate *time.Time
+
+	// Ids of dependency apps.
+	DependencyIDs []*string
+
+	// Count of dependency apps.
+	DependentAppCount *int32
+
+	// Description of the app.
+	Description *string
+
+	// Expected exit codes returned from Intune App.
+	ExpectedExitCodes []*string
+
+	// Install command.
+	InstallCommand *string
+
+	// last processed time tickets.
+	LastProcessed *int64
+
+	// Minimum supported OS. The OS version must be greater than this version to run this app.
+	MinimumSupportedOS *string
+
+	// Owner of the app.
+	Owner *string
+
+	// Publisher of the app.
+	Publisher *string
+
+	// Setup file path.
+	SetupFile *string
+
+	// Extract status.
+	Status *IntuneExtractStatus
+
+	// Uninstall command.
+	UninstallCommand *string
+
+	// Intune app version.
+	Version *string
+}
+
+// DraftPackageListResult - A list of Test Base Draft Packages.
+type DraftPackageListResult struct {
+	// The list of Test Base Draft Packages.
+	Value []*DraftPackageResource
+
+	// READ-ONLY; Link to the next set of results. Not empty if value contains incomplete list of results.
+	NextLink *string
+}
+
+// DraftPackageProperties - The properties of the Test Base Draft Package.
+type DraftPackageProperties struct {
+	// The name of the app file.
+	AppFileName *string
+
+	// Application name
+	ApplicationName *string
+
+	// Comments added by user.
+	Comments *string
+
+	// Specifies whether this draft package is used to edit a package.
+	EditPackage *bool
+
+	// The executable launch command for script auto-fill. Will be used to run the application.
+	ExecutableLaunchCommand *string
+
+	// The list of first party applications to test along with user application.
+	FirstPartyApps []*FirstPartyAppDefinition
+
+	// The flighting ring for feature update.
+	FlightingRing *string
+
+	// The highlight files in the package.
+	HighlightedFiles []*HighlightedFile
+
+	// Specifies the baseline os and target os for inplace upgrade.
+	InplaceUpgradeOSPair *InplaceUpgradeOSInfo
+
+	// Metadata used to generate draft package folder and scripts.
+	IntuneMetadata *DraftPackageIntuneAppMetadata
+
+	// Specifies the package id from which the draft package copied.
+	PackageID *string
+
+	// Tags of the package to be created.
+	PackageTags map[string]*string
+
+	// The process name for script auto-fill. Will be used to identify the application process.
+	ProcessName *string
+
+	// The source type.
+	SourceType *DraftPackageSourceType
+
+	// Tab state.
+	TabState *TabState
+
+	// Specifies the target OSs of specific OS Update types.
+	TargetOSList []*TargetOSInfo
+
+	// OOB, functional or flow driven. Mapped to the data in 'tests' property.
+	TestTypes []*TestType
+
+	// The detailed test information.
+	Tests []*Test
+
+	// Indicates whether user choose to enable script auto-fill.
+	UseAutofill *bool
+
+	// Specifies whether a sample package should be used instead of the one uploaded by the user.
+	UseSample *bool
+
+	// Application version
+	Version *string
+
+	// READ-ONLY; The relative path of the folder hosting package files.
+	DraftPackagePath *string
+
+	// READ-ONLY; The UTC timestamp when the package was last modified.
+	LastModifiedTime *time.Time
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The relative path for a temporarily folder for package creation work.
+	WorkingPath *string
+}
+
+// DraftPackageResource - The Test Base Draft Package resource.
+type DraftPackageResource struct {
+	// Test Base Draft Package properties.
+	Properties *DraftPackageProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DraftPackageUpdateParameterProperties - The properties of draft package update parameters.
+type DraftPackageUpdateParameterProperties struct {
+	// The name of the app file.
+	AppFileName *string
+
+	// Application name
+	ApplicationName *string
+
+	// Comments added by user.
+	Comments *string
+
+	// The executable launch command for script auto-fill. Will be used to run the application.
+	ExecutableLaunchCommand *string
+
+	// Specifies the list of first party applications to test along with user application.
+	FirstPartyApps []*FirstPartyAppDefinition
+
+	// The flighting ring for feature update.
+	FlightingRing *string
+
+	// The highlight files in the package.
+	HighlightedFiles []*HighlightedFile
+
+	// Specifies the baseline os and target os for in-place upgrade.
+	InplaceUpgradeOSPair *InplaceUpgradeOSInfo
+
+	// Metadata used to generate draft package folder and scripts.
+	IntuneMetadata *DraftPackageIntuneAppMetadata
+
+	// Specifies the package id from which the draft package copied.
+	PackageID *string
+
+	// Tags of the package to be created.
+	PackageTags map[string]*string
+
+	// The process name for script auto-fill. Will be used to identify the application process.
+	ProcessName *string
+
+	// The source type.
+	SourceType *DraftPackageSourceType
+
+	// Tab state.
+	TabState *TabState
+
+	// Specifies the target OSs of specific OS Update types.
+	TargetOSList []*TargetOSInfo
+
+	// OOB, functional or flow driven. Mapped to the data in 'tests' property.
+	TestTypes []*TestType
+
+	// The detailed test information.
+	Tests []*Test
+
+	// Indicates whether user choose to enable script auto-fill.
+	UseAutofill *bool
+
+	// Specifies whether a sample package should be used instead of the one uploaded by the user.
+	UseSample *bool
+
+	// Application version
+	Version *string
+}
+
+// DraftPackageUpdateParameters - Parameters supplied to update a Test Base Draft Package.
+type DraftPackageUpdateParameters struct {
+	// Test Base Draft Package update parameters.
+	Properties *DraftPackageUpdateParameterProperties
+}
+
+// DraftPackagesClientBeginCopyFromPackageOptions contains the optional parameters for the DraftPackagesClient.BeginCopyFromPackage
+// method.
+type DraftPackagesClientBeginCopyFromPackageOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DraftPackagesClientBeginExtractFileOptions contains the optional parameters for the DraftPackagesClient.BeginExtractFile
+// method.
+type DraftPackagesClientBeginExtractFileOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DraftPackagesClientBeginGenerateFoldersAndScriptsOptions contains the optional parameters for the DraftPackagesClient.BeginGenerateFoldersAndScripts
+// method.
+type DraftPackagesClientBeginGenerateFoldersAndScriptsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DraftPackagesClientCreateOptions contains the optional parameters for the DraftPackagesClient.Create method.
+type DraftPackagesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DraftPackagesClientDeleteOptions contains the optional parameters for the DraftPackagesClient.Delete method.
+type DraftPackagesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DraftPackagesClientGetOptions contains the optional parameters for the DraftPackagesClient.Get method.
+type DraftPackagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DraftPackagesClientGetPathOptions contains the optional parameters for the DraftPackagesClient.GetPath method.
+type DraftPackagesClientGetPathOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DraftPackagesClientListByTestBaseAccountOptions contains the optional parameters for the DraftPackagesClient.NewListByTestBaseAccountPager
+// method.
+type DraftPackagesClientListByTestBaseAccountOptions struct {
+	// Parameter used to filter draft packages by editPackage property.
+	EditPackage *bool
+	// Parameter used to filter draft packages by linked Test Base Package.
+	PackageName *string
+}
+
+// DraftPackagesClientUpdateOptions contains the optional parameters for the DraftPackagesClient.Update method.
+type DraftPackagesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // EmailEventListResult - A list of email events.
 type EmailEventListResult struct {
 	// The list of email events.
@@ -512,16 +1041,16 @@ type EmailEventResource struct {
 	// Email Event properties.
 	Properties *EmailEventProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -535,25 +1064,50 @@ type EmailEventsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ErrorDefinition - Error definition.
-type ErrorDefinition struct {
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
 	// READ-ONLY; The error code.
 	Code *string
 
 	// READ-ONLY; The error details.
-	Details []*ErrorDefinition
+	Details []*ErrorDetail
 
 	// READ-ONLY; The error message.
 	Message *string
 
-	// READ-ONLY; The target of the particular error.
+	// READ-ONLY; The error target.
 	Target *string
 }
 
-// ErrorResponse - The error response send when an operation fails.
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// The error details.
-	Error *ErrorDefinition
+	// The error object.
+	Error *ErrorDetail
+}
+
+// ExtractFileOperationParameters - Parameters body to pass to extract file operation of Draft Package.
+type ExtractFileOperationParameters struct {
+	// REQUIRED; Relative path of the file to be extracted, the path must under working path of this draft package.
+	SourceFile *string
+
+	// The type of file to extract.
+	FileType *ExtractFileType
+
+	// Intune application id.
+	IntuneAppID *string
 }
 
 // FavoriteProcessListResult - A list of favorite processes for a package.
@@ -577,16 +1131,16 @@ type FavoriteProcessResource struct {
 	// Properties of a favorite process identifier.
 	Properties *FavoriteProcessProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -610,6 +1164,65 @@ type FavoriteProcessesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// FeatureUpdateSupportedOsesClientListOptions contains the optional parameters for the FeatureUpdateSupportedOsesClient.NewListPager
+// method.
+type FeatureUpdateSupportedOsesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FeatureUpdateSupportedOsesProperties - Properties of feature update supported OSes proxy resource.
+type FeatureUpdateSupportedOsesProperties struct {
+	// REQUIRED
+	BaselineProducts []*string
+
+	// REQUIRED
+	DisplayText *string
+
+	// REQUIRED
+	InsiderChannel *string
+
+	// REQUIRED
+	OSID *string
+
+	// REQUIRED
+	OSName *string
+
+	// REQUIRED; Timestamp when the OS starts to be supported.
+	StartTime *time.Time
+
+	// REQUIRED; State of the OS product.
+	State *OsProductState
+
+	// REQUIRED
+	Version *string
+}
+
+// FeatureUpdateSupportedOsesResource - Feature update supported OSes proxy resource.
+type FeatureUpdateSupportedOsesResource struct {
+	// Available OS properties.
+	Properties *FeatureUpdateSupportedOsesProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FeatureUpdateSupportedOsesResult - Response schema of feature update supported OSes list API.
+type FeatureUpdateSupportedOsesResult struct {
+	Value []*FeatureUpdateSupportedOsesResource
+
+	// READ-ONLY
+	NextLink *string
+}
+
 // FileUploadURLResponse - The URL response
 type FileUploadURLResponse struct {
 	// READ-ONLY; The blob path of the uploaded package. It will be used as the 'blobPath' property of PackageResource.
@@ -617,6 +1230,82 @@ type FileUploadURLResponse struct {
 
 	// READ-ONLY; The URL used for uploading the package.
 	UploadURL *string
+}
+
+// FirstPartyAppDefinition - Properties of the definition of a first party application of the Test Base package.
+type FirstPartyAppDefinition struct {
+	// The architecture of a first party application of a Test Base Account.
+	Architecture *Architecture
+
+	// The channel info of a first party application of a Test Base Account.
+	Channel *string
+
+	// Specifies how the first party applications should be interoperated with user's application.
+	InteropExecutionMode *InteropExecutionMode
+
+	// The media name of a first party application of a Test Base Account.
+	Name *string
+
+	// The ring info of a first party application of a Test Base Account.
+	Ring *string
+}
+
+// FirstPartyAppListResult - A list of currently available first party applications.
+type FirstPartyAppListResult struct {
+	// The list of currently available first party applications.
+	Value []*FirstPartyAppResource
+
+	// READ-ONLY; Link to the next set of results. Not empty if value contains incomplete list of results.
+	NextLink *string
+}
+
+// FirstPartyAppProperties - Properties of a first party application.
+type FirstPartyAppProperties struct {
+	// The architecture of a first party application of a Test Base Account.
+	Architecture *Architecture
+
+	// The channel info of a first party application of a Test Base Account.
+	Channel *string
+
+	// The media type of a first party application of a Test Base Account.
+	MediaType *string
+
+	// The ring info of a first party application of a Test Base Account.
+	Ring *string
+
+	// The supported OS products of a first party application of a Test Base Account.
+	SupportedProducts []*string
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+// FirstPartyAppResource - The first party application resource.
+type FirstPartyAppResource struct {
+	// Properties of a first party application.
+	Properties *FirstPartyAppProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FirstPartyAppsClientGetOptions contains the optional parameters for the FirstPartyAppsClient.Get method.
+type FirstPartyAppsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirstPartyAppsClientListOptions contains the optional parameters for the FirstPartyAppsClient.NewListPager method.
+type FirstPartyAppsClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // FlightingRingListResult - A list of flighting rings.
@@ -639,16 +1328,16 @@ type FlightingRingResource struct {
 	// Flighting Ring properties.
 	Properties *FlightingRingProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -662,10 +1351,28 @@ type FlightingRingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// GenerateOperationParameters - Parameters body to pass to generate operation of Draft Package.
+type GenerateOperationParameters struct {
+	// Force to generate package files even if no metadata changed.
+	ForceGenerate *bool
+}
+
 // GetFileUploadURLParameters - The parameters supplied to the Test Base Account GetFileUploadURL action.
 type GetFileUploadURLParameters struct {
 	// The custom file name of the uploaded blob.
 	BlobName *string
+}
+
+// HighlightedFile - The information of a highlighted file that user should pay attention to.
+type HighlightedFile struct {
+	// REQUIRED; The path of the highlighted file.
+	Path *string
+
+	// The name of sections to highlight.
+	Sections []*string
+
+	// A flag to save whether this file is viewed by user.
+	Visited *bool
 }
 
 // IdentifiedFailure - The failure identified.
@@ -681,6 +1388,42 @@ type IdentifiedFailure struct {
 
 	// Guidance that shows what the customer needs to do for this failure.
 	Guidance *string
+}
+
+// InplaceUpgradeOSInfo - Specifies the baseline os and target os for in-place upgrade tests.
+type InplaceUpgradeOSInfo struct {
+	// Specifies the baseline os for in-place upgrade tests.
+	BaselineOS *OsProperties
+
+	// Specifies the target os for in-place upgrade tests.
+	TargetOS *string
+}
+
+// InplaceUpgradeProperties - Properties for in-place upgrade test result.
+type InplaceUpgradeProperties struct {
+	// The build number of the baseline OS release.
+	BaselineBuildNumber *string
+
+	// The build revision of the baseline OS release.
+	BaselineBuildRevision *string
+
+	// The kb number of the baseline OS release.
+	BaselineKbNumber *string
+
+	// The name of the OS.
+	BaselineOsName *string
+
+	// The name of the baseline OS release.
+	BaselineReleaseName *string
+
+	// The release version date of the baseline OS release.
+	BaselineReleaseVersionDate *time.Time
+
+	// Time stamp for os upgrading end (UTC).
+	UpgradeEndTime *time.Time
+
+	// Time stamp for os upgrading start (UTC).
+	UpgradeStartTime *time.Time
 }
 
 // MemoryRegressionResultSingletonResourceProperties - The properties of Memory Regression Result.
@@ -766,6 +1509,9 @@ type OSUpdateProperties struct {
 	// The flighting ring, only for release of feature updates.
 	FlightingRing *string
 
+	// The properties of baseline os for in-place upgrade test.
+	InplaceUpgradeBaselineProperties *OsProperties
+
 	// The name of the OS.
 	OSName *string
 
@@ -784,16 +1530,16 @@ type OSUpdateResource struct {
 	// Properties of an OS Update.
 	Properties *OSUpdateProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -813,6 +1559,9 @@ type OSUpdateTestSummary struct {
 
 	// The grade of the test.
 	Grade *Grade
+
+	// The properties of baseline os for in-place upgrade test.
+	InplaceUpgradeBaselineProperties *OsProperties
 
 	// The operating system name. e.g. Windows 10 1809.
 	OSName *string
@@ -908,6 +1657,15 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OsProperties - The properties of an operating system.
+type OsProperties struct {
+	// The name of the OS.
+	OSName *string
+
+	// The properties of the OS release.
+	ReleaseProperties *ReleaseProperties
+}
+
 // PackageCheckNameAvailabilityParameters - Parameters body to pass for Test Base Package name availability check.
 type PackageCheckNameAvailabilityParameters struct {
 	// REQUIRED; Application name to verify.
@@ -916,11 +1674,11 @@ type PackageCheckNameAvailabilityParameters struct {
 	// REQUIRED; Resource name to verify.
 	Name *string
 
-	// REQUIRED; fully qualified resource type which includes provider namespace.
-	Type *string
-
 	// REQUIRED; Version name to verify.
 	Version *string
+
+	// fully qualified resource type which includes provider namespace.
+	Type *string
 }
 
 // PackageListResult - A list of Test Base Packages.
@@ -937,20 +1695,29 @@ type PackageProperties struct {
 	// REQUIRED; Application name
 	ApplicationName *string
 
-	// REQUIRED; The file path of the package.
-	BlobPath *string
-
-	// REQUIRED; The flighting ring for feature update.
-	FlightingRing *string
-
-	// REQUIRED; Specifies the target OSs of specific OS Update types.
-	TargetOSList []*TargetOSInfo
-
-	// REQUIRED; The detailed test information.
-	Tests []*Test
-
 	// REQUIRED; Application version
 	Version *string
+
+	// The file path of the package.
+	BlobPath *string
+
+	// The id of draft package. Used to create or update this package from a draft package.
+	DraftPackageID *string
+
+	// The list of first party applications to test along with user application.
+	FirstPartyApps []*FirstPartyAppDefinition
+
+	// The flighting ring for feature update.
+	FlightingRing *string
+
+	// Specifies the baseline os and target os for inplace upgrade.
+	InplaceUpgradeOSPair *InplaceUpgradeOSInfo
+
+	// Specifies the target OSs of specific OS Update types.
+	TargetOSList []*TargetOSInfo
+
+	// The detailed test information.
+	Tests []*Test
 
 	// READ-ONLY; Flag showing that whether the package is enabled. It doesn't schedule test for package which is not enabled.
 	IsEnabled *bool
@@ -964,7 +1731,7 @@ type PackageProperties struct {
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; OOB, functional or both. Mapped to the data in 'tests' property.
+	// READ-ONLY; OOB, functional or flow driven. Mapped to the data in 'tests' property.
 	TestTypes []*TestType
 
 	// READ-ONLY; The validation results. There's validation on package when it's created or updated.
@@ -979,23 +1746,38 @@ type PackageResource struct {
 	// Test Base Package properties.
 	Properties *PackageProperties
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Resource Etag.
-	Etag *string
-
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// PackageRunTestParameters - The parameters supplied to the Test Base Package to start a Test Run.
+type PackageRunTestParameters struct {
+	// The flighting ring, only for release of feature updates.
+	FlightingRing *string
+
+	// The operating system name. e.g. Windows 10 1809.
+	OSName *string
+
+	// Specifies the OS update type to test against.
+	OSUpdateType *OsUpdateType
+
+	// The name of the tested release (OS update).
+	ReleaseName *string
+
+	// The type of the test.
+	TestType *TestType
 }
 
 // PackageUpdateParameterProperties - Parameters supplied to update a Test Base Package.
@@ -1003,8 +1785,17 @@ type PackageUpdateParameterProperties struct {
 	// The file name of the package.
 	BlobPath *string
 
+	// The id of draft package. Used to create or update this package from a draft package.
+	DraftPackageID *string
+
+	// Specifies the list of first party applications to test along with user application.
+	FirstPartyApps []*FirstPartyAppDefinition
+
 	// The flighting ring for feature update.
 	FlightingRing *string
+
+	// Specifies the baseline os and target os for in-place upgrade.
+	InplaceUpgradeOSPair *InplaceUpgradeOSInfo
 
 	// Specifies whether the package is enabled. It doesn't schedule test for package which is not enabled.
 	IsEnabled *bool
@@ -1077,16 +1868,37 @@ type PackagesClientListByTestBaseAccountOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProxyResource - The resource model definition for an ARM proxy resource. It will have everything other than required location
-// and tags
+// PackagesClientRunTestOptions contains the optional parameters for the PackagesClient.RunTest method.
+type PackagesClientRunTestOptions struct {
+	// The parameters supplied to the Test Base Package to start a Test Run.
+	Parameters *PackageRunTestParameters
+}
+
+type PreReleaseAccessRequestSpec struct {
+	City             *string
+	CompanyWebsite   *string
+	CountryAndRegion *string
+	Email            *string
+	Engagements      []*Engagements
+	OrganizationName *string
+	StateOrProvince  *string
+	StreetAddress    *string
+	ZipCode          *string
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
 type ProxyResource struct {
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1115,6 +1927,21 @@ type RegressionTestDetails struct {
 
 	// Indicates if a regression was inferred.
 	IsRegressed *bool
+}
+
+// ReleaseProperties - The properties of an operating system release.
+type ReleaseProperties struct {
+	// The build number of the OS release.
+	BuildNumber *string
+
+	// The build revision of the OS release.
+	BuildRevision *string
+
+	// The name of the OS release.
+	ReleaseName *string
+
+	// The release version date of the OS release.
+	ReleaseVersionDate *time.Time
 }
 
 // ReliabilityResult - The Reliability Result.
@@ -1155,6 +1982,9 @@ type ReliabilityResultSingletonResourceProperties struct {
 	// The grade of the test.
 	Grade *Grade
 
+	// The result array data for target os in an in-place upgrade test.
+	InplaceUpgradeBaselineReliabilityResults []*ReliabilityResult
+
 	// The result array data.
 	ReliabilityResults []*ReliabilityResult
 }
@@ -1168,15 +1998,18 @@ func (r *ReliabilityResultSingletonResourceProperties) GetAnalysisResultSingleto
 	}
 }
 
-// Resource - The Resource definition.
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1198,6 +2031,12 @@ type ScriptExecutionResult struct {
 
 	// Start time of script execution.
 	StartTime *time.Time
+
+	// The stderr log file name.
+	StderrLogFileName *string
+
+	// The stdout log file name.
+	StdoutLogFileName *string
 
 	// Whether the script execution is timed out.
 	TimedOut *bool
@@ -1247,7 +2086,7 @@ type SystemData struct {
 	// The type of identity that created the resource.
 	CreatedByType *CreatedByType
 
-	// The type of identity that last modified the resource.
+	// The timestamp of resource last modification (UTC)
 	LastModifiedAt *time.Time
 
 	// The identity that last modified the resource.
@@ -1257,12 +2096,27 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TabState - Specifies current state of tabs.
+type TabState struct {
+	// Current tab.
+	CurrentTab *PackageStudioTabs
+
+	// visited tabs.
+	VisitedTabs []*PackageStudioTabs
+}
+
 // TargetOSInfo - The information of the target OS to be tested.
 type TargetOSInfo struct {
 	// REQUIRED; Specifies the OS update type to test against, e.g., 'Security updates' or 'Feature updates'.
 	OSUpdateType *string
 
-	// REQUIRED; Specifies the target OSs to be tested.
+	// Specifies the baseline OSs to be tested.
+	BaselineOSs []*string
+
+	// Insider Channel Ids. Only used for feature update.
+	InsiderChannelIDs []*string
+
+	// Specifies the target OSs to be tested.
 	TargetOSs []*string
 }
 
@@ -1276,6 +2130,9 @@ type Test struct {
 
 	// Indicates if this test is active.It doesn't schedule test for not active Test.
 	IsActive *bool
+
+	// READ-ONLY; Resource identifier of the validation test result.
+	ValidationResultID *string
 
 	// READ-ONLY; The status of the validation run of the package.
 	ValidationRunStatus *ValidationRunStatus
@@ -1326,6 +2183,13 @@ type TestResultAnalysisSummary struct {
 	Name *string
 }
 
+// TestResultConsoleLogDownloadURLParameters - Parameters body to pass for getting the download URL of the test execution
+// console log file.
+type TestResultConsoleLogDownloadURLParameters struct {
+	// REQUIRED; The log file name corresponding to the download URL.
+	LogFileName *string
+}
+
 // TestResultListResult - A list of Test Results.
 type TestResultListResult struct {
 	// The list of Test Results.
@@ -1363,6 +2227,15 @@ type TestResultProperties struct {
 
 	// The grade of the test.
 	Grade *Grade
+
+	// Properties for inplace upgrade test.
+	InplaceUpgradeProperties *InplaceUpgradeProperties
+
+	// Interop media type.
+	InteropMediaType *string
+
+	// Interop media version.
+	InteropMediaVersion *string
 
 	// Whether download data is available.
 	IsDownloadDataAvailable *bool
@@ -1403,17 +2276,23 @@ type TestResultResource struct {
 	// The properties of a Test Result.
 	Properties *TestResultProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// TestResultsClientGetConsoleLogDownloadURLOptions contains the optional parameters for the TestResultsClient.GetConsoleLogDownloadURL
+// method.
+type TestResultsClientGetConsoleLogDownloadURLOptions struct {
+	// placeholder for future optional parameters
 }
 
 // TestResultsClientGetDownloadURLOptions contains the optional parameters for the TestResultsClient.GetDownloadURL method.
@@ -1474,8 +2353,14 @@ type TestSummaryProperties struct {
 	// The grade of the test.
 	Grade *Grade
 
+	// The result summary of tests triggered by in-place upgrades
+	InplaceUpgradesTestSummary *OSUpdatesTestSummary
+
 	// The Azure resource Id of package.
 	PackageID *string
+
+	// The tags of Package resource that are associated with the testSummary
+	PackageTags map[string]*string
 
 	// The result summary of tests triggered by security updates
 	SecurityUpdatesTestSummary *OSUpdatesTestSummary
@@ -1495,16 +2380,16 @@ type TestSummaryResource struct {
 	// Properties of a Test Summary.
 	Properties *TestSummaryProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1528,16 +2413,16 @@ type TestTypeResource struct {
 	// Test Type properties.
 	Properties *TestTypeProperties
 
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1551,24 +2436,25 @@ type TestTypesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TrackedResource - The resource model definition for an ARM tracked top level resource
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
 type TrackedResource struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Resource Etag.
-	Etag *string
-
-	// READ-ONLY; Resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Resource type.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 

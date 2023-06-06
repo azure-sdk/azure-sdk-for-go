@@ -24,7 +24,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -36,6 +36,16 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 		subscriptionID: subscriptionID, credential: credential,
 		options: options.Clone(),
 	}, nil
+}
+
+func (c *ClientFactory) NewActionRequestsClient() *ActionRequestsClient {
+	subClient, _ := NewActionRequestsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDraftPackagesClient() *DraftPackagesClient {
+	subClient, _ := NewDraftPackagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
 }
 
 func (c *ClientFactory) NewSKUsClient() *SKUsClient {
@@ -58,8 +68,18 @@ func (c *ClientFactory) NewAvailableOSClient() *AvailableOSClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewFeatureUpdateSupportedOsesClient() *FeatureUpdateSupportedOsesClient {
+	subClient, _ := NewFeatureUpdateSupportedOsesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewFlightingRingsClient() *FlightingRingsClient {
 	subClient, _ := NewFlightingRingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewFirstPartyAppsClient() *FirstPartyAppsClient {
+	subClient, _ := NewFirstPartyAppsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -110,5 +130,15 @@ func (c *ClientFactory) NewCustomerEventsClient() *CustomerEventsClient {
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBillingHubServiceClient() *BillingHubServiceClient {
+	subClient, _ := NewBillingHubServiceClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAvailableInplaceUpgradeOSClient() *AvailableInplaceUpgradeOSClient {
+	subClient, _ := NewAvailableInplaceUpgradeOSClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

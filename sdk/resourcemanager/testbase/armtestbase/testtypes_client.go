@@ -29,7 +29,7 @@ type TestTypesClient struct {
 }
 
 // NewTestTypesClient creates a new instance of TestTypesClient with the specified values.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTestTypesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TestTypesClient, error) {
@@ -47,8 +47,8 @@ func NewTestTypesClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Gets a test type of a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - testTypeResourceName - The resource name of a test type.
 //   - options - TestTypesClientGetOptions contains the optional parameters for the TestTypesClient.Get method.
@@ -91,7 +91,7 @@ func (client *TestTypesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,8 +108,8 @@ func (client *TestTypesClient) getHandleResponse(resp *http.Response) (TestTypes
 
 // NewListPager - Lists all the test types of a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - TestTypesClientListOptions contains the optional parameters for the TestTypesClient.NewListPager method.
 func (client *TestTypesClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *TestTypesClientListOptions) *runtime.Pager[TestTypesClientListResponse] {
@@ -160,7 +160,7 @@ func (client *TestTypesClient) listCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
