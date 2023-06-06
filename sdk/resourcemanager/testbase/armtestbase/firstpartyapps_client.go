@@ -21,55 +21,55 @@ import (
 	"strings"
 )
 
-// TestSummariesClient contains the methods for the TestSummaries group.
-// Don't use this type directly, use NewTestSummariesClient() instead.
-type TestSummariesClient struct {
+// FirstPartyAppsClient contains the methods for the FirstPartyApps group.
+// Don't use this type directly, use NewFirstPartyAppsClient() instead.
+type FirstPartyAppsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewTestSummariesClient creates a new instance of TestSummariesClient with the specified values.
+// NewFirstPartyAppsClient creates a new instance of FirstPartyAppsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewTestSummariesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TestSummariesClient, error) {
-	cl, err := arm.NewClient(moduleName+".TestSummariesClient", moduleVersion, credential, options)
+func NewFirstPartyAppsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FirstPartyAppsClient, error) {
+	cl, err := arm.NewClient(moduleName+".FirstPartyAppsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &TestSummariesClient{
+	client := &FirstPartyAppsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Gets a Test Summary with specific name from all the Test Summaries of all the packages under a Test Base Account.
+// Get - Gets a first party application to prepare a test run for a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - testSummaryName - The name of the Test Summary.
-//   - options - TestSummariesClientGetOptions contains the optional parameters for the TestSummariesClient.Get method.
-func (client *TestSummariesClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, testSummaryName string, options *TestSummariesClientGetOptions) (TestSummariesClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, testSummaryName, options)
+//   - firstPartyAppResourceName - The resource name of a first party application.
+//   - options - FirstPartyAppsClientGetOptions contains the optional parameters for the FirstPartyAppsClient.Get method.
+func (client *FirstPartyAppsClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, firstPartyAppResourceName string, options *FirstPartyAppsClientGetOptions) (FirstPartyAppsClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, firstPartyAppResourceName, options)
 	if err != nil {
-		return TestSummariesClientGetResponse{}, err
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return TestSummariesClientGetResponse{}, err
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return TestSummariesClientGetResponse{}, runtime.NewResponseError(resp)
+		return FirstPartyAppsClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *TestSummariesClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, testSummaryName string, options *TestSummariesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/testSummaries/{testSummaryName}"
+func (client *FirstPartyAppsClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, firstPartyAppResourceName string, options *FirstPartyAppsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/firstPartyApps/{firstPartyAppResourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -82,10 +82,10 @@ func (client *TestSummariesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter testBaseAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{testBaseAccountName}", url.PathEscape(testBaseAccountName))
-	if testSummaryName == "" {
-		return nil, errors.New("parameter testSummaryName cannot be empty")
+	if firstPartyAppResourceName == "" {
+		return nil, errors.New("parameter firstPartyAppResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{testSummaryName}", url.PathEscape(testSummaryName))
+	urlPath = strings.ReplaceAll(urlPath, "{firstPartyAppResourceName}", url.PathEscape(firstPartyAppResourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -98,26 +98,26 @@ func (client *TestSummariesClient) getCreateRequest(ctx context.Context, resourc
 }
 
 // getHandleResponse handles the Get response.
-func (client *TestSummariesClient) getHandleResponse(resp *http.Response) (TestSummariesClientGetResponse, error) {
-	result := TestSummariesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.TestSummaryResource); err != nil {
-		return TestSummariesClientGetResponse{}, err
+func (client *FirstPartyAppsClient) getHandleResponse(resp *http.Response) (FirstPartyAppsClientGetResponse, error) {
+	result := FirstPartyAppsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FirstPartyAppResource); err != nil {
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Lists the Test Summaries of all the packages under a Test Base Account.
+// NewListPager - Lists all first party applications currently available for test runs under a Test Base Account.
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - options - TestSummariesClientListOptions contains the optional parameters for the TestSummariesClient.NewListPager method.
-func (client *TestSummariesClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *TestSummariesClientListOptions) *runtime.Pager[TestSummariesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[TestSummariesClientListResponse]{
-		More: func(page TestSummariesClientListResponse) bool {
+//   - options - FirstPartyAppsClientListOptions contains the optional parameters for the FirstPartyAppsClient.NewListPager method.
+func (client *FirstPartyAppsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *FirstPartyAppsClientListOptions) *runtime.Pager[FirstPartyAppsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FirstPartyAppsClientListResponse]{
+		More: func(page FirstPartyAppsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *TestSummariesClientListResponse) (TestSummariesClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FirstPartyAppsClientListResponse) (FirstPartyAppsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -126,14 +126,14 @@ func (client *TestSummariesClient) NewListPager(resourceGroupName string, testBa
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return TestSummariesClientListResponse{}, err
+				return FirstPartyAppsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return TestSummariesClientListResponse{}, err
+				return FirstPartyAppsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return TestSummariesClientListResponse{}, runtime.NewResponseError(resp)
+				return FirstPartyAppsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -141,8 +141,8 @@ func (client *TestSummariesClient) NewListPager(resourceGroupName string, testBa
 }
 
 // listCreateRequest creates the List request.
-func (client *TestSummariesClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *TestSummariesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/testSummaries"
+func (client *FirstPartyAppsClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *FirstPartyAppsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/firstPartyApps"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -167,10 +167,10 @@ func (client *TestSummariesClient) listCreateRequest(ctx context.Context, resour
 }
 
 // listHandleResponse handles the List response.
-func (client *TestSummariesClient) listHandleResponse(resp *http.Response) (TestSummariesClientListResponse, error) {
-	result := TestSummariesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.TestSummaryListResult); err != nil {
-		return TestSummariesClientListResponse{}, err
+func (client *FirstPartyAppsClient) listHandleResponse(resp *http.Response) (FirstPartyAppsClientListResponse, error) {
+	result := FirstPartyAppsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FirstPartyAppListResult); err != nil {
+		return FirstPartyAppsClientListResponse{}, err
 	}
 	return result, nil
 }

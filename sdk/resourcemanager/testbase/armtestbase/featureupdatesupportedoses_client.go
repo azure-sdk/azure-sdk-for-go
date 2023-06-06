@@ -21,41 +21,42 @@ import (
 	"strings"
 )
 
-// UsageClient contains the methods for the Usage group.
-// Don't use this type directly, use NewUsageClient() instead.
-type UsageClient struct {
+// FeatureUpdateSupportedOsesClient contains the methods for the FeatureUpdateSupportedOses group.
+// Don't use this type directly, use NewFeatureUpdateSupportedOsesClient() instead.
+type FeatureUpdateSupportedOsesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewUsageClient creates a new instance of UsageClient with the specified values.
+// NewFeatureUpdateSupportedOsesClient creates a new instance of FeatureUpdateSupportedOsesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewUsageClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsageClient, error) {
-	cl, err := arm.NewClient(moduleName+".UsageClient", moduleVersion, credential, options)
+func NewFeatureUpdateSupportedOsesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FeatureUpdateSupportedOsesClient, error) {
+	cl, err := arm.NewClient(moduleName+".FeatureUpdateSupportedOsesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &UsageClient{
+	client := &FeatureUpdateSupportedOsesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Lists the usage data of a Test Base Account.
+// NewListPager - Lists all the available OSs to run a package under a Test Base Account.
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - options - UsageClientListOptions contains the optional parameters for the UsageClient.NewListPager method.
-func (client *UsageClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *UsageClientListOptions) *runtime.Pager[UsageClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[UsageClientListResponse]{
-		More: func(page UsageClientListResponse) bool {
+//   - options - FeatureUpdateSupportedOsesClientListOptions contains the optional parameters for the FeatureUpdateSupportedOsesClient.NewListPager
+//     method.
+func (client *FeatureUpdateSupportedOsesClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *FeatureUpdateSupportedOsesClientListOptions) *runtime.Pager[FeatureUpdateSupportedOsesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FeatureUpdateSupportedOsesClientListResponse]{
+		More: func(page FeatureUpdateSupportedOsesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *UsageClientListResponse) (UsageClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FeatureUpdateSupportedOsesClientListResponse) (FeatureUpdateSupportedOsesClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -64,14 +65,14 @@ func (client *UsageClient) NewListPager(resourceGroupName string, testBaseAccoun
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return UsageClientListResponse{}, err
+				return FeatureUpdateSupportedOsesClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return UsageClientListResponse{}, err
+				return FeatureUpdateSupportedOsesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return UsageClientListResponse{}, runtime.NewResponseError(resp)
+				return FeatureUpdateSupportedOsesClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -79,8 +80,8 @@ func (client *UsageClient) NewListPager(resourceGroupName string, testBaseAccoun
 }
 
 // listCreateRequest creates the List request.
-func (client *UsageClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *UsageClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/usages"
+func (client *FeatureUpdateSupportedOsesClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *FeatureUpdateSupportedOsesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/featureUpdateSupportedOses"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -98,9 +99,6 @@ func (client *UsageClient) listCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Filter != nil {
-		reqQP.Set("$filter", *options.Filter)
-	}
 	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -108,10 +106,10 @@ func (client *UsageClient) listCreateRequest(ctx context.Context, resourceGroupN
 }
 
 // listHandleResponse handles the List response.
-func (client *UsageClient) listHandleResponse(resp *http.Response) (UsageClientListResponse, error) {
-	result := UsageClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AccountUsageDataList); err != nil {
-		return UsageClientListResponse{}, err
+func (client *FeatureUpdateSupportedOsesClient) listHandleResponse(resp *http.Response) (FeatureUpdateSupportedOsesClientListResponse, error) {
+	result := FeatureUpdateSupportedOsesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeatureUpdateSupportedOsesResult); err != nil {
+		return FeatureUpdateSupportedOsesClientListResponse{}, err
 	}
 	return result, nil
 }

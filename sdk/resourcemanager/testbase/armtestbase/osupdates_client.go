@@ -29,7 +29,7 @@ type OSUpdatesClient struct {
 }
 
 // NewOSUpdatesClient creates a new instance of OSUpdatesClient with the specified values.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewOSUpdatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OSUpdatesClient, error) {
@@ -47,8 +47,8 @@ func NewOSUpdatesClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Gets an OS Update by name in which the package was tested before.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - packageName - The resource name of the Test Base Package.
 //   - osUpdateResourceName - The resource name of an OS Update.
@@ -96,7 +96,7 @@ func (client *OSUpdatesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -113,8 +113,8 @@ func (client *OSUpdatesClient) getHandleResponse(resp *http.Response) (OSUpdates
 
 // NewListPager - Lists the OS Updates in which the package were tested before.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - packageName - The resource name of the Test Base Package.
 //   - osUpdateType - The type of the OS Update.
@@ -172,7 +172,7 @@ func (client *OSUpdatesClient) listCreateRequest(ctx context.Context, resourceGr
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("osUpdateType", string(osUpdateType))
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -29,7 +29,7 @@ type FavoriteProcessesClient struct {
 }
 
 // NewFavoriteProcessesClient creates a new instance of FavoriteProcessesClient with the specified values.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFavoriteProcessesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FavoriteProcessesClient, error) {
@@ -47,8 +47,8 @@ func NewFavoriteProcessesClient(subscriptionID string, credential azcore.TokenCr
 // Create - Create or replace a favorite process for a Test Base Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - packageName - The resource name of the Test Base Package.
 //   - favoriteProcessResourceName - The resource name of a favorite process in a package. If the process name contains characters
@@ -100,7 +100,7 @@ func (client *FavoriteProcessesClient) createCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -118,8 +118,8 @@ func (client *FavoriteProcessesClient) createHandleResponse(resp *http.Response)
 // Delete - Deletes a favorite process for a specific package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - packageName - The resource name of the Test Base Package.
 //   - favoriteProcessResourceName - The resource name of a favorite process in a package. If the process name contains characters
@@ -170,7 +170,7 @@ func (client *FavoriteProcessesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,8 +179,8 @@ func (client *FavoriteProcessesClient) deleteCreateRequest(ctx context.Context, 
 // Get - Gets a favorite process for a Test Base Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - packageName - The resource name of the Test Base Package.
 //   - favoriteProcessResourceName - The resource name of a favorite process in a package. If the process name contains characters
@@ -230,7 +230,7 @@ func (client *FavoriteProcessesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,8 +247,8 @@ func (client *FavoriteProcessesClient) getHandleResponse(resp *http.Response) (F
 
 // NewListPager - Lists the favorite processes for a specific package.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - packageName - The resource name of the Test Base Package.
 //   - options - FavoriteProcessesClientListOptions contains the optional parameters for the FavoriteProcessesClient.NewListPager
@@ -305,7 +305,7 @@ func (client *FavoriteProcessesClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

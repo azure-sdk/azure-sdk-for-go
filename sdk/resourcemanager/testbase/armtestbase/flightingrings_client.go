@@ -29,7 +29,7 @@ type FlightingRingsClient struct {
 }
 
 // NewFlightingRingsClient creates a new instance of FlightingRingsClient with the specified values.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFlightingRingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FlightingRingsClient, error) {
@@ -47,8 +47,8 @@ func NewFlightingRingsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Gets a flighting ring of a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - flightingRingResourceName - The resource name of a flighting ring.
 //   - options - FlightingRingsClientGetOptions contains the optional parameters for the FlightingRingsClient.Get method.
@@ -91,7 +91,7 @@ func (client *FlightingRingsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,8 +108,8 @@ func (client *FlightingRingsClient) getHandleResponse(resp *http.Response) (Flig
 
 // NewListPager - Lists all the flighting rings of a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
-//   - resourceGroupName - The name of the resource group that contains the resource.
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - FlightingRingsClientListOptions contains the optional parameters for the FlightingRingsClient.NewListPager method.
 func (client *FlightingRingsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *FlightingRingsClientListOptions) *runtime.Pager[FlightingRingsClientListResponse] {
@@ -160,7 +160,7 @@ func (client *FlightingRingsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

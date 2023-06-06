@@ -11,18 +11,19 @@ package armtestbase
 
 const (
 	moduleName    = "armtestbase"
-	moduleVersion = "v0.6.1"
+	moduleVersion = "v0.7.0"
 )
 
 // Action - The action of the command.
 type Action string
 
 const (
-	ActionClose     Action = "Close"
-	ActionCustom    Action = "Custom"
-	ActionInstall   Action = "Install"
-	ActionLaunch    Action = "Launch"
-	ActionUninstall Action = "Uninstall"
+	ActionClose            Action = "Close"
+	ActionCustom           Action = "Custom"
+	ActionFlowDrivenCustom Action = "FlowDrivenCustom"
+	ActionInstall          Action = "Install"
+	ActionLaunch           Action = "Launch"
+	ActionUninstall        Action = "Uninstall"
 )
 
 // PossibleActionValues returns the possible values for the Action const type.
@@ -30,6 +31,7 @@ func PossibleActionValues() []Action {
 	return []Action{
 		ActionClose,
 		ActionCustom,
+		ActionFlowDrivenCustom,
 		ActionInstall,
 		ActionLaunch,
 		ActionUninstall,
@@ -113,6 +115,28 @@ func PossibleAnalysisStatusValues() []AnalysisStatus {
 	}
 }
 
+// Architecture - The architecture of an OS or a first party application.
+type Architecture string
+
+const (
+	ArchitectureArm   Architecture = "arm"
+	ArchitectureArm64 Architecture = "arm64"
+	ArchitectureIa64  Architecture = "ia64"
+	ArchitectureX64   Architecture = "x64"
+	ArchitectureX86   Architecture = "x86"
+)
+
+// PossibleArchitectureValues returns the possible values for the Architecture const type.
+func PossibleArchitectureValues() []Architecture {
+	return []Architecture{
+		ArchitectureArm,
+		ArchitectureArm64,
+		ArchitectureIa64,
+		ArchitectureX64,
+		ArchitectureX86,
+	}
+}
+
 // Category - The category of the failure.
 type Category string
 
@@ -173,6 +197,45 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// DraftPackageSourceType - The source type.
+type DraftPackageSourceType string
+
+const (
+	DraftPackageSourceTypeIntuneWin       DraftPackageSourceType = "IntuneWin"
+	DraftPackageSourceTypeNative          DraftPackageSourceType = "Native"
+	DraftPackageSourceTypeTestBasePackage DraftPackageSourceType = "TestBasePackage"
+)
+
+// PossibleDraftPackageSourceTypeValues returns the possible values for the DraftPackageSourceType const type.
+func PossibleDraftPackageSourceTypeValues() []DraftPackageSourceType {
+	return []DraftPackageSourceType{
+		DraftPackageSourceTypeIntuneWin,
+		DraftPackageSourceTypeNative,
+		DraftPackageSourceTypeTestBasePackage,
+	}
+}
+
+type Engagements string
+
+const (
+	EngagementsMAPP  Engagements = "MAPP"
+	EngagementsMVI   Engagements = "MVI"
+	EngagementsMVP   Engagements = "MVP"
+	EngagementsOther Engagements = "Other"
+	EngagementsSUVP  Engagements = "SUVP"
+)
+
+// PossibleEngagementsValues returns the possible values for the Engagements const type.
+func PossibleEngagementsValues() []Engagements {
+	return []Engagements{
+		EngagementsMAPP,
+		EngagementsMVI,
+		EngagementsMVP,
+		EngagementsOther,
+		EngagementsSUVP,
+	}
+}
+
 // ExecutionStatus - The execution status of a test.
 type ExecutionStatus string
 
@@ -201,6 +264,22 @@ func PossibleExecutionStatusValues() []ExecutionStatus {
 	}
 }
 
+// ExtractFileType - The type of file to extract.
+type ExtractFileType string
+
+const (
+	ExtractFileTypeIntuneWinPackage ExtractFileType = "IntuneWinPackage"
+	ExtractFileTypeTestBasePackage  ExtractFileType = "TestBasePackage"
+)
+
+// PossibleExtractFileTypeValues returns the possible values for the ExtractFileType const type.
+func PossibleExtractFileTypeValues() []ExtractFileType {
+	return []ExtractFileType{
+		ExtractFileTypeIntuneWinPackage,
+		ExtractFileTypeTestBasePackage,
+	}
+}
+
 // Grade - The grade of a test.
 type Grade string
 
@@ -221,10 +300,69 @@ func PossibleGradeValues() []Grade {
 	}
 }
 
+// InteropExecutionMode - Specifies how the first party applications should be interoperated with user's application.
+type InteropExecutionMode string
+
+const (
+	// InteropExecutionModeFirstPartyApp - User application will test with the first party applications.
+	InteropExecutionModeFirstPartyApp InteropExecutionMode = "firstPartyApp"
+	// InteropExecutionModeFirstPartyAppWithTests - User application will test with the first party applications. For out-of-box
+	// tests, additional test cases for first party applications will also be run.
+	InteropExecutionModeFirstPartyAppWithTests InteropExecutionMode = "firstPartyAppWithTests"
+)
+
+// PossibleInteropExecutionModeValues returns the possible values for the InteropExecutionMode const type.
+func PossibleInteropExecutionModeValues() []InteropExecutionMode {
+	return []InteropExecutionMode{
+		InteropExecutionModeFirstPartyApp,
+		InteropExecutionModeFirstPartyAppWithTests,
+	}
+}
+
+// IntuneExtractStatus - Extract status.
+type IntuneExtractStatus string
+
+const (
+	IntuneExtractStatusExtractFailed   IntuneExtractStatus = "ExtractFailed"
+	IntuneExtractStatusNoDependencyApp IntuneExtractStatus = "NoDependencyApp"
+	IntuneExtractStatusReady           IntuneExtractStatus = "Ready"
+	IntuneExtractStatusUploadFailed    IntuneExtractStatus = "UploadFailed"
+	IntuneExtractStatusUploading       IntuneExtractStatus = "Uploading"
+)
+
+// PossibleIntuneExtractStatusValues returns the possible values for the IntuneExtractStatus const type.
+func PossibleIntuneExtractStatusValues() []IntuneExtractStatus {
+	return []IntuneExtractStatus{
+		IntuneExtractStatusExtractFailed,
+		IntuneExtractStatusNoDependencyApp,
+		IntuneExtractStatusReady,
+		IntuneExtractStatusUploadFailed,
+		IntuneExtractStatusUploading,
+	}
+}
+
+// OsProductState - State of the OS product.
+type OsProductState string
+
+const (
+	OsProductStateActive   OsProductState = "Active"
+	OsProductStateDisabled OsProductState = "Disabled"
+)
+
+// PossibleOsProductStateValues returns the possible values for the OsProductState const type.
+func PossibleOsProductStateValues() []OsProductState {
+	return []OsProductState{
+		OsProductStateActive,
+		OsProductStateDisabled,
+	}
+}
+
+// OsUpdateType - Specifies the OS update type to test against.
 type OsUpdateType string
 
 const (
 	OsUpdateTypeFeatureUpdate  OsUpdateType = "FeatureUpdate"
+	OsUpdateTypeInplaceUpgrade OsUpdateType = "InplaceUpgrade"
 	OsUpdateTypeSecurityUpdate OsUpdateType = "SecurityUpdate"
 )
 
@@ -232,6 +370,7 @@ const (
 func PossibleOsUpdateTypeValues() []OsUpdateType {
 	return []OsUpdateType{
 		OsUpdateTypeFeatureUpdate,
+		OsUpdateTypeInplaceUpgrade,
 		OsUpdateTypeSecurityUpdate,
 	}
 }
@@ -263,6 +402,32 @@ func PossiblePackageStatusValues() []PackageStatus {
 		PackageStatusValidatingPackage,
 		PackageStatusValidationLongerThanUsual,
 		PackageStatusVerifyingPackage,
+	}
+}
+
+// PackageStudioTabs - Specifies the tabs when creating / cloning / editing a package.
+type PackageStudioTabs string
+
+const (
+	PackageStudioTabsBasicsTab          PackageStudioTabs = "BasicsTab"
+	PackageStudioTabsConfigureTestTab   PackageStudioTabs = "ConfigureTestTab"
+	PackageStudioTabsEditPackageTab     PackageStudioTabs = "EditPackageTab"
+	PackageStudioTabsReviewAndCreateTab PackageStudioTabs = "ReviewAndCreateTab"
+	PackageStudioTabsTagsTab            PackageStudioTabs = "TagsTab"
+	PackageStudioTabsTestMatrixTab      PackageStudioTabs = "TestMatrixTab"
+	PackageStudioTabsUnspecified        PackageStudioTabs = "Unspecified"
+)
+
+// PossiblePackageStudioTabsValues returns the possible values for the PackageStudioTabs const type.
+func PossiblePackageStudioTabsValues() []PackageStudioTabs {
+	return []PackageStudioTabs{
+		PackageStudioTabsBasicsTab,
+		PackageStudioTabsConfigureTestTab,
+		PackageStudioTabsEditPackageTab,
+		PackageStudioTabsReviewAndCreateTab,
+		PackageStudioTabsTagsTab,
+		PackageStudioTabsTestMatrixTab,
+		PackageStudioTabsUnspecified,
 	}
 }
 
@@ -303,6 +468,36 @@ func PossibleReasonValues() []Reason {
 	return []Reason{
 		ReasonAlreadyExists,
 		ReasonInvalid,
+	}
+}
+
+type RequestStatus string
+
+const (
+	RequestStatusApproved RequestStatus = "Approved"
+	RequestStatusDeclined RequestStatus = "Declined"
+	RequestStatusInReview RequestStatus = "InReview"
+)
+
+// PossibleRequestStatusValues returns the possible values for the RequestStatus const type.
+func PossibleRequestStatusValues() []RequestStatus {
+	return []RequestStatus{
+		RequestStatusApproved,
+		RequestStatusDeclined,
+		RequestStatusInReview,
+	}
+}
+
+type RequestTypes string
+
+const (
+	RequestTypesPreReleaseAccess RequestTypes = "PreReleaseAccess"
+)
+
+// PossibleRequestTypesValues returns the possible values for the RequestTypes const type.
+func PossibleRequestTypesValues() []RequestTypes {
+	return []RequestTypes{
+		RequestTypesPreReleaseAccess,
 	}
 }
 
@@ -358,6 +553,7 @@ func PossibleTestStatusValues() []TestStatus {
 type TestType string
 
 const (
+	TestTypeFlowDrivenTest TestType = "FlowDrivenTest"
 	TestTypeFunctionalTest TestType = "FunctionalTest"
 	TestTypeOutOfBoxTest   TestType = "OutOfBoxTest"
 )
@@ -365,6 +561,7 @@ const (
 // PossibleTestTypeValues returns the possible values for the TestType const type.
 func PossibleTestTypeValues() []TestType {
 	return []TestType{
+		TestTypeFlowDrivenTest,
 		TestTypeFunctionalTest,
 		TestTypeOutOfBoxTest,
 	}

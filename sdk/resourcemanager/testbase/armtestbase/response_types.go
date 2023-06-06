@@ -54,6 +54,21 @@ type AccountsClientUpdateResponse struct {
 	AccountResource
 }
 
+// ActionRequestsClientDeleteResponse contains the response from method ActionRequestsClient.Delete.
+type ActionRequestsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ActionRequestsClientListResponse contains the response from method ActionRequestsClient.List.
+type ActionRequestsClientListResponse struct {
+	ActionRequests
+}
+
+// ActionRequestsClientPutResponse contains the response from method ActionRequestsClient.Put.
+type ActionRequestsClientPutResponse struct {
+	ActionRequest
+}
+
 // AnalysisResultsClientGetResponse contains the response from method AnalysisResultsClient.Get.
 type AnalysisResultsClientGetResponse struct {
 	AnalysisResultSingletonResource
@@ -64,6 +79,16 @@ type AnalysisResultsClientListResponse struct {
 	AnalysisResultListResult
 }
 
+// AvailableInplaceUpgradeOSClientGetResponse contains the response from method AvailableInplaceUpgradeOSClient.Get.
+type AvailableInplaceUpgradeOSClientGetResponse struct {
+	AvailableInplaceUpgradeOSResource
+}
+
+// AvailableInplaceUpgradeOSClientListResponse contains the response from method AvailableInplaceUpgradeOSClient.NewListPager.
+type AvailableInplaceUpgradeOSClientListResponse struct {
+	AvailableInplaceUpgradeOSListResult
+}
+
 // AvailableOSClientGetResponse contains the response from method AvailableOSClient.Get.
 type AvailableOSClientGetResponse struct {
 	AvailableOSResource
@@ -72,6 +97,16 @@ type AvailableOSClientGetResponse struct {
 // AvailableOSClientListResponse contains the response from method AvailableOSClient.NewListPager.
 type AvailableOSClientListResponse struct {
 	AvailableOSListResult
+}
+
+// BillingHubServiceClientGetFreeHourBalanceResponse contains the response from method BillingHubServiceClient.GetFreeHourBalance.
+type BillingHubServiceClientGetFreeHourBalanceResponse struct {
+	BillingHubGetFreeHourBalanceResponse
+}
+
+// BillingHubServiceClientGetUsageResponse contains the response from method BillingHubServiceClient.GetUsage.
+type BillingHubServiceClientGetUsageResponse struct {
+	BillingHubGetUsageResponse
 }
 
 // CustomerEventsClientCreateResponse contains the response from method CustomerEventsClient.BeginCreate.
@@ -92,6 +127,51 @@ type CustomerEventsClientGetResponse struct {
 // CustomerEventsClientListByTestBaseAccountResponse contains the response from method CustomerEventsClient.NewListByTestBaseAccountPager.
 type CustomerEventsClientListByTestBaseAccountResponse struct {
 	CustomerEventListResult
+}
+
+// DraftPackagesClientCopyFromPackageResponse contains the response from method DraftPackagesClient.BeginCopyFromPackage.
+type DraftPackagesClientCopyFromPackageResponse struct {
+	// placeholder for future response values
+}
+
+// DraftPackagesClientCreateResponse contains the response from method DraftPackagesClient.Create.
+type DraftPackagesClientCreateResponse struct {
+	DraftPackageResource
+}
+
+// DraftPackagesClientDeleteResponse contains the response from method DraftPackagesClient.Delete.
+type DraftPackagesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DraftPackagesClientExtractFileResponse contains the response from method DraftPackagesClient.BeginExtractFile.
+type DraftPackagesClientExtractFileResponse struct {
+	// placeholder for future response values
+}
+
+// DraftPackagesClientGenerateFoldersAndScriptsResponse contains the response from method DraftPackagesClient.BeginGenerateFoldersAndScripts.
+type DraftPackagesClientGenerateFoldersAndScriptsResponse struct {
+	// placeholder for future response values
+}
+
+// DraftPackagesClientGetPathResponse contains the response from method DraftPackagesClient.GetPath.
+type DraftPackagesClientGetPathResponse struct {
+	DraftPackageGetPathResponse
+}
+
+// DraftPackagesClientGetResponse contains the response from method DraftPackagesClient.Get.
+type DraftPackagesClientGetResponse struct {
+	DraftPackageResource
+}
+
+// DraftPackagesClientListByTestBaseAccountResponse contains the response from method DraftPackagesClient.NewListByTestBaseAccountPager.
+type DraftPackagesClientListByTestBaseAccountResponse struct {
+	DraftPackageListResult
+}
+
+// DraftPackagesClientUpdateResponse contains the response from method DraftPackagesClient.Update.
+type DraftPackagesClientUpdateResponse struct {
+	DraftPackageResource
 }
 
 // EmailEventsClientGetResponse contains the response from method EmailEventsClient.Get.
@@ -122,6 +202,21 @@ type FavoriteProcessesClientGetResponse struct {
 // FavoriteProcessesClientListResponse contains the response from method FavoriteProcessesClient.NewListPager.
 type FavoriteProcessesClientListResponse struct {
 	FavoriteProcessListResult
+}
+
+// FeatureUpdateSupportedOsesClientListResponse contains the response from method FeatureUpdateSupportedOsesClient.NewListPager.
+type FeatureUpdateSupportedOsesClientListResponse struct {
+	FeatureUpdateSupportedOsesResult
+}
+
+// FirstPartyAppsClientGetResponse contains the response from method FirstPartyAppsClient.Get.
+type FirstPartyAppsClientGetResponse struct {
+	FirstPartyAppResource
+}
+
+// FirstPartyAppsClientListResponse contains the response from method FirstPartyAppsClient.NewListPager.
+type FirstPartyAppsClientListResponse struct {
+	FirstPartyAppListResult
 }
 
 // FlightingRingsClientGetResponse contains the response from method FlightingRingsClient.Get.
@@ -179,6 +274,15 @@ type PackagesClientListByTestBaseAccountResponse struct {
 	PackageListResult
 }
 
+// PackagesClientRunTestResponse contains the response from method PackagesClient.RunTest.
+type PackagesClientRunTestResponse struct {
+	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
+	AzureAsyncOperation *string
+
+	// Location contains the information returned from the Location header response.
+	Location *string
+}
+
 // PackagesClientUpdateResponse contains the response from method PackagesClient.BeginUpdate.
 type PackagesClientUpdateResponse struct {
 	PackageResource
@@ -187,6 +291,11 @@ type PackagesClientUpdateResponse struct {
 // SKUsClientListResponse contains the response from method SKUsClient.NewListPager.
 type SKUsClientListResponse struct {
 	AccountSKUListResult
+}
+
+// TestResultsClientGetConsoleLogDownloadURLResponse contains the response from method TestResultsClient.GetConsoleLogDownloadURL.
+type TestResultsClientGetConsoleLogDownloadURLResponse struct {
+	DownloadURLResponse
 }
 
 // TestResultsClientGetDownloadURLResponse contains the response from method TestResultsClient.GetDownloadURL.
