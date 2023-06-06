@@ -319,16 +319,6 @@ type AutomationsClientValidateResponse struct {
 	AutomationValidationStatus
 }
 
-// CenterClientGetSensitivitySettingsResponse contains the response from method CenterClient.GetSensitivitySettings.
-type CenterClientGetSensitivitySettingsResponse struct {
-	GetSensitivitySettingsResponse
-}
-
-// CenterClientUpdateSensitivitySettingsResponse contains the response from method CenterClient.UpdateSensitivitySettings.
-type CenterClientUpdateSensitivitySettingsResponse struct {
-	GetSensitivitySettingsResponse
-}
-
 // ComplianceResultsClientGetResponse contains the response from method ComplianceResultsClient.Get.
 type ComplianceResultsClientGetResponse struct {
 	ComplianceResult
@@ -571,8 +561,8 @@ type GovernanceRulesClientOperationResultsResponse struct {
 	Location *string
 }
 
-// HealthReportClientGetResponse contains the response from method HealthReportClient.Get.
-type HealthReportClientGetResponse struct {
+// HealthReportsClientGetResponse contains the response from method HealthReportsClient.Get.
+type HealthReportsClientGetResponse struct {
 	HealthReport
 }
 
@@ -896,9 +886,19 @@ type SecureScoresClientListResponse struct {
 	SecureScoresList
 }
 
-// SensitivitySettingsClientListResponse contains the response from method SensitivitySettingsClient.List.
-type SensitivitySettingsClientListResponse struct {
+// SensitivitySettingsClientGetSensitivitySettingsResponse contains the response from method SensitivitySettingsClient.GetSensitivitySettings.
+type SensitivitySettingsClientGetSensitivitySettingsResponse struct {
+	GetSensitivitySettingsResponse
+}
+
+// SensitivitySettingsClientListSensitivitySettingsResponse contains the response from method SensitivitySettingsClient.ListSensitivitySettings.
+type SensitivitySettingsClientListSensitivitySettingsResponse struct {
 	GetSensitivitySettingsListResponse
+}
+
+// SensitivitySettingsClientUpdateSensitivitySettingsResponse contains the response from method SensitivitySettingsClient.UpdateSensitivitySettings.
+type SensitivitySettingsClientUpdateSensitivitySettingsResponse struct {
+	GetSensitivitySettingsResponse
 }
 
 // ServerVulnerabilityAssessmentClientCreateOrUpdateResponse contains the response from method ServerVulnerabilityAssessmentClient.CreateOrUpdate.

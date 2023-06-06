@@ -38,29 +38,73 @@ func NewSensitivitySettingsClient(credential azcore.TokenCredential, options *ar
 	return client, nil
 }
 
-// List - Gets a list with a single sensitivity settings resource
+// GetSensitivitySettings - Gets data sensitivity settings for sensitive data discovery
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-15-preview
-//   - options - SensitivitySettingsClientListOptions contains the optional parameters for the SensitivitySettingsClient.List
+//   - options - SensitivitySettingsClientGetSensitivitySettingsOptions contains the optional parameters for the SensitivitySettingsClient.GetSensitivitySettings
 //     method.
-func (client *SensitivitySettingsClient) List(ctx context.Context, options *SensitivitySettingsClientListOptions) (SensitivitySettingsClientListResponse, error) {
-	req, err := client.listCreateRequest(ctx, options)
+func (client *SensitivitySettingsClient) GetSensitivitySettings(ctx context.Context, options *SensitivitySettingsClientGetSensitivitySettingsOptions) (SensitivitySettingsClientGetSensitivitySettingsResponse, error) {
+	req, err := client.getSensitivitySettingsCreateRequest(ctx, options)
 	if err != nil {
-		return SensitivitySettingsClientListResponse{}, err
+		return SensitivitySettingsClientGetSensitivitySettingsResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SensitivitySettingsClientListResponse{}, err
+		return SensitivitySettingsClientGetSensitivitySettingsResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return SensitivitySettingsClientListResponse{}, runtime.NewResponseError(resp)
+		return SensitivitySettingsClientGetSensitivitySettingsResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.listHandleResponse(resp)
+	return client.getSensitivitySettingsHandleResponse(resp)
 }
 
-// listCreateRequest creates the List request.
-func (client *SensitivitySettingsClient) listCreateRequest(ctx context.Context, options *SensitivitySettingsClientListOptions) (*policy.Request, error) {
+// getSensitivitySettingsCreateRequest creates the GetSensitivitySettings request.
+func (client *SensitivitySettingsClient) getSensitivitySettingsCreateRequest(ctx context.Context, options *SensitivitySettingsClientGetSensitivitySettingsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Security/sensitivitySettings/current"
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-02-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getSensitivitySettingsHandleResponse handles the GetSensitivitySettings response.
+func (client *SensitivitySettingsClient) getSensitivitySettingsHandleResponse(resp *http.Response) (SensitivitySettingsClientGetSensitivitySettingsResponse, error) {
+	result := SensitivitySettingsClientGetSensitivitySettingsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GetSensitivitySettingsResponse); err != nil {
+		return SensitivitySettingsClientGetSensitivitySettingsResponse{}, err
+	}
+	return result, nil
+}
+
+// ListSensitivitySettings - Gets a list with a single sensitivity settings resource
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-02-15-preview
+//   - options - SensitivitySettingsClientListSensitivitySettingsOptions contains the optional parameters for the SensitivitySettingsClient.ListSensitivitySettings
+//     method.
+func (client *SensitivitySettingsClient) ListSensitivitySettings(ctx context.Context, options *SensitivitySettingsClientListSensitivitySettingsOptions) (SensitivitySettingsClientListSensitivitySettingsResponse, error) {
+	req, err := client.listSensitivitySettingsCreateRequest(ctx, options)
+	if err != nil {
+		return SensitivitySettingsClientListSensitivitySettingsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return SensitivitySettingsClientListSensitivitySettingsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return SensitivitySettingsClientListSensitivitySettingsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listSensitivitySettingsHandleResponse(resp)
+}
+
+// listSensitivitySettingsCreateRequest creates the ListSensitivitySettings request.
+func (client *SensitivitySettingsClient) listSensitivitySettingsCreateRequest(ctx context.Context, options *SensitivitySettingsClientListSensitivitySettingsOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Security/sensitivitySettings"
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -73,11 +117,56 @@ func (client *SensitivitySettingsClient) listCreateRequest(ctx context.Context, 
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *SensitivitySettingsClient) listHandleResponse(resp *http.Response) (SensitivitySettingsClientListResponse, error) {
-	result := SensitivitySettingsClientListResponse{}
+// listSensitivitySettingsHandleResponse handles the ListSensitivitySettings response.
+func (client *SensitivitySettingsClient) listSensitivitySettingsHandleResponse(resp *http.Response) (SensitivitySettingsClientListSensitivitySettingsResponse, error) {
+	result := SensitivitySettingsClientListSensitivitySettingsResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.GetSensitivitySettingsListResponse); err != nil {
-		return SensitivitySettingsClientListResponse{}, err
+		return SensitivitySettingsClientListSensitivitySettingsResponse{}, err
+	}
+	return result, nil
+}
+
+// UpdateSensitivitySettings - Updates data sensitivity settings for sensitive data discovery
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-02-15-preview
+//   - sensitivitySettings - The data sensitivity settings to update
+//   - options - SensitivitySettingsClientUpdateSensitivitySettingsOptions contains the optional parameters for the SensitivitySettingsClient.UpdateSensitivitySettings
+//     method.
+func (client *SensitivitySettingsClient) UpdateSensitivitySettings(ctx context.Context, sensitivitySettings UpdateSensitivitySettingsRequest, options *SensitivitySettingsClientUpdateSensitivitySettingsOptions) (SensitivitySettingsClientUpdateSensitivitySettingsResponse, error) {
+	req, err := client.updateSensitivitySettingsCreateRequest(ctx, sensitivitySettings, options)
+	if err != nil {
+		return SensitivitySettingsClientUpdateSensitivitySettingsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return SensitivitySettingsClientUpdateSensitivitySettingsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return SensitivitySettingsClientUpdateSensitivitySettingsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.updateSensitivitySettingsHandleResponse(resp)
+}
+
+// updateSensitivitySettingsCreateRequest creates the UpdateSensitivitySettings request.
+func (client *SensitivitySettingsClient) updateSensitivitySettingsCreateRequest(ctx context.Context, sensitivitySettings UpdateSensitivitySettingsRequest, options *SensitivitySettingsClientUpdateSensitivitySettingsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Security/sensitivitySettings/current"
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-02-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, sensitivitySettings)
+}
+
+// updateSensitivitySettingsHandleResponse handles the UpdateSensitivitySettings response.
+func (client *SensitivitySettingsClient) updateSensitivitySettingsHandleResponse(resp *http.Response) (SensitivitySettingsClientUpdateSensitivitySettingsResponse, error) {
+	result := SensitivitySettingsClientUpdateSensitivitySettingsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GetSensitivitySettingsResponse); err != nil {
+		return SensitivitySettingsClientUpdateSensitivitySettingsResponse{}, err
 	}
 	return result, nil
 }
