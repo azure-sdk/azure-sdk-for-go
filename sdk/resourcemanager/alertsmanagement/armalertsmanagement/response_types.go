@@ -50,6 +50,16 @@ type AlertProcessingRulesClientUpdateResponse struct {
 	XMSRequestID *string
 }
 
+// AlertRuleRecommendationsClientListByResourceResponse contains the response from method AlertRuleRecommendationsClient.NewListByResourcePager.
+type AlertRuleRecommendationsClientListByResourceResponse struct {
+	AlertRuleRecommendationsListResponse
+}
+
+// AlertRuleRecommendationsClientListByTargetTypeResponse contains the response from method AlertRuleRecommendationsClient.NewListByTargetTypePager.
+type AlertRuleRecommendationsClientListByTargetTypeResponse struct {
+	AlertRuleRecommendationsListResponse
+}
+
 // AlertsClientChangeStateResponse contains the response from method AlertsClient.ChangeState.
 type AlertsClientChangeStateResponse struct {
 	Alert
@@ -83,6 +93,36 @@ type AlertsClientMetaDataResponse struct {
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationsList
+}
+
+// PrometheusRuleGroupsClientCreateOrUpdateResponse contains the response from method PrometheusRuleGroupsClient.CreateOrUpdate.
+type PrometheusRuleGroupsClientCreateOrUpdateResponse struct {
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientDeleteResponse contains the response from method PrometheusRuleGroupsClient.Delete.
+type PrometheusRuleGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrometheusRuleGroupsClientGetResponse contains the response from method PrometheusRuleGroupsClient.Get.
+type PrometheusRuleGroupsClientGetResponse struct {
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientListByResourceGroupResponse contains the response from method PrometheusRuleGroupsClient.NewListByResourceGroupPager.
+type PrometheusRuleGroupsClientListByResourceGroupResponse struct {
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientListBySubscriptionResponse contains the response from method PrometheusRuleGroupsClient.NewListBySubscriptionPager.
+type PrometheusRuleGroupsClientListBySubscriptionResponse struct {
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientUpdateResponse contains the response from method PrometheusRuleGroupsClient.Update.
+type PrometheusRuleGroupsClientUpdateResponse struct {
+	PrometheusRuleGroupResource
 }
 
 // SmartGroupsClientChangeStateResponse contains the response from method SmartGroupsClient.ChangeState.

@@ -11,7 +11,7 @@ package armalertsmanagement
 
 const (
 	moduleName    = "armalertsmanagement"
-	moduleVersion = "v0.8.1"
+	moduleVersion = "v0.9.0"
 )
 
 // ActionType - Action that should be applied.
@@ -19,6 +19,7 @@ type ActionType string
 
 const (
 	ActionTypeAddActionGroups       ActionType = "AddActionGroups"
+	ActionTypeCorrelateAlerts       ActionType = "CorrelateAlerts"
 	ActionTypeRemoveAllActionGroups ActionType = "RemoveAllActionGroups"
 )
 
@@ -26,6 +27,7 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeAddActionGroups,
+		ActionTypeCorrelateAlerts,
 		ActionTypeRemoveAllActionGroups,
 	}
 }
@@ -238,6 +240,90 @@ func PossibleMetadataIdentifierValues() []MetadataIdentifier {
 	}
 }
 
+// MetricAlertsDisplayUnit - The unit to display for a metric alert rule.
+type MetricAlertsDisplayUnit string
+
+const (
+	MetricAlertsDisplayUnitBillion            MetricAlertsDisplayUnit = "Billion"
+	MetricAlertsDisplayUnitBillionPerSecond   MetricAlertsDisplayUnit = "BillionPerSecond"
+	MetricAlertsDisplayUnitBytes              MetricAlertsDisplayUnit = "Bytes"
+	MetricAlertsDisplayUnitBytesPerDay        MetricAlertsDisplayUnit = "BytesPerDay"
+	MetricAlertsDisplayUnitBytesPerHour       MetricAlertsDisplayUnit = "BytesPerHour"
+	MetricAlertsDisplayUnitBytesPerMinute     MetricAlertsDisplayUnit = "BytesPerMinute"
+	MetricAlertsDisplayUnitBytesPerSecond     MetricAlertsDisplayUnit = "BytesPerSecond"
+	MetricAlertsDisplayUnitCount              MetricAlertsDisplayUnit = "Count"
+	MetricAlertsDisplayUnitCountPerDay        MetricAlertsDisplayUnit = "CountPerDay"
+	MetricAlertsDisplayUnitCountPerHour       MetricAlertsDisplayUnit = "CountPerHour"
+	MetricAlertsDisplayUnitCountPerMinute     MetricAlertsDisplayUnit = "CountPerMinute"
+	MetricAlertsDisplayUnitCountPerSecond     MetricAlertsDisplayUnit = "CountPerSecond"
+	MetricAlertsDisplayUnitDays               MetricAlertsDisplayUnit = "Days"
+	MetricAlertsDisplayUnitGigabytes          MetricAlertsDisplayUnit = "Gigabytes"
+	MetricAlertsDisplayUnitGigabytesPerSecond MetricAlertsDisplayUnit = "GigabytesPerSecond"
+	MetricAlertsDisplayUnitHours              MetricAlertsDisplayUnit = "Hours"
+	MetricAlertsDisplayUnitKilobytes          MetricAlertsDisplayUnit = "Kilobytes"
+	MetricAlertsDisplayUnitKilobytesPerSecond MetricAlertsDisplayUnit = "KilobytesPerSecond"
+	MetricAlertsDisplayUnitMegabytes          MetricAlertsDisplayUnit = "Megabytes"
+	MetricAlertsDisplayUnitMegabytesPerSecond MetricAlertsDisplayUnit = "MegabytesPerSecond"
+	MetricAlertsDisplayUnitMicroSeconds       MetricAlertsDisplayUnit = "MicroSeconds"
+	MetricAlertsDisplayUnitMilliSeconds       MetricAlertsDisplayUnit = "MilliSeconds"
+	MetricAlertsDisplayUnitMillion            MetricAlertsDisplayUnit = "Million"
+	MetricAlertsDisplayUnitMillionPerSecond   MetricAlertsDisplayUnit = "MillionPerSecond"
+	MetricAlertsDisplayUnitMinutes            MetricAlertsDisplayUnit = "Minutes"
+	MetricAlertsDisplayUnitNone               MetricAlertsDisplayUnit = "None"
+	MetricAlertsDisplayUnitPercentage         MetricAlertsDisplayUnit = "Percentage"
+	MetricAlertsDisplayUnitPetabytes          MetricAlertsDisplayUnit = "Petabytes"
+	MetricAlertsDisplayUnitPetabytesPerSecond MetricAlertsDisplayUnit = "PetabytesPerSecond"
+	MetricAlertsDisplayUnitSeconds            MetricAlertsDisplayUnit = "Seconds"
+	MetricAlertsDisplayUnitTerabytes          MetricAlertsDisplayUnit = "Terabytes"
+	MetricAlertsDisplayUnitTerabytesPerSecond MetricAlertsDisplayUnit = "TerabytesPerSecond"
+	MetricAlertsDisplayUnitThousand           MetricAlertsDisplayUnit = "Thousand"
+	MetricAlertsDisplayUnitThousandPerSecond  MetricAlertsDisplayUnit = "ThousandPerSecond"
+	MetricAlertsDisplayUnitTrillion           MetricAlertsDisplayUnit = "Trillion"
+	MetricAlertsDisplayUnitTrillionPerSecond  MetricAlertsDisplayUnit = "TrillionPerSecond"
+)
+
+// PossibleMetricAlertsDisplayUnitValues returns the possible values for the MetricAlertsDisplayUnit const type.
+func PossibleMetricAlertsDisplayUnitValues() []MetricAlertsDisplayUnit {
+	return []MetricAlertsDisplayUnit{
+		MetricAlertsDisplayUnitBillion,
+		MetricAlertsDisplayUnitBillionPerSecond,
+		MetricAlertsDisplayUnitBytes,
+		MetricAlertsDisplayUnitBytesPerDay,
+		MetricAlertsDisplayUnitBytesPerHour,
+		MetricAlertsDisplayUnitBytesPerMinute,
+		MetricAlertsDisplayUnitBytesPerSecond,
+		MetricAlertsDisplayUnitCount,
+		MetricAlertsDisplayUnitCountPerDay,
+		MetricAlertsDisplayUnitCountPerHour,
+		MetricAlertsDisplayUnitCountPerMinute,
+		MetricAlertsDisplayUnitCountPerSecond,
+		MetricAlertsDisplayUnitDays,
+		MetricAlertsDisplayUnitGigabytes,
+		MetricAlertsDisplayUnitGigabytesPerSecond,
+		MetricAlertsDisplayUnitHours,
+		MetricAlertsDisplayUnitKilobytes,
+		MetricAlertsDisplayUnitKilobytesPerSecond,
+		MetricAlertsDisplayUnitMegabytes,
+		MetricAlertsDisplayUnitMegabytesPerSecond,
+		MetricAlertsDisplayUnitMicroSeconds,
+		MetricAlertsDisplayUnitMilliSeconds,
+		MetricAlertsDisplayUnitMillion,
+		MetricAlertsDisplayUnitMillionPerSecond,
+		MetricAlertsDisplayUnitMinutes,
+		MetricAlertsDisplayUnitNone,
+		MetricAlertsDisplayUnitPercentage,
+		MetricAlertsDisplayUnitPetabytes,
+		MetricAlertsDisplayUnitPetabytesPerSecond,
+		MetricAlertsDisplayUnitSeconds,
+		MetricAlertsDisplayUnitTerabytes,
+		MetricAlertsDisplayUnitTerabytesPerSecond,
+		MetricAlertsDisplayUnitThousand,
+		MetricAlertsDisplayUnitThousandPerSecond,
+		MetricAlertsDisplayUnitTrillion,
+		MetricAlertsDisplayUnitTrillionPerSecond,
+	}
+}
+
 type MonitorCondition string
 
 const (
@@ -289,6 +375,22 @@ func PossibleMonitorServiceValues() []MonitorService {
 		MonitorServiceSmartDetector,
 		MonitorServiceVMInsights,
 		MonitorServiceZabbix,
+	}
+}
+
+// NotificationsForCorrelatedAlerts - Indicates how to handle child alerts notifications.
+type NotificationsForCorrelatedAlerts string
+
+const (
+	NotificationsForCorrelatedAlertsNotifyAlways   NotificationsForCorrelatedAlerts = "NotifyAlways"
+	NotificationsForCorrelatedAlertsSuppressAlways NotificationsForCorrelatedAlerts = "SuppressAlways"
+)
+
+// PossibleNotificationsForCorrelatedAlertsValues returns the possible values for the NotificationsForCorrelatedAlerts const type.
+func PossibleNotificationsForCorrelatedAlertsValues() []NotificationsForCorrelatedAlerts {
+	return []NotificationsForCorrelatedAlerts{
+		NotificationsForCorrelatedAlertsNotifyAlways,
+		NotificationsForCorrelatedAlertsSuppressAlways,
 	}
 }
 

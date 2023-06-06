@@ -23,6 +23,8 @@ func unmarshalActionClassification(rawMsg json.RawMessage) (ActionClassification
 	switch m["actionType"] {
 	case string(ActionTypeAddActionGroups):
 		b = &AddActionGroups{}
+	case string(ActionTypeCorrelateAlerts):
+		b = &CorrelateAlerts{}
 	case string(ActionTypeRemoveAllActionGroups):
 		b = &RemoveAllActionGroups{}
 	default:
