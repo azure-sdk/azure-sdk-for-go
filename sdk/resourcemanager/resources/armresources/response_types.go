@@ -447,7 +447,7 @@ type ResourceGroupsClientUpdateResponse struct {
 	ResourceGroup
 }
 
-// TagsClientCreateOrUpdateAtScopeResponse contains the response from method TagsClient.CreateOrUpdateAtScope.
+// TagsClientCreateOrUpdateAtScopeResponse contains the response from method TagsClient.BeginCreateOrUpdateAtScope.
 type TagsClientCreateOrUpdateAtScopeResponse struct {
 	TagsResource
 }
@@ -462,7 +462,7 @@ type TagsClientCreateOrUpdateValueResponse struct {
 	TagValue
 }
 
-// TagsClientDeleteAtScopeResponse contains the response from method TagsClient.DeleteAtScope.
+// TagsClientDeleteAtScopeResponse contains the response from method TagsClient.BeginDeleteAtScope.
 type TagsClientDeleteAtScopeResponse struct {
 	// placeholder for future response values
 }
@@ -487,7 +487,7 @@ type TagsClientListResponse struct {
 	TagsListResult
 }
 
-// TagsClientUpdateAtScopeResponse contains the response from method TagsClient.UpdateAtScope.
+// TagsClientUpdateAtScopeResponse contains the response from method TagsClient.BeginUpdateAtScope.
 type TagsClientUpdateAtScopeResponse struct {
 	TagsResource
 }
