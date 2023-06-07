@@ -469,6 +469,16 @@ type CustomEntityStoreAssignmentsClientListBySubscriptionResponse struct {
 	CustomEntityStoreAssignmentsListResult
 }
 
+// DefenderForStorageClientCreateResponse contains the response from method DefenderForStorageClient.Create.
+type DefenderForStorageClientCreateResponse struct {
+	DefenderForStorageSetting
+}
+
+// DefenderForStorageClientGetResponse contains the response from method DefenderForStorageClient.Get.
+type DefenderForStorageClientGetResponse struct {
+	DefenderForStorageSetting
+}
+
 // DeviceSecurityGroupsClientCreateOrUpdateResponse contains the response from method DeviceSecurityGroupsClient.CreateOrUpdate.
 type DeviceSecurityGroupsClientCreateOrUpdateResponse struct {
 	DeviceSecurityGroup
@@ -571,8 +581,8 @@ type GovernanceRulesClientOperationResultsResponse struct {
 	Location *string
 }
 
-// HealthReportClientGetResponse contains the response from method HealthReportClient.Get.
-type HealthReportClientGetResponse struct {
+// HealthReportsClientGetResponse contains the response from method HealthReportsClient.Get.
+type HealthReportsClientGetResponse struct {
 	HealthReport
 }
 
