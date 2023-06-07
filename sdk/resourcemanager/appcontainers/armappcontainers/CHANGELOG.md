@@ -1,5 +1,48 @@
 # Release History
 
+## 2.0.0-beta.4 (2023-06-07)
+### Features Added
+
+- New enum type `BuildStatus` with values `BuildStatusCanceled`, `BuildStatusFailed`, `BuildStatusInProgress`, `BuildStatusNotStarted`, `BuildStatusSucceeded`
+- New enum type `ContainerAppContainerRunningState` with values `ContainerAppContainerRunningStateRunning`, `ContainerAppContainerRunningStateTerminated`, `ContainerAppContainerRunningStateWaiting`
+- New enum type `ContainerAppReplicaRunningState` with values `ContainerAppReplicaRunningStateNotRunning`, `ContainerAppReplicaRunningStateRunning`, `ContainerAppReplicaRunningStateUnknown`
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateInProgress`, `ProvisioningStateSucceeded`
+- New function `NewBuildersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BuildersClient, error)`
+- New function `*BuildersClient.BeginCreateOrUpdate(context.Context, string, string, BuilderResource, *BuildersClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildersClientCreateOrUpdateResponse], error)`
+- New function `*BuildersClient.BeginDelete(context.Context, string, string, *BuildersClientBeginDeleteOptions) (*runtime.Poller[BuildersClientDeleteResponse], error)`
+- New function `*BuildersClient.Get(context.Context, string, string, *BuildersClientGetOptions) (BuildersClientGetResponse, error)`
+- New function `*BuildersClient.NewListByResourceGroupPager(string, *BuildersClientListByResourceGroupOptions) *runtime.Pager[BuildersClientListByResourceGroupResponse]`
+- New function `*BuildersClient.NewListBySubscriptionPager(*BuildersClientListBySubscriptionOptions) *runtime.Pager[BuildersClientListBySubscriptionResponse]`
+- New function `*BuildersClient.BeginUpdate(context.Context, string, string, BuilderResourceUpdate, *BuildersClientBeginUpdateOptions) (*runtime.Poller[BuildersClientUpdateResponse], error)`
+- New function `NewBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BuildsClient, error)`
+- New function `*BuildsClient.BeginCreateOrUpdate(context.Context, string, string, string, BuildResource, *BuildsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildsClientCreateOrUpdateResponse], error)`
+- New function `*BuildsClient.BeginDelete(context.Context, string, string, string, *BuildsClientBeginDeleteOptions) (*runtime.Poller[BuildsClientDeleteResponse], error)`
+- New function `*BuildsClient.Get(context.Context, string, string, string, *BuildsClientGetOptions) (BuildsClientGetResponse, error)`
+- New function `*BuildsClient.NewListByBuilderResourcePager(string, string, *BuildsClientListByBuilderResourceOptions) *runtime.Pager[BuildsClientListByBuilderResourceResponse]`
+- New function `*ClientFactory.NewBuildersClient() *BuildersClient`
+- New function `*ClientFactory.NewBuildsClient() *BuildsClient`
+- New struct `BuildCollection`
+- New struct `BuildConfiguration`
+- New struct `BuildProperties`
+- New struct `BuildResource`
+- New struct `BuilderCollection`
+- New struct `BuilderProperties`
+- New struct `BuilderResource`
+- New struct `BuilderResourceUpdate`
+- New struct `BuilderResourceUpdateProperties`
+- New struct `ContainerRegistryWithCustomImage`
+- New struct `EnvironmentVariable`
+- New struct `HTTPGet`
+- New struct `IngressPortMapping`
+- New struct `PreBuildStep`
+- New field `AdditionalPortMappings` in struct `Ingress`
+- New field `RunningState`, `RunningStateDetails` in struct `ReplicaContainer`
+- New field `InitContainers`, `RunningState`, `RunningStateDetails` in struct `ReplicaProperties`
+- New field `TerminationGracePeriodSeconds` in struct `Template`
+- New field `MountOptions` in struct `Volume`
+- New field `SubPath` in struct `VolumeMount`
+
+
 ## 2.0.0-beta.3 (2023-05-26)
 ### Breaking Changes
 
