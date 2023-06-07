@@ -1927,41 +1927,6 @@ func (c *CommunityGalleryImage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageIdentifier.
-func (c CommunityGalleryImageIdentifier) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "offer", c.Offer)
-	populate(objectMap, "publisher", c.Publisher)
-	populate(objectMap, "sku", c.SKU)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CommunityGalleryImageIdentifier.
-func (c *CommunityGalleryImageIdentifier) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "offer":
-			err = unpopulate(val, "Offer", &c.Offer)
-			delete(rawMsg, key)
-		case "publisher":
-			err = unpopulate(val, "Publisher", &c.Publisher)
-			delete(rawMsg, key)
-		case "sku":
-			err = unpopulate(val, "SKU", &c.SKU)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageList.
 func (c CommunityGalleryImageList) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -15712,6 +15677,7 @@ func (v *VirtualMachinePublicIPAddressConfigurationProperties) UnmarshalJSON(dat
 func (v VirtualMachinePublicIPAddressDNSSettingsConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "domainNameLabel", v.DomainNameLabel)
+	populate(objectMap, "domainNameLabelScope", v.DomainNameLabelScope)
 	return json.Marshal(objectMap)
 }
 
@@ -15726,6 +15692,9 @@ func (v *VirtualMachinePublicIPAddressDNSSettingsConfiguration) UnmarshalJSON(da
 		switch key {
 		case "domainNameLabel":
 			err = unpopulate(val, "DomainNameLabel", &v.DomainNameLabel)
+			delete(rawMsg, key)
+		case "domainNameLabelScope":
+			err = unpopulate(val, "DomainNameLabelScope", &v.DomainNameLabelScope)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -17217,6 +17186,7 @@ func (v *VirtualMachineScaleSetPublicIPAddressConfiguration) UnmarshalJSON(data 
 func (v VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "domainNameLabel", v.DomainNameLabel)
+	populate(objectMap, "domainNameLabelScope", v.DomainNameLabelScope)
 	return json.Marshal(objectMap)
 }
 
@@ -17231,6 +17201,9 @@ func (v *VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings) Unmarsha
 		switch key {
 		case "domainNameLabel":
 			err = unpopulate(val, "DomainNameLabel", &v.DomainNameLabel)
+			delete(rawMsg, key)
+		case "domainNameLabelScope":
+			err = unpopulate(val, "DomainNameLabelScope", &v.DomainNameLabelScope)
 			delete(rawMsg, key)
 		}
 		if err != nil {

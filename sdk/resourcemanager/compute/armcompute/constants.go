@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.0.0"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -633,23 +633,25 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 	}
 }
 
-// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
-type EdgeZoneStorageAccountType string
+// DomainNameLabelScopeTypes - The Domain name label scope.The concatenation of the hashed domain name label that generated
+// according to the policy from domain name label scope and vm index will be the domain name labels of the
+// PublicIPAddress resources that will be created
+type DomainNameLabelScopeTypes string
 
 const (
-	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
-	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
-	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
-	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
+	DomainNameLabelScopeTypesNoReuse            DomainNameLabelScopeTypes = "NoReuse"
+	DomainNameLabelScopeTypesResourceGroupReuse DomainNameLabelScopeTypes = "ResourceGroupReuse"
+	DomainNameLabelScopeTypesSubscriptionReuse  DomainNameLabelScopeTypes = "SubscriptionReuse"
+	DomainNameLabelScopeTypesTenantReuse        DomainNameLabelScopeTypes = "TenantReuse"
 )
 
-// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
-func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
-	return []EdgeZoneStorageAccountType{
-		EdgeZoneStorageAccountTypePremiumLRS,
-		EdgeZoneStorageAccountTypeStandardLRS,
-		EdgeZoneStorageAccountTypeStandardSSDLRS,
-		EdgeZoneStorageAccountTypeStandardZRS,
+// PossibleDomainNameLabelScopeTypesValues returns the possible values for the DomainNameLabelScopeTypes const type.
+func PossibleDomainNameLabelScopeTypesValues() []DomainNameLabelScopeTypes {
+	return []DomainNameLabelScopeTypes{
+		DomainNameLabelScopeTypesNoReuse,
+		DomainNameLabelScopeTypesResourceGroupReuse,
+		DomainNameLabelScopeTypesSubscriptionReuse,
+		DomainNameLabelScopeTypesTenantReuse,
 	}
 }
 
@@ -1919,9 +1921,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -1929,6 +1932,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }

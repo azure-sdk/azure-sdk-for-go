@@ -1120,18 +1120,6 @@ type CommunityGalleryImage struct {
 	Type *string
 }
 
-// CommunityGalleryImageIdentifier - This is the community gallery image definition identifier.
-type CommunityGalleryImageIdentifier struct {
-	// The name of the gallery image definition offer.
-	Offer *string
-
-	// The name of the gallery image definition publisher.
-	Publisher *string
-
-	// The name of the gallery image definition SKU.
-	SKU *string
-}
-
 // CommunityGalleryImageList - The List Community Gallery Images operation response.
 type CommunityGalleryImageList struct {
 	// REQUIRED; A list of community gallery images.
@@ -1144,8 +1132,8 @@ type CommunityGalleryImageList struct {
 
 // CommunityGalleryImageProperties - Describes the properties of a gallery image definition.
 type CommunityGalleryImageProperties struct {
-	// REQUIRED; This is the community gallery image definition identifier.
-	Identifier *CommunityGalleryImageIdentifier
+	// REQUIRED; This is the gallery image definition identifier.
+	Identifier *GalleryImageIdentifier
 
 	// REQUIRED; This property allows the user to specify whether the virtual machines created under this image are 'Generalized'
 	// or 'Specialized'.
@@ -3423,7 +3411,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -7818,6 +7806,11 @@ type VirtualMachinePublicIPAddressDNSSettingsConfiguration struct {
 	// REQUIRED; The Domain name label prefix of the PublicIPAddress resources that will be created. The generated name label
 	// is the concatenation of the domain name label and vm network profile unique ID.
 	DomainNameLabel *string
+
+	// The Domain name label scope of the PublicIPAddress resources that will be created. The generated name label is the concatenation
+	// of the hashed domain name label with policy according to the domain
+	// name label scope and vm network profile unique ID.
+	DomainNameLabelScope *DomainNameLabelScopeTypes
 }
 
 // VirtualMachineReimageParameters - Parameters for Reimaging Virtual Machine. NOTE: Virtual Machine OS disk will always be
@@ -8662,6 +8655,11 @@ type VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings struct {
 	// REQUIRED; The Domain name label.The concatenation of the domain name label and vm index will be the domain name labels
 	// of the PublicIPAddress resources that will be created
 	DomainNameLabel *string
+
+	// The Domain name label scope.The concatenation of the hashed domain name label that generated according to the policy from
+	// domain name label scope and vm index will be the domain name labels of the
+	// PublicIPAddress resources that will be created
+	DomainNameLabelScope *DomainNameLabelScopeTypes
 }
 
 // VirtualMachineScaleSetPublicIPAddressConfigurationProperties - Describes a virtual machines scale set IP Configuration's
