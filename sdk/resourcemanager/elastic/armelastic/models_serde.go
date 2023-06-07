@@ -384,6 +384,7 @@ func (m MarketplaceSaaSInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "marketplaceName", m.MarketplaceName)
 	populate(objectMap, "marketplaceResourceId", m.MarketplaceResourceID)
+	populate(objectMap, "marketplaceStatus", m.MarketplaceStatus)
 	populate(objectMap, "marketplaceSubscription", m.MarketplaceSubscription)
 	return json.Marshal(objectMap)
 }
@@ -402,6 +403,9 @@ func (m *MarketplaceSaaSInfo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "marketplaceResourceId":
 			err = unpopulate(val, "MarketplaceResourceID", &m.MarketplaceResourceID)
+			delete(rawMsg, key)
+		case "marketplaceStatus":
+			err = unpopulate(val, "MarketplaceStatus", &m.MarketplaceStatus)
 			delete(rawMsg, key)
 		case "marketplaceSubscription":
 			err = unpopulate(val, "MarketplaceSubscription", &m.MarketplaceSubscription)
@@ -911,6 +915,72 @@ func (o *OperationResult) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "origin":
 			err = unpopulate(val, "Origin", &o.Origin)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type OrganizationToAzureSubscriptionMappingResponse.
+func (o OrganizationToAzureSubscriptionMappingResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", o.Properties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OrganizationToAzureSubscriptionMappingResponse.
+func (o *OrganizationToAzureSubscriptionMappingResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &o.Properties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type OrganizationToAzureSubscriptionMappingResponseProperties.
+func (o OrganizationToAzureSubscriptionMappingResponseProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "billedAzureSubscriptionId", o.BilledAzureSubscriptionID)
+	populate(objectMap, "elasticOrganizationId", o.ElasticOrganizationID)
+	populate(objectMap, "elasticOrganizationName", o.ElasticOrganizationName)
+	populate(objectMap, "marketplaceSaasInfo", o.MarketplaceSaasInfo)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OrganizationToAzureSubscriptionMappingResponseProperties.
+func (o *OrganizationToAzureSubscriptionMappingResponseProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "billedAzureSubscriptionId":
+			err = unpopulate(val, "BilledAzureSubscriptionID", &o.BilledAzureSubscriptionID)
+			delete(rawMsg, key)
+		case "elasticOrganizationId":
+			err = unpopulate(val, "ElasticOrganizationID", &o.ElasticOrganizationID)
+			delete(rawMsg, key)
+		case "elasticOrganizationName":
+			err = unpopulate(val, "ElasticOrganizationName", &o.ElasticOrganizationName)
+			delete(rawMsg, key)
+		case "marketplaceSaasInfo":
+			err = unpopulate(val, "MarketplaceSaasInfo", &o.MarketplaceSaasInfo)
 			delete(rawMsg, key)
 		}
 		if err != nil {

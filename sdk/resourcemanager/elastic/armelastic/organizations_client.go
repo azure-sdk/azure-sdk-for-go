@@ -56,7 +56,7 @@ func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCreden
 // Organization.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
+// Generated from API version 2023-06-15-preview
 //   - options - OrganizationsClientGetAPIKeyOptions contains the optional parameters for the OrganizationsClient.GetAPIKey method.
 func (client *OrganizationsClient) GetAPIKey(ctx context.Context, options *OrganizationsClientGetAPIKeyOptions) (OrganizationsClientGetAPIKeyResponse, error) {
 	req, err := client.getAPIKeyCreateRequest(ctx, options)
@@ -85,7 +85,7 @@ func (client *OrganizationsClient) getAPIKeyCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -99,6 +99,55 @@ func (client *OrganizationsClient) getAPIKeyHandleResponse(resp *http.Response) 
 	result := OrganizationsClientGetAPIKeyResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.UserAPIKeyResponse); err != nil {
 		return OrganizationsClientGetAPIKeyResponse{}, err
+	}
+	return result, nil
+}
+
+// GetElasticToAzureSubscriptionMapping - Get Elastic Organization To Azure Subscription Mapping details for the logged-in
+// user.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-06-15-preview
+//   - options - OrganizationsClientGetElasticToAzureSubscriptionMappingOptions contains the optional parameters for the OrganizationsClient.GetElasticToAzureSubscriptionMapping
+//     method.
+func (client *OrganizationsClient) GetElasticToAzureSubscriptionMapping(ctx context.Context, options *OrganizationsClientGetElasticToAzureSubscriptionMappingOptions) (OrganizationsClientGetElasticToAzureSubscriptionMappingResponse, error) {
+	req, err := client.getElasticToAzureSubscriptionMappingCreateRequest(ctx, options)
+	if err != nil {
+		return OrganizationsClientGetElasticToAzureSubscriptionMappingResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OrganizationsClientGetElasticToAzureSubscriptionMappingResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return OrganizationsClientGetElasticToAzureSubscriptionMappingResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getElasticToAzureSubscriptionMappingHandleResponse(resp)
+}
+
+// getElasticToAzureSubscriptionMappingCreateRequest creates the GetElasticToAzureSubscriptionMapping request.
+func (client *OrganizationsClient) getElasticToAzureSubscriptionMappingCreateRequest(ctx context.Context, options *OrganizationsClientGetElasticToAzureSubscriptionMappingOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Elastic/getElasticOrganizationToAzureSubscriptionMapping"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-06-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getElasticToAzureSubscriptionMappingHandleResponse handles the GetElasticToAzureSubscriptionMapping response.
+func (client *OrganizationsClient) getElasticToAzureSubscriptionMappingHandleResponse(resp *http.Response) (OrganizationsClientGetElasticToAzureSubscriptionMappingResponse, error) {
+	result := OrganizationsClientGetElasticToAzureSubscriptionMappingResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.OrganizationToAzureSubscriptionMappingResponse); err != nil {
+		return OrganizationsClientGetElasticToAzureSubscriptionMappingResponse{}, err
 	}
 	return result, nil
 }

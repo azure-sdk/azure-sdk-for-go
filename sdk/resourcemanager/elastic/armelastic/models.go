@@ -240,6 +240,9 @@ type MarketplaceSaaSInfo struct {
 	// Marketplace Subscription Details: Resource URI
 	MarketplaceResourceID *string
 
+	// Marketplace Subscription Details: SaaS Subscription Status
+	MarketplaceStatus *string
+
 	// Marketplace Subscription
 	MarketplaceSubscription *MarketplaceSaaSInfoMarketplaceSubscription
 }
@@ -478,10 +481,40 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OrganizationToAzureSubscriptionMappingResponse - The Azure Subscription ID to which the Organization of the logged in user
+// belongs and gets billed into.
+type OrganizationToAzureSubscriptionMappingResponse struct {
+	// The properties of Azure Subscription ID to which the Organization of the logged in user belongs and gets billed into.
+	Properties *OrganizationToAzureSubscriptionMappingResponseProperties
+}
+
+// OrganizationToAzureSubscriptionMappingResponseProperties - The properties of Azure Subscription ID to which the Organization
+// of the logged in user belongs and gets billed into.
+type OrganizationToAzureSubscriptionMappingResponseProperties struct {
+	// The Azure Subscription ID to which the Organization belongs and gets billed into. This is empty for a new user OR a user
+	// without an Elastic Organization.
+	BilledAzureSubscriptionID *string
+
+	// The Elastic Organization Id.
+	ElasticOrganizationID *string
+
+	// The Elastic Organization Name.
+	ElasticOrganizationName *string
+
+	// READ-ONLY; Marketplace SaaS Info of the resource.
+	MarketplaceSaasInfo *MarketplaceSaaSInfo
+}
+
 // OrganizationsClientGetAPIKeyOptions contains the optional parameters for the OrganizationsClient.GetAPIKey method.
 type OrganizationsClientGetAPIKeyOptions struct {
 	// Email Id parameter of the User Organization, of which the API Key must be returned
 	Body *UserEmailID
+}
+
+// OrganizationsClientGetElasticToAzureSubscriptionMappingOptions contains the optional parameters for the OrganizationsClient.GetElasticToAzureSubscriptionMapping
+// method.
+type OrganizationsClientGetElasticToAzureSubscriptionMappingOptions struct {
+	// placeholder for future optional parameters
 }
 
 // Properties - Elastic Resource Properties.

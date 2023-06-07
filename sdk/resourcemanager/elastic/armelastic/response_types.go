@@ -112,6 +112,11 @@ type OrganizationsClientGetAPIKeyResponse struct {
 	UserAPIKeyResponse
 }
 
+// OrganizationsClientGetElasticToAzureSubscriptionMappingResponse contains the response from method OrganizationsClient.GetElasticToAzureSubscriptionMapping.
+type OrganizationsClientGetElasticToAzureSubscriptionMappingResponse struct {
+	OrganizationToAzureSubscriptionMappingResponse
+}
+
 // TagRulesClientCreateOrUpdateResponse contains the response from method TagRulesClient.CreateOrUpdate.
 type TagRulesClientCreateOrUpdateResponse struct {
 	MonitoringTagRules

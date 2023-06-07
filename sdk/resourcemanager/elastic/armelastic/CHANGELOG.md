@@ -1,5 +1,14 @@
 # Release History
 
+## 0.10.0 (2023-06-07)
+### Features Added
+
+- New function `*OrganizationsClient.GetElasticToAzureSubscriptionMapping(context.Context, *OrganizationsClientGetElasticToAzureSubscriptionMappingOptions) (OrganizationsClientGetElasticToAzureSubscriptionMappingResponse, error)`
+- New struct `OrganizationToAzureSubscriptionMappingResponse`
+- New struct `OrganizationToAzureSubscriptionMappingResponseProperties`
+- New field `MarketplaceStatus` in struct `MarketplaceSaaSInfo`
+
+
 ## 0.9.0 (2023-05-26)
 ### Breaking Changes
 
