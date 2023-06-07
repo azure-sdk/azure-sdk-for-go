@@ -59,6 +59,26 @@ type DataControllersClientPutDataControllerResponse struct {
 	DataControllerResource
 }
 
+// FailoverGroupsClientCreateResponse contains the response from method FailoverGroupsClient.BeginCreate.
+type FailoverGroupsClientCreateResponse struct {
+	FailoverGroupResource
+}
+
+// FailoverGroupsClientDeleteResponse contains the response from method FailoverGroupsClient.BeginDelete.
+type FailoverGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FailoverGroupsClientGetResponse contains the response from method FailoverGroupsClient.Get.
+type FailoverGroupsClientGetResponse struct {
+	FailoverGroupResource
+}
+
+// FailoverGroupsClientListResponse contains the response from method FailoverGroupsClient.NewListPager.
+type FailoverGroupsClientListResponse struct {
+	FailoverGroupListResult
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationListResult
@@ -122,6 +142,31 @@ type SQLManagedInstancesClientListResponse struct {
 // SQLManagedInstancesClientUpdateResponse contains the response from method SQLManagedInstancesClient.Update.
 type SQLManagedInstancesClientUpdateResponse struct {
 	SQLManagedInstance
+}
+
+// SQLServerDatabasesClientCreateResponse contains the response from method SQLServerDatabasesClient.Create.
+type SQLServerDatabasesClientCreateResponse struct {
+	SQLServerDatabaseResource
+}
+
+// SQLServerDatabasesClientDeleteResponse contains the response from method SQLServerDatabasesClient.Delete.
+type SQLServerDatabasesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SQLServerDatabasesClientGetResponse contains the response from method SQLServerDatabasesClient.Get.
+type SQLServerDatabasesClientGetResponse struct {
+	SQLServerDatabaseResource
+}
+
+// SQLServerDatabasesClientListResponse contains the response from method SQLServerDatabasesClient.NewListPager.
+type SQLServerDatabasesClientListResponse struct {
+	ArcSQLServerDatabaseListResult
+}
+
+// SQLServerDatabasesClientUpdateResponse contains the response from method SQLServerDatabasesClient.Update.
+type SQLServerDatabasesClientUpdateResponse struct {
+	SQLServerDatabaseResource
 }
 
 // SQLServerInstancesClientCreateResponse contains the response from method SQLServerInstancesClient.BeginCreate.
