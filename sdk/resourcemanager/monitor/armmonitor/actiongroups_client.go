@@ -47,7 +47,7 @@ func NewActionGroupsClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateNotificationsAtActionGroupResourceLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - notificationRequest - The notification request body which includes the contact details
@@ -70,7 +70,7 @@ func (client *ActionGroupsClient) BeginCreateNotificationsAtActionGroupResourceL
 // CreateNotificationsAtActionGroupResourceLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevel(ctx context.Context, resourceGroupName string, actionGroupName string, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions) (*http.Response, error) {
 	req, err := client.createNotificationsAtActionGroupResourceLevelCreateRequest(ctx, resourceGroupName, actionGroupName, notificationRequest, options)
 	if err != nil {
@@ -106,7 +106,7 @@ func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevelC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, notificationRequest)
@@ -115,7 +115,7 @@ func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevelC
 // CreateOrUpdate - Create a new action group or update an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - actionGroup - The action group to create or use for the update.
@@ -156,7 +156,7 @@ func (client *ActionGroupsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, actionGroup)
@@ -174,7 +174,7 @@ func (client *ActionGroupsClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Delete an action group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - options - ActionGroupsClientDeleteOptions contains the optional parameters for the ActionGroupsClient.Delete method.
@@ -213,7 +213,7 @@ func (client *ActionGroupsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -223,7 +223,7 @@ func (client *ActionGroupsClient) deleteCreateRequest(ctx context.Context, resou
 // operation is only supported for Email or SMS receivers.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - enableRequest - The receiver to re-enable.
@@ -264,7 +264,7 @@ func (client *ActionGroupsClient) enableReceiverCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, enableRequest)
@@ -273,7 +273,7 @@ func (client *ActionGroupsClient) enableReceiverCreateRequest(ctx context.Contex
 // Get - Get an action group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - options - ActionGroupsClientGetOptions contains the optional parameters for the ActionGroupsClient.Get method.
@@ -312,7 +312,7 @@ func (client *ActionGroupsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +330,7 @@ func (client *ActionGroupsClient) getHandleResponse(resp *http.Response) (Action
 // GetTestNotificationsAtActionGroupResourceLevel - Get the test notifications by the notification id
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - notificationID - The notification id
@@ -375,7 +375,7 @@ func (client *ActionGroupsClient) getTestNotificationsAtActionGroupResourceLevel
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -392,7 +392,7 @@ func (client *ActionGroupsClient) getTestNotificationsAtActionGroupResourceLevel
 
 // NewListByResourceGroupPager - Get a list of all action groups in a resource group.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ActionGroupsClientListByResourceGroupOptions contains the optional parameters for the ActionGroupsClient.NewListByResourceGroupPager
 //     method.
@@ -434,7 +434,7 @@ func (client *ActionGroupsClient) listByResourceGroupCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -451,7 +451,7 @@ func (client *ActionGroupsClient) listByResourceGroupHandleResponse(resp *http.R
 
 // NewListBySubscriptionIDPager - Get a list of all action groups in a subscription.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - options - ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.NewListBySubscriptionIDPager
 //     method.
 func (client *ActionGroupsClient) NewListBySubscriptionIDPager(options *ActionGroupsClientListBySubscriptionIDOptions) *runtime.Pager[ActionGroupsClientListBySubscriptionIDResponse] {
@@ -488,7 +488,7 @@ func (client *ActionGroupsClient) listBySubscriptionIDCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -506,7 +506,7 @@ func (client *ActionGroupsClient) listBySubscriptionIDHandleResponse(resp *http.
 // Update - Updates an existing action group's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - actionGroupPatch - Parameters supplied to the operation.
@@ -546,7 +546,7 @@ func (client *ActionGroupsClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, actionGroupPatch)
