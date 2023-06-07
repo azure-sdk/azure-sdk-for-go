@@ -1,5 +1,22 @@
 # Release History
 
+## 1.2.0 (2023-06-07)
+### Features Added
+
+- New value `IdentityTypeSystemAssignedUserAssigned`, `IdentityTypeUserAssigned` added to enum type `IdentityType`
+- New enum type `AADAuthFailureMode` with values `AADAuthFailureModeHttp401WithBearerChallenge`, `AADAuthFailureModeHttp403`
+- New enum type `PrivateLinkServiceConnectionProvisioningState` with values `PrivateLinkServiceConnectionProvisioningStateCanceled`, `PrivateLinkServiceConnectionProvisioningStateDeleting`, `PrivateLinkServiceConnectionProvisioningStateFailed`, `PrivateLinkServiceConnectionProvisioningStateIncomplete`, `PrivateLinkServiceConnectionProvisioningStateSucceeded`, `PrivateLinkServiceConnectionProvisioningStateUpdating`
+- New enum type `SearchEncryptionComplianceStatus` with values `SearchEncryptionComplianceStatusCompliant`, `SearchEncryptionComplianceStatusNonCompliant`
+- New enum type `SearchEncryptionWithCmk` with values `SearchEncryptionWithCmkDisabled`, `SearchEncryptionWithCmkEnabled`, `SearchEncryptionWithCmkUnspecified`
+- New struct `DataPlaneAADOrAPIKeyAuthOption`
+- New struct `DataPlaneAuthOptions`
+- New struct `EncryptionWithCmk`
+- New struct `UserAssignedManagedIdentity`
+- New field `UserAssignedIdentities` in struct `Identity`
+- New field `GroupID`, `ProvisioningState` in struct `PrivateEndpointConnectionProperties`
+- New field `AuthOptions`, `DisableLocalAuth`, `EncryptionWithCmk` in struct `ServiceProperties`
+
+
 ## 1.1.0 (2023-04-03)
 ### Features Added
 
