@@ -74,6 +74,16 @@ type AvailableOSClientListResponse struct {
 	AvailableOSListResult
 }
 
+// BillingHubServiceClientGetFreeHourBalanceResponse contains the response from method BillingHubServiceClient.GetFreeHourBalance.
+type BillingHubServiceClientGetFreeHourBalanceResponse struct {
+	BillingHubGetFreeHourBalanceResponse
+}
+
+// BillingHubServiceClientGetUsageResponse contains the response from method BillingHubServiceClient.GetUsage.
+type BillingHubServiceClientGetUsageResponse struct {
+	BillingHubGetUsageResponse
+}
+
 // CustomerEventsClientCreateResponse contains the response from method CustomerEventsClient.BeginCreate.
 type CustomerEventsClientCreateResponse struct {
 	CustomerEventResource
@@ -179,6 +189,15 @@ type PackagesClientListByTestBaseAccountResponse struct {
 	PackageListResult
 }
 
+// PackagesClientRunTestResponse contains the response from method PackagesClient.RunTest.
+type PackagesClientRunTestResponse struct {
+	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
+	AzureAsyncOperation *string
+
+	// Location contains the information returned from the Location header response.
+	Location *string
+}
+
 // PackagesClientUpdateResponse contains the response from method PackagesClient.BeginUpdate.
 type PackagesClientUpdateResponse struct {
 	PackageResource
@@ -187,6 +206,11 @@ type PackagesClientUpdateResponse struct {
 // SKUsClientListResponse contains the response from method SKUsClient.NewListPager.
 type SKUsClientListResponse struct {
 	AccountSKUListResult
+}
+
+// TestResultsClientGetConsoleLogDownloadURLResponse contains the response from method TestResultsClient.GetConsoleLogDownloadURL.
+type TestResultsClientGetConsoleLogDownloadURLResponse struct {
+	DownloadURLResponse
 }
 
 // TestResultsClientGetDownloadURLResponse contains the response from method TestResultsClient.GetDownloadURL.

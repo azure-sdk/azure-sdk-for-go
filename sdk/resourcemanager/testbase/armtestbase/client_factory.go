@@ -112,3 +112,8 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewBillingHubServiceClient() *BillingHubServiceClient {
+	subClient, _ := NewBillingHubServiceClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}

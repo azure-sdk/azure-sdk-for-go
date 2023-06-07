@@ -47,7 +47,7 @@ func NewTestSummariesClient(subscriptionID string, credential azcore.TokenCreden
 // Get - Gets a Test Summary with specific name from all the Test Summaries of all the packages under a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - testSummaryName - The name of the Test Summary.
@@ -91,7 +91,7 @@ func (client *TestSummariesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *TestSummariesClient) getHandleResponse(resp *http.Response) (TestS
 
 // NewListPager - Lists the Test Summaries of all the packages under a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - TestSummariesClientListOptions contains the optional parameters for the TestSummariesClient.NewListPager method.
@@ -160,7 +160,7 @@ func (client *TestSummariesClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

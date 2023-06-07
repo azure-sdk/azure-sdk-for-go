@@ -47,7 +47,7 @@ func NewFlightingRingsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Gets a flighting ring of a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - flightingRingResourceName - The resource name of a flighting ring.
@@ -91,7 +91,7 @@ func (client *FlightingRingsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *FlightingRingsClient) getHandleResponse(resp *http.Response) (Flig
 
 // NewListPager - Lists all the flighting rings of a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - FlightingRingsClientListOptions contains the optional parameters for the FlightingRingsClient.NewListPager method.
@@ -160,7 +160,7 @@ func (client *FlightingRingsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

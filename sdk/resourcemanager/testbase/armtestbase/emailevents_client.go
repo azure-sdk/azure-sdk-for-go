@@ -47,7 +47,7 @@ func NewEmailEventsClient(subscriptionID string, credential azcore.TokenCredenti
 // Get - Gets a email event of a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - emailEventResourceName - The resource name of an email event.
@@ -91,7 +91,7 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *EmailEventsClient) getHandleResponse(resp *http.Response) (EmailEv
 
 // NewListPager - Lists all the email events of a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - EmailEventsClientListOptions contains the optional parameters for the EmailEventsClient.NewListPager method.
@@ -160,7 +160,7 @@ func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

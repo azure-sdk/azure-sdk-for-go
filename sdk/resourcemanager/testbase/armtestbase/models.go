@@ -325,6 +325,106 @@ type AvailableOSResource struct {
 	Type *string
 }
 
+type BillingHubExecutionUsageDetail struct {
+	ApplicationName    *string
+	ApplicationVersion *string
+	BilledCharges      *float64
+	EndTimeStamp       *time.Time
+	ExecutionRequestID *string
+	MeterID            *string
+	OSBuild            *string
+	Release            *string
+	SKU                *string
+	StartTimeStamp     *time.Time
+	TestType           *string
+	UpdateType         *string
+	UsedBillableHours  *float64
+	UsedFreeHours      *float64
+}
+
+type BillingHubFreeHourIncrementEntry struct {
+	CreateTimeStamp      *time.Time
+	ExpirationTimeStamp  *time.Time
+	IncrementalFreeHours *float64
+	RemainingFreeHours   *float64
+}
+
+type BillingHubGetFreeHourBalanceResponse struct {
+	IncrementEntries        []*BillingHubFreeHourIncrementEntry
+	TotalRemainingFreeHours *float64
+}
+
+type BillingHubGetUsageRequest struct {
+	// REQUIRED
+	EndTimeStamp *time.Time
+
+	// REQUIRED
+	StartTimeStamp *time.Time
+	PageIndex      *int32
+	PageSize       *int32
+}
+
+type BillingHubGetUsageResponse struct {
+	NextRequest            *BillingHubGetUsageRequest
+	PackageUsageEntries    []*BillingHubPackageUsage
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+}
+
+type BillingHubPackageUsage struct {
+	ApplicationName                 *string
+	ApplicationVersion              *string
+	AzureResourceURI                *string
+	TotalCharges                    *float64
+	TotalUsedBillableHours          *float64
+	TotalUsedFreeHours              *float64
+	UsageEntriesGroupedByUpdateType []*BillingHubUsageGroupedByUpdateType
+}
+
+// BillingHubServiceClientGetFreeHourBalanceOptions contains the optional parameters for the BillingHubServiceClient.GetFreeHourBalance
+// method.
+type BillingHubServiceClientGetFreeHourBalanceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BillingHubServiceClientGetUsageOptions contains the optional parameters for the BillingHubServiceClient.GetUsage method.
+type BillingHubServiceClientGetUsageOptions struct {
+	GetUsageRequest *BillingHubGetUsageRequest
+}
+
+type BillingHubUsage struct {
+	ApplicationName        *string
+	ApplicationVersion     *string
+	AzureResourceURI       *string
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+	UsageGroups            []*BillingHubUsageGroup
+}
+
+type BillingHubUsageGroup struct {
+	ExecutionUsageDetails  []*BillingHubExecutionUsageDetail
+	OSBuild                *string
+	ProductFamily          *string
+	Release                *string
+	ReleaseBuildDate       *time.Time
+	ReleaseBuildNumber     *int64
+	ReleaseBuildRevision   *int64
+	TestType               *string
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+}
+
+type BillingHubUsageGroupedByUpdateType struct {
+	TotalCharges           *float64
+	TotalUsedBillableHours *float64
+	TotalUsedFreeHours     *float64
+	UpdateType             *string
+	UsageGroups            []*BillingHubUsageGroup
+}
+
 // CPURegressionResultSingletonResourceProperties - The properties of CPU Regression Result.
 type CPURegressionResultSingletonResourceProperties struct {
 	// REQUIRED; Type of the Analysis Result.
@@ -916,11 +1016,11 @@ type PackageCheckNameAvailabilityParameters struct {
 	// REQUIRED; Resource name to verify.
 	Name *string
 
-	// REQUIRED; fully qualified resource type which includes provider namespace.
-	Type *string
-
 	// REQUIRED; Version name to verify.
 	Version *string
+
+	// fully qualified resource type which includes provider namespace.
+	Type *string
 }
 
 // PackageListResult - A list of Test Base Packages.
@@ -996,6 +1096,24 @@ type PackageResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// PackageRunTestParameters - The parameters supplied to the Test Base Package to start a Test Run.
+type PackageRunTestParameters struct {
+	// REQUIRED; The operating system name. e.g. Windows 10 1809.
+	OSName *string
+
+	// REQUIRED; The type of the test.
+	TestType *TestType
+
+	// The flighting ring, only for release of feature updates.
+	FlightingRing *string
+
+	// Specifies the OS update type to test against.
+	OSUpdateType *OsUpdateType
+
+	// The name of the tested release (OS update).
+	ReleaseName *string
 }
 
 // PackageUpdateParameterProperties - Parameters supplied to update a Test Base Package.
@@ -1075,6 +1193,12 @@ type PackagesClientGetOptions struct {
 // method.
 type PackagesClientListByTestBaseAccountOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PackagesClientRunTestOptions contains the optional parameters for the PackagesClient.RunTest method.
+type PackagesClientRunTestOptions struct {
+	// The parameters supplied to the Test Base Package to start a Test Run.
+	Parameters *PackageRunTestParameters
 }
 
 // ProxyResource - The resource model definition for an ARM proxy resource. It will have everything other than required location
@@ -1199,6 +1323,12 @@ type ScriptExecutionResult struct {
 	// Start time of script execution.
 	StartTime *time.Time
 
+	// The stderr log file name.
+	StderrLogFileName *string
+
+	// The stdout log file name.
+	StdoutLogFileName *string
+
 	// Whether the script execution is timed out.
 	TimedOut *bool
 }
@@ -1264,6 +1394,9 @@ type TargetOSInfo struct {
 
 	// REQUIRED; Specifies the target OSs to be tested.
 	TargetOSs []*string
+
+	// Specifies the baseline OSs to be tested.
+	BaselineOSs []*string
 }
 
 // Test - The definition of a Test.
@@ -1276,6 +1409,9 @@ type Test struct {
 
 	// Indicates if this test is active.It doesn't schedule test for not active Test.
 	IsActive *bool
+
+	// READ-ONLY; Resource identifier of the validation test result.
+	ValidationResultID *string
 
 	// READ-ONLY; The status of the validation run of the package.
 	ValidationRunStatus *ValidationRunStatus
@@ -1326,6 +1462,13 @@ type TestResultAnalysisSummary struct {
 	Name *string
 }
 
+// TestResultConsoleLogDownloadURLParameters - Parameters body to pass for getting the download URL of the test execution
+// console log file.
+type TestResultConsoleLogDownloadURLParameters struct {
+	// REQUIRED; The log file name corresponding to the download URL.
+	LogFileName *string
+}
+
 // TestResultListResult - A list of Test Results.
 type TestResultListResult struct {
 	// The list of Test Results.
@@ -1363,6 +1506,12 @@ type TestResultProperties struct {
 
 	// The grade of the test.
 	Grade *Grade
+
+	// Interop media type.
+	InteropMediaType *string
+
+	// Interop media version.
+	InteropMediaVersion *string
 
 	// Whether download data is available.
 	IsDownloadDataAvailable *bool
@@ -1414,6 +1563,12 @@ type TestResultResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// TestResultsClientGetConsoleLogDownloadURLOptions contains the optional parameters for the TestResultsClient.GetConsoleLogDownloadURL
+// method.
+type TestResultsClientGetConsoleLogDownloadURLOptions struct {
+	// placeholder for future optional parameters
 }
 
 // TestResultsClientGetDownloadURLOptions contains the optional parameters for the TestResultsClient.GetDownloadURL method.
@@ -1476,6 +1631,9 @@ type TestSummaryProperties struct {
 
 	// The Azure resource Id of package.
 	PackageID *string
+
+	// The tags of Package resource that are associated with the testSummary
+	PackageTags map[string]*string
 
 	// The result summary of tests triggered by security updates
 	SecurityUpdatesTestSummary *OSUpdatesTestSummary

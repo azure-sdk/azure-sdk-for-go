@@ -47,7 +47,7 @@ func NewCustomerEventsClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreate - Create or replace a Test Base Customer Event.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - customerEventName - The resource name of the Test Base Customer event.
@@ -71,7 +71,7 @@ func (client *CustomerEventsClient) BeginCreate(ctx context.Context, resourceGro
 // Create - Create or replace a Test Base Customer Event.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 func (client *CustomerEventsClient) create(ctx context.Context, resourceGroupName string, testBaseAccountName string, customerEventName string, parameters CustomerEventResource, options *CustomerEventsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, testBaseAccountName, customerEventName, parameters, options)
 	if err != nil {
@@ -111,7 +111,7 @@ func (client *CustomerEventsClient) createCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -120,7 +120,7 @@ func (client *CustomerEventsClient) createCreateRequest(ctx context.Context, res
 // BeginDelete - Deletes a Test Base Customer Event.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - customerEventName - The resource name of the Test Base Customer event.
@@ -143,7 +143,7 @@ func (client *CustomerEventsClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Deletes a Test Base Customer Event.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 func (client *CustomerEventsClient) deleteOperation(ctx context.Context, resourceGroupName string, testBaseAccountName string, customerEventName string, options *CustomerEventsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, testBaseAccountName, customerEventName, options)
 	if err != nil {
@@ -183,7 +183,7 @@ func (client *CustomerEventsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -192,7 +192,7 @@ func (client *CustomerEventsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets a Test Base CustomerEvent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - customerEventName - The resource name of the Test Base Customer event.
@@ -236,7 +236,7 @@ func (client *CustomerEventsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *CustomerEventsClient) getHandleResponse(resp *http.Response) (Cust
 
 // NewListByTestBaseAccountPager - Lists all notification events subscribed under a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - CustomerEventsClientListByTestBaseAccountOptions contains the optional parameters for the CustomerEventsClient.NewListByTestBaseAccountPager
@@ -306,7 +306,7 @@ func (client *CustomerEventsClient) listByTestBaseAccountCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

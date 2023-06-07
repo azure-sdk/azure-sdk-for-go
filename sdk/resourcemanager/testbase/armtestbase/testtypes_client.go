@@ -47,7 +47,7 @@ func NewTestTypesClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Gets a test type of a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - testTypeResourceName - The resource name of a test type.
@@ -91,7 +91,7 @@ func (client *TestTypesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *TestTypesClient) getHandleResponse(resp *http.Response) (TestTypes
 
 // NewListPager - Lists all the test types of a Test Base Account.
 //
-// Generated from API version 2020-12-16-preview
+// Generated from API version 2022-04-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource.
 //   - testBaseAccountName - The resource name of the Test Base Account.
 //   - options - TestTypesClientListOptions contains the optional parameters for the TestTypesClient.NewListPager method.
@@ -160,7 +160,7 @@ func (client *TestTypesClient) listCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-12-16-preview")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
