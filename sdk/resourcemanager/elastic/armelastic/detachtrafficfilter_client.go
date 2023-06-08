@@ -55,7 +55,7 @@ func NewDetachTrafficFilterClient(subscriptionID string, credential azcore.Token
 // BeginUpdate - Detach traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
 //   - monitorName - Monitor resource name
 //   - options - DetachTrafficFilterClientBeginUpdateOptions contains the optional parameters for the DetachTrafficFilterClient.BeginUpdate
@@ -77,7 +77,7 @@ func (client *DetachTrafficFilterClient) BeginUpdate(ctx context.Context, resour
 // Update - Detach traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
+// Generated from API version 2023-06-01
 func (client *DetachTrafficFilterClient) update(ctx context.Context, resourceGroupName string, monitorName string, options *DetachTrafficFilterClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -113,7 +113,7 @@ func (client *DetachTrafficFilterClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2023-06-01")
 	if options != nil && options.RulesetID != nil {
 		reqQP.Set("rulesetId", *options.RulesetID)
 	}
