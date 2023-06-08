@@ -14,68 +14,68 @@ import "time"
 // Account - A billing account.
 type Account struct {
 	// The properties of the billing account.
-	Properties *AccountProperties `json:"properties,omitempty"`
+	Properties *AccountProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // AccountListResult - The list of billing accounts.
 type AccountListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of billing accounts.
-	Value []*Account `json:"value,omitempty" azure:"ro"`
+	Value []*Account
 }
 
 // AccountProperties - The properties of the billing account.
 type AccountProperties struct {
 	// The billing profiles associated with the billing account. By default this is not populated, unless it's specified in $expand.
-	BillingProfiles *ProfilesOnExpand `json:"billingProfiles,omitempty"`
+	BillingProfiles *ProfilesOnExpand
 
 	// The departments associated to the enrollment.
-	Departments []*Department `json:"departments,omitempty"`
+	Departments []*Department
 
 	// The billing account name.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The accounts associated to the enrollment.
-	EnrollmentAccounts []*EnrollmentAccount `json:"enrollmentAccounts,omitempty"`
+	EnrollmentAccounts []*EnrollmentAccount
 
 	// Notification email address, only for legacy accounts
-	NotificationEmailAddress *string `json:"notificationEmailAddress,omitempty"`
+	NotificationEmailAddress *string
 
 	// The address of the individual or organization that is responsible for the billing account.
-	SoldTo *AddressDetails `json:"soldTo,omitempty"`
+	SoldTo *AddressDetails
 
 	// READ-ONLY; The current status of the billing account.
-	AccountStatus *AccountStatus `json:"accountStatus,omitempty" azure:"ro"`
+	AccountStatus *AccountStatus
 
 	// READ-ONLY; The type of customer.
-	AccountType *AccountType `json:"accountType,omitempty" azure:"ro"`
+	AccountType *AccountType
 
 	// READ-ONLY; The type of agreement.
-	AgreementType *AgreementType `json:"agreementType,omitempty" azure:"ro"`
+	AgreementType *AgreementType
 
 	// READ-ONLY; The details about the associated legacy enrollment. By default this is not populated, unless it's specified
 	// in $expand.
-	EnrollmentDetails *Enrollment `json:"enrollmentDetails,omitempty" azure:"ro"`
+	EnrollmentDetails *Enrollment
 
 	// READ-ONLY; Indicates whether user has read access to the billing account.
-	HasReadAccess *bool `json:"hasReadAccess,omitempty" azure:"ro"`
+	HasReadAccess *bool
 }
 
 // AccountUpdateRequest - The request properties of the billing account that can be updated.
 type AccountUpdateRequest struct {
 	// A billing property.
-	Properties *AccountProperties `json:"properties,omitempty"`
+	Properties *AccountProperties
 }
 
 // AccountsClientBeginUpdateOptions contains the optional parameters for the AccountsClient.BeginUpdate method.
@@ -110,97 +110,97 @@ type AddressClientValidateOptions struct {
 // AddressDetails - Address details.
 type AddressDetails struct {
 	// REQUIRED; Address line 1.
-	AddressLine1 *string `json:"addressLine1,omitempty"`
+	AddressLine1 *string
 
 	// REQUIRED; Country code uses ISO2, 2-digit format.
-	Country *string `json:"country,omitempty"`
+	Country *string
 
 	// Address line 2.
-	AddressLine2 *string `json:"addressLine2,omitempty"`
+	AddressLine2 *string
 
 	// Address line 3.
-	AddressLine3 *string `json:"addressLine3,omitempty"`
+	AddressLine3 *string
 
 	// Address city.
-	City *string `json:"city,omitempty"`
+	City *string
 
 	// Company name.
-	CompanyName *string `json:"companyName,omitempty"`
+	CompanyName *string
 
 	// Address district.
-	District *string `json:"district,omitempty"`
+	District *string
 
 	// Email address.
-	Email *string `json:"email,omitempty"`
+	Email *string
 
 	// First name.
-	FirstName *string `json:"firstName,omitempty"`
+	FirstName *string
 
 	// Last name.
-	LastName *string `json:"lastName,omitempty"`
+	LastName *string
 
 	// Middle name.
-	MiddleName *string `json:"middleName,omitempty"`
+	MiddleName *string
 
 	// Phone number.
-	PhoneNumber *string `json:"phoneNumber,omitempty"`
+	PhoneNumber *string
 
 	// Postal code.
-	PostalCode *string `json:"postalCode,omitempty"`
+	PostalCode *string
 
 	// Address region.
-	Region *string `json:"region,omitempty"`
+	Region *string
 }
 
 // Agreement - An agreement.
 type Agreement struct {
 	// The properties of an agreement.
-	Properties *AgreementProperties `json:"properties,omitempty"`
+	Properties *AgreementProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // AgreementListResult - Result of listing agreements.
 type AgreementListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of agreements.
-	Value []*Agreement `json:"value,omitempty" azure:"ro"`
+	Value []*Agreement
 }
 
 // AgreementProperties - The properties of an agreement.
 type AgreementProperties struct {
 	// The list of participants that participates in acceptance of an agreement.
-	Participants []*Participants `json:"participants,omitempty"`
+	Participants []*Participants
 
 	// READ-ONLY; The mode of acceptance for an agreement.
-	AcceptanceMode *AcceptanceMode `json:"acceptanceMode,omitempty" azure:"ro"`
+	AcceptanceMode *AcceptanceMode
 
 	// READ-ONLY; The URL to download the agreement.
-	AgreementLink *string `json:"agreementLink,omitempty" azure:"ro"`
+	AgreementLink *string
 
 	// READ-ONLY; The list of billing profiles associated with agreement and present only for specific agreements.
-	BillingProfileInfo *ProfileInfo `json:"billingProfileInfo,omitempty" azure:"ro"`
+	BillingProfileInfo *ProfileInfo
 
 	// READ-ONLY; The category of the agreement signed by a customer.
-	Category *Category `json:"category,omitempty" azure:"ro"`
+	Category *Category
 
 	// READ-ONLY; The date from which the agreement is effective.
-	EffectiveDate *time.Time `json:"effectiveDate,omitempty" azure:"ro"`
+	EffectiveDate *time.Time
 
 	// READ-ONLY; The date when the agreement expires.
-	ExpirationDate *time.Time `json:"expirationDate,omitempty" azure:"ro"`
+	ExpirationDate *time.Time
 
 	// READ-ONLY; The current status of the agreement.
-	Status *string `json:"status,omitempty" azure:"ro"`
+	Status *string
 }
 
 // AgreementsClientGetOptions contains the optional parameters for the AgreementsClient.Get method.
@@ -219,31 +219,31 @@ type AgreementsClientListByBillingAccountOptions struct {
 // Amount - The amount.
 type Amount struct {
 	// Amount value.
-	Value *float32 `json:"value,omitempty"`
+	Value *float32
 
 	// READ-ONLY; The currency for the amount value.
-	Currency *string `json:"currency,omitempty" azure:"ro"`
+	Currency *string
 }
 
 // AvailableBalance - The latest Azure credit balance. This is the balance available for pay now.
 type AvailableBalance struct {
 	// The properties of available balance.
-	Properties *AvailableBalanceProperties `json:"properties,omitempty"`
+	Properties *AvailableBalanceProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // AvailableBalanceProperties - The properties of available balance.
 type AvailableBalanceProperties struct {
 	// READ-ONLY; Balance amount.
-	Amount *Amount `json:"amount,omitempty" azure:"ro"`
+	Amount *Amount
 }
 
 // AvailableBalancesClientGetOptions contains the optional parameters for the AvailableBalancesClient.Get method.
@@ -254,76 +254,76 @@ type AvailableBalancesClientGetOptions struct {
 // AzurePlan - Details of the Azure plan.
 type AzurePlan struct {
 	// The sku id.
-	SKUID *string `json:"skuId,omitempty"`
+	SKUID *string
 
 	// READ-ONLY; The sku description.
-	SKUDescription *string `json:"skuDescription,omitempty" azure:"ro"`
+	SKUDescription *string
 }
 
 // Customer - A partner's customer.
 type Customer struct {
 	// The customer.
-	Properties *CustomerProperties `json:"properties,omitempty"`
+	Properties *CustomerProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // CustomerListResult - The list of customers.
 type CustomerListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of customers.
-	Value []*Customer `json:"value,omitempty" azure:"ro"`
+	Value []*Customer
 }
 
 // CustomerPolicy - The customer's Policy.
 type CustomerPolicy struct {
 	// The properties of a customer's policy.
-	Properties *CustomerPolicyProperties `json:"properties,omitempty"`
+	Properties *CustomerPolicyProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // CustomerPolicyProperties - The properties of a customer's policy.
 type CustomerPolicyProperties struct {
 	// The policy that controls whether the users in customer's organization can view charges at pay-as-you-go prices.
-	ViewCharges *ViewCharges `json:"viewCharges,omitempty"`
+	ViewCharges *ViewCharges
 }
 
 // CustomerProperties - The properties of a customer.
 type CustomerProperties struct {
 	// The name of the customer.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// Azure plans enabled for the customer.
-	EnabledAzurePlans []*AzurePlan `json:"enabledAzurePlans,omitempty"`
+	EnabledAzurePlans []*AzurePlan
 
 	// The list of resellers for which an Azure plan is enabled for the customer.
-	Resellers []*Reseller `json:"resellers,omitempty"`
+	Resellers []*Reseller
 
 	// READ-ONLY; The name of the billing profile for the invoice section.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile for the invoice section.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 }
 
 // CustomersClientGetOptions contains the optional parameters for the CustomersClient.Get method.
@@ -353,169 +353,169 @@ type CustomersClientListByBillingProfileOptions struct {
 // Department - A department.
 type Department struct {
 	// A department.
-	Properties *DepartmentProperties `json:"properties,omitempty"`
+	Properties *DepartmentProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // DepartmentProperties - The properties of a department.
 type DepartmentProperties struct {
 	// The cost center associated with the department.
-	CostCenter *string `json:"costCenter,omitempty"`
+	CostCenter *string
 
 	// The name of the department.
-	DepartmentName *string `json:"departmentName,omitempty"`
+	DepartmentName *string
 
 	// Associated enrollment accounts. By default this is not populated, unless it's specified in $expand.
-	EnrollmentAccounts []*EnrollmentAccount `json:"enrollmentAccounts,omitempty"`
+	EnrollmentAccounts []*EnrollmentAccount
 
 	// The status of the department.
-	Status *string `json:"status,omitempty"`
+	Status *string
 }
 
 // Document - The properties of a document.
 type Document struct {
 	// READ-ONLY; The type of the document.
-	Kind *DocumentType `json:"kind,omitempty" azure:"ro"`
+	Kind *DocumentType
 
 	// READ-ONLY; The source of the document. ENF for Brazil and DRS for rest of the world.
-	Source *DocumentSource `json:"source,omitempty" azure:"ro"`
+	Source *DocumentSource
 
 	// READ-ONLY; Document URL.
-	URL *string `json:"url,omitempty" azure:"ro"`
+	URL *string
 }
 
 // DownloadURL - A secure URL that can be used to download a an entity until the URL expires.
 type DownloadURL struct {
 	// READ-ONLY; The time in UTC when the download URL will expire.
-	ExpiryTime *time.Time `json:"expiryTime,omitempty" azure:"ro"`
+	ExpiryTime *time.Time
 
 	// READ-ONLY; The URL to the PDF file.
-	URL *string `json:"url,omitempty" azure:"ro"`
+	URL *string
 }
 
 // Enrollment - The properties of an enrollment.
 type Enrollment struct {
 	// The end date of the enrollment.
-	EndDate *time.Time `json:"endDate,omitempty"`
+	EndDate *time.Time
 
 	// The start date of the enrollment.
-	StartDate *time.Time `json:"startDate,omitempty"`
+	StartDate *time.Time
 
 	// READ-ONLY; The billing cycle for the enrollment.
-	BillingCycle *string `json:"billingCycle,omitempty" azure:"ro"`
+	BillingCycle *string
 
 	// READ-ONLY; The channel type of the enrollment.
-	Channel *string `json:"channel,omitempty" azure:"ro"`
+	Channel *string
 
 	// READ-ONLY; The country code of the enrollment.
-	CountryCode *string `json:"countryCode,omitempty" azure:"ro"`
+	CountryCode *string
 
 	// READ-ONLY; The billing currency for the enrollment.
-	Currency *string `json:"currency,omitempty" azure:"ro"`
+	Currency *string
 
 	// READ-ONLY; The language for the enrollment.
-	Language *string `json:"language,omitempty" azure:"ro"`
+	Language *string
 
 	// READ-ONLY; The policies for Enterprise Agreement enrollments.
-	Policies *EnrollmentPolicies `json:"policies,omitempty" azure:"ro"`
+	Policies *EnrollmentPolicies
 
 	// READ-ONLY; The current status of the enrollment.
-	Status *string `json:"status,omitempty" azure:"ro"`
+	Status *string
 }
 
 // EnrollmentAccount - An enrollment account.
 type EnrollmentAccount struct {
 	// The properties of an enrollment account.
-	Properties *EnrollmentAccountProperties `json:"properties,omitempty"`
+	Properties *EnrollmentAccountProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // EnrollmentAccountContext - The enrollment account context
 type EnrollmentAccountContext struct {
 	// The cost center associated with the enrollment account.
-	CostCenter *string `json:"costCenter,omitempty"`
+	CostCenter *string
 
 	// The end date of the enrollment account.
-	EndDate *time.Time `json:"endDate,omitempty"`
+	EndDate *time.Time
 
 	// The ID of the enrollment account.
-	EnrollmentAccountName *string `json:"enrollmentAccountName,omitempty"`
+	EnrollmentAccountName *string
 
 	// The start date of the enrollment account.
-	StartDate *time.Time `json:"startDate,omitempty"`
+	StartDate *time.Time
 }
 
 // EnrollmentAccountListResult - Result of listing enrollment accounts.
 type EnrollmentAccountListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of enrollment accounts.
-	Value []*EnrollmentAccountSummary `json:"value,omitempty" azure:"ro"`
+	Value []*EnrollmentAccountSummary
 }
 
 // EnrollmentAccountProperties - The properties of an enrollment account.
 type EnrollmentAccountProperties struct {
 	// The name of the enrollment account.
-	AccountName *string `json:"accountName,omitempty"`
+	AccountName *string
 
 	// The owner of the enrollment account.
-	AccountOwner *string `json:"accountOwner,omitempty"`
+	AccountOwner *string
 
 	// The enrollment account owner email address.
-	AccountOwnerEmail *string `json:"accountOwnerEmail,omitempty"`
+	AccountOwnerEmail *string
 
 	// The cost center associated with the enrollment account.
-	CostCenter *string `json:"costCenter,omitempty"`
+	CostCenter *string
 
 	// Associated department. By default this is not populated, unless it's specified in $expand.
-	Department *Department `json:"department,omitempty"`
+	Department *Department
 
 	// The end date of the enrollment account.
-	EndDate *time.Time `json:"endDate,omitempty"`
+	EndDate *time.Time
 
 	// The start date of the enrollment account.
-	StartDate *time.Time `json:"startDate,omitempty"`
+	StartDate *time.Time
 
 	// The status of the enrollment account.
-	Status *string `json:"status,omitempty"`
+	Status *string
 }
 
 // EnrollmentAccountSummary - An enrollment account resource.
 type EnrollmentAccountSummary struct {
 	// An enrollment account.
-	Properties *EnrollmentAccountSummaryProperties `json:"properties,omitempty"`
+	Properties *EnrollmentAccountSummaryProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // EnrollmentAccountSummaryProperties - The properties of the enrollment account.
 type EnrollmentAccountSummaryProperties struct {
 	// READ-ONLY; The account owner's principal name.
-	PrincipalName *string `json:"principalName,omitempty" azure:"ro"`
+	PrincipalName *string
 }
 
 // EnrollmentAccountsClientGetOptions contains the optional parameters for the EnrollmentAccountsClient.Get method.
@@ -531,100 +531,100 @@ type EnrollmentAccountsClientListOptions struct {
 // EnrollmentPolicies - The policies for Enterprise Agreement enrollments.
 type EnrollmentPolicies struct {
 	// READ-ONLY; The policy that controls whether Account Owners can view charges.
-	AccountOwnerViewCharges *bool `json:"accountOwnerViewCharges,omitempty" azure:"ro"`
+	AccountOwnerViewCharges *bool
 
 	// READ-ONLY; The policy that controls whether Department Administrators can view charges.
-	DepartmentAdminViewCharges *bool `json:"departmentAdminViewCharges,omitempty" azure:"ro"`
+	DepartmentAdminViewCharges *bool
 
 	// READ-ONLY; The policy that controls whether Azure marketplace purchases are allowed in the enrollment.
-	MarketplaceEnabled *bool `json:"marketplaceEnabled,omitempty" azure:"ro"`
+	MarketplaceEnabled *bool
 
 	// READ-ONLY; The policy that controls whether Azure reservation purchases are allowed in the enrollment.
-	ReservedInstancesEnabled *bool `json:"reservedInstancesEnabled,omitempty" azure:"ro"`
+	ReservedInstancesEnabled *bool
 }
 
 // ErrorDetails - The details of the error.
 type ErrorDetails struct {
 	// READ-ONLY; Error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
+	Code *string
 
 	// READ-ONLY; The sub details of the error.
-	Details []*ErrorSubDetailsItem `json:"details,omitempty" azure:"ro"`
+	Details []*ErrorSubDetailsItem
 
 	// READ-ONLY; Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty" azure:"ro"`
+	Message *string
 
 	// READ-ONLY; The target of the particular error.
-	Target *string `json:"target,omitempty" azure:"ro"`
+	Target *string
 }
 
 // ErrorResponse - Error response indicates that the service is not able to process the incoming request. The reason is provided
 // in the error message.
 type ErrorResponse struct {
 	// The details of the error.
-	Error *ErrorDetails `json:"error,omitempty"`
+	Error *ErrorDetails
 }
 
 type ErrorSubDetailsItem struct {
 	// READ-ONLY; Error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
+	Code *string
 
 	// READ-ONLY; Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty" azure:"ro"`
+	Message *string
 
 	// READ-ONLY; The target of the particular error.
-	Target *string `json:"target,omitempty" azure:"ro"`
+	Target *string
 }
 
 // IndirectRelationshipInfo - The billing profile details of the partner of the customer for an indirect motion.
 type IndirectRelationshipInfo struct {
 	// The billing account name of the partner or the customer for an indirect motion.
-	BillingAccountName *string `json:"billingAccountName,omitempty"`
+	BillingAccountName *string
 
 	// The billing profile name of the partner or the customer for an indirect motion.
-	BillingProfileName *string `json:"billingProfileName,omitempty"`
+	BillingProfileName *string
 
 	// The display name of the partner or customer for an indirect motion.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 }
 
 // Instruction - An instruction.
 type Instruction struct {
 	// A billing instruction used during invoice generation.
-	Properties *InstructionProperties `json:"properties,omitempty"`
+	Properties *InstructionProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // InstructionListResult - The list of billing instructions used during invoice generation.
 type InstructionListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of billing instructions used during invoice generation.
-	Value []*Instruction `json:"value,omitempty" azure:"ro"`
+	Value []*Instruction
 }
 
 // InstructionProperties - A billing instruction used during invoice generation.
 type InstructionProperties struct {
 	// REQUIRED; The amount budgeted for this billing instruction.
-	Amount *float32 `json:"amount,omitempty"`
+	Amount *float32
 
 	// REQUIRED; The date this billing instruction is no longer in effect.
-	EndDate *time.Time `json:"endDate,omitempty"`
+	EndDate *time.Time
 
 	// REQUIRED; The date this billing instruction goes into effect.
-	StartDate *time.Time `json:"startDate,omitempty"`
+	StartDate *time.Time
 
 	// The date this billing instruction was created.
-	CreationDate *time.Time `json:"creationDate,omitempty"`
+	CreationDate *time.Time
 }
 
 // InstructionsClientGetOptions contains the optional parameters for the InstructionsClient.Get method.
@@ -646,214 +646,214 @@ type InstructionsClientPutOptions struct {
 // Invoice - An invoice.
 type Invoice struct {
 	// An invoice.
-	Properties *InvoiceProperties `json:"properties,omitempty"`
+	Properties *InvoiceProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // InvoiceListResult - The list of invoices.
 type InvoiceListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of invoices.
-	Value []*Invoice `json:"value,omitempty" azure:"ro"`
+	Value []*Invoice
 }
 
 // InvoiceProperties - The properties of the invoice.
 type InvoiceProperties struct {
 	// READ-ONLY; The amount due as of now.
-	AmountDue *Amount `json:"amountDue,omitempty" azure:"ro"`
+	AmountDue *Amount
 
 	// READ-ONLY; The amount of Azure prepayment applied to the charges. This field is applicable to billing accounts with agreement
 	// type Microsoft Customer Agreement.
-	AzurePrepaymentApplied *Amount `json:"azurePrepaymentApplied,omitempty" azure:"ro"`
+	AzurePrepaymentApplied *Amount
 
 	// READ-ONLY; The total charges for the invoice billing period.
-	BilledAmount *Amount `json:"billedAmount,omitempty" azure:"ro"`
+	BilledAmount *Amount
 
 	// READ-ONLY; The Id of the active invoice which is originally billed after this invoice was voided. This field is applicable
 	// to the void invoices only.
-	BilledDocumentID *string `json:"billedDocumentId,omitempty" azure:"ro"`
+	BilledDocumentID *string
 
 	// READ-ONLY; The name of the billing profile for which the invoice is generated.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile for which the invoice is generated.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 
 	// READ-ONLY; The total refund for returns and cancellations during the invoice billing period. This field is applicable to
 	// billing accounts with agreement type Microsoft Customer Agreement.
-	CreditAmount *Amount `json:"creditAmount,omitempty" azure:"ro"`
+	CreditAmount *Amount
 
 	// READ-ONLY; The Id of the invoice which got voided and this credit note was issued as a result. This field is applicable
 	// to the credit notes only.
-	CreditForDocumentID *string `json:"creditForDocumentId,omitempty" azure:"ro"`
+	CreditForDocumentID *string
 
 	// READ-ONLY; The type of the document.
-	DocumentType *InvoiceDocumentType `json:"documentType,omitempty" azure:"ro"`
+	DocumentType *InvoiceDocumentType
 
 	// READ-ONLY; List of documents available to download such as invoice and tax receipt.
-	Documents []*Document `json:"documents,omitempty" azure:"ro"`
+	Documents []*Document
 
 	// READ-ONLY; The due date for the invoice.
-	DueDate *time.Time `json:"dueDate,omitempty" azure:"ro"`
+	DueDate *time.Time
 
 	// READ-ONLY; The amount of free Azure credits applied to the charges. This field is applicable to billing accounts with agreement
 	// type Microsoft Customer Agreement.
-	FreeAzureCreditApplied *Amount `json:"freeAzureCreditApplied,omitempty" azure:"ro"`
+	FreeAzureCreditApplied *Amount
 
 	// READ-ONLY; The date when the invoice was generated.
-	InvoiceDate *time.Time `json:"invoiceDate,omitempty" azure:"ro"`
+	InvoiceDate *time.Time
 
 	// READ-ONLY; The end date of the billing period for which the invoice is generated.
-	InvoicePeriodEndDate *time.Time `json:"invoicePeriodEndDate,omitempty" azure:"ro"`
+	InvoicePeriodEndDate *time.Time
 
 	// READ-ONLY; The start date of the billing period for which the invoice is generated.
-	InvoicePeriodStartDate *time.Time `json:"invoicePeriodStartDate,omitempty" azure:"ro"`
+	InvoicePeriodStartDate *time.Time
 
 	// READ-ONLY; Invoice type.
-	InvoiceType *InvoiceType `json:"invoiceType,omitempty" azure:"ro"`
+	InvoiceType *InvoiceType
 
 	// READ-ONLY; Specifies if the invoice is generated as part of monthly invoicing cycle or not. This field is applicable to
 	// billing accounts with agreement type Microsoft Customer Agreement.
-	IsMonthlyInvoice *bool `json:"isMonthlyInvoice,omitempty" azure:"ro"`
+	IsMonthlyInvoice *bool
 
 	// READ-ONLY; List of payments.
-	Payments []*PaymentProperties `json:"payments,omitempty" azure:"ro"`
+	Payments []*PaymentProperties
 
 	// READ-ONLY; An optional purchase order number for the invoice.
-	PurchaseOrderNumber *string `json:"purchaseOrderNumber,omitempty" azure:"ro"`
+	PurchaseOrderNumber *string
 
 	// READ-ONLY; Rebill details for an invoice.
-	RebillDetails map[string]*RebillDetails `json:"rebillDetails,omitempty" azure:"ro"`
+	RebillDetails map[string]*RebillDetails
 
 	// READ-ONLY; The current status of the invoice.
-	Status *InvoiceStatus `json:"status,omitempty" azure:"ro"`
+	Status *InvoiceStatus
 
 	// READ-ONLY; The pre-tax amount due. This field is applicable to billing accounts with agreement type Microsoft Customer
 	// Agreement.
-	SubTotal *Amount `json:"subTotal,omitempty" azure:"ro"`
+	SubTotal *Amount
 
 	// READ-ONLY; The ID of the subscription for which the invoice is generated.
-	SubscriptionID *string `json:"subscriptionId,omitempty" azure:"ro"`
+	SubscriptionID *string
 
 	// READ-ONLY; The amount of tax charged for the billing period. This field is applicable to billing accounts with agreement
 	// type Microsoft Customer Agreement.
-	TaxAmount *Amount `json:"taxAmount,omitempty" azure:"ro"`
+	TaxAmount *Amount
 
 	// READ-ONLY; The amount due when the invoice was generated. This field is applicable to billing accounts with agreement type
 	// Microsoft Customer Agreement.
-	TotalAmount *Amount `json:"totalAmount,omitempty" azure:"ro"`
+	TotalAmount *Amount
 }
 
 // InvoiceSection - An invoice section.
 type InvoiceSection struct {
 	// The properties of an invoice section.
-	Properties *InvoiceSectionProperties `json:"properties,omitempty"`
+	Properties *InvoiceSectionProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // InvoiceSectionCreationRequest - The properties of the invoice section.
 type InvoiceSectionCreationRequest struct {
 	// The name of the invoice section.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 }
 
 // InvoiceSectionListResult - The list of invoice sections.
 type InvoiceSectionListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of invoice sections.
-	Value []*InvoiceSection `json:"value,omitempty" azure:"ro"`
+	Value []*InvoiceSection
 }
 
 // InvoiceSectionListWithCreateSubPermissionResult - The list of invoice section properties with create subscription permission.
 type InvoiceSectionListWithCreateSubPermissionResult struct {
 	// The list of invoice section properties with create subscription permission.
-	Value []*InvoiceSectionWithCreateSubPermission `json:"value,omitempty"`
+	Value []*InvoiceSectionWithCreateSubPermission
 
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // InvoiceSectionProperties - The properties of an invoice section.
 type InvoiceSectionProperties struct {
 	// The name of the invoice section.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// Dictionary of metadata associated with the invoice section.
-	Labels map[string]*string `json:"labels,omitempty"`
+	Labels map[string]*string
 
 	// Dictionary of metadata associated with the invoice section. Maximum key/value length supported of 256 characters. Keys/value
 	// should not empty value nor null. Keys can not contain < > % & \ ? /
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; Identifies the state of an invoice section.
-	State *InvoiceSectionState `json:"state,omitempty" azure:"ro"`
+	State *InvoiceSectionState
 
 	// READ-ONLY; The system generated unique identifier for an invoice section.
-	SystemID *string `json:"systemId,omitempty" azure:"ro"`
+	SystemID *string
 
 	// READ-ONLY; Identifies the cloud environments that are associated with an invoice section. This is a system managed optional
 	// field and gets updated as the invoice section gets associated with accounts in various
 	// clouds.
-	TargetCloud *TargetCloud `json:"targetCloud,omitempty" azure:"ro"`
+	TargetCloud *TargetCloud
 }
 
 // InvoiceSectionWithCreateSubPermission - Invoice section properties with create subscription permission.
 type InvoiceSectionWithCreateSubPermission struct {
 	// Enabled azure plans for the associated billing profile.
-	EnabledAzurePlans []*AzurePlan `json:"enabledAzurePlans,omitempty"`
+	EnabledAzurePlans []*AzurePlan
 
 	// READ-ONLY; The name of the billing profile for the invoice section.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile for the invoice section.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 
 	// READ-ONLY; The billing profile spending limit.
-	BillingProfileSpendingLimit *SpendingLimitForBillingProfile `json:"billingProfileSpendingLimit,omitempty" azure:"ro"`
+	BillingProfileSpendingLimit *SpendingLimitForBillingProfile
 
 	// READ-ONLY; The status of the billing profile.
-	BillingProfileStatus *BillingProfileStatus `json:"billingProfileStatus,omitempty" azure:"ro"`
+	BillingProfileStatus *BillingProfileStatus
 
 	// READ-ONLY; Reason for the specified billing profile status.
-	BillingProfileStatusReasonCode *StatusReasonCodeForBillingProfile `json:"billingProfileStatusReasonCode,omitempty" azure:"ro"`
+	BillingProfileStatusReasonCode *StatusReasonCodeForBillingProfile
 
 	// READ-ONLY; The system generated unique identifier for a billing profile.
-	BillingProfileSystemID *string `json:"billingProfileSystemId,omitempty" azure:"ro"`
+	BillingProfileSystemID *string
 
 	// READ-ONLY; The name of the invoice section.
-	InvoiceSectionDisplayName *string `json:"invoiceSectionDisplayName,omitempty" azure:"ro"`
+	InvoiceSectionDisplayName *string
 
 	// READ-ONLY; The ID of the invoice section.
-	InvoiceSectionID *string `json:"invoiceSectionId,omitempty" azure:"ro"`
+	InvoiceSectionID *string
 
 	// READ-ONLY; The system generated unique identifier for an invoice section.
-	InvoiceSectionSystemID *string `json:"invoiceSectionSystemId,omitempty" azure:"ro"`
+	InvoiceSectionSystemID *string
 }
 
 // InvoiceSectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the InvoiceSectionsClient.BeginCreateOrUpdate
@@ -878,12 +878,12 @@ type InvoiceSectionsClientListByBillingProfileOptions struct {
 // it's specified in $expand.
 type InvoiceSectionsOnExpand struct {
 	// The invoice sections associated to the billing profile.
-	Value []*InvoiceSection `json:"value,omitempty"`
+	Value []*InvoiceSection
 
 	// READ-ONLY; Indicates whether there are more invoice sections than the ones listed in this collection. The collection lists
 	// a maximum of 50 invoice sections. To get all invoice sections, use the list invoice
 	// sections API.
-	HasMoreResults *bool `json:"hasMoreResults,omitempty" azure:"ro"`
+	HasMoreResults *bool
 }
 
 // InvoicesClientBeginDownloadBillingSubscriptionInvoiceOptions contains the optional parameters for the InvoicesClient.BeginDownloadBillingSubscriptionInvoice
@@ -951,37 +951,37 @@ type InvoicesClientListByBillingSubscriptionOptions struct {
 // Operation - A Billing REST API operation.
 type Operation struct {
 	// The object that represents the operation.
-	Display *OperationDisplay `json:"display,omitempty"`
+	Display *OperationDisplay
 
 	// READ-ONLY; Identifies if the operation is a data operation.
-	IsDataAction *bool `json:"isDataAction,omitempty" azure:"ro"`
+	IsDataAction *bool
 
 	// READ-ONLY; Operation name: {provider}/{resource}/{operation}.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 }
 
 // OperationDisplay - The object that represents the operation.
 type OperationDisplay struct {
 	// READ-ONLY; Description of operation.
-	Description *string `json:"description,omitempty" azure:"ro"`
+	Description *string
 
 	// READ-ONLY; Operation type such as read, write and delete.
-	Operation *string `json:"operation,omitempty" azure:"ro"`
+	Operation *string
 
 	// READ-ONLY; Service provider: Microsoft.Billing.
-	Provider *string `json:"provider,omitempty" azure:"ro"`
+	Provider *string
 
 	// READ-ONLY; Resource on which the operation is performed such as invoice and billing subscription.
-	Resource *string `json:"resource,omitempty" azure:"ro"`
+	Resource *string
 }
 
 // OperationListResult - The list of billing operations and a URL link to get the next set of results.
 type OperationListResult struct {
 	// READ-ONLY; URL to get the next set of operation list results if there are any.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of billing operations supported by the Microsoft.Billing resource provider.
-	Value []*Operation `json:"value,omitempty" azure:"ro"`
+	Value []*Operation
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -992,77 +992,77 @@ type OperationsClientListOptions struct {
 // OperationsErrorDetails - The details of the error.
 type OperationsErrorDetails struct {
 	// READ-ONLY; Error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
+	Code *string
 
 	// READ-ONLY; Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty" azure:"ro"`
+	Message *string
 
 	// READ-ONLY; The target of the particular error.
-	Target *string `json:"target,omitempty" azure:"ro"`
+	Target *string
 }
 
 // OperationsErrorResponse - Error response indicates that the service is not able to process the incoming request. The reason
 // is provided in the error message.
 type OperationsErrorResponse struct {
 	// The details of the error.
-	Error *OperationsErrorDetails `json:"error,omitempty"`
+	Error *OperationsErrorDetails
 }
 
 // Participants - The details about a participant.
 type Participants struct {
 	// READ-ONLY; The email address of the participant.
-	Email *string `json:"email,omitempty" azure:"ro"`
+	Email *string
 
 	// READ-ONLY; The acceptance status of the participant.
-	Status *string `json:"status,omitempty" azure:"ro"`
+	Status *string
 
 	// READ-ONLY; The date when the status got changed.
-	StatusDate *time.Time `json:"statusDate,omitempty" azure:"ro"`
+	StatusDate *time.Time
 }
 
 // PaymentProperties - The properties of a payment.
 type PaymentProperties struct {
 	// The family of payment method.
-	PaymentMethodFamily *PaymentMethodFamily `json:"paymentMethodFamily,omitempty"`
+	PaymentMethodFamily *PaymentMethodFamily
 
 	// READ-ONLY; The paid amount.
-	Amount *Amount `json:"amount,omitempty" azure:"ro"`
+	Amount *Amount
 
 	// READ-ONLY; The date when the payment was made.
-	Date *time.Time `json:"date,omitempty" azure:"ro"`
+	Date *time.Time
 
 	// READ-ONLY; The type of payment method.
-	PaymentMethodType *string `json:"paymentMethodType,omitempty" azure:"ro"`
+	PaymentMethodType *string
 
 	// READ-ONLY; The type of payment.
-	PaymentType *string `json:"paymentType,omitempty" azure:"ro"`
+	PaymentType *string
 }
 
 // Period - A billing period resource.
 type Period struct {
 	// A billing period.
-	Properties *PeriodProperties `json:"properties,omitempty"`
+	Properties *PeriodProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // PeriodProperties - The properties of the billing period.
 type PeriodProperties struct {
 	// READ-ONLY; The end of the date range covered by the billing period.
-	BillingPeriodEndDate *time.Time `json:"billingPeriodEndDate,omitempty" azure:"ro"`
+	BillingPeriodEndDate *time.Time
 
 	// READ-ONLY; The start of the date range covered by the billing period.
-	BillingPeriodStartDate *time.Time `json:"billingPeriodStartDate,omitempty" azure:"ro"`
+	BillingPeriodStartDate *time.Time
 
 	// READ-ONLY; Array of invoice ids that associated with.
-	InvoiceIDs []*string `json:"invoiceIds,omitempty" azure:"ro"`
+	InvoiceIDs []*string
 }
 
 // PeriodsClientGetOptions contains the optional parameters for the PeriodsClient.Get method.
@@ -1087,10 +1087,10 @@ type PeriodsClientListOptions struct {
 // order.
 type PeriodsListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of billing periods.
-	Value []*Period `json:"value,omitempty" azure:"ro"`
+	Value []*Period
 }
 
 // PermissionsClientListByBillingAccountOptions contains the optional parameters for the PermissionsClient.NewListByBillingAccountPager
@@ -1120,19 +1120,19 @@ type PermissionsClientListByInvoiceSectionsOptions struct {
 // PermissionsListResult - Result of list billingPermissions a caller has on a billing account.
 type PermissionsListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of billingPermissions a caller has on a billing account.
-	Value []*PermissionsProperties `json:"value,omitempty" azure:"ro"`
+	Value []*PermissionsProperties
 }
 
 // PermissionsProperties - The set of allowed action and not allowed actions a caller has on a billing account
 type PermissionsProperties struct {
 	// READ-ONLY; The set of actions that the caller is allowed to perform.
-	Actions []*string `json:"actions,omitempty" azure:"ro"`
+	Actions []*string
 
 	// READ-ONLY; The set of actions that the caller is not allowed to perform.
-	NotActions []*string `json:"notActions,omitempty" azure:"ro"`
+	NotActions []*string
 }
 
 // PoliciesClientGetByBillingProfileOptions contains the optional parameters for the PoliciesClient.GetByBillingProfile method.
@@ -1158,114 +1158,114 @@ type PoliciesClientUpdateOptions struct {
 // Policy - A policy.
 type Policy struct {
 	// The properties of a policy.
-	Properties *PolicyProperties `json:"properties,omitempty"`
+	Properties *PolicyProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // PolicyProperties - The properties of a policy.
 type PolicyProperties struct {
 	// The policy that controls whether Azure marketplace purchases are allowed for a billing profile.
-	MarketplacePurchases *MarketplacePurchasesPolicy `json:"marketplacePurchases,omitempty"`
+	MarketplacePurchases *MarketplacePurchasesPolicy
 
 	// The policy that controls whether Azure reservation purchases are allowed for a billing profile.
-	ReservationPurchases *ReservationPurchasesPolicy `json:"reservationPurchases,omitempty"`
+	ReservationPurchases *ReservationPurchasesPolicy
 
 	// The policy that controls whether users with Azure RBAC access to a subscription can view its charges.
-	ViewCharges *ViewChargesPolicy `json:"viewCharges,omitempty"`
+	ViewCharges *ViewChargesPolicy
 }
 
 // Product - A product.
 type Product struct {
 	// The properties of a product.
-	Properties *ProductProperties `json:"properties,omitempty"`
+	Properties *ProductProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ProductProperties - The properties of a product.
 type ProductProperties struct {
 	// Indicates whether auto renewal is turned on or off for a product.
-	AutoRenew *AutoRenew `json:"autoRenew,omitempty"`
+	AutoRenew *AutoRenew
 
 	// The frequency at which the product will be billed.
-	BillingFrequency *BillingFrequency `json:"billingFrequency,omitempty"`
+	BillingFrequency *BillingFrequency
 
 	// The current status of the product.
-	Status *ProductStatusType `json:"status,omitempty"`
+	Status *ProductStatusType
 
 	// READ-ONLY; The availability of the product.
-	AvailabilityID *string `json:"availabilityId,omitempty" azure:"ro"`
+	AvailabilityID *string
 
 	// READ-ONLY; The name of the billing profile to which the product is billed.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile to which the product is billed.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 
 	// READ-ONLY; The name of the customer for whom the product was purchased. The field is applicable only for Microsoft Partner
 	// Agreement billing account.
-	CustomerDisplayName *string `json:"customerDisplayName,omitempty" azure:"ro"`
+	CustomerDisplayName *string
 
 	// READ-ONLY; The ID of the customer for whom the product was purchased. The field is applicable only for Microsoft Partner
 	// Agreement billing account.
-	CustomerID *string `json:"customerId,omitempty" azure:"ro"`
+	CustomerID *string
 
 	// READ-ONLY; The display name of the product.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+	DisplayName *string
 
 	// READ-ONLY; The date when the product will be renewed or canceled.
-	EndDate *time.Time `json:"endDate,omitempty" azure:"ro"`
+	EndDate *time.Time
 
 	// READ-ONLY; The name of the invoice section to which the product is billed.
-	InvoiceSectionDisplayName *string `json:"invoiceSectionDisplayName,omitempty" azure:"ro"`
+	InvoiceSectionDisplayName *string
 
 	// READ-ONLY; The ID of the invoice section to which the product is billed.
-	InvoiceSectionID *string `json:"invoiceSectionId,omitempty" azure:"ro"`
+	InvoiceSectionID *string
 
 	// READ-ONLY; The last month charges.
-	LastCharge *Amount `json:"lastCharge,omitempty" azure:"ro"`
+	LastCharge *Amount
 
 	// READ-ONLY; The date of the last charge.
-	LastChargeDate *time.Time `json:"lastChargeDate,omitempty" azure:"ro"`
+	LastChargeDate *time.Time
 
 	// READ-ONLY; The description of the type of product.
-	ProductType *string `json:"productType,omitempty" azure:"ro"`
+	ProductType *string
 
 	// READ-ONLY; The ID of the type of product.
-	ProductTypeID *string `json:"productTypeId,omitempty" azure:"ro"`
+	ProductTypeID *string
 
 	// READ-ONLY; The date when the product was purchased.
-	PurchaseDate *time.Time `json:"purchaseDate,omitempty" azure:"ro"`
+	PurchaseDate *time.Time
 
 	// READ-ONLY; The quantity purchased for the product.
-	Quantity *float32 `json:"quantity,omitempty" azure:"ro"`
+	Quantity *float32
 
 	// READ-ONLY; Reseller for this product.
-	Reseller *Reseller `json:"reseller,omitempty" azure:"ro"`
+	Reseller *Reseller
 
 	// READ-ONLY; The sku description of the product.
-	SKUDescription *string `json:"skuDescription,omitempty" azure:"ro"`
+	SKUDescription *string
 
 	// READ-ONLY; The sku ID of the product.
-	SKUID *string `json:"skuId,omitempty" azure:"ro"`
+	SKUID *string
 
 	// READ-ONLY; The id of the tenant in which the product is used.
-	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+	TenantID *string
 }
 
 // ProductsClientGetOptions contains the optional parameters for the ProductsClient.Get method.
@@ -1324,126 +1324,126 @@ type ProductsClientValidateMoveOptions struct {
 // by purchase date.
 type ProductsListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of products.
-	Value []*Product `json:"value,omitempty" azure:"ro"`
+	Value []*Product
 }
 
 // Profile - A billing profile.
 type Profile struct {
 	// The properties of the billing profile.
-	Properties *ProfileProperties `json:"properties,omitempty"`
+	Properties *ProfileProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ProfileCreationRequest - The request parameters for creating a new billing profile.
 type ProfileCreationRequest struct {
 	// The address of the individual or organization that is responsible for the billing profile.
-	BillTo *AddressDetails `json:"billTo,omitempty"`
+	BillTo *AddressDetails
 
 	// The name of the billing profile.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// Enabled azure plans for the billing profile.
-	EnabledAzurePlans []*AzurePlan `json:"enabledAzurePlans,omitempty"`
+	EnabledAzurePlans []*AzurePlan
 
 	// Flag controlling whether the invoices for the billing profile are sent through email.
-	InvoiceEmailOptIn *bool `json:"invoiceEmailOptIn,omitempty"`
+	InvoiceEmailOptIn *bool
 
 	// The purchase order name that will appear on the invoices generated for the billing profile.
-	PoNumber *string `json:"poNumber,omitempty"`
+	PoNumber *string
 }
 
 // ProfileInfo - Details about billing profile associated with agreement and available only for specific agreements.
 type ProfileInfo struct {
 	// The name of the billing profile
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty"`
+	BillingProfileDisplayName *string
 
 	// The unique identifier for the billing profile.
-	BillingProfileID *string `json:"billingProfileId,omitempty"`
+	BillingProfileID *string
 
 	// Billing account name. This property is available for a specific type of agreement.
-	IndirectRelationshipOrganizationName *string `json:"indirectRelationshipOrganizationName,omitempty"`
+	IndirectRelationshipOrganizationName *string
 }
 
 // ProfileListResult - The list of billing profiles.
 type ProfileListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of billing profiles.
-	Value []*Profile `json:"value,omitempty" azure:"ro"`
+	Value []*Profile
 }
 
 // ProfileProperties - The properties of the billing profile.
 type ProfileProperties struct {
 	// Billing address.
-	BillTo *AddressDetails `json:"billTo,omitempty"`
+	BillTo *AddressDetails
 
 	// The name of the billing profile.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// Information about the enabled azure plans.
-	EnabledAzurePlans []*AzurePlan `json:"enabledAzurePlans,omitempty"`
+	EnabledAzurePlans []*AzurePlan
 
 	// Flag controlling whether the invoices for the billing profile are sent through email.
-	InvoiceEmailOptIn *bool `json:"invoiceEmailOptIn,omitempty"`
+	InvoiceEmailOptIn *bool
 
 	// The invoice sections associated to the billing profile. By default this is not populated, unless it's specified in $expand.
-	InvoiceSections *InvoiceSectionsOnExpand `json:"invoiceSections,omitempty"`
+	InvoiceSections *InvoiceSectionsOnExpand
 
 	// The purchase order name that will appear on the invoices generated for the billing profile.
-	PoNumber *string `json:"poNumber,omitempty"`
+	PoNumber *string
 
 	// Tags of billing profiles.
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; Identifies which services and purchases are paid by a billing profile.
-	BillingRelationshipType *BillingRelationshipType `json:"billingRelationshipType,omitempty" azure:"ro"`
+	BillingRelationshipType *BillingRelationshipType
 
 	// READ-ONLY; The currency in which the charges for the billing profile are billed.
-	Currency *string `json:"currency,omitempty" azure:"ro"`
+	Currency *string
 
 	// READ-ONLY; Indicates whether user has read access to the billing profile.
-	HasReadAccess *bool `json:"hasReadAccess,omitempty" azure:"ro"`
+	HasReadAccess *bool
 
 	// READ-ONLY; Identifies the billing profile that is linked to another billing profile in indirect purchase motion.
-	IndirectRelationshipInfo *IndirectRelationshipInfo `json:"indirectRelationshipInfo,omitempty" azure:"ro"`
+	IndirectRelationshipInfo *IndirectRelationshipInfo
 
 	// READ-ONLY; The day of the month when the invoice for the billing profile is generated.
-	InvoiceDay *int32 `json:"invoiceDay,omitempty" azure:"ro"`
+	InvoiceDay *int32
 
 	// READ-ONLY; The billing profile spending limit.
-	SpendingLimit *SpendingLimit `json:"spendingLimit,omitempty" azure:"ro"`
+	SpendingLimit *SpendingLimit
 
 	// READ-ONLY; The status of the billing profile.
-	Status *BillingProfileStatus `json:"status,omitempty" azure:"ro"`
+	Status *BillingProfileStatus
 
 	// READ-ONLY; Reason for the specified billing profile status.
-	StatusReasonCode *StatusReasonCode `json:"statusReasonCode,omitempty" azure:"ro"`
+	StatusReasonCode *StatusReasonCode
 
 	// READ-ONLY; The system generated unique identifier for a billing profile.
-	SystemID *string `json:"systemId,omitempty" azure:"ro"`
+	SystemID *string
 
 	// READ-ONLY; Identifies the cloud environments that are associated with a billing profile. This is a system managed optional
 	// field and gets updated as the billing profile gets associated with accounts in various
 	// clouds.
-	TargetClouds []*TargetCloud `json:"targetClouds,omitempty" azure:"ro"`
+	TargetClouds []*TargetCloud
 }
 
 // ProfilesClientBeginCreateOrUpdateOptions contains the optional parameters for the ProfilesClient.BeginCreateOrUpdate method.
@@ -1469,27 +1469,27 @@ type ProfilesClientListByBillingAccountOptions struct {
 // specified in $expand.
 type ProfilesOnExpand struct {
 	// The billing profiles associated with the billing account.
-	Value []*Profile `json:"value,omitempty"`
+	Value []*Profile
 
 	// READ-ONLY; Indicates whether there are more billing profiles than the ones listed in this collection. The collection lists
 	// a maximum of 50 billing profiles. To get all billing profiles, use the list billing
 	// profiles API.
-	HasMoreResults *bool `json:"hasMoreResults,omitempty" azure:"ro"`
+	HasMoreResults *bool
 }
 
 // Property - A billing property.
 type Property struct {
 	// A billing property.
-	Properties *PropertyProperties `json:"properties,omitempty"`
+	Properties *PropertyProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // PropertyClientGetOptions contains the optional parameters for the PropertyClient.Get method.
@@ -1505,202 +1505,202 @@ type PropertyClientUpdateOptions struct {
 // PropertyProperties - The billing property.
 type PropertyProperties struct {
 	// The cost center applied to the subscription.
-	CostCenter *string `json:"costCenter,omitempty"`
+	CostCenter *string
 
 	// READ-ONLY; The email address on which the account admin gets all Azure notifications.
-	AccountAdminNotificationEmailAddress *string `json:"accountAdminNotificationEmailAddress,omitempty" azure:"ro"`
+	AccountAdminNotificationEmailAddress *string
 
 	// READ-ONLY; The name of the billing account to which the subscription is billed.
-	BillingAccountDisplayName *string `json:"billingAccountDisplayName,omitempty" azure:"ro"`
+	BillingAccountDisplayName *string
 
 	// READ-ONLY; The ID of the billing account to which the subscription is billed.
-	BillingAccountID *string `json:"billingAccountId,omitempty" azure:"ro"`
+	BillingAccountID *string
 
 	// READ-ONLY; The name of the billing profile to which the subscription is billed.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile to which the subscription is billed.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 
 	// READ-ONLY; The billing profile spending limit.
-	BillingProfileSpendingLimit *BillingProfileSpendingLimit `json:"billingProfileSpendingLimit,omitempty" azure:"ro"`
+	BillingProfileSpendingLimit *BillingProfileSpendingLimit
 
 	// READ-ONLY; The status of the billing profile.
-	BillingProfileStatus *BillingProfileStatus `json:"billingProfileStatus,omitempty" azure:"ro"`
+	BillingProfileStatus *BillingProfileStatus
 
 	// READ-ONLY; Reason for the specified billing profile status.
-	BillingProfileStatusReasonCode *BillingProfileStatusReasonCode `json:"billingProfileStatusReasonCode,omitempty" azure:"ro"`
+	BillingProfileStatusReasonCode *BillingProfileStatusReasonCode
 
 	// READ-ONLY; The Azure AD tenant ID of the billing account for the subscription.
-	BillingTenantID *string `json:"billingTenantId,omitempty" azure:"ro"`
+	BillingTenantID *string
 
 	// READ-ONLY; The name of the invoice section to which the subscription is billed.
-	InvoiceSectionDisplayName *string `json:"invoiceSectionDisplayName,omitempty" azure:"ro"`
+	InvoiceSectionDisplayName *string
 
 	// READ-ONLY; The ID of the invoice section to which the subscription is billed.
-	InvoiceSectionID *string `json:"invoiceSectionId,omitempty" azure:"ro"`
+	InvoiceSectionID *string
 
 	// READ-ONLY; Indicates whether user is the account admin.
-	IsAccountAdmin *bool `json:"isAccountAdmin,omitempty" azure:"ro"`
+	IsAccountAdmin *bool
 
 	// READ-ONLY; The product ID of the Azure plan.
-	ProductID *string `json:"productId,omitempty" azure:"ro"`
+	ProductID *string
 
 	// READ-ONLY; The product name of the Azure plan.
-	ProductName *string `json:"productName,omitempty" azure:"ro"`
+	ProductName *string
 
 	// READ-ONLY; The sku description of the Azure plan for the subscription.
-	SKUDescription *string `json:"skuDescription,omitempty" azure:"ro"`
+	SKUDescription *string
 
 	// READ-ONLY; The sku ID of the Azure plan for the subscription.
-	SKUID *string `json:"skuId,omitempty" azure:"ro"`
+	SKUID *string
 }
 
 // RebillDetails - The rebill details of an invoice.
 type RebillDetails struct {
 	// READ-ONLY; The ID of credit note.
-	CreditNoteDocumentID *string `json:"creditNoteDocumentId,omitempty" azure:"ro"`
+	CreditNoteDocumentID *string
 
 	// READ-ONLY; The ID of invoice.
-	InvoiceDocumentID *string `json:"invoiceDocumentId,omitempty" azure:"ro"`
+	InvoiceDocumentID *string
 
 	// READ-ONLY; Rebill details for an invoice.
-	RebillDetails map[string]*RebillDetails `json:"rebillDetails,omitempty" azure:"ro"`
+	RebillDetails map[string]*RebillDetails
 }
 
 // Reseller - Details of the reseller.
 type Reseller struct {
 	// READ-ONLY; The name of the reseller.
-	Description *string `json:"description,omitempty" azure:"ro"`
+	Description *string
 
 	// READ-ONLY; The MPN ID of the reseller.
-	ResellerID *string `json:"resellerId,omitempty" azure:"ro"`
+	ResellerID *string
 }
 
 // Reservation - The definition of the reservation.
 type Reservation struct {
 	// The properties associated to this reservation
-	Properties *ReservationProperty `json:"properties,omitempty"`
+	Properties *ReservationProperty
 
 	// The sku information associated to this reservation
-	SKU *ReservationSKUProperty `json:"sku,omitempty"`
+	SKU *ReservationSKUProperty
 
 	// READ-ONLY; The id of the reservation.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The location of the reservation.
-	Location *string `json:"location,omitempty" azure:"ro"`
+	Location *string
 
 	// READ-ONLY; The name of the reservation.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the reservation.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ReservationProperty - The property of reservation object.
 type ReservationProperty struct {
 	// The array of applied scopes of a reservation. Will be null if the reservation is in Shared scope
-	AppliedScopes []*string `json:"appliedScopes,omitempty"`
+	AppliedScopes []*string
 
 	// READ-ONLY; The applied scope type of the reservation.
-	AppliedScopeType *string `json:"appliedScopeType,omitempty" azure:"ro"`
+	AppliedScopeType *string
 
 	// READ-ONLY; The display name of the reservation
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+	DisplayName *string
 
 	// READ-ONLY; The provisioning state of the reservation for display, e.g. Succeeded
-	DisplayProvisioningState *string `json:"displayProvisioningState,omitempty" azure:"ro"`
+	DisplayProvisioningState *string
 
 	// READ-ONLY; The effective date time of the reservation
-	EffectiveDateTime *string `json:"effectiveDateTime,omitempty" azure:"ro"`
+	EffectiveDateTime *string
 
 	// READ-ONLY; The expiry date of the reservation
-	ExpiryDate *string `json:"expiryDate,omitempty" azure:"ro"`
+	ExpiryDate *string
 
 	// READ-ONLY; The provisioning state of the reservation, e.g. Succeeded
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	ProvisioningState *string
 
 	// READ-ONLY; The provisioning state of the reservation, e.g. Succeeded
-	ProvisioningSubState *string `json:"provisioningSubState,omitempty" azure:"ro"`
+	ProvisioningSubState *string
 
 	// READ-ONLY; The number of the reservation.
-	Quantity *float32 `json:"quantity,omitempty" azure:"ro"`
+	Quantity *float32
 
 	// READ-ONLY; The renew state of the reservation
-	Renew *bool `json:"renew,omitempty" azure:"ro"`
+	Renew *bool
 
 	// READ-ONLY; The renew source of the reservation
-	RenewSource *string `json:"renewSource,omitempty" azure:"ro"`
+	RenewSource *string
 
 	// READ-ONLY; The reserved source type of the reservation, e.g. virtual machine.
-	ReservedResourceType *string `json:"reservedResourceType,omitempty" azure:"ro"`
+	ReservedResourceType *string
 
 	// READ-ONLY; The sku description of the reservation
-	SKUDescription *string `json:"skuDescription,omitempty" azure:"ro"`
+	SKUDescription *string
 
 	// READ-ONLY; The term of the reservation, e.g. P1Y
-	Term *string `json:"term,omitempty" azure:"ro"`
+	Term *string
 
 	// READ-ONLY; The applied scope type of the reservation for display, e.g. Shared
-	UserFriendlyAppliedScopeType *string `json:"userFriendlyAppliedScopeType,omitempty" azure:"ro"`
+	UserFriendlyAppliedScopeType *string
 
 	// READ-ONLY; The renew state of the reservation for display, e.g. On
-	UserFriendlyRenewState *string `json:"userFriendlyRenewState,omitempty" azure:"ro"`
+	UserFriendlyRenewState *string
 
 	// READ-ONLY; Reservation utilization
-	Utilization *ReservationPropertyUtilization `json:"utilization,omitempty" azure:"ro"`
+	Utilization *ReservationPropertyUtilization
 }
 
 // ReservationPropertyUtilization - Reservation utilization
 type ReservationPropertyUtilization struct {
 	// The array of aggregates of a reservation's utilization
-	Aggregates []*ReservationUtilizationAggregates `json:"aggregates,omitempty"`
+	Aggregates []*ReservationUtilizationAggregates
 
 	// READ-ONLY; The number of days trend for a reservation
-	Trend *string `json:"trend,omitempty" azure:"ro"`
+	Trend *string
 }
 
 // ReservationSKUProperty - The property of reservation sku object.
 type ReservationSKUProperty struct {
 	// READ-ONLY; The name of the reservation sku.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 }
 
 // ReservationSummary - The roll up count summary of reservations in each state
 type ReservationSummary struct {
 	// READ-ONLY; The number of reservation in Cancelled state
-	CancelledCount *float32 `json:"cancelledCount,omitempty" azure:"ro"`
+	CancelledCount *float32
 
 	// READ-ONLY; The number of reservation in Expired state
-	ExpiredCount *float32 `json:"expiredCount,omitempty" azure:"ro"`
+	ExpiredCount *float32
 
 	// READ-ONLY; The number of reservation in Expiring state
-	ExpiringCount *float32 `json:"expiringCount,omitempty" azure:"ro"`
+	ExpiringCount *float32
 
 	// READ-ONLY; The number of reservation in Failed state
-	FailedCount *float32 `json:"failedCount,omitempty" azure:"ro"`
+	FailedCount *float32
 
 	// READ-ONLY; The number of reservation in Pending state
-	PendingCount *float32 `json:"pendingCount,omitempty" azure:"ro"`
+	PendingCount *float32
 
 	// READ-ONLY; The number of reservation in Succeeded state
-	SucceededCount *float32 `json:"succeededCount,omitempty" azure:"ro"`
+	SucceededCount *float32
 }
 
 // ReservationUtilizationAggregates - The aggregate values of reservation utilization
 type ReservationUtilizationAggregates struct {
 	// READ-ONLY; The grain of the aggregate
-	Grain *float32 `json:"grain,omitempty" azure:"ro"`
+	Grain *float32
 
 	// READ-ONLY; The grain unit of the aggregate
-	GrainUnit *string `json:"grainUnit,omitempty" azure:"ro"`
+	GrainUnit *string
 
 	// READ-ONLY; The aggregate value
-	Value *float32 `json:"value,omitempty" azure:"ro"`
+	Value *float32
 
 	// READ-ONLY; The aggregate value unit
-	ValueUnit *string `json:"valueUnit,omitempty" azure:"ro"`
+	ValueUnit *string
 }
 
 // ReservationsClientListByBillingAccountOptions contains the optional parameters for the ReservationsClient.NewListByBillingAccountPager
@@ -1734,82 +1734,82 @@ type ReservationsClientListByBillingProfileOptions struct {
 // ReservationsListResult - The list of reservations and summary of roll out count of reservations in each state.
 type ReservationsListResult struct {
 	// The roll out count summary of the reservations
-	Summary *ReservationSummary `json:"summary,omitempty"`
+	Summary *ReservationSummary
 
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of reservations.
-	Value []*Reservation `json:"value,omitempty" azure:"ro"`
+	Value []*Reservation
 }
 
 // Resource - The Resource model definition.
 type Resource struct {
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // RoleAssignment - The role assignment
 type RoleAssignment struct {
 	// The properties of the role assignment.
-	Properties *RoleAssignmentProperties `json:"properties,omitempty"`
+	Properties *RoleAssignmentProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // RoleAssignmentListResult - The list of role assignments.
 type RoleAssignmentListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The list of role assignments.
-	Value []*RoleAssignment `json:"value,omitempty" azure:"ro"`
+	Value []*RoleAssignment
 }
 
 // RoleAssignmentProperties - The properties of the role assignment.
 type RoleAssignmentProperties struct {
 	// The principal id of the user to whom the role was assigned.
-	PrincipalID *string `json:"principalId,omitempty"`
+	PrincipalID *string
 
 	// The principal tenant id of the user to whom the role was assigned.
-	PrincipalTenantID *string `json:"principalTenantId,omitempty"`
+	PrincipalTenantID *string
 
 	// The ID of the role definition.
-	RoleDefinitionID *string `json:"roleDefinitionId,omitempty"`
+	RoleDefinitionID *string
 
 	// The authentication type.
-	UserAuthenticationType *string `json:"userAuthenticationType,omitempty"`
+	UserAuthenticationType *string
 
 	// The email address of the user.
-	UserEmailAddress *string `json:"userEmailAddress,omitempty"`
+	UserEmailAddress *string
 
 	// READ-ONLY; The principal Id of the user who created the role assignment.
-	CreatedByPrincipalID *string `json:"createdByPrincipalId,omitempty" azure:"ro"`
+	CreatedByPrincipalID *string
 
 	// READ-ONLY; The tenant Id of the user who created the role assignment.
-	CreatedByPrincipalTenantID *string `json:"createdByPrincipalTenantId,omitempty" azure:"ro"`
+	CreatedByPrincipalTenantID *string
 
 	// READ-ONLY; The email address of the user who created the role assignment.
-	CreatedByUserEmailAddress *string `json:"createdByUserEmailAddress,omitempty" azure:"ro"`
+	CreatedByUserEmailAddress *string
 
 	// READ-ONLY; The date the role assignment was created.
-	CreatedOn *string `json:"createdOn,omitempty" azure:"ro"`
+	CreatedOn *string
 
 	// READ-ONLY; The scope at which the role was assigned.
-	Scope *string `json:"scope,omitempty" azure:"ro"`
+	Scope *string
 }
 
 // RoleAssignmentsClientDeleteByBillingAccountOptions contains the optional parameters for the RoleAssignmentsClient.DeleteByBillingAccount
@@ -1869,37 +1869,37 @@ type RoleAssignmentsClientListByInvoiceSectionOptions struct {
 // RoleDefinition - The properties of a role definition.
 type RoleDefinition struct {
 	// The properties of the a role definition.
-	Properties *RoleDefinitionProperties `json:"properties,omitempty"`
+	Properties *RoleDefinitionProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // RoleDefinitionListResult - The list of role definitions.
 type RoleDefinitionListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; The role definitions.
-	Value []*RoleDefinition `json:"value,omitempty" azure:"ro"`
+	Value []*RoleDefinition
 }
 
 // RoleDefinitionProperties - The properties of the a role definition.
 type RoleDefinitionProperties struct {
 	// The billingPermissions the role has
-	Permissions []*PermissionsProperties `json:"permissions,omitempty"`
+	Permissions []*PermissionsProperties
 
 	// READ-ONLY; The role description
-	Description *string `json:"description,omitempty" azure:"ro"`
+	Description *string
 
 	// READ-ONLY; The name of the role
-	RoleName *string `json:"roleName,omitempty" azure:"ro"`
+	RoleName *string
 }
 
 // RoleDefinitionsClientGetByBillingAccountOptions contains the optional parameters for the RoleDefinitionsClient.GetByBillingAccount
@@ -1941,70 +1941,70 @@ type RoleDefinitionsClientListByInvoiceSectionOptions struct {
 // Subscription - A billing subscription.
 type Subscription struct {
 	// The billing properties of a subscription.
-	Properties *SubscriptionProperties `json:"properties,omitempty"`
+	Properties *SubscriptionProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // SubscriptionProperties - The billing properties of a subscription.
 type SubscriptionProperties struct {
 	// The cost center applied to the subscription.
-	CostCenter *string `json:"costCenter,omitempty"`
+	CostCenter *string
 
 	// The sku ID of the Azure plan for the subscription.
-	SKUID *string `json:"skuId,omitempty"`
+	SKUID *string
 
 	// The current billing status of the subscription.
-	SubscriptionBillingStatus *BillingSubscriptionStatusType `json:"subscriptionBillingStatus,omitempty"`
+	SubscriptionBillingStatus *BillingSubscriptionStatusType
 
 	// READ-ONLY; The name of the billing profile to which the subscription is billed.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile to which the subscription is billed.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 
 	// READ-ONLY; The name of the customer for whom the subscription was created. The field is applicable only for Microsoft Partner
 	// Agreement billing account.
-	CustomerDisplayName *string `json:"customerDisplayName,omitempty" azure:"ro"`
+	CustomerDisplayName *string
 
 	// READ-ONLY; The ID of the customer for whom the subscription was created. The field is applicable only for Microsoft Partner
 	// Agreement billing account.
-	CustomerID *string `json:"customerId,omitempty" azure:"ro"`
+	CustomerID *string
 
 	// READ-ONLY; The name of the subscription.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+	DisplayName *string
 
 	// READ-ONLY; The name of the invoice section to which the subscription is billed.
-	InvoiceSectionDisplayName *string `json:"invoiceSectionDisplayName,omitempty" azure:"ro"`
+	InvoiceSectionDisplayName *string
 
 	// READ-ONLY; The ID of the invoice section to which the subscription is billed.
-	InvoiceSectionID *string `json:"invoiceSectionId,omitempty" azure:"ro"`
+	InvoiceSectionID *string
 
 	// READ-ONLY; The last month charges.
-	LastMonthCharges *Amount `json:"lastMonthCharges,omitempty" azure:"ro"`
+	LastMonthCharges *Amount
 
 	// READ-ONLY; The current month to date charges.
-	MonthToDateCharges *Amount `json:"monthToDateCharges,omitempty" azure:"ro"`
+	MonthToDateCharges *Amount
 
 	// READ-ONLY; Reseller for this subscription.
-	Reseller *Reseller `json:"reseller,omitempty" azure:"ro"`
+	Reseller *Reseller
 
 	// READ-ONLY; The sku description of the Azure plan for the subscription.
-	SKUDescription *string `json:"skuDescription,omitempty" azure:"ro"`
+	SKUDescription *string
 
 	// READ-ONLY; The ID of the subscription.
-	SubscriptionID *string `json:"subscriptionId,omitempty" azure:"ro"`
+	SubscriptionID *string
 
 	// READ-ONLY; The suspension reason for a subscription. Applies only to subscriptions in Microsoft Online Services Program
 	// billing accounts.
-	SuspensionReasons []*string `json:"suspensionReasons,omitempty" azure:"ro"`
+	SuspensionReasons []*string
 }
 
 // SubscriptionsClientBeginMoveOptions contains the optional parameters for the SubscriptionsClient.BeginMove method.
@@ -2055,156 +2055,156 @@ type SubscriptionsClientValidateMoveOptions struct {
 // SubscriptionsListResult - The list of billing subscriptions.
 type SubscriptionsListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of billing subscriptions.
-	Value []*Subscription `json:"value,omitempty" azure:"ro"`
+	Value []*Subscription
 }
 
 // Transaction - A transaction.
 type Transaction struct {
 	// The properties of a transaction.
-	Properties *TransactionProperties `json:"properties,omitempty"`
+	Properties *TransactionProperties
 
 	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; Resource name.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // TransactionListResult - The list of transactions.
 type TransactionListResult struct {
 	// READ-ONLY; The link (url) to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; Total number of records.
-	TotalCount *int32 `json:"totalCount,omitempty" azure:"ro"`
+	TotalCount *int32
 
 	// READ-ONLY; The list of transactions.
-	Value []*Transaction `json:"value,omitempty" azure:"ro"`
+	Value []*Transaction
 }
 
 // TransactionProperties - The properties of a transaction.
 type TransactionProperties struct {
 	// The kind of transaction. Options are all or reservation.
-	Kind *TransactionTypeKind `json:"kind,omitempty"`
+	Kind *TransactionTypeKind
 
 	// The type of transaction.
-	TransactionType *ReservationType `json:"transactionType,omitempty"`
+	TransactionType *ReservationType
 
 	// READ-ONLY; The amount of any Azure credits automatically applied to this transaction.
-	AzureCreditApplied *Amount `json:"azureCreditApplied,omitempty" azure:"ro"`
+	AzureCreditApplied *Amount
 
 	// READ-ONLY; The type of azure plan of the subscription that was used for the transaction.
-	AzurePlan *string `json:"azurePlan,omitempty" azure:"ro"`
+	AzurePlan *string
 
 	// READ-ONLY; The ISO 4217 code for the currency in which this transaction is billed.
-	BillingCurrency *string `json:"billingCurrency,omitempty" azure:"ro"`
+	BillingCurrency *string
 
 	// READ-ONLY; The name of the billing profile which will be billed for the transaction.
-	BillingProfileDisplayName *string `json:"billingProfileDisplayName,omitempty" azure:"ro"`
+	BillingProfileDisplayName *string
 
 	// READ-ONLY; The ID of the billing profile which will be billed for the transaction.
-	BillingProfileID *string `json:"billingProfileId,omitempty" azure:"ro"`
+	BillingProfileID *string
 
 	// READ-ONLY; The name of the customer for which the transaction took place. The field is applicable only for Microsoft Partner
 	// Agreement billing account.
-	CustomerDisplayName *string `json:"customerDisplayName,omitempty" azure:"ro"`
+	CustomerDisplayName *string
 
 	// READ-ONLY; The ID of the customer for which the transaction took place. The field is applicable only for Microsoft Partner
 	// Agreement billing account.
-	CustomerID *string `json:"customerId,omitempty" azure:"ro"`
+	CustomerID *string
 
 	// READ-ONLY; The date of transaction.
-	Date *time.Time `json:"date,omitempty" azure:"ro"`
+	Date *time.Time
 
 	// READ-ONLY; The percentage discount, if any, applied to this transaction.
-	Discount *float32 `json:"discount,omitempty" azure:"ro"`
+	Discount *float32
 
 	// READ-ONLY; The price of the product after applying any discounts.
-	EffectivePrice *Amount `json:"effectivePrice,omitempty" azure:"ro"`
+	EffectivePrice *Amount
 
 	// READ-ONLY; The exchange rate used to convert charged amount to billing currency, if applicable.
-	ExchangeRate *float32 `json:"exchangeRate,omitempty" azure:"ro"`
+	ExchangeRate *float32
 
 	// READ-ONLY; Invoice on which the transaction was billed or 'pending' if the transaction is not billed.
-	Invoice *string `json:"invoice,omitempty" azure:"ro"`
+	Invoice *string
 
 	// READ-ONLY; The ID of the invoice on which the transaction was billed. This field is only applicable for transactions which
 	// are billed.
-	InvoiceID *string `json:"invoiceId,omitempty" azure:"ro"`
+	InvoiceID *string
 
 	// READ-ONLY; The name of the invoice section which will be billed for the transaction.
-	InvoiceSectionDisplayName *string `json:"invoiceSectionDisplayName,omitempty" azure:"ro"`
+	InvoiceSectionDisplayName *string
 
 	// READ-ONLY; The ID of the invoice section which will be billed for the transaction.
-	InvoiceSectionID *string `json:"invoiceSectionId,omitempty" azure:"ro"`
+	InvoiceSectionID *string
 
 	// READ-ONLY; The retail price of the product.
-	MarketPrice *Amount `json:"marketPrice,omitempty" azure:"ro"`
+	MarketPrice *Amount
 
 	// READ-ONLY; The order ID of the reservation. The field is only applicable for transaction of kind reservation.
-	OrderID *string `json:"orderId,omitempty" azure:"ro"`
+	OrderID *string
 
 	// READ-ONLY; The name of the reservation order. The field is only applicable for transactions of kind reservation.
-	OrderName *string `json:"orderName,omitempty" azure:"ro"`
+	OrderName *string
 
 	// READ-ONLY; The ISO 4217 code for the currency in which the product is priced.
-	PricingCurrency *string `json:"pricingCurrency,omitempty" azure:"ro"`
+	PricingCurrency *string
 
 	// READ-ONLY; The description of the product for which the transaction took place.
-	ProductDescription *string `json:"productDescription,omitempty" azure:"ro"`
+	ProductDescription *string
 
 	// READ-ONLY; The family of the product for which the transaction took place.
-	ProductFamily *string `json:"productFamily,omitempty" azure:"ro"`
+	ProductFamily *string
 
 	// READ-ONLY; The type of the product for which the transaction took place.
-	ProductType *string `json:"productType,omitempty" azure:"ro"`
+	ProductType *string
 
 	// READ-ONLY; The ID of the product type for which the transaction took place.
-	ProductTypeID *string `json:"productTypeId,omitempty" azure:"ro"`
+	ProductTypeID *string
 
 	// READ-ONLY; The quantity purchased in the transaction.
-	Quantity *int32 `json:"quantity,omitempty" azure:"ro"`
+	Quantity *int32
 
 	// READ-ONLY; The end date of the product term, or the end date of the month in which usage ended.
-	ServicePeriodEndDate *time.Time `json:"servicePeriodEndDate,omitempty" azure:"ro"`
+	ServicePeriodEndDate *time.Time
 
 	// READ-ONLY; The date of the purchase of the product, or the start date of the month in which usage started.
-	ServicePeriodStartDate *time.Time `json:"servicePeriodStartDate,omitempty" azure:"ro"`
+	ServicePeriodStartDate *time.Time
 
 	// READ-ONLY; The pre-tax charged amount for the transaction.
-	SubTotal *Amount `json:"subTotal,omitempty" azure:"ro"`
+	SubTotal *Amount
 
 	// READ-ONLY; The ID of the subscription that was used for the transaction. The field is only applicable for transaction of
 	// kind reservation.
-	SubscriptionID *string `json:"subscriptionId,omitempty" azure:"ro"`
+	SubscriptionID *string
 
 	// READ-ONLY; The name of the subscription that was used for the transaction. The field is only applicable for transaction
 	// of kind reservation.
-	SubscriptionName *string `json:"subscriptionName,omitempty" azure:"ro"`
+	SubscriptionName *string
 
 	// READ-ONLY; The tax amount applied to the transaction.
-	Tax *Amount `json:"tax,omitempty" azure:"ro"`
+	Tax *Amount
 
 	// READ-ONLY; The charge associated with the transaction.
-	TransactionAmount *Amount `json:"transactionAmount,omitempty" azure:"ro"`
+	TransactionAmount *Amount
 
 	// READ-ONLY; The unit of measure used to bill for the product. For example, compute services are billed per hour.
-	UnitOfMeasure *string `json:"unitOfMeasure,omitempty" azure:"ro"`
+	UnitOfMeasure *string
 
 	// READ-ONLY; The description for the unit of measure for a given product.
-	UnitType *string `json:"unitType,omitempty" azure:"ro"`
+	UnitType *string
 
 	// READ-ONLY; The number of units used for a given product.
-	Units *float32 `json:"units,omitempty" azure:"ro"`
+	Units *float32
 }
 
 // TransactionsClientListByInvoiceOptions contains the optional parameters for the TransactionsClient.NewListByInvoicePager
@@ -2216,65 +2216,65 @@ type TransactionsClientListByInvoiceOptions struct {
 // TransferBillingSubscriptionRequestProperties - Request parameters to transfer billing subscription.
 type TransferBillingSubscriptionRequestProperties struct {
 	// REQUIRED; The destination invoice section id.
-	DestinationInvoiceSectionID *string `json:"destinationInvoiceSectionId,omitempty"`
+	DestinationInvoiceSectionID *string
 }
 
 // TransferProductRequestProperties - The properties of the product to initiate a transfer.
 type TransferProductRequestProperties struct {
 	// The destination invoice section id.
-	DestinationInvoiceSectionID *string `json:"destinationInvoiceSectionId,omitempty"`
+	DestinationInvoiceSectionID *string
 }
 
 // ValidateAddressResponse - Result of the address validation
 type ValidateAddressResponse struct {
 	// status of the address validation.
-	Status *AddressValidationStatus `json:"status,omitempty"`
+	Status *AddressValidationStatus
 
 	// The list of suggested addresses.
-	SuggestedAddresses []*AddressDetails `json:"suggestedAddresses,omitempty"`
+	SuggestedAddresses []*AddressDetails
 
 	// Validation error message.
-	ValidationMessage *string `json:"validationMessage,omitempty"`
+	ValidationMessage *string
 }
 
 // ValidateProductTransferEligibilityError - Error details of the product transfer eligibility validation.
 type ValidateProductTransferEligibilityError struct {
 	// Error code for the product transfer validation.
-	Code *ProductTransferValidationErrorCode `json:"code,omitempty"`
+	Code *ProductTransferValidationErrorCode
 
 	// Detailed error message explaining the error.
-	Details *string `json:"details,omitempty"`
+	Details *string
 
 	// The error message.
-	Message *string `json:"message,omitempty"`
+	Message *string
 }
 
 // ValidateProductTransferEligibilityResult - Result of the product transfer eligibility validation.
 type ValidateProductTransferEligibilityResult struct {
 	// Validation error details.
-	ErrorDetails *ValidateProductTransferEligibilityError `json:"errorDetails,omitempty"`
+	ErrorDetails *ValidateProductTransferEligibilityError
 
 	// READ-ONLY; Specifies whether the transfer is eligible or not.
-	IsMoveEligible *bool `json:"isMoveEligible,omitempty" azure:"ro"`
+	IsMoveEligible *bool
 }
 
 // ValidateSubscriptionTransferEligibilityError - Error details of the transfer eligibility validation
 type ValidateSubscriptionTransferEligibilityError struct {
 	// Error code for the product transfer validation.
-	Code *SubscriptionTransferValidationErrorCode `json:"code,omitempty"`
+	Code *SubscriptionTransferValidationErrorCode
 
 	// Detailed error message explaining the error.
-	Details *string `json:"details,omitempty"`
+	Details *string
 
 	// The error message.
-	Message *string `json:"message,omitempty"`
+	Message *string
 }
 
 // ValidateSubscriptionTransferEligibilityResult - Result of the transfer eligibility validation.
 type ValidateSubscriptionTransferEligibilityResult struct {
 	// Validation error details.
-	ErrorDetails *ValidateSubscriptionTransferEligibilityError `json:"errorDetails,omitempty"`
+	ErrorDetails *ValidateSubscriptionTransferEligibilityError
 
 	// READ-ONLY; Specifies whether the subscription is eligible to be transferred.
-	IsMoveEligible *bool `json:"isMoveEligible,omitempty" azure:"ro"`
+	IsMoveEligible *bool
 }
