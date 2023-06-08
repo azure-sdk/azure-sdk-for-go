@@ -11,7 +11,7 @@ package armpostgresqlflexibleservers
 
 const (
 	moduleName    = "armpostgresqlflexibleservers"
-	moduleVersion = "v4.0.0-beta.1"
+	moduleVersion = "v4.0.0-beta.2"
 )
 
 // ActiveDirectoryAuthEnum - If Enabled, Azure Active Directory authentication is enabled.
