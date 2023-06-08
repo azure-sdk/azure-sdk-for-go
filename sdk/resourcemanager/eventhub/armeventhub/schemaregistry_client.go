@@ -46,7 +46,7 @@ func NewSchemaRegistryClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// CreateOrUpdate -
+// CreateOrUpdate - Creates or Updates an EventHub schema group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-10-01-preview
@@ -110,7 +110,7 @@ func (client *SchemaRegistryClient) createOrUpdateHandleResponse(resp *http.Resp
 	return result, nil
 }
 
-// Delete -
+// Delete - Deletes an EventHub schema group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-10-01-preview
@@ -163,7 +163,7 @@ func (client *SchemaRegistryClient) deleteCreateRequest(ctx context.Context, res
 	return req, nil
 }
 
-// Get -
+// Get - Gets the details of an EventHub schema group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-10-01-preview

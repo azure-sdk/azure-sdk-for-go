@@ -1,5 +1,16 @@
 # Release History
 
+## 1.2.0-beta.2 (2023-06-08)
+### Breaking Changes
+
+- `CleanupPolicyRetentionDescriptionCompaction` from enum `CleanupPolicyRetentionDescription` has been removed
+
+### Features Added
+
+- New value `CleanupPolicyRetentionDescriptionCompact` added to enum type `CleanupPolicyRetentionDescription`
+- New field `Location` in struct `NetworkSecurityPerimeterConfiguration`
+
+
 ## 1.2.0-beta.1 (2023-04-28)
 ### Features Added
 

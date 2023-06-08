@@ -1004,13 +1004,16 @@ type NetworkSecurityPerimeterConfiguration struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
+	// READ-ONLY; The geo-location where the resource lives
+	Location *string
+
 	// READ-ONLY; The name of the resource
 	Name *string
 
 	// READ-ONLY; Properties of the Network Security Perimeter Configuration
 	Properties *NetworkSecurityPerimeterConfigurationProperties
 
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.EventHub/Namespaces" or "Microsoft.EventHub/Namespaces/EventHubs"
 	Type *string
 }
 
@@ -1361,11 +1364,11 @@ type RetentionDescription struct {
 	CleanupPolicy *CleanupPolicyRetentionDescription
 
 	// Number of hours to retain the events for this Event Hub. This value is only used when cleanupPolicy is Delete. If cleanupPolicy
-	// is Compaction the returned value of this property is Long.MaxValue
+	// is Compact the returned value of this property is Long.MaxValue
 	RetentionTimeInHours *int64
 
 	// Number of hours to retain the tombstone markers of a compacted Event Hub. This value is only used when cleanupPolicy is
-	// Compaction. Consumer must complete reading the tombstone marker within this
+	// Compact. Consumer must complete reading the tombstone marker within this
 	// specified amount of time if consumer begins from starting offset to ensure they get a valid snapshot for the specific key
 	// described by the tombstone marker within the compacted Event Hub
 	TombstoneRetentionTimeInHours *int32
