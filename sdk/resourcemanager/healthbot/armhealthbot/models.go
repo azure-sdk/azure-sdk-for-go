@@ -41,6 +41,12 @@ type BotsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// BotsClientBeginUpdateOptions contains the optional parameters for the BotsClient.BeginUpdate method.
+type BotsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BotsClientGetOptions contains the optional parameters for the BotsClient.Get method.
 type BotsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -56,8 +62,13 @@ type BotsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BotsClientUpdateOptions contains the optional parameters for the BotsClient.Update method.
-type BotsClientUpdateOptions struct {
+// BotsClientListSecretsOptions contains the optional parameters for the BotsClient.ListSecrets method.
+type BotsClientListSecretsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BotsClientRegenerateAPIJwtSecretOptions contains the optional parameters for the BotsClient.RegenerateAPIJwtSecret method.
+type BotsClientRegenerateAPIJwtSecretOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -143,6 +154,36 @@ type Identity struct {
 	TenantID *string
 }
 
+// Key - An entry of HealthBotKeysResponse
+type Key struct {
+	// The name of the key.
+	KeyName *string
+
+	// The value of the key.
+	Value *string
+}
+
+// KeyVaultProperties - Properties of the key vault.
+type KeyVaultProperties struct {
+	// REQUIRED; The name of the key vault key.
+	KeyName *string
+
+	// REQUIRED; The Uri of the key vault.
+	KeyVaultURI *string
+
+	// The version of the key vault key.
+	KeyVersion *string
+
+	// The user assigned identity (ARM resource id) that has access to the key.
+	UserIdentity *string
+}
+
+// KeysResponse - Health Bot Keys Response.
+type KeysResponse struct {
+	// Array of Azure Health Bot Secrets.
+	Secrets []*Key
+}
+
 // OperationDetail - Operation detail payload
 type OperationDetail struct {
 	// Display of the operation
@@ -185,6 +226,9 @@ type OperationsClientListOptions struct {
 // in Healthcare organizations to build and deploy their compliant, AI-powered virtual health
 // assistants and health bots, that help them improve processes and reduce costs.
 type Properties struct {
+	// KeyVault properties for the resource encryption.
+	KeyVaultProperties *KeyVaultProperties
+
 	// READ-ONLY; The link.
 	BotManagementPortalLink *string
 
@@ -260,6 +304,9 @@ type UpdateParameters struct {
 	// The identity of the Azure Health Bot.
 	Identity *Identity
 	Location *string
+
+	// Properties of Azure Health Bot.
+	Properties *Properties
 
 	// SKU of the Azure Health Bot.
 	SKU *SKU

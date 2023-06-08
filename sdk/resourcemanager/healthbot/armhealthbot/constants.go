@@ -11,7 +11,7 @@ package armhealthbot
 
 const (
 	moduleName    = "armhealthbot"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v2.0.0"
 )
 
 // IdentityType - The type of identity that creates/modifies resources
@@ -60,9 +60,10 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 type SKUName string
 
 const (
-	SKUNameF0 SKUName = "F0"
-	SKUNameS1 SKUName = "S1"
-	SKUNameC0 SKUName = "C0"
+	SKUNameF0  SKUName = "F0"
+	SKUNameS1  SKUName = "S1"
+	SKUNameC0  SKUName = "C0"
+	SKUNamePES SKUName = "PES"
 )
 
 // PossibleSKUNameValues returns the possible values for the SKUName const type.
@@ -71,5 +72,6 @@ func PossibleSKUNameValues() []SKUName {
 		SKUNameF0,
 		SKUNameS1,
 		SKUNameC0,
+		SKUNamePES,
 	}
 }
