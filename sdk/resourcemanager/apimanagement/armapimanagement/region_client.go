@@ -29,8 +29,7 @@ type RegionClient struct {
 }
 
 // NewRegionClient creates a new instance of RegionClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRegionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RegionClient, error) {
@@ -47,8 +46,8 @@ func NewRegionClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByServicePager - Lists all azure regions in which the service exists.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - RegionClientListByServiceOptions contains the optional parameters for the RegionClient.NewListByServicePager
 //     method.
@@ -100,7 +99,7 @@ func (client *RegionClient) listByServiceCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
