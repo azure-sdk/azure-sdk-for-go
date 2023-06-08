@@ -285,6 +285,7 @@ func (a AutomaticOSUpgradePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "disableAutomaticRollback", a.DisableAutomaticRollback)
 	populate(objectMap, "enableAutomaticOSUpgrade", a.EnableAutomaticOSUpgrade)
+	populate(objectMap, "osRollingUpgradeDeferral", a.OSRollingUpgradeDeferral)
 	populate(objectMap, "useRollingUpgradePolicy", a.UseRollingUpgradePolicy)
 	return json.Marshal(objectMap)
 }
@@ -303,6 +304,9 @@ func (a *AutomaticOSUpgradePolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enableAutomaticOSUpgrade":
 			err = unpopulate(val, "EnableAutomaticOSUpgrade", &a.EnableAutomaticOSUpgrade)
+			delete(rawMsg, key)
+		case "osRollingUpgradeDeferral":
+			err = unpopulate(val, "OSRollingUpgradeDeferral", &a.OSRollingUpgradeDeferral)
 			delete(rawMsg, key)
 		case "useRollingUpgradePolicy":
 			err = unpopulate(val, "UseRollingUpgradePolicy", &a.UseRollingUpgradePolicy)
@@ -1918,41 +1922,6 @@ func (c *CommunityGalleryImage) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &c.Type)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageIdentifier.
-func (c CommunityGalleryImageIdentifier) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "offer", c.Offer)
-	populate(objectMap, "publisher", c.Publisher)
-	populate(objectMap, "sku", c.SKU)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CommunityGalleryImageIdentifier.
-func (c *CommunityGalleryImageIdentifier) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "offer":
-			err = unpopulate(val, "Offer", &c.Offer)
-			delete(rawMsg, key)
-		case "publisher":
-			err = unpopulate(val, "Publisher", &c.Publisher)
-			delete(rawMsg, key)
-		case "sku":
-			err = unpopulate(val, "SKU", &c.SKU)
 			delete(rawMsg, key)
 		}
 		if err != nil {

@@ -1117,6 +1117,11 @@ type VirtualMachineScaleSetVMsClientGetResponse struct {
 	VirtualMachineScaleSetVM
 }
 
+// VirtualMachineScaleSetVMsClientInvokeUpgradeResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginInvokeUpgrade.
+type VirtualMachineScaleSetVMsClientInvokeUpgradeResponse struct {
+	// placeholder for future response values
+}
+
 // VirtualMachineScaleSetVMsClientListResponse contains the response from method VirtualMachineScaleSetVMsClient.NewListPager.
 type VirtualMachineScaleSetVMsClientListResponse struct {
 	VirtualMachineScaleSetVMListResult
@@ -1221,6 +1226,11 @@ type VirtualMachineScaleSetsClientGetOSUpgradeHistoryResponse struct {
 // VirtualMachineScaleSetsClientGetResponse contains the response from method VirtualMachineScaleSetsClient.Get.
 type VirtualMachineScaleSetsClientGetResponse struct {
 	VirtualMachineScaleSet
+}
+
+// VirtualMachineScaleSetsClientInvokeUpgradeResponse contains the response from method VirtualMachineScaleSetsClient.BeginInvokeUpgrade.
+type VirtualMachineScaleSetsClientInvokeUpgradeResponse struct {
+	// placeholder for future response values
 }
 
 // VirtualMachineScaleSetsClientListAllResponse contains the response from method VirtualMachineScaleSetsClient.NewListAllPager.

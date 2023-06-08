@@ -1,5 +1,21 @@
 # Release History
 
+## 6.0.0 (2023-06-08)
+### Breaking Changes
+
+- Type of `CommunityGalleryImageProperties.Identifier` has been changed from `*CommunityGalleryImageIdentifier` to `*GalleryImageIdentifier`
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Struct `CommunityGalleryImageIdentifier` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New function `*VirtualMachineScaleSetVMsClient.BeginInvokeUpgrade(context.Context, string, string, string, *VirtualMachineScaleSetVMsClientBeginInvokeUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetVMsClientInvokeUpgradeResponse], error)`
+- New function `*VirtualMachineScaleSetsClient.BeginInvokeUpgrade(context.Context, string, string, *VirtualMachineScaleSetsClientBeginInvokeUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetsClientInvokeUpgradeResponse], error)`
+- New field `OSRollingUpgradeDeferral` in struct `AutomaticOSUpgradePolicy`
+
+
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes
 

@@ -114,6 +114,11 @@ type AutomaticOSUpgradePolicy struct {
 	// is automatically set to false and cannot be set to true.
 	EnableAutomaticOSUpgrade *bool
 
+	// Indicates whether Auto OS Upgrade should undergo deferral. Deferred OS upgrades will send advanced notifications on a per-VM
+	// basis that an OS upgrade from rolling upgrades is incoming, via IMDS. The
+	// upgrade then defers until the upgrade is invoked via an InvokeUpgrade call.
+	OSRollingUpgradeDeferral *bool
+
 	// Indicates whether rolling upgrade policy should be used during Auto OS Upgrade. Default value is false. Auto OS Upgrade
 	// will fallback to the default policy if no policy is defined on the VMSS.
 	UseRollingUpgradePolicy *bool
@@ -1120,18 +1125,6 @@ type CommunityGalleryImage struct {
 	Type *string
 }
 
-// CommunityGalleryImageIdentifier - This is the community gallery image definition identifier.
-type CommunityGalleryImageIdentifier struct {
-	// The name of the gallery image definition offer.
-	Offer *string
-
-	// The name of the gallery image definition publisher.
-	Publisher *string
-
-	// The name of the gallery image definition SKU.
-	SKU *string
-}
-
 // CommunityGalleryImageList - The List Community Gallery Images operation response.
 type CommunityGalleryImageList struct {
 	// REQUIRED; A list of community gallery images.
@@ -1144,8 +1137,8 @@ type CommunityGalleryImageList struct {
 
 // CommunityGalleryImageProperties - Describes the properties of a gallery image definition.
 type CommunityGalleryImageProperties struct {
-	// REQUIRED; This is the community gallery image definition identifier.
-	Identifier *CommunityGalleryImageIdentifier
+	// REQUIRED; This is the gallery image definition identifier.
+	Identifier *GalleryImageIdentifier
 
 	// REQUIRED; This property allows the user to specify whether the virtual machines created under this image are 'Generalized'
 	// or 'Specialized'.
@@ -3423,7 +3416,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -9491,6 +9484,13 @@ type VirtualMachineScaleSetVMsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// VirtualMachineScaleSetVMsClientBeginInvokeUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginInvokeUpgrade
+// method.
+type VirtualMachineScaleSetVMsClientBeginInvokeUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualMachineScaleSetVMsClientBeginPerformMaintenanceOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginPerformMaintenance
 // method.
 type VirtualMachineScaleSetVMsClientBeginPerformMaintenanceOptions struct {
@@ -9635,6 +9635,15 @@ type VirtualMachineScaleSetsClientBeginDeleteOptions struct {
 	ForceDeletion *bool
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// VirtualMachineScaleSetsClientBeginInvokeUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginInvokeUpgrade
+// method.
+type VirtualMachineScaleSetsClientBeginInvokeUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+	// A list of virtual machine instance IDs from the VM scale set.
+	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
 }
 
 // VirtualMachineScaleSetsClientBeginPerformMaintenanceOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginPerformMaintenance
