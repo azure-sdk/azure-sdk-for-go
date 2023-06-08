@@ -48,6 +48,9 @@ type AccountList struct {
 type AccountProperties struct {
 	// The description of the account.
 	Description *string
+
+	// READ-ONLY; The internally assigned unique identifier of the resource.
+	SystemID *string
 }
 
 // AccountsClientCreateOrUpdateOptions contains the optional parameters for the AccountsClient.CreateOrUpdate method.
@@ -388,18 +391,16 @@ type PrivateEndpointConnectionProperties struct {
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
-// PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
+// PrivateEndpointConnectionsClientCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.CreateOrUpdate
 // method.
-type PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type PrivateEndpointConnectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
+// PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
 // method.
-type PrivateEndpointConnectionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type PrivateEndpointConnectionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
 // PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
@@ -476,11 +477,17 @@ type Properties struct {
 	// The encryption settings for a configuration store.
 	Encryption *PropertiesEncryption
 
+	// The health status of the resource.
+	HealthStatus *HealthStatus
+
 	// Settings concerning lockbox.
 	Lockbox *PropertiesLockbox
 
 	// Settings concerning network injection.
 	NetworkInjection *PropertiesNetworkInjection
+
+	// READ-ONLY; The internally assigned unique identifier of the resource.
+	SystemID *string
 }
 
 // PropertiesEncryption - The encryption settings for a configuration store.
