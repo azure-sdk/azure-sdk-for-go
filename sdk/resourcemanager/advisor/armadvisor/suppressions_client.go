@@ -50,7 +50,7 @@ func NewSuppressionsClient(subscriptionID string, credential azcore.TokenCredent
 // a recommendation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - resourceURI - The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
 //   - recommendationID - The recommendation ID.
 //   - name - The name of the suppression.
@@ -91,7 +91,7 @@ func (client *SuppressionsClient) createCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, suppressionContract)
@@ -110,7 +110,7 @@ func (client *SuppressionsClient) createHandleResponse(resp *http.Response) (Sup
 // is referred to as a suppression.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - resourceURI - The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
 //   - recommendationID - The recommendation ID.
 //   - name - The name of the suppression.
@@ -150,7 +150,7 @@ func (client *SuppressionsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -159,7 +159,7 @@ func (client *SuppressionsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Obtains the details of a suppression.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - resourceURI - The fully qualified Azure Resource Manager identifier of the resource to which the recommendation applies.
 //   - recommendationID - The recommendation ID.
 //   - name - The name of the suppression.
@@ -199,7 +199,7 @@ func (client *SuppressionsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -217,7 +217,7 @@ func (client *SuppressionsClient) getHandleResponse(resp *http.Response) (Suppre
 // NewListPager - Retrieves the list of snoozed or dismissed suppressions for a subscription. The snoozed or dismissed attribute
 // of a recommendation is referred to as a suppression.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - options - SuppressionsClientListOptions contains the optional parameters for the SuppressionsClient.NewListPager method.
 func (client *SuppressionsClient) NewListPager(options *SuppressionsClientListOptions) *runtime.Pager[SuppressionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SuppressionsClientListResponse]{
@@ -259,7 +259,7 @@ func (client *SuppressionsClient) listCreateRequest(ctx context.Context, options
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}

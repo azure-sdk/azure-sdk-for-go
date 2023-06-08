@@ -29,6 +29,11 @@ type ConfigurationsClientListBySubscriptionResponse struct {
 	ConfigurationListResult
 }
 
+// ManagementClientPredictResponse contains the response from method ManagementClient.Predict.
+type ManagementClientPredictResponse struct {
+	PredictionResponse
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationEntityListResult
@@ -66,6 +71,16 @@ type RecommendationsClientGetResponse struct {
 // RecommendationsClientListResponse contains the response from method RecommendationsClient.NewListPager.
 type RecommendationsClientListResponse struct {
 	ResourceRecommendationBaseListResult
+}
+
+// ScoresClientGetResponse contains the response from method ScoresClient.Get.
+type ScoresClientGetResponse struct {
+	ScoreEntityForAdvisor
+}
+
+// ScoresClientListResponse contains the response from method ScoresClient.List.
+type ScoresClientListResponse struct {
+	ScoreResponse
 }
 
 // SuppressionsClientCreateResponse contains the response from method SuppressionsClient.Create.
