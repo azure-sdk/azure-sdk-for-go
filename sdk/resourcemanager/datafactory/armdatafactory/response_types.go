@@ -14,6 +14,42 @@ type ActivityRunsClientQueryByPipelineRunResponse struct {
 	ActivityRunsQueryResponse
 }
 
+// ChangeDataCaptureClientCreateOrUpdateResponse contains the response from method ChangeDataCaptureClient.CreateOrUpdate.
+type ChangeDataCaptureClientCreateOrUpdateResponse struct {
+	ChangeDataCaptureResource
+}
+
+// ChangeDataCaptureClientDeleteResponse contains the response from method ChangeDataCaptureClient.Delete.
+type ChangeDataCaptureClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ChangeDataCaptureClientGetResponse contains the response from method ChangeDataCaptureClient.Get.
+type ChangeDataCaptureClientGetResponse struct {
+	ChangeDataCaptureResource
+}
+
+// ChangeDataCaptureClientListByFactoryResponse contains the response from method ChangeDataCaptureClient.NewListByFactoryPager.
+type ChangeDataCaptureClientListByFactoryResponse struct {
+	ChangeDataCaptureListResponse
+}
+
+// ChangeDataCaptureClientStartResponse contains the response from method ChangeDataCaptureClient.Start.
+type ChangeDataCaptureClientStartResponse struct {
+	// placeholder for future response values
+}
+
+// ChangeDataCaptureClientStatusResponse contains the response from method ChangeDataCaptureClient.Status.
+type ChangeDataCaptureClientStatusResponse struct {
+	// Current status of the change data capture resource.
+	Value *string
+}
+
+// ChangeDataCaptureClientStopResponse contains the response from method ChangeDataCaptureClient.Stop.
+type ChangeDataCaptureClientStopResponse struct {
+	// placeholder for future response values
+}
+
 // CredentialOperationsClientCreateOrUpdateResponse contains the response from method CredentialOperationsClient.CreateOrUpdate.
 type CredentialOperationsClientCreateOrUpdateResponse struct {
 	ManagedIdentityCredentialResource
