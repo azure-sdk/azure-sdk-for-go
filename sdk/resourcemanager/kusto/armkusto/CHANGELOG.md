@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2023-06-08)
+### Breaking Changes
+
+- `LanguageExtensionImageNamePython3912`, `LanguageExtensionImageNamePython3912IncludeDeepLearning` from enum `LanguageExtensionImageName` has been removed
+
+
 ## 1.3.1 (2023-04-14)
 ### Bug Fixes
 
