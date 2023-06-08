@@ -48,7 +48,7 @@ func NewDeploymentOperationsClient(subscriptionID string, credential azcore.Toke
 // Get - Gets a deployments operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - operationID - The ID of the operation to get.
@@ -93,7 +93,7 @@ func (client *DeploymentOperationsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -111,7 +111,7 @@ func (client *DeploymentOperationsClient) getHandleResponse(resp *http.Response)
 // GetAtManagementGroupScope - Gets a deployments operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - operationID - The ID of the operation to get.
@@ -152,7 +152,7 @@ func (client *DeploymentOperationsClient) getAtManagementGroupScopeCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *DeploymentOperationsClient) getAtManagementGroupScopeHandleRespons
 // GetAtScope - Gets a deployments operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - operationID - The ID of the operation to get.
@@ -208,7 +208,7 @@ func (client *DeploymentOperationsClient) getAtScopeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -226,7 +226,7 @@ func (client *DeploymentOperationsClient) getAtScopeHandleResponse(resp *http.Re
 // GetAtSubscriptionScope - Gets a deployments operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - deploymentName - The name of the deployment.
 //   - operationID - The ID of the operation to get.
 //   - options - DeploymentOperationsClientGetAtSubscriptionScopeOptions contains the optional parameters for the DeploymentOperationsClient.GetAtSubscriptionScope
@@ -266,7 +266,7 @@ func (client *DeploymentOperationsClient) getAtSubscriptionScopeCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *DeploymentOperationsClient) getAtSubscriptionScopeHandleResponse(r
 // GetAtTenantScope - Gets a deployments operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - deploymentName - The name of the deployment.
 //   - operationID - The ID of the operation to get.
 //   - options - DeploymentOperationsClientGetAtTenantScopeOptions contains the optional parameters for the DeploymentOperationsClient.GetAtTenantScope
@@ -320,7 +320,7 @@ func (client *DeploymentOperationsClient) getAtTenantScopeCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -337,7 +337,7 @@ func (client *DeploymentOperationsClient) getAtTenantScopeHandleResponse(resp *h
 
 // NewListPager - Gets all deployments operations for a deployment.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentOperationsClientListOptions contains the optional parameters for the DeploymentOperationsClient.NewListPager
@@ -393,7 +393,7 @@ func (client *DeploymentOperationsClient) listCreateRequest(ctx context.Context,
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -410,7 +410,7 @@ func (client *DeploymentOperationsClient) listHandleResponse(resp *http.Response
 
 // NewListAtManagementGroupScopePager - Gets all deployments operations for a deployment.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentOperationsClientListAtManagementGroupScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtManagementGroupScopePager
@@ -462,7 +462,7 @@ func (client *DeploymentOperationsClient) listAtManagementGroupScopeCreateReques
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -479,7 +479,7 @@ func (client *DeploymentOperationsClient) listAtManagementGroupScopeHandleRespon
 
 // NewListAtScopePager - Gets all deployments operations for a deployment.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentOperationsClientListAtScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtScopePager
@@ -528,7 +528,7 @@ func (client *DeploymentOperationsClient) listAtScopeCreateRequest(ctx context.C
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -545,7 +545,7 @@ func (client *DeploymentOperationsClient) listAtScopeHandleResponse(resp *http.R
 
 // NewListAtSubscriptionScopePager - Gets all deployments operations for a deployment.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentOperationsClientListAtSubscriptionScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtSubscriptionScopePager
 //     method.
@@ -596,7 +596,7 @@ func (client *DeploymentOperationsClient) listAtSubscriptionScopeCreateRequest(c
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -613,7 +613,7 @@ func (client *DeploymentOperationsClient) listAtSubscriptionScopeHandleResponse(
 
 // NewListAtTenantScopePager - Gets all deployments operations for a deployment.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2022-09-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentOperationsClientListAtTenantScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtTenantScopePager
 //     method.
@@ -660,7 +660,7 @@ func (client *DeploymentOperationsClient) listAtTenantScopeCreateRequest(ctx con
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
