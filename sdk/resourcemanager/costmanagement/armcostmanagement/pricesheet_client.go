@@ -45,7 +45,7 @@ func NewPriceSheetClient(credential azcore.TokenCredential, options *arm.ClientO
 // agreement type Microsoft Partner Agreement or Microsoft Customer Agreement.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - billingAccountName - The ID that uniquely identifies a billing account.
 //   - billingProfileName - The ID that uniquely identifies a billing profile.
 //   - invoiceName - The ID that uniquely identifies an invoice.
@@ -69,7 +69,7 @@ func (client *PriceSheetClient) BeginDownload(ctx context.Context, billingAccoun
 // type Microsoft Partner Agreement or Microsoft Customer Agreement.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 func (client *PriceSheetClient) download(ctx context.Context, billingAccountName string, billingProfileName string, invoiceName string, options *PriceSheetClientBeginDownloadOptions) (*http.Response, error) {
 	req, err := client.downloadCreateRequest(ctx, billingAccountName, billingProfileName, invoiceName, options)
 	if err != nil {
@@ -105,7 +105,7 @@ func (client *PriceSheetClient) downloadCreateRequest(ctx context.Context, billi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -118,7 +118,7 @@ func (client *PriceSheetClient) downloadCreateRequest(ctx context.Context, billi
 // max 200k records.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - billingAccountName - The ID that uniquely identifies a billing account.
 //   - billingProfileName - The ID that uniquely identifies a billing profile.
 //   - options - PriceSheetClientBeginDownloadByBillingProfileOptions contains the optional parameters for the PriceSheetClient.BeginDownloadByBillingProfile
@@ -144,7 +144,7 @@ func (client *PriceSheetClient) BeginDownloadByBillingProfile(ctx context.Contex
 // max 200k records.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 func (client *PriceSheetClient) downloadByBillingProfile(ctx context.Context, billingAccountName string, billingProfileName string, options *PriceSheetClientBeginDownloadByBillingProfileOptions) (*http.Response, error) {
 	req, err := client.downloadByBillingProfileCreateRequest(ctx, billingAccountName, billingProfileName, options)
 	if err != nil {
@@ -176,7 +176,7 @@ func (client *PriceSheetClient) downloadByBillingProfileCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
