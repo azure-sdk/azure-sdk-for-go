@@ -11,7 +11,7 @@ package armcdn
 
 const (
 	moduleName    = "armcdn"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v2.0.0"
 )
 
 // AFDEndpointProtocols - Supported protocols for the customer's endpoint.
@@ -217,6 +217,22 @@ const (
 func PossibleCacheTypeValues() []CacheType {
 	return []CacheType{
 		CacheTypeAll,
+	}
+}
+
+// CanMigrateDefaultSKU - Recommended sku for the migration
+type CanMigrateDefaultSKU string
+
+const (
+	CanMigrateDefaultSKUPremiumAzureFrontDoor  CanMigrateDefaultSKU = "Premium_AzureFrontDoor"
+	CanMigrateDefaultSKUStandardAzureFrontDoor CanMigrateDefaultSKU = "Standard_AzureFrontDoor"
+)
+
+// PossibleCanMigrateDefaultSKUValues returns the possible values for the CanMigrateDefaultSKU const type.
+func PossibleCanMigrateDefaultSKUValues() []CanMigrateDefaultSKU {
+	return []CanMigrateDefaultSKU{
+		CanMigrateDefaultSKUPremiumAzureFrontDoor,
+		CanMigrateDefaultSKUStandardAzureFrontDoor,
 	}
 }
 
@@ -1015,6 +1031,26 @@ func PossibleManagedRuleEnabledStateValues() []ManagedRuleEnabledState {
 	}
 }
 
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned, UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
 // MatchProcessingBehavior - If this rule is a match should the rules engine continue running the remaining rules or stop.
 // If not present, defaults to Continue.
 type MatchProcessingBehavior string
@@ -1082,39 +1118,39 @@ func PossibleMatchVariableValues() []MatchVariable {
 	}
 }
 
-type MetricsResponseGranularity string
+type MetricsGranularity string
 
 const (
-	MetricsResponseGranularityP1D  MetricsResponseGranularity = "P1D"
-	MetricsResponseGranularityPT1H MetricsResponseGranularity = "PT1H"
-	MetricsResponseGranularityPT5M MetricsResponseGranularity = "PT5M"
+	MetricsGranularityP1D  MetricsGranularity = "P1D"
+	MetricsGranularityPT1H MetricsGranularity = "PT1H"
+	MetricsGranularityPT5M MetricsGranularity = "PT5M"
 )
 
-// PossibleMetricsResponseGranularityValues returns the possible values for the MetricsResponseGranularity const type.
-func PossibleMetricsResponseGranularityValues() []MetricsResponseGranularity {
-	return []MetricsResponseGranularity{
-		MetricsResponseGranularityP1D,
-		MetricsResponseGranularityPT1H,
-		MetricsResponseGranularityPT5M,
+// PossibleMetricsGranularityValues returns the possible values for the MetricsGranularity const type.
+func PossibleMetricsGranularityValues() []MetricsGranularity {
+	return []MetricsGranularity{
+		MetricsGranularityP1D,
+		MetricsGranularityPT1H,
+		MetricsGranularityPT5M,
 	}
 }
 
-type MetricsResponseSeriesItemUnit string
+type MetricsSeriesUnit string
 
 const (
-	MetricsResponseSeriesItemUnitBitsPerSecond MetricsResponseSeriesItemUnit = "bitsPerSecond"
-	MetricsResponseSeriesItemUnitBytes         MetricsResponseSeriesItemUnit = "bytes"
-	MetricsResponseSeriesItemUnitCount         MetricsResponseSeriesItemUnit = "count"
-	MetricsResponseSeriesItemUnitMilliSeconds  MetricsResponseSeriesItemUnit = "milliSeconds"
+	MetricsSeriesUnitBitsPerSecond MetricsSeriesUnit = "bitsPerSecond"
+	MetricsSeriesUnitBytes         MetricsSeriesUnit = "bytes"
+	MetricsSeriesUnitCount         MetricsSeriesUnit = "count"
+	MetricsSeriesUnitMilliSeconds  MetricsSeriesUnit = "milliSeconds"
 )
 
-// PossibleMetricsResponseSeriesItemUnitValues returns the possible values for the MetricsResponseSeriesItemUnit const type.
-func PossibleMetricsResponseSeriesItemUnitValues() []MetricsResponseSeriesItemUnit {
-	return []MetricsResponseSeriesItemUnit{
-		MetricsResponseSeriesItemUnitBitsPerSecond,
-		MetricsResponseSeriesItemUnitBytes,
-		MetricsResponseSeriesItemUnitCount,
-		MetricsResponseSeriesItemUnitMilliSeconds,
+// PossibleMetricsSeriesUnitValues returns the possible values for the MetricsSeriesUnit const type.
+func PossibleMetricsSeriesUnitValues() []MetricsSeriesUnit {
+	return []MetricsSeriesUnit{
+		MetricsSeriesUnitBitsPerSecond,
+		MetricsSeriesUnitBytes,
+		MetricsSeriesUnitCount,
+		MetricsSeriesUnitMilliSeconds,
 	}
 }
 
@@ -1496,19 +1532,29 @@ func PossibleProfileProvisioningStateValues() []ProfileProvisioningState {
 type ProfileResourceState string
 
 const (
-	ProfileResourceStateActive   ProfileResourceState = "Active"
-	ProfileResourceStateCreating ProfileResourceState = "Creating"
-	ProfileResourceStateDeleting ProfileResourceState = "Deleting"
-	ProfileResourceStateDisabled ProfileResourceState = "Disabled"
+	ProfileResourceStateAbortingMigration      ProfileResourceState = "AbortingMigration"
+	ProfileResourceStateActive                 ProfileResourceState = "Active"
+	ProfileResourceStateCommittingMigration    ProfileResourceState = "CommittingMigration"
+	ProfileResourceStateCreating               ProfileResourceState = "Creating"
+	ProfileResourceStateDeleting               ProfileResourceState = "Deleting"
+	ProfileResourceStateDisabled               ProfileResourceState = "Disabled"
+	ProfileResourceStateMigrated               ProfileResourceState = "Migrated"
+	ProfileResourceStateMigrating              ProfileResourceState = "Migrating"
+	ProfileResourceStatePendingMigrationCommit ProfileResourceState = "PendingMigrationCommit"
 )
 
 // PossibleProfileResourceStateValues returns the possible values for the ProfileResourceState const type.
 func PossibleProfileResourceStateValues() []ProfileResourceState {
 	return []ProfileResourceState{
+		ProfileResourceStateAbortingMigration,
 		ProfileResourceStateActive,
+		ProfileResourceStateCommittingMigration,
 		ProfileResourceStateCreating,
 		ProfileResourceStateDeleting,
 		ProfileResourceStateDisabled,
+		ProfileResourceStateMigrated,
+		ProfileResourceStateMigrating,
+		ProfileResourceStatePendingMigrationCommit,
 	}
 }
 
@@ -2597,33 +2643,33 @@ func PossibleWafMetricValues() []WafMetric {
 	}
 }
 
-type WafMetricsResponseGranularity string
+type WafMetricsGranularity string
 
 const (
-	WafMetricsResponseGranularityP1D  WafMetricsResponseGranularity = "P1D"
-	WafMetricsResponseGranularityPT1H WafMetricsResponseGranularity = "PT1H"
-	WafMetricsResponseGranularityPT5M WafMetricsResponseGranularity = "PT5M"
+	WafMetricsGranularityP1D  WafMetricsGranularity = "P1D"
+	WafMetricsGranularityPT1H WafMetricsGranularity = "PT1H"
+	WafMetricsGranularityPT5M WafMetricsGranularity = "PT5M"
 )
 
-// PossibleWafMetricsResponseGranularityValues returns the possible values for the WafMetricsResponseGranularity const type.
-func PossibleWafMetricsResponseGranularityValues() []WafMetricsResponseGranularity {
-	return []WafMetricsResponseGranularity{
-		WafMetricsResponseGranularityP1D,
-		WafMetricsResponseGranularityPT1H,
-		WafMetricsResponseGranularityPT5M,
+// PossibleWafMetricsGranularityValues returns the possible values for the WafMetricsGranularity const type.
+func PossibleWafMetricsGranularityValues() []WafMetricsGranularity {
+	return []WafMetricsGranularity{
+		WafMetricsGranularityP1D,
+		WafMetricsGranularityPT1H,
+		WafMetricsGranularityPT5M,
 	}
 }
 
-type WafMetricsResponseSeriesItemUnit string
+type WafMetricsSeriesUnit string
 
 const (
-	WafMetricsResponseSeriesItemUnitCount WafMetricsResponseSeriesItemUnit = "count"
+	WafMetricsSeriesUnitCount WafMetricsSeriesUnit = "count"
 )
 
-// PossibleWafMetricsResponseSeriesItemUnitValues returns the possible values for the WafMetricsResponseSeriesItemUnit const type.
-func PossibleWafMetricsResponseSeriesItemUnitValues() []WafMetricsResponseSeriesItemUnit {
-	return []WafMetricsResponseSeriesItemUnit{
-		WafMetricsResponseSeriesItemUnitCount,
+// PossibleWafMetricsSeriesUnitValues returns the possible values for the WafMetricsSeriesUnit const type.
+func PossibleWafMetricsSeriesUnitValues() []WafMetricsSeriesUnit {
+	return []WafMetricsSeriesUnit{
+		WafMetricsSeriesUnitCount,
 	}
 }
 
