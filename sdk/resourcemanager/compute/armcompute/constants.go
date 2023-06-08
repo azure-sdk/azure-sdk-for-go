@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.0.0"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -630,26 +630,6 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 		DiskStorageAccountTypesStandardSSDLRS,
 		DiskStorageAccountTypesStandardSSDZRS,
 		DiskStorageAccountTypesUltraSSDLRS,
-	}
-}
-
-// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
-type EdgeZoneStorageAccountType string
-
-const (
-	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
-	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
-	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
-	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
-)
-
-// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
-func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
-	return []EdgeZoneStorageAccountType{
-		EdgeZoneStorageAccountTypePremiumLRS,
-		EdgeZoneStorageAccountTypeStandardLRS,
-		EdgeZoneStorageAccountTypeStandardSSDLRS,
-		EdgeZoneStorageAccountTypeStandardZRS,
 	}
 }
 
@@ -1717,19 +1697,22 @@ func PossibleRollingUpgradeStatusCodeValues() []RollingUpgradeStatusCode {
 }
 
 // SecurityEncryptionTypes - Specifies the EncryptionType of the managed disk. It is set to DiskWithVMGuestState for encryption
-// of the managed disk along with VMGuestState blob, and VMGuestStateOnly for encryption of just the
-// VMGuestState blob. Note: It can be set for only Confidential VMs.
+// of the managed disk along with VMGuestState blob, VMGuestStateOnly for encryption of just the
+// VMGuestState blob, and NonPersistedVMGuestState for not persisting firmware state in the VMGuestState blob. Note: It can
+// be set for only Confidential VMs.
 type SecurityEncryptionTypes string
 
 const (
-	SecurityEncryptionTypesDiskWithVMGuestState SecurityEncryptionTypes = "DiskWithVMGuestState"
-	SecurityEncryptionTypesVMGuestStateOnly     SecurityEncryptionTypes = "VMGuestStateOnly"
+	SecurityEncryptionTypesDiskWithVMGuestState     SecurityEncryptionTypes = "DiskWithVMGuestState"
+	SecurityEncryptionTypesNonPersistedVMGuestState SecurityEncryptionTypes = "NonPersistedVMGuestState"
+	SecurityEncryptionTypesVMGuestStateOnly         SecurityEncryptionTypes = "VMGuestStateOnly"
 )
 
 // PossibleSecurityEncryptionTypesValues returns the possible values for the SecurityEncryptionTypes const type.
 func PossibleSecurityEncryptionTypesValues() []SecurityEncryptionTypes {
 	return []SecurityEncryptionTypes{
 		SecurityEncryptionTypesDiskWithVMGuestState,
+		SecurityEncryptionTypesNonPersistedVMGuestState,
 		SecurityEncryptionTypesVMGuestStateOnly,
 	}
 }
@@ -1919,9 +1902,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -1929,6 +1913,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }

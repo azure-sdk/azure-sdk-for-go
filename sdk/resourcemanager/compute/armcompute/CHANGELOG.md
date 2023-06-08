@@ -1,5 +1,19 @@
 # Release History
 
+## 6.0.0 (2023-06-08)
+### Breaking Changes
+
+- Type of `CommunityGalleryImageProperties.Identifier` has been changed from `*CommunityGalleryImageIdentifier` to `*GalleryImageIdentifier`
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Struct `CommunityGalleryImageIdentifier` has been removed
+
+### Features Added
+
+- New value `SecurityEncryptionTypesNonPersistedVMGuestState` added to enum type `SecurityEncryptionTypes`
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+
+
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes
 
