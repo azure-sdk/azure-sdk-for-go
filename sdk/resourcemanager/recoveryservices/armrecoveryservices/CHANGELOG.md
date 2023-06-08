@@ -1,5 +1,15 @@
 # Release History
 
+## 1.4.0 (2023-06-08)
+### Features Added
+
+- New enum type `CrossSubscriptionRestoreState` with values `CrossSubscriptionRestoreStateDisabled`, `CrossSubscriptionRestoreStateEnabled`, `CrossSubscriptionRestoreStatePermanentlyDisabled`
+- New enum type `SecureScoreLevel` with values `SecureScoreLevelAdequate`, `SecureScoreLevelMaximum`, `SecureScoreLevelMinimum`, `SecureScoreLevelNone`
+- New struct `CrossSubscriptionRestoreSettings`
+- New struct `RestoreSettings`
+- New field `RestoreSettings`, `SecureScore` in struct `VaultProperties`
+
+
 ## 1.3.1 (2023-04-14)
 ### Bug Fixes
 

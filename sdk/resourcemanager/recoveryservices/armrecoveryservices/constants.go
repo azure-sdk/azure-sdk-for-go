@@ -11,7 +11,7 @@ package armrecoveryservices
 
 const (
 	moduleName    = "armrecoveryservices"
-	moduleVersion = "v1.3.1"
+	moduleVersion = "v1.4.0"
 )
 
 type AlertsState string
@@ -102,6 +102,23 @@ func PossibleCrossRegionRestoreValues() []CrossRegionRestore {
 	return []CrossRegionRestore{
 		CrossRegionRestoreDisabled,
 		CrossRegionRestoreEnabled,
+	}
+}
+
+type CrossSubscriptionRestoreState string
+
+const (
+	CrossSubscriptionRestoreStateDisabled            CrossSubscriptionRestoreState = "Disabled"
+	CrossSubscriptionRestoreStateEnabled             CrossSubscriptionRestoreState = "Enabled"
+	CrossSubscriptionRestoreStatePermanentlyDisabled CrossSubscriptionRestoreState = "PermanentlyDisabled"
+)
+
+// PossibleCrossSubscriptionRestoreStateValues returns the possible values for the CrossSubscriptionRestoreState const type.
+func PossibleCrossSubscriptionRestoreStateValues() []CrossSubscriptionRestoreState {
+	return []CrossSubscriptionRestoreState{
+		CrossSubscriptionRestoreStateDisabled,
+		CrossSubscriptionRestoreStateEnabled,
+		CrossSubscriptionRestoreStatePermanentlyDisabled,
 	}
 }
 
@@ -263,6 +280,26 @@ func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
 		SKUNameRS0,
 		SKUNameStandard,
+	}
+}
+
+// SecureScoreLevel - Secure Score of Recovery Services Vault
+type SecureScoreLevel string
+
+const (
+	SecureScoreLevelAdequate SecureScoreLevel = "Adequate"
+	SecureScoreLevelMaximum  SecureScoreLevel = "Maximum"
+	SecureScoreLevelMinimum  SecureScoreLevel = "Minimum"
+	SecureScoreLevelNone     SecureScoreLevel = "None"
+)
+
+// PossibleSecureScoreLevelValues returns the possible values for the SecureScoreLevel const type.
+func PossibleSecureScoreLevelValues() []SecureScoreLevel {
+	return []SecureScoreLevel{
+		SecureScoreLevelAdequate,
+		SecureScoreLevelMaximum,
+		SecureScoreLevelMinimum,
+		SecureScoreLevelNone,
 	}
 }
 
