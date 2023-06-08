@@ -1086,6 +1086,9 @@ type CommunityGallery struct {
 	// The identifier information of community gallery.
 	Identifier *CommunityGalleryIdentifier
 
+	// Describes the properties of a community gallery.
+	Properties *CommunityGalleryProperties
+
 	// READ-ONLY; Resource location
 	Location *string
 
@@ -1158,11 +1161,17 @@ type CommunityGalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
+
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
 
 	// Describes the disallowed disk types.
 	Disallowed *Disallowed
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
 
 	// The end of life date of the gallery image definition. This property can be used for decommissioning purposes. This property
 	// is updatable.
@@ -1217,6 +1226,12 @@ type CommunityGalleryImageVersionList struct {
 
 // CommunityGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type CommunityGalleryImageVersionProperties struct {
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
+
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time
@@ -1274,6 +1289,36 @@ type CommunityGalleryInfo struct {
 
 	// READ-ONLY; Community gallery public name list.
 	PublicNames []*string
+}
+
+// CommunityGalleryMetadata - The metadata of community gallery.
+type CommunityGalleryMetadata struct {
+	// The eula of this community gallery.
+	Eula *string
+
+	// The privacyStatementUri of this community gallery.
+	PrivacyStatementURI *string
+
+	// A list of public names the gallery has.
+	PublicNames []*string
+
+	// The publisher contact of this community gallery.
+	PublisherContact *string
+
+	// The publisher uri of this community gallery.
+	PublisherURI *string
+}
+
+// CommunityGalleryProperties - Describes the properties of a community gallery.
+type CommunityGalleryProperties struct {
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
+
+	// The metadata of community gallery.
+	CommunityMetadata *CommunityGalleryMetadata
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
 }
 
 // CopyCompletionError - Indicates the error details if the background copy of a resource created via the CopyStart operation
@@ -3121,7 +3166,7 @@ type GalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -3423,7 +3468,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -5977,6 +6022,9 @@ type SharedGallery struct {
 	// The identifier information of shared gallery.
 	Identifier *SharedGalleryIdentifier
 
+	// Specifies the properties of a shared gallery
+	Properties *SharedGalleryProperties
+
 	// READ-ONLY; Resource location
 	Location *string
 
@@ -6054,8 +6102,11 @@ type SharedGalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
+
+	// The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
 
 	// Describes the disallowed disk types.
 	Disallowed *Disallowed
@@ -6110,6 +6161,9 @@ type SharedGalleryImageVersionList struct {
 
 // SharedGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type SharedGalleryImageVersionProperties struct {
+	// The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
+
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time
@@ -6174,6 +6228,12 @@ type SharedGalleryOSDiskImage struct {
 
 	// READ-ONLY; This property indicates the size of the VHD to be created.
 	DiskSizeGB *int32
+}
+
+// SharedGalleryProperties - Specifies the properties of a shared gallery
+type SharedGalleryProperties struct {
+	// READ-ONLY; The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
 }
 
 // SharingProfile - Profile for gallery sharing to subscription or tenant

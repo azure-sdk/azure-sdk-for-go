@@ -1,5 +1,25 @@
 # Release History
 
+## 6.0.0 (2023-06-08)
+### Breaking Changes
+
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `SharedGalleryProperties`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
+
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes
 
