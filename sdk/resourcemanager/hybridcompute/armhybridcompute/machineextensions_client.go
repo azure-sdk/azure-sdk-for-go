@@ -47,7 +47,7 @@ func NewMachineExtensionsClient(subscriptionID string, credential azcore.TokenCr
 // BeginCreateOrUpdate - The operation to create or update the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the machine where the extension should be created or updated.
 //   - extensionName - The name of the machine extension.
@@ -69,7 +69,7 @@ func (client *MachineExtensionsClient) BeginCreateOrUpdate(ctx context.Context, 
 // CreateOrUpdate - The operation to create or update the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 func (client *MachineExtensionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, machineName string, extensionName string, extensionParameters MachineExtension, options *MachineExtensionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, machineName, extensionName, extensionParameters, options)
 	if err != nil {
@@ -109,7 +109,7 @@ func (client *MachineExtensionsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, extensionParameters)
@@ -118,7 +118,7 @@ func (client *MachineExtensionsClient) createOrUpdateCreateRequest(ctx context.C
 // BeginDelete - The operation to delete the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the machine where the extension should be deleted.
 //   - extensionName - The name of the machine extension.
@@ -139,7 +139,7 @@ func (client *MachineExtensionsClient) BeginDelete(ctx context.Context, resource
 // Delete - The operation to delete the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 func (client *MachineExtensionsClient) deleteOperation(ctx context.Context, resourceGroupName string, machineName string, extensionName string, options *MachineExtensionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, machineName, extensionName, options)
 	if err != nil {
@@ -179,7 +179,7 @@ func (client *MachineExtensionsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *MachineExtensionsClient) deleteCreateRequest(ctx context.Context, 
 // Get - The operation to get the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the machine containing the extension.
 //   - extensionName - The name of the machine extension.
@@ -232,7 +232,7 @@ func (client *MachineExtensionsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +249,7 @@ func (client *MachineExtensionsClient) getHandleResponse(resp *http.Response) (M
 
 // NewListPager - The operation to get all extensions of a non-Azure machine
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the machine containing the extension.
 //   - options - MachineExtensionsClientListOptions contains the optional parameters for the MachineExtensionsClient.NewListPager
@@ -305,7 +305,7 @@ func (client *MachineExtensionsClient) listCreateRequest(ctx context.Context, re
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -323,7 +323,7 @@ func (client *MachineExtensionsClient) listHandleResponse(resp *http.Response) (
 // BeginUpdate - The operation to create or update the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the machine where the extension should be created or updated.
 //   - extensionName - The name of the machine extension.
@@ -345,7 +345,7 @@ func (client *MachineExtensionsClient) BeginUpdate(ctx context.Context, resource
 // Update - The operation to create or update the extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 func (client *MachineExtensionsClient) update(ctx context.Context, resourceGroupName string, machineName string, extensionName string, extensionParameters MachineExtensionUpdate, options *MachineExtensionsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, machineName, extensionName, extensionParameters, options)
 	if err != nil {
@@ -385,7 +385,7 @@ func (client *MachineExtensionsClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, extensionParameters)

@@ -48,7 +48,7 @@ func NewPrivateLinkScopesClient(subscriptionID string, credential azcore.TokenCr
 // nor AppId in the Put operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scopeName - The name of the Azure Arc PrivateLinkScope resource.
 //   - parameters - Properties that need to be specified to create or update a Azure Arc for Servers and Clusters PrivateLinkScope.
@@ -89,7 +89,7 @@ func (client *PrivateLinkScopesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -107,7 +107,7 @@ func (client *PrivateLinkScopesClient) createOrUpdateHandleResponse(resp *http.R
 // BeginDelete - Deletes a Azure Arc PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scopeName - The name of the Azure Arc PrivateLinkScope resource.
 //   - options - PrivateLinkScopesClientBeginDeleteOptions contains the optional parameters for the PrivateLinkScopesClient.BeginDelete
@@ -127,7 +127,7 @@ func (client *PrivateLinkScopesClient) BeginDelete(ctx context.Context, resource
 // Delete - Deletes a Azure Arc PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 func (client *PrivateLinkScopesClient) deleteOperation(ctx context.Context, resourceGroupName string, scopeName string, options *PrivateLinkScopesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, scopeName, options)
 	if err != nil {
@@ -163,7 +163,7 @@ func (client *PrivateLinkScopesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *PrivateLinkScopesClient) deleteCreateRequest(ctx context.Context, 
 // Get - Returns a Azure Arc PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scopeName - The name of the Azure Arc PrivateLinkScope resource.
 //   - options - PrivateLinkScopesClientGetOptions contains the optional parameters for the PrivateLinkScopesClient.Get method.
@@ -211,7 +211,7 @@ func (client *PrivateLinkScopesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -229,7 +229,7 @@ func (client *PrivateLinkScopesClient) getHandleResponse(resp *http.Response) (P
 // GetValidationDetails - Returns a Azure Arc PrivateLinkScope's validation details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - location - The location of the target resource.
 //   - privateLinkScopeID - The id (Guid) of the Azure Arc PrivateLinkScope resource.
 //   - options - PrivateLinkScopesClientGetValidationDetailsOptions contains the optional parameters for the PrivateLinkScopesClient.GetValidationDetails
@@ -269,7 +269,7 @@ func (client *PrivateLinkScopesClient) getValidationDetailsCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -287,7 +287,7 @@ func (client *PrivateLinkScopesClient) getValidationDetailsHandleResponse(resp *
 // GetValidationDetailsForMachine - Returns a Azure Arc PrivateLinkScope's validation details for a given machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the target machine to get the private link scope validation details for.
 //   - options - PrivateLinkScopesClientGetValidationDetailsForMachineOptions contains the optional parameters for the PrivateLinkScopesClient.GetValidationDetailsForMachine
@@ -327,7 +327,7 @@ func (client *PrivateLinkScopesClient) getValidationDetailsForMachineCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -344,7 +344,7 @@ func (client *PrivateLinkScopesClient) getValidationDetailsForMachineHandleRespo
 
 // NewListPager - Gets a list of all Azure Arc PrivateLinkScopes within a subscription.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - options - PrivateLinkScopesClientListOptions contains the optional parameters for the PrivateLinkScopesClient.NewListPager
 //     method.
 func (client *PrivateLinkScopesClient) NewListPager(options *PrivateLinkScopesClientListOptions) *runtime.Pager[PrivateLinkScopesClientListResponse] {
@@ -387,7 +387,7 @@ func (client *PrivateLinkScopesClient) listCreateRequest(ctx context.Context, op
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -404,7 +404,7 @@ func (client *PrivateLinkScopesClient) listHandleResponse(resp *http.Response) (
 
 // NewListByResourceGroupPager - Gets a list of Azure Arc PrivateLinkScopes within a resource group.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - PrivateLinkScopesClientListByResourceGroupOptions contains the optional parameters for the PrivateLinkScopesClient.NewListByResourceGroupPager
 //     method.
@@ -452,7 +452,7 @@ func (client *PrivateLinkScopesClient) listByResourceGroupCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -470,7 +470,7 @@ func (client *PrivateLinkScopesClient) listByResourceGroupHandleResponse(resp *h
 // UpdateTags - Updates an existing PrivateLinkScope's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-10
+// Generated from API version 2023-04-25-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scopeName - The name of the Azure Arc PrivateLinkScope resource.
 //   - privateLinkScopeTags - Updated tag information to set into the PrivateLinkScope instance.
@@ -511,7 +511,7 @@ func (client *PrivateLinkScopesClient) updateTagsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-10")
+	reqQP.Set("api-version", "2023-04-25-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, privateLinkScopeTags)
