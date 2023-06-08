@@ -2077,6 +2077,7 @@ func (s ServerPropertiesForUpdate) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dataEncryption", s.DataEncryption)
 	populate(objectMap, "highAvailability", s.HighAvailability)
 	populate(objectMap, "maintenanceWindow", s.MaintenanceWindow)
+	populate(objectMap, "network", s.Network)
 	populate(objectMap, "replicationRole", s.ReplicationRole)
 	populate(objectMap, "storage", s.Storage)
 	populate(objectMap, "version", s.Version)
@@ -2106,6 +2107,9 @@ func (s *ServerPropertiesForUpdate) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maintenanceWindow":
 			err = unpopulate(val, "MaintenanceWindow", &s.MaintenanceWindow)
+			delete(rawMsg, key)
+		case "network":
+			err = unpopulate(val, "Network", &s.Network)
 			delete(rawMsg, key)
 		case "replicationRole":
 			err = unpopulate(val, "ReplicationRole", &s.ReplicationRole)

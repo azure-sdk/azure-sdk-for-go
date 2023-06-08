@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-06-08)
+### Features Added
+
+- New field `Network` in struct `ServerPropertiesForUpdate`
+
+
 ## 2.0.0-beta.1 (2023-05-26)
 ### Breaking Changes
 

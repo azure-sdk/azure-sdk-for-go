@@ -988,6 +988,9 @@ type ServerPropertiesForUpdate struct {
 	// Maintenance window of a server.
 	MaintenanceWindow *MaintenanceWindow
 
+	// Network related properties of a server
+	Network *Network
+
 	// The replication role of the server.
 	ReplicationRole *ReplicationRole
 

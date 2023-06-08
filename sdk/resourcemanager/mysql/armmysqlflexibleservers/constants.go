@@ -11,7 +11,7 @@ package armmysqlflexibleservers
 
 const (
 	moduleName    = "armmysqlflexibleservers"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 type AdministratorName string
