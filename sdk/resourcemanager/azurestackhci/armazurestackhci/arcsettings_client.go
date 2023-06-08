@@ -44,10 +44,73 @@ func NewArcSettingsClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
+// ConsentAndInstallDefaultExtensions - Add consent time for default extensions and initiate extensions installation
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
+//   - options - ArcSettingsClientConsentAndInstallDefaultExtensionsOptions contains the optional parameters for the ArcSettingsClient.ConsentAndInstallDefaultExtensions
+//     method.
+func (client *ArcSettingsClient) ConsentAndInstallDefaultExtensions(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientConsentAndInstallDefaultExtensionsOptions) (ArcSettingsClientConsentAndInstallDefaultExtensionsResponse, error) {
+	req, err := client.consentAndInstallDefaultExtensionsCreateRequest(ctx, resourceGroupName, clusterName, arcSettingName, options)
+	if err != nil {
+		return ArcSettingsClientConsentAndInstallDefaultExtensionsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ArcSettingsClientConsentAndInstallDefaultExtensionsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ArcSettingsClientConsentAndInstallDefaultExtensionsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.consentAndInstallDefaultExtensionsHandleResponse(resp)
+}
+
+// consentAndInstallDefaultExtensionsCreateRequest creates the ConsentAndInstallDefaultExtensions request.
+func (client *ArcSettingsClient) consentAndInstallDefaultExtensionsCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientConsentAndInstallDefaultExtensionsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/arcSettings/{arcSettingName}/consentAndInstallDefaultExtensions"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if arcSettingName == "" {
+		return nil, errors.New("parameter arcSettingName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{arcSettingName}", url.PathEscape(arcSettingName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// consentAndInstallDefaultExtensionsHandleResponse handles the ConsentAndInstallDefaultExtensions response.
+func (client *ArcSettingsClient) consentAndInstallDefaultExtensionsHandleResponse(resp *http.Response) (ArcSettingsClientConsentAndInstallDefaultExtensionsResponse, error) {
+	result := ArcSettingsClientConsentAndInstallDefaultExtensionsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ArcSetting); err != nil {
+		return ArcSettingsClientConsentAndInstallDefaultExtensionsResponse{}, err
+	}
+	return result, nil
+}
+
 // Create - Create ArcSetting for HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
@@ -92,7 +155,7 @@ func (client *ArcSettingsClient) createCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, arcSetting)
@@ -110,7 +173,7 @@ func (client *ArcSettingsClient) createHandleResponse(resp *http.Response) (ArcS
 // BeginCreateIdentity - Create Aad identity for arc settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
@@ -133,7 +196,7 @@ func (client *ArcSettingsClient) BeginCreateIdentity(ctx context.Context, resour
 // CreateIdentity - Create Aad identity for arc settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 func (client *ArcSettingsClient) createIdentity(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientBeginCreateIdentityOptions) (*http.Response, error) {
 	req, err := client.createIdentityCreateRequest(ctx, resourceGroupName, clusterName, arcSettingName, options)
 	if err != nil {
@@ -173,7 +236,7 @@ func (client *ArcSettingsClient) createIdentityCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -182,7 +245,7 @@ func (client *ArcSettingsClient) createIdentityCreateRequest(ctx context.Context
 // BeginDelete - Delete ArcSetting resource details of HCI Cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
@@ -204,7 +267,7 @@ func (client *ArcSettingsClient) BeginDelete(ctx context.Context, resourceGroupN
 // Delete - Delete ArcSetting resource details of HCI Cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 func (client *ArcSettingsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, arcSettingName, options)
 	if err != nil {
@@ -244,7 +307,7 @@ func (client *ArcSettingsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +316,7 @@ func (client *ArcSettingsClient) deleteCreateRequest(ctx context.Context, resour
 // GeneratePassword - Generate password for arc settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
@@ -298,7 +361,7 @@ func (client *ArcSettingsClient) generatePasswordCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,7 +379,7 @@ func (client *ArcSettingsClient) generatePasswordHandleResponse(resp *http.Respo
 // Get - Get ArcSetting resource details of HCI Cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
@@ -360,7 +423,7 @@ func (client *ArcSettingsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -375,9 +438,81 @@ func (client *ArcSettingsClient) getHandleResponse(resp *http.Response) (ArcSett
 	return result, nil
 }
 
+// BeginInitializeDisableProcess - Initializes ARC Disable process on the cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
+//   - options - ArcSettingsClientBeginInitializeDisableProcessOptions contains the optional parameters for the ArcSettingsClient.BeginInitializeDisableProcess
+//     method.
+func (client *ArcSettingsClient) BeginInitializeDisableProcess(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientBeginInitializeDisableProcessOptions) (*runtime.Poller[ArcSettingsClientInitializeDisableProcessResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.initializeDisableProcess(ctx, resourceGroupName, clusterName, arcSettingName, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ArcSettingsClientInitializeDisableProcessResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[ArcSettingsClientInitializeDisableProcessResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// InitializeDisableProcess - Initializes ARC Disable process on the cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01
+func (client *ArcSettingsClient) initializeDisableProcess(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientBeginInitializeDisableProcessOptions) (*http.Response, error) {
+	req, err := client.initializeDisableProcessCreateRequest(ctx, resourceGroupName, clusterName, arcSettingName, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// initializeDisableProcessCreateRequest creates the InitializeDisableProcess request.
+func (client *ArcSettingsClient) initializeDisableProcessCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, options *ArcSettingsClientBeginInitializeDisableProcessOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/arcSettings/{arcSettingName}/initializeDisableProcess"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if arcSettingName == "" {
+		return nil, errors.New("parameter arcSettingName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{arcSettingName}", url.PathEscape(arcSettingName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // NewListByClusterPager - Get ArcSetting resources of HCI Cluster.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - ArcSettingsClientListByClusterOptions contains the optional parameters for the ArcSettingsClient.NewListByClusterPager
@@ -430,7 +565,7 @@ func (client *ArcSettingsClient) listByClusterCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -448,7 +583,7 @@ func (client *ArcSettingsClient) listByClusterHandleResponse(resp *http.Response
 // Update - Update ArcSettings for HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
@@ -493,7 +628,7 @@ func (client *ArcSettingsClient) updateCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, arcSetting)

@@ -9,6 +9,11 @@
 
 package armazurestackhci
 
+// ArcSettingsClientConsentAndInstallDefaultExtensionsResponse contains the response from method ArcSettingsClient.ConsentAndInstallDefaultExtensions.
+type ArcSettingsClientConsentAndInstallDefaultExtensionsResponse struct {
+	ArcSetting
+}
+
 // ArcSettingsClientCreateIdentityResponse contains the response from method ArcSettingsClient.BeginCreateIdentity.
 type ArcSettingsClientCreateIdentityResponse struct {
 	ArcIdentityResponse
@@ -34,6 +39,11 @@ type ArcSettingsClientGetResponse struct {
 	ArcSetting
 }
 
+// ArcSettingsClientInitializeDisableProcessResponse contains the response from method ArcSettingsClient.BeginInitializeDisableProcess.
+type ArcSettingsClientInitializeDisableProcessResponse struct {
+	// placeholder for future response values
+}
+
 // ArcSettingsClientListByClusterResponse contains the response from method ArcSettingsClient.NewListByClusterPager.
 type ArcSettingsClientListByClusterResponse struct {
 	ArcSettingList
@@ -57,6 +67,11 @@ type ClustersClientCreateResponse struct {
 // ClustersClientDeleteResponse contains the response from method ClustersClient.BeginDelete.
 type ClustersClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// ClustersClientExtendSoftwareAssuranceBenefitResponse contains the response from method ClustersClient.BeginExtendSoftwareAssuranceBenefit.
+type ClustersClientExtendSoftwareAssuranceBenefitResponse struct {
+	Cluster
 }
 
 // ClustersClientGetResponse contains the response from method ClustersClient.Get.
@@ -109,7 +124,112 @@ type ExtensionsClientUpdateResponse struct {
 	Extension
 }
 
+// ExtensionsClientUpgradeResponse contains the response from method ExtensionsClient.BeginUpgrade.
+type ExtensionsClientUpgradeResponse struct {
+	// placeholder for future response values
+}
+
+// OffersClientGetResponse contains the response from method OffersClient.Get.
+type OffersClientGetResponse struct {
+	Offer
+}
+
+// OffersClientListByClusterResponse contains the response from method OffersClient.NewListByClusterPager.
+type OffersClientListByClusterResponse struct {
+	OfferList
+}
+
+// OffersClientListByPublisherResponse contains the response from method OffersClient.NewListByPublisherPager.
+type OffersClientListByPublisherResponse struct {
+	OfferList
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	OperationListResult
+}
+
+// PublishersClientGetResponse contains the response from method PublishersClient.Get.
+type PublishersClientGetResponse struct {
+	Publisher
+}
+
+// PublishersClientListByClusterResponse contains the response from method PublishersClient.NewListByClusterPager.
+type PublishersClientListByClusterResponse struct {
+	PublisherList
+}
+
+// SKUsClientGetResponse contains the response from method SKUsClient.Get.
+type SKUsClientGetResponse struct {
+	SKU
+}
+
+// SKUsClientListByOfferResponse contains the response from method SKUsClient.NewListByOfferPager.
+type SKUsClientListByOfferResponse struct {
+	SKUList
+}
+
+// UpdateRunsClientDeleteResponse contains the response from method UpdateRunsClient.BeginDelete.
+type UpdateRunsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// UpdateRunsClientGetResponse contains the response from method UpdateRunsClient.Get.
+type UpdateRunsClientGetResponse struct {
+	UpdateRun
+}
+
+// UpdateRunsClientListResponse contains the response from method UpdateRunsClient.NewListPager.
+type UpdateRunsClientListResponse struct {
+	UpdateRunList
+}
+
+// UpdateRunsClientPutResponse contains the response from method UpdateRunsClient.Put.
+type UpdateRunsClientPutResponse struct {
+	UpdateRun
+}
+
+// UpdateSummariesClientDeleteResponse contains the response from method UpdateSummariesClient.BeginDelete.
+type UpdateSummariesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// UpdateSummariesClientGetResponse contains the response from method UpdateSummariesClient.Get.
+type UpdateSummariesClientGetResponse struct {
+	UpdateSummaries
+}
+
+// UpdateSummariesClientListResponse contains the response from method UpdateSummariesClient.NewListPager.
+type UpdateSummariesClientListResponse struct {
+	UpdateSummariesList
+}
+
+// UpdateSummariesClientPutResponse contains the response from method UpdateSummariesClient.Put.
+type UpdateSummariesClientPutResponse struct {
+	UpdateSummaries
+}
+
+// UpdatesClientDeleteResponse contains the response from method UpdatesClient.BeginDelete.
+type UpdatesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// UpdatesClientGetResponse contains the response from method UpdatesClient.Get.
+type UpdatesClientGetResponse struct {
+	Update
+}
+
+// UpdatesClientListResponse contains the response from method UpdatesClient.NewListPager.
+type UpdatesClientListResponse struct {
+	UpdateList
+}
+
+// UpdatesClientPostResponse contains the response from method UpdatesClient.BeginPost.
+type UpdatesClientPostResponse struct {
+	// placeholder for future response values
+}
+
+// UpdatesClientPutResponse contains the response from method UpdatesClient.Put.
+type UpdatesClientPutResponse struct {
+	Update
 }
