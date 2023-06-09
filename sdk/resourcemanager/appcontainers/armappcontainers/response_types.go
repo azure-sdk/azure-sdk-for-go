@@ -19,6 +19,56 @@ type BillingMetersClientGetResponse struct {
 	BillingMeterCollection
 }
 
+// BuildersClientCreateOrUpdateResponse contains the response from method BuildersClient.BeginCreateOrUpdate.
+type BuildersClientCreateOrUpdateResponse struct {
+	BuilderResource
+}
+
+// BuildersClientDeleteResponse contains the response from method BuildersClient.BeginDelete.
+type BuildersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// BuildersClientGetResponse contains the response from method BuildersClient.Get.
+type BuildersClientGetResponse struct {
+	BuilderResource
+}
+
+// BuildersClientListByResourceGroupResponse contains the response from method BuildersClient.NewListByResourceGroupPager.
+type BuildersClientListByResourceGroupResponse struct {
+	BuilderCollection
+}
+
+// BuildersClientListBySubscriptionResponse contains the response from method BuildersClient.NewListBySubscriptionPager.
+type BuildersClientListBySubscriptionResponse struct {
+	BuilderCollection
+}
+
+// BuildersClientUpdateResponse contains the response from method BuildersClient.BeginUpdate.
+type BuildersClientUpdateResponse struct {
+	BuilderResource
+}
+
+// BuildsClientCreateOrUpdateResponse contains the response from method BuildsClient.BeginCreateOrUpdate.
+type BuildsClientCreateOrUpdateResponse struct {
+	BuildResource
+}
+
+// BuildsClientDeleteResponse contains the response from method BuildsClient.BeginDelete.
+type BuildsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// BuildsClientGetResponse contains the response from method BuildsClient.Get.
+type BuildsClientGetResponse struct {
+	BuildResource
+}
+
+// BuildsClientListByBuilderResourceResponse contains the response from method BuildsClient.NewListByBuilderResourcePager.
+type BuildsClientListByBuilderResourceResponse struct {
+	BuildCollection
+}
+
 // CertificatesClientCreateOrUpdateResponse contains the response from method CertificatesClient.CreateOrUpdate.
 type CertificatesClientCreateOrUpdateResponse struct {
 	Certificate
@@ -149,6 +199,11 @@ type ConnectedEnvironmentsStoragesClientListResponse struct {
 	ConnectedEnvironmentStoragesCollection
 }
 
+// ContainerAppsAPIClientJobExecutionResponse contains the response from method ContainerAppsAPIClient.JobExecution.
+type ContainerAppsAPIClientJobExecutionResponse struct {
+	JobExecution
+}
+
 // ContainerAppsAuthConfigsClientCreateOrUpdateResponse contains the response from method ContainerAppsAuthConfigsClient.CreateOrUpdate.
 type ContainerAppsAuthConfigsClientCreateOrUpdateResponse struct {
 	AuthConfig
@@ -207,6 +262,16 @@ type ContainerAppsClientListCustomHostNameAnalysisResponse struct {
 // ContainerAppsClientListSecretsResponse contains the response from method ContainerAppsClient.ListSecrets.
 type ContainerAppsClientListSecretsResponse struct {
 	SecretsCollection
+}
+
+// ContainerAppsClientStartResponse contains the response from method ContainerAppsClient.BeginStart.
+type ContainerAppsClientStartResponse struct {
+	ContainerApp
+}
+
+// ContainerAppsClientStopResponse contains the response from method ContainerAppsClient.BeginStop.
+type ContainerAppsClientStopResponse struct {
+	ContainerApp
 }
 
 // ContainerAppsClientUpdateResponse contains the response from method ContainerAppsClient.BeginUpdate.
