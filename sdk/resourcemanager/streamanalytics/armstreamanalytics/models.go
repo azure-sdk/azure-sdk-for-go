@@ -498,6 +498,9 @@ type BlobOutputDataSourceProperties struct {
 	// Authentication Mode.
 	AuthenticationMode *AuthenticationMode
 
+	// Blob path prefix.
+	BlobPathPrefix *string
+
 	// The name of a container within the associated Storage account. This container contains either the blob(s) to be read from
 	// or written to. Required on PUT (CreateOrReplace) requests.
 	Container *string
@@ -1028,6 +1031,28 @@ func (e *EventHubV2StreamInputDataSource) GetStreamInputDataSource() *StreamInpu
 	}
 }
 
+// FileReferenceInputDataSource - Describes a file input data source that contains reference data.
+type FileReferenceInputDataSource struct {
+	// REQUIRED; Indicates the type of input data source containing reference data. Required on PUT (CreateOrReplace) requests.
+	Type *string
+
+	// The properties that are associated with a file input containing reference data. Required on PUT (CreateOrReplace) requests.
+	Properties *FileReferenceInputDataSourceProperties
+}
+
+// GetReferenceInputDataSource implements the ReferenceInputDataSourceClassification interface for type FileReferenceInputDataSource.
+func (f *FileReferenceInputDataSource) GetReferenceInputDataSource() *ReferenceInputDataSource {
+	return &ReferenceInputDataSource{
+		Type: f.Type,
+	}
+}
+
+// FileReferenceInputDataSourceProperties - The properties that are associated with a file input containing reference data.
+type FileReferenceInputDataSourceProperties struct {
+	// The path of the file.
+	Path *string
+}
+
 // Function - A function object, containing all information associated with the named function. All functions are contained
 // under a streaming job.
 type Function struct {
@@ -1203,16 +1228,67 @@ type FunctionsClientUpdateOptions struct {
 	IfMatch *string
 }
 
+// GatewayMessageBusOutputDataSource - Describes a Gateway Message Bus output data source.
+type GatewayMessageBusOutputDataSource struct {
+	// REQUIRED; Indicates the type of data source output will be written to. Required on PUT (CreateOrReplace) requests.
+	Type *string
+
+	// The properties that are associated with a Gateway Message Bus output. Required on PUT (CreateOrReplace) requests.
+	Properties *GatewayMessageBusOutputDataSourceProperties
+}
+
+// GetOutputDataSource implements the OutputDataSourceClassification interface for type GatewayMessageBusOutputDataSource.
+func (g *GatewayMessageBusOutputDataSource) GetOutputDataSource() *OutputDataSource {
+	return &OutputDataSource{
+		Type: g.Type,
+	}
+}
+
+// GatewayMessageBusOutputDataSourceProperties - The properties that are associated with a Gateway Message Bus.
+type GatewayMessageBusOutputDataSourceProperties struct {
+	// The name of the Service Bus topic.
+	Topic *string
+}
+
+// GatewayMessageBusSourceProperties - The properties that are associated with a gateway message bus datasource.
+type GatewayMessageBusSourceProperties struct {
+	// The name of the Service Bus topic.
+	Topic *string
+}
+
+// GatewayMessageBusStreamInputDataSource - Describes a blob input data source that contains stream data.
+type GatewayMessageBusStreamInputDataSource struct {
+	// REQUIRED; Indicates the type of input data source containing stream data. Required on PUT (CreateOrReplace) requests.
+	Type *string
+
+	// The properties that are associated with a gateway message bus input containing stream data.
+	Properties *GatewayMessageBusStreamInputDataSourceProperties
+}
+
+// GetStreamInputDataSource implements the StreamInputDataSourceClassification interface for type GatewayMessageBusStreamInputDataSource.
+func (g *GatewayMessageBusStreamInputDataSource) GetStreamInputDataSource() *StreamInputDataSource {
+	return &StreamInputDataSource{
+		Type: g.Type,
+	}
+}
+
+// GatewayMessageBusStreamInputDataSourceProperties - The properties that are associated with a gateway message bus input
+// containing stream data.
+type GatewayMessageBusStreamInputDataSourceProperties struct {
+	// The name of the Service Bus topic.
+	Topic *string
+}
+
 // Identity - Describes how identity is verified
 type Identity struct {
-	// The identity principal ID
-	PrincipalID *string
-
-	// The identity tenantId
-	TenantID *string
-
 	// The identity type
 	Type *string
+
+	// READ-ONLY; The identity principal ID
+	PrincipalID *string
+
+	// READ-ONLY; The identity tenantId
+	TenantID *string
 }
 
 // Input - An input object, containing all information associated with the named input. All inputs are contained under a streaming
@@ -1534,7 +1610,7 @@ type Output struct {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureDataLakeStoreOutputDataSource, *AzureFunctionOutputDataSource, *AzureSQLDatabaseOutputDataSource, *AzureSynapseOutputDataSource,
 // - *AzureTableOutputDataSource, *BlobOutputDataSource, *DocumentDbOutputDataSource, *EventHubOutputDataSource, *EventHubV2OutputDataSource,
-// - *OutputDataSource, *PowerBIOutputDataSource, *ServiceBusQueueOutputDataSource, *ServiceBusTopicOutputDataSource
+// - *GatewayMessageBusOutputDataSource, *OutputDataSource, *PowerBIOutputDataSource, *ServiceBusQueueOutputDataSource, *ServiceBusTopicOutputDataSource
 type OutputDataSourceClassification interface {
 	// GetOutputDataSource returns the OutputDataSource content of the underlying type.
 	GetOutputDataSource() *OutputDataSource
@@ -1568,7 +1644,7 @@ type OutputProperties struct {
 	Serialization SerializationClassification
 
 	// The size window to constrain a Stream Analytics output to.
-	SizeWindow *float32
+	SizeWindow *int32
 
 	// The time frame for filtering Stream Analytics job outputs.
 	TimeWindow *string
@@ -1812,7 +1888,7 @@ type ProxyResource struct {
 // ReferenceInputDataSourceClassification provides polymorphic access to related types.
 // Call the interface's GetReferenceInputDataSource() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureSQLReferenceInputDataSource, *BlobReferenceInputDataSource, *ReferenceInputDataSource
+// - *AzureSQLReferenceInputDataSource, *BlobReferenceInputDataSource, *FileReferenceInputDataSource, *ReferenceInputDataSource
 type ReferenceInputDataSourceClassification interface {
 	// GetReferenceInputDataSource returns the ReferenceInputDataSource content of the underlying type.
 	GetReferenceInputDataSource() *ReferenceInputDataSource
@@ -2069,8 +2145,8 @@ type StorageAccount struct {
 // StreamInputDataSourceClassification provides polymorphic access to related types.
 // Call the interface's GetStreamInputDataSource() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *BlobStreamInputDataSource, *EventHubStreamInputDataSource, *EventHubV2StreamInputDataSource, *IoTHubStreamInputDataSource,
-// - *StreamInputDataSource
+// - *BlobStreamInputDataSource, *EventHubStreamInputDataSource, *EventHubV2StreamInputDataSource, *GatewayMessageBusStreamInputDataSource,
+// - *IoTHubStreamInputDataSource, *StreamInputDataSource
 type StreamInputDataSourceClassification interface {
 	// GetStreamInputDataSource returns the StreamInputDataSource content of the underlying type.
 	GetStreamInputDataSource() *StreamInputDataSource

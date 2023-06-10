@@ -991,6 +991,7 @@ func (b *BlobOutputDataSource) UnmarshalJSON(data []byte) error {
 func (b BlobOutputDataSourceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "authenticationMode", b.AuthenticationMode)
+	populate(objectMap, "blobPathPrefix", b.BlobPathPrefix)
 	populate(objectMap, "container", b.Container)
 	populate(objectMap, "dateFormat", b.DateFormat)
 	populate(objectMap, "pathPattern", b.PathPattern)
@@ -1010,6 +1011,9 @@ func (b *BlobOutputDataSourceProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "authenticationMode":
 			err = unpopulate(val, "AuthenticationMode", &b.AuthenticationMode)
+			delete(rawMsg, key)
+		case "blobPathPrefix":
+			err = unpopulate(val, "BlobPathPrefix", &b.BlobPathPrefix)
 			delete(rawMsg, key)
 		case "container":
 			err = unpopulate(val, "Container", &b.Container)
@@ -2073,6 +2077,64 @@ func (e *EventHubV2StreamInputDataSource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type FileReferenceInputDataSource.
+func (f FileReferenceInputDataSource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", f.Properties)
+	objectMap["type"] = "File"
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FileReferenceInputDataSource.
+func (f *FileReferenceInputDataSource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &f.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &f.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FileReferenceInputDataSourceProperties.
+func (f FileReferenceInputDataSourceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "path", f.Path)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FileReferenceInputDataSourceProperties.
+func (f *FileReferenceInputDataSourceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "path":
+			err = unpopulate(val, "Path", &f.Path)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Function.
 func (f Function) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2320,6 +2382,149 @@ func (f *FunctionRetrieveDefaultDefinitionParameters) UnmarshalJSON(data []byte)
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GatewayMessageBusOutputDataSource.
+func (g GatewayMessageBusOutputDataSource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", g.Properties)
+	objectMap["type"] = "GatewayMessageBus"
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GatewayMessageBusOutputDataSource.
+func (g *GatewayMessageBusOutputDataSource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &g.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &g.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GatewayMessageBusOutputDataSourceProperties.
+func (g GatewayMessageBusOutputDataSourceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "topic", g.Topic)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GatewayMessageBusOutputDataSourceProperties.
+func (g *GatewayMessageBusOutputDataSourceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "topic":
+			err = unpopulate(val, "Topic", &g.Topic)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GatewayMessageBusSourceProperties.
+func (g GatewayMessageBusSourceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "topic", g.Topic)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GatewayMessageBusSourceProperties.
+func (g *GatewayMessageBusSourceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "topic":
+			err = unpopulate(val, "Topic", &g.Topic)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GatewayMessageBusStreamInputDataSource.
+func (g GatewayMessageBusStreamInputDataSource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", g.Properties)
+	objectMap["type"] = "GatewayMessageBus"
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GatewayMessageBusStreamInputDataSource.
+func (g *GatewayMessageBusStreamInputDataSource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &g.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &g.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GatewayMessageBusStreamInputDataSourceProperties.
+func (g GatewayMessageBusStreamInputDataSourceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "topic", g.Topic)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GatewayMessageBusStreamInputDataSourceProperties.
+func (g *GatewayMessageBusStreamInputDataSourceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "topic":
+			err = unpopulate(val, "Topic", &g.Topic)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
 		}
 	}
 	return nil

@@ -81,6 +81,8 @@ func unmarshalOutputDataSourceClassification(rawMsg json.RawMessage) (OutputData
 	}
 	var b OutputDataSourceClassification
 	switch m["type"] {
+	case "GatewayMessageBus":
+		b = &GatewayMessageBusOutputDataSource{}
 	case "Microsoft.AzureFunction":
 		b = &AzureFunctionOutputDataSource{}
 	case "Microsoft.DataLake/Accounts":
@@ -121,6 +123,8 @@ func unmarshalReferenceInputDataSourceClassification(rawMsg json.RawMessage) (Re
 	}
 	var b ReferenceInputDataSourceClassification
 	switch m["type"] {
+	case "File":
+		b = &FileReferenceInputDataSource{}
 	case "Microsoft.Sql/Server/Database":
 		b = &AzureSQLReferenceInputDataSource{}
 	case "Microsoft.Storage/Blob":
@@ -165,6 +169,8 @@ func unmarshalStreamInputDataSourceClassification(rawMsg json.RawMessage) (Strea
 	}
 	var b StreamInputDataSourceClassification
 	switch m["type"] {
+	case "GatewayMessageBus":
+		b = &GatewayMessageBusStreamInputDataSource{}
 	case "Microsoft.Devices/IotHubs":
 		b = &IoTHubStreamInputDataSource{}
 	case "Microsoft.EventHub/EventHub":
