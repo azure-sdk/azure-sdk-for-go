@@ -47,7 +47,7 @@ func NewCapabilitiesClient(subscriptionID string, credential azcore.TokenCredent
 // ListByLocation - Gets the subscription capabilities available for the specified location.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - locationName - The location name whose capabilities are retrieved.
 //   - options - CapabilitiesClientListByLocationOptions contains the optional parameters for the CapabilitiesClient.ListByLocation
 //     method.
@@ -85,7 +85,7 @@ func (client *CapabilitiesClient) listByLocationCreateRequest(ctx context.Contex
 	if options != nil && options.Include != nil {
 		reqQP.Set("include", string(*options.Include))
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
