@@ -144,6 +144,157 @@ type AgentProperties struct {
 	CPU *int32
 }
 
+// Archive - An object that represents a archive for a container registry.
+type Archive struct {
+	// The properties of the archive.
+	Properties *ArchiveProperties
+
+	// READ-ONLY; The resource ID.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ArchiveListResult - The result of a request to list archives for a container registry.
+type ArchiveListResult struct {
+	// The URI that can be used to request the next list of archives.
+	NextLink *string
+
+	// The list of archives. Since this list may be incomplete, the nextLink field should be used to request the next list of
+	// distributions.
+	Value []*Archive
+}
+
+// ArchivePackageSourceProperties - The properties of the archive package source.
+type ArchivePackageSourceProperties struct {
+	// The type of package source for a archive.
+	Type *PackageSourceType
+
+	// The external repository url.
+	URL *string
+}
+
+// ArchiveProperties - The properties of a archive.
+type ArchiveProperties struct {
+	// The package source of the archive.
+	PackageSource *ArchivePackageSourceProperties
+
+	// The published version of the archive.
+	PublishedVersion         *string
+	RepositoryEndpointPrefix *string
+
+	// READ-ONLY; The provisioning state of the archive at the time the operation was called.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY
+	RepositoryEndpoint *string
+}
+
+// ArchiveUpdateParameters - The parameters for updating a archive.
+type ArchiveUpdateParameters struct {
+	// The properties of the connected registry update parameters.
+	Properties *ArchiveUpdateProperties
+}
+
+// ArchiveUpdateProperties - The properties of a archive.
+type ArchiveUpdateProperties struct {
+	// The published version of the archive.
+	PublishedVersion *string
+}
+
+// ArchiveVersion - An object that represents an export pipeline for a container registry.
+type ArchiveVersion struct {
+	// The properties of the archive.
+	Properties *ArchiveVersionProperties
+
+	// READ-ONLY; The resource ID.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ArchiveVersionListResult - The result of a request to list export pipelines for a container registry.
+type ArchiveVersionListResult struct {
+	// The URI that can be used to request the next list of pipeline runs.
+	NextLink *string
+
+	// The list of export pipelines. Since this list may be incomplete, the nextLink field should be used to request the next
+	// list of export pipelines.
+	Value []*ArchiveVersion
+}
+
+// ArchiveVersionProperties - The properties of an export pipeline.
+type ArchiveVersionProperties struct {
+	// The detailed error message for the archive version in the case of failure.
+	ArchiveVersionErrorMessage *string
+
+	// READ-ONLY; The provisioning state of the archive at the time the operation was called.
+	ProvisioningState *ProvisioningState
+}
+
+// ArchiveVersionsClientBeginCreateOptions contains the optional parameters for the ArchiveVersionsClient.BeginCreate method.
+type ArchiveVersionsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArchiveVersionsClientBeginDeleteOptions contains the optional parameters for the ArchiveVersionsClient.BeginDelete method.
+type ArchiveVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArchiveVersionsClientGetOptions contains the optional parameters for the ArchiveVersionsClient.Get method.
+type ArchiveVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ArchiveVersionsClientListOptions contains the optional parameters for the ArchiveVersionsClient.NewListPager method.
+type ArchiveVersionsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ArchivesClientBeginCreateOptions contains the optional parameters for the ArchivesClient.BeginCreate method.
+type ArchivesClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArchivesClientBeginDeleteOptions contains the optional parameters for the ArchivesClient.BeginDelete method.
+type ArchivesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArchivesClientGetOptions contains the optional parameters for the ArchivesClient.Get method.
+type ArchivesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ArchivesClientListOptions contains the optional parameters for the ArchivesClient.NewListPager method.
+type ArchivesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ArchivesClientUpdateOptions contains the optional parameters for the ArchivesClient.Update method.
+type ArchivesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // Argument - The properties of a run argument.
 type Argument struct {
 	// REQUIRED; The name of the argument.
@@ -617,6 +768,37 @@ type CustomRegistryCredentials struct {
 
 	// The username for logging into the custom registry.
 	UserName *SecretObject
+}
+
+// DebianArchivePackageSourceProperties - The properties of the archive package source.
+type DebianArchivePackageSourceProperties struct {
+	// Upstream Debian distribution Name.
+	DistributionName *string
+
+	// The type of package source for a archive.
+	Type *PackageSourceType
+
+	// The external repository url.
+	URL *string
+}
+
+// DebianArchiveProperties - The properties of the Debian package Archive.
+type DebianArchiveProperties struct {
+	// Debian distribution Name.
+	DistributionName *string
+
+	// The package source of the archive.
+	PackageSource *ArchivePackageSourceProperties
+
+	// The published version of the archive.
+	PublishedVersion         *string
+	RepositoryEndpointPrefix *string
+
+	// READ-ONLY; The provisioning state of the archive at the time the operation was called.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY
+	RepositoryEndpoint *string
 }
 
 // DockerBuildRequest - The parameters for a docker quick build.

@@ -37,6 +37,16 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+func (c *ClientFactory) NewArchivesClient() *ArchivesClient {
+	subClient, _ := NewArchivesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewArchiveVersionsClient() *ArchiveVersionsClient {
+	subClient, _ := NewArchiveVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewCacheRulesClient() *CacheRulesClient {
 	subClient, _ := NewCacheRulesClient(c.subscriptionID, c.credential, c.options)
 	return subClient

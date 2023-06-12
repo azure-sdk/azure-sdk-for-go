@@ -38,6 +38,51 @@ type AgentPoolsClientUpdateResponse struct {
 	AgentPool
 }
 
+// ArchiveVersionsClientCreateResponse contains the response from method ArchiveVersionsClient.BeginCreate.
+type ArchiveVersionsClientCreateResponse struct {
+	ArchiveVersion
+}
+
+// ArchiveVersionsClientDeleteResponse contains the response from method ArchiveVersionsClient.BeginDelete.
+type ArchiveVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ArchiveVersionsClientGetResponse contains the response from method ArchiveVersionsClient.Get.
+type ArchiveVersionsClientGetResponse struct {
+	ArchiveVersion
+}
+
+// ArchiveVersionsClientListResponse contains the response from method ArchiveVersionsClient.NewListPager.
+type ArchiveVersionsClientListResponse struct {
+	ArchiveVersionListResult
+}
+
+// ArchivesClientCreateResponse contains the response from method ArchivesClient.BeginCreate.
+type ArchivesClientCreateResponse struct {
+	Archive
+}
+
+// ArchivesClientDeleteResponse contains the response from method ArchivesClient.BeginDelete.
+type ArchivesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ArchivesClientGetResponse contains the response from method ArchivesClient.Get.
+type ArchivesClientGetResponse struct {
+	Archive
+}
+
+// ArchivesClientListResponse contains the response from method ArchivesClient.NewListPager.
+type ArchivesClientListResponse struct {
+	ArchiveListResult
+}
+
+// ArchivesClientUpdateResponse contains the response from method ArchivesClient.Update.
+type ArchivesClientUpdateResponse struct {
+	Archive
+}
+
 // CacheRulesClientCreateResponse contains the response from method CacheRulesClient.BeginCreate.
 type CacheRulesClientCreateResponse struct {
 	CacheRule
