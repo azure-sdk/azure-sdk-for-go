@@ -46,7 +46,7 @@ func NewGenerateDetailedCostReportClient(credential azcore.TokenCredential, opti
 // cost report is being stored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The ARM Resource ID for subscription, resource group, billing account, or other billing scopes. For details, see
 //     https://aka.ms/costmgmt/scopes.
 //   - parameters - Parameters supplied to the Create detailed cost report operation.
@@ -73,7 +73,7 @@ func (client *GenerateDetailedCostReportClient) BeginCreateOperation(ctx context
 // cost report is being stored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 func (client *GenerateDetailedCostReportClient) createOperation(ctx context.Context, scope string, parameters GenerateDetailedCostReportDefinition, options *GenerateDetailedCostReportClientBeginCreateOperationOptions) (*http.Response, error) {
 	req, err := client.createOperationCreateRequest(ctx, scope, parameters, options)
 	if err != nil {
@@ -98,7 +98,7 @@ func (client *GenerateDetailedCostReportClient) createOperationCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

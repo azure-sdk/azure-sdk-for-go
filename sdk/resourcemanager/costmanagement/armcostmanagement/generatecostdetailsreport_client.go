@@ -54,7 +54,7 @@ func NewGenerateCostDetailsReportClient(credential azcore.TokenCredential, optio
 // in files ,see https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The ARM Resource ID for subscription, resource group, billing account, or other billing scopes. For details, see
 //     https://aka.ms/costmgmt/scopes.
 //   - parameters - Parameters supplied to the Create cost details operation.
@@ -87,7 +87,7 @@ func (client *GenerateCostDetailsReportClient) BeginCreateOperation(ctx context.
 // in files ,see https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 func (client *GenerateCostDetailsReportClient) createOperation(ctx context.Context, scope string, parameters GenerateCostDetailsReportRequestDefinition, options *GenerateCostDetailsReportClientBeginCreateOperationOptions) (*http.Response, error) {
 	req, err := client.createOperationCreateRequest(ctx, scope, parameters, options)
 	if err != nil {
@@ -112,7 +112,7 @@ func (client *GenerateCostDetailsReportClient) createOperationCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -122,7 +122,7 @@ func (client *GenerateCostDetailsReportClient) createOperationCreateRequest(ctx 
 // request response Location header.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The ARM Resource ID for subscription, resource group, billing account, or other billing scopes. For details, see
 //     https://aka.ms/costmgmt/scopes.
 //   - operationID - The target operation Id.
@@ -146,7 +146,7 @@ func (client *GenerateCostDetailsReportClient) BeginGetOperationResults(ctx cont
 // response Location header.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 func (client *GenerateCostDetailsReportClient) getOperationResults(ctx context.Context, scope string, operationID string, options *GenerateCostDetailsReportClientBeginGetOperationResultsOptions) (*http.Response, error) {
 	req, err := client.getOperationResultsCreateRequest(ctx, scope, operationID, options)
 	if err != nil {
@@ -175,7 +175,7 @@ func (client *GenerateCostDetailsReportClient) getOperationResultsCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
