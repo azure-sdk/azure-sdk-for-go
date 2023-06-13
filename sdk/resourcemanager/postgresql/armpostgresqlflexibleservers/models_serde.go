@@ -2769,8 +2769,8 @@ func (s Storage) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "autoGrow", s.AutoGrow)
 	populate(objectMap, "iops", s.Iops)
-	populate(objectMap, "iopsTier", s.IopsTier)
 	populate(objectMap, "storageSizeGB", s.StorageSizeGB)
+	populate(objectMap, "tier", s.Tier)
 	return json.Marshal(objectMap)
 }
 
@@ -2789,11 +2789,11 @@ func (s *Storage) UnmarshalJSON(data []byte) error {
 		case "iops":
 			err = unpopulate(val, "Iops", &s.Iops)
 			delete(rawMsg, key)
-		case "iopsTier":
-			err = unpopulate(val, "IopsTier", &s.IopsTier)
-			delete(rawMsg, key)
 		case "storageSizeGB":
 			err = unpopulate(val, "StorageSizeGB", &s.StorageSizeGB)
+			delete(rawMsg, key)
+		case "tier":
+			err = unpopulate(val, "Tier", &s.Tier)
 			delete(rawMsg, key)
 		}
 		if err != nil {

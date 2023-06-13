@@ -1392,11 +1392,11 @@ type Storage struct {
 	// Flag to enable / disable Storage Auto grow for flexible server.
 	AutoGrow *StorageAutoGrow
 
-	// Name of storage tier for IOPS.
-	IopsTier *AzureManagedDiskPerformanceTiers
-
 	// Max storage allowed for a server.
 	StorageSizeGB *int32
+
+	// Name of storage tier for IOPS.
+	Tier *AzureManagedDiskPerformanceTiers
 
 	// READ-ONLY; Storage tier IOPS quantity.
 	Iops *int32
