@@ -519,14 +519,14 @@ type EncryptionProperties struct {
 	// REQUIRED; The encryption key name.
 	KeyName *string
 
-	// REQUIRED; The encryption key version.
-	KeyVersion *string
-
 	// REQUIRED; The keyvault base url.
 	VaultBaseURL *string
 
 	// The keyvault managed identity.
 	Identity *string
+
+	// The encryption key version.
+	KeyVersion *string
 }
 
 // EnvironmentVariable - The environment variable to set within the container instance.
