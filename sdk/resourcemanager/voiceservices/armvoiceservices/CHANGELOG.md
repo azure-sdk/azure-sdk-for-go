@@ -1,5 +1,16 @@
 # Release History
 
+## 1.1.0 (2023-06-13)
+### Features Added
+
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New struct `ManagedServiceIdentity`
+- New struct `UserAssignedIdentity`
+- New field `Identity` in struct `CommunicationsGateway`
+- New field `IntegratedMcpEnabled` in struct `CommunicationsGatewayProperties`
+- New field `Identity` in struct `CommunicationsGatewayUpdate`
+
+
 ## 1.0.1 (2023-04-14)
 ### Bug Fixes
 

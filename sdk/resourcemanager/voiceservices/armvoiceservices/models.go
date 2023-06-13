@@ -37,6 +37,9 @@ type CommunicationsGateway struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
+
 	// The resource-specific properties for this resource.
 	Properties *CommunicationsGatewayProperties
 
@@ -91,6 +94,9 @@ type CommunicationsGatewayProperties struct {
 	// A list of dial strings used for emergency calling.
 	EmergencyDialStrings []*string
 
+	// Whether an integrated Mobile Control Point is in use.
+	IntegratedMcpEnabled *bool
+
 	// Whether an on-premises Mobile Control Point is in use.
 	OnPremMcpEnabled *bool
 
@@ -109,6 +115,9 @@ type CommunicationsGatewayProperties struct {
 
 // CommunicationsGatewayUpdate - The type used for update operations of the CommunicationsGateway.
 type CommunicationsGatewayUpdate struct {
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
+
 	// Resource tags.
 	Tags map[string]*string
 }
@@ -148,6 +157,26 @@ type CommunicationsGatewaysClientListBySubscriptionOptions struct {
 // method.
 type CommunicationsGatewaysClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
 }
 
 // NameAvailabilityClientCheckLocalOptions contains the optional parameters for the NameAvailabilityClient.CheckLocal method.
@@ -332,4 +361,13 @@ type TestLinesClientListByCommunicationsGatewayOptions struct {
 // TestLinesClientUpdateOptions contains the optional parameters for the TestLinesClient.Update method.
 type TestLinesClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }
