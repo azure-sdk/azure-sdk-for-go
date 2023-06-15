@@ -30,8 +30,7 @@ type PortalRevisionClient struct {
 }
 
 // NewPortalRevisionClient creates a new instance of PortalRevisionClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPortalRevisionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PortalRevisionClient, error) {
@@ -50,8 +49,8 @@ func NewPortalRevisionClient(subscriptionID string, credential azcore.TokenCrede
 // indicates if the revision is publicly accessible.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - portalRevisionID - Portal revision identifier. Must be unique in the current API Management service instance.
 //   - options - PortalRevisionClientBeginCreateOrUpdateOptions contains the optional parameters for the PortalRevisionClient.BeginCreateOrUpdate
@@ -74,7 +73,7 @@ func (client *PortalRevisionClient) BeginCreateOrUpdate(ctx context.Context, res
 // if the revision is publicly accessible.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
+// Generated from API version 2023-03-01-preview
 func (client *PortalRevisionClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, portalRevisionID string, parameters PortalRevisionContract, options *PortalRevisionClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, portalRevisionID, parameters, options)
 	if err != nil {
@@ -105,16 +104,13 @@ func (client *PortalRevisionClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter portalRevisionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{portalRevisionId}", url.PathEscape(portalRevisionID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,8 +119,8 @@ func (client *PortalRevisionClient) createOrUpdateCreateRequest(ctx context.Cont
 // Get - Gets the developer portal's revision specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - portalRevisionID - Portal revision identifier. Must be unique in the current API Management service instance.
 //   - options - PortalRevisionClientGetOptions contains the optional parameters for the PortalRevisionClient.Get method.
@@ -158,16 +154,13 @@ func (client *PortalRevisionClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter portalRevisionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{portalRevisionId}", url.PathEscape(portalRevisionID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -187,8 +180,8 @@ func (client *PortalRevisionClient) getHandleResponse(resp *http.Response) (Port
 
 // GetEntityTag - Gets the developer portal revision specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - portalRevisionID - Portal revision identifier. Must be unique in the current API Management service instance.
 //   - options - PortalRevisionClientGetEntityTagOptions contains the optional parameters for the PortalRevisionClient.GetEntityTag
@@ -223,16 +216,13 @@ func (client *PortalRevisionClient) getEntityTagCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter portalRevisionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{portalRevisionId}", url.PathEscape(portalRevisionID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,8 +240,8 @@ func (client *PortalRevisionClient) getEntityTagHandleResponse(resp *http.Respon
 
 // NewListByServicePager - Lists developer portal's revisions.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - PortalRevisionClientListByServiceOptions contains the optional parameters for the PortalRevisionClient.NewListByServicePager
 //     method.
@@ -294,9 +284,6 @@ func (client *PortalRevisionClient) listByServiceCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -312,7 +299,7 @@ func (client *PortalRevisionClient) listByServiceCreateRequest(ctx context.Conte
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,8 +317,8 @@ func (client *PortalRevisionClient) listByServiceHandleResponse(resp *http.Respo
 // BeginUpdate - Updates the description of specified portal revision or makes it current.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - portalRevisionID - Portal revision identifier. Must be unique in the current API Management service instance.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -355,7 +342,7 @@ func (client *PortalRevisionClient) BeginUpdate(ctx context.Context, resourceGro
 // Update - Updates the description of specified portal revision or makes it current.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
+// Generated from API version 2023-03-01-preview
 func (client *PortalRevisionClient) update(ctx context.Context, resourceGroupName string, serviceName string, portalRevisionID string, ifMatch string, parameters PortalRevisionContract, options *PortalRevisionClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serviceName, portalRevisionID, ifMatch, parameters, options)
 	if err != nil {
@@ -386,16 +373,13 @@ func (client *PortalRevisionClient) updateCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter portalRevisionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{portalRevisionId}", url.PathEscape(portalRevisionID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
