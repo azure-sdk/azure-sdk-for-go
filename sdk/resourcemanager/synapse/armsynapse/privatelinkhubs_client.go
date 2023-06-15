@@ -117,7 +117,9 @@ func (client *PrivateLinkHubsClient) BeginDelete(ctx context.Context, resourceGr
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[PrivateLinkHubsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PrivateLinkHubsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[PrivateLinkHubsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
