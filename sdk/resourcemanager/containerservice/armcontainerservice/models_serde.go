@@ -280,6 +280,33 @@ func (a *AgentPoolNetworkProfile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AgentPoolSecurityProfile.
+func (a AgentPoolSecurityProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "sshAccess", a.SSHAccess)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AgentPoolSecurityProfile.
+func (a *AgentPoolSecurityProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "sshAccess":
+			err = unpopulate(val, "SSHAccess", &a.SSHAccess)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AgentPoolUpgradeProfile.
 func (a AgentPoolUpgradeProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1696,6 +1723,7 @@ func (m ManagedClusterAgentPoolProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "scaleDownMode", m.ScaleDownMode)
 	populate(objectMap, "scaleSetEvictionPolicy", m.ScaleSetEvictionPolicy)
 	populate(objectMap, "scaleSetPriority", m.ScaleSetPriority)
+	populate(objectMap, "securityProfile", m.SecurityProfile)
 	populate(objectMap, "spotMaxPrice", m.SpotMaxPrice)
 	populate(objectMap, "tags", m.Tags)
 	populate(objectMap, "type", m.Type)
@@ -1833,6 +1861,9 @@ func (m *ManagedClusterAgentPoolProfile) UnmarshalJSON(data []byte) error {
 		case "scaleSetPriority":
 			err = unpopulate(val, "ScaleSetPriority", &m.ScaleSetPriority)
 			delete(rawMsg, key)
+		case "securityProfile":
+			err = unpopulate(val, "SecurityProfile", &m.SecurityProfile)
+			delete(rawMsg, key)
 		case "spotMaxPrice":
 			err = unpopulate(val, "SpotMaxPrice", &m.SpotMaxPrice)
 			delete(rawMsg, key)
@@ -1906,6 +1937,7 @@ func (m ManagedClusterAgentPoolProfileProperties) MarshalJSON() ([]byte, error) 
 	populate(objectMap, "scaleDownMode", m.ScaleDownMode)
 	populate(objectMap, "scaleSetEvictionPolicy", m.ScaleSetEvictionPolicy)
 	populate(objectMap, "scaleSetPriority", m.ScaleSetPriority)
+	populate(objectMap, "securityProfile", m.SecurityProfile)
 	populate(objectMap, "spotMaxPrice", m.SpotMaxPrice)
 	populate(objectMap, "tags", m.Tags)
 	populate(objectMap, "type", m.Type)
@@ -2039,6 +2071,9 @@ func (m *ManagedClusterAgentPoolProfileProperties) UnmarshalJSON(data []byte) er
 			delete(rawMsg, key)
 		case "scaleSetPriority":
 			err = unpopulate(val, "ScaleSetPriority", &m.ScaleSetPriority)
+			delete(rawMsg, key)
+		case "securityProfile":
+			err = unpopulate(val, "SecurityProfile", &m.SecurityProfile)
 			delete(rawMsg, key)
 		case "spotMaxPrice":
 			err = unpopulate(val, "SpotMaxPrice", &m.SpotMaxPrice)
@@ -3993,6 +4028,33 @@ func (m *ManagedServiceIdentityUserAssignedIdentitiesValue) UnmarshalJSON(data [
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type NetworkMonitoring.
+func (n NetworkMonitoring) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", n.Enabled)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type NetworkMonitoring.
+func (n *NetworkMonitoring) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", n, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &n.Enabled)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", n, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type NetworkProfile.
 func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4001,6 +4063,7 @@ func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "kubeProxyConfig", n.KubeProxyConfig)
 	populate(objectMap, "loadBalancerProfile", n.LoadBalancerProfile)
 	populate(objectMap, "loadBalancerSku", n.LoadBalancerSKU)
+	populate(objectMap, "monitoring", n.Monitoring)
 	populate(objectMap, "natGatewayProfile", n.NatGatewayProfile)
 	populate(objectMap, "networkDataplane", n.NetworkDataplane)
 	populate(objectMap, "networkMode", n.NetworkMode)
@@ -4038,6 +4101,9 @@ func (n *NetworkProfile) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "loadBalancerSku":
 			err = unpopulate(val, "LoadBalancerSKU", &n.LoadBalancerSKU)
+			delete(rawMsg, key)
+		case "monitoring":
+			err = unpopulate(val, "Monitoring", &n.Monitoring)
 			delete(rawMsg, key)
 		case "natGatewayProfile":
 			err = unpopulate(val, "NatGatewayProfile", &n.NatGatewayProfile)

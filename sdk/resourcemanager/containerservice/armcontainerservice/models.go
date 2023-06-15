@@ -93,6 +93,12 @@ type AgentPoolNetworkProfile struct {
 	NodePublicIPTags []*IPTag
 }
 
+// AgentPoolSecurityProfile - The security settings of an agent pool.
+type AgentPoolSecurityProfile struct {
+	// SSH access method of an agent pool.
+	SSHAccess *AgentPoolSSHAccess
+}
+
 // AgentPoolUpgradeProfile - The list of available upgrades for an agent pool.
 type AgentPoolUpgradeProfile struct {
 	// REQUIRED; The properties of the agent pool upgrade profile.
@@ -828,6 +834,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.
 	ScaleSetPriority *ScaleSetPriority
 
+	// The security settings of an agent pool.
+	SecurityProfile *AgentPoolSecurityProfile
+
 	// Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price.
 	// For more details on spot pricing, see spot VMs pricing
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
@@ -1003,6 +1012,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 
 	// The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.
 	ScaleSetPriority *ScaleSetPriority
+
+	// The security settings of an agent pool.
+	SecurityProfile *AgentPoolSecurityProfile
 
 	// Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price.
 	// For more details on spot pricing, see spot VMs pricing
@@ -2005,6 +2017,13 @@ type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
 	PrincipalID *string
 }
 
+// NetworkMonitoring - This addon can be used to configure network monitoring and generate network monitoring data in Prometheus
+// format
+type NetworkMonitoring struct {
+	// Enable or disable the network monitoring plugin on the cluster
+	Enabled *bool
+}
+
 // NetworkProfile - Profile of network configuration.
 type NetworkProfile struct {
 	// An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified
@@ -2027,6 +2046,9 @@ type NetworkProfile struct {
 	// The default is 'standard'. See Azure Load Balancer SKUs [https://docs.microsoft.com/azure/load-balancer/skus] for more
 	// information about the differences between load balancer SKUs.
 	LoadBalancerSKU *LoadBalancerSKU
+
+	// This addon can be used to configure network monitoring and generate network monitoring data in Prometheus format
+	Monitoring *NetworkMonitoring
 
 	// Profile of the cluster NAT gateway.
 	NatGatewayProfile *ManagedClusterNATGatewayProfile
