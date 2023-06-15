@@ -53,6 +53,16 @@ func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewBuildersClient() *BuildersClient {
+	subClient, _ := NewBuildersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBuildsClient() *BuildsClient {
+	subClient, _ := NewBuildsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewConnectedEnvironmentsClient() *ConnectedEnvironmentsClient {
 	subClient, _ := NewConnectedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -75,16 +85,6 @@ func (c *ClientFactory) NewConnectedEnvironmentsStoragesClient() *ConnectedEnvir
 
 func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 	subClient, _ := NewContainerAppsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewJobsClient() *JobsClient {
-	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
-	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -115,6 +115,21 @@ func (c *ClientFactory) NewManagedEnvironmentsDiagnosticsClient() *ManagedEnviro
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsClient() *JobsClient {
+	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
+	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewContainerAppsAPIClient() *ContainerAppsAPIClient {
+	subClient, _ := NewContainerAppsAPIClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
