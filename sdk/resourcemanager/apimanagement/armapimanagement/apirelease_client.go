@@ -30,8 +30,7 @@ type APIReleaseClient struct {
 }
 
 // NewAPIReleaseClient creates a new instance of APIReleaseClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAPIReleaseClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIReleaseClient, error) {
@@ -49,8 +48,8 @@ func NewAPIReleaseClient(subscriptionID string, credential azcore.TokenCredentia
 // CreateOrUpdate - Creates a new Release for the API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
 //   - releaseID - Release identifier within an API. Must be unique in the current API Management service instance.
@@ -91,16 +90,13 @@ func (client *APIReleaseClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter releaseID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{releaseId}", url.PathEscape(releaseID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -124,8 +120,8 @@ func (client *APIReleaseClient) createOrUpdateHandleResponse(resp *http.Response
 // Delete - Deletes the specified release in the API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
 //   - releaseID - Release identifier within an API. Must be unique in the current API Management service instance.
@@ -166,16 +162,13 @@ func (client *APIReleaseClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter releaseID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{releaseId}", url.PathEscape(releaseID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -185,8 +178,8 @@ func (client *APIReleaseClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Returns the details of an API release.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
 //   - releaseID - Release identifier within an API. Must be unique in the current API Management service instance.
@@ -225,16 +218,13 @@ func (client *APIReleaseClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter releaseID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{releaseId}", url.PathEscape(releaseID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -254,8 +244,8 @@ func (client *APIReleaseClient) getHandleResponse(resp *http.Response) (APIRelea
 
 // GetEntityTag - Returns the etag of an API release.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
 //   - releaseID - Release identifier within an API. Must be unique in the current API Management service instance.
@@ -294,16 +284,13 @@ func (client *APIReleaseClient) getEntityTagCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter releaseID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{releaseId}", url.PathEscape(releaseID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -323,8 +310,8 @@ func (client *APIReleaseClient) getEntityTagHandleResponse(resp *http.Response) 
 // are also used to rollback to previous revisions. Results will be paged and can be constrained by
 // the $top and $skip parameters.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
 //   - options - APIReleaseClientListByServiceOptions contains the optional parameters for the APIReleaseClient.NewListByServicePager
@@ -372,9 +359,6 @@ func (client *APIReleaseClient) listByServiceCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter apiID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{apiId}", url.PathEscape(apiID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -390,7 +374,7 @@ func (client *APIReleaseClient) listByServiceCreateRequest(ctx context.Context, 
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -408,8 +392,8 @@ func (client *APIReleaseClient) listByServiceHandleResponse(resp *http.Response)
 // Update - Updates the details of the release of the API specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
 //   - releaseID - Release identifier within an API. Must be unique in the current API Management service instance.
@@ -451,16 +435,13 @@ func (client *APIReleaseClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter releaseID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{releaseId}", url.PathEscape(releaseID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

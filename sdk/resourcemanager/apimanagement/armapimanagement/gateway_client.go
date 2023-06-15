@@ -30,8 +30,7 @@ type GatewayClient struct {
 }
 
 // NewGatewayClient creates a new instance of GatewayClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewGatewayClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GatewayClient, error) {
@@ -49,8 +48,8 @@ func NewGatewayClient(subscriptionID string, credential azcore.TokenCredential, 
 // CreateOrUpdate - Creates or updates a Gateway to be used in Api Management instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -85,16 +84,13 @@ func (client *GatewayClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -118,8 +114,8 @@ func (client *GatewayClient) createOrUpdateHandleResponse(resp *http.Response) (
 // Delete - Deletes specific Gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -156,16 +152,13 @@ func (client *GatewayClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -175,8 +168,8 @@ func (client *GatewayClient) deleteCreateRequest(ctx context.Context, resourceGr
 // GenerateToken - Gets the Shared Access Authorization Token for the gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -211,16 +204,13 @@ func (client *GatewayClient) generateTokenCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -238,8 +228,8 @@ func (client *GatewayClient) generateTokenHandleResponse(resp *http.Response) (G
 // Get - Gets the details of the Gateway specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -274,16 +264,13 @@ func (client *GatewayClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -303,8 +290,8 @@ func (client *GatewayClient) getHandleResponse(resp *http.Response) (GatewayClie
 
 // GetEntityTag - Gets the entity state (Etag) version of the Gateway specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -339,16 +326,13 @@ func (client *GatewayClient) getEntityTagCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -364,10 +348,62 @@ func (client *GatewayClient) getEntityTagHandleResponse(resp *http.Response) (Ga
 	return result, nil
 }
 
+// InvalidateDebugCredentials - Action is invalidating all debug credentials issued for gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - The name of the API Management service.
+//   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
+//     'managed'
+//   - options - GatewayClientInvalidateDebugCredentialsOptions contains the optional parameters for the GatewayClient.InvalidateDebugCredentials
+//     method.
+func (client *GatewayClient) InvalidateDebugCredentials(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, options *GatewayClientInvalidateDebugCredentialsOptions) (GatewayClientInvalidateDebugCredentialsResponse, error) {
+	req, err := client.invalidateDebugCredentialsCreateRequest(ctx, resourceGroupName, serviceName, gatewayID, options)
+	if err != nil {
+		return GatewayClientInvalidateDebugCredentialsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return GatewayClientInvalidateDebugCredentialsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusNoContent) {
+		return GatewayClientInvalidateDebugCredentialsResponse{}, runtime.NewResponseError(resp)
+	}
+	return GatewayClientInvalidateDebugCredentialsResponse{}, nil
+}
+
+// invalidateDebugCredentialsCreateRequest creates the InvalidateDebugCredentials request.
+func (client *GatewayClient) invalidateDebugCredentialsCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, options *GatewayClientInvalidateDebugCredentialsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/invalidateDebugCredentials"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	if gatewayID == "" {
+		return nil, errors.New("parameter gatewayID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // NewListByServicePager - Lists a collection of gateways registered with service instance.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - GatewayClientListByServiceOptions contains the optional parameters for the GatewayClient.NewListByServicePager
 //     method.
@@ -410,9 +446,6 @@ func (client *GatewayClient) listByServiceCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -428,7 +461,7 @@ func (client *GatewayClient) listByServiceCreateRequest(ctx context.Context, res
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -443,11 +476,73 @@ func (client *GatewayClient) listByServiceHandleResponse(resp *http.Response) (G
 	return result, nil
 }
 
+// ListDebugCredentials - Create new debug credentials for gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - The name of the API Management service.
+//   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
+//     'managed'
+//   - parameters - List debug credentials properties.
+//   - options - GatewayClientListDebugCredentialsOptions contains the optional parameters for the GatewayClient.ListDebugCredentials
+//     method.
+func (client *GatewayClient) ListDebugCredentials(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, parameters GatewayListDebugCredentialsContract, options *GatewayClientListDebugCredentialsOptions) (GatewayClientListDebugCredentialsResponse, error) {
+	req, err := client.listDebugCredentialsCreateRequest(ctx, resourceGroupName, serviceName, gatewayID, parameters, options)
+	if err != nil {
+		return GatewayClientListDebugCredentialsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return GatewayClientListDebugCredentialsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return GatewayClientListDebugCredentialsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listDebugCredentialsHandleResponse(resp)
+}
+
+// listDebugCredentialsCreateRequest creates the ListDebugCredentials request.
+func (client *GatewayClient) listDebugCredentialsCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, parameters GatewayListDebugCredentialsContract, options *GatewayClientListDebugCredentialsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listDebugCredentials"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	if gatewayID == "" {
+		return nil, errors.New("parameter gatewayID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, parameters)
+}
+
+// listDebugCredentialsHandleResponse handles the ListDebugCredentials response.
+func (client *GatewayClient) listDebugCredentialsHandleResponse(resp *http.Response) (GatewayClientListDebugCredentialsResponse, error) {
+	result := GatewayClientListDebugCredentialsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GatewayDebugCredentialsContract); err != nil {
+		return GatewayClientListDebugCredentialsResponse{}, err
+	}
+	return result, nil
+}
+
 // ListKeys - Retrieves gateway keys.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -482,16 +577,13 @@ func (client *GatewayClient) listKeysCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -509,11 +601,72 @@ func (client *GatewayClient) listKeysHandleResponse(resp *http.Response) (Gatewa
 	return result, nil
 }
 
+// ListTrace - Fetches trace collected by gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - The name of the API Management service.
+//   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
+//     'managed'
+//   - parameters - List trace properties.
+//   - options - GatewayClientListTraceOptions contains the optional parameters for the GatewayClient.ListTrace method.
+func (client *GatewayClient) ListTrace(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, parameters GatewayListTraceContract, options *GatewayClientListTraceOptions) (GatewayClientListTraceResponse, error) {
+	req, err := client.listTraceCreateRequest(ctx, resourceGroupName, serviceName, gatewayID, parameters, options)
+	if err != nil {
+		return GatewayClientListTraceResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return GatewayClientListTraceResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return GatewayClientListTraceResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listTraceHandleResponse(resp)
+}
+
+// listTraceCreateRequest creates the ListTrace request.
+func (client *GatewayClient) listTraceCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, parameters GatewayListTraceContract, options *GatewayClientListTraceOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listTrace"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	if gatewayID == "" {
+		return nil, errors.New("parameter gatewayID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, parameters)
+}
+
+// listTraceHandleResponse handles the ListTrace response.
+func (client *GatewayClient) listTraceHandleResponse(resp *http.Response) (GatewayClientListTraceResponse, error) {
+	result := GatewayClientListTraceResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Value); err != nil {
+		return GatewayClientListTraceResponse{}, err
+	}
+	return result, nil
+}
+
 // RegenerateKey - Regenerates specified gateway key invalidating any tokens created with it.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -548,16 +701,13 @@ func (client *GatewayClient) regenerateKeyCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -566,8 +716,8 @@ func (client *GatewayClient) regenerateKeyCreateRequest(ctx context.Context, res
 // Update - Updates the details of the gateway specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
 //     'managed'
@@ -604,16 +754,13 @@ func (client *GatewayClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

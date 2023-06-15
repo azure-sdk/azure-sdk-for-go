@@ -30,8 +30,7 @@ type UserClient struct {
 }
 
 // NewUserClient creates a new instance of UserClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewUserClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UserClient, error) {
@@ -49,8 +48,8 @@ func NewUserClient(subscriptionID string, credential azcore.TokenCredential, opt
 // CreateOrUpdate - Creates or Updates a user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - parameters - Create or update parameters.
@@ -85,9 +84,6 @@ func (client *UserClient) createOrUpdateCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -97,7 +93,7 @@ func (client *UserClient) createOrUpdateCreateRequest(ctx context.Context, resou
 	if options != nil && options.Notify != nil {
 		reqQP.Set("notify", strconv.FormatBool(*options.Notify))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -121,8 +117,8 @@ func (client *UserClient) createOrUpdateHandleResponse(resp *http.Response) (Use
 // Delete - Deletes specific user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -158,9 +154,6 @@ func (client *UserClient) deleteCreateRequest(ctx context.Context, resourceGroup
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -173,7 +166,7 @@ func (client *UserClient) deleteCreateRequest(ctx context.Context, resourceGroup
 	if options != nil && options.Notify != nil {
 		reqQP.Set("notify", strconv.FormatBool(*options.Notify))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	if options != nil && options.AppType != nil {
 		reqQP.Set("appType", string(*options.AppType))
 	}
@@ -187,8 +180,8 @@ func (client *UserClient) deleteCreateRequest(ctx context.Context, resourceGroup
 // portal.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - options - UserClientGenerateSsoURLOptions contains the optional parameters for the UserClient.GenerateSsoURL method.
@@ -222,16 +215,13 @@ func (client *UserClient) generateSsoURLCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,8 +239,8 @@ func (client *UserClient) generateSsoURLHandleResponse(resp *http.Response) (Use
 // Get - Gets the details of the user specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - options - UserClientGetOptions contains the optional parameters for the UserClient.Get method.
@@ -284,16 +274,13 @@ func (client *UserClient) getCreateRequest(ctx context.Context, resourceGroupNam
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -313,8 +300,8 @@ func (client *UserClient) getHandleResponse(resp *http.Response) (UserClientGetR
 
 // GetEntityTag - Gets the entity state (Etag) version of the user specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - options - UserClientGetEntityTagOptions contains the optional parameters for the UserClient.GetEntityTag method.
@@ -348,16 +335,13 @@ func (client *UserClient) getEntityTagCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -376,8 +360,8 @@ func (client *UserClient) getEntityTagHandleResponse(resp *http.Response) (UserC
 // GetSharedAccessToken - Gets the Shared Access Authorization Token for the User.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - parameters - Create Authorization Token parameters.
@@ -413,16 +397,13 @@ func (client *UserClient) getSharedAccessTokenCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -439,8 +420,8 @@ func (client *UserClient) getSharedAccessTokenHandleResponse(resp *http.Response
 
 // NewListByServicePager - Lists a collection of registered users in the specified service instance.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - UserClientListByServiceOptions contains the optional parameters for the UserClient.NewListByServicePager method.
 func (client *UserClient) NewListByServicePager(resourceGroupName string, serviceName string, options *UserClientListByServiceOptions) *runtime.Pager[UserClientListByServiceResponse] {
@@ -482,9 +463,6 @@ func (client *UserClient) listByServiceCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -503,7 +481,7 @@ func (client *UserClient) listByServiceCreateRequest(ctx context.Context, resour
 	if options != nil && options.ExpandGroups != nil {
 		reqQP.Set("expandGroups", strconv.FormatBool(*options.ExpandGroups))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -521,8 +499,8 @@ func (client *UserClient) listByServiceHandleResponse(resp *http.Response) (User
 // Update - Updates the details of the user specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -559,16 +537,13 @@ func (client *UserClient) updateCreateRequest(ctx context.Context, resourceGroup
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
