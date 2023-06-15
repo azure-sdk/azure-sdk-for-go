@@ -1,5 +1,14 @@
 # Release History
 
+## 4.1.0-beta.3 (2023-06-15)
+### Features Added
+
+- New struct `DelegatedResource`
+- New struct `NetworkMonitoring`
+- New field `DelegatedResources` in struct `ManagedClusterIdentity`
+- New field `Monitoring` in struct `NetworkProfile`
+
+
 ## 4.1.0-beta.2 (2023-06-12)
 
 ### Features Added

@@ -699,6 +699,45 @@ func (d *DateSpan) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DelegatedResource.
+func (d DelegatedResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "location", d.Location)
+	populate(objectMap, "referralResource", d.ReferralResource)
+	populate(objectMap, "resourceId", d.ResourceID)
+	populate(objectMap, "tenantId", d.TenantID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DelegatedResource.
+func (d *DelegatedResource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "location":
+			err = unpopulate(val, "Location", &d.Location)
+			delete(rawMsg, key)
+		case "referralResource":
+			err = unpopulate(val, "ReferralResource", &d.ReferralResource)
+			delete(rawMsg, key)
+		case "resourceId":
+			err = unpopulate(val, "ResourceID", &d.ResourceID)
+			delete(rawMsg, key)
+		case "tenantId":
+			err = unpopulate(val, "TenantID", &d.TenantID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type EndpointDependency.
 func (e EndpointDependency) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2238,6 +2277,7 @@ func (m *ManagedClusterHTTPProxyConfig) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ManagedClusterIdentity.
 func (m ManagedClusterIdentity) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "delegatedResources", m.DelegatedResources)
 	populate(objectMap, "principalId", m.PrincipalID)
 	populate(objectMap, "tenantId", m.TenantID)
 	populate(objectMap, "type", m.Type)
@@ -2254,6 +2294,9 @@ func (m *ManagedClusterIdentity) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "delegatedResources":
+			err = unpopulate(val, "DelegatedResources", &m.DelegatedResources)
+			delete(rawMsg, key)
 		case "principalId":
 			err = unpopulate(val, "PrincipalID", &m.PrincipalID)
 			delete(rawMsg, key)
@@ -3993,6 +4036,33 @@ func (m *ManagedServiceIdentityUserAssignedIdentitiesValue) UnmarshalJSON(data [
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type NetworkMonitoring.
+func (n NetworkMonitoring) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", n.Enabled)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type NetworkMonitoring.
+func (n *NetworkMonitoring) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", n, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &n.Enabled)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", n, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type NetworkProfile.
 func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4001,6 +4071,7 @@ func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "kubeProxyConfig", n.KubeProxyConfig)
 	populate(objectMap, "loadBalancerProfile", n.LoadBalancerProfile)
 	populate(objectMap, "loadBalancerSku", n.LoadBalancerSKU)
+	populate(objectMap, "monitoring", n.Monitoring)
 	populate(objectMap, "natGatewayProfile", n.NatGatewayProfile)
 	populate(objectMap, "networkDataplane", n.NetworkDataplane)
 	populate(objectMap, "networkMode", n.NetworkMode)
@@ -4038,6 +4109,9 @@ func (n *NetworkProfile) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "loadBalancerSku":
 			err = unpopulate(val, "LoadBalancerSKU", &n.LoadBalancerSKU)
+			delete(rawMsg, key)
+		case "monitoring":
+			err = unpopulate(val, "Monitoring", &n.Monitoring)
 			delete(rawMsg, key)
 		case "natGatewayProfile":
 			err = unpopulate(val, "NatGatewayProfile", &n.NatGatewayProfile)

@@ -282,6 +282,21 @@ type DateSpan struct {
 	Start *time.Time
 }
 
+// DelegatedResource - Delegated resource properties - internal use only.
+type DelegatedResource struct {
+	// The source resource location - internal use only.
+	Location *string
+
+	// The delegation id of the referral delegation (optional) - internal use only.
+	ReferralResource *string
+
+	// The ARM resource id of the delegated resource - internal use only.
+	ResourceID *string
+
+	// The tenant id of the delegated resource - internal use only.
+	TenantID *string
+}
+
 // EndpointDependency - A domain name that AKS agent nodes are reaching at.
 type EndpointDependency struct {
 	// The domain name of the dependency.
@@ -1100,6 +1115,11 @@ type ManagedClusterHTTPProxyConfig struct {
 
 // ManagedClusterIdentity - Identity for the managed cluster.
 type ManagedClusterIdentity struct {
+	// The delegated identity resources assigned to this managed cluster. This can only be set by another Azure Resource Provider,
+	// and managed cluster only accept one delegated identity resource. Internal
+	// use only.
+	DelegatedResources map[string]*DelegatedResource
+
 	// For more information see use managed identities in AKS [https://docs.microsoft.com/azure/aks/use-managed-identity].
 	Type *ResourceIdentityType
 
@@ -2005,6 +2025,13 @@ type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
 	PrincipalID *string
 }
 
+// NetworkMonitoring - This addon can be used to configure network monitoring and generate network monitoring data in Prometheus
+// format
+type NetworkMonitoring struct {
+	// Enable or disable the network monitoring plugin on the cluster
+	Enabled *bool
+}
+
 // NetworkProfile - Profile of network configuration.
 type NetworkProfile struct {
 	// An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified
@@ -2027,6 +2054,9 @@ type NetworkProfile struct {
 	// The default is 'standard'. See Azure Load Balancer SKUs [https://docs.microsoft.com/azure/load-balancer/skus] for more
 	// information about the differences between load balancer SKUs.
 	LoadBalancerSKU *LoadBalancerSKU
+
+	// This addon can be used to configure network monitoring and generate network monitoring data in Prometheus format
+	Monitoring *NetworkMonitoring
 
 	// Profile of the cluster NAT gateway.
 	NatGatewayProfile *ManagedClusterNATGatewayProfile
