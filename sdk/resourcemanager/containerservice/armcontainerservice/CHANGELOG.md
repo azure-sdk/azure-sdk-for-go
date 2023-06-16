@@ -1,5 +1,20 @@
 # Release History
 
+## 4.1.0-beta.3 (2023-06-16)
+### Features Added
+
+- New enum type `AgentPoolSSHAccess` with values `AgentPoolSSHAccessDisabled`, `AgentPoolSSHAccessLocalUser`
+- New struct `AgentPoolSecurityProfile`
+- New struct `DelegatedResource`
+- New struct `ManagedClusterSecurityProfileImageIntegrity`
+- New struct `NetworkMonitoring`
+- New field `SecurityProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `SecurityProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `DelegatedResources` in struct `ManagedClusterIdentity`
+- New field `ImageIntegrity` in struct `ManagedClusterSecurityProfile`
+- New field `Monitoring` in struct `NetworkProfile`
+
+
 ## 4.1.0-beta.2 (2023-06-12)
 
 ### Features Added

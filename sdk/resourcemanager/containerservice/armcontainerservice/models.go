@@ -93,6 +93,12 @@ type AgentPoolNetworkProfile struct {
 	NodePublicIPTags []*IPTag
 }
 
+// AgentPoolSecurityProfile - The security settings of an agent pool.
+type AgentPoolSecurityProfile struct {
+	// SSH access method of an agent pool.
+	SSHAccess *AgentPoolSSHAccess
+}
+
 // AgentPoolUpgradeProfile - The list of available upgrades for an agent pool.
 type AgentPoolUpgradeProfile struct {
 	// REQUIRED; The properties of the agent pool upgrade profile.
@@ -280,6 +286,21 @@ type DateSpan struct {
 
 	// REQUIRED; The start date of the date span.
 	Start *time.Time
+}
+
+// DelegatedResource - Delegated resource properties - internal use only.
+type DelegatedResource struct {
+	// The source resource location - internal use only.
+	Location *string
+
+	// The delegation id of the referral delegation (optional) - internal use only.
+	ReferralResource *string
+
+	// The ARM resource id of the delegated resource - internal use only.
+	ResourceID *string
+
+	// The tenant id of the delegated resource - internal use only.
+	TenantID *string
 }
 
 // EndpointDependency - A domain name that AKS agent nodes are reaching at.
@@ -828,6 +849,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.
 	ScaleSetPriority *ScaleSetPriority
 
+	// The security settings of an agent pool.
+	SecurityProfile *AgentPoolSecurityProfile
+
 	// Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price.
 	// For more details on spot pricing, see spot VMs pricing
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
@@ -1004,6 +1028,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.
 	ScaleSetPriority *ScaleSetPriority
 
+	// The security settings of an agent pool.
+	SecurityProfile *AgentPoolSecurityProfile
+
 	// Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price.
 	// For more details on spot pricing, see spot VMs pricing
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
@@ -1100,6 +1127,11 @@ type ManagedClusterHTTPProxyConfig struct {
 
 // ManagedClusterIdentity - Identity for the managed cluster.
 type ManagedClusterIdentity struct {
+	// The delegated identity resources assigned to this managed cluster. This can only be set by another Azure Resource Provider,
+	// and managed cluster only accept one delegated identity resource. Internal
+	// use only.
+	DelegatedResources map[string]*DelegatedResource
+
 	// For more information see use managed identities in AKS [https://docs.microsoft.com/azure/aks/use-managed-identity].
 	Type *ResourceIdentityType
 
@@ -1578,6 +1610,11 @@ type ManagedClusterSecurityProfile struct {
 	// Image Cleaner settings for the security profile.
 	ImageCleaner *ManagedClusterSecurityProfileImageCleaner
 
+	// Image integrity is a feature that works with Azure Policy to verify image integrity by signature. This will not have any
+	// effect unless Azure Policy is applied to enforce image signatures. See
+	// https://aka.ms/aks/image-integrity for how to use this feature via policy.
+	ImageIntegrity *ManagedClusterSecurityProfileImageIntegrity
+
 	// Node Restriction [https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction] settings
 	// for the security profile.
 	NodeRestriction *ManagedClusterSecurityProfileNodeRestriction
@@ -1613,6 +1650,12 @@ type ManagedClusterSecurityProfileImageCleaner struct {
 
 	// Image Cleaner scanning interval in hours.
 	IntervalHours *int32
+}
+
+// ManagedClusterSecurityProfileImageIntegrity - Image integrity related settings for the security profile.
+type ManagedClusterSecurityProfileImageIntegrity struct {
+	// Whether to enable image integrity. The default value is false.
+	Enabled *bool
 }
 
 // ManagedClusterSecurityProfileNodeRestriction - Node Restriction settings for the security profile.
@@ -2005,6 +2048,13 @@ type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
 	PrincipalID *string
 }
 
+// NetworkMonitoring - This addon can be used to configure network monitoring and generate network monitoring data in Prometheus
+// format
+type NetworkMonitoring struct {
+	// Enable or disable the network monitoring plugin on the cluster
+	Enabled *bool
+}
+
 // NetworkProfile - Profile of network configuration.
 type NetworkProfile struct {
 	// An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified
@@ -2027,6 +2077,9 @@ type NetworkProfile struct {
 	// The default is 'standard'. See Azure Load Balancer SKUs [https://docs.microsoft.com/azure/load-balancer/skus] for more
 	// information about the differences between load balancer SKUs.
 	LoadBalancerSKU *LoadBalancerSKU
+
+	// This addon can be used to configure network monitoring and generate network monitoring data in Prometheus format
+	Monitoring *NetworkMonitoring
 
 	// Profile of the cluster NAT gateway.
 	NatGatewayProfile *ManagedClusterNATGatewayProfile
