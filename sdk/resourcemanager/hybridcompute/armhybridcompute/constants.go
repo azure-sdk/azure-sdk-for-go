@@ -11,8 +11,25 @@ package armhybridcompute
 
 const (
 	moduleName    = "armhybridcompute"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v2.0.0-beta.1"
 )
+
+// AgentConfigurationMode - Name of configuration mode to use. Modes are pre-defined configurations of security controls,
+// extension allowlists and guest configuration, maintained by Microsoft.
+type AgentConfigurationMode string
+
+const (
+	AgentConfigurationModeFull    AgentConfigurationMode = "full"
+	AgentConfigurationModeMonitor AgentConfigurationMode = "monitor"
+)
+
+// PossibleAgentConfigurationModeValues returns the possible values for the AgentConfigurationMode const type.
+func PossibleAgentConfigurationModeValues() []AgentConfigurationMode {
+	return []AgentConfigurationMode{
+		AgentConfigurationModeFull,
+		AgentConfigurationModeMonitor,
+	}
+}
 
 // AssessmentModeTypes - Specifies the assessment mode.
 type AssessmentModeTypes string
@@ -50,6 +67,50 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// ExecutionState - Script execution status.
+type ExecutionState string
+
+const (
+	ExecutionStateCanceled  ExecutionState = "Canceled"
+	ExecutionStateFailed    ExecutionState = "Failed"
+	ExecutionStatePending   ExecutionState = "Pending"
+	ExecutionStateRunning   ExecutionState = "Running"
+	ExecutionStateSucceeded ExecutionState = "Succeeded"
+	ExecutionStateTimedOut  ExecutionState = "TimedOut"
+	ExecutionStateUnknown   ExecutionState = "Unknown"
+)
+
+// PossibleExecutionStateValues returns the possible values for the ExecutionState const type.
+func PossibleExecutionStateValues() []ExecutionState {
+	return []ExecutionState{
+		ExecutionStateCanceled,
+		ExecutionStateFailed,
+		ExecutionStatePending,
+		ExecutionStateRunning,
+		ExecutionStateSucceeded,
+		ExecutionStateTimedOut,
+		ExecutionStateUnknown,
+	}
+}
+
+// ExtensionsStatusLevelTypes - The level code.
+type ExtensionsStatusLevelTypes string
+
+const (
+	ExtensionsStatusLevelTypesInfo    ExtensionsStatusLevelTypes = "Info"
+	ExtensionsStatusLevelTypesWarning ExtensionsStatusLevelTypes = "Warning"
+	ExtensionsStatusLevelTypesError   ExtensionsStatusLevelTypes = "Error"
+)
+
+// PossibleExtensionsStatusLevelTypesValues returns the possible values for the ExtensionsStatusLevelTypes const type.
+func PossibleExtensionsStatusLevelTypesValues() []ExtensionsStatusLevelTypes {
+	return []ExtensionsStatusLevelTypes{
+		ExtensionsStatusLevelTypesInfo,
+		ExtensionsStatusLevelTypesWarning,
+		ExtensionsStatusLevelTypesError,
+	}
+}
+
 type InstanceViewTypes string
 
 const (
@@ -60,6 +121,38 @@ const (
 func PossibleInstanceViewTypesValues() []InstanceViewTypes {
 	return []InstanceViewTypes{
 		InstanceViewTypesInstanceView,
+	}
+}
+
+// LastAttemptStatusEnum - Specifies the status of Agent Upgrade.
+type LastAttemptStatusEnum string
+
+const (
+	LastAttemptStatusEnumFailed  LastAttemptStatusEnum = "Failed"
+	LastAttemptStatusEnumSuccess LastAttemptStatusEnum = "Success"
+)
+
+// PossibleLastAttemptStatusEnumValues returns the possible values for the LastAttemptStatusEnum const type.
+func PossibleLastAttemptStatusEnumValues() []LastAttemptStatusEnum {
+	return []LastAttemptStatusEnum{
+		LastAttemptStatusEnumFailed,
+		LastAttemptStatusEnumSuccess,
+	}
+}
+
+// OsType - The operating system type of the machine.
+type OsType string
+
+const (
+	OsTypeLinux   OsType = "Linux"
+	OsTypeWindows OsType = "Windows"
+)
+
+// PossibleOsTypeValues returns the possible values for the OsType const type.
+func PossibleOsTypeValues() []OsType {
+	return []OsType{
+		OsTypeLinux,
+		OsTypeWindows,
 	}
 }
 
@@ -80,6 +173,90 @@ func PossiblePatchModeTypesValues() []PatchModeTypes {
 		PatchModeTypesAutomaticByPlatform,
 		PatchModeTypesImageDefault,
 		PatchModeTypesManual,
+	}
+}
+
+// PatchOperationStartedBy - Indicates if operation was triggered by user or by platform.
+type PatchOperationStartedBy string
+
+const (
+	PatchOperationStartedByPlatform PatchOperationStartedBy = "Platform"
+	PatchOperationStartedByUser     PatchOperationStartedBy = "User"
+)
+
+// PossiblePatchOperationStartedByValues returns the possible values for the PatchOperationStartedBy const type.
+func PossiblePatchOperationStartedByValues() []PatchOperationStartedBy {
+	return []PatchOperationStartedBy{
+		PatchOperationStartedByPlatform,
+		PatchOperationStartedByUser,
+	}
+}
+
+// PatchOperationStatus - The overall success or failure status of the operation. It remains "InProgress" until the operation
+// completes. At that point it will become "Unknown", "Failed", "Succeeded", or
+// "CompletedWithWarnings."
+type PatchOperationStatus string
+
+const (
+	PatchOperationStatusCompletedWithWarnings PatchOperationStatus = "CompletedWithWarnings"
+	PatchOperationStatusFailed                PatchOperationStatus = "Failed"
+	PatchOperationStatusInProgress            PatchOperationStatus = "InProgress"
+	PatchOperationStatusSucceeded             PatchOperationStatus = "Succeeded"
+	PatchOperationStatusUnknown               PatchOperationStatus = "Unknown"
+)
+
+// PossiblePatchOperationStatusValues returns the possible values for the PatchOperationStatus const type.
+func PossiblePatchOperationStatusValues() []PatchOperationStatus {
+	return []PatchOperationStatus{
+		PatchOperationStatusCompletedWithWarnings,
+		PatchOperationStatusFailed,
+		PatchOperationStatusInProgress,
+		PatchOperationStatusSucceeded,
+		PatchOperationStatusUnknown,
+	}
+}
+
+// PatchServiceUsed - Specifies the patch service used for the operation.
+type PatchServiceUsed string
+
+const (
+	PatchServiceUsedAPT     PatchServiceUsed = "APT"
+	PatchServiceUsedUnknown PatchServiceUsed = "Unknown"
+	PatchServiceUsedWU      PatchServiceUsed = "WU"
+	PatchServiceUsedWUWSUS  PatchServiceUsed = "WU_WSUS"
+	PatchServiceUsedYUM     PatchServiceUsed = "YUM"
+	PatchServiceUsedZypper  PatchServiceUsed = "Zypper"
+)
+
+// PossiblePatchServiceUsedValues returns the possible values for the PatchServiceUsed const type.
+func PossiblePatchServiceUsedValues() []PatchServiceUsed {
+	return []PatchServiceUsed{
+		PatchServiceUsedAPT,
+		PatchServiceUsedUnknown,
+		PatchServiceUsedWU,
+		PatchServiceUsedWUWSUS,
+		PatchServiceUsedYUM,
+		PatchServiceUsedZypper,
+	}
+}
+
+// PrivateCloudKind - Indicates which kind of VM fabric the instance is an instance of, such as HCI or SCVMM etc.
+type PrivateCloudKind string
+
+const (
+	PrivateCloudKindAVS    PrivateCloudKind = "AVS"
+	PrivateCloudKindHCI    PrivateCloudKind = "HCI"
+	PrivateCloudKindSCVMM  PrivateCloudKind = "SCVMM"
+	PrivateCloudKindVMware PrivateCloudKind = "VMware"
+)
+
+// PossiblePrivateCloudKindValues returns the possible values for the PrivateCloudKind const type.
+func PossiblePrivateCloudKindValues() []PrivateCloudKind {
+	return []PrivateCloudKind{
+		PrivateCloudKindAVS,
+		PrivateCloudKindHCI,
+		PrivateCloudKindSCVMM,
+		PrivateCloudKindVMware,
 	}
 }
 
@@ -137,5 +314,91 @@ func PossibleStatusTypesValues() []StatusTypes {
 		StatusTypesConnected,
 		StatusTypesDisconnected,
 		StatusTypesError,
+	}
+}
+
+type VMGuestPatchClassificationLinux string
+
+const (
+	VMGuestPatchClassificationLinuxCritical VMGuestPatchClassificationLinux = "Critical"
+	VMGuestPatchClassificationLinuxOther    VMGuestPatchClassificationLinux = "Other"
+	VMGuestPatchClassificationLinuxSecurity VMGuestPatchClassificationLinux = "Security"
+)
+
+// PossibleVMGuestPatchClassificationLinuxValues returns the possible values for the VMGuestPatchClassificationLinux const type.
+func PossibleVMGuestPatchClassificationLinuxValues() []VMGuestPatchClassificationLinux {
+	return []VMGuestPatchClassificationLinux{
+		VMGuestPatchClassificationLinuxCritical,
+		VMGuestPatchClassificationLinuxOther,
+		VMGuestPatchClassificationLinuxSecurity,
+	}
+}
+
+type VMGuestPatchClassificationWindows string
+
+const (
+	VMGuestPatchClassificationWindowsCritical     VMGuestPatchClassificationWindows = "Critical"
+	VMGuestPatchClassificationWindowsDefinition   VMGuestPatchClassificationWindows = "Definition"
+	VMGuestPatchClassificationWindowsFeaturePack  VMGuestPatchClassificationWindows = "FeaturePack"
+	VMGuestPatchClassificationWindowsSecurity     VMGuestPatchClassificationWindows = "Security"
+	VMGuestPatchClassificationWindowsServicePack  VMGuestPatchClassificationWindows = "ServicePack"
+	VMGuestPatchClassificationWindowsTools        VMGuestPatchClassificationWindows = "Tools"
+	VMGuestPatchClassificationWindowsUpdateRollUp VMGuestPatchClassificationWindows = "UpdateRollUp"
+	VMGuestPatchClassificationWindowsUpdates      VMGuestPatchClassificationWindows = "Updates"
+)
+
+// PossibleVMGuestPatchClassificationWindowsValues returns the possible values for the VMGuestPatchClassificationWindows const type.
+func PossibleVMGuestPatchClassificationWindowsValues() []VMGuestPatchClassificationWindows {
+	return []VMGuestPatchClassificationWindows{
+		VMGuestPatchClassificationWindowsCritical,
+		VMGuestPatchClassificationWindowsDefinition,
+		VMGuestPatchClassificationWindowsFeaturePack,
+		VMGuestPatchClassificationWindowsSecurity,
+		VMGuestPatchClassificationWindowsServicePack,
+		VMGuestPatchClassificationWindowsTools,
+		VMGuestPatchClassificationWindowsUpdateRollUp,
+		VMGuestPatchClassificationWindowsUpdates,
+	}
+}
+
+// VMGuestPatchRebootSetting - Defines when it is acceptable to reboot a VM during a software update operation.
+type VMGuestPatchRebootSetting string
+
+const (
+	VMGuestPatchRebootSettingAlways     VMGuestPatchRebootSetting = "Always"
+	VMGuestPatchRebootSettingIfRequired VMGuestPatchRebootSetting = "IfRequired"
+	VMGuestPatchRebootSettingNever      VMGuestPatchRebootSetting = "Never"
+)
+
+// PossibleVMGuestPatchRebootSettingValues returns the possible values for the VMGuestPatchRebootSetting const type.
+func PossibleVMGuestPatchRebootSettingValues() []VMGuestPatchRebootSetting {
+	return []VMGuestPatchRebootSetting{
+		VMGuestPatchRebootSettingAlways,
+		VMGuestPatchRebootSettingIfRequired,
+		VMGuestPatchRebootSettingNever,
+	}
+}
+
+// VMGuestPatchRebootStatus - The reboot state of the VM following completion of the operation.
+type VMGuestPatchRebootStatus string
+
+const (
+	VMGuestPatchRebootStatusCompleted VMGuestPatchRebootStatus = "Completed"
+	VMGuestPatchRebootStatusFailed    VMGuestPatchRebootStatus = "Failed"
+	VMGuestPatchRebootStatusNotNeeded VMGuestPatchRebootStatus = "NotNeeded"
+	VMGuestPatchRebootStatusRequired  VMGuestPatchRebootStatus = "Required"
+	VMGuestPatchRebootStatusStarted   VMGuestPatchRebootStatus = "Started"
+	VMGuestPatchRebootStatusUnknown   VMGuestPatchRebootStatus = "Unknown"
+)
+
+// PossibleVMGuestPatchRebootStatusValues returns the possible values for the VMGuestPatchRebootStatus const type.
+func PossibleVMGuestPatchRebootStatusValues() []VMGuestPatchRebootStatus {
+	return []VMGuestPatchRebootStatus{
+		VMGuestPatchRebootStatusCompleted,
+		VMGuestPatchRebootStatusFailed,
+		VMGuestPatchRebootStatusNotNeeded,
+		VMGuestPatchRebootStatusRequired,
+		VMGuestPatchRebootStatusStarted,
+		VMGuestPatchRebootStatusUnknown,
 	}
 }
