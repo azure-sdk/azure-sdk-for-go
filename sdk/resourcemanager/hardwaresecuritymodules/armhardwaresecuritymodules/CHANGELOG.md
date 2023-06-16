@@ -1,5 +1,18 @@
 # Release History
 
+## 2.0.0 (2023-06-16)
+### Breaking Changes
+
+- Type of `DedicatedHsmOperation.IsDataAction` has been changed from `*string` to `*bool`
+- Type of `ResourceListResult.Value` has been changed from `[]*Resource` to `[]*DedicatedHsmResource`
+- Struct `Resource` has been removed
+
+### Features Added
+
+- New struct `DedicatedHsmResource`
+- New field `Origin` in struct `DedicatedHsmOperation`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
