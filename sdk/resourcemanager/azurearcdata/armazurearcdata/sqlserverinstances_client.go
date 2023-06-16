@@ -47,7 +47,7 @@ func NewSQLServerInstancesClient(subscriptionID string, credential azcore.TokenC
 // BeginCreate - Creates or replaces a SQL Server Instance resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - sqlServerInstanceName - Name of SQL Server Instance
 //   - sqlServerInstance - The SQL Server Instance to be created or updated.
@@ -70,7 +70,7 @@ func (client *SQLServerInstancesClient) BeginCreate(ctx context.Context, resourc
 // Create - Creates or replaces a SQL Server Instance resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 func (client *SQLServerInstancesClient) create(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, sqlServerInstance SQLServerInstance, options *SQLServerInstancesClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, sqlServerInstanceName, sqlServerInstance, options)
 	if err != nil {
@@ -106,7 +106,7 @@ func (client *SQLServerInstancesClient) createCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-01-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, sqlServerInstance)
@@ -115,7 +115,7 @@ func (client *SQLServerInstancesClient) createCreateRequest(ctx context.Context,
 // BeginDelete - Deletes a SQL Server Instance resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - sqlServerInstanceName - Name of SQL Server Instance
 //   - options - SQLServerInstancesClientBeginDeleteOptions contains the optional parameters for the SQLServerInstancesClient.BeginDelete
@@ -135,7 +135,7 @@ func (client *SQLServerInstancesClient) BeginDelete(ctx context.Context, resourc
 // Delete - Deletes a SQL Server Instance resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 func (client *SQLServerInstancesClient) deleteOperation(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, options *SQLServerInstancesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, sqlServerInstanceName, options)
 	if err != nil {
@@ -171,7 +171,7 @@ func (client *SQLServerInstancesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-01-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *SQLServerInstancesClient) deleteCreateRequest(ctx context.Context,
 // Get - Retrieves a SQL Server Instance resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - sqlServerInstanceName - Name of SQL Server Instance
 //   - options - SQLServerInstancesClientGetOptions contains the optional parameters for the SQLServerInstancesClient.Get method.
@@ -219,7 +219,7 @@ func (client *SQLServerInstancesClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-01-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -236,7 +236,7 @@ func (client *SQLServerInstancesClient) getHandleResponse(resp *http.Response) (
 
 // NewListPager - List sqlServerInstance resources in the subscription
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 //   - options - SQLServerInstancesClientListOptions contains the optional parameters for the SQLServerInstancesClient.NewListPager
 //     method.
 func (client *SQLServerInstancesClient) NewListPager(options *SQLServerInstancesClientListOptions) *runtime.Pager[SQLServerInstancesClientListResponse] {
@@ -279,7 +279,7 @@ func (client *SQLServerInstancesClient) listCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-01-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +296,7 @@ func (client *SQLServerInstancesClient) listHandleResponse(resp *http.Response) 
 
 // NewListByResourceGroupPager - Gets all sqlServerInstances in a resource group.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - options - SQLServerInstancesClientListByResourceGroupOptions contains the optional parameters for the SQLServerInstancesClient.NewListByResourceGroupPager
 //     method.
@@ -344,7 +344,7 @@ func (client *SQLServerInstancesClient) listByResourceGroupCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-01-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -362,7 +362,7 @@ func (client *SQLServerInstancesClient) listByResourceGroupHandleResponse(resp *
 // Update - Updates a SQL Server Instance resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-01-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - sqlServerInstanceName - Name of SQL Server Instance
 //   - parameters - The SQL Server Instance.
@@ -403,7 +403,7 @@ func (client *SQLServerInstancesClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-01-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
