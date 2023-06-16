@@ -1,5 +1,23 @@
 # Release History
 
+## 2.0.0 (2023-06-16)
+### Breaking Changes
+
+- Function `*ClientFactory.NewNameAvailabilityClient` has been removed
+- Function `NewNameAvailabilityClient` has been removed
+- Function `*NameAvailabilityClient.CheckLocal` has been removed
+
+### Features Added
+
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New function `*CommunicationsGatewaysClient.CheckLocal(context.Context, string, CheckNameAvailabilityRequest, *CommunicationsGatewaysClientCheckLocalOptions) (CommunicationsGatewaysClientCheckLocalResponse, error)`
+- New struct `ManagedServiceIdentity`
+- New struct `UserAssignedIdentity`
+- New field `Identity` in struct `CommunicationsGateway`
+- New field `IntegratedMcpEnabled` in struct `CommunicationsGatewayProperties`
+- New field `Identity` in struct `CommunicationsGatewayUpdate`
+
+
 ## 1.0.1 (2023-04-14)
 ### Bug Fixes
 

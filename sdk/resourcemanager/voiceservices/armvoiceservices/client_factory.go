@@ -48,11 +48,6 @@ func (c *ClientFactory) NewCommunicationsGatewaysClient() *CommunicationsGateway
 	return subClient
 }
 
-func (c *ClientFactory) NewNameAvailabilityClient() *NameAvailabilityClient {
-	subClient, _ := NewNameAvailabilityClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewTestLinesClient() *TestLinesClient {
 	subClient, _ := NewTestLinesClient(c.subscriptionID, c.credential, c.options)
 	return subClient

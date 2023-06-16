@@ -9,6 +9,11 @@
 
 package armvoiceservices
 
+// CommunicationsGatewaysClientCheckLocalResponse contains the response from method CommunicationsGatewaysClient.CheckLocal.
+type CommunicationsGatewaysClientCheckLocalResponse struct {
+	CheckNameAvailabilityResponse
+}
+
 // CommunicationsGatewaysClientCreateOrUpdateResponse contains the response from method CommunicationsGatewaysClient.BeginCreateOrUpdate.
 type CommunicationsGatewaysClientCreateOrUpdateResponse struct {
 	CommunicationsGateway
@@ -37,11 +42,6 @@ type CommunicationsGatewaysClientListBySubscriptionResponse struct {
 // CommunicationsGatewaysClientUpdateResponse contains the response from method CommunicationsGatewaysClient.Update.
 type CommunicationsGatewaysClientUpdateResponse struct {
 	CommunicationsGateway
-}
-
-// NameAvailabilityClientCheckLocalResponse contains the response from method NameAvailabilityClient.CheckLocal.
-type NameAvailabilityClientCheckLocalResponse struct {
-	CheckNameAvailabilityResponse
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
