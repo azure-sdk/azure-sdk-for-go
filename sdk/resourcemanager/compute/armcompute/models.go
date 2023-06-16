@@ -1085,6 +1085,9 @@ type CommunityGallery struct {
 	// The identifier information of community gallery.
 	Identifier *CommunityGalleryIdentifier
 
+	// Describes the properties of a community gallery.
+	Properties *CommunityGalleryProperties
+
 	// READ-ONLY; Resource location
 	Location *string
 
@@ -1151,17 +1154,20 @@ type CommunityGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
+
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
 
 	// Describes the disallowed disk types.
 	Disallowed *Disallowed
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
 
 	// The end of life date of the gallery image definition. This property can be used for decommissioning purposes. This property
 	// is updatable.
@@ -1216,6 +1222,12 @@ type CommunityGalleryImageVersionList struct {
 
 // CommunityGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type CommunityGalleryImageVersionProperties struct {
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
+
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time
@@ -1273,6 +1285,36 @@ type CommunityGalleryInfo struct {
 
 	// READ-ONLY; Community gallery public name list.
 	PublicNames []*string
+}
+
+// CommunityGalleryMetadata - The metadata of community gallery.
+type CommunityGalleryMetadata struct {
+	// The eula of this community gallery.
+	Eula *string
+
+	// The privacyStatementUri of this community gallery.
+	PrivacyStatementURI *string
+
+	// A list of public names the gallery has.
+	PublicNames []*string
+
+	// The publisher contact of this community gallery.
+	PublisherContact *string
+
+	// The publisher uri of this community gallery.
+	PublisherURI *string
+}
+
+// CommunityGalleryProperties - Describes the properties of a community gallery.
+type CommunityGalleryProperties struct {
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
+
+	// The metadata of community gallery.
+	CommunityMetadata *CommunityGalleryMetadata
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
 }
 
 // CopyCompletionError - Indicates the error details if the background copy of a resource created via the CopyStart operation
@@ -2715,10 +2757,8 @@ type GalleryApplicationList struct {
 
 // GalleryApplicationProperties - Describes the properties of a gallery Application Definition.
 type GalleryApplicationProperties struct {
-	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for.
-	// Possible values are:
-	// Windows
-	// Linux
+	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for. Possible values
+	// are: Windows, Linux.
 	SupportedOSType *OperatingSystemTypes
 
 	// A list of custom actions that can be performed with all of the Gallery Application Versions within this Gallery Application.
@@ -3114,13 +3154,10 @@ type GalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -3422,7 +3459,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -5976,6 +6013,9 @@ type SharedGallery struct {
 	// The identifier information of shared gallery.
 	Identifier *SharedGalleryIdentifier
 
+	// Specifies the properties of a shared gallery
+	Properties *SharedGalleryProperties
+
 	// READ-ONLY; Resource location
 	Location *string
 
@@ -6047,14 +6087,14 @@ type SharedGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
+
+	// The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
 
 	// Describes the disallowed disk types.
 	Disallowed *Disallowed
@@ -6109,6 +6149,9 @@ type SharedGalleryImageVersionList struct {
 
 // SharedGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type SharedGalleryImageVersionProperties struct {
+	// The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
+
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time
@@ -6175,16 +6218,18 @@ type SharedGalleryOSDiskImage struct {
 	DiskSizeGB *int32
 }
 
+// SharedGalleryProperties - Specifies the properties of a shared gallery
+type SharedGalleryProperties struct {
+	// READ-ONLY; The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
+}
+
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
 	CommunityGalleryInfo *CommunityGalleryInfo
 
-	// This property allows you to specify the permission of sharing gallery.
-	// Possible values are:
-	// Private
-	// Groups
-	// Community
+	// This property allows you to specify the permission of sharing gallery. Possible values are: Private, Groups, Community.
 	Permissions *GallerySharingPermissionTypes
 
 	// READ-ONLY; A list of sharing profile groups.
@@ -6196,10 +6241,7 @@ type SharingProfileGroup struct {
 	// A list of subscription/tenant ids the gallery is aimed to be shared to.
 	IDs []*string
 
-	// This property allows you to specify the type of sharing group.
-	// Possible values are:
-	// Subscriptions
-	// AADTenants
+	// This property allows you to specify the type of sharing group. Possible values are: Subscriptions, AADTenants.
 	Type *SharingProfileGroupTypes
 }
 
@@ -6214,11 +6256,8 @@ type SharingStatus struct {
 
 // SharingUpdate - Specifies information about the gallery sharing profile update.
 type SharingUpdate struct {
-	// REQUIRED; This property allows you to specify the operation type of gallery sharing update.
-	// Possible values are:
-	// Add
-	// Remove
-	// Reset
+	// REQUIRED; This property allows you to specify the operation type of gallery sharing update. Possible values are: Add, Remove,
+	// Reset.
 	OperationType *SharingUpdateOperationTypes
 
 	// A list of sharing profile groups.
