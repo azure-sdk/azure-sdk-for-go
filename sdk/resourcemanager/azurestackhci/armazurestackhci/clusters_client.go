@@ -47,7 +47,7 @@ func NewClustersClient(subscriptionID string, credential azcore.TokenCredential,
 // Create - Create an HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - cluster - Details of the HCI cluster.
@@ -87,7 +87,7 @@ func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, cluster)
@@ -105,7 +105,7 @@ func (client *ClustersClient) createHandleResponse(resp *http.Response) (Cluster
 // BeginCreateIdentity - Create cluster identity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - ClustersClientBeginCreateIdentityOptions contains the optional parameters for the ClustersClient.BeginCreateIdentity
@@ -127,7 +127,7 @@ func (client *ClustersClient) BeginCreateIdentity(ctx context.Context, resourceG
 // CreateIdentity - Create cluster identity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 func (client *ClustersClient) createIdentity(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateIdentityOptions) (*http.Response, error) {
 	req, err := client.createIdentityCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -163,7 +163,7 @@ func (client *ClustersClient) createIdentityCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *ClustersClient) createIdentityCreateRequest(ctx context.Context, r
 // BeginDelete - Delete an HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
@@ -191,7 +191,7 @@ func (client *ClustersClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Delete an HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 func (client *ClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -227,16 +227,84 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
+// BeginExtendSoftwareAssuranceBenefit - Extends Software Assurance Benefit to a cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-07-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - softwareAssuranceChangeRequest - Software Assurance Change Request Payload
+//   - options - ClustersClientBeginExtendSoftwareAssuranceBenefitOptions contains the optional parameters for the ClustersClient.BeginExtendSoftwareAssuranceBenefit
+//     method.
+func (client *ClustersClient) BeginExtendSoftwareAssuranceBenefit(ctx context.Context, resourceGroupName string, clusterName string, softwareAssuranceChangeRequest SoftwareAssuranceChangeRequest, options *ClustersClientBeginExtendSoftwareAssuranceBenefitOptions) (*runtime.Poller[ClustersClientExtendSoftwareAssuranceBenefitResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.extendSoftwareAssuranceBenefit(ctx, resourceGroupName, clusterName, softwareAssuranceChangeRequest, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ClustersClientExtendSoftwareAssuranceBenefitResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[ClustersClientExtendSoftwareAssuranceBenefitResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// ExtendSoftwareAssuranceBenefit - Extends Software Assurance Benefit to a cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-07-01-preview
+func (client *ClustersClient) extendSoftwareAssuranceBenefit(ctx context.Context, resourceGroupName string, clusterName string, softwareAssuranceChangeRequest SoftwareAssuranceChangeRequest, options *ClustersClientBeginExtendSoftwareAssuranceBenefitOptions) (*http.Response, error) {
+	req, err := client.extendSoftwareAssuranceBenefitCreateRequest(ctx, resourceGroupName, clusterName, softwareAssuranceChangeRequest, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// extendSoftwareAssuranceBenefitCreateRequest creates the ExtendSoftwareAssuranceBenefit request.
+func (client *ClustersClient) extendSoftwareAssuranceBenefitCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, softwareAssuranceChangeRequest SoftwareAssuranceChangeRequest, options *ClustersClientBeginExtendSoftwareAssuranceBenefitOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/extendSoftwareAssuranceBenefit"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-07-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, softwareAssuranceChangeRequest)
+}
+
 // Get - Get HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
@@ -275,7 +343,7 @@ func (client *ClustersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -292,7 +360,7 @@ func (client *ClustersClient) getHandleResponse(resp *http.Response) (ClustersCl
 
 // NewListByResourceGroupPager - List all HCI clusters in a resource group.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.NewListByResourceGroupPager
 //     method.
@@ -340,7 +408,7 @@ func (client *ClustersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -357,7 +425,7 @@ func (client *ClustersClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - List all HCI clusters in a subscription.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - options - ClustersClientListBySubscriptionOptions contains the optional parameters for the ClustersClient.NewListBySubscriptionPager
 //     method.
 func (client *ClustersClient) NewListBySubscriptionPager(options *ClustersClientListBySubscriptionOptions) *runtime.Pager[ClustersClientListBySubscriptionResponse] {
@@ -400,7 +468,7 @@ func (client *ClustersClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -418,7 +486,7 @@ func (client *ClustersClient) listBySubscriptionHandleResponse(resp *http.Respon
 // Update - Update an HCI cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - cluster - Details of the HCI cluster.
@@ -458,7 +526,7 @@ func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, cluster)
@@ -476,7 +544,7 @@ func (client *ClustersClient) updateHandleResponse(resp *http.Response) (Cluster
 // BeginUploadCertificate - Upload certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - uploadCertificateRequest - Upload certificate request.
@@ -499,7 +567,7 @@ func (client *ClustersClient) BeginUploadCertificate(ctx context.Context, resour
 // UploadCertificate - Upload certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01
+// Generated from API version 2023-07-01-preview
 func (client *ClustersClient) uploadCertificate(ctx context.Context, resourceGroupName string, clusterName string, uploadCertificateRequest UploadCertificateRequest, options *ClustersClientBeginUploadCertificateOptions) (*http.Response, error) {
 	req, err := client.uploadCertificateCreateRequest(ctx, resourceGroupName, clusterName, uploadCertificateRequest, options)
 	if err != nil {
@@ -535,7 +603,7 @@ func (client *ClustersClient) uploadCertificateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, uploadCertificateRequest)
