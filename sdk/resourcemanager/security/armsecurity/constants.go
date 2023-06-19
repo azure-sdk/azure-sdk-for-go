@@ -11,7 +11,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.11.0"
+	moduleVersion = "v0.12.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -1599,26 +1599,6 @@ func PossibleScanningModeValues() []ScanningMode {
 	}
 }
 
-// ScopeName - The resource scope of the health report
-type ScopeName string
-
-const (
-	ScopeNameClusters        ScopeName = "Clusters"
-	ScopeNameConnectors      ScopeName = "Connectors"
-	ScopeNameUnknown         ScopeName = "Unknown"
-	ScopeNameVirtualMachines ScopeName = "VirtualMachines"
-)
-
-// PossibleScopeNameValues returns the possible values for the ScopeName const type.
-func PossibleScopeNameValues() []ScopeName {
-	return []ScopeName{
-		ScopeNameClusters,
-		ScopeNameConnectors,
-		ScopeNameUnknown,
-		ScopeNameVirtualMachines,
-	}
-}
-
 // SecurityFamily - The security family of the discovered solution
 type SecurityFamily string
 
@@ -1675,6 +1655,50 @@ func PossibleServerVulnerabilityAssessmentPropertiesProvisioningStateValues() []
 		ServerVulnerabilityAssessmentPropertiesProvisioningStateFailed,
 		ServerVulnerabilityAssessmentPropertiesProvisioningStateProvisioning,
 		ServerVulnerabilityAssessmentPropertiesProvisioningStateSucceeded,
+	}
+}
+
+// ServerVulnerabilityAssessmentsAzureSettingSelectedProvider - The selected vulnerability assessments provider on Azure servers
+// in the defined scope.
+type ServerVulnerabilityAssessmentsAzureSettingSelectedProvider string
+
+const (
+	// ServerVulnerabilityAssessmentsAzureSettingSelectedProviderMdeTvm - Microsoft Defender for Endpoints threat and vulnerability
+	// management.
+	ServerVulnerabilityAssessmentsAzureSettingSelectedProviderMdeTvm ServerVulnerabilityAssessmentsAzureSettingSelectedProvider = "MdeTvm"
+)
+
+// PossibleServerVulnerabilityAssessmentsAzureSettingSelectedProviderValues returns the possible values for the ServerVulnerabilityAssessmentsAzureSettingSelectedProvider const type.
+func PossibleServerVulnerabilityAssessmentsAzureSettingSelectedProviderValues() []ServerVulnerabilityAssessmentsAzureSettingSelectedProvider {
+	return []ServerVulnerabilityAssessmentsAzureSettingSelectedProvider{
+		ServerVulnerabilityAssessmentsAzureSettingSelectedProviderMdeTvm,
+	}
+}
+
+// ServerVulnerabilityAssessmentsSettingKind - The kind of the server vulnerability assessments setting
+type ServerVulnerabilityAssessmentsSettingKind string
+
+const (
+	ServerVulnerabilityAssessmentsSettingKindAzureServersSetting ServerVulnerabilityAssessmentsSettingKind = "AzureServersSetting"
+)
+
+// PossibleServerVulnerabilityAssessmentsSettingKindValues returns the possible values for the ServerVulnerabilityAssessmentsSettingKind const type.
+func PossibleServerVulnerabilityAssessmentsSettingKindValues() []ServerVulnerabilityAssessmentsSettingKind {
+	return []ServerVulnerabilityAssessmentsSettingKind{
+		ServerVulnerabilityAssessmentsSettingKindAzureServersSetting,
+	}
+}
+
+type ServerVulnerabilityAssessmentsSettingKindName string
+
+const (
+	ServerVulnerabilityAssessmentsSettingKindNameAzureServersSetting ServerVulnerabilityAssessmentsSettingKindName = "azureServersSetting"
+)
+
+// PossibleServerVulnerabilityAssessmentsSettingKindNameValues returns the possible values for the ServerVulnerabilityAssessmentsSettingKindName const type.
+func PossibleServerVulnerabilityAssessmentsSettingKindNameValues() []ServerVulnerabilityAssessmentsSettingKindName {
+	return []ServerVulnerabilityAssessmentsSettingKindName{
+		ServerVulnerabilityAssessmentsSettingKindNameAzureServersSetting,
 	}
 }
 

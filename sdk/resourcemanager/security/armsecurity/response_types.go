@@ -571,8 +571,8 @@ type GovernanceRulesClientOperationResultsResponse struct {
 	Location *string
 }
 
-// HealthReportClientGetResponse contains the response from method HealthReportClient.Get.
-type HealthReportClientGetResponse struct {
+// HealthReportsClientGetResponse contains the response from method HealthReportsClient.Get.
+type HealthReportsClientGetResponse struct {
 	HealthReport
 }
 
@@ -919,6 +919,46 @@ type ServerVulnerabilityAssessmentClientGetResponse struct {
 // ServerVulnerabilityAssessmentClientListByExtendedResourceResponse contains the response from method ServerVulnerabilityAssessmentClient.ListByExtendedResource.
 type ServerVulnerabilityAssessmentClientListByExtendedResourceResponse struct {
 	ServerVulnerabilityAssessmentsList
+}
+
+// ServerVulnerabilityAssessmentsSettingsClientCreateOrUpdateResponse contains the response from method ServerVulnerabilityAssessmentsSettingsClient.CreateOrUpdate.
+type ServerVulnerabilityAssessmentsSettingsClientCreateOrUpdateResponse struct {
+	ServerVulnerabilityAssessmentsSettingClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ServerVulnerabilityAssessmentsSettingsClientCreateOrUpdateResponse.
+func (s *ServerVulnerabilityAssessmentsSettingsClientCreateOrUpdateResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalServerVulnerabilityAssessmentsSettingClassification(data)
+	if err != nil {
+		return err
+	}
+	s.ServerVulnerabilityAssessmentsSettingClassification = res
+	return nil
+}
+
+// ServerVulnerabilityAssessmentsSettingsClientDeleteResponse contains the response from method ServerVulnerabilityAssessmentsSettingsClient.Delete.
+type ServerVulnerabilityAssessmentsSettingsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ServerVulnerabilityAssessmentsSettingsClientGetResponse contains the response from method ServerVulnerabilityAssessmentsSettingsClient.Get.
+type ServerVulnerabilityAssessmentsSettingsClientGetResponse struct {
+	ServerVulnerabilityAssessmentsSettingClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ServerVulnerabilityAssessmentsSettingsClientGetResponse.
+func (s *ServerVulnerabilityAssessmentsSettingsClientGetResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalServerVulnerabilityAssessmentsSettingClassification(data)
+	if err != nil {
+		return err
+	}
+	s.ServerVulnerabilityAssessmentsSettingClassification = res
+	return nil
+}
+
+// ServerVulnerabilityAssessmentsSettingsClientListBySubscriptionResponse contains the response from method ServerVulnerabilityAssessmentsSettingsClient.NewListBySubscriptionPager.
+type ServerVulnerabilityAssessmentsSettingsClientListBySubscriptionResponse struct {
+	ServerVulnerabilityAssessmentsSettingsList
 }
 
 // SettingsClientGetResponse contains the response from method SettingsClient.Get.
