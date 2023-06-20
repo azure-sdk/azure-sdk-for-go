@@ -1,10 +1,20 @@
 # Release History
 
-## 1.2.0-beta.1 (2023-06-12)
+## 2.0.0 (2023-06-20)
+### Breaking Changes
+
+- Type of `DeploymentProperties.Parameters` has been changed from `any` to `map[string]*DeploymentParameter`
+- Type of `DeploymentWhatIfProperties.Parameters` has been changed from `any` to `map[string]*DeploymentParameter`
+- Operation `*TagsClient.CreateOrUpdateAtScope` has been changed to LRO, use `*TagsClient.BeginCreateOrUpdateAtScope` instead.
+- Operation `*TagsClient.DeleteAtScope` has been changed to LRO, use `*TagsClient.BeginDeleteAtScope` instead.
+- Operation `*TagsClient.UpdateAtScope` has been changed to LRO, use `*TagsClient.BeginUpdateAtScope` instead.
 
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New struct `DeploymentParameter`
+- New struct `KeyVaultParameterReference`
+- New struct `KeyVaultReference`
+
 
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
