@@ -204,7 +204,7 @@ type ClientListOptions struct {
 	// plan and plan/publisher and plan/name, and identity and
 	// identity/principalId.
 	Filter *string
-	// The number of results to return. If null is passed, returns all resources.
+	// The number of recommendations per page if a paged version of this API is being used.
 	Top *int32
 }
 
@@ -407,6 +407,15 @@ type DeploymentOperationsListResult struct {
 	NextLink *string
 }
 
+// DeploymentParameter - Deployment parameter for the template.
+type DeploymentParameter struct {
+	// Azure Key Vault parameter reference.
+	Reference *KeyVaultParameterReference
+
+	// Input value to the parameter .
+	Value any
+}
+
 // DeploymentProperties - Deployment properties.
 type DeploymentProperties struct {
 	// REQUIRED; The mode that is used to deploy resources. This value can be either Incremental or Complete. In Incremental mode,
@@ -430,7 +439,7 @@ type DeploymentProperties struct {
 	// the parameter values directly in the request rather than link to an existing
 	// parameter file. Use either the parametersLink property or the parameters property, but not both. It can be a JObject or
 	// a well formed JSON string.
-	Parameters any
+	Parameters map[string]*DeploymentParameter
 
 	// The URI of parameters file. You use this element to link to an existing parameters file. Use either the parametersLink
 	// property or the parameters property, but not both.
@@ -540,7 +549,7 @@ type DeploymentWhatIfProperties struct {
 	// the parameter values directly in the request rather than link to an existing
 	// parameter file. Use either the parametersLink property or the parameters property, but not both. It can be a JObject or
 	// a well formed JSON string.
-	Parameters any
+	Parameters map[string]*DeploymentParameter
 
 	// The URI of parameters file. You use this element to link to an existing parameters file. Use either the parametersLink
 	// property or the parameters property, but not both.
@@ -1040,6 +1049,24 @@ type IdentityUserAssignedIdentitiesValue struct {
 
 	// READ-ONLY; The principal id of user assigned identity.
 	PrincipalID *string
+}
+
+// KeyVaultParameterReference - Azure Key Vault parameter reference.
+type KeyVaultParameterReference struct {
+	// REQUIRED; Azure Key Vault reference.
+	KeyVault *KeyVaultReference
+
+	// REQUIRED; Azure Key Vault secret name.
+	SecretName *string
+
+	// Azure Key Vault secret version.
+	SecretVersion *string
+}
+
+// KeyVaultReference - Azure Key Vault reference.
+type KeyVaultReference struct {
+	// REQUIRED; Azure Key Vault resource id.
+	ID *string
 }
 
 // MoveInfo - Parameters of move resources.
@@ -1621,9 +1648,23 @@ type Tags struct {
 	Tags map[string]*string
 }
 
-// TagsClientCreateOrUpdateAtScopeOptions contains the optional parameters for the TagsClient.CreateOrUpdateAtScope method.
-type TagsClientCreateOrUpdateAtScopeOptions struct {
-	// placeholder for future optional parameters
+// TagsClientBeginCreateOrUpdateAtScopeOptions contains the optional parameters for the TagsClient.BeginCreateOrUpdateAtScope
+// method.
+type TagsClientBeginCreateOrUpdateAtScopeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// TagsClientBeginDeleteAtScopeOptions contains the optional parameters for the TagsClient.BeginDeleteAtScope method.
+type TagsClientBeginDeleteAtScopeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// TagsClientBeginUpdateAtScopeOptions contains the optional parameters for the TagsClient.BeginUpdateAtScope method.
+type TagsClientBeginUpdateAtScopeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // TagsClientCreateOrUpdateOptions contains the optional parameters for the TagsClient.CreateOrUpdate method.
@@ -1633,11 +1674,6 @@ type TagsClientCreateOrUpdateOptions struct {
 
 // TagsClientCreateOrUpdateValueOptions contains the optional parameters for the TagsClient.CreateOrUpdateValue method.
 type TagsClientCreateOrUpdateValueOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientDeleteAtScopeOptions contains the optional parameters for the TagsClient.DeleteAtScope method.
-type TagsClientDeleteAtScopeOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1658,11 +1694,6 @@ type TagsClientGetAtScopeOptions struct {
 
 // TagsClientListOptions contains the optional parameters for the TagsClient.NewListPager method.
 type TagsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientUpdateAtScopeOptions contains the optional parameters for the TagsClient.UpdateAtScope method.
-type TagsClientUpdateAtScopeOptions struct {
 	// placeholder for future optional parameters
 }
 
