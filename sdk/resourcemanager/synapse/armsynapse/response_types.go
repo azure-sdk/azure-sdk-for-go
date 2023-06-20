@@ -1000,11 +1000,6 @@ type SQLPoolsClientPauseResponse struct {
 	SQLPool
 }
 
-// SQLPoolsClientRenameResponse contains the response from method SQLPoolsClient.Rename.
-type SQLPoolsClientRenameResponse struct {
-	// placeholder for future response values
-}
-
 // SQLPoolsClientResumeResponse contains the response from method SQLPoolsClient.BeginResume.
 type SQLPoolsClientResumeResponse struct {
 	SQLPool
