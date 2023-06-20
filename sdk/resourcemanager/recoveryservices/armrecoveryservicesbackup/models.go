@@ -2048,7 +2048,7 @@ func (a *AzureVMWorkloadItem) GetWorkloadItem() *WorkloadItem {
 // Call the interface's GetAzureVMWorkloadProtectableItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureVMWorkloadProtectableItem, *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaHSR, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
+// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
 // - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem
 type AzureVMWorkloadProtectableItemClassification interface {
 	WorkloadProtectableItemClassification
@@ -2072,6 +2072,9 @@ type AzureVMWorkloadProtectableItem struct {
 
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
+
+	// Indicates if item is protectable
+	IsProtectable *bool
 
 	// Name for instance or AG
 	ParentName *string
@@ -2175,6 +2178,9 @@ type AzureVMWorkloadProtectedItem struct {
 
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time
+
+	// List of the nodes in case of distributed container.
+	NodesList []*DistributedNodesInfo
 
 	// Parent name of the DB such as Instance or Availability Group.
 	ParentName *string
@@ -2358,6 +2364,9 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time
 
+	// List of the nodes in case of distributed container.
+	NodesList []*DistributedNodesInfo
+
 	// Parent name of the DB such as Instance or Availability Group.
 	ParentName *string
 
@@ -2420,6 +2429,7 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) GetAzureVMWorkloadProtected
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ExtendedInfo:                     a.ExtendedInfo,
 		KpisHealths:                      a.KpisHealths,
+		NodesList:                        a.NodesList,
 		ProtectedItemType:                a.ProtectedItemType,
 		BackupManagementType:             a.BackupManagementType,
 		WorkloadType:                     a.WorkloadType,
@@ -2542,6 +2552,9 @@ type AzureVMWorkloadSAPAseSystemProtectableItem struct {
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
 
+	// Indicates if item is protectable
+	IsProtectable *bool
+
 	// Name for instance or AG
 	ParentName *string
 
@@ -2579,6 +2592,7 @@ func (a *AzureVMWorkloadSAPAseSystemProtectableItem) GetAzureVMWorkloadProtectab
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -2675,6 +2689,9 @@ type AzureVMWorkloadSAPHanaDBInstance struct {
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
 
+	// Indicates if item is protectable
+	IsProtectable *bool
+
 	// Name for instance or AG
 	ParentName *string
 
@@ -2712,6 +2729,7 @@ func (a *AzureVMWorkloadSAPHanaDBInstance) GetAzureVMWorkloadProtectableItem() *
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -2781,6 +2799,9 @@ type AzureVMWorkloadSAPHanaDBInstanceProtectedItem struct {
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time
 
+	// List of the nodes in case of distributed container.
+	NodesList []*DistributedNodesInfo
+
 	// Parent name of the DB such as Instance or Availability Group.
 	ParentName *string
 
@@ -2843,6 +2864,7 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetAzureVMWorkloadProtec
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ExtendedInfo:                     a.ExtendedInfo,
 		KpisHealths:                      a.KpisHealths,
+		NodesList:                        a.NodesList,
 		ProtectedItemType:                a.ProtectedItemType,
 		BackupManagementType:             a.BackupManagementType,
 		WorkloadType:                     a.WorkloadType,
@@ -2905,6 +2927,9 @@ type AzureVMWorkloadSAPHanaDatabaseProtectableItem struct {
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
 
+	// Indicates if item is protectable
+	IsProtectable *bool
+
 	// Name for instance or AG
 	ParentName *string
 
@@ -2942,6 +2967,7 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectableItem) GetAzureVMWorkloadProtec
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -3011,6 +3037,9 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time
 
+	// List of the nodes in case of distributed container.
+	NodesList []*DistributedNodesInfo
+
 	// Parent name of the DB such as Instance or Availability Group.
 	ParentName *string
 
@@ -3073,6 +3102,7 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) GetAzureVMWorkloadProtecte
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ExtendedInfo:                     a.ExtendedInfo,
 		KpisHealths:                      a.KpisHealths,
+		NodesList:                        a.NodesList,
 		ProtectedItemType:                a.ProtectedItemType,
 		BackupManagementType:             a.BackupManagementType,
 		WorkloadType:                     a.WorkloadType,
@@ -3178,8 +3208,8 @@ func (a *AzureVMWorkloadSAPHanaDatabaseWorkloadItem) GetWorkloadItem() *Workload
 	}
 }
 
-// AzureVMWorkloadSAPHanaHSR - Azure VM workload-specific protectable item representing SAP HANA Dbinstance.
-type AzureVMWorkloadSAPHanaHSR struct {
+// AzureVMWorkloadSAPHanaHSRProtectableItem - Azure VM workload-specific protectable item representing HANA HSR.
+type AzureVMWorkloadSAPHanaHSRProtectableItem struct {
 	// REQUIRED; Type of the backup item.
 	ProtectableItemType *string
 
@@ -3194,6 +3224,9 @@ type AzureVMWorkloadSAPHanaHSR struct {
 
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
+
+	// Indicates if item is protectable
+	IsProtectable *bool
 
 	// Name for instance or AG
 	ParentName *string
@@ -3221,8 +3254,8 @@ type AzureVMWorkloadSAPHanaHSR struct {
 	WorkloadType *string
 }
 
-// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSR.
-func (a *AzureVMWorkloadSAPHanaHSR) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
+// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
 	return &AzureVMWorkloadProtectableItem{
 		ParentName:              a.ParentName,
 		ParentUniqueName:        a.ParentUniqueName,
@@ -3232,6 +3265,7 @@ func (a *AzureVMWorkloadSAPHanaHSR) GetAzureVMWorkloadProtectableItem() *AzureVM
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -3240,8 +3274,8 @@ func (a *AzureVMWorkloadSAPHanaHSR) GetAzureVMWorkloadProtectableItem() *AzureVM
 	}
 }
 
-// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSR.
-func (a *AzureVMWorkloadSAPHanaHSR) GetWorkloadProtectableItem() *WorkloadProtectableItem {
+// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetWorkloadProtectableItem() *WorkloadProtectableItem {
 	return &WorkloadProtectableItem{
 		BackupManagementType: a.BackupManagementType,
 		WorkloadType:         a.WorkloadType,
@@ -3267,6 +3301,9 @@ type AzureVMWorkloadSAPHanaSystemProtectableItem struct {
 
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
+
+	// Indicates if item is protectable
+	IsProtectable *bool
 
 	// Name for instance or AG
 	ParentName *string
@@ -3305,6 +3342,7 @@ func (a *AzureVMWorkloadSAPHanaSystemProtectableItem) GetAzureVMWorkloadProtecta
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -3402,6 +3440,12 @@ type AzureVMWorkloadSQLAvailabilityGroupProtectableItem struct {
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
 
+	// Indicates if item is protectable
+	IsProtectable *bool
+
+	// List of the nodes in case of distributed container.
+	NodesList []*DistributedNodesInfo
+
 	// Name for instance or AG
 	ParentName *string
 
@@ -3439,6 +3483,7 @@ func (a *AzureVMWorkloadSQLAvailabilityGroupProtectableItem) GetAzureVMWorkloadP
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -3474,6 +3519,9 @@ type AzureVMWorkloadSQLDatabaseProtectableItem struct {
 
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
+
+	// Indicates if item is protectable
+	IsProtectable *bool
 
 	// Name for instance or AG
 	ParentName *string
@@ -3512,6 +3560,7 @@ func (a *AzureVMWorkloadSQLDatabaseProtectableItem) GetAzureVMWorkloadProtectabl
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -3581,6 +3630,9 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time
 
+	// List of the nodes in case of distributed container.
+	NodesList []*DistributedNodesInfo
+
 	// Parent name of the DB such as Instance or Availability Group.
 	ParentName *string
 
@@ -3643,6 +3695,7 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) GetAzureVMWorkloadProtectedIte
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ExtendedInfo:                     a.ExtendedInfo,
 		KpisHealths:                      a.KpisHealths,
+		NodesList:                        a.NodesList,
 		ProtectedItemType:                a.ProtectedItemType,
 		BackupManagementType:             a.BackupManagementType,
 		WorkloadType:                     a.WorkloadType,
@@ -3765,6 +3818,9 @@ type AzureVMWorkloadSQLInstanceProtectableItem struct {
 	// Indicates if protectable item is auto-protected
 	IsAutoProtected *bool
 
+	// Indicates if item is protectable
+	IsProtectable *bool
+
 	// Name for instance or AG
 	ParentName *string
 
@@ -3802,6 +3858,7 @@ func (a *AzureVMWorkloadSQLInstanceProtectableItem) GetAzureVMWorkloadProtectabl
 		Subinquireditemcount:    a.Subinquireditemcount,
 		Subprotectableitemcount: a.Subprotectableitemcount,
 		Prebackupvalidation:     a.Prebackupvalidation,
+		IsProtectable:           a.IsProtectable,
 		BackupManagementType:    a.BackupManagementType,
 		WorkloadType:            a.WorkloadType,
 		ProtectableItemType:     a.ProtectableItemType,
@@ -6265,6 +6322,9 @@ type DistributedNodesInfo struct {
 	// Name of the node under a distributed container.
 	NodeName *string
 
+	// ARM resource id of the node
+	SourceResourceID *string
+
 	// Status of this Node. Failed | Succeeded
 	Status *string
 }
@@ -8300,6 +8360,9 @@ type PrivateEndpointClientGetOperationStatusOptions struct {
 
 // PrivateEndpointConnection - Private Endpoint Connection Response Properties
 type PrivateEndpointConnection struct {
+	// Group Ids for the Private Endpoint
+	GroupIDs []*VaultSubResourceType
+
 	// Gets or sets private endpoint associated with the private endpoint connection
 	PrivateEndpoint *PrivateEndpoint
 
@@ -8357,7 +8420,7 @@ type PrivateEndpointConnectionResource struct {
 // PrivateLinkServiceConnectionState - Private Link Service Connection State
 type PrivateLinkServiceConnectionState struct {
 	// Gets or sets actions required
-	ActionRequired *string
+	ActionsRequired *string
 
 	// Gets or sets description
 	Description *string
@@ -9817,7 +9880,7 @@ type WorkloadItemResourceList struct {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureFileShareProtectableItem, *AzureIaaSClassicComputeVMProtectableItem, *AzureIaaSComputeVMProtectableItem, *AzureVMWorkloadProtectableItem,
 // - *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaHSR, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
+// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
 // - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem, *IaaSVMProtectableItem, *WorkloadProtectableItem
 type WorkloadProtectableItemClassification interface {
 	// GetWorkloadProtectableItem returns the WorkloadProtectableItem content of the underlying type.
