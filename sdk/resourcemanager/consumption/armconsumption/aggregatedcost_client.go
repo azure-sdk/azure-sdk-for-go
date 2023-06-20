@@ -45,7 +45,7 @@ func NewAggregatedCostClient(credential azcore.TokenCredential, options *arm.Cli
 // period.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-05-01
 //   - managementGroupID - Azure Management Group ID.
 //   - options - AggregatedCostClientGetByManagementGroupOptions contains the optional parameters for the AggregatedCostClient.GetByManagementGroup
 //     method.
@@ -76,7 +76,7 @@ func (client *AggregatedCostClient) getByManagementGroupCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-05-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -98,7 +98,7 @@ func (client *AggregatedCostClient) getByManagementGroupHandleResponse(resp *htt
 // by specified billing period
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-05-01
 //   - managementGroupID - Azure Management Group ID.
 //   - billingPeriodName - Billing Period Name.
 //   - options - AggregatedCostClientGetForBillingPeriodByManagementGroupOptions contains the optional parameters for the AggregatedCostClient.GetForBillingPeriodByManagementGroup
@@ -134,7 +134,7 @@ func (client *AggregatedCostClient) getForBillingPeriodByManagementGroupCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
