@@ -1,10 +1,26 @@
 # Release History
 
-## 5.1.0-beta.1 (2023-06-12)
+## 6.0.0 (2023-06-21)
+### Breaking Changes
+
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
 
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New function `*GalleryImageVersionsClient.GetLatest(context.Context, string, string, string, *GalleryImageVersionsClientGetLatestOptions) (GalleryImageVersionsClientGetLatestResponse, error)`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `LatestVersion`
+- New struct `SharedGalleryProperties`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
 
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes
