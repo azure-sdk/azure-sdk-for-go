@@ -246,6 +246,11 @@ type CommandResultProperties struct {
 	StartedAt *time.Time
 }
 
+type CompatibleVersions struct {
+	Name     *string
+	Versions []*string
+}
+
 // CreationData - Data used when creating a target resource from a source resource.
 type CreationData struct {
 	// This is the ARM ID of the source object to be used to create the target object.
@@ -340,6 +345,13 @@ type IPTag struct {
 	Tag *string
 }
 
+// IstioCertificateAuthority - Istio Service Mesh Certificate Authority (CA) configuration. For now, we only support plugin
+// certificates as described here https://aka.ms/asm-plugin-ca
+type IstioCertificateAuthority struct {
+	// Plugin certificates information for Service Mesh.
+	Plugin *IstioPluginCertificateAuthority
+}
+
 // IstioComponents - Istio components configuration.
 type IstioComponents struct {
 	// Istio ingress gateways.
@@ -357,10 +369,37 @@ type IstioIngressGateway struct {
 	Mode *IstioIngressGatewayMode
 }
 
+// IstioPluginCertificateAuthority - Plugin certificates information for Service Mesh.
+type IstioPluginCertificateAuthority struct {
+	// Certificate chain object name in Azure Key Vault.
+	CertChainObjectName *string
+
+	// Intermediate certificate object name in Azure Key Vault.
+	CertObjectName *string
+
+	// Intermediate certificate private key object name in Azure Key Vault.
+	KeyObjectName *string
+
+	// The resource ID of the Key Vault.
+	KeyVaultID *string
+
+	// Root certificate object name in Azure Key Vault.
+	RootCertObjectName *string
+}
+
 // IstioServiceMesh - Istio service mesh configuration.
 type IstioServiceMesh struct {
+	// Istio Service Mesh Certificate Authority (CA) configuration. For now, we only support plugin certificates as described
+	// here https://aka.ms/asm-plugin-ca
+	CertificateAuthority *IstioCertificateAuthority
+
 	// Istio components configuration.
 	Components *IstioComponents
+
+	// The list of revisions of the Istio control plane. When an upgrade is not in progress, this holds one value. When canary
+	// upgrade is in progress, this can only hold two consecutive values. For more
+	// information, see: https://learn.microsoft.com/en-us/azure/aks/istio-upgrade
+	Revisions []*string
 }
 
 // KubeletConfig - See AKS custom node configuration [https://docs.microsoft.com/azure/aks/custom-node-configuration] for
@@ -1932,6 +1971,18 @@ type ManagedClustersClientGetCommandResultOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedClustersClientGetMeshRevisionProfileOptions contains the optional parameters for the ManagedClustersClient.GetMeshRevisionProfile
+// method.
+type ManagedClustersClientGetMeshRevisionProfileOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedClustersClientGetMeshUpgradeProfileOptions contains the optional parameters for the ManagedClustersClient.GetMeshUpgradeProfile
+// method.
+type ManagedClustersClientGetMeshUpgradeProfileOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedClustersClientGetOSOptionsOptions contains the optional parameters for the ManagedClustersClient.GetOSOptions method.
 type ManagedClustersClientGetOSOptionsOptions struct {
 	// The resource type for which the OS options needs to be returned
@@ -1986,6 +2037,18 @@ type ManagedClustersClientListKubernetesVersionsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedClustersClientListMeshRevisionProfilesOptions contains the optional parameters for the ManagedClustersClient.NewListMeshRevisionProfilesPager
+// method.
+type ManagedClustersClientListMeshRevisionProfilesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedClustersClientListMeshUpgradeProfilesOptions contains the optional parameters for the ManagedClustersClient.NewListMeshUpgradeProfilesPager
+// method.
+type ManagedClustersClientListMeshUpgradeProfilesOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedClustersClientListOptions contains the optional parameters for the ManagedClustersClient.NewListPager method.
 type ManagedClustersClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2003,6 +2066,85 @@ type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
 
 	// READ-ONLY; The principal id of user assigned identity.
 	PrincipalID *string
+}
+
+// MeshRevision - Holds information on upgrades and compatibility for given major.minor mesh release.
+type MeshRevision struct {
+	// List of items this revision of service mesh is compatible with, and their associated versions.
+	CompatibleWith []*CompatibleVersions
+	Revision       *string
+
+	// List of revisions available for upgrade of a specific mesh revision
+	Upgrades []*string
+}
+
+// MeshRevisionProfile - Mesh revision profile for a mesh.
+type MeshRevisionProfile struct {
+	// Mesh revision profile properties for a mesh.
+	Properties *MeshRevisionProfileProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MeshRevisionProfileList - Holds an array of MeshRevisionsProfiles
+type MeshRevisionProfileList struct {
+	// Array of service mesh add-on revision profiles for all supported mesh modes.
+	Value []*MeshRevisionProfile
+
+	// READ-ONLY; The URL to get the next set of mesh revision profile.
+	NextLink *string
+}
+
+// MeshRevisionProfileProperties - Mesh revision profile properties for a mesh.
+type MeshRevisionProfileProperties struct {
+	MeshRevisions []*MeshRevision
+}
+
+// MeshUpgradeProfile - Upgrade profile for given mesh.
+type MeshUpgradeProfile struct {
+	// Mesh upgrade profile properties for a major.minor release.
+	Properties *MeshUpgradeProfileProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MeshUpgradeProfileList - Holds an array of MeshUpgradeProfiles
+type MeshUpgradeProfileList struct {
+	// Array of supported service mesh add-on upgrade profiles.
+	Value []*MeshUpgradeProfile
+
+	// READ-ONLY; The URL to get the next set of mesh upgrade profile.
+	NextLink *string
+}
+
+// MeshUpgradeProfileProperties - Mesh upgrade profile properties for a major.minor release.
+type MeshUpgradeProfileProperties struct {
+	// List of items this revision of service mesh is compatible with, and their associated versions.
+	CompatibleWith []*CompatibleVersions
+	Revision       *string
+
+	// List of revisions available for upgrade of a specific mesh revision
+	Upgrades []*string
 }
 
 // NetworkMonitoring - This addon can be used to configure network monitoring and generate network monitoring data in Prometheus

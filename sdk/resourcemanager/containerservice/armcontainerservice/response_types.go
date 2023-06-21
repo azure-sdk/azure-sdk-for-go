@@ -125,6 +125,16 @@ type ManagedClustersClientGetCommandResultResponse struct {
 	Location *string
 }
 
+// ManagedClustersClientGetMeshRevisionProfileResponse contains the response from method ManagedClustersClient.GetMeshRevisionProfile.
+type ManagedClustersClientGetMeshRevisionProfileResponse struct {
+	MeshRevisionProfile
+}
+
+// ManagedClustersClientGetMeshUpgradeProfileResponse contains the response from method ManagedClustersClient.GetMeshUpgradeProfile.
+type ManagedClustersClientGetMeshUpgradeProfileResponse struct {
+	MeshUpgradeProfile
+}
+
 // ManagedClustersClientGetOSOptionsResponse contains the response from method ManagedClustersClient.GetOSOptions.
 type ManagedClustersClientGetOSOptionsResponse struct {
 	OSOptionProfile
@@ -163,6 +173,16 @@ type ManagedClustersClientListClusterUserCredentialsResponse struct {
 // ManagedClustersClientListKubernetesVersionsResponse contains the response from method ManagedClustersClient.ListKubernetesVersions.
 type ManagedClustersClientListKubernetesVersionsResponse struct {
 	KubernetesVersionListResult
+}
+
+// ManagedClustersClientListMeshRevisionProfilesResponse contains the response from method ManagedClustersClient.NewListMeshRevisionProfilesPager.
+type ManagedClustersClientListMeshRevisionProfilesResponse struct {
+	MeshRevisionProfileList
+}
+
+// ManagedClustersClientListMeshUpgradeProfilesResponse contains the response from method ManagedClustersClient.NewListMeshUpgradeProfilesPager.
+type ManagedClustersClientListMeshUpgradeProfilesResponse struct {
+	MeshUpgradeProfileList
 }
 
 // ManagedClustersClientListOutboundNetworkDependenciesEndpointsResponse contains the response from method ManagedClustersClient.NewListOutboundNetworkDependenciesEndpointsPager.
