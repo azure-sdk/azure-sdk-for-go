@@ -595,6 +595,37 @@ func (d *DeploymentOperationsListResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DeploymentParameter.
+func (d DeploymentParameter) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "reference", d.Reference)
+	populateAny(objectMap, "value", d.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DeploymentParameter.
+func (d *DeploymentParameter) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "reference":
+			err = unpopulate(val, "Reference", &d.Reference)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &d.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DeploymentProperties.
 func (d DeploymentProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -602,7 +633,7 @@ func (d DeploymentProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "expressionEvaluationOptions", d.ExpressionEvaluationOptions)
 	populate(objectMap, "mode", d.Mode)
 	populate(objectMap, "onErrorDeployment", d.OnErrorDeployment)
-	populateAny(objectMap, "parameters", d.Parameters)
+	populate(objectMap, "parameters", d.Parameters)
 	populate(objectMap, "parametersLink", d.ParametersLink)
 	populateAny(objectMap, "template", d.Template)
 	populate(objectMap, "templateLink", d.TemplateLink)
@@ -810,7 +841,7 @@ func (d DeploymentWhatIfProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "expressionEvaluationOptions", d.ExpressionEvaluationOptions)
 	populate(objectMap, "mode", d.Mode)
 	populate(objectMap, "onErrorDeployment", d.OnErrorDeployment)
-	populateAny(objectMap, "parameters", d.Parameters)
+	populate(objectMap, "parameters", d.Parameters)
 	populate(objectMap, "parametersLink", d.ParametersLink)
 	populateAny(objectMap, "template", d.Template)
 	populate(objectMap, "templateLink", d.TemplateLink)
@@ -1333,6 +1364,68 @@ func (i *IdentityUserAssignedIdentitiesValue) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type KeyVaultParameterReference.
+func (k KeyVaultParameterReference) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "keyVault", k.KeyVault)
+	populate(objectMap, "secretName", k.SecretName)
+	populate(objectMap, "secretVersion", k.SecretVersion)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type KeyVaultParameterReference.
+func (k *KeyVaultParameterReference) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", k, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "keyVault":
+			err = unpopulate(val, "KeyVault", &k.KeyVault)
+			delete(rawMsg, key)
+		case "secretName":
+			err = unpopulate(val, "SecretName", &k.SecretName)
+			delete(rawMsg, key)
+		case "secretVersion":
+			err = unpopulate(val, "SecretVersion", &k.SecretVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", k, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type KeyVaultReference.
+func (k KeyVaultReference) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", k.ID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type KeyVaultReference.
+func (k *KeyVaultReference) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", k, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &k.ID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", k, err)
 		}
 	}
 	return nil
