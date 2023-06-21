@@ -33,6 +33,20 @@ type AssociateTrafficFilterClientBeginAssociateOptions struct {
 	RulesetID *string
 }
 
+// BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+type BillingInfoClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BillingInfoResponse - Marketplace Subscription and Organization details to which resource gets billed into.
+type BillingInfoResponse struct {
+	// Marketplace Subscription details
+	MarketplaceSaasInfo *MarketplaceSaaSInfo
+
+	// Partner Billing Entity details: Organization Info
+	PartnerBillingEntity *PartnerBillingEntity
+}
+
 // CloudDeployment - Details of the user's elastic deployment associated with the monitor resource.
 type CloudDeployment struct {
 	// READ-ONLY; Associated Azure subscription Id for the elastic deployment.
@@ -85,6 +99,42 @@ type CompanyInfo struct {
 
 	// State of the company location.
 	State *string
+}
+
+// ConnectedPartnerResourceProperties - Connected Partner Resource Properties
+type ConnectedPartnerResourceProperties struct {
+	// The azure resource Id of the deployment.
+	LiftrResourceID *string
+
+	// The location of the deployment.
+	Location *string
+
+	// Elastic deployment name
+	PartnerDeploymentName *string
+
+	// Deployment URL of the elasticsearch in Elastic cloud deployment.
+	PartnerDeploymentURI *string
+}
+
+// ConnectedPartnerResourcesClientListOptions contains the optional parameters for the ConnectedPartnerResourcesClient.NewListPager
+// method.
+type ConnectedPartnerResourcesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectedPartnerResourcesListFormat - Connected Partner Resources List Format
+type ConnectedPartnerResourcesListFormat struct {
+	// Connected Partner Resource Properties
+	Properties *ConnectedPartnerResourceProperties
+}
+
+// ConnectedPartnerResourcesListResponse - List of all active elastic deployments.
+type ConnectedPartnerResourcesListResponse struct {
+	// Link to the next set of results, if any.
+	NextLink *string
+
+	// Results of a list operation.
+	Value []*ConnectedPartnerResourcesListFormat
 }
 
 // CreateAndAssociateIPFilterClientBeginCreateOptions contains the optional parameters for the CreateAndAssociateIPFilterClient.BeginCreate
@@ -234,14 +284,23 @@ type LogRules struct {
 
 // MarketplaceSaaSInfo - Marketplace SAAS Info of the resource.
 type MarketplaceSaaSInfo struct {
+	// The Azure Subscription ID to which the Marketplace Subscription belongs and gets billed into.
+	BilledAzureSubscriptionID *string
+
 	// Marketplace Subscription Details: SAAS Name
 	MarketplaceName *string
 
 	// Marketplace Subscription Details: Resource URI
 	MarketplaceResourceID *string
 
+	// Marketplace Subscription Details: SaaS Subscription Status
+	MarketplaceStatus *string
+
 	// Marketplace Subscription
 	MarketplaceSubscription *MarketplaceSaaSInfoMarketplaceSubscription
+
+	// Flag specifying if the Marketplace status is subscribed or not.
+	Subscribed *bool
 }
 
 // MarketplaceSaaSInfoMarketplaceSubscription - Marketplace Subscription
@@ -478,10 +537,49 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OrganizationToAzureSubscriptionMappingResponse - The Azure Subscription ID to which the Organization of the logged in user
+// belongs and gets billed into.
+type OrganizationToAzureSubscriptionMappingResponse struct {
+	// The properties of Azure Subscription ID to which the Organization of the logged in user belongs and gets billed into.
+	Properties *OrganizationToAzureSubscriptionMappingResponseProperties
+}
+
+// OrganizationToAzureSubscriptionMappingResponseProperties - The properties of Azure Subscription ID to which the Organization
+// of the logged in user belongs and gets billed into.
+type OrganizationToAzureSubscriptionMappingResponseProperties struct {
+	// The Azure Subscription ID to which the Organization belongs and gets billed into. This is empty for a new user OR a user
+	// without an Elastic Organization.
+	BilledAzureSubscriptionID *string
+
+	// The Elastic Organization Id.
+	ElasticOrganizationID *string
+
+	// The Elastic Organization Name.
+	ElasticOrganizationName *string
+
+	// READ-ONLY; Marketplace SaaS Info of the resource.
+	MarketplaceSaasInfo *MarketplaceSaaSInfo
+}
+
 // OrganizationsClientGetAPIKeyOptions contains the optional parameters for the OrganizationsClient.GetAPIKey method.
 type OrganizationsClientGetAPIKeyOptions struct {
 	// Email Id parameter of the User Organization, of which the API Key must be returned
 	Body *UserEmailID
+}
+
+// OrganizationsClientGetElasticToAzureSubscriptionMappingOptions contains the optional parameters for the OrganizationsClient.GetElasticToAzureSubscriptionMapping
+// method.
+type OrganizationsClientGetElasticToAzureSubscriptionMappingOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PartnerBillingEntity - Partner Billing details associated with the resource.
+type PartnerBillingEntity struct {
+	// The Elastic Organization Id.
+	ID *string
+
+	// The Elastic Organization Name.
+	Name *string
 }
 
 // Properties - Elastic Resource Properties.

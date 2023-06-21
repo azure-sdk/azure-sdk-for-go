@@ -29,70 +29,54 @@ import (
 	"strings"
 )
 
-// MonitorClient contains the methods for the Monitor group.
-// Don't use this type directly, use NewMonitorClient() instead.
-type MonitorClient struct {
+// BillingInfoClient contains the methods for the BillingInfo group.
+// Don't use this type directly, use NewBillingInfoClient() instead.
+type BillingInfoClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewMonitorClient creates a new instance of MonitorClient with the specified values.
+// NewBillingInfoClient creates a new instance of BillingInfoClient with the specified values.
 //   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewMonitorClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MonitorClient, error) {
-	cl, err := arm.NewClient(moduleName+".MonitorClient", moduleVersion, credential, options)
+func NewBillingInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingInfoClient, error) {
+	cl, err := arm.NewClient(moduleName+".BillingInfoClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &MonitorClient{
+	client := &BillingInfoClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginUpgrade - Upgradable version for a monitor resource.
+// Get - Get marketplace and organization info mapped to the given monitor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
 //   - monitorName - Monitor resource name
-//   - options - MonitorClientBeginUpgradeOptions contains the optional parameters for the MonitorClient.BeginUpgrade method.
-func (client *MonitorClient) BeginUpgrade(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorClientBeginUpgradeOptions) (*runtime.Poller[MonitorClientUpgradeResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.upgrade(ctx, resourceGroupName, monitorName, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller[MonitorClientUpgradeResponse](resp, client.internal.Pipeline(), nil)
-	} else {
-		return runtime.NewPollerFromResumeToken[MonitorClientUpgradeResponse](options.ResumeToken, client.internal.Pipeline(), nil)
-	}
-}
-
-// Upgrade - Upgradable version for a monitor resource.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-06-15-preview
-func (client *MonitorClient) upgrade(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorClientBeginUpgradeOptions) (*http.Response, error) {
-	req, err := client.upgradeCreateRequest(ctx, resourceGroupName, monitorName, options)
+//   - options - BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+func (client *BillingInfoClient) Get(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return nil, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return BillingInfoClientGetResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return BillingInfoClientGetResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return client.getHandleResponse(resp)
 }
 
-// upgradeCreateRequest creates the Upgrade request.
-func (client *MonitorClient) upgradeCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorClientBeginUpgradeOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/upgrade"
+// getCreateRequest creates the Get request.
+func (client *BillingInfoClient) getCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/getBillingInfo"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -105,7 +89,7 @@ func (client *MonitorClient) upgradeCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter monitorName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{monitorName}", url.PathEscape(monitorName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -113,8 +97,14 @@ func (client *MonitorClient) upgradeCreateRequest(ctx context.Context, resourceG
 	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.Body != nil {
-		return req, runtime.MarshalAsJSON(req, *options.Body)
-	}
 	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *BillingInfoClient) getHandleResponse(resp *http.Response) (BillingInfoClientGetResponse, error) {
+	result := BillingInfoClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BillingInfoResponse); err != nil {
+		return BillingInfoClientGetResponse{}, err
+	}
+	return result, nil
 }

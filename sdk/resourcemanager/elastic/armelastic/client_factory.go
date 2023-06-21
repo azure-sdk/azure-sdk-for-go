@@ -76,6 +76,16 @@ func (c *ClientFactory) NewExternalUserClient() *ExternalUserClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewBillingInfoClient() *BillingInfoClient {
+	subClient, _ := NewBillingInfoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient {
+	subClient, _ := NewConnectedPartnerResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewTagRulesClient() *TagRulesClient {
 	subClient, _ := NewTagRulesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
