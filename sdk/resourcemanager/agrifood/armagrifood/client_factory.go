@@ -24,7 +24,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -53,6 +53,11 @@ func (c *ClientFactory) NewFarmBeatsModelsClient() *FarmBeatsModelsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewOperationResultsClient() *OperationResultsClient {
+	subClient, _ := NewOperationResultsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewLocationsClient() *LocationsClient {
 	subClient, _ := NewLocationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -70,5 +75,15 @@ func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointCo
 
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
 	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSolutionsClient() *SolutionsClient {
+	subClient, _ := NewSolutionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSolutionsDiscoverabilityClient() *SolutionsDiscoverabilityClient {
+	subClient, _ := NewSolutionsDiscoverabilityClient(c.credential, c.options)
 	return subClient
 }
