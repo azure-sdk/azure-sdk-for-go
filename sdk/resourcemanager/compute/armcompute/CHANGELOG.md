@@ -1,10 +1,33 @@
 # Release History
 
-## 5.1.0-beta.1 (2023-06-12)
+## 6.0.0 (2023-06-23)
+### Breaking Changes
+
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
 
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `ConfidentialVMEncryptionTypeNonPersistedVMGuestState` added to enum type `ConfidentialVMEncryptionType`
+- New value `ReplicationStatusTypesUefiSettings` added to enum type `ReplicationStatusTypes`
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New enum type `UefiKeyType` with values `UefiKeyTypeSHA256`, `UefiKeyTypeX509`
+- New enum type `UefiSignatureTemplateName` with values `UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate`, `UefiSignatureTemplateNameMicrosoftWindowsTemplate`, `UefiSignatureTemplateNameNoSignatureTemplate`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `GalleryImageVersionUefiSettings`
+- New struct `ImageVersionSecurityProfile`
+- New struct `SharedGalleryProperties`
+- New struct `UefiKey`
+- New struct `UefiKeySignatures`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `SecurityProfile` in struct `GalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
 
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes

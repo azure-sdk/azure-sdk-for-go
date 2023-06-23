@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.1.0-beta.1"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -68,7 +68,7 @@ func PossibleAlternativeTypeValues() []AlternativeType {
 	}
 }
 
-// Architecture - The architecture of the image. Applicable to OS disks only.
+// Architecture - CPU architecture supported by an OS disk.
 type Architecture string
 
 const (
@@ -214,6 +214,7 @@ const (
 	ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk ConfidentialVMEncryptionType = "EncryptedVMGuestStateOnlyWithPmk"
 	ConfidentialVMEncryptionTypeEncryptedWithCmk                 ConfidentialVMEncryptionType = "EncryptedWithCmk"
 	ConfidentialVMEncryptionTypeEncryptedWithPmk                 ConfidentialVMEncryptionType = "EncryptedWithPmk"
+	ConfidentialVMEncryptionTypeNonPersistedVMGuestState         ConfidentialVMEncryptionType = "NonPersistedVMGuestState"
 )
 
 // PossibleConfidentialVMEncryptionTypeValues returns the possible values for the ConfidentialVMEncryptionType const type.
@@ -222,6 +223,7 @@ func PossibleConfidentialVMEncryptionTypeValues() []ConfidentialVMEncryptionType
 		ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk,
 		ConfidentialVMEncryptionTypeEncryptedWithCmk,
 		ConfidentialVMEncryptionTypeEncryptedWithPmk,
+		ConfidentialVMEncryptionTypeNonPersistedVMGuestState,
 	}
 }
 
@@ -632,26 +634,6 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 	}
 }
 
-// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
-type EdgeZoneStorageAccountType string
-
-const (
-	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
-	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
-	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
-	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
-)
-
-// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
-func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
-	return []EdgeZoneStorageAccountType{
-		EdgeZoneStorageAccountTypePremiumLRS,
-		EdgeZoneStorageAccountTypeStandardLRS,
-		EdgeZoneStorageAccountTypeStandardSSDLRS,
-		EdgeZoneStorageAccountTypeStandardZRS,
-	}
-}
-
 // EncryptionType - The type of key used to encrypt the data of the disk.
 type EncryptionType string
 
@@ -856,11 +838,8 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
-// Possible values are:
-// Private
-// Groups
-// Community
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
+// are: Private, Groups, Community.
 type GallerySharingPermissionTypes string
 
 const (
@@ -1181,10 +1160,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// OperatingSystemTypes - The Operating System type.
 type OperatingSystemTypes string
 
 const (
@@ -1548,12 +1524,14 @@ type ReplicationStatusTypes string
 
 const (
 	ReplicationStatusTypesReplicationStatus ReplicationStatusTypes = "ReplicationStatus"
+	ReplicationStatusTypesUefiSettings      ReplicationStatusTypes = "UefiSettings"
 )
 
 // PossibleReplicationStatusTypesValues returns the possible values for the ReplicationStatusTypes const type.
 func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
+		ReplicationStatusTypesUefiSettings,
 	}
 }
 
@@ -1812,10 +1790,8 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
-// Possible values are:
-// Subscriptions
-// AADTenants
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
+// AADTenants.
 type SharingProfileGroupTypes string
 
 const (
@@ -1851,11 +1827,8 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
-// Possible values are:
-// Add
-// Remove
-// Reset
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
+// values are: Add, Remove, Reset.
 type SharingUpdateOperationTypes string
 
 const (
@@ -1918,9 +1891,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -1928,6 +1902,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }
@@ -1961,6 +1936,40 @@ func PossibleStorageAccountTypesValues() []StorageAccountTypes {
 		StorageAccountTypesStandardSSDLRS,
 		StorageAccountTypesStandardSSDZRS,
 		StorageAccountTypesUltraSSDLRS,
+	}
+}
+
+// UefiKeyType - The type of key signature.
+type UefiKeyType string
+
+const (
+	UefiKeyTypeSHA256 UefiKeyType = "sha256"
+	UefiKeyTypeX509   UefiKeyType = "x509"
+)
+
+// PossibleUefiKeyTypeValues returns the possible values for the UefiKeyType const type.
+func PossibleUefiKeyTypeValues() []UefiKeyType {
+	return []UefiKeyType{
+		UefiKeyTypeSHA256,
+		UefiKeyTypeX509,
+	}
+}
+
+// UefiSignatureTemplateName - The name of the signature template that contains default UEFI keys.
+type UefiSignatureTemplateName string
+
+const (
+	UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate UefiSignatureTemplateName = "MicrosoftUefiCertificateAuthorityTemplate"
+	UefiSignatureTemplateNameMicrosoftWindowsTemplate                  UefiSignatureTemplateName = "MicrosoftWindowsTemplate"
+	UefiSignatureTemplateNameNoSignatureTemplate                       UefiSignatureTemplateName = "NoSignatureTemplate"
+)
+
+// PossibleUefiSignatureTemplateNameValues returns the possible values for the UefiSignatureTemplateName const type.
+func PossibleUefiSignatureTemplateNameValues() []UefiSignatureTemplateName {
+	return []UefiSignatureTemplateName{
+		UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate,
+		UefiSignatureTemplateNameMicrosoftWindowsTemplate,
+		UefiSignatureTemplateNameNoSignatureTemplate,
 	}
 }
 
