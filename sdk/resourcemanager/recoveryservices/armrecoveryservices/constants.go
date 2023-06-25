@@ -11,7 +11,7 @@ package armrecoveryservices
 
 const (
 	moduleName    = "armrecoveryservices"
-	moduleVersion = "v1.4.0"
+	moduleVersion = "v1.5.0"
 )
 
 type AlertsState string
@@ -155,6 +155,24 @@ func PossibleInfrastructureEncryptionStateValues() []InfrastructureEncryptionSta
 	}
 }
 
+// MultiUserAuthorization - MUA Settings of vault
+type MultiUserAuthorization string
+
+const (
+	MultiUserAuthorizationDisabled MultiUserAuthorization = "Disabled"
+	MultiUserAuthorizationEnabled  MultiUserAuthorization = "Enabled"
+	MultiUserAuthorizationInvalid  MultiUserAuthorization = "Invalid"
+)
+
+// PossibleMultiUserAuthorizationValues returns the possible values for the MultiUserAuthorization const type.
+func PossibleMultiUserAuthorizationValues() []MultiUserAuthorization {
+	return []MultiUserAuthorization{
+		MultiUserAuthorizationDisabled,
+		MultiUserAuthorizationEnabled,
+		MultiUserAuthorizationInvalid,
+	}
+}
+
 // PrivateEndpointConnectionStatus - Gets or sets the status.
 type PrivateEndpointConnectionStatus string
 
@@ -280,6 +298,45 @@ func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
 		SKUNameRS0,
 		SKUNameStandard,
+	}
+}
+
+// SecureScoreLevel - Secure Score of Recovery Services Vault
+type SecureScoreLevel string
+
+const (
+	SecureScoreLevelAdequate SecureScoreLevel = "Adequate"
+	SecureScoreLevelMaximum  SecureScoreLevel = "Maximum"
+	SecureScoreLevelMinimum  SecureScoreLevel = "Minimum"
+	SecureScoreLevelNone     SecureScoreLevel = "None"
+)
+
+// PossibleSecureScoreLevelValues returns the possible values for the SecureScoreLevel const type.
+func PossibleSecureScoreLevelValues() []SecureScoreLevel {
+	return []SecureScoreLevel{
+		SecureScoreLevelAdequate,
+		SecureScoreLevelMaximum,
+		SecureScoreLevelMinimum,
+		SecureScoreLevelNone,
+	}
+}
+
+type SoftDeleteState string
+
+const (
+	SoftDeleteStateAlwaysON SoftDeleteState = "AlwaysON"
+	SoftDeleteStateDisabled SoftDeleteState = "Disabled"
+	SoftDeleteStateEnabled  SoftDeleteState = "Enabled"
+	SoftDeleteStateInvalid  SoftDeleteState = "Invalid"
+)
+
+// PossibleSoftDeleteStateValues returns the possible values for the SoftDeleteState const type.
+func PossibleSoftDeleteStateValues() []SoftDeleteState {
+	return []SoftDeleteState{
+		SoftDeleteStateAlwaysON,
+		SoftDeleteStateDisabled,
+		SoftDeleteStateEnabled,
+		SoftDeleteStateInvalid,
 	}
 }
 

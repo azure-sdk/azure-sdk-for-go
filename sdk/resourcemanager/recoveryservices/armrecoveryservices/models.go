@@ -732,6 +732,19 @@ type SKU struct {
 type SecuritySettings struct {
 	// Immutability Settings of a vault
 	ImmutabilitySettings *ImmutabilitySettings
+
+	// Soft delete Settings of a vault
+	SoftDeleteSettings *SoftDeleteSettings
+
+	// READ-ONLY; MUA Settings of a vault
+	MultiUserAuthorization *MultiUserAuthorization
+}
+
+// SoftDeleteSettings - Soft delete Settings of vault
+type SoftDeleteSettings struct {
+	// Soft delete retention period in days
+	SoftDeleteRetentionPeriodInDays *int32
+	SoftDeleteState                 *SoftDeleteState
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -974,6 +987,9 @@ type VaultProperties struct {
 
 	// READ-ONLY; Provisioning State.
 	ProvisioningState *string
+
+	// READ-ONLY; Secure Score of Recovery Services Vault
+	SecureScore *SecureScoreLevel
 }
 
 // VaultPropertiesEncryption - Customer Managed Key details of the resource.
