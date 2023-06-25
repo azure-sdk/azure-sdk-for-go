@@ -11,7 +11,7 @@ package armdataprotection
 
 const (
 	moduleName    = "armdataprotection"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0-beta.1"
 )
 
 type AbsoluteMarker string
@@ -67,6 +67,22 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// CrossRegionRestoreState - CrossRegionRestore state
+type CrossRegionRestoreState string
+
+const (
+	CrossRegionRestoreStateDisabled CrossRegionRestoreState = "Disabled"
+	CrossRegionRestoreStateEnabled  CrossRegionRestoreState = "Enabled"
+)
+
+// PossibleCrossRegionRestoreStateValues returns the possible values for the CrossRegionRestoreState const type.
+func PossibleCrossRegionRestoreStateValues() []CrossRegionRestoreState {
+	return []CrossRegionRestoreState{
+		CrossRegionRestoreStateDisabled,
+		CrossRegionRestoreStateEnabled,
 	}
 }
 
@@ -167,6 +183,29 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 	}
 }
 
+// EncryptionState - Encryption state of the Backup Vault.
+type EncryptionState string
+
+const (
+	// EncryptionStateDisabled - CMK encryption is disabled on the Backup Vault. User can not set this state once Encryption State
+	// is 'Enabled'.
+	EncryptionStateDisabled EncryptionState = "Disabled"
+	// EncryptionStateEnabled - CMK encryption is enabled on the Backup Vault
+	EncryptionStateEnabled EncryptionState = "Enabled"
+	// EncryptionStateInconsistent - CMK encryption is in inconsistent state on the Backup Vault. This state indicates that user
+	// needs to retry the encryption settings operation immediately to correct the state.
+	EncryptionStateInconsistent EncryptionState = "Inconsistent"
+)
+
+// PossibleEncryptionStateValues returns the possible values for the EncryptionState const type.
+func PossibleEncryptionStateValues() []EncryptionState {
+	return []EncryptionState{
+		EncryptionStateDisabled,
+		EncryptionStateEnabled,
+		EncryptionStateInconsistent,
+	}
+}
+
 // ExistingResourcePolicy - Gets or sets the Conflict Policy property. This property sets policy during conflict of resources
 // during restore.
 type ExistingResourcePolicy string
@@ -224,6 +263,23 @@ func PossibleFeatureTypeValues() []FeatureType {
 	}
 }
 
+// IdentityType - The identity type. 'SystemAssigned' and 'UserAssigned' are mutually exclusive. 'SystemAssigned' will use
+// implicitly created managed identity.
+type IdentityType string
+
+const (
+	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	IdentityTypeUserAssigned   IdentityType = "UserAssigned"
+)
+
+// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
+func PossibleIdentityTypeValues() []IdentityType {
+	return []IdentityType{
+		IdentityTypeSystemAssigned,
+		IdentityTypeUserAssigned,
+	}
+}
+
 // ImmutabilityState - Immutability state
 type ImmutabilityState string
 
@@ -239,6 +295,22 @@ func PossibleImmutabilityStateValues() []ImmutabilityState {
 		ImmutabilityStateDisabled,
 		ImmutabilityStateLocked,
 		ImmutabilityStateUnlocked,
+	}
+}
+
+// InfrastructureEncryptionState - Enabling/Disabling the Double Encryption state
+type InfrastructureEncryptionState string
+
+const (
+	InfrastructureEncryptionStateDisabled InfrastructureEncryptionState = "Disabled"
+	InfrastructureEncryptionStateEnabled  InfrastructureEncryptionState = "Enabled"
+)
+
+// PossibleInfrastructureEncryptionStateValues returns the possible values for the InfrastructureEncryptionState const type.
+func PossibleInfrastructureEncryptionStateValues() []InfrastructureEncryptionState {
+	return []InfrastructureEncryptionState{
+		InfrastructureEncryptionStateDisabled,
+		InfrastructureEncryptionStateEnabled,
 	}
 }
 
@@ -450,6 +522,28 @@ func PossibleSecretStoreTypeValues() []SecretStoreType {
 	return []SecretStoreType{
 		SecretStoreTypeAzureKeyVault,
 		SecretStoreTypeInvalid,
+	}
+}
+
+// SecureScoreLevel - Secure Score of Backup Vault
+type SecureScoreLevel string
+
+const (
+	SecureScoreLevelAdequate     SecureScoreLevel = "Adequate"
+	SecureScoreLevelMaximum      SecureScoreLevel = "Maximum"
+	SecureScoreLevelMinimum      SecureScoreLevel = "Minimum"
+	SecureScoreLevelNone         SecureScoreLevel = "None"
+	SecureScoreLevelNotSupported SecureScoreLevel = "NotSupported"
+)
+
+// PossibleSecureScoreLevelValues returns the possible values for the SecureScoreLevel const type.
+func PossibleSecureScoreLevelValues() []SecureScoreLevel {
+	return []SecureScoreLevel{
+		SecureScoreLevelAdequate,
+		SecureScoreLevelMaximum,
+		SecureScoreLevelMinimum,
+		SecureScoreLevelNone,
+		SecureScoreLevelNotSupported,
 	}
 }
 

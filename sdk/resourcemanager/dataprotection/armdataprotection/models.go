@@ -336,6 +336,9 @@ type AzureBackupRecoveryPointBasedRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -353,6 +356,7 @@ func (a *AzureBackupRecoveryPointBasedRestoreRequest) GetAzureBackupRestoreReque
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -397,6 +401,9 @@ type AzureBackupRecoveryTimeBasedRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -408,6 +415,7 @@ func (a *AzureBackupRecoveryTimeBasedRestoreRequest) GetAzureBackupRestoreReques
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -444,6 +452,9 @@ type AzureBackupRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -473,6 +484,9 @@ type AzureBackupRestoreWithRehydrationRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string
 }
@@ -486,6 +500,7 @@ func (a *AzureBackupRestoreWithRehydrationRequest) GetAzureBackupRecoveryPointBa
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -496,6 +511,7 @@ func (a *AzureBackupRestoreWithRehydrationRequest) GetAzureBackupRestoreRequest(
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -629,6 +645,9 @@ type BackupInstance struct {
 	// Gets or sets the Backup Instance friendly name.
 	FriendlyName *string
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Specifies the type of validation. In case of DeepValidation, all validations from /validateForBackup API will run again.
 	ValidationType *ValidationType
 
@@ -730,6 +749,13 @@ type BackupInstancesClientBeginSyncBackupInstanceOptions struct {
 	ResumeToken string
 }
 
+// BackupInstancesClientBeginTriggerCrossRegionRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginTriggerCrossRegionRestore
+// method.
+type BackupInstancesClientBeginTriggerCrossRegionRestoreOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BackupInstancesClientBeginTriggerRehydrateOptions contains the optional parameters for the BackupInstancesClient.BeginTriggerRehydrate
 // method.
 type BackupInstancesClientBeginTriggerRehydrateOptions struct {
@@ -740,6 +766,13 @@ type BackupInstancesClientBeginTriggerRehydrateOptions struct {
 // BackupInstancesClientBeginTriggerRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginTriggerRestore
 // method.
 type BackupInstancesClientBeginTriggerRestoreOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BackupInstancesClientBeginValidateCrossRegionRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginValidateCrossRegionRestore
+// method.
+type BackupInstancesClientBeginValidateCrossRegionRestoreOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -771,6 +804,12 @@ type BackupInstancesClientGetOptions struct {
 
 // BackupInstancesClientListOptions contains the optional parameters for the BackupInstancesClient.NewListPager method.
 type BackupInstancesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BackupInstancesExtensionRoutingClientListOptions contains the optional parameters for the BackupInstancesExtensionRoutingClient.NewListPager
+// method.
+type BackupInstancesExtensionRoutingClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -867,6 +906,9 @@ type BackupVault struct {
 
 	// READ-ONLY; Resource move state for backup vault
 	ResourceMoveState *ResourceMoveState
+
+	// READ-ONLY; Secure Score of Backup Vault
+	SecureScore *SecureScoreLevel
 }
 
 // BackupVaultOperationResultsClientGetOptions contains the optional parameters for the BackupVaultOperationResultsClient.Get
@@ -1133,6 +1175,23 @@ type ClientDiscoveryValueForSingleAPI struct {
 	Properties *ClientDiscoveryForProperties
 }
 
+// CmkKekIdentity - The details of the managed identity used for CMK
+type CmkKekIdentity struct {
+	// The managed identity to be used which has access permissions to the Key Vault. Provide a value here in case identity types:
+	// 'UserAssigned' only.
+	IdentityID *string
+
+	// The identity type. 'SystemAssigned' and 'UserAssigned' are mutually exclusive. 'SystemAssigned' will use implicitly created
+	// managed identity.
+	IdentityType *IdentityType
+}
+
+// CmkKeyVaultProperties - The properties of the Key Vault which hosts CMK
+type CmkKeyVaultProperties struct {
+	// The key uri of the Customer Managed Key
+	KeyURI *string
+}
+
 // CopyOnExpiryOption - Copy on Expiry Option
 type CopyOnExpiryOption struct {
 	// REQUIRED; Type of the specific object - used for deserializing
@@ -1163,6 +1222,59 @@ type CopyOption struct {
 
 // GetCopyOption implements the CopyOptionClassification interface for type CopyOption.
 func (c *CopyOption) GetCopyOption() *CopyOption { return c }
+
+// CrossRegionRestoreDetails - Cross Region Restore details
+type CrossRegionRestoreDetails struct {
+	// REQUIRED
+	SourceBackupInstanceID *string
+
+	// REQUIRED
+	SourceRegion *string
+}
+
+// CrossRegionRestoreJobClientGetOptions contains the optional parameters for the CrossRegionRestoreJobClient.Get method.
+type CrossRegionRestoreJobClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+type CrossRegionRestoreJobRequest struct {
+	// REQUIRED
+	JobID *string
+
+	// REQUIRED
+	SourceBackupVaultID *string
+
+	// REQUIRED
+	SourceRegion *string
+}
+
+// CrossRegionRestoreJobsClientListOptions contains the optional parameters for the CrossRegionRestoreJobsClient.NewListPager
+// method.
+type CrossRegionRestoreJobsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+type CrossRegionRestoreJobsRequest struct {
+	// REQUIRED
+	SourceBackupVaultID *string
+
+	// REQUIRED
+	SourceRegion *string
+}
+
+// CrossRegionRestoreRequestObject - Cross Region Restore Request Object
+type CrossRegionRestoreRequestObject struct {
+	// REQUIRED; Cross region restore details.
+	CrossRegionRestoreDetails *CrossRegionRestoreDetails
+
+	// REQUIRED; Gets or sets the restore request object.
+	RestoreRequestObject AzureBackupRestoreRequestClassification
+}
+
+type CrossRegionRestoreSettings struct {
+	// CrossRegionRestore state
+	State *CrossRegionRestoreState
+}
 
 // CrossSubscriptionRestoreSettings - CrossSubscriptionRestore Settings
 type CrossSubscriptionRestoreSettings struct {
@@ -1316,6 +1428,9 @@ type DeletedBackupInstance struct {
 	// Gets or sets the Backup Instance friendly name.
 	FriendlyName *string
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails
+
 	// Specifies the type of validation. In case of DeepValidation, all validations from /validateForBackup API will run again.
 	ValidationType *ValidationType
 
@@ -1441,8 +1556,11 @@ type DppBaseTrackedResource struct {
 
 // DppIdentityDetails - Identity details
 type DppIdentityDetails struct {
-	// The identityType which can be either SystemAssigned or None
+	// The identityType which can be either SystemAssigned, UserAssigned, 'SystemAssigned,UserAssigned' or None
 	Type *string
+
+	// Gets or sets the user assigned identities.
+	UserAssignedIdentities map[string]*UserAssignedIdentityDetails
 
 	// READ-ONLY; The object ID of the service principal object for the managed identity that is used to grant role-based access
 	// to an Azure resource.
@@ -1563,6 +1681,21 @@ type DppWorkerRequest struct {
 	URI                    *string
 }
 
+// EncryptionSettings - Customer Managed Key details of the resource.
+type EncryptionSettings struct {
+	// Enabling/Disabling the Double Encryption state
+	InfrastructureEncryption *InfrastructureEncryptionState
+
+	// The details of the managed identity used for CMK
+	KekIdentity *CmkKekIdentity
+
+	// The properties of the Key Vault which hosts CMK
+	KeyVaultProperties *CmkKeyVaultProperties
+
+	// Encryption state of the Backup Vault.
+	State *EncryptionState
+}
+
 // Error - The resource management error response.
 type Error struct {
 	// READ-ONLY; The error additional info.
@@ -1619,6 +1752,8 @@ type ExportJobsResult struct {
 
 // FeatureSettings - Class containing feature settings of vault
 type FeatureSettings struct {
+	CrossRegionRestoreSettings *CrossRegionRestoreSettings
+
 	// CrossSubscriptionRestore Settings
 	CrossSubscriptionRestoreSettings *CrossSubscriptionRestoreSettings
 }
@@ -1699,6 +1834,24 @@ type FeatureValidationResponseBase struct {
 // GetFeatureValidationResponseBase implements the FeatureValidationResponseBaseClassification interface for type FeatureValidationResponseBase.
 func (f *FeatureValidationResponseBase) GetFeatureValidationResponseBase() *FeatureValidationResponseBase {
 	return f
+}
+
+// FetchSecondaryRPsRequestParameters - Information about BI whose secondary RecoveryPoints are requested Source region and
+// BI ARM path
+type FetchSecondaryRPsRequestParameters struct {
+	// ARM Path of BackupInstance
+	SourceBackupInstanceID *string
+
+	// Source region in which BackupInstance is located
+	SourceRegion *string
+}
+
+type IdentityDetails struct {
+	// Specifies if the BI is protected by System Identity.
+	UseSystemAssignedIdentity *bool
+
+	// ARM URL for User Assigned Identity.
+	UserAssignedIdentityArmURL *string
 }
 
 // ImmediateCopyOption - Immediate copy Option
@@ -2568,6 +2721,14 @@ func (s *ScheduleBasedTriggerContext) GetTriggerContext() *TriggerContext {
 	}
 }
 
+// SecondaryRPsClientFetchOptions contains the optional parameters for the SecondaryRPsClient.NewFetchPager method.
+type SecondaryRPsClientFetchOptions struct {
+	// OData filter options.
+	Filter *string
+	// skipToken Filter.
+	SkipToken *string
+}
+
 // SecretStoreBasedAuthCredentials - Secret store based authentication credentials.
 type SecretStoreBasedAuthCredentials struct {
 	// REQUIRED; Type of the specific object - used for deserializing
@@ -2598,6 +2759,9 @@ type SecretStoreResource struct {
 
 // SecuritySettings - Class containing security settings of vault
 type SecuritySettings struct {
+	// Customer Managed Key details of the resource.
+	EncryptionSettings *EncryptionSettings
+
 	// Immutability Settings at vault level
 	ImmutabilitySettings *ImmutabilitySettings
 
@@ -2750,6 +2914,15 @@ type UnlockDeleteResponse struct {
 	UnlockDeleteExpiryTime *string
 }
 
+// UserAssignedIdentityDetails - User Assigned Identity Details
+type UserAssignedIdentityDetails struct {
+	// READ-ONLY; The Client Id of the User Assigned Managed Identity.
+	ClientID *string
+
+	// READ-ONLY; The Object Id of the User Assigned Managed Identity.
+	PrincipalID *string
+}
+
 // UserFacingError - Error object used by layers that have access to localized content, and propagate that to user
 type UserFacingError struct {
 	// Unique code for this error
@@ -2776,6 +2949,15 @@ type UserFacingError struct {
 
 	// Target of the error.
 	Target *string
+}
+
+// ValidateCrossRegionRestoreRequestObject - Cross Region Restore Request Object
+type ValidateCrossRegionRestoreRequestObject struct {
+	// REQUIRED; Cross region restore details.
+	CrossRegionRestoreDetails *CrossRegionRestoreDetails
+
+	// REQUIRED; Gets or sets the restore request object.
+	RestoreRequestObject AzureBackupRestoreRequestClassification
 }
 
 // ValidateForBackupRequest - Validate for backup request

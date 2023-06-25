@@ -93,6 +93,26 @@ func (c *ClientFactory) NewRecoveryPointsClient() *RecoveryPointsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewSecondaryRPsClient() *SecondaryRPsClient {
+	subClient, _ := NewSecondaryRPsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewCrossRegionRestoreJobClient() *CrossRegionRestoreJobClient {
+	subClient, _ := NewCrossRegionRestoreJobClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewCrossRegionRestoreJobsClient() *CrossRegionRestoreJobsClient {
+	subClient, _ := NewCrossRegionRestoreJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBackupInstancesExtensionRoutingClient() *BackupInstancesExtensionRoutingClient {
+	subClient, _ := NewBackupInstancesExtensionRoutingClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewJobsClient() *JobsClient {
 	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
 	return subClient

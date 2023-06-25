@@ -64,6 +64,11 @@ type BackupInstancesClientSyncBackupInstanceResponse struct {
 	// placeholder for future response values
 }
 
+// BackupInstancesClientTriggerCrossRegionRestoreResponse contains the response from method BackupInstancesClient.BeginTriggerCrossRegionRestore.
+type BackupInstancesClientTriggerCrossRegionRestoreResponse struct {
+	OperationJobExtendedInfo
+}
+
 // BackupInstancesClientTriggerRehydrateResponse contains the response from method BackupInstancesClient.BeginTriggerRehydrate.
 type BackupInstancesClientTriggerRehydrateResponse struct {
 	// placeholder for future response values
@@ -71,6 +76,11 @@ type BackupInstancesClientTriggerRehydrateResponse struct {
 
 // BackupInstancesClientTriggerRestoreResponse contains the response from method BackupInstancesClient.BeginTriggerRestore.
 type BackupInstancesClientTriggerRestoreResponse struct {
+	OperationJobExtendedInfo
+}
+
+// BackupInstancesClientValidateCrossRegionRestoreResponse contains the response from method BackupInstancesClient.BeginValidateCrossRegionRestore.
+type BackupInstancesClientValidateCrossRegionRestoreResponse struct {
 	OperationJobExtendedInfo
 }
 
@@ -82,6 +92,11 @@ type BackupInstancesClientValidateForBackupResponse struct {
 // BackupInstancesClientValidateForRestoreResponse contains the response from method BackupInstancesClient.BeginValidateForRestore.
 type BackupInstancesClientValidateForRestoreResponse struct {
 	OperationJobExtendedInfo
+}
+
+// BackupInstancesExtensionRoutingClientListResponse contains the response from method BackupInstancesExtensionRoutingClient.NewListPager.
+type BackupInstancesExtensionRoutingClientListResponse struct {
+	BackupInstanceResourceList
 }
 
 // BackupPoliciesClientCreateOrUpdateResponse contains the response from method BackupPoliciesClient.CreateOrUpdate.
@@ -165,6 +180,16 @@ func (c *ClientCheckFeatureSupportResponse) UnmarshalJSON(data []byte) error {
 	}
 	c.FeatureValidationResponseBaseClassification = res
 	return nil
+}
+
+// CrossRegionRestoreJobClientGetResponse contains the response from method CrossRegionRestoreJobClient.Get.
+type CrossRegionRestoreJobClientGetResponse struct {
+	AzureBackupJobResource
+}
+
+// CrossRegionRestoreJobsClientListResponse contains the response from method CrossRegionRestoreJobsClient.NewListPager.
+type CrossRegionRestoreJobsClientListResponse struct {
+	AzureBackupJobResourceList
 }
 
 // DeletedBackupInstancesClientGetResponse contains the response from method DeletedBackupInstancesClient.Get.
@@ -363,4 +388,9 @@ type ResourceGuardsClientPutResponse struct {
 // RestorableTimeRangesClientFindResponse contains the response from method RestorableTimeRangesClient.Find.
 type RestorableTimeRangesClientFindResponse struct {
 	AzureBackupFindRestorableTimeRangesResponseResource
+}
+
+// SecondaryRPsClientFetchResponse contains the response from method SecondaryRPsClient.NewFetchPager.
+type SecondaryRPsClientFetchResponse struct {
+	AzureBackupRecoveryPointResourceList
 }
