@@ -11,7 +11,7 @@ package armdeviceprovisioningservices
 
 const (
 	moduleName    = "armdeviceprovisioningservices"
-	moduleVersion = "v1.2.0-beta.1"
+	moduleVersion = "v1.2.0-beta.2"
 )
 
 // AccessRightsDescription - Rights that this key has.
