@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v4.1.0-beta.3"
+	moduleVersion = "v4.1.0-beta.4"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -30,6 +30,24 @@ func PossibleAgentPoolModeValues() []AgentPoolMode {
 	return []AgentPoolMode{
 		AgentPoolModeSystem,
 		AgentPoolModeUser,
+	}
+}
+
+// AgentPoolSSHAccess - SSH access method of an agent pool.
+type AgentPoolSSHAccess string
+
+const (
+	// AgentPoolSSHAccessDisabled - SSH service will be turned off on the node.
+	AgentPoolSSHAccessDisabled AgentPoolSSHAccess = "Disabled"
+	// AgentPoolSSHAccessLocalUser - Can SSH onto the node as a local user using private key.
+	AgentPoolSSHAccessLocalUser AgentPoolSSHAccess = "LocalUser"
+)
+
+// PossibleAgentPoolSSHAccessValues returns the possible values for the AgentPoolSSHAccess const type.
+func PossibleAgentPoolSSHAccessValues() []AgentPoolSSHAccess {
+	return []AgentPoolSSHAccess{
+		AgentPoolSSHAccessDisabled,
+		AgentPoolSSHAccessLocalUser,
 	}
 }
 

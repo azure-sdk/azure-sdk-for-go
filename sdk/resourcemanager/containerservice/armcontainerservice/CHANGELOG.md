@@ -1,5 +1,36 @@
 # Release History
 
+## 4.1.0-beta.4 (2023-06-26)
+### Features Added
+
+- New enum type `AgentPoolSSHAccess` with values `AgentPoolSSHAccessDisabled`, `AgentPoolSSHAccessLocalUser`
+- New function `*ManagedClustersClient.GetMeshRevisionProfile(context.Context, string, string, *ManagedClustersClientGetMeshRevisionProfileOptions) (ManagedClustersClientGetMeshRevisionProfileResponse, error)`
+- New function `*ManagedClustersClient.GetMeshUpgradeProfile(context.Context, string, string, string, *ManagedClustersClientGetMeshUpgradeProfileOptions) (ManagedClustersClientGetMeshUpgradeProfileResponse, error)`
+- New function `*ManagedClustersClient.NewListMeshRevisionProfilesPager(string, *ManagedClustersClientListMeshRevisionProfilesOptions) *runtime.Pager[ManagedClustersClientListMeshRevisionProfilesResponse]`
+- New function `*ManagedClustersClient.NewListMeshUpgradeProfilesPager(string, string, *ManagedClustersClientListMeshUpgradeProfilesOptions) *runtime.Pager[ManagedClustersClientListMeshUpgradeProfilesResponse]`
+- New struct `AgentPoolSecurityProfile`
+- New struct `CompatibleVersions`
+- New struct `DelegatedResource`
+- New struct `IstioCertificateAuthority`
+- New struct `IstioPluginCertificateAuthority`
+- New struct `ManagedClusterSecurityProfileImageIntegrity`
+- New struct `MeshRevision`
+- New struct `MeshRevisionProfile`
+- New struct `MeshRevisionProfileList`
+- New struct `MeshRevisionProfileProperties`
+- New struct `MeshUpgradeProfile`
+- New struct `MeshUpgradeProfileList`
+- New struct `MeshUpgradeProfileProperties`
+- New struct `UlimitConfig`
+- New field `DrainTimeoutInMinutes` in struct `AgentPoolUpgradeSettings`
+- New field `CertificateAuthority`, `Revisions` in struct `IstioServiceMesh`
+- New field `Ulimits` in struct `LinuxOSConfig`
+- New field `SecurityProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `SecurityProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `DelegatedResources` in struct `ManagedClusterIdentity`
+- New field `ImageIntegrity` in struct `ManagedClusterSecurityProfile`
+
+
 ## 4.1.0-beta.3 (2023-06-23)
 ### Features Added
 
