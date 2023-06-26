@@ -218,6 +218,19 @@ type AllSavingsList struct {
 	Value []*AllSavingsBenefitDetails
 }
 
+// AsyncOperationStatusProperties - Object representing the report url and valid until date of the async report generated.
+type AsyncOperationStatusProperties struct {
+	// Sas url to the async benefit utilization summaries report. Will be empty if the report is in Running or Failed state.
+	ReportURL *BenefitUtilizationSummaryReportSchema
+
+	// Sas url to async benefit utilization summaries report in secondary storage in case of primary outage. Will be empty if
+	// the report is in Running or Failed state.
+	SecondaryReportURL *BenefitUtilizationSummaryReportSchema
+
+	// The date that the sas url provided in reportUrl expires.
+	ValidUntil *time.Time
+}
+
 // BenefitRecommendationModel - benefit plan recommendation details.
 type BenefitRecommendationModel struct {
 	// Reservation or SavingsPlan.
@@ -359,6 +372,52 @@ type BenefitUtilizationSummariesListResult struct {
 
 	// READ-ONLY; The list of benefit utilization summaries.
 	Value []BenefitUtilizationSummaryClassification
+}
+
+// BenefitUtilizationSummariesOperationStatus - Status of a benefit utilization summaries report. Provides Async Benefit Utilization
+// Summaries Request input, status, and report sas url.
+type BenefitUtilizationSummariesOperationStatus struct {
+	// Input given to create the benefit utilization summaries report.
+	Input *BenefitUtilizationSummariesRequest
+
+	// Contains sas url to the async benefit utilization summaries report and a date that the url is valid until. These values
+	// will be empty if the report is in a Running or Failed state
+	Properties *AsyncOperationStatusProperties
+
+	// The status of the creation of the benefit utilization summaries report.
+	Status *OperationStatusType
+}
+
+// BenefitUtilizationSummariesRequest - Properties of an async benefit utilization summaries request.
+type BenefitUtilizationSummariesRequest struct {
+	// REQUIRED; The end date of the summaries data that will be served in the report.
+	EndDate *time.Time
+
+	// REQUIRED; The grain the summaries data is served at in the report. Accepted values are 'Daily' or 'Monthly'.
+	Grain *Grain
+
+	// REQUIRED; The start date of the summaries data that will be served in the report.
+	StartDate *time.Time
+
+	// Benefit id the benefit utilization summaries report is for. Required for benefit id scope. Not supported for benefit order
+	// or any billing scopes.
+	BenefitID *string
+
+	// Benefit order id the benefit utilization summaries report is for. Required for benefit order and benefit id scopes. Not
+	// supported for any billing scopes.
+	BenefitOrderID *string
+
+	// Billing account the benefit utilization summaries report is for. Required for billing account and billing profile scopes.
+	// Not supported for any benefit scopes.
+	BillingAccountID *string
+
+	// Billing profile id the benefit utilization summaries report is for. Required for billing profile scope. Not supported for
+	// billing account or any benefit scopes.
+	BillingProfileID *string
+
+	// The type of benefit data requested. Required for billing account and billing profile scopes. Implied and not to be passed
+	// at benefit scopes. Supported values are Reservation and SavingsPlan
+	Kind *BenefitKind
 }
 
 // BenefitUtilizationSummaryClassification provides polymorphic access to related types.
@@ -1005,6 +1064,48 @@ type ForecastTimePeriod struct {
 
 	// REQUIRED; The end date to pull data to.
 	To *time.Time
+}
+
+// GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingAccountOptions contains the optional parameters for
+// the GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingAccount method.
+type GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingAccountOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingProfileOptions contains the optional parameters for
+// the GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingProfile method.
+type GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingProfileOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationIDOptions contains the optional parameters for
+// the GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationID method.
+type GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationIDOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationOrderIDOptions contains the optional parameters
+// for the GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationOrderID method.
+type GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationOrderIDOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanIDOptions contains the optional parameters for
+// the GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanID method.
+type GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanIDOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanOrderIDOptions contains the optional parameters
+// for the GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanOrderID method.
+type GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanOrderIDOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // GenerateCostDetailsReportClientBeginCreateOperationOptions contains the optional parameters for the GenerateCostDetailsReportClient.BeginCreateOperation
@@ -1680,7 +1781,7 @@ type SavingsPlanUtilizationSummaryProperties struct {
 	ArmSKUName *string
 
 	// READ-ONLY; This is the average hourly utilization for each date range that corresponds to given grain (Daily, Monthly).
-	// Suppose the API call is for usageDate > 2022-10-01 and usageDate < 2022-10-31 at a daily
+	// Suppose the API call is for usageDate > 2023-03-01 and usageDate < 2022-10-31 at a daily
 	// granularity. There will be one record per benefit id for each day. For a single day, the avgUtilizationPercentage value
 	// will be equal to the average of the set of values where the set contains 24
 	// utilization percentage entries one for each hour in a specific day.
@@ -1693,7 +1794,7 @@ type SavingsPlanUtilizationSummaryProperties struct {
 	BenefitOrderID *string
 
 	// READ-ONLY; This is the maximum hourly utilization for each date range that corresponds to given grain (Daily, Monthly).
-	// Suppose the API call is for usageDate > 2022-10-01 and usageDate < 2022-10-31 at a daily
+	// Suppose the API call is for usageDate > 2023-03-01 and usageDate < 2022-10-31 at a daily
 	// granularity. There will be one record per benefit id for each day. For a single day, the maxUtilizationPercentage value
 	// will be equal to the largest in the set of values where the set contains 24
 	// utilization percentage entries one for each hour in a specific day. If on the day 2022-10-18, the largest utilization percentage
@@ -1702,7 +1803,7 @@ type SavingsPlanUtilizationSummaryProperties struct {
 	MaxUtilizationPercentage *float64
 
 	// READ-ONLY; This is the minimum hourly utilization for each date range that corresponds to given grain (Daily, Monthly).
-	// Suppose the API call is for usageDate > 2022-10-01 and usageDate < 2022-10-31 at a daily
+	// Suppose the API call is for usageDate > 2023-03-01 and usageDate < 2022-10-31 at a daily
 	// granularity. There will be one record per benefit id for each day. For a single day, the minUtilizationPercentage value
 	// will be equal to the smallest in the set of values where the set contains 24
 	// utilization percentage entries one for each hour in a specific day. If on the day 2022-10-18, the lowest utilization percentage
@@ -1800,11 +1901,13 @@ type ScheduledActionProperties struct {
 	// Email address of the point of contact that should get the unsubscribe requests and notification emails.
 	NotificationEmail *string
 
-	// Cost Management scope like 'subscriptions/{subscriptionId}' for subscription scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'
-	// for resourceGroup scope,
-	// 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
-	// for Department
-	// scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
+	// For private scheduled action(Create or Update), scope will be empty.
+	// For shared scheduled action(Create or Update By Scope), Cost Management scope can be 'subscriptions/{subscriptionId}' for
+	// subscription scope,
+	// 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
+	// for Billing Account scope,
+	// 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}' for Department scope,
+	// 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
 	// scope,
 	// 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile
 	// scope,
@@ -2081,6 +2184,9 @@ type ViewProperties struct {
 	// Chart type of the main view in Cost Analysis. Required.
 	Chart *ChartType
 
+	// Date range of the current view.
+	DateRange *string
+
 	// User input name of the view. Required.
 	DisplayName *string
 
@@ -2089,6 +2195,9 @@ type ViewProperties struct {
 
 	// Metric to use when displaying costs.
 	Metric *MetricType
+
+	// Date when the user last modified this view.
+	ModifiedOn *time.Time
 
 	// Configuration of 3 sub-views in the Cost Analysis UI.
 	Pivots []*PivotProperties
@@ -2116,12 +2225,6 @@ type ViewProperties struct {
 
 	// READ-ONLY; Currency of the current view.
 	Currency *string
-
-	// READ-ONLY; Date range of the current view.
-	DateRange *string
-
-	// READ-ONLY; Date when the user last modified this view.
-	ModifiedOn *time.Time
 }
 
 // ViewsClientCreateOrUpdateByScopeOptions contains the optional parameters for the ViewsClient.CreateOrUpdateByScope method.

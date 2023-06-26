@@ -1,5 +1,23 @@
 # Release History
 
+## 2.1.0 (2023-06-26)
+### Features Added
+
+- New value `OperationStatusTypeComplete` added to enum type `OperationStatusType`
+- New enum type `BenefitUtilizationSummaryReportSchema` with values `BenefitUtilizationSummaryReportSchemaAvgUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaBenefitID`, `BenefitUtilizationSummaryReportSchemaBenefitOrderID`, `BenefitUtilizationSummaryReportSchemaBenefitType`, `BenefitUtilizationSummaryReportSchemaKind`, `BenefitUtilizationSummaryReportSchemaMaxUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaMinUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaUsageDate`, `BenefitUtilizationSummaryReportSchemaUtilizedPercentage`
+- New function `*ClientFactory.NewGenerateBenefitUtilizationSummariesReportClient() *GenerateBenefitUtilizationSummariesReportClient`
+- New function `NewGenerateBenefitUtilizationSummariesReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateBenefitUtilizationSummariesReportClient, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingAccount(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingAccountOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingAccountResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingProfile(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingProfileOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingProfileResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationOrderIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanOrderIDResponse], error)`
+- New struct `AsyncOperationStatusProperties`
+- New struct `BenefitUtilizationSummariesOperationStatus`
+- New struct `BenefitUtilizationSummariesRequest`
+
+
 ## 2.0.0 (2023-05-26)
 ### Breaking Changes
 
