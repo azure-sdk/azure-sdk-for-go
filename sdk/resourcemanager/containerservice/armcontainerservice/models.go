@@ -93,6 +93,12 @@ type AgentPoolNetworkProfile struct {
 	NodePublicIPTags []*IPTag
 }
 
+// AgentPoolSecurityProfile - The security settings of an agent pool.
+type AgentPoolSecurityProfile struct {
+	// SSH access method of an agent pool.
+	SSHAccess *AgentPoolSSHAccess
+}
+
 // AgentPoolUpgradeProfile - The list of available upgrades for an agent pool.
 type AgentPoolUpgradeProfile struct {
 	// REQUIRED; The properties of the agent pool upgrade profile.
@@ -133,6 +139,11 @@ type AgentPoolUpgradeProfilePropertiesUpgradesItem struct {
 
 // AgentPoolUpgradeSettings - Settings for upgrading an agentpool
 type AgentPoolUpgradeSettings struct {
+	// The amount of time (in minutes) to wait on eviction of pods and graceful termination per node. This eviction wait time
+	// honors waiting on pod disruption budgets. If this time is exceeded, the upgrade
+	// fails. If not specified, the default is 30 minutes.
+	DrainTimeoutInMinutes *int32
+
 	// This can either be set to an integer (e.g. '5') or a percentage (e.g. '50%'). If a percentage is specified, it is the percentage
 	// of the total agent pool size at the time of the upgrade. For
 	// percentages, fractional nodes are rounded up. If not specified, the default is 1. For more information, including best
@@ -246,6 +257,11 @@ type CommandResultProperties struct {
 	StartedAt *time.Time
 }
 
+type CompatibleVersions struct {
+	Name     *string
+	Versions []*string
+}
+
 // CreationData - Data used when creating a target resource from a source resource.
 type CreationData struct {
 	// This is the ARM ID of the source object to be used to create the target object.
@@ -280,6 +296,21 @@ type DateSpan struct {
 
 	// REQUIRED; The start date of the date span.
 	Start *time.Time
+}
+
+// DelegatedResource - Delegated resource properties - internal use only.
+type DelegatedResource struct {
+	// The source resource location - internal use only.
+	Location *string
+
+	// The delegation id of the referral delegation (optional) - internal use only.
+	ReferralResource *string
+
+	// The ARM resource id of the delegated resource - internal use only.
+	ResourceID *string
+
+	// The tenant id of the delegated resource - internal use only.
+	TenantID *string
 }
 
 // EndpointDependency - A domain name that AKS agent nodes are reaching at.
@@ -340,6 +371,13 @@ type IPTag struct {
 	Tag *string
 }
 
+// IstioCertificateAuthority - Istio Service Mesh Certificate Authority (CA) configuration. For now, we only support plugin
+// certificates as described here https://aka.ms/asm-plugin-ca
+type IstioCertificateAuthority struct {
+	// Plugin certificates information for Service Mesh.
+	Plugin *IstioPluginCertificateAuthority
+}
+
 // IstioComponents - Istio components configuration.
 type IstioComponents struct {
 	// Istio ingress gateways.
@@ -357,10 +395,37 @@ type IstioIngressGateway struct {
 	Mode *IstioIngressGatewayMode
 }
 
+// IstioPluginCertificateAuthority - Plugin certificates information for Service Mesh.
+type IstioPluginCertificateAuthority struct {
+	// Certificate chain object name in Azure Key Vault.
+	CertChainObjectName *string
+
+	// Intermediate certificate object name in Azure Key Vault.
+	CertObjectName *string
+
+	// Intermediate certificate private key object name in Azure Key Vault.
+	KeyObjectName *string
+
+	// The resource ID of the Key Vault.
+	KeyVaultID *string
+
+	// Root certificate object name in Azure Key Vault.
+	RootCertObjectName *string
+}
+
 // IstioServiceMesh - Istio service mesh configuration.
 type IstioServiceMesh struct {
+	// Istio Service Mesh Certificate Authority (CA) configuration. For now, we only support plugin certificates as described
+	// here https://aka.ms/asm-plugin-ca
+	CertificateAuthority *IstioCertificateAuthority
+
 	// Istio components configuration.
 	Components *IstioComponents
+
+	// The list of revisions of the Istio control plane. When an upgrade is not in progress, this holds one value. When canary
+	// upgrade is in progress, this can only hold two consecutive values. For more
+	// information, see: https://learn.microsoft.com/en-us/azure/aks/istio-upgrade
+	Revisions []*string
 }
 
 // KubeletConfig - See AKS custom node configuration [https://docs.microsoft.com/azure/aks/custom-node-configuration] for
@@ -455,6 +520,9 @@ type LinuxOSConfig struct {
 	// Valid values are 'always', 'madvise', and 'never'. The default is 'always'. For more information see Transparent Hugepages
 	// [https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge].
 	TransparentHugePageEnabled *string
+
+	// Ulimit settings for Linux agent nodes.
+	Ulimits *UlimitConfig
 }
 
 // LinuxProfile - Profile for Linux VMs in the container service cluster.
@@ -828,6 +896,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.
 	ScaleSetPriority *ScaleSetPriority
 
+	// The security settings of an agent pool.
+	SecurityProfile *AgentPoolSecurityProfile
+
 	// Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price.
 	// For more details on spot pricing, see spot VMs pricing
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
@@ -1004,6 +1075,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.
 	ScaleSetPriority *ScaleSetPriority
 
+	// The security settings of an agent pool.
+	SecurityProfile *AgentPoolSecurityProfile
+
 	// Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price.
 	// For more details on spot pricing, see spot VMs pricing
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
@@ -1100,6 +1174,11 @@ type ManagedClusterHTTPProxyConfig struct {
 
 // ManagedClusterIdentity - Identity for the managed cluster.
 type ManagedClusterIdentity struct {
+	// The delegated identity resources assigned to this managed cluster. This can only be set by another Azure Resource Provider,
+	// and managed cluster only accept one delegated identity resource. Internal
+	// use only.
+	DelegatedResources map[string]*DelegatedResource
+
 	// For more information see use managed identities in AKS [https://docs.microsoft.com/azure/aks/use-managed-identity].
 	Type *ResourceIdentityType
 
@@ -1578,6 +1657,11 @@ type ManagedClusterSecurityProfile struct {
 	// Image Cleaner settings for the security profile.
 	ImageCleaner *ManagedClusterSecurityProfileImageCleaner
 
+	// Image integrity is a feature that works with Azure Policy to verify image integrity by signature. This will not have any
+	// effect unless Azure Policy is applied to enforce image signatures. See
+	// https://aka.ms/aks/image-integrity for how to use this feature via policy.
+	ImageIntegrity *ManagedClusterSecurityProfileImageIntegrity
+
 	// Node Restriction [https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction] settings
 	// for the security profile.
 	NodeRestriction *ManagedClusterSecurityProfileNodeRestriction
@@ -1613,6 +1697,12 @@ type ManagedClusterSecurityProfileImageCleaner struct {
 
 	// Image Cleaner scanning interval in hours.
 	IntervalHours *int32
+}
+
+// ManagedClusterSecurityProfileImageIntegrity - Image integrity related settings for the security profile.
+type ManagedClusterSecurityProfileImageIntegrity struct {
+	// Whether to enable image integrity. The default value is false.
+	Enabled *bool
 }
 
 // ManagedClusterSecurityProfileNodeRestriction - Node Restriction settings for the security profile.
@@ -1932,6 +2022,18 @@ type ManagedClustersClientGetCommandResultOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedClustersClientGetMeshRevisionProfileOptions contains the optional parameters for the ManagedClustersClient.GetMeshRevisionProfile
+// method.
+type ManagedClustersClientGetMeshRevisionProfileOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedClustersClientGetMeshUpgradeProfileOptions contains the optional parameters for the ManagedClustersClient.GetMeshUpgradeProfile
+// method.
+type ManagedClustersClientGetMeshUpgradeProfileOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedClustersClientGetOSOptionsOptions contains the optional parameters for the ManagedClustersClient.GetOSOptions method.
 type ManagedClustersClientGetOSOptionsOptions struct {
 	// The resource type for which the OS options needs to be returned
@@ -1986,6 +2088,18 @@ type ManagedClustersClientListKubernetesVersionsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedClustersClientListMeshRevisionProfilesOptions contains the optional parameters for the ManagedClustersClient.NewListMeshRevisionProfilesPager
+// method.
+type ManagedClustersClientListMeshRevisionProfilesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedClustersClientListMeshUpgradeProfilesOptions contains the optional parameters for the ManagedClustersClient.NewListMeshUpgradeProfilesPager
+// method.
+type ManagedClustersClientListMeshUpgradeProfilesOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedClustersClientListOptions contains the optional parameters for the ManagedClustersClient.NewListPager method.
 type ManagedClustersClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2003,6 +2117,85 @@ type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
 
 	// READ-ONLY; The principal id of user assigned identity.
 	PrincipalID *string
+}
+
+// MeshRevision - Holds information on upgrades and compatibility for given major.minor mesh release.
+type MeshRevision struct {
+	// List of items this revision of service mesh is compatible with, and their associated versions.
+	CompatibleWith []*CompatibleVersions
+	Revision       *string
+
+	// List of revisions available for upgrade of a specific mesh revision
+	Upgrades []*string
+}
+
+// MeshRevisionProfile - Mesh revision profile for a mesh.
+type MeshRevisionProfile struct {
+	// Mesh revision profile properties for a mesh
+	Properties *MeshRevisionProfileProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MeshRevisionProfileList - Holds an array of MeshRevisionsProfiles
+type MeshRevisionProfileList struct {
+	// Array of service mesh add-on revision profiles for all supported mesh modes.
+	Value []*MeshRevisionProfile
+
+	// READ-ONLY; The URL to get the next set of mesh revision profile.
+	NextLink *string
+}
+
+// MeshRevisionProfileProperties - Mesh revision profile properties for a mesh
+type MeshRevisionProfileProperties struct {
+	MeshRevisions []*MeshRevision
+}
+
+// MeshUpgradeProfile - Upgrade profile for given mesh.
+type MeshUpgradeProfile struct {
+	// Mesh upgrade profile properties for a major.minor release.
+	Properties *MeshUpgradeProfileProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MeshUpgradeProfileList - Holds an array of MeshUpgradeProfiles
+type MeshUpgradeProfileList struct {
+	// Array of supported service mesh add-on upgrade profiles.
+	Value []*MeshUpgradeProfile
+
+	// READ-ONLY; The URL to get the next set of mesh upgrade profile.
+	NextLink *string
+}
+
+// MeshUpgradeProfileProperties - Mesh upgrade profile properties for a major.minor release.
+type MeshUpgradeProfileProperties struct {
+	// List of items this revision of service mesh is compatible with, and their associated versions.
+	CompatibleWith []*CompatibleVersions
+	Revision       *string
+
+	// List of revisions available for upgrade of a specific mesh revision
+	Upgrades []*string
 }
 
 // NetworkMonitoring - This addon can be used to configure network monitoring and generate network monitoring data in Prometheus
@@ -2750,6 +2943,15 @@ type TrustedAccessRoleRule struct {
 // TrustedAccessRolesClientListOptions contains the optional parameters for the TrustedAccessRolesClient.NewListPager method.
 type TrustedAccessRolesClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// UlimitConfig - Ulimit settings for Linux agent nodes
+type UlimitConfig struct {
+	// Maximum locked-in-memory address space (KB)
+	MaxLockedMemory *string
+
+	// Maximum number of open files
+	NoFile *string
 }
 
 // UpgradeOverrideSettings - Settings for overrides when upgrading a cluster.
