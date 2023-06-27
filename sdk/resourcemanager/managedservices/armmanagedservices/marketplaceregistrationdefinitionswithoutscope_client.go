@@ -44,7 +44,7 @@ func NewMarketplaceRegistrationDefinitionsWithoutScopeClient(credential azcore.T
 // Get - Get the marketplace registration definition for the marketplace identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 //   - marketplaceIdentifier - The Azure Marketplace identifier. Expected formats: {publisher}.{product[-preview]}.{planName}.{version}
 //     or {publisher}.{product[-preview]}.{planName} or {publisher}.{product[-preview]} or
 //     {publisher}).
@@ -77,7 +77,7 @@ func (client *MarketplaceRegistrationDefinitionsWithoutScopeClient) getCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -94,7 +94,7 @@ func (client *MarketplaceRegistrationDefinitionsWithoutScopeClient) getHandleRes
 
 // NewListPager - Gets a list of the marketplace registration definitions for the marketplace identifier.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 //   - options - MarketplaceRegistrationDefinitionsWithoutScopeClientListOptions contains the optional parameters for the MarketplaceRegistrationDefinitionsWithoutScopeClient.NewListPager
 //     method.
 func (client *MarketplaceRegistrationDefinitionsWithoutScopeClient) NewListPager(options *MarketplaceRegistrationDefinitionsWithoutScopeClientListOptions) *runtime.Pager[MarketplaceRegistrationDefinitionsWithoutScopeClientListResponse] {
@@ -136,7 +136,7 @@ func (client *MarketplaceRegistrationDefinitionsWithoutScopeClient) listCreateRe
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

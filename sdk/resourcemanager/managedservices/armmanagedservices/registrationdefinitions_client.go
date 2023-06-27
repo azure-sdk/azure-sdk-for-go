@@ -44,7 +44,7 @@ func NewRegistrationDefinitionsClient(credential azcore.TokenCredential, options
 // BeginCreateOrUpdate - Creates or updates a registration definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 //   - registrationDefinitionID - The GUID of the registration definition.
 //   - scope - The scope of the resource.
 //   - requestBody - The parameters required to create a new registration definition.
@@ -65,7 +65,7 @@ func (client *RegistrationDefinitionsClient) BeginCreateOrUpdate(ctx context.Con
 // CreateOrUpdate - Creates or updates a registration definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 func (client *RegistrationDefinitionsClient) createOrUpdate(ctx context.Context, registrationDefinitionID string, scope string, requestBody RegistrationDefinition, options *RegistrationDefinitionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, registrationDefinitionID, scope, requestBody, options)
 	if err != nil {
@@ -94,7 +94,7 @@ func (client *RegistrationDefinitionsClient) createOrUpdateCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, requestBody)
@@ -103,7 +103,7 @@ func (client *RegistrationDefinitionsClient) createOrUpdateCreateRequest(ctx con
 // Delete - Deletes the registration definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 //   - registrationDefinitionID - The GUID of the registration definition.
 //   - scope - The scope of the resource.
 //   - options - RegistrationDefinitionsClientDeleteOptions contains the optional parameters for the RegistrationDefinitionsClient.Delete
@@ -136,7 +136,7 @@ func (client *RegistrationDefinitionsClient) deleteCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -145,7 +145,7 @@ func (client *RegistrationDefinitionsClient) deleteCreateRequest(ctx context.Con
 // Get - Gets the registration definition details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 //   - scope - The scope of the resource.
 //   - registrationDefinitionID - The GUID of the registration definition.
 //   - options - RegistrationDefinitionsClientGetOptions contains the optional parameters for the RegistrationDefinitionsClient.Get
@@ -178,7 +178,7 @@ func (client *RegistrationDefinitionsClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,7 +195,7 @@ func (client *RegistrationDefinitionsClient) getHandleResponse(resp *http.Respon
 
 // NewListPager - Gets a list of the registration definitions.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2022-10-01
 //   - scope - The scope of the resource.
 //   - options - RegistrationDefinitionsClientListOptions contains the optional parameters for the RegistrationDefinitionsClient.NewListPager
 //     method.
@@ -236,7 +236,7 @@ func (client *RegistrationDefinitionsClient) listCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
