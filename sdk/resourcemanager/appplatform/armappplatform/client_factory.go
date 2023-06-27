@@ -44,6 +44,16 @@ func (c *ClientFactory) NewServicesClient() *ServicesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewApmsClient() *ApmsClient {
+	subClient, _ := NewApmsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewEurekaServersClient() *EurekaServersClient {
+	subClient, _ := NewEurekaServersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewConfigServersClient() *ConfigServersClient {
 	subClient, _ := NewConfigServersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -66,6 +76,11 @@ func (c *ClientFactory) NewApplicationLiveViewsClient() *ApplicationLiveViewsCli
 
 func (c *ClientFactory) NewDevToolPortalsClient() *DevToolPortalsClient {
 	subClient, _ := NewDevToolPortalsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewContainerRegistriesClient() *ContainerRegistriesClient {
+	subClient, _ := NewContainerRegistriesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

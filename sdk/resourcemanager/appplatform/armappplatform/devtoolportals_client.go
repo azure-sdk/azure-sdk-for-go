@@ -48,7 +48,7 @@ func NewDevToolPortalsClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreateOrUpdate - Create the default Dev Tool Portal or update the existing Dev Tool Portal.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -71,7 +71,7 @@ func (client *DevToolPortalsClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Create the default Dev Tool Portal or update the existing Dev Tool Portal.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *DevToolPortalsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, devToolPortalName string, devToolPortalResource DevToolPortalResource, options *DevToolPortalsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, devToolPortalName, devToolPortalResource, options)
 	if err != nil {
@@ -111,7 +111,7 @@ func (client *DevToolPortalsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, devToolPortalResource)
@@ -120,7 +120,7 @@ func (client *DevToolPortalsClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Disable the default Dev Tool Portal.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -142,7 +142,7 @@ func (client *DevToolPortalsClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Disable the default Dev Tool Portal.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *DevToolPortalsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, devToolPortalName string, options *DevToolPortalsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, devToolPortalName, options)
 	if err != nil {
@@ -182,7 +182,7 @@ func (client *DevToolPortalsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *DevToolPortalsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Get the Application Live and its properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -236,7 +236,7 @@ func (client *DevToolPortalsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *DevToolPortalsClient) getHandleResponse(resp *http.Response) (DevT
 
 // NewListPager - Handles requests to list all resources in a Service.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -306,7 +306,7 @@ func (client *DevToolPortalsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
