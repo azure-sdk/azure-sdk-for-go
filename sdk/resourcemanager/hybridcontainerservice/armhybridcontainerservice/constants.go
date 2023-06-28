@@ -11,7 +11,7 @@ package armhybridcontainerservice
 
 const (
 	moduleName    = "armhybridcontainerservice"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 type AgentPoolProvisioningState string
@@ -77,12 +77,14 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 type DeploymentState string
 
 const (
-	DeploymentStateDeleting     DeploymentState = "deleting"
-	DeploymentStateFailed       DeploymentState = "failed"
-	DeploymentStatePending      DeploymentState = "pending"
-	DeploymentStateProvisioned  DeploymentState = "provisioned"
-	DeploymentStateProvisioning DeploymentState = "provisioning"
-	DeploymentStateUpgrading    DeploymentState = "upgrading"
+	DeploymentStateDeleting                             DeploymentState = "deleting"
+	DeploymentStateFailed                               DeploymentState = "failed"
+	DeploymentStatePending                              DeploymentState = "pending"
+	DeploymentStateProvisioned                          DeploymentState = "provisioned"
+	DeploymentStateProvisioning                         DeploymentState = "provisioning"
+	DeploymentStateProvisioningHelmChartInstalled       DeploymentState = "provisioning {HelmChartInstalled}"
+	DeploymentStateProvisioningMSICertificateDownloaded DeploymentState = "provisioning {MSICertificateDownloaded}"
+	DeploymentStateUpgrading                            DeploymentState = "upgrading"
 )
 
 // PossibleDeploymentStateValues returns the possible values for the DeploymentState const type.
@@ -93,6 +95,8 @@ func PossibleDeploymentStateValues() []DeploymentState {
 		DeploymentStatePending,
 		DeploymentStateProvisioned,
 		DeploymentStateProvisioning,
+		DeploymentStateProvisioningHelmChartInstalled,
+		DeploymentStateProvisioningMSICertificateDownloaded,
 		DeploymentStateUpgrading,
 	}
 }

@@ -1,5 +1,11 @@
 # Release History
 
+## 0.3.0 (2023-06-28)
+### Features Added
+
+- New value `DeploymentStateProvisioningHelmChartInstalled`, `DeploymentStateProvisioningMSICertificateDownloaded` added to enum type `DeploymentState`
+
+
 ## 0.2.0 (2023-03-24)
 ### Breaking Changes
 
