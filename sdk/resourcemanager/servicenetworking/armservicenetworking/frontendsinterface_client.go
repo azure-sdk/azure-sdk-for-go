@@ -44,7 +44,7 @@ func NewFrontendsInterfaceClient(subscriptionID string, credential azcore.TokenC
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create a Frontend
+// BeginCreateOrUpdate - Create or update a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -68,7 +68,7 @@ func (client *FrontendsInterfaceClient) BeginCreateOrUpdate(ctx context.Context,
 	}
 }
 
-// CreateOrUpdate - Create a Frontend
+// CreateOrUpdate - Create or update a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -117,7 +117,7 @@ func (client *FrontendsInterfaceClient) createOrUpdateCreateRequest(ctx context.
 	return req, runtime.MarshalAsJSON(req, resource)
 }
 
-// BeginDelete - Delete a Frontend
+// BeginDelete - Delete a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -140,7 +140,7 @@ func (client *FrontendsInterfaceClient) BeginDelete(ctx context.Context, resourc
 	}
 }
 
-// Delete - Delete a Frontend
+// Delete - Delete a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -189,7 +189,7 @@ func (client *FrontendsInterfaceClient) deleteCreateRequest(ctx context.Context,
 	return req, nil
 }
 
-// Get - Get a Frontend
+// Get - Retrieve a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -251,7 +251,7 @@ func (client *FrontendsInterfaceClient) getHandleResponse(resp *http.Response) (
 	return result, nil
 }
 
-// NewListByTrafficControllerPager - List Frontend resources by TrafficController
+// NewListByTrafficControllerPager - List resources by parent.
 //
 // Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -321,7 +321,7 @@ func (client *FrontendsInterfaceClient) listByTrafficControllerHandleResponse(re
 	return result, nil
 }
 
-// Update - Update a Frontend
+// Update - Update a resource using the synchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview

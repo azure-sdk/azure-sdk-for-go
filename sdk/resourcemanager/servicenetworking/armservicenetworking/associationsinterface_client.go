@@ -44,7 +44,7 @@ func NewAssociationsInterfaceClient(subscriptionID string, credential azcore.Tok
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create a Association
+// BeginCreateOrUpdate - Create or update a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -68,7 +68,7 @@ func (client *AssociationsInterfaceClient) BeginCreateOrUpdate(ctx context.Conte
 	}
 }
 
-// CreateOrUpdate - Create a Association
+// CreateOrUpdate - Create or update a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -117,7 +117,7 @@ func (client *AssociationsInterfaceClient) createOrUpdateCreateRequest(ctx conte
 	return req, runtime.MarshalAsJSON(req, resource)
 }
 
-// BeginDelete - Delete a Association
+// BeginDelete - Delete a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -140,7 +140,7 @@ func (client *AssociationsInterfaceClient) BeginDelete(ctx context.Context, reso
 	}
 }
 
-// Delete - Delete a Association
+// Delete - Delete a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -189,7 +189,7 @@ func (client *AssociationsInterfaceClient) deleteCreateRequest(ctx context.Conte
 	return req, nil
 }
 
-// Get - Get a Association
+// Get - Retrieve a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -252,7 +252,7 @@ func (client *AssociationsInterfaceClient) getHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// NewListByTrafficControllerPager - List Association resources by TrafficController
+// NewListByTrafficControllerPager - List resources by parent.
 //
 // Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -322,7 +322,7 @@ func (client *AssociationsInterfaceClient) listByTrafficControllerHandleResponse
 	return result, nil
 }
 
-// Update - Update a Association
+// Update - Update a resource using the synchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview

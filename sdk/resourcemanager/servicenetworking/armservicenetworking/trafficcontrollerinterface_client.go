@@ -44,7 +44,7 @@ func NewTrafficControllerInterfaceClient(subscriptionID string, credential azcor
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create a TrafficController
+// BeginCreateOrUpdate - Create or update a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -67,7 +67,7 @@ func (client *TrafficControllerInterfaceClient) BeginCreateOrUpdate(ctx context.
 	}
 }
 
-// CreateOrUpdate - Create a TrafficController
+// CreateOrUpdate - Create or update a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -112,7 +112,7 @@ func (client *TrafficControllerInterfaceClient) createOrUpdateCreateRequest(ctx 
 	return req, runtime.MarshalAsJSON(req, resource)
 }
 
-// BeginDelete - Delete a TrafficController
+// BeginDelete - Delete a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -134,7 +134,7 @@ func (client *TrafficControllerInterfaceClient) BeginDelete(ctx context.Context,
 	}
 }
 
-// Delete - Delete a TrafficController
+// Delete - Delete a resource using the asynchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -179,7 +179,7 @@ func (client *TrafficControllerInterfaceClient) deleteCreateRequest(ctx context.
 	return req, nil
 }
 
-// Get - Get a TrafficController
+// Get - Retrieve a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -237,7 +237,7 @@ func (client *TrafficControllerInterfaceClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListByResourceGroupPager - List TrafficController resources by resource group
+// NewListByResourceGroupPager - List resources by parent.
 //
 // Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -302,7 +302,7 @@ func (client *TrafficControllerInterfaceClient) listByResourceGroupHandleRespons
 	return result, nil
 }
 
-// NewListBySubscriptionPager - List TrafficController resources by subscription ID
+// NewListBySubscriptionPager - List resources by subscription.
 //
 // Generated from API version 2023-05-01-preview
 //   - options - TrafficControllerInterfaceClientListBySubscriptionOptions contains the optional parameters for the TrafficControllerInterfaceClient.NewListBySubscriptionPager
@@ -362,7 +362,7 @@ func (client *TrafficControllerInterfaceClient) listBySubscriptionHandleResponse
 	return result, nil
 }
 
-// Update - Update a TrafficController
+// Update - Update a resource using the synchronous call pattern.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
