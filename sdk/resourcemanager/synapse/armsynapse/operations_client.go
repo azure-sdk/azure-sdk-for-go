@@ -47,7 +47,7 @@ func NewOperationsClient(subscriptionID string, credential azcore.TokenCredentia
 // CheckNameAvailability - Check whether a workspace name is available
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - request - The check request
 //   - options - OperationsClientCheckNameAvailabilityOptions contains the optional parameters for the OperationsClient.CheckNameAvailability
 //     method.
@@ -78,7 +78,7 @@ func (client *OperationsClient) checkNameAvailabilityCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, request)
@@ -96,7 +96,7 @@ func (client *OperationsClient) checkNameAvailabilityHandleResponse(resp *http.R
 // GetAzureAsyncHeaderResult - Get the status of an operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - operationID - Operation ID
@@ -141,7 +141,7 @@ func (client *OperationsClient) getAzureAsyncHeaderResultCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -159,7 +159,7 @@ func (client *OperationsClient) getAzureAsyncHeaderResultHandleResponse(resp *ht
 // GetLocationHeaderResult - Get the result of an operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - operationID - Operation ID
@@ -204,16 +204,127 @@ func (client *OperationsClient) getLocationHeaderResultCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
+// GetSubscriptionQuotaAndUsage - Gets the current resource usage and quota of a subscription/region
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-05-01
+//   - location - The location on which resource usage is queried.
+//   - options - OperationsClientGetSubscriptionQuotaAndUsageOptions contains the optional parameters for the OperationsClient.GetSubscriptionQuotaAndUsage
+//     method.
+func (client *OperationsClient) GetSubscriptionQuotaAndUsage(ctx context.Context, location string, options *OperationsClientGetSubscriptionQuotaAndUsageOptions) (OperationsClientGetSubscriptionQuotaAndUsageResponse, error) {
+	req, err := client.getSubscriptionQuotaAndUsageCreateRequest(ctx, location, options)
+	if err != nil {
+		return OperationsClientGetSubscriptionQuotaAndUsageResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OperationsClientGetSubscriptionQuotaAndUsageResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return OperationsClientGetSubscriptionQuotaAndUsageResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getSubscriptionQuotaAndUsageHandleResponse(resp)
+}
+
+// getSubscriptionQuotaAndUsageCreateRequest creates the GetSubscriptionQuotaAndUsage request.
+func (client *OperationsClient) getSubscriptionQuotaAndUsageCreateRequest(ctx context.Context, location string, options *OperationsClientGetSubscriptionQuotaAndUsageOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Synapse/locations/{location}/usages"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-05-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getSubscriptionQuotaAndUsageHandleResponse handles the GetSubscriptionQuotaAndUsage response.
+func (client *OperationsClient) getSubscriptionQuotaAndUsageHandleResponse(resp *http.Response) (OperationsClientGetSubscriptionQuotaAndUsageResponse, error) {
+	result := OperationsClientGetSubscriptionQuotaAndUsageResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListUsagesResult); err != nil {
+		return OperationsClientGetSubscriptionQuotaAndUsageResponse{}, err
+	}
+	return result, nil
+}
+
+// GetWorkspaceQuotaAndUsage - Gets the current usage and quota of a workspace.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-05-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - OperationsClientGetWorkspaceQuotaAndUsageOptions contains the optional parameters for the OperationsClient.GetWorkspaceQuotaAndUsage
+//     method.
+func (client *OperationsClient) GetWorkspaceQuotaAndUsage(ctx context.Context, resourceGroupName string, workspaceName string, options *OperationsClientGetWorkspaceQuotaAndUsageOptions) (OperationsClientGetWorkspaceQuotaAndUsageResponse, error) {
+	req, err := client.getWorkspaceQuotaAndUsageCreateRequest(ctx, resourceGroupName, workspaceName, options)
+	if err != nil {
+		return OperationsClientGetWorkspaceQuotaAndUsageResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OperationsClientGetWorkspaceQuotaAndUsageResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return OperationsClientGetWorkspaceQuotaAndUsageResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getWorkspaceQuotaAndUsageHandleResponse(resp)
+}
+
+// getWorkspaceQuotaAndUsageCreateRequest creates the GetWorkspaceQuotaAndUsage request.
+func (client *OperationsClient) getWorkspaceQuotaAndUsageCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *OperationsClientGetWorkspaceQuotaAndUsageOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/usages"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-05-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getWorkspaceQuotaAndUsageHandleResponse handles the GetWorkspaceQuotaAndUsage response.
+func (client *OperationsClient) getWorkspaceQuotaAndUsageHandleResponse(resp *http.Response) (OperationsClientGetWorkspaceQuotaAndUsageResponse, error) {
+	result := OperationsClientGetWorkspaceQuotaAndUsageResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListUsagesResult); err != nil {
+		return OperationsClientGetWorkspaceQuotaAndUsageResponse{}, err
+	}
+	return result, nil
+}
+
 // List - Get all available operations
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 func (client *OperationsClient) List(ctx context.Context, options *OperationsClientListOptions) (OperationsClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, options)

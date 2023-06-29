@@ -89,21 +89,6 @@ type ExtendedSQLPoolBlobAuditingPoliciesClientListBySQLPoolResponse struct {
 	ExtendedSQLPoolBlobAuditingPolicyListResult
 }
 
-// GetClientIntegrationRuntimeEnableInteractivequeryResponse contains the response from method GetClient.IntegrationRuntimeEnableInteractivequery.
-type GetClientIntegrationRuntimeEnableInteractivequeryResponse struct {
-	IntegrationRuntimeEnableinteractivequery
-}
-
-// GetClientIntegrationRuntimeStartResponse contains the response from method GetClient.IntegrationRuntimeStart.
-type GetClientIntegrationRuntimeStartResponse struct {
-	IntegrationRuntimeOperationStatus
-}
-
-// GetClientIntegrationRuntimeStopResponse contains the response from method GetClient.IntegrationRuntimeStop.
-type GetClientIntegrationRuntimeStopResponse struct {
-	IntegrationRuntimeStopOperationStatus
-}
-
 // IPFirewallRulesClientCreateOrUpdateResponse contains the response from method IPFirewallRulesClient.BeginCreateOrUpdate.
 type IPFirewallRulesClientCreateOrUpdateResponse struct {
 	IPFirewallRuleInfo
@@ -264,286 +249,6 @@ type KeysClientListByWorkspaceResponse struct {
 	KeyInfoListResult
 }
 
-// KustoOperationsClientListResponse contains the response from method KustoOperationsClient.NewListPager.
-type KustoOperationsClientListResponse struct {
-	OperationListResult
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientCreateOrUpdateResponse contains the response from method KustoPoolAttachedDatabaseConfigurationsClient.BeginCreateOrUpdate.
-type KustoPoolAttachedDatabaseConfigurationsClientCreateOrUpdateResponse struct {
-	AttachedDatabaseConfiguration
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientDeleteResponse contains the response from method KustoPoolAttachedDatabaseConfigurationsClient.BeginDelete.
-type KustoPoolAttachedDatabaseConfigurationsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientGetResponse contains the response from method KustoPoolAttachedDatabaseConfigurationsClient.Get.
-type KustoPoolAttachedDatabaseConfigurationsClientGetResponse struct {
-	AttachedDatabaseConfiguration
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientListByKustoPoolResponse contains the response from method KustoPoolAttachedDatabaseConfigurationsClient.NewListByKustoPoolPager.
-type KustoPoolAttachedDatabaseConfigurationsClientListByKustoPoolResponse struct {
-	AttachedDatabaseConfigurationListResult
-}
-
-// KustoPoolChildResourceClientCheckNameAvailabilityResponse contains the response from method KustoPoolChildResourceClient.CheckNameAvailability.
-type KustoPoolChildResourceClientCheckNameAvailabilityResponse struct {
-	CheckNameResult
-}
-
-// KustoPoolDataConnectionsClientCheckNameAvailabilityResponse contains the response from method KustoPoolDataConnectionsClient.CheckNameAvailability.
-type KustoPoolDataConnectionsClientCheckNameAvailabilityResponse struct {
-	CheckNameResult
-}
-
-// KustoPoolDataConnectionsClientCreateOrUpdateResponse contains the response from method KustoPoolDataConnectionsClient.BeginCreateOrUpdate.
-type KustoPoolDataConnectionsClientCreateOrUpdateResponse struct {
-	DataConnectionClassification
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KustoPoolDataConnectionsClientCreateOrUpdateResponse.
-func (k *KustoPoolDataConnectionsClientCreateOrUpdateResponse) UnmarshalJSON(data []byte) error {
-	res, err := unmarshalDataConnectionClassification(data)
-	if err != nil {
-		return err
-	}
-	k.DataConnectionClassification = res
-	return nil
-}
-
-// KustoPoolDataConnectionsClientDataConnectionValidationResponse contains the response from method KustoPoolDataConnectionsClient.BeginDataConnectionValidation.
-type KustoPoolDataConnectionsClientDataConnectionValidationResponse struct {
-	DataConnectionValidationListResult
-}
-
-// KustoPoolDataConnectionsClientDeleteResponse contains the response from method KustoPoolDataConnectionsClient.BeginDelete.
-type KustoPoolDataConnectionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolDataConnectionsClientGetResponse contains the response from method KustoPoolDataConnectionsClient.Get.
-type KustoPoolDataConnectionsClientGetResponse struct {
-	DataConnectionClassification
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KustoPoolDataConnectionsClientGetResponse.
-func (k *KustoPoolDataConnectionsClientGetResponse) UnmarshalJSON(data []byte) error {
-	res, err := unmarshalDataConnectionClassification(data)
-	if err != nil {
-		return err
-	}
-	k.DataConnectionClassification = res
-	return nil
-}
-
-// KustoPoolDataConnectionsClientListByDatabaseResponse contains the response from method KustoPoolDataConnectionsClient.NewListByDatabasePager.
-type KustoPoolDataConnectionsClientListByDatabaseResponse struct {
-	DataConnectionListResult
-}
-
-// KustoPoolDataConnectionsClientUpdateResponse contains the response from method KustoPoolDataConnectionsClient.BeginUpdate.
-type KustoPoolDataConnectionsClientUpdateResponse struct {
-	DataConnectionClassification
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KustoPoolDataConnectionsClientUpdateResponse.
-func (k *KustoPoolDataConnectionsClientUpdateResponse) UnmarshalJSON(data []byte) error {
-	res, err := unmarshalDataConnectionClassification(data)
-	if err != nil {
-		return err
-	}
-	k.DataConnectionClassification = res
-	return nil
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.CheckNameAvailability.
-type KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityResponse struct {
-	CheckNameResult
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientCreateOrUpdateResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.BeginCreateOrUpdate.
-type KustoPoolDatabasePrincipalAssignmentsClientCreateOrUpdateResponse struct {
-	DatabasePrincipalAssignment
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientDeleteResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.BeginDelete.
-type KustoPoolDatabasePrincipalAssignmentsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientGetResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.Get.
-type KustoPoolDatabasePrincipalAssignmentsClientGetResponse struct {
-	DatabasePrincipalAssignment
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientListResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.NewListPager.
-type KustoPoolDatabasePrincipalAssignmentsClientListResponse struct {
-	DatabasePrincipalAssignmentListResult
-}
-
-// KustoPoolDatabasesClientCreateOrUpdateResponse contains the response from method KustoPoolDatabasesClient.BeginCreateOrUpdate.
-type KustoPoolDatabasesClientCreateOrUpdateResponse struct {
-	DatabaseClassification
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KustoPoolDatabasesClientCreateOrUpdateResponse.
-func (k *KustoPoolDatabasesClientCreateOrUpdateResponse) UnmarshalJSON(data []byte) error {
-	res, err := unmarshalDatabaseClassification(data)
-	if err != nil {
-		return err
-	}
-	k.DatabaseClassification = res
-	return nil
-}
-
-// KustoPoolDatabasesClientDeleteResponse contains the response from method KustoPoolDatabasesClient.BeginDelete.
-type KustoPoolDatabasesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolDatabasesClientGetResponse contains the response from method KustoPoolDatabasesClient.Get.
-type KustoPoolDatabasesClientGetResponse struct {
-	DatabaseClassification
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KustoPoolDatabasesClientGetResponse.
-func (k *KustoPoolDatabasesClientGetResponse) UnmarshalJSON(data []byte) error {
-	res, err := unmarshalDatabaseClassification(data)
-	if err != nil {
-		return err
-	}
-	k.DatabaseClassification = res
-	return nil
-}
-
-// KustoPoolDatabasesClientListByKustoPoolResponse contains the response from method KustoPoolDatabasesClient.NewListByKustoPoolPager.
-type KustoPoolDatabasesClientListByKustoPoolResponse struct {
-	DatabaseListResult
-}
-
-// KustoPoolDatabasesClientUpdateResponse contains the response from method KustoPoolDatabasesClient.BeginUpdate.
-type KustoPoolDatabasesClientUpdateResponse struct {
-	DatabaseClassification
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KustoPoolDatabasesClientUpdateResponse.
-func (k *KustoPoolDatabasesClientUpdateResponse) UnmarshalJSON(data []byte) error {
-	res, err := unmarshalDatabaseClassification(data)
-	if err != nil {
-		return err
-	}
-	k.DatabaseClassification = res
-	return nil
-}
-
-// KustoPoolPrincipalAssignmentsClientCheckNameAvailabilityResponse contains the response from method KustoPoolPrincipalAssignmentsClient.CheckNameAvailability.
-type KustoPoolPrincipalAssignmentsClientCheckNameAvailabilityResponse struct {
-	CheckNameResult
-}
-
-// KustoPoolPrincipalAssignmentsClientCreateOrUpdateResponse contains the response from method KustoPoolPrincipalAssignmentsClient.BeginCreateOrUpdate.
-type KustoPoolPrincipalAssignmentsClientCreateOrUpdateResponse struct {
-	ClusterPrincipalAssignment
-}
-
-// KustoPoolPrincipalAssignmentsClientDeleteResponse contains the response from method KustoPoolPrincipalAssignmentsClient.BeginDelete.
-type KustoPoolPrincipalAssignmentsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolPrincipalAssignmentsClientGetResponse contains the response from method KustoPoolPrincipalAssignmentsClient.Get.
-type KustoPoolPrincipalAssignmentsClientGetResponse struct {
-	ClusterPrincipalAssignment
-}
-
-// KustoPoolPrincipalAssignmentsClientListResponse contains the response from method KustoPoolPrincipalAssignmentsClient.NewListPager.
-type KustoPoolPrincipalAssignmentsClientListResponse struct {
-	ClusterPrincipalAssignmentListResult
-}
-
-// KustoPoolPrivateLinkResourcesClientListResponse contains the response from method KustoPoolPrivateLinkResourcesClient.NewListPager.
-type KustoPoolPrivateLinkResourcesClientListResponse struct {
-	PrivateLinkResources
-}
-
-// KustoPoolsClientAddLanguageExtensionsResponse contains the response from method KustoPoolsClient.BeginAddLanguageExtensions.
-type KustoPoolsClientAddLanguageExtensionsResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolsClientCheckNameAvailabilityResponse contains the response from method KustoPoolsClient.CheckNameAvailability.
-type KustoPoolsClientCheckNameAvailabilityResponse struct {
-	CheckNameResult
-}
-
-// KustoPoolsClientCreateOrUpdateResponse contains the response from method KustoPoolsClient.BeginCreateOrUpdate.
-type KustoPoolsClientCreateOrUpdateResponse struct {
-	KustoPool
-}
-
-// KustoPoolsClientDeleteResponse contains the response from method KustoPoolsClient.BeginDelete.
-type KustoPoolsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolsClientDetachFollowerDatabasesResponse contains the response from method KustoPoolsClient.BeginDetachFollowerDatabases.
-type KustoPoolsClientDetachFollowerDatabasesResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolsClientGetResponse contains the response from method KustoPoolsClient.Get.
-type KustoPoolsClientGetResponse struct {
-	KustoPool
-}
-
-// KustoPoolsClientListByWorkspaceResponse contains the response from method KustoPoolsClient.ListByWorkspace.
-type KustoPoolsClientListByWorkspaceResponse struct {
-	KustoPoolListResult
-}
-
-// KustoPoolsClientListFollowerDatabasesResponse contains the response from method KustoPoolsClient.NewListFollowerDatabasesPager.
-type KustoPoolsClientListFollowerDatabasesResponse struct {
-	FollowerDatabaseListResult
-}
-
-// KustoPoolsClientListLanguageExtensionsResponse contains the response from method KustoPoolsClient.NewListLanguageExtensionsPager.
-type KustoPoolsClientListLanguageExtensionsResponse struct {
-	LanguageExtensionsList
-}
-
-// KustoPoolsClientListSKUsByResourceResponse contains the response from method KustoPoolsClient.NewListSKUsByResourcePager.
-type KustoPoolsClientListSKUsByResourceResponse struct {
-	ListResourceSKUsResult
-}
-
-// KustoPoolsClientListSKUsResponse contains the response from method KustoPoolsClient.NewListSKUsPager.
-type KustoPoolsClientListSKUsResponse struct {
-	SKUDescriptionList
-}
-
-// KustoPoolsClientRemoveLanguageExtensionsResponse contains the response from method KustoPoolsClient.BeginRemoveLanguageExtensions.
-type KustoPoolsClientRemoveLanguageExtensionsResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolsClientStartResponse contains the response from method KustoPoolsClient.BeginStart.
-type KustoPoolsClientStartResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolsClientStopResponse contains the response from method KustoPoolsClient.BeginStop.
-type KustoPoolsClientStopResponse struct {
-	// placeholder for future response values
-}
-
-// KustoPoolsClientUpdateResponse contains the response from method KustoPoolsClient.BeginUpdate.
-type KustoPoolsClientUpdateResponse struct {
-	KustoPool
-}
-
 // LibrariesClientListByWorkspaceResponse contains the response from method LibrariesClient.NewListByWorkspacePager.
 type LibrariesClientListByWorkspaceResponse struct {
 	LibraryListResponse
@@ -567,6 +272,16 @@ type OperationsClientGetAzureAsyncHeaderResultResponse struct {
 // OperationsClientGetLocationHeaderResultResponse contains the response from method OperationsClient.GetLocationHeaderResult.
 type OperationsClientGetLocationHeaderResultResponse struct {
 	// placeholder for future response values
+}
+
+// OperationsClientGetSubscriptionQuotaAndUsageResponse contains the response from method OperationsClient.GetSubscriptionQuotaAndUsage.
+type OperationsClientGetSubscriptionQuotaAndUsageResponse struct {
+	ListUsagesResult
+}
+
+// OperationsClientGetWorkspaceQuotaAndUsageResponse contains the response from method OperationsClient.GetWorkspaceQuotaAndUsage.
+type OperationsClientGetWorkspaceQuotaAndUsageResponse struct {
+	ListUsagesResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.List.
@@ -1013,16 +728,6 @@ type SQLPoolsClientResumeResponse struct {
 // SQLPoolsClientUpdateResponse contains the response from method SQLPoolsClient.BeginUpdate.
 type SQLPoolsClientUpdateResponse struct {
 	SQLPool
-}
-
-// SparkConfigurationClientGetResponse contains the response from method SparkConfigurationClient.Get.
-type SparkConfigurationClientGetResponse struct {
-	SparkConfigurationResource
-}
-
-// SparkConfigurationsClientListByWorkspaceResponse contains the response from method SparkConfigurationsClient.NewListByWorkspacePager.
-type SparkConfigurationsClientListByWorkspaceResponse struct {
-	SparkConfigurationListResponse
 }
 
 // WorkspaceAADAdminsClientCreateOrUpdateResponse contains the response from method WorkspaceAADAdminsClient.BeginCreateOrUpdate.

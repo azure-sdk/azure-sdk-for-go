@@ -26,55 +26,6 @@ type AADAdminProperties struct {
 	TenantID *string
 }
 
-// AttachedDatabaseConfiguration - Class representing an attached database configuration.
-type AttachedDatabaseConfiguration struct {
-	// Resource location.
-	Location *string
-
-	// The properties of the attached database configuration.
-	Properties *AttachedDatabaseConfigurationProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// AttachedDatabaseConfigurationListResult - The list attached database configurations operation response.
-type AttachedDatabaseConfigurationListResult struct {
-	// The list of attached database configurations.
-	Value []*AttachedDatabaseConfiguration
-}
-
-// AttachedDatabaseConfigurationProperties - Class representing the an attached database configuration properties of kind
-// specific.
-type AttachedDatabaseConfigurationProperties struct {
-	// REQUIRED; The name of the database which you would like to attach, use * if you want to follow all current and future databases.
-	DatabaseName *string
-
-	// REQUIRED; The default principals modification kind
-	DefaultPrincipalsModificationKind *DefaultPrincipalsModificationKind
-
-	// REQUIRED; The resource id of the kusto pool where the databases you would like to attach reside.
-	KustoPoolResourceID *string
-
-	// Table level sharing specifications
-	TableLevelSharingProperties *TableLevelSharingProperties
-
-	// READ-ONLY; The list of databases from the clusterResourceId which are currently attached to the kusto pool.
-	AttachedDatabaseNames []*string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-}
-
 // AutoPauseProperties - Auto-pausing properties of a Big Data pool powered by Apache Spark
 type AutoPauseProperties struct {
 	// Number of minutes of idle time before the Big Data pool is automatically paused.
@@ -184,21 +135,6 @@ type AzureADOnlyAuthenticationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AzureCapacity - Azure capacity definition.
-type AzureCapacity struct {
-	// REQUIRED; The default capacity that would be used.
-	Default *int32
-
-	// REQUIRED; Maximum allowed capacity.
-	Maximum *int32
-
-	// REQUIRED; Minimum allowed capacity.
-	Minimum *int32
-
-	// REQUIRED; Scale type.
-	ScaleType *AzureScaleType
-}
-
 // AzureEntityResource - The resource model definition for an Azure Resource Manager resource with an etag.
 type AzureEntityResource struct {
 	// READ-ONLY; Resource Etag.
@@ -212,30 +148,6 @@ type AzureEntityResource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// AzureResourceSKU - Azure resource SKU definition.
-type AzureResourceSKU struct {
-	// The number of instances of the cluster.
-	Capacity *AzureCapacity
-
-	// Resource Namespace and Type.
-	ResourceType *string
-
-	// The SKU details.
-	SKU *AzureSKU
-}
-
-// AzureSKU - Azure SKU definition.
-type AzureSKU struct {
-	// REQUIRED; SKU name.
-	Name *SKUName
-
-	// REQUIRED; SKU size.
-	Size *SKUSize
-
-	// The number of instances of the cluster.
-	Capacity *int32
 }
 
 // BigDataPoolPatchInfo - Properties patch for a Big Data pool
@@ -282,9 +194,6 @@ type BigDataPoolResourceProperties struct {
 	// Auto-scaling properties
 	AutoScale *AutoScaleProperties
 
-	// The cache size
-	CacheSize *int32
-
 	// List of custom libraries/packages associated with the spark pool.
 	CustomLibraries []*LibraryInfo
 
@@ -326,6 +235,9 @@ type BigDataPoolResourceProperties struct {
 
 	// The Apache Spark version.
 	SparkVersion *string
+
+	// READ-ONLY; The cache size
+	CacheSize *int32
 
 	// READ-ONLY; The time when the Big Data pool was created.
 	CreationDate *time.Time
@@ -387,83 +299,6 @@ type CheckNameAvailabilityResponse struct {
 
 	// Reason the workspace name is or is not available
 	Reason *string
-}
-
-// CheckNameResult - The result returned from a check name availability request.
-type CheckNameResult struct {
-	// Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.
-	Message *string
-
-	// The name that was checked.
-	Name *string
-
-	// Specifies a Boolean value that indicates if the name is available.
-	NameAvailable *bool
-
-	// Message providing the reason why the given name is invalid.
-	Reason *Reason
-}
-
-// ClusterPrincipalAssignment - Class representing a cluster principal assignment.
-type ClusterPrincipalAssignment struct {
-	// The cluster principal.
-	Properties *ClusterPrincipalProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// ClusterPrincipalAssignmentCheckNameRequest - A principal assignment check name availability request.
-type ClusterPrincipalAssignmentCheckNameRequest struct {
-	// REQUIRED; Principal Assignment resource name.
-	Name *string
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools/principalAssignments.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools/principalAssignments", any specified value is ignored.
-	Type *string
-}
-
-// ClusterPrincipalAssignmentListResult - The list Kusto cluster principal assignments operation response.
-type ClusterPrincipalAssignmentListResult struct {
-	// The list of Kusto cluster principal assignments.
-	Value []*ClusterPrincipalAssignment
-}
-
-// ClusterPrincipalProperties - A class representing cluster principal property.
-type ClusterPrincipalProperties struct {
-	// REQUIRED; The principal ID assigned to the cluster principal. It can be a user email, application ID, or security group
-	// name.
-	PrincipalID *string
-
-	// REQUIRED; Principal type.
-	PrincipalType *PrincipalType
-
-	// REQUIRED; Cluster principal role.
-	Role *ClusterPrincipalRole
-
-	// The tenant id of the principal
-	TenantID *string
-
-	// READ-ONLY; The service principal object id in AAD (Azure active directory)
-	AADObjectID *string
-
-	// READ-ONLY; The principal name
-	PrincipalName *string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The tenant name of the principal
-	TenantName *string
 }
 
 // CmdkeySetup - The custom setup of running cmdkey commands.
@@ -550,76 +385,6 @@ type CustomerManagedKeyDetails struct {
 
 	// READ-ONLY; The customer managed key status on the workspace
 	Status *string
-}
-
-// DataConnectionClassification provides polymorphic access to related types.
-// Call the interface's GetDataConnection() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *DataConnection, *EventGridDataConnection, *EventHubDataConnection, *IotHubDataConnection
-type DataConnectionClassification interface {
-	// GetDataConnection returns the DataConnection content of the underlying type.
-	GetDataConnection() *DataConnection
-}
-
-// DataConnection - Class representing a data connection.
-type DataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind
-
-	// Resource location.
-	Location *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type DataConnection.
-func (d *DataConnection) GetDataConnection() *DataConnection { return d }
-
-// DataConnectionCheckNameRequest - A data connection check name availability request.
-type DataConnectionCheckNameRequest struct {
-	// REQUIRED; Data Connection name.
-	Name *string
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools/databases/dataConnections.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools/databases/dataConnections", any specified value is ignored.
-	Type *string
-}
-
-// DataConnectionListResult - The list Kusto data connections operation response.
-type DataConnectionListResult struct {
-	// The list of Kusto data connections.
-	Value []DataConnectionClassification
-}
-
-// DataConnectionValidation - Class representing an data connection validation.
-type DataConnectionValidation struct {
-	// The name of the data connection.
-	DataConnectionName *string
-
-	// The data connection properties to validate.
-	Properties DataConnectionClassification
-}
-
-// DataConnectionValidationListResult - The list Kusto data connection validation result.
-type DataConnectionValidationListResult struct {
-	// The list of Kusto data connection validation errors.
-	Value []*DataConnectionValidationResult
-}
-
-// DataConnectionValidationResult - The result returned from a data connection validation request.
-type DataConnectionValidationResult struct {
-	// A message which indicates a problem in data connection validation.
-	ErrorMessage *string
 }
 
 // DataLakeStorageAccountDetails - Details of the data lake storage account associated with the workspace
@@ -798,123 +563,6 @@ type DataWarehouseUserActivities struct {
 type DataWarehouseUserActivitiesProperties struct {
 	// READ-ONLY; Count of running and suspended queries.
 	ActiveQueriesCount *int32
-}
-
-// DatabaseClassification provides polymorphic access to related types.
-// Call the interface's GetDatabase() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *Database, *ReadOnlyFollowingDatabase, *ReadWriteDatabase
-type DatabaseClassification interface {
-	// GetDatabase returns the Database content of the underlying type.
-	GetDatabase() *Database
-}
-
-// Database - Class representing a Kusto database.
-type Database struct {
-	// REQUIRED; Kind of the database
-	Kind *Kind
-
-	// Resource location.
-	Location *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDatabase implements the DatabaseClassification interface for type Database.
-func (d *Database) GetDatabase() *Database { return d }
-
-// DatabaseCheckNameRequest - The result returned from a database check name availability request.
-type DatabaseCheckNameRequest struct {
-	// REQUIRED; Resource name.
-	Name *string
-
-	// REQUIRED; The type of resource, for instance Microsoft.Synapse/workspaces/kustoPools/databases.
-	Type *Type
-}
-
-// DatabaseListResult - The list Kusto databases operation response.
-type DatabaseListResult struct {
-	// The list of Kusto databases.
-	Value []DatabaseClassification
-}
-
-// DatabasePrincipalAssignment - Class representing a database principal assignment.
-type DatabasePrincipalAssignment struct {
-	// The database principal.
-	Properties *DatabasePrincipalProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// DatabasePrincipalAssignmentCheckNameRequest - A principal assignment check name availability request.
-type DatabasePrincipalAssignmentCheckNameRequest struct {
-	// REQUIRED; Principal Assignment resource name.
-	Name *string
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools/databases/principalAssignments.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools/databases/principalAssignments", any specified value
-	// is ignored.
-	Type *string
-}
-
-// DatabasePrincipalAssignmentListResult - The list Kusto database principal assignments operation response.
-type DatabasePrincipalAssignmentListResult struct {
-	// The list of Kusto database principal assignments.
-	Value []*DatabasePrincipalAssignment
-}
-
-// DatabasePrincipalProperties - A class representing database principal property.
-type DatabasePrincipalProperties struct {
-	// REQUIRED; The principal ID assigned to the database principal. It can be a user email, application ID, or security group
-	// name.
-	PrincipalID *string
-
-	// REQUIRED; Principal type.
-	PrincipalType *PrincipalType
-
-	// REQUIRED; Database principal role.
-	Role *DatabasePrincipalRole
-
-	// The tenant id of the principal
-	TenantID *string
-
-	// READ-ONLY; The service principal object id in AAD (Azure active directory)
-	AADObjectID *string
-
-	// READ-ONLY; The principal name
-	PrincipalName *string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The tenant name of the principal
-	TenantName *string
-}
-
-// DatabaseStatistics - A class that contains database statistics information.
-type DatabaseStatistics struct {
-	// The database size - the total size of compressed data and index in bytes.
-	Size *float32
 }
 
 // DedicatedSQLminimalTLSSettings - Dedicated Sql Minimal Tls Settings Info
@@ -1110,138 +758,6 @@ type ErrorResponseAutoGenerated struct {
 
 	// READ-ONLY; The error target.
 	Target *string
-}
-
-// EventGridConnectionProperties - Class representing the Kusto event grid connection properties.
-type EventGridConnectionProperties struct {
-	// REQUIRED; The event hub consumer group.
-	ConsumerGroup *string
-
-	// REQUIRED; The resource ID where the event grid is configured to send events.
-	EventHubResourceID *string
-
-	// REQUIRED; The resource ID of the storage account where the data resides.
-	StorageAccountResourceID *string
-
-	// The name of blob storage event type to process.
-	BlobStorageEventType *BlobStorageEventType
-
-	// The data format of the message. Optionally the data format can be added to each message.
-	DataFormat *EventGridDataFormat
-
-	// A Boolean value that, if set to true, indicates that ingestion should ignore the first record of every file
-	IgnoreFirstRecord *bool
-
-	// The mapping rule to be used to ingest the data. Optionally the mapping information can be added to each message.
-	MappingRuleName *string
-
-	// The table where the data should be ingested. Optionally the table information can be added to each message.
-	TableName *string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-}
-
-// EventGridDataConnection - Class representing an Event Grid data connection.
-type EventGridDataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind
-
-	// Resource location.
-	Location *string
-
-	// The properties of the Event Grid data connection.
-	Properties *EventGridConnectionProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type EventGridDataConnection.
-func (e *EventGridDataConnection) GetDataConnection() *DataConnection {
-	return &DataConnection{
-		Location:   e.Location,
-		Kind:       e.Kind,
-		SystemData: e.SystemData,
-		ID:         e.ID,
-		Name:       e.Name,
-		Type:       e.Type,
-	}
-}
-
-// EventHubConnectionProperties - Class representing the Kusto event hub connection properties.
-type EventHubConnectionProperties struct {
-	// REQUIRED; The event hub consumer group.
-	ConsumerGroup *string
-
-	// REQUIRED; The resource ID of the event hub to be used to create a data connection.
-	EventHubResourceID *string
-
-	// The event hub messages compression type
-	Compression *Compression
-
-	// The data format of the message. Optionally the data format can be added to each message.
-	DataFormat *EventHubDataFormat
-
-	// System properties of the event hub
-	EventSystemProperties []*string
-
-	// The resource ID of a managed identity (system or user assigned) to be used to authenticate with event hub.
-	ManagedIdentityResourceID *string
-
-	// The mapping rule to be used to ingest the data. Optionally the mapping information can be added to each message.
-	MappingRuleName *string
-
-	// The table where the data should be ingested. Optionally the table information can be added to each message.
-	TableName *string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-}
-
-// EventHubDataConnection - Class representing an event hub data connection.
-type EventHubDataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind
-
-	// Resource location.
-	Location *string
-
-	// The Event Hub data connection properties to validate.
-	Properties *EventHubConnectionProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type EventHubDataConnection.
-func (e *EventHubDataConnection) GetDataConnection() *DataConnection {
-	return &DataConnection{
-		Location:   e.Location,
-		Kind:       e.Kind,
-		SystemData: e.SystemData,
-		ID:         e.ID,
-		Name:       e.Name,
-		Type:       e.Type,
-	}
 }
 
 // ExtendedSQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions contains the optional parameters for the ExtendedSQLPoolBlobAuditingPoliciesClient.CreateOrUpdate
@@ -1471,24 +987,6 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	StorageEndpoint *string
 }
 
-// FollowerDatabaseDefinition - A class representing follower database request.
-type FollowerDatabaseDefinition struct {
-	// REQUIRED; Resource name of the attached database configuration in the follower cluster.
-	AttachedDatabaseConfigurationName *string
-
-	// REQUIRED; Resource id of the cluster that follows a database owned by this cluster.
-	KustoPoolResourceID *string
-
-	// READ-ONLY; The database name owned by this cluster that was followed. * in case following all databases.
-	DatabaseName *string
-}
-
-// FollowerDatabaseListResult - The list Kusto database principals operation response.
-type FollowerDatabaseListResult struct {
-	// The list of follower database result.
-	Value []*FollowerDatabaseDefinition
-}
-
 // GeoBackupPolicy - A database geo backup policy.
 type GeoBackupPolicy struct {
 	// REQUIRED; The properties of the geo backup policy.
@@ -1523,22 +1021,6 @@ type GeoBackupPolicyProperties struct {
 
 	// READ-ONLY; The storage type of the geo backup policy.
 	StorageType *string
-}
-
-// GetClientIntegrationRuntimeEnableInteractivequeryOptions contains the optional parameters for the GetClient.IntegrationRuntimeEnableInteractivequery
-// method.
-type GetClientIntegrationRuntimeEnableInteractivequeryOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GetClientIntegrationRuntimeStartOptions contains the optional parameters for the GetClient.IntegrationRuntimeStart method.
-type GetClientIntegrationRuntimeStartOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GetClientIntegrationRuntimeStopOptions contains the optional parameters for the GetClient.IntegrationRuntimeStop method.
-type GetClientIntegrationRuntimeStopOptions struct {
-	// placeholder for future optional parameters
 }
 
 // GetSsisObjectMetadataRequest - The request payload of get SSIS object metadata.
@@ -1728,14 +1210,17 @@ type IntegrationRuntimeCustomSetupScriptProperties struct {
 	SasToken *SecureString
 }
 
+// IntegrationRuntimeCustomerVirtualNetwork - The definition and properties of virtual network to which Azure-SSIS integration
+// runtime will join.
+type IntegrationRuntimeCustomerVirtualNetwork struct {
+	// The ID of subnet to which Azure-SSIS integration runtime will join.
+	SubnetID *string
+}
+
 // IntegrationRuntimeDataFlowProperties - Data flow properties for managed integration runtime.
 type IntegrationRuntimeDataFlowProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
-
-	// Cluster will not be recycled and it will be used in next data flow activity run until TTL (time to live) is reached if
-	// this is set as false. Default is true.
-	Cleanup *bool
 
 	// Compute type of the cluster which will execute data flow job.
 	ComputeType *DataFlowComputeType
@@ -1757,21 +1242,6 @@ type IntegrationRuntimeDataProxyProperties struct {
 
 	// The staging linked service reference.
 	StagingLinkedService *EntityReference
-}
-
-// IntegrationRuntimeEnableinteractivequery - Integration Runtime Operation Status Properties
-type IntegrationRuntimeEnableinteractivequery struct {
-	// The operation error message.
-	Error *string
-
-	// The operation name.
-	Name *string
-
-	// The operation properties.
-	Properties any
-
-	// EnableInteractivequery status of Integrationruntimes.
-	Status *WorkspaceStatus
 }
 
 // IntegrationRuntimeListResponse - A list of integration runtime resources.
@@ -1869,21 +1339,6 @@ type IntegrationRuntimeObjectMetadataClientBeginRefreshOptions struct {
 type IntegrationRuntimeObjectMetadataClientListOptions struct {
 	// The parameters for getting a SSIS object metadata.
 	GetMetadataRequest *GetSsisObjectMetadataRequest
-}
-
-// IntegrationRuntimeOperationStatus - Integration Runtime Operation Status Properties
-type IntegrationRuntimeOperationStatus struct {
-	// The operation error message.
-	Error *string
-
-	// The operation name.
-	Name *string
-
-	// The operation properties.
-	Properties any
-
-	// status of Start Integrationruntimes.
-	Status *WorkspaceStatus
 }
 
 // IntegrationRuntimeOutboundNetworkDependenciesCategoryEndpoint - Azure-SSIS integration runtime outbound network dependency
@@ -2027,21 +1482,6 @@ type IntegrationRuntimeStatusResponse struct {
 	Name *string
 }
 
-// IntegrationRuntimeStopOperationStatus - Integration Runtime Operation Status Properties
-type IntegrationRuntimeStopOperationStatus struct {
-	// The operation error message.
-	Error *string
-
-	// The operation name.
-	Name *string
-
-	// The operation properties.
-	Properties any
-
-	// status of Start Integrationruntimes.
-	Status *WorkspaceStatus
-}
-
 // IntegrationRuntimeVNetProperties - VNet properties for managed integration runtime.
 type IntegrationRuntimeVNetProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
@@ -2134,69 +1574,6 @@ type IntegrationRuntimesClientUpgradeOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IotHubConnectionProperties - Class representing the Kusto Iot hub connection properties.
-type IotHubConnectionProperties struct {
-	// REQUIRED; The iot hub consumer group.
-	ConsumerGroup *string
-
-	// REQUIRED; The resource ID of the Iot hub to be used to create a data connection.
-	IotHubResourceID *string
-
-	// REQUIRED; The name of the share access policy
-	SharedAccessPolicyName *string
-
-	// The data format of the message. Optionally the data format can be added to each message.
-	DataFormat *IotHubDataFormat
-
-	// System properties of the iot hub
-	EventSystemProperties []*string
-
-	// The mapping rule to be used to ingest the data. Optionally the mapping information can be added to each message.
-	MappingRuleName *string
-
-	// The table where the data should be ingested. Optionally the table information can be added to each message.
-	TableName *string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-}
-
-// IotHubDataConnection - Class representing an iot hub data connection.
-type IotHubDataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind
-
-	// Resource location.
-	Location *string
-
-	// The Iot Hub data connection properties.
-	Properties *IotHubConnectionProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type IotHubDataConnection.
-func (i *IotHubDataConnection) GetDataConnection() *DataConnection {
-	return &DataConnection{
-		Location:   i.Location,
-		Kind:       i.Kind,
-		SystemData: i.SystemData,
-		ID:         i.ID,
-		Name:       i.Name,
-		Type:       i.Type,
-	}
-}
-
 // KekIdentityProperties - Key encryption key properties
 type KekIdentityProperties struct {
 	// Boolean specifying whether to use system assigned identity or not
@@ -2259,420 +1636,6 @@ type KeysClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// KustoOperationsClientListOptions contains the optional parameters for the KustoOperationsClient.NewListPager method.
-type KustoOperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPool - Class representing a Kusto kusto pool.
-type KustoPool struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string
-
-	// REQUIRED; The SKU of the kusto pool.
-	SKU *AzureSKU
-
-	// The kusto pool properties.
-	Properties *KustoPoolProperties
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
-	Etag *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientBeginDeleteOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.BeginDelete
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientGetOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.Get
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientListByKustoPoolOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.NewListByKustoPoolPager
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientListByKustoPoolOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolCheckNameRequest - The object sent for a kusto pool check name availability request.
-type KustoPoolCheckNameRequest struct {
-	// REQUIRED; Kusto Pool name.
-	Name *string
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools", any specified value is ignored.
-	Type *string
-}
-
-// KustoPoolChildResourceClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolChildResourceClient.CheckNameAvailability
-// method.
-type KustoPoolChildResourceClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDataConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolDataConnectionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientBeginDataConnectionValidationOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginDataConnectionValidation
-// method.
-type KustoPoolDataConnectionsClientBeginDataConnectionValidationOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientBeginDeleteOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginDelete
-// method.
-type KustoPoolDataConnectionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientBeginUpdateOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginUpdate
-// method.
-type KustoPoolDataConnectionsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolDataConnectionsClient.CheckNameAvailability
-// method.
-type KustoPoolDataConnectionsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDataConnectionsClientGetOptions contains the optional parameters for the KustoPoolDataConnectionsClient.Get method.
-type KustoPoolDataConnectionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDataConnectionsClientListByDatabaseOptions contains the optional parameters for the KustoPoolDataConnectionsClient.NewListByDatabasePager
-// method.
-type KustoPoolDataConnectionsClientListByDatabaseOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientBeginDeleteOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.BeginDelete
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.CheckNameAvailability
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientGetOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.Get
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientListOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.NewListPager
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasesClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDatabasesClient.BeginCreateOrUpdate
-// method.
-type KustoPoolDatabasesClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasesClientBeginDeleteOptions contains the optional parameters for the KustoPoolDatabasesClient.BeginDelete
-// method.
-type KustoPoolDatabasesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasesClientBeginUpdateOptions contains the optional parameters for the KustoPoolDatabasesClient.BeginUpdate
-// method.
-type KustoPoolDatabasesClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasesClientGetOptions contains the optional parameters for the KustoPoolDatabasesClient.Get method.
-type KustoPoolDatabasesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasesClientListByKustoPoolOptions contains the optional parameters for the KustoPoolDatabasesClient.NewListByKustoPoolPager
-// method.
-type KustoPoolDatabasesClientListByKustoPoolOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolListResult - The list Kusto pools operation response.
-type KustoPoolListResult struct {
-	// The list of Kusto pools.
-	Value []*KustoPool
-}
-
-// KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolPrincipalAssignmentsClientBeginDeleteOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.BeginDelete
-// method.
-type KustoPoolPrincipalAssignmentsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolPrincipalAssignmentsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.CheckNameAvailability
-// method.
-type KustoPoolPrincipalAssignmentsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolPrincipalAssignmentsClientGetOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.Get
-// method.
-type KustoPoolPrincipalAssignmentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolPrincipalAssignmentsClientListOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.NewListPager
-// method.
-type KustoPoolPrincipalAssignmentsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolPrivateLinkResources - Class representing a Private Link Resources.
-type KustoPoolPrivateLinkResources struct {
-	// The Private Link Resources.
-	Properties *PrivateLinkResourcesProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// KustoPoolPrivateLinkResourcesClientListOptions contains the optional parameters for the KustoPoolPrivateLinkResourcesClient.NewListPager
-// method.
-type KustoPoolPrivateLinkResourcesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolProperties - Class representing the Kusto pool properties.
-type KustoPoolProperties struct {
-	// A boolean value that indicates if the purge operations are enabled.
-	EnablePurge *bool
-
-	// A boolean value that indicates if the streaming ingest is enabled.
-	EnableStreamingIngest *bool
-
-	// Optimized auto scale definition.
-	OptimizedAutoscale *OptimizedAutoscale
-
-	// The workspace unique identifier.
-	WorkspaceUID *string
-
-	// READ-ONLY; The Kusto Pool data ingestion URI.
-	DataIngestionURI *string
-
-	// READ-ONLY; List of the Kusto Pool's language extensions.
-	LanguageExtensions *LanguageExtensionsList
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The state of the resource.
-	State *State
-
-	// READ-ONLY; The reason for the Kusto Pool's current state.
-	StateReason *string
-
-	// READ-ONLY; The Kusto Pool URI.
-	URI *string
-}
-
-// KustoPoolUpdate - Class representing an update to a Kusto kusto pool.
-type KustoPoolUpdate struct {
-	// The kusto pool properties.
-	Properties *KustoPoolProperties
-
-	// The SKU of the kusto pool.
-	SKU *AzureSKU
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// KustoPoolsClientBeginAddLanguageExtensionsOptions contains the optional parameters for the KustoPoolsClient.BeginAddLanguageExtensions
-// method.
-type KustoPoolsClientBeginAddLanguageExtensionsOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolsClientBeginCreateOrUpdateOptions struct {
-	// The ETag of the Kusto Pool. Omit this value to always overwrite the current Kusto Pool. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-	// Set to '*' to allow a new Kusto Pool to be created, but to prevent updating an existing Kusto Pool. Other values will result
-	// in a 412 Pre-condition Failed response.
-	IfNoneMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginDeleteOptions contains the optional parameters for the KustoPoolsClient.BeginDelete method.
-type KustoPoolsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginDetachFollowerDatabasesOptions contains the optional parameters for the KustoPoolsClient.BeginDetachFollowerDatabases
-// method.
-type KustoPoolsClientBeginDetachFollowerDatabasesOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginRemoveLanguageExtensionsOptions contains the optional parameters for the KustoPoolsClient.BeginRemoveLanguageExtensions
-// method.
-type KustoPoolsClientBeginRemoveLanguageExtensionsOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginStartOptions contains the optional parameters for the KustoPoolsClient.BeginStart method.
-type KustoPoolsClientBeginStartOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginStopOptions contains the optional parameters for the KustoPoolsClient.BeginStop method.
-type KustoPoolsClientBeginStopOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginUpdateOptions contains the optional parameters for the KustoPoolsClient.BeginUpdate method.
-type KustoPoolsClientBeginUpdateOptions struct {
-	// The ETag of the Kusto Pool. Omit this value to always overwrite the current Kusto Pool. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolsClient.CheckNameAvailability
-// method.
-type KustoPoolsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientGetOptions contains the optional parameters for the KustoPoolsClient.Get method.
-type KustoPoolsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListByWorkspaceOptions contains the optional parameters for the KustoPoolsClient.ListByWorkspace method.
-type KustoPoolsClientListByWorkspaceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListFollowerDatabasesOptions contains the optional parameters for the KustoPoolsClient.NewListFollowerDatabasesPager
-// method.
-type KustoPoolsClientListFollowerDatabasesOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListLanguageExtensionsOptions contains the optional parameters for the KustoPoolsClient.NewListLanguageExtensionsPager
-// method.
-type KustoPoolsClientListLanguageExtensionsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListSKUsByResourceOptions contains the optional parameters for the KustoPoolsClient.NewListSKUsByResourcePager
-// method.
-type KustoPoolsClientListSKUsByResourceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListSKUsOptions contains the optional parameters for the KustoPoolsClient.NewListSKUsPager method.
-type KustoPoolsClientListSKUsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// LanguageExtension - The language extension object.
-type LanguageExtension struct {
-	// The language extension name.
-	LanguageExtensionName *LanguageExtensionName
-}
-
-// LanguageExtensionsList - The list of language extension objects.
-type LanguageExtensionsList struct {
-	// The list of language extensions.
-	Value []*LanguageExtension
-}
-
 // LibrariesClientListByWorkspaceOptions contains the optional parameters for the LibrariesClient.NewListByWorkspacePager
 // method.
 type LibrariesClientListByWorkspaceOptions struct {
@@ -2698,14 +1661,14 @@ type LibraryInfo struct {
 	// Type of the library.
 	Type *string
 
-	// The last update time of the library.
-	UploadedTimestamp *time.Time
-
 	// READ-ONLY; Creator Id of the library/package.
 	CreatorID *string
 
 	// READ-ONLY; Provisioning status of the library/package.
 	ProvisioningStatus *string
+
+	// READ-ONLY; The last update time of the library.
+	UploadedTimestamp *time.Time
 }
 
 // LibraryListResponse - A list of Library resources.
@@ -2826,12 +1789,6 @@ func (l *LinkedIntegrationRuntimeType) GetLinkedIntegrationRuntimeType() *Linked
 	return l
 }
 
-// ListResourceSKUsResult - List of available SKUs for a Kusto Pool.
-type ListResourceSKUsResult struct {
-	// The collection of available SKUs for an existing resource.
-	Value []*AzureResourceSKU
-}
-
 // ListSQLPoolSecurityAlertPolicies - A list of SQL pool security alert policies.
 type ListSQLPoolSecurityAlertPolicies struct {
 	// READ-ONLY; Link to retrieve next page of results.
@@ -2839,6 +1796,15 @@ type ListSQLPoolSecurityAlertPolicies struct {
 
 	// READ-ONLY; Array of results.
 	Value []*SQLPoolSecurityAlertPolicy
+}
+
+// ListUsagesResult - The List Usages operation response.
+type ListUsagesResult struct {
+	// REQUIRED; The list of resource usages.
+	Value []*Usage
+
+	// READ-ONLY; URL to get the next set of results (if there are any).
+	NextLink *string
 }
 
 // MaintenanceWindowOptions - Maintenance window options.
@@ -2975,7 +1941,7 @@ type ManagedIntegrationRuntime struct {
 	ManagedVirtualNetwork *ManagedIntegrationRuntimeManagedVirtualNetworkReference
 
 	// READ-ONLY; Integration runtime state, only valid for managed dedicated integration runtime.
-	State *IntegrationRuntimeState
+	ProvisioningState *IntegrationRuntimeState
 }
 
 // GetIntegrationRuntime implements the IntegrationRuntimeClassification interface for type ManagedIntegrationRuntime.
@@ -3010,7 +1976,7 @@ type ManagedIntegrationRuntimeManagedVirtualNetworkReference struct {
 	// The id of the managed virtual network.
 	ID *string
 
-	// The reference name of the managed virtual network.
+	// The reference name of the managed virtual network
 	ReferenceName *string
 
 	// The type of the managed virtual network.
@@ -3104,6 +2070,9 @@ type ManagedIntegrationRuntimeTypeProperties struct {
 	// The compute resource for managed integration runtime.
 	ComputeProperties *IntegrationRuntimeComputeProperties
 
+	// The name of virtual network to which Azure-SSIS integration runtime will join
+	CustomerVirtualNetwork *IntegrationRuntimeCustomerVirtualNetwork
+
 	// SSIS properties for managed integration runtime.
 	SsisProperties *IntegrationRuntimeSsisProperties
 }
@@ -3142,46 +2111,6 @@ type MetadataSyncConfigProperties struct {
 
 	// The Sync Interval in minutes.
 	SyncIntervalInMinutes *int32
-}
-
-// Operation - A REST API operation
-type Operation struct {
-	// The object that describes the operation.
-	Display *OperationDisplay
-
-	// This is of the format {provider}/{resource}/{operation}.
-	Name *string
-
-	// The intended executor of the operation.
-	Origin *string
-
-	// Properties of the operation.
-	Properties any
-}
-
-// OperationDisplay - The object that describes the operation.
-type OperationDisplay struct {
-	// The friendly name of the operation.
-	Description *string
-
-	// For example: read, write, delete.
-	Operation *string
-
-	// Friendly name of the resource provider.
-	Provider *string
-
-	// The resource type on which the operation is performed.
-	Resource *string
-}
-
-// OperationListResult - Result of the request to list REST API operations. It contains a list of operations and a URL nextLink
-// to get the next set of results.
-type OperationListResult struct {
-	// The list of operations supported by the resource provider.
-	Value []*Operation
-
-	// READ-ONLY; The URL to get the next set of operation list results if there are any.
-	NextLink *string
 }
 
 // OperationMetaLogSpecification - What is this?
@@ -3304,24 +2233,21 @@ type OperationsClientGetLocationHeaderResultOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
-type OperationsClientListOptions struct {
+// OperationsClientGetSubscriptionQuotaAndUsageOptions contains the optional parameters for the OperationsClient.GetSubscriptionQuotaAndUsage
+// method.
+type OperationsClientGetSubscriptionQuotaAndUsageOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OptimizedAutoscale - A class that contains the optimized auto scale definition.
-type OptimizedAutoscale struct {
-	// REQUIRED; A boolean value that indicate if the optimized autoscale feature is enabled or not.
-	IsEnabled *bool
+// OperationsClientGetWorkspaceQuotaAndUsageOptions contains the optional parameters for the OperationsClient.GetWorkspaceQuotaAndUsage
+// method.
+type OperationsClientGetWorkspaceQuotaAndUsageOptions struct {
+	// placeholder for future optional parameters
+}
 
-	// REQUIRED; Maximum allowed instances count.
-	Maximum *int32
-
-	// REQUIRED; Minimum allowed instances count.
-	Minimum *int32
-
-	// REQUIRED; The version of the template defined, for instance 1.
-	Version *int32
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // PrivateEndpoint - Private endpoint details
@@ -3560,12 +2486,6 @@ type PrivateLinkResourceProperties struct {
 	RequiredZoneNames []*string
 }
 
-// PrivateLinkResources - The list Kusto Private Link Resources operation response.
-type PrivateLinkResources struct {
-	// The list of Kusto Private Link Resources.
-	Value []*KustoPoolPrivateLinkResources
-}
-
 // PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get method.
 type PrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -3575,21 +2495,6 @@ type PrivateLinkResourcesClientGetOptions struct {
 // method.
 type PrivateLinkResourcesClientListOptions struct {
 	// placeholder for future optional parameters
-}
-
-// PrivateLinkResourcesProperties - Private Link Resources Properties.
-type PrivateLinkResourcesProperties struct {
-	// READ-ONLY; The Private link resources GroupId
-	GroupID *string
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The private link resource required member names.
-	RequiredMembers []*string
-
-	// READ-ONLY; The private link resource required zone names.
-	RequiredZoneNames []*string
 }
 
 // PrivateLinkServiceConnectionState - Connection state details of the private endpoint
@@ -3657,120 +2562,6 @@ type QueryStatistic struct {
 
 	// READ-ONLY; The id of the query
 	QueryID *string
-}
-
-// ReadOnlyFollowingDatabase - Class representing a read only following database.
-type ReadOnlyFollowingDatabase struct {
-	// REQUIRED; Kind of the database
-	Kind *Kind
-
-	// Resource location.
-	Location *string
-
-	// The database properties.
-	Properties *ReadOnlyFollowingDatabaseProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDatabase implements the DatabaseClassification interface for type ReadOnlyFollowingDatabase.
-func (r *ReadOnlyFollowingDatabase) GetDatabase() *Database {
-	return &Database{
-		Location:   r.Location,
-		Kind:       r.Kind,
-		SystemData: r.SystemData,
-		ID:         r.ID,
-		Name:       r.Name,
-		Type:       r.Type,
-	}
-}
-
-// ReadOnlyFollowingDatabaseProperties - Class representing the Kusto database properties.
-type ReadOnlyFollowingDatabaseProperties struct {
-	// The time the data should be kept in cache for fast queries in TimeSpan.
-	HotCachePeriod *string
-
-	// READ-ONLY; The name of the attached database configuration cluster
-	AttachedDatabaseConfigurationName *string
-
-	// READ-ONLY; The name of the leader cluster
-	LeaderClusterResourceID *string
-
-	// READ-ONLY; The principals modification kind of the database
-	PrincipalsModificationKind *PrincipalsModificationKind
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The time the data should be kept before it stops being accessible to queries in TimeSpan.
-	SoftDeletePeriod *string
-
-	// READ-ONLY; The statistics of the database.
-	Statistics *DatabaseStatistics
-}
-
-// ReadWriteDatabase - Class representing a read write database.
-type ReadWriteDatabase struct {
-	// REQUIRED; Kind of the database
-	Kind *Kind
-
-	// Resource location.
-	Location *string
-
-	// The database properties.
-	Properties *ReadWriteDatabaseProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// GetDatabase implements the DatabaseClassification interface for type ReadWriteDatabase.
-func (r *ReadWriteDatabase) GetDatabase() *Database {
-	return &Database{
-		Location:   r.Location,
-		Kind:       r.Kind,
-		SystemData: r.SystemData,
-		ID:         r.ID,
-		Name:       r.Name,
-		Type:       r.Type,
-	}
-}
-
-// ReadWriteDatabaseProperties - Class representing the Kusto database properties.
-type ReadWriteDatabaseProperties struct {
-	// The time the data should be kept in cache for fast queries in TimeSpan.
-	HotCachePeriod *string
-
-	// The time the data should be kept before it stops being accessible to queries in TimeSpan.
-	SoftDeletePeriod *string
-
-	// READ-ONLY; Indicates whether the database is followed.
-	IsFollowed *bool
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The statistics of the database.
-	Statistics *DatabaseStatistics
 }
 
 // RecommendedSensitivityLabelUpdate - A recommended sensitivity label update operation.
@@ -4053,42 +2844,6 @@ type SKU struct {
 
 	// The service tier
 	Tier *string
-}
-
-// SKUDescription - The Kusto SKU description of given resource type
-type SKUDescription struct {
-	// READ-ONLY; Locations and zones
-	LocationInfo []*SKULocationInfoItem
-
-	// READ-ONLY; The set of locations that the SKU is available
-	Locations []*string
-
-	// READ-ONLY; The name of the SKU
-	Name *string
-
-	// READ-ONLY; The resource type
-	ResourceType *string
-
-	// READ-ONLY; The restrictions because of which SKU cannot be used
-	Restrictions []any
-
-	// READ-ONLY; The size of the SKU
-	Size *string
-}
-
-// SKUDescriptionList - The list of the SKU descriptions
-type SKUDescriptionList struct {
-	// READ-ONLY; SKU descriptions
-	Value []*SKUDescription
-}
-
-// SKULocationInfoItem - The locations and zones info for SKU.
-type SKULocationInfoItem struct {
-	// REQUIRED; The available location of the SKU.
-	Location *string
-
-	// The available zone of the SKU.
-	Zones []*string
 }
 
 // SQLPool - A SQL Analytics pool
@@ -5207,14 +3962,8 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 	// The list of linked integration runtimes that are created to share with this integration runtime.
 	Links []*LinkedIntegrationRuntime
 
-	// The newer versions on download center.
-	NewerVersions []*string
-
 	// The list of nodes for this integration runtime.
 	Nodes []*SelfHostedIntegrationRuntimeNode
-
-	// The service region of the integration runtime
-	ServiceRegion *string
 
 	// READ-ONLY; Whether Self-hosted integration runtime auto update has been turned on.
 	AutoUpdate *IntegrationRuntimeAutoUpdate
@@ -5587,7 +4336,7 @@ type ServerVulnerabilityAssessmentProperties struct {
 	StorageContainerPath *string
 
 	// The recurring scans settings
-	RecurringScans *VulnerabilityAssessmentRecurringScansProperties
+	RecurringScans *VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated
 
 	// Specifies the identifier key of the storage account for vulnerability assessment scan results. If 'StorageContainerSasKey'
 	// isn't specified, storageAccountAccessKey is required.
@@ -5612,68 +4361,6 @@ type SparkConfigProperties struct {
 
 	// READ-ONLY; The last update time of the spark config properties file.
 	Time *time.Time
-}
-
-// SparkConfigurationClientGetOptions contains the optional parameters for the SparkConfigurationClient.Get method.
-type SparkConfigurationClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SparkConfigurationInfo - SparkConfiguration Artifact information
-type SparkConfigurationInfo struct {
-	// REQUIRED; SparkConfiguration configs.
-	Configs map[string]*string
-
-	// Annotations for SparkConfiguration.
-	Annotations []*string
-
-	// SparkConfiguration merge configs.
-	ConfigMergeRule map[string]*string
-
-	// The timestamp of resource creation.
-	Created *time.Time
-
-	// The identity that created the resource.
-	CreatedBy *string
-
-	// Description about the SparkConfiguration.
-	Description *string
-
-	// additional Notes.
-	Notes *string
-}
-
-// SparkConfigurationListResponse - A list of SparkConfiguration resources.
-type SparkConfigurationListResponse struct {
-	// REQUIRED; List of SparkConfiguration.
-	Value []*SparkConfigurationResource
-
-	// The link to the next page of results, if any remaining results exist.
-	NextLink *string
-}
-
-// SparkConfigurationResource - SparkConfiguration response details
-type SparkConfigurationResource struct {
-	// REQUIRED; SparkConfiguration properties.
-	Properties *SparkConfigurationInfo
-
-	// READ-ONLY; Resource Etag.
-	Etag *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// SparkConfigurationsClientListByWorkspaceOptions contains the optional parameters for the SparkConfigurationsClient.NewListByWorkspacePager
-// method.
-type SparkConfigurationsClientListByWorkspaceOptions struct {
-	// placeholder for future optional parameters
 }
 
 // SsisEnvironment - Ssis environment.
@@ -5950,48 +4637,6 @@ type SubResource struct {
 	Type *string
 }
 
-// SystemData - Metadata pertaining to creation and last modification of the resource.
-type SystemData struct {
-	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time
-
-	// The identity that created the resource.
-	CreatedBy *string
-
-	// The type of identity that created the resource.
-	CreatedByType *CreatedByType
-
-	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time
-
-	// The identity that last modified the resource.
-	LastModifiedBy *string
-
-	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType
-}
-
-// TableLevelSharingProperties - Tables that will be included and excluded in the follower database
-type TableLevelSharingProperties struct {
-	// List of external tables exclude from the follower database
-	ExternalTablesToExclude []*string
-
-	// List of external tables to include in the follower database
-	ExternalTablesToInclude []*string
-
-	// List of materialized views exclude from the follower database
-	MaterializedViewsToExclude []*string
-
-	// List of materialized views to include in the follower database
-	MaterializedViewsToInclude []*string
-
-	// List of tables to exclude from the follower database
-	TablesToExclude []*string
-
-	// List of tables to include in the follower database
-	TablesToInclude []*string
-}
-
 // TopQueries - A database query.
 type TopQueries struct {
 	// READ-ONLY; The function that is used to aggregate each query's metrics.
@@ -6094,6 +4739,39 @@ type UpdateIntegrationRuntimeRequest struct {
 	UpdateDelayOffset *string
 }
 
+// Usage - Resource usage and limit.
+type Usage struct {
+	// Fully qualified ID.
+	ID *string
+
+	// Optional.The time that the metric's value will reset.
+	NextResetTime *time.Time
+
+	// Optional. The quota period that determines the length of time between value resets.
+	QuotaPeriod *string
+
+	// READ-ONLY; The current usage of the resource.
+	CurrentValue *float64
+
+	// READ-ONLY; The maximum permitted usage of the resource.
+	Limit *float64
+
+	// READ-ONLY; The name of the type of usage.
+	Name *UsageName
+
+	// READ-ONLY; The unit of usage measurement.
+	Unit *string
+}
+
+// UsageName - Name of the usage metrics
+type UsageName struct {
+	// The localized name of the usage metric.
+	LocalizedValue *string
+
+	// The name of the usage metric.
+	Value *string
+}
+
 // UserAssignedManagedIdentity - User Assigned Managed Identity
 type UserAssignedManagedIdentity struct {
 	// READ-ONLY; The client ID.
@@ -6111,6 +4789,18 @@ type VirtualNetworkProfile struct {
 
 // VulnerabilityAssessmentRecurringScansProperties - Properties of a Vulnerability Assessment recurring scans.
 type VulnerabilityAssessmentRecurringScansProperties struct {
+	// Specifies that the schedule scan notification will be is sent to the subscription administrators.
+	EmailSubscriptionAdmins *bool
+
+	// Specifies an array of e-mail addresses to which the scan notification is sent.
+	Emails []*string
+
+	// Recurring scans state.
+	IsEnabled *bool
+}
+
+// VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated - Properties of a Vulnerability Assessment recurring scans.
+type VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated struct {
 	// Specifies that the schedule scan notification will be is sent to the subscription administrators.
 	EmailSubscriptionAdmins *bool
 
@@ -6547,9 +5237,6 @@ type WorkspaceProperties struct {
 	// Enable or Disable AzureADOnlyAuthentication on All Workspace subresource
 	AzureADOnlyAuthentication *bool
 
-	// Connectivity endpoints
-	ConnectivityEndpoints map[string]*string
-
 	// Initial workspace AAD admin properties for a CSP subscription
 	CspWorkspaceAdminProperties *CspWorkspaceAdminProperties
 
@@ -6599,8 +5286,11 @@ type WorkspaceProperties struct {
 	// READ-ONLY; The ADLA resource ID.
 	AdlaResourceID *string
 
+	// READ-ONLY; Connectivity endpoints
+	ConnectivityEndpoints map[string]*string
+
 	// READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]any
+	ExtraProperties any
 
 	// READ-ONLY; Resource provisioning state
 	ProvisioningState *string

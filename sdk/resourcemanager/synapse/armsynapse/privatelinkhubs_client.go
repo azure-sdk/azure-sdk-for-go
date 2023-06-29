@@ -47,7 +47,7 @@ func NewPrivateLinkHubsClient(subscriptionID string, credential azcore.TokenCred
 // CreateOrUpdate - Creates or updates a privateLinkHub
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateLinkHubName - Name of the privateLinkHub
 //   - privateLinkHubInfo - PrivateLinkHub create or update request properties
@@ -88,7 +88,7 @@ func (client *PrivateLinkHubsClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, privateLinkHubInfo)
@@ -106,7 +106,7 @@ func (client *PrivateLinkHubsClient) createOrUpdateHandleResponse(resp *http.Res
 // BeginDelete - Deletes a privateLinkHub
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateLinkHubName - Name of the privateLinkHub
 //   - options - PrivateLinkHubsClientBeginDeleteOptions contains the optional parameters for the PrivateLinkHubsClient.BeginDelete
@@ -126,7 +126,7 @@ func (client *PrivateLinkHubsClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Deletes a privateLinkHub
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *PrivateLinkHubsClient) deleteOperation(ctx context.Context, resourceGroupName string, privateLinkHubName string, options *PrivateLinkHubsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, privateLinkHubName, options)
 	if err != nil {
@@ -162,7 +162,7 @@ func (client *PrivateLinkHubsClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,7 +171,7 @@ func (client *PrivateLinkHubsClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets a privateLinkHub
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateLinkHubName - Name of the privateLinkHub
 //   - options - PrivateLinkHubsClientGetOptions contains the optional parameters for the PrivateLinkHubsClient.Get method.
@@ -210,7 +210,7 @@ func (client *PrivateLinkHubsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -227,7 +227,7 @@ func (client *PrivateLinkHubsClient) getHandleResponse(resp *http.Response) (Pri
 
 // NewListPager - Returns a list of privateLinkHubs in a subscription
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - options - PrivateLinkHubsClientListOptions contains the optional parameters for the PrivateLinkHubsClient.NewListPager
 //     method.
 func (client *PrivateLinkHubsClient) NewListPager(options *PrivateLinkHubsClientListOptions) *runtime.Pager[PrivateLinkHubsClientListResponse] {
@@ -270,7 +270,7 @@ func (client *PrivateLinkHubsClient) listCreateRequest(ctx context.Context, opti
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -287,7 +287,7 @@ func (client *PrivateLinkHubsClient) listHandleResponse(resp *http.Response) (Pr
 
 // NewListByResourceGroupPager - Returns a list of privateLinkHubs in a resource group
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - PrivateLinkHubsClientListByResourceGroupOptions contains the optional parameters for the PrivateLinkHubsClient.NewListByResourceGroupPager
 //     method.
@@ -335,7 +335,7 @@ func (client *PrivateLinkHubsClient) listByResourceGroupCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -353,7 +353,7 @@ func (client *PrivateLinkHubsClient) listByResourceGroupHandleResponse(resp *htt
 // Update - Updates a privateLinkHub
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateLinkHubName - Name of the privateLinkHub
 //   - privateLinkHubPatchInfo - PrivateLinkHub patch request properties
@@ -393,7 +393,7 @@ func (client *PrivateLinkHubsClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, privateLinkHubPatchInfo)
