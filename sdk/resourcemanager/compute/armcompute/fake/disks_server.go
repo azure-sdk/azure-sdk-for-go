@@ -40,6 +40,10 @@ type DisksServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginGrantAccess func(ctx context.Context, resourceGroupName string, diskName string, grantAccessData armcompute.GrantAccessData, options *armcompute.DisksClientBeginGrantAccessOptions) (resp azfake.PollerResponder[armcompute.DisksClientGrantAccessResponse], errResp azfake.ErrorResponder)
 
+	// GrantAccessOnVMSSVMInstance is the fake for method DisksClient.GrantAccessOnVMSSVMInstance
+	// HTTP status codes to indicate success: http.StatusOK
+	GrantAccessOnVMSSVMInstance func(ctx context.Context, resourceGroupName string, vmssName string, diskName string, grantAccessData armcompute.GrantAccessData, options *armcompute.DisksClientGrantAccessOnVMSSVMInstanceOptions) (resp azfake.Responder[armcompute.DisksClientGrantAccessOnVMSSVMInstanceResponse], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method DisksClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armcompute.DisksClientListOptions) (resp azfake.PagerResponder[armcompute.DisksClientListResponse])
@@ -97,6 +101,8 @@ func (d *DisksServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = d.dispatchGet(req)
 	case "DisksClient.BeginGrantAccess":
 		resp, err = d.dispatchBeginGrantAccess(req)
+	case "DisksClient.GrantAccessOnVMSSVMInstance":
+		resp, err = d.dispatchGrantAccessOnVMSSVMInstance(req)
 	case "DisksClient.NewListPager":
 		resp, err = d.dispatchNewListPager(req)
 	case "DisksClient.NewListByResourceGroupPager":
@@ -277,6 +283,47 @@ func (d *DisksServerTransport) dispatchBeginGrantAccess(req *http.Request) (*htt
 		d.beginGrantAccess = nil
 	}
 
+	return resp, nil
+}
+
+func (d *DisksServerTransport) dispatchGrantAccessOnVMSSVMInstance(req *http.Request) (*http.Response, error) {
+	if d.srv.GrantAccessOnVMSSVMInstance == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GrantAccessOnVMSSVMInstance not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/virtualMachineScaleSets/(?P<vmssName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/disks/(?P<diskName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/beginGetAccess`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armcompute.GrantAccessData](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	vmssNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("vmssName")])
+	if err != nil {
+		return nil, err
+	}
+	diskNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("diskName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.GrantAccessOnVMSSVMInstance(req.Context(), resourceGroupNameUnescaped, vmssNameUnescaped, diskNameUnescaped, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AccessURI, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

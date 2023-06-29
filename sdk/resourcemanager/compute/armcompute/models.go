@@ -2463,6 +2463,12 @@ type DisksClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// DisksClientGrantAccessOnVMSSVMInstanceOptions contains the optional parameters for the DisksClient.GrantAccessOnVMSSVMInstance
+// method.
+type DisksClientGrantAccessOnVMSSVMInstanceOptions struct {
+	// placeholder for future optional parameters
+}
+
 // DisksClientListByResourceGroupOptions contains the optional parameters for the DisksClient.NewListByResourceGroupPager
 // method.
 type DisksClientListByResourceGroupOptions struct {
@@ -3450,6 +3456,9 @@ type GrantAccessData struct {
 
 	// REQUIRED; Time duration in seconds until the SAS access expires.
 	DurationInSeconds *int32
+
+	// Used to specify the file format when making request for SAS on a VHDX file format snapshot
+	FileFormat *FileFormat
 
 	// Set this flag to true to get additional SAS for VM guest state
 	GetSecureVMGuestStateSAS *bool

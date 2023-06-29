@@ -1,10 +1,13 @@
 # Release History
 
-## 5.1.0-beta.1 (2023-06-12)
-
+## 5.1.0 (2023-06-29)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `AccessLevelReadForDiskInspection` added to enum type `AccessLevel`
+- New enum type `FileFormat` with values `FileFormatVHD`, `FileFormatVHDX`
+- New function `*DisksClient.GrantAccessOnVMSSVMInstance(context.Context, string, string, string, GrantAccessData, *DisksClientGrantAccessOnVMSSVMInstanceOptions) (DisksClientGrantAccessOnVMSSVMInstanceResponse, error)`
+- New field `FileFormat` in struct `GrantAccessData`
+
 
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes

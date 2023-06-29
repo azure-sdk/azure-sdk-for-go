@@ -466,6 +466,11 @@ type DisksClientGetResponse struct {
 	Disk
 }
 
+// DisksClientGrantAccessOnVMSSVMInstanceResponse contains the response from method DisksClient.GrantAccessOnVMSSVMInstance.
+type DisksClientGrantAccessOnVMSSVMInstanceResponse struct {
+	AccessURI
+}
+
 // DisksClientGrantAccessResponse contains the response from method DisksClient.BeginGrantAccess.
 type DisksClientGrantAccessResponse struct {
 	AccessURI
