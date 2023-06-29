@@ -24,130 +24,35 @@ import (
 // ApplicationClient contains the methods for the Application group.
 // Don't use this type directly, use NewApplicationClient() instead.
 type ApplicationClient struct {
-	internal       *arm.Client
-	subscriptionID string
+	internal *arm.Client
 }
 
 // NewApplicationClient creates a new instance of ApplicationClient with the specified values.
-//   - subscriptionID - Azure subscription ID
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewApplicationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationClient, error) {
+func NewApplicationClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationClient, error) {
 	cl, err := arm.NewClient(moduleName+".ApplicationClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &ApplicationClient{
-		subscriptionID: subscriptionID,
-		internal:       cl,
+		internal: cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or update a security application on the given subscription.
+// Get - Retrieves details of a specific application
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01-preview
-//   - applicationID - The security Application key - unique key for the standard application
-//   - application - Application over a subscription scope
-//   - options - ApplicationClientCreateOrUpdateOptions contains the optional parameters for the ApplicationClient.CreateOrUpdate
-//     method.
-func (client *ApplicationClient) CreateOrUpdate(ctx context.Context, applicationID string, application Application, options *ApplicationClientCreateOrUpdateOptions) (ApplicationClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, applicationID, application, options)
-	if err != nil {
-		return ApplicationClientCreateOrUpdateResponse{}, err
-	}
-	resp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return ApplicationClientCreateOrUpdateResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
-		return ApplicationClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.createOrUpdateHandleResponse(resp)
-}
-
-// createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ApplicationClient) createOrUpdateCreateRequest(ctx context.Context, applicationID string, application Application, options *ApplicationClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/applications/{applicationId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if applicationID == "" {
-		return nil, errors.New("parameter applicationID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{applicationId}", url.PathEscape(applicationID))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, application)
-}
-
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ApplicationClient) createOrUpdateHandleResponse(resp *http.Response) (ApplicationClientCreateOrUpdateResponse, error) {
-	result := ApplicationClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Application); err != nil {
-		return ApplicationClientCreateOrUpdateResponse{}, err
-	}
-	return result, nil
-}
-
-// Delete - Delete an Application over a given scope
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2022-07-01-preview
-//   - applicationID - The security Application key - unique key for the standard application
-//   - options - ApplicationClientDeleteOptions contains the optional parameters for the ApplicationClient.Delete method.
-func (client *ApplicationClient) Delete(ctx context.Context, applicationID string, options *ApplicationClientDeleteOptions) (ApplicationClientDeleteResponse, error) {
-	req, err := client.deleteCreateRequest(ctx, applicationID, options)
-	if err != nil {
-		return ApplicationClientDeleteResponse{}, err
-	}
-	resp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return ApplicationClientDeleteResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return ApplicationClientDeleteResponse{}, runtime.NewResponseError(resp)
-	}
-	return ApplicationClientDeleteResponse{}, nil
-}
-
-// deleteCreateRequest creates the Delete request.
-func (client *ApplicationClient) deleteCreateRequest(ctx context.Context, applicationID string, options *ApplicationClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/applications/{applicationId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if applicationID == "" {
-		return nil, errors.New("parameter applicationID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{applicationId}", url.PathEscape(applicationID))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	return req, nil
-}
-
-// Get - Get a specific application for the requested scope by applicationId
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2022-07-01-preview
-//   - applicationID - The security Application key - unique key for the standard application
+// Generated from API version 2023-07-01-preview
+//   - scope - The scope of the application. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{resourceName}'),
+//     subscription (format: 'subscriptions/{subscriptionId}'), or
+//     security connector (format: 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Security/securityConnectors/{resourceName})'
+//   - ruleID - The rule Key - unique key for the rule (GUID)
+//   - applicationID - The rule Key - unique key for the application (GUID)
 //   - options - ApplicationClientGetOptions contains the optional parameters for the ApplicationClient.Get method.
-func (client *ApplicationClient) Get(ctx context.Context, applicationID string, options *ApplicationClientGetOptions) (ApplicationClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, applicationID, options)
+func (client *ApplicationClient) Get(ctx context.Context, scope string, ruleID string, applicationID string, options *ApplicationClientGetOptions) (ApplicationClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, scope, ruleID, applicationID, options)
 	if err != nil {
 		return ApplicationClientGetResponse{}, err
 	}
@@ -162,12 +67,16 @@ func (client *ApplicationClient) Get(ctx context.Context, applicationID string, 
 }
 
 // getCreateRequest creates the Get request.
-func (client *ApplicationClient) getCreateRequest(ctx context.Context, applicationID string, options *ApplicationClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/applications/{applicationId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+func (client *ApplicationClient) getCreateRequest(ctx context.Context, scope string, ruleID string, applicationID string, options *ApplicationClientGetOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.Security/applicationMappingRule/{ruleId}/applications/{applicationId}"
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
+	if ruleID == "" {
+		return nil, errors.New("parameter ruleID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
 	if applicationID == "" {
 		return nil, errors.New("parameter applicationID cannot be empty")
 	}
@@ -177,7 +86,7 @@ func (client *ApplicationClient) getCreateRequest(ctx context.Context, applicati
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,6 +97,197 @@ func (client *ApplicationClient) getHandleResponse(resp *http.Response) (Applica
 	result := ApplicationClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Application); err != nil {
 		return ApplicationClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListPager - Get a list of all relevant applications over a scope
+//
+// Generated from API version 2023-07-01-preview
+//   - scope - The scope of the application. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{resourceName}'),
+//     subscription (format: 'subscriptions/{subscriptionId}'), or
+//     security connector (format: 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Security/securityConnectors/{resourceName})'
+//   - options - ApplicationClientListOptions contains the optional parameters for the ApplicationClient.NewListPager method.
+func (client *ApplicationClient) NewListPager(scope string, options *ApplicationClientListOptions) *runtime.Pager[ApplicationClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ApplicationClientListResponse]{
+		More: func(page ApplicationClientListResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ApplicationClientListResponse) (ApplicationClientListResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCreateRequest(ctx, scope, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ApplicationClientListResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ApplicationClientListResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ApplicationClientListResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listHandleResponse(resp)
+		},
+	})
+}
+
+// listCreateRequest creates the List request.
+func (client *ApplicationClient) listCreateRequest(ctx context.Context, scope string, options *ApplicationClientListOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.Security/applications"
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-07-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listHandleResponse handles the List response.
+func (client *ApplicationClient) listHandleResponse(resp *http.Response) (ApplicationClientListResponse, error) {
+	result := ApplicationClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ApplicationList); err != nil {
+		return ApplicationClientListResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListByRuleIDPager - Get a list of all relevant applications over a rule Id.
+//
+// Generated from API version 2023-07-01-preview
+//   - scope - The scope of the application. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{resourceName}'),
+//     subscription (format: 'subscriptions/{subscriptionId}'), or
+//     security connector (format: 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Security/securityConnectors/{resourceName})'
+//   - ruleID - The rule Key - unique key for the rule (GUID)
+//   - options - ApplicationClientListByRuleIDOptions contains the optional parameters for the ApplicationClient.NewListByRuleIDPager
+//     method.
+func (client *ApplicationClient) NewListByRuleIDPager(scope string, ruleID string, options *ApplicationClientListByRuleIDOptions) *runtime.Pager[ApplicationClientListByRuleIDResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ApplicationClientListByRuleIDResponse]{
+		More: func(page ApplicationClientListByRuleIDResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ApplicationClientListByRuleIDResponse) (ApplicationClientListByRuleIDResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByRuleIDCreateRequest(ctx, scope, ruleID, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ApplicationClientListByRuleIDResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ApplicationClientListByRuleIDResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ApplicationClientListByRuleIDResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByRuleIDHandleResponse(resp)
+		},
+	})
+}
+
+// listByRuleIDCreateRequest creates the ListByRuleID request.
+func (client *ApplicationClient) listByRuleIDCreateRequest(ctx context.Context, scope string, ruleID string, options *ApplicationClientListByRuleIDOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.Security/applicationMappingRule/{ruleId}/applications"
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
+	if ruleID == "" {
+		return nil, errors.New("parameter ruleID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-07-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByRuleIDHandleResponse handles the ListByRuleID response.
+func (client *ApplicationClient) listByRuleIDHandleResponse(resp *http.Response) (ApplicationClientListByRuleIDResponse, error) {
+	result := ApplicationClientListByRuleIDResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ApplicationList); err != nil {
+		return ApplicationClientListByRuleIDResponse{}, err
+	}
+	return result, nil
+}
+
+// Update - Updates a single application
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-07-01-preview
+//   - scope - The scope of the application. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{resourceName}'),
+//     subscription (format: 'subscriptions/{subscriptionId}'), or
+//     security connector (format: 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Security/securityConnectors/{resourceName})'
+//   - ruleID - The rule Key - unique key for the rule (GUID)
+//   - applicationID - The rule Key - unique key for the application (GUID)
+//   - application - The application resource
+//   - options - ApplicationClientUpdateOptions contains the optional parameters for the ApplicationClient.Update method.
+func (client *ApplicationClient) Update(ctx context.Context, scope string, ruleID string, applicationID string, application Application, options *ApplicationClientUpdateOptions) (ApplicationClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, scope, ruleID, applicationID, application, options)
+	if err != nil {
+		return ApplicationClientUpdateResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ApplicationClientUpdateResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+		return ApplicationClientUpdateResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.updateHandleResponse(resp)
+}
+
+// updateCreateRequest creates the Update request.
+func (client *ApplicationClient) updateCreateRequest(ctx context.Context, scope string, ruleID string, applicationID string, application Application, options *ApplicationClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.Security/applicationMappingRule/{ruleId}/applications/{applicationId}"
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
+	if ruleID == "" {
+		return nil, errors.New("parameter ruleID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	if applicationID == "" {
+		return nil, errors.New("parameter applicationID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{applicationId}", url.PathEscape(applicationID))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-07-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, application)
+}
+
+// updateHandleResponse handles the Update response.
+func (client *ApplicationClient) updateHandleResponse(resp *http.Response) (ApplicationClientUpdateResponse, error) {
+	result := ApplicationClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Application); err != nil {
+		return ApplicationClientUpdateResponse{}, err
 	}
 	return result, nil
 }
