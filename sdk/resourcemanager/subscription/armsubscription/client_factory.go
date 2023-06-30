@@ -51,6 +51,11 @@ func (c *ClientFactory) NewClient() *Client {
 	return subClient
 }
 
+func (c *ClientFactory) NewOperationClient() *OperationClient {
+	subClient, _ := NewOperationClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient

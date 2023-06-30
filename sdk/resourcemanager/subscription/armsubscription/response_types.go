@@ -59,6 +59,16 @@ type ClientRenameResponse struct {
 	RenamedSubscriptionID
 }
 
+// OperationClientGetResponse contains the response from method OperationClient.Get.
+type OperationClientGetResponse struct {
+	CreationResult
+	// Location contains the information returned from the Location header response.
+	Location *string
+
+	// RetryAfter contains the information returned from the Retry-After header response.
+	RetryAfter *int64
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationListResult

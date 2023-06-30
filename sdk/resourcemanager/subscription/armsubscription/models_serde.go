@@ -84,6 +84,7 @@ func (a AcceptOwnershipStatusResponse) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "acceptOwnershipState", a.AcceptOwnershipState)
 	populate(objectMap, "billingOwner", a.BillingOwner)
 	populate(objectMap, "displayName", a.DisplayName)
+	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "subscriptionId", a.SubscriptionID)
 	populate(objectMap, "subscriptionTenantId", a.SubscriptionTenantID)
 	populate(objectMap, "tags", a.Tags)
@@ -107,6 +108,9 @@ func (a *AcceptOwnershipStatusResponse) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "displayName":
 			err = unpopulate(val, "DisplayName", &a.DisplayName)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
 			delete(rawMsg, key)
 		case "subscriptionId":
 			err = unpopulate(val, "SubscriptionID", &a.SubscriptionID)
@@ -362,6 +366,33 @@ func (c *CanceledSubscriptionID) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "subscriptionId":
 			err = unpopulate(val, "SubscriptionID", &c.SubscriptionID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CreationResult.
+func (c CreationResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "subscriptionLink", c.SubscriptionLink)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CreationResult.
+func (c *CreationResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "subscriptionLink":
+			err = unpopulate(val, "SubscriptionLink", &c.SubscriptionLink)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1025,6 +1056,8 @@ func (s Subscription) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "state", s.State)
 	populate(objectMap, "subscriptionId", s.SubscriptionID)
 	populate(objectMap, "subscriptionPolicies", s.SubscriptionPolicies)
+	populate(objectMap, "tags", s.Tags)
+	populate(objectMap, "tenantId", s.TenantID)
 	return json.Marshal(objectMap)
 }
 
@@ -1054,6 +1087,12 @@ func (s *Subscription) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "subscriptionPolicies":
 			err = unpopulate(val, "SubscriptionPolicies", &s.SubscriptionPolicies)
+			delete(rawMsg, key)
+		case "tags":
+			err = unpopulate(val, "Tags", &s.Tags)
+			delete(rawMsg, key)
+		case "tenantId":
+			err = unpopulate(val, "TenantID", &s.TenantID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1113,8 +1152,15 @@ func (s *SystemData) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type TenantIDDescription.
 func (t TenantIDDescription) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "country", t.Country)
+	populate(objectMap, "countryCode", t.CountryCode)
+	populate(objectMap, "defaultDomain", t.DefaultDomain)
+	populate(objectMap, "displayName", t.DisplayName)
+	populate(objectMap, "domains", t.Domains)
 	populate(objectMap, "id", t.ID)
+	populate(objectMap, "tenantCategory", t.TenantCategory)
 	populate(objectMap, "tenantId", t.TenantID)
+	populate(objectMap, "tenantType", t.TenantType)
 	return json.Marshal(objectMap)
 }
 
@@ -1127,11 +1173,32 @@ func (t *TenantIDDescription) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "country":
+			err = unpopulate(val, "Country", &t.Country)
+			delete(rawMsg, key)
+		case "countryCode":
+			err = unpopulate(val, "CountryCode", &t.CountryCode)
+			delete(rawMsg, key)
+		case "defaultDomain":
+			err = unpopulate(val, "DefaultDomain", &t.DefaultDomain)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, "DisplayName", &t.DisplayName)
+			delete(rawMsg, key)
+		case "domains":
+			err = unpopulate(val, "Domains", &t.Domains)
+			delete(rawMsg, key)
 		case "id":
 			err = unpopulate(val, "ID", &t.ID)
 			delete(rawMsg, key)
+		case "tenantCategory":
+			err = unpopulate(val, "TenantCategory", &t.TenantCategory)
+			delete(rawMsg, key)
 		case "tenantId":
 			err = unpopulate(val, "TenantID", &t.TenantID)
+			delete(rawMsg, key)
+		case "tenantType":
+			err = unpopulate(val, "TenantType", &t.TenantType)
 			delete(rawMsg, key)
 		}
 		if err != nil {

@@ -1,5 +1,18 @@
 # Release History
 
+## 1.2.0 (2023-06-30)
+### Features Added
+
+- New enum type `Provisioning` with values `ProvisioningAccepted`, `ProvisioningPending`, `ProvisioningSucceeded`
+- New function `*ClientFactory.NewOperationClient() *OperationClient`
+- New function `NewOperationClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationClient, error)`
+- New function `*OperationClient.Get(context.Context, string, *OperationClientGetOptions) (OperationClientGetResponse, error)`
+- New struct `CreationResult`
+- New field `ProvisioningState` in struct `AcceptOwnershipStatusResponse`
+- New field `Tags`, `TenantID` in struct `Subscription`
+- New field `Country`, `CountryCode`, `DefaultDomain`, `DisplayName`, `Domains`, `TenantCategory`, `TenantType` in struct `TenantIDDescription`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
