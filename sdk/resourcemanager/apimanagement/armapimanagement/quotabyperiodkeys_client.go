@@ -29,8 +29,7 @@ type QuotaByPeriodKeysClient struct {
 }
 
 // NewQuotaByPeriodKeysClient creates a new instance of QuotaByPeriodKeysClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewQuotaByPeriodKeysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QuotaByPeriodKeysClient, error) {
@@ -49,8 +48,8 @@ func NewQuotaByPeriodKeysClient(subscriptionID string, credential azcore.TokenCr
 // instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - quotaCounterKey - Quota counter key identifier.This is the result of expression defined in counter-key attribute of the
 //     quota-by-key policy.For Example, if you specify counter-key="boo" in the policy, then it’s
@@ -91,16 +90,13 @@ func (client *QuotaByPeriodKeysClient) getCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter quotaPeriodKey cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{quotaPeriodKey}", url.PathEscape(quotaPeriodKey))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -118,8 +114,8 @@ func (client *QuotaByPeriodKeysClient) getHandleResponse(resp *http.Response) (Q
 // Update - Updates an existing quota counter value in the specified service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - quotaCounterKey - Quota counter key identifier.This is the result of expression defined in counter-key attribute of the
 //     quota-by-key policy.For Example, if you specify counter-key="boo" in the policy, then it’s
@@ -162,16 +158,13 @@ func (client *QuotaByPeriodKeysClient) updateCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter quotaPeriodKey cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{quotaPeriodKey}", url.PathEscape(quotaPeriodKey))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

@@ -29,8 +29,7 @@ type ContentTypeClient struct {
 }
 
 // NewContentTypeClient creates a new instance of ContentTypeClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContentTypeClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContentTypeClient, error) {
@@ -50,14 +49,15 @@ func NewContentTypeClient(subscriptionID string, credential azcore.TokenCredenti
 // prefix. Built-in content types can't be modified.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
+//   - parameters - Create or update parameters.
 //   - options - ContentTypeClientCreateOrUpdateOptions contains the optional parameters for the ContentTypeClient.CreateOrUpdate
 //     method.
-func (client *ContentTypeClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, options *ContentTypeClientCreateOrUpdateOptions) (ContentTypeClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, contentTypeID, options)
+func (client *ContentTypeClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, parameters ContentTypeContract, options *ContentTypeClientCreateOrUpdateOptions) (ContentTypeClientCreateOrUpdateResponse, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, contentTypeID, parameters, options)
 	if err != nil {
 		return ContentTypeClientCreateOrUpdateResponse{}, err
 	}
@@ -72,7 +72,7 @@ func (client *ContentTypeClient) CreateOrUpdate(ctx context.Context, resourceGro
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ContentTypeClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, options *ContentTypeClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ContentTypeClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, parameters ContentTypeContract, options *ContentTypeClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -86,22 +86,19 @@ func (client *ContentTypeClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, errors.New("parameter contentTypeID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{contentTypeId}", url.PathEscape(contentTypeID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
+	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
@@ -121,8 +118,8 @@ func (client *ContentTypeClient) createOrUpdateHandleResponse(resp *http.Respons
 // c- prefix) can't be removed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -158,16 +155,13 @@ func (client *ContentTypeClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter contentTypeID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{contentTypeId}", url.PathEscape(contentTypeID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -178,8 +172,8 @@ func (client *ContentTypeClient) deleteCreateRequest(ctx context.Context, resour
 // rules, and constraints.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - options - ContentTypeClientGetOptions contains the optional parameters for the ContentTypeClient.Get method.
@@ -213,16 +207,13 @@ func (client *ContentTypeClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter contentTypeID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{contentTypeId}", url.PathEscape(contentTypeID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -243,8 +234,8 @@ func (client *ContentTypeClient) getHandleResponse(resp *http.Response) (Content
 // NewListByServicePager - Lists the developer portal's content types. Content types describe content items' properties, validation
 // rules, and constraints.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - ContentTypeClientListByServiceOptions contains the optional parameters for the ContentTypeClient.NewListByServicePager
 //     method.
@@ -287,16 +278,13 @@ func (client *ContentTypeClient) listByServiceCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

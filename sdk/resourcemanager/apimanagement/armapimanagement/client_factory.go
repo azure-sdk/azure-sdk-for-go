@@ -24,8 +24,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -66,6 +65,16 @@ func (c *ClientFactory) NewAPIOperationPolicyClient() *APIOperationPolicyClient 
 
 func (c *ClientFactory) NewTagClient() *TagClient {
 	subClient, _ := NewTagClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGraphQLAPIResolverClient() *GraphQLAPIResolverClient {
+	subClient, _ := NewGraphQLAPIResolverClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGraphQLAPIResolverPolicyClient() *GraphQLAPIResolverPolicyClient {
+	subClient, _ := NewGraphQLAPIResolverPolicyClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -114,6 +123,16 @@ func (c *ClientFactory) NewOperationClient() *OperationClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewAPIWikiClient() *APIWikiClient {
+	subClient, _ := NewAPIWikiClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAPIWikisClient() *APIWikisClient {
+	subClient, _ := NewAPIWikisClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewAPIExportClient() *APIExportClient {
 	subClient, _ := NewAPIExportClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -121,6 +140,26 @@ func (c *ClientFactory) NewAPIExportClient() *APIExportClient {
 
 func (c *ClientFactory) NewAPIVersionSetClient() *APIVersionSetClient {
 	subClient, _ := NewAPIVersionSetClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationProviderClient() *AuthorizationProviderClient {
+	subClient, _ := NewAuthorizationProviderClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationClient() *AuthorizationClient {
+	subClient, _ := NewAuthorizationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationLoginLinksClient() *AuthorizationLoginLinksClient {
+	subClient, _ := NewAuthorizationLoginLinksClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationAccessPolicyClient() *AuthorizationAccessPolicyClient {
+	subClient, _ := NewAuthorizationAccessPolicyClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -181,6 +220,11 @@ func (c *ClientFactory) NewServiceClient() *ServiceClient {
 
 func (c *ClientFactory) NewDiagnosticClient() *DiagnosticClient {
 	subClient, _ := NewDiagnosticClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDocumentationClient() *DocumentationClient {
+	subClient, _ := NewDocumentationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -279,6 +323,16 @@ func (c *ClientFactory) NewPolicyDescriptionClient() *PolicyDescriptionClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewPolicyFragmentClient() *PolicyFragmentClient {
+	subClient, _ := NewPolicyFragmentClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPortalConfigClient() *PortalConfigClient {
+	subClient, _ := NewPortalConfigClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewPortalRevisionClient() *PortalRevisionClient {
 	subClient, _ := NewPortalRevisionClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -334,6 +388,26 @@ func (c *ClientFactory) NewProductPolicyClient() *ProductPolicyClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewProductWikiClient() *ProductWikiClient {
+	subClient, _ := NewProductWikiClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductWikisClient() *ProductWikisClient {
+	subClient, _ := NewProductWikisClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductAPILinkClient() *ProductAPILinkClient {
+	subClient, _ := NewProductAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductGroupLinkClient() *ProductGroupLinkClient {
+	subClient, _ := NewProductGroupLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewQuotaByCounterKeysClient() *QuotaByCounterKeysClient {
 	subClient, _ := NewQuotaByCounterKeysClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -379,6 +453,21 @@ func (c *ClientFactory) NewTagResourceClient() *TagResourceClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewTagAPILinkClient() *TagAPILinkClient {
+	subClient, _ := NewTagAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewTagOperationLinkClient() *TagOperationLinkClient {
+	subClient, _ := NewTagOperationLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewTagProductLinkClient() *TagProductLinkClient {
+	subClient, _ := NewTagProductLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewTenantAccessClient() *TenantAccessClient {
 	subClient, _ := NewTenantAccessClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -416,5 +505,145 @@ func (c *ClientFactory) NewUserIdentitiesClient() *UserIdentitiesClient {
 
 func (c *ClientFactory) NewUserConfirmationPasswordClient() *UserConfirmationPasswordClient {
 	subClient, _ := NewUserConfirmationPasswordClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceClient() *WorkspaceClient {
+	subClient, _ := NewWorkspaceClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspacePolicyClient() *WorkspacePolicyClient {
+	subClient, _ := NewWorkspacePolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceNamedValueClient() *WorkspaceNamedValueClient {
+	subClient, _ := NewWorkspaceNamedValueClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceGlobalSchemaClient() *WorkspaceGlobalSchemaClient {
+	subClient, _ := NewWorkspaceGlobalSchemaClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceNotificationClient() *WorkspaceNotificationClient {
+	subClient, _ := NewWorkspaceNotificationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceNotificationRecipientUserClient() *WorkspaceNotificationRecipientUserClient {
+	subClient, _ := NewWorkspaceNotificationRecipientUserClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceNotificationRecipientEmailClient() *WorkspaceNotificationRecipientEmailClient {
+	subClient, _ := NewWorkspaceNotificationRecipientEmailClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspacePolicyFragmentClient() *WorkspacePolicyFragmentClient {
+	subClient, _ := NewWorkspacePolicyFragmentClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceGroupClient() *WorkspaceGroupClient {
+	subClient, _ := NewWorkspaceGroupClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceGroupUserClient() *WorkspaceGroupUserClient {
+	subClient, _ := NewWorkspaceGroupUserClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceSubscriptionClient() *WorkspaceSubscriptionClient {
+	subClient, _ := NewWorkspaceSubscriptionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIVersionSetClient() *WorkspaceAPIVersionSetClient {
+	subClient, _ := NewWorkspaceAPIVersionSetClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIClient() *WorkspaceAPIClient {
+	subClient, _ := NewWorkspaceAPIClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIRevisionClient() *WorkspaceAPIRevisionClient {
+	subClient, _ := NewWorkspaceAPIRevisionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIReleaseClient() *WorkspaceAPIReleaseClient {
+	subClient, _ := NewWorkspaceAPIReleaseClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIOperationClient() *WorkspaceAPIOperationClient {
+	subClient, _ := NewWorkspaceAPIOperationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIOperationPolicyClient() *WorkspaceAPIOperationPolicyClient {
+	subClient, _ := NewWorkspaceAPIOperationPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIPolicyClient() *WorkspaceAPIPolicyClient {
+	subClient, _ := NewWorkspaceAPIPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPISchemaClient() *WorkspaceAPISchemaClient {
+	subClient, _ := NewWorkspaceAPISchemaClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceProductClient() *WorkspaceProductClient {
+	subClient, _ := NewWorkspaceProductClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceProductAPILinkClient() *WorkspaceProductAPILinkClient {
+	subClient, _ := NewWorkspaceProductAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceProductGroupLinkClient() *WorkspaceProductGroupLinkClient {
+	subClient, _ := NewWorkspaceProductGroupLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceProductPolicyClient() *WorkspaceProductPolicyClient {
+	subClient, _ := NewWorkspaceProductPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceTagClient() *WorkspaceTagClient {
+	subClient, _ := NewWorkspaceTagClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceTagAPILinkClient() *WorkspaceTagAPILinkClient {
+	subClient, _ := NewWorkspaceTagAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceTagOperationLinkClient() *WorkspaceTagOperationLinkClient {
+	subClient, _ := NewWorkspaceTagOperationLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceTagProductLinkClient() *WorkspaceTagProductLinkClient {
+	subClient, _ := NewWorkspaceTagProductLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewWorkspaceAPIExportClient() *WorkspaceAPIExportClient {
+	subClient, _ := NewWorkspaceAPIExportClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

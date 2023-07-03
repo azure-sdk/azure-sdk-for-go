@@ -30,8 +30,7 @@ type APISchemaClient struct {
 }
 
 // NewAPISchemaClient creates a new instance of APISchemaClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAPISchemaClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APISchemaClient, error) {
@@ -49,8 +48,8 @@ func NewAPISchemaClient(subscriptionID string, credential azcore.TokenCredential
 // BeginCreateOrUpdate - Creates or updates schema configuration for the API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -75,7 +74,7 @@ func (client *APISchemaClient) BeginCreateOrUpdate(ctx context.Context, resource
 // CreateOrUpdate - Creates or updates schema configuration for the API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
+// Generated from API version 2023-05-01-preview
 func (client *APISchemaClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiID string, schemaID string, parameters SchemaContract, options *APISchemaClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, apiID, schemaID, parameters, options)
 	if err != nil {
@@ -110,16 +109,13 @@ func (client *APISchemaClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter schemaID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{schemaId}", url.PathEscape(schemaID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -131,8 +127,8 @@ func (client *APISchemaClient) createOrUpdateCreateRequest(ctx context.Context, 
 // Delete - Deletes the schema configuration at the Api.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -174,9 +170,6 @@ func (client *APISchemaClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter schemaID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{schemaId}", url.PathEscape(schemaID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -186,7 +179,7 @@ func (client *APISchemaClient) deleteCreateRequest(ctx context.Context, resource
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -196,8 +189,8 @@ func (client *APISchemaClient) deleteCreateRequest(ctx context.Context, resource
 // Get - Get the schema configuration at the API level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -237,16 +230,13 @@ func (client *APISchemaClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter schemaID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{schemaId}", url.PathEscape(schemaID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,8 +256,8 @@ func (client *APISchemaClient) getHandleResponse(resp *http.Response) (APISchema
 
 // GetEntityTag - Gets the entity state (Etag) version of the schema specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -307,16 +297,13 @@ func (client *APISchemaClient) getEntityTagCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter schemaID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{schemaId}", url.PathEscape(schemaID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -334,8 +321,8 @@ func (client *APISchemaClient) getEntityTagHandleResponse(resp *http.Response) (
 
 // NewListByAPIPager - Get the schema configuration at the API level.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -383,9 +370,6 @@ func (client *APISchemaClient) listByAPICreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter apiID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{apiId}", url.PathEscape(apiID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -401,7 +385,7 @@ func (client *APISchemaClient) listByAPICreateRequest(ctx context.Context, resou
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
