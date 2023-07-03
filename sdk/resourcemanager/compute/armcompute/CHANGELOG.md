@@ -1,10 +1,13 @@
 # Release History
 
-## 5.1.0-beta.1 (2023-06-12)
-
+## 5.1.0 (2023-07-03)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New enum type `FileFormat` with values `FileFormatVHD`, `FileFormatVHDX`
+- New function `*GalleryImageVersionsClient.GetLatest(context.Context, string, string, string, *GalleryImageVersionsClientGetLatestOptions) (GalleryImageVersionsClientGetLatestResponse, error)`
+- New struct `LatestVersion`
+- New field `FileFormat` in struct `GrantAccessData`
+
 
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes

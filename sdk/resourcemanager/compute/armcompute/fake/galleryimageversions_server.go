@@ -36,6 +36,10 @@ type GalleryImageVersionsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, galleryImageVersionName string, options *armcompute.GalleryImageVersionsClientGetOptions) (resp azfake.Responder[armcompute.GalleryImageVersionsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// GetLatest is the fake for method GalleryImageVersionsClient.GetLatest
+	// HTTP status codes to indicate success: http.StatusOK
+	GetLatest func(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, options *armcompute.GalleryImageVersionsClientGetLatestOptions) (resp azfake.Responder[armcompute.GalleryImageVersionsClientGetLatestResponse], errResp azfake.ErrorResponder)
+
 	// NewListByGalleryImagePager is the fake for method GalleryImageVersionsClient.NewListByGalleryImagePager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByGalleryImagePager func(resourceGroupName string, galleryName string, galleryImageName string, options *armcompute.GalleryImageVersionsClientListByGalleryImageOptions) (resp azfake.PagerResponder[armcompute.GalleryImageVersionsClientListByGalleryImageResponse])
@@ -80,6 +84,8 @@ func (g *GalleryImageVersionsServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = g.dispatchBeginDelete(req)
 	case "GalleryImageVersionsClient.Get":
 		resp, err = g.dispatchGet(req)
+	case "GalleryImageVersionsClient.GetLatest":
+		resp, err = g.dispatchGetLatest(req)
 	case "GalleryImageVersionsClient.NewListByGalleryImagePager":
 		resp, err = g.dispatchNewListByGalleryImagePager(req)
 	case "GalleryImageVersionsClient.BeginUpdate":
@@ -244,6 +250,43 @@ func (g *GalleryImageVersionsServerTransport) dispatchGet(req *http.Request) (*h
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GalleryImageVersion, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (g *GalleryImageVersionsServerTransport) dispatchGetLatest(req *http.Request) (*http.Response, error) {
+	if g.srv.GetLatest == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetLatest not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/galleries/(?P<galleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/images/(?P<galleryImageName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versionNames/latest`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	galleryNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
+	if err != nil {
+		return nil, err
+	}
+	galleryImageNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("galleryImageName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := g.srv.GetLatest(req.Context(), resourceGroupNameUnescaped, galleryNameUnescaped, galleryImageNameUnescaped, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).LatestVersion, req)
 	if err != nil {
 		return nil, err
 	}
