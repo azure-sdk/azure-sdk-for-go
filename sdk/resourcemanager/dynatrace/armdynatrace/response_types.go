@@ -19,9 +19,14 @@ type MonitorsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// MonitorsClientGetAccountCredentialsResponse contains the response from method MonitorsClient.GetAccountCredentials.
-type MonitorsClientGetAccountCredentialsResponse struct {
-	AccountInfoSecure
+// MonitorsClientGetMarketplaceSaaSResourceDetailsResponse contains the response from method MonitorsClient.GetMarketplaceSaaSResourceDetails.
+type MonitorsClientGetMarketplaceSaaSResourceDetailsResponse struct {
+	MarketplaceSaaSResourceDetailsResponse
+}
+
+// MonitorsClientGetMetricStatusResponse contains the response from method MonitorsClient.GetMetricStatus.
+type MonitorsClientGetMetricStatusResponse struct {
+	MetricsStatusResponse
 }
 
 // MonitorsClientGetResponse contains the response from method MonitorsClient.Get.
@@ -112,9 +117,4 @@ type TagRulesClientGetResponse struct {
 // TagRulesClientListResponse contains the response from method TagRulesClient.NewListPager.
 type TagRulesClientListResponse struct {
 	TagRuleListResult
-}
-
-// TagRulesClientUpdateResponse contains the response from method TagRulesClient.Update.
-type TagRulesClientUpdateResponse struct {
-	TagRule
 }
