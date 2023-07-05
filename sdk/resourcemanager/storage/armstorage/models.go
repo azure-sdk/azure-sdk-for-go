@@ -94,6 +94,62 @@ type AccountCreateParameters struct {
 	Tags map[string]*string
 }
 
+// AccountIPv4Endpoints - The URIs that are used to perform a retrieval of a public blob, queue, table, web or dfs object
+// via an IPv4 endpoint.
+type AccountIPv4Endpoints struct {
+	// Gets the internet routing storage endpoints
+	InternetEndpoints *AccountInternetEndpoints
+
+	// Gets the microsoft routing storage endpoints.
+	MicrosoftEndpoints *AccountMicrosoftEndpoints
+
+	// READ-ONLY; Gets the blob endpoint.
+	Blob *string
+
+	// READ-ONLY; Gets the dfs endpoint.
+	Dfs *string
+
+	// READ-ONLY; Gets the file endpoint.
+	File *string
+
+	// READ-ONLY; Gets the queue endpoint.
+	Queue *string
+
+	// READ-ONLY; Gets the table endpoint.
+	Table *string
+
+	// READ-ONLY; Gets the web endpoint.
+	Web *string
+}
+
+// AccountIPv6Endpoints - The URIs that are used to perform a retrieval of a public blob, queue, table, web or dfs object
+// via an IPv6 endpoint.
+type AccountIPv6Endpoints struct {
+	// Gets the internet routing storage endpoints
+	InternetEndpoints *AccountInternetEndpoints
+
+	// Gets the microsoft routing storage endpoints.
+	MicrosoftEndpoints *AccountMicrosoftEndpoints
+
+	// READ-ONLY; Gets the blob endpoint.
+	Blob *string
+
+	// READ-ONLY; Gets the dfs endpoint.
+	Dfs *string
+
+	// READ-ONLY; Gets the file endpoint.
+	File *string
+
+	// READ-ONLY; Gets the queue endpoint.
+	Queue *string
+
+	// READ-ONLY; Gets the table endpoint.
+	Table *string
+
+	// READ-ONLY; Gets the web endpoint.
+	Web *string
+}
+
 // AccountImmutabilityPolicyProperties - This defines account-level immutability policy properties.
 type AccountImmutabilityPolicyProperties struct {
 	// This property can only be changed for disabled and unlocked time-based retention policies. When enabled, new blocks can
@@ -209,6 +265,9 @@ type AccountProperties struct {
 	// A boolean flag which indicates whether the default authentication is OAuth or not. The default interpretation is false
 	// for this property.
 	DefaultToOAuthAuthentication *bool
+
+	// Maintains information about the Internet protocol opted by the user.
+	DualStackEndpointPreference *DualStackEndpointPreference
 
 	// Allows https traffic only to storage service if sets to true.
 	EnableHTTPSTrafficOnly *bool
@@ -352,6 +411,9 @@ type AccountPropertiesCreateParameters struct {
 	// for this property.
 	DefaultToOAuthAuthentication *bool
 
+	// Maintains information about the Internet protocol opted by the user.
+	DualStackEndpointPreference *DualStackEndpointPreference
+
 	// Allows https traffic only to storage service if sets to true. The default value is true since API version 2019-04-01.
 	EnableHTTPSTrafficOnly *bool
 
@@ -434,6 +496,9 @@ type AccountPropertiesUpdateParameters struct {
 	// A boolean flag which indicates whether the default authentication is OAuth or not. The default interpretation is false
 	// for this property.
 	DefaultToOAuthAuthentication *bool
+
+	// Maintains information about the Internet protocol opted by the user.
+	DualStackEndpointPreference *DualStackEndpointPreference
 
 	// Allows https traffic only to storage service if sets to true.
 	EnableHTTPSTrafficOnly *bool
@@ -1308,6 +1373,19 @@ type Dimension struct {
 	Name *string
 }
 
+// DualStackEndpointPreference - Dual-stack endpoint preference defines the type of network, either dualstack/ipv4/ipv6 endpoints
+// are going to be published.
+type DualStackEndpointPreference struct {
+	// A boolean flag which indicates whether dual-stack storage endpoints are to be published.
+	DefaultDualStackEndpoints *bool
+
+	// A boolean flag which indicates whether IPv4 storage endpoints are to be published.
+	PublishIPv4Endpoint *bool
+
+	// A boolean flag which indicates whether IPv6 storage endpoints are to be published.
+	PublishIPv6Endpoint *bool
+}
+
 // Encryption - The encryption settings on the storage account.
 type Encryption struct {
 	// The identity to be used with service-side encryption at rest.
@@ -1457,6 +1535,12 @@ type EncryptionServices struct {
 
 // Endpoints - The URIs that are used to perform a retrieval of a public blob, queue, table, web or dfs object.
 type Endpoints struct {
+	// Gets the ipv4 storage endpoints.
+	IPv4Endpoints *AccountIPv4Endpoints
+
+	// Gets the ipv6 storage endpoints.
+	IPv6Endpoints *AccountIPv6Endpoints
+
 	// Gets the internet routing storage endpoints
 	InternetEndpoints *AccountInternetEndpoints
 
@@ -1744,7 +1828,7 @@ type GeoReplicationStats struct {
 
 // IPRule - IP rule with specific IP or IP range in CIDR format.
 type IPRule struct {
-	// REQUIRED; Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed.
+	// REQUIRED; Specifies the IP or IP range in CIDR format. Only IPv4 or IPv6 address is allowed.
 	IPAddressOrRange *string
 
 	// The action of IP ACL rule.
@@ -2374,8 +2458,11 @@ type NetworkRuleSet struct {
 	// of those traffics.
 	Bypass *Bypass
 
-	// Sets the IP ACL rules
+	// Sets the IPv4 ACL rules.
 	IPRules []*IPRule
+
+	// Sets the IPv6 ACL rules.
+	IPv6Rules []*IPRule
 
 	// Sets the resource access rules
 	ResourceAccessRules []*ResourceAccessRule

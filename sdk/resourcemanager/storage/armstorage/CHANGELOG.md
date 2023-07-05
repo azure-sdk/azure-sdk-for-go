@@ -1,10 +1,17 @@
 # Release History
 
-## 1.4.0-beta.1 (2023-06-12)
-
+## 1.4.0 (2023-07-05)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New struct `AccountIPv4Endpoints`
+- New struct `AccountIPv6Endpoints`
+- New struct `DualStackEndpointPreference`
+- New field `DualStackEndpointPreference` in struct `AccountProperties`
+- New field `DualStackEndpointPreference` in struct `AccountPropertiesCreateParameters`
+- New field `DualStackEndpointPreference` in struct `AccountPropertiesUpdateParameters`
+- New field `IPv4Endpoints`, `IPv6Endpoints` in struct `Endpoints`
+- New field `IPv6Rules` in struct `NetworkRuleSet`
+
 
 ## 1.3.0 (2023-03-27)
 ### Features Added
