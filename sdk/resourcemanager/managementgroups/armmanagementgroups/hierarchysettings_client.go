@@ -44,7 +44,7 @@ func NewHierarchySettingsClient(credential azcore.TokenCredential, options *arm.
 // CreateOrUpdate - Creates or updates the hierarchy settings defined at the Management Group level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - createTenantSettingsRequest - Tenant level settings request parameter.
 //   - options - HierarchySettingsClientCreateOrUpdateOptions contains the optional parameters for the HierarchySettingsClient.CreateOrUpdate
@@ -76,7 +76,7 @@ func (client *HierarchySettingsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, createTenantSettingsRequest)
@@ -94,7 +94,7 @@ func (client *HierarchySettingsClient) createOrUpdateHandleResponse(resp *http.R
 // Delete - Deletes the hierarchy settings defined at the Management Group level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - options - HierarchySettingsClientDeleteOptions contains the optional parameters for the HierarchySettingsClient.Delete
 //     method.
@@ -125,7 +125,7 @@ func (client *HierarchySettingsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -135,7 +135,7 @@ func (client *HierarchySettingsClient) deleteCreateRequest(ctx context.Context, 
 // Group of the hierarchy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - options - HierarchySettingsClientGetOptions contains the optional parameters for the HierarchySettingsClient.Get method.
 func (client *HierarchySettingsClient) Get(ctx context.Context, groupID string, options *HierarchySettingsClientGetOptions) (HierarchySettingsClientGetResponse, error) {
@@ -165,7 +165,7 @@ func (client *HierarchySettingsClient) getCreateRequest(ctx context.Context, gro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,7 +184,7 @@ func (client *HierarchySettingsClient) getHandleResponse(resp *http.Response) (H
 // Group of the hierarchy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - options - HierarchySettingsClientListOptions contains the optional parameters for the HierarchySettingsClient.List method.
 func (client *HierarchySettingsClient) List(ctx context.Context, groupID string, options *HierarchySettingsClientListOptions) (HierarchySettingsClientListResponse, error) {
@@ -214,7 +214,7 @@ func (client *HierarchySettingsClient) listCreateRequest(ctx context.Context, gr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,7 +232,7 @@ func (client *HierarchySettingsClient) listHandleResponse(resp *http.Response) (
 // Update - Updates the hierarchy settings defined at the Management Group level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - createTenantSettingsRequest - Tenant level settings request parameter.
 //   - options - HierarchySettingsClientUpdateOptions contains the optional parameters for the HierarchySettingsClient.Update
@@ -264,7 +264,7 @@ func (client *HierarchySettingsClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, createTenantSettingsRequest)

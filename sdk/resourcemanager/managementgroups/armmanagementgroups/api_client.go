@@ -41,7 +41,7 @@ func NewAPIClient(credential azcore.TokenCredential, options *arm.ClientOptions)
 // CheckNameAvailability - Checks if the specified management group name is valid and unique
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - checkNameAvailabilityRequest - Management group name availability check parameters.
 //   - options - APIClientCheckNameAvailabilityOptions contains the optional parameters for the APIClient.CheckNameAvailability
 //     method.
@@ -68,7 +68,7 @@ func (client *APIClient) checkNameAvailabilityCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityRequest)
@@ -86,7 +86,7 @@ func (client *APIClient) checkNameAvailabilityHandleResponse(resp *http.Response
 // StartTenantBackfill - Starts backfilling subscriptions for the Tenant.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - options - APIClientStartTenantBackfillOptions contains the optional parameters for the APIClient.StartTenantBackfill method.
 func (client *APIClient) StartTenantBackfill(ctx context.Context, options *APIClientStartTenantBackfillOptions) (APIClientStartTenantBackfillResponse, error) {
 	req, err := client.startTenantBackfillCreateRequest(ctx, options)
@@ -111,7 +111,7 @@ func (client *APIClient) startTenantBackfillCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -129,7 +129,7 @@ func (client *APIClient) startTenantBackfillHandleResponse(resp *http.Response) 
 // TenantBackfillStatus - Gets tenant backfill status
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - options - APIClientTenantBackfillStatusOptions contains the optional parameters for the APIClient.TenantBackfillStatus
 //     method.
 func (client *APIClient) TenantBackfillStatus(ctx context.Context, options *APIClientTenantBackfillStatusOptions) (APIClientTenantBackfillStatusResponse, error) {
@@ -155,7 +155,7 @@ func (client *APIClient) tenantBackfillStatusCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
