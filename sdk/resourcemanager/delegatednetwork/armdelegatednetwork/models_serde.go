@@ -167,6 +167,7 @@ func (d DelegatedControllerProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dncEndpoint", d.DncEndpoint)
 	populate(objectMap, "dncTenantId", d.DncTenantID)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
+	populate(objectMap, "purpose", d.Purpose)
 	populate(objectMap, "resourceGuid", d.ResourceGUID)
 	return json.Marshal(objectMap)
 }
@@ -191,6 +192,9 @@ func (d *DelegatedControllerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &d.ProvisioningState)
+			delete(rawMsg, key)
+		case "purpose":
+			err = unpopulate(val, "Purpose", &d.Purpose)
 			delete(rawMsg, key)
 		case "resourceGuid":
 			err = unpopulate(val, "ResourceGUID", &d.ResourceGUID)

@@ -1,5 +1,12 @@
 # Release History
 
+## 1.2.0-beta.1 (2023-07-05)
+### Features Added
+
+- New enum type `ControllerPurpose` with values `ControllerPurposeProd`, `ControllerPurposeTest`
+- New field `Purpose` in struct `DelegatedControllerProperties`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
