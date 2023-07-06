@@ -258,6 +258,9 @@ type AdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRule - Network admin rule.
@@ -336,6 +339,9 @@ type AdminRuleCollectionPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the AdminRuleCollectionsClient.BeginDelete
@@ -1434,8 +1440,8 @@ type ApplicationGatewayProbePropertiesFormat struct {
 	PickHostNameFromBackendSettings *bool
 
 	// Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set,
-	// port from http settings will be used. This property is valid for Standardv2 and
-	// WAFv2 only.
+	// port from http settings will be used. This property is valid for Basic,
+	// Standardv2 and WAFv2 only.
 	Port *int32
 
 	// The protocol used for the probe.
@@ -1556,6 +1562,9 @@ type ApplicationGatewayPropertiesFormat struct {
 
 	// Web application firewall configuration.
 	WebApplicationFirewallConfiguration *ApplicationGatewayWebApplicationFirewallConfiguration
+
+	// READ-ONLY; The default predefined SSL Policy applied on the application gateway resource.
+	DefaultPredefinedSSLPolicy *ApplicationGatewaySSLPolicyName
 
 	// READ-ONLY; Operational state of the application gateway resource.
 	OperationalState *ApplicationGatewayOperationalState
@@ -4174,6 +4183,9 @@ type ConnectivityConfigurationProperties struct {
 
 	// READ-ONLY; The provisioning state of the connectivity configuration resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ConnectivityConfigurationsClientBeginDeleteOptions contains the optional parameters for the ConnectivityConfigurationsClient.BeginDelete
@@ -4779,6 +4791,9 @@ type DefaultAdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 
 	// READ-ONLY; The source port ranges.
 	SourcePortRanges []*string
@@ -7682,6 +7697,9 @@ type GroupProperties struct {
 
 	// READ-ONLY; The provisioning state of the scope assignment resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
@@ -10006,6 +10024,9 @@ type ManagerProperties struct {
 
 	// READ-ONLY; The provisioning state of the network manager resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ManagerPropertiesNetworkManagerScopes - Scope of Network Manager.
@@ -12922,6 +12943,9 @@ type SecurityAdminConfigurationPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // SecurityAdminConfigurationsClientBeginDeleteOptions contains the optional parameters for the SecurityAdminConfigurationsClient.BeginDelete
@@ -15374,10 +15398,10 @@ type VirtualAppliance struct {
 
 // VirtualApplianceAdditionalNicProperties - Network Virtual Appliance Additional NIC properties.
 type VirtualApplianceAdditionalNicProperties struct {
-	// Customer Intent for Public Ip on additional nic
+	// Flag (true or false) for Intent for Public Ip on additional nic
 	HasPublicIP *bool
 
-	// Customer Name for additional nic
+	// Name of additional nic
 	Name *string
 }
 
@@ -16590,6 +16614,10 @@ type VirtualNetworkGatewayPolicyGroupProperties struct {
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
 	Active *bool
+
+	// Property to indicate if the Express Route Gateway serves traffic when there are multiple Express Route Gateways in the
+	// vnet
+	AdminState *AdminState
 
 	// Configure this gateway to accept traffic from other Azure Virtual Networks. This configuration does not support connectivity
 	// to Azure Virtual WAN.
