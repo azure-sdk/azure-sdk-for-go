@@ -11,7 +11,7 @@ package armsql
 
 const (
 	moduleName    = "armsql"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 type AdministratorName string
@@ -112,6 +112,22 @@ func PossibleAggregationFunctionTypeValues() []AggregationFunctionType {
 		AggregationFunctionTypeMin,
 		AggregationFunctionTypeStdev,
 		AggregationFunctionTypeSum,
+	}
+}
+
+// AlwaysEncryptedEnclaveType - Type of enclave requested on the database i.e. Default or VBS enclaves.
+type AlwaysEncryptedEnclaveType string
+
+const (
+	AlwaysEncryptedEnclaveTypeDefault AlwaysEncryptedEnclaveType = "Default"
+	AlwaysEncryptedEnclaveTypeVBS     AlwaysEncryptedEnclaveType = "VBS"
+)
+
+// PossibleAlwaysEncryptedEnclaveTypeValues returns the possible values for the AlwaysEncryptedEnclaveType const type.
+func PossibleAlwaysEncryptedEnclaveTypeValues() []AlwaysEncryptedEnclaveType {
+	return []AlwaysEncryptedEnclaveType{
+		AlwaysEncryptedEnclaveTypeDefault,
+		AlwaysEncryptedEnclaveTypeVBS,
 	}
 }
 
@@ -287,6 +303,26 @@ func PossibleAutomaticTuningServerReasonValues() []AutomaticTuningServerReason {
 	}
 }
 
+// AvailabilityZoneType - Specifies the availability zone the database is pinned to.
+type AvailabilityZoneType string
+
+const (
+	AvailabilityZoneTypeNoPreference AvailabilityZoneType = "NoPreference"
+	AvailabilityZoneTypeOne          AvailabilityZoneType = "1"
+	AvailabilityZoneTypeThree        AvailabilityZoneType = "3"
+	AvailabilityZoneTypeTwo          AvailabilityZoneType = "2"
+)
+
+// PossibleAvailabilityZoneTypeValues returns the possible values for the AvailabilityZoneType const type.
+func PossibleAvailabilityZoneTypeValues() []AvailabilityZoneType {
+	return []AvailabilityZoneType{
+		AvailabilityZoneTypeNoPreference,
+		AvailabilityZoneTypeOne,
+		AvailabilityZoneTypeThree,
+		AvailabilityZoneTypeTwo,
+	}
+}
+
 // BackupStorageRedundancy - The storage account type used to store backups for this database.
 type BackupStorageRedundancy string
 
@@ -304,6 +340,19 @@ func PossibleBackupStorageRedundancyValues() []BackupStorageRedundancy {
 		BackupStorageRedundancyGeoZone,
 		BackupStorageRedundancyLocal,
 		BackupStorageRedundancyZone,
+	}
+}
+
+type BaselineName string
+
+const (
+	BaselineNameDefault BaselineName = "default"
+)
+
+// PossibleBaselineNameValues returns the possible values for the BaselineName const type.
+func PossibleBaselineNameValues() []BaselineName {
+	return []BaselineName{
+		BaselineNameDefault,
 	}
 }
 
@@ -561,19 +610,21 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DNSRefreshConfigurationPropertiesStatus - The status of the DNS refresh operation.
-type DNSRefreshConfigurationPropertiesStatus string
+// DNSRefreshOperationStatus - The status of the DNS refresh operation.
+type DNSRefreshOperationStatus string
 
 const (
-	DNSRefreshConfigurationPropertiesStatusFailed    DNSRefreshConfigurationPropertiesStatus = "Failed"
-	DNSRefreshConfigurationPropertiesStatusSucceeded DNSRefreshConfigurationPropertiesStatus = "Succeeded"
+	DNSRefreshOperationStatusFailed     DNSRefreshOperationStatus = "Failed"
+	DNSRefreshOperationStatusInProgress DNSRefreshOperationStatus = "InProgress"
+	DNSRefreshOperationStatusSucceeded  DNSRefreshOperationStatus = "Succeeded"
 )
 
-// PossibleDNSRefreshConfigurationPropertiesStatusValues returns the possible values for the DNSRefreshConfigurationPropertiesStatus const type.
-func PossibleDNSRefreshConfigurationPropertiesStatusValues() []DNSRefreshConfigurationPropertiesStatus {
-	return []DNSRefreshConfigurationPropertiesStatus{
-		DNSRefreshConfigurationPropertiesStatusFailed,
-		DNSRefreshConfigurationPropertiesStatusSucceeded,
+// PossibleDNSRefreshOperationStatusValues returns the possible values for the DNSRefreshOperationStatus const type.
+func PossibleDNSRefreshOperationStatusValues() []DNSRefreshOperationStatus {
+	return []DNSRefreshOperationStatus{
+		DNSRefreshOperationStatusFailed,
+		DNSRefreshOperationStatusInProgress,
+		DNSRefreshOperationStatusSucceeded,
 	}
 }
 
@@ -601,21 +652,34 @@ func PossibleDataMaskingFunctionValues() []DataMaskingFunction {
 	}
 }
 
+type DataMaskingPolicyName string
+
+const (
+	DataMaskingPolicyNameDefault DataMaskingPolicyName = "Default"
+)
+
+// PossibleDataMaskingPolicyNameValues returns the possible values for the DataMaskingPolicyName const type.
+func PossibleDataMaskingPolicyNameValues() []DataMaskingPolicyName {
+	return []DataMaskingPolicyName{
+		DataMaskingPolicyNameDefault,
+	}
+}
+
 // DataMaskingRuleState - The rule state. Used to delete a rule. To delete an existing rule, specify the schemaName, tableName,
 // columnName, maskingFunction, and specify ruleState as disabled. However, if the rule doesn't
 // already exist, the rule will be created with ruleState set to enabled, regardless of the provided value of ruleState.
 type DataMaskingRuleState string
 
 const (
-	DataMaskingRuleStateDisabled DataMaskingRuleState = "Disabled"
 	DataMaskingRuleStateEnabled  DataMaskingRuleState = "Enabled"
+	DataMaskingRuleStateDisabled DataMaskingRuleState = "Disabled"
 )
 
 // PossibleDataMaskingRuleStateValues returns the possible values for the DataMaskingRuleState const type.
 func PossibleDataMaskingRuleStateValues() []DataMaskingRuleState {
 	return []DataMaskingRuleState{
-		DataMaskingRuleStateDisabled,
 		DataMaskingRuleStateEnabled,
+		DataMaskingRuleStateDisabled,
 	}
 }
 
@@ -623,15 +687,15 @@ func PossibleDataMaskingRuleStateValues() []DataMaskingRuleState {
 type DataMaskingState string
 
 const (
-	DataMaskingStateDisabled DataMaskingState = "Disabled"
 	DataMaskingStateEnabled  DataMaskingState = "Enabled"
+	DataMaskingStateDisabled DataMaskingState = "Disabled"
 )
 
 // PossibleDataMaskingStateValues returns the possible values for the DataMaskingState const type.
 func PossibleDataMaskingStateValues() []DataMaskingState {
 	return []DataMaskingState{
-		DataMaskingStateDisabled,
 		DataMaskingStateEnabled,
+		DataMaskingStateDisabled,
 	}
 }
 
@@ -661,6 +725,20 @@ func PossibleDatabaseIdentityTypeValues() []DatabaseIdentityType {
 	return []DatabaseIdentityType{
 		DatabaseIdentityTypeNone,
 		DatabaseIdentityTypeUserAssigned,
+	}
+}
+
+// DatabaseKeyType - The database key type. Only supported value is 'AzureKeyVault'.
+type DatabaseKeyType string
+
+const (
+	DatabaseKeyTypeAzureKeyVault DatabaseKeyType = "AzureKeyVault"
+)
+
+// PossibleDatabaseKeyTypeValues returns the possible values for the DatabaseKeyType const type.
+func PossibleDatabaseKeyTypeValues() []DatabaseKeyType {
+	return []DatabaseKeyType{
+		DatabaseKeyTypeAzureKeyVault,
 	}
 }
 
@@ -802,6 +880,19 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 	}
 }
 
+type DevOpsAuditingSettingsName string
+
+const (
+	DevOpsAuditingSettingsNameDefault DevOpsAuditingSettingsName = "Default"
+)
+
+// PossibleDevOpsAuditingSettingsNameValues returns the possible values for the DevOpsAuditingSettingsName const type.
+func PossibleDevOpsAuditingSettingsNameValues() []DevOpsAuditingSettingsName {
+	return []DevOpsAuditingSettingsName{
+		DevOpsAuditingSettingsNameDefault,
+	}
+}
+
 // DiffBackupIntervalInHours - The differential backup interval in hours. This is how many interval hours between each differential
 // backup will be supported. This is only applicable to live databases but not dropped databases.
 type DiffBackupIntervalInHours int32
@@ -816,6 +907,19 @@ func PossibleDiffBackupIntervalInHoursValues() []DiffBackupIntervalInHours {
 	return []DiffBackupIntervalInHours{
 		DiffBackupIntervalInHoursTwelve,
 		DiffBackupIntervalInHoursTwentyFour,
+	}
+}
+
+type DtcName string
+
+const (
+	DtcNameCurrent DtcName = "current"
+)
+
+// PossibleDtcNameValues returns the possible values for the DtcName const type.
+func PossibleDtcNameValues() []DtcName {
+	return []DtcName{
+		DtcNameCurrent,
 	}
 }
 
@@ -866,6 +970,22 @@ func PossibleEncryptionProtectorNameValues() []EncryptionProtectorName {
 	}
 }
 
+// ExternalGovernanceStatus - Status of external governance.
+type ExternalGovernanceStatus string
+
+const (
+	ExternalGovernanceStatusDisabled ExternalGovernanceStatus = "Disabled"
+	ExternalGovernanceStatusEnabled  ExternalGovernanceStatus = "Enabled"
+)
+
+// PossibleExternalGovernanceStatusValues returns the possible values for the ExternalGovernanceStatus const type.
+func PossibleExternalGovernanceStatusValues() []ExternalGovernanceStatus {
+	return []ExternalGovernanceStatus{
+		ExternalGovernanceStatusDisabled,
+		ExternalGovernanceStatusEnabled,
+	}
+}
+
 // FailoverGroupReplicationRole - Local replication role of the failover group instance.
 type FailoverGroupReplicationRole string
 
@@ -879,6 +999,40 @@ func PossibleFailoverGroupReplicationRoleValues() []FailoverGroupReplicationRole
 	return []FailoverGroupReplicationRole{
 		FailoverGroupReplicationRolePrimary,
 		FailoverGroupReplicationRoleSecondary,
+	}
+}
+
+// FreeLimitExhaustionBehavior - Specifies the behavior when monthly free limits are exhausted for the free database.
+// AutoPause: The database will be auto paused upon exhaustion of free limits for remainder of the month.
+// BillForUsage: The database will continue to be online upon exhaustion of free limits and any overage will be billed.
+type FreeLimitExhaustionBehavior string
+
+const (
+	FreeLimitExhaustionBehaviorAutoPause     FreeLimitExhaustionBehavior = "AutoPause"
+	FreeLimitExhaustionBehaviorBillOverUsage FreeLimitExhaustionBehavior = "BillOverUsage"
+)
+
+// PossibleFreeLimitExhaustionBehaviorValues returns the possible values for the FreeLimitExhaustionBehavior const type.
+func PossibleFreeLimitExhaustionBehaviorValues() []FreeLimitExhaustionBehavior {
+	return []FreeLimitExhaustionBehavior{
+		FreeLimitExhaustionBehaviorAutoPause,
+		FreeLimitExhaustionBehaviorBillOverUsage,
+	}
+}
+
+// FreemiumType - Weather or not Managed Instance is freemium.
+type FreemiumType string
+
+const (
+	FreemiumTypeFreemium FreemiumType = "Freemium"
+	FreemiumTypeRegular  FreemiumType = "Regular"
+)
+
+// PossibleFreemiumTypeValues returns the possible values for the FreemiumType const type.
+func PossibleFreemiumTypeValues() []FreemiumType {
+	return []FreemiumType{
+		FreemiumTypeFreemium,
+		FreemiumTypeRegular,
 	}
 }
 
@@ -899,15 +1053,50 @@ func PossibleGeoBackupPolicyNameValues() []GeoBackupPolicyName {
 type GeoBackupPolicyState string
 
 const (
-	GeoBackupPolicyStateDisabled GeoBackupPolicyState = "Disabled"
 	GeoBackupPolicyStateEnabled  GeoBackupPolicyState = "Enabled"
+	GeoBackupPolicyStateDisabled GeoBackupPolicyState = "Disabled"
 )
 
 // PossibleGeoBackupPolicyStateValues returns the possible values for the GeoBackupPolicyState const type.
 func PossibleGeoBackupPolicyStateValues() []GeoBackupPolicyState {
 	return []GeoBackupPolicyState{
-		GeoBackupPolicyStateDisabled,
 		GeoBackupPolicyStateEnabled,
+		GeoBackupPolicyStateDisabled,
+	}
+}
+
+// HybridSecondaryUsage - Hybrid secondary usage. Possible values are 'Active' (default value) and 'Passive' (customer uses
+// the secondary as Passive DR).
+type HybridSecondaryUsage string
+
+const (
+	HybridSecondaryUsageActive  HybridSecondaryUsage = "Active"
+	HybridSecondaryUsagePassive HybridSecondaryUsage = "Passive"
+)
+
+// PossibleHybridSecondaryUsageValues returns the possible values for the HybridSecondaryUsage const type.
+func PossibleHybridSecondaryUsageValues() []HybridSecondaryUsage {
+	return []HybridSecondaryUsage{
+		HybridSecondaryUsageActive,
+		HybridSecondaryUsagePassive,
+	}
+}
+
+// HybridSecondaryUsageDetected - Hybrid secondary usage detected. Possible values are 'Active' (customer does not meet the
+// requirements to use the secondary as Passive DR) and 'Passive' (customer meets the requirements to use the
+// secondary as Passive DR).
+type HybridSecondaryUsageDetected string
+
+const (
+	HybridSecondaryUsageDetectedActive  HybridSecondaryUsageDetected = "Active"
+	HybridSecondaryUsageDetectedPassive HybridSecondaryUsageDetected = "Passive"
+)
+
+// PossibleHybridSecondaryUsageDetectedValues returns the possible values for the HybridSecondaryUsageDetected const type.
+func PossibleHybridSecondaryUsageDetectedValues() []HybridSecondaryUsageDetected {
+	return []HybridSecondaryUsageDetected{
+		HybridSecondaryUsageDetectedActive,
+		HybridSecondaryUsageDetectedPassive,
 	}
 }
 
@@ -978,6 +1167,22 @@ func PossibleInstancePoolLicenseTypeValues() []InstancePoolLicenseType {
 	return []InstancePoolLicenseType{
 		InstancePoolLicenseTypeBasePrice,
 		InstancePoolLicenseTypeLicenseIncluded,
+	}
+}
+
+// InstanceRole - New role of managed instance in a distributed availability group, can be Primary or Secondary.
+type InstanceRole string
+
+const (
+	InstanceRolePrimary   InstanceRole = "Primary"
+	InstanceRoleSecondary InstanceRole = "Secondary"
+)
+
+// PossibleInstanceRoleValues returns the possible values for the InstanceRole const type.
+func PossibleInstanceRoleValues() []InstanceRole {
+	return []InstanceRole{
+		InstanceRolePrimary,
+		InstanceRoleSecondary,
 	}
 }
 
@@ -1176,6 +1381,22 @@ func PossibleLedgerDigestUploadsStateValues() []LedgerDigestUploadsState {
 	}
 }
 
+// LinkRole - SQL server side link role
+type LinkRole string
+
+const (
+	LinkRolePrimary   LinkRole = "Primary"
+	LinkRoleSecondary LinkRole = "Secondary"
+)
+
+// PossibleLinkRoleValues returns the possible values for the LinkRole const type.
+func PossibleLinkRoleValues() []LinkRole {
+	return []LinkRole{
+		LinkRolePrimary,
+		LinkRoleSecondary,
+	}
+}
+
 // LogSizeUnit - The units that the limit is expressed in.
 type LogSizeUnit string
 
@@ -1244,11 +1465,16 @@ type ManagedDatabaseStatus string
 
 const (
 	ManagedDatabaseStatusCreating     ManagedDatabaseStatus = "Creating"
+	ManagedDatabaseStatusDbCopying    ManagedDatabaseStatus = "DbCopying"
+	ManagedDatabaseStatusDbMoving     ManagedDatabaseStatus = "DbMoving"
 	ManagedDatabaseStatusInaccessible ManagedDatabaseStatus = "Inaccessible"
 	ManagedDatabaseStatusOffline      ManagedDatabaseStatus = "Offline"
 	ManagedDatabaseStatusOnline       ManagedDatabaseStatus = "Online"
 	ManagedDatabaseStatusRestoring    ManagedDatabaseStatus = "Restoring"
 	ManagedDatabaseStatusShutdown     ManagedDatabaseStatus = "Shutdown"
+	ManagedDatabaseStatusStarting     ManagedDatabaseStatus = "Starting"
+	ManagedDatabaseStatusStopped      ManagedDatabaseStatus = "Stopped"
+	ManagedDatabaseStatusStopping     ManagedDatabaseStatus = "Stopping"
 	ManagedDatabaseStatusUpdating     ManagedDatabaseStatus = "Updating"
 )
 
@@ -1256,11 +1482,16 @@ const (
 func PossibleManagedDatabaseStatusValues() []ManagedDatabaseStatus {
 	return []ManagedDatabaseStatus{
 		ManagedDatabaseStatusCreating,
+		ManagedDatabaseStatusDbCopying,
+		ManagedDatabaseStatusDbMoving,
 		ManagedDatabaseStatusInaccessible,
 		ManagedDatabaseStatusOffline,
 		ManagedDatabaseStatusOnline,
 		ManagedDatabaseStatusRestoring,
 		ManagedDatabaseStatusShutdown,
+		ManagedDatabaseStatusStarting,
+		ManagedDatabaseStatusStopped,
+		ManagedDatabaseStatusStopping,
 		ManagedDatabaseStatusUpdating,
 	}
 }
@@ -1309,47 +1540,6 @@ func PossibleManagedInstanceLongTermRetentionPolicyNameValues() []ManagedInstanc
 	}
 }
 
-type ManagedInstancePropertiesProvisioningState string
-
-const (
-	ManagedInstancePropertiesProvisioningStateAccepted     ManagedInstancePropertiesProvisioningState = "Accepted"
-	ManagedInstancePropertiesProvisioningStateCanceled     ManagedInstancePropertiesProvisioningState = "Canceled"
-	ManagedInstancePropertiesProvisioningStateCreated      ManagedInstancePropertiesProvisioningState = "Created"
-	ManagedInstancePropertiesProvisioningStateCreating     ManagedInstancePropertiesProvisioningState = "Creating"
-	ManagedInstancePropertiesProvisioningStateDeleted      ManagedInstancePropertiesProvisioningState = "Deleted"
-	ManagedInstancePropertiesProvisioningStateDeleting     ManagedInstancePropertiesProvisioningState = "Deleting"
-	ManagedInstancePropertiesProvisioningStateFailed       ManagedInstancePropertiesProvisioningState = "Failed"
-	ManagedInstancePropertiesProvisioningStateNotSpecified ManagedInstancePropertiesProvisioningState = "NotSpecified"
-	ManagedInstancePropertiesProvisioningStateRegistering  ManagedInstancePropertiesProvisioningState = "Registering"
-	ManagedInstancePropertiesProvisioningStateRunning      ManagedInstancePropertiesProvisioningState = "Running"
-	ManagedInstancePropertiesProvisioningStateSucceeded    ManagedInstancePropertiesProvisioningState = "Succeeded"
-	ManagedInstancePropertiesProvisioningStateTimedOut     ManagedInstancePropertiesProvisioningState = "TimedOut"
-	ManagedInstancePropertiesProvisioningStateUnknown      ManagedInstancePropertiesProvisioningState = "Unknown"
-	ManagedInstancePropertiesProvisioningStateUnrecognized ManagedInstancePropertiesProvisioningState = "Unrecognized"
-	ManagedInstancePropertiesProvisioningStateUpdating     ManagedInstancePropertiesProvisioningState = "Updating"
-)
-
-// PossibleManagedInstancePropertiesProvisioningStateValues returns the possible values for the ManagedInstancePropertiesProvisioningState const type.
-func PossibleManagedInstancePropertiesProvisioningStateValues() []ManagedInstancePropertiesProvisioningState {
-	return []ManagedInstancePropertiesProvisioningState{
-		ManagedInstancePropertiesProvisioningStateAccepted,
-		ManagedInstancePropertiesProvisioningStateCanceled,
-		ManagedInstancePropertiesProvisioningStateCreated,
-		ManagedInstancePropertiesProvisioningStateCreating,
-		ManagedInstancePropertiesProvisioningStateDeleted,
-		ManagedInstancePropertiesProvisioningStateDeleting,
-		ManagedInstancePropertiesProvisioningStateFailed,
-		ManagedInstancePropertiesProvisioningStateNotSpecified,
-		ManagedInstancePropertiesProvisioningStateRegistering,
-		ManagedInstancePropertiesProvisioningStateRunning,
-		ManagedInstancePropertiesProvisioningStateSucceeded,
-		ManagedInstancePropertiesProvisioningStateTimedOut,
-		ManagedInstancePropertiesProvisioningStateUnknown,
-		ManagedInstancePropertiesProvisioningStateUnrecognized,
-		ManagedInstancePropertiesProvisioningStateUpdating,
-	}
-}
-
 // ManagedInstanceProxyOverride - Connection type used for connecting to the instance.
 type ManagedInstanceProxyOverride string
 
@@ -1365,6 +1555,35 @@ func PossibleManagedInstanceProxyOverrideValues() []ManagedInstanceProxyOverride
 		ManagedInstanceProxyOverrideDefault,
 		ManagedInstanceProxyOverrideProxy,
 		ManagedInstanceProxyOverrideRedirect,
+	}
+}
+
+type ManagedLedgerDigestUploadsName string
+
+const (
+	ManagedLedgerDigestUploadsNameCurrent ManagedLedgerDigestUploadsName = "current"
+)
+
+// PossibleManagedLedgerDigestUploadsNameValues returns the possible values for the ManagedLedgerDigestUploadsName const type.
+func PossibleManagedLedgerDigestUploadsNameValues() []ManagedLedgerDigestUploadsName {
+	return []ManagedLedgerDigestUploadsName{
+		ManagedLedgerDigestUploadsNameCurrent,
+	}
+}
+
+// ManagedLedgerDigestUploadsState - Specifies the state of ledger digest upload.
+type ManagedLedgerDigestUploadsState string
+
+const (
+	ManagedLedgerDigestUploadsStateDisabled ManagedLedgerDigestUploadsState = "Disabled"
+	ManagedLedgerDigestUploadsStateEnabled  ManagedLedgerDigestUploadsState = "Enabled"
+)
+
+// PossibleManagedLedgerDigestUploadsStateValues returns the possible values for the ManagedLedgerDigestUploadsState const type.
+func PossibleManagedLedgerDigestUploadsStateValues() []ManagedLedgerDigestUploadsState {
+	return []ManagedLedgerDigestUploadsState{
+		ManagedLedgerDigestUploadsStateDisabled,
+		ManagedLedgerDigestUploadsStateEnabled,
 	}
 }
 
@@ -1465,16 +1684,36 @@ func PossibleMetricTypeValues() []MetricType {
 	}
 }
 
-// OperationMode - Operation Mode.
+// MoveOperationMode - Operation mode.
+type MoveOperationMode string
+
+const (
+	MoveOperationModeCopy MoveOperationMode = "Copy"
+	MoveOperationModeMove MoveOperationMode = "Move"
+)
+
+// PossibleMoveOperationModeValues returns the possible values for the MoveOperationMode const type.
+func PossibleMoveOperationModeValues() []MoveOperationMode {
+	return []MoveOperationMode{
+		MoveOperationModeCopy,
+		MoveOperationModeMove,
+	}
+}
+
+// OperationMode - Operation mode of the operation: Import, Export, or PolybaseImport.
 type OperationMode string
 
 const (
+	OperationModeExport         OperationMode = "Export"
+	OperationModeImport         OperationMode = "Import"
 	OperationModePolybaseImport OperationMode = "PolybaseImport"
 )
 
 // PossibleOperationModeValues returns the possible values for the OperationMode const type.
 func PossibleOperationModeValues() []OperationMode {
 	return []OperationMode{
+		OperationModeExport,
+		OperationModeImport,
 		OperationModePolybaseImport,
 	}
 }
@@ -1525,27 +1764,23 @@ func PossiblePerformanceLevelUnitValues() []PerformanceLevelUnit {
 	}
 }
 
-// PrimaryAggregationType - The primary aggregation type defining how metric values are displayed.
-type PrimaryAggregationType string
+// Phase - The operation phase.
+type Phase string
 
 const (
-	PrimaryAggregationTypeAverage PrimaryAggregationType = "Average"
-	PrimaryAggregationTypeCount   PrimaryAggregationType = "Count"
-	PrimaryAggregationTypeMaximum PrimaryAggregationType = "Maximum"
-	PrimaryAggregationTypeMinimum PrimaryAggregationType = "Minimum"
-	PrimaryAggregationTypeNone    PrimaryAggregationType = "None"
-	PrimaryAggregationTypeTotal   PrimaryAggregationType = "Total"
+	PhaseCatchup           Phase = "Catchup"
+	PhaseCopying           Phase = "Copying"
+	PhaseCutoverInProgress Phase = "CutoverInProgress"
+	PhaseWaitingForCutover Phase = "WaitingForCutover"
 )
 
-// PossiblePrimaryAggregationTypeValues returns the possible values for the PrimaryAggregationType const type.
-func PossiblePrimaryAggregationTypeValues() []PrimaryAggregationType {
-	return []PrimaryAggregationType{
-		PrimaryAggregationTypeAverage,
-		PrimaryAggregationTypeCount,
-		PrimaryAggregationTypeMaximum,
-		PrimaryAggregationTypeMinimum,
-		PrimaryAggregationTypeNone,
-		PrimaryAggregationTypeTotal,
+// PossiblePhaseValues returns the possible values for the Phase const type.
+func PossiblePhaseValues() []Phase {
+	return []Phase{
+		PhaseCatchup,
+		PhaseCopying,
+		PhaseCutoverInProgress,
+		PhaseWaitingForCutover,
 	}
 }
 
@@ -1793,6 +2028,40 @@ func PossibleRecommendedSensitivityLabelUpdateKindValues() []RecommendedSensitiv
 	}
 }
 
+// ReplicaConnectedState - Link connected state
+type ReplicaConnectedState string
+
+const (
+	ReplicaConnectedStateCONNECTED    ReplicaConnectedState = "CONNECTED"
+	ReplicaConnectedStateDISCONNECTED ReplicaConnectedState = "DISCONNECTED"
+)
+
+// PossibleReplicaConnectedStateValues returns the possible values for the ReplicaConnectedState const type.
+func PossibleReplicaConnectedStateValues() []ReplicaConnectedState {
+	return []ReplicaConnectedState{
+		ReplicaConnectedStateCONNECTED,
+		ReplicaConnectedStateDISCONNECTED,
+	}
+}
+
+// ReplicaSynchronizationHealth - Link health state
+type ReplicaSynchronizationHealth string
+
+const (
+	ReplicaSynchronizationHealthHEALTHY          ReplicaSynchronizationHealth = "HEALTHY"
+	ReplicaSynchronizationHealthNOTHEALTHY       ReplicaSynchronizationHealth = "NOT_HEALTHY"
+	ReplicaSynchronizationHealthPARTIALLYHEALTHY ReplicaSynchronizationHealth = "PARTIALLY_HEALTHY"
+)
+
+// PossibleReplicaSynchronizationHealthValues returns the possible values for the ReplicaSynchronizationHealth const type.
+func PossibleReplicaSynchronizationHealthValues() []ReplicaSynchronizationHealth {
+	return []ReplicaSynchronizationHealth{
+		ReplicaSynchronizationHealthHEALTHY,
+		ReplicaSynchronizationHealthNOTHEALTHY,
+		ReplicaSynchronizationHealthPARTIALLYHEALTHY,
+	}
+}
+
 type ReplicaType string
 
 const (
@@ -1808,12 +2077,13 @@ func PossibleReplicaTypeValues() []ReplicaType {
 	}
 }
 
-// ReplicationLinkType - Link type (GEO, NAMED).
+// ReplicationLinkType - Link type (GEO, NAMED, STANDBY).
 type ReplicationLinkType string
 
 const (
-	ReplicationLinkTypeGEO   ReplicationLinkType = "GEO"
-	ReplicationLinkTypeNAMED ReplicationLinkType = "NAMED"
+	ReplicationLinkTypeGEO     ReplicationLinkType = "GEO"
+	ReplicationLinkTypeNAMED   ReplicationLinkType = "NAMED"
+	ReplicationLinkTypeSTANDBY ReplicationLinkType = "STANDBY"
 )
 
 // PossibleReplicationLinkTypeValues returns the possible values for the ReplicationLinkType const type.
@@ -1821,22 +2091,23 @@ func PossibleReplicationLinkTypeValues() []ReplicationLinkType {
 	return []ReplicationLinkType{
 		ReplicationLinkTypeGEO,
 		ReplicationLinkTypeNAMED,
+		ReplicationLinkTypeSTANDBY,
 	}
 }
 
-// ReplicationMode - The replication mode of a distributed availability group. Parameter will be ignored during link creation.
-type ReplicationMode string
+// ReplicationModeType - The replication mode of a distributed availability group. Parameter will be ignored during link creation.
+type ReplicationModeType string
 
 const (
-	ReplicationModeAsync ReplicationMode = "Async"
-	ReplicationModeSync  ReplicationMode = "Sync"
+	ReplicationModeTypeAsync ReplicationModeType = "Async"
+	ReplicationModeTypeSync  ReplicationModeType = "Sync"
 )
 
-// PossibleReplicationModeValues returns the possible values for the ReplicationMode const type.
-func PossibleReplicationModeValues() []ReplicationMode {
-	return []ReplicationMode{
-		ReplicationModeAsync,
-		ReplicationModeSync,
+// PossibleReplicationModeTypeValues returns the possible values for the ReplicationModeType const type.
+func PossibleReplicationModeTypeValues() []ReplicationModeType {
+	return []ReplicationModeType{
+		ReplicationModeTypeAsync,
+		ReplicationModeTypeSync,
 	}
 }
 
@@ -1911,6 +2182,82 @@ func PossibleRestorePointTypeValues() []RestorePointType {
 	}
 }
 
+// RoleChangeType - The type of the role change, can be Planned or Forced.
+type RoleChangeType string
+
+const (
+	RoleChangeTypeForced  RoleChangeType = "Forced"
+	RoleChangeTypePlanned RoleChangeType = "Planned"
+)
+
+// PossibleRoleChangeTypeValues returns the possible values for the RoleChangeType const type.
+func PossibleRoleChangeTypeValues() []RoleChangeType {
+	return []RoleChangeType{
+		RoleChangeTypeForced,
+		RoleChangeTypePlanned,
+	}
+}
+
+// RuleSeverity - SQL Vulnerability Assessment rule severity.
+type RuleSeverity string
+
+const (
+	RuleSeverityHigh          RuleSeverity = "High"
+	RuleSeverityInformational RuleSeverity = "Informational"
+	RuleSeverityLow           RuleSeverity = "Low"
+	RuleSeverityMedium        RuleSeverity = "Medium"
+	RuleSeverityObsolete      RuleSeverity = "Obsolete"
+)
+
+// PossibleRuleSeverityValues returns the possible values for the RuleSeverity const type.
+func PossibleRuleSeverityValues() []RuleSeverity {
+	return []RuleSeverity{
+		RuleSeverityHigh,
+		RuleSeverityInformational,
+		RuleSeverityLow,
+		RuleSeverityMedium,
+		RuleSeverityObsolete,
+	}
+}
+
+// RuleStatus - SQL Vulnerability Assessment baseline status
+type RuleStatus string
+
+const (
+	RuleStatusFinding       RuleStatus = "Finding"
+	RuleStatusInternalError RuleStatus = "InternalError"
+	RuleStatusNonFinding    RuleStatus = "NonFinding"
+)
+
+// PossibleRuleStatusValues returns the possible values for the RuleStatus const type.
+func PossibleRuleStatusValues() []RuleStatus {
+	return []RuleStatus{
+		RuleStatusFinding,
+		RuleStatusInternalError,
+		RuleStatusNonFinding,
+	}
+}
+
+// RuleType - SQL Vulnerability Assessment rule type.
+type RuleType string
+
+const (
+	RuleTypeBaselineExpected RuleType = "BaselineExpected"
+	RuleTypeBinary           RuleType = "Binary"
+	RuleTypeNegativeList     RuleType = "NegativeList"
+	RuleTypePositiveList     RuleType = "PositiveList"
+)
+
+// PossibleRuleTypeValues returns the possible values for the RuleType const type.
+func PossibleRuleTypeValues() []RuleType {
+	return []RuleType{
+		RuleTypeBaselineExpected,
+		RuleTypeBinary,
+		RuleTypeNegativeList,
+		RuleTypePositiveList,
+	}
+}
+
 // SQLAgentConfigurationPropertiesState - The state of Sql Agent.
 type SQLAgentConfigurationPropertiesState string
 
@@ -1924,6 +2271,36 @@ func PossibleSQLAgentConfigurationPropertiesStateValues() []SQLAgentConfiguratio
 	return []SQLAgentConfigurationPropertiesState{
 		SQLAgentConfigurationPropertiesStateDisabled,
 		SQLAgentConfigurationPropertiesStateEnabled,
+	}
+}
+
+type SQLVulnerabilityAssessmentName string
+
+const (
+	SQLVulnerabilityAssessmentNameDefault SQLVulnerabilityAssessmentName = "default"
+)
+
+// PossibleSQLVulnerabilityAssessmentNameValues returns the possible values for the SQLVulnerabilityAssessmentName const type.
+func PossibleSQLVulnerabilityAssessmentNameValues() []SQLVulnerabilityAssessmentName {
+	return []SQLVulnerabilityAssessmentName{
+		SQLVulnerabilityAssessmentNameDefault,
+	}
+}
+
+// SQLVulnerabilityAssessmentState - Specifies the state of the SQL Vulnerability Assessment, whether it is enabled or disabled
+// or a state has not been applied yet on the specific database or server.
+type SQLVulnerabilityAssessmentState string
+
+const (
+	SQLVulnerabilityAssessmentStateEnabled  SQLVulnerabilityAssessmentState = "Enabled"
+	SQLVulnerabilityAssessmentStateDisabled SQLVulnerabilityAssessmentState = "Disabled"
+)
+
+// PossibleSQLVulnerabilityAssessmentStateValues returns the possible values for the SQLVulnerabilityAssessmentState const type.
+func PossibleSQLVulnerabilityAssessmentStateValues() []SQLVulnerabilityAssessmentState {
+	return []SQLVulnerabilityAssessmentState{
+		SQLVulnerabilityAssessmentStateEnabled,
+		SQLVulnerabilityAssessmentStateDisabled,
 	}
 }
 
@@ -1945,12 +2322,29 @@ func PossibleSampleNameValues() []SampleName {
 	}
 }
 
-// SecondaryType - The secondary type of the database if it is a secondary. Valid values are Geo and Named.
+// SecondaryInstanceType - Type of the geo-secondary instance. Set 'Standby' if the instance is used as a DR option only.
+type SecondaryInstanceType string
+
+const (
+	SecondaryInstanceTypeGeo     SecondaryInstanceType = "Geo"
+	SecondaryInstanceTypeStandby SecondaryInstanceType = "Standby"
+)
+
+// PossibleSecondaryInstanceTypeValues returns the possible values for the SecondaryInstanceType const type.
+func PossibleSecondaryInstanceTypeValues() []SecondaryInstanceType {
+	return []SecondaryInstanceType{
+		SecondaryInstanceTypeGeo,
+		SecondaryInstanceTypeStandby,
+	}
+}
+
+// SecondaryType - The secondary type of the database if it is a secondary. Valid values are Geo, Named and Standby.
 type SecondaryType string
 
 const (
-	SecondaryTypeGeo   SecondaryType = "Geo"
-	SecondaryTypeNamed SecondaryType = "Named"
+	SecondaryTypeGeo     SecondaryType = "Geo"
+	SecondaryTypeNamed   SecondaryType = "Named"
+	SecondaryTypeStandby SecondaryType = "Standby"
 )
 
 // PossibleSecondaryTypeValues returns the possible values for the SecondaryType const type.
@@ -1958,19 +2352,33 @@ func PossibleSecondaryTypeValues() []SecondaryType {
 	return []SecondaryType{
 		SecondaryTypeGeo,
 		SecondaryTypeNamed,
+		SecondaryTypeStandby,
 	}
 }
 
 type SecurityAlertPolicyName string
 
 const (
-	SecurityAlertPolicyNameDefault SecurityAlertPolicyName = "Default"
+	SecurityAlertPolicyNameDefault SecurityAlertPolicyName = "default"
 )
 
 // PossibleSecurityAlertPolicyNameValues returns the possible values for the SecurityAlertPolicyName const type.
 func PossibleSecurityAlertPolicyNameValues() []SecurityAlertPolicyName {
 	return []SecurityAlertPolicyName{
 		SecurityAlertPolicyNameDefault,
+	}
+}
+
+type SecurityAlertPolicyNameAutoGenerated string
+
+const (
+	SecurityAlertPolicyNameAutoGeneratedDefault SecurityAlertPolicyNameAutoGenerated = "Default"
+)
+
+// PossibleSecurityAlertPolicyNameAutoGeneratedValues returns the possible values for the SecurityAlertPolicyNameAutoGenerated const type.
+func PossibleSecurityAlertPolicyNameAutoGeneratedValues() []SecurityAlertPolicyNameAutoGenerated {
+	return []SecurityAlertPolicyNameAutoGenerated{
+		SecurityAlertPolicyNameAutoGeneratedDefault,
 	}
 }
 
@@ -2079,6 +2487,19 @@ func PossibleSensitivityLabelUpdateKindValues() []SensitivityLabelUpdateKind {
 	}
 }
 
+type ServerConfigurationOptionName string
+
+const (
+	ServerConfigurationOptionNameAllowPolybaseExport ServerConfigurationOptionName = "allowPolybaseExport"
+)
+
+// PossibleServerConfigurationOptionNameValues returns the possible values for the ServerConfigurationOptionName const type.
+func PossibleServerConfigurationOptionNameValues() []ServerConfigurationOptionName {
+	return []ServerConfigurationOptionName{
+		ServerConfigurationOptionNameAllowPolybaseExport,
+	}
+}
+
 // ServerConnectionType - The server connection type.
 type ServerConnectionType string
 
@@ -2113,8 +2534,8 @@ func PossibleServerKeyTypeValues() []ServerKeyType {
 	}
 }
 
-// ServerNetworkAccessFlag - Whether or not public endpoint access is allowed for this server. Value is optional but if passed
-// in, must be 'Enabled' or 'Disabled'
+// ServerNetworkAccessFlag - Whether or not to restrict outbound network access for this server. Value is optional but if
+// passed in, must be 'Enabled' or 'Disabled'
 type ServerNetworkAccessFlag string
 
 const (
@@ -2127,6 +2548,25 @@ func PossibleServerNetworkAccessFlagValues() []ServerNetworkAccessFlag {
 	return []ServerNetworkAccessFlag{
 		ServerNetworkAccessFlagDisabled,
 		ServerNetworkAccessFlagEnabled,
+	}
+}
+
+// ServerPublicNetworkAccessFlag - Whether or not public endpoint access is allowed for this server. Value is optional but
+// if passed in, must be 'Enabled' or 'Disabled' or 'SecuredByPerimeter'
+type ServerPublicNetworkAccessFlag string
+
+const (
+	ServerPublicNetworkAccessFlagDisabled           ServerPublicNetworkAccessFlag = "Disabled"
+	ServerPublicNetworkAccessFlagEnabled            ServerPublicNetworkAccessFlag = "Enabled"
+	ServerPublicNetworkAccessFlagSecuredByPerimeter ServerPublicNetworkAccessFlag = "SecuredByPerimeter"
+)
+
+// PossibleServerPublicNetworkAccessFlagValues returns the possible values for the ServerPublicNetworkAccessFlag const type.
+func PossibleServerPublicNetworkAccessFlagValues() []ServerPublicNetworkAccessFlag {
+	return []ServerPublicNetworkAccessFlag{
+		ServerPublicNetworkAccessFlagDisabled,
+		ServerPublicNetworkAccessFlagEnabled,
+		ServerPublicNetworkAccessFlagSecuredByPerimeter,
 	}
 }
 
@@ -2161,148 +2601,6 @@ func PossibleServerWorkspaceFeatureValues() []ServerWorkspaceFeature {
 	}
 }
 
-// ServiceObjectiveName - The serviceLevelObjective for SLO usage metric.
-type ServiceObjectiveName string
-
-const (
-	ServiceObjectiveNameBasic       ServiceObjectiveName = "Basic"
-	ServiceObjectiveNameDS100       ServiceObjectiveName = "DS100"
-	ServiceObjectiveNameDS1000      ServiceObjectiveName = "DS1000"
-	ServiceObjectiveNameDS1200      ServiceObjectiveName = "DS1200"
-	ServiceObjectiveNameDS1500      ServiceObjectiveName = "DS1500"
-	ServiceObjectiveNameDS200       ServiceObjectiveName = "DS200"
-	ServiceObjectiveNameDS2000      ServiceObjectiveName = "DS2000"
-	ServiceObjectiveNameDS300       ServiceObjectiveName = "DS300"
-	ServiceObjectiveNameDS400       ServiceObjectiveName = "DS400"
-	ServiceObjectiveNameDS500       ServiceObjectiveName = "DS500"
-	ServiceObjectiveNameDS600       ServiceObjectiveName = "DS600"
-	ServiceObjectiveNameDW100       ServiceObjectiveName = "DW100"
-	ServiceObjectiveNameDW1000      ServiceObjectiveName = "DW1000"
-	ServiceObjectiveNameDW10000C    ServiceObjectiveName = "DW10000c"
-	ServiceObjectiveNameDW1000C     ServiceObjectiveName = "DW1000c"
-	ServiceObjectiveNameDW1200      ServiceObjectiveName = "DW1200"
-	ServiceObjectiveNameDW1500      ServiceObjectiveName = "DW1500"
-	ServiceObjectiveNameDW15000C    ServiceObjectiveName = "DW15000c"
-	ServiceObjectiveNameDW1500C     ServiceObjectiveName = "DW1500c"
-	ServiceObjectiveNameDW200       ServiceObjectiveName = "DW200"
-	ServiceObjectiveNameDW2000      ServiceObjectiveName = "DW2000"
-	ServiceObjectiveNameDW2000C     ServiceObjectiveName = "DW2000c"
-	ServiceObjectiveNameDW2500C     ServiceObjectiveName = "DW2500c"
-	ServiceObjectiveNameDW300       ServiceObjectiveName = "DW300"
-	ServiceObjectiveNameDW3000      ServiceObjectiveName = "DW3000"
-	ServiceObjectiveNameDW30000C    ServiceObjectiveName = "DW30000c"
-	ServiceObjectiveNameDW3000C     ServiceObjectiveName = "DW3000c"
-	ServiceObjectiveNameDW400       ServiceObjectiveName = "DW400"
-	ServiceObjectiveNameDW500       ServiceObjectiveName = "DW500"
-	ServiceObjectiveNameDW5000C     ServiceObjectiveName = "DW5000c"
-	ServiceObjectiveNameDW600       ServiceObjectiveName = "DW600"
-	ServiceObjectiveNameDW6000      ServiceObjectiveName = "DW6000"
-	ServiceObjectiveNameDW6000C     ServiceObjectiveName = "DW6000c"
-	ServiceObjectiveNameDW7500C     ServiceObjectiveName = "DW7500c"
-	ServiceObjectiveNameElasticPool ServiceObjectiveName = "ElasticPool"
-	ServiceObjectiveNameFree        ServiceObjectiveName = "Free"
-	ServiceObjectiveNameP1          ServiceObjectiveName = "P1"
-	ServiceObjectiveNameP11         ServiceObjectiveName = "P11"
-	ServiceObjectiveNameP15         ServiceObjectiveName = "P15"
-	ServiceObjectiveNameP2          ServiceObjectiveName = "P2"
-	ServiceObjectiveNameP3          ServiceObjectiveName = "P3"
-	ServiceObjectiveNameP4          ServiceObjectiveName = "P4"
-	ServiceObjectiveNameP6          ServiceObjectiveName = "P6"
-	ServiceObjectiveNamePRS1        ServiceObjectiveName = "PRS1"
-	ServiceObjectiveNamePRS2        ServiceObjectiveName = "PRS2"
-	ServiceObjectiveNamePRS4        ServiceObjectiveName = "PRS4"
-	ServiceObjectiveNamePRS6        ServiceObjectiveName = "PRS6"
-	ServiceObjectiveNameS0          ServiceObjectiveName = "S0"
-	ServiceObjectiveNameS1          ServiceObjectiveName = "S1"
-	ServiceObjectiveNameS12         ServiceObjectiveName = "S12"
-	ServiceObjectiveNameS2          ServiceObjectiveName = "S2"
-	ServiceObjectiveNameS3          ServiceObjectiveName = "S3"
-	ServiceObjectiveNameS4          ServiceObjectiveName = "S4"
-	ServiceObjectiveNameS6          ServiceObjectiveName = "S6"
-	ServiceObjectiveNameS7          ServiceObjectiveName = "S7"
-	ServiceObjectiveNameS9          ServiceObjectiveName = "S9"
-	ServiceObjectiveNameSystem      ServiceObjectiveName = "System"
-	ServiceObjectiveNameSystem0     ServiceObjectiveName = "System0"
-	ServiceObjectiveNameSystem1     ServiceObjectiveName = "System1"
-	ServiceObjectiveNameSystem2     ServiceObjectiveName = "System2"
-	ServiceObjectiveNameSystem2L    ServiceObjectiveName = "System2L"
-	ServiceObjectiveNameSystem3     ServiceObjectiveName = "System3"
-	ServiceObjectiveNameSystem3L    ServiceObjectiveName = "System3L"
-	ServiceObjectiveNameSystem4     ServiceObjectiveName = "System4"
-	ServiceObjectiveNameSystem4L    ServiceObjectiveName = "System4L"
-)
-
-// PossibleServiceObjectiveNameValues returns the possible values for the ServiceObjectiveName const type.
-func PossibleServiceObjectiveNameValues() []ServiceObjectiveName {
-	return []ServiceObjectiveName{
-		ServiceObjectiveNameBasic,
-		ServiceObjectiveNameDS100,
-		ServiceObjectiveNameDS1000,
-		ServiceObjectiveNameDS1200,
-		ServiceObjectiveNameDS1500,
-		ServiceObjectiveNameDS200,
-		ServiceObjectiveNameDS2000,
-		ServiceObjectiveNameDS300,
-		ServiceObjectiveNameDS400,
-		ServiceObjectiveNameDS500,
-		ServiceObjectiveNameDS600,
-		ServiceObjectiveNameDW100,
-		ServiceObjectiveNameDW1000,
-		ServiceObjectiveNameDW10000C,
-		ServiceObjectiveNameDW1000C,
-		ServiceObjectiveNameDW1200,
-		ServiceObjectiveNameDW1500,
-		ServiceObjectiveNameDW15000C,
-		ServiceObjectiveNameDW1500C,
-		ServiceObjectiveNameDW200,
-		ServiceObjectiveNameDW2000,
-		ServiceObjectiveNameDW2000C,
-		ServiceObjectiveNameDW2500C,
-		ServiceObjectiveNameDW300,
-		ServiceObjectiveNameDW3000,
-		ServiceObjectiveNameDW30000C,
-		ServiceObjectiveNameDW3000C,
-		ServiceObjectiveNameDW400,
-		ServiceObjectiveNameDW500,
-		ServiceObjectiveNameDW5000C,
-		ServiceObjectiveNameDW600,
-		ServiceObjectiveNameDW6000,
-		ServiceObjectiveNameDW6000C,
-		ServiceObjectiveNameDW7500C,
-		ServiceObjectiveNameElasticPool,
-		ServiceObjectiveNameFree,
-		ServiceObjectiveNameP1,
-		ServiceObjectiveNameP11,
-		ServiceObjectiveNameP15,
-		ServiceObjectiveNameP2,
-		ServiceObjectiveNameP3,
-		ServiceObjectiveNameP4,
-		ServiceObjectiveNameP6,
-		ServiceObjectiveNamePRS1,
-		ServiceObjectiveNamePRS2,
-		ServiceObjectiveNamePRS4,
-		ServiceObjectiveNamePRS6,
-		ServiceObjectiveNameS0,
-		ServiceObjectiveNameS1,
-		ServiceObjectiveNameS12,
-		ServiceObjectiveNameS2,
-		ServiceObjectiveNameS3,
-		ServiceObjectiveNameS4,
-		ServiceObjectiveNameS6,
-		ServiceObjectiveNameS7,
-		ServiceObjectiveNameS9,
-		ServiceObjectiveNameSystem,
-		ServiceObjectiveNameSystem0,
-		ServiceObjectiveNameSystem1,
-		ServiceObjectiveNameSystem2,
-		ServiceObjectiveNameSystem2L,
-		ServiceObjectiveNameSystem3,
-		ServiceObjectiveNameSystem3L,
-		ServiceObjectiveNameSystem4,
-		ServiceObjectiveNameSystem4L,
-	}
-}
-
 // ServicePrincipalType - Service principal type.
 type ServicePrincipalType string
 
@@ -2332,25 +2630,63 @@ func PossibleShortTermRetentionPolicyNameValues() []ShortTermRetentionPolicyName
 	}
 }
 
+type StartStopScheduleName string
+
+const (
+	StartStopScheduleNameDefault StartStopScheduleName = "default"
+)
+
+// PossibleStartStopScheduleNameValues returns the possible values for the StartStopScheduleName const type.
+func PossibleStartStopScheduleNameValues() []StartStopScheduleName {
+	return []StartStopScheduleName{
+		StartStopScheduleNameDefault,
+	}
+}
+
+type Status string
+
+const (
+	StatusCanceled   Status = "Canceled"
+	StatusCompleted  Status = "Completed"
+	StatusFailed     Status = "Failed"
+	StatusInProgress Status = "InProgress"
+	StatusNotStarted Status = "NotStarted"
+	StatusSlowedDown Status = "SlowedDown"
+)
+
+// PossibleStatusValues returns the possible values for the Status const type.
+func PossibleStatusValues() []Status {
+	return []Status{
+		StatusCanceled,
+		StatusCompleted,
+		StatusFailed,
+		StatusInProgress,
+		StatusNotStarted,
+		StatusSlowedDown,
+	}
+}
+
 // StorageCapabilityStorageAccountType - The storage account type for the database's backups.
 type StorageCapabilityStorageAccountType string
 
 const (
-	StorageCapabilityStorageAccountTypeGRS StorageCapabilityStorageAccountType = "GRS"
-	StorageCapabilityStorageAccountTypeLRS StorageCapabilityStorageAccountType = "LRS"
-	StorageCapabilityStorageAccountTypeZRS StorageCapabilityStorageAccountType = "ZRS"
+	StorageCapabilityStorageAccountTypeGRS  StorageCapabilityStorageAccountType = "GRS"
+	StorageCapabilityStorageAccountTypeGZRS StorageCapabilityStorageAccountType = "GZRS"
+	StorageCapabilityStorageAccountTypeLRS  StorageCapabilityStorageAccountType = "LRS"
+	StorageCapabilityStorageAccountTypeZRS  StorageCapabilityStorageAccountType = "ZRS"
 )
 
 // PossibleStorageCapabilityStorageAccountTypeValues returns the possible values for the StorageCapabilityStorageAccountType const type.
 func PossibleStorageCapabilityStorageAccountTypeValues() []StorageCapabilityStorageAccountType {
 	return []StorageCapabilityStorageAccountType{
 		StorageCapabilityStorageAccountTypeGRS,
+		StorageCapabilityStorageAccountTypeGZRS,
 		StorageCapabilityStorageAccountTypeLRS,
 		StorageCapabilityStorageAccountTypeZRS,
 	}
 }
 
-// StorageKeyType - Storage key type.
+// StorageKeyType - Storage key type: StorageAccessKey or SharedAccessKey.
 type StorageKeyType string
 
 const (
@@ -2587,77 +2923,6 @@ func PossibleTransparentDataEncryptionStateValues() []TransparentDataEncryptionS
 	return []TransparentDataEncryptionState{
 		TransparentDataEncryptionStateEnabled,
 		TransparentDataEncryptionStateDisabled,
-	}
-}
-
-// UnitDefinitionType - The unit of the metric.
-type UnitDefinitionType string
-
-const (
-	UnitDefinitionTypeBytes          UnitDefinitionType = "Bytes"
-	UnitDefinitionTypeBytesPerSecond UnitDefinitionType = "BytesPerSecond"
-	UnitDefinitionTypeCount          UnitDefinitionType = "Count"
-	UnitDefinitionTypeCountPerSecond UnitDefinitionType = "CountPerSecond"
-	UnitDefinitionTypePercent        UnitDefinitionType = "Percent"
-	UnitDefinitionTypeSeconds        UnitDefinitionType = "Seconds"
-)
-
-// PossibleUnitDefinitionTypeValues returns the possible values for the UnitDefinitionType const type.
-func PossibleUnitDefinitionTypeValues() []UnitDefinitionType {
-	return []UnitDefinitionType{
-		UnitDefinitionTypeBytes,
-		UnitDefinitionTypeBytesPerSecond,
-		UnitDefinitionTypeCount,
-		UnitDefinitionTypeCountPerSecond,
-		UnitDefinitionTypePercent,
-		UnitDefinitionTypeSeconds,
-	}
-}
-
-// UnitType - The unit of the metric.
-type UnitType string
-
-const (
-	UnitTypeBytes          UnitType = "bytes"
-	UnitTypeBytesPerSecond UnitType = "bytesPerSecond"
-	UnitTypeCount          UnitType = "count"
-	UnitTypeCountPerSecond UnitType = "countPerSecond"
-	UnitTypePercent        UnitType = "percent"
-	UnitTypeSeconds        UnitType = "seconds"
-)
-
-// PossibleUnitTypeValues returns the possible values for the UnitType const type.
-func PossibleUnitTypeValues() []UnitType {
-	return []UnitType{
-		UnitTypeBytes,
-		UnitTypeBytesPerSecond,
-		UnitTypeCount,
-		UnitTypeCountPerSecond,
-		UnitTypePercent,
-		UnitTypeSeconds,
-	}
-}
-
-type UpsertManagedServerOperationStepStatus string
-
-const (
-	UpsertManagedServerOperationStepStatusCanceled   UpsertManagedServerOperationStepStatus = "Canceled"
-	UpsertManagedServerOperationStepStatusCompleted  UpsertManagedServerOperationStepStatus = "Completed"
-	UpsertManagedServerOperationStepStatusFailed     UpsertManagedServerOperationStepStatus = "Failed"
-	UpsertManagedServerOperationStepStatusInProgress UpsertManagedServerOperationStepStatus = "InProgress"
-	UpsertManagedServerOperationStepStatusNotStarted UpsertManagedServerOperationStepStatus = "NotStarted"
-	UpsertManagedServerOperationStepStatusSlowedDown UpsertManagedServerOperationStepStatus = "SlowedDown"
-)
-
-// PossibleUpsertManagedServerOperationStepStatusValues returns the possible values for the UpsertManagedServerOperationStepStatus const type.
-func PossibleUpsertManagedServerOperationStepStatusValues() []UpsertManagedServerOperationStepStatus {
-	return []UpsertManagedServerOperationStepStatus{
-		UpsertManagedServerOperationStepStatusCanceled,
-		UpsertManagedServerOperationStepStatusCompleted,
-		UpsertManagedServerOperationStepStatusFailed,
-		UpsertManagedServerOperationStepStatusInProgress,
-		UpsertManagedServerOperationStepStatusNotStarted,
-		UpsertManagedServerOperationStepStatusSlowedDown,
 	}
 }
 
