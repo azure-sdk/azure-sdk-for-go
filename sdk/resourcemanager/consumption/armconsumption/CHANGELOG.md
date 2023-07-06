@@ -1,5 +1,37 @@
 # Release History
 
+## 2.0.0 (2023-07-06)
+### Breaking Changes
+
+- Type of `ModernReservationRecommendation.Properties` has been changed from `*ModernReservationRecommendationProperties` to `ModernReservationRecommendationPropertiesClassification`
+- Field `Etag`, `Tags` of struct `CreditSummary` has been removed
+- Field `MarketplaceCharges` of struct `LegacyChargeSummaryProperties` has been removed
+
+### Features Added
+
+- New value `EventTypeCreditExpired` added to enum type `EventType`
+- New enum type `OperationStatusType` with values `OperationStatusTypeCompleted`, `OperationStatusTypeFailed`, `OperationStatusTypeRunning`
+- New function `*ModernReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*ModernSharedScopeReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*ModernSingleScopeReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*PriceSheetClient.BeginDownloadByBillingAccountPeriod(context.Context, string, string, *PriceSheetClientBeginDownloadByBillingAccountPeriodOptions) (*runtime.Poller[PriceSheetClientDownloadByBillingAccountPeriodResponse], error)`
+- New struct `ModernSharedScopeReservationRecommendationProperties`
+- New struct `ModernSingleScopeReservationRecommendationProperties`
+- New struct `OperationStatus`
+- New struct `PricesheetDownloadProperties`
+- New struct `SavingsPlan`
+- New field `OverageRefund` in struct `BalanceProperties`
+- New field `ETag` in struct `CreditSummary`
+- New field `IsEstimatedBalance` in struct `CreditSummaryProperties`
+- New field `IsEstimatedBalance` in struct `EventProperties`
+- New field `AzureMarketplaceCharges` in struct `LegacyChargeSummaryProperties`
+- New field `IsEstimatedBalance` in struct `LotProperties`
+- New field `SubscriptionID` in struct `ModernChargeSummaryProperties`
+- New field `SavingsPlan` in struct `PriceSheetProperties`
+- New field `Filter` in struct `ReservationRecommendationDetailsClientGetOptions`
+- New field `PreviewMarkupPercentage`, `UseMarkupIfPartner` in struct `ReservationTransactionsClientListOptions`
+
+
 ## 1.1.0 (2023-03-28)
 ### Features Added
 

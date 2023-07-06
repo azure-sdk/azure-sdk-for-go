@@ -70,6 +70,26 @@ func unmarshalLegacyReservationRecommendationPropertiesClassification(rawMsg jso
 	return b, json.Unmarshal(rawMsg, b)
 }
 
+func unmarshalModernReservationRecommendationPropertiesClassification(rawMsg json.RawMessage) (ModernReservationRecommendationPropertiesClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ModernReservationRecommendationPropertiesClassification
+	switch m["scope"] {
+	case "Shared":
+		b = &ModernSharedScopeReservationRecommendationProperties{}
+	case "Single":
+		b = &ModernSingleScopeReservationRecommendationProperties{}
+	default:
+		b = &ModernReservationRecommendationProperties{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalReservationRecommendationClassification(rawMsg json.RawMessage) (ReservationRecommendationClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
