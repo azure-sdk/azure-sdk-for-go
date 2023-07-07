@@ -11,10 +11,28 @@ package armagrifood
 
 import "time"
 
+// APIProperties - Api properties.
+type APIProperties struct {
+	// Interval in minutes for which the weather data for the api needs to be refreshed.
+	APIFreshnessTimeInMinutes *int32
+}
+
 // ArmAsyncOperation - Arm async operation class. Ref: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/async-operations.
 type ArmAsyncOperation struct {
+	// Arm async operation error class. Ref: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md#azure-asyncoperation-resource-format.
+	Error *ArmAsyncOperationError
+
 	// Status of the async operation.
 	Status *string
+}
+
+// ArmAsyncOperationError - Arm async operation error class. Ref: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md#azure-asyncoperation-resource-format.
+type ArmAsyncOperationError struct {
+	// Status of the async operation.
+	Code *string
+
+	// Status of the async operation.
+	Message *string
 }
 
 // CheckNameAvailabilityRequest - The check availability request body.
@@ -98,7 +116,7 @@ type Extension struct {
 	// READ-ONLY; The ETag value to implement optimistic concurrency.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -109,6 +127,15 @@ type Extension struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// ExtensionInstallationRequest - Extension Installation Request Body.
+type ExtensionInstallationRequest struct {
+	// Additional Api Properties.
+	AdditionalAPIProperties map[string]*APIProperties
+
+	// Extension Version.
+	ExtensionVersion *string
 }
 
 // ExtensionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
@@ -122,6 +149,9 @@ type ExtensionListResponse struct {
 
 // ExtensionProperties - Extension resource properties.
 type ExtensionProperties struct {
+	// READ-ONLY; Additional api properties.
+	AdditionalAPIProperties map[string]*APIProperties
+
 	// READ-ONLY; Extension api docs link.
 	ExtensionAPIDocsLink *string
 
@@ -138,9 +168,10 @@ type ExtensionProperties struct {
 	InstalledExtensionVersion *string
 }
 
-// ExtensionsClientCreateOptions contains the optional parameters for the ExtensionsClient.Create method.
-type ExtensionsClientCreateOptions struct {
-	// placeholder for future optional parameters
+// ExtensionsClientCreateOrUpdateOptions contains the optional parameters for the ExtensionsClient.CreateOrUpdate method.
+type ExtensionsClientCreateOrUpdateOptions struct {
+	// Extension resource request body.
+	RequestBody *ExtensionInstallationRequest
 }
 
 // ExtensionsClientDeleteOptions contains the optional parameters for the ExtensionsClient.Delete method.
@@ -166,11 +197,6 @@ type ExtensionsClientListByFarmBeatsOptions struct {
 	SkipToken *string
 }
 
-// ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
-type ExtensionsClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FarmBeats ARM Resource.
 type FarmBeats struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -185,7 +211,7 @@ type FarmBeats struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -203,7 +229,7 @@ type FarmBeatsExtension struct {
 	// FarmBeatsExtension properties.
 	Properties *FarmBeatsExtensionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -306,12 +332,6 @@ type FarmBeatsModelsClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FarmBeatsModelsClientGetOperationResultOptions contains the optional parameters for the FarmBeatsModelsClient.GetOperationResult
-// method.
-type FarmBeatsModelsClientGetOperationResultOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FarmBeatsModelsClientGetOptions contains the optional parameters for the FarmBeatsModelsClient.Get method.
 type FarmBeatsModelsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -346,11 +366,87 @@ type FarmBeatsProperties struct {
 	// READ-ONLY; Uri of the FarmBeats instance.
 	InstanceURI *string
 
-	// READ-ONLY; The Private Endpoint Connection resource.
+	// READ-ONLY; The private endpoint connection resource.
 	PrivateEndpointConnections *PrivateEndpointConnection
 
 	// READ-ONLY; FarmBeats instance provisioning state.
 	ProvisioningState *ProvisioningState
+}
+
+// FarmBeatsSolution - FarmBeats solution resource.
+type FarmBeatsSolution struct {
+	// FarmBeatsSolution properties.
+	Properties *FarmBeatsSolutionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FarmBeatsSolutionListResponse - Paged response contains list of requested objects and a URL link to get the next set of
+// results.
+type FarmBeatsSolutionListResponse struct {
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
+
+	// List of requested objects.
+	Value []*FarmBeatsSolution
+}
+
+// FarmBeatsSolutionProperties - FarmBeatsSolution properties.
+type FarmBeatsSolutionProperties struct {
+	MarketplaceOfferDetails *MarketplaceOfferDetails
+
+	// READ-ONLY; Application id of the multi tenant application to be used by partner to access FarmBeats data.
+	AccessFBApplicationID *string
+
+	// READ-ONLY; Application name of the multi tenant application to be used by partner to access FarmBeatsData.
+	AccessFBApplicationName *string
+
+	// READ-ONLY; List of ActionIds needed to make the SaaS multi tenant application access relevant fb data.
+	ActionIDs []*string
+
+	// READ-ONLY; Gets scope of the FarmBeats data access that's required for processing solution request to partner. Example:
+	// For gdd they might need weatherScope and satelliteScope.
+	DataAccessScopes []*string
+
+	// READ-ONLY; Gets example name: insight sample response Dictionary to capture all variations of computed results ingested
+	// by partner.
+	EvaluatedOutputsDictionary map[string]*SolutionEvaluatedOutput
+
+	// READ-ONLY; Gets scope of the FarmBeats related parameters that need to be validated in apiInputParameters. Example: For
+	// if 'FarmHierarchy' is the input scope for 'WeatherScope' data access For working with
+	// WeatherScope we need FarmHierarchy info implies 'farmerId', 'resourceId', 'resourceType' in request body.
+	InputParametersValidationScopes []*ResourceParameter
+
+	// READ-ONLY; Gets apiVersion: Swagger Document Dictionary to capture all api versions of swagger exposed by partner to farmbeats.
+	OpenAPISpecsDictionary map[string]any
+
+	// READ-ONLY; Solution Partner Id.
+	PartnerID *string
+
+	// READ-ONLY; Solution Partner Tenant Id.
+	PartnerTenantID *string
+
+	// READ-ONLY; Role Id of the SaaS multi tenant application to access relevant fb data.
+	RoleID *string
+
+	// READ-ONLY; Role Name of the SaaS multi tenant application to access relevant fb data.
+	RoleName *string
+
+	// READ-ONLY; Application id of the SaaS multi tenant application.
+	SaaSApplicationID *string
 }
 
 // FarmBeatsUpdateProperties - FarmBeats ARM Resource properties.
@@ -382,17 +478,67 @@ type Identity struct {
 	// The identity type.
 	Type *string
 
-	// READ-ONLY; The principal ID of resource identity.
+	// READ-ONLY; The principal ID of resource identity. The value must be an UUID.
 	PrincipalID *string
 
-	// READ-ONLY; The tenant ID of resource.
+	// READ-ONLY; The tenant ID of resource. The value must be an UUID.
 	TenantID *string
+}
+
+type Insight struct {
+	CreatedDateTime      *time.Time
+	Description          *string
+	ETag                 *string
+	FarmerID             *string
+	ID                   *string
+	InsightEndDateTime   *time.Time
+	InsightStartDateTime *time.Time
+
+	// Dictionary of
+	Measures         map[string]*Measure
+	ModelID          *string
+	ModelVersion     *string
+	ModifiedDateTime *time.Time
+	Name             *string
+
+	// Dictionary of
+	Properties   map[string]any
+	ResourceID   *string
+	ResourceType *string
+	Status       *string
+}
+
+type InsightAttachment struct {
+	CreatedDateTime  *time.Time
+	Description      *string
+	ETag             *string
+	FarmerID         *string
+	FileLink         *string
+	ID               *string
+	InsightID        *string
+	ModelID          *string
+	ModifiedDateTime *time.Time
+	Name             *string
+	OriginalFileName *string
+	ResourceID       *string
+	ResourceType     *string
+	Status           *string
 }
 
 // LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
 // method.
 type LocationsClientCheckNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
+}
+
+type MarketplaceOfferDetails struct {
+	PublisherID *string
+	SaasOfferID *string
+}
+
+type Measure struct {
+	Unit  *string
+	Value *float64
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -444,23 +590,28 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
+// OperationResultsClientGetOptions contains the optional parameters for the OperationResultsClient.Get method.
+type OperationResultsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
+// PrivateEndpoint - The private endpoint resource.
 type PrivateEndpoint struct {
-	// READ-ONLY; The ARM identifier for Private Endpoint
+	// READ-ONLY; The ARM identifier for private endpoint.
 	ID *string
 }
 
-// PrivateEndpointConnection - The Private Endpoint Connection resource.
+// PrivateEndpointConnection - The private endpoint connection resource.
 type PrivateEndpointConnection struct {
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -473,19 +624,22 @@ type PrivateEndpointConnection struct {
 	Type *string
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connection associated with the specified storage account
+// PrivateEndpointConnectionListResult - List of private endpoint connections associated with the specified resource.
 type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
+	// Array of private endpoint connections.
 	Value []*PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
 	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// The resource of private end point.
+	// The private endpoint resource.
 	PrivateEndpoint *PrivateEndpoint
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string
 
 	// READ-ONLY; The provisioning state of the private endpoint connection resource.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
@@ -516,12 +670,12 @@ type PrivateEndpointConnectionsClientListByResourceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResource - A private link resource
+// PrivateLinkResource - A private link resource.
 type PrivateLinkResource struct {
 	// Resource properties.
 	Properties *PrivateLinkResourceProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -534,7 +688,7 @@ type PrivateLinkResource struct {
 	Type *string
 }
 
-// PrivateLinkResourceListResult - A list of private link resources
+// PrivateLinkResourceListResult - A list of private link resources.
 type PrivateLinkResourceListResult struct {
 	// Array of private link resources
 	Value []*PrivateLinkResource
@@ -542,7 +696,7 @@ type PrivateLinkResourceListResult struct {
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
+	// The private link resource private link DNS zone name.
 	RequiredZoneNames []*string
 
 	// READ-ONLY; The private link resource group id.
@@ -579,7 +733,7 @@ type PrivateLinkServiceConnectionState struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -594,7 +748,7 @@ type ProxyResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -605,6 +759,11 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+type ResourceParameter struct {
+	ResourceIDName *string
+	ResourceType   *string
 }
 
 // SensorIntegration - Sensor integration request model.
@@ -618,6 +777,138 @@ type SensorIntegration struct {
 
 	// READ-ONLY; Sensor integration instance provisioning state.
 	ProvisioningState *ProvisioningState
+}
+
+// Solution resource.
+type Solution struct {
+	// Solution resource properties.
+	Properties *SolutionProperties
+
+	// READ-ONLY; The ETag value to implement optimistic concurrency.
+	ETag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type SolutionEvaluatedOutput struct {
+	InsightAttachmentResponse *InsightAttachment
+	InsightResponse           *Insight
+}
+
+// SolutionInstallationRequest - Solution Installation Request Body.
+type SolutionInstallationRequest struct {
+	// Solution resource properties.
+	Properties *SolutionProperties
+}
+
+// SolutionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
+type SolutionListResponse struct {
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
+
+	// List of requested objects.
+	Value []*Solution
+}
+
+// SolutionProperties - Solution resource properties.
+type SolutionProperties struct {
+	// REQUIRED; SaaS application Publisher Id.
+	MarketplacePublisherID *string
+
+	// REQUIRED; SaaS application Offer Id.
+	OfferID *string
+
+	// REQUIRED; SaaS application Plan Id.
+	PlanID *string
+
+	// REQUIRED; SaaS subscriptionId of the installed SaaS application.
+	SaasSubscriptionID *string
+
+	// REQUIRED; SaaS subscription name of the installed SaaS application.
+	SaasSubscriptionName *string
+
+	// REQUIRED; SaaS application Term Id.
+	TermID *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// READ-ONLY; Partner Id of the Solution.
+	PartnerID *string
+
+	// READ-ONLY; Solution Id.
+	SolutionID *string
+}
+
+// SolutionsClientCreateOrUpdateOptions contains the optional parameters for the SolutionsClient.CreateOrUpdate method.
+type SolutionsClientCreateOrUpdateOptions struct {
+	// Solution resource request body.
+	Body *SolutionInstallationRequest
+}
+
+// SolutionsClientDeleteOptions contains the optional parameters for the SolutionsClient.Delete method.
+type SolutionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsClientGetOptions contains the optional parameters for the SolutionsClient.Get method.
+type SolutionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
+type SolutionsClientListOptions struct {
+	// Ids of the resource.
+	IDs []string
+	// Maximum creation date of resource (inclusive).
+	MaxCreatedDateTime *time.Time
+	// Maximum last modified date of resource (inclusive).
+	MaxLastModifiedDateTime *time.Time
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+	// Minimum creation date of resource (inclusive).
+	MinCreatedDateTime *time.Time
+	// Minimum last modified date of resource (inclusive).
+	MinLastModifiedDateTime *time.Time
+	// Names of the resource.
+	Names []string
+	// Filters on key-value pairs within the Properties object. eg. "{testKey} eq {testValue}".
+	PropertyFilters []string
+	// Skip token for getting next set of results.
+	SkipToken *string
+	// Installed Solution ids.
+	SolutionIDs []string
+	// Statuses of the resource.
+	Statuses []string
+}
+
+// SolutionsDiscoverabilityClientGetOptions contains the optional parameters for the SolutionsDiscoverabilityClient.Get method.
+type SolutionsDiscoverabilityClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsDiscoverabilityClientListOptions contains the optional parameters for the SolutionsDiscoverabilityClient.NewListPager
+// method.
+type SolutionsDiscoverabilityClientListOptions struct {
+	// Ids of FarmBeats Solutions which the customer requests to fetch.
+	FarmBeatsSolutionIDs []string
+	// Names of FarmBeats Solutions which the customer requests to fetch.
+	FarmBeatsSolutionNames []string
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -650,7 +941,7 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
