@@ -16,7 +16,6 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/streaming"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -89,8 +88,7 @@ func (client *AlertsClient) changeStateCreateRequest(ctx context.Context, alertI
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Comment != nil {
-		body := streaming.NopCloser(strings.NewReader(*options.Comment))
-		return req, req.SetBody(body, "application/json")
+		return req, runtime.MarshalAsJSON(req, *options.Comment)
 	}
 	return req, nil
 }
