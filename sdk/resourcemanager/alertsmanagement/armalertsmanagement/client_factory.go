@@ -38,8 +38,8 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-func (c *ClientFactory) NewAlertProcessingRulesClient() *AlertProcessingRulesClient {
-	subClient, _ := NewAlertProcessingRulesClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewPrometheusRuleGroupsClient() *PrometheusRuleGroupsClient {
+	subClient, _ := NewPrometheusRuleGroupsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -55,5 +55,15 @@ func (c *ClientFactory) NewAlertsClient() *AlertsClient {
 
 func (c *ClientFactory) NewSmartGroupsClient() *SmartGroupsClient {
 	subClient, _ := NewSmartGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAlertRuleRecommendationsClient() *AlertRuleRecommendationsClient {
+	subClient, _ := NewAlertRuleRecommendationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAlertProcessingRulesClient() *AlertProcessingRulesClient {
+	subClient, _ := NewAlertProcessingRulesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
