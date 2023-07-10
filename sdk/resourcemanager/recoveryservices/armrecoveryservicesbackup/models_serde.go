@@ -493,7 +493,7 @@ func (a AzureFileshareProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -574,8 +574,8 @@ func (a *AzureFileshareProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -777,7 +777,7 @@ func (a AzureIaaSClassicComputeVMProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "virtualMachineId", a.VirtualMachineID)
 	populate(objectMap, "workloadType", a.WorkloadType)
@@ -871,8 +871,8 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) UnmarshalJSON(data []byte) erro
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -1034,7 +1034,7 @@ func (a AzureIaaSComputeVMProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "virtualMachineId", a.VirtualMachineID)
 	populate(objectMap, "workloadType", a.WorkloadType)
@@ -1128,8 +1128,8 @@ func (a *AzureIaaSComputeVMProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -1519,7 +1519,7 @@ func (a AzureIaaSVMProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "virtualMachineId", a.VirtualMachineID)
 	populate(objectMap, "workloadType", a.WorkloadType)
@@ -1613,8 +1613,8 @@ func (a *AzureIaaSVMProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -1976,7 +1976,7 @@ func (a AzureSQLProtectedItem) MarshalJSON() ([]byte, error) {
 	objectMap["protectedItemType"] = "Microsoft.Sql/servers/databases"
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -2045,8 +2045,8 @@ func (a *AzureSQLProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -2672,6 +2672,7 @@ func (a AzureVMWorkloadProtectableItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -2704,6 +2705,9 @@ func (a *AzureVMWorkloadProtectableItem) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -2760,6 +2764,7 @@ func (a AzureVMWorkloadProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
 	populateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
 	populateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentType", a.ParentType)
 	populate(objectMap, "policyId", a.PolicyID)
@@ -2771,7 +2776,7 @@ func (a AzureVMWorkloadProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "serverName", a.ServerName)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -2837,6 +2842,9 @@ func (a *AzureVMWorkloadProtectedItem) UnmarshalJSON(data []byte) error {
 		case "lastRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
 			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
 			delete(rawMsg, key)
@@ -2870,8 +2878,8 @@ func (a *AzureVMWorkloadProtectedItem) UnmarshalJSON(data []byte) error {
 		case "serverName":
 			err = unpopulate(val, "ServerName", &a.ServerName)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -3009,6 +3017,7 @@ func (a AzureVMWorkloadSAPAseDatabaseProtectedItem) MarshalJSON() ([]byte, error
 	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
 	populateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
 	populateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentType", a.ParentType)
 	populate(objectMap, "policyId", a.PolicyID)
@@ -3020,7 +3029,7 @@ func (a AzureVMWorkloadSAPAseDatabaseProtectedItem) MarshalJSON() ([]byte, error
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "serverName", a.ServerName)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -3086,6 +3095,9 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) UnmarshalJSON(data []byte) 
 		case "lastRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
 			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
 			delete(rawMsg, key)
@@ -3119,8 +3131,8 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) UnmarshalJSON(data []byte) 
 		case "serverName":
 			err = unpopulate(val, "ServerName", &a.ServerName)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -3206,6 +3218,7 @@ func (a AzureVMWorkloadSAPAseSystemProtectableItem) MarshalJSON() ([]byte, error
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -3238,6 +3251,9 @@ func (a *AzureVMWorkloadSAPAseSystemProtectableItem) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -3344,6 +3360,7 @@ func (a AzureVMWorkloadSAPHanaDBInstance) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -3376,6 +3393,9 @@ func (a *AzureVMWorkloadSAPHanaDBInstance) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -3432,6 +3452,7 @@ func (a AzureVMWorkloadSAPHanaDBInstanceProtectedItem) MarshalJSON() ([]byte, er
 	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
 	populateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
 	populateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentType", a.ParentType)
 	populate(objectMap, "policyId", a.PolicyID)
@@ -3443,7 +3464,7 @@ func (a AzureVMWorkloadSAPHanaDBInstanceProtectedItem) MarshalJSON() ([]byte, er
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "serverName", a.ServerName)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -3509,6 +3530,9 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) UnmarshalJSON(data []byt
 		case "lastRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
 			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
 			delete(rawMsg, key)
@@ -3542,8 +3566,8 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) UnmarshalJSON(data []byt
 		case "serverName":
 			err = unpopulate(val, "ServerName", &a.ServerName)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -3566,6 +3590,7 @@ func (a AzureVMWorkloadSAPHanaDatabaseProtectableItem) MarshalJSON() ([]byte, er
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -3598,6 +3623,9 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectableItem) UnmarshalJSON(data []byt
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -3654,6 +3682,7 @@ func (a AzureVMWorkloadSAPHanaDatabaseProtectedItem) MarshalJSON() ([]byte, erro
 	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
 	populateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
 	populateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentType", a.ParentType)
 	populate(objectMap, "policyId", a.PolicyID)
@@ -3665,7 +3694,7 @@ func (a AzureVMWorkloadSAPHanaDatabaseProtectedItem) MarshalJSON() ([]byte, erro
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "serverName", a.ServerName)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -3731,6 +3760,9 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) UnmarshalJSON(data []byte)
 		case "lastRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
 			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
 			delete(rawMsg, key)
@@ -3764,8 +3796,8 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) UnmarshalJSON(data []byte)
 		case "serverName":
 			err = unpopulate(val, "ServerName", &a.ServerName)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -3844,17 +3876,18 @@ func (a *AzureVMWorkloadSAPHanaDatabaseWorkloadItem) UnmarshalJSON(data []byte) 
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaHSR.
-func (a AzureVMWorkloadSAPHanaHSR) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a AzureVMWorkloadSAPHanaHSRProtectableItem) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "backupManagementType", a.BackupManagementType)
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
-	objectMap["protectableItemType"] = "SAPHanaHSR"
+	objectMap["protectableItemType"] = "HanaHSRContainer"
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "serverName", a.ServerName)
 	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
@@ -3863,8 +3896,8 @@ func (a AzureVMWorkloadSAPHanaHSR) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadSAPHanaHSR.
-func (a *AzureVMWorkloadSAPHanaHSR) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", a, err)
@@ -3883,6 +3916,9 @@ func (a *AzureVMWorkloadSAPHanaHSR) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -3926,6 +3962,7 @@ func (a AzureVMWorkloadSAPHanaSystemProtectableItem) MarshalJSON() ([]byte, erro
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -3958,6 +3995,9 @@ func (a *AzureVMWorkloadSAPHanaSystemProtectableItem) UnmarshalJSON(data []byte)
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -4064,6 +4104,8 @@ func (a AzureVMWorkloadSQLAvailabilityGroupProtectableItem) MarshalJSON() ([]byt
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
+	populate(objectMap, "nodesList", a.NodesList)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -4096,6 +4138,12 @@ func (a *AzureVMWorkloadSQLAvailabilityGroupProtectableItem) UnmarshalJSON(data 
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
+			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -4139,6 +4187,7 @@ func (a AzureVMWorkloadSQLDatabaseProtectableItem) MarshalJSON() ([]byte, error)
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -4171,6 +4220,9 @@ func (a *AzureVMWorkloadSQLDatabaseProtectableItem) UnmarshalJSON(data []byte) e
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -4227,6 +4279,7 @@ func (a AzureVMWorkloadSQLDatabaseProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
 	populateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
 	populateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentType", a.ParentType)
 	populate(objectMap, "policyId", a.PolicyID)
@@ -4238,7 +4291,7 @@ func (a AzureVMWorkloadSQLDatabaseProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "protectionStatus", a.ProtectionStatus)
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "serverName", a.ServerName)
-	populate(objectMap, "softDeleteRetentionPeriod", a.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", a.SourceResourceID)
 	populate(objectMap, "workloadType", a.WorkloadType)
 	return json.Marshal(objectMap)
@@ -4304,6 +4357,9 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) UnmarshalJSON(data []byte) err
 		case "lastRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
 			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
 			delete(rawMsg, key)
@@ -4337,8 +4393,8 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) UnmarshalJSON(data []byte) err
 		case "serverName":
 			err = unpopulate(val, "ServerName", &a.ServerName)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &a.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
@@ -4424,6 +4480,7 @@ func (a AzureVMWorkloadSQLInstanceProtectableItem) MarshalJSON() ([]byte, error)
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
 	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
@@ -4456,6 +4513,9 @@ func (a *AzureVMWorkloadSQLInstanceProtectableItem) UnmarshalJSON(data []byte) e
 			delete(rawMsg, key)
 		case "isAutoProtected":
 			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
 			delete(rawMsg, key)
 		case "parentName":
 			err = unpopulate(val, "ParentName", &a.ParentName)
@@ -6979,6 +7039,7 @@ func (b BackupResourceVaultConfig) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "isSoftDeleteFeatureStateEditable", b.IsSoftDeleteFeatureStateEditable)
 	populate(objectMap, "resourceGuardOperationRequests", b.ResourceGuardOperationRequests)
 	populate(objectMap, "softDeleteFeatureState", b.SoftDeleteFeatureState)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", b.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "storageModelType", b.StorageModelType)
 	populate(objectMap, "storageType", b.StorageType)
 	populate(objectMap, "storageTypeState", b.StorageTypeState)
@@ -7005,6 +7066,9 @@ func (b *BackupResourceVaultConfig) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "softDeleteFeatureState":
 			err = unpopulate(val, "SoftDeleteFeatureState", &b.SoftDeleteFeatureState)
+			delete(rawMsg, key)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &b.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "storageModelType":
 			err = unpopulate(val, "StorageModelType", &b.StorageModelType)
@@ -7497,7 +7561,7 @@ func (d DPMProtectedItem) MarshalJSON() ([]byte, error) {
 	objectMap["protectedItemType"] = "DPMProtectedItem"
 	populate(objectMap, "protectionState", d.ProtectionState)
 	populate(objectMap, "resourceGuardOperationRequests", d.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", d.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", d.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", d.SourceResourceID)
 	populate(objectMap, "workloadType", d.WorkloadType)
 	return json.Marshal(objectMap)
@@ -7569,8 +7633,8 @@ func (d *DPMProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &d.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &d.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &d.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &d.SourceResourceID)
@@ -7864,6 +7928,7 @@ func (d DistributedNodesInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "errorDetail", d.ErrorDetail)
 	populate(objectMap, "nodeName", d.NodeName)
+	populate(objectMap, "sourceResourceId", d.SourceResourceID)
 	populate(objectMap, "status", d.Status)
 	return json.Marshal(objectMap)
 }
@@ -7882,6 +7947,9 @@ func (d *DistributedNodesInfo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "nodeName":
 			err = unpopulate(val, "NodeName", &d.NodeName)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &d.SourceResourceID)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, "Status", &d.Status)
@@ -8598,7 +8666,7 @@ func (g GenericProtectedItem) MarshalJSON() ([]byte, error) {
 	objectMap["protectedItemType"] = "GenericProtectedItem"
 	populate(objectMap, "protectionState", g.ProtectionState)
 	populate(objectMap, "resourceGuardOperationRequests", g.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", g.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", g.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceAssociations", g.SourceAssociations)
 	populate(objectMap, "sourceResourceId", g.SourceResourceID)
 	populate(objectMap, "workloadType", g.WorkloadType)
@@ -8674,8 +8742,8 @@ func (g *GenericProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &g.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &g.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &g.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceAssociations":
 			err = unpopulate(val, "SourceAssociations", &g.SourceAssociations)
@@ -9559,6 +9627,7 @@ func (i InquiryValidation) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "additionalDetail", i.AdditionalDetail)
 	populate(objectMap, "errorDetail", i.ErrorDetail)
+	populateAny(objectMap, "protectableItemCount", i.ProtectableItemCount)
 	populate(objectMap, "status", i.Status)
 	return json.Marshal(objectMap)
 }
@@ -9577,6 +9646,9 @@ func (i *InquiryValidation) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "errorDetail":
 			err = unpopulate(val, "ErrorDetail", &i.ErrorDetail)
+			delete(rawMsg, key)
+		case "protectableItemCount":
+			err = unpopulate(val, "ProtectableItemCount", &i.ProtectableItemCount)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, "Status", &i.Status)
@@ -10277,7 +10349,7 @@ func (m MabFileFolderProtectedItem) MarshalJSON() ([]byte, error) {
 	objectMap["protectedItemType"] = "MabFileFolderProtectedItem"
 	populate(objectMap, "protectionState", m.ProtectionState)
 	populate(objectMap, "resourceGuardOperationRequests", m.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", m.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", m.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", m.SourceResourceID)
 	populate(objectMap, "workloadType", m.WorkloadType)
 	return json.Marshal(objectMap)
@@ -10358,8 +10430,8 @@ func (m *MabFileFolderProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &m.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &m.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &m.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &m.SourceResourceID)
@@ -11422,6 +11494,7 @@ func (p *PrivateEndpoint) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PrivateEndpointConnection.
 func (p PrivateEndpointConnection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "groupIds", p.GroupIDs)
 	populate(objectMap, "privateEndpoint", p.PrivateEndpoint)
 	populate(objectMap, "privateLinkServiceConnectionState", p.PrivateLinkServiceConnectionState)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
@@ -11437,6 +11510,9 @@ func (p *PrivateEndpointConnection) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "groupIds":
+			err = unpopulate(val, "GroupIDs", &p.GroupIDs)
+			delete(rawMsg, key)
 		case "privateEndpoint":
 			err = unpopulate(val, "PrivateEndpoint", &p.PrivateEndpoint)
 			delete(rawMsg, key)
@@ -11508,7 +11584,7 @@ func (p *PrivateEndpointConnectionResource) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PrivateLinkServiceConnectionState.
 func (p PrivateLinkServiceConnectionState) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "actionRequired", p.ActionRequired)
+	populate(objectMap, "actionsRequired", p.ActionsRequired)
 	populate(objectMap, "description", p.Description)
 	populate(objectMap, "status", p.Status)
 	return json.Marshal(objectMap)
@@ -11523,8 +11599,8 @@ func (p *PrivateLinkServiceConnectionState) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "actionRequired":
-			err = unpopulate(val, "ActionRequired", &p.ActionRequired)
+		case "actionsRequired":
+			err = unpopulate(val, "ActionsRequired", &p.ActionsRequired)
 			delete(rawMsg, key)
 		case "description":
 			err = unpopulate(val, "Description", &p.Description)
@@ -11683,7 +11759,7 @@ func (p ProtectedItem) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "policyName", p.PolicyName)
 	objectMap["protectedItemType"] = p.ProtectedItemType
 	populate(objectMap, "resourceGuardOperationRequests", p.ResourceGuardOperationRequests)
-	populate(objectMap, "softDeleteRetentionPeriod", p.SoftDeleteRetentionPeriod)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", p.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "sourceResourceId", p.SourceResourceID)
 	populate(objectMap, "workloadType", p.WorkloadType)
 	return json.Marshal(objectMap)
@@ -11743,8 +11819,8 @@ func (p *ProtectedItem) UnmarshalJSON(data []byte) error {
 		case "resourceGuardOperationRequests":
 			err = unpopulate(val, "ResourceGuardOperationRequests", &p.ResourceGuardOperationRequests)
 			delete(rawMsg, key)
-		case "softDeleteRetentionPeriod":
-			err = unpopulate(val, "SoftDeleteRetentionPeriod", &p.SoftDeleteRetentionPeriod)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &p.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, "SourceResourceID", &p.SourceResourceID)
