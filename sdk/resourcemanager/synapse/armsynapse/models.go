@@ -282,9 +282,6 @@ type BigDataPoolResourceProperties struct {
 	// Auto-scaling properties
 	AutoScale *AutoScaleProperties
 
-	// The cache size
-	CacheSize *int32
-
 	// List of custom libraries/packages associated with the spark pool.
 	CustomLibraries []*LibraryInfo
 
@@ -326,6 +323,9 @@ type BigDataPoolResourceProperties struct {
 
 	// The Apache Spark version.
 	SparkVersion *string
+
+	// READ-ONLY; The cache size
+	CacheSize *int32
 
 	// READ-ONLY; The time when the Big Data pool was created.
 	CreationDate *time.Time
@@ -1743,8 +1743,19 @@ type IntegrationRuntimeDataFlowProperties struct {
 	// Core count of the cluster which will execute data flow job. Supported values are: 8, 16, 32, 48, 80, 144 and 272.
 	CoreCount *int32
 
+	// Custom properties are used to tune the data flow runtime performance.
+	CustomProperties []*IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem
+
 	// Time to live (in minutes) setting of the cluster which will execute data flow job.
 	TimeToLive *int32
+}
+
+type IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem struct {
+	// Name of custom property.
+	Name *string
+
+	// Value of custom property.
+	Value *string
 }
 
 // IntegrationRuntimeDataProxyProperties - Data proxy properties for a managed dedicated integration runtime.
@@ -2698,14 +2709,14 @@ type LibraryInfo struct {
 	// Type of the library.
 	Type *string
 
-	// The last update time of the library.
-	UploadedTimestamp *time.Time
-
 	// READ-ONLY; Creator Id of the library/package.
 	CreatorID *string
 
 	// READ-ONLY; Provisioning status of the library/package.
 	ProvisioningStatus *string
+
+	// READ-ONLY; The last update time of the library.
+	UploadedTimestamp *time.Time
 }
 
 // LibraryListResponse - A list of Library resources.
@@ -5241,6 +5252,9 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 	// READ-ONLY; The node communication Channel encryption mode
 	NodeCommunicationChannelEncryptionMode *string
 
+	// READ-ONLY
+	OSType *int32
+
 	// READ-ONLY; The version that the integration runtime is going to update to.
 	PushedVersion *string
 
@@ -5249,6 +5263,9 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 
 	// READ-ONLY; The URLs for the services used in integration runtime backend service.
 	ServiceUrls []*string
+
+	// READ-ONLY
+	TargetFramework *int32
 
 	// READ-ONLY; The task queue id of the integration runtime.
 	TaskQueueID *string
@@ -6547,9 +6564,6 @@ type WorkspaceProperties struct {
 	// Enable or Disable AzureADOnlyAuthentication on All Workspace subresource
 	AzureADOnlyAuthentication *bool
 
-	// Connectivity endpoints
-	ConnectivityEndpoints map[string]*string
-
 	// Initial workspace AAD admin properties for a CSP subscription
 	CspWorkspaceAdminProperties *CspWorkspaceAdminProperties
 
@@ -6599,8 +6613,11 @@ type WorkspaceProperties struct {
 	// READ-ONLY; The ADLA resource ID.
 	AdlaResourceID *string
 
+	// READ-ONLY; Connectivity endpoints
+	ConnectivityEndpoints map[string]*string
+
 	// READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]any
+	ExtraProperties any
 
 	// READ-ONLY; Resource provisioning state
 	ProvisioningState *string
