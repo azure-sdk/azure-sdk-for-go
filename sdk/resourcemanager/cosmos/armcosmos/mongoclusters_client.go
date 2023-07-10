@@ -47,7 +47,7 @@ func NewMongoClustersClient(subscriptionID string, credential azcore.TokenCreden
 // CheckNameAvailability - Check the availability of name for resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - location - The name of the Azure region.
 //   - parameters - The required parameters for checking if resource name is available.
 //   - options - MongoClustersClientCheckNameAvailabilityOptions contains the optional parameters for the MongoClustersClient.CheckNameAvailability
@@ -83,7 +83,7 @@ func (client *MongoClustersClient) checkNameAvailabilityCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -102,7 +102,7 @@ func (client *MongoClustersClient) checkNameAvailabilityHandleResponse(resp *htt
 // some of the properties, use PATCH.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - parameters - The required parameters for creating or updating a mongo cluster.
@@ -126,7 +126,7 @@ func (client *MongoClustersClient) BeginCreateOrUpdate(ctx context.Context, reso
 // of the properties, use PATCH.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 func (client *MongoClustersClient) createOrUpdate(ctx context.Context, resourceGroupName string, mongoClusterName string, parameters MongoCluster, options *MongoClustersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mongoClusterName, parameters, options)
 	if err != nil {
@@ -162,7 +162,7 @@ func (client *MongoClustersClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -171,7 +171,7 @@ func (client *MongoClustersClient) createOrUpdateCreateRequest(ctx context.Conte
 // BeginCreateOrUpdateFirewallRule - Creates a new firewall rule or updates an existing firewall rule on a mongo cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - firewallRuleName - The name of the mongo cluster firewall rule.
@@ -195,7 +195,7 @@ func (client *MongoClustersClient) BeginCreateOrUpdateFirewallRule(ctx context.C
 // CreateOrUpdateFirewallRule - Creates a new firewall rule or updates an existing firewall rule on a mongo cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 func (client *MongoClustersClient) createOrUpdateFirewallRule(ctx context.Context, resourceGroupName string, mongoClusterName string, firewallRuleName string, parameters FirewallRule, options *MongoClustersClientBeginCreateOrUpdateFirewallRuleOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateFirewallRuleCreateRequest(ctx, resourceGroupName, mongoClusterName, firewallRuleName, parameters, options)
 	if err != nil {
@@ -235,7 +235,7 @@ func (client *MongoClustersClient) createOrUpdateFirewallRuleCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -244,7 +244,7 @@ func (client *MongoClustersClient) createOrUpdateFirewallRuleCreateRequest(ctx c
 // BeginDelete - Deletes a mongo cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - options - MongoClustersClientBeginDeleteOptions contains the optional parameters for the MongoClustersClient.BeginDelete
@@ -266,7 +266,7 @@ func (client *MongoClustersClient) BeginDelete(ctx context.Context, resourceGrou
 // Delete - Deletes a mongo cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 func (client *MongoClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, mongoClusterName string, options *MongoClustersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, mongoClusterName, options)
 	if err != nil {
@@ -302,7 +302,7 @@ func (client *MongoClustersClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -311,7 +311,7 @@ func (client *MongoClustersClient) deleteCreateRequest(ctx context.Context, reso
 // BeginDeleteFirewallRule - Deletes a mongo cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - firewallRuleName - The name of the mongo cluster firewall rule.
@@ -334,7 +334,7 @@ func (client *MongoClustersClient) BeginDeleteFirewallRule(ctx context.Context, 
 // DeleteFirewallRule - Deletes a mongo cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 func (client *MongoClustersClient) deleteFirewallRule(ctx context.Context, resourceGroupName string, mongoClusterName string, firewallRuleName string, options *MongoClustersClientBeginDeleteFirewallRuleOptions) (*http.Response, error) {
 	req, err := client.deleteFirewallRuleCreateRequest(ctx, resourceGroupName, mongoClusterName, firewallRuleName, options)
 	if err != nil {
@@ -374,7 +374,7 @@ func (client *MongoClustersClient) deleteFirewallRuleCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -383,7 +383,7 @@ func (client *MongoClustersClient) deleteFirewallRuleCreateRequest(ctx context.C
 // Get - Gets information about a mongo cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - options - MongoClustersClientGetOptions contains the optional parameters for the MongoClustersClient.Get method.
@@ -422,7 +422,7 @@ func (client *MongoClustersClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -440,7 +440,7 @@ func (client *MongoClustersClient) getHandleResponse(resp *http.Response) (Mongo
 // GetFirewallRule - Gets information about a mongo cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - firewallRuleName - The name of the mongo cluster firewall rule.
@@ -485,7 +485,7 @@ func (client *MongoClustersClient) getFirewallRuleCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -502,7 +502,7 @@ func (client *MongoClustersClient) getFirewallRuleHandleResponse(resp *http.Resp
 
 // NewListPager - List all the mongo clusters in a given subscription.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - options - MongoClustersClientListOptions contains the optional parameters for the MongoClustersClient.NewListPager method.
 func (client *MongoClustersClient) NewListPager(options *MongoClustersClientListOptions) *runtime.Pager[MongoClustersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MongoClustersClientListResponse]{
@@ -544,7 +544,7 @@ func (client *MongoClustersClient) listCreateRequest(ctx context.Context, option
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -561,7 +561,7 @@ func (client *MongoClustersClient) listHandleResponse(resp *http.Response) (Mong
 
 // NewListByResourceGroupPager - List all the mongo clusters in a given resource group.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - MongoClustersClientListByResourceGroupOptions contains the optional parameters for the MongoClustersClient.NewListByResourceGroupPager
 //     method.
@@ -609,7 +609,7 @@ func (client *MongoClustersClient) listByResourceGroupCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -628,7 +628,7 @@ func (client *MongoClustersClient) listByResourceGroupHandleResponse(resp *http.
 // as well as other connection strings supported by the cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - options - MongoClustersClientListConnectionStringsOptions contains the optional parameters for the MongoClustersClient.ListConnectionStrings
@@ -668,7 +668,7 @@ func (client *MongoClustersClient) listConnectionStringsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -685,7 +685,7 @@ func (client *MongoClustersClient) listConnectionStringsHandleResponse(resp *htt
 
 // NewListFirewallRulesPager - List all the firewall rules in a given mongo cluster.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - options - MongoClustersClientListFirewallRulesOptions contains the optional parameters for the MongoClustersClient.NewListFirewallRulesPager
@@ -738,7 +738,7 @@ func (client *MongoClustersClient) listFirewallRulesCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -757,7 +757,7 @@ func (client *MongoClustersClient) listFirewallRulesHandleResponse(resp *http.Re
 // the normal mongo cluster definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
 //   - parameters - The parameters for updating a mongo cluster.
@@ -781,7 +781,7 @@ func (client *MongoClustersClient) BeginUpdate(ctx context.Context, resourceGrou
 // mongo cluster definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-08-15-preview
 func (client *MongoClustersClient) update(ctx context.Context, resourceGroupName string, mongoClusterName string, parameters MongoClusterUpdate, options *MongoClustersClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, mongoClusterName, parameters, options)
 	if err != nil {
@@ -817,7 +817,7 @@ func (client *MongoClustersClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-08-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
