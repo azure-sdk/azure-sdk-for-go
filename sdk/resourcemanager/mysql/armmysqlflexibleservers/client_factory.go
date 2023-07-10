@@ -24,7 +24,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -38,77 +38,12 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-func (c *ClientFactory) NewAzureADAdministratorsClient() *AzureADAdministratorsClient {
-	subClient, _ := NewAzureADAdministratorsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
+	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewBackupsClient() *BackupsClient {
-	subClient, _ := NewBackupsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewBackupAndExportClient() *BackupAndExportClient {
-	subClient, _ := NewBackupAndExportClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewConfigurationsClient() *ConfigurationsClient {
-	subClient, _ := NewConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewDatabasesClient() *DatabasesClient {
-	subClient, _ := NewDatabasesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewFirewallRulesClient() *FirewallRulesClient {
-	subClient, _ := NewFirewallRulesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewServersClient() *ServersClient {
-	subClient, _ := NewServersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
-	subClient, _ := NewReplicasClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewLogFilesClient() *LogFilesClient {
-	subClient, _ := NewLogFilesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewLocationBasedCapabilitiesClient() *LocationBasedCapabilitiesClient {
-	subClient, _ := NewLocationBasedCapabilitiesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewCheckVirtualNetworkSubnetUsageClient() *CheckVirtualNetworkSubnetUsageClient {
-	subClient, _ := NewCheckVirtualNetworkSubnetUsageClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewCheckNameAvailabilityClient() *CheckNameAvailabilityClient {
-	subClient, _ := NewCheckNameAvailabilityClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewCheckNameAvailabilityWithoutLocationClient() *CheckNameAvailabilityWithoutLocationClient {
-	subClient, _ := NewCheckNameAvailabilityWithoutLocationClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewGetPrivateDNSZoneSuffixClient() *GetPrivateDNSZoneSuffixClient {
-	subClient, _ := NewGetPrivateDNSZoneSuffixClient(c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
+func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
+	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
