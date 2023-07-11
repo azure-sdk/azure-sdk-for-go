@@ -44,7 +44,7 @@ func NewForecastClient(credential azcore.TokenCredential, options *arm.ClientOpt
 // ExternalCloudProviderUsage - Lists the forecast charges for external cloud provider type defined.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - externalCloudProviderType - The external cloud provider type associated with dimension/query operations. This includes
 //     'externalSubscriptions' for linked account and 'externalBillingAccounts' for consolidated account.
 //   - externalCloudProviderID - This can be '{externalSubscriptionId}' for linked account or '{externalBillingAccountId}' for
@@ -86,7 +86,7 @@ func (client *ForecastClient) externalCloudProviderUsageCreateRequest(ctx contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -104,7 +104,7 @@ func (client *ForecastClient) externalCloudProviderUsageHandleResponse(resp *htt
 // Usage - Lists the forecast charges for scope defined.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with forecast operations. This includes '/subscriptions/{subscriptionId}/' for subscription
 //     scope, '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope and
@@ -144,7 +144,7 @@ func (client *ForecastClient) usageCreateRequest(ctx context.Context, scope stri
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
