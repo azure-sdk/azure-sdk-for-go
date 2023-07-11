@@ -1,10 +1,14 @@
 # Release History
 
-## 1.4.0-beta.1 (2023-06-12)
+## 2.0.0 (2023-07-11)
+### Breaking Changes
+
+- Type of `PermissionScope.Service` has been changed from `*string` to `*PermissionScopeServiceName`
 
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New enum type `PermissionScopeServiceName` with values `PermissionScopeServiceNameBlob`, `PermissionScopeServiceNameFile`
+
 
 ## 1.3.0 (2023-03-27)
 ### Features Added

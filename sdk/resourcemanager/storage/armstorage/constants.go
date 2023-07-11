@@ -10,7 +10,7 @@ package armstorage
 
 const (
 	moduleName    = "armstorage"
-	moduleVersion = "v1.4.0-beta.1"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -769,6 +769,22 @@ func PossibleObjectTypeValues() []ObjectType {
 	return []ObjectType{
 		ObjectTypeBlob,
 		ObjectTypeContainer,
+	}
+}
+
+// PermissionScopeServiceName - The service used by the local user, e.g. blob, file.
+type PermissionScopeServiceName string
+
+const (
+	PermissionScopeServiceNameBlob PermissionScopeServiceName = "blob"
+	PermissionScopeServiceNameFile PermissionScopeServiceName = "file"
+)
+
+// PossiblePermissionScopeServiceNameValues returns the possible values for the PermissionScopeServiceName const type.
+func PossiblePermissionScopeServiceNameValues() []PermissionScopeServiceName {
+	return []PermissionScopeServiceName{
+		PermissionScopeServiceNameBlob,
+		PermissionScopeServiceNameFile,
 	}
 }
 

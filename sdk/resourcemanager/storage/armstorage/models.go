@@ -2531,7 +2531,7 @@ type PermissionScope struct {
 	ResourceName *string
 
 	// REQUIRED; The service used by the local user, e.g. blob, file.
-	Service *string
+	Service *PermissionScopeServiceName
 }
 
 // PrivateEndpoint - The Private Endpoint resource.
