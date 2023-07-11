@@ -29,8 +29,7 @@ type PortalSettingsClient struct {
 }
 
 // NewPortalSettingsClient creates a new instance of PortalSettingsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPortalSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PortalSettingsClient, error) {
@@ -48,8 +47,8 @@ func NewPortalSettingsClient(subscriptionID string, credential azcore.TokenCrede
 // ListByService - Lists a collection of portalsettings defined within a service instance..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - PortalSettingsClientListByServiceOptions contains the optional parameters for the PortalSettingsClient.ListByService
 //     method.
@@ -79,16 +78,13 @@ func (client *PortalSettingsClient) listByServiceCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

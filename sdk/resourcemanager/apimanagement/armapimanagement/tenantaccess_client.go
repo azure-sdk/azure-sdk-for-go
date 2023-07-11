@@ -29,8 +29,7 @@ type TenantAccessClient struct {
 }
 
 // NewTenantAccessClient creates a new instance of TenantAccessClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTenantAccessClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TenantAccessClient, error) {
@@ -48,8 +47,8 @@ func NewTenantAccessClient(subscriptionID string, credential azcore.TokenCredent
 // Create - Update tenant access information details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -86,16 +85,13 @@ func (client *TenantAccessClient) createCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter accessName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accessName}", url.PathEscape(string(accessName)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -117,8 +113,8 @@ func (client *TenantAccessClient) createHandleResponse(resp *http.Response) (Ten
 // Get - Get tenant access information details without secrets.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - options - TenantAccessClientGetOptions contains the optional parameters for the TenantAccessClient.Get method.
@@ -148,9 +144,6 @@ func (client *TenantAccessClient) getCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if accessName == "" {
 		return nil, errors.New("parameter accessName cannot be empty")
@@ -161,7 +154,7 @@ func (client *TenantAccessClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,8 +174,8 @@ func (client *TenantAccessClient) getHandleResponse(resp *http.Response) (Tenant
 
 // GetEntityTag - Tenant access metadata
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - options - TenantAccessClientGetEntityTagOptions contains the optional parameters for the TenantAccessClient.GetEntityTag
@@ -213,9 +206,6 @@ func (client *TenantAccessClient) getEntityTagCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if accessName == "" {
 		return nil, errors.New("parameter accessName cannot be empty")
@@ -226,7 +216,7 @@ func (client *TenantAccessClient) getEntityTagCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -244,8 +234,8 @@ func (client *TenantAccessClient) getEntityTagHandleResponse(resp *http.Response
 
 // NewListByServicePager - Returns list of access infos - for Git and Management endpoints.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - TenantAccessClientListByServiceOptions contains the optional parameters for the TenantAccessClient.NewListByServicePager
 //     method.
@@ -288,9 +278,6 @@ func (client *TenantAccessClient) listByServiceCreateRequest(ctx context.Context
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -300,7 +287,7 @@ func (client *TenantAccessClient) listByServiceCreateRequest(ctx context.Context
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -318,8 +305,8 @@ func (client *TenantAccessClient) listByServiceHandleResponse(resp *http.Respons
 // ListSecrets - Get tenant access information details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - options - TenantAccessClientListSecretsOptions contains the optional parameters for the TenantAccessClient.ListSecrets
@@ -350,9 +337,6 @@ func (client *TenantAccessClient) listSecretsCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if accessName == "" {
 		return nil, errors.New("parameter accessName cannot be empty")
@@ -363,7 +347,7 @@ func (client *TenantAccessClient) listSecretsCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -384,8 +368,8 @@ func (client *TenantAccessClient) listSecretsHandleResponse(resp *http.Response)
 // RegeneratePrimaryKey - Regenerate primary access key
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - options - TenantAccessClientRegeneratePrimaryKeyOptions contains the optional parameters for the TenantAccessClient.RegeneratePrimaryKey
@@ -416,9 +400,6 @@ func (client *TenantAccessClient) regeneratePrimaryKeyCreateRequest(ctx context.
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if accessName == "" {
 		return nil, errors.New("parameter accessName cannot be empty")
@@ -429,7 +410,7 @@ func (client *TenantAccessClient) regeneratePrimaryKeyCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -438,8 +419,8 @@ func (client *TenantAccessClient) regeneratePrimaryKeyCreateRequest(ctx context.
 // RegenerateSecondaryKey - Regenerate secondary access key
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - options - TenantAccessClientRegenerateSecondaryKeyOptions contains the optional parameters for the TenantAccessClient.RegenerateSecondaryKey
@@ -470,9 +451,6 @@ func (client *TenantAccessClient) regenerateSecondaryKeyCreateRequest(ctx contex
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if accessName == "" {
 		return nil, errors.New("parameter accessName cannot be empty")
@@ -483,7 +461,7 @@ func (client *TenantAccessClient) regenerateSecondaryKeyCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -492,8 +470,8 @@ func (client *TenantAccessClient) regenerateSecondaryKeyCreateRequest(ctx contex
 // Update - Update tenant access information details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - accessName - The identifier of the Access configuration.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -530,16 +508,13 @@ func (client *TenantAccessClient) updateCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter accessName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accessName}", url.PathEscape(string(accessName)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
