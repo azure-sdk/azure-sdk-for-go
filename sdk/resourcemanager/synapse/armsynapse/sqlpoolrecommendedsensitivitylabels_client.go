@@ -47,7 +47,7 @@ func NewSQLPoolRecommendedSensitivityLabelsClient(subscriptionID string, credent
 // Update - Update recommended sensitivity labels states of a given SQL Pool using an operations batch.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -92,7 +92,7 @@ func (client *SQLPoolRecommendedSensitivityLabelsClient) updateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, runtime.MarshalAsJSON(req, parameters)
 }

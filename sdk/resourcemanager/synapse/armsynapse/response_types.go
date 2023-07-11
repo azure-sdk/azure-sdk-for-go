@@ -569,6 +569,16 @@ type OperationsClientGetLocationHeaderResultResponse struct {
 	// placeholder for future response values
 }
 
+// OperationsClientGetSubscriptionQuotaAndUsageResponse contains the response from method OperationsClient.GetSubscriptionQuotaAndUsage.
+type OperationsClientGetSubscriptionQuotaAndUsageResponse struct {
+	ListUsagesResult
+}
+
+// OperationsClientGetWorkspaceQuotaAndUsageResponse contains the response from method OperationsClient.GetWorkspaceQuotaAndUsage.
+type OperationsClientGetWorkspaceQuotaAndUsageResponse struct {
+	ListUsagesResult
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	// Array of AvailableRpOperation

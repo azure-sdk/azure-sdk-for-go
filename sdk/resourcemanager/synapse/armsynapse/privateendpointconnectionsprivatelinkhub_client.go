@@ -47,7 +47,7 @@ func NewPrivateEndpointConnectionsPrivateLinkHubClient(subscriptionID string, cr
 // Get - Get all PrivateEndpointConnection in the PrivateLinkHub by name
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateLinkHubName - Name of the privateLinkHub
 //   - privateEndpointConnectionName - Name of the privateEndpointConnection
@@ -92,7 +92,7 @@ func (client *PrivateEndpointConnectionsPrivateLinkHubClient) getCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -109,7 +109,7 @@ func (client *PrivateEndpointConnectionsPrivateLinkHubClient) getHandleResponse(
 
 // NewListPager - Get all PrivateEndpointConnections in the PrivateLinkHub
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateLinkHubName - Name of the privateLinkHub
 //   - options - PrivateEndpointConnectionsPrivateLinkHubClientListOptions contains the optional parameters for the PrivateEndpointConnectionsPrivateLinkHubClient.NewListPager
@@ -162,7 +162,7 @@ func (client *PrivateEndpointConnectionsPrivateLinkHubClient) listCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -43,6 +43,11 @@ func (c *ClientFactory) NewAzureADOnlyAuthenticationsClient() *AzureADOnlyAuthen
 	return subClient
 }
 
+func (c *ClientFactory) NewBigDataPoolsClient() *BigDataPoolsClient {
+	subClient, _ := NewBigDataPoolsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -55,6 +60,16 @@ func (c *ClientFactory) NewIPFirewallRulesClient() *IPFirewallRulesClient {
 
 func (c *ClientFactory) NewKeysClient() *KeysClient {
 	subClient, _ := NewKeysClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewLibraryClient() *LibraryClient {
+	subClient, _ := NewLibraryClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewLibrariesClient() *LibrariesClient {
+	subClient, _ := NewLibrariesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -290,21 +305,6 @@ func (c *ClientFactory) NewWorkspaceManagedIdentitySQLControlSettingsClient() *W
 
 func (c *ClientFactory) NewRestorableDroppedSQLPoolsClient() *RestorableDroppedSQLPoolsClient {
 	subClient, _ := NewRestorableDroppedSQLPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewBigDataPoolsClient() *BigDataPoolsClient {
-	subClient, _ := NewBigDataPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewLibraryClient() *LibraryClient {
-	subClient, _ := NewLibraryClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewLibrariesClient() *LibrariesClient {
-	subClient, _ := NewLibrariesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
