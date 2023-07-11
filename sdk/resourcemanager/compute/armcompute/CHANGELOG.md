@@ -1,10 +1,25 @@
 # Release History
 
-## 5.1.0-beta.1 (2023-06-12)
+## 6.0.0 (2023-07-11)
+### Breaking Changes
+
+- Type of `CommunityGalleryImageProperties.Identifier` has been changed from `*CommunityGalleryImageIdentifier` to `*GalleryImageIdentifier`
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Struct `CommunityGalleryImageIdentifier` has been removed
 
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New function `*VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks(context.Context, string, string, string, AttachDetachDataDisksRequest, *VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions) (*runtime.Poller[VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse], error)`
+- New function `*VirtualMachinesClient.BeginAttachDetachDataDisks(context.Context, string, string, AttachDetachDataDisksRequest, *VirtualMachinesClientBeginAttachDetachDataDisksOptions) (*runtime.Poller[VirtualMachinesClientAttachDetachDataDisksResponse], error)`
+- New struct `AttachDataDisk`
+- New struct `AttachDetachDataDisksRequest`
+- New struct `AttachDetachDataDisksResponse`
+- New struct `AttachedDataDisk`
+- New struct `DetachDataDisk`
+- New struct `DetachedDataDisk`
+
 
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes

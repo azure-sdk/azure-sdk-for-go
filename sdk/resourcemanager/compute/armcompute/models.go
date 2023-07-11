@@ -101,6 +101,44 @@ type ApplicationProfile struct {
 	GalleryApplications []*VMGalleryApplication
 }
 
+// AttachDataDisk - Describes the data disk to be attached.
+type AttachDataDisk struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// The logical unit number of the data disk. This value is used to identify data disks within the VM and therefore must be
+	// unique for each data disk attached to a VM. If not specified, lun would be auto
+	// assigned.
+	Lun *int32
+}
+
+// AttachDetachDataDisksRequest - Specifies the input for attaching and detaching a list of managed data disks.
+type AttachDetachDataDisksRequest struct {
+	// The list of managed data disks to be attached.
+	AttachDataDisks []*AttachDataDisk
+
+	// The list of managed data disks to be detached.
+	DetachDataDisks []*DetachDataDisk
+}
+
+// AttachDetachDataDisksResponse - Response for attach and detach data disks request.
+type AttachDetachDataDisksResponse struct {
+	// The list of managed data disks that were attached.
+	AttachedDataDisks []*AttachedDataDisk
+
+	// The list of managed data disks that were detached.
+	DetachedDataDisks []*DetachedDataDisk
+}
+
+// AttachedDataDisk - Describes the data disks that were requested to be attached.
+type AttachedDataDisk struct {
+	// READ-ONLY; ID of the managed data disk.
+	DiskID *string
+
+	// READ-ONLY; Specifies the logical unit number of the data disk. This value is used to identify data disks within the VM.
+	Lun *int32
+}
+
 // AutomaticOSUpgradePolicy - The configuration parameters used for performing automatic OS upgrade.
 type AutomaticOSUpgradePolicy struct {
 	// Whether OS image rollback feature should be disabled. Default value is false.
@@ -1119,18 +1157,6 @@ type CommunityGalleryImage struct {
 	Type *string
 }
 
-// CommunityGalleryImageIdentifier - This is the community gallery image definition identifier.
-type CommunityGalleryImageIdentifier struct {
-	// The name of the gallery image definition offer.
-	Offer *string
-
-	// The name of the gallery image definition publisher.
-	Publisher *string
-
-	// The name of the gallery image definition SKU.
-	SKU *string
-}
-
 // CommunityGalleryImageList - The List Community Gallery Images operation response.
 type CommunityGalleryImageList struct {
 	// REQUIRED; A list of community gallery images.
@@ -1143,8 +1169,8 @@ type CommunityGalleryImageList struct {
 
 // CommunityGalleryImageProperties - Describes the properties of a gallery image definition.
 type CommunityGalleryImageProperties struct {
-	// REQUIRED; This is the community gallery image definition identifier.
-	Identifier *CommunityGalleryImageIdentifier
+	// REQUIRED; This is the gallery image definition identifier.
+	Identifier *GalleryImageIdentifier
 
 	// REQUIRED; This property allows the user to specify whether the virtual machines created under this image are 'Generalized'
 	// or 'Specialized'.
@@ -1717,6 +1743,21 @@ type DedicatedHostsClientListAvailableSizesOptions struct {
 // method.
 type DedicatedHostsClientListByHostGroupOptions struct {
 	// placeholder for future optional parameters
+}
+
+// DetachDataDisk - Describes the data disk to be detached.
+type DetachDataDisk struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// Supported options available for Detach of a disk from a VM. Refer to DetachOption object reference for more details.
+	DetachOption *DiskDetachOptionTypes
+}
+
+// DetachedDataDisk - Describes the data disks that were requested to be detached.
+type DetachedDataDisk struct {
+	// READ-ONLY; ID of the managed data disk.
+	DiskID *string
 }
 
 // DiagnosticsProfile - Specifies the boot diagnostic settings state. Minimum api-version: 2015-06-15.
@@ -3422,7 +3463,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -9474,6 +9515,13 @@ type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	Expand *string
 }
 
+// VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks
+// method.
+type VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualMachineScaleSetVMsClientBeginDeallocateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginDeallocate
 // method.
 type VirtualMachineScaleSetVMsClientBeginDeallocateOptions struct {
@@ -9890,6 +9938,13 @@ type VirtualMachineUpdate struct {
 // VirtualMachinesClientBeginAssessPatchesOptions contains the optional parameters for the VirtualMachinesClient.BeginAssessPatches
 // method.
 type VirtualMachinesClientBeginAssessPatchesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachinesClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachinesClient.BeginAttachDetachDataDisks
+// method.
+type VirtualMachinesClientBeginAttachDetachDataDisksOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

@@ -30,6 +30,10 @@ type VirtualMachinesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginAssessPatches func(ctx context.Context, resourceGroupName string, vmName string, options *armcompute.VirtualMachinesClientBeginAssessPatchesOptions) (resp azfake.PollerResponder[armcompute.VirtualMachinesClientAssessPatchesResponse], errResp azfake.ErrorResponder)
 
+	// BeginAttachDetachDataDisks is the fake for method VirtualMachinesClient.BeginAttachDetachDataDisks
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginAttachDetachDataDisks func(ctx context.Context, resourceGroupName string, vmName string, parameters armcompute.AttachDetachDataDisksRequest, options *armcompute.VirtualMachinesClientBeginAttachDetachDataDisksOptions) (resp azfake.PollerResponder[armcompute.VirtualMachinesClientAttachDetachDataDisksResponse], errResp azfake.ErrorResponder)
+
 	// BeginCapture is the fake for method VirtualMachinesClient.BeginCapture
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginCapture func(ctx context.Context, resourceGroupName string, vmName string, parameters armcompute.VirtualMachineCaptureParameters, options *armcompute.VirtualMachinesClientBeginCaptureOptions) (resp azfake.PollerResponder[armcompute.VirtualMachinesClientCaptureResponse], errResp azfake.ErrorResponder)
@@ -139,6 +143,7 @@ func NewVirtualMachinesServerTransport(srv *VirtualMachinesServer) *VirtualMachi
 type VirtualMachinesServerTransport struct {
 	srv                        *VirtualMachinesServer
 	beginAssessPatches         *azfake.PollerResponder[armcompute.VirtualMachinesClientAssessPatchesResponse]
+	beginAttachDetachDataDisks *azfake.PollerResponder[armcompute.VirtualMachinesClientAttachDetachDataDisksResponse]
 	beginCapture               *azfake.PollerResponder[armcompute.VirtualMachinesClientCaptureResponse]
 	beginConvertToManagedDisks *azfake.PollerResponder[armcompute.VirtualMachinesClientConvertToManagedDisksResponse]
 	beginCreateOrUpdate        *azfake.PollerResponder[armcompute.VirtualMachinesClientCreateOrUpdateResponse]
@@ -174,6 +179,8 @@ func (v *VirtualMachinesServerTransport) Do(req *http.Request) (*http.Response, 
 	switch method {
 	case "VirtualMachinesClient.BeginAssessPatches":
 		resp, err = v.dispatchBeginAssessPatches(req)
+	case "VirtualMachinesClient.BeginAttachDetachDataDisks":
+		resp, err = v.dispatchBeginAttachDetachDataDisks(req)
 	case "VirtualMachinesClient.BeginCapture":
 		resp, err = v.dispatchBeginCapture(req)
 	case "VirtualMachinesClient.BeginConvertToManagedDisks":
@@ -269,6 +276,51 @@ func (v *VirtualMachinesServerTransport) dispatchBeginAssessPatches(req *http.Re
 	}
 	if !server.PollerResponderMore(v.beginAssessPatches) {
 		v.beginAssessPatches = nil
+	}
+
+	return resp, nil
+}
+
+func (v *VirtualMachinesServerTransport) dispatchBeginAttachDetachDataDisks(req *http.Request) (*http.Response, error) {
+	if v.srv.BeginAttachDetachDataDisks == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginAttachDetachDataDisks not implemented")}
+	}
+	if v.beginAttachDetachDataDisks == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/virtualMachines/(?P<vmName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/attachDetachDataDisks`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armcompute.AttachDetachDataDisksRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		vmNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("vmName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := v.srv.BeginAttachDetachDataDisks(req.Context(), resourceGroupNameUnescaped, vmNameUnescaped, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		v.beginAttachDetachDataDisks = &respr
+	}
+
+	resp, err := server.PollerResponderNext(v.beginAttachDetachDataDisks, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(v.beginAttachDetachDataDisks) {
+		v.beginAttachDetachDataDisks = nil
 	}
 
 	return resp, nil
