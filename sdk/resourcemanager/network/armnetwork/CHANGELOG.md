@@ -1,10 +1,32 @@
 # Release History
 
-## 3.1.0-beta.1 (2023-06-12)
+## 4.0.0 (2023-07-11)
+### Breaking Changes
+
+- `ApplicationGatewayCustomErrorStatusCodeHTTPStatus499` from enum `ApplicationGatewayCustomErrorStatusCode` has been removed
 
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New enum type `AdminState` with values `AdminStateDisabled`, `AdminStateEnabled`
+- New function `*FirewallPoliciesClient.BeginCreateOrUpdateDraft(context.Context, string, string, FirewallPolicyDraft, *FirewallPoliciesClientBeginCreateOrUpdateDraftOptions) (*runtime.Poller[FirewallPoliciesClientCreateOrUpdateDraftResponse], error)`
+- New function `*FirewallPoliciesClient.DeleteDraft(context.Context, string, string, *FirewallPoliciesClientDeleteDraftOptions) (FirewallPoliciesClientDeleteDraftResponse, error)`
+- New function `*FirewallPoliciesClient.BeginDeployDraft(context.Context, string, string, *FirewallPoliciesClientBeginDeployDraftOptions) (*runtime.Poller[FirewallPoliciesClientDeployDraftResponse], error)`
+- New function `*FirewallPoliciesClient.GetDraft(context.Context, string, string, *FirewallPoliciesClientGetDraftOptions) (FirewallPoliciesClientGetDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdateDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroupDraft, *FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateDraftOptions) (*runtime.Poller[FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse], error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.DeleteDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions) (FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.GetDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientGetDraftOptions) (FirewallPolicyRuleCollectionGroupsClientGetDraftResponse, error)`
+- New struct `FirewallPolicyDraft`
+- New struct `FirewallPolicyRuleCollectionGroupDraft`
+- New field `ResourceGUID` in struct `AdminPropertiesFormat`
+- New field `ResourceGUID` in struct `AdminRuleCollectionPropertiesFormat`
+- New field `DefaultPredefinedSSLPolicy` in struct `ApplicationGatewayPropertiesFormat`
+- New field `ResourceGUID` in struct `ConnectivityConfigurationProperties`
+- New field `ResourceGUID` in struct `DefaultAdminPropertiesFormat`
+- New field `ResourceGUID` in struct `GroupProperties`
+- New field `ResourceGUID` in struct `ManagerProperties`
+- New field `ResourceGUID` in struct `SecurityAdminConfigurationPropertiesFormat`
+- New field `AdminState` in struct `VirtualNetworkGatewayPropertiesFormat`
+
 
 ## 3.0.0 (2023-05-26)
 ### Breaking Changes

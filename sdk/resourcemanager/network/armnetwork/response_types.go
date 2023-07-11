@@ -843,14 +843,34 @@ type ExpressRouteServiceProvidersClientListResponse struct {
 	ExpressRouteServiceProviderListResult
 }
 
+// FirewallPoliciesClientCreateOrUpdateDraftResponse contains the response from method FirewallPoliciesClient.BeginCreateOrUpdateDraft.
+type FirewallPoliciesClientCreateOrUpdateDraftResponse struct {
+	FirewallPolicyDraft
+}
+
 // FirewallPoliciesClientCreateOrUpdateResponse contains the response from method FirewallPoliciesClient.BeginCreateOrUpdate.
 type FirewallPoliciesClientCreateOrUpdateResponse struct {
 	FirewallPolicy
 }
 
+// FirewallPoliciesClientDeleteDraftResponse contains the response from method FirewallPoliciesClient.DeleteDraft.
+type FirewallPoliciesClientDeleteDraftResponse struct {
+	// placeholder for future response values
+}
+
 // FirewallPoliciesClientDeleteResponse contains the response from method FirewallPoliciesClient.BeginDelete.
 type FirewallPoliciesClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// FirewallPoliciesClientDeployDraftResponse contains the response from method FirewallPoliciesClient.BeginDeployDraft.
+type FirewallPoliciesClientDeployDraftResponse struct {
+	FirewallPolicyDraft
+}
+
+// FirewallPoliciesClientGetDraftResponse contains the response from method FirewallPoliciesClient.GetDraft.
+type FirewallPoliciesClientGetDraftResponse struct {
+	FirewallPolicyDraft
 }
 
 // FirewallPoliciesClientGetResponse contains the response from method FirewallPoliciesClient.Get.
@@ -903,14 +923,29 @@ type FirewallPolicyIdpsSignaturesOverridesClientPutResponse struct {
 	SignaturesOverrides
 }
 
+// FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdateDraft.
+type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse struct {
+	FirewallPolicyRuleCollectionGroupDraft
+}
+
 // FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdate.
 type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse struct {
+	FirewallPolicyRuleCollectionGroup
+}
+
+// FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.DeleteDraft.
+type FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse struct {
 	FirewallPolicyRuleCollectionGroup
 }
 
 // FirewallPolicyRuleCollectionGroupsClientDeleteResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginDelete.
 type FirewallPolicyRuleCollectionGroupsClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// FirewallPolicyRuleCollectionGroupsClientGetDraftResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.GetDraft.
+type FirewallPolicyRuleCollectionGroupsClientGetDraftResponse struct {
+	FirewallPolicyRuleCollectionGroupDraft
 }
 
 // FirewallPolicyRuleCollectionGroupsClientGetResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.Get.

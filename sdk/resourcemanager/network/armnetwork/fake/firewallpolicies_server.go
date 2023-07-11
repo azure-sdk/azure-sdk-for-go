@@ -28,13 +28,29 @@ type FirewallPoliciesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, firewallPolicyName string, parameters armnetwork.FirewallPolicy, options *armnetwork.FirewallPoliciesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armnetwork.FirewallPoliciesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
+	// BeginCreateOrUpdateDraft is the fake for method FirewallPoliciesClient.BeginCreateOrUpdateDraft
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
+	BeginCreateOrUpdateDraft func(ctx context.Context, resourceGroupName string, firewallPolicyName string, parameters armnetwork.FirewallPolicyDraft, options *armnetwork.FirewallPoliciesClientBeginCreateOrUpdateDraftOptions) (resp azfake.PollerResponder[armnetwork.FirewallPoliciesClientCreateOrUpdateDraftResponse], errResp azfake.ErrorResponder)
+
 	// BeginDelete is the fake for method FirewallPoliciesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *armnetwork.FirewallPoliciesClientBeginDeleteOptions) (resp azfake.PollerResponder[armnetwork.FirewallPoliciesClientDeleteResponse], errResp azfake.ErrorResponder)
 
+	// DeleteDraft is the fake for method FirewallPoliciesClient.DeleteDraft
+	// HTTP status codes to indicate success: http.StatusOK
+	DeleteDraft func(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *armnetwork.FirewallPoliciesClientDeleteDraftOptions) (resp azfake.Responder[armnetwork.FirewallPoliciesClientDeleteDraftResponse], errResp azfake.ErrorResponder)
+
+	// BeginDeployDraft is the fake for method FirewallPoliciesClient.BeginDeployDraft
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginDeployDraft func(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *armnetwork.FirewallPoliciesClientBeginDeployDraftOptions) (resp azfake.PollerResponder[armnetwork.FirewallPoliciesClientDeployDraftResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method FirewallPoliciesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *armnetwork.FirewallPoliciesClientGetOptions) (resp azfake.Responder[armnetwork.FirewallPoliciesClientGetResponse], errResp azfake.ErrorResponder)
+
+	// GetDraft is the fake for method FirewallPoliciesClient.GetDraft
+	// HTTP status codes to indicate success: http.StatusOK
+	GetDraft func(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *armnetwork.FirewallPoliciesClientGetDraftOptions) (resp azfake.Responder[armnetwork.FirewallPoliciesClientGetDraftResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method FirewallPoliciesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -59,11 +75,13 @@ func NewFirewallPoliciesServerTransport(srv *FirewallPoliciesServer) *FirewallPo
 // FirewallPoliciesServerTransport connects instances of armnetwork.FirewallPoliciesClient to instances of FirewallPoliciesServer.
 // Don't use this type directly, use NewFirewallPoliciesServerTransport instead.
 type FirewallPoliciesServerTransport struct {
-	srv                 *FirewallPoliciesServer
-	beginCreateOrUpdate *azfake.PollerResponder[armnetwork.FirewallPoliciesClientCreateOrUpdateResponse]
-	beginDelete         *azfake.PollerResponder[armnetwork.FirewallPoliciesClientDeleteResponse]
-	newListPager        *azfake.PagerResponder[armnetwork.FirewallPoliciesClientListResponse]
-	newListAllPager     *azfake.PagerResponder[armnetwork.FirewallPoliciesClientListAllResponse]
+	srv                      *FirewallPoliciesServer
+	beginCreateOrUpdate      *azfake.PollerResponder[armnetwork.FirewallPoliciesClientCreateOrUpdateResponse]
+	beginCreateOrUpdateDraft *azfake.PollerResponder[armnetwork.FirewallPoliciesClientCreateOrUpdateDraftResponse]
+	beginDelete              *azfake.PollerResponder[armnetwork.FirewallPoliciesClientDeleteResponse]
+	beginDeployDraft         *azfake.PollerResponder[armnetwork.FirewallPoliciesClientDeployDraftResponse]
+	newListPager             *azfake.PagerResponder[armnetwork.FirewallPoliciesClientListResponse]
+	newListAllPager          *azfake.PagerResponder[armnetwork.FirewallPoliciesClientListAllResponse]
 }
 
 // Do implements the policy.Transporter interface for FirewallPoliciesServerTransport.
@@ -80,10 +98,18 @@ func (f *FirewallPoliciesServerTransport) Do(req *http.Request) (*http.Response,
 	switch method {
 	case "FirewallPoliciesClient.BeginCreateOrUpdate":
 		resp, err = f.dispatchBeginCreateOrUpdate(req)
+	case "FirewallPoliciesClient.BeginCreateOrUpdateDraft":
+		resp, err = f.dispatchBeginCreateOrUpdateDraft(req)
 	case "FirewallPoliciesClient.BeginDelete":
 		resp, err = f.dispatchBeginDelete(req)
+	case "FirewallPoliciesClient.DeleteDraft":
+		resp, err = f.dispatchDeleteDraft(req)
+	case "FirewallPoliciesClient.BeginDeployDraft":
+		resp, err = f.dispatchBeginDeployDraft(req)
 	case "FirewallPoliciesClient.Get":
 		resp, err = f.dispatchGet(req)
+	case "FirewallPoliciesClient.GetDraft":
+		resp, err = f.dispatchGetDraft(req)
 	case "FirewallPoliciesClient.NewListPager":
 		resp, err = f.dispatchNewListPager(req)
 	case "FirewallPoliciesClient.NewListAllPager":
@@ -146,6 +172,51 @@ func (f *FirewallPoliciesServerTransport) dispatchBeginCreateOrUpdate(req *http.
 	return resp, nil
 }
 
+func (f *FirewallPoliciesServerTransport) dispatchBeginCreateOrUpdateDraft(req *http.Request) (*http.Response, error) {
+	if f.srv.BeginCreateOrUpdateDraft == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdateDraft not implemented")}
+	}
+	if f.beginCreateOrUpdateDraft == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/firewallPolicies/(?P<firewallPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/putDraft`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.FirewallPolicyDraft](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		firewallPolicyNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("firewallPolicyName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := f.srv.BeginCreateOrUpdateDraft(req.Context(), resourceGroupNameUnescaped, firewallPolicyNameUnescaped, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		f.beginCreateOrUpdateDraft = &respr
+	}
+
+	resp, err := server.PollerResponderNext(f.beginCreateOrUpdateDraft, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(f.beginCreateOrUpdateDraft) {
+		f.beginCreateOrUpdateDraft = nil
+	}
+
+	return resp, nil
+}
+
 func (f *FirewallPoliciesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
 	if f.srv.BeginDelete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
@@ -182,6 +253,80 @@ func (f *FirewallPoliciesServerTransport) dispatchBeginDelete(req *http.Request)
 	}
 	if !server.PollerResponderMore(f.beginDelete) {
 		f.beginDelete = nil
+	}
+
+	return resp, nil
+}
+
+func (f *FirewallPoliciesServerTransport) dispatchDeleteDraft(req *http.Request) (*http.Response, error) {
+	if f.srv.DeleteDraft == nil {
+		return nil, &nonRetriableError{errors.New("fake for method DeleteDraft not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/firewallPolicies/(?P<firewallPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/deleteDraft`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	firewallPolicyNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("firewallPolicyName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := f.srv.DeleteDraft(req.Context(), resourceGroupNameUnescaped, firewallPolicyNameUnescaped, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (f *FirewallPoliciesServerTransport) dispatchBeginDeployDraft(req *http.Request) (*http.Response, error) {
+	if f.srv.BeginDeployDraft == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDeployDraft not implemented")}
+	}
+	if f.beginDeployDraft == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/firewallPolicies/(?P<firewallPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/deployDraft`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		firewallPolicyNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("firewallPolicyName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := f.srv.BeginDeployDraft(req.Context(), resourceGroupNameUnescaped, firewallPolicyNameUnescaped, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		f.beginDeployDraft = &respr
+	}
+
+	resp, err := server.PollerResponderNext(f.beginDeployDraft, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(f.beginDeployDraft) {
+		f.beginDeployDraft = nil
 	}
 
 	return resp, nil
@@ -226,6 +371,39 @@ func (f *FirewallPoliciesServerTransport) dispatchGet(req *http.Request) (*http.
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).FirewallPolicy, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (f *FirewallPoliciesServerTransport) dispatchGetDraft(req *http.Request) (*http.Response, error) {
+	if f.srv.GetDraft == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetDraft not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/firewallPolicies/(?P<firewallPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getDraft`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	firewallPolicyNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("firewallPolicyName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := f.srv.GetDraft(req.Context(), resourceGroupNameUnescaped, firewallPolicyNameUnescaped, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).FirewallPolicyDraft, req)
 	if err != nil {
 		return nil, err
 	}

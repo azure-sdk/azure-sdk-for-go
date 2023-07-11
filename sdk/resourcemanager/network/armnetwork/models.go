@@ -258,6 +258,9 @@ type AdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRule - Network admin rule.
@@ -336,6 +339,9 @@ type AdminRuleCollectionPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the AdminRuleCollectionsClient.BeginDelete
@@ -1556,6 +1562,9 @@ type ApplicationGatewayPropertiesFormat struct {
 
 	// Web application firewall configuration.
 	WebApplicationFirewallConfiguration *ApplicationGatewayWebApplicationFirewallConfiguration
+
+	// READ-ONLY; The default predefined SSL Policy applied on the application gateway resource.
+	DefaultPredefinedSSLPolicy *ApplicationGatewaySSLPolicyName
 
 	// READ-ONLY; Operational state of the application gateway resource.
 	OperationalState *ApplicationGatewayOperationalState
@@ -4174,6 +4183,9 @@ type ConnectivityConfigurationProperties struct {
 
 	// READ-ONLY; The provisioning state of the connectivity configuration resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ConnectivityConfigurationsClientBeginDeleteOptions contains the optional parameters for the ConnectivityConfigurationsClient.BeginDelete
@@ -4779,6 +4791,9 @@ type DefaultAdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 
 	// READ-ONLY; The source port ranges.
 	SourcePortRanges []*string
@@ -6860,6 +6875,13 @@ type FirewallPacketCaptureParametersFormat struct {
 	SasURL *string
 }
 
+// FirewallPoliciesClientBeginCreateOrUpdateDraftOptions contains the optional parameters for the FirewallPoliciesClient.BeginCreateOrUpdateDraft
+// method.
+type FirewallPoliciesClientBeginCreateOrUpdateDraftOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // FirewallPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the FirewallPoliciesClient.BeginCreateOrUpdate
 // method.
 type FirewallPoliciesClientBeginCreateOrUpdateOptions struct {
@@ -6871,6 +6893,23 @@ type FirewallPoliciesClientBeginCreateOrUpdateOptions struct {
 type FirewallPoliciesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// FirewallPoliciesClientBeginDeployDraftOptions contains the optional parameters for the FirewallPoliciesClient.BeginDeployDraft
+// method.
+type FirewallPoliciesClientBeginDeployDraftOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FirewallPoliciesClientDeleteDraftOptions contains the optional parameters for the FirewallPoliciesClient.DeleteDraft method.
+type FirewallPoliciesClientDeleteDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPoliciesClientGetDraftOptions contains the optional parameters for the FirewallPoliciesClient.GetDraft method.
+type FirewallPoliciesClientGetDraftOptions struct {
+	// placeholder for future optional parameters
 }
 
 // FirewallPoliciesClientGetOptions contains the optional parameters for the FirewallPoliciesClient.Get method.
@@ -6928,6 +6967,32 @@ type FirewallPolicyCertificateAuthority struct {
 
 	// Name of the CA certificate.
 	Name *string
+}
+
+type FirewallPolicyDraft struct {
+	// DNS Proxy Settings definition.
+	DNSSettings *DNSSettings
+
+	// Explicit Proxy Settings definition.
+	ExplicitProxy *ExplicitProxySettings
+
+	// Insights on Firewall Policy.
+	Insights *FirewallPolicyInsights
+
+	// The configuration for Intrusion detection.
+	IntrusionDetection *FirewallPolicyIntrusionDetection
+
+	// SQL Settings definition.
+	SQL *FirewallPolicySQL
+
+	// The private IP addresses/IP ranges to which traffic will not be SNAT.
+	Snat *FirewallPolicySNAT
+
+	// The operation mode for Threat Intelligence.
+	ThreatIntelMode *AzureFirewallThreatIntelMode
+
+	// ThreatIntel Whitelist for Firewall Policy.
+	ThreatIntelWhitelist *FirewallPolicyThreatIntelWhitelist
 }
 
 // FirewallPolicyFilterRuleCollection - Firewall Policy Filter Rule Collection.
@@ -7264,6 +7329,15 @@ type FirewallPolicyRuleCollectionGroup struct {
 	Type *string
 }
 
+// FirewallPolicyRuleCollectionGroupDraft - Properties of the rule collection group.
+type FirewallPolicyRuleCollectionGroupDraft struct {
+	// Priority of the Firewall Policy Rule Collection Group resource.
+	Priority *int32
+
+	// Group of Firewall Policy rule collections.
+	RuleCollections []FirewallPolicyRuleCollectionClassification
+}
+
 // FirewallPolicyRuleCollectionGroupListResult - Response for ListFirewallPolicyRuleCollectionGroups API service call.
 type FirewallPolicyRuleCollectionGroupListResult struct {
 	// URL to get the next set of results.
@@ -7285,6 +7359,13 @@ type FirewallPolicyRuleCollectionGroupProperties struct {
 	ProvisioningState *ProvisioningState
 }
 
+// FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdateDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateDraftOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdate
 // method.
 type FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateOptions struct {
@@ -7297,6 +7378,18 @@ type FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateOptions struct {
 type FirewallPolicyRuleCollectionGroupsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.DeleteDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupsClientGetDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.GetDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientGetDraftOptions struct {
+	// placeholder for future optional parameters
 }
 
 // FirewallPolicyRuleCollectionGroupsClientGetOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.Get
@@ -7682,6 +7775,9 @@ type GroupProperties struct {
 
 	// READ-ONLY; The provisioning state of the scope assignment resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
@@ -10006,6 +10102,9 @@ type ManagerProperties struct {
 
 	// READ-ONLY; The provisioning state of the network manager resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ManagerPropertiesNetworkManagerScopes - Scope of Network Manager.
@@ -12922,6 +13021,9 @@ type SecurityAdminConfigurationPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // SecurityAdminConfigurationsClientBeginDeleteOptions contains the optional parameters for the SecurityAdminConfigurationsClient.BeginDelete
@@ -15374,10 +15476,10 @@ type VirtualAppliance struct {
 
 // VirtualApplianceAdditionalNicProperties - Network Virtual Appliance Additional NIC properties.
 type VirtualApplianceAdditionalNicProperties struct {
-	// Customer Intent for Public Ip on additional nic
+	// Flag (true or false) for Intent for Public Ip on additional nic
 	HasPublicIP *bool
 
-	// Customer Name for additional nic
+	// Name of additional nic
 	Name *string
 }
 
@@ -16590,6 +16692,10 @@ type VirtualNetworkGatewayPolicyGroupProperties struct {
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
 	Active *bool
+
+	// Property to indicate if the Express Route Gateway serves traffic when there are multiple Express Route Gateways in the
+	// vnet
+	AdminState *AdminState
 
 	// Configure this gateway to accept traffic from other Azure Virtual Networks. This configuration does not support connectivity
 	// to Azure Virtual WAN.
