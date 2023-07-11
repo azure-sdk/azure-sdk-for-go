@@ -94,6 +94,9 @@ type DelegatedController struct {
 
 // DelegatedControllerProperties - Properties of Delegated controller resource.
 type DelegatedControllerProperties struct {
+	// The purpose of the dnc controller resource.
+	Purpose *ControllerPurpose
+
 	// READ-ONLY; dnc application id should be used by customer to authenticate with dnc gateway.
 	DncAppID *string
 
@@ -142,6 +145,9 @@ type DelegatedSubnet struct {
 
 // DelegatedSubnetProperties - Properties of delegated subnet
 type DelegatedSubnetProperties struct {
+	// Defines size of CIDR blocks allocated to nodes in VnetBlock Mode.
+	AllocationBlockPrefixSize *int32
+
 	// Properties of the controller.
 	ControllerDetails *ControllerDetails
 

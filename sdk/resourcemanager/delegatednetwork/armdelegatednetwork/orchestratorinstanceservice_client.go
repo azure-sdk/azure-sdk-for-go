@@ -48,7 +48,7 @@ func NewOrchestratorInstanceServiceClient(subscriptionID string, credential azco
 // BeginCreate - Create a orchestrator instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - parameters - OrchestratorInstance type parameters
@@ -69,7 +69,7 @@ func (client *OrchestratorInstanceServiceClient) BeginCreate(ctx context.Context
 // Create - Create a orchestrator instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 func (client *OrchestratorInstanceServiceClient) create(ctx context.Context, resourceGroupName string, resourceName string, parameters Orchestrator, options *OrchestratorInstanceServiceClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
 	if err != nil {
@@ -105,7 +105,7 @@ func (client *OrchestratorInstanceServiceClient) createCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -114,7 +114,7 @@ func (client *OrchestratorInstanceServiceClient) createCreateRequest(ctx context
 // BeginDelete - Deletes the Orchestrator Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - options - OrchestratorInstanceServiceClientBeginDeleteOptions contains the optional parameters for the OrchestratorInstanceServiceClient.BeginDelete
@@ -134,7 +134,7 @@ func (client *OrchestratorInstanceServiceClient) BeginDelete(ctx context.Context
 // Delete - Deletes the Orchestrator Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 func (client *OrchestratorInstanceServiceClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, options *OrchestratorInstanceServiceClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -170,7 +170,7 @@ func (client *OrchestratorInstanceServiceClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	if options != nil && options.ForceDelete != nil {
 		reqQP.Set("forceDelete", strconv.FormatBool(*options.ForceDelete))
 	}
@@ -182,7 +182,7 @@ func (client *OrchestratorInstanceServiceClient) deleteCreateRequest(ctx context
 // GetDetails - Gets details about the orchestrator instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - options - OrchestratorInstanceServiceClientGetDetailsOptions contains the optional parameters for the OrchestratorInstanceServiceClient.GetDetails
@@ -222,7 +222,7 @@ func (client *OrchestratorInstanceServiceClient) getDetailsCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +239,7 @@ func (client *OrchestratorInstanceServiceClient) getDetailsHandleResponse(resp *
 
 // NewListByResourceGroupPager - Get all the OrchestratorInstances resources in a resource group.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - OrchestratorInstanceServiceClientListByResourceGroupOptions contains the optional parameters for the OrchestratorInstanceServiceClient.NewListByResourceGroupPager
 //     method.
@@ -287,7 +287,7 @@ func (client *OrchestratorInstanceServiceClient) listByResourceGroupCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -304,7 +304,7 @@ func (client *OrchestratorInstanceServiceClient) listByResourceGroupHandleRespon
 
 // NewListBySubscriptionPager - Get all the orchestratorInstance resources in a subscription.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - options - OrchestratorInstanceServiceClientListBySubscriptionOptions contains the optional parameters for the OrchestratorInstanceServiceClient.NewListBySubscriptionPager
 //     method.
 func (client *OrchestratorInstanceServiceClient) NewListBySubscriptionPager(options *OrchestratorInstanceServiceClientListBySubscriptionOptions) *runtime.Pager[OrchestratorInstanceServiceClientListBySubscriptionResponse] {
@@ -347,7 +347,7 @@ func (client *OrchestratorInstanceServiceClient) listBySubscriptionCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -365,7 +365,7 @@ func (client *OrchestratorInstanceServiceClient) listBySubscriptionHandleRespons
 // Patch - Update Orchestrator Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - parameters - OrchestratorInstance update parameters
@@ -406,7 +406,7 @@ func (client *OrchestratorInstanceServiceClient) patchCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

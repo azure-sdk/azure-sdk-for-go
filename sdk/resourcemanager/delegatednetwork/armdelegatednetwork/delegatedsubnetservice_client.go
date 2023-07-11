@@ -48,7 +48,7 @@ func NewDelegatedSubnetServiceClient(subscriptionID string, credential azcore.To
 // BeginDeleteDetails - Delete dnc DelegatedSubnet.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - options - DelegatedSubnetServiceClientBeginDeleteDetailsOptions contains the optional parameters for the DelegatedSubnetServiceClient.BeginDeleteDetails
@@ -68,7 +68,7 @@ func (client *DelegatedSubnetServiceClient) BeginDeleteDetails(ctx context.Conte
 // DeleteDetails - Delete dnc DelegatedSubnet.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 func (client *DelegatedSubnetServiceClient) deleteDetails(ctx context.Context, resourceGroupName string, resourceName string, options *DelegatedSubnetServiceClientBeginDeleteDetailsOptions) (*http.Response, error) {
 	req, err := client.deleteDetailsCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -104,7 +104,7 @@ func (client *DelegatedSubnetServiceClient) deleteDetailsCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	if options != nil && options.ForceDelete != nil {
 		reqQP.Set("forceDelete", strconv.FormatBool(*options.ForceDelete))
 	}
@@ -116,7 +116,7 @@ func (client *DelegatedSubnetServiceClient) deleteDetailsCreateRequest(ctx conte
 // GetDetails - Gets details about the specified dnc DelegatedSubnet Link.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - options - DelegatedSubnetServiceClientGetDetailsOptions contains the optional parameters for the DelegatedSubnetServiceClient.GetDetails
@@ -156,7 +156,7 @@ func (client *DelegatedSubnetServiceClient) getDetailsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,7 +173,7 @@ func (client *DelegatedSubnetServiceClient) getDetailsHandleResponse(resp *http.
 
 // NewListByResourceGroupPager - Get all the DelegatedSubnets resources in a resource group.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - DelegatedSubnetServiceClientListByResourceGroupOptions contains the optional parameters for the DelegatedSubnetServiceClient.NewListByResourceGroupPager
 //     method.
@@ -221,7 +221,7 @@ func (client *DelegatedSubnetServiceClient) listByResourceGroupCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -238,7 +238,7 @@ func (client *DelegatedSubnetServiceClient) listByResourceGroupHandleResponse(re
 
 // NewListBySubscriptionPager - Get all the DelegatedSubnets resources in a subscription.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - options - DelegatedSubnetServiceClientListBySubscriptionOptions contains the optional parameters for the DelegatedSubnetServiceClient.NewListBySubscriptionPager
 //     method.
 func (client *DelegatedSubnetServiceClient) NewListBySubscriptionPager(options *DelegatedSubnetServiceClientListBySubscriptionOptions) *runtime.Pager[DelegatedSubnetServiceClientListBySubscriptionResponse] {
@@ -281,7 +281,7 @@ func (client *DelegatedSubnetServiceClient) listBySubscriptionCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -299,7 +299,7 @@ func (client *DelegatedSubnetServiceClient) listBySubscriptionHandleResponse(res
 // BeginPatchDetails - Patch delegated subnet resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - parameters - Delegated subnet details.
@@ -320,7 +320,7 @@ func (client *DelegatedSubnetServiceClient) BeginPatchDetails(ctx context.Contex
 // PatchDetails - Patch delegated subnet resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 func (client *DelegatedSubnetServiceClient) patchDetails(ctx context.Context, resourceGroupName string, resourceName string, parameters ResourceUpdateParameters, options *DelegatedSubnetServiceClientBeginPatchDetailsOptions) (*http.Response, error) {
 	req, err := client.patchDetailsCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
 	if err != nil {
@@ -356,7 +356,7 @@ func (client *DelegatedSubnetServiceClient) patchDetailsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -365,7 +365,7 @@ func (client *DelegatedSubnetServiceClient) patchDetailsCreateRequest(ctx contex
 // BeginPutDetails - Put delegated subnet resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - parameters - Delegated subnet details.
@@ -386,7 +386,7 @@ func (client *DelegatedSubnetServiceClient) BeginPutDetails(ctx context.Context,
 // PutDetails - Put delegated subnet resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-06-27-preview
 func (client *DelegatedSubnetServiceClient) putDetails(ctx context.Context, resourceGroupName string, resourceName string, parameters DelegatedSubnet, options *DelegatedSubnetServiceClientBeginPutDetailsOptions) (*http.Response, error) {
 	req, err := client.putDetailsCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
 	if err != nil {
@@ -422,7 +422,7 @@ func (client *DelegatedSubnetServiceClient) putDetailsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-06-27-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

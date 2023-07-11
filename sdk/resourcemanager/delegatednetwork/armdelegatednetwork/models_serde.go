@@ -167,6 +167,7 @@ func (d DelegatedControllerProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dncEndpoint", d.DncEndpoint)
 	populate(objectMap, "dncTenantId", d.DncTenantID)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
+	populate(objectMap, "purpose", d.Purpose)
 	populate(objectMap, "resourceGuid", d.ResourceGUID)
 	return json.Marshal(objectMap)
 }
@@ -191,6 +192,9 @@ func (d *DelegatedControllerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &d.ProvisioningState)
+			delete(rawMsg, key)
+		case "purpose":
+			err = unpopulate(val, "Purpose", &d.Purpose)
 			delete(rawMsg, key)
 		case "resourceGuid":
 			err = unpopulate(val, "ResourceGUID", &d.ResourceGUID)
@@ -284,6 +288,7 @@ func (d *DelegatedSubnet) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type DelegatedSubnetProperties.
 func (d DelegatedSubnetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "allocationBlockPrefixSize", d.AllocationBlockPrefixSize)
 	populate(objectMap, "controllerDetails", d.ControllerDetails)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
 	populate(objectMap, "resourceGuid", d.ResourceGUID)
@@ -300,6 +305,9 @@ func (d *DelegatedSubnetProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "allocationBlockPrefixSize":
+			err = unpopulate(val, "AllocationBlockPrefixSize", &d.AllocationBlockPrefixSize)
+			delete(rawMsg, key)
 		case "controllerDetails":
 			err = unpopulate(val, "ControllerDetails", &d.ControllerDetails)
 			delete(rawMsg, key)
