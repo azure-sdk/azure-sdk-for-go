@@ -48,7 +48,7 @@ func NewManagementClient(subscriptionID string, credential azcore.TokenCredentia
 // unique, such as a afdx endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - checkEndpointNameAvailabilityInput - Input to check.
 //   - options - ManagementClientCheckEndpointNameAvailabilityOptions contains the optional parameters for the ManagementClient.CheckEndpointNameAvailability
@@ -84,7 +84,7 @@ func (client *ManagementClient) checkEndpointNameAvailabilityCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkEndpointNameAvailabilityInput)
@@ -103,7 +103,7 @@ func (client *ManagementClient) checkEndpointNameAvailabilityHandleResponse(resp
 // unique, such as a CDN endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - checkNameAvailabilityInput - Input to check.
 //   - options - ManagementClientCheckNameAvailabilityOptions contains the optional parameters for the ManagementClient.CheckNameAvailability
 //     method.
@@ -130,7 +130,7 @@ func (client *ManagementClient) checkNameAvailabilityCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityInput)
@@ -149,7 +149,7 @@ func (client *ManagementClient) checkNameAvailabilityHandleResponse(resp *http.R
 // is globally unique, such as a CDN endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - checkNameAvailabilityInput - Input to check.
 //   - options - ManagementClientCheckNameAvailabilityWithSubscriptionOptions contains the optional parameters for the ManagementClient.CheckNameAvailabilityWithSubscription
 //     method.
@@ -180,7 +180,7 @@ func (client *ManagementClient) checkNameAvailabilityWithSubscriptionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityInput)
@@ -200,7 +200,7 @@ func (client *ManagementClient) checkNameAvailabilityWithSubscriptionHandleRespo
 // endpoint. This path is relative to the origin path specified in the endpoint configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - validateProbeInput - Input to check.
 //   - options - ManagementClientValidateProbeOptions contains the optional parameters for the ManagementClient.ValidateProbe
 //     method.
@@ -231,7 +231,7 @@ func (client *ManagementClient) validateProbeCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, validateProbeInput)
