@@ -29,7 +29,7 @@ type PrivateLinkResourcesClient struct {
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
@@ -47,14 +47,14 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 // Get - Get Private link resource object.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - farmBeatsResourceName - FarmBeats resource name.
+//   - dataManagerForAgricultureResourceName - DataManagerForAgriculture resource name.
 //   - subResourceName - Sub resource name.
 //   - options - PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get
 //     method.
-func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, subResourceName string, options *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, farmBeatsResourceName, subResourceName, options)
+func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, subResourceName string, options *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, subResourceName, options)
 	if err != nil {
 		return PrivateLinkResourcesClientGetResponse{}, err
 	}
@@ -69,20 +69,17 @@ func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroup
 }
 
 // getCreateRequest creates the Get request.
-func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, subResourceName string, options *PrivateLinkResourcesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}/privateLinkResources/{subResourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, subResourceName string, options *PrivateLinkResourcesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/privateLinkResources/{subResourceName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if farmBeatsResourceName == "" {
-		return nil, errors.New("parameter farmBeatsResourceName cannot be empty")
+	if dataManagerForAgricultureResourceName == "" {
+		return nil, errors.New("parameter dataManagerForAgricultureResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{farmBeatsResourceName}", url.PathEscape(farmBeatsResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{dataManagerForAgricultureResourceName}", url.PathEscape(dataManagerForAgricultureResourceName))
 	if subResourceName == "" {
 		return nil, errors.New("parameter subResourceName cannot be empty")
 	}
@@ -92,7 +89,7 @@ func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,56 +104,47 @@ func (client *PrivateLinkResourcesClient) getHandleResponse(resp *http.Response)
 	return result, nil
 }
 
-// NewListByResourcePager - Get list of Private link resources.
+// ListByResource - Get list of Private link resources.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - farmBeatsResourceName - FarmBeats resource name.
-//   - options - PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByResourcePager
+//   - dataManagerForAgricultureResourceName - DataManagerForAgriculture resource name.
+//   - options - PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByResource
 //     method.
-func (client *PrivateLinkResourcesClient) NewListByResourcePager(resourceGroupName string, farmBeatsResourceName string, options *PrivateLinkResourcesClientListByResourceOptions) *runtime.Pager[PrivateLinkResourcesClientListByResourceResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientListByResourceResponse]{
-		More: func(page PrivateLinkResourcesClientListByResourceResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *PrivateLinkResourcesClientListByResourceResponse) (PrivateLinkResourcesClientListByResourceResponse, error) {
-			req, err := client.listByResourceCreateRequest(ctx, resourceGroupName, farmBeatsResourceName, options)
-			if err != nil {
-				return PrivateLinkResourcesClientListByResourceResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return PrivateLinkResourcesClientListByResourceResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return PrivateLinkResourcesClientListByResourceResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listByResourceHandleResponse(resp)
-		},
-	})
+func (client *PrivateLinkResourcesClient) ListByResource(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, options *PrivateLinkResourcesClientListByResourceOptions) (PrivateLinkResourcesClientListByResourceResponse, error) {
+	req, err := client.listByResourceCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, options)
+	if err != nil {
+		return PrivateLinkResourcesClientListByResourceResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return PrivateLinkResourcesClientListByResourceResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return PrivateLinkResourcesClientListByResourceResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listByResourceHandleResponse(resp)
 }
 
 // listByResourceCreateRequest creates the ListByResource request.
-func (client *PrivateLinkResourcesClient) listByResourceCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, options *PrivateLinkResourcesClientListByResourceOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}/privateLinkResources"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *PrivateLinkResourcesClient) listByResourceCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, options *PrivateLinkResourcesClientListByResourceOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/privateLinkResources"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if farmBeatsResourceName == "" {
-		return nil, errors.New("parameter farmBeatsResourceName cannot be empty")
+	if dataManagerForAgricultureResourceName == "" {
+		return nil, errors.New("parameter dataManagerForAgricultureResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{farmBeatsResourceName}", url.PathEscape(farmBeatsResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{dataManagerForAgricultureResourceName}", url.PathEscape(dataManagerForAgricultureResourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
