@@ -59,6 +59,16 @@ type ConfigurationAssignmentsClientDeleteResponse struct {
 	ConfigurationAssignment
 }
 
+// ConfigurationAssignmentsClientGetParentResponse contains the response from method ConfigurationAssignmentsClient.GetParent.
+type ConfigurationAssignmentsClientGetParentResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsClientGetResponse contains the response from method ConfigurationAssignmentsClient.Get.
+type ConfigurationAssignmentsClientGetResponse struct {
+	ConfigurationAssignment
+}
+
 // ConfigurationAssignmentsClientListParentResponse contains the response from method ConfigurationAssignmentsClient.NewListParentPager.
 type ConfigurationAssignmentsClientListParentResponse struct {
 	ListConfigurationAssignmentsResult
@@ -66,6 +76,51 @@ type ConfigurationAssignmentsClientListParentResponse struct {
 
 // ConfigurationAssignmentsClientListResponse contains the response from method ConfigurationAssignmentsClient.NewListPager.
 type ConfigurationAssignmentsClientListResponse struct {
+	ListConfigurationAssignmentsResult
+}
+
+// ConfigurationAssignmentsForResourceGroupClientCreateOrUpdateResponse contains the response from method ConfigurationAssignmentsForResourceGroupClient.CreateOrUpdate.
+type ConfigurationAssignmentsForResourceGroupClientCreateOrUpdateResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForResourceGroupClientDeleteResponse contains the response from method ConfigurationAssignmentsForResourceGroupClient.Delete.
+type ConfigurationAssignmentsForResourceGroupClientDeleteResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForResourceGroupClientGetResponse contains the response from method ConfigurationAssignmentsForResourceGroupClient.Get.
+type ConfigurationAssignmentsForResourceGroupClientGetResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForResourceGroupClientUpdateResponse contains the response from method ConfigurationAssignmentsForResourceGroupClient.Update.
+type ConfigurationAssignmentsForResourceGroupClientUpdateResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientCreateOrUpdateResponse contains the response from method ConfigurationAssignmentsForSubscriptionsClient.CreateOrUpdate.
+type ConfigurationAssignmentsForSubscriptionsClientCreateOrUpdateResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientDeleteResponse contains the response from method ConfigurationAssignmentsForSubscriptionsClient.Delete.
+type ConfigurationAssignmentsForSubscriptionsClientDeleteResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientGetResponse contains the response from method ConfigurationAssignmentsForSubscriptionsClient.Get.
+type ConfigurationAssignmentsForSubscriptionsClientGetResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientUpdateResponse contains the response from method ConfigurationAssignmentsForSubscriptionsClient.Update.
+type ConfigurationAssignmentsForSubscriptionsClientUpdateResponse struct {
+	ConfigurationAssignment
+}
+
+// ConfigurationAssignmentsWithinSubscriptionClientListResponse contains the response from method ConfigurationAssignmentsWithinSubscriptionClient.NewListPager.
+type ConfigurationAssignmentsWithinSubscriptionClientListResponse struct {
 	ListConfigurationAssignmentsResult
 }
 

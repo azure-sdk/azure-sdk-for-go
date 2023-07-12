@@ -118,8 +118,29 @@ type ConfigurationAssignment struct {
 	Type *string
 }
 
+// ConfigurationAssignmentFilterProperties - Azure query for the update configuration.
+type ConfigurationAssignmentFilterProperties struct {
+	// List of locations to scope the query to.
+	Locations []*string
+
+	// List of allowed operating systems.
+	OSTypes []*string
+
+	// List of allowed resource groups.
+	ResourceGroups []*string
+
+	// List of allowed resources.
+	ResourceTypes []*string
+
+	// Tag settings for the VM.
+	TagSettings *TagSettingsProperties
+}
+
 // ConfigurationAssignmentProperties - Properties for configuration assignment
 type ConfigurationAssignmentProperties struct {
+	// Properties of the configuration assignment
+	Filter *ConfigurationAssignmentFilterProperties
+
 	// The maintenance configuration Id
 	MaintenanceConfigurationID *string
 
@@ -151,6 +172,17 @@ type ConfigurationAssignmentsClientDeleteParentOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConfigurationAssignmentsClientGetOptions contains the optional parameters for the ConfigurationAssignmentsClient.Get method.
+type ConfigurationAssignmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsClientGetParentOptions contains the optional parameters for the ConfigurationAssignmentsClient.GetParent
+// method.
+type ConfigurationAssignmentsClientGetParentOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ConfigurationAssignmentsClientListOptions contains the optional parameters for the ConfigurationAssignmentsClient.NewListPager
 // method.
 type ConfigurationAssignmentsClientListOptions struct {
@@ -163,10 +195,67 @@ type ConfigurationAssignmentsClientListParentOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConfigurationAssignmentsForResourceGroupClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationAssignmentsForResourceGroupClient.CreateOrUpdate
+// method.
+type ConfigurationAssignmentsForResourceGroupClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForResourceGroupClientDeleteOptions contains the optional parameters for the ConfigurationAssignmentsForResourceGroupClient.Delete
+// method.
+type ConfigurationAssignmentsForResourceGroupClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForResourceGroupClientGetOptions contains the optional parameters for the ConfigurationAssignmentsForResourceGroupClient.Get
+// method.
+type ConfigurationAssignmentsForResourceGroupClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForResourceGroupClientUpdateOptions contains the optional parameters for the ConfigurationAssignmentsForResourceGroupClient.Update
+// method.
+type ConfigurationAssignmentsForResourceGroupClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationAssignmentsForSubscriptionsClient.CreateOrUpdate
+// method.
+type ConfigurationAssignmentsForSubscriptionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientDeleteOptions contains the optional parameters for the ConfigurationAssignmentsForSubscriptionsClient.Delete
+// method.
+type ConfigurationAssignmentsForSubscriptionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientGetOptions contains the optional parameters for the ConfigurationAssignmentsForSubscriptionsClient.Get
+// method.
+type ConfigurationAssignmentsForSubscriptionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsForSubscriptionsClientUpdateOptions contains the optional parameters for the ConfigurationAssignmentsForSubscriptionsClient.Update
+// method.
+type ConfigurationAssignmentsForSubscriptionsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.NewListPager
+// method.
+type ConfigurationAssignmentsWithinSubscriptionClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ConfigurationProperties - Properties for maintenance configuration
 type ConfigurationProperties struct {
 	// Gets or sets extensionProperties of the maintenanceConfiguration
 	ExtensionProperties map[string]*string
+
+	// The input parameters to be passed to the patch run operation.
+	InstallPatches *InputPatchConfiguration
 
 	// Gets or sets maintenanceScope of the configuration
 	MaintenanceScope *MaintenanceScope
@@ -226,6 +315,46 @@ type ErrorDetails struct {
 
 	// Human-readable representation of the error.
 	Message *string
+}
+
+// InputLinuxParameters - Input properties for patching a Linux machine.
+type InputLinuxParameters struct {
+	// Classification category of patches to be patched
+	ClassificationsToInclude []*string
+
+	// Package names to be excluded for patching.
+	PackageNameMasksToExclude []*string
+
+	// Package names to be included for patching.
+	PackageNameMasksToInclude []*string
+}
+
+// InputPatchConfiguration - Input configuration for a patch run
+type InputPatchConfiguration struct {
+	// Input parameters specific to patching Linux machine. For Windows machines, do not pass this property.
+	LinuxParameters *InputLinuxParameters
+
+	// Possible reboot preference as defined by the user based on which it would be decided to reboot the machine or not after
+	// the patch operation is completed.
+	RebootSetting *RebootOptions
+
+	// Input parameters specific to patching a Windows machine. For Linux machines, do not pass this property.
+	WindowsParameters *InputWindowsParameters
+}
+
+// InputWindowsParameters - Input properties for patching a Windows machine.
+type InputWindowsParameters struct {
+	// Classification category of patches to be patched
+	ClassificationsToInclude []*string
+
+	// Exclude patches which need reboot
+	ExcludeKbsRequiringReboot *bool
+
+	// Windows KBID to be excluded for patching.
+	KbNumbersToExclude []*string
+
+	// Windows KBID to be included for patching.
+	KbNumbersToInclude []*string
 }
 
 // ListApplyUpdate - Response for ApplyUpdate list
@@ -344,6 +473,15 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TagSettingsProperties - Tag filter information for the VM.
+type TagSettingsProperties struct {
+	// Filter VMs by Any or All specified tags.
+	FilterOperator *TagOperators
+
+	// Dictionary of tags with its list of values.
+	Tags map[string][]*string
+}
+
 // Update - Maintenance update on a resource
 type Update struct {
 	// Duration of impact in seconds
@@ -399,9 +537,10 @@ type Window struct {
 	// [Optional comma separated list of weekdays Monday-Sunday]. Weekly schedule examples are recurEvery: 3Weeks, recurEvery:
 	// Week Saturday,Sunday. Monthly schedules are formatted as [Frequency as
 	// integer]['Month(s)'] [Comma separated list of month days] or [Frequency as integer]['Month(s)'] [Week of Month (First,
-	// Second, Third, Fourth, Last)] [Weekday Monday-Sunday]. Monthly schedule examples
-	// are recurEvery: Month, recurEvery: 2Months, recurEvery: Month day23,day24, recurEvery: Month Last Sunday, recurEvery: Month
-	// Fourth Monday.
+	// Second, Third, Fourth, Last)] [Weekday Monday-Sunday] [Optional Offset(No. of
+	// days)]. Offset value must be between -6 to 6 inclusive. Monthly schedule examples are recurEvery: Month, recurEvery: 2Months,
+	// recurEvery: Month day23,day24, recurEvery: Month Last Sunday, recurEvery:
+	// Month Fourth Monday, recurEvery: Month Last Sunday Offset-3, recurEvery: Month Third Sunday Offset6.
 	RecurEvery *string
 
 	// Effective start date of the maintenance window in YYYY-MM-DD hh:mm format. The start date can be set to either the current

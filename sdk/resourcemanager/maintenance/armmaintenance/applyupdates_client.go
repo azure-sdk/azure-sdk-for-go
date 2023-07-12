@@ -48,7 +48,7 @@ func NewApplyUpdatesClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Apply maintenance updates to resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - Resource group name
 //   - providerName - Resource provider name
 //   - resourceType - Resource type
@@ -64,7 +64,7 @@ func (client *ApplyUpdatesClient) CreateOrUpdate(ctx context.Context, resourceGr
 	if err != nil {
 		return ApplyUpdatesClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return ApplyUpdatesClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateHandleResponse(resp)
@@ -98,7 +98,7 @@ func (client *ApplyUpdatesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +116,7 @@ func (client *ApplyUpdatesClient) createOrUpdateHandleResponse(resp *http.Respon
 // CreateOrUpdateParent - Apply maintenance updates to resource with parent
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - Resource group name
 //   - providerName - Resource provider name
 //   - resourceParentType - Resource parent type
@@ -134,7 +134,7 @@ func (client *ApplyUpdatesClient) CreateOrUpdateParent(ctx context.Context, reso
 	if err != nil {
 		return ApplyUpdatesClientCreateOrUpdateParentResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return ApplyUpdatesClientCreateOrUpdateParentResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateParentHandleResponse(resp)
@@ -176,7 +176,7 @@ func (client *ApplyUpdatesClient) createOrUpdateParentCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *ApplyUpdatesClient) createOrUpdateParentHandleResponse(resp *http.
 // Get - Track maintenance updates to resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - Resource group name
 //   - providerName - Resource provider name
 //   - resourceType - Resource type
@@ -248,7 +248,7 @@ func (client *ApplyUpdatesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,17 +266,17 @@ func (client *ApplyUpdatesClient) getHandleResponse(resp *http.Response) (ApplyU
 // GetParent - Track maintenance updates to resource with parent
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - Resource group name
+//   - providerName - Resource provider name
 //   - resourceParentType - Resource parent type
 //   - resourceParentName - Resource parent identifier
-//   - providerName - Resource provider name
 //   - resourceType - Resource type
 //   - resourceName - Resource identifier
 //   - applyUpdateName - applyUpdate Id
 //   - options - ApplyUpdatesClientGetParentOptions contains the optional parameters for the ApplyUpdatesClient.GetParent method.
-func (client *ApplyUpdatesClient) GetParent(ctx context.Context, resourceGroupName string, resourceParentType string, resourceParentName string, providerName string, resourceType string, resourceName string, applyUpdateName string, options *ApplyUpdatesClientGetParentOptions) (ApplyUpdatesClientGetParentResponse, error) {
-	req, err := client.getParentCreateRequest(ctx, resourceGroupName, resourceParentType, resourceParentName, providerName, resourceType, resourceName, applyUpdateName, options)
+func (client *ApplyUpdatesClient) GetParent(ctx context.Context, resourceGroupName string, providerName string, resourceParentType string, resourceParentName string, resourceType string, resourceName string, applyUpdateName string, options *ApplyUpdatesClientGetParentOptions) (ApplyUpdatesClientGetParentResponse, error) {
+	req, err := client.getParentCreateRequest(ctx, resourceGroupName, providerName, resourceParentType, resourceParentName, resourceType, resourceName, applyUpdateName, options)
 	if err != nil {
 		return ApplyUpdatesClientGetParentResponse{}, err
 	}
@@ -291,7 +291,7 @@ func (client *ApplyUpdatesClient) GetParent(ctx context.Context, resourceGroupNa
 }
 
 // getParentCreateRequest creates the GetParent request.
-func (client *ApplyUpdatesClient) getParentCreateRequest(ctx context.Context, resourceGroupName string, resourceParentType string, resourceParentName string, providerName string, resourceType string, resourceName string, applyUpdateName string, options *ApplyUpdatesClientGetParentOptions) (*policy.Request, error) {
+func (client *ApplyUpdatesClient) getParentCreateRequest(ctx context.Context, resourceGroupName string, providerName string, resourceParentType string, resourceParentName string, resourceType string, resourceName string, applyUpdateName string, options *ApplyUpdatesClientGetParentOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{providerName}/{resourceParentType}/{resourceParentName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/applyUpdates/{applyUpdateName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -301,6 +301,10 @@ func (client *ApplyUpdatesClient) getParentCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if providerName == "" {
+		return nil, errors.New("parameter providerName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{providerName}", url.PathEscape(providerName))
 	if resourceParentType == "" {
 		return nil, errors.New("parameter resourceParentType cannot be empty")
 	}
@@ -309,10 +313,6 @@ func (client *ApplyUpdatesClient) getParentCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter resourceParentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceParentName}", url.PathEscape(resourceParentName))
-	if providerName == "" {
-		return nil, errors.New("parameter providerName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{providerName}", url.PathEscape(providerName))
 	if resourceType == "" {
 		return nil, errors.New("parameter resourceType cannot be empty")
 	}
@@ -330,7 +330,7 @@ func (client *ApplyUpdatesClient) getParentCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -347,7 +347,7 @@ func (client *ApplyUpdatesClient) getParentHandleResponse(resp *http.Response) (
 
 // NewListPager - Get Configuration records within a subscription
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-04-01
 //   - options - ApplyUpdatesClientListOptions contains the optional parameters for the ApplyUpdatesClient.NewListPager method.
 func (client *ApplyUpdatesClient) NewListPager(options *ApplyUpdatesClientListOptions) *runtime.Pager[ApplyUpdatesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplyUpdatesClientListResponse]{
@@ -383,7 +383,7 @@ func (client *ApplyUpdatesClient) listCreateRequest(ctx context.Context, options
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
