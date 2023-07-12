@@ -9,107 +9,107 @@
 
 package armedgeorder
 
-// ManagementClientCancelOrderItemResponse contains the response from method ManagementClient.CancelOrderItem.
-type ManagementClientCancelOrderItemResponse struct {
-	// placeholder for future response values
-}
-
-// ManagementClientCreateAddressResponse contains the response from method ManagementClient.BeginCreateAddress.
-type ManagementClientCreateAddressResponse struct {
+// AddressesClientCreateResponse contains the response from method AddressesClient.BeginCreate.
+type AddressesClientCreateResponse struct {
 	AddressResource
 }
 
-// ManagementClientCreateOrderItemResponse contains the response from method ManagementClient.BeginCreateOrderItem.
-type ManagementClientCreateOrderItemResponse struct {
-	OrderItemResource
-}
-
-// ManagementClientDeleteAddressByNameResponse contains the response from method ManagementClient.BeginDeleteAddressByName.
-type ManagementClientDeleteAddressByNameResponse struct {
+// AddressesClientDeleteResponse contains the response from method AddressesClient.BeginDelete.
+type AddressesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// ManagementClientDeleteOrderItemByNameResponse contains the response from method ManagementClient.BeginDeleteOrderItemByName.
-type ManagementClientDeleteOrderItemByNameResponse struct {
-	// placeholder for future response values
-}
-
-// ManagementClientGetAddressByNameResponse contains the response from method ManagementClient.GetAddressByName.
-type ManagementClientGetAddressByNameResponse struct {
+// AddressesClientGetResponse contains the response from method AddressesClient.Get.
+type AddressesClientGetResponse struct {
 	AddressResource
 }
 
-// ManagementClientGetOrderByNameResponse contains the response from method ManagementClient.GetOrderByName.
-type ManagementClientGetOrderByNameResponse struct {
-	OrderResource
-}
-
-// ManagementClientGetOrderItemByNameResponse contains the response from method ManagementClient.GetOrderItemByName.
-type ManagementClientGetOrderItemByNameResponse struct {
-	OrderItemResource
-}
-
-// ManagementClientListAddressesAtResourceGroupLevelResponse contains the response from method ManagementClient.NewListAddressesAtResourceGroupLevelPager.
-type ManagementClientListAddressesAtResourceGroupLevelResponse struct {
+// AddressesClientListByResourceGroupResponse contains the response from method AddressesClient.NewListByResourceGroupPager.
+type AddressesClientListByResourceGroupResponse struct {
 	AddressResourceList
 }
 
-// ManagementClientListAddressesAtSubscriptionLevelResponse contains the response from method ManagementClient.NewListAddressesAtSubscriptionLevelPager.
-type ManagementClientListAddressesAtSubscriptionLevelResponse struct {
+// AddressesClientListBySubscriptionResponse contains the response from method AddressesClient.NewListBySubscriptionPager.
+type AddressesClientListBySubscriptionResponse struct {
 	AddressResourceList
 }
 
-// ManagementClientListConfigurationsResponse contains the response from method ManagementClient.NewListConfigurationsPager.
-type ManagementClientListConfigurationsResponse struct {
-	Configurations
+// AddressesClientUpdateResponse contains the response from method AddressesClient.BeginUpdate.
+type AddressesClientUpdateResponse struct {
+	AddressResource
 }
 
-// ManagementClientListOperationsResponse contains the response from method ManagementClient.NewListOperationsPager.
-type ManagementClientListOperationsResponse struct {
+// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
+type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// ManagementClientListOrderAtResourceGroupLevelResponse contains the response from method ManagementClient.NewListOrderAtResourceGroupLevelPager.
-type ManagementClientListOrderAtResourceGroupLevelResponse struct {
-	OrderResourceList
-}
-
-// ManagementClientListOrderAtSubscriptionLevelResponse contains the response from method ManagementClient.NewListOrderAtSubscriptionLevelPager.
-type ManagementClientListOrderAtSubscriptionLevelResponse struct {
-	OrderResourceList
-}
-
-// ManagementClientListOrderItemsAtResourceGroupLevelResponse contains the response from method ManagementClient.NewListOrderItemsAtResourceGroupLevelPager.
-type ManagementClientListOrderItemsAtResourceGroupLevelResponse struct {
-	OrderItemResourceList
-}
-
-// ManagementClientListOrderItemsAtSubscriptionLevelResponse contains the response from method ManagementClient.NewListOrderItemsAtSubscriptionLevelPager.
-type ManagementClientListOrderItemsAtSubscriptionLevelResponse struct {
-	OrderItemResourceList
-}
-
-// ManagementClientListProductFamiliesMetadataResponse contains the response from method ManagementClient.NewListProductFamiliesMetadataPager.
-type ManagementClientListProductFamiliesMetadataResponse struct {
-	ProductFamiliesMetadata
-}
-
-// ManagementClientListProductFamiliesResponse contains the response from method ManagementClient.NewListProductFamiliesPager.
-type ManagementClientListProductFamiliesResponse struct {
-	ProductFamilies
-}
-
-// ManagementClientReturnOrderItemResponse contains the response from method ManagementClient.BeginReturnOrderItem.
-type ManagementClientReturnOrderItemResponse struct {
+// OrderItemsClientCancelResponse contains the response from method OrderItemsClient.Cancel.
+type OrderItemsClientCancelResponse struct {
 	// placeholder for future response values
 }
 
-// ManagementClientUpdateAddressResponse contains the response from method ManagementClient.BeginUpdateAddress.
-type ManagementClientUpdateAddressResponse struct {
-	AddressResource
+// OrderItemsClientCreateResponse contains the response from method OrderItemsClient.BeginCreate.
+type OrderItemsClientCreateResponse struct {
+	OrderItemResource
 }
 
-// ManagementClientUpdateOrderItemResponse contains the response from method ManagementClient.BeginUpdateOrderItem.
-type ManagementClientUpdateOrderItemResponse struct {
+// OrderItemsClientDeleteResponse contains the response from method OrderItemsClient.BeginDelete.
+type OrderItemsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// OrderItemsClientGetResponse contains the response from method OrderItemsClient.Get.
+type OrderItemsClientGetResponse struct {
 	OrderItemResource
+}
+
+// OrderItemsClientListByResourceGroupResponse contains the response from method OrderItemsClient.NewListByResourceGroupPager.
+type OrderItemsClientListByResourceGroupResponse struct {
+	OrderItemResourceList
+}
+
+// OrderItemsClientListBySubscriptionResponse contains the response from method OrderItemsClient.NewListBySubscriptionPager.
+type OrderItemsClientListBySubscriptionResponse struct {
+	OrderItemResourceList
+}
+
+// OrderItemsClientReturnResponse contains the response from method OrderItemsClient.BeginReturn.
+type OrderItemsClientReturnResponse struct {
+	// placeholder for future response values
+}
+
+// OrderItemsClientUpdateResponse contains the response from method OrderItemsClient.BeginUpdate.
+type OrderItemsClientUpdateResponse struct {
+	OrderItemResource
+}
+
+// OrdersClientGetResponse contains the response from method OrdersClient.Get.
+type OrdersClientGetResponse struct {
+	OrderResource
+}
+
+// OrdersClientListByResourceGroupResponse contains the response from method OrdersClient.NewListByResourceGroupPager.
+type OrdersClientListByResourceGroupResponse struct {
+	OrderResourceList
+}
+
+// OrdersClientListBySubscriptionResponse contains the response from method OrdersClient.NewListBySubscriptionPager.
+type OrdersClientListBySubscriptionResponse struct {
+	OrderResourceList
+}
+
+// ProductsAndConfigurationsClientListConfigurationsResponse contains the response from method ProductsAndConfigurationsClient.NewListConfigurationsPager.
+type ProductsAndConfigurationsClientListConfigurationsResponse struct {
+	Configurations
+}
+
+// ProductsAndConfigurationsClientListProductFamiliesMetadataResponse contains the response from method ProductsAndConfigurationsClient.NewListProductFamiliesMetadataPager.
+type ProductsAndConfigurationsClientListProductFamiliesMetadataResponse struct {
+	ProductFamiliesMetadata
+}
+
+// ProductsAndConfigurationsClientListProductFamiliesResponse contains the response from method ProductsAndConfigurationsClient.NewListProductFamiliesPager.
+type ProductsAndConfigurationsClientListProductFamiliesResponse struct {
+	ProductFamilies
 }

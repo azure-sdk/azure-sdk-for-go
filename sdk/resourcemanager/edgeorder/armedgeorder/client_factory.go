@@ -38,7 +38,27 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-func (c *ClientFactory) NewManagementClient() *ManagementClient {
-	subClient, _ := NewManagementClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAddressesClient() *AddressesClient {
+	subClient, _ := NewAddressesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductsAndConfigurationsClient() *ProductsAndConfigurationsClient {
+	subClient, _ := NewProductsAndConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOrderItemsClient() *OrderItemsClient {
+	subClient, _ := NewOrderItemsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOrdersClient() *OrdersClient {
+	subClient, _ := NewOrdersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
