@@ -435,6 +435,7 @@ func (m *MasterProfile) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type NetworkProfile.
 func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "outboundType", n.OutboundType)
 	populate(objectMap, "podCidr", n.PodCidr)
 	populate(objectMap, "serviceCidr", n.ServiceCidr)
 	return json.Marshal(objectMap)
@@ -449,6 +450,9 @@ func (n *NetworkProfile) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "outboundType":
+			err = unpopulate(val, "OutboundType", &n.OutboundType)
+			delete(rawMsg, key)
 		case "podCidr":
 			err = unpopulate(val, "PodCidr", &n.PodCidr)
 			delete(rawMsg, key)

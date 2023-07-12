@@ -11,7 +11,7 @@ package armredhatopenshift
 
 const (
 	moduleName    = "armredhatopenshift"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -63,6 +63,22 @@ func PossibleFipsValidatedModulesValues() []FipsValidatedModules {
 	return []FipsValidatedModules{
 		FipsValidatedModulesDisabled,
 		FipsValidatedModulesEnabled,
+	}
+}
+
+// OutboundType - The outbound routing strategy used to provide your cluster egress to the internet.
+type OutboundType string
+
+const (
+	OutboundTypeLoadbalancer       OutboundType = "Loadbalancer"
+	OutboundTypeUserDefinedRouting OutboundType = "UserDefinedRouting"
+)
+
+// PossibleOutboundTypeValues returns the possible values for the OutboundType const type.
+func PossibleOutboundTypeValues() []OutboundType {
+	return []OutboundType{
+		OutboundTypeLoadbalancer,
+		OutboundTypeUserDefinedRouting,
 	}
 }
 
