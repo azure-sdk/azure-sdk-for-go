@@ -47,7 +47,7 @@ func NewUpdateRunsClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Create a UpdateRun
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - fleetName - The name of the Fleet resource.
 //   - updateRunName - The name of the UpdateRun resource.
@@ -71,7 +71,7 @@ func (client *UpdateRunsClient) BeginCreateOrUpdate(ctx context.Context, resourc
 // CreateOrUpdate - Create a UpdateRun
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 func (client *UpdateRunsClient) createOrUpdate(ctx context.Context, resourceGroupName string, fleetName string, updateRunName string, resource UpdateRun, options *UpdateRunsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, fleetName, updateRunName, resource, options)
 	if err != nil {
@@ -111,7 +111,7 @@ func (client *UpdateRunsClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -126,7 +126,7 @@ func (client *UpdateRunsClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Delete a UpdateRun
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - fleetName - The name of the Fleet resource.
 //   - updateRunName - The name of the UpdateRun resource.
@@ -148,7 +148,7 @@ func (client *UpdateRunsClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Delete a UpdateRun
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 func (client *UpdateRunsClient) deleteOperation(ctx context.Context, resourceGroupName string, fleetName string, updateRunName string, options *UpdateRunsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, fleetName, updateRunName, options)
 	if err != nil {
@@ -188,7 +188,7 @@ func (client *UpdateRunsClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -200,7 +200,7 @@ func (client *UpdateRunsClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Get a UpdateRun
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - fleetName - The name of the Fleet resource.
 //   - updateRunName - The name of the UpdateRun resource.
@@ -244,7 +244,7 @@ func (client *UpdateRunsClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,7 +261,7 @@ func (client *UpdateRunsClient) getHandleResponse(resp *http.Response) (UpdateRu
 
 // NewListByFleetPager - List UpdateRun resources by Fleet
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - fleetName - The name of the Fleet resource.
 //   - options - UpdateRunsClientListByFleetOptions contains the optional parameters for the UpdateRunsClient.NewListByFleetPager
@@ -314,7 +314,7 @@ func (client *UpdateRunsClient) listByFleetCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -332,7 +332,7 @@ func (client *UpdateRunsClient) listByFleetHandleResponse(resp *http.Response) (
 // BeginStart - Starts an UpdateRun.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - fleetName - The name of the Fleet resource.
 //   - updateRunName - The name of the UpdateRun resource.
@@ -354,7 +354,7 @@ func (client *UpdateRunsClient) BeginStart(ctx context.Context, resourceGroupNam
 // Start - Starts an UpdateRun.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 func (client *UpdateRunsClient) start(ctx context.Context, resourceGroupName string, fleetName string, updateRunName string, options *UpdateRunsClientBeginStartOptions) (*http.Response, error) {
 	req, err := client.startCreateRequest(ctx, resourceGroupName, fleetName, updateRunName, options)
 	if err != nil {
@@ -394,7 +394,7 @@ func (client *UpdateRunsClient) startCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -406,7 +406,7 @@ func (client *UpdateRunsClient) startCreateRequest(ctx context.Context, resource
 // BeginStop - Stops an UpdateRun.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - fleetName - The name of the Fleet resource.
 //   - updateRunName - The name of the UpdateRun resource.
@@ -428,7 +428,7 @@ func (client *UpdateRunsClient) BeginStop(ctx context.Context, resourceGroupName
 // Stop - Stops an UpdateRun.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15-preview
+// Generated from API version 2023-06-15-preview
 func (client *UpdateRunsClient) stop(ctx context.Context, resourceGroupName string, fleetName string, updateRunName string, options *UpdateRunsClientBeginStopOptions) (*http.Response, error) {
 	req, err := client.stopCreateRequest(ctx, resourceGroupName, fleetName, updateRunName, options)
 	if err != nil {
@@ -468,7 +468,7 @@ func (client *UpdateRunsClient) stopCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15-preview")
+	reqQP.Set("api-version", "2023-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
