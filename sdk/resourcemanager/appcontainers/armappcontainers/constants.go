@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.3"
+	moduleVersion = "v2.0.0-beta.4"
 )
 
 // AccessMode - Access mode for storage
@@ -128,6 +128,28 @@ func PossibleBindingTypeValues() []BindingType {
 	}
 }
 
+// BuildStatus - Status of the build once it has been provisioned.
+type BuildStatus string
+
+const (
+	BuildStatusCanceled   BuildStatus = "Canceled"
+	BuildStatusFailed     BuildStatus = "Failed"
+	BuildStatusInProgress BuildStatus = "InProgress"
+	BuildStatusNotStarted BuildStatus = "NotStarted"
+	BuildStatusSucceeded  BuildStatus = "Succeeded"
+)
+
+// PossibleBuildStatusValues returns the possible values for the BuildStatus const type.
+func PossibleBuildStatusValues() []BuildStatus {
+	return []BuildStatus{
+		BuildStatusCanceled,
+		BuildStatusFailed,
+		BuildStatusInProgress,
+		BuildStatusNotStarted,
+		BuildStatusSucceeded,
+	}
+}
+
 // CertificateProvisioningState - Provisioning state of the certificate.
 type CertificateProvisioningState string
 
@@ -194,6 +216,24 @@ func PossibleConnectedEnvironmentProvisioningStateValues() []ConnectedEnvironmen
 	}
 }
 
+// ContainerAppContainerRunningState - Current running state of the container
+type ContainerAppContainerRunningState string
+
+const (
+	ContainerAppContainerRunningStateRunning    ContainerAppContainerRunningState = "Running"
+	ContainerAppContainerRunningStateTerminated ContainerAppContainerRunningState = "Terminated"
+	ContainerAppContainerRunningStateWaiting    ContainerAppContainerRunningState = "Waiting"
+)
+
+// PossibleContainerAppContainerRunningStateValues returns the possible values for the ContainerAppContainerRunningState const type.
+func PossibleContainerAppContainerRunningStateValues() []ContainerAppContainerRunningState {
+	return []ContainerAppContainerRunningState{
+		ContainerAppContainerRunningStateRunning,
+		ContainerAppContainerRunningStateTerminated,
+		ContainerAppContainerRunningStateWaiting,
+	}
+}
+
 // ContainerAppProvisioningState - Provisioning state of the Container App.
 type ContainerAppProvisioningState string
 
@@ -213,6 +253,24 @@ func PossibleContainerAppProvisioningStateValues() []ContainerAppProvisioningSta
 		ContainerAppProvisioningStateFailed,
 		ContainerAppProvisioningStateInProgress,
 		ContainerAppProvisioningStateSucceeded,
+	}
+}
+
+// ContainerAppReplicaRunningState - Current running state of the replica
+type ContainerAppReplicaRunningState string
+
+const (
+	ContainerAppReplicaRunningStateNotRunning ContainerAppReplicaRunningState = "NotRunning"
+	ContainerAppReplicaRunningStateRunning    ContainerAppReplicaRunningState = "Running"
+	ContainerAppReplicaRunningStateUnknown    ContainerAppReplicaRunningState = "Unknown"
+)
+
+// PossibleContainerAppReplicaRunningStateValues returns the possible values for the ContainerAppReplicaRunningState const type.
+func PossibleContainerAppReplicaRunningStateValues() []ContainerAppReplicaRunningState {
+	return []ContainerAppReplicaRunningState{
+		ContainerAppReplicaRunningStateNotRunning,
+		ContainerAppReplicaRunningStateRunning,
+		ContainerAppReplicaRunningStateUnknown,
 	}
 }
 
@@ -480,6 +538,30 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
+// ProvisioningState - Resource instance provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateDeleting  ProvisioningState = "Deleting"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating  ProvisioningState = "Updating"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
+	}
+}
+
 // RevisionHealthState - Current health State of the revision
 type RevisionHealthState string
 
@@ -517,6 +599,30 @@ func PossibleRevisionProvisioningStateValues() []RevisionProvisioningState {
 		RevisionProvisioningStateFailed,
 		RevisionProvisioningStateProvisioned,
 		RevisionProvisioningStateProvisioning,
+	}
+}
+
+// RevisionRunningState - Current running state of the revision
+type RevisionRunningState string
+
+const (
+	RevisionRunningStateDegraded   RevisionRunningState = "Degraded"
+	RevisionRunningStateFailed     RevisionRunningState = "Failed"
+	RevisionRunningStateProcessing RevisionRunningState = "Processing"
+	RevisionRunningStateRunning    RevisionRunningState = "Running"
+	RevisionRunningStateStopped    RevisionRunningState = "Stopped"
+	RevisionRunningStateUnknown    RevisionRunningState = "Unknown"
+)
+
+// PossibleRevisionRunningStateValues returns the possible values for the RevisionRunningState const type.
+func PossibleRevisionRunningStateValues() []RevisionRunningState {
+	return []RevisionRunningState{
+		RevisionRunningStateDegraded,
+		RevisionRunningStateFailed,
+		RevisionRunningStateProcessing,
+		RevisionRunningStateRunning,
+		RevisionRunningStateStopped,
+		RevisionRunningStateUnknown,
 	}
 }
 
@@ -578,9 +684,9 @@ func PossibleStorageTypeValues() []StorageType {
 type TriggerType string
 
 const (
-	TriggerTypeEvent     TriggerType = "Event"
-	TriggerTypeManual    TriggerType = "Manual"
-	TriggerTypeScheduled TriggerType = "Scheduled"
+	TriggerTypeEvent    TriggerType = "Event"
+	TriggerTypeManual   TriggerType = "Manual"
+	TriggerTypeSchedule TriggerType = "Schedule"
 )
 
 // PossibleTriggerTypeValues returns the possible values for the TriggerType const type.
@@ -588,7 +694,7 @@ func PossibleTriggerTypeValues() []TriggerType {
 	return []TriggerType{
 		TriggerTypeEvent,
 		TriggerTypeManual,
-		TriggerTypeScheduled,
+		TriggerTypeSchedule,
 	}
 }
 
