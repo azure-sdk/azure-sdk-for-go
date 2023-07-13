@@ -37,13 +37,23 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
+func (c *ClientFactory) NewDeploymentsClient() *DeploymentsClient {
+	subClient, _ := NewDeploymentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewDeploymentsClient() *DeploymentsClient {
-	subClient, _ := NewDeploymentsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewResourceGroupsClient() *ResourceGroupsClient {
+	subClient, _ := NewResourceGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDeploymentOperationsClient() *DeploymentOperationsClient {
+	subClient, _ := NewDeploymentOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
 
@@ -62,17 +72,7 @@ func (c *ClientFactory) NewClient() *Client {
 	return subClient
 }
 
-func (c *ClientFactory) NewResourceGroupsClient() *ResourceGroupsClient {
-	subClient, _ := NewResourceGroupsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewTagsClient() *TagsClient {
 	subClient, _ := NewTagsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewDeploymentOperationsClient() *DeploymentOperationsClient {
-	subClient, _ := NewDeploymentOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

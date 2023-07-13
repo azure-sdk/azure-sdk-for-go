@@ -165,10 +165,6 @@ type DeploymentsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListAtTenantScopePager func(options *armresources.DeploymentsClientListAtTenantScopeOptions) (resp azfake.PagerResponder[armresources.DeploymentsClientListAtTenantScopeResponse])
 
-	// NewListByResourceGroupPager is the fake for method DeploymentsClient.NewListByResourceGroupPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListByResourceGroupPager func(resourceGroupName string, options *armresources.DeploymentsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armresources.DeploymentsClientListByResourceGroupResponse])
-
 	// BeginValidate is the fake for method DeploymentsClient.BeginValidate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusBadRequest
 	BeginValidate func(ctx context.Context, resourceGroupName string, deploymentName string, parameters armresources.Deployment, options *armresources.DeploymentsClientBeginValidateOptions) (resp azfake.PollerResponder[armresources.DeploymentsClientValidateResponse], errResp azfake.ErrorResponder)
@@ -231,7 +227,6 @@ type DeploymentsServerTransport struct {
 	newListAtScopePager                       *azfake.PagerResponder[armresources.DeploymentsClientListAtScopeResponse]
 	newListAtSubscriptionScopePager           *azfake.PagerResponder[armresources.DeploymentsClientListAtSubscriptionScopeResponse]
 	newListAtTenantScopePager                 *azfake.PagerResponder[armresources.DeploymentsClientListAtTenantScopeResponse]
-	newListByResourceGroupPager               *azfake.PagerResponder[armresources.DeploymentsClientListByResourceGroupResponse]
 	beginValidate                             *azfake.PollerResponder[armresources.DeploymentsClientValidateResponse]
 	beginValidateAtManagementGroupScope       *azfake.PollerResponder[armresources.DeploymentsClientValidateAtManagementGroupScopeResponse]
 	beginValidateAtScope                      *azfake.PollerResponder[armresources.DeploymentsClientValidateAtScopeResponse]
@@ -325,8 +320,6 @@ func (d *DeploymentsServerTransport) Do(req *http.Request) (*http.Response, erro
 		resp, err = d.dispatchNewListAtSubscriptionScopePager(req)
 	case "DeploymentsClient.NewListAtTenantScopePager":
 		resp, err = d.dispatchNewListAtTenantScopePager(req)
-	case "DeploymentsClient.NewListByResourceGroupPager":
-		resp, err = d.dispatchNewListByResourceGroupPager(req)
 	case "DeploymentsClient.BeginValidate":
 		resp, err = d.dispatchBeginValidate(req)
 	case "DeploymentsClient.BeginValidateAtManagementGroupScope":
@@ -1647,67 +1640,6 @@ func (d *DeploymentsServerTransport) dispatchNewListAtTenantScopePager(req *http
 	}
 	if !server.PagerResponderMore(d.newListAtTenantScopePager) {
 		d.newListAtTenantScopePager = nil
-	}
-	return resp, nil
-}
-
-func (d *DeploymentsServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
-	if d.srv.NewListByResourceGroupPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
-	}
-	if d.newListByResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Resources/deployments/`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
-		if err != nil {
-			return nil, err
-		}
-		filterParam := getOptional(filterUnescaped)
-		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
-		if err != nil {
-			return nil, err
-		}
-		topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
-			p, parseErr := strconv.ParseInt(v, 10, 32)
-			if parseErr != nil {
-				return 0, parseErr
-			}
-			return int32(p), nil
-		})
-		if err != nil {
-			return nil, err
-		}
-		var options *armresources.DeploymentsClientListByResourceGroupOptions
-		if filterParam != nil || topParam != nil {
-			options = &armresources.DeploymentsClientListByResourceGroupOptions{
-				Filter: filterParam,
-				Top:    topParam,
-			}
-		}
-		resp := d.srv.NewListByResourceGroupPager(resourceGroupNameUnescaped, options)
-		d.newListByResourceGroupPager = &resp
-		server.PagerResponderInjectNextLinks(d.newListByResourceGroupPager, req, func(page *armresources.DeploymentsClientListByResourceGroupResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(d.newListByResourceGroupPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(d.newListByResourceGroupPager) {
-		d.newListByResourceGroupPager = nil
 	}
 	return resp, nil
 }
