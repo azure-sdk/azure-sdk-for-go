@@ -11,7 +11,7 @@ package armiothub
 
 const (
 	moduleName    = "armiothub"
-	moduleVersion = "v1.2.0-beta.1"
+	moduleVersion = "v1.2.0-beta.2"
 )
 
 // AccessRights - The permissions assigned to the shared access policy.
@@ -427,7 +427,6 @@ func PossibleRouteErrorSeverityValues() []RouteErrorSeverity {
 	}
 }
 
-// RoutingSource - The source that the routing rule is to be applied to, such as DeviceMessages.
 type RoutingSource string
 
 const (
