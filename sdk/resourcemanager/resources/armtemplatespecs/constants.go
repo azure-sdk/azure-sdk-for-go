@@ -11,7 +11,7 @@ package armtemplatespecs
 
 const (
 	moduleName    = "armtemplatespecs"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.1.2"
 )
 
 // CreatedByType - The type of identity that created the resource.
