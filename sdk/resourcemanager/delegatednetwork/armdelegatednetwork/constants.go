@@ -11,7 +11,7 @@ package armdelegatednetwork
 
 const (
 	moduleName    = "armdelegatednetwork"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -25,6 +25,22 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// ControllerPurpose - The purpose of the dnc controller resource.
+type ControllerPurpose string
+
+const (
+	ControllerPurposeProd ControllerPurpose = "prod"
+	ControllerPurposeTest ControllerPurpose = "test"
+)
+
+// PossibleControllerPurposeValues returns the possible values for the ControllerPurpose const type.
+func PossibleControllerPurposeValues() []ControllerPurpose {
+	return []ControllerPurpose{
+		ControllerPurposeProd,
+		ControllerPurposeTest,
 	}
 }
 

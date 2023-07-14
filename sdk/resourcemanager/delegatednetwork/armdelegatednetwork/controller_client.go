@@ -47,7 +47,7 @@ func NewControllerClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreate - Create a dnc controller
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-05-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - parameters - controller type parameters
@@ -67,7 +67,7 @@ func (client *ControllerClient) BeginCreate(ctx context.Context, resourceGroupNa
 // Create - Create a dnc controller
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-05-18-preview
 func (client *ControllerClient) create(ctx context.Context, resourceGroupName string, resourceName string, parameters DelegatedController, options *ControllerClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
 	if err != nil {
@@ -103,7 +103,7 @@ func (client *ControllerClient) createCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-05-18-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -112,7 +112,7 @@ func (client *ControllerClient) createCreateRequest(ctx context.Context, resourc
 // BeginDelete - Deletes the DNC controller
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-05-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - options - ControllerClientBeginDeleteOptions contains the optional parameters for the ControllerClient.BeginDelete method.
@@ -131,7 +131,7 @@ func (client *ControllerClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Deletes the DNC controller
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-05-18-preview
 func (client *ControllerClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, options *ControllerClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -167,7 +167,7 @@ func (client *ControllerClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-05-18-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -176,7 +176,7 @@ func (client *ControllerClient) deleteCreateRequest(ctx context.Context, resourc
 // GetDetails - Gets details about the specified dnc controller.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-05-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - options - ControllerClientGetDetailsOptions contains the optional parameters for the ControllerClient.GetDetails method.
@@ -215,7 +215,7 @@ func (client *ControllerClient) getDetailsCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-05-18-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,7 +233,7 @@ func (client *ControllerClient) getDetailsHandleResponse(resp *http.Response) (C
 // Patch - Update dnc controller
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-15
+// Generated from API version 2023-05-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the resource. It must be a minimum of 3 characters, and a maximum of 63.
 //   - parameters - controller type parameters
@@ -273,7 +273,7 @@ func (client *ControllerClient) patchCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-15")
+	reqQP.Set("api-version", "2023-05-18-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

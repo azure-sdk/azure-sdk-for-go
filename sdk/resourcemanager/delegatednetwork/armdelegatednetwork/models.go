@@ -76,6 +76,9 @@ type DelegatedController struct {
 	// Location of the resource.
 	Location *string
 
+	// Properties of the provision operation request.
+	Properties *DelegatedControllerProperties
+
 	// The resource tags.
 	Tags map[string]*string
 
@@ -85,15 +88,15 @@ type DelegatedController struct {
 	// READ-ONLY; The name of the resource.
 	Name *string
 
-	// READ-ONLY; Properties of the provision operation request.
-	Properties *DelegatedControllerProperties
-
 	// READ-ONLY; The type of resource.
 	Type *string
 }
 
 // DelegatedControllerProperties - Properties of Delegated controller resource.
 type DelegatedControllerProperties struct {
+	// The purpose of the dnc controller resource.
+	Purpose *ControllerPurpose
+
 	// READ-ONLY; dnc application id should be used by customer to authenticate with dnc gateway.
 	DncAppID *string
 
