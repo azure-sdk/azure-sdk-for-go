@@ -1,5 +1,262 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-07-14)
+### Breaking Changes
+
+- Function `*ClientFactory.NewManagementClient` has been removed
+- Function `NewManagementClient` has been removed
+- Function `*ManagementClient.CancelOrderItem` has been removed
+- Function `*ManagementClient.BeginCreateAddress` has been removed
+- Function `*ManagementClient.BeginCreateOrderItem` has been removed
+- Function `*ManagementClient.BeginDeleteAddressByName` has been removed
+- Function `*ManagementClient.BeginDeleteOrderItemByName` has been removed
+- Function `*ManagementClient.GetAddressByName` has been removed
+- Function `*ManagementClient.GetOrderByName` has been removed
+- Function `*ManagementClient.GetOrderItemByName` has been removed
+- Function `*ManagementClient.NewListAddressesAtResourceGroupLevelPager` has been removed
+- Function `*ManagementClient.NewListAddressesAtSubscriptionLevelPager` has been removed
+- Function `*ManagementClient.NewListConfigurationsPager` has been removed
+- Function `*ManagementClient.NewListOperationsPager` has been removed
+- Function `*ManagementClient.NewListOrderAtResourceGroupLevelPager` has been removed
+- Function `*ManagementClient.NewListOrderAtSubscriptionLevelPager` has been removed
+- Function `*ManagementClient.NewListOrderItemsAtResourceGroupLevelPager` has been removed
+- Function `*ManagementClient.NewListOrderItemsAtSubscriptionLevelPager` has been removed
+- Function `*ManagementClient.NewListProductFamiliesMetadataPager` has been removed
+- Function `*ManagementClient.NewListProductFamiliesPager` has been removed
+- Function `*ManagementClient.BeginReturnOrderItem` has been removed
+- Function `*ManagementClient.BeginUpdateAddress` has been removed
+- Function `*ManagementClient.BeginUpdateOrderItem` has been removed
+- Struct `ConfigurationFilters` has been removed
+- Struct `ShippingDetails` has been removed
+- Field `ConfigurationFilters` of struct `ConfigurationsRequest` has been removed
+- Field `ManagementRpDetails` of struct `OrderItemDetails` has been removed
+- Field `Count`, `DeviceDetails` of struct `ProductDetails` has been removed
+
+### Features Added
+
+- New value `AvailabilityStageDiscoverable` added to enum type `AvailabilityStage`
+- New value `LinkTypeDiscoverable` added to enum type `LinkType`
+- New enum type `ByteSizeByteUnit` with values `ByteSizeByteUnitGB`, `ByteSizeByteUnitPB`, `ByteSizeByteUnitTB`
+- New enum type `ByteUnitType` with values `ByteUnitTypeGB`, `ByteUnitTypePB`, `ByteUnitTypeTB`
+- New enum type `ChildConfigurationType` with values `ChildConfigurationTypeAdditionalConfiguration`, `ChildConfigurationTypeDeviceConfiguration`
+- New enum type `FulfillmentType` with values `FulfillmentTypeExternal`, `FulfillmentTypeMicrosoft`
+- New enum type `HciCatalogSearchRequestResourceType` with values `HciCatalogSearchRequestResourceTypePlatforms`
+- New enum type `HciCatalogSearchResourceType` with values `HciCatalogSearchResourceTypePlatforms`
+- New enum type `HciCatalogSearchResponseResourceType` with values `HciCatalogSearchResponseResourceTypePlatforms`
+- New enum type `IdentificationType` with values `IdentificationTypeNotSupported`, `IdentificationTypeSerialNumber`
+- New enum type `OrderMode` with values `OrderModeDefault`, `OrderModeDoNotFulfill`
+- New enum type `SortDirection` with values `SortDirectionAscending`, `SortDirectionDescending`
+- New enum type `SortOptionsSortDirection` with values `SortOptionsSortDirectionAscending`, `SortOptionsSortDirectionDescending`
+- New enum type `TermCommitmentType` with values `TermCommitmentTypeNone`, `TermCommitmentTypeTimed`, `TermCommitmentTypeTrial`
+- New enum type `WorkloadCategory` with values `WorkloadCategoryGeneral`, `WorkloadCategorySQL`, `WorkloadCategoryVDI`
+- New enum type `WorkloadDetailsWorkloadType` with values `WorkloadDetailsWorkloadTypeGeneral`, `WorkloadDetailsWorkloadTypeSQL`, `WorkloadDetailsWorkloadTypeVDI`
+- New function `NewAddressesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AddressesClient, error)`
+- New function `*AddressesClient.BeginCreate(context.Context, string, string, AddressResource, *AddressesClientBeginCreateOptions) (*runtime.Poller[AddressesClientCreateResponse], error)`
+- New function `*AddressesClient.BeginDelete(context.Context, string, string, *AddressesClientBeginDeleteOptions) (*runtime.Poller[AddressesClientDeleteResponse], error)`
+- New function `*AddressesClient.Get(context.Context, string, string, *AddressesClientGetOptions) (AddressesClientGetResponse, error)`
+- New function `*AddressesClient.NewListByResourceGroupPager(string, *AddressesClientListByResourceGroupOptions) *runtime.Pager[AddressesClientListByResourceGroupResponse]`
+- New function `*AddressesClient.NewListBySubscriptionPager(*AddressesClientListBySubscriptionOptions) *runtime.Pager[AddressesClientListBySubscriptionResponse]`
+- New function `*AddressesClient.BeginUpdate(context.Context, string, string, AddressUpdateParameter, *AddressesClientBeginUpdateOptions) (*runtime.Poller[AddressesClientUpdateResponse], error)`
+- New function `*ClientFactory.NewAddressesClient() *AddressesClient`
+- New function `*ClientFactory.NewHciCatalogClient() *HciCatalogClient`
+- New function `*ClientFactory.NewHciCatalogPlatformsClient() *HciCatalogPlatformsClient`
+- New function `*ClientFactory.NewHciCatalogProjectClient() *HciCatalogProjectClient`
+- New function `*ClientFactory.NewHciCatalogProjectsClient() *HciCatalogProjectsClient`
+- New function `*ClientFactory.NewHciCatalogVendorsClient() *HciCatalogVendorsClient`
+- New function `*ClientFactory.NewHciFlightCatalogClient() *HciFlightCatalogClient`
+- New function `*ClientFactory.NewHciFlightCatalogPlatformsClient() *HciFlightCatalogPlatformsClient`
+- New function `*ClientFactory.NewHciFlightCatalogProjectClient() *HciFlightCatalogProjectClient`
+- New function `*ClientFactory.NewHciFlightCatalogProjectsClient() *HciFlightCatalogProjectsClient`
+- New function `*ClientFactory.NewHciFlightCatalogVendorsClient() *HciFlightCatalogVendorsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewOrderItemsClient() *OrderItemsClient`
+- New function `*ClientFactory.NewOrdersClient() *OrdersClient`
+- New function `*ClientFactory.NewProductsAndConfigurationsClient() *ProductsAndConfigurationsClient`
+- New function `*GeneralWorkloadDetails.GetWorkloadDetails() *WorkloadDetails`
+- New function `NewHciCatalogClient(azcore.TokenCredential, *arm.ClientOptions) (*HciCatalogClient, error)`
+- New function `*HciCatalogClient.Get(context.Context, string, *HciCatalogClientGetOptions) (HciCatalogClientGetResponse, error)`
+- New function `*HciCatalogClient.NewListPager(*HciCatalogClientListOptions) *runtime.Pager[HciCatalogClientListResponse]`
+- New function `*HciCatalogClient.ListSolutionRecommendations(context.Context, string, SolutionRecommendationRequest, *HciCatalogClientListSolutionRecommendationsOptions) (HciCatalogClientListSolutionRecommendationsResponse, error)`
+- New function `*HciCatalogClient.Search(context.Context, string, HciCatalogSearchRequestClassification, *HciCatalogClientSearchOptions) (HciCatalogClientSearchResponse, error)`
+- New function `NewHciCatalogPlatformsClient(azcore.TokenCredential, *arm.ClientOptions) (*HciCatalogPlatformsClient, error)`
+- New function `*HciCatalogPlatformsClient.Get(context.Context, string, string, *HciCatalogPlatformsClientGetOptions) (HciCatalogPlatformsClientGetResponse, error)`
+- New function `*HciCatalogPlatformsClient.NewListPager(string, *HciCatalogPlatformsClientListOptions) *runtime.Pager[HciCatalogPlatformsClientListResponse]`
+- New function `*HciCatalogPlatformsSearchRequest.GetHciCatalogSearchRequest() *HciCatalogSearchRequest`
+- New function `*HciCatalogPlatformsSearchResponse.GetHciCatalogSearchResponse() *HciCatalogSearchResponse`
+- New function `NewHciCatalogProjectClient(azcore.TokenCredential, *arm.ClientOptions) (*HciCatalogProjectClient, error)`
+- New function `*HciCatalogProjectClient.Create(context.Context, string, string, string, ProjectResource, *HciCatalogProjectClientCreateOptions) (HciCatalogProjectClientCreateResponse, error)`
+- New function `*HciCatalogProjectClient.Delete(context.Context, string, string, string, *HciCatalogProjectClientDeleteOptions) (HciCatalogProjectClientDeleteResponse, error)`
+- New function `*HciCatalogProjectClient.Get(context.Context, string, string, string, *HciCatalogProjectClientGetOptions) (HciCatalogProjectClientGetResponse, error)`
+- New function `*HciCatalogProjectClient.SolutionRecommendations(context.Context, string, string, string, *HciCatalogProjectClientSolutionRecommendationsOptions) (HciCatalogProjectClientSolutionRecommendationsResponse, error)`
+- New function `*HciCatalogProjectClient.Update(context.Context, string, string, string, ProjectUpdateParameter, *HciCatalogProjectClientUpdateOptions) (HciCatalogProjectClientUpdateResponse, error)`
+- New function `NewHciCatalogProjectsClient(azcore.TokenCredential, *arm.ClientOptions) (*HciCatalogProjectsClient, error)`
+- New function `*HciCatalogProjectsClient.NewListPager(string, string, *HciCatalogProjectsClientListOptions) *runtime.Pager[HciCatalogProjectsClientListResponse]`
+- New function `*HciCatalogSearchRequest.GetHciCatalogSearchRequest() *HciCatalogSearchRequest`
+- New function `*HciCatalogSearchResponse.GetHciCatalogSearchResponse() *HciCatalogSearchResponse`
+- New function `NewHciCatalogVendorsClient(azcore.TokenCredential, *arm.ClientOptions) (*HciCatalogVendorsClient, error)`
+- New function `*HciCatalogVendorsClient.Get(context.Context, string, string, *HciCatalogVendorsClientGetOptions) (HciCatalogVendorsClientGetResponse, error)`
+- New function `*HciCatalogVendorsClient.NewListPager(string, *HciCatalogVendorsClientListOptions) *runtime.Pager[HciCatalogVendorsClientListResponse]`
+- New function `NewHciFlightCatalogClient(azcore.TokenCredential, *arm.ClientOptions) (*HciFlightCatalogClient, error)`
+- New function `*HciFlightCatalogClient.Get(context.Context, string, *HciFlightCatalogClientGetOptions) (HciFlightCatalogClientGetResponse, error)`
+- New function `*HciFlightCatalogClient.NewListPager(*HciFlightCatalogClientListOptions) *runtime.Pager[HciFlightCatalogClientListResponse]`
+- New function `*HciFlightCatalogClient.ListSolutionRecommendations(context.Context, string, SolutionRecommendationRequest, *HciFlightCatalogClientListSolutionRecommendationsOptions) (HciFlightCatalogClientListSolutionRecommendationsResponse, error)`
+- New function `*HciFlightCatalogClient.Search(context.Context, string, HciCatalogSearchRequestClassification, *HciFlightCatalogClientSearchOptions) (HciFlightCatalogClientSearchResponse, error)`
+- New function `NewHciFlightCatalogPlatformsClient(azcore.TokenCredential, *arm.ClientOptions) (*HciFlightCatalogPlatformsClient, error)`
+- New function `*HciFlightCatalogPlatformsClient.Get(context.Context, string, string, *HciFlightCatalogPlatformsClientGetOptions) (HciFlightCatalogPlatformsClientGetResponse, error)`
+- New function `*HciFlightCatalogPlatformsClient.NewListPager(string, *HciFlightCatalogPlatformsClientListOptions) *runtime.Pager[HciFlightCatalogPlatformsClientListResponse]`
+- New function `NewHciFlightCatalogProjectClient(azcore.TokenCredential, *arm.ClientOptions) (*HciFlightCatalogProjectClient, error)`
+- New function `*HciFlightCatalogProjectClient.Create(context.Context, string, string, string, ProjectResource, *HciFlightCatalogProjectClientCreateOptions) (HciFlightCatalogProjectClientCreateResponse, error)`
+- New function `*HciFlightCatalogProjectClient.Delete(context.Context, string, string, string, *HciFlightCatalogProjectClientDeleteOptions) (HciFlightCatalogProjectClientDeleteResponse, error)`
+- New function `*HciFlightCatalogProjectClient.Get(context.Context, string, string, string, *HciFlightCatalogProjectClientGetOptions) (HciFlightCatalogProjectClientGetResponse, error)`
+- New function `*HciFlightCatalogProjectClient.SolutionRecommendations(context.Context, string, string, string, *HciFlightCatalogProjectClientSolutionRecommendationsOptions) (HciFlightCatalogProjectClientSolutionRecommendationsResponse, error)`
+- New function `*HciFlightCatalogProjectClient.Update(context.Context, string, string, string, ProjectUpdateParameter, *HciFlightCatalogProjectClientUpdateOptions) (HciFlightCatalogProjectClientUpdateResponse, error)`
+- New function `NewHciFlightCatalogProjectsClient(azcore.TokenCredential, *arm.ClientOptions) (*HciFlightCatalogProjectsClient, error)`
+- New function `*HciFlightCatalogProjectsClient.NewListPager(string, string, *HciFlightCatalogProjectsClientListOptions) *runtime.Pager[HciFlightCatalogProjectsClientListResponse]`
+- New function `NewHciFlightCatalogVendorsClient(azcore.TokenCredential, *arm.ClientOptions) (*HciFlightCatalogVendorsClient, error)`
+- New function `*HciFlightCatalogVendorsClient.Get(context.Context, string, string, *HciFlightCatalogVendorsClientGetOptions) (HciFlightCatalogVendorsClientGetResponse, error)`
+- New function `*HciFlightCatalogVendorsClient.NewListPager(string, *HciFlightCatalogVendorsClientListOptions) *runtime.Pager[HciFlightCatalogVendorsClientListResponse]`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New function `NewOrderItemsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OrderItemsClient, error)`
+- New function `*OrderItemsClient.Cancel(context.Context, string, string, CancellationReason, *OrderItemsClientCancelOptions) (OrderItemsClientCancelResponse, error)`
+- New function `*OrderItemsClient.BeginCreate(context.Context, string, string, OrderItemResource, *OrderItemsClientBeginCreateOptions) (*runtime.Poller[OrderItemsClientCreateResponse], error)`
+- New function `*OrderItemsClient.BeginDelete(context.Context, string, string, *OrderItemsClientBeginDeleteOptions) (*runtime.Poller[OrderItemsClientDeleteResponse], error)`
+- New function `*OrderItemsClient.Get(context.Context, string, string, *OrderItemsClientGetOptions) (OrderItemsClientGetResponse, error)`
+- New function `*OrderItemsClient.NewListByResourceGroupPager(string, *OrderItemsClientListByResourceGroupOptions) *runtime.Pager[OrderItemsClientListByResourceGroupResponse]`
+- New function `*OrderItemsClient.NewListBySubscriptionPager(*OrderItemsClientListBySubscriptionOptions) *runtime.Pager[OrderItemsClientListBySubscriptionResponse]`
+- New function `*OrderItemsClient.BeginReturn(context.Context, string, string, ReturnOrderItemDetails, *OrderItemsClientBeginReturnOptions) (*runtime.Poller[OrderItemsClientReturnResponse], error)`
+- New function `*OrderItemsClient.BeginUpdate(context.Context, string, string, OrderItemUpdateParameter, *OrderItemsClientBeginUpdateOptions) (*runtime.Poller[OrderItemsClientUpdateResponse], error)`
+- New function `NewOrdersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OrdersClient, error)`
+- New function `*OrdersClient.Get(context.Context, string, string, string, *OrdersClientGetOptions) (OrdersClientGetResponse, error)`
+- New function `*OrdersClient.NewListByResourceGroupPager(string, *OrdersClientListByResourceGroupOptions) *runtime.Pager[OrdersClientListByResourceGroupResponse]`
+- New function `*OrdersClient.NewListBySubscriptionPager(*OrdersClientListBySubscriptionOptions) *runtime.Pager[OrdersClientListBySubscriptionResponse]`
+- New function `NewProductsAndConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductsAndConfigurationsClient, error)`
+- New function `*ProductsAndConfigurationsClient.NewListConfigurationsPager(ConfigurationsRequest, *ProductsAndConfigurationsClientListConfigurationsOptions) *runtime.Pager[ProductsAndConfigurationsClientListConfigurationsResponse]`
+- New function `*ProductsAndConfigurationsClient.NewListProductFamiliesMetadataPager(*ProductsAndConfigurationsClientListProductFamiliesMetadataOptions) *runtime.Pager[ProductsAndConfigurationsClientListProductFamiliesMetadataResponse]`
+- New function `*ProductsAndConfigurationsClient.NewListProductFamiliesPager(ProductFamiliesRequest, *ProductsAndConfigurationsClientListProductFamiliesOptions) *runtime.Pager[ProductsAndConfigurationsClientListProductFamiliesResponse]`
+- New function `*SQLWorkloadDetails.GetWorkloadDetails() *WorkloadDetails`
+- New function `*VDIWorkloadDetails.GetWorkloadDetails() *WorkloadDetails`
+- New function `*WorkloadDetails.GetWorkloadDetails() *WorkloadDetails`
+- New function `*WorkloadWorkloadDetails.GetWorkloadDetails() *WorkloadDetails`
+- New struct `AdditionalConfiguration`
+- New struct `AlternateSolutionDetails`
+- New struct `ByteSize`
+- New struct `CPUBreakdown`
+- New struct `CPUDetails`
+- New struct `CacheDriveDetails`
+- New struct `CapacityDriveDetails`
+- New struct `CategoryInformation`
+- New struct `ChildConfiguration`
+- New struct `ChildConfigurationFilter`
+- New struct `ChildConfigurationProperties`
+- New struct `ConfigurationDeviceDetails`
+- New struct `ConfigurationFilter`
+- New struct `Filter`
+- New struct `FilterMetadata`
+- New struct `FilterMetadataAutoGenerated`
+- New struct `FilterValue`
+- New struct `FilterValueMetadata`
+- New struct `FilterValueMetadataAutoGenerated`
+- New struct `GeneralWorkloadDetails`
+- New struct `GpuDetails`
+- New struct `GroupedChildConfigurations`
+- New struct `HWaaSDetails`
+- New struct `HciCatalogPlatformsSearchRequest`
+- New struct `HciCatalogPlatformsSearchResponse`
+- New struct `HciCatalogProperties`
+- New struct `HciCatalogResource`
+- New struct `HciCatalogResourceList`
+- New struct `HciCatalogResourceProperties`
+- New struct `HciCatalogSearchRequestSortOptions`
+- New struct `MemoryBreakdown`
+- New struct `MemoryDetails`
+- New struct `MemoryDetailsMaximumMemory`
+- New struct `MemoryDetailsMinimumMemory`
+- New struct `MiscellaneousDetails`
+- New struct `NetworkPreference`
+- New struct `NetworkingDetails`
+- New struct `PlatformConfigurationProperties`
+- New struct `PlatformConfigurationPropertiesCPUDetails`
+- New struct `PlatformConfigurationPropertiesGpuDetails`
+- New struct `PlatformConfigurationPropertiesMemoryDetails`
+- New struct `PlatformConfigurationPropertiesMiscellaneousDetails`
+- New struct `PlatformConfigurationPropertiesNetworkingDetails`
+- New struct `PlatformConfigurationPropertiesStorageDetails`
+- New struct `PlatformImageDetails`
+- New struct `PlatformProperties`
+- New struct `PlatformPropertiesAlternateSolutionDetails`
+- New struct `PlatformPropertiesHWaaSDetails`
+- New struct `PlatformPropertiesImageDetails`
+- New struct `PlatformPropertiesSdnNicDetails`
+- New struct `PlatformPropertiesSmbiosDetails`
+- New struct `PlatformPropertiesWindowsAdminCenterDetails`
+- New struct `PlatformResource`
+- New struct `PlatformResourceList`
+- New struct `PlatformResourceProperties`
+- New struct `PreferenceDetails`
+- New struct `PreferenceDetailsNetworkPreference`
+- New struct `PreferenceDetailsResiliencyRequirements`
+- New struct `PreferenceDetailsStoragePreference`
+- New struct `ProjectProperties`
+- New struct `ProjectPropertiesPreferenceDetails`
+- New struct `ProjectResource`
+- New struct `ProjectResourceList`
+- New struct `ProjectResourceProperties`
+- New struct `ProjectUpdateParameter`
+- New struct `ProjectUpdateParameterProperties`
+- New struct `ProjectUpdateProperties`
+- New struct `ProjectUpdatePropertiesPreferenceDetails`
+- New struct `RecommendedSolution`
+- New struct `RecommendedSolutionCPUBreakdown`
+- New struct `RecommendedSolutionMemoryBreakdown`
+- New struct `RecommendedSolutionPlatformProperties`
+- New struct `RecommendedSolutionStorageBreakdown`
+- New struct `RecommendedSolutionVendorProperties`
+- New struct `ResiliencyRequirements`
+- New struct `ResourceMoveRequest`
+- New struct `SMBIOSDetails`
+- New struct `SQLWorkloadDetails`
+- New struct `SdnNicDetails`
+- New struct `SearchFilter`
+- New struct `SolutionRecommendationRequest`
+- New struct `SolutionRecommendationRequestPreferenceDetails`
+- New struct `SortOptions`
+- New struct `StorageBreakdown`
+- New struct `StorageDetails`
+- New struct `StorageDetailsCacheDriveDetails`
+- New struct `StorageDetailsCapacityDriveDetails`
+- New struct `StorageDetailsMaximumStorage`
+- New struct `StorageDetailsMinimumStorage`
+- New struct `StoragePreference`
+- New struct `TermCommitmentInformation`
+- New struct `TermCommitmentPreferences`
+- New struct `TermTypeDetails`
+- New struct `UserAssignedIdentity`
+- New struct `VDIWorkloadDetails`
+- New struct `VendorProperties`
+- New struct `VendorResource`
+- New struct `VendorResourceList`
+- New struct `VendorResourceProperties`
+- New struct `WindowsAdminCenterDetails`
+- New struct `Workload`
+- New struct `WorkloadWorkloadDetails`
+- New field `FulfilledBy` in struct `BasicInformation`
+- New field `TermTypeDetails` in struct `BillingMeterDetails`
+- New field `FulfilledBy` in struct `CommonProperties`
+- New field `ChildConfigurationTypes`, `FulfilledBy`, `GroupedChildConfigurations`, `SupportedTermCommitmentDurations` in struct `ConfigurationProperties`
+- New field `ConfigurationFilter` in struct `ConfigurationsRequest`
+- New field `OrderItemMode` in struct `OrderItemDetails`
+- New field `Identity` in struct `OrderItemResource`
+- New field `Identity` in struct `OrderItemUpdateParameter`
+- New field `OrderMode` in struct `OrderProperties`
+- New field `TermCommitmentPreferences` in struct `Preferences`
+- New field `ChildConfigurationDeviceDetails`, `IdentificationType`, `OptInAdditionalConfigurations`, `ParentDeviceDetails`, `TermCommitmentInformation` in struct `ProductDetails`
+- New field `FulfilledBy` in struct `ProductFamilyProperties`
+- New field `FulfilledBy` in struct `ProductLineProperties`
+- New field `FulfilledBy` in struct `ProductProperties`
+- New field `UserAssignedIdentities` in struct `ResourceIdentity`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 

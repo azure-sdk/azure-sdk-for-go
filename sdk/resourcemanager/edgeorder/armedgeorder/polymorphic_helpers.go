@@ -11,6 +11,24 @@ package armedgeorder
 
 import "encoding/json"
 
+func unmarshalHciCatalogSearchResponseClassification(rawMsg json.RawMessage) (HciCatalogSearchResponseClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b HciCatalogSearchResponseClassification
+	switch m["resourceType"] {
+	case string(HciCatalogSearchResponseResourceTypePlatforms):
+		b = &HciCatalogPlatformsSearchResponse{}
+	default:
+		b = &HciCatalogSearchResponse{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalMeterDetailsClassification(rawMsg json.RawMessage) (MeterDetailsClassification, error) {
 	if rawMsg == nil {
 		return nil, nil

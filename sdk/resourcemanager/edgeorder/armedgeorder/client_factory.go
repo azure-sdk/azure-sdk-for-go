@@ -38,7 +38,77 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-func (c *ClientFactory) NewManagementClient() *ManagementClient {
-	subClient, _ := NewManagementClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAddressesClient() *AddressesClient {
+	subClient, _ := NewAddressesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductsAndConfigurationsClient() *ProductsAndConfigurationsClient {
+	subClient, _ := NewProductsAndConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOrderItemsClient() *OrderItemsClient {
+	subClient, _ := NewOrderItemsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOrdersClient() *OrdersClient {
+	subClient, _ := NewOrdersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciCatalogClient() *HciCatalogClient {
+	subClient, _ := NewHciCatalogClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciCatalogPlatformsClient() *HciCatalogPlatformsClient {
+	subClient, _ := NewHciCatalogPlatformsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciCatalogProjectsClient() *HciCatalogProjectsClient {
+	subClient, _ := NewHciCatalogProjectsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciCatalogProjectClient() *HciCatalogProjectClient {
+	subClient, _ := NewHciCatalogProjectClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciCatalogVendorsClient() *HciCatalogVendorsClient {
+	subClient, _ := NewHciCatalogVendorsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciFlightCatalogClient() *HciFlightCatalogClient {
+	subClient, _ := NewHciFlightCatalogClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciFlightCatalogPlatformsClient() *HciFlightCatalogPlatformsClient {
+	subClient, _ := NewHciFlightCatalogPlatformsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciFlightCatalogProjectsClient() *HciFlightCatalogProjectsClient {
+	subClient, _ := NewHciFlightCatalogProjectsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciFlightCatalogProjectClient() *HciFlightCatalogProjectClient {
+	subClient, _ := NewHciFlightCatalogProjectClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHciFlightCatalogVendorsClient() *HciFlightCatalogVendorsClient {
+	subClient, _ := NewHciFlightCatalogVendorsClient(c.credential, c.options)
 	return subClient
 }

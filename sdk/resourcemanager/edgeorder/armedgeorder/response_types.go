@@ -9,107 +9,271 @@
 
 package armedgeorder
 
-// ManagementClientCancelOrderItemResponse contains the response from method ManagementClient.CancelOrderItem.
-type ManagementClientCancelOrderItemResponse struct {
-	// placeholder for future response values
-}
-
-// ManagementClientCreateAddressResponse contains the response from method ManagementClient.BeginCreateAddress.
-type ManagementClientCreateAddressResponse struct {
+// AddressesClientCreateResponse contains the response from method AddressesClient.BeginCreate.
+type AddressesClientCreateResponse struct {
 	AddressResource
 }
 
-// ManagementClientCreateOrderItemResponse contains the response from method ManagementClient.BeginCreateOrderItem.
-type ManagementClientCreateOrderItemResponse struct {
-	OrderItemResource
-}
-
-// ManagementClientDeleteAddressByNameResponse contains the response from method ManagementClient.BeginDeleteAddressByName.
-type ManagementClientDeleteAddressByNameResponse struct {
+// AddressesClientDeleteResponse contains the response from method AddressesClient.BeginDelete.
+type AddressesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// ManagementClientDeleteOrderItemByNameResponse contains the response from method ManagementClient.BeginDeleteOrderItemByName.
-type ManagementClientDeleteOrderItemByNameResponse struct {
-	// placeholder for future response values
-}
-
-// ManagementClientGetAddressByNameResponse contains the response from method ManagementClient.GetAddressByName.
-type ManagementClientGetAddressByNameResponse struct {
+// AddressesClientGetResponse contains the response from method AddressesClient.Get.
+type AddressesClientGetResponse struct {
 	AddressResource
 }
 
-// ManagementClientGetOrderByNameResponse contains the response from method ManagementClient.GetOrderByName.
-type ManagementClientGetOrderByNameResponse struct {
-	OrderResource
-}
-
-// ManagementClientGetOrderItemByNameResponse contains the response from method ManagementClient.GetOrderItemByName.
-type ManagementClientGetOrderItemByNameResponse struct {
-	OrderItemResource
-}
-
-// ManagementClientListAddressesAtResourceGroupLevelResponse contains the response from method ManagementClient.NewListAddressesAtResourceGroupLevelPager.
-type ManagementClientListAddressesAtResourceGroupLevelResponse struct {
+// AddressesClientListByResourceGroupResponse contains the response from method AddressesClient.NewListByResourceGroupPager.
+type AddressesClientListByResourceGroupResponse struct {
 	AddressResourceList
 }
 
-// ManagementClientListAddressesAtSubscriptionLevelResponse contains the response from method ManagementClient.NewListAddressesAtSubscriptionLevelPager.
-type ManagementClientListAddressesAtSubscriptionLevelResponse struct {
+// AddressesClientListBySubscriptionResponse contains the response from method AddressesClient.NewListBySubscriptionPager.
+type AddressesClientListBySubscriptionResponse struct {
 	AddressResourceList
 }
 
-// ManagementClientListConfigurationsResponse contains the response from method ManagementClient.NewListConfigurationsPager.
-type ManagementClientListConfigurationsResponse struct {
-	Configurations
+// AddressesClientUpdateResponse contains the response from method AddressesClient.BeginUpdate.
+type AddressesClientUpdateResponse struct {
+	AddressResource
 }
 
-// ManagementClientListOperationsResponse contains the response from method ManagementClient.NewListOperationsPager.
-type ManagementClientListOperationsResponse struct {
+// HciCatalogClientGetResponse contains the response from method HciCatalogClient.Get.
+type HciCatalogClientGetResponse struct {
+	HciCatalogResource
+}
+
+// HciCatalogClientListResponse contains the response from method HciCatalogClient.NewListPager.
+type HciCatalogClientListResponse struct {
+	HciCatalogResourceList
+}
+
+// HciCatalogClientListSolutionRecommendationsResponse contains the response from method HciCatalogClient.ListSolutionRecommendations.
+type HciCatalogClientListSolutionRecommendationsResponse struct {
+	// Array of RecommendedSolution
+	RecommendedSolutionArray []*RecommendedSolution
+}
+
+// HciCatalogClientSearchResponse contains the response from method HciCatalogClient.Search.
+type HciCatalogClientSearchResponse struct {
+	HciCatalogSearchResponseClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type HciCatalogClientSearchResponse.
+func (h *HciCatalogClientSearchResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalHciCatalogSearchResponseClassification(data)
+	if err != nil {
+		return err
+	}
+	h.HciCatalogSearchResponseClassification = res
+	return nil
+}
+
+// HciCatalogPlatformsClientGetResponse contains the response from method HciCatalogPlatformsClient.Get.
+type HciCatalogPlatformsClientGetResponse struct {
+	PlatformResource
+}
+
+// HciCatalogPlatformsClientListResponse contains the response from method HciCatalogPlatformsClient.NewListPager.
+type HciCatalogPlatformsClientListResponse struct {
+	PlatformResourceList
+}
+
+// HciCatalogProjectClientCreateResponse contains the response from method HciCatalogProjectClient.Create.
+type HciCatalogProjectClientCreateResponse struct {
+	ProjectResource
+}
+
+// HciCatalogProjectClientDeleteResponse contains the response from method HciCatalogProjectClient.Delete.
+type HciCatalogProjectClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// HciCatalogProjectClientGetResponse contains the response from method HciCatalogProjectClient.Get.
+type HciCatalogProjectClientGetResponse struct {
+	ProjectResource
+}
+
+// HciCatalogProjectClientSolutionRecommendationsResponse contains the response from method HciCatalogProjectClient.SolutionRecommendations.
+type HciCatalogProjectClientSolutionRecommendationsResponse struct {
+	// Array of RecommendedSolution
+	RecommendedSolutionArray []*RecommendedSolution
+}
+
+// HciCatalogProjectClientUpdateResponse contains the response from method HciCatalogProjectClient.Update.
+type HciCatalogProjectClientUpdateResponse struct {
+	ProjectResource
+}
+
+// HciCatalogProjectsClientListResponse contains the response from method HciCatalogProjectsClient.NewListPager.
+type HciCatalogProjectsClientListResponse struct {
+	ProjectResourceList
+}
+
+// HciCatalogVendorsClientGetResponse contains the response from method HciCatalogVendorsClient.Get.
+type HciCatalogVendorsClientGetResponse struct {
+	VendorResource
+}
+
+// HciCatalogVendorsClientListResponse contains the response from method HciCatalogVendorsClient.NewListPager.
+type HciCatalogVendorsClientListResponse struct {
+	VendorResourceList
+}
+
+// HciFlightCatalogClientGetResponse contains the response from method HciFlightCatalogClient.Get.
+type HciFlightCatalogClientGetResponse struct {
+	HciCatalogResource
+}
+
+// HciFlightCatalogClientListResponse contains the response from method HciFlightCatalogClient.NewListPager.
+type HciFlightCatalogClientListResponse struct {
+	HciCatalogResourceList
+}
+
+// HciFlightCatalogClientListSolutionRecommendationsResponse contains the response from method HciFlightCatalogClient.ListSolutionRecommendations.
+type HciFlightCatalogClientListSolutionRecommendationsResponse struct {
+	// Array of RecommendedSolution
+	RecommendedSolutionArray []*RecommendedSolution
+}
+
+// HciFlightCatalogClientSearchResponse contains the response from method HciFlightCatalogClient.Search.
+type HciFlightCatalogClientSearchResponse struct {
+	HciCatalogSearchResponseClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type HciFlightCatalogClientSearchResponse.
+func (h *HciFlightCatalogClientSearchResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalHciCatalogSearchResponseClassification(data)
+	if err != nil {
+		return err
+	}
+	h.HciCatalogSearchResponseClassification = res
+	return nil
+}
+
+// HciFlightCatalogPlatformsClientGetResponse contains the response from method HciFlightCatalogPlatformsClient.Get.
+type HciFlightCatalogPlatformsClientGetResponse struct {
+	PlatformResource
+}
+
+// HciFlightCatalogPlatformsClientListResponse contains the response from method HciFlightCatalogPlatformsClient.NewListPager.
+type HciFlightCatalogPlatformsClientListResponse struct {
+	PlatformResourceList
+}
+
+// HciFlightCatalogProjectClientCreateResponse contains the response from method HciFlightCatalogProjectClient.Create.
+type HciFlightCatalogProjectClientCreateResponse struct {
+	ProjectResource
+}
+
+// HciFlightCatalogProjectClientDeleteResponse contains the response from method HciFlightCatalogProjectClient.Delete.
+type HciFlightCatalogProjectClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// HciFlightCatalogProjectClientGetResponse contains the response from method HciFlightCatalogProjectClient.Get.
+type HciFlightCatalogProjectClientGetResponse struct {
+	ProjectResource
+}
+
+// HciFlightCatalogProjectClientSolutionRecommendationsResponse contains the response from method HciFlightCatalogProjectClient.SolutionRecommendations.
+type HciFlightCatalogProjectClientSolutionRecommendationsResponse struct {
+	// Array of RecommendedSolution
+	RecommendedSolutionArray []*RecommendedSolution
+}
+
+// HciFlightCatalogProjectClientUpdateResponse contains the response from method HciFlightCatalogProjectClient.Update.
+type HciFlightCatalogProjectClientUpdateResponse struct {
+	ProjectResource
+}
+
+// HciFlightCatalogProjectsClientListResponse contains the response from method HciFlightCatalogProjectsClient.NewListPager.
+type HciFlightCatalogProjectsClientListResponse struct {
+	ProjectResourceList
+}
+
+// HciFlightCatalogVendorsClientGetResponse contains the response from method HciFlightCatalogVendorsClient.Get.
+type HciFlightCatalogVendorsClientGetResponse struct {
+	VendorResource
+}
+
+// HciFlightCatalogVendorsClientListResponse contains the response from method HciFlightCatalogVendorsClient.NewListPager.
+type HciFlightCatalogVendorsClientListResponse struct {
+	VendorResourceList
+}
+
+// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
+type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// ManagementClientListOrderAtResourceGroupLevelResponse contains the response from method ManagementClient.NewListOrderAtResourceGroupLevelPager.
-type ManagementClientListOrderAtResourceGroupLevelResponse struct {
-	OrderResourceList
-}
-
-// ManagementClientListOrderAtSubscriptionLevelResponse contains the response from method ManagementClient.NewListOrderAtSubscriptionLevelPager.
-type ManagementClientListOrderAtSubscriptionLevelResponse struct {
-	OrderResourceList
-}
-
-// ManagementClientListOrderItemsAtResourceGroupLevelResponse contains the response from method ManagementClient.NewListOrderItemsAtResourceGroupLevelPager.
-type ManagementClientListOrderItemsAtResourceGroupLevelResponse struct {
-	OrderItemResourceList
-}
-
-// ManagementClientListOrderItemsAtSubscriptionLevelResponse contains the response from method ManagementClient.NewListOrderItemsAtSubscriptionLevelPager.
-type ManagementClientListOrderItemsAtSubscriptionLevelResponse struct {
-	OrderItemResourceList
-}
-
-// ManagementClientListProductFamiliesMetadataResponse contains the response from method ManagementClient.NewListProductFamiliesMetadataPager.
-type ManagementClientListProductFamiliesMetadataResponse struct {
-	ProductFamiliesMetadata
-}
-
-// ManagementClientListProductFamiliesResponse contains the response from method ManagementClient.NewListProductFamiliesPager.
-type ManagementClientListProductFamiliesResponse struct {
-	ProductFamilies
-}
-
-// ManagementClientReturnOrderItemResponse contains the response from method ManagementClient.BeginReturnOrderItem.
-type ManagementClientReturnOrderItemResponse struct {
+// OrderItemsClientCancelResponse contains the response from method OrderItemsClient.Cancel.
+type OrderItemsClientCancelResponse struct {
 	// placeholder for future response values
 }
 
-// ManagementClientUpdateAddressResponse contains the response from method ManagementClient.BeginUpdateAddress.
-type ManagementClientUpdateAddressResponse struct {
-	AddressResource
+// OrderItemsClientCreateResponse contains the response from method OrderItemsClient.BeginCreate.
+type OrderItemsClientCreateResponse struct {
+	OrderItemResource
 }
 
-// ManagementClientUpdateOrderItemResponse contains the response from method ManagementClient.BeginUpdateOrderItem.
-type ManagementClientUpdateOrderItemResponse struct {
+// OrderItemsClientDeleteResponse contains the response from method OrderItemsClient.BeginDelete.
+type OrderItemsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// OrderItemsClientGetResponse contains the response from method OrderItemsClient.Get.
+type OrderItemsClientGetResponse struct {
 	OrderItemResource
+}
+
+// OrderItemsClientListByResourceGroupResponse contains the response from method OrderItemsClient.NewListByResourceGroupPager.
+type OrderItemsClientListByResourceGroupResponse struct {
+	OrderItemResourceList
+}
+
+// OrderItemsClientListBySubscriptionResponse contains the response from method OrderItemsClient.NewListBySubscriptionPager.
+type OrderItemsClientListBySubscriptionResponse struct {
+	OrderItemResourceList
+}
+
+// OrderItemsClientReturnResponse contains the response from method OrderItemsClient.BeginReturn.
+type OrderItemsClientReturnResponse struct {
+	// placeholder for future response values
+}
+
+// OrderItemsClientUpdateResponse contains the response from method OrderItemsClient.BeginUpdate.
+type OrderItemsClientUpdateResponse struct {
+	OrderItemResource
+}
+
+// OrdersClientGetResponse contains the response from method OrdersClient.Get.
+type OrdersClientGetResponse struct {
+	OrderResource
+}
+
+// OrdersClientListByResourceGroupResponse contains the response from method OrdersClient.NewListByResourceGroupPager.
+type OrdersClientListByResourceGroupResponse struct {
+	OrderResourceList
+}
+
+// OrdersClientListBySubscriptionResponse contains the response from method OrdersClient.NewListBySubscriptionPager.
+type OrdersClientListBySubscriptionResponse struct {
+	OrderResourceList
+}
+
+// ProductsAndConfigurationsClientListConfigurationsResponse contains the response from method ProductsAndConfigurationsClient.NewListConfigurationsPager.
+type ProductsAndConfigurationsClientListConfigurationsResponse struct {
+	Configurations
+}
+
+// ProductsAndConfigurationsClientListProductFamiliesMetadataResponse contains the response from method ProductsAndConfigurationsClient.NewListProductFamiliesMetadataPager.
+type ProductsAndConfigurationsClientListProductFamiliesMetadataResponse struct {
+	ProductFamiliesMetadata
+}
+
+// ProductsAndConfigurationsClientListProductFamiliesResponse contains the response from method ProductsAndConfigurationsClient.NewListProductFamiliesPager.
+type ProductsAndConfigurationsClientListProductFamiliesResponse struct {
+	ProductFamilies
 }

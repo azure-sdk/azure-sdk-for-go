@@ -11,7 +11,7 @@ package armedgeorder
 
 const (
 	moduleName    = "armedgeorder"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // ActionStatusEnum - Describes whether the order item is deletable or not.
@@ -67,7 +67,7 @@ func PossibleAddressTypeValues() []AddressType {
 	}
 }
 
-// AddressValidationStatus - Status of address validation
+// AddressValidationStatus - Status of address validation.
 type AddressValidationStatus string
 
 const (
@@ -88,7 +88,7 @@ func PossibleAddressValidationStatusValues() []AddressValidationStatus {
 	}
 }
 
-// AvailabilityStage - Current availability stage of the product. Availability stage
+// AvailabilityStage - Current availability stage of the product.
 type AvailabilityStage string
 
 const (
@@ -98,6 +98,8 @@ const (
 	AvailabilityStageComingSoon AvailabilityStage = "ComingSoon"
 	// AvailabilityStageDeprecated - Product is deprecated.
 	AvailabilityStageDeprecated AvailabilityStage = "Deprecated"
+	// AvailabilityStageDiscoverable - Product is not available in our service but can be discovered from other sources.
+	AvailabilityStageDiscoverable AvailabilityStage = "Discoverable"
 	// AvailabilityStagePreview - Product is in preview.
 	AvailabilityStagePreview AvailabilityStage = "Preview"
 	// AvailabilityStageSignup - Product is available only on signup.
@@ -112,6 +114,7 @@ func PossibleAvailabilityStageValues() []AvailabilityStage {
 		AvailabilityStageAvailable,
 		AvailabilityStageComingSoon,
 		AvailabilityStageDeprecated,
+		AvailabilityStageDiscoverable,
 		AvailabilityStagePreview,
 		AvailabilityStageSignup,
 		AvailabilityStageUnavailable,
@@ -136,6 +139,48 @@ func PossibleBillingTypeValues() []BillingType {
 	}
 }
 
+// ByteSizeByteUnit - Type of byte unit.
+type ByteSizeByteUnit string
+
+const (
+	// ByteSizeByteUnitGB - Gigabyte
+	ByteSizeByteUnitGB ByteSizeByteUnit = "GB"
+	// ByteSizeByteUnitPB - Petabyte
+	ByteSizeByteUnitPB ByteSizeByteUnit = "PB"
+	// ByteSizeByteUnitTB - Terabyte
+	ByteSizeByteUnitTB ByteSizeByteUnit = "TB"
+)
+
+// PossibleByteSizeByteUnitValues returns the possible values for the ByteSizeByteUnit const type.
+func PossibleByteSizeByteUnitValues() []ByteSizeByteUnit {
+	return []ByteSizeByteUnit{
+		ByteSizeByteUnitGB,
+		ByteSizeByteUnitPB,
+		ByteSizeByteUnitTB,
+	}
+}
+
+// ByteUnitType - Byte unit types.
+type ByteUnitType string
+
+const (
+	// ByteUnitTypeGB - Gigabyte
+	ByteUnitTypeGB ByteUnitType = "GB"
+	// ByteUnitTypePB - Petabyte
+	ByteUnitTypePB ByteUnitType = "PB"
+	// ByteUnitTypeTB - Terabyte
+	ByteUnitTypeTB ByteUnitType = "TB"
+)
+
+// PossibleByteUnitTypeValues returns the possible values for the ByteUnitType const type.
+func PossibleByteUnitTypeValues() []ByteUnitType {
+	return []ByteUnitType{
+		ByteUnitTypeGB,
+		ByteUnitTypePB,
+		ByteUnitTypeTB,
+	}
+}
+
 // ChargingType - Charging type.
 type ChargingType string
 
@@ -151,6 +196,23 @@ func PossibleChargingTypeValues() []ChargingType {
 	return []ChargingType{
 		ChargingTypePerDevice,
 		ChargingTypePerOrder,
+	}
+}
+
+type ChildConfigurationType string
+
+const (
+	// ChildConfigurationTypeAdditionalConfiguration - Child configuration is an additional configuration.
+	ChildConfigurationTypeAdditionalConfiguration ChildConfigurationType = "AdditionalConfiguration"
+	// ChildConfigurationTypeDeviceConfiguration - Child configuration is a device configuration.
+	ChildConfigurationTypeDeviceConfiguration ChildConfigurationType = "DeviceConfiguration"
+)
+
+// PossibleChildConfigurationTypeValues returns the possible values for the ChildConfigurationType const type.
+func PossibleChildConfigurationTypeValues() []ChildConfigurationType {
+	return []ChildConfigurationType{
+		ChildConfigurationTypeAdditionalConfiguration,
+		ChildConfigurationTypeDeviceConfiguration,
 	}
 }
 
@@ -231,9 +293,9 @@ func PossibleDisabledReasonValues() []DisabledReason {
 type DoubleEncryptionStatus string
 
 const (
-	// DoubleEncryptionStatusDisabled - Double encryption is disabled
+	// DoubleEncryptionStatusDisabled - Double encryption is disabled.
 	DoubleEncryptionStatusDisabled DoubleEncryptionStatus = "Disabled"
-	// DoubleEncryptionStatusEnabled - Double encryption is enabled
+	// DoubleEncryptionStatusEnabled - Double encryption is enabled.
 	DoubleEncryptionStatusEnabled DoubleEncryptionStatus = "Enabled"
 )
 
@@ -245,7 +307,89 @@ func PossibleDoubleEncryptionStatusValues() []DoubleEncryptionStatus {
 	}
 }
 
-// ImageType - Type of the image
+// FulfillmentType - The entity responsible for fulfillment of the item at the given hierarchy level.
+type FulfillmentType string
+
+const (
+	// FulfillmentTypeExternal - The fulfillment (the whole journey of the product offering) is handled by external third party
+	// entities.
+	FulfillmentTypeExternal FulfillmentType = "External"
+	// FulfillmentTypeMicrosoft - The fulfillment (the whole journey of the product offering) is handled by microsoft.
+	FulfillmentTypeMicrosoft FulfillmentType = "Microsoft"
+)
+
+// PossibleFulfillmentTypeValues returns the possible values for the FulfillmentType const type.
+func PossibleFulfillmentTypeValues() []FulfillmentType {
+	return []FulfillmentType{
+		FulfillmentTypeExternal,
+		FulfillmentTypeMicrosoft,
+	}
+}
+
+// HciCatalogSearchRequestResourceType - Search resource type.
+type HciCatalogSearchRequestResourceType string
+
+const (
+	// HciCatalogSearchRequestResourceTypePlatforms - Platforms.
+	HciCatalogSearchRequestResourceTypePlatforms HciCatalogSearchRequestResourceType = "Platforms"
+)
+
+// PossibleHciCatalogSearchRequestResourceTypeValues returns the possible values for the HciCatalogSearchRequestResourceType const type.
+func PossibleHciCatalogSearchRequestResourceTypeValues() []HciCatalogSearchRequestResourceType {
+	return []HciCatalogSearchRequestResourceType{
+		HciCatalogSearchRequestResourceTypePlatforms,
+	}
+}
+
+// HciCatalogSearchResourceType - Support resource types for HCI catalog search.
+type HciCatalogSearchResourceType string
+
+const (
+	// HciCatalogSearchResourceTypePlatforms - Platforms.
+	HciCatalogSearchResourceTypePlatforms HciCatalogSearchResourceType = "Platforms"
+)
+
+// PossibleHciCatalogSearchResourceTypeValues returns the possible values for the HciCatalogSearchResourceType const type.
+func PossibleHciCatalogSearchResourceTypeValues() []HciCatalogSearchResourceType {
+	return []HciCatalogSearchResourceType{
+		HciCatalogSearchResourceTypePlatforms,
+	}
+}
+
+// HciCatalogSearchResponseResourceType - Search resource type.
+type HciCatalogSearchResponseResourceType string
+
+const (
+	// HciCatalogSearchResponseResourceTypePlatforms - Platforms.
+	HciCatalogSearchResponseResourceTypePlatforms HciCatalogSearchResponseResourceType = "Platforms"
+)
+
+// PossibleHciCatalogSearchResponseResourceTypeValues returns the possible values for the HciCatalogSearchResponseResourceType const type.
+func PossibleHciCatalogSearchResponseResourceTypeValues() []HciCatalogSearchResponseResourceType {
+	return []HciCatalogSearchResponseResourceType{
+		HciCatalogSearchResponseResourceTypePlatforms,
+	}
+}
+
+// IdentificationType - Identification type of the configuration.
+type IdentificationType string
+
+const (
+	// IdentificationTypeNotSupported - Product does not have any explicit identifier.
+	IdentificationTypeNotSupported IdentificationType = "NotSupported"
+	// IdentificationTypeSerialNumber - Product is identifiable by serial number.
+	IdentificationTypeSerialNumber IdentificationType = "SerialNumber"
+)
+
+// PossibleIdentificationTypeValues returns the possible values for the IdentificationType const type.
+func PossibleIdentificationTypeValues() []IdentificationType {
+	return []IdentificationType{
+		IdentificationTypeNotSupported,
+		IdentificationTypeSerialNumber,
+	}
+}
+
+// ImageType - Type of the image.
 type ImageType string
 
 const (
@@ -284,17 +428,19 @@ func PossibleLengthHeightUnitValues() []LengthHeightUnit {
 	}
 }
 
-// LinkType - Type of link
+// LinkType - Type of link.
 type LinkType string
 
 const (
-	// LinkTypeDocumentation - Link to product documentation
+	// LinkTypeDiscoverable - Link to order the product from another source and not from Azure Edge Hardware Center.
+	LinkTypeDiscoverable LinkType = "Discoverable"
+	// LinkTypeDocumentation - Link to product documentation.
 	LinkTypeDocumentation LinkType = "Documentation"
 	// LinkTypeGeneric - Generic link.
 	LinkTypeGeneric LinkType = "Generic"
-	// LinkTypeKnowMore - Link to know more
+	// LinkTypeKnowMore - Link to know more.
 	LinkTypeKnowMore LinkType = "KnowMore"
-	// LinkTypeSignUp - Link to sign up for products
+	// LinkTypeSignUp - Link to sign up for products.
 	LinkTypeSignUp LinkType = "SignUp"
 	// LinkTypeSpecification - Link to product specification.
 	LinkTypeSpecification LinkType = "Specification"
@@ -305,6 +451,7 @@ const (
 // PossibleLinkTypeValues returns the possible values for the LinkType const type.
 func PossibleLinkTypeValues() []LinkType {
 	return []LinkType{
+		LinkTypeDiscoverable,
 		LinkTypeDocumentation,
 		LinkTypeGeneric,
 		LinkTypeKnowMore,
@@ -314,7 +461,7 @@ func PossibleLinkTypeValues() []LinkType {
 	}
 }
 
-// MeteringType - Represents Metering type (eg one-time or recurrent)
+// MeteringType - Represents Metering type (eg one-time or recurrent).
 type MeteringType string
 
 const (
@@ -413,6 +560,24 @@ func PossibleOrderItemTypeValues() []OrderItemType {
 	}
 }
 
+// OrderMode - Defines the mode of the Order item.
+type OrderMode string
+
+const (
+	// OrderModeDefault - Default Order mode.
+	OrderModeDefault OrderMode = "Default"
+	// OrderModeDoNotFulfill - Mode in which the Order will not be fulfilled.
+	OrderModeDoNotFulfill OrderMode = "DoNotFulfill"
+)
+
+// PossibleOrderModeValues returns the possible values for the OrderMode const type.
+func PossibleOrderModeValues() []OrderMode {
+	return []OrderMode{
+		OrderModeDefault,
+		OrderModeDoNotFulfill,
+	}
+}
+
 // Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
 // value is "user,system"
 type Origin string
@@ -432,33 +597,69 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
-// StageName - Stage name
+// SortDirection - Sort direction enums.
+type SortDirection string
+
+const (
+	// SortDirectionAscending - Ascending.
+	SortDirectionAscending SortDirection = "Ascending"
+	// SortDirectionDescending - Descending.
+	SortDirectionDescending SortDirection = "Descending"
+)
+
+// PossibleSortDirectionValues returns the possible values for the SortDirection const type.
+func PossibleSortDirectionValues() []SortDirection {
+	return []SortDirection{
+		SortDirectionAscending,
+		SortDirectionDescending,
+	}
+}
+
+// SortOptionsSortDirection - Sort direction.
+type SortOptionsSortDirection string
+
+const (
+	// SortOptionsSortDirectionAscending - Ascending.
+	SortOptionsSortDirectionAscending SortOptionsSortDirection = "Ascending"
+	// SortOptionsSortDirectionDescending - Descending.
+	SortOptionsSortDirectionDescending SortOptionsSortDirection = "Descending"
+)
+
+// PossibleSortOptionsSortDirectionValues returns the possible values for the SortOptionsSortDirection const type.
+func PossibleSortOptionsSortDirectionValues() []SortOptionsSortDirection {
+	return []SortOptionsSortDirection{
+		SortOptionsSortDirectionAscending,
+		SortOptionsSortDirectionDescending,
+	}
+}
+
+// StageName - Stage name.
 type StageName string
 
 const (
 	// StageNameCancelled - Order has been cancelled.
 	StageNameCancelled StageName = "Cancelled"
-	// StageNameConfirmed - Order is confirmed
+	// StageNameConfirmed - Order is confirmed.
 	StageNameConfirmed StageName = "Confirmed"
-	// StageNameDelivered - Order is delivered to customer
+	// StageNameDelivered - Order is delivered to customer.
 	StageNameDelivered StageName = "Delivered"
-	// StageNameInReview - Order is currently in draft mode and can still be cancelled
+	// StageNameInReview - Order is currently in draft mode and can still be cancelled.
 	StageNameInReview StageName = "InReview"
-	// StageNameInUse - Order is in use at customer site
+	// StageNameInUse - Order is in use at customer site.
 	StageNameInUse StageName = "InUse"
-	// StageNamePlaced - Currently in draft mode and can still be cancelled
+	// StageNamePlaced - Currently in draft mode and can still be cancelled.
 	StageNamePlaced StageName = "Placed"
-	// StageNameReadyToShip - Order is ready to ship
+	// StageNameReadyToShip - Order is ready to ship.
 	StageNameReadyToShip StageName = "ReadyToShip"
 	// StageNameReturnCompleted - Return has now completed.
 	StageNameReturnCompleted StageName = "ReturnCompleted"
 	// StageNameReturnInitiated - Return has been initiated by customer.
 	StageNameReturnInitiated StageName = "ReturnInitiated"
-	// StageNameReturnPickedUp - Order is in transit from customer to microsoft.
+	// StageNameReturnPickedUp - Order is in transit from customer to Microsoft.
 	StageNameReturnPickedUp StageName = "ReturnPickedUp"
-	// StageNameReturnedToMicrosoft - Order has been received back to microsoft.
+	// StageNameReturnedToMicrosoft - Order has been received back to Microsoft.
 	StageNameReturnedToMicrosoft StageName = "ReturnedToMicrosoft"
-	// StageNameShipped - Order is in transit to customer
+	// StageNameShipped - Order is in transit to customer.
 	StageNameShipped StageName = "Shipped"
 )
 
@@ -514,9 +715,9 @@ func PossibleStageStatusValues() []StageStatus {
 type SupportedFilterTypes string
 
 const (
-	// SupportedFilterTypesDoubleEncryptionStatus - Double encryption status
+	// SupportedFilterTypesDoubleEncryptionStatus - Double encryption status.
 	SupportedFilterTypesDoubleEncryptionStatus SupportedFilterTypes = "DoubleEncryptionStatus"
-	// SupportedFilterTypesShipToCountries - Ship to country
+	// SupportedFilterTypesShipToCountries - Ship to country.
 	SupportedFilterTypesShipToCountries SupportedFilterTypes = "ShipToCountries"
 )
 
@@ -525,6 +726,27 @@ func PossibleSupportedFilterTypesValues() []SupportedFilterTypes {
 	return []SupportedFilterTypes{
 		SupportedFilterTypesDoubleEncryptionStatus,
 		SupportedFilterTypesShipToCountries,
+	}
+}
+
+// TermCommitmentType - Term Commitment Type
+type TermCommitmentType string
+
+const (
+	// TermCommitmentTypeNone - Pay as you go Term Commitment Model.
+	TermCommitmentTypeNone TermCommitmentType = "None"
+	// TermCommitmentTypeTimed - Time based Term Commitment Model.
+	TermCommitmentTypeTimed TermCommitmentType = "Timed"
+	// TermCommitmentTypeTrial - Trial Term Commitment Model.
+	TermCommitmentTypeTrial TermCommitmentType = "Trial"
+)
+
+// PossibleTermCommitmentTypeValues returns the possible values for the TermCommitmentType const type.
+func PossibleTermCommitmentTypeValues() []TermCommitmentType {
+	return []TermCommitmentType{
+		TermCommitmentTypeNone,
+		TermCommitmentTypeTimed,
+		TermCommitmentTypeTrial,
 	}
 }
 
@@ -561,5 +783,47 @@ func PossibleWeightMeasurementUnitValues() []WeightMeasurementUnit {
 	return []WeightMeasurementUnit{
 		WeightMeasurementUnitKGS,
 		WeightMeasurementUnitLBS,
+	}
+}
+
+// WorkloadCategory - Type of workload.
+type WorkloadCategory string
+
+const (
+	// WorkloadCategoryGeneral - General workload.
+	WorkloadCategoryGeneral WorkloadCategory = "General"
+	// WorkloadCategorySQL - SQL workload.
+	WorkloadCategorySQL WorkloadCategory = "SQL"
+	// WorkloadCategoryVDI - VDI workload.
+	WorkloadCategoryVDI WorkloadCategory = "VDI"
+)
+
+// PossibleWorkloadCategoryValues returns the possible values for the WorkloadCategory const type.
+func PossibleWorkloadCategoryValues() []WorkloadCategory {
+	return []WorkloadCategory{
+		WorkloadCategoryGeneral,
+		WorkloadCategorySQL,
+		WorkloadCategoryVDI,
+	}
+}
+
+// WorkloadDetailsWorkloadType - Workload type, general, AVD, etc
+type WorkloadDetailsWorkloadType string
+
+const (
+	// WorkloadDetailsWorkloadTypeGeneral - General workload.
+	WorkloadDetailsWorkloadTypeGeneral WorkloadDetailsWorkloadType = "General"
+	// WorkloadDetailsWorkloadTypeSQL - SQL workload.
+	WorkloadDetailsWorkloadTypeSQL WorkloadDetailsWorkloadType = "SQL"
+	// WorkloadDetailsWorkloadTypeVDI - VDI workload.
+	WorkloadDetailsWorkloadTypeVDI WorkloadDetailsWorkloadType = "VDI"
+)
+
+// PossibleWorkloadDetailsWorkloadTypeValues returns the possible values for the WorkloadDetailsWorkloadType const type.
+func PossibleWorkloadDetailsWorkloadTypeValues() []WorkloadDetailsWorkloadType {
+	return []WorkloadDetailsWorkloadType{
+		WorkloadDetailsWorkloadTypeGeneral,
+		WorkloadDetailsWorkloadTypeSQL,
+		WorkloadDetailsWorkloadTypeVDI,
 	}
 }

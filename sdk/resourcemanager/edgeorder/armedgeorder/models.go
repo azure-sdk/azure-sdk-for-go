@@ -11,24 +11,33 @@ package armedgeorder
 
 import "time"
 
+// AdditionalConfiguration - Additional Configuration details.
+type AdditionalConfiguration struct {
+	// REQUIRED; Hierarchy of the product which uniquely identifies the configuration.
+	HierarchyInformation *HierarchyInformation
+
+	// REQUIRED; Quantity of the product.
+	Quantity *int32
+}
+
 // AddressDetails - Address details for an order item.
 type AddressDetails struct {
-	// REQUIRED; Customer address and contact details. It should be address resource
+	// REQUIRED; Customer address and contact details.
 	ForwardAddress *AddressProperties
 
-	// READ-ONLY; Return shipping address
+	// READ-ONLY; Return shipping address.
 	ReturnAddress *AddressProperties
 }
 
-// AddressProperties - Address Properties
+// AddressProperties - Address Properties.
 type AddressProperties struct {
-	// REQUIRED; Contact details for the address
+	// REQUIRED; Contact details for the address.
 	ContactDetails *ContactDetails
 
-	// Shipping details for the address
+	// Shipping details for the address.
 	ShippingAddress *ShippingAddress
 
-	// READ-ONLY; Status of address validation
+	// READ-ONLY; Status of address validation.
 	AddressValidationStatus *AddressValidationStatus
 }
 
@@ -49,14 +58,14 @@ type AddressResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Represents resource creation and update time
+	// READ-ONLY; Represents resource creation and update time.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// AddressResourceList - Address Resource Collection
+// AddressResourceList - Address Resource Collection.
 type AddressResourceList struct {
 	// Link for the next set of job resources.
 	NextLink *string
@@ -65,9 +74,9 @@ type AddressResourceList struct {
 	Value []*AddressResource
 }
 
-// AddressUpdateParameter - The Address update parameters
+// AddressUpdateParameter - The Address update parameters.
 type AddressUpdateParameter struct {
-	// Properties of a address to be updated.
+	// Properties of an address to be updated.
 	Properties *AddressUpdateProperties
 
 	// The list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across
@@ -75,18 +84,76 @@ type AddressUpdateParameter struct {
 	Tags map[string]*string
 }
 
-// AddressUpdateProperties - Address Properties
+// AddressUpdateProperties - Address Update Properties.
 type AddressUpdateProperties struct {
-	// Contact details for the address
+	// Contact details for the address.
 	ContactDetails *ContactDetails
 
-	// Shipping details for the address
+	// Shipping details for the address.
 	ShippingAddress *ShippingAddress
+}
+
+// AddressesClientBeginCreateOptions contains the optional parameters for the AddressesClient.BeginCreate method.
+type AddressesClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AddressesClientBeginDeleteOptions contains the optional parameters for the AddressesClient.BeginDelete method.
+type AddressesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AddressesClientBeginUpdateOptions contains the optional parameters for the AddressesClient.BeginUpdate method.
+type AddressesClientBeginUpdateOptions struct {
+	// Defines the If-Match condition. The patch will be performed only if the ETag of the job on the server matches this value.
+	IfMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AddressesClientGetOptions contains the optional parameters for the AddressesClient.Get method.
+type AddressesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AddressesClientListByResourceGroupOptions contains the optional parameters for the AddressesClient.NewListByResourceGroupPager
+// method.
+type AddressesClientListByResourceGroupOptions struct {
+	// $filter is supported to filter based on shipping address properties. Filter supports only equals operation.
+	Filter *string
+	// $skipToken is supported on Get list of addresses, which provides the next page in the list of addresses.
+	SkipToken *string
+	// $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to
+	// the API caller.
+	Top *int32
+}
+
+// AddressesClientListBySubscriptionOptions contains the optional parameters for the AddressesClient.NewListBySubscriptionPager
+// method.
+type AddressesClientListBySubscriptionOptions struct {
+	// $filter is supported to filter based on shipping address properties. Filter supports only equals operation.
+	Filter *string
+	// $skipToken is supported on Get list of addresses, which provides the next page in the list of addresses.
+	SkipToken *string
+	// $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to
+	// the API caller.
+	Top *int32
+}
+
+// AlternateSolutionDetails - Represents alternate solution details.
+type AlternateSolutionDetails struct {
+	// READ-ONLY; Alternate solution id.
+	AlternativeSolutionID *string
+
+	// READ-ONLY; Alternate solution name.
+	AlternativeSolutionName *string
 }
 
 // AvailabilityInformation - Availability information of a product system.
 type AvailabilityInformation struct {
-	// READ-ONLY; Current availability stage of the product. Availability stage
+	// READ-ONLY; Current availability stage of the product.
 	AvailabilityStage *AvailabilityStage
 
 	// READ-ONLY; Reason why the product is disabled.
@@ -96,7 +163,7 @@ type AvailabilityInformation struct {
 	DisabledReasonMessage *string
 }
 
-// BasicInformation - Basic information for any product system
+// BasicInformation - Basic information for any product system.
 type BasicInformation struct {
 	// READ-ONLY; Availability information of the product system.
 	AvailabilityInformation *AvailabilityInformation
@@ -110,6 +177,9 @@ type BasicInformation struct {
 	// READ-ONLY; Display Name for the product system.
 	DisplayName *string
 
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
+
 	// READ-ONLY; Hierarchy information of a product.
 	HierarchyInformation *HierarchyInformation
 
@@ -117,19 +187,88 @@ type BasicInformation struct {
 	ImageInformation []*ImageInformation
 }
 
-// BillingMeterDetails - Holds billing meter details for each type of billing
+// BillingMeterDetails - Holds billing meter details for each type of billing.
 type BillingMeterDetails struct {
-	// READ-ONLY; Frequency of recurrence
+	// READ-ONLY; Frequency of recurrence.
 	Frequency *string
 
-	// READ-ONLY; Represents MeterDetails
+	// READ-ONLY; Represents MeterDetails.
 	MeterDetails MeterDetailsClassification
 
-	// READ-ONLY; Represents Metering type (eg one-time or recurrent)
+	// READ-ONLY; Represents Metering type (eg one-time or recurrent).
 	MeteringType *MeteringType
 
-	// READ-ONLY; Represents Billing type name
+	// READ-ONLY; Represents Billing type name.
 	Name *string
+
+	// READ-ONLY; Represent Term Type details.
+	TermTypeDetails *TermTypeDetails
+}
+
+// ByteSize - Size details in bytes.
+type ByteSize struct {
+	// REQUIRED; Amount of bytes in byte unit.
+	Amount *float64
+
+	// REQUIRED; Type of byte unit.
+	ByteUnit *ByteSizeByteUnit
+}
+
+// CPUBreakdown - Cpu breakdown.
+type CPUBreakdown struct {
+	// READ-ONLY; Host reserved for emergency scenarios.
+	Availability *string
+
+	// READ-ONLY; Total host reserved for emergency scenarios.
+	AvailabilityTotal *int32
+
+	// READ-ONLY; Cores reserved for future growth.
+	FutureGrowth *int32
+
+	// READ-ONLY; Hosts reserved for emergency scenarios (e.g. maintenance, one node is down etc).
+	HighAvailability *int32
+
+	// READ-ONLY; Cores left on the hardware. This is total - (Used + Future Growth+ High availability).
+	Leftover *int32
+
+	// READ-ONLY; The total CPU needed to run your workloads.
+	Total *int32
+
+	// READ-ONLY; (Number of VMs x vCPU per VM) / ratio of virtual to physical cores
+	Used *int32
+}
+
+// CPUDetails - Represents CPU specific details.
+type CPUDetails struct {
+	// READ-ONLY; List of cores per socket.
+	CoresPerSocket []*int32
+
+	// READ-ONLY; Maximum number of cores.
+	MaximumCores *int32
+
+	// READ-ONLY; Minimum number of cores.
+	MinimumCores *int32
+
+	// READ-ONLY; Total sockets supported.
+	TotalSocketsSupported *int32
+}
+
+// CacheDriveDetails - Represents Cache Drive specific details.
+type CacheDriveDetails struct {
+	// READ-ONLY; List of cache drive sizes.
+	CacheDriveSizes []*ByteSize
+
+	// READ-ONLY; List of cache drive sizes in bytes.
+	CacheDriveSizesBytes []*int64
+
+	// READ-ONLY; List of cache drive types.
+	CacheDriveTypes []*string
+
+	// READ-ONLY; Maximum number of cache drives.
+	MaximumNumberOfCacheDrives *int32
+
+	// READ-ONLY; Minimum number of cache drives.
+	MinimumNumberOfCacheDrives *int32
 }
 
 // CancellationReason - Reason for cancellation.
@@ -138,7 +277,113 @@ type CancellationReason struct {
 	Reason *string
 }
 
-// CommonProperties - Represents common properties across product hierarchy
+// CapacityDriveDetails - Represents Capacity Drive specific details.
+type CapacityDriveDetails struct {
+	// READ-ONLY; List of Capacity drive sizes.
+	CapacityDriveSizes []*ByteSize
+
+	// READ-ONLY; List of Capacity drive sizes in bytes.
+	CapacityDriveSizesBytes []*int64
+
+	// READ-ONLY; List of Capacity storage drive types.
+	CapacityStorageDriveTypes []*string
+
+	// READ-ONLY; Maximum number of Capacity drives.
+	MaximumNumberOfCapacityDrives *int32
+
+	// READ-ONLY; Minimum number of Capacity drives.
+	MinimumNumberOfCapacityDrives *int32
+}
+
+// CategoryInformation - Category related properties of a child configuration.
+type CategoryInformation struct {
+	// Category display name of the child configuration.
+	CategoryDisplayName *string
+
+	// Category name of the child configuration.
+	CategoryName *string
+
+	// Description text for the category.
+	Description *string
+
+	// Links for the category.
+	Links []*Link
+}
+
+// ChildConfiguration - Child configuration object.
+type ChildConfiguration struct {
+	// READ-ONLY; Properties of child configuration.
+	Properties *ChildConfigurationProperties
+}
+
+// ChildConfigurationFilter - Child configuration filter.
+type ChildConfigurationFilter struct {
+	// Filter to fetch all child configurations belonging to the given list of configuration types.
+	ChildConfigurationTypes []*ChildConfigurationType
+
+	// The list of child configuration hierarchy customer wants to filter for the given configuration.
+	HierarchyInformations []*HierarchyInformation
+}
+
+// ChildConfigurationProperties - Properties of child configuration.
+type ChildConfigurationProperties struct {
+	// READ-ONLY; Availability information of the product system.
+	AvailabilityInformation *AvailabilityInformation
+
+	// READ-ONLY; Child configuration type.
+	ChildConfigurationType *ChildConfigurationType
+
+	// READ-ONLY; Different types of child configurations which exist for this configuration, these can be used to populate the
+	// child configuration filter.
+	ChildConfigurationTypes []*ChildConfigurationType
+
+	// READ-ONLY; Cost information for the product system.
+	CostInformation *CostInformation
+
+	// READ-ONLY; Description related to the product system.
+	Description *Description
+
+	// READ-ONLY; Dimensions of the configuration.
+	Dimensions *Dimensions
+
+	// READ-ONLY; Display Name for the product system.
+	DisplayName *string
+
+	// READ-ONLY; List of filters supported for a product.
+	FilterableProperties []*FilterableProperty
+
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
+
+	// READ-ONLY; Child configurations present for the configuration after applying child configuration filter, grouped by the
+	// category name of the child configuration.
+	GroupedChildConfigurations []*GroupedChildConfigurations
+
+	// READ-ONLY; Hierarchy information of a product.
+	HierarchyInformation *HierarchyInformation
+
+	// READ-ONLY; Image information for the product system.
+	ImageInformation []*ImageInformation
+
+	// READ-ONLY; Flag to indicate if the child configuration is part of the base configuration, which means the customer need
+	// not pass this configuration in OptInAdditionalConfigurations while placing an order, it
+	// will be shipped by default.
+	IsPartOfBaseConfiguration *bool
+
+	// READ-ONLY; Maximum quantity a customer can order while choosing this configuration.
+	MaximumQuantity *int32
+
+	// READ-ONLY; Minimum quantity a customer can order while choosing this configuration.
+	MinimumQuantity *int32
+
+	// READ-ONLY; Specifications of the configuration.
+	Specifications []*Specification
+
+	// READ-ONLY; The Term Commitment Durations that are supported for a configuration.
+	SupportedTermCommitmentDurations []*string
+}
+
+// CommonProperties - Represents common properties across product hierarchy.
 type CommonProperties struct {
 	// READ-ONLY; Availability information of the product system.
 	AvailabilityInformation *AvailabilityInformation
@@ -152,8 +397,11 @@ type CommonProperties struct {
 	// READ-ONLY; Display Name for the product system.
 	DisplayName *string
 
-	// READ-ONLY; list of filters supported for a product
+	// READ-ONLY; List of filters supported for a product.
 	FilterableProperties []*FilterableProperty
+
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
 
 	// READ-ONLY; Hierarchy information of a product.
 	HierarchyInformation *HierarchyInformation
@@ -164,23 +412,53 @@ type CommonProperties struct {
 
 // Configuration object.
 type Configuration struct {
-	// READ-ONLY; Properties of configuration
+	// READ-ONLY; Properties of configuration.
 	Properties *ConfigurationProperties
 }
 
-// ConfigurationFilters - Configuration filters
-type ConfigurationFilters struct {
-	// REQUIRED; Product hierarchy information
+// ConfigurationDeviceDetails - Device details for configuration.
+type ConfigurationDeviceDetails struct {
+	// Display details of the product.
+	DisplayInfo *DisplayInfo
+
+	// READ-ONLY; List of device details.
+	DeviceDetails []*DeviceDetails
+
+	// READ-ONLY; Hierarchy of the product which uniquely identifies the configuration.
 	HierarchyInformation *HierarchyInformation
 
-	// Filters specific to product
+	// READ-ONLY; Identification type of the configuration.
+	IdentificationType *IdentificationType
+
+	// READ-ONLY; Quantity of the product.
+	Quantity *int32
+
+	// READ-ONLY; Term Commitment Information of the Device.
+	TermCommitmentInformation *TermCommitmentInformation
+}
+
+// ConfigurationFilter - Configuration filters.
+type ConfigurationFilter struct {
+	// REQUIRED; Product hierarchy information.
+	HierarchyInformation *HierarchyInformation
+
+	// Filter to fetch specific child configurations that exist in the configuration. This must be passed to either fetch a list
+	// of specific child configurations, or all child configurations of specific
+	// types of child configurations.
+	ChildConfigurationFilter *ChildConfigurationFilter
+
+	// Filters specific to product.
 	FilterableProperty []*FilterableProperty
 }
 
-// ConfigurationProperties - Properties of configuration
+// ConfigurationProperties - Properties of configuration.
 type ConfigurationProperties struct {
 	// READ-ONLY; Availability information of the product system.
 	AvailabilityInformation *AvailabilityInformation
+
+	// READ-ONLY; Different types of child configurations which exist for this configuration, these can be used to populate the
+	// child configuration filter.
+	ChildConfigurationTypes []*ChildConfigurationType
 
 	// READ-ONLY; Cost information for the product system.
 	CostInformation *CostInformation
@@ -188,14 +466,21 @@ type ConfigurationProperties struct {
 	// READ-ONLY; Description related to the product system.
 	Description *Description
 
-	// READ-ONLY; Dimensions of the configuration
+	// READ-ONLY; Dimensions of the configuration.
 	Dimensions *Dimensions
 
 	// READ-ONLY; Display Name for the product system.
 	DisplayName *string
 
-	// READ-ONLY; list of filters supported for a product
+	// READ-ONLY; List of filters supported for a product.
 	FilterableProperties []*FilterableProperty
+
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
+
+	// READ-ONLY; Child configurations present for the configuration after applying child configuration filter, grouped by the
+	// category name of the child configuration.
+	GroupedChildConfigurations []*GroupedChildConfigurations
 
 	// READ-ONLY; Hierarchy information of a product.
 	HierarchyInformation *HierarchyInformation
@@ -203,8 +488,11 @@ type ConfigurationProperties struct {
 	// READ-ONLY; Image information for the product system.
 	ImageInformation []*ImageInformation
 
-	// READ-ONLY; Specifications of the configuration
+	// READ-ONLY; Specifications of the configuration.
 	Specifications []*Specification
+
+	// READ-ONLY; The Term Commitment Durations that are supported for a configuration.
+	SupportedTermCommitmentDurations []*string
 }
 
 // Configurations - The list of configurations.
@@ -218,11 +506,11 @@ type Configurations struct {
 
 // ConfigurationsRequest - Configuration request object.
 type ConfigurationsRequest struct {
-	// REQUIRED; Holds details about product hierarchy information and filterable property.
-	ConfigurationFilters []*ConfigurationFilters
+	// Holds details about product hierarchy information and filterable property.
+	ConfigurationFilter *ConfigurationFilter
 
 	// Customer subscription properties. Clients can display available products to unregistered customers by explicitly passing
-	// subscription details
+	// subscription details.
 	CustomerSubscriptionDetails *CustomerSubscriptionDetails
 }
 
@@ -244,9 +532,9 @@ type ContactDetails struct {
 	PhoneExtension *string
 }
 
-// CostInformation - Cost information for the product system
+// CostInformation - Cost information for the product system.
 type CostInformation struct {
-	// READ-ONLY; Default url to display billing information
+	// READ-ONLY; Default url to display billing information.
 	BillingInfoURL *string
 
 	// READ-ONLY; Details on the various billing aspects for the product system.
@@ -254,24 +542,24 @@ type CostInformation struct {
 }
 
 // CustomerSubscriptionDetails - Holds Customer subscription details. Clients can display available products to unregistered
-// customers by explicitly passing subscription details
+// customers by explicitly passing subscription details.
 type CustomerSubscriptionDetails struct {
-	// REQUIRED; Quota ID of a subscription
+	// REQUIRED; Quota ID of a subscription.
 	QuotaID *string
 
-	// Location placement Id of a subscription
+	// Location placement Id of a subscription.
 	LocationPlacementID *string
 
-	// List of registered feature flags for subscription
+	// List of registered feature flags for subscription.
 	RegisteredFeatures []*CustomerSubscriptionRegisteredFeatures
 }
 
-// CustomerSubscriptionRegisteredFeatures - Represents subscription registered features
+// CustomerSubscriptionRegisteredFeatures - Represents subscription registered features.
 type CustomerSubscriptionRegisteredFeatures struct {
-	// Name of subscription registered feature
+	// Name of subscription registered feature.
 	Name *string
 
-	// State of subscription registered feature
+	// State of subscription registered feature.
 	State *string
 }
 
@@ -298,13 +586,13 @@ type Description struct {
 
 // DeviceDetails - Device details.
 type DeviceDetails struct {
-	// READ-ONLY; Management Resource Id
+	// READ-ONLY; Management Resource Id.
 	ManagementResourceID *string
 
-	// READ-ONLY; Management Resource Tenant ID
+	// READ-ONLY; Management Resource Tenant ID.
 	ManagementResourceTenantID *string
 
-	// READ-ONLY; device serial number
+	// READ-ONLY; Device serial number.
 	SerialNumber *string
 }
 
@@ -332,16 +620,16 @@ type Dimensions struct {
 	Width *float64
 }
 
-// DisplayInfo - Describes product display information
+// DisplayInfo - Describes product display information.
 type DisplayInfo struct {
-	// READ-ONLY; Configuration display name
+	// READ-ONLY; Configuration display name.
 	ConfigurationDisplayName *string
 
-	// READ-ONLY; Product family display name
+	// READ-ONLY; Product family display name.
 	ProductFamilyDisplayName *string
 }
 
-// EncryptionPreferences - Preferences related to the double encryption
+// EncryptionPreferences - Preferences related to the double encryption.
 type EncryptionPreferences struct {
 	// Double encryption status as entered by the customer. It is compulsory to give this parameter if the 'Deny' or 'Disabled'
 	// policy is configured.
@@ -382,6 +670,69 @@ type ErrorResponse struct {
 	Error *ErrorDetail
 }
 
+// Filter details.
+type Filter struct {
+	// REQUIRED; Name of the filter.
+	Name *string
+
+	// REQUIRED; List of filter values.
+	Values []*FilterValue
+
+	// READ-ONLY; Metadata of the filter.
+	Metadata *FilterMetadata
+}
+
+// FilterMetadata - Metadata of the filter.
+type FilterMetadata struct {
+	// READ-ONLY; Description of the filter.
+	Description *string
+
+	// READ-ONLY; Display text of the filter.
+	DisplayText *string
+}
+
+// FilterMetadataAutoGenerated - Filter metadata details.
+type FilterMetadataAutoGenerated struct {
+	// READ-ONLY; Description of the filter.
+	Description *string
+
+	// READ-ONLY; Display text of the filter.
+	DisplayText *string
+}
+
+// FilterValue - Filter value details.
+type FilterValue struct {
+	// REQUIRED; The filter value.
+	Value *string
+
+	// READ-ONLY; Display text of the filter value.
+	Metadata *FilterValueMetadata
+}
+
+// FilterValueMetadata - Display text of the filter value.
+type FilterValueMetadata struct {
+	// READ-ONLY; The approximate count of results falling within the bucket for this filter value.
+	Count *int64
+
+	// READ-ONLY; Description of the filter value.
+	Description *string
+
+	// READ-ONLY; Display text of the filter value.
+	DisplayText *string
+}
+
+// FilterValueMetadataAutoGenerated - Filter value metadata details.
+type FilterValueMetadataAutoGenerated struct {
+	// READ-ONLY; The approximate count of results falling within the bucket for this filter value.
+	Count *int64
+
+	// READ-ONLY; Description of the filter value.
+	Description *string
+
+	// READ-ONLY; Display text of the filter value.
+	DisplayText *string
+}
+
 // FilterableProperty - Different types of filters supported and its values.
 type FilterableProperty struct {
 	// REQUIRED; Values to be filtered.
@@ -399,218 +750,535 @@ type ForwardShippingDetails struct {
 	// READ-ONLY; Name of the carrier.
 	CarrierName *string
 
-	// READ-ONLY; TrackingId of the package
+	// READ-ONLY; TrackingId of the package.
 	TrackingID *string
 
 	// READ-ONLY; TrackingUrl of the package.
 	TrackingURL *string
 }
 
-// HierarchyInformation - Holds details about product hierarchy information
+// GeneralWorkloadDetails - General workload details
+type GeneralWorkloadDetails struct {
+	// REQUIRED; Memory bytes requirement.
+	MemoryBytes *int64
+
+	// REQUIRED; Number of virtual machines
+	NumberOfVMs *int32
+
+	// REQUIRED; Storage bytes requirement.
+	StorageBytes *int64
+
+	// REQUIRED; Virtual cpus
+	VirtualCPU *int32
+
+	// REQUIRED; V:P ratio
+	VirtualCorePerPhysicalCore *int32
+
+	// REQUIRED; Workload name
+	WorkloadName *string
+
+	// REQUIRED; Workload type, general, AVD, etc
+	WorkloadType *WorkloadDetailsWorkloadType
+}
+
+// GetWorkloadDetails implements the WorkloadDetailsClassification interface for type GeneralWorkloadDetails.
+func (g *GeneralWorkloadDetails) GetWorkloadDetails() *WorkloadDetails {
+	return &WorkloadDetails{
+		WorkloadName:               g.WorkloadName,
+		WorkloadType:               g.WorkloadType,
+		NumberOfVMs:                g.NumberOfVMs,
+		VirtualCPU:                 g.VirtualCPU,
+		VirtualCorePerPhysicalCore: g.VirtualCorePerPhysicalCore,
+		MemoryBytes:                g.MemoryBytes,
+		StorageBytes:               g.StorageBytes,
+	}
+}
+
+// GpuDetails - Represents GPU specific details.
+type GpuDetails struct {
+	// READ-ONLY; List of GPU DDA.
+	GpuDda []*string
+
+	// READ-ONLY; GPU Mfg model.
+	GpuMfgModel *string
+
+	// READ-ONLY; List of GPU-P.
+	GpuP []*string
+
+	// READ-ONLY; Flag to indicate whether GPU is supported.
+	IsGpuSupported *bool
+}
+
+// GroupedChildConfigurations - Grouped child configuration object.
+type GroupedChildConfigurations struct {
+	// READ-ONLY; Category information.
+	CategoryInformation *CategoryInformation
+
+	// READ-ONLY; List of child configurations.
+	ChildConfigurations []*ChildConfiguration
+}
+
+// HWaaSDetails - Represents Hardware as a Service details.
+type HWaaSDetails struct {
+	// READ-ONLY; Hardware as a Service Description.
+	HWaaSDescription *string
+
+	// READ-ONLY; Hardware as a Service link.
+	HWaaSLink *string
+
+	// READ-ONLY; Hardware as a Service name.
+	HWaaSName *string
+
+	// READ-ONLY; Flag to indicate if the platform supports Hardware as a Service.
+	IsHWaaSSupported *bool
+}
+
+// HciCatalogClientGetOptions contains the optional parameters for the HciCatalogClient.Get method.
+type HciCatalogClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogClientListOptions contains the optional parameters for the HciCatalogClient.NewListPager method.
+type HciCatalogClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogClientListSolutionRecommendationsOptions contains the optional parameters for the HciCatalogClient.ListSolutionRecommendations
+// method.
+type HciCatalogClientListSolutionRecommendationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogClientSearchOptions contains the optional parameters for the HciCatalogClient.Search method.
+type HciCatalogClientSearchOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogPlatformsClientGetOptions contains the optional parameters for the HciCatalogPlatformsClient.Get method.
+type HciCatalogPlatformsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogPlatformsClientListOptions contains the optional parameters for the HciCatalogPlatformsClient.NewListPager method.
+type HciCatalogPlatformsClientListOptions struct {
+	// $skipToken is supported on list of platforms, which provides the next page in the list of platforms.
+	SkipToken *string
+}
+
+// HciCatalogPlatformsSearchRequest - Request body for HCI catalog search call.
+type HciCatalogPlatformsSearchRequest struct {
+	// REQUIRED; Page number for client-side pagination.
+	Page *int64
+
+	// REQUIRED; Page size for client-size pagination.
+	PageSize *int64
+
+	// REQUIRED; Search resource type.
+	ResourceType *HciCatalogSearchRequestResourceType
+
+	// List of search filters.
+	Filters []*SearchFilter
+
+	// Search text.
+	SearchText *string
+
+	// Sort options.
+	SortOptions *HciCatalogSearchRequestSortOptions
+}
+
+// GetHciCatalogSearchRequest implements the HciCatalogSearchRequestClassification interface for type HciCatalogPlatformsSearchRequest.
+func (h *HciCatalogPlatformsSearchRequest) GetHciCatalogSearchRequest() *HciCatalogSearchRequest {
+	return &HciCatalogSearchRequest{
+		ResourceType: h.ResourceType,
+		SearchText:   h.SearchText,
+		Filters:      h.Filters,
+		SortOptions:  h.SortOptions,
+		Page:         h.Page,
+		PageSize:     h.PageSize,
+	}
+}
+
+// HciCatalogPlatformsSearchResponse - HCI catalog platforms search response
+type HciCatalogPlatformsSearchResponse struct {
+	// REQUIRED; Current page number for client-side pagination.
+	CurrentPage *int64
+
+	// REQUIRED; Search resource type.
+	ResourceType *HciCatalogSearchResponseResourceType
+
+	// REQUIRED; Total number of pages for client-size pagination.
+	TotalPages *int64
+
+	// REQUIRED; Total count of results for given search request.
+	TotalResults *int64
+
+	// List of search filters.
+	PlatformFilters []*Filter
+
+	// List of search filters.
+	Platforms []*PlatformResource
+}
+
+// GetHciCatalogSearchResponse implements the HciCatalogSearchResponseClassification interface for type HciCatalogPlatformsSearchResponse.
+func (h *HciCatalogPlatformsSearchResponse) GetHciCatalogSearchResponse() *HciCatalogSearchResponse {
+	return &HciCatalogSearchResponse{
+		ResourceType: h.ResourceType,
+		CurrentPage:  h.CurrentPage,
+		TotalPages:   h.TotalPages,
+		TotalResults: h.TotalResults,
+	}
+}
+
+// HciCatalogProjectClientCreateOptions contains the optional parameters for the HciCatalogProjectClient.Create method.
+type HciCatalogProjectClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogProjectClientDeleteOptions contains the optional parameters for the HciCatalogProjectClient.Delete method.
+type HciCatalogProjectClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogProjectClientGetOptions contains the optional parameters for the HciCatalogProjectClient.Get method.
+type HciCatalogProjectClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogProjectClientSolutionRecommendationsOptions contains the optional parameters for the HciCatalogProjectClient.SolutionRecommendations
+// method.
+type HciCatalogProjectClientSolutionRecommendationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogProjectClientUpdateOptions contains the optional parameters for the HciCatalogProjectClient.Update method.
+type HciCatalogProjectClientUpdateOptions struct {
+	// Defines the If-Match condition. The patch will be performed only if the ETag of the project on the server matches this
+	// value.
+	IfMatch *string
+}
+
+// HciCatalogProjectsClientListOptions contains the optional parameters for the HciCatalogProjectsClient.NewListPager method.
+type HciCatalogProjectsClientListOptions struct {
+	// $filter is supported to fetch list at OrganizationLevel. Filter supports only equals operation.
+	Filter *string
+	// $skipToken is supported on list of platforms, which provides the next page in the list of projects.
+	SkipToken *string
+}
+
+// HciCatalogProperties - Represents order details.
+type HciCatalogProperties struct {
+	// READ-ONLY; List of platform filters.
+	PlatformFilters []*Filter
+}
+
+// HciCatalogResource - Specifies the properties for HciCatalog. HciCatalog is a catalog for third-party Azure Stack HCI solutions.
+type HciCatalogResource struct {
+	// REQUIRED; HciCatalog properties.
+	Properties *HciCatalogResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HciCatalogResourceList - List of hci catalog resources.
+type HciCatalogResourceList struct {
+	// Link for the next set of hci catalog resources.
+	NextLink *string
+
+	// READ-ONLY; List of hci catalog resources.
+	Value []*HciCatalogResource
+}
+
+// HciCatalogResourceProperties - HciCatalog properties.
+type HciCatalogResourceProperties struct {
+	// READ-ONLY; List of platform filters.
+	PlatformFilters []*Filter
+}
+
+// HciCatalogSearchRequestClassification provides polymorphic access to related types.
+// Call the interface's GetHciCatalogSearchRequest() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *HciCatalogPlatformsSearchRequest, *HciCatalogSearchRequest
+type HciCatalogSearchRequestClassification interface {
+	// GetHciCatalogSearchRequest returns the HciCatalogSearchRequest content of the underlying type.
+	GetHciCatalogSearchRequest() *HciCatalogSearchRequest
+}
+
+// HciCatalogSearchRequest - Request body for HCI catalog search call
+type HciCatalogSearchRequest struct {
+	// REQUIRED; Page number for client-side pagination.
+	Page *int64
+
+	// REQUIRED; Page size for client-size pagination.
+	PageSize *int64
+
+	// REQUIRED; Search resource type.
+	ResourceType *HciCatalogSearchRequestResourceType
+
+	// List of search filters.
+	Filters []*SearchFilter
+
+	// Search text.
+	SearchText *string
+
+	// Sort options.
+	SortOptions *HciCatalogSearchRequestSortOptions
+}
+
+// GetHciCatalogSearchRequest implements the HciCatalogSearchRequestClassification interface for type HciCatalogSearchRequest.
+func (h *HciCatalogSearchRequest) GetHciCatalogSearchRequest() *HciCatalogSearchRequest { return h }
+
+// HciCatalogSearchRequestSortOptions - Sort options.
+type HciCatalogSearchRequestSortOptions struct {
+	// REQUIRED; Sort by field.
+	SortBy *string
+
+	// REQUIRED; Sort direction.
+	SortDirection *SortOptionsSortDirection
+}
+
+// HciCatalogSearchResponseClassification provides polymorphic access to related types.
+// Call the interface's GetHciCatalogSearchResponse() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *HciCatalogPlatformsSearchResponse, *HciCatalogSearchResponse
+type HciCatalogSearchResponseClassification interface {
+	// GetHciCatalogSearchResponse returns the HciCatalogSearchResponse content of the underlying type.
+	GetHciCatalogSearchResponse() *HciCatalogSearchResponse
+}
+
+// HciCatalogSearchResponse - HCI catalog search response
+type HciCatalogSearchResponse struct {
+	// REQUIRED; Current page number for client-side pagination.
+	CurrentPage *int64
+
+	// REQUIRED; Search resource type.
+	ResourceType *HciCatalogSearchResponseResourceType
+
+	// REQUIRED; Total number of pages for client-size pagination.
+	TotalPages *int64
+
+	// REQUIRED; Total count of results for given search request.
+	TotalResults *int64
+}
+
+// GetHciCatalogSearchResponse implements the HciCatalogSearchResponseClassification interface for type HciCatalogSearchResponse.
+func (h *HciCatalogSearchResponse) GetHciCatalogSearchResponse() *HciCatalogSearchResponse { return h }
+
+// HciCatalogVendorsClientGetOptions contains the optional parameters for the HciCatalogVendorsClient.Get method.
+type HciCatalogVendorsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciCatalogVendorsClientListOptions contains the optional parameters for the HciCatalogVendorsClient.NewListPager method.
+type HciCatalogVendorsClientListOptions struct {
+	// $skipToken is supported on list of vendors, which provides the next page in the list of vendors.
+	SkipToken *string
+}
+
+// HciFlightCatalogClientGetOptions contains the optional parameters for the HciFlightCatalogClient.Get method.
+type HciFlightCatalogClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogClientListOptions contains the optional parameters for the HciFlightCatalogClient.NewListPager method.
+type HciFlightCatalogClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogClientListSolutionRecommendationsOptions contains the optional parameters for the HciFlightCatalogClient.ListSolutionRecommendations
+// method.
+type HciFlightCatalogClientListSolutionRecommendationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogClientSearchOptions contains the optional parameters for the HciFlightCatalogClient.Search method.
+type HciFlightCatalogClientSearchOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogPlatformsClientGetOptions contains the optional parameters for the HciFlightCatalogPlatformsClient.Get
+// method.
+type HciFlightCatalogPlatformsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogPlatformsClientListOptions contains the optional parameters for the HciFlightCatalogPlatformsClient.NewListPager
+// method.
+type HciFlightCatalogPlatformsClientListOptions struct {
+	// $skipToken is supported on list of platforms, which provides the next page in the list of platforms.
+	SkipToken *string
+}
+
+// HciFlightCatalogProjectClientCreateOptions contains the optional parameters for the HciFlightCatalogProjectClient.Create
+// method.
+type HciFlightCatalogProjectClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogProjectClientDeleteOptions contains the optional parameters for the HciFlightCatalogProjectClient.Delete
+// method.
+type HciFlightCatalogProjectClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogProjectClientGetOptions contains the optional parameters for the HciFlightCatalogProjectClient.Get method.
+type HciFlightCatalogProjectClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogProjectClientSolutionRecommendationsOptions contains the optional parameters for the HciFlightCatalogProjectClient.SolutionRecommendations
+// method.
+type HciFlightCatalogProjectClientSolutionRecommendationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogProjectClientUpdateOptions contains the optional parameters for the HciFlightCatalogProjectClient.Update
+// method.
+type HciFlightCatalogProjectClientUpdateOptions struct {
+	// Defines the If-Match condition. The patch will be performed only if the ETag of the project on the server matches this
+	// value.
+	IfMatch *string
+}
+
+// HciFlightCatalogProjectsClientListOptions contains the optional parameters for the HciFlightCatalogProjectsClient.NewListPager
+// method.
+type HciFlightCatalogProjectsClientListOptions struct {
+	// $filter is supported to fetch list at OrganizationLevel. Filter supports only equals operation.
+	Filter *string
+	// $skipToken is supported on list of platforms, which provides the next page in the list of projects.
+	SkipToken *string
+}
+
+// HciFlightCatalogVendorsClientGetOptions contains the optional parameters for the HciFlightCatalogVendorsClient.Get method.
+type HciFlightCatalogVendorsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HciFlightCatalogVendorsClientListOptions contains the optional parameters for the HciFlightCatalogVendorsClient.NewListPager
+// method.
+type HciFlightCatalogVendorsClientListOptions struct {
+	// $skipToken is supported on list of vendors, which provides the next page in the list of vendors.
+	SkipToken *string
+}
+
+// HierarchyInformation - Holds details about product hierarchy information.
 type HierarchyInformation struct {
-	// Represents configuration name that uniquely identifies configuration
+	// Represents configuration name that uniquely identifies configuration.
 	ConfigurationName *string
 
-	// Represents product family name that uniquely identifies product family
+	// Represents product family name that uniquely identifies product family.
 	ProductFamilyName *string
 
-	// Represents product line name that uniquely identifies product line
+	// Represents product line name that uniquely identifies product line.
 	ProductLineName *string
 
-	// Represents product name that uniquely identifies product
+	// Represents product name that uniquely identifies product.
 	ProductName *string
 }
 
-// ImageInformation - Image for the product
+// ImageInformation - Image for the product.
 type ImageInformation struct {
-	// READ-ONLY; Type of the image
+	// READ-ONLY; Type of the image.
 	ImageType *ImageType
 
-	// READ-ONLY; Url of the image
+	// READ-ONLY; Url of the image.
 	ImageURL *string
 }
 
-// Link - Returns link related to the product
+// Link - Returns link related to the product.
 type Link struct {
-	// READ-ONLY; Type of link
+	// READ-ONLY; Type of link.
 	LinkType *LinkType
 
-	// READ-ONLY; Url of the link
+	// READ-ONLY; Url of the link.
 	LinkURL *string
 }
 
-// ManagementClientBeginCreateAddressOptions contains the optional parameters for the ManagementClient.BeginCreateAddress
-// method.
-type ManagementClientBeginCreateAddressOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientBeginCreateOrderItemOptions contains the optional parameters for the ManagementClient.BeginCreateOrderItem
-// method.
-type ManagementClientBeginCreateOrderItemOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientBeginDeleteAddressByNameOptions contains the optional parameters for the ManagementClient.BeginDeleteAddressByName
-// method.
-type ManagementClientBeginDeleteAddressByNameOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientBeginDeleteOrderItemByNameOptions contains the optional parameters for the ManagementClient.BeginDeleteOrderItemByName
-// method.
-type ManagementClientBeginDeleteOrderItemByNameOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientBeginReturnOrderItemOptions contains the optional parameters for the ManagementClient.BeginReturnOrderItem
-// method.
-type ManagementClientBeginReturnOrderItemOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientBeginUpdateAddressOptions contains the optional parameters for the ManagementClient.BeginUpdateAddress
-// method.
-type ManagementClientBeginUpdateAddressOptions struct {
-	// Defines the If-Match condition. The patch will be performed only if the ETag of the job on the server matches this value.
-	IfMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientBeginUpdateOrderItemOptions contains the optional parameters for the ManagementClient.BeginUpdateOrderItem
-// method.
-type ManagementClientBeginUpdateOrderItemOptions struct {
-	// Defines the If-Match condition. The patch will be performed only if the ETag of the order on the server matches this value.
-	IfMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ManagementClientCancelOrderItemOptions contains the optional parameters for the ManagementClient.CancelOrderItem method.
-type ManagementClientCancelOrderItemOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementClientGetAddressByNameOptions contains the optional parameters for the ManagementClient.GetAddressByName method.
-type ManagementClientGetAddressByNameOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementClientGetOrderByNameOptions contains the optional parameters for the ManagementClient.GetOrderByName method.
-type ManagementClientGetOrderByNameOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementClientGetOrderItemByNameOptions contains the optional parameters for the ManagementClient.GetOrderItemByName
-// method.
-type ManagementClientGetOrderItemByNameOptions struct {
-	// $expand is supported on device details, forward shipping details and reverse shipping details parameters. Each of these
-	// can be provided as a comma separated list. Device Details for order item
-	// provides details on the devices of the product, Forward and Reverse Shipping details provide forward and reverse shipping
-	// details respectively.
-	Expand *string
-}
-
-// ManagementClientListAddressesAtResourceGroupLevelOptions contains the optional parameters for the ManagementClient.NewListAddressesAtResourceGroupLevelPager
-// method.
-type ManagementClientListAddressesAtResourceGroupLevelOptions struct {
-	// $filter is supported to filter based on shipping address properties. Filter supports only equals operation.
-	Filter *string
-	// $skipToken is supported on Get list of addresses, which provides the next page in the list of address.
-	SkipToken *string
-}
-
-// ManagementClientListAddressesAtSubscriptionLevelOptions contains the optional parameters for the ManagementClient.NewListAddressesAtSubscriptionLevelPager
-// method.
-type ManagementClientListAddressesAtSubscriptionLevelOptions struct {
-	// $filter is supported to filter based on shipping address properties. Filter supports only equals operation.
-	Filter *string
-	// $skipToken is supported on Get list of addresses, which provides the next page in the list of addresses.
-	SkipToken *string
-}
-
-// ManagementClientListConfigurationsOptions contains the optional parameters for the ManagementClient.NewListConfigurationsPager
-// method.
-type ManagementClientListConfigurationsOptions struct {
-	// $skipToken is supported on list of configurations, which provides the next page in the list of configurations.
-	SkipToken *string
-}
-
-// ManagementClientListOperationsOptions contains the optional parameters for the ManagementClient.NewListOperationsPager
-// method.
-type ManagementClientListOperationsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementClientListOrderAtResourceGroupLevelOptions contains the optional parameters for the ManagementClient.NewListOrderAtResourceGroupLevelPager
-// method.
-type ManagementClientListOrderAtResourceGroupLevelOptions struct {
-	// $skipToken is supported on Get list of order, which provides the next page in the list of order.
-	SkipToken *string
-}
-
-// ManagementClientListOrderAtSubscriptionLevelOptions contains the optional parameters for the ManagementClient.NewListOrderAtSubscriptionLevelPager
-// method.
-type ManagementClientListOrderAtSubscriptionLevelOptions struct {
-	// $skipToken is supported on Get list of order, which provides the next page in the list of order.
-	SkipToken *string
-}
-
-// ManagementClientListOrderItemsAtResourceGroupLevelOptions contains the optional parameters for the ManagementClient.NewListOrderItemsAtResourceGroupLevelPager
-// method.
-type ManagementClientListOrderItemsAtResourceGroupLevelOptions struct {
-	// $expand is supported on device details, forward shipping details and reverse shipping details parameters. Each of these
-	// can be provided as a comma separated list. Device Details for order item
-	// provides details on the devices of the product, Forward and Reverse Shipping details provide forward and reverse shipping
-	// details respectively.
-	Expand *string
-	// $filter is supported to filter based on order id. Filter supports only equals operation.
-	Filter *string
-	// $skipToken is supported on Get list of order items, which provides the next page in the list of order items.
-	SkipToken *string
-}
-
-// ManagementClientListOrderItemsAtSubscriptionLevelOptions contains the optional parameters for the ManagementClient.NewListOrderItemsAtSubscriptionLevelPager
-// method.
-type ManagementClientListOrderItemsAtSubscriptionLevelOptions struct {
-	// $expand is supported on device details, forward shipping details and reverse shipping details parameters. Each of these
-	// can be provided as a comma separated list. Device Details for order item
-	// provides details on the devices of the product, Forward and Reverse Shipping details provide forward and reverse shipping
-	// details respectively.
-	Expand *string
-	// $filter is supported to filter based on order id. Filter supports only equals operation.
-	Filter *string
-	// $skipToken is supported on Get list of order items, which provides the next page in the list of order items.
-	SkipToken *string
-}
-
-// ManagementClientListProductFamiliesMetadataOptions contains the optional parameters for the ManagementClient.NewListProductFamiliesMetadataPager
-// method.
-type ManagementClientListProductFamiliesMetadataOptions struct {
-	// $skipToken is supported on list of product families metadata, which provides the next page in the list of product families
-	// metadata.
-	SkipToken *string
-}
-
-// ManagementClientListProductFamiliesOptions contains the optional parameters for the ManagementClient.NewListProductFamiliesPager
-// method.
-type ManagementClientListProductFamiliesOptions struct {
-	// $expand is supported on configurations parameter for product, which provides details on the configurations for the product.
-	Expand *string
-	// $skipToken is supported on list of product families, which provides the next page in the list of product families.
-	SkipToken *string
-}
-
-// ManagementResourcePreferences - Management resource preference to link device
+// ManagementResourcePreferences - Management resource preference to link device.
 type ManagementResourcePreferences struct {
-	// Customer preferred Management resource ARM ID
+	// Customer preferred Management resource ARM ID.
 	PreferredManagementResourceID *string
+}
+
+// MemoryBreakdown - Memory breakdown.
+type MemoryBreakdown struct {
+	// READ-ONLY; Host reserved for emergency scenarios.
+	Availability *string
+
+	// READ-ONLY; Total host reserved for emergency scenarios.
+	AvailabilityTotal *int32
+
+	// READ-ONLY; This is memory taken by csv(In-memory cache) and SBL cache.
+	CSVSbl *int64
+
+	// READ-ONLY; Future growth
+	FutureGrowth *int32
+
+	// READ-ONLY; Hosts reserved for emergency scenarios (e.g. maintenance, one node is down etc).
+	HighAvailability *int32
+
+	// READ-ONLY; Hyper V(4% system overhead is taken by Hyper-V
+	HyperV *int64
+
+	// READ-ONLY; Left over.
+	Leftover *int32
+
+	// READ-ONLY; The total memory needed to run your workloads.
+	Total *int32
+
+	// READ-ONLY; Number of VM * memory per VM.
+	Workloads *int64
+}
+
+// MemoryDetails - Represents Memory specific details.
+type MemoryDetails struct {
+	// READ-ONLY; List of DIMM (dual in-line memory module) slot sizes.
+	DimmSlotSizes []*int32
+
+	// READ-ONLY; List of DIMM (dual in-line memory module) slot sizes in bytes.
+	DimmSlotSizesBytes []*int64
+
+	// READ-ONLY; Flag to indicate if half DIMM (dual in-line memory module) slots are supported.
+	IsHalfDimmSlotsSupported *bool
+
+	// READ-ONLY; Maximum memory.
+	MaximumMemory *MemoryDetailsMaximumMemory
+
+	// READ-ONLY; Maximum memory in bytes.
+	MaximumMemoryBytes *int64
+
+	// READ-ONLY; Minimum memory.
+	MinimumMemory *MemoryDetailsMinimumMemory
+
+	// READ-ONLY; Minimum memory in bytes.
+	MinimumMemoryBytes *int64
+
+	// READ-ONLY; Number of DIMM (dual in-line memory module) slots.
+	NumberOfDimmSlots *int32
+}
+
+// MemoryDetailsMaximumMemory - Maximum memory.
+type MemoryDetailsMaximumMemory struct {
+	// REQUIRED; Amount of bytes in byte unit.
+	Amount *float64
+
+	// REQUIRED; Type of byte unit.
+	ByteUnit *ByteSizeByteUnit
+}
+
+// MemoryDetailsMinimumMemory - Minimum memory.
+type MemoryDetailsMinimumMemory struct {
+	// REQUIRED; Amount of bytes in byte unit.
+	Amount *float64
+
+	// REQUIRED; Type of byte unit.
+	ByteUnit *ByteSizeByteUnit
 }
 
 // MeterDetailsClassification provides polymorphic access to related types.
@@ -622,7 +1290,7 @@ type MeterDetailsClassification interface {
 	GetMeterDetails() *MeterDetails
 }
 
-// MeterDetails - Holds details about billing type and its meter guids
+// MeterDetails - Holds details about billing type and its meter guids.
 type MeterDetails struct {
 	// REQUIRED; Represents billing type.
 	BillingType *BillingType
@@ -630,12 +1298,48 @@ type MeterDetails struct {
 	// READ-ONLY; Charging type.
 	ChargingType *ChargingType
 
-	// READ-ONLY; Billing unit applicable for Pav2 billing
+	// READ-ONLY; Billing unit applicable for Pav2 billing.
 	Multiplier *float64
 }
 
 // GetMeterDetails implements the MeterDetailsClassification interface for type MeterDetails.
 func (m *MeterDetails) GetMeterDetails() *MeterDetails { return m }
+
+// MiscellaneousDetails - Represents miscellaneous configuration details.
+type MiscellaneousDetails struct {
+	// READ-ONLY; HBA (Host Bus Adapter) manufacturer name.
+	HbaManufacturer *string
+
+	// READ-ONLY; HBA (Host Bus Adapter) model name.
+	HbaModel *string
+}
+
+// NetworkPreference - Network preferences.
+type NetworkPreference struct {
+	// REQUIRED; Number of network controller to manage, configure, monitor, and troubleshoot virtual network infrastructure.
+	NetworkController *int32
+
+	// REQUIRED; Number of Ras gateway needed.
+	RasGateway *int32
+
+	// REQUIRED; Number of load balancer needed.
+	SoftwareLoadBalancer *int32
+
+	// REQUIRED; Use software defined networking to centrally configure and manage networks and network services.
+	UsesSoftwareDefinedNetwork *bool
+}
+
+// NetworkingDetails - Represents Networking specific details.
+type NetworkingDetails struct {
+	// READ-ONLY; Networking speed.
+	NetworkingSpeed *int32
+
+	// READ-ONLY; NIC vendor model.
+	NicVendorModel *string
+
+	// READ-ONLY; RDMA type.
+	RdmaType *string
+}
 
 // NotificationPreference - Notification preference for a job stage.
 type NotificationPreference struct {
@@ -695,7 +1399,12 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
-// OrderItemDetails - Order item details
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
+type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrderItemDetails - Order item details.
 type OrderItemDetails struct {
 	// REQUIRED; Order item type.
 	OrderItemType *OrderItemType
@@ -703,10 +1412,13 @@ type OrderItemDetails struct {
 	// REQUIRED; Unique identifier for configuration.
 	ProductDetails *ProductDetails
 
-	// Additional notification email list
+	// Additional notification email list.
 	NotificationEmailList []*string
 
-	// Customer notification Preferences
+	// Defines the mode of the Order item.
+	OrderItemMode *OrderMode
+
+	// Customer notification Preferences.
 	Preferences *Preferences
 
 	// READ-ONLY; Cancellation reason.
@@ -715,7 +1427,7 @@ type OrderItemDetails struct {
 	// READ-ONLY; Describes whether the order item is cancellable or not.
 	CancellationStatus *OrderItemCancellationEnum
 
-	// READ-ONLY; Current Order item Status
+	// READ-ONLY; Current Order item Status.
 	CurrentStage *StageDetails
 
 	// READ-ONLY; Describes whether the order item is deletable or not.
@@ -724,16 +1436,13 @@ type OrderItemDetails struct {
 	// READ-ONLY; Top level error for the job.
 	Error *ErrorDetail
 
-	// READ-ONLY; Forward Package Shipping details
+	// READ-ONLY; Forward Package Shipping details.
 	ForwardShippingDetails *ForwardShippingDetails
-
-	// READ-ONLY; Parent RP details - this returns only the first or default parent RP from the entire list
-	ManagementRpDetails *ResourceProviderDetails
 
 	// READ-ONLY; List of parent RP details supported for configuration.
 	ManagementRpDetailsList []*ResourceProviderDetails
 
-	// READ-ONLY; Order item status history
+	// READ-ONLY; Order item status history.
 	OrderItemStageHistory []*StageDetails
 
 	// READ-ONLY; Return reason.
@@ -742,32 +1451,35 @@ type OrderItemDetails struct {
 	// READ-ONLY; Describes whether the order item is returnable or not.
 	ReturnStatus *OrderItemReturnEnum
 
-	// READ-ONLY; Reverse Package Shipping details
+	// READ-ONLY; Reverse Package Shipping details.
 	ReverseShippingDetails *ReverseShippingDetails
 }
 
-// OrderItemProperties - Represents order item details.
+// OrderItemProperties - Represents order item properties.
 type OrderItemProperties struct {
-	// REQUIRED; Represents shipping and return address for order item
+	// REQUIRED; Represents shipping and return address for order item.
 	AddressDetails *AddressDetails
 
-	// REQUIRED; Id of the order to which order item belongs to
+	// REQUIRED; Id of the order to which order item belongs to.
 	OrderID *string
 
 	// REQUIRED; Represents order item details.
 	OrderItemDetails *OrderItemDetails
 
-	// READ-ONLY; Start time of order item
+	// READ-ONLY; Start time of order item.
 	StartTime *time.Time
 }
 
-// OrderItemResource - Represents order item contract
+// OrderItemResource - Represents order item resource.
 type OrderItemResource struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Order item properties
+	// REQUIRED; Order item properties.
 	Properties *OrderItemProperties
+
+	// Msi identity of the resource
+	Identity *ResourceIdentity
 
 	// Resource tags.
 	Tags map[string]*string
@@ -778,14 +1490,14 @@ type OrderItemResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Represents resource creation and update time
+	// READ-ONLY; Represents resource creation and update time.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// OrderItemResourceList - List of orderItems.
+// OrderItemResourceList - List of order items.
 type OrderItemResourceList struct {
 	// Link for the next set of order item resources.
 	NextLink *string
@@ -796,7 +1508,10 @@ type OrderItemResourceList struct {
 
 // OrderItemUpdateParameter - Updates order item parameters.
 type OrderItemUpdateParameter struct {
-	// Order item update properties
+	// Msi identity of the resource
+	Identity *ResourceIdentity
+
+	// Order item update properties.
 	Properties *OrderItemUpdateProperties
 
 	// The list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across
@@ -816,6 +1531,83 @@ type OrderItemUpdateProperties struct {
 	Preferences *Preferences
 }
 
+// OrderItemsClientBeginCreateOptions contains the optional parameters for the OrderItemsClient.BeginCreate method.
+type OrderItemsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// OrderItemsClientBeginDeleteOptions contains the optional parameters for the OrderItemsClient.BeginDelete method.
+type OrderItemsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// OrderItemsClientBeginReturnOptions contains the optional parameters for the OrderItemsClient.BeginReturn method.
+type OrderItemsClientBeginReturnOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// OrderItemsClientBeginUpdateOptions contains the optional parameters for the OrderItemsClient.BeginUpdate method.
+type OrderItemsClientBeginUpdateOptions struct {
+	// Defines the If-Match condition. The patch will be performed only if the ETag of the order on the server matches this value.
+	IfMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// OrderItemsClientCancelOptions contains the optional parameters for the OrderItemsClient.Cancel method.
+type OrderItemsClientCancelOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrderItemsClientGetOptions contains the optional parameters for the OrderItemsClient.Get method.
+type OrderItemsClientGetOptions struct {
+	// $expand is supported on parent device details, device details, forward shipping details and reverse shipping details parameters.
+	// Each of these can be provided as a comma separated list. Parent Device
+	// Details for order item provides details on the devices of the product, Device Details for order item provides details on
+	// the devices of the child configurations of the product, Forward and Reverse
+	// Shipping details provide forward and reverse shipping details respectively.
+	Expand *string
+}
+
+// OrderItemsClientListByResourceGroupOptions contains the optional parameters for the OrderItemsClient.NewListByResourceGroupPager
+// method.
+type OrderItemsClientListByResourceGroupOptions struct {
+	// $expand is supported on parent device details, device details, forward shipping details and reverse shipping details parameters.
+	// Each of these can be provided as a comma separated list. Parent Device
+	// Details for order item provides details on the devices of the product, Device Details for order item provides details on
+	// the devices of the child configurations of the product, Forward and Reverse
+	// Shipping details provide forward and reverse shipping details respectively.
+	Expand *string
+	// $filter is supported to filter based on order id. Filter supports only equals operation.
+	Filter *string
+	// $skipToken is supported on Get list of order items, which provides the next page in the list of order items.
+	SkipToken *string
+	// $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to
+	// the API caller.
+	Top *int32
+}
+
+// OrderItemsClientListBySubscriptionOptions contains the optional parameters for the OrderItemsClient.NewListBySubscriptionPager
+// method.
+type OrderItemsClientListBySubscriptionOptions struct {
+	// $expand is supported on parent device details, device details, forward shipping details and reverse shipping details parameters.
+	// Each of these can be provided as a comma separated list. Parent Device
+	// Details for order item provides details on the devices of the product, Device Details for order item provides details on
+	// the devices of the child configurations of the product, Forward and Reverse
+	// Shipping details provide forward and reverse shipping details respectively.
+	Expand *string
+	// $filter is supported to filter based on order id. Filter supports only equals operation.
+	Filter *string
+	// $skipToken is supported on Get list of order items, which provides the next page in the list of order items.
+	SkipToken *string
+	// $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to
+	// the API caller.
+	Top *int32
+}
+
 // OrderProperties - Represents order details.
 type OrderProperties struct {
 	// READ-ONLY; Order current status.
@@ -824,13 +1616,16 @@ type OrderProperties struct {
 	// READ-ONLY; List of order item ARM Ids which are part of an order.
 	OrderItemIDs []*string
 
+	// READ-ONLY; Order mode.
+	OrderMode *OrderMode
+
 	// READ-ONLY; Order status history.
 	OrderStageHistory []*StageDetails
 }
 
 // OrderResource - Specifies the properties or parameters for an order. Order is a grouping of one or more order items.
 type OrderResource struct {
-	// REQUIRED; Order properties
+	// REQUIRED; Order properties.
 	Properties *OrderProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -839,7 +1634,7 @@ type OrderResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Represents resource creation and update time
+	// READ-ONLY; Represents resource creation and update time.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -855,7 +1650,32 @@ type OrderResourceList struct {
 	Value []*OrderResource
 }
 
-// Pav2MeterDetails - Billing type PAV2 meter details
+// OrdersClientGetOptions contains the optional parameters for the OrdersClient.Get method.
+type OrdersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrdersClientListByResourceGroupOptions contains the optional parameters for the OrdersClient.NewListByResourceGroupPager
+// method.
+type OrdersClientListByResourceGroupOptions struct {
+	// $skipToken is supported on Get list of orders, which provides the next page in the list of orders.
+	SkipToken *string
+	// $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to
+	// the API caller.
+	Top *int32
+}
+
+// OrdersClientListBySubscriptionOptions contains the optional parameters for the OrdersClient.NewListBySubscriptionPager
+// method.
+type OrdersClientListBySubscriptionOptions struct {
+	// $skipToken is supported on Get list of orders, which provides the next page in the list of orders.
+	SkipToken *string
+	// $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to
+	// the API caller.
+	Top *int32
+}
+
+// Pav2MeterDetails - Billing type PAV2 meter details.
 type Pav2MeterDetails struct {
 	// REQUIRED; Represents billing type.
 	BillingType *BillingType
@@ -866,7 +1686,7 @@ type Pav2MeterDetails struct {
 	// READ-ONLY; Validation status of requested data center and transport.
 	MeterGUID *string
 
-	// READ-ONLY; Billing unit applicable for Pav2 billing
+	// READ-ONLY; Billing unit applicable for Pav2 billing.
 	Multiplier *float64
 }
 
@@ -879,7 +1699,522 @@ func (p *Pav2MeterDetails) GetMeterDetails() *MeterDetails {
 	}
 }
 
-// Preferences related to the order
+// PlatformConfigurationProperties - Represents configuration details.
+type PlatformConfigurationProperties struct {
+	// REQUIRED; Unique Id representing the configuration.
+	ConfigurationID *string
+
+	// REQUIRED; Name of the configuration.
+	ConfigurationName *string
+
+	// REQUIRED; Flag to indicate if the configuration is archived.
+	IsArchived *bool
+
+	// REQUIRED; Flag to indicate if the configuration is a single node configuration.
+	IsSingleNodeConfiguration *bool
+
+	// REQUIRED; Platform id.
+	PlatformID *string
+
+	// REQUIRED; Platform name.
+	PlatformName *string
+
+	// REQUIRED; Vendor id.
+	VendorID *string
+
+	// REQUIRED; Vendor name.
+	VendorName *string
+
+	// READ-ONLY; CPU specific details.
+	CPUDetails *PlatformConfigurationPropertiesCPUDetails
+
+	// READ-ONLY; GPU specific details.
+	GpuDetails *PlatformConfigurationPropertiesGpuDetails
+
+	// READ-ONLY; Memory specific details.
+	MemoryDetails *PlatformConfigurationPropertiesMemoryDetails
+
+	// READ-ONLY; Miscellaneous configuration details.
+	MiscellaneousDetails *PlatformConfigurationPropertiesMiscellaneousDetails
+
+	// READ-ONLY; Networking specific details.
+	NetworkingDetails *PlatformConfigurationPropertiesNetworkingDetails
+
+	// READ-ONLY; Storage specific details.
+	StorageDetails *PlatformConfigurationPropertiesStorageDetails
+}
+
+// PlatformConfigurationPropertiesCPUDetails - CPU specific details.
+type PlatformConfigurationPropertiesCPUDetails struct {
+	// READ-ONLY; List of cores per socket.
+	CoresPerSocket []*int32
+
+	// READ-ONLY; Maximum number of cores.
+	MaximumCores *int32
+
+	// READ-ONLY; Minimum number of cores.
+	MinimumCores *int32
+
+	// READ-ONLY; Total sockets supported.
+	TotalSocketsSupported *int32
+}
+
+// PlatformConfigurationPropertiesGpuDetails - GPU specific details.
+type PlatformConfigurationPropertiesGpuDetails struct {
+	// READ-ONLY; List of GPU DDA.
+	GpuDda []*string
+
+	// READ-ONLY; GPU Mfg model.
+	GpuMfgModel *string
+
+	// READ-ONLY; List of GPU-P.
+	GpuP []*string
+
+	// READ-ONLY; Flag to indicate whether GPU is supported.
+	IsGpuSupported *bool
+}
+
+// PlatformConfigurationPropertiesMemoryDetails - Memory specific details.
+type PlatformConfigurationPropertiesMemoryDetails struct {
+	// READ-ONLY; List of DIMM (dual in-line memory module) slot sizes.
+	DimmSlotSizes []*int32
+
+	// READ-ONLY; List of DIMM (dual in-line memory module) slot sizes in bytes.
+	DimmSlotSizesBytes []*int64
+
+	// READ-ONLY; Flag to indicate if half DIMM (dual in-line memory module) slots are supported.
+	IsHalfDimmSlotsSupported *bool
+
+	// READ-ONLY; Maximum memory.
+	MaximumMemory *MemoryDetailsMaximumMemory
+
+	// READ-ONLY; Maximum memory in bytes.
+	MaximumMemoryBytes *int64
+
+	// READ-ONLY; Minimum memory.
+	MinimumMemory *MemoryDetailsMinimumMemory
+
+	// READ-ONLY; Minimum memory in bytes.
+	MinimumMemoryBytes *int64
+
+	// READ-ONLY; Number of DIMM (dual in-line memory module) slots.
+	NumberOfDimmSlots *int32
+}
+
+// PlatformConfigurationPropertiesMiscellaneousDetails - Miscellaneous configuration details.
+type PlatformConfigurationPropertiesMiscellaneousDetails struct {
+	// READ-ONLY; HBA (Host Bus Adapter) manufacturer name.
+	HbaManufacturer *string
+
+	// READ-ONLY; HBA (Host Bus Adapter) model name.
+	HbaModel *string
+}
+
+// PlatformConfigurationPropertiesNetworkingDetails - Networking specific details.
+type PlatformConfigurationPropertiesNetworkingDetails struct {
+	// READ-ONLY; Networking speed.
+	NetworkingSpeed *int32
+
+	// READ-ONLY; NIC vendor model.
+	NicVendorModel *string
+
+	// READ-ONLY; RDMA type.
+	RdmaType *string
+}
+
+// PlatformConfigurationPropertiesStorageDetails - Storage specific details.
+type PlatformConfigurationPropertiesStorageDetails struct {
+	// READ-ONLY; Cache drive specific details.
+	CacheDriveDetails *StorageDetailsCacheDriveDetails
+
+	// READ-ONLY; Capacity drive specific details.
+	CapacityDriveDetails *StorageDetailsCapacityDriveDetails
+
+	// READ-ONLY; Maximum storage.
+	MaximumStorage *StorageDetailsMaximumStorage
+
+	// READ-ONLY; Minimum storage.
+	MinimumStorage *StorageDetailsMinimumStorage
+
+	// READ-ONLY; Minimum storage in bytes.
+	MinimumStorageBytes *int64
+
+	// READ-ONLY; Types of storage drives.
+	StorageDrives []*string
+
+	// READ-ONLY; Maximum storage in bytes.
+	StorageMaxBytes *int64
+}
+
+// PlatformImageDetails - Represents Platform image details.
+type PlatformImageDetails struct {
+	// READ-ONLY; List of images.
+	Images []*string
+
+	// READ-ONLY; Thumbnail image.
+	ThumbnailImage *string
+}
+
+// PlatformProperties - Represents platform details.
+type PlatformProperties struct {
+	// REQUIRED; Flag to indicate if the platform is archived.
+	IsArchived *bool
+
+	// REQUIRED; Flag to indicate if the platform supports P-Memory.
+	IsPMemorySupported *bool
+
+	// REQUIRED; Unique Id representing the platform.
+	PlatformID *string
+
+	// REQUIRED; Platform name.
+	PlatformName *string
+
+	// REQUIRED; Identifies system configuration, can be integratedSystem, ValidatedNode, Premium, etc
+	SystemType *string
+
+	// REQUIRED; Vendor Id.
+	VendorID *string
+
+	// REQUIRED; Vendor name.
+	VendorName *string
+
+	// REQUIRED; Website Url.
+	WebsiteURL *string
+
+	// READ-ONLY; Alternate solution details.
+	AlternateSolutionDetails *PlatformPropertiesAlternateSolutionDetails
+
+	// READ-ONLY; CPU Family.
+	CPUFamily *string
+
+	// READ-ONLY; CPU model.
+	CPUModel *string
+
+	// READ-ONLY; List of configurations.
+	Configurations []*PlatformConfigurationProperties
+
+	// READ-ONLY; List of supported features.
+	FeaturesSupported []*string
+
+	// READ-ONLY; Form factor.
+	FormFactor *string
+
+	// READ-ONLY; List of GPU mfg models.
+	GpuMfgModels []*string
+
+	// READ-ONLY; Hardware as a Service details.
+	HWaaSDetails *PlatformPropertiesHWaaSDetails
+
+	// READ-ONLY; Image details.
+	ImageDetails *PlatformPropertiesImageDetails
+
+	// READ-ONLY; Flag to indicate if the platform supports GPU.
+	IsGpuSupported *bool
+
+	// READ-ONLY; Last tested version.
+	LastTestedVersion *string
+
+	// READ-ONLY; Lifecycle stage.
+	LifecycleStage *int32
+
+	// READ-ONLY; Maximum scale.
+	MaximumScale *int32
+
+	// READ-ONLY; Minimum scale.
+	MinimumScale *int32
+
+	// READ-ONLY; Number of rack units.
+	RackUnits *int32
+
+	// READ-ONLY; List of availability regions.
+	Regions []*string
+
+	// READ-ONLY; SDN NIC details.
+	SdnNicDetails *PlatformPropertiesSdnNicDetails
+
+	// READ-ONLY; Server description.
+	ServerDescription *string
+
+	// READ-ONLY; SMBIOS details.
+	SmbiosDetails *PlatformPropertiesSmbiosDetails
+
+	// READ-ONLY; List of storage drive types.
+	StorageDrives []*string
+
+	// READ-ONLY; List of technical use-cases.
+	TechnicalUseCases []*string
+
+	// READ-ONLY; Unsupported date.
+	UnsupportedDate *string
+
+	// READ-ONLY; Windows Admin Center (WAC) details.
+	WindowsAdminCenterDetails *PlatformPropertiesWindowsAdminCenterDetails
+}
+
+// PlatformPropertiesAlternateSolutionDetails - Alternate solution details.
+type PlatformPropertiesAlternateSolutionDetails struct {
+	// READ-ONLY; Alternate solution id.
+	AlternativeSolutionID *string
+
+	// READ-ONLY; Alternate solution name.
+	AlternativeSolutionName *string
+}
+
+// PlatformPropertiesHWaaSDetails - Hardware as a Service details.
+type PlatformPropertiesHWaaSDetails struct {
+	// READ-ONLY; Hardware as a Service Description.
+	HWaaSDescription *string
+
+	// READ-ONLY; Hardware as a Service link.
+	HWaaSLink *string
+
+	// READ-ONLY; Hardware as a Service name.
+	HWaaSName *string
+
+	// READ-ONLY; Flag to indicate if the platform supports Hardware as a Service.
+	IsHWaaSSupported *bool
+}
+
+// PlatformPropertiesImageDetails - Image details.
+type PlatformPropertiesImageDetails struct {
+	// READ-ONLY; List of images.
+	Images []*string
+
+	// READ-ONLY; Thumbnail image.
+	ThumbnailImage *string
+}
+
+// PlatformPropertiesSdnNicDetails - SDN NIC details.
+type PlatformPropertiesSdnNicDetails struct {
+	// READ-ONLY; Flag to indicate if the platform supports SDN NIC.
+	IsSdnNicSupported *bool
+
+	// READ-ONLY; List of SDN NIC vendor models.
+	SdnNicVendorModels []*string
+}
+
+// PlatformPropertiesSmbiosDetails - SMBIOS details.
+type PlatformPropertiesSmbiosDetails struct {
+	// READ-ONLY; OEM model name.
+	OemModel *string
+
+	// READ-ONLY; OEM sub-model name.
+	OemSubModel *string
+}
+
+// PlatformPropertiesWindowsAdminCenterDetails - Windows Admin Center (WAC) details.
+type PlatformPropertiesWindowsAdminCenterDetails struct {
+	// READ-ONLY; Windows Admin Center description.
+	Description *string
+
+	// READ-ONLY; Windows Admin Center name.
+	Name *string
+
+	// READ-ONLY; Windows Admin Center name website link.
+	WebsiteLink *string
+}
+
+// PlatformResource - Specifies the properties for Platform in HCI Catalog.
+type PlatformResource struct {
+	// REQUIRED; Platform properties.
+	Properties *PlatformResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PlatformResourceList - List of platforms.
+type PlatformResourceList struct {
+	// Link for the next set of platform resources.
+	NextLink *string
+
+	// READ-ONLY; List of platform resources.
+	Value []*PlatformResource
+}
+
+// PlatformResourceProperties - Platform properties.
+type PlatformResourceProperties struct {
+	// REQUIRED; Flag to indicate if the platform is archived.
+	IsArchived *bool
+
+	// REQUIRED; Flag to indicate if the platform supports P-Memory.
+	IsPMemorySupported *bool
+
+	// REQUIRED; Unique Id representing the platform.
+	PlatformID *string
+
+	// REQUIRED; Platform name.
+	PlatformName *string
+
+	// REQUIRED; Identifies system configuration, can be integratedSystem, ValidatedNode, Premium, etc
+	SystemType *string
+
+	// REQUIRED; Vendor Id.
+	VendorID *string
+
+	// REQUIRED; Vendor name.
+	VendorName *string
+
+	// REQUIRED; Website Url.
+	WebsiteURL *string
+
+	// READ-ONLY; Alternate solution details.
+	AlternateSolutionDetails *PlatformPropertiesAlternateSolutionDetails
+
+	// READ-ONLY; CPU Family.
+	CPUFamily *string
+
+	// READ-ONLY; CPU model.
+	CPUModel *string
+
+	// READ-ONLY; List of configurations.
+	Configurations []*PlatformConfigurationProperties
+
+	// READ-ONLY; List of supported features.
+	FeaturesSupported []*string
+
+	// READ-ONLY; Form factor.
+	FormFactor *string
+
+	// READ-ONLY; List of GPU mfg models.
+	GpuMfgModels []*string
+
+	// READ-ONLY; Hardware as a Service details.
+	HWaaSDetails *PlatformPropertiesHWaaSDetails
+
+	// READ-ONLY; Image details.
+	ImageDetails *PlatformPropertiesImageDetails
+
+	// READ-ONLY; Flag to indicate if the platform supports GPU.
+	IsGpuSupported *bool
+
+	// READ-ONLY; Last tested version.
+	LastTestedVersion *string
+
+	// READ-ONLY; Lifecycle stage.
+	LifecycleStage *int32
+
+	// READ-ONLY; Maximum scale.
+	MaximumScale *int32
+
+	// READ-ONLY; Minimum scale.
+	MinimumScale *int32
+
+	// READ-ONLY; Number of rack units.
+	RackUnits *int32
+
+	// READ-ONLY; List of availability regions.
+	Regions []*string
+
+	// READ-ONLY; SDN NIC details.
+	SdnNicDetails *PlatformPropertiesSdnNicDetails
+
+	// READ-ONLY; Server description.
+	ServerDescription *string
+
+	// READ-ONLY; SMBIOS details.
+	SmbiosDetails *PlatformPropertiesSmbiosDetails
+
+	// READ-ONLY; List of storage drive types.
+	StorageDrives []*string
+
+	// READ-ONLY; List of technical use-cases.
+	TechnicalUseCases []*string
+
+	// READ-ONLY; Unsupported date.
+	UnsupportedDate *string
+
+	// READ-ONLY; Windows Admin Center (WAC) details.
+	WindowsAdminCenterDetails *PlatformPropertiesWindowsAdminCenterDetails
+}
+
+// PreferenceDetails - Preference details.
+type PreferenceDetails struct {
+	// REQUIRED; Cpu Family, Currently Intel, AMD.
+	CPUFamily *string
+
+	// REQUIRED; Growth Percentage.
+	GrowthPercentage *int32
+
+	// REQUIRED; If require memory expandability, it reserve DIMM slots for future growth (only fill half the DIMM slots in your
+	// solution.
+	MemoryExpandability *bool
+
+	// REQUIRED; If require storage expandability, reserve drive bays for future growth (leave half of the drives empty for future
+	// growth) .
+	StorageExpandability *bool
+
+	// REQUIRED; Percentage needed to be reserved for future growth.
+	StorageFutureGrowthBytes *int32
+
+	// REQUIRED; SystemType, IntegratedSystem, ValidatedNode, Premium.
+	SystemType *string
+
+	// REQUIRED; vendor id.
+	VendorID *string
+
+	// Is 2 node solution.
+	IsTwoNodeSolution *bool
+
+	// Network Preferences.
+	NetworkPreference *PreferenceDetailsNetworkPreference
+
+	// failure tolerate capabilities.
+	ResiliencyRequirements *PreferenceDetailsResiliencyRequirements
+
+	// Storage preferences.
+	StoragePreference *PreferenceDetailsStoragePreference
+
+	// Details of your on-premises workloads. This information will be used to understand and recommend a solution.
+	Workloads []*Workload
+}
+
+// PreferenceDetailsNetworkPreference - Network Preferences.
+type PreferenceDetailsNetworkPreference struct {
+	// REQUIRED; Number of network controller to manage, configure, monitor, and troubleshoot virtual network infrastructure.
+	NetworkController *int32
+
+	// REQUIRED; Number of Ras gateway needed.
+	RasGateway *int32
+
+	// REQUIRED; Number of load balancer needed.
+	SoftwareLoadBalancer *int32
+
+	// REQUIRED; Use software defined networking to centrally configure and manage networks and network services.
+	UsesSoftwareDefinedNetwork *bool
+}
+
+// PreferenceDetailsResiliencyRequirements - failure tolerate capabilities.
+type PreferenceDetailsResiliencyRequirements struct {
+	// REQUIRED; Reserve additional host for emergency scenarios, N+1, N+2.
+	Availability *string
+
+	// REQUIRED; Number of failures that can occur simultaneously without compromising availability and data.
+	StorageFailuresToTolerate *int32
+}
+
+// PreferenceDetailsStoragePreference - Storage preferences.
+type PreferenceDetailsStoragePreference struct {
+	// REQUIRED; Resiliency preference, optimized for capacity or performance.
+	InMemoryCacheSizeInGB *int32
+
+	// REQUIRED; Cache choice.
+	PersistentCache *string
+
+	// REQUIRED; Resiliency preference, optimized for capacity or performance.
+	ResiliencyPreference *string
+
+	// REQUIRED; Storage type.
+	StorageType *string
+}
+
+// Preferences related to the order.
 type Preferences struct {
 	// Preferences related to the Encryption.
 	EncryptionPreferences *EncryptionPreferences
@@ -890,32 +2225,44 @@ type Preferences struct {
 	// Notification preferences.
 	NotificationPreferences []*NotificationPreference
 
+	// Preferences related to the Term commitment.
+	TermCommitmentPreferences *TermCommitmentPreferences
+
 	// Preferences related to the shipment logistics of the order.
 	TransportPreferences *TransportPreferences
 }
 
-// Product - List of Products
+// Product - Represents a product.
 type Product struct {
-	// READ-ONLY; Properties of product
+	// READ-ONLY; Properties of product.
 	Properties *ProductProperties
 }
 
-// ProductDetails - Represents product details
+// ProductDetails - Represents product details.
 type ProductDetails struct {
-	// REQUIRED; Hierarchy of the product which uniquely identifies the product
+	// REQUIRED; Hierarchy of the product which uniquely identifies the product.
 	HierarchyInformation *HierarchyInformation
 
-	// Display details of the product
+	// Display details of the product.
 	DisplayInfo *DisplayInfo
 
-	// READ-ONLY; Quantity of the product
-	Count *int32
+	// List of additional configurations customer wants in the order item apart from the ones included in the base configuration.
+	OptInAdditionalConfigurations []*AdditionalConfiguration
 
-	// READ-ONLY; list of device details
-	DeviceDetails []*DeviceDetails
+	// READ-ONLY; Details of all child configurations that are part of the order item.
+	ChildConfigurationDeviceDetails []*ConfigurationDeviceDetails
+
+	// READ-ONLY; Identification type of the configuration.
+	IdentificationType *IdentificationType
+
+	// READ-ONLY; Device details of the parent configuration.
+	ParentDeviceDetails *DeviceDetails
 
 	// READ-ONLY; Double encryption status of the configuration. Read-only field.
 	ProductDoubleEncryptionStatus *DoubleEncryptionStatus
+
+	// READ-ONLY; Term Commitment Information of the Device.
+	TermCommitmentInformation *TermCommitmentInformation
 }
 
 // ProductFamilies - The list of product families.
@@ -927,7 +2274,7 @@ type ProductFamilies struct {
 	Value []*ProductFamily
 }
 
-// ProductFamiliesMetadata - Holds details about product family metadata
+// ProductFamiliesMetadata - Holds details about product family metadata.
 type ProductFamiliesMetadata struct {
 	// READ-ONLY; Link for the next set of product families.
 	NextLink *string
@@ -938,7 +2285,7 @@ type ProductFamiliesMetadata struct {
 
 // ProductFamiliesMetadataDetails - Product families metadata details.
 type ProductFamiliesMetadataDetails struct {
-	// READ-ONLY; Product family properties
+	// READ-ONLY; Product family properties.
 	Properties *ProductFamilyProperties
 }
 
@@ -948,19 +2295,19 @@ type ProductFamiliesRequest struct {
 	FilterableProperties map[string][]*FilterableProperty
 
 	// Customer subscription properties. Clients can display available products to unregistered customers by explicitly passing
-	// subscription details
+	// subscription details.
 	CustomerSubscriptionDetails *CustomerSubscriptionDetails
 }
 
-// ProductFamily - Product Family
+// ProductFamily - Product Family.
 type ProductFamily struct {
-	// READ-ONLY; Properties of product family
+	// READ-ONLY; Properties of product family.
 	Properties *ProductFamilyProperties
 }
 
-// ProductFamilyProperties - Properties of product family
+// ProductFamilyProperties - Properties of product family.
 type ProductFamilyProperties struct {
-	// Contains details related to resource provider
+	// Contains details related to resource provider.
 	ResourceProviderDetails []*ResourceProviderDetails
 
 	// READ-ONLY; Availability information of the product system.
@@ -975,8 +2322,11 @@ type ProductFamilyProperties struct {
 	// READ-ONLY; Display Name for the product system.
 	DisplayName *string
 
-	// READ-ONLY; list of filters supported for a product
+	// READ-ONLY; List of filters supported for a product.
 	FilterableProperties []*FilterableProperty
+
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
 
 	// READ-ONLY; Hierarchy information of a product.
 	HierarchyInformation *HierarchyInformation
@@ -984,17 +2334,17 @@ type ProductFamilyProperties struct {
 	// READ-ONLY; Image information for the product system.
 	ImageInformation []*ImageInformation
 
-	// READ-ONLY; List of product lines supported in the product family
+	// READ-ONLY; List of product lines supported in the product family.
 	ProductLines []*ProductLine
 }
 
-// ProductLine - Product line
+// ProductLine - Product line.
 type ProductLine struct {
-	// READ-ONLY; Properties of product line
+	// READ-ONLY; Properties of product line.
 	Properties *ProductLineProperties
 }
 
-// ProductLineProperties - Properties of product line
+// ProductLineProperties - Properties of product line.
 type ProductLineProperties struct {
 	// READ-ONLY; Availability information of the product system.
 	AvailabilityInformation *AvailabilityInformation
@@ -1008,8 +2358,11 @@ type ProductLineProperties struct {
 	// READ-ONLY; Display Name for the product system.
 	DisplayName *string
 
-	// READ-ONLY; list of filters supported for a product
+	// READ-ONLY; List of filters supported for a product.
 	FilterableProperties []*FilterableProperty
+
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
 
 	// READ-ONLY; Hierarchy information of a product.
 	HierarchyInformation *HierarchyInformation
@@ -1017,16 +2370,16 @@ type ProductLineProperties struct {
 	// READ-ONLY; Image information for the product system.
 	ImageInformation []*ImageInformation
 
-	// READ-ONLY; List of products in the product line
+	// READ-ONLY; List of products in the product line.
 	Products []*Product
 }
 
-// ProductProperties - Properties of products
+// ProductProperties - Properties of product.
 type ProductProperties struct {
 	// READ-ONLY; Availability information of the product system.
 	AvailabilityInformation *AvailabilityInformation
 
-	// READ-ONLY; List of configurations for the product
+	// READ-ONLY; List of configurations for the product.
 	Configurations []*Configuration
 
 	// READ-ONLY; Cost information for the product system.
@@ -1038,14 +2391,195 @@ type ProductProperties struct {
 	// READ-ONLY; Display Name for the product system.
 	DisplayName *string
 
-	// READ-ONLY; list of filters supported for a product
+	// READ-ONLY; List of filters supported for a product.
 	FilterableProperties []*FilterableProperty
+
+	// READ-ONLY; The entity responsible for fulfillment of the item at the given hierarchy level.
+	FulfilledBy *FulfillmentType
 
 	// READ-ONLY; Hierarchy information of a product.
 	HierarchyInformation *HierarchyInformation
 
 	// READ-ONLY; Image information for the product system.
 	ImageInformation []*ImageInformation
+}
+
+// ProductsAndConfigurationsClientListConfigurationsOptions contains the optional parameters for the ProductsAndConfigurationsClient.NewListConfigurationsPager
+// method.
+type ProductsAndConfigurationsClientListConfigurationsOptions struct {
+	// $skipToken is supported on list of configurations, which provides the next page in the list of configurations.
+	SkipToken *string
+}
+
+// ProductsAndConfigurationsClientListProductFamiliesMetadataOptions contains the optional parameters for the ProductsAndConfigurationsClient.NewListProductFamiliesMetadataPager
+// method.
+type ProductsAndConfigurationsClientListProductFamiliesMetadataOptions struct {
+	// $skipToken is supported on list of product families metadata, which provides the next page in the list of product families
+	// metadata.
+	SkipToken *string
+}
+
+// ProductsAndConfigurationsClientListProductFamiliesOptions contains the optional parameters for the ProductsAndConfigurationsClient.NewListProductFamiliesPager
+// method.
+type ProductsAndConfigurationsClientListProductFamiliesOptions struct {
+	// $expand is supported on configurations parameter for product, which provides details on the configurations for the product.
+	Expand *string
+	// $skipToken is supported on list of product families, which provides the next page in the list of product families.
+	SkipToken *string
+}
+
+// ProjectProperties - Project properties
+type ProjectProperties struct {
+	// REQUIRED; Preference details.
+	PreferenceDetails *ProjectPropertiesPreferenceDetails
+
+	// Project name.
+	ProjectNotes *string
+}
+
+// ProjectPropertiesPreferenceDetails - Preference details.
+type ProjectPropertiesPreferenceDetails struct {
+	// REQUIRED; Cpu Family, Currently Intel, AMD.
+	CPUFamily *string
+
+	// REQUIRED; Growth Percentage.
+	GrowthPercentage *int32
+
+	// REQUIRED; If require memory expandability, it reserve DIMM slots for future growth (only fill half the DIMM slots in your
+	// solution.
+	MemoryExpandability *bool
+
+	// REQUIRED; If require storage expandability, reserve drive bays for future growth (leave half of the drives empty for future
+	// growth) .
+	StorageExpandability *bool
+
+	// REQUIRED; Percentage needed to be reserved for future growth.
+	StorageFutureGrowthBytes *int32
+
+	// REQUIRED; SystemType, IntegratedSystem, ValidatedNode, Premium.
+	SystemType *string
+
+	// REQUIRED; vendor id.
+	VendorID *string
+
+	// Is 2 node solution.
+	IsTwoNodeSolution *bool
+
+	// Network Preferences.
+	NetworkPreference *PreferenceDetailsNetworkPreference
+
+	// failure tolerate capabilities.
+	ResiliencyRequirements *PreferenceDetailsResiliencyRequirements
+
+	// Storage preferences.
+	StoragePreference *PreferenceDetailsStoragePreference
+
+	// Details of your on-premises workloads. This information will be used to understand and recommend a solution.
+	Workloads []*Workload
+}
+
+// ProjectResource - Specifies the properties for Project in HCI Catalog.
+type ProjectResource struct {
+	// REQUIRED; Project properties.
+	Properties *ProjectResourceProperties
+
+	// READ-ONLY; Id of the object.
+	ID *string
+
+	// READ-ONLY; Name of the object.
+	Name *string
+
+	// READ-ONLY; Represents resource creation and update time.
+	SystemData *SystemData
+
+	// READ-ONLY; Type of the object.
+	Type *string
+}
+
+// ProjectResourceList - Project resource list.
+type ProjectResourceList struct {
+	// Link for the next set of project resources.
+	NextLink *string
+
+	// READ-ONLY; List of project resources.
+	Value []*ProjectResource
+}
+
+// ProjectResourceProperties - Project properties.
+type ProjectResourceProperties struct {
+	// REQUIRED; Preference details.
+	PreferenceDetails *ProjectPropertiesPreferenceDetails
+
+	// Project name.
+	ProjectNotes *string
+}
+
+// ProjectUpdateParameter - Updates project.
+type ProjectUpdateParameter struct {
+	// Project update properties.
+	Properties *ProjectUpdateParameterProperties
+
+	// READ-ONLY; Represents resource creation and update time.
+	SystemData *SystemData
+}
+
+// ProjectUpdateParameterProperties - Project update properties.
+type ProjectUpdateParameterProperties struct {
+	// REQUIRED; Preference details.
+	PreferenceDetails *ProjectUpdatePropertiesPreferenceDetails
+
+	// Project notes.
+	ProjectNotes *string
+}
+
+// ProjectUpdateProperties - Project update properties.
+type ProjectUpdateProperties struct {
+	// REQUIRED; Preference details.
+	PreferenceDetails *ProjectUpdatePropertiesPreferenceDetails
+
+	// Project notes.
+	ProjectNotes *string
+}
+
+// ProjectUpdatePropertiesPreferenceDetails - Preference details.
+type ProjectUpdatePropertiesPreferenceDetails struct {
+	// REQUIRED; Cpu Family, Currently Intel, AMD.
+	CPUFamily *string
+
+	// REQUIRED; Growth Percentage.
+	GrowthPercentage *int32
+
+	// REQUIRED; If require memory expandability, it reserve DIMM slots for future growth (only fill half the DIMM slots in your
+	// solution.
+	MemoryExpandability *bool
+
+	// REQUIRED; If require storage expandability, reserve drive bays for future growth (leave half of the drives empty for future
+	// growth) .
+	StorageExpandability *bool
+
+	// REQUIRED; Percentage needed to be reserved for future growth.
+	StorageFutureGrowthBytes *int32
+
+	// REQUIRED; SystemType, IntegratedSystem, ValidatedNode, Premium.
+	SystemType *string
+
+	// REQUIRED; vendor id.
+	VendorID *string
+
+	// Is 2 node solution.
+	IsTwoNodeSolution *bool
+
+	// Network Preferences.
+	NetworkPreference *PreferenceDetailsNetworkPreference
+
+	// failure tolerate capabilities.
+	ResiliencyRequirements *PreferenceDetailsResiliencyRequirements
+
+	// Storage preferences.
+	StoragePreference *PreferenceDetailsStoragePreference
+
+	// Details of your on-premises workloads. This information will be used to understand and recommend a solution.
+	Workloads []*Workload
 }
 
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
@@ -1061,7 +2595,7 @@ type ProxyResource struct {
 	Type *string
 }
 
-// PurchaseMeterDetails - Billing type Purchase meter details
+// PurchaseMeterDetails - Billing type Purchase meter details.
 type PurchaseMeterDetails struct {
 	// REQUIRED; Represents billing type.
 	BillingType *BillingType
@@ -1069,16 +2603,16 @@ type PurchaseMeterDetails struct {
 	// READ-ONLY; Charging type.
 	ChargingType *ChargingType
 
-	// READ-ONLY; Billing unit applicable for Pav2 billing
+	// READ-ONLY; Billing unit applicable for Pav2 billing.
 	Multiplier *float64
 
-	// READ-ONLY; Product Id
+	// READ-ONLY; Product Id.
 	ProductID *string
 
-	// READ-ONLY; Sku Id
+	// READ-ONLY; Sku Id.
 	SKUID *string
 
-	// READ-ONLY; Term Id
+	// READ-ONLY; Term Id.
 	TermID *string
 }
 
@@ -1089,6 +2623,287 @@ func (p *PurchaseMeterDetails) GetMeterDetails() *MeterDetails {
 		Multiplier:   p.Multiplier,
 		ChargingType: p.ChargingType,
 	}
+}
+
+// RecommendedSolution - Recommended Solution
+type RecommendedSolution struct {
+	// REQUIRED; Cpu breakdown.
+	CPUBreakdown *RecommendedSolutionCPUBreakdown
+
+	// REQUIRED; Memory breakdown.
+	MemoryBreakdown *RecommendedSolutionMemoryBreakdown
+
+	// REQUIRED; Platform id.
+	PlatformID *string
+
+	// REQUIRED; Storage breakdown.
+	StorageBreakdown *RecommendedSolutionStorageBreakdown
+
+	// REQUIRED; Vendor id.
+	VendorID *string
+
+	// READ-ONLY; Cpu family.
+	CPUFamily *string
+
+	// READ-ONLY; Cache storage
+	CacheStorage *int64
+
+	// READ-ONLY; Cache storage drives
+	CacheStorageDrives *int32
+
+	// READ-ONLY; Cache storage per drive.
+	CacheStoragePerDrive *int64
+
+	// READ-ONLY; Cache storage per node.
+	CacheStoragePerNode *int64
+
+	// READ-ONLY; Cache storage type.
+	CacheStorageType *string
+
+	// READ-ONLY; Capacity storage.
+	CapacityStorage *int64
+
+	// READ-ONLY; Capacity storage drives.
+	CapacityStorageDrives *int64
+
+	// READ-ONLY; Capacity storage per drive.
+	CapacityStoragePerDrive *int64
+
+	// READ-ONLY; Capacity storage per node.
+	CapacityStoragePerNode *int64
+
+	// READ-ONLY; Capacity storage type.
+	CapacityStorageType *string
+
+	// READ-ONLY; Core count.
+	CoreCount *int32
+
+	// READ-ONLY; Cores per node.
+	CoresPerNode *int32
+
+	// READ-ONLY; Cores per socket.
+	CoresPerSocket *int32
+
+	// READ-ONLY; Memory per node.
+	MemoryPerNode *int64
+
+	// READ-ONLY; Memory per slot.
+	MemoryPerSlot *int64
+
+	// READ-ONLY; Memory slots.
+	MemorySlots *int32
+
+	// READ-ONLY; Number of nodes.
+	NumberOfNodes *int32
+
+	// READ-ONLY; Platform properties.
+	PlatformProperties *RecommendedSolutionPlatformProperties
+
+	// READ-ONLY; Sockets filled.
+	SocketsFilled *int32
+
+	// READ-ONLY; Solution configuration id
+	SolutionConfigurationID *int32
+
+	// READ-ONLY; Vendor properties.
+	VendorProperties *RecommendedSolutionVendorProperties
+}
+
+// RecommendedSolutionCPUBreakdown - Cpu breakdown.
+type RecommendedSolutionCPUBreakdown struct {
+	// READ-ONLY; Host reserved for emergency scenarios.
+	Availability *string
+
+	// READ-ONLY; Total host reserved for emergency scenarios.
+	AvailabilityTotal *int32
+
+	// READ-ONLY; Cores reserved for future growth.
+	FutureGrowth *int32
+
+	// READ-ONLY; Hosts reserved for emergency scenarios (e.g. maintenance, one node is down etc).
+	HighAvailability *int32
+
+	// READ-ONLY; Cores left on the hardware. This is total - (Used + Future Growth+ High availability).
+	Leftover *int32
+
+	// READ-ONLY; The total CPU needed to run your workloads.
+	Total *int32
+
+	// READ-ONLY; (Number of VMs x vCPU per VM) / ratio of virtual to physical cores
+	Used *int32
+}
+
+// RecommendedSolutionMemoryBreakdown - Memory breakdown.
+type RecommendedSolutionMemoryBreakdown struct {
+	// READ-ONLY; Host reserved for emergency scenarios.
+	Availability *string
+
+	// READ-ONLY; Total host reserved for emergency scenarios.
+	AvailabilityTotal *int32
+
+	// READ-ONLY; This is memory taken by csv(In-memory cache) and SBL cache.
+	CSVSbl *int64
+
+	// READ-ONLY; Future growth
+	FutureGrowth *int32
+
+	// READ-ONLY; Hosts reserved for emergency scenarios (e.g. maintenance, one node is down etc).
+	HighAvailability *int32
+
+	// READ-ONLY; Hyper V(4% system overhead is taken by Hyper-V
+	HyperV *int64
+
+	// READ-ONLY; Left over.
+	Leftover *int32
+
+	// READ-ONLY; The total memory needed to run your workloads.
+	Total *int32
+
+	// READ-ONLY; Number of VM * memory per VM.
+	Workloads *int64
+}
+
+// RecommendedSolutionPlatformProperties - Platform properties.
+type RecommendedSolutionPlatformProperties struct {
+	// REQUIRED; Flag to indicate if the platform is archived.
+	IsArchived *bool
+
+	// REQUIRED; Flag to indicate if the platform supports P-Memory.
+	IsPMemorySupported *bool
+
+	// REQUIRED; Unique Id representing the platform.
+	PlatformID *string
+
+	// REQUIRED; Platform name.
+	PlatformName *string
+
+	// REQUIRED; Identifies system configuration, can be integratedSystem, ValidatedNode, Premium, etc
+	SystemType *string
+
+	// REQUIRED; Vendor Id.
+	VendorID *string
+
+	// REQUIRED; Vendor name.
+	VendorName *string
+
+	// REQUIRED; Website Url.
+	WebsiteURL *string
+
+	// READ-ONLY; Alternate solution details.
+	AlternateSolutionDetails *PlatformPropertiesAlternateSolutionDetails
+
+	// READ-ONLY; CPU Family.
+	CPUFamily *string
+
+	// READ-ONLY; CPU model.
+	CPUModel *string
+
+	// READ-ONLY; List of configurations.
+	Configurations []*PlatformConfigurationProperties
+
+	// READ-ONLY; List of supported features.
+	FeaturesSupported []*string
+
+	// READ-ONLY; Form factor.
+	FormFactor *string
+
+	// READ-ONLY; List of GPU mfg models.
+	GpuMfgModels []*string
+
+	// READ-ONLY; Hardware as a Service details.
+	HWaaSDetails *PlatformPropertiesHWaaSDetails
+
+	// READ-ONLY; Image details.
+	ImageDetails *PlatformPropertiesImageDetails
+
+	// READ-ONLY; Flag to indicate if the platform supports GPU.
+	IsGpuSupported *bool
+
+	// READ-ONLY; Last tested version.
+	LastTestedVersion *string
+
+	// READ-ONLY; Lifecycle stage.
+	LifecycleStage *int32
+
+	// READ-ONLY; Maximum scale.
+	MaximumScale *int32
+
+	// READ-ONLY; Minimum scale.
+	MinimumScale *int32
+
+	// READ-ONLY; Number of rack units.
+	RackUnits *int32
+
+	// READ-ONLY; List of availability regions.
+	Regions []*string
+
+	// READ-ONLY; SDN NIC details.
+	SdnNicDetails *PlatformPropertiesSdnNicDetails
+
+	// READ-ONLY; Server description.
+	ServerDescription *string
+
+	// READ-ONLY; SMBIOS details.
+	SmbiosDetails *PlatformPropertiesSmbiosDetails
+
+	// READ-ONLY; List of storage drive types.
+	StorageDrives []*string
+
+	// READ-ONLY; List of technical use-cases.
+	TechnicalUseCases []*string
+
+	// READ-ONLY; Unsupported date.
+	UnsupportedDate *string
+
+	// READ-ONLY; Windows Admin Center (WAC) details.
+	WindowsAdminCenterDetails *PlatformPropertiesWindowsAdminCenterDetails
+}
+
+// RecommendedSolutionStorageBreakdown - Storage breakdown.
+type RecommendedSolutionStorageBreakdown struct {
+	// READ-ONLY; Future growth
+	FutureGrowth *int32
+
+	// READ-ONLY; Left over.
+	Leftover *int32
+
+	// READ-ONLY; 1 capacity drive per node is taken by reserve.
+	Reserve *int64
+
+	// READ-ONLY; Reserve total.
+	ReserveTotal *int64
+
+	// READ-ONLY; This is the storage taken up by resiliency. The resiliency types are mirror, mirror accelerated parity and nested
+	// mirror. Resiliency type is decided by your inputs (optimizing for storage or
+	// performance) and your chosen number of storage failures to tolerate.
+	Resiliency *int64
+
+	// READ-ONLY; The total storage needed to run your workloads.
+	Total *int32
+
+	// READ-ONLY; This is based on user input, storage per VM * total VM
+	Used *int64
+}
+
+// RecommendedSolutionVendorProperties - Vendor properties.
+type RecommendedSolutionVendorProperties struct {
+	// REQUIRED; Company logo Uri of the vendor.
+	CompanyLogoURI *string
+
+	// REQUIRED; Unique Id representing the vendor.
+	VendorID *string
+
+	// REQUIRED; Name of the vendor.
+	VendorName *string
+}
+
+// ResiliencyRequirements - Resiliency requirements.
+type ResiliencyRequirements struct {
+	// REQUIRED; Reserve additional host for emergency scenarios, N+1, N+2.
+	Availability *string
+
+	// REQUIRED; Number of failures that can occur simultaneously without compromising availability and data.
+	StorageFailuresToTolerate *int32
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
@@ -1108,6 +2923,9 @@ type ResourceIdentity struct {
 	// Identity type
 	Type *string
 
+	// User Assigned Identities
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
 	// READ-ONLY; Service Principal Id backing the Msi
 	PrincipalID *string
 
@@ -1115,24 +2933,29 @@ type ResourceIdentity struct {
 	TenantID *string
 }
 
-// ResourceProviderDetails - Management RP details
+type ResourceMoveRequest struct {
+	Resources           []*string
+	TargetResourceGroup *string
+}
+
+// ResourceProviderDetails - Management RP details.
 type ResourceProviderDetails struct {
-	// READ-ONLY; Resource provider namespace
+	// READ-ONLY; Resource provider namespace.
 	ResourceProviderNamespace *string
 }
 
-// ReturnOrderItemDetails - Return order item request body
+// ReturnOrderItemDetails - Return order item request body.
 type ReturnOrderItemDetails struct {
 	// REQUIRED; Return Reason.
 	ReturnReason *string
 
-	// customer return address.
+	// Customer return address.
 	ReturnAddress *AddressProperties
 
-	// Service tag (located on the bottom-right corner of the device)
+	// Service tag (located on the bottom-right corner of the device).
 	ServiceTag *string
 
-	// Shipping Box required
+	// Shipping Box required.
 	ShippingBoxRequired *bool
 }
 
@@ -1147,11 +2970,75 @@ type ReverseShippingDetails struct {
 	// READ-ONLY; SAS key to download the reverse shipment label of the package.
 	SasKeyForLabel *string
 
-	// READ-ONLY; TrackingId of the package
+	// READ-ONLY; TrackingId of the package.
 	TrackingID *string
 
 	// READ-ONLY; TrackingUrl of the package.
 	TrackingURL *string
+}
+
+// SMBIOSDetails - Represents SMBIOS details.
+type SMBIOSDetails struct {
+	// READ-ONLY; OEM model name.
+	OemModel *string
+
+	// READ-ONLY; OEM sub-model name.
+	OemSubModel *string
+}
+
+// SQLWorkloadDetails - Sql workload details
+type SQLWorkloadDetails struct {
+	// REQUIRED; Memory bytes requirement.
+	MemoryBytes *int64
+
+	// REQUIRED; Number of virtual machines
+	NumberOfVMs *int32
+
+	// REQUIRED; Storage bytes requirement.
+	StorageBytes *int64
+
+	// REQUIRED; Virtual cpus
+	VirtualCPU *int32
+
+	// REQUIRED; V:P ratio
+	VirtualCorePerPhysicalCore *int32
+
+	// REQUIRED; Workload name
+	WorkloadName *string
+
+	// REQUIRED; Workload type, general, AVD, etc
+	WorkloadType *WorkloadDetailsWorkloadType
+}
+
+// GetWorkloadDetails implements the WorkloadDetailsClassification interface for type SQLWorkloadDetails.
+func (s *SQLWorkloadDetails) GetWorkloadDetails() *WorkloadDetails {
+	return &WorkloadDetails{
+		WorkloadName:               s.WorkloadName,
+		WorkloadType:               s.WorkloadType,
+		NumberOfVMs:                s.NumberOfVMs,
+		VirtualCPU:                 s.VirtualCPU,
+		VirtualCorePerPhysicalCore: s.VirtualCorePerPhysicalCore,
+		MemoryBytes:                s.MemoryBytes,
+		StorageBytes:               s.StorageBytes,
+	}
+}
+
+// SdnNicDetails - Represents Software defined network NIC details.
+type SdnNicDetails struct {
+	// READ-ONLY; Flag to indicate if the platform supports SDN NIC.
+	IsSdnNicSupported *bool
+
+	// READ-ONLY; List of SDN NIC vendor models.
+	SdnNicVendorModels []*string
+}
+
+// SearchFilter - Search filter details.
+type SearchFilter struct {
+	// REQUIRED; Name of the filter.
+	Name *string
+
+	// REQUIRED; List of filter values.
+	Values []*string
 }
 
 // ShippingAddress - Shipping address where customer wishes to receive the device.
@@ -1187,27 +3074,68 @@ type ShippingAddress struct {
 	ZipExtendedCode *string
 }
 
-// ShippingDetails - Package shipping details
-type ShippingDetails struct {
-	// READ-ONLY; Carrier Name for display purpose. Not to be used for any processing.
-	CarrierDisplayName *string
-
-	// READ-ONLY; Name of the carrier.
-	CarrierName *string
-
-	// READ-ONLY; TrackingId of the package
-	TrackingID *string
-
-	// READ-ONLY; TrackingUrl of the package.
-	TrackingURL *string
+// SolutionRecommendationRequest - Solution recommendation request.
+type SolutionRecommendationRequest struct {
+	// REQUIRED; Preference details.
+	PreferenceDetails *SolutionRecommendationRequestPreferenceDetails
 }
 
-// Specifications of the configurations
+// SolutionRecommendationRequestPreferenceDetails - Preference details.
+type SolutionRecommendationRequestPreferenceDetails struct {
+	// REQUIRED; Cpu Family, Currently Intel, AMD.
+	CPUFamily *string
+
+	// REQUIRED; Growth Percentage.
+	GrowthPercentage *int32
+
+	// REQUIRED; If require memory expandability, it reserve DIMM slots for future growth (only fill half the DIMM slots in your
+	// solution.
+	MemoryExpandability *bool
+
+	// REQUIRED; If require storage expandability, reserve drive bays for future growth (leave half of the drives empty for future
+	// growth) .
+	StorageExpandability *bool
+
+	// REQUIRED; Percentage needed to be reserved for future growth.
+	StorageFutureGrowthBytes *int32
+
+	// REQUIRED; SystemType, IntegratedSystem, ValidatedNode, Premium.
+	SystemType *string
+
+	// REQUIRED; vendor id.
+	VendorID *string
+
+	// Is 2 node solution.
+	IsTwoNodeSolution *bool
+
+	// Network Preferences.
+	NetworkPreference *PreferenceDetailsNetworkPreference
+
+	// failure tolerate capabilities.
+	ResiliencyRequirements *PreferenceDetailsResiliencyRequirements
+
+	// Storage preferences.
+	StoragePreference *PreferenceDetailsStoragePreference
+
+	// Details of your on-premises workloads. This information will be used to understand and recommend a solution.
+	Workloads []*Workload
+}
+
+// SortOptions - Sort options.
+type SortOptions struct {
+	// REQUIRED; Sort by field.
+	SortBy *string
+
+	// REQUIRED; Sort direction.
+	SortDirection *SortOptionsSortDirection
+}
+
+// Specification of the configurations.
 type Specification struct {
-	// READ-ONLY; Name of the specification
+	// READ-ONLY; Name of the specification.
 	Name *string
 
-	// READ-ONLY; Value of the specification
+	// READ-ONLY; Value of the specification.
 	Value *string
 }
 
@@ -1216,14 +3144,133 @@ type StageDetails struct {
 	// READ-ONLY; Display name of the resource stage.
 	DisplayName *string
 
-	// READ-ONLY; Stage name
+	// READ-ONLY; Stage name.
 	StageName *StageName
 
 	// READ-ONLY; Stage status.
 	StageStatus *StageStatus
 
-	// READ-ONLY; Stage start time
+	// READ-ONLY; Stage start time.
 	StartTime *time.Time
+}
+
+// StorageBreakdown - Storage breakdown.
+type StorageBreakdown struct {
+	// READ-ONLY; Future growth
+	FutureGrowth *int32
+
+	// READ-ONLY; Left over.
+	Leftover *int32
+
+	// READ-ONLY; 1 capacity drive per node is taken by reserve.
+	Reserve *int64
+
+	// READ-ONLY; Reserve total.
+	ReserveTotal *int64
+
+	// READ-ONLY; This is the storage taken up by resiliency. The resiliency types are mirror, mirror accelerated parity and nested
+	// mirror. Resiliency type is decided by your inputs (optimizing for storage or
+	// performance) and your chosen number of storage failures to tolerate.
+	Resiliency *int64
+
+	// READ-ONLY; The total storage needed to run your workloads.
+	Total *int32
+
+	// READ-ONLY; This is based on user input, storage per VM * total VM
+	Used *int64
+}
+
+// StorageDetails - Represents Storage specific details.
+type StorageDetails struct {
+	// READ-ONLY; Cache drive specific details.
+	CacheDriveDetails *StorageDetailsCacheDriveDetails
+
+	// READ-ONLY; Capacity drive specific details.
+	CapacityDriveDetails *StorageDetailsCapacityDriveDetails
+
+	// READ-ONLY; Maximum storage.
+	MaximumStorage *StorageDetailsMaximumStorage
+
+	// READ-ONLY; Minimum storage.
+	MinimumStorage *StorageDetailsMinimumStorage
+
+	// READ-ONLY; Minimum storage in bytes.
+	MinimumStorageBytes *int64
+
+	// READ-ONLY; Types of storage drives.
+	StorageDrives []*string
+
+	// READ-ONLY; Maximum storage in bytes.
+	StorageMaxBytes *int64
+}
+
+// StorageDetailsCacheDriveDetails - Cache drive specific details.
+type StorageDetailsCacheDriveDetails struct {
+	// READ-ONLY; List of cache drive sizes.
+	CacheDriveSizes []*ByteSize
+
+	// READ-ONLY; List of cache drive sizes in bytes.
+	CacheDriveSizesBytes []*int64
+
+	// READ-ONLY; List of cache drive types.
+	CacheDriveTypes []*string
+
+	// READ-ONLY; Maximum number of cache drives.
+	MaximumNumberOfCacheDrives *int32
+
+	// READ-ONLY; Minimum number of cache drives.
+	MinimumNumberOfCacheDrives *int32
+}
+
+// StorageDetailsCapacityDriveDetails - Capacity drive specific details.
+type StorageDetailsCapacityDriveDetails struct {
+	// READ-ONLY; List of Capacity drive sizes.
+	CapacityDriveSizes []*ByteSize
+
+	// READ-ONLY; List of Capacity drive sizes in bytes.
+	CapacityDriveSizesBytes []*int64
+
+	// READ-ONLY; List of Capacity storage drive types.
+	CapacityStorageDriveTypes []*string
+
+	// READ-ONLY; Maximum number of Capacity drives.
+	MaximumNumberOfCapacityDrives *int32
+
+	// READ-ONLY; Minimum number of Capacity drives.
+	MinimumNumberOfCapacityDrives *int32
+}
+
+// StorageDetailsMaximumStorage - Maximum storage.
+type StorageDetailsMaximumStorage struct {
+	// REQUIRED; Amount of bytes in byte unit.
+	Amount *float64
+
+	// REQUIRED; Type of byte unit.
+	ByteUnit *ByteSizeByteUnit
+}
+
+// StorageDetailsMinimumStorage - Minimum storage.
+type StorageDetailsMinimumStorage struct {
+	// REQUIRED; Amount of bytes in byte unit.
+	Amount *float64
+
+	// REQUIRED; Type of byte unit.
+	ByteUnit *ByteSizeByteUnit
+}
+
+// StoragePreference - Storage preferences.
+type StoragePreference struct {
+	// REQUIRED; Resiliency preference, optimized for capacity or performance.
+	InMemoryCacheSizeInGB *int32
+
+	// REQUIRED; Cache choice.
+	PersistentCache *string
+
+	// REQUIRED; Resiliency preference, optimized for capacity or performance.
+	ResiliencyPreference *string
+
+	// REQUIRED; Storage type.
+	StorageType *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -1247,6 +3294,36 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TermCommitmentInformation - Term Commitment Information.
+type TermCommitmentInformation struct {
+	// REQUIRED; Term Commitment Type
+	TermCommitmentType *TermCommitmentType
+
+	// READ-ONLY; Number of Days Pending for Term Commitment
+	PendingDaysForTerm *int32
+
+	// READ-ONLY; Term Commitment Duration. Currently Supporting P365D, P1095D
+	TermCommitmentTypeDuration *string
+}
+
+// TermCommitmentPreferences - Term Commitment preference received from customer.
+type TermCommitmentPreferences struct {
+	// REQUIRED; Term Commitment Type
+	PreferredTermCommitmentType *TermCommitmentType
+
+	// Customer preferred Term Duration.
+	PreferredTermCommitmentDuration *string
+}
+
+// TermTypeDetails - Holds details about term type and duration.
+type TermTypeDetails struct {
+	// REQUIRED; Term Commitment Type
+	TermType *TermCommitmentType
+
+	// REQUIRED; Duration for the term type.
+	TermTypeDuration *string
+}
+
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
@@ -1266,8 +3343,193 @@ type TrackedResource struct {
 	Type *string
 }
 
-// TransportPreferences - Preferences related to the shipment logistics of the sku
+// TransportPreferences - Preferences related to the shipment logistics of the sku.
 type TransportPreferences struct {
 	// REQUIRED; Indicates Shipment Logistics type that the customer preferred.
 	PreferredShipmentType *TransportShipmentTypes
+}
+
+// UserAssignedIdentity - Class defining User assigned identity details.
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
+}
+
+// VDIWorkloadDetails - VDI workload details
+type VDIWorkloadDetails struct {
+	// REQUIRED; Memory bytes requirement.
+	MemoryBytes *int64
+
+	// REQUIRED; Number of virtual machines
+	NumberOfVMs *int32
+
+	// REQUIRED; Storage bytes requirement.
+	StorageBytes *int64
+
+	// REQUIRED; Virtual cpus
+	VirtualCPU *int32
+
+	// REQUIRED; V:P ratio
+	VirtualCorePerPhysicalCore *int32
+
+	// REQUIRED; Workload name
+	WorkloadName *string
+
+	// REQUIRED; Workload type, general, AVD, etc
+	WorkloadType *WorkloadDetailsWorkloadType
+}
+
+// GetWorkloadDetails implements the WorkloadDetailsClassification interface for type VDIWorkloadDetails.
+func (v *VDIWorkloadDetails) GetWorkloadDetails() *WorkloadDetails {
+	return &WorkloadDetails{
+		WorkloadName:               v.WorkloadName,
+		WorkloadType:               v.WorkloadType,
+		NumberOfVMs:                v.NumberOfVMs,
+		VirtualCPU:                 v.VirtualCPU,
+		VirtualCorePerPhysicalCore: v.VirtualCorePerPhysicalCore,
+		MemoryBytes:                v.MemoryBytes,
+		StorageBytes:               v.StorageBytes,
+	}
+}
+
+// VendorProperties - Represents Vendor details.
+type VendorProperties struct {
+	// REQUIRED; Company logo Uri of the vendor.
+	CompanyLogoURI *string
+
+	// REQUIRED; Unique Id representing the vendor.
+	VendorID *string
+
+	// REQUIRED; Name of the vendor.
+	VendorName *string
+}
+
+// VendorResource - Specifies the properties for Vendor in HCI Catalog.
+type VendorResource struct {
+	// REQUIRED; Vendor properties.
+	Properties *VendorResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// VendorResourceList - List of vendors.
+type VendorResourceList struct {
+	// Link for the next set of vendor resources.
+	NextLink *string
+
+	// READ-ONLY; List of vendor resources.
+	Value []*VendorResource
+}
+
+// VendorResourceProperties - Vendor properties.
+type VendorResourceProperties struct {
+	// REQUIRED; Company logo Uri of the vendor.
+	CompanyLogoURI *string
+
+	// REQUIRED; Unique Id representing the vendor.
+	VendorID *string
+
+	// REQUIRED; Name of the vendor.
+	VendorName *string
+}
+
+// WindowsAdminCenterDetails - Represents Windows Admin Center details.
+type WindowsAdminCenterDetails struct {
+	// READ-ONLY; Windows Admin Center description.
+	Description *string
+
+	// READ-ONLY; Windows Admin Center name.
+	Name *string
+
+	// READ-ONLY; Windows Admin Center name website link.
+	WebsiteLink *string
+}
+
+// Workload - Details of your on-premises workloads. This information will be used to understand and recommend a solution.
+type Workload struct {
+	// REQUIRED; Workload details
+	WorkloadDetails *WorkloadWorkloadDetails
+}
+
+// WorkloadDetailsClassification provides polymorphic access to related types.
+// Call the interface's GetWorkloadDetails() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *GeneralWorkloadDetails, *SQLWorkloadDetails, *VDIWorkloadDetails, *WorkloadDetails, *WorkloadWorkloadDetails
+type WorkloadDetailsClassification interface {
+	// GetWorkloadDetails returns the WorkloadDetails content of the underlying type.
+	GetWorkloadDetails() *WorkloadDetails
+}
+
+// WorkloadDetails - Workload details
+type WorkloadDetails struct {
+	// REQUIRED; Memory bytes requirement.
+	MemoryBytes *int64
+
+	// REQUIRED; Number of virtual machines
+	NumberOfVMs *int32
+
+	// REQUIRED; Storage bytes requirement.
+	StorageBytes *int64
+
+	// REQUIRED; Virtual cpus
+	VirtualCPU *int32
+
+	// REQUIRED; V:P ratio
+	VirtualCorePerPhysicalCore *int32
+
+	// REQUIRED; Workload name
+	WorkloadName *string
+
+	// REQUIRED; Workload type, general, AVD, etc
+	WorkloadType *WorkloadDetailsWorkloadType
+}
+
+// GetWorkloadDetails implements the WorkloadDetailsClassification interface for type WorkloadDetails.
+func (w *WorkloadDetails) GetWorkloadDetails() *WorkloadDetails { return w }
+
+// WorkloadWorkloadDetails - Workload details
+type WorkloadWorkloadDetails struct {
+	// REQUIRED; Memory bytes requirement.
+	MemoryBytes *int64
+
+	// REQUIRED; Number of virtual machines
+	NumberOfVMs *int32
+
+	// REQUIRED; Storage bytes requirement.
+	StorageBytes *int64
+
+	// REQUIRED; Virtual cpus
+	VirtualCPU *int32
+
+	// REQUIRED; V:P ratio
+	VirtualCorePerPhysicalCore *int32
+
+	// REQUIRED; Workload name
+	WorkloadName *string
+
+	// REQUIRED; Workload type, general, AVD, etc
+	WorkloadType *WorkloadDetailsWorkloadType
+}
+
+// GetWorkloadDetails implements the WorkloadDetailsClassification interface for type WorkloadWorkloadDetails.
+func (w *WorkloadWorkloadDetails) GetWorkloadDetails() *WorkloadDetails {
+	return &WorkloadDetails{
+		WorkloadName:               w.WorkloadName,
+		WorkloadType:               w.WorkloadType,
+		NumberOfVMs:                w.NumberOfVMs,
+		VirtualCPU:                 w.VirtualCPU,
+		VirtualCorePerPhysicalCore: w.VirtualCorePerPhysicalCore,
+		MemoryBytes:                w.MemoryBytes,
+		StorageBytes:               w.StorageBytes,
+	}
 }
