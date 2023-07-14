@@ -61,6 +61,10 @@ type Server struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armresources.ClientListOptions) (resp azfake.PagerResponder[armresources.ClientListResponse])
 
+	// NewListByParentPager is the fake for method Client.NewListByParentPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByParentPager func(resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, apiVersion string, options *armresources.ClientListByParentOptions) (resp azfake.PagerResponder[armresources.ClientListByParentResponse])
+
 	// NewListByResourceGroupPager is the fake for method Client.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armresources.ClientListByResourceGroupOptions) (resp azfake.PagerResponder[armresources.ClientListByResourceGroupResponse])
@@ -98,6 +102,7 @@ type ServerTransport struct {
 	beginDelete                 *azfake.PollerResponder[armresources.ClientDeleteResponse]
 	beginDeleteByID             *azfake.PollerResponder[armresources.ClientDeleteByIDResponse]
 	newListPager                *azfake.PagerResponder[armresources.ClientListResponse]
+	newListByParentPager        *azfake.PagerResponder[armresources.ClientListByParentResponse]
 	newListByResourceGroupPager *azfake.PagerResponder[armresources.ClientListByResourceGroupResponse]
 	beginMoveResources          *azfake.PollerResponder[armresources.ClientMoveResourcesResponse]
 	beginUpdate                 *azfake.PollerResponder[armresources.ClientUpdateResponse]
@@ -135,6 +140,8 @@ func (s *ServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = s.dispatchGetByID(req)
 	case "Client.NewListPager":
 		resp, err = s.dispatchNewListPager(req)
+	case "Client.NewListByParentPager":
+		resp, err = s.dispatchNewListByParentPager(req)
 	case "Client.NewListByResourceGroupPager":
 		resp, err = s.dispatchNewListByResourceGroupPager(req)
 	case "Client.BeginMoveResources":
@@ -591,6 +598,57 @@ func (s *ServerTransport) dispatchNewListPager(req *http.Request) (*http.Respons
 	}
 	if !server.PagerResponderMore(s.newListPager) {
 		s.newListPager = nil
+	}
+	return resp, nil
+}
+
+func (s *ServerTransport) dispatchNewListByParentPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListByParentPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByParentPager not implemented")}
+	}
+	if s.newListByParentPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<resourceProviderNamespace>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<parentResourcePath>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<resourceType>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 5 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		resourceProviderNamespaceUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceProviderNamespace")])
+		if err != nil {
+			return nil, err
+		}
+		parentResourcePathUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("parentResourcePath")])
+		if err != nil {
+			return nil, err
+		}
+		resourceTypeUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceType")])
+		if err != nil {
+			return nil, err
+		}
+		apiVersionUnescaped, err := url.QueryUnescape(qp.Get("api-version"))
+		if err != nil {
+			return nil, err
+		}
+		resp := s.srv.NewListByParentPager(resourceGroupNameUnescaped, resourceProviderNamespaceUnescaped, parentResourcePathUnescaped, resourceTypeUnescaped, apiVersionUnescaped, nil)
+		s.newListByParentPager = &resp
+		server.PagerResponderInjectNextLinks(s.newListByParentPager, req, func(page *armresources.ClientListByParentResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(s.newListByParentPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(s.newListByParentPager) {
+		s.newListByParentPager = nil
 	}
 	return resp, nil
 }
