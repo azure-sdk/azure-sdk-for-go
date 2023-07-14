@@ -1305,6 +1305,11 @@ type LoadBalancersClientListResponse struct {
 	LoadBalancerListResult
 }
 
+// LoadBalancersClientMigrateToIPBasedResponse contains the response from method LoadBalancersClient.MigrateToIPBased.
+type LoadBalancersClientMigrateToIPBasedResponse struct {
+	MigratedPools
+}
+
 // LoadBalancersClientSwapPublicIPAddressesResponse contains the response from method LoadBalancersClient.BeginSwapPublicIPAddresses.
 type LoadBalancersClientSwapPublicIPAddressesResponse struct {
 	// placeholder for future response values
