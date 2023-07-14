@@ -44,7 +44,7 @@ func NewScheduledActionsClient(credential azcore.TokenCredential, options *arm.C
 // CheckNameAvailability - Checks availability and correctness of the name for a scheduled action.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - checkNameAvailabilityRequest - Scheduled action to be created or updated.
 //   - options - ScheduledActionsClientCheckNameAvailabilityOptions contains the optional parameters for the ScheduledActionsClient.CheckNameAvailability
 //     method.
@@ -71,7 +71,7 @@ func (client *ScheduledActionsClient) checkNameAvailabilityCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityRequest)
@@ -90,7 +90,7 @@ func (client *ScheduledActionsClient) checkNameAvailabilityHandleResponse(resp *
 // scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription
 //     scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -135,7 +135,7 @@ func (client *ScheduledActionsClient) checkNameAvailabilityByScopeCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityRequest)
@@ -153,7 +153,7 @@ func (client *ScheduledActionsClient) checkNameAvailabilityByScopeHandleResponse
 // CreateOrUpdate - Create or update a private scheduled action.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - name - Scheduled action name.
 //   - scheduledAction - Scheduled action to be created or updated.
 //   - options - ScheduledActionsClientCreateOrUpdateOptions contains the optional parameters for the ScheduledActionsClient.CreateOrUpdate
@@ -185,7 +185,7 @@ func (client *ScheduledActionsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -206,7 +206,7 @@ func (client *ScheduledActionsClient) createOrUpdateHandleResponse(resp *http.Re
 // CreateOrUpdateByScope - Create or update a shared scheduled action within the given scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription
 //     scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -256,7 +256,7 @@ func (client *ScheduledActionsClient) createOrUpdateByScopeCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -277,7 +277,7 @@ func (client *ScheduledActionsClient) createOrUpdateByScopeHandleResponse(resp *
 // Delete - Delete a private scheduled action.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - name - Scheduled action name.
 //   - options - ScheduledActionsClientDeleteOptions contains the optional parameters for the ScheduledActionsClient.Delete method.
 func (client *ScheduledActionsClient) Delete(ctx context.Context, name string, options *ScheduledActionsClientDeleteOptions) (ScheduledActionsClientDeleteResponse, error) {
@@ -307,7 +307,7 @@ func (client *ScheduledActionsClient) deleteCreateRequest(ctx context.Context, n
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,7 +316,7 @@ func (client *ScheduledActionsClient) deleteCreateRequest(ctx context.Context, n
 // DeleteByScope - Delete a scheduled action within the given scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription
 //     scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -365,7 +365,7 @@ func (client *ScheduledActionsClient) deleteByScopeCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -374,7 +374,7 @@ func (client *ScheduledActionsClient) deleteByScopeCreateRequest(ctx context.Con
 // Get - Get the private scheduled action by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - name - Scheduled action name.
 //   - options - ScheduledActionsClientGetOptions contains the optional parameters for the ScheduledActionsClient.Get method.
 func (client *ScheduledActionsClient) Get(ctx context.Context, name string, options *ScheduledActionsClientGetOptions) (ScheduledActionsClientGetResponse, error) {
@@ -404,7 +404,7 @@ func (client *ScheduledActionsClient) getCreateRequest(ctx context.Context, name
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -422,7 +422,7 @@ func (client *ScheduledActionsClient) getHandleResponse(resp *http.Response) (Sc
 // GetByScope - Get the shared scheduled action from the given scope by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription
 //     scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -471,7 +471,7 @@ func (client *ScheduledActionsClient) getByScopeCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -488,7 +488,7 @@ func (client *ScheduledActionsClient) getByScopeHandleResponse(resp *http.Respon
 
 // NewListPager - List all private scheduled actions.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - options - ScheduledActionsClientListOptions contains the optional parameters for the ScheduledActionsClient.NewListPager
 //     method.
 func (client *ScheduledActionsClient) NewListPager(options *ScheduledActionsClientListOptions) *runtime.Pager[ScheduledActionsClientListResponse] {
@@ -527,7 +527,7 @@ func (client *ScheduledActionsClient) listCreateRequest(ctx context.Context, opt
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -547,7 +547,7 @@ func (client *ScheduledActionsClient) listHandleResponse(resp *http.Response) (S
 
 // NewListByScopePager - List all shared scheduled actions within the given scope.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription
 //     scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -604,7 +604,7 @@ func (client *ScheduledActionsClient) listByScopeCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -625,7 +625,7 @@ func (client *ScheduledActionsClient) listByScopeHandleResponse(resp *http.Respo
 // Run - Processes a private scheduled action.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - name - Scheduled action name.
 //   - options - ScheduledActionsClientRunOptions contains the optional parameters for the ScheduledActionsClient.Run method.
 func (client *ScheduledActionsClient) Run(ctx context.Context, name string, options *ScheduledActionsClientRunOptions) (ScheduledActionsClientRunResponse, error) {
@@ -655,7 +655,7 @@ func (client *ScheduledActionsClient) runCreateRequest(ctx context.Context, name
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -664,7 +664,7 @@ func (client *ScheduledActionsClient) runCreateRequest(ctx context.Context, name
 // RunByScope - Runs a shared scheduled action within the given scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-03-01
 //   - scope - The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription
 //     scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -713,7 +713,7 @@ func (client *ScheduledActionsClient) runByScopeCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
