@@ -153,6 +153,11 @@ func (c *ClientFactory) NewCassandraDataCentersClient() *CassandraDataCentersCli
 	return subClient
 }
 
+func (c *ClientFactory) NewCassandraRepairClient() *CassandraRepairClient {
+	subClient, _ := NewCassandraRepairClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewMongoClustersClient() *MongoClustersClient {
 	subClient, _ := NewMongoClustersClient(c.subscriptionID, c.credential, c.options)
 	return subClient

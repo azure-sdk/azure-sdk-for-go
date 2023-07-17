@@ -11,7 +11,7 @@ package armcosmos
 
 const (
 	moduleName    = "armcosmos"
-	moduleVersion = "v3.0.0-beta.1"
+	moduleVersion = "v3.0.0-beta.2"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -110,6 +110,26 @@ func PossibleBackupPolicyTypeValues() []BackupPolicyType {
 	}
 }
 
+// BackupState - The current state of the backup.
+type BackupState string
+
+const (
+	BackupStateFailed     BackupState = "Failed"
+	BackupStateInProgress BackupState = "InProgress"
+	BackupStateInitiated  BackupState = "Initiated"
+	BackupStateSucceeded  BackupState = "Succeeded"
+)
+
+// PossibleBackupStateValues returns the possible values for the BackupState const type.
+func PossibleBackupStateValues() []BackupState {
+	return []BackupState{
+		BackupStateFailed,
+		BackupStateInProgress,
+		BackupStateInitiated,
+		BackupStateSucceeded,
+	}
+}
+
 // BackupStorageRedundancy - Enum to indicate type of backup storage redundancy.
 type BackupStorageRedundancy string
 
@@ -128,6 +148,32 @@ func PossibleBackupStorageRedundancyValues() []BackupStorageRedundancy {
 	}
 }
 
+// CassandraRepairRunStateEnum - Valid states of repair run.
+type CassandraRepairRunStateEnum string
+
+const (
+	CassandraRepairRunStateEnumABORTED    CassandraRepairRunStateEnum = "ABORTED"
+	CassandraRepairRunStateEnumDELETED    CassandraRepairRunStateEnum = "DELETED"
+	CassandraRepairRunStateEnumDONE       CassandraRepairRunStateEnum = "DONE"
+	CassandraRepairRunStateEnumERROR      CassandraRepairRunStateEnum = "ERROR"
+	CassandraRepairRunStateEnumNOTSTARTED CassandraRepairRunStateEnum = "NOT_STARTED"
+	CassandraRepairRunStateEnumPAUSED     CassandraRepairRunStateEnum = "PAUSED"
+	CassandraRepairRunStateEnumRUNNING    CassandraRepairRunStateEnum = "RUNNING"
+)
+
+// PossibleCassandraRepairRunStateEnumValues returns the possible values for the CassandraRepairRunStateEnum const type.
+func PossibleCassandraRepairRunStateEnumValues() []CassandraRepairRunStateEnum {
+	return []CassandraRepairRunStateEnum{
+		CassandraRepairRunStateEnumABORTED,
+		CassandraRepairRunStateEnumDELETED,
+		CassandraRepairRunStateEnumDONE,
+		CassandraRepairRunStateEnumERROR,
+		CassandraRepairRunStateEnumNOTSTARTED,
+		CassandraRepairRunStateEnumPAUSED,
+		CassandraRepairRunStateEnumRUNNING,
+	}
+}
+
 // CheckNameAvailabilityReason - The reason why the given name is not available.
 type CheckNameAvailabilityReason string
 
@@ -141,6 +187,22 @@ func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
 	return []CheckNameAvailabilityReason{
 		CheckNameAvailabilityReasonAlreadyExists,
 		CheckNameAvailabilityReasonInvalid,
+	}
+}
+
+// ClusterType - Type of the cluster. If set to Production, some operations might not be permitted on cluster.
+type ClusterType string
+
+const (
+	ClusterTypeNonProduction ClusterType = "NonProduction"
+	ClusterTypeProduction    ClusterType = "Production"
+)
+
+// PossibleClusterTypeValues returns the possible values for the ClusterType const type.
+func PossibleClusterTypeValues() []ClusterType {
+	return []ClusterType{
+		ClusterTypeNonProduction,
+		ClusterTypeProduction,
 	}
 }
 

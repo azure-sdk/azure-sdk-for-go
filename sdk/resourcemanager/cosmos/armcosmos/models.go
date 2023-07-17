@@ -173,21 +173,31 @@ type BackupPolicyMigrationState struct {
 
 // BackupResource - A restorable backup of a Cassandra cluster.
 type BackupResource struct {
-	Properties *BackupResourceProperties
+	// The time at which the backup will expire.
+	BackupExpiryTimestamp *time.Time
 
-	// READ-ONLY; The unique resource identifier of the database account.
-	ID *string
+	// The unique identifier of backup.
+	BackupID *string
 
-	// READ-ONLY; The name of the database account.
-	Name *string
+	// The time at which the backup process begins.
+	BackupStartTimestamp *time.Time
 
-	// READ-ONLY; The type of Azure resource.
-	Type *string
+	// The current state of the backup.
+	BackupState *BackupState
+
+	// The time at which the backup process ends.
+	BackupStopTimestamp *time.Time
 }
 
-type BackupResourceProperties struct {
-	// The time this backup was taken, formatted like 2021-01-21T17:35:21
-	Timestamp *time.Time
+type BackupSchedule struct {
+	// The cron expression that defines when you want to back up your data.
+	CronExpression *string
+
+	// The retention period (hours) of the backups. If you want to retain data forever, set retention to 0.
+	RetentionInHours *int32
+
+	// The unique identifier of backup schedule.
+	ScheduleName *string
 }
 
 // Capability - Cosmos DB capability object
@@ -228,6 +238,63 @@ type CassandraClusterPublicStatusDataCentersItem struct {
 	SeedNodes []*string
 }
 
+// CassandraClusterRepairListFilter - Request object to filter list of repair runs.
+type CassandraClusterRepairListFilter struct {
+	RepairRunStates []*CassandraRepairRunStateEnum
+
+	// READ-ONLY; Keyspace name of the repair run.
+	Keyspace *string
+}
+
+type CassandraClusterRepairPublicProperties struct {
+	// Setting this flag will automatically start the repair run at time of creation.
+	AutoStart *bool
+
+	// The name of the tables that should not be repaired. Cannot be used in conjunction with the tables parameter.
+	BlacklistedTables []*string
+
+	// note on reason for repair run.
+	Cause *string
+
+	// A float representing the current system-wide CPU utilization as a percentage.
+	DataCenters []*string
+
+	// Defines if incremental repair should be done. [true/false]. True when this flag is passed. False otherwise.
+	IncrementalRepair *bool
+
+	// Defines the repair intensity for repair run.
+	Intensity *float64
+
+	// keyspace to be repaired.
+	Keyspace *string
+
+	// A specific comma separated list of nodes IP address whose tokens should be repaired.
+	Nodes []*string
+
+	// owner of the repair run.
+	Owner *string
+
+	// Defines the used repair parallelism for repair run. Valid values are SEQUENTIAL, PARALLEL or DATACENTER_AWARE.
+	RepairParallelism *string
+
+	// Thread Count to be used for the parallel repair. Since Cassandra 2.2, repairs can be performed with up to 4 threads in
+	// order to parallelize the work on different token ranges.
+	RepairThreadCount *int32
+
+	// Number of segments in repair run
+	SegmentCount *int32
+
+	// list of column famalies to be repaird. if empty whole keyspace will be repaired.
+	Tables []*string
+}
+
+type CassandraClusterRepairPublicResource struct {
+	ID         *string
+	Name       *string
+	Properties *CassandraClusterRepairPublicProperties
+	Type       *string
+}
+
 // CassandraClustersClientBeginCreateUpdateOptions contains the optional parameters for the CassandraClustersClient.BeginCreateUpdate
 // method.
 type CassandraClustersClientBeginCreateUpdateOptions struct {
@@ -240,6 +307,9 @@ type CassandraClustersClientBeginCreateUpdateOptions struct {
 type CassandraClustersClientBeginDeallocateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+	// Force to deallocate a cluster of Cluster Type Production. Force to deallocate a cluster of Cluster Type Production might
+	// cause data loss
+	XMSForceDeallocate *bool
 }
 
 // CassandraClustersClientBeginDeleteOptions contains the optional parameters for the CassandraClustersClient.BeginDelete
@@ -477,6 +547,204 @@ type CassandraKeyspaceResource struct {
 type CassandraPartitionKey struct {
 	// Name of the Cosmos DB Cassandra table partition key
 	Name *string
+}
+
+type CassandraReaperClusterStatus struct {
+	JmxPasswordIsSet *bool
+	JmxUserName      *string
+	Name             *string
+	NodesStatus      *CassandraReaperNodeStatus
+	RepairRuns       []*CassandraReaperRunStatus
+	RepairSchedules  []*CassandraReaperScheduleStatus
+	SeedHosts        []*string
+}
+
+type CassandraReaperEndpointState struct {
+	DataCenter     *string
+	Endpoint       *string
+	HostID         *string
+	Load           *float64
+	Rack           *string
+	ReleaseVersion *string
+	Severity       *float64
+	Status         *string
+	Tokens         *string
+	Type           *string
+}
+
+type CassandraReaperGossipInfo struct {
+	EndpointNames []*string
+
+	// Dictionary of
+	Endpoints  map[string]map[string][]*CassandraReaperEndpointState
+	SourceNode *string
+	TotalLoad  *float64
+}
+
+type CassandraReaperNodeStatus struct {
+	EndpointStates []*CassandraReaperGossipInfo
+}
+
+type CassandraReaperRunStatus struct {
+	AdaptiveSchedule  *string
+	BlacklistedTables []*string
+	Cause             *string
+	ClusterName       *string
+	ColumnFamilies    []*string
+	CreationTime      *string
+	CurrentTime       *string
+	Datacenters       []*string
+	Duration          *string
+	EndTime           *string
+	ID                *string
+	IncrementalRepair *bool
+	Intensity         *float64
+	KeyspaceName      *string
+	LastEvent         *string
+	Nodes             []*string
+	Owner             *string
+	PauseTime         *string
+	RepairParallelism *string
+	RepairState       *string
+	RepairThreadCount *int32
+	RepairUnitID      *string
+	SegmentTimeout    *string
+	SegmentsRepaired  *int32
+	StartTime         *string
+	TotalSegments     *int32
+}
+
+type CassandraReaperRunStatusFeedResponse struct {
+	Value []*CassandraReaperRunStatus
+}
+
+type CassandraReaperScheduleStatus struct {
+	Adaptive                   *bool
+	BlacklistedTables          []*string
+	ClusterName                *string
+	ColumnFamilies             []*string
+	CreationTime               *string
+	Datacenters                []*string
+	ID                         *string
+	IncrementalRepair          *bool
+	Intensity                  *float64
+	KeyspaceName               *string
+	NextActivation             *string
+	Nodes                      []*string
+	Owner                      *string
+	PauseTime                  *string
+	PercentUnrepairedThreshold *int32
+	RepairParallelism          *string
+	RepairThreadCount          *int32
+	RepairUnitID               *string
+	ScheduledDaysBetween       *int32
+	SegmentCountPerNode        *int32
+	SegmentTimeout             *int32
+	State                      *string
+}
+
+// CassandraRepairClientBeginAbortSegmentOptions contains the optional parameters for the CassandraRepairClient.BeginAbortSegment
+// method.
+type CassandraRepairClientBeginAbortSegmentOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginCreateOptions contains the optional parameters for the CassandraRepairClient.BeginCreate method.
+type CassandraRepairClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginDeleteOptions contains the optional parameters for the CassandraRepairClient.BeginDelete method.
+type CassandraRepairClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginGetClusterStatusOptions contains the optional parameters for the CassandraRepairClient.BeginGetClusterStatus
+// method.
+type CassandraRepairClientBeginGetClusterStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginGetTableStatusOptions contains the optional parameters for the CassandraRepairClient.BeginGetTableStatus
+// method.
+type CassandraRepairClientBeginGetTableStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginListOptions contains the optional parameters for the CassandraRepairClient.BeginList method.
+type CassandraRepairClientBeginListOptions struct {
+	// Optional filter parameters to list repairs.
+	Body *CassandraClusterRepairListFilter
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginListSegmentsOptions contains the optional parameters for the CassandraRepairClient.BeginListSegments
+// method.
+type CassandraRepairClientBeginListSegmentsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginPauseOptions contains the optional parameters for the CassandraRepairClient.BeginPause method.
+type CassandraRepairClientBeginPauseOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginResumeOptions contains the optional parameters for the CassandraRepairClient.BeginResume method.
+type CassandraRepairClientBeginResumeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginShowOptions contains the optional parameters for the CassandraRepairClient.BeginShow method.
+type CassandraRepairClientBeginShowOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginUpdateOptions contains the optional parameters for the CassandraRepairClient.BeginUpdate method.
+type CassandraRepairClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+type CassandraRepairRingRange struct {
+	End   *string
+	Start *string
+}
+
+type CassandraRepairSegment struct {
+	CoordinatorHost *string
+	EndTime         *string
+	FailCount       *int32
+	ID              *string
+	RepairUnitID    *string
+
+	// Dictionary of
+	Replicas   map[string]*string
+	RunID      *string
+	StartTime  *string
+	State      *string
+	TokenRange *CassandraRepairTokenRange
+}
+
+type CassandraRepairSegmentResourceFeedResponse struct {
+	Value []*CassandraRepairSegment
+}
+
+type CassandraRepairTokenRange struct {
+	BaseRange *CassandraRepairRingRange
+
+	// Dictionary of
+	Replicas    map[string]*string
+	TokenRanges []*CassandraRepairRingRange
 }
 
 // CassandraResourcesClientBeginCreateUpdateCassandraKeyspaceOptions contains the optional parameters for the CassandraResourcesClient.BeginCreateUpdateCassandraKeyspace
@@ -1057,6 +1325,9 @@ type ClusterResourceProperties struct {
 	// authentication. The default is 'Cassandra'.
 	AuthenticationMethod *AuthenticationMethod
 
+	// List of backup schedules that define when you want to back up your data.
+	BackupSchedules []*BackupSchedule
+
 	// Whether Cassandra audit logging is enabled
 	CassandraAuditLoggingEnabled *bool
 
@@ -1074,6 +1345,9 @@ type ClusterResourceProperties struct {
 	// the value to use on this property.
 	ClusterNameOverride *string
 
+	// Type of the cluster. If set to Production, some operations might not be permitted on cluster.
+	ClusterType *ClusterType
+
 	// Whether the cluster and associated data centers has been deallocated.
 	Deallocated *bool
 
@@ -1081,6 +1355,9 @@ type ClusterResourceProperties struct {
 	// must be routable to all subnets that will be delegated to data centers. The
 	// resource id must be of the form '/subscriptions//resourceGroups//providers/Microsoft.Network/virtualNetworks//subnets/'
 	DelegatedManagementSubnetID *string
+
+	// Extensions to be added or updated on cluster.
+	Extensions []*string
 
 	// List of TLS certificates used to authorize gossip from unmanaged data centers. The TLS certificates of all nodes in unmanaged
 	// data centers must be verifiable using one of the certificates provided in
@@ -1229,6 +1506,9 @@ type ComponentsM9L909SchemasCassandraclusterpublicstatusPropertiesDatacentersIte
 
 	// The network ID of the node.
 	HostID *string
+
+	// If node has been updated to latest model
+	IsLatestModel *bool
 
 	// The amount of file system data in the data directory (e.g., 47.66 kB), excluding all content in the snapshots subdirectories.
 	// Because all SSTable data files are included, any data that is not cleaned

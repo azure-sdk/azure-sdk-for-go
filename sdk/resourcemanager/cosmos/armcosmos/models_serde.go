@@ -455,10 +455,11 @@ func (b *BackupPolicyMigrationState) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type BackupResource.
 func (b BackupResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "id", b.ID)
-	populate(objectMap, "name", b.Name)
-	populate(objectMap, "properties", b.Properties)
-	populate(objectMap, "type", b.Type)
+	populateTimeRFC3339(objectMap, "backupExpiryTimestamp", b.BackupExpiryTimestamp)
+	populate(objectMap, "backupId", b.BackupID)
+	populateTimeRFC3339(objectMap, "backupStartTimestamp", b.BackupStartTimestamp)
+	populate(objectMap, "backupState", b.BackupState)
+	populateTimeRFC3339(objectMap, "backupStopTimestamp", b.BackupStopTimestamp)
 	return json.Marshal(objectMap)
 }
 
@@ -471,17 +472,20 @@ func (b *BackupResource) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &b.ID)
+		case "backupExpiryTimestamp":
+			err = unpopulateTimeRFC3339(val, "BackupExpiryTimestamp", &b.BackupExpiryTimestamp)
 			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &b.Name)
+		case "backupId":
+			err = unpopulate(val, "BackupID", &b.BackupID)
 			delete(rawMsg, key)
-		case "properties":
-			err = unpopulate(val, "Properties", &b.Properties)
+		case "backupStartTimestamp":
+			err = unpopulateTimeRFC3339(val, "BackupStartTimestamp", &b.BackupStartTimestamp)
 			delete(rawMsg, key)
-		case "type":
-			err = unpopulate(val, "Type", &b.Type)
+		case "backupState":
+			err = unpopulate(val, "BackupState", &b.BackupState)
+			delete(rawMsg, key)
+		case "backupStopTimestamp":
+			err = unpopulateTimeRFC3339(val, "BackupStopTimestamp", &b.BackupStopTimestamp)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -491,15 +495,17 @@ func (b *BackupResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type BackupResourceProperties.
-func (b BackupResourceProperties) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type BackupSchedule.
+func (b BackupSchedule) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateTimeRFC3339(objectMap, "timestamp", b.Timestamp)
+	populate(objectMap, "cronExpression", b.CronExpression)
+	populate(objectMap, "retentionInHours", b.RetentionInHours)
+	populate(objectMap, "scheduleName", b.ScheduleName)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type BackupResourceProperties.
-func (b *BackupResourceProperties) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type BackupSchedule.
+func (b *BackupSchedule) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", b, err)
@@ -507,8 +513,14 @@ func (b *BackupResourceProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "timestamp":
-			err = unpopulateTimeRFC3339(val, "Timestamp", &b.Timestamp)
+		case "cronExpression":
+			err = unpopulate(val, "CronExpression", &b.CronExpression)
+			delete(rawMsg, key)
+		case "retentionInHours":
+			err = unpopulate(val, "RetentionInHours", &b.RetentionInHours)
+			delete(rawMsg, key)
+		case "scheduleName":
+			err = unpopulate(val, "ScheduleName", &b.ScheduleName)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -641,6 +653,151 @@ func (c *CassandraClusterPublicStatusDataCentersItem) UnmarshalJSON(data []byte)
 			delete(rawMsg, key)
 		case "seedNodes":
 			err = unpopulate(val, "SeedNodes", &c.SeedNodes)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraClusterRepairListFilter.
+func (c CassandraClusterRepairListFilter) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "keyspace", c.Keyspace)
+	populate(objectMap, "repairRunStates", c.RepairRunStates)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraClusterRepairListFilter.
+func (c *CassandraClusterRepairListFilter) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "keyspace":
+			err = unpopulate(val, "Keyspace", &c.Keyspace)
+			delete(rawMsg, key)
+		case "repairRunStates":
+			err = unpopulate(val, "RepairRunStates", &c.RepairRunStates)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraClusterRepairPublicProperties.
+func (c CassandraClusterRepairPublicProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "autoStart", c.AutoStart)
+	populate(objectMap, "blacklistedTables", c.BlacklistedTables)
+	populate(objectMap, "cause", c.Cause)
+	populate(objectMap, "dataCenters", c.DataCenters)
+	populate(objectMap, "incrementalRepair", c.IncrementalRepair)
+	populate(objectMap, "intensity", c.Intensity)
+	populate(objectMap, "keyspace", c.Keyspace)
+	populate(objectMap, "nodes", c.Nodes)
+	populate(objectMap, "owner", c.Owner)
+	populate(objectMap, "repairParallelism", c.RepairParallelism)
+	populate(objectMap, "repairThreadCount", c.RepairThreadCount)
+	populate(objectMap, "segmentCount", c.SegmentCount)
+	populate(objectMap, "tables", c.Tables)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraClusterRepairPublicProperties.
+func (c *CassandraClusterRepairPublicProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "autoStart":
+			err = unpopulate(val, "AutoStart", &c.AutoStart)
+			delete(rawMsg, key)
+		case "blacklistedTables":
+			err = unpopulate(val, "BlacklistedTables", &c.BlacklistedTables)
+			delete(rawMsg, key)
+		case "cause":
+			err = unpopulate(val, "Cause", &c.Cause)
+			delete(rawMsg, key)
+		case "dataCenters":
+			err = unpopulate(val, "DataCenters", &c.DataCenters)
+			delete(rawMsg, key)
+		case "incrementalRepair":
+			err = unpopulate(val, "IncrementalRepair", &c.IncrementalRepair)
+			delete(rawMsg, key)
+		case "intensity":
+			err = unpopulate(val, "Intensity", &c.Intensity)
+			delete(rawMsg, key)
+		case "keyspace":
+			err = unpopulate(val, "Keyspace", &c.Keyspace)
+			delete(rawMsg, key)
+		case "nodes":
+			err = unpopulate(val, "Nodes", &c.Nodes)
+			delete(rawMsg, key)
+		case "owner":
+			err = unpopulate(val, "Owner", &c.Owner)
+			delete(rawMsg, key)
+		case "repairParallelism":
+			err = unpopulate(val, "RepairParallelism", &c.RepairParallelism)
+			delete(rawMsg, key)
+		case "repairThreadCount":
+			err = unpopulate(val, "RepairThreadCount", &c.RepairThreadCount)
+			delete(rawMsg, key)
+		case "segmentCount":
+			err = unpopulate(val, "SegmentCount", &c.SegmentCount)
+			delete(rawMsg, key)
+		case "tables":
+			err = unpopulate(val, "Tables", &c.Tables)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraClusterRepairPublicResource.
+func (c CassandraClusterRepairPublicResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", c.ID)
+	populate(objectMap, "name", c.Name)
+	populate(objectMap, "properties", c.Properties)
+	populate(objectMap, "type", c.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraClusterRepairPublicResource.
+func (c *CassandraClusterRepairPublicResource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &c.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &c.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &c.Type)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1030,6 +1187,607 @@ func (c *CassandraPartitionKey) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "name":
 			err = unpopulate(val, "Name", &c.Name)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperClusterStatus.
+func (c CassandraReaperClusterStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "jmxPasswordIsSet", c.JmxPasswordIsSet)
+	populate(objectMap, "jmxUserName", c.JmxUserName)
+	populate(objectMap, "name", c.Name)
+	populate(objectMap, "nodesStatus", c.NodesStatus)
+	populate(objectMap, "repairRuns", c.RepairRuns)
+	populate(objectMap, "repairSchedules", c.RepairSchedules)
+	populate(objectMap, "seedHosts", c.SeedHosts)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperClusterStatus.
+func (c *CassandraReaperClusterStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "jmxPasswordIsSet":
+			err = unpopulate(val, "JmxPasswordIsSet", &c.JmxPasswordIsSet)
+			delete(rawMsg, key)
+		case "jmxUserName":
+			err = unpopulate(val, "JmxUserName", &c.JmxUserName)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &c.Name)
+			delete(rawMsg, key)
+		case "nodesStatus":
+			err = unpopulate(val, "NodesStatus", &c.NodesStatus)
+			delete(rawMsg, key)
+		case "repairRuns":
+			err = unpopulate(val, "RepairRuns", &c.RepairRuns)
+			delete(rawMsg, key)
+		case "repairSchedules":
+			err = unpopulate(val, "RepairSchedules", &c.RepairSchedules)
+			delete(rawMsg, key)
+		case "seedHosts":
+			err = unpopulate(val, "SeedHosts", &c.SeedHosts)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperEndpointState.
+func (c CassandraReaperEndpointState) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "dataCenter", c.DataCenter)
+	populate(objectMap, "endpoint", c.Endpoint)
+	populate(objectMap, "hostId", c.HostID)
+	populate(objectMap, "load", c.Load)
+	populate(objectMap, "rack", c.Rack)
+	populate(objectMap, "releaseVersion", c.ReleaseVersion)
+	populate(objectMap, "severity", c.Severity)
+	populate(objectMap, "status", c.Status)
+	populate(objectMap, "tokens", c.Tokens)
+	populate(objectMap, "type", c.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperEndpointState.
+func (c *CassandraReaperEndpointState) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "dataCenter":
+			err = unpopulate(val, "DataCenter", &c.DataCenter)
+			delete(rawMsg, key)
+		case "endpoint":
+			err = unpopulate(val, "Endpoint", &c.Endpoint)
+			delete(rawMsg, key)
+		case "hostId":
+			err = unpopulate(val, "HostID", &c.HostID)
+			delete(rawMsg, key)
+		case "load":
+			err = unpopulate(val, "Load", &c.Load)
+			delete(rawMsg, key)
+		case "rack":
+			err = unpopulate(val, "Rack", &c.Rack)
+			delete(rawMsg, key)
+		case "releaseVersion":
+			err = unpopulate(val, "ReleaseVersion", &c.ReleaseVersion)
+			delete(rawMsg, key)
+		case "severity":
+			err = unpopulate(val, "Severity", &c.Severity)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &c.Status)
+			delete(rawMsg, key)
+		case "tokens":
+			err = unpopulate(val, "Tokens", &c.Tokens)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &c.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperGossipInfo.
+func (c CassandraReaperGossipInfo) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "endpointNames", c.EndpointNames)
+	populate(objectMap, "endpoints", c.Endpoints)
+	populate(objectMap, "sourceNode", c.SourceNode)
+	populate(objectMap, "totalLoad", c.TotalLoad)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperGossipInfo.
+func (c *CassandraReaperGossipInfo) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "endpointNames":
+			err = unpopulate(val, "EndpointNames", &c.EndpointNames)
+			delete(rawMsg, key)
+		case "endpoints":
+			err = unpopulate(val, "Endpoints", &c.Endpoints)
+			delete(rawMsg, key)
+		case "sourceNode":
+			err = unpopulate(val, "SourceNode", &c.SourceNode)
+			delete(rawMsg, key)
+		case "totalLoad":
+			err = unpopulate(val, "TotalLoad", &c.TotalLoad)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperNodeStatus.
+func (c CassandraReaperNodeStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "endpointStates", c.EndpointStates)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperNodeStatus.
+func (c *CassandraReaperNodeStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "endpointStates":
+			err = unpopulate(val, "EndpointStates", &c.EndpointStates)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperRunStatus.
+func (c CassandraReaperRunStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "adaptive_schedule", c.AdaptiveSchedule)
+	populate(objectMap, "blacklisted_tables", c.BlacklistedTables)
+	populate(objectMap, "cause", c.Cause)
+	populate(objectMap, "cluster_name", c.ClusterName)
+	populate(objectMap, "column_families", c.ColumnFamilies)
+	populate(objectMap, "creation_time", c.CreationTime)
+	populate(objectMap, "current_time", c.CurrentTime)
+	populate(objectMap, "datacenters", c.Datacenters)
+	populate(objectMap, "duration", c.Duration)
+	populate(objectMap, "end_time", c.EndTime)
+	populate(objectMap, "id", c.ID)
+	populate(objectMap, "incremental_repair", c.IncrementalRepair)
+	populate(objectMap, "intensity", c.Intensity)
+	populate(objectMap, "keyspace_name", c.KeyspaceName)
+	populate(objectMap, "last_event", c.LastEvent)
+	populate(objectMap, "nodes", c.Nodes)
+	populate(objectMap, "owner", c.Owner)
+	populate(objectMap, "pause_time", c.PauseTime)
+	populate(objectMap, "repair_parallelism", c.RepairParallelism)
+	populate(objectMap, "repairState", c.RepairState)
+	populate(objectMap, "repair_thread_count", c.RepairThreadCount)
+	populate(objectMap, "repair_unit_id", c.RepairUnitID)
+	populate(objectMap, "segment_timeout", c.SegmentTimeout)
+	populate(objectMap, "segments_repaired", c.SegmentsRepaired)
+	populate(objectMap, "start_time", c.StartTime)
+	populate(objectMap, "total_segments", c.TotalSegments)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperRunStatus.
+func (c *CassandraReaperRunStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "adaptive_schedule":
+			err = unpopulate(val, "AdaptiveSchedule", &c.AdaptiveSchedule)
+			delete(rawMsg, key)
+		case "blacklisted_tables":
+			err = unpopulate(val, "BlacklistedTables", &c.BlacklistedTables)
+			delete(rawMsg, key)
+		case "cause":
+			err = unpopulate(val, "Cause", &c.Cause)
+			delete(rawMsg, key)
+		case "cluster_name":
+			err = unpopulate(val, "ClusterName", &c.ClusterName)
+			delete(rawMsg, key)
+		case "column_families":
+			err = unpopulate(val, "ColumnFamilies", &c.ColumnFamilies)
+			delete(rawMsg, key)
+		case "creation_time":
+			err = unpopulate(val, "CreationTime", &c.CreationTime)
+			delete(rawMsg, key)
+		case "current_time":
+			err = unpopulate(val, "CurrentTime", &c.CurrentTime)
+			delete(rawMsg, key)
+		case "datacenters":
+			err = unpopulate(val, "Datacenters", &c.Datacenters)
+			delete(rawMsg, key)
+		case "duration":
+			err = unpopulate(val, "Duration", &c.Duration)
+			delete(rawMsg, key)
+		case "end_time":
+			err = unpopulate(val, "EndTime", &c.EndTime)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "incremental_repair":
+			err = unpopulate(val, "IncrementalRepair", &c.IncrementalRepair)
+			delete(rawMsg, key)
+		case "intensity":
+			err = unpopulate(val, "Intensity", &c.Intensity)
+			delete(rawMsg, key)
+		case "keyspace_name":
+			err = unpopulate(val, "KeyspaceName", &c.KeyspaceName)
+			delete(rawMsg, key)
+		case "last_event":
+			err = unpopulate(val, "LastEvent", &c.LastEvent)
+			delete(rawMsg, key)
+		case "nodes":
+			err = unpopulate(val, "Nodes", &c.Nodes)
+			delete(rawMsg, key)
+		case "owner":
+			err = unpopulate(val, "Owner", &c.Owner)
+			delete(rawMsg, key)
+		case "pause_time":
+			err = unpopulate(val, "PauseTime", &c.PauseTime)
+			delete(rawMsg, key)
+		case "repair_parallelism":
+			err = unpopulate(val, "RepairParallelism", &c.RepairParallelism)
+			delete(rawMsg, key)
+		case "repairState":
+			err = unpopulate(val, "RepairState", &c.RepairState)
+			delete(rawMsg, key)
+		case "repair_thread_count":
+			err = unpopulate(val, "RepairThreadCount", &c.RepairThreadCount)
+			delete(rawMsg, key)
+		case "repair_unit_id":
+			err = unpopulate(val, "RepairUnitID", &c.RepairUnitID)
+			delete(rawMsg, key)
+		case "segment_timeout":
+			err = unpopulate(val, "SegmentTimeout", &c.SegmentTimeout)
+			delete(rawMsg, key)
+		case "segments_repaired":
+			err = unpopulate(val, "SegmentsRepaired", &c.SegmentsRepaired)
+			delete(rawMsg, key)
+		case "start_time":
+			err = unpopulate(val, "StartTime", &c.StartTime)
+			delete(rawMsg, key)
+		case "total_segments":
+			err = unpopulate(val, "TotalSegments", &c.TotalSegments)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperRunStatusFeedResponse.
+func (c CassandraReaperRunStatusFeedResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "value", c.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperRunStatusFeedResponse.
+func (c *CassandraReaperRunStatusFeedResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &c.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraReaperScheduleStatus.
+func (c CassandraReaperScheduleStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "adaptive", c.Adaptive)
+	populate(objectMap, "blacklistedTables", c.BlacklistedTables)
+	populate(objectMap, "clusterName", c.ClusterName)
+	populate(objectMap, "columnFamilies", c.ColumnFamilies)
+	populate(objectMap, "creationTime", c.CreationTime)
+	populate(objectMap, "datacenters", c.Datacenters)
+	populate(objectMap, "id", c.ID)
+	populate(objectMap, "incrementalRepair", c.IncrementalRepair)
+	populate(objectMap, "intensity", c.Intensity)
+	populate(objectMap, "keyspaceName", c.KeyspaceName)
+	populate(objectMap, "nextActivation", c.NextActivation)
+	populate(objectMap, "nodes", c.Nodes)
+	populate(objectMap, "owner", c.Owner)
+	populate(objectMap, "pauseTime", c.PauseTime)
+	populate(objectMap, "percentUnrepairedThreshold", c.PercentUnrepairedThreshold)
+	populate(objectMap, "repairParallelism", c.RepairParallelism)
+	populate(objectMap, "repairThreadCount", c.RepairThreadCount)
+	populate(objectMap, "repairUnitId", c.RepairUnitID)
+	populate(objectMap, "scheduledDaysBetween", c.ScheduledDaysBetween)
+	populate(objectMap, "segmentCountPerNode", c.SegmentCountPerNode)
+	populate(objectMap, "segmentTimeout", c.SegmentTimeout)
+	populate(objectMap, "state", c.State)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraReaperScheduleStatus.
+func (c *CassandraReaperScheduleStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "adaptive":
+			err = unpopulate(val, "Adaptive", &c.Adaptive)
+			delete(rawMsg, key)
+		case "blacklistedTables":
+			err = unpopulate(val, "BlacklistedTables", &c.BlacklistedTables)
+			delete(rawMsg, key)
+		case "clusterName":
+			err = unpopulate(val, "ClusterName", &c.ClusterName)
+			delete(rawMsg, key)
+		case "columnFamilies":
+			err = unpopulate(val, "ColumnFamilies", &c.ColumnFamilies)
+			delete(rawMsg, key)
+		case "creationTime":
+			err = unpopulate(val, "CreationTime", &c.CreationTime)
+			delete(rawMsg, key)
+		case "datacenters":
+			err = unpopulate(val, "Datacenters", &c.Datacenters)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "incrementalRepair":
+			err = unpopulate(val, "IncrementalRepair", &c.IncrementalRepair)
+			delete(rawMsg, key)
+		case "intensity":
+			err = unpopulate(val, "Intensity", &c.Intensity)
+			delete(rawMsg, key)
+		case "keyspaceName":
+			err = unpopulate(val, "KeyspaceName", &c.KeyspaceName)
+			delete(rawMsg, key)
+		case "nextActivation":
+			err = unpopulate(val, "NextActivation", &c.NextActivation)
+			delete(rawMsg, key)
+		case "nodes":
+			err = unpopulate(val, "Nodes", &c.Nodes)
+			delete(rawMsg, key)
+		case "owner":
+			err = unpopulate(val, "Owner", &c.Owner)
+			delete(rawMsg, key)
+		case "pauseTime":
+			err = unpopulate(val, "PauseTime", &c.PauseTime)
+			delete(rawMsg, key)
+		case "percentUnrepairedThreshold":
+			err = unpopulate(val, "PercentUnrepairedThreshold", &c.PercentUnrepairedThreshold)
+			delete(rawMsg, key)
+		case "repairParallelism":
+			err = unpopulate(val, "RepairParallelism", &c.RepairParallelism)
+			delete(rawMsg, key)
+		case "repairThreadCount":
+			err = unpopulate(val, "RepairThreadCount", &c.RepairThreadCount)
+			delete(rawMsg, key)
+		case "repairUnitId":
+			err = unpopulate(val, "RepairUnitID", &c.RepairUnitID)
+			delete(rawMsg, key)
+		case "scheduledDaysBetween":
+			err = unpopulate(val, "ScheduledDaysBetween", &c.ScheduledDaysBetween)
+			delete(rawMsg, key)
+		case "segmentCountPerNode":
+			err = unpopulate(val, "SegmentCountPerNode", &c.SegmentCountPerNode)
+			delete(rawMsg, key)
+		case "segmentTimeout":
+			err = unpopulate(val, "SegmentTimeout", &c.SegmentTimeout)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &c.State)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraRepairRingRange.
+func (c CassandraRepairRingRange) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "end", c.End)
+	populate(objectMap, "start", c.Start)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraRepairRingRange.
+func (c *CassandraRepairRingRange) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "end":
+			err = unpopulate(val, "End", &c.End)
+			delete(rawMsg, key)
+		case "start":
+			err = unpopulate(val, "Start", &c.Start)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraRepairSegment.
+func (c CassandraRepairSegment) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "coordinatorHost", c.CoordinatorHost)
+	populate(objectMap, "endTime", c.EndTime)
+	populate(objectMap, "failCount", c.FailCount)
+	populate(objectMap, "id", c.ID)
+	populate(objectMap, "repairUnitId", c.RepairUnitID)
+	populate(objectMap, "replicas", c.Replicas)
+	populate(objectMap, "runId", c.RunID)
+	populate(objectMap, "startTime", c.StartTime)
+	populate(objectMap, "state", c.State)
+	populate(objectMap, "tokenRange", c.TokenRange)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraRepairSegment.
+func (c *CassandraRepairSegment) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "coordinatorHost":
+			err = unpopulate(val, "CoordinatorHost", &c.CoordinatorHost)
+			delete(rawMsg, key)
+		case "endTime":
+			err = unpopulate(val, "EndTime", &c.EndTime)
+			delete(rawMsg, key)
+		case "failCount":
+			err = unpopulate(val, "FailCount", &c.FailCount)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "repairUnitId":
+			err = unpopulate(val, "RepairUnitID", &c.RepairUnitID)
+			delete(rawMsg, key)
+		case "replicas":
+			err = unpopulate(val, "Replicas", &c.Replicas)
+			delete(rawMsg, key)
+		case "runId":
+			err = unpopulate(val, "RunID", &c.RunID)
+			delete(rawMsg, key)
+		case "startTime":
+			err = unpopulate(val, "StartTime", &c.StartTime)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &c.State)
+			delete(rawMsg, key)
+		case "tokenRange":
+			err = unpopulate(val, "TokenRange", &c.TokenRange)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraRepairSegmentResourceFeedResponse.
+func (c CassandraRepairSegmentResourceFeedResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "value", c.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraRepairSegmentResourceFeedResponse.
+func (c *CassandraRepairSegmentResourceFeedResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &c.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CassandraRepairTokenRange.
+func (c CassandraRepairTokenRange) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "baseRange", c.BaseRange)
+	populate(objectMap, "replicas", c.Replicas)
+	populate(objectMap, "tokenRanges", c.TokenRanges)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraRepairTokenRange.
+func (c *CassandraRepairTokenRange) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "baseRange":
+			err = unpopulate(val, "BaseRange", &c.BaseRange)
+			delete(rawMsg, key)
+		case "replicas":
+			err = unpopulate(val, "Replicas", &c.Replicas)
+			delete(rawMsg, key)
+		case "tokenRanges":
+			err = unpopulate(val, "TokenRanges", &c.TokenRanges)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2168,12 +2926,15 @@ func (c *ClusterResource) UnmarshalJSON(data []byte) error {
 func (c ClusterResourceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "authenticationMethod", c.AuthenticationMethod)
+	populate(objectMap, "backupSchedules", c.BackupSchedules)
 	populate(objectMap, "cassandraAuditLoggingEnabled", c.CassandraAuditLoggingEnabled)
 	populate(objectMap, "cassandraVersion", c.CassandraVersion)
 	populate(objectMap, "clientCertificates", c.ClientCertificates)
 	populate(objectMap, "clusterNameOverride", c.ClusterNameOverride)
+	populate(objectMap, "clusterType", c.ClusterType)
 	populate(objectMap, "deallocated", c.Deallocated)
 	populate(objectMap, "delegatedManagementSubnetId", c.DelegatedManagementSubnetID)
+	populate(objectMap, "extensions", c.Extensions)
 	populate(objectMap, "externalGossipCertificates", c.ExternalGossipCertificates)
 	populate(objectMap, "externalSeedNodes", c.ExternalSeedNodes)
 	populate(objectMap, "gossipCertificates", c.GossipCertificates)
@@ -2200,6 +2961,9 @@ func (c *ClusterResourceProperties) UnmarshalJSON(data []byte) error {
 		case "authenticationMethod":
 			err = unpopulate(val, "AuthenticationMethod", &c.AuthenticationMethod)
 			delete(rawMsg, key)
+		case "backupSchedules":
+			err = unpopulate(val, "BackupSchedules", &c.BackupSchedules)
+			delete(rawMsg, key)
 		case "cassandraAuditLoggingEnabled":
 			err = unpopulate(val, "CassandraAuditLoggingEnabled", &c.CassandraAuditLoggingEnabled)
 			delete(rawMsg, key)
@@ -2212,11 +2976,17 @@ func (c *ClusterResourceProperties) UnmarshalJSON(data []byte) error {
 		case "clusterNameOverride":
 			err = unpopulate(val, "ClusterNameOverride", &c.ClusterNameOverride)
 			delete(rawMsg, key)
+		case "clusterType":
+			err = unpopulate(val, "ClusterType", &c.ClusterType)
+			delete(rawMsg, key)
 		case "deallocated":
 			err = unpopulate(val, "Deallocated", &c.Deallocated)
 			delete(rawMsg, key)
 		case "delegatedManagementSubnetId":
 			err = unpopulate(val, "DelegatedManagementSubnetID", &c.DelegatedManagementSubnetID)
+			delete(rawMsg, key)
+		case "extensions":
+			err = unpopulate(val, "Extensions", &c.Extensions)
 			delete(rawMsg, key)
 		case "externalGossipCertificates":
 			err = unpopulate(val, "ExternalGossipCertificates", &c.ExternalGossipCertificates)
@@ -2400,6 +3170,7 @@ func (c ComponentsM9L909SchemasCassandraclusterpublicstatusPropertiesDatacenters
 	populate(objectMap, "diskFreeKB", c.DiskFreeKB)
 	populate(objectMap, "diskUsedKB", c.DiskUsedKB)
 	populate(objectMap, "hostID", c.HostID)
+	populate(objectMap, "isLatestModel", c.IsLatestModel)
 	populate(objectMap, "load", c.Load)
 	populate(objectMap, "memoryBuffersAndCachedKB", c.MemoryBuffersAndCachedKB)
 	populate(objectMap, "memoryFreeKB", c.MemoryFreeKB)
@@ -2440,6 +3211,9 @@ func (c *ComponentsM9L909SchemasCassandraclusterpublicstatusPropertiesDatacenter
 			delete(rawMsg, key)
 		case "hostID":
 			err = unpopulate(val, "HostID", &c.HostID)
+			delete(rawMsg, key)
+		case "isLatestModel":
+			err = unpopulate(val, "IsLatestModel", &c.IsLatestModel)
 			delete(rawMsg, key)
 		case "load":
 			err = unpopulate(val, "Load", &c.Load)

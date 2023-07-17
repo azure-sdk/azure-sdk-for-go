@@ -9,6 +9,8 @@
 
 package armcosmos
 
+import "encoding/json"
+
 // CassandraClustersClientCreateUpdateResponse contains the response from method CassandraClustersClient.BeginCreateUpdate.
 type CassandraClustersClientCreateUpdateResponse struct {
 	ClusterResource
@@ -92,6 +94,66 @@ type CassandraDataCentersClientListResponse struct {
 // CassandraDataCentersClientUpdateResponse contains the response from method CassandraDataCentersClient.BeginUpdate.
 type CassandraDataCentersClientUpdateResponse struct {
 	DataCenterResource
+}
+
+// CassandraRepairClientAbortSegmentResponse contains the response from method CassandraRepairClient.BeginAbortSegment.
+type CassandraRepairClientAbortSegmentResponse struct {
+	// placeholder for future response values
+}
+
+// CassandraRepairClientCreateResponse contains the response from method CassandraRepairClient.BeginCreate.
+type CassandraRepairClientCreateResponse struct {
+	CassandraReaperRunStatus
+}
+
+// CassandraRepairClientDeleteResponse contains the response from method CassandraRepairClient.BeginDelete.
+type CassandraRepairClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// CassandraRepairClientGetClusterStatusResponse contains the response from method CassandraRepairClient.BeginGetClusterStatus.
+type CassandraRepairClientGetClusterStatusResponse struct {
+	CassandraReaperClusterStatus
+}
+
+// CassandraRepairClientGetTableStatusResponse contains the response from method CassandraRepairClient.BeginGetTableStatus.
+type CassandraRepairClientGetTableStatusResponse struct {
+	Value *string
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CassandraRepairClientGetTableStatusResponse.
+func (c *CassandraRepairClientGetTableStatusResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &c.Value)
+}
+
+// CassandraRepairClientListResponse contains the response from method CassandraRepairClient.BeginList.
+type CassandraRepairClientListResponse struct {
+	CassandraReaperRunStatusFeedResponse
+}
+
+// CassandraRepairClientListSegmentsResponse contains the response from method CassandraRepairClient.BeginListSegments.
+type CassandraRepairClientListSegmentsResponse struct {
+	CassandraRepairSegmentResourceFeedResponse
+}
+
+// CassandraRepairClientPauseResponse contains the response from method CassandraRepairClient.BeginPause.
+type CassandraRepairClientPauseResponse struct {
+	// placeholder for future response values
+}
+
+// CassandraRepairClientResumeResponse contains the response from method CassandraRepairClient.BeginResume.
+type CassandraRepairClientResumeResponse struct {
+	// placeholder for future response values
+}
+
+// CassandraRepairClientShowResponse contains the response from method CassandraRepairClient.BeginShow.
+type CassandraRepairClientShowResponse struct {
+	CassandraReaperRunStatus
+}
+
+// CassandraRepairClientUpdateResponse contains the response from method CassandraRepairClient.BeginUpdate.
+type CassandraRepairClientUpdateResponse struct {
+	// placeholder for future response values
 }
 
 // CassandraResourcesClientCreateUpdateCassandraKeyspaceResponse contains the response from method CassandraResourcesClient.BeginCreateUpdateCassandraKeyspace.

@@ -18,6 +18,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -177,6 +178,9 @@ func (client *CassandraClustersClient) deallocateCreateRequest(ctx context.Conte
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	if options != nil && options.XMSForceDeallocate != nil {
+		req.Raw().Header["x-ms-force-deallocate"] = []string{strconv.FormatBool(*options.XMSForceDeallocate)}
+	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }

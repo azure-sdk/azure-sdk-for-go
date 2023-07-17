@@ -1,5 +1,50 @@
 # Release History
 
+## 3.0.0-beta.2 (2023-07-17)
+### Breaking Changes
+
+- Struct `BackupResourceProperties` has been removed
+- Field `ID`, `Name`, `Properties`, `Type` of struct `BackupResource` has been removed
+
+### Features Added
+
+- New enum type `BackupState` with values `BackupStateFailed`, `BackupStateInProgress`, `BackupStateInitiated`, `BackupStateSucceeded`
+- New enum type `CassandraRepairRunStateEnum` with values `CassandraRepairRunStateEnumABORTED`, `CassandraRepairRunStateEnumDELETED`, `CassandraRepairRunStateEnumDONE`, `CassandraRepairRunStateEnumERROR`, `CassandraRepairRunStateEnumNOTSTARTED`, `CassandraRepairRunStateEnumPAUSED`, `CassandraRepairRunStateEnumRUNNING`
+- New enum type `ClusterType` with values `ClusterTypeNonProduction`, `ClusterTypeProduction`
+- New function `NewCassandraRepairClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CassandraRepairClient, error)`
+- New function `*CassandraRepairClient.BeginAbortSegment(context.Context, string, string, string, string, *CassandraRepairClientBeginAbortSegmentOptions) (*runtime.Poller[CassandraRepairClientAbortSegmentResponse], error)`
+- New function `*CassandraRepairClient.BeginCreate(context.Context, string, string, CassandraClusterRepairPublicResource, *CassandraRepairClientBeginCreateOptions) (*runtime.Poller[CassandraRepairClientCreateResponse], error)`
+- New function `*CassandraRepairClient.BeginDelete(context.Context, string, string, string, string, *CassandraRepairClientBeginDeleteOptions) (*runtime.Poller[CassandraRepairClientDeleteResponse], error)`
+- New function `*CassandraRepairClient.BeginGetClusterStatus(context.Context, string, string, *CassandraRepairClientBeginGetClusterStatusOptions) (*runtime.Poller[CassandraRepairClientGetClusterStatusResponse], error)`
+- New function `*CassandraRepairClient.BeginGetTableStatus(context.Context, string, string, *CassandraRepairClientBeginGetTableStatusOptions) (*runtime.Poller[CassandraRepairClientGetTableStatusResponse], error)`
+- New function `*CassandraRepairClient.BeginList(context.Context, string, string, *CassandraRepairClientBeginListOptions) (*runtime.Poller[CassandraRepairClientListResponse], error)`
+- New function `*CassandraRepairClient.BeginListSegments(context.Context, string, string, string, *CassandraRepairClientBeginListSegmentsOptions) (*runtime.Poller[CassandraRepairClientListSegmentsResponse], error)`
+- New function `*CassandraRepairClient.BeginPause(context.Context, string, string, string, *CassandraRepairClientBeginPauseOptions) (*runtime.Poller[CassandraRepairClientPauseResponse], error)`
+- New function `*CassandraRepairClient.BeginResume(context.Context, string, string, string, *CassandraRepairClientBeginResumeOptions) (*runtime.Poller[CassandraRepairClientResumeResponse], error)`
+- New function `*CassandraRepairClient.BeginShow(context.Context, string, string, string, *CassandraRepairClientBeginShowOptions) (*runtime.Poller[CassandraRepairClientShowResponse], error)`
+- New function `*CassandraRepairClient.BeginUpdate(context.Context, string, string, string, string, *CassandraRepairClientBeginUpdateOptions) (*runtime.Poller[CassandraRepairClientUpdateResponse], error)`
+- New function `*ClientFactory.NewCassandraRepairClient() *CassandraRepairClient`
+- New struct `BackupSchedule`
+- New struct `CassandraClusterRepairListFilter`
+- New struct `CassandraClusterRepairPublicProperties`
+- New struct `CassandraClusterRepairPublicResource`
+- New struct `CassandraReaperClusterStatus`
+- New struct `CassandraReaperEndpointState`
+- New struct `CassandraReaperGossipInfo`
+- New struct `CassandraReaperNodeStatus`
+- New struct `CassandraReaperRunStatus`
+- New struct `CassandraReaperRunStatusFeedResponse`
+- New struct `CassandraReaperScheduleStatus`
+- New struct `CassandraRepairRingRange`
+- New struct `CassandraRepairSegment`
+- New struct `CassandraRepairSegmentResourceFeedResponse`
+- New struct `CassandraRepairTokenRange`
+- New field `BackupExpiryTimestamp`, `BackupID`, `BackupStartTimestamp`, `BackupState`, `BackupStopTimestamp` in struct `BackupResource`
+- New field `XMSForceDeallocate` in struct `CassandraClustersClientBeginDeallocateOptions`
+- New field `BackupSchedules`, `ClusterType`, `Extensions` in struct `ClusterResourceProperties`
+- New field `IsLatestModel` in struct `ComponentsM9L909SchemasCassandraclusterpublicstatusPropertiesDatacentersItemsPropertiesNodesItems`
+
+
 ## 3.0.0-beta.1 (2023-06-23)
 ### Breaking Changes
 
