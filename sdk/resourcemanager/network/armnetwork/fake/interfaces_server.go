@@ -40,6 +40,10 @@ type InterfacesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetCloudServiceNetworkInterface func(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, options *armnetwork.InterfacesClientGetCloudServiceNetworkInterfaceOptions) (resp azfake.Responder[armnetwork.InterfacesClientGetCloudServiceNetworkInterfaceResponse], errResp azfake.ErrorResponder)
 
+	// GetCloudServiceRoleInstanceNetworkInterface is the fake for method InterfacesClient.GetCloudServiceRoleInstanceNetworkInterface
+	// HTTP status codes to indicate success: http.StatusOK
+	GetCloudServiceRoleInstanceNetworkInterface func(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, options *armnetwork.InterfacesClientGetCloudServiceRoleInstanceNetworkInterfaceOptions) (resp azfake.Responder[armnetwork.InterfacesClientGetCloudServiceRoleInstanceNetworkInterfaceResponse], errResp azfake.ErrorResponder)
+
 	// BeginGetEffectiveRouteTable is the fake for method InterfacesClient.BeginGetEffectiveRouteTable
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginGetEffectiveRouteTable func(ctx context.Context, resourceGroupName string, networkInterfaceName string, options *armnetwork.InterfacesClientBeginGetEffectiveRouteTableOptions) (resp azfake.PollerResponder[armnetwork.InterfacesClientGetEffectiveRouteTableResponse], errResp azfake.ErrorResponder)
@@ -60,9 +64,17 @@ type InterfacesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListAllPager func(options *armnetwork.InterfacesClientListAllOptions) (resp azfake.PagerResponder[armnetwork.InterfacesClientListAllResponse])
 
+	// NewListCloudServiceNetworkInterfacePager is the fake for method InterfacesClient.NewListCloudServiceNetworkInterfacePager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListCloudServiceNetworkInterfacePager func(resourceGroupName string, cloudServiceName string, options *armnetwork.InterfacesClientListCloudServiceNetworkInterfaceOptions) (resp azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceNetworkInterfaceResponse])
+
 	// NewListCloudServiceNetworkInterfacesPager is the fake for method InterfacesClient.NewListCloudServiceNetworkInterfacesPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListCloudServiceNetworkInterfacesPager func(resourceGroupName string, cloudServiceName string, options *armnetwork.InterfacesClientListCloudServiceNetworkInterfacesOptions) (resp azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceNetworkInterfacesResponse])
+
+	// NewListCloudServiceRoleInstanceNetworkInterfacePager is the fake for method InterfacesClient.NewListCloudServiceRoleInstanceNetworkInterfacePager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListCloudServiceRoleInstanceNetworkInterfacePager func(resourceGroupName string, cloudServiceName string, roleInstanceName string, options *armnetwork.InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceOptions) (resp azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceResponse])
 
 	// NewListCloudServiceRoleInstanceNetworkInterfacesPager is the fake for method InterfacesClient.NewListCloudServiceRoleInstanceNetworkInterfacesPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -105,7 +117,9 @@ type InterfacesServerTransport struct {
 	beginGetEffectiveRouteTable                           *azfake.PollerResponder[armnetwork.InterfacesClientGetEffectiveRouteTableResponse]
 	newListPager                                          *azfake.PagerResponder[armnetwork.InterfacesClientListResponse]
 	newListAllPager                                       *azfake.PagerResponder[armnetwork.InterfacesClientListAllResponse]
+	newListCloudServiceNetworkInterfacePager              *azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceNetworkInterfaceResponse]
 	newListCloudServiceNetworkInterfacesPager             *azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceNetworkInterfacesResponse]
+	newListCloudServiceRoleInstanceNetworkInterfacePager  *azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceResponse]
 	newListCloudServiceRoleInstanceNetworkInterfacesPager *azfake.PagerResponder[armnetwork.InterfacesClientListCloudServiceRoleInstanceNetworkInterfacesResponse]
 	beginListEffectiveNetworkSecurityGroups               *azfake.PollerResponder[armnetwork.InterfacesClientListEffectiveNetworkSecurityGroupsResponse]
 	newListVirtualMachineScaleSetIPConfigurationsPager    *azfake.PagerResponder[armnetwork.InterfacesClientListVirtualMachineScaleSetIPConfigurationsResponse]
@@ -133,6 +147,8 @@ func (i *InterfacesServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = i.dispatchGet(req)
 	case "InterfacesClient.GetCloudServiceNetworkInterface":
 		resp, err = i.dispatchGetCloudServiceNetworkInterface(req)
+	case "InterfacesClient.GetCloudServiceRoleInstanceNetworkInterface":
+		resp, err = i.dispatchGetCloudServiceRoleInstanceNetworkInterface(req)
 	case "InterfacesClient.BeginGetEffectiveRouteTable":
 		resp, err = i.dispatchBeginGetEffectiveRouteTable(req)
 	case "InterfacesClient.GetVirtualMachineScaleSetIPConfiguration":
@@ -143,8 +159,12 @@ func (i *InterfacesServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = i.dispatchNewListPager(req)
 	case "InterfacesClient.NewListAllPager":
 		resp, err = i.dispatchNewListAllPager(req)
+	case "InterfacesClient.NewListCloudServiceNetworkInterfacePager":
+		resp, err = i.dispatchNewListCloudServiceNetworkInterfacePager(req)
 	case "InterfacesClient.NewListCloudServiceNetworkInterfacesPager":
 		resp, err = i.dispatchNewListCloudServiceNetworkInterfacesPager(req)
+	case "InterfacesClient.NewListCloudServiceRoleInstanceNetworkInterfacePager":
+		resp, err = i.dispatchNewListCloudServiceRoleInstanceNetworkInterfacePager(req)
 	case "InterfacesClient.NewListCloudServiceRoleInstanceNetworkInterfacesPager":
 		resp, err = i.dispatchNewListCloudServiceRoleInstanceNetworkInterfacesPager(req)
 	case "InterfacesClient.BeginListEffectiveNetworkSecurityGroups":
@@ -338,6 +358,47 @@ func (i *InterfacesServerTransport) dispatchGetCloudServiceNetworkInterface(req 
 		}
 	}
 	respr, errRespr := i.srv.GetCloudServiceNetworkInterface(req.Context(), resourceGroupNameUnescaped, cloudServiceNameUnescaped, roleInstanceNameUnescaped, networkInterfaceNameUnescaped, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Interface, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (i *InterfacesServerTransport) dispatchGetCloudServiceRoleInstanceNetworkInterface(req *http.Request) (*http.Response, error) {
+	if i.srv.GetCloudServiceRoleInstanceNetworkInterface == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetCloudServiceRoleInstanceNetworkInterface not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/cloudServices/(?P<cloudServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/roleInstances/(?P<roleInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/cloudServiceNetworkInterfaces/(?P<networkInterfaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 5 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	cloudServiceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("cloudServiceName")])
+	if err != nil {
+		return nil, err
+	}
+	roleInstanceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("roleInstanceName")])
+	if err != nil {
+		return nil, err
+	}
+	networkInterfaceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("networkInterfaceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := i.srv.GetCloudServiceRoleInstanceNetworkInterface(req.Context(), resourceGroupNameUnescaped, cloudServiceNameUnescaped, roleInstanceNameUnescaped, networkInterfaceNameUnescaped, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -567,6 +628,44 @@ func (i *InterfacesServerTransport) dispatchNewListAllPager(req *http.Request) (
 	return resp, nil
 }
 
+func (i *InterfacesServerTransport) dispatchNewListCloudServiceNetworkInterfacePager(req *http.Request) (*http.Response, error) {
+	if i.srv.NewListCloudServiceNetworkInterfacePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListCloudServiceNetworkInterfacePager not implemented")}
+	}
+	if i.newListCloudServiceNetworkInterfacePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/cloudServices/(?P<cloudServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/cloudServiceNetworkInterfaces`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudServiceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("cloudServiceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := i.srv.NewListCloudServiceNetworkInterfacePager(resourceGroupNameUnescaped, cloudServiceNameUnescaped, nil)
+		i.newListCloudServiceNetworkInterfacePager = &resp
+		server.PagerResponderInjectNextLinks(i.newListCloudServiceNetworkInterfacePager, req, func(page *armnetwork.InterfacesClientListCloudServiceNetworkInterfaceResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(i.newListCloudServiceNetworkInterfacePager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(i.newListCloudServiceNetworkInterfacePager) {
+		i.newListCloudServiceNetworkInterfacePager = nil
+	}
+	return resp, nil
+}
+
 func (i *InterfacesServerTransport) dispatchNewListCloudServiceNetworkInterfacesPager(req *http.Request) (*http.Response, error) {
 	if i.srv.NewListCloudServiceNetworkInterfacesPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListCloudServiceNetworkInterfacesPager not implemented")}
@@ -601,6 +700,48 @@ func (i *InterfacesServerTransport) dispatchNewListCloudServiceNetworkInterfaces
 	}
 	if !server.PagerResponderMore(i.newListCloudServiceNetworkInterfacesPager) {
 		i.newListCloudServiceNetworkInterfacesPager = nil
+	}
+	return resp, nil
+}
+
+func (i *InterfacesServerTransport) dispatchNewListCloudServiceRoleInstanceNetworkInterfacePager(req *http.Request) (*http.Response, error) {
+	if i.srv.NewListCloudServiceRoleInstanceNetworkInterfacePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListCloudServiceRoleInstanceNetworkInterfacePager not implemented")}
+	}
+	if i.newListCloudServiceRoleInstanceNetworkInterfacePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/cloudServices/(?P<cloudServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/roleInstances/(?P<roleInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/cloudServiceNetworkInterfaces`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudServiceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("cloudServiceName")])
+		if err != nil {
+			return nil, err
+		}
+		roleInstanceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("roleInstanceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := i.srv.NewListCloudServiceRoleInstanceNetworkInterfacePager(resourceGroupNameUnescaped, cloudServiceNameUnescaped, roleInstanceNameUnescaped, nil)
+		i.newListCloudServiceRoleInstanceNetworkInterfacePager = &resp
+		server.PagerResponderInjectNextLinks(i.newListCloudServiceRoleInstanceNetworkInterfacePager, req, func(page *armnetwork.InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(i.newListCloudServiceRoleInstanceNetworkInterfacePager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(i.newListCloudServiceRoleInstanceNetworkInterfacePager) {
+		i.newListCloudServiceRoleInstanceNetworkInterfacePager = nil
 	}
 	return resp, nil
 }

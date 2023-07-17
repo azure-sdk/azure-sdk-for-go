@@ -47,7 +47,7 @@ func NewPublicIPAddressesClient(subscriptionID string, credential azcore.TokenCr
 // BeginCreateOrUpdate - Creates or updates a static or dynamic public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - publicIPAddressName - The name of the public IP address.
 //   - parameters - Parameters supplied to the create or update public IP address operation.
@@ -71,7 +71,7 @@ func (client *PublicIPAddressesClient) BeginCreateOrUpdate(ctx context.Context, 
 // CreateOrUpdate - Creates or updates a static or dynamic public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 func (client *PublicIPAddressesClient) createOrUpdate(ctx context.Context, resourceGroupName string, publicIPAddressName string, parameters PublicIPAddress, options *PublicIPAddressesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PublicIPAddressesClient.BeginCreateOrUpdate"
@@ -113,7 +113,7 @@ func (client *PublicIPAddressesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -125,7 +125,7 @@ func (client *PublicIPAddressesClient) createOrUpdateCreateRequest(ctx context.C
 // BeginDdosProtectionStatus - Gets the Ddos Protection Status of a Public IP Address
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - publicIPAddressName - The name of the public IP address.
 //   - options - PublicIPAddressesClientBeginDdosProtectionStatusOptions contains the optional parameters for the PublicIPAddressesClient.BeginDdosProtectionStatus
@@ -148,7 +148,7 @@ func (client *PublicIPAddressesClient) BeginDdosProtectionStatus(ctx context.Con
 // DdosProtectionStatus - Gets the Ddos Protection Status of a Public IP Address
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 func (client *PublicIPAddressesClient) ddosProtectionStatus(ctx context.Context, resourceGroupName string, publicIPAddressName string, options *PublicIPAddressesClientBeginDdosProtectionStatusOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PublicIPAddressesClient.BeginDdosProtectionStatus"
@@ -190,7 +190,7 @@ func (client *PublicIPAddressesClient) ddosProtectionStatusCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -199,7 +199,7 @@ func (client *PublicIPAddressesClient) ddosProtectionStatusCreateRequest(ctx con
 // BeginDelete - Deletes the specified public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - publicIPAddressName - The name of the public IP address.
 //   - options - PublicIPAddressesClientBeginDeleteOptions contains the optional parameters for the PublicIPAddressesClient.BeginDelete
@@ -222,7 +222,7 @@ func (client *PublicIPAddressesClient) BeginDelete(ctx context.Context, resource
 // Delete - Deletes the specified public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 func (client *PublicIPAddressesClient) deleteOperation(ctx context.Context, resourceGroupName string, publicIPAddressName string, options *PublicIPAddressesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PublicIPAddressesClient.BeginDelete"
@@ -264,7 +264,7 @@ func (client *PublicIPAddressesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -273,7 +273,7 @@ func (client *PublicIPAddressesClient) deleteCreateRequest(ctx context.Context, 
 // Get - Gets the specified public IP address in a specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - publicIPAddressName - The name of the public IP address.
 //   - options - PublicIPAddressesClientGetOptions contains the optional parameters for the PublicIPAddressesClient.Get method.
@@ -319,7 +319,7 @@ func (client *PublicIPAddressesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -340,7 +340,7 @@ func (client *PublicIPAddressesClient) getHandleResponse(resp *http.Response) (P
 // GetCloudServicePublicIPAddress - Get the specified public IP address in a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - cloudServiceName - The name of the cloud service.
 //   - roleInstanceName - The role instance name.
@@ -407,7 +407,7 @@ func (client *PublicIPAddressesClient) getCloudServicePublicIPAddressCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -421,6 +421,91 @@ func (client *PublicIPAddressesClient) getCloudServicePublicIPAddressHandleRespo
 	result := PublicIPAddressesClientGetCloudServicePublicIPAddressResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.PublicIPAddress); err != nil {
 		return PublicIPAddressesClientGetCloudServicePublicIPAddressResponse{}, err
+	}
+	return result, nil
+}
+
+// GetCloudServiceRoleInstancePublicIPAddress - Get the specified public IP address in a cloud service.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group.
+//   - cloudServiceName - The name of the cloud service.
+//   - roleInstanceName - The role instance name.
+//   - networkInterfaceName - The name of the network interface.
+//   - ipConfigurationName - The name of the IP configuration.
+//   - publicIPAddressName - The name of the public IP Address.
+//   - options - PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressOptions contains the optional parameters for
+//     the PublicIPAddressesClient.GetCloudServiceRoleInstancePublicIPAddress method.
+func (client *PublicIPAddressesClient) GetCloudServiceRoleInstancePublicIPAddress(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, publicIPAddressName string, options *PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressOptions) (PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse, error) {
+	var err error
+	const operationName = "PublicIPAddressesClient.GetCloudServiceRoleInstancePublicIPAddress"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getCloudServiceRoleInstancePublicIPAddressCreateRequest(ctx, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, publicIPAddressName, options)
+	if err != nil {
+		return PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse{}, err
+	}
+	resp, err := client.getCloudServiceRoleInstancePublicIPAddressHandleResponse(httpResp)
+	return resp, err
+}
+
+// getCloudServiceRoleInstancePublicIPAddressCreateRequest creates the GetCloudServiceRoleInstancePublicIPAddress request.
+func (client *PublicIPAddressesClient) getCloudServiceRoleInstancePublicIPAddressCreateRequest(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, publicIPAddressName string, options *PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/roleInstances/{roleInstanceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces/{networkInterfaceName}/ipconfigurations/{ipConfigurationName}/publicipaddresses/{publicIpAddressName}"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if cloudServiceName == "" {
+		return nil, errors.New("parameter cloudServiceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{cloudServiceName}", url.PathEscape(cloudServiceName))
+	if roleInstanceName == "" {
+		return nil, errors.New("parameter roleInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{roleInstanceName}", url.PathEscape(roleInstanceName))
+	if networkInterfaceName == "" {
+		return nil, errors.New("parameter networkInterfaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{networkInterfaceName}", url.PathEscape(networkInterfaceName))
+	if ipConfigurationName == "" {
+		return nil, errors.New("parameter ipConfigurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{ipConfigurationName}", url.PathEscape(ipConfigurationName))
+	if publicIPAddressName == "" {
+		return nil, errors.New("parameter publicIPAddressName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publicIpAddressName}", url.PathEscape(publicIPAddressName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getCloudServiceRoleInstancePublicIPAddressHandleResponse handles the GetCloudServiceRoleInstancePublicIPAddress response.
+func (client *PublicIPAddressesClient) getCloudServiceRoleInstancePublicIPAddressHandleResponse(resp *http.Response) (PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse, error) {
+	result := PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PublicIPAddress); err != nil {
+		return PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse{}, err
 	}
 	return result, nil
 }
@@ -515,7 +600,7 @@ func (client *PublicIPAddressesClient) getVirtualMachineScaleSetPublicIPAddressH
 
 // NewListPager - Gets all public IP addresses in a resource group.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - options - PublicIPAddressesClientListOptions contains the optional parameters for the PublicIPAddressesClient.NewListPager
 //     method.
@@ -565,7 +650,7 @@ func (client *PublicIPAddressesClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -582,7 +667,7 @@ func (client *PublicIPAddressesClient) listHandleResponse(resp *http.Response) (
 
 // NewListAllPager - Gets all the public IP addresses in a subscription.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - options - PublicIPAddressesClientListAllOptions contains the optional parameters for the PublicIPAddressesClient.NewListAllPager
 //     method.
 func (client *PublicIPAddressesClient) NewListAllPager(options *PublicIPAddressesClientListAllOptions) *runtime.Pager[PublicIPAddressesClientListAllResponse] {
@@ -627,7 +712,7 @@ func (client *PublicIPAddressesClient) listAllCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -642,9 +727,81 @@ func (client *PublicIPAddressesClient) listAllHandleResponse(resp *http.Response
 	return result, nil
 }
 
+// NewListCloudServicePublicIPAddressPager - Gets information about all public IP addresses on a cloud service level.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group.
+//   - cloudServiceName - The name of the cloud service.
+//   - options - PublicIPAddressesClientListCloudServicePublicIPAddressOptions contains the optional parameters for the PublicIPAddressesClient.NewListCloudServicePublicIPAddressPager
+//     method.
+func (client *PublicIPAddressesClient) NewListCloudServicePublicIPAddressPager(resourceGroupName string, cloudServiceName string, options *PublicIPAddressesClientListCloudServicePublicIPAddressOptions) *runtime.Pager[PublicIPAddressesClientListCloudServicePublicIPAddressResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PublicIPAddressesClientListCloudServicePublicIPAddressResponse]{
+		More: func(page PublicIPAddressesClientListCloudServicePublicIPAddressResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *PublicIPAddressesClientListCloudServicePublicIPAddressResponse) (PublicIPAddressesClientListCloudServicePublicIPAddressResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PublicIPAddressesClient.NewListCloudServicePublicIPAddressPager")
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCloudServicePublicIPAddressCreateRequest(ctx, resourceGroupName, cloudServiceName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return PublicIPAddressesClientListCloudServicePublicIPAddressResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return PublicIPAddressesClientListCloudServicePublicIPAddressResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return PublicIPAddressesClientListCloudServicePublicIPAddressResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listCloudServicePublicIPAddressHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listCloudServicePublicIPAddressCreateRequest creates the ListCloudServicePublicIPAddress request.
+func (client *PublicIPAddressesClient) listCloudServicePublicIPAddressCreateRequest(ctx context.Context, resourceGroupName string, cloudServiceName string, options *PublicIPAddressesClientListCloudServicePublicIPAddressOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServicePublicIPAddresses"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if cloudServiceName == "" {
+		return nil, errors.New("parameter cloudServiceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{cloudServiceName}", url.PathEscape(cloudServiceName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listCloudServicePublicIPAddressHandleResponse handles the ListCloudServicePublicIPAddress response.
+func (client *PublicIPAddressesClient) listCloudServicePublicIPAddressHandleResponse(resp *http.Response) (PublicIPAddressesClientListCloudServicePublicIPAddressResponse, error) {
+	result := PublicIPAddressesClientListCloudServicePublicIPAddressResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PublicIPAddressListResult); err != nil {
+		return PublicIPAddressesClientListCloudServicePublicIPAddressResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListCloudServicePublicIPAddressesPager - Gets information about all public IP addresses on a cloud service level.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - cloudServiceName - The name of the cloud service.
 //   - options - PublicIPAddressesClientListCloudServicePublicIPAddressesOptions contains the optional parameters for the PublicIPAddressesClient.NewListCloudServicePublicIPAddressesPager
@@ -699,7 +856,7 @@ func (client *PublicIPAddressesClient) listCloudServicePublicIPAddressesCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -714,10 +871,98 @@ func (client *PublicIPAddressesClient) listCloudServicePublicIPAddressesHandleRe
 	return result, nil
 }
 
+// NewListCloudServiceRoleInstancePublicIPAddressPager - Gets information about all public IP addresses in a role instance
+// IP configuration in a cloud service.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group.
+//   - cloudServiceName - The name of the cloud service.
+//   - roleInstanceName - The name of role instance.
+//   - networkInterfaceName - The network interface name.
+//   - ipConfigurationName - The IP configuration name.
+//   - options - PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressOptions contains the optional parameters for
+//     the PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressPager method.
+func (client *PublicIPAddressesClient) NewListCloudServiceRoleInstancePublicIPAddressPager(resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, options *PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressOptions) *runtime.Pager[PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse]{
+		More: func(page PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse) (PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressPager")
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCloudServiceRoleInstancePublicIPAddressCreateRequest(ctx, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listCloudServiceRoleInstancePublicIPAddressHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listCloudServiceRoleInstancePublicIPAddressCreateRequest creates the ListCloudServiceRoleInstancePublicIPAddress request.
+func (client *PublicIPAddressesClient) listCloudServiceRoleInstancePublicIPAddressCreateRequest(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, options *PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/roleInstances/{roleInstanceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces/{networkInterfaceName}/ipconfigurations/{ipConfigurationName}/publicipaddresses"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if cloudServiceName == "" {
+		return nil, errors.New("parameter cloudServiceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{cloudServiceName}", url.PathEscape(cloudServiceName))
+	if roleInstanceName == "" {
+		return nil, errors.New("parameter roleInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{roleInstanceName}", url.PathEscape(roleInstanceName))
+	if networkInterfaceName == "" {
+		return nil, errors.New("parameter networkInterfaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{networkInterfaceName}", url.PathEscape(networkInterfaceName))
+	if ipConfigurationName == "" {
+		return nil, errors.New("parameter ipConfigurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{ipConfigurationName}", url.PathEscape(ipConfigurationName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listCloudServiceRoleInstancePublicIPAddressHandleResponse handles the ListCloudServiceRoleInstancePublicIPAddress response.
+func (client *PublicIPAddressesClient) listCloudServiceRoleInstancePublicIPAddressHandleResponse(resp *http.Response) (PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse, error) {
+	result := PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PublicIPAddressListResult); err != nil {
+		return PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListCloudServiceRoleInstancePublicIPAddressesPager - Gets information about all public IP addresses in a role instance
 // IP configuration in a cloud service.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - cloudServiceName - The name of the cloud service.
 //   - roleInstanceName - The name of role instance.
@@ -787,7 +1032,7 @@ func (client *PublicIPAddressesClient) listCloudServiceRoleInstancePublicIPAddre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -966,7 +1211,7 @@ func (client *PublicIPAddressesClient) listVirtualMachineScaleSetVMPublicIPAddre
 // UpdateTags - Updates public IP address tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - publicIPAddressName - The name of the public IP address.
 //   - parameters - Parameters supplied to update public IP address tags.
@@ -1014,7 +1259,7 @@ func (client *PublicIPAddressesClient) updateTagsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

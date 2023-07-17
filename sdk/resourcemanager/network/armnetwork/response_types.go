@@ -1145,6 +1145,11 @@ type InterfacesClientGetCloudServiceNetworkInterfaceResponse struct {
 	Interface
 }
 
+// InterfacesClientGetCloudServiceRoleInstanceNetworkInterfaceResponse contains the response from method InterfacesClient.GetCloudServiceRoleInstanceNetworkInterface.
+type InterfacesClientGetCloudServiceRoleInstanceNetworkInterfaceResponse struct {
+	Interface
+}
+
 // InterfacesClientGetEffectiveRouteTableResponse contains the response from method InterfacesClient.BeginGetEffectiveRouteTable.
 type InterfacesClientGetEffectiveRouteTableResponse struct {
 	EffectiveRouteListResult
@@ -1170,8 +1175,18 @@ type InterfacesClientListAllResponse struct {
 	InterfaceListResult
 }
 
+// InterfacesClientListCloudServiceNetworkInterfaceResponse contains the response from method InterfacesClient.NewListCloudServiceNetworkInterfacePager.
+type InterfacesClientListCloudServiceNetworkInterfaceResponse struct {
+	InterfaceListResult
+}
+
 // InterfacesClientListCloudServiceNetworkInterfacesResponse contains the response from method InterfacesClient.NewListCloudServiceNetworkInterfacesPager.
 type InterfacesClientListCloudServiceNetworkInterfacesResponse struct {
+	InterfaceListResult
+}
+
+// InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceResponse contains the response from method InterfacesClient.NewListCloudServiceRoleInstanceNetworkInterfacePager.
+type InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceResponse struct {
 	InterfaceListResult
 }
 
@@ -1303,6 +1318,11 @@ type LoadBalancersClientListInboundNatRulePortMappingsResponse struct {
 // LoadBalancersClientListResponse contains the response from method LoadBalancersClient.NewListPager.
 type LoadBalancersClientListResponse struct {
 	LoadBalancerListResult
+}
+
+// LoadBalancersClientMigrateToIPBasedResponse contains the response from method LoadBalancersClient.MigrateToIPBased.
+type LoadBalancersClientMigrateToIPBasedResponse struct {
+	MigratedPools
 }
 
 // LoadBalancersClientSwapPublicIPAddressesResponse contains the response from method LoadBalancersClient.BeginSwapPublicIPAddresses.
@@ -1775,6 +1795,11 @@ type PublicIPAddressesClientGetCloudServicePublicIPAddressResponse struct {
 	PublicIPAddress
 }
 
+// PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse contains the response from method PublicIPAddressesClient.GetCloudServiceRoleInstancePublicIPAddress.
+type PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse struct {
+	PublicIPAddress
+}
+
 // PublicIPAddressesClientGetResponse contains the response from method PublicIPAddressesClient.Get.
 type PublicIPAddressesClientGetResponse struct {
 	PublicIPAddress
@@ -1790,8 +1815,18 @@ type PublicIPAddressesClientListAllResponse struct {
 	PublicIPAddressListResult
 }
 
+// PublicIPAddressesClientListCloudServicePublicIPAddressResponse contains the response from method PublicIPAddressesClient.NewListCloudServicePublicIPAddressPager.
+type PublicIPAddressesClientListCloudServicePublicIPAddressResponse struct {
+	PublicIPAddressListResult
+}
+
 // PublicIPAddressesClientListCloudServicePublicIPAddressesResponse contains the response from method PublicIPAddressesClient.NewListCloudServicePublicIPAddressesPager.
 type PublicIPAddressesClientListCloudServicePublicIPAddressesResponse struct {
+	PublicIPAddressListResult
+}
+
+// PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse contains the response from method PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressPager.
+type PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse struct {
 	PublicIPAddressListResult
 }
 

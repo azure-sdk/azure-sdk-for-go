@@ -44,6 +44,10 @@ type PublicIPAddressesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetCloudServicePublicIPAddress func(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, publicIPAddressName string, options *armnetwork.PublicIPAddressesClientGetCloudServicePublicIPAddressOptions) (resp azfake.Responder[armnetwork.PublicIPAddressesClientGetCloudServicePublicIPAddressResponse], errResp azfake.ErrorResponder)
 
+	// GetCloudServiceRoleInstancePublicIPAddress is the fake for method PublicIPAddressesClient.GetCloudServiceRoleInstancePublicIPAddress
+	// HTTP status codes to indicate success: http.StatusOK
+	GetCloudServiceRoleInstancePublicIPAddress func(ctx context.Context, resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, publicIPAddressName string, options *armnetwork.PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressOptions) (resp azfake.Responder[armnetwork.PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressResponse], errResp azfake.ErrorResponder)
+
 	// GetVirtualMachineScaleSetPublicIPAddress is the fake for method PublicIPAddressesClient.GetVirtualMachineScaleSetPublicIPAddress
 	// HTTP status codes to indicate success: http.StatusOK
 	GetVirtualMachineScaleSetPublicIPAddress func(ctx context.Context, resourceGroupName string, virtualMachineScaleSetName string, virtualmachineIndex string, networkInterfaceName string, ipConfigurationName string, publicIPAddressName string, options *armnetwork.PublicIPAddressesClientGetVirtualMachineScaleSetPublicIPAddressOptions) (resp azfake.Responder[armnetwork.PublicIPAddressesClientGetVirtualMachineScaleSetPublicIPAddressResponse], errResp azfake.ErrorResponder)
@@ -56,9 +60,17 @@ type PublicIPAddressesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListAllPager func(options *armnetwork.PublicIPAddressesClientListAllOptions) (resp azfake.PagerResponder[armnetwork.PublicIPAddressesClientListAllResponse])
 
+	// NewListCloudServicePublicIPAddressPager is the fake for method PublicIPAddressesClient.NewListCloudServicePublicIPAddressPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListCloudServicePublicIPAddressPager func(resourceGroupName string, cloudServiceName string, options *armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressOptions) (resp azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressResponse])
+
 	// NewListCloudServicePublicIPAddressesPager is the fake for method PublicIPAddressesClient.NewListCloudServicePublicIPAddressesPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListCloudServicePublicIPAddressesPager func(resourceGroupName string, cloudServiceName string, options *armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressesOptions) (resp azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressesResponse])
+
+	// NewListCloudServiceRoleInstancePublicIPAddressPager is the fake for method PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListCloudServiceRoleInstancePublicIPAddressPager func(resourceGroupName string, cloudServiceName string, roleInstanceName string, networkInterfaceName string, ipConfigurationName string, options *armnetwork.PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressOptions) (resp azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse])
 
 	// NewListCloudServiceRoleInstancePublicIPAddressesPager is the fake for method PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressesPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -93,7 +105,9 @@ type PublicIPAddressesServerTransport struct {
 	beginDelete                                           *azfake.PollerResponder[armnetwork.PublicIPAddressesClientDeleteResponse]
 	newListPager                                          *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListResponse]
 	newListAllPager                                       *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListAllResponse]
+	newListCloudServicePublicIPAddressPager               *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressResponse]
 	newListCloudServicePublicIPAddressesPager             *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressesResponse]
+	newListCloudServiceRoleInstancePublicIPAddressPager   *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse]
 	newListCloudServiceRoleInstancePublicIPAddressesPager *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressesResponse]
 	newListVirtualMachineScaleSetPublicIPAddressesPager   *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListVirtualMachineScaleSetPublicIPAddressesResponse]
 	newListVirtualMachineScaleSetVMPublicIPAddressesPager *azfake.PagerResponder[armnetwork.PublicIPAddressesClientListVirtualMachineScaleSetVMPublicIPAddressesResponse]
@@ -121,14 +135,20 @@ func (p *PublicIPAddressesServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = p.dispatchGet(req)
 	case "PublicIPAddressesClient.GetCloudServicePublicIPAddress":
 		resp, err = p.dispatchGetCloudServicePublicIPAddress(req)
+	case "PublicIPAddressesClient.GetCloudServiceRoleInstancePublicIPAddress":
+		resp, err = p.dispatchGetCloudServiceRoleInstancePublicIPAddress(req)
 	case "PublicIPAddressesClient.GetVirtualMachineScaleSetPublicIPAddress":
 		resp, err = p.dispatchGetVirtualMachineScaleSetPublicIPAddress(req)
 	case "PublicIPAddressesClient.NewListPager":
 		resp, err = p.dispatchNewListPager(req)
 	case "PublicIPAddressesClient.NewListAllPager":
 		resp, err = p.dispatchNewListAllPager(req)
+	case "PublicIPAddressesClient.NewListCloudServicePublicIPAddressPager":
+		resp, err = p.dispatchNewListCloudServicePublicIPAddressPager(req)
 	case "PublicIPAddressesClient.NewListCloudServicePublicIPAddressesPager":
 		resp, err = p.dispatchNewListCloudServicePublicIPAddressesPager(req)
+	case "PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressPager":
+		resp, err = p.dispatchNewListCloudServiceRoleInstancePublicIPAddressPager(req)
 	case "PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressesPager":
 		resp, err = p.dispatchNewListCloudServiceRoleInstancePublicIPAddressesPager(req)
 	case "PublicIPAddressesClient.NewListVirtualMachineScaleSetPublicIPAddressesPager":
@@ -381,6 +401,55 @@ func (p *PublicIPAddressesServerTransport) dispatchGetCloudServicePublicIPAddres
 	return resp, nil
 }
 
+func (p *PublicIPAddressesServerTransport) dispatchGetCloudServiceRoleInstancePublicIPAddress(req *http.Request) (*http.Response, error) {
+	if p.srv.GetCloudServiceRoleInstancePublicIPAddress == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetCloudServiceRoleInstancePublicIPAddress not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/cloudServices/(?P<cloudServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/roleInstances/(?P<roleInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/cloudServiceNetworkInterfaces/(?P<networkInterfaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/ipconfigurations/(?P<ipConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/publicipaddresses/(?P<publicIpAddressName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 7 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	cloudServiceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("cloudServiceName")])
+	if err != nil {
+		return nil, err
+	}
+	roleInstanceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("roleInstanceName")])
+	if err != nil {
+		return nil, err
+	}
+	networkInterfaceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("networkInterfaceName")])
+	if err != nil {
+		return nil, err
+	}
+	ipConfigurationNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("ipConfigurationName")])
+	if err != nil {
+		return nil, err
+	}
+	publicIPAddressNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("publicIpAddressName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetCloudServiceRoleInstancePublicIPAddress(req.Context(), resourceGroupNameUnescaped, cloudServiceNameUnescaped, roleInstanceNameUnescaped, networkInterfaceNameUnescaped, ipConfigurationNameUnescaped, publicIPAddressNameUnescaped, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PublicIPAddress, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (p *PublicIPAddressesServerTransport) dispatchGetVirtualMachineScaleSetPublicIPAddress(req *http.Request) (*http.Response, error) {
 	if p.srv.GetVirtualMachineScaleSetPublicIPAddress == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetVirtualMachineScaleSetPublicIPAddress not implemented")}
@@ -506,6 +575,44 @@ func (p *PublicIPAddressesServerTransport) dispatchNewListAllPager(req *http.Req
 	return resp, nil
 }
 
+func (p *PublicIPAddressesServerTransport) dispatchNewListCloudServicePublicIPAddressPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListCloudServicePublicIPAddressPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListCloudServicePublicIPAddressPager not implemented")}
+	}
+	if p.newListCloudServicePublicIPAddressPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/cloudServices/(?P<cloudServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/cloudServicePublicIPAddresses`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudServiceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("cloudServiceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListCloudServicePublicIPAddressPager(resourceGroupNameUnescaped, cloudServiceNameUnescaped, nil)
+		p.newListCloudServicePublicIPAddressPager = &resp
+		server.PagerResponderInjectNextLinks(p.newListCloudServicePublicIPAddressPager, req, func(page *armnetwork.PublicIPAddressesClientListCloudServicePublicIPAddressResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(p.newListCloudServicePublicIPAddressPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(p.newListCloudServicePublicIPAddressPager) {
+		p.newListCloudServicePublicIPAddressPager = nil
+	}
+	return resp, nil
+}
+
 func (p *PublicIPAddressesServerTransport) dispatchNewListCloudServicePublicIPAddressesPager(req *http.Request) (*http.Response, error) {
 	if p.srv.NewListCloudServicePublicIPAddressesPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListCloudServicePublicIPAddressesPager not implemented")}
@@ -540,6 +647,56 @@ func (p *PublicIPAddressesServerTransport) dispatchNewListCloudServicePublicIPAd
 	}
 	if !server.PagerResponderMore(p.newListCloudServicePublicIPAddressesPager) {
 		p.newListCloudServicePublicIPAddressesPager = nil
+	}
+	return resp, nil
+}
+
+func (p *PublicIPAddressesServerTransport) dispatchNewListCloudServiceRoleInstancePublicIPAddressPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListCloudServiceRoleInstancePublicIPAddressPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListCloudServiceRoleInstancePublicIPAddressPager not implemented")}
+	}
+	if p.newListCloudServiceRoleInstancePublicIPAddressPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Compute/cloudServices/(?P<cloudServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/roleInstances/(?P<roleInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft.Network/cloudServiceNetworkInterfaces/(?P<networkInterfaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/ipconfigurations/(?P<ipConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/publicipaddresses`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 6 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudServiceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("cloudServiceName")])
+		if err != nil {
+			return nil, err
+		}
+		roleInstanceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("roleInstanceName")])
+		if err != nil {
+			return nil, err
+		}
+		networkInterfaceNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("networkInterfaceName")])
+		if err != nil {
+			return nil, err
+		}
+		ipConfigurationNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("ipConfigurationName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListCloudServiceRoleInstancePublicIPAddressPager(resourceGroupNameUnescaped, cloudServiceNameUnescaped, roleInstanceNameUnescaped, networkInterfaceNameUnescaped, ipConfigurationNameUnescaped, nil)
+		p.newListCloudServiceRoleInstancePublicIPAddressPager = &resp
+		server.PagerResponderInjectNextLinks(p.newListCloudServiceRoleInstancePublicIPAddressPager, req, func(page *armnetwork.PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(p.newListCloudServiceRoleInstancePublicIPAddressPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(p.newListCloudServiceRoleInstancePublicIPAddressPager) {
+		p.newListCloudServiceRoleInstancePublicIPAddressPager = nil
 	}
 	return resp, nil
 }

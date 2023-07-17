@@ -258,6 +258,9 @@ type AdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRule - Network admin rule.
@@ -336,6 +339,9 @@ type AdminRuleCollectionPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the AdminRuleCollectionsClient.BeginDelete
@@ -896,6 +902,9 @@ type ApplicationGatewayFrontendIPConfigurationPropertiesFormat struct {
 	// Reference to the subnet resource.
 	Subnet *SubResource
 
+	// READ-ONLY; Reference to the application gateway http listeners.
+	HTTPListeners *SubResource
+
 	// READ-ONLY; The provisioning state of the frontend IP configuration resource.
 	ProvisioningState *ProvisioningState
 }
@@ -1434,8 +1443,8 @@ type ApplicationGatewayProbePropertiesFormat struct {
 	PickHostNameFromBackendSettings *bool
 
 	// Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set,
-	// port from http settings will be used. This property is valid for Standardv2 and
-	// WAFv2 only.
+	// port from http settings will be used. This property is valid for Basic,
+	// Standardv2 and WAFv2 only.
 	Port *int32
 
 	// The protocol used for the probe.
@@ -1556,6 +1565,9 @@ type ApplicationGatewayPropertiesFormat struct {
 
 	// Web application firewall configuration.
 	WebApplicationFirewallConfiguration *ApplicationGatewayWebApplicationFirewallConfiguration
+
+	// READ-ONLY; The default predefined SSL Policy applied on the application gateway resource.
+	DefaultPredefinedSSLPolicy *ApplicationGatewaySSLPolicyName
 
 	// READ-ONLY; Operational state of the application gateway resource.
 	OperationalState *ApplicationGatewayOperationalState
@@ -3169,6 +3181,9 @@ type BackendAddressPoolPropertiesFormat struct {
 	// The location of the backend address pool.
 	Location *string
 
+	// Backend address synchronous mode for the backend pool
+	SyncMode *SyncMode
+
 	// An array of gateway load balancer tunnel interfaces.
 	TunnelInterfaces []*GatewayLoadBalancerTunnelInterface
 
@@ -4174,6 +4189,9 @@ type ConnectivityConfigurationProperties struct {
 
 	// READ-ONLY; The provisioning state of the connectivity configuration resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ConnectivityConfigurationsClientBeginDeleteOptions contains the optional parameters for the ConnectivityConfigurationsClient.BeginDelete
@@ -4779,6 +4797,9 @@ type DefaultAdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 
 	// READ-ONLY; The source port ranges.
 	SourcePortRanges []*string
@@ -7682,6 +7703,9 @@ type GroupProperties struct {
 
 	// READ-ONLY; The provisioning state of the scope assignment resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
@@ -8917,6 +8941,12 @@ type InterfacesClientGetCloudServiceNetworkInterfaceOptions struct {
 	Expand *string
 }
 
+// InterfacesClientGetCloudServiceRoleInstanceNetworkInterfaceOptions contains the optional parameters for the InterfacesClient.GetCloudServiceRoleInstanceNetworkInterface
+// method.
+type InterfacesClientGetCloudServiceRoleInstanceNetworkInterfaceOptions struct {
+	// placeholder for future optional parameters
+}
+
 // InterfacesClientGetOptions contains the optional parameters for the InterfacesClient.Get method.
 type InterfacesClientGetOptions struct {
 	// Expands referenced resources.
@@ -8942,9 +8972,21 @@ type InterfacesClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
+// InterfacesClientListCloudServiceNetworkInterfaceOptions contains the optional parameters for the InterfacesClient.NewListCloudServiceNetworkInterfacePager
+// method.
+type InterfacesClientListCloudServiceNetworkInterfaceOptions struct {
+	// placeholder for future optional parameters
+}
+
 // InterfacesClientListCloudServiceNetworkInterfacesOptions contains the optional parameters for the InterfacesClient.NewListCloudServiceNetworkInterfacesPager
 // method.
 type InterfacesClientListCloudServiceNetworkInterfacesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceOptions contains the optional parameters for the InterfacesClient.NewListCloudServiceRoleInstanceNetworkInterfacePager
+// method.
+type InterfacesClientListCloudServiceRoleInstanceNetworkInterfaceOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -9473,6 +9515,13 @@ type LoadBalancersClientListAllOptions struct {
 // LoadBalancersClientListOptions contains the optional parameters for the LoadBalancersClient.NewListPager method.
 type LoadBalancersClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// LoadBalancersClientMigrateToIPBasedOptions contains the optional parameters for the LoadBalancersClient.MigrateToIPBased
+// method.
+type LoadBalancersClientMigrateToIPBasedOptions struct {
+	// Parameters supplied to the migrateToIpBased Api.
+	Parameters *MigrateLoadBalancerToIPBasedRequest
 }
 
 // LoadBalancersClientUpdateTagsOptions contains the optional parameters for the LoadBalancersClient.UpdateTags method.
@@ -10006,6 +10055,9 @@ type ManagerProperties struct {
 
 	// READ-ONLY; The provisioning state of the network manager resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ManagerPropertiesNetworkManagerScopes - Scope of Network Manager.
@@ -10150,6 +10202,18 @@ type MetricSpecification struct {
 
 	// Units the metric to be displayed in.
 	Unit *string
+}
+
+// MigrateLoadBalancerToIPBasedRequest - The request for a migrateToIpBased API.
+type MigrateLoadBalancerToIPBasedRequest struct {
+	// A list of pool names that should be migrated from Nic based to IP based pool
+	Pools []*string
+}
+
+// MigratedPools - The response for a migrateToIpBased API.
+type MigratedPools struct {
+	// A list of pools migrated from Nic based to IP based pool
+	MigratedPools []*string
 }
 
 // NatGateway - Nat Gateway resource.
@@ -11916,6 +11980,12 @@ type PublicIPAddressesClientGetCloudServicePublicIPAddressOptions struct {
 	Expand *string
 }
 
+// PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressOptions contains the optional parameters for the PublicIPAddressesClient.GetCloudServiceRoleInstancePublicIPAddress
+// method.
+type PublicIPAddressesClientGetCloudServiceRoleInstancePublicIPAddressOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PublicIPAddressesClientGetOptions contains the optional parameters for the PublicIPAddressesClient.Get method.
 type PublicIPAddressesClientGetOptions struct {
 	// Expands referenced resources.
@@ -11935,9 +12005,21 @@ type PublicIPAddressesClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PublicIPAddressesClientListCloudServicePublicIPAddressOptions contains the optional parameters for the PublicIPAddressesClient.NewListCloudServicePublicIPAddressPager
+// method.
+type PublicIPAddressesClientListCloudServicePublicIPAddressOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PublicIPAddressesClientListCloudServicePublicIPAddressesOptions contains the optional parameters for the PublicIPAddressesClient.NewListCloudServicePublicIPAddressesPager
 // method.
 type PublicIPAddressesClientListCloudServicePublicIPAddressesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressOptions contains the optional parameters for the PublicIPAddressesClient.NewListCloudServiceRoleInstancePublicIPAddressPager
+// method.
+type PublicIPAddressesClientListCloudServiceRoleInstancePublicIPAddressOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -12922,6 +13004,9 @@ type SecurityAdminConfigurationPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // SecurityAdminConfigurationsClientBeginDeleteOptions contains the optional parameters for the SecurityAdminConfigurationsClient.BeginDelete
@@ -15374,10 +15459,10 @@ type VirtualAppliance struct {
 
 // VirtualApplianceAdditionalNicProperties - Network Virtual Appliance Additional NIC properties.
 type VirtualApplianceAdditionalNicProperties struct {
-	// Customer Intent for Public Ip on additional nic
+	// Flag (true or false) for Intent for Public Ip on additional nic
 	HasPublicIP *bool
 
-	// Customer Name for additional nic
+	// Name of additional nic
 	Name *string
 }
 
@@ -16590,6 +16675,10 @@ type VirtualNetworkGatewayPolicyGroupProperties struct {
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
 	Active *bool
+
+	// Property to indicate if the Express Route Gateway serves traffic when there are multiple Express Route Gateways in the
+	// vnet
+	AdminState *AdminState
 
 	// Configure this gateway to accept traffic from other Azure Virtual Networks. This configuration does not support connectivity
 	// to Azure Virtual WAN.
