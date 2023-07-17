@@ -1119,18 +1119,6 @@ type CommunityGalleryImage struct {
 	Type *string
 }
 
-// CommunityGalleryImageIdentifier - This is the community gallery image definition identifier.
-type CommunityGalleryImageIdentifier struct {
-	// The name of the gallery image definition offer.
-	Offer *string
-
-	// The name of the gallery image definition publisher.
-	Publisher *string
-
-	// The name of the gallery image definition SKU.
-	SKU *string
-}
-
 // CommunityGalleryImageList - The List Community Gallery Images operation response.
 type CommunityGalleryImageList struct {
 	// REQUIRED; A list of community gallery images.
@@ -1143,8 +1131,8 @@ type CommunityGalleryImageList struct {
 
 // CommunityGalleryImageProperties - Describes the properties of a gallery image definition.
 type CommunityGalleryImageProperties struct {
-	// REQUIRED; This is the community gallery image definition identifier.
-	Identifier *CommunityGalleryImageIdentifier
+	// REQUIRED; This is the gallery image definition identifier.
+	Identifier *GalleryImageIdentifier
 
 	// REQUIRED; This property allows the user to specify whether the virtual machines created under this image are 'Generalized'
 	// or 'Specialized'.
@@ -3422,7 +3410,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -9410,6 +9398,10 @@ type VirtualMachineScaleSetVMProperties struct {
 
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *string
+
+	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created.
+	// Minimum api-version: 2021-11-01.
+	TimeCreated *time.Time
 
 	// READ-ONLY; Azure VM unique ID.
 	VMID *string
