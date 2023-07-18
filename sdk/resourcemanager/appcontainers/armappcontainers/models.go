@@ -28,10 +28,10 @@ type AllowedPrincipals struct {
 
 // AppLogsConfiguration - Configuration of application logs
 type AppLogsConfiguration struct {
-	// Logs destination
+	// Logs destination, can be 'log-analytics', 'azure-monitor' or 'none'
 	Destination *string
 
-	// Log Analytics configuration
+	// Log Analytics configuration, must only be provided when destination is configured as 'log-analytics'
 	LogAnalyticsConfiguration *LogAnalyticsConfiguration
 }
 
@@ -266,6 +266,9 @@ type AzureCredentials struct {
 
 	// Client Secret.
 	ClientSecret *string
+
+	// Kind of auth github does for deploying the template
+	Kind *string
 
 	// Subscription Id.
 	SubscriptionID *string
@@ -524,6 +527,9 @@ type Configuration struct {
 
 	// Collection of secrets used by a Container app
 	Secrets []*Secret
+
+	// Container App to be a dev Container App Service
+	Service *Service
 }
 
 // ConnectedEnvironment - An environment for Kubernetes cluster specialized for web workloads by Azure App Service
@@ -987,6 +993,12 @@ type ContainerAppSecret struct {
 	Value *string
 }
 
+// ContainerAppsAPIClientJobExecutionOptions contains the optional parameters for the ContainerAppsAPIClient.JobExecution
+// method.
+type ContainerAppsAPIClientJobExecutionOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ContainerAppsAuthConfigsClientCreateOrUpdateOptions contains the optional parameters for the ContainerAppsAuthConfigsClient.CreateOrUpdate
 // method.
 type ContainerAppsAuthConfigsClientCreateOrUpdateOptions struct {
@@ -1019,6 +1031,18 @@ type ContainerAppsClientBeginCreateOrUpdateOptions struct {
 
 // ContainerAppsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsClient.BeginDelete method.
 type ContainerAppsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsClientBeginStartOptions contains the optional parameters for the ContainerAppsClient.BeginStart method.
+type ContainerAppsClientBeginStartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsClientBeginStopOptions contains the optional parameters for the ContainerAppsClient.BeginStop method.
+type ContainerAppsClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1808,6 +1832,9 @@ type GithubActionConfiguration struct {
 	// Context path
 	ContextPath *string
 
+	// One time Github PAT to configure github environment
+	GithubPersonalAccessToken *string
+
 	// Image name
 	Image *string
 
@@ -2036,6 +2063,9 @@ type JobConfiguration struct {
 	// REQUIRED; Trigger type of the job
 	TriggerType *TriggerType
 
+	// Trigger configuration of an event driven job.
+	EventTriggerConfig *JobConfigurationEventTriggerConfig
+
 	// Manual trigger configuration for a single execution job. Properties replicaCompletionCount and parallelism would be set
 	// to 1 by default
 	ManualTriggerConfig *JobConfigurationManualTriggerConfig
@@ -2052,6 +2082,18 @@ type JobConfiguration struct {
 
 	// Collection of secrets used by a Container Apps Job
 	Secrets []*Secret
+}
+
+// JobConfigurationEventTriggerConfig - Trigger configuration of an event driven job.
+type JobConfigurationEventTriggerConfig struct {
+	// Number of parallel replicas of a job that can run at a given time.
+	Parallelism *int32
+
+	// Minimum number of successful replica completions before overall job completion.
+	ReplicaCompletionCount *int32
+
+	// Scaling configurations for event driven jobs.
+	Scale *JobScale
 }
 
 // JobConfigurationManualTriggerConfig - Manual trigger configuration for a single execution job. Properties replicaCompletionCount
@@ -2077,9 +2119,9 @@ type JobConfigurationScheduleTriggerConfig struct {
 	ReplicaCompletionCount *int32
 }
 
-// JobExecution - Container Apps Jobs execution.
+// JobExecution - Container Apps Job execution.
 type JobExecution struct {
-	// Job execution start time.
+	// Job execution end time.
 	EndTime *time.Time
 
 	// Job execution Id.
@@ -2198,6 +2240,36 @@ type JobProperties struct {
 	ProvisioningState *JobProvisioningState
 }
 
+// JobScale - Scaling configurations for event driven jobs.
+type JobScale struct {
+	// Maximum number of job executions that are created for a trigger, default 100.
+	MaxExecutions *int32
+
+	// Minimum number of job executions that are created for a trigger, default 0
+	MinExecutions *int32
+
+	// Interval to check each event source in seconds. Defaults to 30s
+	PollingInterval *int32
+
+	// Scaling rules.
+	Rules []*JobScaleRule
+}
+
+// JobScaleRule - Scaling rule.
+type JobScaleRule struct {
+	// Authentication secrets for the scale rule.
+	Auth []*ScaleRuleAuth
+
+	// Metadata properties to describe the scale rule.
+	Metadata any
+
+	// Scale Rule Name
+	Name *string
+
+	// Type of the scale rule eg: azure-servicebus, redis etc.
+	Type *string
+}
+
 // JobSecretsCollection - Container Apps Job Secrets Collection ARM resource.
 type JobSecretsCollection struct {
 	// REQUIRED; Collection of resources.
@@ -2233,6 +2305,8 @@ type JobsClientBeginDeleteOptions struct {
 type JobsClientBeginStartOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+	// Properties used to start a job execution.
+	Template *JobExecutionTemplate
 }
 
 // JobsClientBeginStopExecutionOptions contains the optional parameters for the JobsClient.BeginStopExecution method.
@@ -2304,7 +2378,7 @@ type KedaConfiguration struct {
 	Version *string
 }
 
-// LogAnalyticsConfiguration - Log analytics configuration
+// LogAnalyticsConfiguration - Log Analytics configuration, must only be provided when destination is configured as 'log-analytics'
 type LogAnalyticsConfiguration struct {
 	// Log analytics customer id
 	CustomerID *string
@@ -2496,6 +2570,9 @@ type ManagedEnvironmentProperties struct {
 	// The configuration of Keda component.
 	KedaConfiguration *KedaConfiguration
 
+	// Peer authentication settings for the Managed Environment
+	PeerAuthentication *ManagedEnvironmentPropertiesPeerAuthentication
+
 	// Vnet configuration for the environment
 	VnetConfiguration *VnetConfiguration
 
@@ -2519,6 +2596,12 @@ type ManagedEnvironmentProperties struct {
 
 	// READ-ONLY; Static IP of the Environment
 	StaticIP *string
+}
+
+// ManagedEnvironmentPropertiesPeerAuthentication - Peer authentication settings for the Managed Environment
+type ManagedEnvironmentPropertiesPeerAuthentication struct {
+	// Mutual TLS authentication settings for the Managed Environment
+	Mtls *Mtls
 }
 
 // ManagedEnvironmentStorage - Storage resource for managedEnvironment.
@@ -2658,6 +2741,12 @@ type ManagedServiceIdentity struct {
 
 	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
 	TenantID *string
+}
+
+// Mtls - Configuration properties for mutual TLS authentication
+type Mtls struct {
+	// Boolean indicating whether the mutual TLS authentication is enabled
+	Enabled *bool
 }
 
 // NamespacesClientCheckNameAvailabilityOptions contains the optional parameters for the NamespacesClient.CheckNameAvailability
@@ -2860,6 +2949,12 @@ type ReplicaContainer struct {
 
 	// READ-ONLY; Log Stream endpoint
 	LogStreamEndpoint *string
+
+	// READ-ONLY; Current running state of the container
+	RunningState *ContainerAppContainerRunningState
+
+	// READ-ONLY; The details of container current running state
+	RunningStateDetails *string
 }
 
 // ReplicaProperties - Replica resource specific properties
@@ -2867,8 +2962,17 @@ type ReplicaProperties struct {
 	// The containers collection under a replica.
 	Containers []*ReplicaContainer
 
+	// The init containers collection under a replica.
+	InitContainers []*ReplicaContainer
+
 	// READ-ONLY; Timestamp describing when the pod was created by controller
 	CreatedTime *time.Time
+
+	// READ-ONLY; Current running state of the replica
+	RunningState *ContainerAppReplicaRunningState
+
+	// READ-ONLY; The details of replica current running state
+	RunningStateDetails *string
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
@@ -2939,6 +3043,9 @@ type RevisionProperties struct {
 	// READ-ONLY; Number of pods currently running for this revision
 	Replicas *int32
 
+	// READ-ONLY; Current running state of the revision
+	RunningState *RevisionRunningState
+
 	// READ-ONLY; Container App Revision Template with all possible settings and the defaults if user did not provide them. The
 	// defaults are populated as they were at the creation time
 	Template *Template
@@ -2977,9 +3084,9 @@ type ScaleRule struct {
 	TCP *TCPScaleRule
 }
 
-// ScaleRuleAuth - Auth Secrets for Container App Scale Rule
+// ScaleRuleAuth - Auth Secrets for Scale Rule
 type ScaleRuleAuth struct {
-	// Name of the Container App secret from which to pull the auth params.
+	// Name of the secret from which to pull the auth params.
 	SecretRef *string
 
 	// Trigger Parameter that uses the secret
@@ -3014,6 +3121,21 @@ type SecretVolumeItem struct {
 type SecretsCollection struct {
 	// REQUIRED; Collection of resources.
 	Value []*ContainerAppSecret
+}
+
+// Service - Container App to be a dev service
+type Service struct {
+	// REQUIRED; Dev ContainerApp service type
+	Type *string
+}
+
+// ServiceBind - Configuration to bind a ContainerApp to a dev ContainerApp Service
+type ServiceBind struct {
+	// Name of the service bind
+	Name *string
+
+	// Resource id of the target service
+	ServiceID *string
 }
 
 // SourceControl - Container App SourceControl.
@@ -3103,6 +3225,15 @@ type Template struct {
 
 	// Scaling properties for the Container App.
 	Scale *Scale
+
+	// List of container app services bound to the app
+	ServiceBinds []*ServiceBind
+
+	// Optional duration in seconds the Container App Instance needs to terminate gracefully. Value must be non-negative integer.
+	// The value zero indicates stop immediately via the kill signal (no opportunity
+	// to shut down). If this value is nil, the default grace period will be used instead. Set this value longer than the expected
+	// cleanup time for your process. Defaults to 30 seconds.
+	TerminationGracePeriodSeconds *int64
 
 	// List of volume definitions for the Container App.
 	Volumes []*Volume
@@ -3195,6 +3326,9 @@ type VnetConfiguration struct {
 
 // Volume definitions for the Container App.
 type Volume struct {
+	// Mount options used while mounting the AzureFile. Must be a comma-separated string.
+	MountOptions *string
+
 	// Volume name.
 	Name *string
 
@@ -3212,6 +3346,9 @@ type Volume struct {
 type VolumeMount struct {
 	// Path within the container at which the volume should be mounted.Must not contain ':'.
 	MountPath *string
+
+	// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+	SubPath *string
 
 	// This must match the Name of a Volume.
 	VolumeName *string

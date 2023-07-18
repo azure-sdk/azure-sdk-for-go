@@ -149,6 +149,11 @@ type ConnectedEnvironmentsStoragesClientListResponse struct {
 	ConnectedEnvironmentStoragesCollection
 }
 
+// ContainerAppsAPIClientJobExecutionResponse contains the response from method ContainerAppsAPIClient.JobExecution.
+type ContainerAppsAPIClientJobExecutionResponse struct {
+	JobExecution
+}
+
 // ContainerAppsAuthConfigsClientCreateOrUpdateResponse contains the response from method ContainerAppsAuthConfigsClient.CreateOrUpdate.
 type ContainerAppsAuthConfigsClientCreateOrUpdateResponse struct {
 	AuthConfig
@@ -207,6 +212,16 @@ type ContainerAppsClientListCustomHostNameAnalysisResponse struct {
 // ContainerAppsClientListSecretsResponse contains the response from method ContainerAppsClient.ListSecrets.
 type ContainerAppsClientListSecretsResponse struct {
 	SecretsCollection
+}
+
+// ContainerAppsClientStartResponse contains the response from method ContainerAppsClient.BeginStart.
+type ContainerAppsClientStartResponse struct {
+	ContainerApp
+}
+
+// ContainerAppsClientStopResponse contains the response from method ContainerAppsClient.BeginStop.
+type ContainerAppsClientStopResponse struct {
+	ContainerApp
 }
 
 // ContainerAppsClientUpdateResponse contains the response from method ContainerAppsClient.BeginUpdate.
