@@ -1,10 +1,15 @@
 # Release History
 
-## 5.1.0-beta.1 (2023-06-12)
-
+## 5.1.0 (2023-07-18)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `ReplicationStatusTypesValidationProfile` added to enum type `ReplicationStatusTypes`
+- New enum type `FileFormat` with values `FileFormatVHD`, `FileFormatVHDX`
+- New struct `ExecutedValidation`
+- New struct `ValidationsProfile`
+- New field `ValidationsProfile` in struct `GalleryImageVersionProperties`
+- New field `FileFormat` in struct `GrantAccessData`
+
 
 ## 5.0.0 (2023-05-26)
 ### Breaking Changes
