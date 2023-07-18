@@ -500,7 +500,9 @@ func (client *DomainTopicEventSubscriptionsClient) BeginUpdate(ctx context.Conte
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[DomainTopicEventSubscriptionsClientUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DomainTopicEventSubscriptionsClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaOriginalURI,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DomainTopicEventSubscriptionsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
