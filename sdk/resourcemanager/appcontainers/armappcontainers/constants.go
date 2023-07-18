@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.3"
+	moduleVersion = "v2.0.0-beta.4"
 )
 
 // AccessMode - Access mode for storage
@@ -194,6 +194,24 @@ func PossibleConnectedEnvironmentProvisioningStateValues() []ConnectedEnvironmen
 	}
 }
 
+// ContainerAppContainerRunningState - Current running state of the container
+type ContainerAppContainerRunningState string
+
+const (
+	ContainerAppContainerRunningStateRunning    ContainerAppContainerRunningState = "Running"
+	ContainerAppContainerRunningStateTerminated ContainerAppContainerRunningState = "Terminated"
+	ContainerAppContainerRunningStateWaiting    ContainerAppContainerRunningState = "Waiting"
+)
+
+// PossibleContainerAppContainerRunningStateValues returns the possible values for the ContainerAppContainerRunningState const type.
+func PossibleContainerAppContainerRunningStateValues() []ContainerAppContainerRunningState {
+	return []ContainerAppContainerRunningState{
+		ContainerAppContainerRunningStateRunning,
+		ContainerAppContainerRunningStateTerminated,
+		ContainerAppContainerRunningStateWaiting,
+	}
+}
+
 // ContainerAppProvisioningState - Provisioning state of the Container App.
 type ContainerAppProvisioningState string
 
@@ -213,6 +231,24 @@ func PossibleContainerAppProvisioningStateValues() []ContainerAppProvisioningSta
 		ContainerAppProvisioningStateFailed,
 		ContainerAppProvisioningStateInProgress,
 		ContainerAppProvisioningStateSucceeded,
+	}
+}
+
+// ContainerAppReplicaRunningState - Current running state of the replica
+type ContainerAppReplicaRunningState string
+
+const (
+	ContainerAppReplicaRunningStateNotRunning ContainerAppReplicaRunningState = "NotRunning"
+	ContainerAppReplicaRunningStateRunning    ContainerAppReplicaRunningState = "Running"
+	ContainerAppReplicaRunningStateUnknown    ContainerAppReplicaRunningState = "Unknown"
+)
+
+// PossibleContainerAppReplicaRunningStateValues returns the possible values for the ContainerAppReplicaRunningState const type.
+func PossibleContainerAppReplicaRunningStateValues() []ContainerAppReplicaRunningState {
+	return []ContainerAppReplicaRunningState{
+		ContainerAppReplicaRunningStateNotRunning,
+		ContainerAppReplicaRunningStateRunning,
+		ContainerAppReplicaRunningStateUnknown,
 	}
 }
 
@@ -520,6 +556,30 @@ func PossibleRevisionProvisioningStateValues() []RevisionProvisioningState {
 	}
 }
 
+// RevisionRunningState - Current running state of the revision
+type RevisionRunningState string
+
+const (
+	RevisionRunningStateDegraded   RevisionRunningState = "Degraded"
+	RevisionRunningStateFailed     RevisionRunningState = "Failed"
+	RevisionRunningStateProcessing RevisionRunningState = "Processing"
+	RevisionRunningStateRunning    RevisionRunningState = "Running"
+	RevisionRunningStateStopped    RevisionRunningState = "Stopped"
+	RevisionRunningStateUnknown    RevisionRunningState = "Unknown"
+)
+
+// PossibleRevisionRunningStateValues returns the possible values for the RevisionRunningState const type.
+func PossibleRevisionRunningStateValues() []RevisionRunningState {
+	return []RevisionRunningState{
+		RevisionRunningStateDegraded,
+		RevisionRunningStateFailed,
+		RevisionRunningStateProcessing,
+		RevisionRunningStateRunning,
+		RevisionRunningStateStopped,
+		RevisionRunningStateUnknown,
+	}
+}
+
 // Scheme - Scheme to use for connecting to the host. Defaults to HTTP.
 type Scheme string
 
@@ -578,9 +638,9 @@ func PossibleStorageTypeValues() []StorageType {
 type TriggerType string
 
 const (
-	TriggerTypeEvent     TriggerType = "Event"
-	TriggerTypeManual    TriggerType = "Manual"
-	TriggerTypeScheduled TriggerType = "Scheduled"
+	TriggerTypeEvent    TriggerType = "Event"
+	TriggerTypeManual   TriggerType = "Manual"
+	TriggerTypeSchedule TriggerType = "Schedule"
 )
 
 // PossibleTriggerTypeValues returns the possible values for the TriggerType const type.
@@ -588,7 +648,7 @@ func PossibleTriggerTypeValues() []TriggerType {
 	return []TriggerType{
 		TriggerTypeEvent,
 		TriggerTypeManual,
-		TriggerTypeScheduled,
+		TriggerTypeSchedule,
 	}
 }
 
