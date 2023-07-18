@@ -44,7 +44,7 @@ func NewEventsClient(credential azcore.TokenCredential, options *arm.ClientOptio
 // NewListByBillingAccountPager - Lists the events that decrements Azure credits or Microsoft Azure consumption commitment
 // for a billing account or a billing profile for a given start and end date.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-05-01
 //   - billingAccountID - BillingAccount ID
 //   - options - EventsClientListByBillingAccountOptions contains the optional parameters for the EventsClient.NewListByBillingAccountPager
 //     method.
@@ -88,7 +88,7 @@ func (client *EventsClient) listByBillingAccountCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-05-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -109,7 +109,7 @@ func (client *EventsClient) listByBillingAccountHandleResponse(resp *http.Respon
 // NewListByBillingProfilePager - Lists the events that decrements Azure credits or Microsoft Azure consumption commitment
 // for a billing account or a billing profile for a given start and end date.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-05-01
 //   - billingAccountID - BillingAccount ID
 //   - billingProfileID - Azure Billing Profile ID.
 //   - startDate - Start date
@@ -160,7 +160,7 @@ func (client *EventsClient) listByBillingProfileCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-05-01")
 	reqQP.Set("startDate", startDate)
 	reqQP.Set("endDate", endDate)
 	req.Raw().URL.RawQuery = reqQP.Encode()

@@ -94,6 +94,11 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PriceSheetClientDownloadByBillingAccountPeriodResponse contains the response from method PriceSheetClient.BeginDownloadByBillingAccountPeriod.
+type PriceSheetClientDownloadByBillingAccountPeriodResponse struct {
+	OperationStatus
+}
+
 // PriceSheetClientGetByBillingPeriodResponse contains the response from method PriceSheetClient.GetByBillingPeriod.
 type PriceSheetClientGetByBillingPeriodResponse struct {
 	PriceSheetResult
