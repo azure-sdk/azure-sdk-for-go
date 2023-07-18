@@ -47,7 +47,7 @@ func NewTagRulesClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreateOrUpdate - Create a TagRule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01
+// Generated from API version 2023-04-27
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - ruleSetName - Monitor resource name
@@ -71,7 +71,7 @@ func (client *TagRulesClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // CreateOrUpdate - Create a TagRule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01
+// Generated from API version 2023-04-27
 func (client *TagRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, monitorName string, ruleSetName string, resource TagRule, options *TagRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, monitorName, ruleSetName, resource, options)
 	if err != nil {
@@ -111,7 +111,7 @@ func (client *TagRulesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01")
+	reqQP.Set("api-version", "2023-04-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, resource)
@@ -120,7 +120,7 @@ func (client *TagRulesClient) createOrUpdateCreateRequest(ctx context.Context, r
 // BeginDelete - Delete a TagRule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01
+// Generated from API version 2023-04-27
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - ruleSetName - Monitor resource name
@@ -142,7 +142,7 @@ func (client *TagRulesClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Delete a TagRule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01
+// Generated from API version 2023-04-27
 func (client *TagRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, monitorName string, ruleSetName string, options *TagRulesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, monitorName, ruleSetName, options)
 	if err != nil {
@@ -182,7 +182,7 @@ func (client *TagRulesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01")
+	reqQP.Set("api-version", "2023-04-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *TagRulesClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Get a TagRule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01
+// Generated from API version 2023-04-27
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - ruleSetName - Monitor resource name
@@ -235,7 +235,7 @@ func (client *TagRulesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01")
+	reqQP.Set("api-version", "2023-04-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -252,7 +252,7 @@ func (client *TagRulesClient) getHandleResponse(resp *http.Response) (TagRulesCl
 
 // NewListPager - List all TagRule by monitorName
 //
-// Generated from API version 2021-09-01
+// Generated from API version 2023-04-27
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - options - TagRulesClientListOptions contains the optional parameters for the TagRulesClient.NewListPager method.
@@ -304,7 +304,7 @@ func (client *TagRulesClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01")
+	reqQP.Set("api-version", "2023-04-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -315,69 +315,6 @@ func (client *TagRulesClient) listHandleResponse(resp *http.Response) (TagRulesC
 	result := TagRulesClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.TagRuleListResult); err != nil {
 		return TagRulesClientListResponse{}, err
-	}
-	return result, nil
-}
-
-// Update - Update a TagRule
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2021-09-01
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - monitorName - Monitor resource name
-//   - ruleSetName - Monitor resource name
-//   - resource - The resource properties to be updated.
-//   - options - TagRulesClientUpdateOptions contains the optional parameters for the TagRulesClient.Update method.
-func (client *TagRulesClient) Update(ctx context.Context, resourceGroupName string, monitorName string, ruleSetName string, resource TagRuleUpdate, options *TagRulesClientUpdateOptions) (TagRulesClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, monitorName, ruleSetName, resource, options)
-	if err != nil {
-		return TagRulesClientUpdateResponse{}, err
-	}
-	resp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return TagRulesClientUpdateResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return TagRulesClientUpdateResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.updateHandleResponse(resp)
-}
-
-// updateCreateRequest creates the Update request.
-func (client *TagRulesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, ruleSetName string, resource TagRuleUpdate, options *TagRulesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Dynatrace.Observability/monitors/{monitorName}/tagRules/{ruleSetName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if monitorName == "" {
-		return nil, errors.New("parameter monitorName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{monitorName}", url.PathEscape(monitorName))
-	if ruleSetName == "" {
-		return nil, errors.New("parameter ruleSetName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleSetName}", url.PathEscape(ruleSetName))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, resource)
-}
-
-// updateHandleResponse handles the Update response.
-func (client *TagRulesClient) updateHandleResponse(resp *http.Response) (TagRulesClientUpdateResponse, error) {
-	result := TagRulesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.TagRule); err != nil {
-		return TagRulesClientUpdateResponse{}, err
 	}
 	return result, nil
 }
