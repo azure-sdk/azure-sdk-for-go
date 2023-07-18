@@ -87,7 +87,8 @@ type ClusterProperties struct {
 	// If high availability (HA) is enabled or not for the cluster.
 	EnableHa *bool
 
-	// If shards on coordinator is enabled or not for the cluster.
+	// If distributed tables are placed on coordinator or not. Should be set to 'true' on single node clusters. Requires shard
+	// rebalancing after value is changed.
 	EnableShardsOnCoordinator *bool
 
 	// Maintenance window of a cluster.
@@ -172,7 +173,8 @@ type ClusterPropertiesForUpdate struct {
 	// If high availability (HA) is enabled or not for the cluster.
 	EnableHa *bool
 
-	// If shards on coordinator is enabled or not for the cluster.
+	// If distributed tables are placed on coordinator or not. Should be set to 'true' on single node clusters. Requires shard
+	// rebalancing after value is changed.
 	EnableShardsOnCoordinator *bool
 
 	// Maintenance window of a cluster.

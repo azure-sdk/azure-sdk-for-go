@@ -11,7 +11,7 @@ package armcosmosforpostgresql
 
 const (
 	moduleName    = "armcosmosforpostgresql"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v1.0.0"
 )
 
 // ConfigurationDataType - Data type of the configuration.
