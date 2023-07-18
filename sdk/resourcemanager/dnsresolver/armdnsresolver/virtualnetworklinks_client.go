@@ -48,7 +48,7 @@ func NewVirtualNetworkLinksClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Creates or updates a virtual network link to a DNS forwarding ruleset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsForwardingRulesetName - The name of the DNS forwarding ruleset.
 //   - virtualNetworkLinkName - The name of the virtual network link.
@@ -70,7 +70,7 @@ func (client *VirtualNetworkLinksClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates a virtual network link to a DNS forwarding ruleset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 func (client *VirtualNetworkLinksClient) createOrUpdate(ctx context.Context, resourceGroupName string, dnsForwardingRulesetName string, virtualNetworkLinkName string, parameters VirtualNetworkLink, options *VirtualNetworkLinksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, dnsForwardingRulesetName, virtualNetworkLinkName, parameters, options)
 	if err != nil {
@@ -110,7 +110,7 @@ func (client *VirtualNetworkLinksClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -125,7 +125,7 @@ func (client *VirtualNetworkLinksClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Deletes a virtual network link to a DNS forwarding ruleset. WARNING: This operation cannot be undone.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsForwardingRulesetName - The name of the DNS forwarding ruleset.
 //   - virtualNetworkLinkName - The name of the virtual network link.
@@ -146,7 +146,7 @@ func (client *VirtualNetworkLinksClient) BeginDelete(ctx context.Context, resour
 // Delete - Deletes a virtual network link to a DNS forwarding ruleset. WARNING: This operation cannot be undone.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 func (client *VirtualNetworkLinksClient) deleteOperation(ctx context.Context, resourceGroupName string, dnsForwardingRulesetName string, virtualNetworkLinkName string, options *VirtualNetworkLinksClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, dnsForwardingRulesetName, virtualNetworkLinkName, options)
 	if err != nil {
@@ -186,7 +186,7 @@ func (client *VirtualNetworkLinksClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -198,7 +198,7 @@ func (client *VirtualNetworkLinksClient) deleteCreateRequest(ctx context.Context
 // Get - Gets properties of a virtual network link to a DNS forwarding ruleset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsForwardingRulesetName - The name of the DNS forwarding ruleset.
 //   - virtualNetworkLinkName - The name of the virtual network link.
@@ -242,7 +242,7 @@ func (client *VirtualNetworkLinksClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,7 +259,7 @@ func (client *VirtualNetworkLinksClient) getHandleResponse(resp *http.Response) 
 
 // NewListPager - Lists virtual network links to a DNS forwarding ruleset.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsForwardingRulesetName - The name of the DNS forwarding ruleset.
 //   - options - VirtualNetworkLinksClientListOptions contains the optional parameters for the VirtualNetworkLinksClient.NewListPager
@@ -312,7 +312,7 @@ func (client *VirtualNetworkLinksClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
@@ -333,7 +333,7 @@ func (client *VirtualNetworkLinksClient) listHandleResponse(resp *http.Response)
 // BeginUpdate - Updates a virtual network link to a DNS forwarding ruleset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsForwardingRulesetName - The name of the DNS forwarding ruleset.
 //   - virtualNetworkLinkName - The name of the virtual network link.
@@ -355,7 +355,7 @@ func (client *VirtualNetworkLinksClient) BeginUpdate(ctx context.Context, resour
 // Update - Updates a virtual network link to a DNS forwarding ruleset.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 func (client *VirtualNetworkLinksClient) update(ctx context.Context, resourceGroupName string, dnsForwardingRulesetName string, virtualNetworkLinkName string, parameters VirtualNetworkLinkPatch, options *VirtualNetworkLinksClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, dnsForwardingRulesetName, virtualNetworkLinkName, parameters, options)
 	if err != nil {
@@ -395,7 +395,7 @@ func (client *VirtualNetworkLinksClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}

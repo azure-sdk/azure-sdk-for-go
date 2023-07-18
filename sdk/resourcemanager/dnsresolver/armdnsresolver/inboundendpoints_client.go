@@ -48,7 +48,7 @@ func NewInboundEndpointsClient(subscriptionID string, credential azcore.TokenCre
 // BeginCreateOrUpdate - Creates or updates an inbound endpoint for a DNS resolver.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsResolverName - The name of the DNS resolver.
 //   - inboundEndpointName - The name of the inbound endpoint for the DNS resolver.
@@ -70,7 +70,7 @@ func (client *InboundEndpointsClient) BeginCreateOrUpdate(ctx context.Context, r
 // CreateOrUpdate - Creates or updates an inbound endpoint for a DNS resolver.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 func (client *InboundEndpointsClient) createOrUpdate(ctx context.Context, resourceGroupName string, dnsResolverName string, inboundEndpointName string, parameters InboundEndpoint, options *InboundEndpointsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, dnsResolverName, inboundEndpointName, parameters, options)
 	if err != nil {
@@ -110,7 +110,7 @@ func (client *InboundEndpointsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -125,7 +125,7 @@ func (client *InboundEndpointsClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - Deletes an inbound endpoint for a DNS resolver. WARNING: This operation cannot be undone.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsResolverName - The name of the DNS resolver.
 //   - inboundEndpointName - The name of the inbound endpoint for the DNS resolver.
@@ -146,7 +146,7 @@ func (client *InboundEndpointsClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Deletes an inbound endpoint for a DNS resolver. WARNING: This operation cannot be undone.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 func (client *InboundEndpointsClient) deleteOperation(ctx context.Context, resourceGroupName string, dnsResolverName string, inboundEndpointName string, options *InboundEndpointsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, dnsResolverName, inboundEndpointName, options)
 	if err != nil {
@@ -186,7 +186,7 @@ func (client *InboundEndpointsClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -198,7 +198,7 @@ func (client *InboundEndpointsClient) deleteCreateRequest(ctx context.Context, r
 // Get - Gets properties of an inbound endpoint for a DNS resolver.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsResolverName - The name of the DNS resolver.
 //   - inboundEndpointName - The name of the inbound endpoint for the DNS resolver.
@@ -242,7 +242,7 @@ func (client *InboundEndpointsClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,7 +259,7 @@ func (client *InboundEndpointsClient) getHandleResponse(resp *http.Response) (In
 
 // NewListPager - Lists inbound endpoints for a DNS resolver.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsResolverName - The name of the DNS resolver.
 //   - options - InboundEndpointsClientListOptions contains the optional parameters for the InboundEndpointsClient.NewListPager
@@ -312,7 +312,7 @@ func (client *InboundEndpointsClient) listCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
@@ -333,7 +333,7 @@ func (client *InboundEndpointsClient) listHandleResponse(resp *http.Response) (I
 // BeginUpdate - Updates an inbound endpoint for a DNS resolver.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dnsResolverName - The name of the DNS resolver.
 //   - inboundEndpointName - The name of the inbound endpoint for the DNS resolver.
@@ -355,7 +355,7 @@ func (client *InboundEndpointsClient) BeginUpdate(ctx context.Context, resourceG
 // Update - Updates an inbound endpoint for a DNS resolver.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01
+// Generated from API version 2023-07-01-preview
 func (client *InboundEndpointsClient) update(ctx context.Context, resourceGroupName string, dnsResolverName string, inboundEndpointName string, parameters InboundEndpointPatch, options *InboundEndpointsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, dnsResolverName, inboundEndpointName, parameters, options)
 	if err != nil {
@@ -395,7 +395,7 @@ func (client *InboundEndpointsClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
