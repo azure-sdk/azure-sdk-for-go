@@ -84,6 +84,11 @@ type CodeContainersClientListResponse struct {
 	CodeContainerResourceArmPaginatedResult
 }
 
+// CodeVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method CodeVersionsClient.CreateOrGetStartPendingUpload.
+type CodeVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
 // CodeVersionsClientCreateOrUpdateResponse contains the response from method CodeVersionsClient.CreateOrUpdate.
 type CodeVersionsClientCreateOrUpdateResponse struct {
 	CodeVersion
@@ -196,6 +201,16 @@ type ComputeClientStartResponse struct {
 
 // ComputeClientStopResponse contains the response from method ComputeClient.BeginStop.
 type ComputeClientStopResponse struct {
+	// placeholder for future response values
+}
+
+// ComputeClientUpdateCustomServicesResponse contains the response from method ComputeClient.UpdateCustomServices.
+type ComputeClientUpdateCustomServicesResponse struct {
+	// placeholder for future response values
+}
+
+// ComputeClientUpdateIdleShutdownSettingResponse contains the response from method ComputeClient.UpdateIdleShutdownSetting.
+type ComputeClientUpdateIdleShutdownSettingResponse struct {
 	// placeholder for future response values
 }
 
@@ -319,6 +334,106 @@ type EnvironmentVersionsClientListResponse struct {
 	EnvironmentVersionResourceArmPaginatedResult
 }
 
+// FeaturesClientGetResponse contains the response from method FeaturesClient.Get.
+type FeaturesClientGetResponse struct {
+	Feature
+}
+
+// FeaturesClientListResponse contains the response from method FeaturesClient.NewListPager.
+type FeaturesClientListResponse struct {
+	FeatureResourceArmPaginatedResult
+}
+
+// FeaturesetContainersClientCreateOrUpdateResponse contains the response from method FeaturesetContainersClient.BeginCreateOrUpdate.
+type FeaturesetContainersClientCreateOrUpdateResponse struct {
+	FeaturesetContainer
+}
+
+// FeaturesetContainersClientDeleteResponse contains the response from method FeaturesetContainersClient.BeginDelete.
+type FeaturesetContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturesetContainersClientGetEntityResponse contains the response from method FeaturesetContainersClient.GetEntity.
+type FeaturesetContainersClientGetEntityResponse struct {
+	FeaturesetContainer
+}
+
+// FeaturesetContainersClientListResponse contains the response from method FeaturesetContainersClient.NewListPager.
+type FeaturesetContainersClientListResponse struct {
+	FeaturesetContainerResourceArmPaginatedResult
+}
+
+// FeaturesetVersionsClientBackfillResponse contains the response from method FeaturesetVersionsClient.BeginBackfill.
+type FeaturesetVersionsClientBackfillResponse struct {
+	FeaturesetJob
+}
+
+// FeaturesetVersionsClientCreateOrUpdateResponse contains the response from method FeaturesetVersionsClient.BeginCreateOrUpdate.
+type FeaturesetVersionsClientCreateOrUpdateResponse struct {
+	FeaturesetVersion
+}
+
+// FeaturesetVersionsClientDeleteResponse contains the response from method FeaturesetVersionsClient.BeginDelete.
+type FeaturesetVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturesetVersionsClientGetResponse contains the response from method FeaturesetVersionsClient.Get.
+type FeaturesetVersionsClientGetResponse struct {
+	FeaturesetVersion
+}
+
+// FeaturesetVersionsClientListMaterializationJobsResponse contains the response from method FeaturesetVersionsClient.NewListMaterializationJobsPager.
+type FeaturesetVersionsClientListMaterializationJobsResponse struct {
+	FeaturesetJobArmPaginatedResult
+}
+
+// FeaturesetVersionsClientListResponse contains the response from method FeaturesetVersionsClient.NewListPager.
+type FeaturesetVersionsClientListResponse struct {
+	FeaturesetVersionResourceArmPaginatedResult
+}
+
+// FeaturestoreEntityContainersClientCreateOrUpdateResponse contains the response from method FeaturestoreEntityContainersClient.BeginCreateOrUpdate.
+type FeaturestoreEntityContainersClientCreateOrUpdateResponse struct {
+	FeaturestoreEntityContainer
+}
+
+// FeaturestoreEntityContainersClientDeleteResponse contains the response from method FeaturestoreEntityContainersClient.BeginDelete.
+type FeaturestoreEntityContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturestoreEntityContainersClientGetEntityResponse contains the response from method FeaturestoreEntityContainersClient.GetEntity.
+type FeaturestoreEntityContainersClientGetEntityResponse struct {
+	FeaturestoreEntityContainer
+}
+
+// FeaturestoreEntityContainersClientListResponse contains the response from method FeaturestoreEntityContainersClient.NewListPager.
+type FeaturestoreEntityContainersClientListResponse struct {
+	FeaturestoreEntityContainerResourceArmPaginatedResult
+}
+
+// FeaturestoreEntityVersionsClientCreateOrUpdateResponse contains the response from method FeaturestoreEntityVersionsClient.BeginCreateOrUpdate.
+type FeaturestoreEntityVersionsClientCreateOrUpdateResponse struct {
+	FeaturestoreEntityVersion
+}
+
+// FeaturestoreEntityVersionsClientDeleteResponse contains the response from method FeaturestoreEntityVersionsClient.BeginDelete.
+type FeaturestoreEntityVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturestoreEntityVersionsClientGetResponse contains the response from method FeaturestoreEntityVersionsClient.Get.
+type FeaturestoreEntityVersionsClientGetResponse struct {
+	FeaturestoreEntityVersion
+}
+
+// FeaturestoreEntityVersionsClientListResponse contains the response from method FeaturestoreEntityVersionsClient.NewListPager.
+type FeaturestoreEntityVersionsClientListResponse struct {
+	FeaturestoreEntityVersionResourceArmPaginatedResult
+}
+
 // JobsClientCancelResponse contains the response from method JobsClient.BeginCancel.
 type JobsClientCancelResponse struct {
 	// placeholder for future response values
@@ -342,6 +457,81 @@ type JobsClientGetResponse struct {
 // JobsClientListResponse contains the response from method JobsClient.NewListPager.
 type JobsClientListResponse struct {
 	JobBaseResourceArmPaginatedResult
+}
+
+// JobsClientUpdateResponse contains the response from method JobsClient.Update.
+type JobsClientUpdateResponse struct {
+	JobBase
+}
+
+// LabelingJobsClientCreateOrUpdateResponse contains the response from method LabelingJobsClient.BeginCreateOrUpdate.
+type LabelingJobsClientCreateOrUpdateResponse struct {
+	LabelingJob
+}
+
+// LabelingJobsClientDeleteResponse contains the response from method LabelingJobsClient.Delete.
+type LabelingJobsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// LabelingJobsClientExportLabelsResponse contains the response from method LabelingJobsClient.BeginExportLabels.
+type LabelingJobsClientExportLabelsResponse struct {
+	ExportSummaryClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LabelingJobsClientExportLabelsResponse.
+func (l *LabelingJobsClientExportLabelsResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalExportSummaryClassification(data)
+	if err != nil {
+		return err
+	}
+	l.ExportSummaryClassification = res
+	return nil
+}
+
+// LabelingJobsClientGetResponse contains the response from method LabelingJobsClient.Get.
+type LabelingJobsClientGetResponse struct {
+	LabelingJob
+}
+
+// LabelingJobsClientListResponse contains the response from method LabelingJobsClient.NewListPager.
+type LabelingJobsClientListResponse struct {
+	LabelingJobResourceArmPaginatedResult
+}
+
+// LabelingJobsClientPauseResponse contains the response from method LabelingJobsClient.Pause.
+type LabelingJobsClientPauseResponse struct {
+	LabelingJobProperties
+}
+
+// LabelingJobsClientResumeResponse contains the response from method LabelingJobsClient.BeginResume.
+type LabelingJobsClientResumeResponse struct {
+	LabelingJobProperties
+}
+
+// ManagedNetworkProvisionsClientProvisionManagedNetworkResponse contains the response from method ManagedNetworkProvisionsClient.BeginProvisionManagedNetwork.
+type ManagedNetworkProvisionsClientProvisionManagedNetworkResponse struct {
+	ManagedNetworkProvisionStatus
+}
+
+// ManagedNetworkSettingsRuleClientCreateOrUpdateResponse contains the response from method ManagedNetworkSettingsRuleClient.BeginCreateOrUpdate.
+type ManagedNetworkSettingsRuleClientCreateOrUpdateResponse struct {
+	OutboundRuleBasicResource
+}
+
+// ManagedNetworkSettingsRuleClientDeleteResponse contains the response from method ManagedNetworkSettingsRuleClient.BeginDelete.
+type ManagedNetworkSettingsRuleClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagedNetworkSettingsRuleClientGetResponse contains the response from method ManagedNetworkSettingsRuleClient.Get.
+type ManagedNetworkSettingsRuleClientGetResponse struct {
+	OutboundRuleBasicResource
+}
+
+// ManagedNetworkSettingsRuleClientListResponse contains the response from method ManagedNetworkSettingsRuleClient.NewListPager.
+type ManagedNetworkSettingsRuleClientListResponse struct {
+	OutboundRuleListResult
 }
 
 // ModelContainersClientCreateOrUpdateResponse contains the response from method ModelContainersClient.CreateOrUpdate.
@@ -382,6 +572,11 @@ type ModelVersionsClientGetResponse struct {
 // ModelVersionsClientListResponse contains the response from method ModelVersionsClient.NewListPager.
 type ModelVersionsClientListResponse struct {
 	ModelVersionResourceArmPaginatedResult
+}
+
+// ModelVersionsClientPackageResponse contains the response from method ModelVersionsClient.BeginPackage.
+type ModelVersionsClientPackageResponse struct {
+	PackageResponse
 }
 
 // OnlineDeploymentsClientCreateOrUpdateResponse contains the response from method OnlineDeploymentsClient.BeginCreateOrUpdate.
@@ -484,7 +679,7 @@ type PrivateEndpointConnectionsClientListResponse struct {
 	PrivateEndpointConnectionListResult
 }
 
-// PrivateLinkResourcesClientListResponse contains the response from method PrivateLinkResourcesClient.List.
+// PrivateLinkResourcesClientListResponse contains the response from method PrivateLinkResourcesClient.NewListPager.
 type PrivateLinkResourcesClientListResponse struct {
 	PrivateLinkResourceListResult
 }
@@ -497,6 +692,261 @@ type QuotasClientListResponse struct {
 // QuotasClientUpdateResponse contains the response from method QuotasClient.Update.
 type QuotasClientUpdateResponse struct {
 	UpdateWorkspaceQuotasResult
+}
+
+// RegistriesClientCreateOrUpdateResponse contains the response from method RegistriesClient.BeginCreateOrUpdate.
+type RegistriesClientCreateOrUpdateResponse struct {
+	Registry
+}
+
+// RegistriesClientDeleteResponse contains the response from method RegistriesClient.BeginDelete.
+type RegistriesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistriesClientGetResponse contains the response from method RegistriesClient.Get.
+type RegistriesClientGetResponse struct {
+	Registry
+}
+
+// RegistriesClientListBySubscriptionResponse contains the response from method RegistriesClient.NewListBySubscriptionPager.
+type RegistriesClientListBySubscriptionResponse struct {
+	RegistryTrackedResourceArmPaginatedResult
+}
+
+// RegistriesClientListResponse contains the response from method RegistriesClient.NewListPager.
+type RegistriesClientListResponse struct {
+	RegistryTrackedResourceArmPaginatedResult
+}
+
+// RegistriesClientRemoveRegionsResponse contains the response from method RegistriesClient.BeginRemoveRegions.
+type RegistriesClientRemoveRegionsResponse struct {
+	Registry
+}
+
+// RegistriesClientUpdateResponse contains the response from method RegistriesClient.Update.
+type RegistriesClientUpdateResponse struct {
+	Registry
+}
+
+// RegistryCodeContainersClientCreateOrUpdateResponse contains the response from method RegistryCodeContainersClient.BeginCreateOrUpdate.
+type RegistryCodeContainersClientCreateOrUpdateResponse struct {
+	CodeContainer
+}
+
+// RegistryCodeContainersClientDeleteResponse contains the response from method RegistryCodeContainersClient.BeginDelete.
+type RegistryCodeContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryCodeContainersClientGetResponse contains the response from method RegistryCodeContainersClient.Get.
+type RegistryCodeContainersClientGetResponse struct {
+	CodeContainer
+}
+
+// RegistryCodeContainersClientListResponse contains the response from method RegistryCodeContainersClient.NewListPager.
+type RegistryCodeContainersClientListResponse struct {
+	CodeContainerResourceArmPaginatedResult
+}
+
+// RegistryCodeVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method RegistryCodeVersionsClient.CreateOrGetStartPendingUpload.
+type RegistryCodeVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
+// RegistryCodeVersionsClientCreateOrUpdateResponse contains the response from method RegistryCodeVersionsClient.BeginCreateOrUpdate.
+type RegistryCodeVersionsClientCreateOrUpdateResponse struct {
+	CodeVersion
+}
+
+// RegistryCodeVersionsClientDeleteResponse contains the response from method RegistryCodeVersionsClient.BeginDelete.
+type RegistryCodeVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryCodeVersionsClientGetResponse contains the response from method RegistryCodeVersionsClient.Get.
+type RegistryCodeVersionsClientGetResponse struct {
+	CodeVersion
+}
+
+// RegistryCodeVersionsClientListResponse contains the response from method RegistryCodeVersionsClient.NewListPager.
+type RegistryCodeVersionsClientListResponse struct {
+	CodeVersionResourceArmPaginatedResult
+}
+
+// RegistryComponentContainersClientCreateOrUpdateResponse contains the response from method RegistryComponentContainersClient.BeginCreateOrUpdate.
+type RegistryComponentContainersClientCreateOrUpdateResponse struct {
+	ComponentContainer
+}
+
+// RegistryComponentContainersClientDeleteResponse contains the response from method RegistryComponentContainersClient.BeginDelete.
+type RegistryComponentContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryComponentContainersClientGetResponse contains the response from method RegistryComponentContainersClient.Get.
+type RegistryComponentContainersClientGetResponse struct {
+	ComponentContainer
+}
+
+// RegistryComponentContainersClientListResponse contains the response from method RegistryComponentContainersClient.NewListPager.
+type RegistryComponentContainersClientListResponse struct {
+	ComponentContainerResourceArmPaginatedResult
+}
+
+// RegistryComponentVersionsClientCreateOrUpdateResponse contains the response from method RegistryComponentVersionsClient.BeginCreateOrUpdate.
+type RegistryComponentVersionsClientCreateOrUpdateResponse struct {
+	ComponentVersion
+}
+
+// RegistryComponentVersionsClientDeleteResponse contains the response from method RegistryComponentVersionsClient.BeginDelete.
+type RegistryComponentVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryComponentVersionsClientGetResponse contains the response from method RegistryComponentVersionsClient.Get.
+type RegistryComponentVersionsClientGetResponse struct {
+	ComponentVersion
+}
+
+// RegistryComponentVersionsClientListResponse contains the response from method RegistryComponentVersionsClient.NewListPager.
+type RegistryComponentVersionsClientListResponse struct {
+	ComponentVersionResourceArmPaginatedResult
+}
+
+// RegistryDataContainersClientCreateOrUpdateResponse contains the response from method RegistryDataContainersClient.BeginCreateOrUpdate.
+type RegistryDataContainersClientCreateOrUpdateResponse struct {
+	DataContainer
+}
+
+// RegistryDataContainersClientDeleteResponse contains the response from method RegistryDataContainersClient.BeginDelete.
+type RegistryDataContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryDataContainersClientGetResponse contains the response from method RegistryDataContainersClient.Get.
+type RegistryDataContainersClientGetResponse struct {
+	DataContainer
+}
+
+// RegistryDataContainersClientListResponse contains the response from method RegistryDataContainersClient.NewListPager.
+type RegistryDataContainersClientListResponse struct {
+	DataContainerResourceArmPaginatedResult
+}
+
+// RegistryDataVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method RegistryDataVersionsClient.CreateOrGetStartPendingUpload.
+type RegistryDataVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
+// RegistryDataVersionsClientCreateOrUpdateResponse contains the response from method RegistryDataVersionsClient.BeginCreateOrUpdate.
+type RegistryDataVersionsClientCreateOrUpdateResponse struct {
+	DataVersionBase
+}
+
+// RegistryDataVersionsClientDeleteResponse contains the response from method RegistryDataVersionsClient.BeginDelete.
+type RegistryDataVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryDataVersionsClientGetResponse contains the response from method RegistryDataVersionsClient.Get.
+type RegistryDataVersionsClientGetResponse struct {
+	DataVersionBase
+}
+
+// RegistryDataVersionsClientListResponse contains the response from method RegistryDataVersionsClient.NewListPager.
+type RegistryDataVersionsClientListResponse struct {
+	DataVersionBaseResourceArmPaginatedResult
+}
+
+// RegistryEnvironmentContainersClientCreateOrUpdateResponse contains the response from method RegistryEnvironmentContainersClient.BeginCreateOrUpdate.
+type RegistryEnvironmentContainersClientCreateOrUpdateResponse struct {
+	EnvironmentContainer
+}
+
+// RegistryEnvironmentContainersClientDeleteResponse contains the response from method RegistryEnvironmentContainersClient.BeginDelete.
+type RegistryEnvironmentContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryEnvironmentContainersClientGetResponse contains the response from method RegistryEnvironmentContainersClient.Get.
+type RegistryEnvironmentContainersClientGetResponse struct {
+	EnvironmentContainer
+}
+
+// RegistryEnvironmentContainersClientListResponse contains the response from method RegistryEnvironmentContainersClient.NewListPager.
+type RegistryEnvironmentContainersClientListResponse struct {
+	EnvironmentContainerResourceArmPaginatedResult
+}
+
+// RegistryEnvironmentVersionsClientCreateOrUpdateResponse contains the response from method RegistryEnvironmentVersionsClient.BeginCreateOrUpdate.
+type RegistryEnvironmentVersionsClientCreateOrUpdateResponse struct {
+	EnvironmentVersion
+}
+
+// RegistryEnvironmentVersionsClientDeleteResponse contains the response from method RegistryEnvironmentVersionsClient.BeginDelete.
+type RegistryEnvironmentVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryEnvironmentVersionsClientGetResponse contains the response from method RegistryEnvironmentVersionsClient.Get.
+type RegistryEnvironmentVersionsClientGetResponse struct {
+	EnvironmentVersion
+}
+
+// RegistryEnvironmentVersionsClientListResponse contains the response from method RegistryEnvironmentVersionsClient.NewListPager.
+type RegistryEnvironmentVersionsClientListResponse struct {
+	EnvironmentVersionResourceArmPaginatedResult
+}
+
+// RegistryModelContainersClientCreateOrUpdateResponse contains the response from method RegistryModelContainersClient.BeginCreateOrUpdate.
+type RegistryModelContainersClientCreateOrUpdateResponse struct {
+	ModelContainer
+}
+
+// RegistryModelContainersClientDeleteResponse contains the response from method RegistryModelContainersClient.BeginDelete.
+type RegistryModelContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryModelContainersClientGetResponse contains the response from method RegistryModelContainersClient.Get.
+type RegistryModelContainersClientGetResponse struct {
+	ModelContainer
+}
+
+// RegistryModelContainersClientListResponse contains the response from method RegistryModelContainersClient.NewListPager.
+type RegistryModelContainersClientListResponse struct {
+	ModelContainerResourceArmPaginatedResult
+}
+
+// RegistryModelVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method RegistryModelVersionsClient.CreateOrGetStartPendingUpload.
+type RegistryModelVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
+// RegistryModelVersionsClientCreateOrUpdateResponse contains the response from method RegistryModelVersionsClient.BeginCreateOrUpdate.
+type RegistryModelVersionsClientCreateOrUpdateResponse struct {
+	ModelVersion
+}
+
+// RegistryModelVersionsClientDeleteResponse contains the response from method RegistryModelVersionsClient.BeginDelete.
+type RegistryModelVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryModelVersionsClientGetResponse contains the response from method RegistryModelVersionsClient.Get.
+type RegistryModelVersionsClientGetResponse struct {
+	ModelVersion
+}
+
+// RegistryModelVersionsClientListResponse contains the response from method RegistryModelVersionsClient.NewListPager.
+type RegistryModelVersionsClientListResponse struct {
+	ModelVersionResourceArmPaginatedResult
+}
+
+// RegistryModelVersionsClientPackageResponse contains the response from method RegistryModelVersionsClient.BeginPackage.
+type RegistryModelVersionsClientPackageResponse struct {
+	PackageResponse
 }
 
 // SchedulesClientCreateOrUpdateResponse contains the response from method SchedulesClient.BeginCreateOrUpdate.
@@ -547,6 +997,16 @@ type WorkspaceConnectionsClientGetResponse struct {
 // WorkspaceConnectionsClientListResponse contains the response from method WorkspaceConnectionsClient.NewListPager.
 type WorkspaceConnectionsClientListResponse struct {
 	WorkspaceConnectionPropertiesV2BasicResourceArmPaginatedResult
+}
+
+// WorkspaceConnectionsClientListSecretsResponse contains the response from method WorkspaceConnectionsClient.ListSecrets.
+type WorkspaceConnectionsClientListSecretsResponse struct {
+	WorkspaceConnectionPropertiesV2BasicResource
+}
+
+// WorkspaceConnectionsClientUpdateResponse contains the response from method WorkspaceConnectionsClient.Update.
+type WorkspaceConnectionsClientUpdateResponse struct {
+	WorkspaceConnectionPropertiesV2BasicResource
 }
 
 // WorkspaceFeaturesClientListResponse contains the response from method WorkspaceFeaturesClient.NewListPager.
