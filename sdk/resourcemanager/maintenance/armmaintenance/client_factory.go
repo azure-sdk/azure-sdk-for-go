@@ -69,6 +69,21 @@ func (c *ClientFactory) NewApplyUpdateForResourceGroupClient() *ApplyUpdateForRe
 	return subClient
 }
 
+func (c *ClientFactory) NewConfigurationAssignmentsWithinSubscriptionClient() *ConfigurationAssignmentsWithinSubscriptionClient {
+	subClient, _ := NewConfigurationAssignmentsWithinSubscriptionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConfigurationAssignmentsForSubscriptionsClient() *ConfigurationAssignmentsForSubscriptionsClient {
+	subClient, _ := NewConfigurationAssignmentsForSubscriptionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConfigurationAssignmentsForResourceGroupClient() *ConfigurationAssignmentsForResourceGroupClient {
+	subClient, _ := NewConfigurationAssignmentsForResourceGroupClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
