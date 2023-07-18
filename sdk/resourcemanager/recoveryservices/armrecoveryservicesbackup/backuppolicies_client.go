@@ -47,7 +47,7 @@ func NewBackupPoliciesClient(subscriptionID string, credential azcore.TokenCrede
 // NewListPager - Lists of backup policies associated with Recovery Services Vault. API provides pagination parameters to
 // fetch scoped results.
 //
-// Generated from API version 2023-02-01
+// Generated from API version 2023-04-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - BackupPoliciesClientListOptions contains the optional parameters for the BackupPoliciesClient.NewListPager method.
@@ -99,7 +99,7 @@ func (client *BackupPoliciesClient) listCreateRequest(ctx context.Context, vault
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
