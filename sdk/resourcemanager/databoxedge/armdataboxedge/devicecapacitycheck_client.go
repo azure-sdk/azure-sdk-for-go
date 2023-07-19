@@ -47,7 +47,7 @@ func NewDeviceCapacityCheckClient(subscriptionID string, credential azcore.Token
 // BeginCheckResourceCreationFeasibility - Posts the device capacity request info to check feasibility.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - resourceGroupName - The resource group name.
 //   - deviceName - The device name.
 //   - deviceCapacityRequestInfo - The device capacity request info.
@@ -70,7 +70,7 @@ func (client *DeviceCapacityCheckClient) BeginCheckResourceCreationFeasibility(c
 // CheckResourceCreationFeasibility - Posts the device capacity request info to check feasibility.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 func (client *DeviceCapacityCheckClient) checkResourceCreationFeasibility(ctx context.Context, resourceGroupName string, deviceName string, deviceCapacityRequestInfo DeviceCapacityRequestInfo, options *DeviceCapacityCheckClientBeginCheckResourceCreationFeasibilityOptions) (*http.Response, error) {
 	req, err := client.checkResourceCreationFeasibilityCreateRequest(ctx, resourceGroupName, deviceName, deviceCapacityRequestInfo, options)
 	if err != nil {
@@ -106,7 +106,7 @@ func (client *DeviceCapacityCheckClient) checkResourceCreationFeasibilityCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	if options != nil && options.CapacityName != nil {
 		reqQP.Set("capacityName", *options.CapacityName)
 	}
