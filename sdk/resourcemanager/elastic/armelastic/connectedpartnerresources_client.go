@@ -29,42 +29,43 @@ import (
 	"strings"
 )
 
-// MonitoredResourcesClient contains the methods for the MonitoredResources group.
-// Don't use this type directly, use NewMonitoredResourcesClient() instead.
-type MonitoredResourcesClient struct {
+// ConnectedPartnerResourcesClient contains the methods for the ConnectedPartnerResources group.
+// Don't use this type directly, use NewConnectedPartnerResourcesClient() instead.
+type ConnectedPartnerResourcesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewMonitoredResourcesClient creates a new instance of MonitoredResourcesClient with the specified values.
+// NewConnectedPartnerResourcesClient creates a new instance of ConnectedPartnerResourcesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewMonitoredResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MonitoredResourcesClient, error) {
-	cl, err := arm.NewClient(moduleName+".MonitoredResourcesClient", moduleVersion, credential, options)
+func NewConnectedPartnerResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectedPartnerResourcesClient, error) {
+	cl, err := arm.NewClient(moduleName+".ConnectedPartnerResourcesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &MonitoredResourcesClient{
+	client := &ConnectedPartnerResourcesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List the resources currently being monitored by the Elastic monitor resource.
+// NewListPager - List of all active deployments that are associated with the marketplace subscription linked to the given
+// monitor.
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
-//   - options - MonitoredResourcesClientListOptions contains the optional parameters for the MonitoredResourcesClient.NewListPager
+//   - options - ConnectedPartnerResourcesClientListOptions contains the optional parameters for the ConnectedPartnerResourcesClient.NewListPager
 //     method.
-func (client *MonitoredResourcesClient) NewListPager(resourceGroupName string, monitorName string, options *MonitoredResourcesClientListOptions) *runtime.Pager[MonitoredResourcesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[MonitoredResourcesClientListResponse]{
-		More: func(page MonitoredResourcesClientListResponse) bool {
+func (client *ConnectedPartnerResourcesClient) NewListPager(resourceGroupName string, monitorName string, options *ConnectedPartnerResourcesClientListOptions) *runtime.Pager[ConnectedPartnerResourcesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ConnectedPartnerResourcesClientListResponse]{
+		More: func(page ConnectedPartnerResourcesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *MonitoredResourcesClientListResponse) (MonitoredResourcesClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *ConnectedPartnerResourcesClientListResponse) (ConnectedPartnerResourcesClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -73,14 +74,14 @@ func (client *MonitoredResourcesClient) NewListPager(resourceGroupName string, m
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return MonitoredResourcesClientListResponse{}, err
+				return ConnectedPartnerResourcesClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return MonitoredResourcesClientListResponse{}, err
+				return ConnectedPartnerResourcesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return MonitoredResourcesClientListResponse{}, runtime.NewResponseError(resp)
+				return ConnectedPartnerResourcesClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -88,8 +89,8 @@ func (client *MonitoredResourcesClient) NewListPager(resourceGroupName string, m
 }
 
 // listCreateRequest creates the List request.
-func (client *MonitoredResourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *MonitoredResourcesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listMonitoredResources"
+func (client *ConnectedPartnerResourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *ConnectedPartnerResourcesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listConnectedPartnerResources"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -111,10 +112,10 @@ func (client *MonitoredResourcesClient) listCreateRequest(ctx context.Context, r
 }
 
 // listHandleResponse handles the List response.
-func (client *MonitoredResourcesClient) listHandleResponse(resp *http.Response) (MonitoredResourcesClientListResponse, error) {
-	result := MonitoredResourcesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MonitoredResourceListResponse); err != nil {
-		return MonitoredResourcesClientListResponse{}, err
+func (client *ConnectedPartnerResourcesClient) listHandleResponse(resp *http.Response) (ConnectedPartnerResourcesClientListResponse, error) {
+	result := ConnectedPartnerResourcesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ConnectedPartnerResourcesListResponse); err != nil {
+		return ConnectedPartnerResourcesClientListResponse{}, err
 	}
 	return result, nil
 }

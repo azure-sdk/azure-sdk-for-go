@@ -27,6 +27,16 @@ type AssociateTrafficFilterClientAssociateResponse struct {
 	// placeholder for future response values
 }
 
+// BillingInfoClientGetResponse contains the response from method BillingInfoClient.Get.
+type BillingInfoClientGetResponse struct {
+	BillingInfoResponse
+}
+
+// ConnectedPartnerResourcesClientListResponse contains the response from method ConnectedPartnerResourcesClient.NewListPager.
+type ConnectedPartnerResourcesClientListResponse struct {
+	ConnectedPartnerResourcesListResponse
+}
+
 // CreateAndAssociateIPFilterClientCreateResponse contains the response from method CreateAndAssociateIPFilterClient.BeginCreate.
 type CreateAndAssociateIPFilterClientCreateResponse struct {
 	// placeholder for future response values
@@ -110,6 +120,11 @@ type OperationsClientListResponse struct {
 // OrganizationsClientGetAPIKeyResponse contains the response from method OrganizationsClient.GetAPIKey.
 type OrganizationsClientGetAPIKeyResponse struct {
 	UserAPIKeyResponse
+}
+
+// OrganizationsClientGetElasticToAzureSubscriptionMappingResponse contains the response from method OrganizationsClient.GetElasticToAzureSubscriptionMapping.
+type OrganizationsClientGetElasticToAzureSubscriptionMappingResponse struct {
+	OrganizationToAzureSubscriptionMappingResponse
 }
 
 // TagRulesClientCreateOrUpdateResponse contains the response from method TagRulesClient.CreateOrUpdate.

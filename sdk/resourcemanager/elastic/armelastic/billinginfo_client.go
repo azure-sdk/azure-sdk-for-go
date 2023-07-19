@@ -29,55 +29,54 @@ import (
 	"strings"
 )
 
-// UpgradableVersionsClient contains the methods for the UpgradableVersions group.
-// Don't use this type directly, use NewUpgradableVersionsClient() instead.
-type UpgradableVersionsClient struct {
+// BillingInfoClient contains the methods for the BillingInfo group.
+// Don't use this type directly, use NewBillingInfoClient() instead.
+type BillingInfoClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewUpgradableVersionsClient creates a new instance of UpgradableVersionsClient with the specified values.
+// NewBillingInfoClient creates a new instance of BillingInfoClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewUpgradableVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UpgradableVersionsClient, error) {
-	cl, err := arm.NewClient(moduleName+".UpgradableVersionsClient", moduleVersion, credential, options)
+func NewBillingInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingInfoClient, error) {
+	cl, err := arm.NewClient(moduleName+".BillingInfoClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &UpgradableVersionsClient{
+	client := &BillingInfoClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Details - List of upgradable versions for a given monitor resource.
+// Get - Get marketplace and organization info mapped to the given monitor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
-//   - options - UpgradableVersionsClientDetailsOptions contains the optional parameters for the UpgradableVersionsClient.Details
-//     method.
-func (client *UpgradableVersionsClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *UpgradableVersionsClientDetailsOptions) (UpgradableVersionsClientDetailsResponse, error) {
-	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
+//   - options - BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+func (client *BillingInfoClient) Get(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return UpgradableVersionsClientDetailsResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return UpgradableVersionsClientDetailsResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return UpgradableVersionsClientDetailsResponse{}, runtime.NewResponseError(resp)
+		return BillingInfoClientGetResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.detailsHandleResponse(resp)
+	return client.getHandleResponse(resp)
 }
 
-// detailsCreateRequest creates the Details request.
-func (client *UpgradableVersionsClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *UpgradableVersionsClientDetailsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listUpgradableVersions"
+// getCreateRequest creates the Get request.
+func (client *BillingInfoClient) getCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/getBillingInfo"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -98,11 +97,11 @@ func (client *UpgradableVersionsClient) detailsCreateRequest(ctx context.Context
 	return req, nil
 }
 
-// detailsHandleResponse handles the Details response.
-func (client *UpgradableVersionsClient) detailsHandleResponse(resp *http.Response) (UpgradableVersionsClientDetailsResponse, error) {
-	result := UpgradableVersionsClientDetailsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UpgradableVersionsList); err != nil {
-		return UpgradableVersionsClientDetailsResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *BillingInfoClient) getHandleResponse(resp *http.Response) (BillingInfoClientGetResponse, error) {
+	result := BillingInfoClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BillingInfoResponse); err != nil {
+		return BillingInfoClientGetResponse{}, err
 	}
 	return result, nil
 }
