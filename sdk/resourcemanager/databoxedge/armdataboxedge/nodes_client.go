@@ -46,7 +46,7 @@ func NewNodesClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // NewListByDataBoxEdgeDevicePager - Gets all the nodes currently configured under this Data Box Edge device
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - deviceName - The device name.
 //   - resourceGroupName - The resource group name.
 //   - options - NodesClientListByDataBoxEdgeDeviceOptions contains the optional parameters for the NodesClient.NewListByDataBoxEdgeDevicePager
@@ -99,7 +99,7 @@ func (client *NodesClient) listByDataBoxEdgeDeviceCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

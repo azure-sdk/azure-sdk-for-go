@@ -47,7 +47,7 @@ func NewBandwidthSchedulesClient(subscriptionID string, credential azcore.TokenC
 // BeginCreateOrUpdate - Creates or updates a bandwidth schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - deviceName - The device name.
 //   - name - The bandwidth schedule name which needs to be added/updated.
 //   - resourceGroupName - The resource group name.
@@ -69,7 +69,7 @@ func (client *BandwidthSchedulesClient) BeginCreateOrUpdate(ctx context.Context,
 // CreateOrUpdate - Creates or updates a bandwidth schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 func (client *BandwidthSchedulesClient) createOrUpdate(ctx context.Context, deviceName string, name string, resourceGroupName string, parameters BandwidthSchedule, options *BandwidthSchedulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, deviceName, name, resourceGroupName, parameters, options)
 	if err != nil {
@@ -109,7 +109,7 @@ func (client *BandwidthSchedulesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -118,7 +118,7 @@ func (client *BandwidthSchedulesClient) createOrUpdateCreateRequest(ctx context.
 // BeginDelete - Deletes the specified bandwidth schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - deviceName - The device name.
 //   - name - The bandwidth schedule name.
 //   - resourceGroupName - The resource group name.
@@ -139,7 +139,7 @@ func (client *BandwidthSchedulesClient) BeginDelete(ctx context.Context, deviceN
 // Delete - Deletes the specified bandwidth schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 func (client *BandwidthSchedulesClient) deleteOperation(ctx context.Context, deviceName string, name string, resourceGroupName string, options *BandwidthSchedulesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, deviceName, name, resourceGroupName, options)
 	if err != nil {
@@ -179,7 +179,7 @@ func (client *BandwidthSchedulesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *BandwidthSchedulesClient) deleteCreateRequest(ctx context.Context,
 // Get - Gets the properties of the specified bandwidth schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - deviceName - The device name.
 //   - name - The bandwidth schedule name.
 //   - resourceGroupName - The resource group name.
@@ -232,7 +232,7 @@ func (client *BandwidthSchedulesClient) getCreateRequest(ctx context.Context, de
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +249,7 @@ func (client *BandwidthSchedulesClient) getHandleResponse(resp *http.Response) (
 
 // NewListByDataBoxEdgeDevicePager - Gets all the bandwidth schedules for a Data Box Edge/Data Box Gateway device.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - deviceName - The device name.
 //   - resourceGroupName - The resource group name.
 //   - options - BandwidthSchedulesClientListByDataBoxEdgeDeviceOptions contains the optional parameters for the BandwidthSchedulesClient.NewListByDataBoxEdgeDevicePager
@@ -302,7 +302,7 @@ func (client *BandwidthSchedulesClient) listByDataBoxEdgeDeviceCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

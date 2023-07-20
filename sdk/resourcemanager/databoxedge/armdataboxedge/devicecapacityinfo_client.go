@@ -47,7 +47,7 @@ func NewDeviceCapacityInfoClient(subscriptionID string, credential azcore.TokenC
 // GetDeviceCapacityInfo - Gets the properties of the specified device capacity info.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-07-17
 //   - resourceGroupName - The resource group name.
 //   - deviceName - The device name.
 //   - options - DeviceCapacityInfoClientGetDeviceCapacityInfoOptions contains the optional parameters for the DeviceCapacityInfoClient.GetDeviceCapacityInfo
@@ -87,7 +87,7 @@ func (client *DeviceCapacityInfoClient) getDeviceCapacityInfoCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-07-17")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

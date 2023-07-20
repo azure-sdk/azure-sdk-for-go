@@ -1697,6 +1697,7 @@ func (d DeviceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "deviceType", d.DeviceType)
 	populate(objectMap, "edgeProfile", d.EdgeProfile)
 	populate(objectMap, "friendlyName", d.FriendlyName)
+	populate(objectMap, "kubernetesWorkloadProfile", d.KubernetesWorkloadProfile)
 	populate(objectMap, "modelDescription", d.ModelDescription)
 	populate(objectMap, "nodeCount", d.NodeCount)
 	populate(objectMap, "resourceMoveDetails", d.ResourceMoveDetails)
@@ -1750,6 +1751,9 @@ func (d *DeviceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "friendlyName":
 			err = unpopulate(val, "FriendlyName", &d.FriendlyName)
+			delete(rawMsg, key)
+		case "kubernetesWorkloadProfile":
+			err = unpopulate(val, "KubernetesWorkloadProfile", &d.KubernetesWorkloadProfile)
 			delete(rawMsg, key)
 		case "modelDescription":
 			err = unpopulate(val, "ModelDescription", &d.ModelDescription)
