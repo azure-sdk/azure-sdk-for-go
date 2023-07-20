@@ -50,7 +50,7 @@ func NewDscConfigurationClient(subscriptionID string, credential azcore.TokenCre
 // CreateOrUpdateWithJSON - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The create or update parameters for configuration.
@@ -96,7 +96,7 @@ func (client *DscConfigurationClient) createOrUpdateWithJSONCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -114,7 +114,7 @@ func (client *DscConfigurationClient) createOrUpdateWithJSONHandleResponse(resp 
 // CreateOrUpdateWithText - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The create or update parameters for configuration.
@@ -160,7 +160,7 @@ func (client *DscConfigurationClient) createOrUpdateWithTextCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	body := streaming.NopCloser(strings.NewReader(parameters))
@@ -179,7 +179,7 @@ func (client *DscConfigurationClient) createOrUpdateWithTextHandleResponse(resp 
 // Delete - Delete the dsc configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The configuration name.
@@ -223,7 +223,7 @@ func (client *DscConfigurationClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,7 +232,7 @@ func (client *DscConfigurationClient) deleteCreateRequest(ctx context.Context, r
 // Get - Retrieve the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The configuration name.
@@ -276,7 +276,7 @@ func (client *DscConfigurationClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -294,7 +294,7 @@ func (client *DscConfigurationClient) getHandleResponse(resp *http.Response) (Ds
 // GetContent - Retrieve the configuration script identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The configuration name.
@@ -309,10 +309,10 @@ func (client *DscConfigurationClient) GetContent(ctx context.Context, resourceGr
 	if err != nil {
 		return DscConfigurationClientGetContentResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent) {
 		return DscConfigurationClientGetContentResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.getContentHandleResponse(resp)
+	return DscConfigurationClientGetContentResponse{}, nil
 }
 
 // getContentCreateRequest creates the GetContent request.
@@ -339,27 +339,15 @@ func (client *DscConfigurationClient) getContentCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"text/powershell"}
 	return req, nil
 }
 
-// getContentHandleResponse handles the GetContent response.
-func (client *DscConfigurationClient) getContentHandleResponse(resp *http.Response) (DscConfigurationClientGetContentResponse, error) {
-	result := DscConfigurationClientGetContentResponse{}
-	body, err := runtime.Payload(resp)
-	if err != nil {
-		return DscConfigurationClientGetContentResponse{}, err
-	}
-	txt := string(body)
-	result.Value = &txt
-	return result, nil
-}
-
 // NewListByAutomationAccountPager - Retrieve a list of configurations.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - DscConfigurationClientListByAutomationAccountOptions contains the optional parameters for the DscConfigurationClient.NewListByAutomationAccountPager
@@ -412,7 +400,7 @@ func (client *DscConfigurationClient) listByAutomationAccountCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -442,7 +430,7 @@ func (client *DscConfigurationClient) listByAutomationAccountHandleResponse(resp
 // UpdateWithJSON - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The create or update parameters for configuration.
@@ -487,7 +475,7 @@ func (client *DscConfigurationClient) updateWithJSONCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -508,7 +496,7 @@ func (client *DscConfigurationClient) updateWithJSONHandleResponse(resp *http.Re
 // UpdateWithText - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - configurationName - The create or update parameters for configuration.
@@ -553,7 +541,7 @@ func (client *DscConfigurationClient) updateWithTextCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
