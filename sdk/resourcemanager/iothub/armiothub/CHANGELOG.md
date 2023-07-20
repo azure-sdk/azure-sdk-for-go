@@ -1,5 +1,35 @@
 # Release History
 
+## 1.2.0-beta.2 (2023-07-20)
+### Breaking Changes
+
+- Field `CollectionName` of struct `RoutingCosmosDBSQLAPIProperties` has been removed
+- Field `CosmosDBSQLCollections` of struct `RoutingEndpoints` has been removed
+
+### Features Added
+
+- New value `PublicNetworkAccessSecuredByPerimeter` added to enum type `PublicNetworkAccess`
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.Get(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetOptions) (NetworkSecurityPerimeterConfigurationsClientGetResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.ListByIotHub(context.Context, string, string, *NetworkSecurityPerimeterConfigurationsClientListByIotHubOptions) (NetworkSecurityPerimeterConfigurationsClientListByIotHubResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileResponse], error)`
+- New struct `NSPConfigAccessRule`
+- New struct `NSPConfigAccessRuleProperties`
+- New struct `NSPConfigAssociation`
+- New struct `NSPConfigNetworkSecurityPerimeterRule`
+- New struct `NSPConfigPerimeter`
+- New struct `NSPConfigProfile`
+- New struct `NSPProvisioningIssue`
+- New struct `NSPProvisioningIssueProperties`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationListResult`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `ProxyResource`
+- New field `ContainerName` in struct `RoutingCosmosDBSQLAPIProperties`
+- New field `CosmosDBSQLContainers` in struct `RoutingEndpoints`
+
+
 ## 1.2.0-beta.1 (2023-04-28)
 ### Features Added
 
