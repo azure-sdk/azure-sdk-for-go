@@ -48,7 +48,7 @@ func NewCertificateClient(subscriptionID string, credential azcore.TokenCredenti
 // CreateOrUpdate - Create a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - certificateName - The parameters supplied to the create or update certificate operation.
@@ -94,7 +94,7 @@ func (client *CertificateClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -112,7 +112,7 @@ func (client *CertificateClient) createOrUpdateHandleResponse(resp *http.Respons
 // Delete - Delete the certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - certificateName - The name of certificate.
@@ -156,7 +156,7 @@ func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,7 +165,7 @@ func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Retrieve the certificate identified by certificate name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - certificateName - The name of certificate.
@@ -209,7 +209,7 @@ func (client *CertificateClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -226,7 +226,7 @@ func (client *CertificateClient) getHandleResponse(resp *http.Response) (Certifi
 
 // NewListByAutomationAccountPager - Retrieve a list of certificates.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - CertificateClientListByAutomationAccountOptions contains the optional parameters for the CertificateClient.NewListByAutomationAccountPager
@@ -279,7 +279,7 @@ func (client *CertificateClient) listByAutomationAccountCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -297,7 +297,7 @@ func (client *CertificateClient) listByAutomationAccountHandleResponse(resp *htt
 // Update - Update a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - certificateName - The parameters supplied to the update certificate operation.
@@ -342,7 +342,7 @@ func (client *CertificateClient) updateCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

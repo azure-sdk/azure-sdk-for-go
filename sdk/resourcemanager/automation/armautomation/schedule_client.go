@@ -48,7 +48,7 @@ func NewScheduleClient(subscriptionID string, credential azcore.TokenCredential,
 // CreateOrUpdate - Create a schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - scheduleName - The schedule name.
@@ -93,7 +93,7 @@ func (client *ScheduleClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -111,7 +111,7 @@ func (client *ScheduleClient) createOrUpdateHandleResponse(resp *http.Response) 
 // Delete - Delete the schedule identified by schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - scheduleName - The schedule name.
@@ -155,7 +155,7 @@ func (client *ScheduleClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -164,7 +164,7 @@ func (client *ScheduleClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Retrieve the schedule identified by schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - scheduleName - The schedule name.
@@ -208,7 +208,7 @@ func (client *ScheduleClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -225,7 +225,7 @@ func (client *ScheduleClient) getHandleResponse(resp *http.Response) (ScheduleCl
 
 // NewListByAutomationAccountPager - Retrieve a list of schedules.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - ScheduleClientListByAutomationAccountOptions contains the optional parameters for the ScheduleClient.NewListByAutomationAccountPager
@@ -278,7 +278,7 @@ func (client *ScheduleClient) listByAutomationAccountCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +296,7 @@ func (client *ScheduleClient) listByAutomationAccountHandleResponse(resp *http.R
 // Update - Update the schedule identified by schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - scheduleName - The schedule name.
@@ -341,7 +341,7 @@ func (client *ScheduleClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

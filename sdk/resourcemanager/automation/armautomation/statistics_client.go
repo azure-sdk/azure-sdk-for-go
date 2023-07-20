@@ -47,7 +47,7 @@ func NewStatisticsClient(subscriptionID string, credential azcore.TokenCredentia
 
 // NewListByAutomationAccountPager - Retrieve the statistics for the account.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - StatisticsClientListByAutomationAccountOptions contains the optional parameters for the StatisticsClient.NewListByAutomationAccountPager
@@ -97,7 +97,7 @@ func (client *StatisticsClient) listByAutomationAccountCreateRequest(ctx context
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

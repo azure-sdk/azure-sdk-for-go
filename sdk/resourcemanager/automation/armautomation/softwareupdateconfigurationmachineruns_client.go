@@ -48,7 +48,7 @@ func NewSoftwareUpdateConfigurationMachineRunsClient(subscriptionID string, cred
 // GetByID - Get a single software update configuration machine run by Id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - softwareUpdateConfigurationMachineRunID - The Id of the software update configuration machine run.
@@ -90,7 +90,7 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) getByIDCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -111,7 +111,7 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) getByIDHandleRespons
 // List - Return list of software update configuration machine runs
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - SoftwareUpdateConfigurationMachineRunsClientListOptions contains the optional parameters for the SoftwareUpdateConfigurationMachineRunsClient.List
@@ -151,7 +151,7 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) listCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
