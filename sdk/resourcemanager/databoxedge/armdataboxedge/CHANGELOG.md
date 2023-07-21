@@ -1,5 +1,11 @@
 # Release History
 
+## 1.2.0 (2023-07-21)
+### Features Added
+
+- New field `KubernetesWorkloadProfile` in struct `DeviceProperties`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
