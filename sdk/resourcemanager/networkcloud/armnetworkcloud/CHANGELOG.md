@@ -1,5 +1,19 @@
 # Release History
 
+## 1.0.0 (2023-07-23)
+### Breaking Changes
+
+- Enum `BareMetalMachineHardwareValidationCategory` has been removed
+- Function `*BareMetalMachinesClient.BeginValidateHardware` has been removed
+- Function `*StorageAppliancesClient.BeginRunReadCommands` has been removed
+- Function `*VirtualMachinesClient.BeginAttachVolume` has been removed
+- Function `*VirtualMachinesClient.BeginDetachVolume` has been removed
+- Struct `BareMetalMachineValidateHardwareParameters` has been removed
+- Struct `StorageApplianceCommandSpecification` has been removed
+- Struct `StorageApplianceRunReadCommandsParameters` has been removed
+- Struct `VirtualMachineVolumeParameters` has been removed
+
+
 ## 0.2.0 (2023-07-28)
 ### Breaking Changes
 
