@@ -2258,6 +2258,7 @@ func (c *CopyCompletionError) UnmarshalJSON(data []byte) error {
 func (c CreationData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "createOption", c.CreateOption)
+	populate(objectMap, "elasticSanResourceId", c.ElasticSanResourceID)
 	populate(objectMap, "galleryImageReference", c.GalleryImageReference)
 	populate(objectMap, "imageReference", c.ImageReference)
 	populate(objectMap, "logicalSectorSize", c.LogicalSectorSize)
@@ -2282,6 +2283,9 @@ func (c *CreationData) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "createOption":
 			err = unpopulate(val, "CreateOption", &c.CreateOption)
+			delete(rawMsg, key)
+		case "elasticSanResourceId":
+			err = unpopulate(val, "ElasticSanResourceID", &c.ElasticSanResourceID)
 			delete(rawMsg, key)
 		case "galleryImageReference":
 			err = unpopulate(val, "GalleryImageReference", &c.GalleryImageReference)
@@ -6233,6 +6237,7 @@ func (g GrantAccessData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "access", g.Access)
 	populate(objectMap, "durationInSeconds", g.DurationInSeconds)
+	populate(objectMap, "fileFormat", g.FileFormat)
 	populate(objectMap, "getSecureVMGuestStateSAS", g.GetSecureVMGuestStateSAS)
 	return json.Marshal(objectMap)
 }
@@ -6251,6 +6256,9 @@ func (g *GrantAccessData) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "durationInSeconds":
 			err = unpopulate(val, "DurationInSeconds", &g.DurationInSeconds)
+			delete(rawMsg, key)
+		case "fileFormat":
+			err = unpopulate(val, "FileFormat", &g.FileFormat)
 			delete(rawMsg, key)
 		case "getSecureVMGuestStateSAS":
 			err = unpopulate(val, "GetSecureVMGuestStateSAS", &g.GetSecureVMGuestStateSAS)

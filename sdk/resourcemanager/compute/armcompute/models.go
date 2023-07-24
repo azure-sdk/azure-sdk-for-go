@@ -951,6 +951,9 @@ type CreationData struct {
 	// REQUIRED; This enumerates the possible sources of a disk's creation.
 	CreateOption *DiskCreateOption
 
+	// Required if createOption is CopyFromSanSnapshot. this is the ARM id of the source elastic san volume snapshot.
+	ElasticSanResourceID *string
+
 	// Required if creating from a Gallery Image. The id/sharedGalleryImageId/communityGalleryImageId of the ImageDiskReference
 	// will be the ARM id of the shared galley image version from which to create a
 	// disk.
@@ -2676,6 +2679,9 @@ type GrantAccessData struct {
 
 	// REQUIRED; Time duration in seconds until the SAS access expires.
 	DurationInSeconds *int32
+
+	// Used to specify the file format when making request for SAS on a VHDX file format snapshot
+	FileFormat *FileFormat
 
 	// Set this flag to true to get additional SAS for VM guest state
 	GetSecureVMGuestStateSAS *bool
