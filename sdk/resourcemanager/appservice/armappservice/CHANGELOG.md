@@ -1,5 +1,25 @@
 # Release History
 
+## 3.0.0 (2023-07-24)
+### Breaking Changes
+
+- Field `Interface` of struct `WebAppsClientCreateOneDeployOperationResponse` has been removed
+- Field `Interface` of struct `WebAppsClientGetOneDeployStatusResponse` has been removed
+
+### Features Added
+
+- New value `LogLevelDebug`, `LogLevelInfo`, `LogLevelWarn` added to enum type `LogLevel`
+- New enum type `TLSCipherSuites` with values `TLSCipherSuitesTLSAES128GCMSHA256`, `TLSCipherSuitesTLSAES256GCMSHA384`, `TLSCipherSuitesTLSECDHEECDSAWITHAES128CBCSHA256`, `TLSCipherSuitesTLSECDHEECDSAWITHAES128GCMSHA256`, `TLSCipherSuitesTLSECDHEECDSAWITHAES256GCMSHA384`, `TLSCipherSuitesTLSECDHERSAWITHAES128CBCSHA`, `TLSCipherSuitesTLSECDHERSAWITHAES128CBCSHA256`, `TLSCipherSuitesTLSECDHERSAWITHAES128GCMSHA256`, `TLSCipherSuitesTLSECDHERSAWITHAES256CBCSHA`, `TLSCipherSuitesTLSECDHERSAWITHAES256CBCSHA384`, `TLSCipherSuitesTLSECDHERSAWITHAES256GCMSHA384`, `TLSCipherSuitesTLSRSAWITHAES128CBCSHA`, `TLSCipherSuitesTLSRSAWITHAES128CBCSHA256`, `TLSCipherSuitesTLSRSAWITHAES128GCMSHA256`, `TLSCipherSuitesTLSRSAWITHAES256CBCSHA`, `TLSCipherSuitesTLSRSAWITHAES256CBCSHA256`, `TLSCipherSuitesTLSRSAWITHAES256GCMSHA384`
+- New struct `DaprConfig`
+- New struct `OneDeployRequest`
+- New field `EnvironmentID` in struct `ResourceNameAvailabilityRequest`
+- New field `MinTLSCipherSuite` in struct `SiteConfig`
+- New field `DaprConfig` in struct `SiteProperties`
+- New field `Request` in struct `WebAppsClientCreateOneDeployOperationOptions`
+- New anonymous field `Deployment` in struct `WebAppsClientCreateOneDeployOperationResponse`
+- New anonymous field `Deployment` in struct `WebAppsClientGetOneDeployStatusResponse`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 
