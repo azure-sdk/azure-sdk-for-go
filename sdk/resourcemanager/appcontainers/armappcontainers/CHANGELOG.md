@@ -1,5 +1,80 @@
 # Release History
 
+## 2.0.0-beta.4 (2023-07-25)
+### Breaking Changes
+
+- Function `*JobsClient.BeginStopMultipleExecutions` parameter(s) have been changed from `(context.Context, string, string, JobExecutionNamesCollection, *JobsClientBeginStopMultipleExecutionsOptions)` to `(context.Context, string, string, *JobsClientBeginStopMultipleExecutionsOptions)`
+- `TriggerTypeScheduled` from enum `TriggerType` has been removed
+
+### Features Added
+
+- New value `TriggerTypeSchedule` added to enum type `TriggerType`
+- New enum type `BuildStatus` with values `BuildStatusCanceled`, `BuildStatusFailed`, `BuildStatusInProgress`, `BuildStatusNotStarted`, `BuildStatusSucceeded`
+- New enum type `ContainerAppContainerRunningState` with values `ContainerAppContainerRunningStateRunning`, `ContainerAppContainerRunningStateTerminated`, `ContainerAppContainerRunningStateWaiting`
+- New enum type `ContainerAppReplicaRunningState` with values `ContainerAppReplicaRunningStateNotRunning`, `ContainerAppReplicaRunningStateRunning`, `ContainerAppReplicaRunningStateUnknown`
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New enum type `RevisionRunningState` with values `RevisionRunningStateDegraded`, `RevisionRunningStateFailed`, `RevisionRunningStateProcessing`, `RevisionRunningStateRunning`, `RevisionRunningStateStopped`, `RevisionRunningStateUnknown`
+- New function `NewBuildersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BuildersClient, error)`
+- New function `*BuildersClient.BeginCreateOrUpdate(context.Context, string, string, BuilderResource, *BuildersClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildersClientCreateOrUpdateResponse], error)`
+- New function `*BuildersClient.BeginDelete(context.Context, string, string, *BuildersClientBeginDeleteOptions) (*runtime.Poller[BuildersClientDeleteResponse], error)`
+- New function `*BuildersClient.Get(context.Context, string, string, *BuildersClientGetOptions) (BuildersClientGetResponse, error)`
+- New function `*BuildersClient.NewListByResourceGroupPager(string, *BuildersClientListByResourceGroupOptions) *runtime.Pager[BuildersClientListByResourceGroupResponse]`
+- New function `*BuildersClient.NewListBySubscriptionPager(*BuildersClientListBySubscriptionOptions) *runtime.Pager[BuildersClientListBySubscriptionResponse]`
+- New function `*BuildersClient.BeginUpdate(context.Context, string, string, BuilderResourceUpdate, *BuildersClientBeginUpdateOptions) (*runtime.Poller[BuildersClientUpdateResponse], error)`
+- New function `NewBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BuildsClient, error)`
+- New function `*BuildsClient.BeginCreateOrUpdate(context.Context, string, string, string, BuildResource, *BuildsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildsClientCreateOrUpdateResponse], error)`
+- New function `*BuildsClient.BeginDelete(context.Context, string, string, string, *BuildsClientBeginDeleteOptions) (*runtime.Poller[BuildsClientDeleteResponse], error)`
+- New function `*BuildsClient.Get(context.Context, string, string, string, *BuildsClientGetOptions) (BuildsClientGetResponse, error)`
+- New function `*BuildsClient.NewListByBuilderResourcePager(string, string, *BuildsClientListByBuilderResourceOptions) *runtime.Pager[BuildsClientListByBuilderResourceResponse]`
+- New function `*ClientFactory.NewBuildersClient() *BuildersClient`
+- New function `*ClientFactory.NewBuildsClient() *BuildsClient`
+- New function `*ClientFactory.NewContainerAppsAPIClient() *ContainerAppsAPIClient`
+- New function `NewContainerAppsAPIClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsAPIClient, error)`
+- New function `*ContainerAppsAPIClient.GetCustomDomainVerificationID(context.Context, *ContainerAppsAPIClientGetCustomDomainVerificationIDOptions) (ContainerAppsAPIClientGetCustomDomainVerificationIDResponse, error)`
+- New function `*ContainerAppsAPIClient.JobExecution(context.Context, string, string, string, *ContainerAppsAPIClientJobExecutionOptions) (ContainerAppsAPIClientJobExecutionResponse, error)`
+- New function `*ContainerAppsClient.BeginStart(context.Context, string, string, *ContainerAppsClientBeginStartOptions) (*runtime.Poller[ContainerAppsClientStartResponse], error)`
+- New function `*ContainerAppsClient.BeginStop(context.Context, string, string, *ContainerAppsClientBeginStopOptions) (*runtime.Poller[ContainerAppsClientStopResponse], error)`
+- New struct `BlobStorageTokenStore`
+- New struct `BuildCollection`
+- New struct `BuildConfiguration`
+- New struct `BuildProperties`
+- New struct `BuildResource`
+- New struct `BuilderCollection`
+- New struct `BuilderProperties`
+- New struct `BuilderResource`
+- New struct `BuilderResourceUpdate`
+- New struct `BuilderResourceUpdateProperties`
+- New struct `ContainerRegistry`
+- New struct `ContainerRegistryWithCustomImage`
+- New struct `EncryptionSettings`
+- New struct `EnvironmentVariable`
+- New struct `HTTPGet`
+- New struct `IngressPortMapping`
+- New struct `JobConfigurationEventTriggerConfig`
+- New struct `JobScale`
+- New struct `JobScaleRule`
+- New struct `ManagedEnvironmentPropertiesPeerAuthentication`
+- New struct `Mtls`
+- New struct `PreBuildStep`
+- New struct `Service`
+- New struct `ServiceBind`
+- New struct `TokenStore`
+- New field `EncryptionSettings` in struct `AuthConfigProperties`
+- New field `Kind` in struct `AzureCredentials`
+- New field `Service` in struct `Configuration`
+- New field `GithubPersonalAccessToken` in struct `GithubActionConfiguration`
+- New field `AdditionalPortMappings` in struct `Ingress`
+- New field `EventTriggerConfig` in struct `JobConfiguration`
+- New field `TokenStore` in struct `Login`
+- New field `PeerAuthentication` in struct `ManagedEnvironmentProperties`
+- New field `RunningState`, `RunningStateDetails` in struct `ReplicaContainer`
+- New field `InitContainers`, `RunningState`, `RunningStateDetails` in struct `ReplicaProperties`
+- New field `RunningState` in struct `RevisionProperties`
+- New field `ServiceBinds`, `TerminationGracePeriodSeconds` in struct `Template`
+- New field `MountOptions` in struct `Volume`
+- New field `SubPath` in struct `VolumeMount`
+
+
 ## 2.0.0-beta.3 (2023-05-26)
 ### Breaking Changes
 
