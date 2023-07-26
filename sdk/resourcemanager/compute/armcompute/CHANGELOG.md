@@ -1,5 +1,20 @@
 # Release History
 
+## 6.0.0 (2023-07-26)
+### Breaking Changes
+
+- Type of `CommunityGalleryImageProperties.Identifier` has been changed from `*CommunityGalleryImageIdentifier` to `*GalleryImageIdentifier`
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Enum `FileFormat` has been removed
+- Struct `CommunityGalleryImageIdentifier` has been removed
+- Field `FileFormat` of struct `GrantAccessData` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+
+
 ## 5.1.0 (2023-07-28)
 ### Features Added
 

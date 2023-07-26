@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.1.0"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -632,26 +632,6 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 	}
 }
 
-// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
-type EdgeZoneStorageAccountType string
-
-const (
-	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
-	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
-	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
-	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
-)
-
-// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
-func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
-	return []EdgeZoneStorageAccountType{
-		EdgeZoneStorageAccountTypePremiumLRS,
-		EdgeZoneStorageAccountTypeStandardLRS,
-		EdgeZoneStorageAccountTypeStandardSSDLRS,
-		EdgeZoneStorageAccountTypeStandardZRS,
-	}
-}
-
 // EncryptionType - The type of key used to encrypt the data of the disk.
 type EncryptionType string
 
@@ -781,24 +761,6 @@ const (
 func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	return []ExtendedLocationTypes{
 		ExtendedLocationTypesEdgeZone,
-	}
-}
-
-// FileFormat - Used to specify the file format when making request for SAS on a VHDX file format snapshot
-type FileFormat string
-
-const (
-	// FileFormatVHD - A VHD file is a disk image file in the Virtual Hard Disk file format.
-	FileFormatVHD FileFormat = "VHD"
-	// FileFormatVHDX - A VHDX file is a disk image file in the Virtual Hard Disk v2 file format.
-	FileFormatVHDX FileFormat = "VHDX"
-)
-
-// PossibleFileFormatValues returns the possible values for the FileFormat const type.
-func PossibleFileFormatValues() []FileFormat {
-	return []FileFormat{
-		FileFormatVHD,
-		FileFormatVHDX,
 	}
 }
 
@@ -1936,9 +1898,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -1946,6 +1909,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }
