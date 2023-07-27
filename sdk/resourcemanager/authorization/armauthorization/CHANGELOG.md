@@ -1,5 +1,9 @@
 # Release History
 
+## 3.0.0-beta.2 (2023-07-27)
+### Other Changes
+
+
 ## 3.0.0-beta.1 (2023-07-28)
 ### Breaking Changes
 
