@@ -1,5 +1,18 @@
 # Release History
 
+## 4.1.0 (2023-07-27)
+### Features Added
+
+- New value `ApplicationGatewaySKUNameBasic` added to enum type `ApplicationGatewaySKUName`
+- New value `ApplicationGatewayTierBasic` added to enum type `ApplicationGatewayTier`
+- New enum type `SyncMode` with values `SyncModeAutomatic`, `SyncModeManual`
+- New function `*LoadBalancersClient.MigrateToIPBased(context.Context, string, string, *LoadBalancersClientMigrateToIPBasedOptions) (LoadBalancersClientMigrateToIPBasedResponse, error)`
+- New struct `MigrateLoadBalancerToIPBasedRequest`
+- New struct `MigratedPools`
+- New field `HTTPListeners` in struct `ApplicationGatewayFrontendIPConfigurationPropertiesFormat`
+- New field `SyncMode` in struct `BackendAddressPoolPropertiesFormat`
+
+
 ## 4.0.0 (2023-07-11)
 ### Breaking Changes
 
