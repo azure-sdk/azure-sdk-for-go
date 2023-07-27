@@ -10,7 +10,7 @@ package armmobilenetwork
 
 const (
 	moduleName    = "armmobilenetwork"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v3.0.1"
 )
 
 // AuthenticationType - How to authenticate users who access local diagnostics APIs.
