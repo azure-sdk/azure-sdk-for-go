@@ -835,10 +835,7 @@ type CommunityGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -2077,10 +2074,8 @@ type GalleryApplicationList struct {
 
 // GalleryApplicationProperties - Describes the properties of a gallery Application Definition.
 type GalleryApplicationProperties struct {
-	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for.
-	// Possible values are:
-	// Windows
-	// Linux
+	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for. Possible values
+	// are: Windows, Linux.
 	SupportedOSType *OperatingSystemTypes
 
 	// A list of custom actions that can be performed with all of the Gallery Application Versions within this Gallery Application.
@@ -2410,10 +2405,7 @@ type GalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -3081,13 +3073,29 @@ type LastPatchInstallationSummary struct {
 	Status *PatchOperationStatus
 }
 
-// LatestGalleryImageVersion - The gallery image version with latest version in a particular region.
+// LatestGalleryImageVersion - The property latestVersion. It contains two value, the latest version name and the region.
 type LatestGalleryImageVersion struct {
 	// The name of the latest version in the region.
 	LatestVersionName *string
 
 	// region of the Gallery Image Version.
 	Location *string
+}
+
+// LatestVersion - latestVersion is an ARM resource. It follows the schema of ARM resource, which has id, name, type and properties.
+// The name of the latest version in the region is in the properties.
+type LatestVersion struct {
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; The property latestVersion. It contains two value, the latest version name and the region.
+	Properties *LatestGalleryImageVersion
+
+	// READ-ONLY; Resource type
+	Type *string
 }
 
 // LinuxConfiguration - Specifies the Linux operating system settings on the virtual machine. For a list of supported Linux
@@ -5072,10 +5080,7 @@ type SharedGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -5181,11 +5186,7 @@ type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
 	CommunityGalleryInfo *CommunityGalleryInfo
 
-	// This property allows you to specify the permission of sharing gallery.
-	// Possible values are:
-	// Private
-	// Groups
-	// Community
+	// This property allows you to specify the permission of sharing gallery. Possible values are: Private, Groups, Community.
 	Permissions *GallerySharingPermissionTypes
 
 	// READ-ONLY; A list of sharing profile groups.
@@ -5197,10 +5198,7 @@ type SharingProfileGroup struct {
 	// A list of subscription/tenant ids the gallery is aimed to be shared to.
 	IDs []*string
 
-	// This property allows you to specify the type of sharing group.
-	// Possible values are:
-	// Subscriptions
-	// AADTenants
+	// This property allows you to specify the type of sharing group. Possible values are: Subscriptions, AADTenants.
 	Type *SharingProfileGroupTypes
 }
 
@@ -5215,11 +5213,8 @@ type SharingStatus struct {
 
 // SharingUpdate - Specifies information about the gallery sharing profile update.
 type SharingUpdate struct {
-	// REQUIRED; This property allows you to specify the operation type of gallery sharing update.
-	// Possible values are:
-	// Add
-	// Remove
-	// Reset
+	// REQUIRED; This property allows you to specify the operation type of gallery sharing update. Possible values are: Add, Remove,
+	// Reset.
 	OperationType *SharingUpdateOperationTypes
 
 	// A list of sharing profile groups.

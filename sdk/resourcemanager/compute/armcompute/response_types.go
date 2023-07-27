@@ -693,6 +693,13 @@ type GalleryImageVersionsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// GalleryImageVersionsClientGetLatestResponse contains the response from method GalleryImageVersionsClient.GetLatest.
+type GalleryImageVersionsClientGetLatestResponse struct {
+	// latestVersion is an ARM resource. It follows the schema of ARM resource, which has id, name, type and properties. The name
+	// of the latest version in the region is in the properties.
+	LatestVersion
+}
+
 // GalleryImageVersionsClientGetResponse contains the response from method GalleryImageVersionsClient.Get.
 type GalleryImageVersionsClientGetResponse struct {
 	// Specifies information about the gallery image version that you want to create or update.

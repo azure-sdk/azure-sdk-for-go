@@ -738,6 +738,12 @@ type GalleryImageVersionsClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// GalleryImageVersionsClientGetLatestOptions contains the optional parameters for the GalleryImageVersionsClient.GetLatest
+// method.
+type GalleryImageVersionsClientGetLatestOptions struct {
+	// placeholder for future optional parameters
+}
+
 // GalleryImageVersionsClientGetOptions contains the optional parameters for the GalleryImageVersionsClient.Get method.
 type GalleryImageVersionsClientGetOptions struct {
 	// The expand expression to apply on the operation.

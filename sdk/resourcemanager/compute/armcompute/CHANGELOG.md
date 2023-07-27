@@ -1,5 +1,12 @@
 # Release History
 
+## 5.2.0 (2023-07-27)
+### Features Added
+
+- New function `*GalleryImageVersionsClient.GetLatest(context.Context, string, string, string, *GalleryImageVersionsClientGetLatestOptions) (GalleryImageVersionsClientGetLatestResponse, error)`
+- New struct `LatestVersion`
+
+
 ## 5.1.0 (2023-07-28)
 ### Features Added
 
