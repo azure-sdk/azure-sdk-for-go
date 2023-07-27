@@ -1,5 +1,25 @@
 # Release History
 
+## 0.10.0 (2023-07-27)
+### Features Added
+
+- New function `NewBillingInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingInfoClient, error)`
+- New function `*BillingInfoClient.Get(context.Context, string, string, *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error)`
+- New function `*ClientFactory.NewBillingInfoClient() *BillingInfoClient`
+- New function `*ClientFactory.NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient`
+- New function `NewConnectedPartnerResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedPartnerResourcesClient, error)`
+- New function `*ConnectedPartnerResourcesClient.NewListPager(string, string, *ConnectedPartnerResourcesClientListOptions) *runtime.Pager[ConnectedPartnerResourcesClientListResponse]`
+- New function `*OrganizationsClient.GetElasticToAzureSubscriptionMapping(context.Context, *OrganizationsClientGetElasticToAzureSubscriptionMappingOptions) (OrganizationsClientGetElasticToAzureSubscriptionMappingResponse, error)`
+- New struct `BillingInfoResponse`
+- New struct `ConnectedPartnerResourceProperties`
+- New struct `ConnectedPartnerResourcesListFormat`
+- New struct `ConnectedPartnerResourcesListResponse`
+- New struct `OrganizationToAzureSubscriptionMappingResponse`
+- New struct `OrganizationToAzureSubscriptionMappingResponseProperties`
+- New struct `PartnerBillingEntity`
+- New field `BilledAzureSubscriptionID`, `MarketplaceStatus`, `Subscribed` in struct `MarketplaceSaaSInfo`
+
+
 ## 0.9.0 (2023-05-26)
 ### Breaking Changes
 
