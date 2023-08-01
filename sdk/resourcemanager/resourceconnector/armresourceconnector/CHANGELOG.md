@@ -1,5 +1,15 @@
 # Release History
 
+## 1.0.0 (2023-08-01)
+### Breaking Changes
+
+- `ProviderKubeVirt`, `ProviderOpenStack` from enum `Provider` has been removed
+
+### Features Added
+
+- New value `StatusETCDSnapshotFailed`, `StatusValidatingETCDHealth`, `StatusValidatingImageDownload`, `StatusValidatingImageUpload`, `StatusValidatingSFSConnectivity` added to enum type `Status`
+
+
 ## 0.4.0 (2023-04-28)
 ### Breaking Changes
 
