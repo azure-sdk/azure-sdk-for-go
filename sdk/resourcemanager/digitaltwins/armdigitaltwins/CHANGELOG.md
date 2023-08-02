@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0 (2023-08-02)
+### Breaking Changes
+
+- Type of `AzureDataExplorerConnectionProperties.RecordPropertyAndItemRemovals` has been changed from `*RecordPropertyAndItemRemovals` to `*bool`
+- Enum `RecordPropertyAndItemRemovals` has been removed
+
+
 ## 1.1.0 (2023-03-24)
 ### Features Added
 
