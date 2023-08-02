@@ -15294,6 +15294,8 @@ func (v *VirtualMachineNetworkInterfaceConfiguration) UnmarshalJSON(data []byte)
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineNetworkInterfaceConfigurationProperties.
 func (v VirtualMachineNetworkInterfaceConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "auxiliaryMode", v.AuxiliaryMode)
+	populate(objectMap, "auxiliarySku", v.AuxiliarySKU)
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
@@ -15316,6 +15318,12 @@ func (v *VirtualMachineNetworkInterfaceConfigurationProperties) UnmarshalJSON(da
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "auxiliaryMode":
+			err = unpopulate(val, "AuxiliaryMode", &v.AuxiliaryMode)
+			delete(rawMsg, key)
+		case "auxiliarySku":
+			err = unpopulate(val, "AuxiliarySKU", &v.AuxiliarySKU)
+			delete(rawMsg, key)
 		case "dnsSettings":
 			err = unpopulate(val, "DNSSettings", &v.DNSSettings)
 			delete(rawMsg, key)
@@ -15715,6 +15723,7 @@ func (v *VirtualMachinePublicIPAddressConfigurationProperties) UnmarshalJSON(dat
 func (v VirtualMachinePublicIPAddressDNSSettingsConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "domainNameLabel", v.DomainNameLabel)
+	populate(objectMap, "domainNameLabelScope", v.DomainNameLabelScope)
 	return json.Marshal(objectMap)
 }
 
@@ -15729,6 +15738,9 @@ func (v *VirtualMachinePublicIPAddressDNSSettingsConfiguration) UnmarshalJSON(da
 		switch key {
 		case "domainNameLabel":
 			err = unpopulate(val, "DomainNameLabel", &v.DomainNameLabel)
+			delete(rawMsg, key)
+		case "domainNameLabelScope":
+			err = unpopulate(val, "DomainNameLabelScope", &v.DomainNameLabelScope)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -16865,6 +16877,8 @@ func (v *VirtualMachineScaleSetNetworkConfigurationDNSSettings) UnmarshalJSON(da
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetNetworkConfigurationProperties.
 func (v VirtualMachineScaleSetNetworkConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "auxiliaryMode", v.AuxiliaryMode)
+	populate(objectMap, "auxiliarySku", v.AuxiliarySKU)
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
@@ -16886,6 +16900,12 @@ func (v *VirtualMachineScaleSetNetworkConfigurationProperties) UnmarshalJSON(dat
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "auxiliaryMode":
+			err = unpopulate(val, "AuxiliaryMode", &v.AuxiliaryMode)
+			delete(rawMsg, key)
+		case "auxiliarySku":
+			err = unpopulate(val, "AuxiliarySKU", &v.AuxiliarySKU)
+			delete(rawMsg, key)
 		case "dnsSettings":
 			err = unpopulate(val, "DNSSettings", &v.DNSSettings)
 			delete(rawMsg, key)
@@ -17220,6 +17240,7 @@ func (v *VirtualMachineScaleSetPublicIPAddressConfiguration) UnmarshalJSON(data 
 func (v VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "domainNameLabel", v.DomainNameLabel)
+	populate(objectMap, "domainNameLabelScope", v.DomainNameLabelScope)
 	return json.Marshal(objectMap)
 }
 
@@ -17234,6 +17255,9 @@ func (v *VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings) Unmarsha
 		switch key {
 		case "domainNameLabel":
 			err = unpopulate(val, "DomainNameLabel", &v.DomainNameLabel)
+			delete(rawMsg, key)
+		case "domainNameLabelScope":
+			err = unpopulate(val, "DomainNameLabelScope", &v.DomainNameLabelScope)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -17605,6 +17629,8 @@ func (v *VirtualMachineScaleSetUpdateNetworkConfiguration) UnmarshalJSON(data []
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetUpdateNetworkConfigurationProperties.
 func (v VirtualMachineScaleSetUpdateNetworkConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "auxiliaryMode", v.AuxiliaryMode)
+	populate(objectMap, "auxiliarySku", v.AuxiliarySKU)
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
@@ -17626,6 +17652,12 @@ func (v *VirtualMachineScaleSetUpdateNetworkConfigurationProperties) UnmarshalJS
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "auxiliaryMode":
+			err = unpopulate(val, "AuxiliaryMode", &v.AuxiliaryMode)
+			delete(rawMsg, key)
+		case "auxiliarySku":
+			err = unpopulate(val, "AuxiliarySKU", &v.AuxiliarySKU)
+			delete(rawMsg, key)
 		case "dnsSettings":
 			err = unpopulate(val, "DNSSettings", &v.DNSSettings)
 			delete(rawMsg, key)
@@ -18548,6 +18580,7 @@ func (v VirtualMachineScaleSetVMProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", v.ProvisioningState)
 	populate(objectMap, "securityProfile", v.SecurityProfile)
 	populate(objectMap, "storageProfile", v.StorageProfile)
+	populateTimeRFC3339(objectMap, "timeCreated", v.TimeCreated)
 	populate(objectMap, "userData", v.UserData)
 	populate(objectMap, "vmId", v.VMID)
 	return json.Marshal(objectMap)
@@ -18606,6 +18639,9 @@ func (v *VirtualMachineScaleSetVMProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storageProfile":
 			err = unpopulate(val, "StorageProfile", &v.StorageProfile)
+			delete(rawMsg, key)
+		case "timeCreated":
+			err = unpopulateTimeRFC3339(val, "TimeCreated", &v.TimeCreated)
 			delete(rawMsg, key)
 		case "userData":
 			err = unpopulate(val, "UserData", &v.UserData)
