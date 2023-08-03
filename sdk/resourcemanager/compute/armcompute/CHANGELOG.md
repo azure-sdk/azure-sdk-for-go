@@ -1,9 +1,10 @@
 # Release History
 
-## 5.2.0-beta.1 (2023-07-28)
+## 6.0.0 (2023-08-03)
+### Breaking Changes
 
-### Features Added
-- Support for test fakes and OpenTelemetry trace spans.
+- Enum `FileFormat` has been removed
+- Field `FileFormat` of struct `GrantAccessData` has been removed
 
 
 ## 5.1.0 (2023-07-28)
