@@ -1338,8 +1338,8 @@ type ApplicationGatewayProbePropertiesFormat struct {
 	PickHostNameFromBackendSettings *bool
 
 	// Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set,
-	// port from http settings will be used. This property is valid for Standardv2 and
-	// WAFv2 only.
+	// port from http settings will be used. This property is valid for Basic,
+	// Standardv2 and WAFv2 only.
 	Port *int32
 
 	// The protocol used for the probe.
@@ -2819,6 +2819,9 @@ type BackendAddressPoolPropertiesFormat struct {
 	// The location of the backend address pool.
 	Location *string
 
+	// Backend address synchronous mode for the backend pool
+	SyncMode *SyncMode
+
 	// An array of gateway load balancer tunnel interfaces.
 	TunnelInterfaces []*GatewayLoadBalancerTunnelInterface
 
@@ -3007,12 +3010,21 @@ type BastionHostPropertiesFormat struct {
 
 	// IP configuration of the Bastion Host resource.
 	IPConfigurations []*BastionHostIPConfiguration
+	NetworkACLs      *BastionHostPropertiesFormatNetworkACLs
 
 	// The scale units for the Bastion Host resource.
 	ScaleUnits *int32
 
+	// Reference to an existing virtual network required for Developer Bastion Host only.
+	VirtualNetwork *SubResource
+
 	// READ-ONLY; The provisioning state of the bastion host resource.
 	ProvisioningState *ProvisioningState
+}
+
+type BastionHostPropertiesFormatNetworkACLs struct {
+	// Sets the IP ACL rules for Developer Bastion Host.
+	IPRules []*IPRule
 }
 
 // BastionSessionDeleteResult - Response for DisconnectActiveSessions.
@@ -6932,6 +6944,11 @@ type IPPrefixesList struct {
 	IPPrefixes []*string
 }
 
+type IPRule struct {
+	// Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed.
+	AddressPrefix *string
+}
+
 // IPSecPolicy - An IPSec Policy configuration for a virtual network gateway connection.
 type IPSecPolicy struct {
 	// REQUIRED; The DH Group used in IKE Phase 1 for initial SA.
@@ -8322,6 +8339,18 @@ type MetricSpecification struct {
 
 	// Units the metric to be displayed in.
 	Unit *string
+}
+
+// MigrateLoadBalancerToIPBasedRequest - The request for a migrateToIpBased API.
+type MigrateLoadBalancerToIPBasedRequest struct {
+	// A list of pool names that should be migrated from Nic based to IP based pool
+	Pools []*string
+}
+
+// MigratedPools - The response for a migrateToIpBased API.
+type MigratedPools struct {
+	// A list of pools migrated from Nic based to IP based pool
+	MigratedPools []*string
 }
 
 // NatGateway - Nat Gateway resource.
