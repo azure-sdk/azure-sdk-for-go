@@ -1,5 +1,46 @@
 # Release History
 
+## 2.1.0 (2023-08-04)
+### Features Added
+
+- New value `OperationStatusTypeComplete` added to enum type `OperationStatusType`
+- New enum type `BenefitUtilizationSummaryReportSchema` with values `BenefitUtilizationSummaryReportSchemaAvgUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaBenefitID`, `BenefitUtilizationSummaryReportSchemaBenefitOrderID`, `BenefitUtilizationSummaryReportSchemaBenefitType`, `BenefitUtilizationSummaryReportSchemaKind`, `BenefitUtilizationSummaryReportSchemaMaxUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaMinUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaUsageDate`, `BenefitUtilizationSummaryReportSchemaUtilizedPercentage`
+- New enum type `BudgetNotificationOperatorType` with values `BudgetNotificationOperatorTypeEqualTo`, `BudgetNotificationOperatorTypeGreaterThan`, `BudgetNotificationOperatorTypeGreaterThanOrEqualTo`, `BudgetNotificationOperatorTypeLessThan`
+- New enum type `BudgetOperatorType` with values `BudgetOperatorTypeIn`
+- New enum type `CategoryType` with values `CategoryTypeCost`, `CategoryTypeReservationUtilization`
+- New enum type `CultureCode` with values `CultureCodeCsCz`, `CultureCodeDaDk`, `CultureCodeDeDe`, `CultureCodeEnGb`, `CultureCodeEnUs`, `CultureCodeEsEs`, `CultureCodeFrFr`, `CultureCodeHuHu`, `CultureCodeItIt`, `CultureCodeJaJp`, `CultureCodeKoKr`, `CultureCodeNbNo`, `CultureCodeNlNl`, `CultureCodePlPl`, `CultureCodePtBr`, `CultureCodePtPt`, `CultureCodeRuRu`, `CultureCodeSvSe`, `CultureCodeTrTr`, `CultureCodeZhCn`, `CultureCodeZhTw`
+- New enum type `Frequency` with values `FrequencyDaily`, `FrequencyMonthly`, `FrequencyWeekly`
+- New enum type `ThresholdType` with values `ThresholdTypeActual`, `ThresholdTypeForecasted`
+- New enum type `TimeGrainType` with values `TimeGrainTypeAnnually`, `TimeGrainTypeBillingAnnual`, `TimeGrainTypeBillingMonth`, `TimeGrainTypeBillingQuarter`, `TimeGrainTypeLast30Days`, `TimeGrainTypeLast7Days`, `TimeGrainTypeMonthly`, `TimeGrainTypeQuarterly`
+- New function `NewBudgetsClient(azcore.TokenCredential, *arm.ClientOptions) (*BudgetsClient, error)`
+- New function `*BudgetsClient.CreateOrUpdate(context.Context, string, string, Budget, *BudgetsClientCreateOrUpdateOptions) (BudgetsClientCreateOrUpdateResponse, error)`
+- New function `*BudgetsClient.Delete(context.Context, string, string, *BudgetsClientDeleteOptions) (BudgetsClientDeleteResponse, error)`
+- New function `*BudgetsClient.Get(context.Context, string, string, *BudgetsClientGetOptions) (BudgetsClientGetResponse, error)`
+- New function `*BudgetsClient.NewListPager(string, *BudgetsClientListOptions) *runtime.Pager[BudgetsClientListResponse]`
+- New function `*ClientFactory.NewBudgetsClient() *BudgetsClient`
+- New function `*ClientFactory.NewGenerateBenefitUtilizationSummariesReportClient() *GenerateBenefitUtilizationSummariesReportClient`
+- New function `NewGenerateBenefitUtilizationSummariesReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateBenefitUtilizationSummariesReportClient, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingAccount(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingAccountOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingAccountResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingProfile(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingProfileOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingProfileResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationOrderIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanOrderIDResponse], error)`
+- New struct `AsyncOperationStatusProperties`
+- New struct `BenefitUtilizationSummariesOperationStatus`
+- New struct `BenefitUtilizationSummariesRequest`
+- New struct `Budget`
+- New struct `BudgetComparisonExpression`
+- New struct `BudgetFilter`
+- New struct `BudgetFilterProperties`
+- New struct `BudgetProperties`
+- New struct `BudgetTimePeriod`
+- New struct `BudgetsListResult`
+- New struct `CurrentSpend`
+- New struct `ForecastSpend`
+- New struct `Notification`
+
+
 ## 2.0.0 (2023-05-26)
 ### Breaking Changes
 
