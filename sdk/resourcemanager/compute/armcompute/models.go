@@ -951,6 +951,9 @@ type CreationData struct {
 	// REQUIRED; This enumerates the possible sources of a disk's creation.
 	CreateOption *DiskCreateOption
 
+	// Required if createOption is CopyFromSanSnapshot. This is the ARM id of the source elastic san volume snapshot.
+	ElasticSanResourceID *string
+
 	// Required if creating from a Gallery Image. The id/sharedGalleryImageId/communityGalleryImageId of the ImageDiskReference
 	// will be the ARM id of the shared galley image version from which to create a
 	// disk.
@@ -1624,6 +1627,11 @@ type DiskProperties struct {
 
 	// READ-ONLY; The state of the disk.
 	DiskState *DiskState
+
+	// READ-ONLY; The UTC time when the ownership state of the disk was last changed i.e., the time the disk was last attached
+	// or detached from a VM or the time when the VM to which the disk was attached was
+	// deallocated or started.
+	LastOwnershipUpdateTime *time.Time
 
 	// READ-ONLY; Properties of the disk for which update is pending.
 	PropertyUpdatesInProgress *PropertyUpdatesInProgress

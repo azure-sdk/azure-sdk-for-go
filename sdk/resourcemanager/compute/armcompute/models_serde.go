@@ -2258,6 +2258,7 @@ func (c *CopyCompletionError) UnmarshalJSON(data []byte) error {
 func (c CreationData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "createOption", c.CreateOption)
+	populate(objectMap, "elasticSanResourceId", c.ElasticSanResourceID)
 	populate(objectMap, "galleryImageReference", c.GalleryImageReference)
 	populate(objectMap, "imageReference", c.ImageReference)
 	populate(objectMap, "logicalSectorSize", c.LogicalSectorSize)
@@ -2282,6 +2283,9 @@ func (c *CreationData) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "createOption":
 			err = unpopulate(val, "CreateOption", &c.CreateOption)
+			delete(rawMsg, key)
+		case "elasticSanResourceId":
+			err = unpopulate(val, "ElasticSanResourceID", &c.ElasticSanResourceID)
 			delete(rawMsg, key)
 		case "galleryImageReference":
 			err = unpopulate(val, "GalleryImageReference", &c.GalleryImageReference)
@@ -3660,6 +3664,7 @@ func (d DiskProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "encryption", d.Encryption)
 	populate(objectMap, "encryptionSettingsCollection", d.EncryptionSettingsCollection)
 	populate(objectMap, "hyperVGeneration", d.HyperVGeneration)
+	populateTimeRFC3339(objectMap, "LastOwnershipUpdateTime", d.LastOwnershipUpdateTime)
 	populate(objectMap, "maxShares", d.MaxShares)
 	populate(objectMap, "networkAccessPolicy", d.NetworkAccessPolicy)
 	populate(objectMap, "osType", d.OSType)
@@ -3734,6 +3739,9 @@ func (d *DiskProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "hyperVGeneration":
 			err = unpopulate(val, "HyperVGeneration", &d.HyperVGeneration)
+			delete(rawMsg, key)
+		case "LastOwnershipUpdateTime":
+			err = unpopulateTimeRFC3339(val, "LastOwnershipUpdateTime", &d.LastOwnershipUpdateTime)
 			delete(rawMsg, key)
 		case "maxShares":
 			err = unpopulate(val, "MaxShares", &d.MaxShares)
