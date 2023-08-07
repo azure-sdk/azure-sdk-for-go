@@ -1,5 +1,21 @@
 # Release History
 
+## 1.2.0-beta.2 (2023-08-07)
+### Breaking Changes
+
+- `CleanupPolicyRetentionDescriptionCompaction` from enum `CleanupPolicyRetentionDescription` has been removed
+
+### Features Added
+
+- New value `CleanupPolicyRetentionDescriptionCompact` added to enum type `CleanupPolicyRetentionDescription`
+- New enum type `ProvisioningState` with values `ProvisioningStateActive`, `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateScaling`, `ProvisioningStateSucceeded`, `ProvisioningStateUnknown`
+- New enum type `Type` with values `TypeMetadataReplication`
+- New field `Type` in struct `ArmDisasterRecoveryProperties`
+- New field `ProvisioningState` in struct `ClusterProperties`
+- New field `Location` in struct `NetworkSecurityPerimeterConfiguration`
+- New field `GroupID` in struct `PrivateEndpointConnectionProperties`
+
+
 ## 1.2.0-beta.1 (2023-04-28)
 ### Features Added
 
