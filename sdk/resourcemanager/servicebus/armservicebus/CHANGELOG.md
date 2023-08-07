@@ -1,5 +1,14 @@
 # Release History
 
+## 2.0.0-beta.4 (2023-08-07)
+### Features Added
+
+- New enum type `Type` with values `TypeMetadataReplication`
+- New field `Type` in struct `ArmDisasterRecoveryProperties`
+- New field `GroupID` in struct `PrivateEndpointConnectionProperties`
+- New field `Parameters` in struct `SQLFilter`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
