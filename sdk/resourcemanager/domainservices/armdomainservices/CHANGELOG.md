@@ -1,5 +1,15 @@
 # Release History
 
+## 1.2.0 (2023-08-07)
+### Features Added
+
+- New enum type `ChannelBinding` with values `ChannelBindingDisabled`, `ChannelBindingEnabled`
+- New enum type `LdapSigning` with values `LdapSigningDisabled`, `LdapSigningEnabled`
+- New enum type `SyncScope` with values `SyncScopeAll`, `SyncScopeCloudOnly`
+- New field `ChannelBinding`, `LdapSigning` in struct `DomainSecuritySettings`
+- New field `SyncApplicationID`, `SyncScope` in struct `DomainServiceProperties`
+
+
 ## 1.1.0 (2023-03-28)
 ### Features Added
 
