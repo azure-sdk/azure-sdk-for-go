@@ -20,62 +20,65 @@ import (
 	"strings"
 )
 
-// PrivateLinkResourcesClient contains the methods for the PrivateLinkResources group.
-// Don't use this type directly, use NewPrivateLinkResourcesClient() instead.
-type PrivateLinkResourcesClient struct {
+// MachineClient contains the methods for the Machine group.
+// Don't use this type directly, use NewMachineClient() instead.
+type MachineClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	agentPoolName  string
 }
 
-// NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
+// NewMachineClient creates a new instance of MachineClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
+//   - agentPoolName - The name of the agent pool.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
-	cl, err := arm.NewClient(moduleName+".PrivateLinkResourcesClient", moduleVersion, credential, options)
+func NewMachineClient(subscriptionID string, agentPoolName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MachineClient, error) {
+	cl, err := arm.NewClient(moduleName+".MachineClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &PrivateLinkResourcesClient{
+	client := &MachineClient{
 		subscriptionID: subscriptionID,
+		agentPoolName:  agentPoolName,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// List - To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters
+// Get - Get info of spec machine in the specified managed cluster adn specified agentpool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-07-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
-//   - options - PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.List
-//     method.
-func (client *PrivateLinkResourcesClient) List(ctx context.Context, resourceGroupName string, resourceName string, options *PrivateLinkResourcesClientListOptions) (PrivateLinkResourcesClientListResponse, error) {
+//   - machineName - host name of the machine
+//   - options - MachineClientGetOptions contains the optional parameters for the MachineClient.Get method.
+func (client *MachineClient) Get(ctx context.Context, resourceGroupName string, resourceName string, machineName string, options *MachineClientGetOptions) (MachineClientGetResponse, error) {
 	var err error
-	const operationName = "PrivateLinkResourcesClient.List"
+	const operationName = "MachineClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.listCreateRequest(ctx, resourceGroupName, resourceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, machineName, options)
 	if err != nil {
-		return PrivateLinkResourcesClientListResponse{}, err
+		return MachineClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return PrivateLinkResourcesClientListResponse{}, err
+		return MachineClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return PrivateLinkResourcesClientListResponse{}, err
+		return MachineClientGetResponse{}, err
 	}
-	resp, err := client.listHandleResponse(httpResp)
+	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
-// listCreateRequest creates the List request.
-func (client *PrivateLinkResourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *PrivateLinkResourcesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/privateLinkResources"
+// getCreateRequest creates the Get request.
+func (client *MachineClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, machineName string, options *MachineClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/agentPools/{agentPoolName}/machines/{machineName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -88,6 +91,14 @@ func (client *PrivateLinkResourcesClient) listCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter resourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
+	if client.agentPoolName == "" {
+		return nil, errors.New("parameter client.agentPoolName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{agentPoolName}", url.PathEscape(client.agentPoolName))
+	if machineName == "" {
+		return nil, errors.New("parameter machineName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{machineName}", url.PathEscape(machineName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -99,11 +110,11 @@ func (client *PrivateLinkResourcesClient) listCreateRequest(ctx context.Context,
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *PrivateLinkResourcesClient) listHandleResponse(resp *http.Response) (PrivateLinkResourcesClientListResponse, error) {
-	result := PrivateLinkResourcesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateLinkResourcesListResult); err != nil {
-		return PrivateLinkResourcesClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *MachineClient) getHandleResponse(resp *http.Response) (MachineClientGetResponse, error) {
+	result := MachineClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Machine); err != nil {
+		return MachineClientGetResponse{}, err
 	}
 	return result, nil
 }

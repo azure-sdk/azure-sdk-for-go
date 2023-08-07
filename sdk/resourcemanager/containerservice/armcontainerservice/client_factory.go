@@ -17,6 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
+	agentPoolName  string
 	credential     azcore.TokenCredential
 	options        *arm.ClientOptions
 }
@@ -24,26 +25,42 @@ type ClientFactory struct {
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription.
+//   - agentPoolName - The name of the agent pool.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, agentPoolName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, agentPoolName: agentPoolName, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
 
 func (c *ClientFactory) NewAgentPoolsClient() *AgentPoolsClient {
-	subClient, _ := NewAgentPoolsClient(c.subscriptionID, c.credential, c.options)
+	subClient, _ := NewAgentPoolsClient(c.subscriptionID, c.agentPoolName, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewMachineClient() *MachineClient {
+	subClient, _ := NewMachineClient(c.subscriptionID, c.agentPoolName, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewMachinesClient() *MachinesClient {
+	subClient, _ := NewMachinesClient(c.subscriptionID, c.agentPoolName, c.credential, c.options)
 	return subClient
 }
 
 func (c *ClientFactory) NewMaintenanceConfigurationsClient() *MaintenanceConfigurationsClient {
 	subClient, _ := NewMaintenanceConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewManagedClusterSnapshotsClient() *ManagedClusterSnapshotsClient {
+	subClient, _ := NewManagedClusterSnapshotsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -74,5 +91,15 @@ func (c *ClientFactory) NewResolvePrivateLinkServiceIDClient() *ResolvePrivateLi
 
 func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
 	subClient, _ := NewSnapshotsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewTrustedAccessRoleBindingsClient() *TrustedAccessRoleBindingsClient {
+	subClient, _ := NewTrustedAccessRoleBindingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewTrustedAccessRolesClient() *TrustedAccessRolesClient {
+	subClient, _ := NewTrustedAccessRolesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
