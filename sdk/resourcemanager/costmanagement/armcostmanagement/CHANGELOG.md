@@ -1,5 +1,46 @@
 # Release History
 
+## 2.1.0 (2023-08-08)
+### Features Added
+
+- New value `OperationStatusTypeComplete` added to enum type `OperationStatusType`
+- New enum type `BenefitUtilizationSummaryReportSchema` with values `BenefitUtilizationSummaryReportSchemaAvgUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaBenefitID`, `BenefitUtilizationSummaryReportSchemaBenefitOrderID`, `BenefitUtilizationSummaryReportSchemaBenefitType`, `BenefitUtilizationSummaryReportSchemaKind`, `BenefitUtilizationSummaryReportSchemaMaxUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaMinUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaUsageDate`, `BenefitUtilizationSummaryReportSchemaUtilizedPercentage`
+- New enum type `CostAllocationPolicyType` with values `CostAllocationPolicyTypeFixedProportion`
+- New enum type `CostAllocationResourceType` with values `CostAllocationResourceTypeDimension`, `CostAllocationResourceTypeTag`
+- New enum type `Reason` with values `ReasonAlreadyExists`, `ReasonInvalid`, `ReasonValid`
+- New enum type `RuleStatus` with values `RuleStatusActive`, `RuleStatusNotActive`, `RuleStatusProcessing`
+- New enum type `SystemAssignedServiceIdentityType` with values `SystemAssignedServiceIdentityTypeNone`, `SystemAssignedServiceIdentityTypeSystemAssigned`
+- New function `*ClientFactory.NewCostAllocationRulesClient() *CostAllocationRulesClient`
+- New function `*ClientFactory.NewGenerateBenefitUtilizationSummariesReportClient() *GenerateBenefitUtilizationSummariesReportClient`
+- New function `NewCostAllocationRulesClient(azcore.TokenCredential, *arm.ClientOptions) (*CostAllocationRulesClient, error)`
+- New function `*CostAllocationRulesClient.CheckNameAvailability(context.Context, string, CostAllocationRuleCheckNameAvailabilityRequest, *CostAllocationRulesClientCheckNameAvailabilityOptions) (CostAllocationRulesClientCheckNameAvailabilityResponse, error)`
+- New function `*CostAllocationRulesClient.CreateOrUpdate(context.Context, string, string, CostAllocationRuleDefinition, *CostAllocationRulesClientCreateOrUpdateOptions) (CostAllocationRulesClientCreateOrUpdateResponse, error)`
+- New function `*CostAllocationRulesClient.Delete(context.Context, string, string, *CostAllocationRulesClientDeleteOptions) (CostAllocationRulesClientDeleteResponse, error)`
+- New function `*CostAllocationRulesClient.Get(context.Context, string, string, *CostAllocationRulesClientGetOptions) (CostAllocationRulesClientGetResponse, error)`
+- New function `*CostAllocationRulesClient.NewListPager(string, *CostAllocationRulesClientListOptions) *runtime.Pager[CostAllocationRulesClientListResponse]`
+- New function `NewGenerateBenefitUtilizationSummariesReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateBenefitUtilizationSummariesReportClient, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingAccount(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingAccountOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingAccountResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingProfile(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingProfileOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingProfileResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationOrderIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanOrderIDResponse], error)`
+- New struct `AsyncOperationStatusProperties`
+- New struct `BenefitUtilizationSummariesOperationStatus`
+- New struct `BenefitUtilizationSummariesRequest`
+- New struct `CostAllocationProportion`
+- New struct `CostAllocationRuleCheckNameAvailabilityRequest`
+- New struct `CostAllocationRuleCheckNameAvailabilityResponse`
+- New struct `CostAllocationRuleDefinition`
+- New struct `CostAllocationRuleDetails`
+- New struct `CostAllocationRuleList`
+- New struct `CostAllocationRuleProperties`
+- New struct `SourceCostAllocationResource`
+- New struct `SystemAssignedServiceIdentity`
+- New struct `TargetCostAllocationResource`
+- New field `Identity`, `Location` in struct `Export`
+
+
 ## 2.0.0 (2023-05-26)
 ### Breaking Changes
 
