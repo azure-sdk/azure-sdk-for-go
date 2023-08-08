@@ -6823,6 +6823,7 @@ func (b BackendAddressPoolPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "outboundRule", b.OutboundRule)
 	populate(objectMap, "outboundRules", b.OutboundRules)
 	populate(objectMap, "provisioningState", b.ProvisioningState)
+	populate(objectMap, "syncMode", b.SyncMode)
 	populate(objectMap, "tunnelInterfaces", b.TunnelInterfaces)
 	populate(objectMap, "virtualNetwork", b.VirtualNetwork)
 	return json.Marshal(objectMap)
@@ -6863,6 +6864,9 @@ func (b *BackendAddressPoolPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &b.ProvisioningState)
+			delete(rawMsg, key)
+		case "syncMode":
+			err = unpopulate(val, "SyncMode", &b.SyncMode)
 			delete(rawMsg, key)
 		case "tunnelInterfaces":
 			err = unpopulate(val, "TunnelInterfaces", &b.TunnelInterfaces)
@@ -20635,6 +20639,60 @@ func (m *MetricSpecification) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type MigrateLoadBalancerToIPBasedRequest.
+func (m MigrateLoadBalancerToIPBasedRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "pools", m.Pools)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type MigrateLoadBalancerToIPBasedRequest.
+func (m *MigrateLoadBalancerToIPBasedRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "pools":
+			err = unpopulate(val, "Pools", &m.Pools)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type MigratedPools.
+func (m MigratedPools) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "migratedPools", m.MigratedPools)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type MigratedPools.
+func (m *MigratedPools) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "migratedPools":
+			err = unpopulate(val, "MigratedPools", &m.MigratedPools)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type NatGateway.
 func (n NatGateway) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -31978,6 +32036,64 @@ func (v *VirtualNetworkGateway) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type VirtualNetworkGatewayAutoScaleBounds.
+func (v VirtualNetworkGatewayAutoScaleBounds) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "max", v.Max)
+	populate(objectMap, "min", v.Min)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualNetworkGatewayAutoScaleBounds.
+func (v *VirtualNetworkGatewayAutoScaleBounds) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "max":
+			err = unpopulate(val, "Max", &v.Max)
+			delete(rawMsg, key)
+		case "min":
+			err = unpopulate(val, "Min", &v.Min)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type VirtualNetworkGatewayAutoScaleConfiguration.
+func (v VirtualNetworkGatewayAutoScaleConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "bounds", v.Bounds)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualNetworkGatewayAutoScaleConfiguration.
+func (v *VirtualNetworkGatewayAutoScaleConfiguration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "bounds":
+			err = unpopulate(val, "Bounds", &v.Bounds)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type VirtualNetworkGatewayConnection.
 func (v VirtualNetworkGatewayConnection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -32715,6 +32831,7 @@ func (v VirtualNetworkGatewayPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "adminState", v.AdminState)
 	populate(objectMap, "allowRemoteVnetTraffic", v.AllowRemoteVnetTraffic)
 	populate(objectMap, "allowVirtualWanTraffic", v.AllowVirtualWanTraffic)
+	populate(objectMap, "autoScaleConfiguration", v.AutoScaleConfiguration)
 	populate(objectMap, "bgpSettings", v.BgpSettings)
 	populate(objectMap, "customRoutes", v.CustomRoutes)
 	populate(objectMap, "disableIPSecReplayProtection", v.DisableIPSecReplayProtection)
@@ -32758,6 +32875,9 @@ func (v *VirtualNetworkGatewayPropertiesFormat) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "allowVirtualWanTraffic":
 			err = unpopulate(val, "AllowVirtualWanTraffic", &v.AllowVirtualWanTraffic)
+			delete(rawMsg, key)
+		case "autoScaleConfiguration":
+			err = unpopulate(val, "AutoScaleConfiguration", &v.AutoScaleConfiguration)
 			delete(rawMsg, key)
 		case "bgpSettings":
 			err = unpopulate(val, "BgpSettings", &v.BgpSettings)
