@@ -1,5 +1,29 @@
 # Release History
 
+## 1.2.0 (2023-08-09)
+### Features Added
+
+- New enum type `CloudTieringLowDiskModeState` with values `CloudTieringLowDiskModeStateDisabled`, `CloudTieringLowDiskModeStateEnabled`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New function `*CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys(context.Context, string, string, string, string, *CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions) (CloudEndpointsClientAfsShareMetadataCertificatePublicKeysResponse, error)`
+- New function `*RegisteredServersClient.BeginUpdate(context.Context, string, string, string, RegisteredServerUpdateParameters, *RegisteredServersClientBeginUpdateOptions) (*runtime.Poller[RegisteredServersClientUpdateResponse], error)`
+- New struct `CloudEndpointAfsShareMetadataCertificatePublicKeys`
+- New struct `CloudTieringLowDiskMode`
+- New struct `ManagedServiceIdentity`
+- New struct `RegisteredServerUpdateParameters`
+- New struct `RegisteredServerUpdateParametersProperties`
+- New struct `UserAssignedIdentity`
+- New field `LockAggregationType` in struct `OperationResourceMetricSpecification`
+- New field `ApplicationID` in struct `RegisteredServerCreateParametersProperties`
+- New field `ApplicationID` in struct `RegisteredServerProperties`
+- New field `LowDiskMode` in struct `ServerEndpointCloudTieringStatus`
+- New field `Identity` in struct `Service`
+- New field `Identity` in struct `ServiceCreateParameters`
+- New field `UseIdentity` in struct `ServiceProperties`
+- New field `Identity` in struct `ServiceUpdateParameters`
+- New field `UseIdentity` in struct `ServiceUpdateProperties`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
