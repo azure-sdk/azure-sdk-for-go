@@ -20,25 +20,26 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // AgentPoolsServer is a fake server for instances of the armcontainerservice.AgentPoolsClient type.
 type AgentPoolsServer struct {
 	// BeginAbortLatestOperation is the fake for method AgentPoolsClient.BeginAbortLatestOperation
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginAbortLatestOperation func(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, options *armcontainerservice.AgentPoolsClientBeginAbortLatestOperationOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientAbortLatestOperationResponse], errResp azfake.ErrorResponder)
+	BeginAbortLatestOperation func(ctx context.Context, resourceGroupName string, resourceName string, options *armcontainerservice.AgentPoolsClientBeginAbortLatestOperationOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientAbortLatestOperationResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method AgentPoolsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, parameters armcontainerservice.AgentPool, options *armcontainerservice.AgentPoolsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, resourceName string, parameters armcontainerservice.AgentPool, options *armcontainerservice.AgentPoolsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method AgentPoolsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, options *armcontainerservice.AgentPoolsClientBeginDeleteOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, options *armcontainerservice.AgentPoolsClientBeginDeleteOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method AgentPoolsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, options *armcontainerservice.AgentPoolsClientGetOptions) (resp azfake.Responder[armcontainerservice.AgentPoolsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, options *armcontainerservice.AgentPoolsClientGetOptions) (resp azfake.Responder[armcontainerservice.AgentPoolsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// GetAvailableAgentPoolVersions is the fake for method AgentPoolsClient.GetAvailableAgentPoolVersions
 	// HTTP status codes to indicate success: http.StatusOK
@@ -46,7 +47,7 @@ type AgentPoolsServer struct {
 
 	// GetUpgradeProfile is the fake for method AgentPoolsClient.GetUpgradeProfile
 	// HTTP status codes to indicate success: http.StatusOK
-	GetUpgradeProfile func(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, options *armcontainerservice.AgentPoolsClientGetUpgradeProfileOptions) (resp azfake.Responder[armcontainerservice.AgentPoolsClientGetUpgradeProfileResponse], errResp azfake.ErrorResponder)
+	GetUpgradeProfile func(ctx context.Context, resourceGroupName string, resourceName string, options *armcontainerservice.AgentPoolsClientGetUpgradeProfileOptions) (resp azfake.Responder[armcontainerservice.AgentPoolsClientGetUpgradeProfileResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method AgentPoolsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -54,7 +55,7 @@ type AgentPoolsServer struct {
 
 	// BeginUpgradeNodeImageVersion is the fake for method AgentPoolsClient.BeginUpgradeNodeImageVersion
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpgradeNodeImageVersion func(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, options *armcontainerservice.AgentPoolsClientBeginUpgradeNodeImageVersionOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientUpgradeNodeImageVersionResponse], errResp azfake.ErrorResponder)
+	BeginUpgradeNodeImageVersion func(ctx context.Context, resourceGroupName string, resourceName string, options *armcontainerservice.AgentPoolsClientBeginUpgradeNodeImageVersionOptions) (resp azfake.PollerResponder[armcontainerservice.AgentPoolsClientUpgradeNodeImageVersionResponse], errResp azfake.ErrorResponder)
 }
 
 // NewAgentPoolsServerTransport creates a new instance of AgentPoolsServerTransport with the provided implementation.
@@ -141,11 +142,7 @@ func (a *AgentPoolsServerTransport) dispatchBeginAbortLatestOperation(req *http.
 		if err != nil {
 			return nil, err
 		}
-		agentPoolNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("agentPoolName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := a.srv.BeginAbortLatestOperation(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, agentPoolNameUnescaped, nil)
+		respr, errRespr := a.srv.BeginAbortLatestOperation(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -193,11 +190,7 @@ func (a *AgentPoolsServerTransport) dispatchBeginCreateOrUpdate(req *http.Reques
 		if err != nil {
 			return nil, err
 		}
-		agentPoolNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("agentPoolName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := a.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, agentPoolNameUnescaped, body, nil)
+		respr, errRespr := a.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -233,6 +226,7 @@ func (a *AgentPoolsServerTransport) dispatchBeginDelete(req *http.Request) (*htt
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		qp := req.URL.Query()
 		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -241,11 +235,21 @@ func (a *AgentPoolsServerTransport) dispatchBeginDelete(req *http.Request) (*htt
 		if err != nil {
 			return nil, err
 		}
-		agentPoolNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("agentPoolName")])
+		ignorePodDisruptionBudgetUnescaped, err := url.QueryUnescape(qp.Get("ignore-pod-disruption-budget"))
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := a.srv.BeginDelete(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, agentPoolNameUnescaped, nil)
+		ignorePodDisruptionBudgetParam, err := parseOptional(ignorePodDisruptionBudgetUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		var options *armcontainerservice.AgentPoolsClientBeginDeleteOptions
+		if ignorePodDisruptionBudgetParam != nil {
+			options = &armcontainerservice.AgentPoolsClientBeginDeleteOptions{
+				IgnorePodDisruptionBudget: ignorePodDisruptionBudgetParam,
+			}
+		}
+		respr, errRespr := a.srv.BeginDelete(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -287,11 +291,7 @@ func (a *AgentPoolsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if err != nil {
 		return nil, err
 	}
-	agentPoolNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("agentPoolName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := a.srv.Get(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, agentPoolNameUnescaped, nil)
+	respr, errRespr := a.srv.Get(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -357,11 +357,7 @@ func (a *AgentPoolsServerTransport) dispatchGetUpgradeProfile(req *http.Request)
 	if err != nil {
 		return nil, err
 	}
-	agentPoolNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("agentPoolName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := a.srv.GetUpgradeProfile(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, agentPoolNameUnescaped, nil)
+	respr, errRespr := a.srv.GetUpgradeProfile(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -437,11 +433,7 @@ func (a *AgentPoolsServerTransport) dispatchBeginUpgradeNodeImageVersion(req *ht
 		if err != nil {
 			return nil, err
 		}
-		agentPoolNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("agentPoolName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := a.srv.BeginUpgradeNodeImageVersion(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, agentPoolNameUnescaped, nil)
+		respr, errRespr := a.srv.BeginUpgradeNodeImageVersion(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
