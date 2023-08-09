@@ -1,9 +1,11 @@
 # Release History
 
-## 5.2.0-beta.1 (2023-07-28)
-
+## 5.2.0 (2023-08-09)
 ### Features Added
-- Support for test fakes and OpenTelemetry trace spans.
+
+- New value `DiskCreateOptionCopyFromSanSnapshot` added to enum type `DiskCreateOption`
+- New field `ElasticSanResourceID` in struct `CreationData`
+- New field `LastOwnershipUpdateTime` in struct `DiskProperties`
 
 
 ## 5.1.0 (2023-07-28)
