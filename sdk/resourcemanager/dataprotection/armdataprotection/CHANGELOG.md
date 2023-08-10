@@ -1,5 +1,43 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-08-10)
+### Breaking Changes
+
+- Type of `DppIdentityDetails.UserAssignedIdentities` has been changed from `map[string]*UserAssignedIdentity` to `map[string]*UserAssignedIdentityDetails`
+- Function `*BaseResourceProperties.GetBaseResourceProperties` has been removed
+- Struct `NamespacedNameResource` has been removed
+- Struct `UserAssignedIdentity` has been removed
+- Field `RehydrationPriority` of struct `AzureBackupJob` has been removed
+- Field `ResourceProperties` of struct `Datasource` has been removed
+- Field `ResourceProperties` of struct `DatasourceSet` has been removed
+- Field `BackupHookReferences` of struct `KubernetesClusterBackupDatasourceParameters` has been removed
+- Field `RestoreHookReferences` of struct `KubernetesClusterRestoreCriteria` has been removed
+
+### Features Added
+
+- New function `*BackupInstancesClient.BeginTriggerCrossRegionRestore(context.Context, string, string, CrossRegionRestoreRequestObject, *BackupInstancesClientBeginTriggerCrossRegionRestoreOptions) (*runtime.Poller[BackupInstancesClientTriggerCrossRegionRestoreResponse], error)`
+- New function `*BackupInstancesClient.BeginValidateCrossRegionRestore(context.Context, string, string, ValidateCrossRegionRestoreRequestObject, *BackupInstancesClientBeginValidateCrossRegionRestoreOptions) (*runtime.Poller[BackupInstancesClientValidateCrossRegionRestoreResponse], error)`
+- New function `NewBackupInstancesExtensionRoutingClient(azcore.TokenCredential, *arm.ClientOptions) (*BackupInstancesExtensionRoutingClient, error)`
+- New function `*BackupInstancesExtensionRoutingClient.NewListPager(string, *BackupInstancesExtensionRoutingClientListOptions) *runtime.Pager[BackupInstancesExtensionRoutingClientListResponse]`
+- New function `*ClientFactory.NewBackupInstancesExtensionRoutingClient() *BackupInstancesExtensionRoutingClient`
+- New function `*ClientFactory.NewCrossRegionRestoreJobClient() *CrossRegionRestoreJobClient`
+- New function `*ClientFactory.NewCrossRegionRestoreJobsClient() *CrossRegionRestoreJobsClient`
+- New function `*ClientFactory.NewSecondaryRPsClient() *SecondaryRPsClient`
+- New function `NewCrossRegionRestoreJobClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CrossRegionRestoreJobClient, error)`
+- New function `*CrossRegionRestoreJobClient.Get(context.Context, string, string, CrossRegionRestoreJobRequest, *CrossRegionRestoreJobClientGetOptions) (CrossRegionRestoreJobClientGetResponse, error)`
+- New function `NewCrossRegionRestoreJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CrossRegionRestoreJobsClient, error)`
+- New function `*CrossRegionRestoreJobsClient.NewListPager(string, string, CrossRegionRestoreJobsRequest, *CrossRegionRestoreJobsClientListOptions) *runtime.Pager[CrossRegionRestoreJobsClientListResponse]`
+- New function `NewSecondaryRPsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecondaryRPsClient, error)`
+- New function `*SecondaryRPsClient.NewFetchPager(string, string, FetchSecondaryRPsRequestParameters, *SecondaryRPsClientFetchOptions) *runtime.Pager[SecondaryRPsClientFetchResponse]`
+- New struct `CrossRegionRestoreDetails`
+- New struct `CrossRegionRestoreJobRequest`
+- New struct `CrossRegionRestoreJobsRequest`
+- New struct `CrossRegionRestoreRequestObject`
+- New struct `FetchSecondaryRPsRequestParameters`
+- New struct `UserAssignedIdentityDetails`
+- New struct `ValidateCrossRegionRestoreRequestObject`
+
+
 ## 2.3.0 (2023-07-28)
 ### Features Added
 
