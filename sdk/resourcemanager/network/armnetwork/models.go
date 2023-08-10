@@ -1338,8 +1338,8 @@ type ApplicationGatewayProbePropertiesFormat struct {
 	PickHostNameFromBackendSettings *bool
 
 	// Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set,
-	// port from http settings will be used. This property is valid for Standardv2 and
-	// WAFv2 only.
+	// port from http settings will be used. This property is valid for Basic,
+	// Standardv2 and WAFv2 only.
 	Port *int32
 
 	// The protocol used for the probe.
@@ -2363,6 +2363,14 @@ type AzureFirewallApplicationRuleProtocol struct {
 	ProtocolType *AzureFirewallApplicationRuleProtocolType
 }
 
+type AzureFirewallAutoScaleSettings struct {
+	// The maximum number of instances for autoscale.
+	MaximumInstances *int32
+
+	// The minimum number of instances for autoscale.
+	MinimumInstances *int32
+}
+
 // AzureFirewallFqdnTag - Azure Firewall FQDN Tag Resource.
 type AzureFirewallFqdnTag struct {
 	// Resource ID.
@@ -2611,6 +2619,9 @@ type AzureFirewallPropertiesFormat struct {
 	// Collection of application rule collections used by Azure Firewall.
 	ApplicationRuleCollections []*AzureFirewallApplicationRuleCollection
 
+	// The autoscale settings for Azure Firewall.
+	AutoscaleSettings *AzureFirewallAutoScaleSettings
+
 	// The firewallPolicy associated with this azure firewall.
 	FirewallPolicy *SubResource
 
@@ -2818,6 +2829,9 @@ type BackendAddressPoolPropertiesFormat struct {
 
 	// The location of the backend address pool.
 	Location *string
+
+	// Backend address synchronous mode for the backend pool
+	SyncMode *SyncMode
 
 	// An array of gateway load balancer tunnel interfaces.
 	TunnelInterfaces []*GatewayLoadBalancerTunnelInterface
@@ -8322,6 +8336,18 @@ type MetricSpecification struct {
 
 	// Units the metric to be displayed in.
 	Unit *string
+}
+
+// MigrateLoadBalancerToIPBasedRequest - The request for a migrateToIpBased API.
+type MigrateLoadBalancerToIPBasedRequest struct {
+	// A list of pool names that should be migrated from Nic based to IP based pool
+	Pools []*string
+}
+
+// MigratedPools - The response for a migrateToIpBased API.
+type MigratedPools struct {
+	// A list of pools migrated from Nic based to IP based pool
+	MigratedPools []*string
 }
 
 // NatGateway - Nat Gateway resource.

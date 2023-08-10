@@ -1,10 +1,17 @@
 # Release History
 
-## 4.1.0-beta.1 (2023-07-28)
-
+## 4.1.0 (2023-08-10)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `ApplicationGatewaySKUNameBasic` added to enum type `ApplicationGatewaySKUName`
+- New value `ApplicationGatewayTierBasic` added to enum type `ApplicationGatewayTier`
+- New enum type `SyncMode` with values `SyncModeAutomatic`, `SyncModeManual`
+- New function `*LoadBalancersClient.MigrateToIPBased(context.Context, string, string, *LoadBalancersClientMigrateToIPBasedOptions) (LoadBalancersClientMigrateToIPBasedResponse, error)`
+- New struct `AzureFirewallAutoScaleSettings`
+- New struct `MigrateLoadBalancerToIPBasedRequest`
+- New struct `MigratedPools`
+- New field `AutoscaleSettings` in struct `AzureFirewallPropertiesFormat`
+- New field `SyncMode` in struct `BackendAddressPoolPropertiesFormat`
 
 
 ## 4.0.0 (2023-07-11)
