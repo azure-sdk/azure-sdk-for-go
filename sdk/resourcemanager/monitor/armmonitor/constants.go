@@ -10,7 +10,7 @@ package armmonitor
 
 const (
 	moduleName    = "armmonitor"
-	moduleVersion = "v0.10.1"
+	moduleVersion = "v0.11.0"
 )
 
 // AccessMode - Access mode types.
@@ -1046,7 +1046,7 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy.
+// ProvisioningState - The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy.
 type ProvisioningState string
 
 const (
