@@ -46,7 +46,7 @@ func NewTimeZonesClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Gets a managed instance time zone.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-02-01-preview
 //   - options - TimeZonesClientGetOptions contains the optional parameters for the TimeZonesClient.Get method.
 func (client *TimeZonesClient) Get(ctx context.Context, locationName string, timeZoneID string, options *TimeZonesClientGetOptions) (TimeZonesClientGetResponse, error) {
 	var err error
@@ -86,7 +86,7 @@ func (client *TimeZonesClient) getCreateRequest(ctx context.Context, locationNam
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -103,7 +103,7 @@ func (client *TimeZonesClient) getHandleResponse(resp *http.Response) (TimeZones
 
 // NewListByLocationPager - Gets a list of managed instance time zones by location.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-02-01-preview
 //   - options - TimeZonesClientListByLocationOptions contains the optional parameters for the TimeZonesClient.NewListByLocationPager
 //     method.
 func (client *TimeZonesClient) NewListByLocationPager(locationName string, options *TimeZonesClientListByLocationOptions) *runtime.Pager[TimeZonesClientListByLocationResponse] {
@@ -150,7 +150,7 @@ func (client *TimeZonesClient) listByLocationCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
