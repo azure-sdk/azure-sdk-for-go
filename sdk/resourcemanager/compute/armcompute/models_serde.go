@@ -5825,6 +5825,7 @@ func (g GalleryImageVersionProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publishingProfile", g.PublishingProfile)
 	populate(objectMap, "replicationStatus", g.ReplicationStatus)
 	populate(objectMap, "safetyProfile", g.SafetyProfile)
+	populate(objectMap, "securityProfile", g.SecurityProfile)
 	populate(objectMap, "storageProfile", g.StorageProfile)
 	return json.Marshal(objectMap)
 }
@@ -5849,6 +5850,9 @@ func (g *GalleryImageVersionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "safetyProfile":
 			err = unpopulate(val, "SafetyProfile", &g.SafetyProfile)
+			delete(rawMsg, key)
+		case "securityProfile":
+			err = unpopulate(val, "SecurityProfile", &g.SecurityProfile)
 			delete(rawMsg, key)
 		case "storageProfile":
 			err = unpopulate(val, "StorageProfile", &g.StorageProfile)
@@ -5977,6 +5981,37 @@ func (g *GalleryImageVersionStorageProfile) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "source":
 			err = unpopulate(val, "Source", &g.Source)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GalleryImageVersionUefiSettings.
+func (g GalleryImageVersionUefiSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "additionalSignatures", g.AdditionalSignatures)
+	populate(objectMap, "signatureTemplateNames", g.SignatureTemplateNames)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GalleryImageVersionUefiSettings.
+func (g *GalleryImageVersionUefiSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "additionalSignatures":
+			err = unpopulate(val, "AdditionalSignatures", &g.AdditionalSignatures)
+			delete(rawMsg, key)
+		case "signatureTemplateNames":
+			err = unpopulate(val, "SignatureTemplateNames", &g.SignatureTemplateNames)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -6805,6 +6840,33 @@ func (i *ImageUpdate) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &i.Tags)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ImageVersionSecurityProfile.
+func (i ImageVersionSecurityProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "uefiSettings", i.UefiSettings)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ImageVersionSecurityProfile.
+func (i *ImageVersionSecurityProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "uefiSettings":
+			err = unpopulate(val, "UefiSettings", &i.UefiSettings)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -13339,6 +13401,76 @@ func (t *ThrottledRequestsInput) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type UefiKey.
+func (u UefiKey) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "type", u.Type)
+	populate(objectMap, "value", u.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type UefiKey.
+func (u *UefiKey) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", u, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "type":
+			err = unpopulate(val, "Type", &u.Type)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &u.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", u, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type UefiKeySignatures.
+func (u UefiKeySignatures) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "db", u.Db)
+	populate(objectMap, "dbx", u.Dbx)
+	populate(objectMap, "kek", u.Kek)
+	populate(objectMap, "pk", u.Pk)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type UefiKeySignatures.
+func (u *UefiKeySignatures) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", u, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "db":
+			err = unpopulate(val, "Db", &u.Db)
+			delete(rawMsg, key)
+		case "dbx":
+			err = unpopulate(val, "Dbx", &u.Dbx)
+			delete(rawMsg, key)
+		case "kek":
+			err = unpopulate(val, "Kek", &u.Kek)
+			delete(rawMsg, key)
+		case "pk":
+			err = unpopulate(val, "Pk", &u.Pk)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", u, err)
 		}
 	}
 	return nil

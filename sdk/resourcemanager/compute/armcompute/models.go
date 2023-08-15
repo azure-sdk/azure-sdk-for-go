@@ -835,10 +835,7 @@ type CommunityGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -2077,10 +2074,8 @@ type GalleryApplicationList struct {
 
 // GalleryApplicationProperties - Describes the properties of a gallery Application Definition.
 type GalleryApplicationProperties struct {
-	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for.
-	// Possible values are:
-	// Windows
-	// Linux
+	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for. Possible values
+	// are: Windows, Linux.
 	SupportedOSType *OperatingSystemTypes
 
 	// A list of custom actions that can be performed with all of the Gallery Application Versions within this Gallery Application.
@@ -2410,10 +2405,7 @@ type GalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -2514,6 +2506,9 @@ type GalleryImageVersionProperties struct {
 	// This is the safety profile of the Gallery Image Version.
 	SafetyProfile *GalleryImageVersionSafetyProfile
 
+	// The security profile of a gallery image version
+	SecurityProfile *ImageVersionSecurityProfile
+
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *GalleryProvisioningState
 
@@ -2572,6 +2567,15 @@ type GalleryImageVersionStorageProfile struct {
 
 	// The source of the gallery artifact version.
 	Source *GalleryArtifactVersionFullSource
+}
+
+// GalleryImageVersionUefiSettings - Contains UEFI settings for the image version.
+type GalleryImageVersionUefiSettings struct {
+	// Additional UEFI key signatures that will be added to the image in addition to the signature templates
+	AdditionalSignatures *UefiKeySignatures
+
+	// The name of the template(s) that contains default UEFI key signatures that will be added to the image.
+	SignatureTemplateNames []*UefiSignatureTemplateName
 }
 
 // GalleryImageVersionUpdate - Specifies information about the gallery image version that you want to update.
@@ -2949,6 +2953,12 @@ type ImageUpdate struct {
 
 	// Resource tags
 	Tags map[string]*string
+}
+
+// ImageVersionSecurityProfile - The security profile of a gallery image version
+type ImageVersionSecurityProfile struct {
+	// Contains UEFI settings for the image version.
+	UefiSettings *GalleryImageVersionUefiSettings
 }
 
 // InnerError - Inner error details.
@@ -5072,10 +5082,7 @@ type SharedGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -5181,11 +5188,7 @@ type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
 	CommunityGalleryInfo *CommunityGalleryInfo
 
-	// This property allows you to specify the permission of sharing gallery.
-	// Possible values are:
-	// Private
-	// Groups
-	// Community
+	// This property allows you to specify the permission of sharing gallery. Possible values are: Private, Groups, Community.
 	Permissions *GallerySharingPermissionTypes
 
 	// READ-ONLY; A list of sharing profile groups.
@@ -5197,10 +5200,7 @@ type SharingProfileGroup struct {
 	// A list of subscription/tenant ids the gallery is aimed to be shared to.
 	IDs []*string
 
-	// This property allows you to specify the type of sharing group.
-	// Possible values are:
-	// Subscriptions
-	// AADTenants
+	// This property allows you to specify the type of sharing group. Possible values are: Subscriptions, AADTenants.
 	Type *SharingProfileGroupTypes
 }
 
@@ -5215,11 +5215,8 @@ type SharingStatus struct {
 
 // SharingUpdate - Specifies information about the gallery sharing profile update.
 type SharingUpdate struct {
-	// REQUIRED; This property allows you to specify the operation type of gallery sharing update.
-	// Possible values are:
-	// Add
-	// Remove
-	// Reset
+	// REQUIRED; This property allows you to specify the operation type of gallery sharing update. Possible values are: Add, Remove,
+	// Reset.
 	OperationType *SharingUpdateOperationTypes
 
 	// A list of sharing profile groups.
@@ -5556,6 +5553,30 @@ type ThrottledRequestsInput struct {
 
 	// Group query result by User Agent.
 	GroupByUserAgent *bool
+}
+
+// UefiKey - A UEFI key signature.
+type UefiKey struct {
+	// The type of key signature.
+	Type *UefiKeyType
+
+	// The value of the key signature.
+	Value []*string
+}
+
+// UefiKeySignatures - Additional UEFI key signatures that will be added to the image in addition to the signature templates
+type UefiKeySignatures struct {
+	// The database of UEFI keys for this image version.
+	Db []*UefiKey
+
+	// The database of revoked UEFI keys for this image version.
+	Dbx []*UefiKey
+
+	// The Key Encryption Keys of this image version.
+	Kek []*UefiKey
+
+	// The Platform Key of this image version.
+	Pk *UefiKey
 }
 
 // UefiSettings - Specifies the security settings like secure boot and vTPM used while creating the virtual machine. Minimum
