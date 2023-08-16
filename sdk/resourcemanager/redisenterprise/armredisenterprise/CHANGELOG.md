@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2023-08-16)
+### Breaking Changes
+
+- Operation `*PrivateEndpointConnectionsClient.Delete` has been changed to LRO, use `*PrivateEndpointConnectionsClient.BeginDelete` instead.
+
+### Features Added
+
+- New function `*DatabasesClient.BeginFlush(context.Context, string, string, string, FlushParameters, *DatabasesClientBeginFlushOptions) (*runtime.Poller[DatabasesClientFlushResponse], error)`
+- New struct `FlushParameters`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
