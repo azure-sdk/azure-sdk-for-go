@@ -1,9 +1,17 @@
 # Release History
 
-## 5.2.0-beta.1 (2023-07-28)
-
+## 5.2.0 (2023-08-16)
 ### Features Added
-- Support for test fakes and OpenTelemetry trace spans.
+
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `SharedGalleryProperties`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
 
 
 ## 5.1.0 (2023-07-28)

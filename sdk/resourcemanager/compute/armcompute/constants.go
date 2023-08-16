@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.2.0-beta.1"
+	moduleVersion = "v5.2.0"
 )
 
 type AccessLevel string
@@ -874,11 +874,8 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
-// Possible values are:
-// Private
-// Groups
-// Community
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
+// are: Private, Groups, Community.
 type GallerySharingPermissionTypes string
 
 const (
@@ -1200,9 +1197,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 }
 
 // OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// Possible values are: Windows, Linux.
 type OperatingSystemTypes string
 
 const (
@@ -1830,10 +1825,8 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
-// Possible values are:
-// Subscriptions
-// AADTenants
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
+// AADTenants.
 type SharingProfileGroupTypes string
 
 const (
@@ -1869,11 +1862,8 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
-// Possible values are:
-// Add
-// Remove
-// Reset
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
+// values are: Add, Remove, Reset.
 type SharingUpdateOperationTypes string
 
 const (
