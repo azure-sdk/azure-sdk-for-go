@@ -1,5 +1,27 @@
 # Release History
 
+## 0.10.0 (2023-08-17)
+### Breaking Changes
+
+- `CommitASYNCHRONOUSCOMMIT`, `CommitSYNCHRONOUSCOMMIT` from enum `Commit` has been removed
+- `FailoverAUTOMATIC`, `FailoverMANUAL` from enum `Failover` has been removed
+- `ReadableSecondaryALL`, `ReadableSecondaryNO`, `ReadableSecondaryREADONLY` from enum `ReadableSecondary` has been removed
+- `RolePRIMARY`, `RoleSECONDARY` from enum `Role` has been removed
+
+### Features Added
+
+- New value `CommitAsynchronousCommit`, `CommitSynchronousCommit` added to enum type `Commit`
+- New value `FailoverAutomatic`, `FailoverManual` added to enum type `Failover`
+- New value `ReadableSecondaryAll`, `ReadableSecondaryNo`, `ReadableSecondaryReadOnly` added to enum type `ReadableSecondary`
+- New value `RolePrimary`, `RoleSecondary` added to enum type `Role`
+- New enum type `AdditionalVMPatch` with values `AdditionalVMPatchMicrosoftUpdate`, `AdditionalVMPatchNotSet`
+- New field `AdditionalVMPatch` in struct `AutoPatchingSettings`
+- New field `UseStoragePool` in struct `SQLStorageSettings`
+- New field `UseStoragePool` in struct `SQLTempDbSettings`
+- New field `EnableStorageConfigBlade` in struct `StorageConfigurationSettings`
+- New field `IsSQLServiceAccountGmsa` in struct `WsfcDomainProfile`
+
+
 ## 0.9.0 (2023-06-23)
 ### Features Added
 
