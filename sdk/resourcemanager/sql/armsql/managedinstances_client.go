@@ -47,7 +47,7 @@ func NewManagedInstancesClient(subscriptionID string, credential azcore.TokenCre
 // BeginCreateOrUpdate - Creates or updates a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -70,7 +70,7 @@ func (client *ManagedInstancesClient) BeginCreateOrUpdate(ctx context.Context, r
 // CreateOrUpdate - Creates or updates a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ManagedInstancesClient) createOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, parameters ManagedInstance, options *ManagedInstancesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, managedInstanceName, parameters, options)
@@ -108,7 +108,7 @@ func (client *ManagedInstancesClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -120,7 +120,7 @@ func (client *ManagedInstancesClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - Deletes a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -142,7 +142,7 @@ func (client *ManagedInstancesClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Deletes a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ManagedInstancesClient) deleteOperation(ctx context.Context, resourceGroupName string, managedInstanceName string, options *ManagedInstancesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
@@ -180,7 +180,7 @@ func (client *ManagedInstancesClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -188,7 +188,7 @@ func (client *ManagedInstancesClient) deleteCreateRequest(ctx context.Context, r
 // BeginFailover - Failovers a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance to failover.
@@ -210,7 +210,7 @@ func (client *ManagedInstancesClient) BeginFailover(ctx context.Context, resourc
 // Failover - Failovers a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ManagedInstancesClient) failover(ctx context.Context, resourceGroupName string, managedInstanceName string, options *ManagedInstancesClientBeginFailoverOptions) (*http.Response, error) {
 	var err error
 	req, err := client.failoverCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
@@ -251,7 +251,7 @@ func (client *ManagedInstancesClient) failoverCreateRequest(ctx context.Context,
 	if options != nil && options.ReplicaType != nil {
 		reqQP.Set("replicaType", string(*options.ReplicaType))
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -259,7 +259,7 @@ func (client *ManagedInstancesClient) failoverCreateRequest(ctx context.Context,
 // Get - Gets a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -305,7 +305,7 @@ func (client *ManagedInstancesClient) getCreateRequest(ctx context.Context, reso
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -322,7 +322,7 @@ func (client *ManagedInstancesClient) getHandleResponse(resp *http.Response) (Ma
 
 // NewListPager - Gets a list of all managed instances in the subscription.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - options - ManagedInstancesClientListOptions contains the optional parameters for the ManagedInstancesClient.NewListPager
 //     method.
 func (client *ManagedInstancesClient) NewListPager(options *ManagedInstancesClientListOptions) *runtime.Pager[ManagedInstancesClientListResponse] {
@@ -368,7 +368,7 @@ func (client *ManagedInstancesClient) listCreateRequest(ctx context.Context, opt
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -385,7 +385,7 @@ func (client *ManagedInstancesClient) listHandleResponse(resp *http.Response) (M
 
 // NewListByInstancePoolPager - Gets a list of all managed instances in an instance pool.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - instancePoolName - The instance pool name.
@@ -442,7 +442,7 @@ func (client *ManagedInstancesClient) listByInstancePoolCreateRequest(ctx contex
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -459,7 +459,7 @@ func (client *ManagedInstancesClient) listByInstancePoolHandleResponse(resp *htt
 
 // NewListByManagedInstancePager - Get top resource consuming queries of a managed instance.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -534,7 +534,7 @@ func (client *ManagedInstancesClient) listByManagedInstanceCreateRequest(ctx con
 	if options != nil && options.ObservationMetric != nil {
 		reqQP.Set("observationMetric", string(*options.ObservationMetric))
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -551,7 +551,7 @@ func (client *ManagedInstancesClient) listByManagedInstanceHandleResponse(resp *
 
 // NewListByResourceGroupPager - Gets a list of managed instances in a resource group.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - options - ManagedInstancesClientListByResourceGroupOptions contains the optional parameters for the ManagedInstancesClient.NewListByResourceGroupPager
@@ -603,7 +603,7 @@ func (client *ManagedInstancesClient) listByResourceGroupCreateRequest(ctx conte
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -621,7 +621,7 @@ func (client *ManagedInstancesClient) listByResourceGroupHandleResponse(resp *ht
 // NewListOutboundNetworkDependenciesByManagedInstancePager - Gets the collection of outbound network dependencies for the
 // given managed instance.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -675,7 +675,7 @@ func (client *ManagedInstancesClient) listOutboundNetworkDependenciesByManagedIn
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -693,7 +693,7 @@ func (client *ManagedInstancesClient) listOutboundNetworkDependenciesByManagedIn
 // BeginStart - Starts the managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -717,7 +717,7 @@ func (client *ManagedInstancesClient) BeginStart(ctx context.Context, resourceGr
 // Start - Starts the managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ManagedInstancesClient) start(ctx context.Context, resourceGroupName string, managedInstanceName string, options *ManagedInstancesClientBeginStartOptions) (*http.Response, error) {
 	var err error
 	req, err := client.startCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
@@ -728,7 +728,7 @@ func (client *ManagedInstancesClient) start(ctx context.Context, resourceGroupNa
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -755,15 +755,16 @@ func (client *ManagedInstancesClient) startCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // BeginStop - Stops the managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -787,7 +788,7 @@ func (client *ManagedInstancesClient) BeginStop(ctx context.Context, resourceGro
 // Stop - Stops the managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ManagedInstancesClient) stop(ctx context.Context, resourceGroupName string, managedInstanceName string, options *ManagedInstancesClientBeginStopOptions) (*http.Response, error) {
 	var err error
 	req, err := client.stopCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
@@ -798,7 +799,7 @@ func (client *ManagedInstancesClient) stop(ctx context.Context, resourceGroupNam
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -825,15 +826,16 @@ func (client *ManagedInstancesClient) stopCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // BeginUpdate - Updates a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -856,7 +858,7 @@ func (client *ManagedInstancesClient) BeginUpdate(ctx context.Context, resourceG
 // Update - Updates a managed instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *ManagedInstancesClient) update(ctx context.Context, resourceGroupName string, managedInstanceName string, parameters ManagedInstanceUpdate, options *ManagedInstancesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, managedInstanceName, parameters, options)
@@ -894,7 +896,7 @@ func (client *ManagedInstancesClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

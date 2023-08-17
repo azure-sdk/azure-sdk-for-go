@@ -48,7 +48,7 @@ func NewJobStepExecutionsClient(subscriptionID string, credential azcore.TokenCr
 // Get - Gets a step execution of a job execution.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -108,7 +108,7 @@ func (client *JobStepExecutionsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -125,7 +125,7 @@ func (client *JobStepExecutionsClient) getHandleResponse(resp *http.Response) (J
 
 // NewListByJobExecutionPager - Lists the step executions of a job execution.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -207,12 +207,12 @@ func (client *JobStepExecutionsClient) listByJobExecutionCreateRequest(ctx conte
 		reqQP.Set("isActive", strconv.FormatBool(*options.IsActive))
 	}
 	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+		reqQP.Set("$skip", strconv.FormatInt(*options.Skip, 10))
 	}
 	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+		reqQP.Set("$top", strconv.FormatInt(*options.Top, 10))
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

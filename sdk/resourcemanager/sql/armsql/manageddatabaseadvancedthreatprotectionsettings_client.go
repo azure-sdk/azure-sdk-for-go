@@ -46,7 +46,7 @@ func NewManagedDatabaseAdvancedThreatProtectionSettingsClient(subscriptionID str
 // CreateOrUpdate - Creates or updates a managed database's Advanced Threat Protection state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-02-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -101,7 +101,7 @@ func (client *ManagedDatabaseAdvancedThreatProtectionSettingsClient) createOrUpd
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -122,7 +122,7 @@ func (client *ManagedDatabaseAdvancedThreatProtectionSettingsClient) createOrUpd
 // Get - Gets a managed database's Advanced Threat Protection state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-02-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -176,7 +176,7 @@ func (client *ManagedDatabaseAdvancedThreatProtectionSettingsClient) getCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,7 +193,7 @@ func (client *ManagedDatabaseAdvancedThreatProtectionSettingsClient) getHandleRe
 
 // NewListByDatabasePager - Gets a list of managed database's Advanced Threat Protection states.
 //
-// Generated from API version 2022-02-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -252,7 +252,7 @@ func (client *ManagedDatabaseAdvancedThreatProtectionSettingsClient) listByDatab
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

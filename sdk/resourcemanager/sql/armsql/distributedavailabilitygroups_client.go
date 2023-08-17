@@ -46,7 +46,7 @@ func NewDistributedAvailabilityGroupsClient(subscriptionID string, credential az
 // BeginCreateOrUpdate - Creates a distributed availability group between Sql On-Prem and Sql Managed Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -70,7 +70,7 @@ func (client *DistributedAvailabilityGroupsClient) BeginCreateOrUpdate(ctx conte
 // CreateOrUpdate - Creates a distributed availability group between Sql On-Prem and Sql Managed Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *DistributedAvailabilityGroupsClient) createOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, distributedAvailabilityGroupName string, parameters DistributedAvailabilityGroup, options *DistributedAvailabilityGroupsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName, parameters, options)
@@ -112,7 +112,7 @@ func (client *DistributedAvailabilityGroupsClient) createOrUpdateCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -124,7 +124,7 @@ func (client *DistributedAvailabilityGroupsClient) createOrUpdateCreateRequest(c
 // BeginDelete - Drops a distributed availability group between Sql On-Prem and Sql Managed Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -147,7 +147,7 @@ func (client *DistributedAvailabilityGroupsClient) BeginDelete(ctx context.Conte
 // Delete - Drops a distributed availability group between Sql On-Prem and Sql Managed Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *DistributedAvailabilityGroupsClient) deleteOperation(ctx context.Context, resourceGroupName string, managedInstanceName string, distributedAvailabilityGroupName string, options *DistributedAvailabilityGroupsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName, options)
@@ -189,7 +189,7 @@ func (client *DistributedAvailabilityGroupsClient) deleteCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -197,7 +197,7 @@ func (client *DistributedAvailabilityGroupsClient) deleteCreateRequest(ctx conte
 // Get - Gets a distributed availability group info.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -246,7 +246,7 @@ func (client *DistributedAvailabilityGroupsClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -263,7 +263,7 @@ func (client *DistributedAvailabilityGroupsClient) getHandleResponse(resp *http.
 
 // NewListByInstancePager - Gets a list of a distributed availability groups in instance.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -317,7 +317,7 @@ func (client *DistributedAvailabilityGroupsClient) listByInstanceCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -332,10 +332,88 @@ func (client *DistributedAvailabilityGroupsClient) listByInstanceHandleResponse(
 	return result, nil
 }
 
+// BeginSetRole - Sets the role for managed instance in a distributed availability group.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - managedInstanceName - The name of the managed instance.
+//   - distributedAvailabilityGroupName - The distributed availability group name.
+//   - parameters - The distributed availability group set role request parameters.
+//   - options - DistributedAvailabilityGroupsClientBeginSetRoleOptions contains the optional parameters for the DistributedAvailabilityGroupsClient.BeginSetRole
+//     method.
+func (client *DistributedAvailabilityGroupsClient) BeginSetRole(ctx context.Context, resourceGroupName string, managedInstanceName string, distributedAvailabilityGroupName string, parameters DistributedAvailabilityGroupSetRole, options *DistributedAvailabilityGroupsClientBeginSetRoleOptions) (*runtime.Poller[DistributedAvailabilityGroupsClientSetRoleResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.setRole(ctx, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller[DistributedAvailabilityGroupsClientSetRoleResponse](resp, client.internal.Pipeline(), nil)
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[DistributedAvailabilityGroupsClientSetRoleResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// SetRole - Sets the role for managed instance in a distributed availability group.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+func (client *DistributedAvailabilityGroupsClient) setRole(ctx context.Context, resourceGroupName string, managedInstanceName string, distributedAvailabilityGroupName string, parameters DistributedAvailabilityGroupSetRole, options *DistributedAvailabilityGroupsClientBeginSetRoleOptions) (*http.Response, error) {
+	var err error
+	req, err := client.setRoleCreateRequest(ctx, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// setRoleCreateRequest creates the SetRole request.
+func (client *DistributedAvailabilityGroupsClient) setRoleCreateRequest(ctx context.Context, resourceGroupName string, managedInstanceName string, distributedAvailabilityGroupName string, parameters DistributedAvailabilityGroupSetRole, options *DistributedAvailabilityGroupsClientBeginSetRoleOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}/distributedAvailabilityGroups/{distributedAvailabilityGroupName}/setRole"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if managedInstanceName == "" {
+		return nil, errors.New("parameter managedInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{managedInstanceName}", url.PathEscape(managedInstanceName))
+	if distributedAvailabilityGroupName == "" {
+		return nil, errors.New("parameter distributedAvailabilityGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{distributedAvailabilityGroupName}", url.PathEscape(distributedAvailabilityGroupName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginUpdate - Updates a distributed availability group replication mode.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -359,7 +437,7 @@ func (client *DistributedAvailabilityGroupsClient) BeginUpdate(ctx context.Conte
 // Update - Updates a distributed availability group replication mode.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-11-01-preview
 func (client *DistributedAvailabilityGroupsClient) update(ctx context.Context, resourceGroupName string, managedInstanceName string, distributedAvailabilityGroupName string, parameters DistributedAvailabilityGroup, options *DistributedAvailabilityGroupsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, managedInstanceName, distributedAvailabilityGroupName, parameters, options)
@@ -401,7 +479,7 @@ func (client *DistributedAvailabilityGroupsClient) updateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
