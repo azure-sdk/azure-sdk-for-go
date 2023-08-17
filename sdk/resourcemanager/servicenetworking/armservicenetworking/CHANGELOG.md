@@ -1,5 +1,12 @@
 # Release History
 
+## 0.4.0 (2023-08-17)
+### Breaking Changes
+
+- Type of `AssociationUpdateProperties.Subnet` has been changed from `*AssociationSubnetUpdate` to `*AssociationSubnet`
+- Struct `AssociationSubnetUpdate` has been removed
+
+
 ## 0.3.0 (2023-05-26)
 ### Breaking Changes
 
