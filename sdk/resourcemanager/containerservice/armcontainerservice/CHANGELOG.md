@@ -1,10 +1,18 @@
 # Release History
 
-## 4.2.0-beta.1 (2023-07-28)
-
+## 4.2.0 (2023-08-17)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New enum type `NodeOSUpgradeChannel` with values `NodeOSUpgradeChannelNodeImage`, `NodeOSUpgradeChannelNone`, `NodeOSUpgradeChannelUnmanaged`
+- New struct `ClusterUpgradeSettings`
+- New struct `DelegatedResource`
+- New struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+- New struct `UpgradeOverrideSettings`
+- New field `DrainTimeoutInMinutes` in struct `AgentPoolUpgradeSettings`
+- New field `NodeOSUpgradeChannel` in struct `ManagedClusterAutoUpgradeProfile`
+- New field `DelegatedResources` in struct `ManagedClusterIdentity`
+- New field `UpgradeSettings` in struct `ManagedClusterProperties`
+- New field `VerticalPodAutoscaler` in struct `ManagedClusterWorkloadAutoScalerProfile`
 
 
 ## 4.1.0 (2023-07-28)
