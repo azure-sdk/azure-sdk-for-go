@@ -46,7 +46,7 @@ func NewAzureMonitorWorkspacesClient(subscriptionID string, credential azcore.To
 // Create - Create or update a workspace
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-03-preview
+// Generated from API version 2023-04-03
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureMonitorWorkspaceName - The name of the Azure Monitor workspace. The name is case insensitive
 //   - azureMonitorWorkspaceProperties - Properties that need to be specified to create a new workspace
@@ -94,7 +94,7 @@ func (client *AzureMonitorWorkspacesClient) createCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, azureMonitorWorkspaceProperties); err != nil {
@@ -112,37 +112,56 @@ func (client *AzureMonitorWorkspacesClient) createHandleResponse(resp *http.Resp
 	return result, nil
 }
 
+// BeginDelete - Delete a workspace
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-03
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - azureMonitorWorkspaceName - The name of the Azure Monitor workspace. The name is case insensitive
+//   - options - AzureMonitorWorkspacesClientBeginDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.BeginDelete
+//     method.
+func (client *AzureMonitorWorkspacesClient) BeginDelete(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *AzureMonitorWorkspacesClientBeginDeleteOptions) (*runtime.Poller[AzureMonitorWorkspacesClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, azureMonitorWorkspaceName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[AzureMonitorWorkspacesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[AzureMonitorWorkspacesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
 // Delete - Delete a workspace
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-03-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - azureMonitorWorkspaceName - The name of the Azure Monitor workspace. The name is case insensitive
-//   - options - AzureMonitorWorkspacesClientDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Delete
-//     method.
-func (client *AzureMonitorWorkspacesClient) Delete(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *AzureMonitorWorkspacesClientDeleteOptions) (AzureMonitorWorkspacesClientDeleteResponse, error) {
+// Generated from API version 2023-04-03
+func (client *AzureMonitorWorkspacesClient) deleteOperation(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *AzureMonitorWorkspacesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "AzureMonitorWorkspacesClient.Delete"
+	const operationName = "AzureMonitorWorkspacesClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, azureMonitorWorkspaceName, options)
 	if err != nil {
-		return AzureMonitorWorkspacesClientDeleteResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AzureMonitorWorkspacesClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return AzureMonitorWorkspacesClientDeleteResponse{}, err
+		return nil, err
 	}
-	return AzureMonitorWorkspacesClientDeleteResponse{}, nil
+	return httpResp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *AzureMonitorWorkspacesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *AzureMonitorWorkspacesClientDeleteOptions) (*policy.Request, error) {
+func (client *AzureMonitorWorkspacesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *AzureMonitorWorkspacesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Monitor/accounts/{azureMonitorWorkspaceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -161,7 +180,7 @@ func (client *AzureMonitorWorkspacesClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +189,7 @@ func (client *AzureMonitorWorkspacesClient) deleteCreateRequest(ctx context.Cont
 // Get - Returns the specific Azure Monitor workspace
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-03-preview
+// Generated from API version 2023-04-03
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureMonitorWorkspaceName - The name of the Azure Monitor workspace. The name is case insensitive
 //   - options - AzureMonitorWorkspacesClientGetOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Get
@@ -217,7 +236,7 @@ func (client *AzureMonitorWorkspacesClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +253,7 @@ func (client *AzureMonitorWorkspacesClient) getHandleResponse(resp *http.Respons
 
 // NewListByResourceGroupPager - Lists all workspaces in the specified resource group
 //
-// Generated from API version 2021-06-03-preview
+// Generated from API version 2023-04-03
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AzureMonitorWorkspacesClientListByResourceGroupOptions contains the optional parameters for the AzureMonitorWorkspacesClient.NewListByResourceGroupPager
 //     method.
@@ -284,7 +303,7 @@ func (client *AzureMonitorWorkspacesClient) listByResourceGroupCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -301,7 +320,7 @@ func (client *AzureMonitorWorkspacesClient) listByResourceGroupHandleResponse(re
 
 // NewListBySubscriptionPager - Lists all workspaces in the specified subscription
 //
-// Generated from API version 2021-06-03-preview
+// Generated from API version 2023-04-03
 //   - options - AzureMonitorWorkspacesClientListBySubscriptionOptions contains the optional parameters for the AzureMonitorWorkspacesClient.NewListBySubscriptionPager
 //     method.
 func (client *AzureMonitorWorkspacesClient) NewListBySubscriptionPager(options *AzureMonitorWorkspacesClientListBySubscriptionOptions) *runtime.Pager[AzureMonitorWorkspacesClientListBySubscriptionResponse] {
@@ -346,7 +365,7 @@ func (client *AzureMonitorWorkspacesClient) listBySubscriptionCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -364,7 +383,7 @@ func (client *AzureMonitorWorkspacesClient) listBySubscriptionHandleResponse(res
 // Update - Updates part of a workspace
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-03-preview
+// Generated from API version 2023-04-03
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureMonitorWorkspaceName - The name of the Azure Monitor workspace. The name is case insensitive
 //   - options - AzureMonitorWorkspacesClientUpdateOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Update
@@ -411,7 +430,7 @@ func (client *AzureMonitorWorkspacesClient) updateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.AzureMonitorWorkspaceProperties != nil {
