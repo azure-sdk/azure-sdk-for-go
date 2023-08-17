@@ -1,5 +1,11 @@
 # Release History
 
+## 0.7.0 (2023-08-17)
+### Features Added
+
+- New value `BillingProfileStatusDeleted`, `BillingProfileStatusUnderReview`, `BillingProfileStatusUnknown` added to enum type `BillingProfileStatus`
+
+
 ## 0.6.0 (2023-03-27)
 ### Features Added
 
