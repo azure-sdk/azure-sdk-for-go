@@ -1,5 +1,18 @@
 # Release History
 
+## 1.2.0 (2023-08-21)
+### Features Added
+
+- New value `ConnectionStateTypeChangeInProgress`, `ConnectionStateTypeChangeRequested` added to enum type `ConnectionState`
+- New function `*ClientFactory.NewRpUnbilledPrefixesClient() *RpUnbilledPrefixesClient`
+- New function `*RegisteredPrefixesClient.Validate(context.Context, string, string, string, *RegisteredPrefixesClientValidateOptions) (RegisteredPrefixesClientValidateResponse, error)`
+- New function `NewRpUnbilledPrefixesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RpUnbilledPrefixesClient, error)`
+- New function `*RpUnbilledPrefixesClient.NewListPager(string, string, *RpUnbilledPrefixesClientListOptions) *runtime.Pager[RpUnbilledPrefixesClientListResponse]`
+- New struct `RpUnbilledPrefix`
+- New struct `RpUnbilledPrefixListResult`
+- New field `DirectPeeringType` in struct `LegacyPeeringsClientListOptions`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
