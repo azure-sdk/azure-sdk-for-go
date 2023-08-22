@@ -2677,9 +2677,6 @@ type GrantAccessData struct {
 	// REQUIRED; Time duration in seconds until the SAS access expires.
 	DurationInSeconds *int32
 
-	// Used to specify the file format when making request for SAS on a VHDX file format snapshot
-	FileFormat *FileFormat
-
 	// Set this flag to true to get additional SAS for VM guest state
 	GetSecureVMGuestStateSAS *bool
 }
@@ -8019,6 +8016,11 @@ type VirtualMachineScaleSetVMProfile struct {
 	// UserData for the virtual machines in the scale set, which must be base-64 encoded. Customer should not pass any secrets
 	// in here. Minimum api-version: 2021-03-01.
 	UserData *string
+
+	// READ-ONLY; Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. This value will be
+	// added to VMSS Flex VM tags when creating/updating the VMSS VM Profile with minimum
+	// api-version: 2023-09-01.
+	TimeCreated *time.Time
 }
 
 // VirtualMachineScaleSetVMProperties - Describes the properties of a virtual machine scale set virtual machine.

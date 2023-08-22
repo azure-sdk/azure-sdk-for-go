@@ -1,9 +1,14 @@
 # Release History
 
-## 5.2.0-beta.1 (2023-07-28)
+## 6.0.0 (2023-08-22)
+### Breaking Changes
+
+- Enum `FileFormat` has been removed
+- Field `FileFormat` of struct `GrantAccessData` has been removed
 
 ### Features Added
-- Support for test fakes and OpenTelemetry trace spans.
+
+- New field `TimeCreated` in struct `VirtualMachineScaleSetVMProfile`
 
 
 ## 5.1.0 (2023-07-28)
