@@ -1,5 +1,17 @@
 # Release History
 
+## 1.3.0-beta.1 (2023-08-22)
+### Features Added
+
+- New enum type `OutboundType` with values `OutboundTypeLoadbalancer`, `OutboundTypeUserDefinedRouting`
+- New struct `EffectiveOutboundIP`
+- New struct `LoadBalancerProfile`
+- New struct `ManagedOutboundIPs`
+- New struct `OutboundIP`
+- New struct `OutboundIPPrefix`
+- New field `LoadBalancerProfile`, `OutboundType` in struct `NetworkProfile`
+
+
 ## 1.2.0 (2023-03-31)
 ### Features Added
 
