@@ -42,6 +42,11 @@ func (c *ClientFactory) NewAgentPoolsClient() *AgentPoolsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewMachinesClient() *MachinesClient {
+	subClient, _ := NewMachinesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewMaintenanceConfigurationsClient() *MaintenanceConfigurationsClient {
 	subClient, _ := NewMaintenanceConfigurationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient

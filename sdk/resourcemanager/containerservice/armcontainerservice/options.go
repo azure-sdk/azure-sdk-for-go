@@ -59,6 +59,16 @@ type AgentPoolsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// MachinesClientGetOptions contains the optional parameters for the MachinesClient.Get method.
+type MachinesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MachinesClientListOptions contains the optional parameters for the MachinesClient.NewListPager method.
+type MachinesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // MaintenanceConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the MaintenanceConfigurationsClient.CreateOrUpdate
 // method.
 type MaintenanceConfigurationsClientCreateOrUpdateOptions struct {
@@ -207,6 +217,12 @@ type ManagedClustersClientGetCommandResultOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedClustersClientGetGuardrailsVersionsOptions contains the optional parameters for the ManagedClustersClient.GetGuardrailsVersions
+// method.
+type ManagedClustersClientGetGuardrailsVersionsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedClustersClientGetMeshRevisionProfileOptions contains the optional parameters for the ManagedClustersClient.GetMeshRevisionProfile
 // method.
 type ManagedClustersClientGetMeshRevisionProfileOptions struct {
@@ -266,6 +282,12 @@ type ManagedClustersClientListClusterUserCredentialsOptions struct {
 
 	// server fqdn type for credentials to be returned
 	ServerFqdn *string
+}
+
+// ManagedClustersClientListGuardrailsVersionsOptions contains the optional parameters for the ManagedClustersClient.NewListGuardrailsVersionsPager
+// method.
+type ManagedClustersClientListGuardrailsVersionsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ManagedClustersClientListKubernetesVersionsOptions contains the optional parameters for the ManagedClustersClient.ListKubernetesVersions
