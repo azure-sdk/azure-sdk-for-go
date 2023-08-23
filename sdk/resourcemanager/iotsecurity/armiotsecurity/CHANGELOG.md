@@ -1,5 +1,28 @@
 # Release History
 
+## 0.7.0 (2023-08-23)
+### Breaking Changes
+
+- Type of `PackageDownloads.Snmp` has been changed from `[]*PackageDownloadInfo` to `[]*PackageBaseDownloadInfo`
+- Type of `PackageDownloads.ThreatIntelligence` has been changed from `[]*PackageDownloadInfo` to `[]*PackageBaseDownloadInfo`
+- Type of `PackageDownloadsSensor.Full` has been changed from `*PackageDownloadsSensorFull` to `*FullPackageDownloadInfo`
+- Struct `PackageDownloadsCentralManagerFullOvf` has been removed
+- Struct `PackageDownloadsSensorFull` has been removed
+- Struct `PackageDownloadsSensorFullOvf` has been removed
+- Field `AuthorizedDevicesImportTemplate`, `DeviceInformationUpdateImportTemplate`, `WmiTool` of struct `PackageDownloads` has been removed
+- Field `Ovf` of struct `PackageDownloadsCentralManagerFull` has been removed
+
+### Features Added
+
+- New enum type `Scope` with values `ScopeMajor`, `ScopeMinor`, `ScopePatch`
+- New struct `EnterprisePackageDownloadInfo`
+- New struct `FullPackageDownloadInfo`
+- New struct `PackageBaseDownloadInfo`
+- New field `ReleaseDate`, `Scope`, `SupportedUntil` in struct `PackageDownloadInfo`
+- New field `Enterprise` in struct `PackageDownloads`
+- New field `ReleaseDate`, `Scope`, `SupportedUntil` in struct `UpgradePackageDownloadInfo`
+
+
 ## 0.6.1 (2023-04-14)
 ### Bug Fixes
 
