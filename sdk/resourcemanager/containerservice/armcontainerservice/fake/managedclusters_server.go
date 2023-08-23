@@ -16,11 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
 	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 )
 
 // ManagedClustersServer is a fake server for instances of the armcontainerservice.ManagedClustersClient type.
@@ -362,7 +361,6 @@ func (m *ManagedClustersServerTransport) dispatchBeginDelete(req *http.Request) 
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		qp := req.URL.Query()
 		resourceGroupNameUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -371,21 +369,7 @@ func (m *ManagedClustersServerTransport) dispatchBeginDelete(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		ignorePodDisruptionBudgetUnescaped, err := url.QueryUnescape(qp.Get("ignore-pod-disruption-budget"))
-		if err != nil {
-			return nil, err
-		}
-		ignorePodDisruptionBudgetParam, err := parseOptional(ignorePodDisruptionBudgetUnescaped, strconv.ParseBool)
-		if err != nil {
-			return nil, err
-		}
-		var options *armcontainerservice.ManagedClustersClientBeginDeleteOptions
-		if ignorePodDisruptionBudgetParam != nil {
-			options = &armcontainerservice.ManagedClustersClientBeginDeleteOptions{
-				IgnorePodDisruptionBudget: ignorePodDisruptionBudgetParam,
-			}
-		}
-		respr, errRespr := m.srv.BeginDelete(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, options)
+		respr, errRespr := m.srv.BeginDelete(req.Context(), resourceGroupNameUnescaped, resourceNameUnescaped, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
