@@ -300,17 +300,53 @@ type ExtendedLocation struct {
 	Type *ExtendedLocationTypes
 }
 
+// GuardrailsAvailableVersion - Available Guardrails Version
+type GuardrailsAvailableVersion struct {
+	// REQUIRED; Whether the version is default or not and support info.
+	Properties *GuardrailsAvailableVersionsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GuardrailsAvailableVersionsList - Hold values properties, which is array of GuardrailsVersions
+type GuardrailsAvailableVersionsList struct {
+	// Array of AKS supported Guardrails versions.
+	Value []*GuardrailsAvailableVersion
+
+	// READ-ONLY; The URL to get the next Guardrails available version.
+	NextLink *string
+}
+
+// GuardrailsAvailableVersionsProperties - Whether the version is default or not and support info.
+type GuardrailsAvailableVersionsProperties struct {
+	// READ-ONLY
+	IsDefaultVersion *bool
+
+	// READ-ONLY; Whether the version is preview or stable.
+	Support *GuardrailsSupport
+}
+
 // GuardrailsProfile - The Guardrails profile.
 type GuardrailsProfile struct {
 	// REQUIRED; The guardrails level to be used. By default, Guardrails is enabled for all namespaces except those that AKS excludes
 	// via systemExcludedNamespaces
 	Level *Level
 
-	// REQUIRED; The version of constraints to use
-	Version *string
-
 	// List of namespaces excluded from guardrails checks
 	ExcludedNamespaces []*string
+
+	// The version of constraints to use
+	Version *string
 
 	// READ-ONLY; List of namespaces specified by AKS to be excluded from Guardrails
 	SystemExcludedNamespaces []*string
@@ -483,6 +519,56 @@ type LinuxProfile struct {
 
 	// REQUIRED; The SSH configuration for Linux-based VMs running on Azure.
 	SSH *SSHConfiguration
+}
+
+// Machine - A machine. Contains details about the underlying virtual machine. A machine may be visible here but not in kubectl
+// get nodes; if so it may be because the machine has not been registered with the
+// Kubernetes API Server yet.
+type Machine struct {
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; The name of the resource that is unique within a resource group. This name can be used to access the resource.
+	Name *string
+
+	// READ-ONLY; The properties of the machine
+	Properties *MachineProperties
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// MachineIPAddress - The machine IP address details.
+type MachineIPAddress struct {
+	// READ-ONLY; To determine if address belongs IPv4 or IPv6 family.
+	Family *IPFamily
+
+	// READ-ONLY; IPv4 or IPv6 address of the machine
+	IP *string
+}
+
+// MachineListResult - The response from the List Machines operation.
+type MachineListResult struct {
+	// The list of Machines in cluster.
+	Value []*Machine
+
+	// READ-ONLY; The URL to get the next set of machine results.
+	NextLink *string
+}
+
+// MachineNetworkProperties - network properties of the machine
+type MachineNetworkProperties struct {
+	// READ-ONLY; IPv4, IPv6 addresses of the machine
+	IPAddresses []*MachineIPAddress
+}
+
+// MachineProperties - The properties of the machine
+type MachineProperties struct {
+	// READ-ONLY; network properties of the machine
+	Network *MachineNetworkProperties
+
+	// READ-ONLY; Arm resource id of the machine. It can be used to GET underlying VM Instance
+	ResourceID *string
 }
 
 // MaintenanceConfiguration - See planned maintenance [https://docs.microsoft.com/azure/aks/planned-maintenance] for more
@@ -1057,8 +1143,44 @@ type ManagedClusterAutoUpgradeProfile struct {
 
 // ManagedClusterAzureMonitorProfile - Prometheus addon profile for the container service cluster
 type ManagedClusterAzureMonitorProfile struct {
+	// Logs profile for the Azure Monitor Infrastructure and Application Logs. Collect out-of-the-box Kubernetes infrastructure
+	// & application logs to send to Azure Monitor. See
+	// aka.ms/AzureMonitorContainerInsights for an overview.
+	Logs *ManagedClusterAzureMonitorProfileLogs
+
 	// Metrics profile for the prometheus service addon
 	Metrics *ManagedClusterAzureMonitorProfileMetrics
+}
+
+// ManagedClusterAzureMonitorProfileAppMonitoring - Application Monitoring Profile for Kubernetes Application Container. Collects
+// application logs, metrics and traces through auto-instrumentation of the application using Azure Monitor OpenTelemetry
+// based SDKs. See aka.ms/AzureMonitorApplicationMonitoring for an overview.
+type ManagedClusterAzureMonitorProfileAppMonitoring struct {
+	// Indicates if Application Monitoring enabled or not.
+	Enabled *bool
+}
+
+// ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics - Application Monitoring Open Telemetry Metrics Profile
+// for Kubernetes Application Container Metrics. Collects OpenTelemetry metrics through auto-instrumentation of the application
+// using Azure Monitor
+// OpenTelemetry based SDKs. See aka.ms/AzureMonitorApplicationMonitoring for an overview.
+type ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics struct {
+	// Indicates if Application Monitoring Open Telemetry Metrics is enabled or not.
+	Enabled *bool
+}
+
+// ManagedClusterAzureMonitorProfileContainerInsights - Azure Monitor Container Insights Profile for Kubernetes Events, Inventory
+// and Container stdout & stderr logs etc. See aka.ms/AzureMonitorContainerInsights for an overview.
+type ManagedClusterAzureMonitorProfileContainerInsights struct {
+	// Indicates if Azure Monitor Container Insights Logs Addon is enabled or not.
+	Enabled *bool
+
+	// Fully Qualified ARM Resource Id of Azure Log Analytics Workspace for storing Azure Monitor Container Insights Logs.
+	LogAnalyticsWorkspaceResourceID *string
+
+	// Windows Host Logs Profile for Kubernetes Windows Nodes Log Collection. Collects ETW, Event Logs and Text logs etc. See
+	// aka.ms/AzureMonitorContainerInsights for an overview.
+	WindowsHostLogs *ManagedClusterAzureMonitorProfileWindowsHostLogs
 }
 
 // ManagedClusterAzureMonitorProfileKubeStateMetrics - Kube State Metrics for prometheus addon profile for the container service
@@ -1071,13 +1193,47 @@ type ManagedClusterAzureMonitorProfileKubeStateMetrics struct {
 	MetricLabelsAllowlist *string
 }
 
+// ManagedClusterAzureMonitorProfileLogs - Logs profile for the Azure Monitor Infrastructure and Application Logs. Collect
+// out-of-the-box Kubernetes infrastructure & application logs to send to Azure Monitor. See
+// aka.ms/AzureMonitorContainerInsights for an overview.
+type ManagedClusterAzureMonitorProfileLogs struct {
+	// Application Monitoring Profile for Kubernetes Application Container. Collects application logs, metrics and traces through
+	// auto-instrumentation of the application using Azure Monitor OpenTelemetry
+	// based SDKs. See aka.ms/AzureMonitorApplicationMonitoring for an overview.
+	AppMonitoring *ManagedClusterAzureMonitorProfileAppMonitoring
+
+	// Azure Monitor Container Insights Profile for Kubernetes Events, Inventory and Container stdout & stderr logs etc. See aka.ms/AzureMonitorContainerInsights
+	// for an overview.
+	ContainerInsights *ManagedClusterAzureMonitorProfileContainerInsights
+}
+
 // ManagedClusterAzureMonitorProfileMetrics - Metrics profile for the prometheus service addon
 type ManagedClusterAzureMonitorProfileMetrics struct {
 	// REQUIRED; Whether to enable the Prometheus collector
 	Enabled *bool
 
+	// Application Monitoring Open Telemetry Metrics Profile for Kubernetes Application Container Metrics. Collects OpenTelemetry
+	// metrics through auto-instrumentation of the application using Azure Monitor
+	// OpenTelemetry based SDKs. See aka.ms/AzureMonitorApplicationMonitoring for an overview.
+	AppMonitoringOpenTelemetryMetrics *ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics
+
 	// Kube State Metrics for prometheus addon profile for the container service cluster
 	KubeStateMetrics *ManagedClusterAzureMonitorProfileKubeStateMetrics
+}
+
+// ManagedClusterAzureMonitorProfileWindowsHostLogs - Windows Host Logs Profile for Kubernetes Windows Nodes Log Collection.
+// Collects ETW, Event Logs and Text logs etc. See aka.ms/AzureMonitorContainerInsights for an overview.
+type ManagedClusterAzureMonitorProfileWindowsHostLogs struct {
+	// Indicates if Windows Host Log Collection is enabled or not for Azure Monitor Container Insights Logs Addon.
+	Enabled *bool
+}
+
+// ManagedClusterCostAnalysis - The cost analysis configuration for the cluster
+type ManagedClusterCostAnalysis struct {
+	// The Managed Cluster sku.tier must be set to 'Standard' to enable this feature. Enabling this will add Kubernetes Namespace
+	// and Deployment details to the Cost Analysis views in the Azure portal. If not
+	// specified, the default is false. For more information see aka.ms/aks/docs/cost-analysis.
+	Enabled *bool
 }
 
 // ManagedClusterHTTPProxyConfig - Cluster HTTP proxy configuration.
@@ -1127,8 +1283,9 @@ type ManagedClusterIngressProfile struct {
 
 // ManagedClusterIngressProfileWebAppRouting - Web App Routing settings for the ingress profile.
 type ManagedClusterIngressProfileWebAppRouting struct {
-	// Resource ID of the DNS Zone to be associated with the web app. Used only when Web App Routing is enabled.
-	DNSZoneResourceID *string
+	// Resource IDs of the public DNS zones to be associated with the Web App Routing add-on. Used only when Web App Routing is
+	// enabled. All public DNS zones must be in the same resource group.
+	DNSZoneResourceIDs []*string
 
 	// Whether to enable Web App Routing.
 	Enabled *bool
@@ -1207,6 +1364,12 @@ type ManagedClusterManagedOutboundIPProfile struct {
 	// The desired number of outbound IPs created/managed by Azure. Allowed values must be in the range of 1 to 16 (inclusive).
 	// The default value is 1.
 	Count *int32
+}
+
+// ManagedClusterMetricsProfile - The metrics profile for the ManagedCluster.
+type ManagedClusterMetricsProfile struct {
+	// The cost analysis configuration for the cluster
+	CostAnalysis *ManagedClusterCostAnalysis
 }
 
 // ManagedClusterNATGatewayProfile - Profile of the managed cluster NAT gateway.
@@ -1413,6 +1576,9 @@ type ManagedClusterProperties struct {
 	// The profile for Linux VMs in the Managed Cluster.
 	LinuxProfile *LinuxProfile
 
+	// Optional cluster metrics configuration.
+	MetricsProfile *ManagedClusterMetricsProfile
+
 	// The network configuration profile.
 	NetworkProfile *NetworkProfile
 
@@ -1481,6 +1647,10 @@ type ManagedClusterProperties struct {
 
 	// READ-ONLY; The current provisioning state.
 	ProvisioningState *string
+
+	// READ-ONLY; The resourceUID uniquely identifies ManagedClusters that reuse ARM ResourceIds (i.e: create, delete, create
+	// sequence)
+	ResourceUID *string
 }
 
 // ManagedClusterPropertiesAutoScalerProfile - Parameters to be applied to the cluster-autoscaler when enabled
@@ -1814,16 +1984,11 @@ type ManagedClusterWorkloadAutoScalerProfileKeda struct {
 }
 
 type ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler struct {
-	// REQUIRED; Controls which resource value autoscaler will change. Default value is RequestsAndLimits.
-	ControlledValues *ControlledValues
-
-	// REQUIRED; Whether to enable VPA. Default value is false.
+	// REQUIRED; Whether to enable VPA add-on in cluster. Default value is false.
 	Enabled *bool
 
-	// REQUIRED; Each update mode level is a superset of the lower levels. Off<Initial<Recreate<=Auto. For example: if UpdateMode
-	// is Initial, it means VPA sets the recommended resources in the VerticalPodAutoscaler
-	// Custom Resource (from UpdateMode Off) and also assigns resources on pod creation (from Initial). The default value is Off.
-	UpdateMode *UpdateMode
+	// Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
+	AddonAutoscaling *AddonAutoscaling
 }
 
 type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
@@ -2565,8 +2730,9 @@ type TrustedAccessRoleRule struct {
 
 // UpgradeOverrideSettings - Settings for overrides when upgrading a cluster.
 type UpgradeOverrideSettings struct {
-	// List of upgrade overrides when upgrading a cluster's control plane.
-	ControlPlaneOverrides []*ControlPlaneUpgradeOverride
+	// Whether to force upgrade the cluster. Note that this option instructs upgrade operation to bypass upgrade protections such
+	// as checking for deprecated API usage. Enable this option only with caution.
+	ForceUpgrade *bool
 
 	// Until when the overrides are effective. Note that this only matches the start time of an upgrade, and the effectiveness
 	// won't change once an upgrade starts even if the until expires as upgrade

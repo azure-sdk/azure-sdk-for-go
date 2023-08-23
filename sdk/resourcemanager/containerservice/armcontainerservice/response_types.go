@@ -54,6 +54,19 @@ type AgentPoolsClientUpgradeNodeImageVersionResponse struct {
 	AgentPool
 }
 
+// MachinesClientGetResponse contains the response from method MachinesClient.Get.
+type MachinesClientGetResponse struct {
+	// A machine. Contains details about the underlying virtual machine. A machine may be visible here but not in kubectl get
+	// nodes; if so it may be because the machine has not been registered with the Kubernetes API Server yet.
+	Machine
+}
+
+// MachinesClientListResponse contains the response from method MachinesClient.NewListPager.
+type MachinesClientListResponse struct {
+	// The response from the List Machines operation.
+	MachineListResult
+}
+
 // MaintenanceConfigurationsClientCreateOrUpdateResponse contains the response from method MaintenanceConfigurationsClient.CreateOrUpdate.
 type MaintenanceConfigurationsClientCreateOrUpdateResponse struct {
 	// See [planned maintenance](https://docs.microsoft.com/azure/aks/planned-maintenance) for more information about planned
@@ -145,6 +158,12 @@ type ManagedClustersClientGetCommandResultResponse struct {
 	Location *string
 }
 
+// ManagedClustersClientGetGuardrailsVersionsResponse contains the response from method ManagedClustersClient.GetGuardrailsVersions.
+type ManagedClustersClientGetGuardrailsVersionsResponse struct {
+	// Available Guardrails Version
+	GuardrailsAvailableVersion
+}
+
 // ManagedClustersClientGetMeshRevisionProfileResponse contains the response from method ManagedClustersClient.GetMeshRevisionProfile.
 type ManagedClustersClientGetMeshRevisionProfileResponse struct {
 	// Mesh revision profile for a mesh.
@@ -197,6 +216,12 @@ type ManagedClustersClientListClusterMonitoringUserCredentialsResponse struct {
 type ManagedClustersClientListClusterUserCredentialsResponse struct {
 	// The list credential result response.
 	CredentialResults
+}
+
+// ManagedClustersClientListGuardrailsVersionsResponse contains the response from method ManagedClustersClient.NewListGuardrailsVersionsPager.
+type ManagedClustersClientListGuardrailsVersionsResponse struct {
+	// Hold values properties, which is array of GuardrailsVersions
+	GuardrailsAvailableVersionsList
 }
 
 // ManagedClustersClientListKubernetesVersionsResponse contains the response from method ManagedClustersClient.ListKubernetesVersions.

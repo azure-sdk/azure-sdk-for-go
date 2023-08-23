@@ -10,8 +10,26 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v4.2.0-beta.2"
+	moduleVersion = "v4.2.0-beta.3"
 )
+
+// AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
+type AddonAutoscaling string
+
+const (
+	// AddonAutoscalingDisabled - Feature to autoscale AKS-managed add-ons is disabled.
+	AddonAutoscalingDisabled AddonAutoscaling = "Disabled"
+	// AddonAutoscalingEnabled - Feature to autoscale AKS-managed add-ons is enabled. The default VPA update mode is Initial mode.
+	AddonAutoscalingEnabled AddonAutoscaling = "Enabled"
+)
+
+// PossibleAddonAutoscalingValues returns the possible values for the AddonAutoscaling const type.
+func PossibleAddonAutoscalingValues() []AddonAutoscaling {
+	return []AddonAutoscaling{
+		AddonAutoscalingDisabled,
+		AddonAutoscalingEnabled,
+	}
+}
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
 // pool restrictions and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools
@@ -125,40 +143,6 @@ func PossibleConnectionStatusValues() []ConnectionStatus {
 	}
 }
 
-// ControlPlaneUpgradeOverride - The list of control plane upgrade override settings.
-type ControlPlaneUpgradeOverride string
-
-const (
-	// ControlPlaneUpgradeOverrideIgnoreKubernetesDeprecations - Upgrade the cluster control plane version without checking for
-	// recent Kubernetes deprecations usage.
-	ControlPlaneUpgradeOverrideIgnoreKubernetesDeprecations ControlPlaneUpgradeOverride = "IgnoreKubernetesDeprecations"
-)
-
-// PossibleControlPlaneUpgradeOverrideValues returns the possible values for the ControlPlaneUpgradeOverride const type.
-func PossibleControlPlaneUpgradeOverrideValues() []ControlPlaneUpgradeOverride {
-	return []ControlPlaneUpgradeOverride{
-		ControlPlaneUpgradeOverrideIgnoreKubernetesDeprecations,
-	}
-}
-
-// ControlledValues - Controls which resource value autoscaler will change. Default value is RequestsAndLimits.
-type ControlledValues string
-
-const (
-	// ControlledValuesRequestsAndLimits - Autoscaler will control resource requests and limits.
-	ControlledValuesRequestsAndLimits ControlledValues = "RequestsAndLimits"
-	// ControlledValuesRequestsOnly - Autoscaler will control resource requests only.
-	ControlledValuesRequestsOnly ControlledValues = "RequestsOnly"
-)
-
-// PossibleControlledValuesValues returns the possible values for the ControlledValues const type.
-func PossibleControlledValuesValues() []ControlledValues {
-	return []ControlledValues{
-		ControlledValuesRequestsAndLimits,
-		ControlledValuesRequestsOnly,
-	}
-}
-
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
 
@@ -263,11 +247,32 @@ func PossibleGPUInstanceProfileValues() []GPUInstanceProfile {
 	}
 }
 
-// IPFamily - The IP version to use for cluster networking and IP assignment.
+// GuardrailsSupport - Whether the version is preview or stable.
+type GuardrailsSupport string
+
+const (
+	// GuardrailsSupportPreview - The version is preview. It is not recommended to use preview versions on critical production
+	// clusters. The preview version may not support all use-cases.
+	GuardrailsSupportPreview GuardrailsSupport = "Preview"
+	// GuardrailsSupportStable - The version is stable and can be used on critical production clusters.
+	GuardrailsSupportStable GuardrailsSupport = "Stable"
+)
+
+// PossibleGuardrailsSupportValues returns the possible values for the GuardrailsSupport const type.
+func PossibleGuardrailsSupportValues() []GuardrailsSupport {
+	return []GuardrailsSupport{
+		GuardrailsSupportPreview,
+		GuardrailsSupportStable,
+	}
+}
+
+// IPFamily - To determine if address belongs IPv4 or IPv6 family.
 type IPFamily string
 
 const (
+	// IPFamilyIPv4 - IPv4 family
 	IPFamilyIPv4 IPFamily = "IPv4"
+	// IPFamilyIPv6 - IPv6 family
 	IPFamilyIPv6 IPFamily = "IPv6"
 )
 
@@ -1001,35 +1006,6 @@ func PossibleTypeValues() []Type {
 		TypeLast,
 		TypeSecond,
 		TypeThird,
-	}
-}
-
-// UpdateMode - Each update mode level is a superset of the lower levels. Off<Initial<Recreate<=Auto. For example: if UpdateMode
-// is Initial, it means VPA sets the recommended resources in the VerticalPodAutoscaler
-// Custom Resource (from UpdateMode Off) and also assigns resources on pod creation (from Initial). The default value is Off.
-type UpdateMode string
-
-const (
-	// UpdateModeAuto - Autoscaler chooses the update mode. Autoscaler currently does the same as Recreate. In the future, it
-	// may take advantage of restart-free mechanisms once they are available.
-	UpdateModeAuto UpdateMode = "Auto"
-	// UpdateModeInitial - Autoscaler only assigns resources on pod creation and doesn't change them during the lifetime of the
-	// pod.
-	UpdateModeInitial UpdateMode = "Initial"
-	// UpdateModeOff - Autoscaler never changes pod resources but provides recommendations.
-	UpdateModeOff UpdateMode = "Off"
-	// UpdateModeRecreate - Autoscaler assigns resources on pod creation and updates pods that need further scaling during their
-	// lifetime by deleting and recreating.
-	UpdateModeRecreate UpdateMode = "Recreate"
-)
-
-// PossibleUpdateModeValues returns the possible values for the UpdateMode const type.
-func PossibleUpdateModeValues() []UpdateMode {
-	return []UpdateMode{
-		UpdateModeAuto,
-		UpdateModeInitial,
-		UpdateModeOff,
-		UpdateModeRecreate,
 	}
 }
 
