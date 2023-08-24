@@ -1,5 +1,48 @@
 # Release History
 
+## 4.2.0-beta.3 (2023-08-24)
+### Breaking Changes
+
+- Enum `ControlPlaneUpgradeOverride` has been removed
+- Enum `ControlledValues` has been removed
+- Enum `UpdateMode` has been removed
+- Field `DNSZoneResourceID` of struct `ManagedClusterIngressProfileWebAppRouting` has been removed
+- Field `ControlledValues`, `UpdateMode` of struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler` has been removed
+- Field `ControlPlaneOverrides` of struct `UpgradeOverrideSettings` has been removed
+
+### Features Added
+
+- New enum type `GuardrailsSupport` with values `GuardrailsSupportPreview`, `GuardrailsSupportStable`
+- New function `*ClientFactory.NewMachinesClient() *MachinesClient`
+- New function `NewMachinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachinesClient, error)`
+- New function `*MachinesClient.Get(context.Context, string, string, string, string, *MachinesClientGetOptions) (MachinesClientGetResponse, error)`
+- New function `*MachinesClient.NewListPager(string, string, string, *MachinesClientListOptions) *runtime.Pager[MachinesClientListResponse]`
+- New function `*ManagedClustersClient.GetGuardrailsVersions(context.Context, string, string, *ManagedClustersClientGetGuardrailsVersionsOptions) (ManagedClustersClientGetGuardrailsVersionsResponse, error)`
+- New function `*ManagedClustersClient.NewListGuardrailsVersionsPager(string, *ManagedClustersClientListGuardrailsVersionsOptions) *runtime.Pager[ManagedClustersClientListGuardrailsVersionsResponse]`
+- New struct `GuardrailsAvailableVersion`
+- New struct `GuardrailsAvailableVersionsList`
+- New struct `GuardrailsAvailableVersionsProperties`
+- New struct `IstioEgressGateway`
+- New struct `Machine`
+- New struct `MachineIPAddress`
+- New struct `MachineListResult`
+- New struct `MachineNetworkProperties`
+- New struct `MachineProperties`
+- New struct `ManagedClusterAzureMonitorProfileAppMonitoring`
+- New struct `ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics`
+- New struct `ManagedClusterAzureMonitorProfileContainerInsights`
+- New struct `ManagedClusterAzureMonitorProfileLogs`
+- New struct `ManagedClusterAzureMonitorProfileWindowsHostLogs`
+- New struct `ManagedClusterCostAnalysis`
+- New struct `ManagedClusterMetricsProfile`
+- New field `EgressGateways` in struct `IstioComponents`
+- New field `Logs` in struct `ManagedClusterAzureMonitorProfile`
+- New field `AppMonitoringOpenTelemetryMetrics` in struct `ManagedClusterAzureMonitorProfileMetrics`
+- New field `DNSZoneResourceIDs` in struct `ManagedClusterIngressProfileWebAppRouting`
+- New field `MetricsProfile`, `ResourceUID` in struct `ManagedClusterProperties`
+- New field `ForceUpgrade` in struct `UpgradeOverrideSettings`
+
+
 ## 4.2.0 (2023-08-25)
 ### Features Added
 
