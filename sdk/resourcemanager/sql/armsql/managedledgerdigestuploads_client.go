@@ -46,7 +46,7 @@ func NewManagedLedgerDigestUploadsClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Enables upload ledger digests to an Azure Storage account or an Azure Confidential Ledger instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -71,7 +71,7 @@ func (client *ManagedLedgerDigestUploadsClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Enables upload ledger digests to an Azure Storage account or an Azure Confidential Ledger instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *ManagedLedgerDigestUploadsClient) createOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, ledgerDigestUploads ManagedLedgerDigestUploadsName, parameters ManagedLedgerDigestUploads, options *ManagedLedgerDigestUploadsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, ledgerDigestUploads, parameters, options)
@@ -117,7 +117,7 @@ func (client *ManagedLedgerDigestUploadsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -129,7 +129,7 @@ func (client *ManagedLedgerDigestUploadsClient) createOrUpdateCreateRequest(ctx 
 // BeginDisable - Disables uploading ledger digests to an Azure Storage account or an Azure Confidential Ledger instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -152,7 +152,7 @@ func (client *ManagedLedgerDigestUploadsClient) BeginDisable(ctx context.Context
 // Disable - Disables uploading ledger digests to an Azure Storage account or an Azure Confidential Ledger instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-02-01-preview
 func (client *ManagedLedgerDigestUploadsClient) disable(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, ledgerDigestUploads ManagedLedgerDigestUploadsName, options *ManagedLedgerDigestUploadsClientBeginDisableOptions) (*http.Response, error) {
 	var err error
 	req, err := client.disableCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, ledgerDigestUploads, options)
@@ -198,7 +198,7 @@ func (client *ManagedLedgerDigestUploadsClient) disableCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,7 +207,7 @@ func (client *ManagedLedgerDigestUploadsClient) disableCreateRequest(ctx context
 // Get - Gets the current ledger digest upload configuration for a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -260,7 +260,7 @@ func (client *ManagedLedgerDigestUploadsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +277,7 @@ func (client *ManagedLedgerDigestUploadsClient) getHandleResponse(resp *http.Res
 
 // NewListByDatabasePager - Gets all ledger digest upload settings on a database.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -336,7 +336,7 @@ func (client *ManagedLedgerDigestUploadsClient) listByDatabaseCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
