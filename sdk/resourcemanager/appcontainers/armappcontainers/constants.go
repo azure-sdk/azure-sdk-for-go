@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // AccessMode - Access mode for storage
@@ -124,6 +124,28 @@ func PossibleBindingTypeValues() []BindingType {
 	return []BindingType{
 		BindingTypeDisabled,
 		BindingTypeSniEnabled,
+	}
+}
+
+// BuildStatus - Status of the build once it has been provisioned.
+type BuildStatus string
+
+const (
+	BuildStatusCanceled   BuildStatus = "Canceled"
+	BuildStatusFailed     BuildStatus = "Failed"
+	BuildStatusInProgress BuildStatus = "InProgress"
+	BuildStatusNotStarted BuildStatus = "NotStarted"
+	BuildStatusSucceeded  BuildStatus = "Succeeded"
+)
+
+// PossibleBuildStatusValues returns the possible values for the BuildStatus const type.
+func PossibleBuildStatusValues() []BuildStatus {
+	return []BuildStatus{
+		BuildStatusCanceled,
+		BuildStatusFailed,
+		BuildStatusInProgress,
+		BuildStatusNotStarted,
+		BuildStatusSucceeded,
 	}
 }
 
@@ -302,6 +324,24 @@ func PossibleDNSVerificationTestResultValues() []DNSVerificationTestResult {
 		DNSVerificationTestResultFailed,
 		DNSVerificationTestResultPassed,
 		DNSVerificationTestResultSkipped,
+	}
+}
+
+// DetectionStatus - The status of the patch detection.
+type DetectionStatus string
+
+const (
+	DetectionStatusFailed              DetectionStatus = "Failed"
+	DetectionStatusRegistryLoginFailed DetectionStatus = "RegistryLoginFailed"
+	DetectionStatusSucceeded           DetectionStatus = "Succeeded"
+)
+
+// PossibleDetectionStatusValues returns the possible values for the DetectionStatus const type.
+func PossibleDetectionStatusValues() []DetectionStatus {
+	return []DetectionStatus{
+		DetectionStatusFailed,
+		DetectionStatusRegistryLoginFailed,
+		DetectionStatusSucceeded,
 	}
 }
 
@@ -512,6 +552,80 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 		ManagedServiceIdentityTypeSystemAssigned,
 		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
 		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// PatchApplyStatus - The status of the patch once it has been provisioned
+type PatchApplyStatus string
+
+const (
+	PatchApplyStatusCanceled               PatchApplyStatus = "Canceled"
+	PatchApplyStatusCreatingRevision       PatchApplyStatus = "CreatingRevision"
+	PatchApplyStatusImagePushPullFailed    PatchApplyStatus = "ImagePushPullFailed"
+	PatchApplyStatusManuallySkipped        PatchApplyStatus = "ManuallySkipped"
+	PatchApplyStatusNotStarted             PatchApplyStatus = "NotStarted"
+	PatchApplyStatusRebaseFailed           PatchApplyStatus = "RebaseFailed"
+	PatchApplyStatusRebaseInProgress       PatchApplyStatus = "RebaseInProgress"
+	PatchApplyStatusRevisionCreationFailed PatchApplyStatus = "RevisionCreationFailed"
+	PatchApplyStatusSucceeded              PatchApplyStatus = "Succeeded"
+)
+
+// PossiblePatchApplyStatusValues returns the possible values for the PatchApplyStatus const type.
+func PossiblePatchApplyStatusValues() []PatchApplyStatus {
+	return []PatchApplyStatus{
+		PatchApplyStatusCanceled,
+		PatchApplyStatusCreatingRevision,
+		PatchApplyStatusImagePushPullFailed,
+		PatchApplyStatusManuallySkipped,
+		PatchApplyStatusNotStarted,
+		PatchApplyStatusRebaseFailed,
+		PatchApplyStatusRebaseInProgress,
+		PatchApplyStatusRevisionCreationFailed,
+		PatchApplyStatusSucceeded,
+	}
+}
+
+// PatchType - The type for the patch.
+type PatchType string
+
+const (
+	PatchTypeFrameworkAndOS    PatchType = "FrameworkAndOS"
+	PatchTypeFrameworkSecurity PatchType = "FrameworkSecurity"
+	PatchTypeOSSecurity        PatchType = "OSSecurity"
+	PatchTypeOther             PatchType = "Other"
+)
+
+// PossiblePatchTypeValues returns the possible values for the PatchType const type.
+func PossiblePatchTypeValues() []PatchType {
+	return []PatchType{
+		PatchTypeFrameworkAndOS,
+		PatchTypeFrameworkSecurity,
+		PatchTypeOSSecurity,
+		PatchTypeOther,
+	}
+}
+
+// ProvisioningState - Resource instance provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateDeleting  ProvisioningState = "Deleting"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating  ProvisioningState = "Updating"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
 	}
 }
 
