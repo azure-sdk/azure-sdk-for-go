@@ -17,7 +17,6 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	serviceName    string
 	credential     azcore.TokenCredential
 	options        *arm.ClientOptions
 }
@@ -25,16 +24,15 @@ type ClientFactory struct {
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription.
-//   - serviceName - Service name
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, serviceName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, serviceName: serviceName, credential: credential,
+		subscriptionID: subscriptionID, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
@@ -45,6 +43,6 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 }
 
 func (c *ClientFactory) NewServicesClient() *ServicesClient {
-	subClient, _ := NewServicesClient(c.subscriptionID, c.serviceName, c.credential, c.options)
+	subClient, _ := NewServicesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
