@@ -29,7 +29,7 @@ type GatewayCertificateAuthorityClient struct {
 }
 
 // NewGatewayCertificateAuthorityClient creates a new instance of GatewayCertificateAuthorityClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewGatewayCertificateAuthorityClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GatewayCertificateAuthorityClient, error) {
@@ -47,7 +47,7 @@ func NewGatewayCertificateAuthorityClient(subscriptionID string, credential azco
 // CreateOrUpdate - Assign Certificate entity to Gateway entity as Certificate Authority.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -92,16 +92,13 @@ func (client *GatewayCertificateAuthorityClient) createOrUpdateCreateRequest(ctx
 		return nil, errors.New("parameter certificateID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{certificateId}", url.PathEscape(certificateID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -128,7 +125,7 @@ func (client *GatewayCertificateAuthorityClient) createOrUpdateHandleResponse(re
 // Delete - Remove relationship between Certificate Authority and Gateway entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -174,16 +171,13 @@ func (client *GatewayCertificateAuthorityClient) deleteCreateRequest(ctx context
 		return nil, errors.New("parameter certificateID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{certificateId}", url.PathEscape(certificateID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -193,7 +187,7 @@ func (client *GatewayCertificateAuthorityClient) deleteCreateRequest(ctx context
 // Get - Get assigned Gateway Certificate Authority details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -238,16 +232,13 @@ func (client *GatewayCertificateAuthorityClient) getCreateRequest(ctx context.Co
 		return nil, errors.New("parameter certificateID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{certificateId}", url.PathEscape(certificateID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -267,7 +258,7 @@ func (client *GatewayCertificateAuthorityClient) getHandleResponse(resp *http.Re
 
 // GetEntityTag - Checks if Certificate entity is assigned to Gateway entity as Certificate Authority.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -312,16 +303,13 @@ func (client *GatewayCertificateAuthorityClient) getEntityTagCreateRequest(ctx c
 		return nil, errors.New("parameter certificateID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{certificateId}", url.PathEscape(certificateID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -339,7 +327,7 @@ func (client *GatewayCertificateAuthorityClient) getEntityTagHandleResponse(resp
 
 // NewListByServicePager - Lists the collection of Certificate Authorities for the specified Gateway entity.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -389,9 +377,6 @@ func (client *GatewayCertificateAuthorityClient) listByServiceCreateRequest(ctx 
 		return nil, errors.New("parameter gatewayID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayId}", url.PathEscape(gatewayID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -407,7 +392,7 @@ func (client *GatewayCertificateAuthorityClient) listByServiceCreateRequest(ctx 
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -29,7 +29,7 @@ type TagClient struct {
 }
 
 // NewTagClient creates a new instance of TagClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTagClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TagClient, error) {
@@ -47,7 +47,7 @@ func NewTagClient(subscriptionID string, credential azcore.TokenCredential, opti
 // AssignToAPI - Assign tag to the Api.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -91,16 +91,13 @@ func (client *TagClient) assignToAPICreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +118,7 @@ func (client *TagClient) assignToAPIHandleResponse(resp *http.Response) (TagClie
 // AssignToOperation - Assign tag to the Operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -170,16 +167,13 @@ func (client *TagClient) assignToOperationCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -197,7 +191,7 @@ func (client *TagClient) assignToOperationHandleResponse(resp *http.Response) (T
 // AssignToProduct - Assign tag to the Product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -240,16 +234,13 @@ func (client *TagClient) assignToProductCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -267,7 +258,7 @@ func (client *TagClient) assignToProductHandleResponse(resp *http.Response) (Tag
 // CreateOrUpdate - Creates a tag.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - tagID - Tag identifier. Must be unique in the current API Management service instance.
@@ -306,16 +297,13 @@ func (client *TagClient) createOrUpdateCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -342,7 +330,7 @@ func (client *TagClient) createOrUpdateHandleResponse(resp *http.Response) (TagC
 // Delete - Deletes specific tag of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - tagID - Tag identifier. Must be unique in the current API Management service instance.
@@ -381,16 +369,13 @@ func (client *TagClient) deleteCreateRequest(ctx context.Context, resourceGroupN
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -400,7 +385,7 @@ func (client *TagClient) deleteCreateRequest(ctx context.Context, resourceGroupN
 // DetachFromAPI - Detach the tag from the Api.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -443,16 +428,13 @@ func (client *TagClient) detachFromAPICreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -461,7 +443,7 @@ func (client *TagClient) detachFromAPICreateRequest(ctx context.Context, resourc
 // DetachFromOperation - Detach the tag from the Operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -509,16 +491,13 @@ func (client *TagClient) detachFromOperationCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -527,7 +506,7 @@ func (client *TagClient) detachFromOperationCreateRequest(ctx context.Context, r
 // DetachFromProduct - Detach the tag from the Product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -569,16 +548,13 @@ func (client *TagClient) detachFromProductCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -587,7 +563,7 @@ func (client *TagClient) detachFromProductCreateRequest(ctx context.Context, res
 // Get - Gets the details of the tag specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - tagID - Tag identifier. Must be unique in the current API Management service instance.
@@ -625,16 +601,13 @@ func (client *TagClient) getCreateRequest(ctx context.Context, resourceGroupName
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -655,7 +628,7 @@ func (client *TagClient) getHandleResponse(resp *http.Response) (TagClientGetRes
 // GetByAPI - Get tag associated with the API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -699,16 +672,13 @@ func (client *TagClient) getByAPICreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -729,7 +699,7 @@ func (client *TagClient) getByAPIHandleResponse(resp *http.Response) (TagClientG
 // GetByOperation - Get tag associated with the Operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -778,16 +748,13 @@ func (client *TagClient) getByOperationCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -808,7 +775,7 @@ func (client *TagClient) getByOperationHandleResponse(resp *http.Response) (TagC
 // GetByProduct - Get tag associated with the Product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -851,16 +818,13 @@ func (client *TagClient) getByProductCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -880,7 +844,7 @@ func (client *TagClient) getByProductHandleResponse(resp *http.Response) (TagCli
 
 // GetEntityState - Gets the entity state version of the tag specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - tagID - Tag identifier. Must be unique in the current API Management service instance.
@@ -918,16 +882,13 @@ func (client *TagClient) getEntityStateCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -945,7 +906,7 @@ func (client *TagClient) getEntityStateHandleResponse(resp *http.Response) (TagC
 
 // GetEntityStateByAPI - Gets the entity state version of the tag specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -989,16 +950,13 @@ func (client *TagClient) getEntityStateByAPICreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1016,7 +974,7 @@ func (client *TagClient) getEntityStateByAPIHandleResponse(resp *http.Response) 
 
 // GetEntityStateByOperation - Gets the entity state version of the tag specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -1066,16 +1024,13 @@ func (client *TagClient) getEntityStateByOperationCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1093,7 +1048,7 @@ func (client *TagClient) getEntityStateByOperationHandleResponse(resp *http.Resp
 
 // GetEntityStateByProduct - Gets the entity state version of the tag specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -1137,16 +1092,13 @@ func (client *TagClient) getEntityStateByProductCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1164,7 +1116,7 @@ func (client *TagClient) getEntityStateByProductHandleResponse(resp *http.Respon
 
 // NewListByAPIPager - Lists all Tags associated with the API.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -1213,9 +1165,6 @@ func (client *TagClient) listByAPICreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter apiID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{apiId}", url.PathEscape(apiID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -1231,7 +1180,7 @@ func (client *TagClient) listByAPICreateRequest(ctx context.Context, resourceGro
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1248,7 +1197,7 @@ func (client *TagClient) listByAPIHandleResponse(resp *http.Response) (TagClient
 
 // NewListByOperationPager - Lists all Tags associated with the Operation.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -1302,9 +1251,6 @@ func (client *TagClient) listByOperationCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter operationID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{operationId}", url.PathEscape(operationID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -1320,7 +1266,7 @@ func (client *TagClient) listByOperationCreateRequest(ctx context.Context, resou
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1337,7 +1283,7 @@ func (client *TagClient) listByOperationHandleResponse(resp *http.Response) (Tag
 
 // NewListByProductPager - Lists all Tags associated with the Product.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -1385,9 +1331,6 @@ func (client *TagClient) listByProductCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter productID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{productId}", url.PathEscape(productID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -1403,7 +1346,7 @@ func (client *TagClient) listByProductCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1420,7 +1363,7 @@ func (client *TagClient) listByProductHandleResponse(resp *http.Response) (TagCl
 
 // NewListByServicePager - Lists a collection of tags defined within a service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - TagClientListByServiceOptions contains the optional parameters for the TagClient.NewListByServicePager method.
@@ -1463,9 +1406,6 @@ func (client *TagClient) listByServiceCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -1484,7 +1424,7 @@ func (client *TagClient) listByServiceCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Scope != nil {
 		reqQP.Set("scope", *options.Scope)
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1502,7 +1442,7 @@ func (client *TagClient) listByServiceHandleResponse(resp *http.Response) (TagCl
 // Update - Updates the details of the tag specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - tagID - Tag identifier. Must be unique in the current API Management service instance.
@@ -1543,16 +1483,13 @@ func (client *TagClient) updateCreateRequest(ctx context.Context, resourceGroupN
 		return nil, errors.New("parameter tagID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{tagId}", url.PathEscape(tagID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
