@@ -1,6 +1,6 @@
 # Release History
 
-## 2.0.0-beta.1 (2023-04-28)
+## 2.0.0 (2023-08-28)
 ### Breaking Changes
 
 - Type of `AppResourceProperties.AddonConfigs` has been changed from `map[string]map[string]any` to `map[string]any`
@@ -11,18 +11,27 @@
 
 - New value `BindingTypeCACertificates` added to enum type `BindingType`
 - New enum type `APIPortalProvisioningState` with values `APIPortalProvisioningStateCreating`, `APIPortalProvisioningStateDeleting`, `APIPortalProvisioningStateFailed`, `APIPortalProvisioningStateSucceeded`, `APIPortalProvisioningStateUpdating`
+- New enum type `ApmProvisioningState` with values `ApmProvisioningStateCanceled`, `ApmProvisioningStateCreating`, `ApmProvisioningStateDeleting`, `ApmProvisioningStateFailed`, `ApmProvisioningStateSucceeded`, `ApmProvisioningStateUpdating`
 - New enum type `ApmType` with values `ApmTypeAppDynamics`, `ApmTypeApplicationInsights`, `ApmTypeDynatrace`, `ApmTypeElasticAPM`, `ApmTypeNewRelic`
 - New enum type `ApplicationAcceleratorProvisioningState` with values `ApplicationAcceleratorProvisioningStateCreating`, `ApplicationAcceleratorProvisioningStateDeleting`, `ApplicationAcceleratorProvisioningStateFailed`, `ApplicationAcceleratorProvisioningStateSucceeded`, `ApplicationAcceleratorProvisioningStateUpdating`
 - New enum type `ApplicationLiveViewProvisioningState` with values `ApplicationLiveViewProvisioningStateCanceled`, `ApplicationLiveViewProvisioningStateCreating`, `ApplicationLiveViewProvisioningStateDeleting`, `ApplicationLiveViewProvisioningStateFailed`, `ApplicationLiveViewProvisioningStateSucceeded`, `ApplicationLiveViewProvisioningStateUpdating`
 - New enum type `BackendProtocol` with values `BackendProtocolDefault`, `BackendProtocolGRPC`
 - New enum type `CertificateResourceProvisioningState` with values `CertificateResourceProvisioningStateCreating`, `CertificateResourceProvisioningStateDeleting`, `CertificateResourceProvisioningStateFailed`, `CertificateResourceProvisioningStateSucceeded`, `CertificateResourceProvisioningStateUpdating`
+- New enum type `ConfigServerEnabledState` with values `ConfigServerEnabledStateDisabled`, `ConfigServerEnabledStateEnabled`
+- New enum type `ConfigurationServiceGeneration` with values `ConfigurationServiceGenerationGen1`, `ConfigurationServiceGenerationGen2`
+- New enum type `ContainerRegistryProvisioningState` with values `ContainerRegistryProvisioningStateCanceled`, `ContainerRegistryProvisioningStateCreating`, `ContainerRegistryProvisioningStateDeleting`, `ContainerRegistryProvisioningStateFailed`, `ContainerRegistryProvisioningStateSucceeded`, `ContainerRegistryProvisioningStateUpdating`
 - New enum type `CustomDomainResourceProvisioningState` with values `CustomDomainResourceProvisioningStateCreating`, `CustomDomainResourceProvisioningStateDeleting`, `CustomDomainResourceProvisioningStateFailed`, `CustomDomainResourceProvisioningStateSucceeded`, `CustomDomainResourceProvisioningStateUpdating`
 - New enum type `CustomizedAcceleratorProvisioningState` with values `CustomizedAcceleratorProvisioningStateCreating`, `CustomizedAcceleratorProvisioningStateDeleting`, `CustomizedAcceleratorProvisioningStateFailed`, `CustomizedAcceleratorProvisioningStateSucceeded`, `CustomizedAcceleratorProvisioningStateUpdating`
 - New enum type `CustomizedAcceleratorValidateResultState` with values `CustomizedAcceleratorValidateResultStateInvalid`, `CustomizedAcceleratorValidateResultStateValid`
 - New enum type `DevToolPortalFeatureState` with values `DevToolPortalFeatureStateDisabled`, `DevToolPortalFeatureStateEnabled`
 - New enum type `DevToolPortalProvisioningState` with values `DevToolPortalProvisioningStateCanceled`, `DevToolPortalProvisioningStateCreating`, `DevToolPortalProvisioningStateDeleting`, `DevToolPortalProvisioningStateFailed`, `DevToolPortalProvisioningStateSucceeded`, `DevToolPortalProvisioningStateUpdating`
+- New enum type `EurekaServerEnabledState` with values `EurekaServerEnabledStateDisabled`, `EurekaServerEnabledStateEnabled`
+- New enum type `EurekaServerState` with values `EurekaServerStateCanceled`, `EurekaServerStateFailed`, `EurekaServerStateSucceeded`, `EurekaServerStateUpdating`
+- New enum type `Frequency` with values `FrequencyWeekly`
+- New enum type `GatewayCertificateVerification` with values `GatewayCertificateVerificationDisabled`, `GatewayCertificateVerificationEnabled`
 - New enum type `GatewayProvisioningState` with values `GatewayProvisioningStateCreating`, `GatewayProvisioningStateDeleting`, `GatewayProvisioningStateFailed`, `GatewayProvisioningStateSucceeded`, `GatewayProvisioningStateUpdating`
 - New enum type `GatewayRouteConfigProtocol` with values `GatewayRouteConfigProtocolHTTP`, `GatewayRouteConfigProtocolHTTPS`
+- New enum type `GitImplementation` with values `GitImplementationGoGit`, `GitImplementationLibgit2`
 - New enum type `HTTPSchemeType` with values `HTTPSchemeTypeHTTP`, `HTTPSchemeTypeHTTPS`
 - New enum type `PowerState` with values `PowerStateRunning`, `PowerStateStopped`
 - New enum type `PredefinedAcceleratorProvisioningState` with values `PredefinedAcceleratorProvisioningStateCreating`, `PredefinedAcceleratorProvisioningStateFailed`, `PredefinedAcceleratorProvisioningStateSucceeded`, `PredefinedAcceleratorProvisioningStateUpdating`
@@ -31,6 +40,7 @@
 - New enum type `SessionAffinity` with values `SessionAffinityCookie`, `SessionAffinityNone`
 - New enum type `StorageType` with values `StorageTypeStorageAccount`
 - New enum type `Type` with values `TypeAzureFileVolume`
+- New enum type `WeekDay` with values `WeekDayFriday`, `WeekDayMonday`, `WeekDaySaturday`, `WeekDaySunday`, `WeekDayThursday`, `WeekDayTuesday`, `WeekDayWednesday`
 - New function `NewAPIPortalCustomDomainsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APIPortalCustomDomainsClient, error)`
 - New function `*APIPortalCustomDomainsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, APIPortalCustomDomainResource, *APIPortalCustomDomainsClientBeginCreateOrUpdateOptions) (*runtime.Poller[APIPortalCustomDomainsClientCreateOrUpdateResponse], error)`
 - New function `*APIPortalCustomDomainsClient.BeginDelete(context.Context, string, string, string, string, *APIPortalCustomDomainsClientBeginDeleteOptions) (*runtime.Poller[APIPortalCustomDomainsClientDeleteResponse], error)`
@@ -46,6 +56,12 @@
 - New function `*AcceleratorBasicAuthSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
 - New function `*AcceleratorPublicSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
 - New function `*AcceleratorSSHSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
+- New function `NewApmsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ApmsClient, error)`
+- New function `*ApmsClient.BeginCreateOrUpdate(context.Context, string, string, string, ApmResource, *ApmsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ApmsClientCreateOrUpdateResponse], error)`
+- New function `*ApmsClient.BeginDelete(context.Context, string, string, string, *ApmsClientBeginDeleteOptions) (*runtime.Poller[ApmsClientDeleteResponse], error)`
+- New function `*ApmsClient.Get(context.Context, string, string, string, *ApmsClientGetOptions) (ApmsClientGetResponse, error)`
+- New function `*ApmsClient.NewListPager(string, string, *ApmsClientListOptions) *runtime.Pager[ApmsClientListResponse]`
+- New function `*ApmsClient.ListSecretKeys(context.Context, string, string, string, *ApmsClientListSecretKeysOptions) (ApmsClientListSecretKeysResponse, error)`
 - New function `NewApplicationAcceleratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ApplicationAcceleratorsClient, error)`
 - New function `*ApplicationAcceleratorsClient.BeginCreateOrUpdate(context.Context, string, string, string, ApplicationAcceleratorResource, *ApplicationAcceleratorsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ApplicationAcceleratorsClientCreateOrUpdateResponse], error)`
 - New function `*ApplicationAcceleratorsClient.BeginDelete(context.Context, string, string, string, *ApplicationAcceleratorsClientBeginDeleteOptions) (*runtime.Poller[ApplicationAcceleratorsClientDeleteResponse], error)`
@@ -58,18 +74,32 @@
 - New function `*ApplicationLiveViewsClient.NewListPager(string, string, *ApplicationLiveViewsClientListOptions) *runtime.Pager[ApplicationLiveViewsClientListResponse]`
 - New function `*AzureFileVolume.GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties`
 - New function `*BuildServiceBuilderClient.ListDeployments(context.Context, string, string, string, string, *BuildServiceBuilderClientListDeploymentsOptions) (BuildServiceBuilderClientListDeploymentsResponse, error)`
+- New function `*BuildServiceClient.BeginCreateOrUpdate(context.Context, string, string, string, BuildService, *BuildServiceClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildServiceClientCreateOrUpdateResponse], error)`
+- New function `*BuildServiceClient.BeginDeleteBuild(context.Context, string, string, string, string, *BuildServiceClientBeginDeleteBuildOptions) (*runtime.Poller[BuildServiceClientDeleteBuildResponse], error)`
 - New function `*BuildpackBindingClient.NewListForClusterPager(string, string, *BuildpackBindingClientListForClusterOptions) *runtime.Pager[BuildpackBindingClientListForClusterResponse]`
 - New function `*ClientFactory.NewAPIPortalCustomDomainsClient() *APIPortalCustomDomainsClient`
 - New function `*ClientFactory.NewAPIPortalsClient() *APIPortalsClient`
+- New function `*ClientFactory.NewApmsClient() *ApmsClient`
 - New function `*ClientFactory.NewApplicationAcceleratorsClient() *ApplicationAcceleratorsClient`
 - New function `*ClientFactory.NewApplicationLiveViewsClient() *ApplicationLiveViewsClient`
+- New function `*ClientFactory.NewContainerRegistriesClient() *ContainerRegistriesClient`
 - New function `*ClientFactory.NewCustomizedAcceleratorsClient() *CustomizedAcceleratorsClient`
 - New function `*ClientFactory.NewDevToolPortalsClient() *DevToolPortalsClient`
+- New function `*ClientFactory.NewEurekaServersClient() *EurekaServersClient`
 - New function `*ClientFactory.NewGatewayCustomDomainsClient() *GatewayCustomDomainsClient`
 - New function `*ClientFactory.NewGatewayRouteConfigsClient() *GatewayRouteConfigsClient`
 - New function `*ClientFactory.NewGatewaysClient() *GatewaysClient`
 - New function `*ClientFactory.NewPredefinedAcceleratorsClient() *PredefinedAcceleratorsClient`
 - New function `*ClientFactory.NewStoragesClient() *StoragesClient`
+- New function `*ConfigurationServicesClient.BeginValidateResource(context.Context, string, string, string, ConfigurationServiceResource, *ConfigurationServicesClientBeginValidateResourceOptions) (*runtime.Poller[ConfigurationServicesClientValidateResourceResponse], error)`
+- New function `NewContainerRegistriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerRegistriesClient, error)`
+- New function `*ContainerRegistriesClient.BeginCreateOrUpdate(context.Context, string, string, string, ContainerRegistryResource, *ContainerRegistriesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ContainerRegistriesClientCreateOrUpdateResponse], error)`
+- New function `*ContainerRegistriesClient.BeginDelete(context.Context, string, string, string, *ContainerRegistriesClientBeginDeleteOptions) (*runtime.Poller[ContainerRegistriesClientDeleteResponse], error)`
+- New function `*ContainerRegistriesClient.Get(context.Context, string, string, string, *ContainerRegistriesClientGetOptions) (ContainerRegistriesClientGetResponse, error)`
+- New function `*ContainerRegistriesClient.NewListPager(string, string, *ContainerRegistriesClientListOptions) *runtime.Pager[ContainerRegistriesClientListResponse]`
+- New function `*ContainerRegistriesClient.BeginValidate(context.Context, string, string, string, ContainerRegistryProperties, *ContainerRegistriesClientBeginValidateOptions) (*runtime.Poller[ContainerRegistriesClientValidateResponse], error)`
+- New function `*ContainerRegistryBasicCredentials.GetContainerRegistryCredentials() *ContainerRegistryCredentials`
+- New function `*ContainerRegistryCredentials.GetContainerRegistryCredentials() *ContainerRegistryCredentials`
 - New function `*CustomContainerUserSourceInfo.GetUserSourceInfo() *UserSourceInfo`
 - New function `*CustomPersistentDiskProperties.GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties`
 - New function `NewCustomizedAcceleratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CustomizedAcceleratorsClient, error)`
@@ -86,6 +116,11 @@
 - New function `*DevToolPortalsClient.BeginDelete(context.Context, string, string, string, *DevToolPortalsClientBeginDeleteOptions) (*runtime.Poller[DevToolPortalsClientDeleteResponse], error)`
 - New function `*DevToolPortalsClient.Get(context.Context, string, string, string, *DevToolPortalsClientGetOptions) (DevToolPortalsClientGetResponse, error)`
 - New function `*DevToolPortalsClient.NewListPager(string, string, *DevToolPortalsClientListOptions) *runtime.Pager[DevToolPortalsClientListResponse]`
+- New function `NewEurekaServersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EurekaServersClient, error)`
+- New function `*EurekaServersClient.Get(context.Context, string, string, *EurekaServersClientGetOptions) (EurekaServersClientGetResponse, error)`
+- New function `*EurekaServersClient.List(context.Context, string, string, *EurekaServersClientListOptions) (EurekaServersClientListResponse, error)`
+- New function `*EurekaServersClient.BeginUpdatePatch(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePatchOptions) (*runtime.Poller[EurekaServersClientUpdatePatchResponse], error)`
+- New function `*EurekaServersClient.BeginUpdatePut(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePutOptions) (*runtime.Poller[EurekaServersClientUpdatePutResponse], error)`
 - New function `*ExecAction.GetProbeAction() *ProbeAction`
 - New function `NewGatewayCustomDomainsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GatewayCustomDomainsClient, error)`
 - New function `*GatewayCustomDomainsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, GatewayCustomDomainResource, *GatewayCustomDomainsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GatewayCustomDomainsClientCreateOrUpdateResponse], error)`
@@ -103,15 +138,22 @@
 - New function `*GatewaysClient.Get(context.Context, string, string, string, *GatewaysClientGetOptions) (GatewaysClientGetResponse, error)`
 - New function `*GatewaysClient.ListEnvSecrets(context.Context, string, string, string, *GatewaysClientListEnvSecretsOptions) (GatewaysClientListEnvSecretsResponse, error)`
 - New function `*GatewaysClient.NewListPager(string, string, *GatewaysClientListOptions) *runtime.Pager[GatewaysClientListResponse]`
+- New function `*GatewaysClient.BeginRestart(context.Context, string, string, string, *GatewaysClientBeginRestartOptions) (*runtime.Poller[GatewaysClientRestartResponse], error)`
 - New function `*GatewaysClient.BeginUpdateCapacity(context.Context, string, string, string, SKUObject, *GatewaysClientBeginUpdateCapacityOptions) (*runtime.Poller[GatewaysClientUpdateCapacityResponse], error)`
 - New function `*GatewaysClient.ValidateDomain(context.Context, string, string, string, CustomDomainValidatePayload, *GatewaysClientValidateDomainOptions) (GatewaysClientValidateDomainResponse, error)`
 - New function `*HTTPGetAction.GetProbeAction() *ProbeAction`
+- New function `*MaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
 - New function `NewPredefinedAcceleratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PredefinedAcceleratorsClient, error)`
 - New function `*PredefinedAcceleratorsClient.BeginDisable(context.Context, string, string, string, string, *PredefinedAcceleratorsClientBeginDisableOptions) (*runtime.Poller[PredefinedAcceleratorsClientDisableResponse], error)`
 - New function `*PredefinedAcceleratorsClient.BeginEnable(context.Context, string, string, string, string, *PredefinedAcceleratorsClientBeginEnableOptions) (*runtime.Poller[PredefinedAcceleratorsClientEnableResponse], error)`
 - New function `*PredefinedAcceleratorsClient.Get(context.Context, string, string, string, string, *PredefinedAcceleratorsClientGetOptions) (PredefinedAcceleratorsClientGetResponse, error)`
 - New function `*PredefinedAcceleratorsClient.NewListPager(string, string, string, *PredefinedAcceleratorsClientListOptions) *runtime.Pager[PredefinedAcceleratorsClientListResponse]`
 - New function `*ProbeAction.GetProbeAction() *ProbeAction`
+- New function `*ServicesClient.BeginDisableApmGlobally(context.Context, string, string, ApmReference, *ServicesClientBeginDisableApmGloballyOptions) (*runtime.Poller[ServicesClientDisableApmGloballyResponse], error)`
+- New function `*ServicesClient.BeginEnableApmGlobally(context.Context, string, string, ApmReference, *ServicesClientBeginEnableApmGloballyOptions) (*runtime.Poller[ServicesClientEnableApmGloballyResponse], error)`
+- New function `*ServicesClient.BeginFlushVnetDNSSetting(context.Context, string, string, *ServicesClientBeginFlushVnetDNSSettingOptions) (*runtime.Poller[ServicesClientFlushVnetDNSSettingResponse], error)`
+- New function `*ServicesClient.ListGloballyEnabledApms(context.Context, string, string, *ServicesClientListGloballyEnabledApmsOptions) (ServicesClientListGloballyEnabledApmsResponse, error)`
+- New function `*ServicesClient.NewListSupportedApmTypesPager(string, string, *ServicesClientListSupportedApmTypesOptions) *runtime.Pager[ServicesClientListSupportedApmTypesResponse]`
 - New function `*ServicesClient.BeginStart(context.Context, string, string, *ServicesClientBeginStartOptions) (*runtime.Poller[ServicesClientStartResponse], error)`
 - New function `*ServicesClient.BeginStop(context.Context, string, string, *ServicesClientBeginStopOptions) (*runtime.Poller[ServicesClientStopResponse], error)`
 - New function `*StorageAccount.GetStorageProperties() *StorageProperties`
@@ -122,6 +164,7 @@
 - New function `*StoragesClient.Get(context.Context, string, string, string, *StoragesClientGetOptions) (StoragesClientGetResponse, error)`
 - New function `*StoragesClient.NewListPager(string, string, *StoragesClientListOptions) *runtime.Pager[StoragesClientListResponse]`
 - New function `*TCPSocketAction.GetProbeAction() *ProbeAction`
+- New function `*WeeklyMaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
 - New struct `APIPortalCustomDomainProperties`
 - New struct `APIPortalCustomDomainResource`
 - New struct `APIPortalCustomDomainResourceCollection`
@@ -134,6 +177,11 @@
 - New struct `AcceleratorGitRepository`
 - New struct `AcceleratorPublicSetting`
 - New struct `AcceleratorSSHSetting`
+- New struct `ApmProperties`
+- New struct `ApmReference`
+- New struct `ApmResource`
+- New struct `ApmResourceCollection`
+- New struct `ApmSecretKeys`
 - New struct `AppVNetAddons`
 - New struct `ApplicationAcceleratorComponent`
 - New struct `ApplicationAcceleratorInstance`
@@ -149,7 +197,13 @@
 - New struct `ApplicationLiveViewResourceRequests`
 - New struct `AzureFileVolume`
 - New struct `BuildResourceRequests`
+- New struct `CertificateReference`
 - New struct `ContainerProbeSettings`
+- New struct `ContainerRegistryBasicCredentials`
+- New struct `ContainerRegistryProperties`
+- New struct `ContainerRegistryResource`
+- New struct `ContainerRegistryResourceCollection`
+- New struct `ContainerRegistryValidateResult`
 - New struct `CustomContainer`
 - New struct `CustomContainerUserSourceInfo`
 - New struct `CustomPersistentDiskResource`
@@ -159,6 +213,7 @@
 - New struct `CustomizedAcceleratorResourceCollection`
 - New struct `CustomizedAcceleratorValidateResult`
 - New struct `DeploymentList`
+- New struct `DevToolPortalComponent`
 - New struct `DevToolPortalFeatureDetail`
 - New struct `DevToolPortalFeatureSettings`
 - New struct `DevToolPortalInstance`
@@ -167,6 +222,9 @@
 - New struct `DevToolPortalResourceCollection`
 - New struct `DevToolPortalResourceRequests`
 - New struct `DevToolPortalSsoProperties`
+- New struct `EurekaServerProperties`
+- New struct `EurekaServerResource`
+- New struct `EurekaServerResourceCollection`
 - New struct `ExecAction`
 - New struct `GatewayAPIMetadataProperties`
 - New struct `GatewayAPIRoute`
@@ -178,6 +236,7 @@
 - New struct `GatewayOperatorProperties`
 - New struct `GatewayOperatorResourceRequests`
 - New struct `GatewayProperties`
+- New struct `GatewayPropertiesClientAuth`
 - New struct `GatewayPropertiesEnvironmentVariables`
 - New struct `GatewayResource`
 - New struct `GatewayResourceCollection`
@@ -186,6 +245,7 @@
 - New struct `GatewayRouteConfigProperties`
 - New struct `GatewayRouteConfigResource`
 - New struct `GatewayRouteConfigResourceCollection`
+- New struct `GloballyEnabledApms`
 - New struct `HTTPGetAction`
 - New struct `HTTPScaleRule`
 - New struct `ImageRegistryCredential`
@@ -210,35 +270,28 @@
 - New struct `StorageAccount`
 - New struct `StorageResource`
 - New struct `StorageResourceCollection`
+- New struct `SupportedApmType`
+- New struct `SupportedApmTypes`
 - New struct `TCPScaleRule`
 - New struct `TCPSocketAction`
 - New struct `UserAssignedManagedIdentity`
-- New field `CustomPersistentDisks` in struct `AppResourceProperties`
-- New field `IngressSettings` in struct `AppResourceProperties`
-- New field `Secrets` in struct `AppResourceProperties`
-- New field `VnetAddons` in struct `AppResourceProperties`
-- New field `ResourceRequests` in struct `BuildProperties`
-- New field `Error` in struct `BuildResultProperties`
-- New field `ExitCode` in struct `BuildStageProperties`
-- New field `Reason` in struct `BuildStageProperties`
+- New struct `WeeklyMaintenanceScheduleConfiguration`
+- New field `CustomPersistentDisks`, `IngressSettings`, `Secrets`, `VnetAddons`, `WorkloadProfileName` in struct `AppResourceProperties`
+- New field `Apms`, `Certificates`, `ResourceRequests` in struct `BuildProperties`
+- New field `Error`, `Image` in struct `BuildResultProperties`
+- New field `ContainerRegistry` in struct `BuildServiceProperties`
+- New field `ExitCode`, `Reason` in struct `BuildStageProperties`
 - New field `ProvisioningState` in struct `CertificateProperties`
-- New field `InfraResourceGroup` in struct `ClusterResourceProperties`
-- New field `ManagedEnvironmentID` in struct `ClusterResourceProperties`
-- New field `MarketplaceResource` in struct `ClusterResourceProperties`
-- New field `PowerState` in struct `ClusterResourceProperties`
-- New field `VnetAddons` in struct `ClusterResourceProperties`
+- New field `InfraResourceGroup`, `MaintenanceScheduleConfiguration`, `ManagedEnvironmentID`, `MarketplaceResource`, `PowerState`, `VnetAddons` in struct `ClusterResourceProperties`
+- New field `EnabledState` in struct `ConfigServerProperties`
+- New field `CaCertResourceID`, `GitImplementation` in struct `ConfigurationServiceGitRepository`
+- New field `Generation` in struct `ConfigurationServiceProperties`
 - New field `ProvisioningState` in struct `ContentCertificateProperties`
 - New field `ProvisioningState` in struct `CustomDomainProperties`
-- New field `ContainerProbeSettings` in struct `DeploymentSettings`
-- New field `LivenessProbe` in struct `DeploymentSettings`
-- New field `ReadinessProbe` in struct `DeploymentSettings`
-- New field `Scale` in struct `DeploymentSettings`
-- New field `StartupProbe` in struct `DeploymentSettings`
-- New field `TerminationGracePeriodSeconds` in struct `DeploymentSettings`
+- New field `Apms`, `ContainerProbeSettings`, `LivenessProbe`, `ReadinessProbe`, `Scale`, `StartupProbe`, `TerminationGracePeriodSeconds` in struct `DeploymentSettings`
 - New field `ProvisioningState` in struct `KeyVaultCertificateProperties`
 - New field `UserAssignedIdentities` in struct `ManagedIdentityProperties`
-- New field `IngressConfig` in struct `NetworkProfile`
-- New field `OutboundType` in struct `NetworkProfile`
+- New field `IngressConfig`, `OutboundType` in struct `NetworkProfile`
 
 
 ## 1.1.0 (2023-04-06)
