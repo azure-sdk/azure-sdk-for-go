@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // AccessMode - Access mode for storage

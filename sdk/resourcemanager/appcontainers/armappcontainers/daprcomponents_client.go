@@ -46,7 +46,7 @@ func NewDaprComponentsClient(subscriptionID string, credential azcore.TokenCrede
 // CreateOrUpdate - Creates or updates a Dapr Component in a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -95,7 +95,7 @@ func (client *DaprComponentsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, daprComponentEnvelope); err != nil {
@@ -116,7 +116,7 @@ func (client *DaprComponentsClient) createOrUpdateHandleResponse(resp *http.Resp
 // Delete - Delete a Dapr Component from a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -162,7 +162,7 @@ func (client *DaprComponentsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,7 +171,7 @@ func (client *DaprComponentsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Get a dapr component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -218,7 +218,7 @@ func (client *DaprComponentsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -235,7 +235,7 @@ func (client *DaprComponentsClient) getHandleResponse(resp *http.Response) (Dapr
 
 // NewListPager - Get the Dapr Components for a managed environment.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - DaprComponentsClientListOptions contains the optional parameters for the DaprComponentsClient.NewListPager method.
@@ -287,7 +287,7 @@ func (client *DaprComponentsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -305,7 +305,7 @@ func (client *DaprComponentsClient) listHandleResponse(resp *http.Response) (Dap
 // ListSecrets - List secrets for a dapr component
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -353,7 +353,7 @@ func (client *DaprComponentsClient) listSecretsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

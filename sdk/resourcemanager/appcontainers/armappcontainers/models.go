@@ -25,6 +25,12 @@ type AllowedPrincipals struct {
 	Identities []*string
 }
 
+// AppInsightsConfiguration - Configuration of Application Insights
+type AppInsightsConfiguration struct {
+	// Application Insights connection string
+	ConnectionString *string
+}
+
 // AppLogsConfiguration - Configuration of application logs
 type AppLogsConfiguration struct {
 	// Logs destination, can be 'log-analytics', 'azure-monitor' or 'none'
@@ -93,6 +99,9 @@ type AuthConfigCollection struct {
 
 // AuthConfigProperties - AuthConfig resource specific properties
 type AuthConfigProperties struct {
+	// The configuration settings of the secrets references of encryption key and signing key for ContainerApp Service Authentication/Authorization.
+	EncryptionSettings *EncryptionSettings
+
 	// The configuration settings that determines the validation flow of users using Service Authentication/Authorization.
 	GlobalValidation *GlobalValidation
 
@@ -361,6 +370,12 @@ type BillingMeterProperties struct {
 
 	// Billing meter type.
 	MeterType *string
+}
+
+// BlobStorageTokenStore - The configuration settings of the storage of the tokens if blob storage is used.
+type BlobStorageTokenStore struct {
+	// REQUIRED; The name of the app secrets containing the SAS URL of the blob storage containing the tokens.
+	SasURLSettingName *string
 }
 
 // Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
@@ -1111,6 +1126,15 @@ type DaprSecretsCollection struct {
 	Value []*DaprSecret
 }
 
+// DataDogConfiguration - Configuration of datadog
+type DataDogConfiguration struct {
+	// The data dog api key
+	Key *string
+
+	// The data dog site
+	Site *string
+}
+
 // DefaultAuthorizationPolicy - The configuration settings of the Azure Active Directory default authorization policy.
 type DefaultAuthorizationPolicy struct {
 	// The configuration settings of the Azure Active Directory allowed applications.
@@ -1154,6 +1178,12 @@ type DefaultErrorResponseErrorDetailsItem struct {
 
 	// READ-ONLY; Detailed error description and debugging information.
 	Target *string
+}
+
+// DestinationsConfiguration - Configuration of Open Telemetry destinations
+type DestinationsConfiguration struct {
+	// Open telemetry datadog destination configuration
+	DataDogConfiguration *DataDogConfiguration
 }
 
 // DiagnosticDataProviderMetadata - Details of a diagnostics data provider
@@ -1310,6 +1340,16 @@ type DiagnosticsStatus struct {
 
 	// Status
 	StatusID *int32
+}
+
+// EncryptionSettings - The configuration settings of the secrets references of encryption key and signing key for ContainerApp
+// Service Authentication/Authorization.
+type EncryptionSettings struct {
+	// The secret name which is referenced for EncryptionKey.
+	ContainerAppAuthEncryptionSecretName *string
+
+	// The secret name which is referenced for SigningKey.
+	ContainerAppAuthSigningSecretName *string
 }
 
 // EnvironmentAuthToken - Environment Auth Token.
@@ -1572,6 +1612,9 @@ type IdentityProviders struct {
 
 // Ingress - Container App Ingress configuration.
 type Ingress struct {
+	// Settings to expose additional ports on container app
+	AdditionalPortMappings []*IngressPortMapping
+
 	// Bool indicating if HTTP connections to is allowed. If set to false HTTP connections are automatically redirected to HTTPS
 	// connections
 	AllowInsecure *bool
@@ -1610,6 +1653,18 @@ type Ingress struct {
 
 	// READ-ONLY; Hostname.
 	Fqdn *string
+}
+
+// IngressPortMapping - Port mappings of container app ingress
+type IngressPortMapping struct {
+	// REQUIRED; Specifies whether the app port is accessible outside of the environment
+	External *bool
+
+	// REQUIRED; Specifies the port user's container listens on
+	TargetPort *int32
+
+	// Specifies the exposed port for the target port. If not specified, it defaults to target port
+	ExposedPort *int32
 }
 
 // IngressStickySessions - Sticky Sessions for Single Revision Mode
@@ -1928,6 +1983,15 @@ type KedaConfiguration struct {
 	Version *string
 }
 
+type ListUsagesResult struct {
+	// The URI to fetch the next page of compute resource usage information. Call ListNext() with this to fetch the next page
+	// of compute resource usage information.
+	NextLink *string
+
+	// The list of compute resource usages.
+	Value []*Usage
+}
+
 // LogAnalyticsConfiguration - Log Analytics configuration, must only be provided when destination is configured as 'log-analytics'
 type LogAnalyticsConfiguration struct {
 	// Log analytics customer id
@@ -1955,6 +2019,9 @@ type Login struct {
 
 	// The routes that specify the endpoints used for login and logout requests.
 	Routes *LoginRoutes
+
+	// The configuration settings of the token store.
+	TokenStore *TokenStore
 }
 
 // LoginRoutes - The routes that specify the endpoints used for login and logout requests.
@@ -1967,6 +2034,12 @@ type LoginRoutes struct {
 type LoginScopes struct {
 	// A list of the scopes that should be requested while authenticating.
 	Scopes []*string
+}
+
+// LogsConfiguration - Configuration of Open Telemetry logs
+type LogsConfiguration struct {
+	// Open telemetry logs destinations
+	Destinations []*string
 }
 
 // ManagedCertificate - Managed certificates used for Custom Domain bindings of Container Apps in a Managed Environment
@@ -2055,6 +2128,9 @@ type ManagedEnvironment struct {
 
 // ManagedEnvironmentProperties - Managed environment resource specific properties
 type ManagedEnvironmentProperties struct {
+	// Environment level Application Insights configuration
+	AppInsightsConfiguration *AppInsightsConfiguration
+
 	// Cluster configuration which enables the log daemon to export app logs to a destination. Currently only "log-analytics"
 	// is supported
 	AppLogsConfiguration *AppLogsConfiguration
@@ -2078,6 +2154,9 @@ type ManagedEnvironmentProperties struct {
 
 	// The configuration of Keda component.
 	KedaConfiguration *KedaConfiguration
+
+	// Environment Open Telemetry configuration
+	OpenTelemetryConfiguration *OpenTelemetryConfiguration
 
 	// Peer authentication settings for the Managed Environment
 	PeerAuthentication *ManagedEnvironmentPropertiesPeerAuthentication
@@ -2172,6 +2251,12 @@ type ManagedServiceIdentity struct {
 	TenantID *string
 }
 
+// MetricsConfiguration - Configuration of Open Telemetry metrics
+type MetricsConfiguration struct {
+	// Open telemetry metrics destinations
+	Destinations []*string
+}
+
 // Mtls - Configuration properties for mutual TLS authentication
 type Mtls struct {
 	// Boolean indicating whether the mutual TLS authentication is enabled
@@ -2233,6 +2318,21 @@ type OpenIDConnectRegistration struct {
 
 	// The configuration settings of the endpoints used for the custom Open ID Connect provider.
 	OpenIDConnectConfiguration *OpenIDConnectConfig
+}
+
+// OpenTelemetryConfiguration - Configuration of Open Telemetry
+type OpenTelemetryConfiguration struct {
+	// Open telemetry destinations configuration
+	DestinationsConfiguration *DestinationsConfiguration
+
+	// Open telemetry logs configuration
+	LogsConfiguration *LogsConfiguration
+
+	// Open telemetry metrics configuration
+	MetricsConfiguration *MetricsConfiguration
+
+	// Open telemetry trace configuration
+	TracesConfiguration *TracesConfiguration
 }
 
 // OperationDetail - Operation detail payload
@@ -2657,6 +2757,26 @@ type Template struct {
 	Volumes []*Volume
 }
 
+// TokenStore - The configuration settings of the token store.
+type TokenStore struct {
+	// The configuration settings of the storage of the tokens if blob storage is used.
+	AzureBlobStorage *BlobStorageTokenStore
+
+	// true to durably store platform-specific security tokens that are obtained during login flows; otherwise, false. The default
+	// is false.
+	Enabled *bool
+
+	// The number of hours after session token expiration that a session token can be used to call the token refresh API. The
+	// default is 72 hours.
+	TokenRefreshExtensionHours *float64
+}
+
+// TracesConfiguration - Configuration of Open Telemetry traces
+type TracesConfiguration struct {
+	// Open telemetry traces destinations
+	Destinations []*string
+}
+
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
@@ -2711,6 +2831,30 @@ type TwitterRegistration struct {
 
 	// The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in.
 	ConsumerSecretSettingName *string
+}
+
+// Usage - Describes Compute Resource Usage.
+type Usage struct {
+	// REQUIRED; The current usage of the resource.
+	CurrentValue *int32
+
+	// REQUIRED; The maximum permitted usage of the resource.
+	Limit *int64
+
+	// REQUIRED; The name of the type of usage.
+	Name *UsageName
+
+	// REQUIRED; An enum describing the unit of usage measurement.
+	Unit *string
+}
+
+// UsageName - The Usage Names.
+type UsageName struct {
+	// The localized name of the resource.
+	LocalizedValue *string
+
+	// The name of the resource.
+	Value *string
 }
 
 // UserAssignedIdentity - User assigned identity properties
