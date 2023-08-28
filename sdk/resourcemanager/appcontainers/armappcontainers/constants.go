@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // AccessMode - Access mode for storage
@@ -146,6 +146,22 @@ func PossibleCertificateProvisioningStateValues() []CertificateProvisioningState
 		CertificateProvisioningStateFailed,
 		CertificateProvisioningStatePending,
 		CertificateProvisioningStateSucceeded,
+	}
+}
+
+// CertificateType - The type of the certificate. Allowed values are ServerSSLCertificate and ImagePullTrustedCA
+type CertificateType string
+
+const (
+	CertificateTypeImagePullTrustedCA   CertificateType = "ImagePullTrustedCA"
+	CertificateTypeServerSSLCertificate CertificateType = "ServerSSLCertificate"
+)
+
+// PossibleCertificateTypeValues returns the possible values for the CertificateType const type.
+func PossibleCertificateTypeValues() []CertificateType {
+	return []CertificateType{
+		CertificateTypeImagePullTrustedCA,
+		CertificateTypeServerSSLCertificate,
 	}
 }
 

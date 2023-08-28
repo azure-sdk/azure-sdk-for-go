@@ -1,5 +1,29 @@
 # Release History
 
+## 2.1.0-beta.1 (2023-08-28)
+### Features Added
+
+- New enum type `CertificateType` with values `CertificateTypeImagePullTrustedCA`, `CertificateTypeServerSSLCertificate`
+- New function `*ClientFactory.NewManagedEnvironmentUsagesClient() *ManagedEnvironmentUsagesClient`
+- New function `*ClientFactory.NewUsagesClient() *UsagesClient`
+- New function `*ContainerAppsAPIClient.GetCustomDomainVerificationID(context.Context, *ContainerAppsAPIClientGetCustomDomainVerificationIDOptions) (ContainerAppsAPIClientGetCustomDomainVerificationIDResponse, error)`
+- New function `NewManagedEnvironmentUsagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedEnvironmentUsagesClient, error)`
+- New function `*ManagedEnvironmentUsagesClient.NewListPager(string, string, *ManagedEnvironmentUsagesClientListOptions) *runtime.Pager[ManagedEnvironmentUsagesClientListResponse]`
+- New function `NewUsagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UsagesClient, error)`
+- New function `*UsagesClient.NewListPager(string, *UsagesClientListOptions) *runtime.Pager[UsagesClientListResponse]`
+- New struct `BlobStorageTokenStore`
+- New struct `EncryptionSettings`
+- New struct `IngressPortMapping`
+- New struct `ListUsagesResult`
+- New struct `TokenStore`
+- New struct `Usage`
+- New struct `UsageName`
+- New field `EncryptionSettings` in struct `AuthConfigProperties`
+- New field `Type` in struct `CertificateProperties`
+- New field `AdditionalPortMappings` in struct `Ingress`
+- New field `TokenStore` in struct `Login`
+
+
 ## 2.0.0 (2023-08-25)
 ### Breaking Changes
 

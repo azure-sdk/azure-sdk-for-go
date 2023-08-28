@@ -172,6 +172,12 @@ type ConnectedEnvironmentsStoragesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ContainerAppsAPIClientGetCustomDomainVerificationIDOptions contains the optional parameters for the ContainerAppsAPIClient.GetCustomDomainVerificationID
+// method.
+type ContainerAppsAPIClientGetCustomDomainVerificationIDOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ContainerAppsAPIClientJobExecutionOptions contains the optional parameters for the ContainerAppsAPIClient.JobExecution
 // method.
 type ContainerAppsAPIClientJobExecutionOptions struct {
@@ -500,6 +506,12 @@ type ManagedEnvironmentDiagnosticsClientListDetectorsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedEnvironmentUsagesClientListOptions contains the optional parameters for the ManagedEnvironmentUsagesClient.NewListPager
+// method.
+type ManagedEnvironmentUsagesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedEnvironmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedEnvironmentsClient.BeginCreateOrUpdate
 // method.
 type ManagedEnvironmentsClientBeginCreateOrUpdateOptions struct {
@@ -588,5 +600,10 @@ type NamespacesClientCheckNameAvailabilityOptions struct {
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UsagesClientListOptions contains the optional parameters for the UsagesClient.NewListPager method.
+type UsagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
