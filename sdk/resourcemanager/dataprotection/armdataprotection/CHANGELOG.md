@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0 (2023-08-29)
+### Breaking Changes
+
+- Type of `BaseResourceProperties.ObjectType` has been changed from `*string` to `*ResourcePropertiesObjectType`
+
+### Features Added
+
+- New enum type `ResourcePropertiesObjectType` with values `ResourcePropertiesObjectTypeDefaultResourceProperties`
+- New function `*DefaultResourceProperties.GetBaseResourceProperties() *BaseResourceProperties`
+- New struct `DefaultResourceProperties`
+
+
 ## 2.3.0 (2023-07-28)
 ### Features Added
 
