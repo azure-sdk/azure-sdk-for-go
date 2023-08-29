@@ -101,6 +101,26 @@ type ApplicationProfile struct {
 	GalleryApplications []*VMGalleryApplication
 }
 
+// AttachDataDisk - Describes the data disk to be attached.
+type AttachDataDisk struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// The logical unit number of the data disk. This value is used to identify data disks within the VM and therefore must be
+	// unique for each data disk attached to a VM. If not specified, lun would be auto
+	// assigned.
+	Lun *int32
+}
+
+// AttachDetachDataDisksRequest - Specifies the input for attaching and detaching a list of managed data disks.
+type AttachDetachDataDisksRequest struct {
+	// The list of managed data disks to be attached.
+	AttachDataDisks []*AttachDataDisk
+
+	// The list of managed data disks to be detached.
+	DetachDataDisks []*DetachDataDisk
+}
+
 // AutomaticOSUpgradePolicy - The configuration parameters used for performing automatic OS upgrade.
 type AutomaticOSUpgradePolicy struct {
 	// Whether OS image rollback feature should be disabled. Default value is false.
@@ -1298,6 +1318,15 @@ type DedicatedHostUpdate struct {
 
 	// Resource tags
 	Tags map[string]*string
+}
+
+// DetachDataDisk - Describes the data disk to be detached.
+type DetachDataDisk struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// Supported options available for Detach of a disk from a VM. Refer to DetachOption object reference for more details.
+	DetachOption *DiskDetachOptionTypes
 }
 
 // DiagnosticsProfile - Specifies the boot diagnostic settings state. Minimum api-version: 2015-06-15.
@@ -2676,9 +2705,6 @@ type GrantAccessData struct {
 
 	// REQUIRED; Time duration in seconds until the SAS access expires.
 	DurationInSeconds *int32
-
-	// Used to specify the file format when making request for SAS on a VHDX file format snapshot
-	FileFormat *FileFormat
 
 	// Set this flag to true to get additional SAS for VM guest state
 	GetSecureVMGuestStateSAS *bool

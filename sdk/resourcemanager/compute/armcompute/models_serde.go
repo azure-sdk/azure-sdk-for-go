@@ -279,6 +279,68 @@ func (a *ApplicationProfile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AttachDataDisk.
+func (a AttachDataDisk) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "diskId", a.DiskID)
+	populate(objectMap, "lun", a.Lun)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AttachDataDisk.
+func (a *AttachDataDisk) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "diskId":
+			err = unpopulate(val, "DiskID", &a.DiskID)
+			delete(rawMsg, key)
+		case "lun":
+			err = unpopulate(val, "Lun", &a.Lun)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AttachDetachDataDisksRequest.
+func (a AttachDetachDataDisksRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "attachDataDisks", a.AttachDataDisks)
+	populate(objectMap, "detachDataDisks", a.DetachDataDisks)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AttachDetachDataDisksRequest.
+func (a *AttachDetachDataDisksRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "attachDataDisks":
+			err = unpopulate(val, "AttachDataDisks", &a.AttachDataDisks)
+			delete(rawMsg, key)
+		case "detachDataDisks":
+			err = unpopulate(val, "DetachDataDisks", &a.DetachDataDisks)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AutomaticOSUpgradePolicy.
 func (a AutomaticOSUpgradePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2998,6 +3060,37 @@ func (d *DedicatedHostUpdate) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &d.Tags)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DetachDataDisk.
+func (d DetachDataDisk) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "detachOption", d.DetachOption)
+	populate(objectMap, "diskId", d.DiskID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DetachDataDisk.
+func (d *DetachDataDisk) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "detachOption":
+			err = unpopulate(val, "DetachOption", &d.DetachOption)
+			delete(rawMsg, key)
+		case "diskId":
+			err = unpopulate(val, "DiskID", &d.DiskID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -6233,7 +6326,6 @@ func (g GrantAccessData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "access", g.Access)
 	populate(objectMap, "durationInSeconds", g.DurationInSeconds)
-	populate(objectMap, "fileFormat", g.FileFormat)
 	populate(objectMap, "getSecureVMGuestStateSAS", g.GetSecureVMGuestStateSAS)
 	return json.Marshal(objectMap)
 }
@@ -6252,9 +6344,6 @@ func (g *GrantAccessData) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "durationInSeconds":
 			err = unpopulate(val, "DurationInSeconds", &g.DurationInSeconds)
-			delete(rawMsg, key)
-		case "fileFormat":
-			err = unpopulate(val, "FileFormat", &g.FileFormat)
 			delete(rawMsg, key)
 		case "getSecureVMGuestStateSAS":
 			err = unpopulate(val, "GetSecureVMGuestStateSAS", &g.GetSecureVMGuestStateSAS)
