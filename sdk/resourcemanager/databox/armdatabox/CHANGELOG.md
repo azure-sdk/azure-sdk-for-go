@@ -1,5 +1,15 @@
 # Release History
 
+## 2.1.0 (2023-08-29)
+### Features Added
+
+- New enum type `DelayNotificationStatus` with values `DelayNotificationStatusActive`, `DelayNotificationStatusResolved`
+- New enum type `PortalDelayErrorCode` with values `PortalDelayErrorCodeActiveOrderLimitBreachedDelay`, `PortalDelayErrorCodeInternalIssueDelay`
+- New struct `JobDelayDetails`
+- New field `DelayedStage` in struct `JobProperties`
+- New field `DelayInformation` in struct `JobStages`
+
+
 ## 2.0.0 (2023-05-26)
 ### Breaking Changes
 
