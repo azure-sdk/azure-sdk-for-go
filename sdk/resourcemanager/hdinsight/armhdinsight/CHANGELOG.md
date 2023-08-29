@@ -1,5 +1,12 @@
 # Release History
 
+## 1.2.0-beta.2 (2023-08-29)
+### Features Added
+
+- New enum type `OutboundDependenciesManagedType` with values `OutboundDependenciesManagedTypeExternal`, `OutboundDependenciesManagedTypeManaged`
+- New field `OutboundDependenciesManagedType` in struct `NetworkProperties`
+
+
 ## 1.2.0-beta.1 (2023-07-28)
 ### Features Added
 
