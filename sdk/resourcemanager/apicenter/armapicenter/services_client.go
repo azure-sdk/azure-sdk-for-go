@@ -25,22 +25,19 @@ import (
 type ServicesClient struct {
 	internal       *arm.Client
 	subscriptionID string
-	serviceName    string
 }
 
 // NewServicesClient creates a new instance of ServicesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
-//   - serviceName - Service name
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewServicesClient(subscriptionID string, serviceName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServicesClient, error) {
+func NewServicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServicesClient, error) {
 	cl, err := arm.NewClient(moduleName+".ServicesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &ServicesClient{
 		subscriptionID: subscriptionID,
-		serviceName:    serviceName,
 		internal:       cl,
 	}
 	return client, nil
@@ -51,11 +48,12 @@ func NewServicesClient(subscriptionID string, serviceName string, credential azc
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - Service name
 //   - resource - The service entity.
 //   - options - ServicesClientCreateOrUpdateOptions contains the optional parameters for the ServicesClient.CreateOrUpdate method.
-func (client *ServicesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, resource Service, options *ServicesClientCreateOrUpdateOptions) (ServicesClientCreateOrUpdateResponse, error) {
+func (client *ServicesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, resource Service, options *ServicesClientCreateOrUpdateOptions) (ServicesClientCreateOrUpdateResponse, error) {
 	var err error
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, resource, options)
 	if err != nil {
 		return ServicesClientCreateOrUpdateResponse{}, err
 	}
@@ -72,7 +70,7 @@ func (client *ServicesClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, resource Service, options *ServicesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, resource Service, options *ServicesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -82,10 +80,10 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.serviceName == "" {
-		return nil, errors.New("parameter client.serviceName cannot be empty")
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(client.serviceName))
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -114,10 +112,11 @@ func (client *ServicesClient) createOrUpdateHandleResponse(resp *http.Response) 
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - Service name
 //   - options - ServicesClientDeleteOptions contains the optional parameters for the ServicesClient.Delete method.
-func (client *ServicesClient) Delete(ctx context.Context, resourceGroupName string, options *ServicesClientDeleteOptions) (ServicesClientDeleteResponse, error) {
+func (client *ServicesClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, options *ServicesClientDeleteOptions) (ServicesClientDeleteResponse, error) {
 	var err error
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, options)
 	if err != nil {
 		return ServicesClientDeleteResponse{}, err
 	}
@@ -133,7 +132,7 @@ func (client *ServicesClient) Delete(ctx context.Context, resourceGroupName stri
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, options *ServicesClientDeleteOptions) (*policy.Request, error) {
+func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *ServicesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -143,10 +142,10 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.serviceName == "" {
-		return nil, errors.New("parameter client.serviceName cannot be empty")
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(client.serviceName))
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -163,10 +162,11 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - Service name
 //   - options - ServicesClientGetOptions contains the optional parameters for the ServicesClient.Get method.
-func (client *ServicesClient) Get(ctx context.Context, resourceGroupName string, options *ServicesClientGetOptions) (ServicesClientGetResponse, error) {
+func (client *ServicesClient) Get(ctx context.Context, resourceGroupName string, serviceName string, options *ServicesClientGetOptions) (ServicesClientGetResponse, error) {
 	var err error
-	req, err := client.getCreateRequest(ctx, resourceGroupName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, options)
 	if err != nil {
 		return ServicesClientGetResponse{}, err
 	}
@@ -183,7 +183,7 @@ func (client *ServicesClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // getCreateRequest creates the Get request.
-func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGroupName string, options *ServicesClientGetOptions) (*policy.Request, error) {
+func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *ServicesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -193,10 +193,10 @@ func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.serviceName == "" {
-		return nil, errors.New("parameter client.serviceName cannot be empty")
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(client.serviceName))
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -347,11 +347,12 @@ func (client *ServicesClient) listBySubscriptionHandleResponse(resp *http.Respon
 //
 // Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - Service name
 //   - parameters - The service properties to be updated.
 //   - options - ServicesClientUpdateOptions contains the optional parameters for the ServicesClient.Update method.
-func (client *ServicesClient) Update(ctx context.Context, resourceGroupName string, parameters ServiceUpdate, options *ServicesClientUpdateOptions) (ServicesClientUpdateResponse, error) {
+func (client *ServicesClient) Update(ctx context.Context, resourceGroupName string, serviceName string, parameters ServiceUpdate, options *ServicesClientUpdateOptions) (ServicesClientUpdateResponse, error) {
 	var err error
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, parameters, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, serviceName, parameters, options)
 	if err != nil {
 		return ServicesClientUpdateResponse{}, err
 	}
@@ -368,7 +369,7 @@ func (client *ServicesClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, parameters ServiceUpdate, options *ServicesClientUpdateOptions) (*policy.Request, error) {
+func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, parameters ServiceUpdate, options *ServicesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -378,10 +379,10 @@ func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.serviceName == "" {
-		return nil, errors.New("parameter client.serviceName cannot be empty")
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(client.serviceName))
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
