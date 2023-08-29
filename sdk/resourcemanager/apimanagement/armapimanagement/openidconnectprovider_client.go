@@ -29,7 +29,7 @@ type OpenIDConnectProviderClient struct {
 }
 
 // NewOpenIDConnectProviderClient creates a new instance of OpenIDConnectProviderClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewOpenIDConnectProviderClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OpenIDConnectProviderClient, error) {
@@ -47,7 +47,7 @@ func NewOpenIDConnectProviderClient(subscriptionID string, credential azcore.Tok
 // CreateOrUpdate - Creates or updates the OpenID Connect Provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - opid - Identifier of the OpenID Connect Provider.
@@ -87,16 +87,13 @@ func (client *OpenIDConnectProviderClient) createOrUpdateCreateRequest(ctx conte
 		return nil, errors.New("parameter opid cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{opid}", url.PathEscape(opid))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -123,7 +120,7 @@ func (client *OpenIDConnectProviderClient) createOrUpdateHandleResponse(resp *ht
 // Delete - Deletes specific OpenID Connect Provider of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - opid - Identifier of the OpenID Connect Provider.
@@ -163,16 +160,13 @@ func (client *OpenIDConnectProviderClient) deleteCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter opid cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{opid}", url.PathEscape(opid))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -182,7 +176,7 @@ func (client *OpenIDConnectProviderClient) deleteCreateRequest(ctx context.Conte
 // Get - Gets specific OpenID Connect Provider without secrets.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - opid - Identifier of the OpenID Connect Provider.
@@ -221,16 +215,13 @@ func (client *OpenIDConnectProviderClient) getCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter opid cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{opid}", url.PathEscape(opid))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +241,7 @@ func (client *OpenIDConnectProviderClient) getHandleResponse(resp *http.Response
 
 // GetEntityTag - Gets the entity state (Etag) version of the openIdConnectProvider specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - opid - Identifier of the OpenID Connect Provider.
@@ -289,16 +280,13 @@ func (client *OpenIDConnectProviderClient) getEntityTagCreateRequest(ctx context
 		return nil, errors.New("parameter opid cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{opid}", url.PathEscape(opid))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,7 +304,7 @@ func (client *OpenIDConnectProviderClient) getEntityTagHandleResponse(resp *http
 
 // NewListByServicePager - Lists of all the OpenId Connect Providers.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - OpenIDConnectProviderClientListByServiceOptions contains the optional parameters for the OpenIDConnectProviderClient.NewListByServicePager
@@ -360,9 +348,6 @@ func (client *OpenIDConnectProviderClient) listByServiceCreateRequest(ctx contex
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -378,7 +363,7 @@ func (client *OpenIDConnectProviderClient) listByServiceCreateRequest(ctx contex
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -396,7 +381,7 @@ func (client *OpenIDConnectProviderClient) listByServiceHandleResponse(resp *htt
 // ListSecrets - Gets the client secret details of the OpenID Connect Provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - opid - Identifier of the OpenID Connect Provider.
@@ -435,16 +420,13 @@ func (client *OpenIDConnectProviderClient) listSecretsCreateRequest(ctx context.
 		return nil, errors.New("parameter opid cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{opid}", url.PathEscape(opid))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -465,7 +447,7 @@ func (client *OpenIDConnectProviderClient) listSecretsHandleResponse(resp *http.
 // Update - Updates the specific OpenID Connect Provider.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - opid - Identifier of the OpenID Connect Provider.
@@ -507,16 +489,13 @@ func (client *OpenIDConnectProviderClient) updateCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter opid cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{opid}", url.PathEscape(opid))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

@@ -29,7 +29,7 @@ type APIIssueClient struct {
 }
 
 // NewAPIIssueClient creates a new instance of APIIssueClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAPIIssueClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIIssueClient, error) {
@@ -47,7 +47,7 @@ func NewAPIIssueClient(subscriptionID string, credential azcore.TokenCredential,
 // CreateOrUpdate - Creates a new Issue for an API or updates an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
@@ -91,16 +91,13 @@ func (client *APIIssueClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter issueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{issueId}", url.PathEscape(issueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -127,7 +124,7 @@ func (client *APIIssueClient) createOrUpdateHandleResponse(resp *http.Response) 
 // Delete - Deletes the specified Issue from an API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
@@ -171,16 +168,13 @@ func (client *APIIssueClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter issueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{issueId}", url.PathEscape(issueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -190,7 +184,7 @@ func (client *APIIssueClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Gets the details of the Issue for an API specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
@@ -233,9 +227,6 @@ func (client *APIIssueClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter issueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{issueId}", url.PathEscape(issueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -245,7 +236,7 @@ func (client *APIIssueClient) getCreateRequest(ctx context.Context, resourceGrou
 	if options != nil && options.ExpandCommentsAttachments != nil {
 		reqQP.Set("expandCommentsAttachments", strconv.FormatBool(*options.ExpandCommentsAttachments))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,7 +256,7 @@ func (client *APIIssueClient) getHandleResponse(resp *http.Response) (APIIssueCl
 
 // GetEntityTag - Gets the entity state (Etag) version of the Issue for an API specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
@@ -308,16 +299,13 @@ func (client *APIIssueClient) getEntityTagCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter issueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{issueId}", url.PathEscape(issueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -335,7 +323,7 @@ func (client *APIIssueClient) getEntityTagHandleResponse(resp *http.Response) (A
 
 // NewListByServicePager - Lists all issues associated with the specified API.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
@@ -384,9 +372,6 @@ func (client *APIIssueClient) listByServiceCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter apiID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{apiId}", url.PathEscape(apiID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -405,7 +390,7 @@ func (client *APIIssueClient) listByServiceCreateRequest(ctx context.Context, re
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -423,7 +408,7 @@ func (client *APIIssueClient) listByServiceHandleResponse(resp *http.Response) (
 // Update - Updates an existing issue for an API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API identifier. Must be unique in the current API Management service instance.
@@ -469,16 +454,13 @@ func (client *APIIssueClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter issueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{issueId}", url.PathEscape(issueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
