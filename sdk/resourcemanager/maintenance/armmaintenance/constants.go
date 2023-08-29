@@ -10,7 +10,7 @@ package armmaintenance
 
 const (
 	moduleName    = "armmaintenance"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
