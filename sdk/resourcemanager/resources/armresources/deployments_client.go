@@ -47,7 +47,7 @@ func NewDeploymentsClient(subscriptionID string, credential azcore.TokenCredenti
 // CalculateTemplateHash - Calculate the hash of the given template.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - templateParam - The template provided to calculate hash.
 //   - options - DeploymentsClientCalculateTemplateHashOptions contains the optional parameters for the DeploymentsClient.CalculateTemplateHash
 //     method.
@@ -81,7 +81,7 @@ func (client *DeploymentsClient) calculateTemplateHashCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, templateParam); err != nil {
@@ -104,7 +104,7 @@ func (client *DeploymentsClient) calculateTemplateHashHandleResponse(resp *http.
 // currently running template deployment and leaves the resource group partially deployed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCancelOptions contains the optional parameters for the DeploymentsClient.Cancel method.
@@ -149,7 +149,7 @@ func (client *DeploymentsClient) cancelCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -160,7 +160,7 @@ func (client *DeploymentsClient) cancelCreateRequest(ctx context.Context, resour
 // currently running template deployment and leaves the resources partially deployed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCancelAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtManagementGroupScope
@@ -202,7 +202,7 @@ func (client *DeploymentsClient) cancelAtManagementGroupScopeCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *DeploymentsClient) cancelAtManagementGroupScopeCreateRequest(ctx c
 // currently running template deployment and leaves the resources partially deployed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCancelAtScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtScope
@@ -252,7 +252,7 @@ func (client *DeploymentsClient) cancelAtScopeCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -263,7 +263,7 @@ func (client *DeploymentsClient) cancelAtScopeCreateRequest(ctx context.Context,
 // currently running template deployment and leaves the resources partially deployed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCancelAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtSubscriptionScope
 //     method.
@@ -304,7 +304,7 @@ func (client *DeploymentsClient) cancelAtSubscriptionScopeCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -315,7 +315,7 @@ func (client *DeploymentsClient) cancelAtSubscriptionScopeCreateRequest(ctx cont
 // currently running template deployment and leaves the resources partially deployed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCancelAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtTenantScope
 //     method.
@@ -352,7 +352,7 @@ func (client *DeploymentsClient) cancelAtTenantScopeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -360,7 +360,7 @@ func (client *DeploymentsClient) cancelAtTenantScopeCreateRequest(ctx context.Co
 
 // CheckExistence - Checks whether the deployment exists.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group with the deployment to check. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCheckExistenceOptions contains the optional parameters for the DeploymentsClient.CheckExistence
@@ -406,7 +406,7 @@ func (client *DeploymentsClient) checkExistenceCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -414,7 +414,7 @@ func (client *DeploymentsClient) checkExistenceCreateRequest(ctx context.Context
 
 // CheckExistenceAtManagementGroupScope - Checks whether the deployment exists.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCheckExistenceAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtManagementGroupScope
@@ -456,7 +456,7 @@ func (client *DeploymentsClient) checkExistenceAtManagementGroupScopeCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -464,7 +464,7 @@ func (client *DeploymentsClient) checkExistenceAtManagementGroupScopeCreateReque
 
 // CheckExistenceAtScope - Checks whether the deployment exists.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCheckExistenceAtScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtScope
@@ -503,7 +503,7 @@ func (client *DeploymentsClient) checkExistenceAtScopeCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -511,7 +511,7 @@ func (client *DeploymentsClient) checkExistenceAtScopeCreateRequest(ctx context.
 
 // CheckExistenceAtSubscriptionScope - Checks whether the deployment exists.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCheckExistenceAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtSubscriptionScope
 //     method.
@@ -552,7 +552,7 @@ func (client *DeploymentsClient) checkExistenceAtSubscriptionScopeCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -560,7 +560,7 @@ func (client *DeploymentsClient) checkExistenceAtSubscriptionScopeCreateRequest(
 
 // CheckExistenceAtTenantScope - Checks whether the deployment exists.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientCheckExistenceAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtTenantScope
 //     method.
@@ -597,7 +597,7 @@ func (client *DeploymentsClient) checkExistenceAtTenantScopeCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -606,7 +606,7 @@ func (client *DeploymentsClient) checkExistenceAtTenantScopeCreateRequest(ctx co
 // BeginCreateOrUpdate - You can provide the template and parameters directly in the request or link to JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group to deploy the resources to. The name is case insensitive. The resource
 //     group must already exist.
 //   - deploymentName - The name of the deployment.
@@ -629,7 +629,7 @@ func (client *DeploymentsClient) BeginCreateOrUpdate(ctx context.Context, resour
 // CreateOrUpdate - You can provide the template and parameters directly in the request or link to JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, parameters Deployment, options *DeploymentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginCreateOrUpdate"
@@ -671,7 +671,7 @@ func (client *DeploymentsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -684,7 +684,7 @@ func (client *DeploymentsClient) createOrUpdateCreateRequest(ctx context.Context
 // to JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Additional parameters supplied to the operation.
@@ -707,7 +707,7 @@ func (client *DeploymentsClient) BeginCreateOrUpdateAtManagementGroupScope(ctx c
 // files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) createOrUpdateAtManagementGroupScope(ctx context.Context, groupID string, deploymentName string, parameters ScopedDeployment, options *DeploymentsClientBeginCreateOrUpdateAtManagementGroupScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginCreateOrUpdateAtManagementGroupScope"
@@ -745,7 +745,7 @@ func (client *DeploymentsClient) createOrUpdateAtManagementGroupScopeCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -757,7 +757,7 @@ func (client *DeploymentsClient) createOrUpdateAtManagementGroupScopeCreateReque
 // BeginCreateOrUpdateAtScope - You can provide the template and parameters directly in the request or link to JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Additional parameters supplied to the operation.
@@ -779,7 +779,7 @@ func (client *DeploymentsClient) BeginCreateOrUpdateAtScope(ctx context.Context,
 // CreateOrUpdateAtScope - You can provide the template and parameters directly in the request or link to JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) createOrUpdateAtScope(ctx context.Context, scope string, deploymentName string, parameters Deployment, options *DeploymentsClientBeginCreateOrUpdateAtScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginCreateOrUpdateAtScope"
@@ -814,7 +814,7 @@ func (client *DeploymentsClient) createOrUpdateAtScopeCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -827,7 +827,7 @@ func (client *DeploymentsClient) createOrUpdateAtScopeCreateRequest(ctx context.
 // JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - parameters - Additional parameters supplied to the operation.
 //   - options - DeploymentsClientBeginCreateOrUpdateAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdateAtSubscriptionScope
@@ -849,7 +849,7 @@ func (client *DeploymentsClient) BeginCreateOrUpdateAtSubscriptionScope(ctx cont
 // files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) createOrUpdateAtSubscriptionScope(ctx context.Context, deploymentName string, parameters Deployment, options *DeploymentsClientBeginCreateOrUpdateAtSubscriptionScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginCreateOrUpdateAtSubscriptionScope"
@@ -887,7 +887,7 @@ func (client *DeploymentsClient) createOrUpdateAtSubscriptionScopeCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -900,7 +900,7 @@ func (client *DeploymentsClient) createOrUpdateAtSubscriptionScopeCreateRequest(
 // files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - parameters - Additional parameters supplied to the operation.
 //   - options - DeploymentsClientBeginCreateOrUpdateAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdateAtTenantScope
@@ -921,7 +921,7 @@ func (client *DeploymentsClient) BeginCreateOrUpdateAtTenantScope(ctx context.Co
 // CreateOrUpdateAtTenantScope - You can provide the template and parameters directly in the request or link to JSON files.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) createOrUpdateAtTenantScope(ctx context.Context, deploymentName string, parameters ScopedDeployment, options *DeploymentsClientBeginCreateOrUpdateAtTenantScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginCreateOrUpdateAtTenantScope"
@@ -955,7 +955,7 @@ func (client *DeploymentsClient) createOrUpdateAtTenantScopeCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -974,7 +974,7 @@ func (client *DeploymentsClient) createOrUpdateAtTenantScopeCreateRequest(ctx co
 // code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group with the deployment to delete. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientBeginDeleteOptions contains the optional parameters for the DeploymentsClient.BeginDelete method.
@@ -1001,7 +1001,7 @@ func (client *DeploymentsClient) BeginDelete(ctx context.Context, resourceGroupN
 // code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) deleteOperation(ctx context.Context, resourceGroupName string, deploymentName string, options *DeploymentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginDelete"
@@ -1043,7 +1043,7 @@ func (client *DeploymentsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1058,7 +1058,7 @@ func (client *DeploymentsClient) deleteCreateRequest(ctx context.Context, resour
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientBeginDeleteAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtManagementGroupScope
@@ -1085,7 +1085,7 @@ func (client *DeploymentsClient) BeginDeleteAtManagementGroupScope(ctx context.C
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) deleteAtManagementGroupScope(ctx context.Context, groupID string, deploymentName string, options *DeploymentsClientBeginDeleteAtManagementGroupScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginDeleteAtManagementGroupScope"
@@ -1123,7 +1123,7 @@ func (client *DeploymentsClient) deleteAtManagementGroupScopeCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1138,7 +1138,7 @@ func (client *DeploymentsClient) deleteAtManagementGroupScopeCreateRequest(ctx c
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientBeginDeleteAtScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtScope
@@ -1165,7 +1165,7 @@ func (client *DeploymentsClient) BeginDeleteAtScope(ctx context.Context, scope s
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) deleteAtScope(ctx context.Context, scope string, deploymentName string, options *DeploymentsClientBeginDeleteAtScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginDeleteAtScope"
@@ -1200,7 +1200,7 @@ func (client *DeploymentsClient) deleteAtScopeCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1215,7 +1215,7 @@ func (client *DeploymentsClient) deleteAtScopeCreateRequest(ctx context.Context,
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientBeginDeleteAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtSubscriptionScope
 //     method.
@@ -1241,7 +1241,7 @@ func (client *DeploymentsClient) BeginDeleteAtSubscriptionScope(ctx context.Cont
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) deleteAtSubscriptionScope(ctx context.Context, deploymentName string, options *DeploymentsClientBeginDeleteAtSubscriptionScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginDeleteAtSubscriptionScope"
@@ -1279,7 +1279,7 @@ func (client *DeploymentsClient) deleteAtSubscriptionScopeCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1294,7 +1294,7 @@ func (client *DeploymentsClient) deleteAtSubscriptionScopeCreateRequest(ctx cont
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientBeginDeleteAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtTenantScope
 //     method.
@@ -1320,7 +1320,7 @@ func (client *DeploymentsClient) BeginDeleteAtTenantScope(ctx context.Context, d
 // Location header returns an error-level status code.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) deleteAtTenantScope(ctx context.Context, deploymentName string, options *DeploymentsClientBeginDeleteAtTenantScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginDeleteAtTenantScope"
@@ -1354,7 +1354,7 @@ func (client *DeploymentsClient) deleteAtTenantScopeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1363,7 +1363,7 @@ func (client *DeploymentsClient) deleteAtTenantScopeCreateRequest(ctx context.Co
 // ExportTemplate - Exports the template used for specified deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientExportTemplateOptions contains the optional parameters for the DeploymentsClient.ExportTemplate
@@ -1410,7 +1410,7 @@ func (client *DeploymentsClient) exportTemplateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1428,7 +1428,7 @@ func (client *DeploymentsClient) exportTemplateHandleResponse(resp *http.Respons
 // ExportTemplateAtManagementGroupScope - Exports the template used for specified deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientExportTemplateAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtManagementGroupScope
@@ -1471,7 +1471,7 @@ func (client *DeploymentsClient) exportTemplateAtManagementGroupScopeCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1489,7 +1489,7 @@ func (client *DeploymentsClient) exportTemplateAtManagementGroupScopeHandleRespo
 // ExportTemplateAtScope - Exports the template used for specified deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientExportTemplateAtScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtScope
@@ -1529,7 +1529,7 @@ func (client *DeploymentsClient) exportTemplateAtScopeCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1547,7 +1547,7 @@ func (client *DeploymentsClient) exportTemplateAtScopeHandleResponse(resp *http.
 // ExportTemplateAtSubscriptionScope - Exports the template used for specified deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientExportTemplateAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtSubscriptionScope
 //     method.
@@ -1589,7 +1589,7 @@ func (client *DeploymentsClient) exportTemplateAtSubscriptionScopeCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1607,7 +1607,7 @@ func (client *DeploymentsClient) exportTemplateAtSubscriptionScopeHandleResponse
 // ExportTemplateAtTenantScope - Exports the template used for specified deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientExportTemplateAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtTenantScope
 //     method.
@@ -1645,7 +1645,7 @@ func (client *DeploymentsClient) exportTemplateAtTenantScopeCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1663,7 +1663,7 @@ func (client *DeploymentsClient) exportTemplateAtTenantScopeHandleResponse(resp 
 // Get - Gets a deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientGetOptions contains the optional parameters for the DeploymentsClient.Get method.
@@ -1709,7 +1709,7 @@ func (client *DeploymentsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1727,7 +1727,7 @@ func (client *DeploymentsClient) getHandleResponse(resp *http.Response) (Deploym
 // GetAtManagementGroupScope - Gets a deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientGetAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.GetAtManagementGroupScope
@@ -1770,7 +1770,7 @@ func (client *DeploymentsClient) getAtManagementGroupScopeCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1788,7 +1788,7 @@ func (client *DeploymentsClient) getAtManagementGroupScopeHandleResponse(resp *h
 // GetAtScope - Gets a deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientGetAtScopeOptions contains the optional parameters for the DeploymentsClient.GetAtScope method.
@@ -1827,7 +1827,7 @@ func (client *DeploymentsClient) getAtScopeCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1845,7 +1845,7 @@ func (client *DeploymentsClient) getAtScopeHandleResponse(resp *http.Response) (
 // GetAtSubscriptionScope - Gets a deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientGetAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.GetAtSubscriptionScope
 //     method.
@@ -1887,7 +1887,7 @@ func (client *DeploymentsClient) getAtSubscriptionScopeCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1905,7 +1905,7 @@ func (client *DeploymentsClient) getAtSubscriptionScopeHandleResponse(resp *http
 // GetAtTenantScope - Gets a deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - options - DeploymentsClientGetAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.GetAtTenantScope
 //     method.
@@ -1943,7 +1943,7 @@ func (client *DeploymentsClient) getAtTenantScopeCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1960,7 +1960,7 @@ func (client *DeploymentsClient) getAtTenantScopeHandleResponse(resp *http.Respo
 
 // NewListAtManagementGroupScopePager - Get all the deployments for a management group.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - options - DeploymentsClientListAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtManagementGroupScopePager
 //     method.
@@ -2012,7 +2012,7 @@ func (client *DeploymentsClient) listAtManagementGroupScopeCreateRequest(ctx con
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -2029,7 +2029,7 @@ func (client *DeploymentsClient) listAtManagementGroupScopeHandleResponse(resp *
 
 // NewListAtScopePager - Get all the deployments at the given scope.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - options - DeploymentsClientListAtScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtScopePager
 //     method.
@@ -2078,7 +2078,7 @@ func (client *DeploymentsClient) listAtScopeCreateRequest(ctx context.Context, s
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -2095,7 +2095,7 @@ func (client *DeploymentsClient) listAtScopeHandleResponse(resp *http.Response) 
 
 // NewListAtSubscriptionScopePager - Get all the deployments for a subscription.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - options - DeploymentsClientListAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtSubscriptionScopePager
 //     method.
 func (client *DeploymentsClient) NewListAtSubscriptionScopePager(options *DeploymentsClientListAtSubscriptionScopeOptions) *runtime.Pager[DeploymentsClientListAtSubscriptionScopeResponse] {
@@ -2146,7 +2146,7 @@ func (client *DeploymentsClient) listAtSubscriptionScopeCreateRequest(ctx contex
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -2163,7 +2163,7 @@ func (client *DeploymentsClient) listAtSubscriptionScopeHandleResponse(resp *htt
 
 // NewListAtTenantScopePager - Get all the deployments at the tenant scope.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - options - DeploymentsClientListAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtTenantScopePager
 //     method.
 func (client *DeploymentsClient) NewListAtTenantScopePager(options *DeploymentsClientListAtTenantScopeOptions) *runtime.Pager[DeploymentsClientListAtTenantScopeResponse] {
@@ -2210,7 +2210,7 @@ func (client *DeploymentsClient) listAtTenantScopeCreateRequest(ctx context.Cont
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -2227,7 +2227,7 @@ func (client *DeploymentsClient) listAtTenantScopeHandleResponse(resp *http.Resp
 
 // NewListByResourceGroupPager - Get all the deployments for a resource group.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group with the deployments to get. The name is case insensitive.
 //   - options - DeploymentsClientListByResourceGroupOptions contains the optional parameters for the DeploymentsClient.NewListByResourceGroupPager
 //     method.
@@ -2283,7 +2283,7 @@ func (client *DeploymentsClient) listByResourceGroupCreateRequest(ctx context.Co
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -2302,7 +2302,7 @@ func (client *DeploymentsClient) listByResourceGroupHandleResponse(resp *http.Re
 // Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group the template will be deployed to. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
@@ -2324,7 +2324,7 @@ func (client *DeploymentsClient) BeginValidate(ctx context.Context, resourceGrou
 // Validate - Validates whether the specified template is syntactically correct and will be accepted by Azure Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) validate(ctx context.Context, resourceGroupName string, deploymentName string, parameters Deployment, options *DeploymentsClientBeginValidateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginValidate"
@@ -2366,7 +2366,7 @@ func (client *DeploymentsClient) validateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2379,7 +2379,7 @@ func (client *DeploymentsClient) validateCreateRequest(ctx context.Context, reso
 // by Azure Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
@@ -2402,7 +2402,7 @@ func (client *DeploymentsClient) BeginValidateAtManagementGroupScope(ctx context
 // by Azure Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) validateAtManagementGroupScope(ctx context.Context, groupID string, deploymentName string, parameters ScopedDeployment, options *DeploymentsClientBeginValidateAtManagementGroupScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginValidateAtManagementGroupScope"
@@ -2440,7 +2440,7 @@ func (client *DeploymentsClient) validateAtManagementGroupScopeCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2453,7 +2453,7 @@ func (client *DeploymentsClient) validateAtManagementGroupScopeCreateRequest(ctx
 // Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - scope - The resource scope.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
@@ -2476,7 +2476,7 @@ func (client *DeploymentsClient) BeginValidateAtScope(ctx context.Context, scope
 // Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) validateAtScope(ctx context.Context, scope string, deploymentName string, parameters Deployment, options *DeploymentsClientBeginValidateAtScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginValidateAtScope"
@@ -2511,7 +2511,7 @@ func (client *DeploymentsClient) validateAtScopeCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2524,7 +2524,7 @@ func (client *DeploymentsClient) validateAtScopeCreateRequest(ctx context.Contex
 // by Azure Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
 //   - options - DeploymentsClientBeginValidateAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginValidateAtSubscriptionScope
@@ -2546,7 +2546,7 @@ func (client *DeploymentsClient) BeginValidateAtSubscriptionScope(ctx context.Co
 // Azure Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) validateAtSubscriptionScope(ctx context.Context, deploymentName string, parameters Deployment, options *DeploymentsClientBeginValidateAtSubscriptionScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginValidateAtSubscriptionScope"
@@ -2584,7 +2584,7 @@ func (client *DeploymentsClient) validateAtSubscriptionScopeCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2597,7 +2597,7 @@ func (client *DeploymentsClient) validateAtSubscriptionScopeCreateRequest(ctx co
 // Azure Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
 //   - options - DeploymentsClientBeginValidateAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginValidateAtTenantScope
@@ -2619,7 +2619,7 @@ func (client *DeploymentsClient) BeginValidateAtTenantScope(ctx context.Context,
 // Resource Manager..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) validateAtTenantScope(ctx context.Context, deploymentName string, parameters ScopedDeployment, options *DeploymentsClientBeginValidateAtTenantScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginValidateAtTenantScope"
@@ -2653,7 +2653,7 @@ func (client *DeploymentsClient) validateAtTenantScopeCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2665,7 +2665,7 @@ func (client *DeploymentsClient) validateAtTenantScopeCreateRequest(ctx context.
 // BeginWhatIf - Returns changes that will be made by the deployment if executed at the scope of the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - resourceGroupName - The name of the resource group the template will be deployed to. The name is case insensitive.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
@@ -2688,7 +2688,7 @@ func (client *DeploymentsClient) BeginWhatIf(ctx context.Context, resourceGroupN
 // WhatIf - Returns changes that will be made by the deployment if executed at the scope of the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) whatIf(ctx context.Context, resourceGroupName string, deploymentName string, parameters DeploymentWhatIf, options *DeploymentsClientBeginWhatIfOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginWhatIf"
@@ -2730,7 +2730,7 @@ func (client *DeploymentsClient) whatIfCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2743,7 +2743,7 @@ func (client *DeploymentsClient) whatIfCreateRequest(ctx context.Context, resour
 // management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - groupID - The management group ID.
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
@@ -2768,7 +2768,7 @@ func (client *DeploymentsClient) BeginWhatIfAtManagementGroupScope(ctx context.C
 // group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) whatIfAtManagementGroupScope(ctx context.Context, groupID string, deploymentName string, parameters ScopedDeploymentWhatIf, options *DeploymentsClientBeginWhatIfAtManagementGroupScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginWhatIfAtManagementGroupScope"
@@ -2806,7 +2806,7 @@ func (client *DeploymentsClient) whatIfAtManagementGroupScopeCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2818,7 +2818,7 @@ func (client *DeploymentsClient) whatIfAtManagementGroupScopeCreateRequest(ctx c
 // BeginWhatIfAtSubscriptionScope - Returns changes that will be made by the deployment if executed at the scope of the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to What If.
 //   - options - DeploymentsClientBeginWhatIfAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginWhatIfAtSubscriptionScope
@@ -2841,7 +2841,7 @@ func (client *DeploymentsClient) BeginWhatIfAtSubscriptionScope(ctx context.Cont
 // WhatIfAtSubscriptionScope - Returns changes that will be made by the deployment if executed at the scope of the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) whatIfAtSubscriptionScope(ctx context.Context, deploymentName string, parameters DeploymentWhatIf, options *DeploymentsClientBeginWhatIfAtSubscriptionScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginWhatIfAtSubscriptionScope"
@@ -2879,7 +2879,7 @@ func (client *DeploymentsClient) whatIfAtSubscriptionScopeCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -2891,7 +2891,7 @@ func (client *DeploymentsClient) whatIfAtSubscriptionScopeCreateRequest(ctx cont
 // BeginWhatIfAtTenantScope - Returns changes that will be made by the deployment if executed at the scope of the tenant group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 //   - deploymentName - The name of the deployment.
 //   - parameters - Parameters to validate.
 //   - options - DeploymentsClientBeginWhatIfAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginWhatIfAtTenantScope
@@ -2914,7 +2914,7 @@ func (client *DeploymentsClient) BeginWhatIfAtTenantScope(ctx context.Context, d
 // WhatIfAtTenantScope - Returns changes that will be made by the deployment if executed at the scope of the tenant group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2024-02-01
 func (client *DeploymentsClient) whatIfAtTenantScope(ctx context.Context, deploymentName string, parameters ScopedDeploymentWhatIf, options *DeploymentsClientBeginWhatIfAtTenantScopeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentsClient.BeginWhatIfAtTenantScope"
@@ -2948,7 +2948,7 @@ func (client *DeploymentsClient) whatIfAtTenantScopeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

@@ -72,6 +72,11 @@ func (c *ClientFactory) NewResourceGroupsClient() *ResourceGroupsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewResourceManagementClient() *ResourceManagementClient {
+	subClient, _ := NewResourceManagementClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewTagsClient() *TagsClient {
 	subClient, _ := NewTagsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
