@@ -1,5 +1,23 @@
 # Release History
 
+## 1.2.0 (2023-08-31)
+### Features Added
+
+- New value `ConnectionStateActiveNoBilling`, `ConnectionStateTypeChangeInProgress`, `ConnectionStateTypeChangeRequested` added to enum type `ConnectionState`
+- New function `*ClientFactory.NewResourceMoveClient() *ResourceMoveClient`
+- New function `*ClientFactory.NewRpUnbilledPrefixesClient() *RpUnbilledPrefixesClient`
+- New function `*RegisteredPrefixesClient.Validate(context.Context, string, string, string, *RegisteredPrefixesClientValidateOptions) (RegisteredPrefixesClientValidateResponse, error)`
+- New function `NewResourceMoveClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ResourceMoveClient, error)`
+- New function `*ResourceMoveClient.MoveResources(context.Context, string, ResourceMoveRequest, *ResourceMoveClientMoveResourcesOptions) (ResourceMoveClientMoveResourcesResponse, error)`
+- New function `*ResourceMoveClient.ValidateMoveResources(context.Context, string, ResourceMoveRequest, *ResourceMoveClientValidateMoveResourcesOptions) (ResourceMoveClientValidateMoveResourcesResponse, error)`
+- New function `NewRpUnbilledPrefixesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RpUnbilledPrefixesClient, error)`
+- New function `*RpUnbilledPrefixesClient.NewListPager(string, string, *RpUnbilledPrefixesClientListOptions) *runtime.Pager[RpUnbilledPrefixesClientListResponse]`
+- New struct `ResourceMoveRequest`
+- New struct `RpUnbilledPrefix`
+- New struct `RpUnbilledPrefixListResult`
+- New field `DirectPeeringType` in struct `LegacyPeeringsClientListOptions`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
