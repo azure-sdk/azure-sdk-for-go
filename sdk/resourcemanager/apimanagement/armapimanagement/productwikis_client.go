@@ -29,7 +29,7 @@ type ProductWikisClient struct {
 }
 
 // NewProductWikisClient creates a new instance of ProductWikisClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProductWikisClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductWikisClient, error) {
@@ -46,7 +46,7 @@ func NewProductWikisClient(subscriptionID string, credential azcore.TokenCredent
 
 // NewListPager - Gets the details of the Wiki for a Product specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -94,9 +94,6 @@ func (client *ProductWikisClient) listCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter productID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{productId}", url.PathEscape(productID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -112,7 +109,7 @@ func (client *ProductWikisClient) listCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
