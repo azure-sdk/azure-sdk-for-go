@@ -46,7 +46,7 @@ func NewManagedInstanceEncryptionProtectorsClient(subscriptionID string, credent
 // BeginCreateOrUpdate - Updates an existing encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -70,7 +70,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) BeginCreateOrUpdate(ctx
 // CreateOrUpdate - Updates an existing encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *ManagedInstanceEncryptionProtectorsClient) createOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, encryptionProtectorName EncryptionProtectorName, parameters ManagedInstanceEncryptionProtector, options *ManagedInstanceEncryptionProtectorsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, managedInstanceName, encryptionProtectorName, parameters, options)
@@ -112,7 +112,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) createOrUpdateCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -124,7 +124,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) createOrUpdateCreateReq
 // Get - Gets a managed instance encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -173,7 +173,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) getCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -190,7 +190,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) getHandleResponse(resp 
 
 // NewListByInstancePager - Gets a list of managed instance encryption protectors
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -244,7 +244,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) listByInstanceCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) listByInstanceHandleRes
 // BeginRevalidate - Revalidates an existing encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -285,7 +285,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) BeginRevalidate(ctx con
 // Revalidate - Revalidates an existing encryption protector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *ManagedInstanceEncryptionProtectorsClient) revalidate(ctx context.Context, resourceGroupName string, managedInstanceName string, encryptionProtectorName EncryptionProtectorName, options *ManagedInstanceEncryptionProtectorsClientBeginRevalidateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.revalidateCreateRequest(ctx, resourceGroupName, managedInstanceName, encryptionProtectorName, options)
@@ -327,7 +327,7 @@ func (client *ManagedInstanceEncryptionProtectorsClient) revalidateCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
