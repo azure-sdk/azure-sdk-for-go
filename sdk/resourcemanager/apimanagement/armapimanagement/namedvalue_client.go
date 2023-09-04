@@ -29,7 +29,7 @@ type NamedValueClient struct {
 }
 
 // NewNamedValueClient creates a new instance of NamedValueClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewNamedValueClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*NamedValueClient, error) {
@@ -47,7 +47,7 @@ func NewNamedValueClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Creates or updates named value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -72,7 +72,7 @@ func (client *NamedValueClient) BeginCreateOrUpdate(ctx context.Context, resourc
 // CreateOrUpdate - Creates or updates named value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 func (client *NamedValueClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, namedValueID string, parameters NamedValueCreateContract, options *NamedValueClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, namedValueID, parameters, options)
@@ -105,16 +105,13 @@ func (client *NamedValueClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -129,7 +126,7 @@ func (client *NamedValueClient) createOrUpdateCreateRequest(ctx context.Context,
 // Delete - Deletes specific named value from the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -168,16 +165,13 @@ func (client *NamedValueClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -187,7 +181,7 @@ func (client *NamedValueClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets the details of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -225,16 +219,13 @@ func (client *NamedValueClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -254,7 +245,7 @@ func (client *NamedValueClient) getHandleResponse(resp *http.Response) (NamedVal
 
 // GetEntityTag - Gets the entity state (Etag) version of the named value specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -292,16 +283,13 @@ func (client *NamedValueClient) getEntityTagCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -319,7 +307,7 @@ func (client *NamedValueClient) getEntityTagHandleResponse(resp *http.Response) 
 
 // NewListByServicePager - Lists a collection of named values defined within a service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - NamedValueClientListByServiceOptions contains the optional parameters for the NamedValueClient.NewListByServicePager
@@ -363,9 +351,6 @@ func (client *NamedValueClient) listByServiceCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -384,7 +369,7 @@ func (client *NamedValueClient) listByServiceCreateRequest(ctx context.Context, 
 	if options != nil && options.IsKeyVaultRefreshFailed != nil {
 		reqQP.Set("isKeyVaultRefreshFailed", strconv.FormatBool(*options.IsKeyVaultRefreshFailed))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -402,7 +387,7 @@ func (client *NamedValueClient) listByServiceHandleResponse(resp *http.Response)
 // ListValue - Gets the secret of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -440,16 +425,13 @@ func (client *NamedValueClient) listValueCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -470,7 +452,7 @@ func (client *NamedValueClient) listValueHandleResponse(resp *http.Response) (Na
 // BeginRefreshSecret - Refresh the secret of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -494,7 +476,7 @@ func (client *NamedValueClient) BeginRefreshSecret(ctx context.Context, resource
 // RefreshSecret - Refresh the secret of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 func (client *NamedValueClient) refreshSecret(ctx context.Context, resourceGroupName string, serviceName string, namedValueID string, options *NamedValueClientBeginRefreshSecretOptions) (*http.Response, error) {
 	var err error
 	req, err := client.refreshSecretCreateRequest(ctx, resourceGroupName, serviceName, namedValueID, options)
@@ -527,16 +509,13 @@ func (client *NamedValueClient) refreshSecretCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -545,7 +524,7 @@ func (client *NamedValueClient) refreshSecretCreateRequest(ctx context.Context, 
 // BeginUpdate - Updates the specific named value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - namedValueID - Identifier of the NamedValue.
@@ -571,7 +550,7 @@ func (client *NamedValueClient) BeginUpdate(ctx context.Context, resourceGroupNa
 // Update - Updates the specific named value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 func (client *NamedValueClient) update(ctx context.Context, resourceGroupName string, serviceName string, namedValueID string, ifMatch string, parameters NamedValueUpdateParameters, options *NamedValueClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serviceName, namedValueID, ifMatch, parameters, options)
@@ -604,16 +583,13 @@ func (client *NamedValueClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter namedValueID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{namedValueId}", url.PathEscape(namedValueID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

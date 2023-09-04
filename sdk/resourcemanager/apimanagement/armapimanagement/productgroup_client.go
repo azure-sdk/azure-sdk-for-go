@@ -29,7 +29,7 @@ type ProductGroupClient struct {
 }
 
 // NewProductGroupClient creates a new instance of ProductGroupClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProductGroupClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductGroupClient, error) {
@@ -46,7 +46,7 @@ func NewProductGroupClient(subscriptionID string, credential azcore.TokenCredent
 
 // CheckEntityExists - Checks that Group entity specified by identifier is associated with the Product entity.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -89,16 +89,13 @@ func (client *ProductGroupClient) checkEntityExistsCreateRequest(ctx context.Con
 		return nil, errors.New("parameter groupID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{groupId}", url.PathEscape(groupID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,7 +104,7 @@ func (client *ProductGroupClient) checkEntityExistsCreateRequest(ctx context.Con
 // CreateOrUpdate - Adds the association between the specified developer group with the specified product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -151,16 +148,13 @@ func (client *ProductGroupClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter groupID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{groupId}", url.PathEscape(groupID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -178,7 +172,7 @@ func (client *ProductGroupClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Deletes the association between the specified group and product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -220,16 +214,13 @@ func (client *ProductGroupClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter groupID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{groupId}", url.PathEscape(groupID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -237,7 +228,7 @@ func (client *ProductGroupClient) deleteCreateRequest(ctx context.Context, resou
 
 // NewListByProductPager - Lists the collection of developer groups associated with the specified product.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -286,9 +277,6 @@ func (client *ProductGroupClient) listByProductCreateRequest(ctx context.Context
 		return nil, errors.New("parameter productID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{productId}", url.PathEscape(productID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -304,7 +292,7 @@ func (client *ProductGroupClient) listByProductCreateRequest(ctx context.Context
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

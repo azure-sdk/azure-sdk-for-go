@@ -29,7 +29,7 @@ type AuthorizationAccessPolicyClient struct {
 }
 
 // NewAuthorizationAccessPolicyClient creates a new instance of AuthorizationAccessPolicyClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAuthorizationAccessPolicyClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AuthorizationAccessPolicyClient, error) {
@@ -47,7 +47,7 @@ func NewAuthorizationAccessPolicyClient(subscriptionID string, credential azcore
 // CreateOrUpdate - Creates or updates Authorization Access Policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - authorizationProviderID - Identifier of the authorization provider.
@@ -97,16 +97,13 @@ func (client *AuthorizationAccessPolicyClient) createOrUpdateCreateRequest(ctx c
 		return nil, errors.New("parameter authorizationAccessPolicyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{authorizationAccessPolicyId}", url.PathEscape(authorizationAccessPolicyID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -133,7 +130,7 @@ func (client *AuthorizationAccessPolicyClient) createOrUpdateHandleResponse(resp
 // Delete - Deletes specific access policy from the Authorization.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - authorizationProviderID - Identifier of the authorization provider.
@@ -183,16 +180,13 @@ func (client *AuthorizationAccessPolicyClient) deleteCreateRequest(ctx context.C
 		return nil, errors.New("parameter authorizationAccessPolicyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{authorizationAccessPolicyId}", url.PathEscape(authorizationAccessPolicyID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -202,7 +196,7 @@ func (client *AuthorizationAccessPolicyClient) deleteCreateRequest(ctx context.C
 // Get - Gets the details of the authorization access policy specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - authorizationProviderID - Identifier of the authorization provider.
@@ -251,16 +245,13 @@ func (client *AuthorizationAccessPolicyClient) getCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter authorizationAccessPolicyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{authorizationAccessPolicyId}", url.PathEscape(authorizationAccessPolicyID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,7 +271,7 @@ func (client *AuthorizationAccessPolicyClient) getHandleResponse(resp *http.Resp
 
 // NewListByAuthorizationPager - Lists a collection of authorization access policy defined within a authorization.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - authorizationProviderID - Identifier of the authorization provider.
@@ -334,9 +325,6 @@ func (client *AuthorizationAccessPolicyClient) listByAuthorizationCreateRequest(
 		return nil, errors.New("parameter authorizationID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{authorizationId}", url.PathEscape(authorizationID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -352,7 +340,7 @@ func (client *AuthorizationAccessPolicyClient) listByAuthorizationCreateRequest(
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
