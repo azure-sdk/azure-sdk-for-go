@@ -46,7 +46,7 @@ func NewManagedEnvironmentsClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Creates or updates a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - environmentEnvelope - Configuration details of the Environment.
@@ -68,7 +68,7 @@ func (client *ManagedEnvironmentsClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedEnvironmentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, environmentEnvelope ManagedEnvironment, options *ManagedEnvironmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, environmentEnvelope, options)
@@ -106,7 +106,7 @@ func (client *ManagedEnvironmentsClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, environmentEnvelope); err != nil {
@@ -118,7 +118,7 @@ func (client *ManagedEnvironmentsClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Delete a Managed Environment if it does not have any container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentsClientBeginDeleteOptions contains the optional parameters for the ManagedEnvironmentsClient.BeginDelete
@@ -139,7 +139,7 @@ func (client *ManagedEnvironmentsClient) BeginDelete(ctx context.Context, resour
 // Delete - Delete a Managed Environment if it does not have any container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedEnvironmentsClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, options)
@@ -177,7 +177,7 @@ func (client *ManagedEnvironmentsClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -186,7 +186,7 @@ func (client *ManagedEnvironmentsClient) deleteCreateRequest(ctx context.Context
 // Get - Get the properties of a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentsClientGetOptions contains the optional parameters for the ManagedEnvironmentsClient.Get method.
@@ -228,7 +228,7 @@ func (client *ManagedEnvironmentsClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,7 +246,7 @@ func (client *ManagedEnvironmentsClient) getHandleResponse(resp *http.Response) 
 // GetAuthToken - Checks if resource name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - ManagedEnvironmentsClientGetAuthTokenOptions contains the optional parameters for the ManagedEnvironmentsClient.GetAuthToken
@@ -289,7 +289,7 @@ func (client *ManagedEnvironmentsClient) getAuthTokenCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +306,7 @@ func (client *ManagedEnvironmentsClient) getAuthTokenHandleResponse(resp *http.R
 
 // NewListByResourceGroupPager - Get all the Managed Environments in a resource group.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ManagedEnvironmentsClientListByResourceGroupOptions contains the optional parameters for the ManagedEnvironmentsClient.NewListByResourceGroupPager
 //     method.
@@ -354,7 +354,7 @@ func (client *ManagedEnvironmentsClient) listByResourceGroupCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -371,7 +371,7 @@ func (client *ManagedEnvironmentsClient) listByResourceGroupHandleResponse(resp 
 
 // NewListBySubscriptionPager - Get all Managed Environments for a subscription.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - options - ManagedEnvironmentsClientListBySubscriptionOptions contains the optional parameters for the ManagedEnvironmentsClient.NewListBySubscriptionPager
 //     method.
 func (client *ManagedEnvironmentsClient) NewListBySubscriptionPager(options *ManagedEnvironmentsClientListBySubscriptionOptions) *runtime.Pager[ManagedEnvironmentsClientListBySubscriptionResponse] {
@@ -414,7 +414,7 @@ func (client *ManagedEnvironmentsClient) listBySubscriptionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -431,7 +431,7 @@ func (client *ManagedEnvironmentsClient) listBySubscriptionHandleResponse(resp *
 
 // NewListWorkloadProfileStatesPager - Get all workload Profile States for a Managed Environment.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - ManagedEnvironmentsClientListWorkloadProfileStatesOptions contains the optional parameters for the ManagedEnvironmentsClient.NewListWorkloadProfileStatesPager
@@ -484,7 +484,7 @@ func (client *ManagedEnvironmentsClient) listWorkloadProfileStatesCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -502,7 +502,7 @@ func (client *ManagedEnvironmentsClient) listWorkloadProfileStatesHandleResponse
 // BeginUpdate - Patches a Managed Environment using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - environmentEnvelope - Configuration details of the Environment.
@@ -524,7 +524,7 @@ func (client *ManagedEnvironmentsClient) BeginUpdate(ctx context.Context, resour
 // Update - Patches a Managed Environment using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedEnvironmentsClient) update(ctx context.Context, resourceGroupName string, environmentName string, environmentEnvelope ManagedEnvironment, options *ManagedEnvironmentsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, environmentName, environmentEnvelope, options)
@@ -562,7 +562,7 @@ func (client *ManagedEnvironmentsClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, environmentEnvelope); err != nil {
