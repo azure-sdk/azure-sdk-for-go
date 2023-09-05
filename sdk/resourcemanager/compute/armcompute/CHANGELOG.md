@@ -1,9 +1,29 @@
 # Release History
 
-## 5.2.0-beta.1 (2023-07-28)
-
+## 5.2.0 (2023-09-05)
 ### Features Added
-- Support for test fakes and OpenTelemetry trace spans.
+
+- New value `DiskCreateOptionCopyFromSanSnapshot` added to enum type `DiskCreateOption`
+- New enum type `DomainNameLabelScopeTypes` with values `DomainNameLabelScopeTypesNoReuse`, `DomainNameLabelScopeTypesResourceGroupReuse`, `DomainNameLabelScopeTypesSubscriptionReuse`, `DomainNameLabelScopeTypesTenantReuse`
+- New enum type `NetworkInterfaceAuxiliaryMode` with values `NetworkInterfaceAuxiliaryModeAcceleratedConnections`, `NetworkInterfaceAuxiliaryModeFloating`, `NetworkInterfaceAuxiliaryModeNone`
+- New enum type `NetworkInterfaceAuxiliarySKU` with values `NetworkInterfaceAuxiliarySKUA1`, `NetworkInterfaceAuxiliarySKUA2`, `NetworkInterfaceAuxiliarySKUA4`, `NetworkInterfaceAuxiliarySKUA8`, `NetworkInterfaceAuxiliarySKUNone`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `SharedGalleryProperties`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `ElasticSanResourceID` in struct `CreationData`
+- New field `LastOwnershipUpdateTime` in struct `DiskProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+- New field `AuxiliaryMode`, `AuxiliarySKU` in struct `VirtualMachineNetworkInterfaceConfigurationProperties`
+- New field `DomainNameLabelScope` in struct `VirtualMachinePublicIPAddressDNSSettingsConfiguration`
+- New field `AuxiliaryMode`, `AuxiliarySKU` in struct `VirtualMachineScaleSetNetworkConfigurationProperties`
+- New field `DomainNameLabelScope` in struct `VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings`
+- New field `AuxiliaryMode`, `AuxiliarySKU` in struct `VirtualMachineScaleSetUpdateNetworkConfigurationProperties`
+- New field `TimeCreated` in struct `VirtualMachineScaleSetVMProperties`
 
 
 ## 5.1.0 (2023-07-28)
