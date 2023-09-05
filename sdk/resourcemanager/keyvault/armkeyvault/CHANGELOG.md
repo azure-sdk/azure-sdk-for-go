@@ -1,5 +1,12 @@
 # Release History
 
+## 1.3.0 (2023-09-05)
+### Features Added
+
+- New value `KeyRotationPolicyActionTypeRotateHSM` added to enum type `KeyRotationPolicyActionType`
+- New value `ManagedHsmSKUNameCustomB6` added to enum type `ManagedHsmSKUName`
+
+
 ## 1.2.0 (2023-04-28)
 ### Features Added
 
