@@ -1,5 +1,101 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-09-06)
+### Breaking Changes
+
+- Field `Instances`, `ResourceRequests` of struct `DevToolPortalProperties` has been removed
+
+### Features Added
+
+- New enum type `ApmProvisioningState` with values `ApmProvisioningStateCanceled`, `ApmProvisioningStateCreating`, `ApmProvisioningStateDeleting`, `ApmProvisioningStateFailed`, `ApmProvisioningStateSucceeded`, `ApmProvisioningStateUpdating`
+- New enum type `ConfigServerEnabledState` with values `ConfigServerEnabledStateDisabled`, `ConfigServerEnabledStateEnabled`
+- New enum type `ConfigurationServiceGeneration` with values `ConfigurationServiceGenerationGen1`, `ConfigurationServiceGenerationGen2`
+- New enum type `ContainerRegistryProvisioningState` with values `ContainerRegistryProvisioningStateCanceled`, `ContainerRegistryProvisioningStateCreating`, `ContainerRegistryProvisioningStateDeleting`, `ContainerRegistryProvisioningStateFailed`, `ContainerRegistryProvisioningStateSucceeded`, `ContainerRegistryProvisioningStateUpdating`
+- New enum type `CustomizedAcceleratorType` with values `CustomizedAcceleratorTypeAccelerator`, `CustomizedAcceleratorTypeFragment`
+- New enum type `EurekaServerEnabledState` with values `EurekaServerEnabledStateDisabled`, `EurekaServerEnabledStateEnabled`
+- New enum type `EurekaServerState` with values `EurekaServerStateCanceled`, `EurekaServerStateFailed`, `EurekaServerStateSucceeded`, `EurekaServerStateUpdating`
+- New enum type `Frequency` with values `FrequencyWeekly`
+- New enum type `GatewayCertificateVerification` with values `GatewayCertificateVerificationDisabled`, `GatewayCertificateVerificationEnabled`
+- New enum type `GitImplementation` with values `GitImplementationGoGit`, `GitImplementationLibgit2`
+- New enum type `WeekDay` with values `WeekDayFriday`, `WeekDayMonday`, `WeekDaySaturday`, `WeekDaySunday`, `WeekDayThursday`, `WeekDayTuesday`, `WeekDayWednesday`
+- New function `NewApmsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ApmsClient, error)`
+- New function `*ApmsClient.BeginCreateOrUpdate(context.Context, string, string, string, ApmResource, *ApmsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ApmsClientCreateOrUpdateResponse], error)`
+- New function `*ApmsClient.BeginDelete(context.Context, string, string, string, *ApmsClientBeginDeleteOptions) (*runtime.Poller[ApmsClientDeleteResponse], error)`
+- New function `*ApmsClient.Get(context.Context, string, string, string, *ApmsClientGetOptions) (ApmsClientGetResponse, error)`
+- New function `*ApmsClient.NewListPager(string, string, *ApmsClientListOptions) *runtime.Pager[ApmsClientListResponse]`
+- New function `*ApmsClient.ListSecretKeys(context.Context, string, string, string, *ApmsClientListSecretKeysOptions) (ApmsClientListSecretKeysResponse, error)`
+- New function `*BuildServiceClient.BeginCreateOrUpdate(context.Context, string, string, string, BuildService, *BuildServiceClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildServiceClientCreateOrUpdateResponse], error)`
+- New function `*BuildServiceClient.BeginDeleteBuild(context.Context, string, string, string, string, *BuildServiceClientBeginDeleteBuildOptions) (*runtime.Poller[BuildServiceClientDeleteBuildResponse], error)`
+- New function `*ClientFactory.NewApmsClient() *ApmsClient`
+- New function `*ClientFactory.NewContainerRegistriesClient() *ContainerRegistriesClient`
+- New function `*ClientFactory.NewEurekaServersClient() *EurekaServersClient`
+- New function `*ConfigurationServicesClient.BeginValidateResource(context.Context, string, string, string, ConfigurationServiceResource, *ConfigurationServicesClientBeginValidateResourceOptions) (*runtime.Poller[ConfigurationServicesClientValidateResourceResponse], error)`
+- New function `NewContainerRegistriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerRegistriesClient, error)`
+- New function `*ContainerRegistriesClient.BeginCreateOrUpdate(context.Context, string, string, string, ContainerRegistryResource, *ContainerRegistriesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ContainerRegistriesClientCreateOrUpdateResponse], error)`
+- New function `*ContainerRegistriesClient.BeginDelete(context.Context, string, string, string, *ContainerRegistriesClientBeginDeleteOptions) (*runtime.Poller[ContainerRegistriesClientDeleteResponse], error)`
+- New function `*ContainerRegistriesClient.Get(context.Context, string, string, string, *ContainerRegistriesClientGetOptions) (ContainerRegistriesClientGetResponse, error)`
+- New function `*ContainerRegistriesClient.NewListPager(string, string, *ContainerRegistriesClientListOptions) *runtime.Pager[ContainerRegistriesClientListResponse]`
+- New function `*ContainerRegistriesClient.BeginValidate(context.Context, string, string, string, ContainerRegistryProperties, *ContainerRegistriesClientBeginValidateOptions) (*runtime.Poller[ContainerRegistriesClientValidateResponse], error)`
+- New function `*ContainerRegistryBasicCredentials.GetContainerRegistryCredentials() *ContainerRegistryCredentials`
+- New function `*ContainerRegistryCredentials.GetContainerRegistryCredentials() *ContainerRegistryCredentials`
+- New function `NewEurekaServersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EurekaServersClient, error)`
+- New function `*EurekaServersClient.Get(context.Context, string, string, *EurekaServersClientGetOptions) (EurekaServersClientGetResponse, error)`
+- New function `*EurekaServersClient.List(context.Context, string, string, *EurekaServersClientListOptions) (EurekaServersClientListResponse, error)`
+- New function `*EurekaServersClient.BeginUpdatePatch(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePatchOptions) (*runtime.Poller[EurekaServersClientUpdatePatchResponse], error)`
+- New function `*EurekaServersClient.BeginUpdatePut(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePutOptions) (*runtime.Poller[EurekaServersClientUpdatePutResponse], error)`
+- New function `*GatewaysClient.BeginRestart(context.Context, string, string, string, *GatewaysClientBeginRestartOptions) (*runtime.Poller[GatewaysClientRestartResponse], error)`
+- New function `*MaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
+- New function `*ServicesClient.BeginDisableApmGlobally(context.Context, string, string, ApmReference, *ServicesClientBeginDisableApmGloballyOptions) (*runtime.Poller[ServicesClientDisableApmGloballyResponse], error)`
+- New function `*ServicesClient.BeginEnableApmGlobally(context.Context, string, string, ApmReference, *ServicesClientBeginEnableApmGloballyOptions) (*runtime.Poller[ServicesClientEnableApmGloballyResponse], error)`
+- New function `*ServicesClient.BeginFlushVnetDNSSetting(context.Context, string, string, *ServicesClientBeginFlushVnetDNSSettingOptions) (*runtime.Poller[ServicesClientFlushVnetDNSSettingResponse], error)`
+- New function `*ServicesClient.ListGloballyEnabledApms(context.Context, string, string, *ServicesClientListGloballyEnabledApmsOptions) (ServicesClientListGloballyEnabledApmsResponse, error)`
+- New function `*ServicesClient.NewListSupportedApmTypesPager(string, string, *ServicesClientListSupportedApmTypesOptions) *runtime.Pager[ServicesClientListSupportedApmTypesResponse]`
+- New function `*WarUploadedUserSourceInfo.GetUploadedUserSourceInfo() *UploadedUserSourceInfo`
+- New function `*WarUploadedUserSourceInfo.GetUserSourceInfo() *UserSourceInfo`
+- New function `*WeeklyMaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
+- New struct `ApmProperties`
+- New struct `ApmReference`
+- New struct `ApmResource`
+- New struct `ApmResourceCollection`
+- New struct `ApmSecretKeys`
+- New struct `CertificateReference`
+- New struct `ContainerRegistryBasicCredentials`
+- New struct `ContainerRegistryProperties`
+- New struct `ContainerRegistryResource`
+- New struct `ContainerRegistryResourceCollection`
+- New struct `ContainerRegistryValidateResult`
+- New struct `DevToolPortalComponent`
+- New struct `EurekaServerProperties`
+- New struct `EurekaServerResource`
+- New struct `EurekaServerResourceCollection`
+- New struct `GatewayPropertiesClientAuth`
+- New struct `GloballyEnabledApms`
+- New struct `SupportedApmType`
+- New struct `SupportedApmTypes`
+- New struct `WarUploadedUserSourceInfo`
+- New struct `WeeklyMaintenanceScheduleConfiguration`
+- New field `CaCertResourceID` in struct `AcceleratorBasicAuthSetting`
+- New field `SubPath` in struct `AcceleratorGitRepository`
+- New field `CaCertResourceID` in struct `AcceleratorPublicSetting`
+- New field `WorkloadProfileName` in struct `AppResourceProperties`
+- New field `Apms`, `Certificates` in struct `BuildProperties`
+- New field `Image` in struct `BuildResultProperties`
+- New field `ContainerRegistry` in struct `BuildServiceProperties`
+- New field `MaintenanceScheduleConfiguration` in struct `ClusterResourceProperties`
+- New field `EnabledState` in struct `ConfigServerProperties`
+- New field `CaCertResourceID`, `GitImplementation` in struct `ConfigurationServiceGitRepository`
+- New field `Generation` in struct `ConfigurationServiceProperties`
+- New field `Imports`, `Type` in struct `CustomizedAcceleratorProperties`
+- New field `Apms` in struct `DeploymentSettings`
+- New field `Expand` in struct `DeploymentsClientListForClusterOptions`
+- New field `Expand` in struct `DeploymentsClientListOptions`
+- New field `Components` in struct `DevToolPortalProperties`
+- New field `AllowedOriginPatterns` in struct `GatewayCorsProperties`
+- New field `AddonConfigs`, `Apms`, `ClientAuth` in struct `GatewayProperties`
+- New field `AutoSync` in struct `KeyVaultCertificateProperties`
+- New field `DataPlanePublicEndpoint` in struct `ServiceVNetAddons`
+
+
 ## 2.0.0-beta.1 (2023-04-28)
 ### Breaking Changes
 
