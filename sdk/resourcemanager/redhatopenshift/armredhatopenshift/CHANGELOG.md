@@ -1,5 +1,16 @@
 # Release History
 
+## 1.4.0-beta.1 (2023-09-07)
+### Features Added
+
+- New struct `EffectiveOutboundIP`
+- New struct `LoadBalancerProfile`
+- New struct `ManagedOutboundIPs`
+- New struct `OutboundIP`
+- New struct `OutboundIPPrefix`
+- New field `LoadBalancerProfile` in struct `NetworkProfile`
+
+
 ## 1.3.0 (2023-08-25)
 ### Features Added
 
