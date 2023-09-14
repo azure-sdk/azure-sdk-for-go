@@ -1,5 +1,55 @@
 # Release History
 
+## 1.6.0-beta.1 (2023-09-14)
+### Features Added
+
+- New enum type `AllowedContentLevel` with values `AllowedContentLevelHigh`, `AllowedContentLevelLow`, `AllowedContentLevelMedium`
+- New enum type `ByPassSelection` with values `ByPassSelectionAzureServices`, `ByPassSelectionNone`
+- New enum type `RaiContentFilterType` with values `RaiContentFilterTypeMultiLevel`, `RaiContentFilterTypeSwitch`
+- New enum type `RaiPolicyContentSource` with values `RaiPolicyContentSourceCompletion`, `RaiPolicyContentSourcePrompt`
+- New enum type `RaiPolicyMode` with values `RaiPolicyModeBlocking`, `RaiPolicyModeDefault`, `RaiPolicyModeDeferred`
+- New enum type `RaiPolicyType` with values `RaiPolicyTypeSystemManaged`, `RaiPolicyTypeUserManaged`
+- New function `*ClientFactory.NewRaiBlocklistClient() *RaiBlocklistClient`
+- New function `*ClientFactory.NewRaiBlocklistItemClient() *RaiBlocklistItemClient`
+- New function `*ClientFactory.NewRaiBlocklistItemsClient() *RaiBlocklistItemsClient`
+- New function `*ClientFactory.NewRaiBlocklistsClient() *RaiBlocklistsClient`
+- New function `*ClientFactory.NewRaiContentFiltersClient() *RaiContentFiltersClient`
+- New function `*ClientFactory.NewRaiPoliciesClient() *RaiPoliciesClient`
+- New function `NewRaiBlocklistClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiBlocklistClient, error)`
+- New function `*RaiBlocklistClient.CreateOrUpdate(context.Context, string, string, string, RaiBlocklist, *RaiBlocklistClientCreateOrUpdateOptions) (RaiBlocklistClientCreateOrUpdateResponse, error)`
+- New function `*RaiBlocklistClient.Get(context.Context, string, string, string, *RaiBlocklistClientGetOptions) (RaiBlocklistClientGetResponse, error)`
+- New function `NewRaiBlocklistItemClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiBlocklistItemClient, error)`
+- New function `*RaiBlocklistItemClient.CreateOrUpdate(context.Context, string, string, string, string, RaiBlocklistItem, *RaiBlocklistItemClientCreateOrUpdateOptions) (RaiBlocklistItemClientCreateOrUpdateResponse, error)`
+- New function `*RaiBlocklistItemClient.BeginDelete(context.Context, string, string, string, string, *RaiBlocklistItemClientBeginDeleteOptions) (*runtime.Poller[RaiBlocklistItemClientDeleteResponse], error)`
+- New function `*RaiBlocklistItemClient.Get(context.Context, string, string, string, string, *RaiBlocklistItemClientGetOptions) (RaiBlocklistItemClientGetResponse, error)`
+- New function `NewRaiBlocklistItemsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiBlocklistItemsClient, error)`
+- New function `*RaiBlocklistItemsClient.NewListPager(string, string, string, *RaiBlocklistItemsClientListOptions) *runtime.Pager[RaiBlocklistItemsClientListResponse]`
+- New function `NewRaiBlocklistsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiBlocklistsClient, error)`
+- New function `*RaiBlocklistsClient.BeginDelete(context.Context, string, string, string, *RaiBlocklistsClientBeginDeleteOptions) (*runtime.Poller[RaiBlocklistsClientDeleteResponse], error)`
+- New function `*RaiBlocklistsClient.NewListPager(string, string, *RaiBlocklistsClientListOptions) *runtime.Pager[RaiBlocklistsClientListResponse]`
+- New function `NewRaiContentFiltersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiContentFiltersClient, error)`
+- New function `*RaiContentFiltersClient.List(context.Context, string, *RaiContentFiltersClientListOptions) (RaiContentFiltersClientListResponse, error)`
+- New function `NewRaiPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiPoliciesClient, error)`
+- New function `*RaiPoliciesClient.CreateOrUpdate(context.Context, string, string, string, RaiPolicy, *RaiPoliciesClientCreateOrUpdateOptions) (RaiPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*RaiPoliciesClient.BeginDelete(context.Context, string, string, string, *RaiPoliciesClientBeginDeleteOptions) (*runtime.Poller[RaiPoliciesClientDeleteResponse], error)`
+- New function `*RaiPoliciesClient.Get(context.Context, string, string, string, *RaiPoliciesClientGetOptions) (RaiPoliciesClientGetResponse, error)`
+- New function `*RaiPoliciesClient.NewListPager(string, string, *RaiPoliciesClientListOptions) *runtime.Pager[RaiPoliciesClientListResponse]`
+- New struct `RaiBlockListItemsResult`
+- New struct `RaiBlockListResult`
+- New struct `RaiBlocklist`
+- New struct `RaiBlocklistConfig`
+- New struct `RaiBlocklistItem`
+- New struct `RaiBlocklistItemProperties`
+- New struct `RaiBlocklistProperties`
+- New struct `RaiContentFilter`
+- New struct `RaiContentFilterListResult`
+- New struct `RaiPolicy`
+- New struct `RaiPolicyContentFilter`
+- New struct `RaiPolicyListResult`
+- New struct `RaiPolicyProperties`
+- New field `Bypass` in struct `NetworkRuleSet`
+
+
 ## 1.5.0 (2023-07-28)
 ### Features Added
 
