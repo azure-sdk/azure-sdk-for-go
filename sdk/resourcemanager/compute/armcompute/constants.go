@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.2.0-beta.1"
+	moduleVersion = "v5.2.0"
 )
 
 type AccessLevel string
@@ -214,6 +214,7 @@ const (
 	ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk ConfidentialVMEncryptionType = "EncryptedVMGuestStateOnlyWithPmk"
 	ConfidentialVMEncryptionTypeEncryptedWithCmk                 ConfidentialVMEncryptionType = "EncryptedWithCmk"
 	ConfidentialVMEncryptionTypeEncryptedWithPmk                 ConfidentialVMEncryptionType = "EncryptedWithPmk"
+	ConfidentialVMEncryptionTypeNonPersistedTPM                  ConfidentialVMEncryptionType = "NonPersistedTPM"
 )
 
 // PossibleConfidentialVMEncryptionTypeValues returns the possible values for the ConfidentialVMEncryptionType const type.
@@ -222,6 +223,7 @@ func PossibleConfidentialVMEncryptionTypeValues() []ConfidentialVMEncryptionType
 		ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk,
 		ConfidentialVMEncryptionTypeEncryptedWithCmk,
 		ConfidentialVMEncryptionTypeEncryptedWithPmk,
+		ConfidentialVMEncryptionTypeNonPersistedTPM,
 	}
 }
 
@@ -381,6 +383,8 @@ const (
 	DiskCreateOptionAttach DiskCreateOption = "Attach"
 	// DiskCreateOptionCopy - Create a new disk or snapshot by copying from a disk or snapshot specified by the given sourceResourceId.
 	DiskCreateOptionCopy DiskCreateOption = "Copy"
+	// DiskCreateOptionCopyFromSanSnapshot - Create a new disk by exporting from elastic san volume snapshot
+	DiskCreateOptionCopyFromSanSnapshot DiskCreateOption = "CopyFromSanSnapshot"
 	// DiskCreateOptionCopyStart - Create a new disk by using a deep copy process, where the resource creation is considered complete
 	// only after all data has been copied from the source.
 	DiskCreateOptionCopyStart DiskCreateOption = "CopyStart"
@@ -409,6 +413,7 @@ func PossibleDiskCreateOptionValues() []DiskCreateOption {
 	return []DiskCreateOption{
 		DiskCreateOptionAttach,
 		DiskCreateOptionCopy,
+		DiskCreateOptionCopyFromSanSnapshot,
 		DiskCreateOptionCopyStart,
 		DiskCreateOptionEmpty,
 		DiskCreateOptionFromImage,
@@ -629,6 +634,28 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 		DiskStorageAccountTypesStandardSSDLRS,
 		DiskStorageAccountTypesStandardSSDZRS,
 		DiskStorageAccountTypesUltraSSDLRS,
+	}
+}
+
+// DomainNameLabelScopeTypes - The Domain name label scope.The concatenation of the hashed domain name label that generated
+// according to the policy from domain name label scope and vm index will be the domain name labels of the
+// PublicIPAddress resources that will be created
+type DomainNameLabelScopeTypes string
+
+const (
+	DomainNameLabelScopeTypesNoReuse            DomainNameLabelScopeTypes = "NoReuse"
+	DomainNameLabelScopeTypesResourceGroupReuse DomainNameLabelScopeTypes = "ResourceGroupReuse"
+	DomainNameLabelScopeTypesSubscriptionReuse  DomainNameLabelScopeTypes = "SubscriptionReuse"
+	DomainNameLabelScopeTypesTenantReuse        DomainNameLabelScopeTypes = "TenantReuse"
+)
+
+// PossibleDomainNameLabelScopeTypesValues returns the possible values for the DomainNameLabelScopeTypes const type.
+func PossibleDomainNameLabelScopeTypesValues() []DomainNameLabelScopeTypes {
+	return []DomainNameLabelScopeTypes{
+		DomainNameLabelScopeTypesNoReuse,
+		DomainNameLabelScopeTypesResourceGroupReuse,
+		DomainNameLabelScopeTypesSubscriptionReuse,
+		DomainNameLabelScopeTypesTenantReuse,
 	}
 }
 
@@ -874,11 +901,8 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
-// Possible values are:
-// Private
-// Groups
-// Community
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
+// are: Private, Groups, Community.
 type GallerySharingPermissionTypes string
 
 const (
@@ -1166,6 +1190,46 @@ func PossibleNetworkAccessPolicyValues() []NetworkAccessPolicy {
 	}
 }
 
+// NetworkInterfaceAuxiliaryMode - Specifies whether the Auxiliary mode is enabled for the Network Interface resource.
+type NetworkInterfaceAuxiliaryMode string
+
+const (
+	NetworkInterfaceAuxiliaryModeAcceleratedConnections NetworkInterfaceAuxiliaryMode = "AcceleratedConnections"
+	NetworkInterfaceAuxiliaryModeFloating               NetworkInterfaceAuxiliaryMode = "Floating"
+	NetworkInterfaceAuxiliaryModeNone                   NetworkInterfaceAuxiliaryMode = "None"
+)
+
+// PossibleNetworkInterfaceAuxiliaryModeValues returns the possible values for the NetworkInterfaceAuxiliaryMode const type.
+func PossibleNetworkInterfaceAuxiliaryModeValues() []NetworkInterfaceAuxiliaryMode {
+	return []NetworkInterfaceAuxiliaryMode{
+		NetworkInterfaceAuxiliaryModeAcceleratedConnections,
+		NetworkInterfaceAuxiliaryModeFloating,
+		NetworkInterfaceAuxiliaryModeNone,
+	}
+}
+
+// NetworkInterfaceAuxiliarySKU - Specifies whether the Auxiliary sku is enabled for the Network Interface resource.
+type NetworkInterfaceAuxiliarySKU string
+
+const (
+	NetworkInterfaceAuxiliarySKUA1   NetworkInterfaceAuxiliarySKU = "A1"
+	NetworkInterfaceAuxiliarySKUA2   NetworkInterfaceAuxiliarySKU = "A2"
+	NetworkInterfaceAuxiliarySKUA4   NetworkInterfaceAuxiliarySKU = "A4"
+	NetworkInterfaceAuxiliarySKUA8   NetworkInterfaceAuxiliarySKU = "A8"
+	NetworkInterfaceAuxiliarySKUNone NetworkInterfaceAuxiliarySKU = "None"
+)
+
+// PossibleNetworkInterfaceAuxiliarySKUValues returns the possible values for the NetworkInterfaceAuxiliarySKU const type.
+func PossibleNetworkInterfaceAuxiliarySKUValues() []NetworkInterfaceAuxiliarySKU {
+	return []NetworkInterfaceAuxiliarySKU{
+		NetworkInterfaceAuxiliarySKUA1,
+		NetworkInterfaceAuxiliarySKUA2,
+		NetworkInterfaceAuxiliarySKUA4,
+		NetworkInterfaceAuxiliarySKUA8,
+		NetworkInterfaceAuxiliarySKUNone,
+	}
+}
+
 // OperatingSystemStateTypes - This property allows the user to specify whether the virtual machines created under this image
 // are 'Generalized' or 'Specialized'.
 type OperatingSystemStateTypes string
@@ -1200,9 +1264,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 }
 
 // OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// Possible values are: Windows, Linux.
 type OperatingSystemTypes string
 
 const (
@@ -1566,12 +1628,14 @@ type ReplicationStatusTypes string
 
 const (
 	ReplicationStatusTypesReplicationStatus ReplicationStatusTypes = "ReplicationStatus"
+	ReplicationStatusTypesUefiSettings      ReplicationStatusTypes = "UefiSettings"
 )
 
 // PossibleReplicationStatusTypesValues returns the possible values for the ReplicationStatusTypes const type.
 func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
+		ReplicationStatusTypesUefiSettings,
 	}
 }
 
@@ -1830,10 +1894,8 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
-// Possible values are:
-// Subscriptions
-// AADTenants
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
+// AADTenants.
 type SharingProfileGroupTypes string
 
 const (
@@ -1869,11 +1931,8 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
-// Possible values are:
-// Add
-// Remove
-// Reset
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
+// values are: Add, Remove, Reset.
 type SharingUpdateOperationTypes string
 
 const (
@@ -1979,6 +2038,40 @@ func PossibleStorageAccountTypesValues() []StorageAccountTypes {
 		StorageAccountTypesStandardSSDLRS,
 		StorageAccountTypesStandardSSDZRS,
 		StorageAccountTypesUltraSSDLRS,
+	}
+}
+
+// UefiKeyType - The type of key signature.
+type UefiKeyType string
+
+const (
+	UefiKeyTypeSHA256 UefiKeyType = "sha256"
+	UefiKeyTypeX509   UefiKeyType = "x509"
+)
+
+// PossibleUefiKeyTypeValues returns the possible values for the UefiKeyType const type.
+func PossibleUefiKeyTypeValues() []UefiKeyType {
+	return []UefiKeyType{
+		UefiKeyTypeSHA256,
+		UefiKeyTypeX509,
+	}
+}
+
+// UefiSignatureTemplateName - The name of the signature template that contains default UEFI keys.
+type UefiSignatureTemplateName string
+
+const (
+	UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate UefiSignatureTemplateName = "MicrosoftUefiCertificateAuthorityTemplate"
+	UefiSignatureTemplateNameMicrosoftWindowsTemplate                  UefiSignatureTemplateName = "MicrosoftWindowsTemplate"
+	UefiSignatureTemplateNameNoSignatureTemplate                       UefiSignatureTemplateName = "NoSignatureTemplate"
+)
+
+// PossibleUefiSignatureTemplateNameValues returns the possible values for the UefiSignatureTemplateName const type.
+func PossibleUefiSignatureTemplateNameValues() []UefiSignatureTemplateName {
+	return []UefiSignatureTemplateName{
+		UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate,
+		UefiSignatureTemplateNameMicrosoftWindowsTemplate,
+		UefiSignatureTemplateNameNoSignatureTemplate,
 	}
 }
 
