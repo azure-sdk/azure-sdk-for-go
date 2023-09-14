@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v4.1.0"
+	moduleVersion = "v5.0.0"
 )
 
 // Access - Access to be allowed or denied.
