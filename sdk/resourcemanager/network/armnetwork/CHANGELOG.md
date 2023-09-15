@@ -1,5 +1,34 @@
 # Release History
 
+## 5.0.0 (2023-09-15)
+### Breaking Changes
+
+- Function `*WatchersClient.BeginSetFlowLogConfiguration` parameter(s) have been changed from `(context.Context, string, string, FlowLogInformation, *WatchersClientBeginSetFlowLogConfigurationOptions)` to `(context.Context, string, string, FlowLogInformationRequest, *WatchersClientBeginSetFlowLogConfigurationOptions)`
+- Struct `FlowLogInformation` has been removed
+- Field `FlowLogInformation` of struct `WatchersClientGetFlowLogStatusResponse` has been removed
+- Field `FlowLogInformation` of struct `WatchersClientSetFlowLogConfigurationResponse` has been removed
+
+### Features Added
+
+- New struct `BastionHostPropertiesFormatNetworkACLs`
+- New struct `FlowLogInformationRequest`
+- New struct `FlowLogInformationResponse`
+- New struct `IPRule`
+- New struct `RequestIdentityObjectForUserAssigned`
+- New struct `ResultIdentityObjectForUserAssigned`
+- New struct `UserIdentityProperties`
+- New struct `VirtualNetworkGatewayAutoScaleBounds`
+- New struct `VirtualNetworkGatewayAutoScaleConfiguration`
+- New field `NetworkACLs`, `VirtualNetwork` in struct `BastionHostPropertiesFormat`
+- New field `Size` in struct `FirewallPolicyPropertiesFormat`
+- New field `Size` in struct `FirewallPolicyRuleCollectionGroupProperties`
+- New field `Identity` in struct `FlowLog`
+- New field `DefaultOutboundAccess` in struct `SubnetPropertiesFormat`
+- New field `AutoScaleConfiguration` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New anonymous field `FlowLogInformationResponse` in struct `WatchersClientGetFlowLogStatusResponse`
+- New anonymous field `FlowLogInformationResponse` in struct `WatchersClientSetFlowLogConfigurationResponse`
+
+
 ## 4.1.0 (2023-08-25)
 ### Features Added
 

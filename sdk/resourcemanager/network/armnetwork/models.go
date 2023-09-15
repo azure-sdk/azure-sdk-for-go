@@ -3010,12 +3010,21 @@ type BastionHostPropertiesFormat struct {
 
 	// IP configuration of the Bastion Host resource.
 	IPConfigurations []*BastionHostIPConfiguration
+	NetworkACLs      *BastionHostPropertiesFormatNetworkACLs
 
 	// The scale units for the Bastion Host resource.
 	ScaleUnits *int32
 
+	// Reference to an existing virtual network required for Developer Bastion Host only.
+	VirtualNetwork *SubResource
+
 	// READ-ONLY; The provisioning state of the bastion host resource.
 	ProvisioningState *ProvisioningState
+}
+
+type BastionHostPropertiesFormatNetworkACLs struct {
+	// Sets the IP ACL rules for Developer Bastion Host.
+	IPRules []*IPRule
 }
 
 // BastionSessionDeleteResult - Response for DisconnectActiveSessions.
@@ -6078,6 +6087,9 @@ type FirewallPolicyPropertiesFormat struct {
 
 	// READ-ONLY; List of references to FirewallPolicyRuleCollectionGroups.
 	RuleCollectionGroups []*SubResource
+
+	// READ-ONLY; A read-only string that represents the size of the FirewallPolicyPropertiesFormat in MB. (ex 0.5MB)
+	Size *string
 }
 
 // FirewallPolicyRule - Properties of a rule.
@@ -6158,6 +6170,9 @@ type FirewallPolicyRuleCollectionGroupProperties struct {
 
 	// READ-ONLY; The provisioning state of the firewall policy rule collection group resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; A read-only string that represents the size of the FirewallPolicyRuleCollectionGroupProperties in MB. (ex 1.2MB)
+	Size *string
 }
 
 // FirewallPolicySKU - SKU of Firewall policy.
@@ -6201,6 +6216,9 @@ type FlowLog struct {
 	// Resource ID.
 	ID *string
 
+	// Identity of the workspace
+	Identity *ResultIdentityObjectForUserAssigned
+
 	// Resource location.
 	Location *string
 
@@ -6229,8 +6247,8 @@ type FlowLogFormatParameters struct {
 	Version *int32
 }
 
-// FlowLogInformation - Information on the configuration of flow log and traffic analytics (optional) .
-type FlowLogInformation struct {
+// FlowLogInformationRequest - Information on the configuration of flow log and traffic analytics (optional) .
+type FlowLogInformationRequest struct {
 	// REQUIRED; Properties of the flow log.
 	Properties *FlowLogProperties
 
@@ -6239,6 +6257,24 @@ type FlowLogInformation struct {
 
 	// Parameters that define the configuration of traffic analytics.
 	FlowAnalyticsConfiguration *TrafficAnalyticsProperties
+
+	// Identity of the workspace
+	Identity *RequestIdentityObjectForUserAssigned
+}
+
+// FlowLogInformationResponse - Information on the configuration of flow log and traffic analytics (optional) .
+type FlowLogInformationResponse struct {
+	// REQUIRED; Properties of the flow log.
+	Properties *FlowLogProperties
+
+	// REQUIRED; The ID of the resource to configure for flow log and traffic analytics (optional) .
+	TargetResourceID *string
+
+	// Parameters that define the configuration of traffic analytics.
+	FlowAnalyticsConfiguration *TrafficAnalyticsProperties
+
+	// Identity of the workspace
+	Identity *ResultIdentityObjectForUserAssigned
 }
 
 // FlowLogListResult - List of flow logs.
@@ -6933,6 +6969,11 @@ type IPGroupPropertiesFormat struct {
 type IPPrefixesList struct {
 	// IP Prefix value.
 	IPPrefixes []*string
+}
+
+type IPRule struct {
+	// Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed.
+	AddressPrefix *string
 }
 
 // IPSecPolicy - An IPSec Policy configuration for a virtual network gateway connection.
@@ -9935,6 +9976,18 @@ type ReferencedPublicIPAddress struct {
 	ID *string
 }
 
+// RequestIdentityObjectForUserAssigned - Identity for the resource.
+type RequestIdentityObjectForUserAssigned struct {
+	// The type of identity used for the resource. The type 'UserAssigned' includes set of user assigned identities. The type
+	// 'None' will remove any identities from the flowlog.
+	Type *ResourceIdentityType
+
+	// The list of user identities associated with resource. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities any
+}
+
 // Resource - Common resource representation.
 type Resource struct {
 	// Resource ID.
@@ -9996,6 +10049,18 @@ type ResourceNavigationLinksListResult struct {
 type ResourceSet struct {
 	// The list of subscriptions.
 	Subscriptions []*string
+}
+
+// ResultIdentityObjectForUserAssigned - Identity for the resource.
+type ResultIdentityObjectForUserAssigned struct {
+	// The type of identity used for the resource. The type 'UserAssigned' includes set of user assigned identities. The type
+	// 'None' will remove any identities from the flowlog.
+	Type *ResourceIdentityType
+
+	// The list of user identities associated with resource. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserIdentityProperties
 }
 
 // RetentionPolicyParameters - Parameters that define the retention policy for flow log.
@@ -11151,6 +11216,11 @@ type SubnetPropertiesFormat struct {
 	// Application gateway IP configurations of virtual network resource.
 	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration
 
+	// Set this property to false to disable default outbound connectivity for all VMs in the subnet. This property can only be
+	// set at the time of subnet creation and cannot be updated for an existing
+	// subnet.
+	DefaultOutboundAccess *bool
+
 	// An array of references to the delegations on the subnet.
 	Delegations []*Delegation
 
@@ -11465,6 +11535,14 @@ type UsagesListResult struct {
 
 	// The list network resource usages.
 	Value []*Usage
+}
+
+type UserIdentityProperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }
 
 // VM - Describes a Virtual Machine.
@@ -12871,6 +12949,20 @@ type VirtualNetworkGateway struct {
 	Type *string
 }
 
+type VirtualNetworkGatewayAutoScaleBounds struct {
+	// Maximum Scale Units for Autoscale configuration
+	Max *int32
+
+	// Minimum scale Units for Autoscale configuration
+	Min *int32
+}
+
+// VirtualNetworkGatewayAutoScaleConfiguration - Virtual Network Gateway Autoscale Configuration details
+type VirtualNetworkGatewayAutoScaleConfiguration struct {
+	// The bounds of the autoscale configuration
+	Bounds *VirtualNetworkGatewayAutoScaleBounds
+}
+
 // VirtualNetworkGatewayConnection - A common class for general resource information.
 type VirtualNetworkGatewayConnection struct {
 	// REQUIRED; Properties of the virtual network gateway connection.
@@ -13236,6 +13328,9 @@ type VirtualNetworkGatewayPropertiesFormat struct {
 
 	// Configures this gateway to accept traffic from remote Virtual WAN networks.
 	AllowVirtualWanTraffic *bool
+
+	// Autoscale configuration for virutal network gateway
+	AutoScaleConfiguration *VirtualNetworkGatewayAutoScaleConfiguration
 
 	// Virtual network gateway's BGP speaker settings.
 	BgpSettings *BgpSettings

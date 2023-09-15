@@ -3609,7 +3609,7 @@ type WatchersClientGetAzureReachabilityReportResponse struct {
 // WatchersClientGetFlowLogStatusResponse contains the response from method WatchersClient.BeginGetFlowLogStatus.
 type WatchersClientGetFlowLogStatusResponse struct {
 	// Information on the configuration of flow log and traffic analytics (optional) .
-	FlowLogInformation
+	FlowLogInformationResponse
 }
 
 // WatchersClientGetNetworkConfigurationDiagnosticResponse contains the response from method WatchersClient.BeginGetNetworkConfigurationDiagnostic.
@@ -3675,7 +3675,7 @@ type WatchersClientListResponse struct {
 // WatchersClientSetFlowLogConfigurationResponse contains the response from method WatchersClient.BeginSetFlowLogConfiguration.
 type WatchersClientSetFlowLogConfigurationResponse struct {
 	// Information on the configuration of flow log and traffic analytics (optional) .
-	FlowLogInformation
+	FlowLogInformationResponse
 }
 
 // WatchersClientUpdateTagsResponse contains the response from method WatchersClient.UpdateTags.
