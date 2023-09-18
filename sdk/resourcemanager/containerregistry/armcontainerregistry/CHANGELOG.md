@@ -1,5 +1,164 @@
 # Release History
 
+## 1.1.0-beta.4 (2023-09-18)
+### Breaking Changes
+
+- Type of `ErrorResponse.Error` has been changed from `*ErrorResponseBody` to `*ErrorDetail`
+- Enum `Architecture` has been removed
+- Enum `BaseImageDependencyType` has been removed
+- Enum `BaseImageTriggerType` has been removed
+- Enum `OS` has been removed
+- Enum `RunStatus` has been removed
+- Enum `RunType` has been removed
+- Enum `SecretObjectType` has been removed
+- Enum `SourceControlType` has been removed
+- Enum `SourceRegistryLoginMode` has been removed
+- Enum `SourceTriggerEvent` has been removed
+- Enum `StepType` has been removed
+- Enum `TaskStatus` has been removed
+- Enum `TokenType` has been removed
+- Enum `UpdateTriggerPayloadType` has been removed
+- Enum `Variant` has been removed
+- Function `NewAgentPoolsClient` has been removed
+- Function `*AgentPoolsClient.BeginCreate` has been removed
+- Function `*AgentPoolsClient.BeginDelete` has been removed
+- Function `*AgentPoolsClient.Get` has been removed
+- Function `*AgentPoolsClient.GetQueueStatus` has been removed
+- Function `*AgentPoolsClient.NewListPager` has been removed
+- Function `*AgentPoolsClient.BeginUpdate` has been removed
+- Function `*ClientFactory.NewAgentPoolsClient` has been removed
+- Function `*ClientFactory.NewRunsClient` has been removed
+- Function `*ClientFactory.NewTaskRunsClient` has been removed
+- Function `*ClientFactory.NewTasksClient` has been removed
+- Function `*DockerBuildRequest.GetRunRequest` has been removed
+- Function `*DockerBuildStep.GetTaskStepProperties` has been removed
+- Function `*DockerBuildStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `*EncodedTaskRunRequest.GetRunRequest` has been removed
+- Function `*EncodedTaskStep.GetTaskStepProperties` has been removed
+- Function `*EncodedTaskStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `*FileTaskRunRequest.GetRunRequest` has been removed
+- Function `*FileTaskStep.GetTaskStepProperties` has been removed
+- Function `*FileTaskStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `*RegistriesClient.GetBuildSourceUploadURL` has been removed
+- Function `*RegistriesClient.BeginScheduleRun` has been removed
+- Function `*RunRequest.GetRunRequest` has been removed
+- Function `NewRunsClient` has been removed
+- Function `*RunsClient.BeginCancel` has been removed
+- Function `*RunsClient.Get` has been removed
+- Function `*RunsClient.GetLogSasURL` has been removed
+- Function `*RunsClient.NewListPager` has been removed
+- Function `*RunsClient.BeginUpdate` has been removed
+- Function `*TaskRunRequest.GetRunRequest` has been removed
+- Function `NewTaskRunsClient` has been removed
+- Function `*TaskRunsClient.BeginCreate` has been removed
+- Function `*TaskRunsClient.BeginDelete` has been removed
+- Function `*TaskRunsClient.Get` has been removed
+- Function `*TaskRunsClient.GetDetails` has been removed
+- Function `*TaskRunsClient.NewListPager` has been removed
+- Function `*TaskRunsClient.BeginUpdate` has been removed
+- Function `*TaskStepProperties.GetTaskStepProperties` has been removed
+- Function `*TaskStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `NewTasksClient` has been removed
+- Function `*TasksClient.BeginCreate` has been removed
+- Function `*TasksClient.BeginDelete` has been removed
+- Function `*TasksClient.Get` has been removed
+- Function `*TasksClient.GetDetails` has been removed
+- Function `*TasksClient.NewListPager` has been removed
+- Function `*TasksClient.BeginUpdate` has been removed
+- Struct `AgentPool` has been removed
+- Struct `AgentPoolListResult` has been removed
+- Struct `AgentPoolProperties` has been removed
+- Struct `AgentPoolPropertiesUpdateParameters` has been removed
+- Struct `AgentPoolQueueStatus` has been removed
+- Struct `AgentPoolUpdateParameters` has been removed
+- Struct `AgentProperties` has been removed
+- Struct `Argument` has been removed
+- Struct `AuthInfo` has been removed
+- Struct `AuthInfoUpdateParameters` has been removed
+- Struct `BaseImageDependency` has been removed
+- Struct `BaseImageTrigger` has been removed
+- Struct `BaseImageTriggerUpdateParameters` has been removed
+- Struct `Credentials` has been removed
+- Struct `CustomRegistryCredentials` has been removed
+- Struct `DockerBuildRequest` has been removed
+- Struct `DockerBuildStep` has been removed
+- Struct `DockerBuildStepUpdateParameters` has been removed
+- Struct `EncodedTaskRunRequest` has been removed
+- Struct `EncodedTaskStep` has been removed
+- Struct `EncodedTaskStepUpdateParameters` has been removed
+- Struct `ErrorResponseBody` has been removed
+- Struct `FileTaskRunRequest` has been removed
+- Struct `FileTaskStep` has been removed
+- Struct `FileTaskStepUpdateParameters` has been removed
+- Struct `ImageDescriptor` has been removed
+- Struct `ImageUpdateTrigger` has been removed
+- Struct `InnerErrorDescription` has been removed
+- Struct `OverrideTaskStepProperties` has been removed
+- Struct `PlatformProperties` has been removed
+- Struct `PlatformUpdateParameters` has been removed
+- Struct `Run` has been removed
+- Struct `RunFilter` has been removed
+- Struct `RunGetLogResult` has been removed
+- Struct `RunListResult` has been removed
+- Struct `RunProperties` has been removed
+- Struct `RunUpdateParameters` has been removed
+- Struct `SecretObject` has been removed
+- Struct `SetValue` has been removed
+- Struct `SourceProperties` has been removed
+- Struct `SourceRegistryCredentials` has been removed
+- Struct `SourceTrigger` has been removed
+- Struct `SourceTriggerDescriptor` has been removed
+- Struct `SourceTriggerUpdateParameters` has been removed
+- Struct `SourceUpdateParameters` has been removed
+- Struct `SourceUploadDefinition` has been removed
+- Struct `Task` has been removed
+- Struct `TaskListResult` has been removed
+- Struct `TaskProperties` has been removed
+- Struct `TaskPropertiesUpdateParameters` has been removed
+- Struct `TaskRun` has been removed
+- Struct `TaskRunListResult` has been removed
+- Struct `TaskRunProperties` has been removed
+- Struct `TaskRunPropertiesUpdateParameters` has been removed
+- Struct `TaskRunRequest` has been removed
+- Struct `TaskRunUpdateParameters` has been removed
+- Struct `TaskUpdateParameters` has been removed
+- Struct `TimerTrigger` has been removed
+- Struct `TimerTriggerDescriptor` has been removed
+- Struct `TimerTriggerUpdateParameters` has been removed
+- Struct `TriggerProperties` has been removed
+- Struct `TriggerUpdateParameters` has been removed
+
+### Features Added
+
+- New enum type `PackageSourceType` with values `PackageSourceTypeRemote`
+- New function `NewArchiveVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ArchiveVersionsClient, error)`
+- New function `*ArchiveVersionsClient.BeginCreate(context.Context, string, string, string, string, string, *ArchiveVersionsClientBeginCreateOptions) (*runtime.Poller[ArchiveVersionsClientCreateResponse], error)`
+- New function `*ArchiveVersionsClient.BeginDelete(context.Context, string, string, string, string, string, *ArchiveVersionsClientBeginDeleteOptions) (*runtime.Poller[ArchiveVersionsClientDeleteResponse], error)`
+- New function `*ArchiveVersionsClient.Get(context.Context, string, string, string, string, string, *ArchiveVersionsClientGetOptions) (ArchiveVersionsClientGetResponse, error)`
+- New function `*ArchiveVersionsClient.NewListPager(string, string, string, string, *ArchiveVersionsClientListOptions) *runtime.Pager[ArchiveVersionsClientListResponse]`
+- New function `NewArchivesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ArchivesClient, error)`
+- New function `*ArchivesClient.BeginCreate(context.Context, string, string, string, string, Archive, *ArchivesClientBeginCreateOptions) (*runtime.Poller[ArchivesClientCreateResponse], error)`
+- New function `*ArchivesClient.BeginDelete(context.Context, string, string, string, string, *ArchivesClientBeginDeleteOptions) (*runtime.Poller[ArchivesClientDeleteResponse], error)`
+- New function `*ArchivesClient.Get(context.Context, string, string, string, string, *ArchivesClientGetOptions) (ArchivesClientGetResponse, error)`
+- New function `*ArchivesClient.NewListPager(string, string, string, *ArchivesClientListOptions) *runtime.Pager[ArchivesClientListResponse]`
+- New function `*ArchivesClient.Update(context.Context, string, string, string, string, ArchiveUpdateParameters, *ArchivesClientUpdateOptions) (ArchivesClientUpdateResponse, error)`
+- New function `*ClientFactory.NewArchiveVersionsClient() *ArchiveVersionsClient`
+- New function `*ClientFactory.NewArchivesClient() *ArchivesClient`
+- New struct `Archive`
+- New struct `ArchiveListResult`
+- New struct `ArchivePackageSourceProperties`
+- New struct `ArchiveProperties`
+- New struct `ArchiveUpdateParameters`
+- New struct `ArchiveUpdateProperties`
+- New struct `ArchiveVersion`
+- New struct `ArchiveVersionListResult`
+- New struct `ArchiveVersionProperties`
+- New struct `DebianArchivePackageSourceProperties`
+- New struct `DebianArchiveProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+
+
 ## 1.1.0-beta.3 (2023-07-19)
 
 ### Bug Fixes

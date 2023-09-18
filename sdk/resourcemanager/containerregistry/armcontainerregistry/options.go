@@ -8,36 +8,52 @@
 
 package armcontainerregistry
 
-// AgentPoolsClientBeginCreateOptions contains the optional parameters for the AgentPoolsClient.BeginCreate method.
-type AgentPoolsClientBeginCreateOptions struct {
+// ArchiveVersionsClientBeginCreateOptions contains the optional parameters for the ArchiveVersionsClient.BeginCreate method.
+type ArchiveVersionsClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// AgentPoolsClientBeginDeleteOptions contains the optional parameters for the AgentPoolsClient.BeginDelete method.
-type AgentPoolsClientBeginDeleteOptions struct {
+// ArchiveVersionsClientBeginDeleteOptions contains the optional parameters for the ArchiveVersionsClient.BeginDelete method.
+type ArchiveVersionsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// AgentPoolsClientBeginUpdateOptions contains the optional parameters for the AgentPoolsClient.BeginUpdate method.
-type AgentPoolsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// AgentPoolsClientGetOptions contains the optional parameters for the AgentPoolsClient.Get method.
-type AgentPoolsClientGetOptions struct {
+// ArchiveVersionsClientGetOptions contains the optional parameters for the ArchiveVersionsClient.Get method.
+type ArchiveVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AgentPoolsClientGetQueueStatusOptions contains the optional parameters for the AgentPoolsClient.GetQueueStatus method.
-type AgentPoolsClientGetQueueStatusOptions struct {
+// ArchiveVersionsClientListOptions contains the optional parameters for the ArchiveVersionsClient.NewListPager method.
+type ArchiveVersionsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AgentPoolsClientListOptions contains the optional parameters for the AgentPoolsClient.NewListPager method.
-type AgentPoolsClientListOptions struct {
+// ArchivesClientBeginCreateOptions contains the optional parameters for the ArchivesClient.BeginCreate method.
+type ArchivesClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArchivesClientBeginDeleteOptions contains the optional parameters for the ArchivesClient.BeginDelete method.
+type ArchivesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArchivesClientGetOptions contains the optional parameters for the ArchivesClient.Get method.
+type ArchivesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ArchivesClientListOptions contains the optional parameters for the ArchivesClient.NewListPager method.
+type ArchivesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ArchivesClientUpdateOptions contains the optional parameters for the ArchivesClient.Update method.
+type ArchivesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -260,12 +276,6 @@ type RegistriesClientBeginImportImageOptions struct {
 	ResumeToken string
 }
 
-// RegistriesClientBeginScheduleRunOptions contains the optional parameters for the RegistriesClient.BeginScheduleRun method.
-type RegistriesClientBeginScheduleRunOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // RegistriesClientBeginUpdateOptions contains the optional parameters for the RegistriesClient.BeginUpdate method.
 type RegistriesClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -275,12 +285,6 @@ type RegistriesClientBeginUpdateOptions struct {
 // RegistriesClientCheckNameAvailabilityOptions contains the optional parameters for the RegistriesClient.CheckNameAvailability
 // method.
 type RegistriesClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// RegistriesClientGetBuildSourceUploadURLOptions contains the optional parameters for the RegistriesClient.GetBuildSourceUploadURL
-// method.
-type RegistriesClientGetBuildSourceUploadURLOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -356,38 +360,6 @@ type ReplicationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RunsClientBeginCancelOptions contains the optional parameters for the RunsClient.BeginCancel method.
-type RunsClientBeginCancelOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// RunsClientBeginUpdateOptions contains the optional parameters for the RunsClient.BeginUpdate method.
-type RunsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// RunsClientGetLogSasURLOptions contains the optional parameters for the RunsClient.GetLogSasURL method.
-type RunsClientGetLogSasURLOptions struct {
-	// placeholder for future optional parameters
-}
-
-// RunsClientGetOptions contains the optional parameters for the RunsClient.Get method.
-type RunsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// RunsClientListOptions contains the optional parameters for the RunsClient.NewListPager method.
-type RunsClientListOptions struct {
-	// The runs filter to apply on the operation. Arithmetic operators are not supported. The allowed string function is 'contains'.
-	// All logical operators except 'Not', 'Has', 'All' are allowed.
-	Filter *string
-
-	// $top is supported for get list of runs, which limits the maximum number of runs to return.
-	Top *int32
-}
-
 // ScopeMapsClientBeginCreateOptions contains the optional parameters for the ScopeMapsClient.BeginCreate method.
 type ScopeMapsClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -413,72 +385,6 @@ type ScopeMapsClientGetOptions struct {
 
 // ScopeMapsClientListOptions contains the optional parameters for the ScopeMapsClient.NewListPager method.
 type ScopeMapsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TaskRunsClientBeginCreateOptions contains the optional parameters for the TaskRunsClient.BeginCreate method.
-type TaskRunsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TaskRunsClientBeginDeleteOptions contains the optional parameters for the TaskRunsClient.BeginDelete method.
-type TaskRunsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TaskRunsClientBeginUpdateOptions contains the optional parameters for the TaskRunsClient.BeginUpdate method.
-type TaskRunsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TaskRunsClientGetDetailsOptions contains the optional parameters for the TaskRunsClient.GetDetails method.
-type TaskRunsClientGetDetailsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TaskRunsClientGetOptions contains the optional parameters for the TaskRunsClient.Get method.
-type TaskRunsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TaskRunsClientListOptions contains the optional parameters for the TaskRunsClient.NewListPager method.
-type TaskRunsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TasksClientBeginCreateOptions contains the optional parameters for the TasksClient.BeginCreate method.
-type TasksClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TasksClientBeginDeleteOptions contains the optional parameters for the TasksClient.BeginDelete method.
-type TasksClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TasksClientBeginUpdateOptions contains the optional parameters for the TasksClient.BeginUpdate method.
-type TasksClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TasksClientGetDetailsOptions contains the optional parameters for the TasksClient.GetDetails method.
-type TasksClientGetDetailsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TasksClientGetOptions contains the optional parameters for the TasksClient.Get method.
-type TasksClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TasksClientListOptions contains the optional parameters for the TasksClient.NewListPager method.
-type TasksClientListOptions struct {
 	// placeholder for future optional parameters
 }
 

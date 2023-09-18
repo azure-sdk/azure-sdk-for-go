@@ -37,8 +37,13 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-func (c *ClientFactory) NewAgentPoolsClient() *AgentPoolsClient {
-	subClient, _ := NewAgentPoolsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewArchiveVersionsClient() *ArchiveVersionsClient {
+	subClient, _ := NewArchiveVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewArchivesClient() *ArchivesClient {
+	subClient, _ := NewArchivesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -92,23 +97,8 @@ func (c *ClientFactory) NewReplicationsClient() *ReplicationsClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewRunsClient() *RunsClient {
-	subClient, _ := NewRunsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewScopeMapsClient() *ScopeMapsClient {
 	subClient, _ := NewScopeMapsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewTaskRunsClient() *TaskRunsClient {
-	subClient, _ := NewTaskRunsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewTasksClient() *TasksClient {
-	subClient, _ := NewTasksClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
