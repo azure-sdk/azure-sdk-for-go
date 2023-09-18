@@ -207,6 +207,15 @@ func (c *ContinuousAction) GetAction() *Action {
 	}
 }
 
+// CustomerDataStorageProperties - Model that represents the Customer Managed Storage for an Experiment.
+type CustomerDataStorageProperties struct {
+	// Name of the Azure Blob Storage container to use or create.
+	BlobContainerName *string
+
+	// ARM Resource ID of the Storage account to use for Customer Data storage.
+	StorageAccountResourceID *string
+}
+
 // DelayAction - Model that represents a delay action.
 type DelayAction struct {
 	// REQUIRED; ISO8601 formatted string that represents a duration.
@@ -421,6 +430,9 @@ type ExperimentProperties struct {
 
 	// REQUIRED; List of steps.
 	Steps []*Step
+
+	// Optional customer-managed Storage account where Experiment schema will be stored.
+	CustomerDataStorage *CustomerDataStorageProperties
 
 	// A boolean value that indicates if experiment should be started on creation or not.
 	StartOnCreation *bool

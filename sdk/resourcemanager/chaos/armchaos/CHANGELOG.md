@@ -1,5 +1,12 @@
 # Release History
 
+## 0.8.0 (2023-09-18)
+### Features Added
+
+- New struct `CustomerDataStorageProperties`
+- New field `CustomerDataStorage` in struct `ExperimentProperties`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 

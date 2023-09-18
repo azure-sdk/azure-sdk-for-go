@@ -491,6 +491,37 @@ func (c *ContinuousAction) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CustomerDataStorageProperties.
+func (c CustomerDataStorageProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "blobContainerName", c.BlobContainerName)
+	populate(objectMap, "storageAccountResourceId", c.StorageAccountResourceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CustomerDataStorageProperties.
+func (c *CustomerDataStorageProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "blobContainerName":
+			err = unpopulate(val, "BlobContainerName", &c.BlobContainerName)
+			delete(rawMsg, key)
+		case "storageAccountResourceId":
+			err = unpopulate(val, "StorageAccountResourceID", &c.StorageAccountResourceID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DelayAction.
 func (d DelayAction) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1012,6 +1043,7 @@ func (e *ExperimentListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ExperimentProperties.
 func (e ExperimentProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "customerDataStorage", e.CustomerDataStorage)
 	populate(objectMap, "selectors", e.Selectors)
 	populate(objectMap, "startOnCreation", e.StartOnCreation)
 	populate(objectMap, "steps", e.Steps)
@@ -1027,6 +1059,9 @@ func (e *ExperimentProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "customerDataStorage":
+			err = unpopulate(val, "CustomerDataStorage", &e.CustomerDataStorage)
+			delete(rawMsg, key)
 		case "selectors":
 			e.Selectors, err = unmarshalSelectorClassificationArray(val)
 			delete(rawMsg, key)
