@@ -1,5 +1,89 @@
 # Release History
 
+## 2.1.0-beta.1 (2023-09-19)
+### Features Added
+
+- New enum type `BuildProvisioningState` with values `BuildProvisioningStateCanceled`, `BuildProvisioningStateCreating`, `BuildProvisioningStateDeleting`, `BuildProvisioningStateFailed`, `BuildProvisioningStateSucceeded`, `BuildProvisioningStateUpdating`
+- New enum type `BuildStatus` with values `BuildStatusCanceled`, `BuildStatusFailed`, `BuildStatusInProgress`, `BuildStatusNotStarted`, `BuildStatusSucceeded`
+- New enum type `BuilderProvisioningState` with values `BuilderProvisioningStateCanceled`, `BuilderProvisioningStateCreating`, `BuilderProvisioningStateDeleting`, `BuilderProvisioningStateFailed`, `BuilderProvisioningStateSucceeded`, `BuilderProvisioningStateUpdating`
+- New enum type `CertificateType` with values `CertificateTypeImagePullTrustedCA`, `CertificateTypeServerSSLCertificate`
+- New enum type `DetectionStatus` with values `DetectionStatusFailed`, `DetectionStatusRegistryLoginFailed`, `DetectionStatusSucceeded`
+- New enum type `PatchApplyStatus` with values `PatchApplyStatusCanceled`, `PatchApplyStatusCreatingRevision`, `PatchApplyStatusImagePushPullFailed`, `PatchApplyStatusManuallySkipped`, `PatchApplyStatusNotStarted`, `PatchApplyStatusRebaseFailed`, `PatchApplyStatusRebaseInProgress`, `PatchApplyStatusRevisionCreationFailed`, `PatchApplyStatusSucceeded`
+- New enum type `PatchProvisioningState` with values `PatchProvisioningStateCanceled`, `PatchProvisioningStateFailed`, `PatchProvisioningStateSucceeded`
+- New enum type `PatchType` with values `PatchTypeFrameworkAndOSSecurity`, `PatchTypeFrameworkSecurity`, `PatchTypeOSSecurity`, `PatchTypeOther`
+- New function `NewBuildersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BuildersClient, error)`
+- New function `*BuildersClient.BeginCreateOrUpdate(context.Context, string, string, BuilderResource, *BuildersClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildersClientCreateOrUpdateResponse], error)`
+- New function `*BuildersClient.BeginDelete(context.Context, string, string, *BuildersClientBeginDeleteOptions) (*runtime.Poller[BuildersClientDeleteResponse], error)`
+- New function `*BuildersClient.Get(context.Context, string, string, *BuildersClientGetOptions) (BuildersClientGetResponse, error)`
+- New function `*BuildersClient.NewListByResourceGroupPager(string, *BuildersClientListByResourceGroupOptions) *runtime.Pager[BuildersClientListByResourceGroupResponse]`
+- New function `*BuildersClient.NewListBySubscriptionPager(*BuildersClientListBySubscriptionOptions) *runtime.Pager[BuildersClientListBySubscriptionResponse]`
+- New function `*BuildersClient.BeginUpdate(context.Context, string, string, BuilderResourceUpdate, *BuildersClientBeginUpdateOptions) (*runtime.Poller[BuildersClientUpdateResponse], error)`
+- New function `NewBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BuildsClient, error)`
+- New function `*BuildsClient.BeginCreateOrUpdate(context.Context, string, string, string, BuildResource, *BuildsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildsClientCreateOrUpdateResponse], error)`
+- New function `*BuildsClient.BeginDelete(context.Context, string, string, string, *BuildsClientBeginDeleteOptions) (*runtime.Poller[BuildsClientDeleteResponse], error)`
+- New function `*BuildsClient.Get(context.Context, string, string, string, *BuildsClientGetOptions) (BuildsClientGetResponse, error)`
+- New function `*BuildsClient.NewListByBuilderResourcePager(string, string, *BuildsClientListByBuilderResourceOptions) *runtime.Pager[BuildsClientListByBuilderResourceResponse]`
+- New function `*ClientFactory.NewBuildersClient() *BuildersClient`
+- New function `*ClientFactory.NewBuildsClient() *BuildsClient`
+- New function `*ClientFactory.NewManagedEnvironmentUsagesClient() *ManagedEnvironmentUsagesClient`
+- New function `*ClientFactory.NewPatchesClient() *PatchesClient`
+- New function `*ClientFactory.NewUsagesClient() *UsagesClient`
+- New function `*ContainerAppsAPIClient.GetCustomDomainVerificationID(context.Context, *ContainerAppsAPIClientGetCustomDomainVerificationIDOptions) (ContainerAppsAPIClientGetCustomDomainVerificationIDResponse, error)`
+- New function `NewManagedEnvironmentUsagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedEnvironmentUsagesClient, error)`
+- New function `*ManagedEnvironmentUsagesClient.NewListPager(string, string, *ManagedEnvironmentUsagesClientListOptions) *runtime.Pager[ManagedEnvironmentUsagesClientListResponse]`
+- New function `NewPatchesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PatchesClient, error)`
+- New function `*PatchesClient.BeginApply(context.Context, string, string, string, *PatchesClientBeginApplyOptions) (*runtime.Poller[PatchesClientApplyResponse], error)`
+- New function `*PatchesClient.BeginDelete(context.Context, string, string, string, *PatchesClientBeginDeleteOptions) (*runtime.Poller[PatchesClientDeleteResponse], error)`
+- New function `*PatchesClient.Get(context.Context, string, string, string, *PatchesClientGetOptions) (PatchesClientGetResponse, error)`
+- New function `*PatchesClient.ListByBuilderResource(context.Context, string, string, *PatchesClientListByBuilderResourceOptions) (PatchesClientListByBuilderResourceResponse, error)`
+- New function `*PatchesClient.BeginSkipConfigure(context.Context, string, string, string, bool, *PatchesClientBeginSkipConfigureOptions) (*runtime.Poller[PatchesClientSkipConfigureResponse], error)`
+- New function `NewUsagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UsagesClient, error)`
+- New function `*UsagesClient.NewListPager(string, *UsagesClientListOptions) *runtime.Pager[UsagesClientListResponse]`
+- New struct `AppInsightsConfiguration`
+- New struct `BlobStorageTokenStore`
+- New struct `BuildCollection`
+- New struct `BuildConfiguration`
+- New struct `BuildProperties`
+- New struct `BuildResource`
+- New struct `BuilderCollection`
+- New struct `BuilderProperties`
+- New struct `BuilderResource`
+- New struct `BuilderResourceUpdate`
+- New struct `BuilderResourceUpdateProperties`
+- New struct `ContainerRegistry`
+- New struct `ContainerRegistryWithCustomImage`
+- New struct `DaprComponentServiceBinding`
+- New struct `DaprServiceBindMetadata`
+- New struct `DataDogConfiguration`
+- New struct `DestinationsConfiguration`
+- New struct `EncryptionSettings`
+- New struct `EnvironmentVariable`
+- New struct `HTTPGet`
+- New struct `IngressPortMapping`
+- New struct `ListUsagesResult`
+- New struct `LogsConfiguration`
+- New struct `MetricsConfiguration`
+- New struct `OpenTelemetryConfiguration`
+- New struct `PatchCollection`
+- New struct `PatchDetails`
+- New struct `PatchDetailsNewLayer`
+- New struct `PatchDetailsOldLayer`
+- New struct `PatchProperties`
+- New struct `PatchResource`
+- New struct `PreBuildStep`
+- New struct `TokenStore`
+- New struct `TracesConfiguration`
+- New struct `Usage`
+- New struct `UsageName`
+- New field `EncryptionSettings` in struct `AuthConfigProperties`
+- New field `Gpus` in struct `AvailableWorkloadProfileProperties`
+- New field `Type` in struct `CertificateProperties`
+- New field `ServiceComponentBind` in struct `DaprComponentProperties`
+- New field `AdditionalPortMappings` in struct `Ingress`
+- New field `TokenStore` in struct `Login`
+- New field `AppInsightsConfiguration`, `OpenTelemetryConfiguration` in struct `ManagedEnvironmentProperties`
+
+
 ## 2.0.0 (2023-08-25)
 ### Breaking Changes
 
