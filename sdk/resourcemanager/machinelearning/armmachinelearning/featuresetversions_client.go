@@ -21,30 +21,30 @@ import (
 	"strings"
 )
 
-// CodeVersionsClient contains the methods for the CodeVersions group.
-// Don't use this type directly, use NewCodeVersionsClient() instead.
-type CodeVersionsClient struct {
+// FeaturesetVersionsClient contains the methods for the FeaturesetVersions group.
+// Don't use this type directly, use NewFeaturesetVersionsClient() instead.
+type FeaturesetVersionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewCodeVersionsClient creates a new instance of CodeVersionsClient with the specified values.
+// NewFeaturesetVersionsClient creates a new instance of FeaturesetVersionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewCodeVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CodeVersionsClient, error) {
-	cl, err := arm.NewClient(moduleName+".CodeVersionsClient", moduleVersion, credential, options)
+func NewFeaturesetVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FeaturesetVersionsClient, error) {
+	cl, err := arm.NewClient(moduleName+".FeaturesetVersionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &CodeVersionsClient{
+	client := &FeaturesetVersionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrGetStartPendingUpload - Generate a storage location and credential for the client to upload a code asset to.
+// BeginBackfill - Backfill.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-08-01-preview
@@ -52,30 +52,48 @@ func NewCodeVersionsClient(subscriptionID string, credential azcore.TokenCredent
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
 //   - version - Version identifier. This is case-sensitive.
-//   - body - Pending upload request object
-//   - options - CodeVersionsClientCreateOrGetStartPendingUploadOptions contains the optional parameters for the CodeVersionsClient.CreateOrGetStartPendingUpload
+//   - body - Feature set version backfill request entity.
+//   - options - FeaturesetVersionsClientBeginBackfillOptions contains the optional parameters for the FeaturesetVersionsClient.BeginBackfill
 //     method.
-func (client *CodeVersionsClient) CreateOrGetStartPendingUpload(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body PendingUploadRequestDto, options *CodeVersionsClientCreateOrGetStartPendingUploadOptions) (CodeVersionsClientCreateOrGetStartPendingUploadResponse, error) {
+func (client *FeaturesetVersionsClient) BeginBackfill(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersionBackfillRequest, options *FeaturesetVersionsClientBeginBackfillOptions) (*runtime.Poller[FeaturesetVersionsClientBackfillResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.backfill(ctx, resourceGroupName, workspaceName, name, version, body, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FeaturesetVersionsClientBackfillResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturesetVersionsClientBackfillResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Backfill - Backfill.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-08-01-preview
+func (client *FeaturesetVersionsClient) backfill(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersionBackfillRequest, options *FeaturesetVersionsClientBeginBackfillOptions) (*http.Response, error) {
 	var err error
-	req, err := client.createOrGetStartPendingUploadCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
+	req, err := client.backfillCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
 	if err != nil {
-		return CodeVersionsClientCreateOrGetStartPendingUploadResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CodeVersionsClientCreateOrGetStartPendingUploadResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
-		return CodeVersionsClientCreateOrGetStartPendingUploadResponse{}, err
+		return nil, err
 	}
-	resp, err := client.createOrGetStartPendingUploadHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
-// createOrGetStartPendingUploadCreateRequest creates the CreateOrGetStartPendingUpload request.
-func (client *CodeVersionsClient) createOrGetStartPendingUploadCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body PendingUploadRequestDto, options *CodeVersionsClientCreateOrGetStartPendingUploadOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/codes/{name}/versions/{version}/startPendingUpload"
+// backfillCreateRequest creates the Backfill request.
+func (client *FeaturesetVersionsClient) backfillCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersionBackfillRequest, options *FeaturesetVersionsClientBeginBackfillOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}/versions/{version}/backfill"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -110,16 +128,7 @@ func (client *CodeVersionsClient) createOrGetStartPendingUploadCreateRequest(ctx
 	return req, nil
 }
 
-// createOrGetStartPendingUploadHandleResponse handles the CreateOrGetStartPendingUpload response.
-func (client *CodeVersionsClient) createOrGetStartPendingUploadHandleResponse(resp *http.Response) (CodeVersionsClientCreateOrGetStartPendingUploadResponse, error) {
-	result := CodeVersionsClientCreateOrGetStartPendingUploadResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PendingUploadResponseDto); err != nil {
-		return CodeVersionsClientCreateOrGetStartPendingUploadResponse{}, err
-	}
-	return result, nil
-}
-
-// CreateOrUpdate - Create or update version.
+// BeginCreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-08-01-preview
@@ -128,29 +137,47 @@ func (client *CodeVersionsClient) createOrGetStartPendingUploadHandleResponse(re
 //   - name - Container name. This is case-sensitive.
 //   - version - Version identifier. This is case-sensitive.
 //   - body - Version entity to create or update.
-//   - options - CodeVersionsClientCreateOrUpdateOptions contains the optional parameters for the CodeVersionsClient.CreateOrUpdate
+//   - options - FeaturesetVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the FeaturesetVersionsClient.BeginCreateOrUpdate
 //     method.
-func (client *CodeVersionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body CodeVersion, options *CodeVersionsClientCreateOrUpdateOptions) (CodeVersionsClientCreateOrUpdateResponse, error) {
+func (client *FeaturesetVersionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersion, options *FeaturesetVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturesetVersionsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, name, version, body, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FeaturesetVersionsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaOriginalURI,
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturesetVersionsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// CreateOrUpdate - Create or update version.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-08-01-preview
+func (client *FeaturesetVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersion, options *FeaturesetVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
 	if err != nil {
-		return CodeVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CodeVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return CodeVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.createOrUpdateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CodeVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body CodeVersion, options *CodeVersionsClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/codes/{name}/versions/{version}"
+func (client *FeaturesetVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersion, options *FeaturesetVersionsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}/versions/{version}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -185,16 +212,7 @@ func (client *CodeVersionsClient) createOrUpdateCreateRequest(ctx context.Contex
 	return req, nil
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *CodeVersionsClient) createOrUpdateHandleResponse(resp *http.Response) (CodeVersionsClientCreateOrUpdateResponse, error) {
-	result := CodeVersionsClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CodeVersion); err != nil {
-		return CodeVersionsClientCreateOrUpdateResponse{}, err
-	}
-	return result, nil
-}
-
-// Delete - Delete version.
+// BeginDelete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-08-01-preview
@@ -202,27 +220,47 @@ func (client *CodeVersionsClient) createOrUpdateHandleResponse(resp *http.Respon
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
 //   - version - Version identifier. This is case-sensitive.
-//   - options - CodeVersionsClientDeleteOptions contains the optional parameters for the CodeVersionsClient.Delete method.
-func (client *CodeVersionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *CodeVersionsClientDeleteOptions) (CodeVersionsClientDeleteResponse, error) {
+//   - options - FeaturesetVersionsClientBeginDeleteOptions contains the optional parameters for the FeaturesetVersionsClient.BeginDelete
+//     method.
+func (client *FeaturesetVersionsClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturesetVersionsClientBeginDeleteOptions) (*runtime.Poller[FeaturesetVersionsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, name, version, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FeaturesetVersionsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturesetVersionsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Delete - Delete version.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-08-01-preview
+func (client *FeaturesetVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturesetVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
-		return CodeVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CodeVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return CodeVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
-	return CodeVersionsClientDeleteResponse{}, nil
+	return httpResp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *CodeVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *CodeVersionsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/codes/{name}/versions/{version}"
+func (client *FeaturesetVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturesetVersionsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}/versions/{version}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -262,28 +300,28 @@ func (client *CodeVersionsClient) deleteCreateRequest(ctx context.Context, resou
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
 //   - version - Version identifier. This is case-sensitive.
-//   - options - CodeVersionsClientGetOptions contains the optional parameters for the CodeVersionsClient.Get method.
-func (client *CodeVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *CodeVersionsClientGetOptions) (CodeVersionsClientGetResponse, error) {
+//   - options - FeaturesetVersionsClientGetOptions contains the optional parameters for the FeaturesetVersionsClient.Get method.
+func (client *FeaturesetVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturesetVersionsClientGetOptions) (FeaturesetVersionsClientGetResponse, error) {
 	var err error
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
-		return CodeVersionsClientGetResponse{}, err
+		return FeaturesetVersionsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CodeVersionsClientGetResponse{}, err
+		return FeaturesetVersionsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return CodeVersionsClientGetResponse{}, err
+		return FeaturesetVersionsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *CodeVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *CodeVersionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/codes/{name}/versions/{version}"
+func (client *FeaturesetVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturesetVersionsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}/versions/{version}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -316,10 +354,10 @@ func (client *CodeVersionsClient) getCreateRequest(ctx context.Context, resource
 }
 
 // getHandleResponse handles the Get response.
-func (client *CodeVersionsClient) getHandleResponse(resp *http.Response) (CodeVersionsClientGetResponse, error) {
-	result := CodeVersionsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CodeVersion); err != nil {
-		return CodeVersionsClientGetResponse{}, err
+func (client *FeaturesetVersionsClient) getHandleResponse(resp *http.Response) (FeaturesetVersionsClientGetResponse, error) {
+	result := FeaturesetVersionsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeaturesetVersion); err != nil {
+		return FeaturesetVersionsClientGetResponse{}, err
 	}
 	return result, nil
 }
@@ -329,14 +367,15 @@ func (client *CodeVersionsClient) getHandleResponse(resp *http.Response) (CodeVe
 // Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Container name. This is case-sensitive.
-//   - options - CodeVersionsClientListOptions contains the optional parameters for the CodeVersionsClient.NewListPager method.
-func (client *CodeVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *CodeVersionsClientListOptions) *runtime.Pager[CodeVersionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[CodeVersionsClientListResponse]{
-		More: func(page CodeVersionsClientListResponse) bool {
+//   - name - Featureset name. This is case-sensitive.
+//   - options - FeaturesetVersionsClientListOptions contains the optional parameters for the FeaturesetVersionsClient.NewListPager
+//     method.
+func (client *FeaturesetVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *FeaturesetVersionsClientListOptions) *runtime.Pager[FeaturesetVersionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FeaturesetVersionsClientListResponse]{
+		More: func(page FeaturesetVersionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *CodeVersionsClientListResponse) (CodeVersionsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FeaturesetVersionsClientListResponse) (FeaturesetVersionsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -345,14 +384,14 @@ func (client *CodeVersionsClient) NewListPager(resourceGroupName string, workspa
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return CodeVersionsClientListResponse{}, err
+				return FeaturesetVersionsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return CodeVersionsClientListResponse{}, err
+				return FeaturesetVersionsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return CodeVersionsClientListResponse{}, runtime.NewResponseError(resp)
+				return FeaturesetVersionsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -360,8 +399,8 @@ func (client *CodeVersionsClient) NewListPager(resourceGroupName string, workspa
 }
 
 // listCreateRequest creates the List request.
-func (client *CodeVersionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *CodeVersionsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/codes/{name}/versions"
+func (client *FeaturesetVersionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetVersionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}/versions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -384,20 +423,32 @@ func (client *CodeVersionsClient) listCreateRequest(ctx context.Context, resourc
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-08-01-preview")
-	if options != nil && options.OrderBy != nil {
-		reqQP.Set("$orderBy", *options.OrderBy)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
-	if options != nil && options.Hash != nil {
-		reqQP.Set("hash", *options.Hash)
+	if options != nil && options.Tags != nil {
+		reqQP.Set("tags", *options.Tags)
 	}
-	if options != nil && options.HashVersion != nil {
-		reqQP.Set("hashVersion", *options.HashVersion)
+	if options != nil && options.ListViewType != nil {
+		reqQP.Set("listViewType", string(*options.ListViewType))
+	}
+	if options != nil && options.PageSize != nil {
+		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
+	}
+	if options != nil && options.VersionName != nil {
+		reqQP.Set("versionName", *options.VersionName)
+	}
+	if options != nil && options.Version != nil {
+		reqQP.Set("version", *options.Version)
+	}
+	if options != nil && options.Description != nil {
+		reqQP.Set("description", *options.Description)
+	}
+	if options != nil && options.CreatedBy != nil {
+		reqQP.Set("createdBy", *options.CreatedBy)
+	}
+	if options != nil && options.Stage != nil {
+		reqQP.Set("stage", *options.Stage)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -405,10 +456,10 @@ func (client *CodeVersionsClient) listCreateRequest(ctx context.Context, resourc
 }
 
 // listHandleResponse handles the List response.
-func (client *CodeVersionsClient) listHandleResponse(resp *http.Response) (CodeVersionsClientListResponse, error) {
-	result := CodeVersionsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CodeVersionResourceArmPaginatedResult); err != nil {
-		return CodeVersionsClientListResponse{}, err
+func (client *FeaturesetVersionsClient) listHandleResponse(resp *http.Response) (FeaturesetVersionsClientListResponse, error) {
+	result := FeaturesetVersionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeaturesetVersionResourceArmPaginatedResult); err != nil {
+		return FeaturesetVersionsClientListResponse{}, err
 	}
 	return result, nil
 }
