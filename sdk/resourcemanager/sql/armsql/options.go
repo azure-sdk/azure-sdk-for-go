@@ -521,17 +521,6 @@ type DatabasesClientListInaccessibleByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabasesClientListMetricDefinitionsOptions contains the optional parameters for the DatabasesClient.NewListMetricDefinitionsPager
-// method.
-type DatabasesClientListMetricDefinitionsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DatabasesClientListMetricsOptions contains the optional parameters for the DatabasesClient.NewListMetricsPager method.
-type DatabasesClientListMetricsOptions struct {
-	// placeholder for future optional parameters
-}
-
 // DatabasesClientRenameOptions contains the optional parameters for the DatabasesClient.Rename method.
 type DatabasesClientRenameOptions struct {
 	// placeholder for future optional parameters
@@ -573,6 +562,13 @@ type DistributedAvailabilityGroupsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// DistributedAvailabilityGroupsClientBeginSetRoleOptions contains the optional parameters for the DistributedAvailabilityGroupsClient.BeginSetRole
+// method.
+type DistributedAvailabilityGroupsClientBeginSetRoleOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // DistributedAvailabilityGroupsClientBeginUpdateOptions contains the optional parameters for the DistributedAvailabilityGroupsClient.BeginUpdate
 // method.
 type DistributedAvailabilityGroupsClientBeginUpdateOptions struct {
@@ -589,18 +585,6 @@ type DistributedAvailabilityGroupsClientGetOptions struct {
 // DistributedAvailabilityGroupsClientListByInstanceOptions contains the optional parameters for the DistributedAvailabilityGroupsClient.NewListByInstancePager
 // method.
 type DistributedAvailabilityGroupsClientListByInstanceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ElasticPoolActivitiesClientListByElasticPoolOptions contains the optional parameters for the ElasticPoolActivitiesClient.NewListByElasticPoolPager
-// method.
-type ElasticPoolActivitiesClientListByElasticPoolOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ElasticPoolDatabaseActivitiesClientListByElasticPoolOptions contains the optional parameters for the ElasticPoolDatabaseActivitiesClient.NewListByElasticPoolPager
-// method.
-type ElasticPoolDatabaseActivitiesClientListByElasticPoolOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -650,17 +634,6 @@ type ElasticPoolsClientGetOptions struct {
 type ElasticPoolsClientListByServerOptions struct {
 	// The number of elements in the collection to skip.
 	Skip *int64
-}
-
-// ElasticPoolsClientListMetricDefinitionsOptions contains the optional parameters for the ElasticPoolsClient.NewListMetricDefinitionsPager
-// method.
-type ElasticPoolsClientListMetricDefinitionsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ElasticPoolsClientListMetricsOptions contains the optional parameters for the ElasticPoolsClient.NewListMetricsPager method.
-type ElasticPoolsClientListMetricsOptions struct {
-	// placeholder for future optional parameters
 }
 
 // EncryptionProtectorsClientBeginCreateOrUpdateOptions contains the optional parameters for the EncryptionProtectorsClient.BeginCreateOrUpdate
@@ -823,9 +796,8 @@ type GeoBackupPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GeoBackupPoliciesClientListByDatabaseOptions contains the optional parameters for the GeoBackupPoliciesClient.NewListByDatabasePager
-// method.
-type GeoBackupPoliciesClientListByDatabaseOptions struct {
+// GeoBackupPoliciesClientListOptions contains the optional parameters for the GeoBackupPoliciesClient.NewListPager method.
+type GeoBackupPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1018,10 +990,10 @@ type JobExecutionsClientListByAgentOptions struct {
 	IsActive *bool
 
 	// The number of elements in the collection to skip.
-	Skip *int32
+	Skip *int64
 
 	// The number of elements to return from the collection.
-	Top *int32
+	Top *int64
 }
 
 // JobExecutionsClientListByJobOptions contains the optional parameters for the JobExecutionsClient.NewListByJobPager method.
@@ -1042,10 +1014,35 @@ type JobExecutionsClientListByJobOptions struct {
 	IsActive *bool
 
 	// The number of elements in the collection to skip.
-	Skip *int32
+	Skip *int64
 
 	// The number of elements to return from the collection.
-	Top *int32
+	Top *int64
+}
+
+// JobPrivateEndpointsClientBeginCreateOrUpdateOptions contains the optional parameters for the JobPrivateEndpointsClient.BeginCreateOrUpdate
+// method.
+type JobPrivateEndpointsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// JobPrivateEndpointsClientBeginDeleteOptions contains the optional parameters for the JobPrivateEndpointsClient.BeginDelete
+// method.
+type JobPrivateEndpointsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// JobPrivateEndpointsClientGetOptions contains the optional parameters for the JobPrivateEndpointsClient.Get method.
+type JobPrivateEndpointsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobPrivateEndpointsClientListByAgentOptions contains the optional parameters for the JobPrivateEndpointsClient.NewListByAgentPager
+// method.
+type JobPrivateEndpointsClientListByAgentOptions struct {
+	// placeholder for future optional parameters
 }
 
 // JobStepExecutionsClientGetOptions contains the optional parameters for the JobStepExecutionsClient.Get method.
@@ -1072,10 +1069,10 @@ type JobStepExecutionsClientListByJobExecutionOptions struct {
 	IsActive *bool
 
 	// The number of elements in the collection to skip.
-	Skip *int32
+	Skip *int64
 
 	// The number of elements to return from the collection.
-	Top *int32
+	Top *int64
 }
 
 // JobStepsClientCreateOrUpdateOptions contains the optional parameters for the JobStepsClient.CreateOrUpdate method.
@@ -1132,10 +1129,10 @@ type JobTargetExecutionsClientListByJobExecutionOptions struct {
 	IsActive *bool
 
 	// The number of elements in the collection to skip.
-	Skip *int32
+	Skip *int64
 
 	// The number of elements to return from the collection.
-	Top *int32
+	Top *int64
 }
 
 // JobTargetExecutionsClientListByStepOptions contains the optional parameters for the JobTargetExecutionsClient.NewListByStepPager
@@ -1157,10 +1154,10 @@ type JobTargetExecutionsClientListByStepOptions struct {
 	IsActive *bool
 
 	// The number of elements in the collection to skip.
-	Skip *int32
+	Skip *int64
 
 	// The number of elements to return from the collection.
-	Top *int32
+	Top *int64
 }
 
 // JobTargetGroupsClientCreateOrUpdateOptions contains the optional parameters for the JobTargetGroupsClient.CreateOrUpdate
@@ -1625,13 +1622,13 @@ type ManagedDatabaseSecurityEventsClientListByDatabaseOptions struct {
 	Filter *string
 
 	// The number of elements in the collection to skip.
-	Skip *int32
+	Skip *int64
 
 	// An opaque token that identifies a starting point in the collection.
 	Skiptoken *string
 
 	// The number of elements to return from the collection.
-	Top *int32
+	Top *int64
 }
 
 // ManagedDatabaseSensitivityLabelsClientCreateOrUpdateOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.CreateOrUpdate
@@ -1662,6 +1659,13 @@ type ManagedDatabaseSensitivityLabelsClientEnableRecommendationOptions struct {
 // method.
 type ManagedDatabaseSensitivityLabelsClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager
+// method.
+type ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions struct {
+	// An OData filter expression that filters elements in the collection.
+	Filter *string
 }
 
 // ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.NewListCurrentByDatabasePager
@@ -2000,6 +2004,13 @@ type ManagedInstanceLongTermRetentionPoliciesClientBeginCreateOrUpdateOptions st
 	ResumeToken string
 }
 
+// ManagedInstanceLongTermRetentionPoliciesClientBeginDeleteOptions contains the optional parameters for the ManagedInstanceLongTermRetentionPoliciesClient.BeginDelete
+// method.
+type ManagedInstanceLongTermRetentionPoliciesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ManagedInstanceLongTermRetentionPoliciesClientGetOptions contains the optional parameters for the ManagedInstanceLongTermRetentionPoliciesClient.Get
 // method.
 type ManagedInstanceLongTermRetentionPoliciesClientGetOptions struct {
@@ -2118,6 +2129,13 @@ type ManagedInstancesClientBeginFailoverOptions struct {
 	// The type of replica to be failed over.
 	ReplicaType *ReplicaType
 
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedInstancesClientBeginRefreshStatusOptions contains the optional parameters for the ManagedInstancesClient.BeginRefreshStatus
+// method.
+type ManagedInstancesClientBeginRefreshStatusOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2298,6 +2316,25 @@ type ManagedServerSecurityAlertPoliciesClientGetOptions struct {
 // ManagedServerSecurityAlertPoliciesClientListByInstanceOptions contains the optional parameters for the ManagedServerSecurityAlertPoliciesClient.NewListByInstancePager
 // method.
 type ManagedServerSecurityAlertPoliciesClientListByInstanceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.BeginReconcile
+// method.
+type NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.Get
+// method.
+type NetworkSecurityPerimeterConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByServerOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.NewListByServerPager
+// method.
+type NetworkSecurityPerimeterConfigurationsClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2516,6 +2553,13 @@ type SensitivityLabelsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.NewListByDatabasePager
+// method.
+type SensitivityLabelsClientListByDatabaseOptions struct {
+	// An OData filter expression that filters elements in the collection.
+	Filter *string
+}
+
 // SensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.NewListCurrentByDatabasePager
 // method.
 type SensitivityLabelsClientListCurrentByDatabaseOptions struct {
@@ -2655,30 +2699,6 @@ type ServerBlobAuditingPoliciesClientGetOptions struct {
 // ServerBlobAuditingPoliciesClientListByServerOptions contains the optional parameters for the ServerBlobAuditingPoliciesClient.NewListByServerPager
 // method.
 type ServerBlobAuditingPoliciesClientListByServerOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCommunicationLinksClientBeginCreateOrUpdateOptions contains the optional parameters for the ServerCommunicationLinksClient.BeginCreateOrUpdate
-// method.
-type ServerCommunicationLinksClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerCommunicationLinksClientDeleteOptions contains the optional parameters for the ServerCommunicationLinksClient.Delete
-// method.
-type ServerCommunicationLinksClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCommunicationLinksClientGetOptions contains the optional parameters for the ServerCommunicationLinksClient.Get method.
-type ServerCommunicationLinksClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCommunicationLinksClientListByServerOptions contains the optional parameters for the ServerCommunicationLinksClient.NewListByServerPager
-// method.
-type ServerCommunicationLinksClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2956,17 +2976,6 @@ type ServersClientListByResourceGroupOptions struct {
 type ServersClientListOptions struct {
 	// The child resources to include in the response.
 	Expand *string
-}
-
-// ServiceObjectivesClientGetOptions contains the optional parameters for the ServiceObjectivesClient.Get method.
-type ServiceObjectivesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServiceObjectivesClientListByServerOptions contains the optional parameters for the ServiceObjectivesClient.NewListByServerPager
-// method.
-type ServiceObjectivesClientListByServerOptions struct {
-	// placeholder for future optional parameters
 }
 
 // StartStopManagedInstanceSchedulesClientCreateOrUpdateOptions contains the optional parameters for the StartStopManagedInstanceSchedulesClient.CreateOrUpdate
