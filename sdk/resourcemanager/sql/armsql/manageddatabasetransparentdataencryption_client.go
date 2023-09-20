@@ -46,7 +46,7 @@ func NewManagedDatabaseTransparentDataEncryptionClient(subscriptionID string, cr
 // CreateOrUpdate - Updates a database's transparent data encryption configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -101,7 +101,7 @@ func (client *ManagedDatabaseTransparentDataEncryptionClient) createOrUpdateCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -122,7 +122,7 @@ func (client *ManagedDatabaseTransparentDataEncryptionClient) createOrUpdateHand
 // Get - Gets a managed database's transparent data encryption.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -176,7 +176,7 @@ func (client *ManagedDatabaseTransparentDataEncryptionClient) getCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,7 +193,7 @@ func (client *ManagedDatabaseTransparentDataEncryptionClient) getHandleResponse(
 
 // NewListByDatabasePager - Gets a list of managed database's transparent data encryptions.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -252,7 +252,7 @@ func (client *ManagedDatabaseTransparentDataEncryptionClient) listByDatabaseCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
