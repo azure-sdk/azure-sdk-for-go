@@ -1,5 +1,13 @@
 # Release History
 
+## 4.3.0 (2023-09-20)
+### Features Added
+
+- New value `BastionHostSKUNameDeveloper` added to enum type `BastionHostSKUName`
+- New function `*ManagementClient.BeginDeleteBastionShareableLinkByToken(context.Context, string, string, BastionShareableLinkTokenListRequest, *ManagementClientBeginDeleteBastionShareableLinkByTokenOptions) (*runtime.Poller[ManagementClientDeleteBastionShareableLinkByTokenResponse], error)`
+- New struct `BastionShareableLinkTokenListRequest`
+
+
 ## 4.2.0 (2023-09-22)
 ### Features Added
 

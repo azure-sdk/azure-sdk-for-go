@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v4.2.0"
+	moduleVersion = "v4.3.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -812,14 +812,16 @@ func PossibleBastionConnectProtocolValues() []BastionConnectProtocol {
 type BastionHostSKUName string
 
 const (
-	BastionHostSKUNameBasic    BastionHostSKUName = "Basic"
-	BastionHostSKUNameStandard BastionHostSKUName = "Standard"
+	BastionHostSKUNameBasic     BastionHostSKUName = "Basic"
+	BastionHostSKUNameDeveloper BastionHostSKUName = "Developer"
+	BastionHostSKUNameStandard  BastionHostSKUName = "Standard"
 )
 
 // PossibleBastionHostSKUNameValues returns the possible values for the BastionHostSKUName const type.
 func PossibleBastionHostSKUNameValues() []BastionHostSKUName {
 	return []BastionHostSKUName{
 		BastionHostSKUNameBasic,
+		BastionHostSKUNameDeveloper,
 		BastionHostSKUNameStandard,
 	}
 }

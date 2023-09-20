@@ -3063,7 +3063,7 @@ type BastionShareableLink struct {
 	Message *string
 }
 
-// BastionShareableLinkListRequest - Post request for all the Bastion Shareable Link endpoints.
+// BastionShareableLinkListRequest - Post request for Create/Delete/Get Bastion Shareable Link endpoints.
 type BastionShareableLinkListRequest struct {
 	// List of VM references.
 	VMs []*BastionShareableLink
@@ -3076,6 +3076,12 @@ type BastionShareableLinkListResult struct {
 
 	// List of Bastion Shareable Links for the request.
 	Value []*BastionShareableLink
+}
+
+// BastionShareableLinkTokenListRequest - Post request for Delete Bastion Shareable Link By Token endpoint.
+type BastionShareableLinkTokenListRequest struct {
+	// List of Bastion Shareable Link Token.
+	Tokens []*string
 }
 
 // BgpConnection - Virtual Appliance Site resource.
