@@ -47,6 +47,16 @@ func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewBuildersClient() *BuildersClient {
+	subClient, _ := NewBuildersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBuildsClient() *BuildsClient {
+	subClient, _ := NewBuildsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	subClient, _ := NewCertificatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -102,6 +112,11 @@ func (c *ClientFactory) NewContainerAppsRevisionsClient() *ContainerAppsRevision
 	return subClient
 }
 
+func (c *ClientFactory) NewContainerAppsSessionPoolsClient() *ContainerAppsSessionPoolsClient {
+	subClient, _ := NewContainerAppsSessionPoolsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewContainerAppsSourceControlsClient() *ContainerAppsSourceControlsClient {
 	subClient, _ := NewContainerAppsSourceControlsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -132,6 +147,11 @@ func (c *ClientFactory) NewManagedEnvironmentDiagnosticsClient() *ManagedEnviron
 	return subClient
 }
 
+func (c *ClientFactory) NewManagedEnvironmentUsagesClient() *ManagedEnvironmentUsagesClient {
+	subClient, _ := NewManagedEnvironmentUsagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewManagedEnvironmentsClient() *ManagedEnvironmentsClient {
 	subClient, _ := NewManagedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -154,5 +174,10 @@ func (c *ClientFactory) NewNamespacesClient() *NamespacesClient {
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewUsagesClient() *UsagesClient {
+	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

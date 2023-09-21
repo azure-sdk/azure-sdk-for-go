@@ -20,6 +20,64 @@ type BillingMetersClientGetResponse struct {
 	BillingMeterCollection
 }
 
+// BuildersClientCreateOrUpdateResponse contains the response from method BuildersClient.BeginCreateOrUpdate.
+type BuildersClientCreateOrUpdateResponse struct {
+	// Information about the SourceToCloud builder resource.
+	BuilderResource
+}
+
+// BuildersClientDeleteResponse contains the response from method BuildersClient.BeginDelete.
+type BuildersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// BuildersClientGetResponse contains the response from method BuildersClient.Get.
+type BuildersClientGetResponse struct {
+	// Information about the SourceToCloud builder resource.
+	BuilderResource
+}
+
+// BuildersClientListByResourceGroupResponse contains the response from method BuildersClient.NewListByResourceGroupPager.
+type BuildersClientListByResourceGroupResponse struct {
+	// The response of a BuilderResource list operation.
+	BuilderCollection
+}
+
+// BuildersClientListBySubscriptionResponse contains the response from method BuildersClient.NewListBySubscriptionPager.
+type BuildersClientListBySubscriptionResponse struct {
+	// The response of a BuilderResource list operation.
+	BuilderCollection
+}
+
+// BuildersClientUpdateResponse contains the response from method BuildersClient.BeginUpdate.
+type BuildersClientUpdateResponse struct {
+	// Information about the SourceToCloud builder resource.
+	BuilderResource
+}
+
+// BuildsClientCreateOrUpdateResponse contains the response from method BuildsClient.BeginCreateOrUpdate.
+type BuildsClientCreateOrUpdateResponse struct {
+	// Information pertaining to an individual build.
+	BuildResource
+}
+
+// BuildsClientDeleteResponse contains the response from method BuildsClient.BeginDelete.
+type BuildsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// BuildsClientGetResponse contains the response from method BuildsClient.Get.
+type BuildsClientGetResponse struct {
+	// Information pertaining to an individual build.
+	BuildResource
+}
+
+// BuildsClientListByBuilderResourceResponse contains the response from method BuildsClient.NewListByBuilderResourcePager.
+type BuildsClientListByBuilderResourceResponse struct {
+	// The response of a BuildResource list operation.
+	BuildCollection
+}
+
 // CertificatesClientCreateOrUpdateResponse contains the response from method CertificatesClient.CreateOrUpdate.
 type CertificatesClientCreateOrUpdateResponse struct {
 	// Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
@@ -169,6 +227,12 @@ type ConnectedEnvironmentsStoragesClientGetResponse struct {
 type ConnectedEnvironmentsStoragesClientListResponse struct {
 	// Collection of Storage for Environments
 	ConnectedEnvironmentStoragesCollection
+}
+
+// ContainerAppsAPIClientGetCustomDomainVerificationIDResponse contains the response from method ContainerAppsAPIClient.GetCustomDomainVerificationID.
+type ContainerAppsAPIClientGetCustomDomainVerificationIDResponse struct {
+	// Custom domain verification Id of a subscription
+	Value *string
 }
 
 // ContainerAppsAPIClientJobExecutionResponse contains the response from method ContainerAppsAPIClient.JobExecution.
@@ -334,6 +398,41 @@ type ContainerAppsRevisionsClientRestartRevisionResponse struct {
 	// placeholder for future response values
 }
 
+// ContainerAppsSessionPoolsClientCreateOrUpdateResponse contains the response from method ContainerAppsSessionPoolsClient.CreateOrUpdate.
+type ContainerAppsSessionPoolsClientCreateOrUpdateResponse struct {
+	// Container App SessionPool.
+	SessionPool
+}
+
+// ContainerAppsSessionPoolsClientDeleteResponse contains the response from method ContainerAppsSessionPoolsClient.Delete.
+type ContainerAppsSessionPoolsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsSessionPoolsClientGetResponse contains the response from method ContainerAppsSessionPoolsClient.Get.
+type ContainerAppsSessionPoolsClientGetResponse struct {
+	// Container App SessionPool.
+	SessionPool
+}
+
+// ContainerAppsSessionPoolsClientListByResourceGroupResponse contains the response from method ContainerAppsSessionPoolsClient.NewListByResourceGroupPager.
+type ContainerAppsSessionPoolsClientListByResourceGroupResponse struct {
+	// SessionPool collection ARM resource.
+	SessionPoolCollection
+}
+
+// ContainerAppsSessionPoolsClientListBySubscriptionResponse contains the response from method ContainerAppsSessionPoolsClient.NewListBySubscriptionPager.
+type ContainerAppsSessionPoolsClientListBySubscriptionResponse struct {
+	// SessionPool collection ARM resource.
+	SessionPoolCollection
+}
+
+// ContainerAppsSessionPoolsClientUpdateResponse contains the response from method ContainerAppsSessionPoolsClient.Update.
+type ContainerAppsSessionPoolsClientUpdateResponse struct {
+	// Container App SessionPool.
+	SessionPool
+}
+
 // ContainerAppsSourceControlsClientCreateOrUpdateResponse contains the response from method ContainerAppsSourceControlsClient.BeginCreateOrUpdate.
 type ContainerAppsSourceControlsClientCreateOrUpdateResponse struct {
 	// Container App SourceControl.
@@ -491,6 +590,11 @@ type ManagedEnvironmentDiagnosticsClientListDetectorsResponse struct {
 	DiagnosticsCollection
 }
 
+// ManagedEnvironmentUsagesClientListResponse contains the response from method ManagedEnvironmentUsagesClient.NewListPager.
+type ManagedEnvironmentUsagesClientListResponse struct {
+	ListUsagesResult
+}
+
 // ManagedEnvironmentsClientCreateOrUpdateResponse contains the response from method ManagedEnvironmentsClient.BeginCreateOrUpdate.
 type ManagedEnvironmentsClientCreateOrUpdateResponse struct {
 	// An environment for hosting container apps
@@ -577,4 +681,9 @@ type NamespacesClientCheckNameAvailabilityResponse struct {
 type OperationsClientListResponse struct {
 	// Available operations of the service
 	AvailableOperations
+}
+
+// UsagesClientListResponse contains the response from method UsagesClient.NewListPager.
+type UsagesClientListResponse struct {
+	ListUsagesResult
 }
