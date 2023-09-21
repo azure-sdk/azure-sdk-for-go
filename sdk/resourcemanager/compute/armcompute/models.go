@@ -6585,8 +6585,8 @@ type VirtualMachineProperties struct {
 	// Specifies the storage settings for the virtual machine disks.
 	StorageProfile *StorageProfile
 
-	// UserData for the VM, which must be base-64 encoded. Customer should not pass any secrets in here. Minimum api-version:
-	// 2021-03-01.
+	// UserData for the VM, which must be base-64 encoded. Customer should not pass any secrets in here. Maximum size limit of
+	// 256KB before base-64 encoding. Minimum api-version: 2021-03-01.
 	UserData *string
 
 	// Specifies information about the virtual machine scale set that the virtual machine should be assigned to. Virtual machines
