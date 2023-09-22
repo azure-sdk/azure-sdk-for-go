@@ -1,5 +1,26 @@
 # Release History
 
+## 2.1.0-beta.1 (2023-09-22)
+### Features Added
+
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.Get(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetOptions) (NetworkSecurityPerimeterConfigurationsClientGetResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.NewListByConfigurationStorePager(string, string, *NetworkSecurityPerimeterConfigurationsClientListByConfigurationStoreOptions) *runtime.Pager[NetworkSecurityPerimeterConfigurationsClientListByConfigurationStoreResponse]`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileResponse], error)`
+- New struct `NetworkSecurityPerimeter`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationListResult`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `NetworkSecurityPerimeterProfile`
+- New struct `NetworkSecurityPerimeterProfileAccessRule`
+- New struct `NetworkSecurityPerimeterProfileAccessRuleProperties`
+- New struct `NetworkSecurityPerimeterProvisioningIssue`
+- New struct `NetworkSecurityPerimeterProvisioningIssueProperties`
+- New struct `NetworkSecurityPerimeterResourceAssociation`
+- New struct `NspAccessRuleSubscription`
+
+
 ## 2.0.0 (2023-04-28)
 ### Breaking Changes
 
