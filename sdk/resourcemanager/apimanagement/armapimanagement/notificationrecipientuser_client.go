@@ -28,7 +28,7 @@ type NotificationRecipientUserClient struct {
 }
 
 // NewNotificationRecipientUserClient creates a new instance of NotificationRecipientUserClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewNotificationRecipientUserClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*NotificationRecipientUserClient, error) {
@@ -45,7 +45,7 @@ func NewNotificationRecipientUserClient(subscriptionID string, credential azcore
 
 // CheckEntityExists - Determine if the Notification Recipient User is subscribed to the notification.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - notificationName - Notification Name Identifier.
@@ -88,16 +88,13 @@ func (client *NotificationRecipientUserClient) checkEntityExistsCreateRequest(ct
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -106,7 +103,7 @@ func (client *NotificationRecipientUserClient) checkEntityExistsCreateRequest(ct
 // CreateOrUpdate - Adds the API Management User to the list of Recipients for the Notification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - notificationName - Notification Name Identifier.
@@ -150,16 +147,13 @@ func (client *NotificationRecipientUserClient) createOrUpdateCreateRequest(ctx c
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -177,7 +171,7 @@ func (client *NotificationRecipientUserClient) createOrUpdateHandleResponse(resp
 // Delete - Removes the API Management user from the list of Notification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - notificationName - Notification Name Identifier.
@@ -220,16 +214,13 @@ func (client *NotificationRecipientUserClient) deleteCreateRequest(ctx context.C
 		return nil, errors.New("parameter userID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{userId}", url.PathEscape(userID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -238,7 +229,7 @@ func (client *NotificationRecipientUserClient) deleteCreateRequest(ctx context.C
 // ListByNotification - Gets the list of the Notification Recipient User subscribed to the notification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - notificationName - Notification Name Identifier.
@@ -277,16 +268,13 @@ func (client *NotificationRecipientUserClient) listByNotificationCreateRequest(c
 		return nil, errors.New("parameter notificationName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{notificationName}", url.PathEscape(string(notificationName)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

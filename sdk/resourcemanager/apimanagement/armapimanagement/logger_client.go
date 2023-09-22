@@ -29,7 +29,7 @@ type LoggerClient struct {
 }
 
 // NewLoggerClient creates a new instance of LoggerClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewLoggerClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LoggerClient, error) {
@@ -47,7 +47,7 @@ func NewLoggerClient(subscriptionID string, credential azcore.TokenCredential, o
 // CreateOrUpdate - Creates or Updates a logger.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
@@ -86,16 +86,13 @@ func (client *LoggerClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter loggerID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{loggerId}", url.PathEscape(loggerID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -122,7 +119,7 @@ func (client *LoggerClient) createOrUpdateHandleResponse(resp *http.Response) (L
 // Delete - Deletes the specified logger.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
@@ -161,16 +158,13 @@ func (client *LoggerClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter loggerID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{loggerId}", url.PathEscape(loggerID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -180,7 +174,7 @@ func (client *LoggerClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Gets the details of the logger specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
@@ -218,16 +212,13 @@ func (client *LoggerClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, errors.New("parameter loggerID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{loggerId}", url.PathEscape(loggerID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,7 +238,7 @@ func (client *LoggerClient) getHandleResponse(resp *http.Response) (LoggerClient
 
 // GetEntityTag - Gets the entity state (Etag) version of the logger specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
@@ -285,16 +276,13 @@ func (client *LoggerClient) getEntityTagCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter loggerID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{loggerId}", url.PathEscape(loggerID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,7 +300,7 @@ func (client *LoggerClient) getEntityTagHandleResponse(resp *http.Response) (Log
 
 // NewListByServicePager - Lists a collection of loggers in the specified service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - LoggerClientListByServiceOptions contains the optional parameters for the LoggerClient.NewListByServicePager
@@ -356,9 +344,6 @@ func (client *LoggerClient) listByServiceCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -374,7 +359,7 @@ func (client *LoggerClient) listByServiceCreateRequest(ctx context.Context, reso
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -392,7 +377,7 @@ func (client *LoggerClient) listByServiceHandleResponse(resp *http.Response) (Lo
 // Update - Updates an existing logger.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
@@ -433,16 +418,13 @@ func (client *LoggerClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter loggerID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{loggerId}", url.PathEscape(loggerID))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

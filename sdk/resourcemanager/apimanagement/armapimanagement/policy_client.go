@@ -28,7 +28,7 @@ type PolicyClient struct {
 }
 
 // NewPolicyClient creates a new instance of PolicyClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPolicyClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PolicyClient, error) {
@@ -46,7 +46,7 @@ func NewPolicyClient(subscriptionID string, credential azcore.TokenCredential, o
 // CreateOrUpdate - Creates or updates the global policy configuration of the Api Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - policyID - The identifier of the Policy.
@@ -85,16 +85,13 @@ func (client *PolicyClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter policyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyId}", url.PathEscape(string(policyID)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -121,7 +118,7 @@ func (client *PolicyClient) createOrUpdateHandleResponse(resp *http.Response) (P
 // Delete - Deletes the global policy configuration of the Api Management Service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - policyID - The identifier of the Policy.
@@ -160,16 +157,13 @@ func (client *PolicyClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter policyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyId}", url.PathEscape(string(policyID)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -179,7 +173,7 @@ func (client *PolicyClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Get the Global policy definition of the Api Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - policyID - The identifier of the Policy.
@@ -217,9 +211,6 @@ func (client *PolicyClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, errors.New("parameter policyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyId}", url.PathEscape(string(policyID)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -229,7 +220,7 @@ func (client *PolicyClient) getCreateRequest(ctx context.Context, resourceGroupN
 	if options != nil && options.Format != nil {
 		reqQP.Set("format", string(*options.Format))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +240,7 @@ func (client *PolicyClient) getHandleResponse(resp *http.Response) (PolicyClient
 
 // GetEntityTag - Gets the entity state (Etag) version of the Global policy definition in the Api Management service.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - policyID - The identifier of the Policy.
@@ -287,16 +278,13 @@ func (client *PolicyClient) getEntityTagCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter policyID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyId}", url.PathEscape(string(policyID)))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,29 +300,39 @@ func (client *PolicyClient) getEntityTagHandleResponse(resp *http.Response) (Pol
 	return result, nil
 }
 
-// ListByService - Lists all the Global Policy definitions of the Api Management service.
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewListByServicePager - Lists all the Global Policy definitions of the Api Management service.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
-//   - options - PolicyClientListByServiceOptions contains the optional parameters for the PolicyClient.ListByService method.
-func (client *PolicyClient) ListByService(ctx context.Context, resourceGroupName string, serviceName string, options *PolicyClientListByServiceOptions) (PolicyClientListByServiceResponse, error) {
-	var err error
-	req, err := client.listByServiceCreateRequest(ctx, resourceGroupName, serviceName, options)
-	if err != nil {
-		return PolicyClientListByServiceResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return PolicyClientListByServiceResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return PolicyClientListByServiceResponse{}, err
-	}
-	resp, err := client.listByServiceHandleResponse(httpResp)
-	return resp, err
+//   - options - PolicyClientListByServiceOptions contains the optional parameters for the PolicyClient.NewListByServicePager
+//     method.
+func (client *PolicyClient) NewListByServicePager(resourceGroupName string, serviceName string, options *PolicyClientListByServiceOptions) *runtime.Pager[PolicyClientListByServiceResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PolicyClientListByServiceResponse]{
+		More: func(page PolicyClientListByServiceResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *PolicyClientListByServiceResponse) (PolicyClientListByServiceResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByServiceCreateRequest(ctx, resourceGroupName, serviceName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return PolicyClientListByServiceResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return PolicyClientListByServiceResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return PolicyClientListByServiceResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByServiceHandleResponse(resp)
+		},
+	})
 }
 
 // listByServiceCreateRequest creates the ListByService request.
@@ -348,16 +346,13 @@ func (client *PolicyClient) listByServiceCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
