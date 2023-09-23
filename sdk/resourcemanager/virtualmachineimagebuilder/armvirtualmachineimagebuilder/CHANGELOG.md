@@ -1,5 +1,20 @@
 # Release History
 
+## 3.0.0 (2023-09-23)
+### Breaking Changes
+
+- Type of `ImageTemplateSharedImageDistributor.StorageAccountType` has been changed from `*SharedImageStorageAccountType` to `*SharedImageStorageAccountTypeBROKEN`
+- Type of `TargetRegion.StorageAccountType` has been changed from `*SharedImageStorageAccountType` to `*SharedImageStorageAccountTypeBROKEN`
+- Enum `SharedImageStorageAccountType` has been removed
+
+### Features Added
+
+- New enum type `OnBuildError` with values `OnBuildErrorAbort`, `OnBuildErrorCleanup`
+- New enum type `SharedImageStorageAccountTypeBROKEN` with values `SharedImageStorageAccountTypeBROKENPremiumLRS`, `SharedImageStorageAccountTypeBROKENStandardLRS`, `SharedImageStorageAccountTypeBROKENStandardZRS`
+- New struct `ImageTemplatePropertiesErrorHandling`
+- New field `ErrorHandling` in struct `ImageTemplateProperties`
+
+
 ## 2.0.0 (2023-04-28)
 ### Breaking Changes
 
