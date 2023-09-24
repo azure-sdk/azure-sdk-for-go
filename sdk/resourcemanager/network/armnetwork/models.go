@@ -3063,7 +3063,7 @@ type BastionShareableLink struct {
 	Message *string
 }
 
-// BastionShareableLinkListRequest - Post request for all the Bastion Shareable Link endpoints.
+// BastionShareableLinkListRequest - Post request for Create/Delete/Get Bastion Shareable Link endpoints.
 type BastionShareableLinkListRequest struct {
 	// List of VM references.
 	VMs []*BastionShareableLink
@@ -3076,6 +3076,12 @@ type BastionShareableLinkListResult struct {
 
 	// List of Bastion Shareable Links for the request.
 	Value []*BastionShareableLink
+}
+
+// BastionShareableLinkTokenListRequest - Post request for Delete Bastion Shareable Link By Token endpoint.
+type BastionShareableLinkTokenListRequest struct {
+	// List of Bastion Shareable Link Token.
+	Tokens []*string
 }
 
 // BgpConnection - Virtual Appliance Site resource.
@@ -5927,8 +5933,13 @@ type FirewallPolicyIntrusionDetection struct {
 	// Intrusion detection configuration properties.
 	Configuration *FirewallPolicyIntrusionDetectionConfiguration
 
-	// Intrusion detection general state.
+	// Intrusion detection general state. When attached to a parent policy, the firewall's effective IDPS mode is the stricter
+	// mode of the two.
 	Mode *FirewallPolicyIntrusionDetectionStateType
+
+	// IDPS profile name. When attached to a parent policy, the firewall's effective profile is the profile name of the parent
+	// policy.
+	Profile *FirewallPolicyIntrusionDetectionProfileType
 }
 
 // FirewallPolicyIntrusionDetectionBypassTrafficSpecifications - Intrusion detection bypass traffic specification.
@@ -11025,7 +11036,7 @@ type SingleQueryResult struct {
 	// Describes the list of destination ports related to this signature
 	DestinationPorts []*string
 
-	// Describes in which direction signature is being enforced: 0 - Inbound, 1 - OutBound, 2 - Bidirectional
+	// Describes in which direction signature is being enforced: 0 - OutBound, 1 - InBound, 2 - Any, 3 - Internal, 4 - InternalOutbound
 	Direction *FirewallPolicyIDPSSignatureDirection
 
 	// Describes the groups the signature belongs to
@@ -11043,7 +11054,7 @@ type SingleQueryResult struct {
 	// Describes the protocol the signatures is being enforced in
 	Protocol *string
 
-	// Describes the severity of signature: 1 - Low, 2 - Medium, 3 - High
+	// Describes the severity of signature: 1 - High, 2 - Medium, 3 - Low
 	Severity *FirewallPolicyIDPSSignatureSeverity
 
 	// The ID of the signature
