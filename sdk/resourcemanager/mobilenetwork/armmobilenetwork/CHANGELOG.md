@@ -1,5 +1,16 @@
 # Release History
 
+## 3.1.0 (2023-09-25)
+### Features Added
+
+- New value `InstallationReasonControlPlaneAccessInterfaceHasChanged`, `InstallationReasonControlPlaneAccessVirtualIPv4AddressesHasChanged`, `InstallationReasonPublicLandMobileNetworkIdentifierHasChanged`, `InstallationReasonUserPlaneAccessInterfaceHasChanged`, `InstallationReasonUserPlaneAccessVirtualIPv4AddressesHasChanged`, `InstallationReasonUserPlaneDataInterfaceHasChanged` added to enum type `InstallationReason`
+- New struct `EventHubConfiguration`
+- New struct `NASRerouteConfiguration`
+- New struct `SignalingConfiguration`
+- New field `ControlPlaneAccessVirtualIPv4Addresses`, `EventHub`, `Signaling` in struct `PacketCoreControlPlanePropertiesFormat`
+- New field `UserPlaneAccessVirtualIPv4Addresses` in struct `PacketCoreDataPlanePropertiesFormat`
+
+
 ## 3.0.0 (2023-07-28)
 ### Breaking Changes
 
