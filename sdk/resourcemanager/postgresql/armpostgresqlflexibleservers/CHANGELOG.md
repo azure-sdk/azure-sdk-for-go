@@ -1,5 +1,25 @@
 # Release History
 
+## 4.0.0-beta.2 (2023-09-25)
+### Breaking Changes
+
+- Field `IopsTier` of struct `Storage` has been removed
+
+### Features Added
+
+- New enum type `ThreatProtectionName` with values `ThreatProtectionNameDefault`
+- New enum type `ThreatProtectionState` with values `ThreatProtectionStateDisabled`, `ThreatProtectionStateEnabled`
+- New function `*ClientFactory.NewServerThreatProtectionSettingsClient() *ServerThreatProtectionSettingsClient`
+- New function `NewServerThreatProtectionSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerThreatProtectionSettingsClient, error)`
+- New function `*ServerThreatProtectionSettingsClient.BeginCreateOrUpdate(context.Context, string, string, ThreatProtectionName, ServerThreatProtectionSettingsModel, *ServerThreatProtectionSettingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ServerThreatProtectionSettingsClientCreateOrUpdateResponse], error)`
+- New function `*ServerThreatProtectionSettingsClient.Get(context.Context, string, string, ThreatProtectionName, *ServerThreatProtectionSettingsClientGetOptions) (ServerThreatProtectionSettingsClientGetResponse, error)`
+- New function `*ServerThreatProtectionSettingsClient.NewListByServerPager(string, string, *ServerThreatProtectionSettingsClientListByServerOptions) *runtime.Pager[ServerThreatProtectionSettingsClientListByServerResponse]`
+- New struct `ServerThreatProtectionListResult`
+- New struct `ServerThreatProtectionProperties`
+- New struct `ServerThreatProtectionSettingsModel`
+- New field `Tier` in struct `Storage`
+
+
 ## 4.0.0-beta.1 (2023-05-26)
 ### Breaking Changes
 
