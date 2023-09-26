@@ -9194,6 +9194,7 @@ func (i *IaasVMILRRegistrationRequest) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type IaasVMRecoveryPoint.
 func (i IaasVMRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "extendedLocation", i.ExtendedLocation)
 	populate(objectMap, "isInstantIlrSessionActive", i.IsInstantIlrSessionActive)
 	populate(objectMap, "isManagedVirtualMachine", i.IsManagedVirtualMachine)
 	populate(objectMap, "isPrivateAccessEnabledOnAnyDisk", i.IsPrivateAccessEnabledOnAnyDisk)
@@ -9225,6 +9226,9 @@ func (i *IaasVMRecoveryPoint) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "extendedLocation":
+			err = unpopulate(val, "ExtendedLocation", &i.ExtendedLocation)
+			delete(rawMsg, key)
 		case "isInstantIlrSessionActive":
 			err = unpopulate(val, "IsInstantIlrSessionActive", &i.IsInstantIlrSessionActive)
 			delete(rawMsg, key)

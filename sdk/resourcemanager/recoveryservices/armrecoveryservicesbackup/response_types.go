@@ -317,7 +317,7 @@ type ProtectionContainersClientRefreshResponse struct {
 	// placeholder for future response values
 }
 
-// ProtectionContainersClientRegisterResponse contains the response from method ProtectionContainersClient.Register.
+// ProtectionContainersClientRegisterResponse contains the response from method ProtectionContainersClient.BeginRegister.
 type ProtectionContainersClientRegisterResponse struct {
 	// Base class for container with backup items. Containers with specific workloads are derived from this class.
 	ProtectionContainerResource
