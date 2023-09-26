@@ -1,5 +1,44 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-09-26)
+### Breaking Changes
+
+- Type of `BaseResourceProperties.ObjectType` has been changed from `*string` to `*ResourcePropertiesObjectType`
+
+### Features Added
+
+- New enum type `EncryptionState` with values `EncryptionStateDisabled`, `EncryptionStateEnabled`, `EncryptionStateInconsistent`
+- New enum type `IdentityType` with values `IdentityTypeSystemAssigned`, `IdentityTypeUserAssigned`
+- New enum type `InfrastructureEncryptionState` with values `InfrastructureEncryptionStateDisabled`, `InfrastructureEncryptionStateEnabled`
+- New enum type `ResourcePropertiesObjectType` with values `ResourcePropertiesObjectTypeDefaultResourceProperties`
+- New function `*BackupInstancesClient.BeginTriggerCrossRegionRestore(context.Context, string, string, CrossRegionRestoreRequestObject, *BackupInstancesClientBeginTriggerCrossRegionRestoreOptions) (*runtime.Poller[BackupInstancesClientTriggerCrossRegionRestoreResponse], error)`
+- New function `*BackupInstancesClient.BeginValidateCrossRegionRestore(context.Context, string, string, ValidateCrossRegionRestoreRequestObject, *BackupInstancesClientBeginValidateCrossRegionRestoreOptions) (*runtime.Poller[BackupInstancesClientValidateCrossRegionRestoreResponse], error)`
+- New function `NewBackupInstancesExtensionRoutingClient(azcore.TokenCredential, *arm.ClientOptions) (*BackupInstancesExtensionRoutingClient, error)`
+- New function `*BackupInstancesExtensionRoutingClient.NewListPager(string, *BackupInstancesExtensionRoutingClientListOptions) *runtime.Pager[BackupInstancesExtensionRoutingClientListResponse]`
+- New function `*ClientFactory.NewBackupInstancesExtensionRoutingClient() *BackupInstancesExtensionRoutingClient`
+- New function `*ClientFactory.NewCrossRegionRestoreJobClient() *CrossRegionRestoreJobClient`
+- New function `*ClientFactory.NewCrossRegionRestoreJobsClient() *CrossRegionRestoreJobsClient`
+- New function `*ClientFactory.NewSecondaryRPsClient() *SecondaryRPsClient`
+- New function `NewCrossRegionRestoreJobClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CrossRegionRestoreJobClient, error)`
+- New function `*CrossRegionRestoreJobClient.Get(context.Context, string, string, CrossRegionRestoreJobRequest, *CrossRegionRestoreJobClientGetOptions) (CrossRegionRestoreJobClientGetResponse, error)`
+- New function `NewCrossRegionRestoreJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CrossRegionRestoreJobsClient, error)`
+- New function `*CrossRegionRestoreJobsClient.NewListPager(string, string, CrossRegionRestoreJobsRequest, *CrossRegionRestoreJobsClientListOptions) *runtime.Pager[CrossRegionRestoreJobsClientListResponse]`
+- New function `*DefaultResourceProperties.GetBaseResourceProperties() *BaseResourceProperties`
+- New function `NewSecondaryRPsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecondaryRPsClient, error)`
+- New function `*SecondaryRPsClient.NewFetchPager(string, string, FetchSecondaryRPsRequestParameters, *SecondaryRPsClientFetchOptions) *runtime.Pager[SecondaryRPsClientFetchResponse]`
+- New struct `CmkKekIdentity`
+- New struct `CmkKeyVaultProperties`
+- New struct `CrossRegionRestoreDetails`
+- New struct `CrossRegionRestoreJobRequest`
+- New struct `CrossRegionRestoreJobsRequest`
+- New struct `CrossRegionRestoreRequestObject`
+- New struct `DefaultResourceProperties`
+- New struct `EncryptionSettings`
+- New struct `FetchSecondaryRPsRequestParameters`
+- New struct `ValidateCrossRegionRestoreRequestObject`
+- New field `EncryptionSettings` in struct `SecuritySettings`
+
+
 ## 2.3.0 (2023-07-28)
 ### Features Added
 
