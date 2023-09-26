@@ -44,3 +44,8 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewQueryClient() *QueryClient {
+	subClient, _ := NewQueryClient(c.credential, c.options)
+	return subClient
+}
