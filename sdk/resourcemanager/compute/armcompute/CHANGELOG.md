@@ -1,5 +1,32 @@
 # Release History
 
+## 6.0.0 (2023-09-26)
+### Breaking Changes
+
+- `DiskCreateOptionCopyFromSanSnapshot` from enum `DiskCreateOption` has been removed
+- Enum `DomainNameLabelScopeTypes` has been removed
+- Enum `FileFormat` has been removed
+- Enum `NetworkInterfaceAuxiliaryMode` has been removed
+- Enum `NetworkInterfaceAuxiliarySKU` has been removed
+- Field `ElasticSanResourceID` of struct `CreationData` has been removed
+- Field `LastOwnershipUpdateTime` of struct `DiskProperties` has been removed
+- Field `FileFormat` of struct `GrantAccessData` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineNetworkInterfaceConfigurationProperties` has been removed
+- Field `DomainNameLabelScope` of struct `VirtualMachinePublicIPAddressDNSSettingsConfiguration` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineScaleSetNetworkConfigurationProperties` has been removed
+- Field `DomainNameLabelScope` of struct `VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineScaleSetUpdateNetworkConfigurationProperties` has been removed
+- Field `TimeCreated` of struct `VirtualMachineScaleSetVMProperties` has been removed
+
+### Features Added
+
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetVMsClientBeginUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetsClientBeginUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginUpdateOptions`
+
+
 ## 5.2.0 (2023-09-22)
 ### Features Added
 

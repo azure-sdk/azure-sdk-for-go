@@ -1458,6 +1458,14 @@ type VirtualMachineScaleSetVMsClientBeginStartOptions struct {
 // VirtualMachineScaleSetVMsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginUpdate
 // method.
 type VirtualMachineScaleSetVMsClientBeginUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will be
+	// ignored.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1508,6 +1516,14 @@ type VirtualMachineScaleSetVMsClientSimulateEvictionOptions struct {
 // VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginCreateOrUpdate
 // method.
 type VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will be
+	// ignored.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1644,6 +1660,14 @@ type VirtualMachineScaleSetsClientBeginUpdateInstancesOptions struct {
 // VirtualMachineScaleSetsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginUpdate
 // method.
 type VirtualMachineScaleSetsClientBeginUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will be
+	// ignored.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1735,6 +1759,14 @@ type VirtualMachinesClientBeginConvertToManagedDisksOptions struct {
 // VirtualMachinesClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginCreateOrUpdate
 // method.
 type VirtualMachinesClientBeginCreateOrUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will be
+	// ignored.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1826,6 +1858,14 @@ type VirtualMachinesClientBeginStartOptions struct {
 
 // VirtualMachinesClientBeginUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginUpdate method.
 type VirtualMachinesClientBeginUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will be
+	// ignored.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
