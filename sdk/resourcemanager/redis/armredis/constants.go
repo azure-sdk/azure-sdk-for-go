@@ -10,7 +10,7 @@ package armredis
 
 const (
 	moduleName    = "armredis"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v3.0.1"
 )
 
 // AccessPolicyAssignmentProvisioningState - Provisioning state of an access policy assignment set
