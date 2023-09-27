@@ -1,5 +1,15 @@
 # Release History
 
+## 4.0.0 (2023-09-27)
+### Breaking Changes
+
+- Operation `*ProtectionContainersClient.Register` has been changed to LRO, use `*ProtectionContainersClient.BeginRegister` instead.
+
+### Features Added
+
+- New field `ExtendedLocation` in struct `IaasVMRecoveryPoint`
+
+
 ## 3.0.0 (2023-09-22)
 ### Breaking Changes
 

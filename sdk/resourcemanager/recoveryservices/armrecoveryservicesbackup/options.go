@@ -329,6 +329,13 @@ type ProtectionContainerRefreshOperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ProtectionContainersClientBeginRegisterOptions contains the optional parameters for the ProtectionContainersClient.BeginRegister
+// method.
+type ProtectionContainersClientBeginRegisterOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ProtectionContainersClientGetOptions contains the optional parameters for the ProtectionContainersClient.Get method.
 type ProtectionContainersClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -344,12 +351,6 @@ type ProtectionContainersClientInquireOptions struct {
 type ProtectionContainersClientRefreshOptions struct {
 	// OData filter options.
 	Filter *string
-}
-
-// ProtectionContainersClientRegisterOptions contains the optional parameters for the ProtectionContainersClient.Register
-// method.
-type ProtectionContainersClientRegisterOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ProtectionContainersClientUnregisterOptions contains the optional parameters for the ProtectionContainersClient.Unregister

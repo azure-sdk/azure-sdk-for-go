@@ -6689,6 +6689,9 @@ type IaasVMRecoveryPoint struct {
 	// REQUIRED; This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types.
 	ObjectType *string
 
+	// Extended location of the VM recovery point, should be null if VM is in public cloud
+	ExtendedLocation *ExtendedLocation
+
 	// Is the session to recover items from this backup copy still active.
 	IsInstantIlrSessionActive *bool
 
