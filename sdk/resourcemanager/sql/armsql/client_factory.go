@@ -192,16 +192,6 @@ func (c *ClientFactory) NewDistributedAvailabilityGroupsClient() *DistributedAva
 	return subClient
 }
 
-func (c *ClientFactory) NewElasticPoolActivitiesClient() *ElasticPoolActivitiesClient {
-	subClient, _ := NewElasticPoolActivitiesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewElasticPoolDatabaseActivitiesClient() *ElasticPoolDatabaseActivitiesClient {
-	subClient, _ := NewElasticPoolDatabaseActivitiesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewElasticPoolOperationsClient() *ElasticPoolOperationsClient {
 	subClient, _ := NewElasticPoolOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -274,6 +264,11 @@ func (c *ClientFactory) NewJobCredentialsClient() *JobCredentialsClient {
 
 func (c *ClientFactory) NewJobExecutionsClient() *JobExecutionsClient {
 	subClient, _ := NewJobExecutionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobPrivateEndpointsClient() *JobPrivateEndpointsClient {
+	subClient, _ := NewJobPrivateEndpointsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -507,6 +502,11 @@ func (c *ClientFactory) NewManagedServerSecurityAlertPoliciesClient() *ManagedSe
 	return subClient
 }
 
+func (c *ClientFactory) NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient {
+	subClient, _ := NewNetworkSecurityPerimeterConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
@@ -597,11 +597,6 @@ func (c *ClientFactory) NewServerBlobAuditingPoliciesClient() *ServerBlobAuditin
 	return subClient
 }
 
-func (c *ClientFactory) NewServerCommunicationLinksClient() *ServerCommunicationLinksClient {
-	subClient, _ := NewServerCommunicationLinksClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewServerConfigurationOptionsClient() *ServerConfigurationOptionsClient {
 	subClient, _ := NewServerConfigurationOptionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -659,11 +654,6 @@ func (c *ClientFactory) NewServerVulnerabilityAssessmentsClient() *ServerVulnera
 
 func (c *ClientFactory) NewServersClient() *ServersClient {
 	subClient, _ := NewServersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewServiceObjectivesClient() *ServiceObjectivesClient {
-	subClient, _ := NewServiceObjectivesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
