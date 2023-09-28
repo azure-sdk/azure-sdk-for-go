@@ -1,5 +1,27 @@
 # Release History
 
+## 4.3.0 (2023-09-28)
+### Features Added
+
+- New value `BastionHostSKUNameDeveloper` added to enum type `BastionHostSKUName`
+- New value `FirewallPolicyIDPSSignatureDirectionFour`, `FirewallPolicyIDPSSignatureDirectionThree` added to enum type `FirewallPolicyIDPSSignatureDirection`
+- New enum type `FirewallPolicyIntrusionDetectionProfileType` with values `FirewallPolicyIntrusionDetectionProfileTypeAdvanced`, `FirewallPolicyIntrusionDetectionProfileTypeBasic`, `FirewallPolicyIntrusionDetectionProfileTypeExtended`, `FirewallPolicyIntrusionDetectionProfileTypeStandard`
+- New function `*ClientFactory.NewFirewallPoliciesDraftsClient() *FirewallPoliciesDraftsClient`
+- New function `*FirewallPoliciesClient.CreateOrUpdateDraft(context.Context, string, string, FirewallPolicyDraft, *FirewallPoliciesClientCreateOrUpdateDraftOptions) (FirewallPoliciesClientCreateOrUpdateDraftResponse, error)`
+- New function `*FirewallPoliciesClient.DeleteDraft(context.Context, string, string, *FirewallPoliciesClientDeleteDraftOptions) (FirewallPoliciesClientDeleteDraftResponse, error)`
+- New function `*FirewallPoliciesClient.GetDraft(context.Context, string, string, *FirewallPoliciesClientGetDraftOptions) (FirewallPoliciesClientGetDraftResponse, error)`
+- New function `NewFirewallPoliciesDraftsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPoliciesDraftsClient, error)`
+- New function `*FirewallPoliciesDraftsClient.BeginDeploy(context.Context, string, string, *FirewallPoliciesDraftsClientBeginDeployOptions) (*runtime.Poller[FirewallPoliciesDraftsClientDeployResponse], error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.CreateOrUpdateDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroupDraft, *FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions) (FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.DeleteDraft(context.Context, string, string, string, *FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions) (FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.GetDraft(context.Context, string, string, string, *FirewallPolicyRuleCollectionGroupsClientGetDraftOptions) (FirewallPolicyRuleCollectionGroupsClientGetDraftResponse, error)`
+- New function `*ManagementClient.BeginDeleteBastionShareableLinkByToken(context.Context, string, string, BastionShareableLinkTokenListRequest, *ManagementClientBeginDeleteBastionShareableLinkByTokenOptions) (*runtime.Poller[ManagementClientDeleteBastionShareableLinkByTokenResponse], error)`
+- New struct `BastionShareableLinkTokenListRequest`
+- New struct `FirewallPolicyDraft`
+- New struct `FirewallPolicyRuleCollectionGroupDraft`
+- New field `Profile` in struct `FirewallPolicyIntrusionDetection`
+
+
 ## 4.2.0 (2023-09-22)
 ### Features Added
 

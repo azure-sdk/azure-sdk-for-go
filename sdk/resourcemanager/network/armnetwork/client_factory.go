@@ -238,6 +238,11 @@ func (c *ClientFactory) NewFirewallPoliciesClient() *FirewallPoliciesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewFirewallPoliciesDraftsClient() *FirewallPoliciesDraftsClient {
+	subClient, _ := NewFirewallPoliciesDraftsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewFirewallPolicyIdpsSignaturesClient() *FirewallPolicyIdpsSignaturesClient {
 	subClient, _ := NewFirewallPolicyIdpsSignaturesClient(c.subscriptionID, c.credential, c.options)
 	return subClient

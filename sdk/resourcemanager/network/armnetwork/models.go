@@ -3063,7 +3063,7 @@ type BastionShareableLink struct {
 	Message *string
 }
 
-// BastionShareableLinkListRequest - Post request for all the Bastion Shareable Link endpoints.
+// BastionShareableLinkListRequest - Post request for Create/Delete/Get Bastion Shareable Link endpoints.
 type BastionShareableLinkListRequest struct {
 	// List of VM references.
 	VMs []*BastionShareableLink
@@ -3076,6 +3076,12 @@ type BastionShareableLinkListResult struct {
 
 	// List of Bastion Shareable Links for the request.
 	Value []*BastionShareableLink
+}
+
+// BastionShareableLinkTokenListRequest - Post request for Delete Bastion Shareable Link By Token endpoint.
+type BastionShareableLinkTokenListRequest struct {
+	// List of Bastion Shareable Link Token.
+	Tokens []*string
 }
 
 // BgpConnection - Virtual Appliance Site resource.
@@ -5868,6 +5874,33 @@ type FirewallPolicyCertificateAuthority struct {
 	Name *string
 }
 
+// FirewallPolicyDraft - FirewallPolicy Draft Object
+type FirewallPolicyDraft struct {
+	// DNS Proxy Settings definition.
+	DNSSettings *DNSSettings
+
+	// Explicit Proxy Settings definition.
+	ExplicitProxy *ExplicitProxySettings
+
+	// Insights on Firewall Policy.
+	Insights *FirewallPolicyInsights
+
+	// The configuration for Intrusion detection.
+	IntrusionDetection *FirewallPolicyIntrusionDetection
+
+	// SQL Settings definition.
+	SQL *FirewallPolicySQL
+
+	// The private IP addresses/IP ranges to which traffic will not be SNAT.
+	Snat *FirewallPolicySNAT
+
+	// The operation mode for Threat Intelligence.
+	ThreatIntelMode *AzureFirewallThreatIntelMode
+
+	// ThreatIntel Whitelist for Firewall Policy.
+	ThreatIntelWhitelist *FirewallPolicyThreatIntelWhitelist
+}
+
 // FirewallPolicyFilterRuleCollection - Firewall Policy Filter Rule Collection.
 type FirewallPolicyFilterRuleCollection struct {
 	// REQUIRED; The type of the rule collection.
@@ -5927,8 +5960,13 @@ type FirewallPolicyIntrusionDetection struct {
 	// Intrusion detection configuration properties.
 	Configuration *FirewallPolicyIntrusionDetectionConfiguration
 
-	// Intrusion detection general state.
+	// Intrusion detection general state. When attached to a parent policy, the firewall's effective IDPS mode is the stricter
+	// mode of the two.
 	Mode *FirewallPolicyIntrusionDetectionStateType
+
+	// IDPS profile name. When attached to a parent policy, the firewall's effective profile is the profile name of the parent
+	// policy.
+	Profile *FirewallPolicyIntrusionDetectionProfileType
 }
 
 // FirewallPolicyIntrusionDetectionBypassTrafficSpecifications - Intrusion detection bypass traffic specification.
@@ -6149,6 +6187,15 @@ type FirewallPolicyRuleCollectionGroup struct {
 
 	// READ-ONLY; Rule Group type.
 	Type *string
+}
+
+// FirewallPolicyRuleCollectionGroupDraft - Properties of the rule collection group.
+type FirewallPolicyRuleCollectionGroupDraft struct {
+	// Priority of the Firewall Policy Rule Collection Group resource.
+	Priority *int32
+
+	// Group of Firewall Policy rule collections.
+	RuleCollections []FirewallPolicyRuleCollectionClassification
 }
 
 // FirewallPolicyRuleCollectionGroupListResult - Response for ListFirewallPolicyRuleCollectionGroups API service call.
@@ -11025,7 +11072,7 @@ type SingleQueryResult struct {
 	// Describes the list of destination ports related to this signature
 	DestinationPorts []*string
 
-	// Describes in which direction signature is being enforced: 0 - Inbound, 1 - OutBound, 2 - Bidirectional
+	// Describes in which direction signature is being enforced: 0 - OutBound, 1 - InBound, 2 - Any, 3 - Internal, 4 - InternalOutbound
 	Direction *FirewallPolicyIDPSSignatureDirection
 
 	// Describes the groups the signature belongs to
@@ -11043,7 +11090,7 @@ type SingleQueryResult struct {
 	// Describes the protocol the signatures is being enforced in
 	Protocol *string
 
-	// Describes the severity of signature: 1 - Low, 2 - Medium, 3 - High
+	// Describes the severity of signature: 1 - High, 2 - Medium, 3 - Low
 	Severity *FirewallPolicyIDPSSignatureSeverity
 
 	// The ID of the signature

@@ -1058,6 +1058,22 @@ type FirewallPoliciesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// FirewallPoliciesClientCreateOrUpdateDraftOptions contains the optional parameters for the FirewallPoliciesClient.CreateOrUpdateDraft
+// method.
+type FirewallPoliciesClientCreateOrUpdateDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPoliciesClientDeleteDraftOptions contains the optional parameters for the FirewallPoliciesClient.DeleteDraft method.
+type FirewallPoliciesClientDeleteDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPoliciesClientGetDraftOptions contains the optional parameters for the FirewallPoliciesClient.GetDraft method.
+type FirewallPoliciesClientGetDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
 // FirewallPoliciesClientGetOptions contains the optional parameters for the FirewallPoliciesClient.Get method.
 type FirewallPoliciesClientGetOptions struct {
 	// Expands referenced resources.
@@ -1077,6 +1093,13 @@ type FirewallPoliciesClientListOptions struct {
 // FirewallPoliciesClientUpdateTagsOptions contains the optional parameters for the FirewallPoliciesClient.UpdateTags method.
 type FirewallPoliciesClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// FirewallPoliciesDraftsClientBeginDeployOptions contains the optional parameters for the FirewallPoliciesDraftsClient.BeginDeploy
+// method.
+type FirewallPoliciesDraftsClientBeginDeployOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // FirewallPolicyIdpsSignaturesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesClient.List
@@ -1127,6 +1150,24 @@ type FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateOptions struct {
 type FirewallPolicyRuleCollectionGroupsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.CreateOrUpdateDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.DeleteDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupsClientGetDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.GetDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientGetDraftOptions struct {
+	// placeholder for future optional parameters
 }
 
 // FirewallPolicyRuleCollectionGroupsClientGetOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.Get
@@ -1656,6 +1697,13 @@ type LocalNetworkGatewaysClientListOptions struct {
 // method.
 type LocalNetworkGatewaysClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ManagementClientBeginDeleteBastionShareableLinkByTokenOptions contains the optional parameters for the ManagementClient.BeginDeleteBastionShareableLinkByToken
+// method.
+type ManagementClientBeginDeleteBastionShareableLinkByTokenOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ManagementClientBeginDeleteBastionShareableLinkOptions contains the optional parameters for the ManagementClient.BeginDeleteBastionShareableLink

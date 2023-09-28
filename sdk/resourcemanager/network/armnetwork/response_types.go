@@ -979,15 +979,33 @@ type ExpressRouteServiceProvidersClientListResponse struct {
 	ExpressRouteServiceProviderListResult
 }
 
+// FirewallPoliciesClientCreateOrUpdateDraftResponse contains the response from method FirewallPoliciesClient.CreateOrUpdateDraft.
+type FirewallPoliciesClientCreateOrUpdateDraftResponse struct {
+	// FirewallPolicy Draft Object
+	FirewallPolicyDraft
+}
+
 // FirewallPoliciesClientCreateOrUpdateResponse contains the response from method FirewallPoliciesClient.BeginCreateOrUpdate.
 type FirewallPoliciesClientCreateOrUpdateResponse struct {
 	// FirewallPolicy Resource.
 	FirewallPolicy
 }
 
+// FirewallPoliciesClientDeleteDraftResponse contains the response from method FirewallPoliciesClient.DeleteDraft.
+type FirewallPoliciesClientDeleteDraftResponse struct {
+	// Anything
+	Interface any
+}
+
 // FirewallPoliciesClientDeleteResponse contains the response from method FirewallPoliciesClient.BeginDelete.
 type FirewallPoliciesClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// FirewallPoliciesClientGetDraftResponse contains the response from method FirewallPoliciesClient.GetDraft.
+type FirewallPoliciesClientGetDraftResponse struct {
+	// FirewallPolicy Draft Object
+	FirewallPolicyDraft
 }
 
 // FirewallPoliciesClientGetResponse contains the response from method FirewallPoliciesClient.Get.
@@ -1012,6 +1030,12 @@ type FirewallPoliciesClientListResponse struct {
 type FirewallPoliciesClientUpdateTagsResponse struct {
 	// FirewallPolicy Resource.
 	FirewallPolicy
+}
+
+// FirewallPoliciesDraftsClientDeployResponse contains the response from method FirewallPoliciesDraftsClient.BeginDeploy.
+type FirewallPoliciesDraftsClientDeployResponse struct {
+	// FirewallPolicy Draft Object
+	FirewallPolicyDraft
 }
 
 // FirewallPolicyIdpsSignaturesClientListResponse contains the response from method FirewallPolicyIdpsSignaturesClient.List.
@@ -1050,8 +1074,20 @@ type FirewallPolicyIdpsSignaturesOverridesClientPutResponse struct {
 	SignaturesOverrides
 }
 
+// FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.CreateOrUpdateDraft.
+type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse struct {
+	// Properties of the rule collection group.
+	FirewallPolicyRuleCollectionGroupDraft
+}
+
 // FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdate.
 type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse struct {
+	// Rule Collection Group resource.
+	FirewallPolicyRuleCollectionGroup
+}
+
+// FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.DeleteDraft.
+type FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse struct {
 	// Rule Collection Group resource.
 	FirewallPolicyRuleCollectionGroup
 }
@@ -1059,6 +1095,12 @@ type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse struct {
 // FirewallPolicyRuleCollectionGroupsClientDeleteResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginDelete.
 type FirewallPolicyRuleCollectionGroupsClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// FirewallPolicyRuleCollectionGroupsClientGetDraftResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.GetDraft.
+type FirewallPolicyRuleCollectionGroupsClientGetDraftResponse struct {
+	// Properties of the rule collection group.
+	FirewallPolicyRuleCollectionGroupDraft
 }
 
 // FirewallPolicyRuleCollectionGroupsClientGetResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.Get.
@@ -1571,6 +1613,11 @@ type LocalNetworkGatewaysClientUpdateTagsResponse struct {
 type ManagementClientCheckDNSNameAvailabilityResponse struct {
 	// Response for the CheckDnsNameAvailability API service call.
 	DNSNameAvailabilityResult
+}
+
+// ManagementClientDeleteBastionShareableLinkByTokenResponse contains the response from method ManagementClient.BeginDeleteBastionShareableLinkByToken.
+type ManagementClientDeleteBastionShareableLinkByTokenResponse struct {
+	// placeholder for future response values
 }
 
 // ManagementClientDeleteBastionShareableLinkResponse contains the response from method ManagementClient.BeginDeleteBastionShareableLink.
