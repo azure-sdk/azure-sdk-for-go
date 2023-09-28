@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.7.2
-	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.2.2
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.3.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/internal v1.1.2
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources v1.1.1
@@ -12,6 +11,7 @@ require (
 )
 
 require (
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.2.2 // indirect
 	github.com/AzureAD/microsoft-authentication-library-for-go v0.9.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dnaeon/go-vcr v1.1.0 // indirect
