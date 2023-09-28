@@ -120,6 +120,70 @@ type OperationsClientListAllResponse struct {
 	OperationListResult
 }
 
+// PrivateAccessesClientCreateOrUpdateResponse contains the response from method PrivateAccessesClient.CreateOrUpdate.
+type PrivateAccessesClientCreateOrUpdateResponse struct {
+	// PrivateAccesses tracked resource.
+	PrivateAccess
+}
+
+// PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse contains the response from method PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection.
+type PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse struct {
+	// placeholder for future response values
+}
+
+// PrivateAccessesClientDeleteResponse contains the response from method PrivateAccessesClient.Delete.
+type PrivateAccessesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrivateAccessesClientGetAPrivateEndpointConnectionResponse contains the response from method PrivateAccessesClient.GetAPrivateEndpointConnection.
+type PrivateAccessesClientGetAPrivateEndpointConnectionResponse struct {
+	// The Private Endpoint Connection resource.
+	PrivateEndpointConnection
+}
+
+// PrivateAccessesClientGetPrivateLinkResourcesResponse contains the response from method PrivateAccessesClient.GetPrivateLinkResources.
+type PrivateAccessesClientGetPrivateLinkResourcesResponse struct {
+	// A list of private link resources
+	PrivateLinkResourceListResult
+}
+
+// PrivateAccessesClientGetResponse contains the response from method PrivateAccessesClient.Get.
+type PrivateAccessesClientGetResponse struct {
+	// PrivateAccesses tracked resource.
+	PrivateAccess
+}
+
+// PrivateAccessesClientListAllResponse contains the response from method PrivateAccessesClient.NewListAllPager.
+type PrivateAccessesClientListAllResponse struct {
+	// Model that represents a list of private access resources and a link for pagination.
+	PrivateAccessListResult
+}
+
+// PrivateAccessesClientListPrivateEndpointConnectionsResponse contains the response from method PrivateAccessesClient.NewListPrivateEndpointConnectionsPager.
+type PrivateAccessesClientListPrivateEndpointConnectionsResponse struct {
+	// A list of private link resources
+	PrivateEndpointConnectionListResult
+}
+
+// PrivateAccessesClientListResponse contains the response from method PrivateAccessesClient.NewListPager.
+type PrivateAccessesClientListResponse struct {
+	// Model that represents a list of private access resources and a link for pagination.
+	PrivateAccessListResult
+}
+
+// PrivateAccessesClientUpdateAPrivateEndpointConnectionResponse contains the response from method PrivateAccessesClient.BeginUpdateAPrivateEndpointConnection.
+type PrivateAccessesClientUpdateAPrivateEndpointConnectionResponse struct {
+	// The Private Endpoint Connection resource.
+	PrivateEndpointConnection
+}
+
+// PrivateAccessesClientUpdateResponse contains the response from method PrivateAccessesClient.Update.
+type PrivateAccessesClientUpdateResponse struct {
+	// PrivateAccesses tracked resource.
+	PrivateAccess
+}
+
 // TargetTypesClientGetResponse contains the response from method TargetTypesClient.Get.
 type TargetTypesClientGetResponse struct {
 	// Model that represents a Target Type resource.

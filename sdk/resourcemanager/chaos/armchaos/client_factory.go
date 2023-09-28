@@ -57,6 +57,11 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewPrivateAccessesClient() *PrivateAccessesClient {
+	subClient, _ := NewPrivateAccessesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewTargetTypesClient() *TargetTypesClient {
 	subClient, _ := NewTargetTypesClient(c.subscriptionID, c.credential, c.options)
 	return subClient

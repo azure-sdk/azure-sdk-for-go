@@ -1,5 +1,36 @@
 # Release History
 
+## 0.8.0 (2023-09-28)
+### Features Added
+
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New function `*ClientFactory.NewPrivateAccessesClient() *PrivateAccessesClient`
+- New function `NewPrivateAccessesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateAccessesClient, error)`
+- New function `*PrivateAccessesClient.CreateOrUpdate(context.Context, string, string, PrivateAccess, *PrivateAccessesClientCreateOrUpdateOptions) (PrivateAccessesClientCreateOrUpdateResponse, error)`
+- New function `*PrivateAccessesClient.Delete(context.Context, string, string, *PrivateAccessesClientDeleteOptions) (PrivateAccessesClientDeleteResponse, error)`
+- New function `*PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions) (*runtime.Poller[PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse], error)`
+- New function `*PrivateAccessesClient.Get(context.Context, string, string, *PrivateAccessesClientGetOptions) (PrivateAccessesClientGetResponse, error)`
+- New function `*PrivateAccessesClient.GetAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientGetAPrivateEndpointConnectionOptions) (PrivateAccessesClientGetAPrivateEndpointConnectionResponse, error)`
+- New function `*PrivateAccessesClient.GetPrivateLinkResources(context.Context, string, string, *PrivateAccessesClientGetPrivateLinkResourcesOptions) (PrivateAccessesClientGetPrivateLinkResourcesResponse, error)`
+- New function `*PrivateAccessesClient.NewListAllPager(*PrivateAccessesClientListAllOptions) *runtime.Pager[PrivateAccessesClientListAllResponse]`
+- New function `*PrivateAccessesClient.NewListPager(string, *PrivateAccessesClientListOptions) *runtime.Pager[PrivateAccessesClientListResponse]`
+- New function `*PrivateAccessesClient.NewListPrivateEndpointConnectionsPager(string, string, *PrivateAccessesClientListPrivateEndpointConnectionsOptions) *runtime.Pager[PrivateAccessesClientListPrivateEndpointConnectionsResponse]`
+- New function `*PrivateAccessesClient.Update(context.Context, string, string, PrivateAccessUpdate, *PrivateAccessesClientUpdateOptions) (PrivateAccessesClientUpdateResponse, error)`
+- New function `*PrivateAccessesClient.BeginUpdateAPrivateEndpointConnection(context.Context, string, string, string, PrivateEndpointConnection, *PrivateAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*runtime.Poller[PrivateAccessesClientUpdateAPrivateEndpointConnectionResponse], error)`
+- New struct `PrivateAccess`
+- New struct `PrivateAccessListResult`
+- New struct `PrivateAccessProperties`
+- New struct `PrivateAccessUpdate`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkServiceConnectionState`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 
