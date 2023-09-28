@@ -40,19 +40,35 @@ type CapabilityTypesClientListOptions struct {
 	ContinuationToken *string
 }
 
-// ExperimentsClientCancelOptions contains the optional parameters for the ExperimentsClient.Cancel method.
-type ExperimentsClientCancelOptions struct {
-	// placeholder for future optional parameters
+// ExperimentsClientBeginCancelOptions contains the optional parameters for the ExperimentsClient.BeginCancel method.
+type ExperimentsClientBeginCancelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ExperimentsClientCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.CreateOrUpdate method.
-type ExperimentsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+// ExperimentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.BeginCreateOrUpdate
+// method.
+type ExperimentsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ExperimentsClientDeleteOptions contains the optional parameters for the ExperimentsClient.Delete method.
-type ExperimentsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// ExperimentsClientBeginDeleteOptions contains the optional parameters for the ExperimentsClient.BeginDelete method.
+type ExperimentsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ExperimentsClientBeginStartOptions contains the optional parameters for the ExperimentsClient.BeginStart method.
+type ExperimentsClientBeginStartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ExperimentsClientBeginUpdateOptions contains the optional parameters for the ExperimentsClient.BeginUpdate method.
+type ExperimentsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ExperimentsClientGetExecutionDetailsOptions contains the optional parameters for the ExperimentsClient.GetExecutionDetails
@@ -103,13 +119,8 @@ type ExperimentsClientListOptions struct {
 	Running *bool
 }
 
-// ExperimentsClientStartOptions contains the optional parameters for the ExperimentsClient.Start method.
-type ExperimentsClientStartOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ExperimentsClientUpdateOptions contains the optional parameters for the ExperimentsClient.Update method.
-type ExperimentsClientUpdateOptions struct {
+// OperationStatusesClientGetOptions contains the optional parameters for the OperationStatusesClient.Get method.
+type OperationStatusesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
