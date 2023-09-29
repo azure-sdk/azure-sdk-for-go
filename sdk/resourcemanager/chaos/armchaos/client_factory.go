@@ -52,8 +52,18 @@ func (c *ClientFactory) NewExperimentsClient() *ExperimentsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewOperationStatusesClient() *OperationStatusesClient {
+	subClient, _ := NewOperationStatusesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPrivateAccessesClient() *PrivateAccessesClient {
+	subClient, _ := NewPrivateAccessesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

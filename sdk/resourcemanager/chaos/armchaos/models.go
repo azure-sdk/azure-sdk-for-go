@@ -304,20 +304,14 @@ type Experiment struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Most recent provisioning state for the given experiment resource.
+	ProvisioningState *ProvisioningState
+
 	// READ-ONLY; The system metadata of the experiment resource.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// ExperimentCancelOperationResult - Model that represents the result of a cancel Experiment operation.
-type ExperimentCancelOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
 }
 
 // ExperimentExecutionActionTargetDetailsError - Model that represents the Experiment action target details error model.
@@ -421,18 +415,6 @@ type ExperimentProperties struct {
 
 	// REQUIRED; List of steps.
 	Steps []*Step
-
-	// A boolean value that indicates if experiment should be started on creation or not.
-	StartOnCreation *bool
-}
-
-// ExperimentStartOperationResult - Model that represents the result of a start Experiment operation.
-type ExperimentStartOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
 }
 
 // ExperimentStatus - Model that represents the status of a Experiment.
@@ -570,6 +552,157 @@ type OperationListResult struct {
 
 	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// OperationStatus - The status of operation.
+type OperationStatus struct {
+	// The end time of the operation.
+	EndTime *string
+
+	// The error detail of the operation if any.
+	Error *ErrorResponse
+
+	// The operation Id.
+	ID *string
+
+	// The operation name.
+	Name *string
+
+	// The start time of the operation.
+	StartTime *string
+
+	// The status of the operation.
+	Status *string
+}
+
+// PrivateAccesses tracked resource.
+type PrivateAccess struct {
+	// REQUIRED; The resource-specific properties for this resource.
+	Properties *PrivateAccessProperties
+
+	// Location of the private access resource.
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata of the private access resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrivateAccessListResult - Model that represents a list of private access resources and a link for pagination.
+type PrivateAccessListResult struct {
+	// READ-ONLY; URL to retrieve the next page of private access resources.
+	NextLink *string
+
+	// READ-ONLY; List of private access resources.
+	Value []*PrivateAccess
+}
+
+// PrivateAccessProperties - The properties of a private access resource
+type PrivateAccessProperties struct {
+	// READ-ONLY; A readonly collection of private endpoint connection. Currently only one endpoint connection is supported.
+	PrivateEndpointConnections []*PrivateEndpointConnection
+}
+
+// PrivateAccessUpdate - An update to a private access.
+type PrivateAccessUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// PrivateEndpoint - The Private Endpoint resource.
+type PrivateEndpoint struct {
+	// READ-ONLY; The ARM identifier for Private Endpoint
+	ID *string
+}
+
+// PrivateEndpointConnection - The Private Endpoint Connection resource.
+type PrivateEndpointConnection struct {
+	// Resource properties.
+	Properties *PrivateEndpointConnectionProperties
+
+	// READ-ONLY; private endpoint connection Id
+	ID *string
+
+	// READ-ONLY; private endpoint connection name
+	Name *string
+
+	// READ-ONLY; private endpoint connection type
+	Type *string
+}
+
+// PrivateEndpointConnectionListResult - A list of private link resources
+type PrivateEndpointConnectionListResult struct {
+	// The uri to fetch the next page of snapshots. Call ListNext() with this to fetch the next page of snapshots.
+	NextLink *string
+
+	// Array of private endpoint connections
+	Value []*PrivateEndpointConnection
+}
+
+// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+type PrivateEndpointConnectionProperties struct {
+	// REQUIRED; A collection of information about the state of the connection between PrivateAccess and Virtual Network.
+	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
+
+	// READ-ONLY; The resource of private end point.
+	PrivateEndpoint *PrivateEndpoint
+}
+
+// PrivateLinkResource - A private link resource
+type PrivateLinkResource struct {
+	// Resource properties.
+	Properties *PrivateLinkResourceProperties
+
+	// READ-ONLY; private link resource Id
+	ID *string
+
+	// READ-ONLY; private link resource name
+	Name *string
+
+	// READ-ONLY; private link resource type
+	Type *string
+}
+
+// PrivateLinkResourceListResult - A list of private link resources
+type PrivateLinkResourceListResult struct {
+	// Array of private link resources
+	Value []*PrivateLinkResource
+}
+
+// PrivateLinkResourceProperties - Properties of a private link resource.
+type PrivateLinkResourceProperties struct {
+	// The private link resource DNS zone name.
+	RequiredZoneNames []*string
+
+	// READ-ONLY; The private link resource group id.
+	GroupID *string
+
+	// READ-ONLY; The private link resource required member names.
+	RequiredMembers []*string
+}
+
+// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
+// and provider.
+type PrivateLinkServiceConnectionState struct {
+	// A message indicating if changes on the service provider require any updates on the consumer.
+	ActionsRequired *string
+
+	// The reason for approval/rejection of the connection.
+	Description *string
+
+	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
+	Status *PrivateEndpointServiceConnectionStatus
 }
 
 // QuerySelector - Model that represents a query selector.

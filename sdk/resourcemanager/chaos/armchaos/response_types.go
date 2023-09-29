@@ -43,19 +43,18 @@ type CapabilityTypesClientListResponse struct {
 	CapabilityTypeListResult
 }
 
-// ExperimentsClientCancelResponse contains the response from method ExperimentsClient.Cancel.
+// ExperimentsClientCancelResponse contains the response from method ExperimentsClient.BeginCancel.
 type ExperimentsClientCancelResponse struct {
-	// Model that represents the result of a cancel Experiment operation.
-	ExperimentCancelOperationResult
+	// placeholder for future response values
 }
 
-// ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.CreateOrUpdate.
+// ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.BeginCreateOrUpdate.
 type ExperimentsClientCreateOrUpdateResponse struct {
 	// Model that represents a Experiment resource.
 	Experiment
 }
 
-// ExperimentsClientDeleteResponse contains the response from method ExperimentsClient.Delete.
+// ExperimentsClientDeleteResponse contains the response from method ExperimentsClient.BeginDelete.
 type ExperimentsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -102,22 +101,91 @@ type ExperimentsClientListResponse struct {
 	ExperimentListResult
 }
 
-// ExperimentsClientStartResponse contains the response from method ExperimentsClient.Start.
+// ExperimentsClientStartResponse contains the response from method ExperimentsClient.BeginStart.
 type ExperimentsClientStartResponse struct {
-	// Model that represents the result of a start Experiment operation.
-	ExperimentStartOperationResult
+	// placeholder for future response values
 }
 
-// ExperimentsClientUpdateResponse contains the response from method ExperimentsClient.Update.
+// ExperimentsClientUpdateResponse contains the response from method ExperimentsClient.BeginUpdate.
 type ExperimentsClientUpdateResponse struct {
 	// Model that represents a Experiment resource.
 	Experiment
+}
+
+// OperationStatusesClientGetResponse contains the response from method OperationStatusesClient.Get.
+type OperationStatusesClientGetResponse struct {
+	// The status of operation.
+	OperationStatus
 }
 
 // OperationsClientListAllResponse contains the response from method OperationsClient.NewListAllPager.
 type OperationsClientListAllResponse struct {
 	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
+}
+
+// PrivateAccessesClientCreateOrUpdateResponse contains the response from method PrivateAccessesClient.CreateOrUpdate.
+type PrivateAccessesClientCreateOrUpdateResponse struct {
+	// PrivateAccesses tracked resource.
+	PrivateAccess
+}
+
+// PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse contains the response from method PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection.
+type PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse struct {
+	// placeholder for future response values
+}
+
+// PrivateAccessesClientDeleteResponse contains the response from method PrivateAccessesClient.Delete.
+type PrivateAccessesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrivateAccessesClientGetAPrivateEndpointConnectionResponse contains the response from method PrivateAccessesClient.GetAPrivateEndpointConnection.
+type PrivateAccessesClientGetAPrivateEndpointConnectionResponse struct {
+	// The Private Endpoint Connection resource.
+	PrivateEndpointConnection
+}
+
+// PrivateAccessesClientGetPrivateLinkResourcesResponse contains the response from method PrivateAccessesClient.GetPrivateLinkResources.
+type PrivateAccessesClientGetPrivateLinkResourcesResponse struct {
+	// A list of private link resources
+	PrivateLinkResourceListResult
+}
+
+// PrivateAccessesClientGetResponse contains the response from method PrivateAccessesClient.Get.
+type PrivateAccessesClientGetResponse struct {
+	// PrivateAccesses tracked resource.
+	PrivateAccess
+}
+
+// PrivateAccessesClientListAllResponse contains the response from method PrivateAccessesClient.NewListAllPager.
+type PrivateAccessesClientListAllResponse struct {
+	// Model that represents a list of private access resources and a link for pagination.
+	PrivateAccessListResult
+}
+
+// PrivateAccessesClientListPrivateEndpointConnectionsResponse contains the response from method PrivateAccessesClient.NewListPrivateEndpointConnectionsPager.
+type PrivateAccessesClientListPrivateEndpointConnectionsResponse struct {
+	// A list of private link resources
+	PrivateEndpointConnectionListResult
+}
+
+// PrivateAccessesClientListResponse contains the response from method PrivateAccessesClient.NewListPager.
+type PrivateAccessesClientListResponse struct {
+	// Model that represents a list of private access resources and a link for pagination.
+	PrivateAccessListResult
+}
+
+// PrivateAccessesClientUpdateAPrivateEndpointConnectionResponse contains the response from method PrivateAccessesClient.BeginUpdateAPrivateEndpointConnection.
+type PrivateAccessesClientUpdateAPrivateEndpointConnectionResponse struct {
+	// The Private Endpoint Connection resource.
+	PrivateEndpointConnection
+}
+
+// PrivateAccessesClientUpdateResponse contains the response from method PrivateAccessesClient.Update.
+type PrivateAccessesClientUpdateResponse struct {
+	// PrivateAccesses tracked resource.
+	PrivateAccess
 }
 
 // TargetTypesClientGetResponse contains the response from method TargetTypesClient.Get.

@@ -1,5 +1,53 @@
 # Release History
 
+## 0.8.0 (2023-09-29)
+### Breaking Changes
+
+- Operation `*ExperimentsClient.Cancel` has been changed to LRO, use `*ExperimentsClient.BeginCancel` instead.
+- Operation `*ExperimentsClient.CreateOrUpdate` has been changed to LRO, use `*ExperimentsClient.BeginCreateOrUpdate` instead.
+- Operation `*ExperimentsClient.Delete` has been changed to LRO, use `*ExperimentsClient.BeginDelete` instead.
+- Operation `*ExperimentsClient.Start` has been changed to LRO, use `*ExperimentsClient.BeginStart` instead.
+- Operation `*ExperimentsClient.Update` has been changed to LRO, use `*ExperimentsClient.BeginUpdate` instead.
+- Struct `ExperimentCancelOperationResult` has been removed
+- Struct `ExperimentStartOperationResult` has been removed
+- Field `StartOnCreation` of struct `ExperimentProperties` has been removed
+
+### Features Added
+
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New function `*ClientFactory.NewOperationStatusesClient() *OperationStatusesClient`
+- New function `*ClientFactory.NewPrivateAccessesClient() *PrivateAccessesClient`
+- New function `NewOperationStatusesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationStatusesClient, error)`
+- New function `*OperationStatusesClient.Get(context.Context, string, string, *OperationStatusesClientGetOptions) (OperationStatusesClientGetResponse, error)`
+- New function `NewPrivateAccessesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateAccessesClient, error)`
+- New function `*PrivateAccessesClient.CreateOrUpdate(context.Context, string, string, PrivateAccess, *PrivateAccessesClientCreateOrUpdateOptions) (PrivateAccessesClientCreateOrUpdateResponse, error)`
+- New function `*PrivateAccessesClient.Delete(context.Context, string, string, *PrivateAccessesClientDeleteOptions) (PrivateAccessesClientDeleteResponse, error)`
+- New function `*PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions) (*runtime.Poller[PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse], error)`
+- New function `*PrivateAccessesClient.Get(context.Context, string, string, *PrivateAccessesClientGetOptions) (PrivateAccessesClientGetResponse, error)`
+- New function `*PrivateAccessesClient.GetAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientGetAPrivateEndpointConnectionOptions) (PrivateAccessesClientGetAPrivateEndpointConnectionResponse, error)`
+- New function `*PrivateAccessesClient.GetPrivateLinkResources(context.Context, string, string, *PrivateAccessesClientGetPrivateLinkResourcesOptions) (PrivateAccessesClientGetPrivateLinkResourcesResponse, error)`
+- New function `*PrivateAccessesClient.NewListAllPager(*PrivateAccessesClientListAllOptions) *runtime.Pager[PrivateAccessesClientListAllResponse]`
+- New function `*PrivateAccessesClient.NewListPager(string, *PrivateAccessesClientListOptions) *runtime.Pager[PrivateAccessesClientListResponse]`
+- New function `*PrivateAccessesClient.NewListPrivateEndpointConnectionsPager(string, string, *PrivateAccessesClientListPrivateEndpointConnectionsOptions) *runtime.Pager[PrivateAccessesClientListPrivateEndpointConnectionsResponse]`
+- New function `*PrivateAccessesClient.Update(context.Context, string, string, PrivateAccessUpdate, *PrivateAccessesClientUpdateOptions) (PrivateAccessesClientUpdateResponse, error)`
+- New function `*PrivateAccessesClient.BeginUpdateAPrivateEndpointConnection(context.Context, string, string, string, PrivateEndpointConnection, *PrivateAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*runtime.Poller[PrivateAccessesClientUpdateAPrivateEndpointConnectionResponse], error)`
+- New struct `OperationStatus`
+- New struct `PrivateAccess`
+- New struct `PrivateAccessListResult`
+- New struct `PrivateAccessProperties`
+- New struct `PrivateAccessUpdate`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkServiceConnectionState`
+- New field `ProvisioningState` in struct `Experiment`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 

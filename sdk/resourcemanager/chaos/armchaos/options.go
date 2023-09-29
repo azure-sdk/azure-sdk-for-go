@@ -40,19 +40,35 @@ type CapabilityTypesClientListOptions struct {
 	ContinuationToken *string
 }
 
-// ExperimentsClientCancelOptions contains the optional parameters for the ExperimentsClient.Cancel method.
-type ExperimentsClientCancelOptions struct {
-	// placeholder for future optional parameters
+// ExperimentsClientBeginCancelOptions contains the optional parameters for the ExperimentsClient.BeginCancel method.
+type ExperimentsClientBeginCancelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ExperimentsClientCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.CreateOrUpdate method.
-type ExperimentsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+// ExperimentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.BeginCreateOrUpdate
+// method.
+type ExperimentsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ExperimentsClientDeleteOptions contains the optional parameters for the ExperimentsClient.Delete method.
-type ExperimentsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// ExperimentsClientBeginDeleteOptions contains the optional parameters for the ExperimentsClient.BeginDelete method.
+type ExperimentsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ExperimentsClientBeginStartOptions contains the optional parameters for the ExperimentsClient.BeginStart method.
+type ExperimentsClientBeginStartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ExperimentsClientBeginUpdateOptions contains the optional parameters for the ExperimentsClient.BeginUpdate method.
+type ExperimentsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ExperimentsClientGetExecutionDetailsOptions contains the optional parameters for the ExperimentsClient.GetExecutionDetails
@@ -103,18 +119,78 @@ type ExperimentsClientListOptions struct {
 	Running *bool
 }
 
-// ExperimentsClientStartOptions contains the optional parameters for the ExperimentsClient.Start method.
-type ExperimentsClientStartOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ExperimentsClientUpdateOptions contains the optional parameters for the ExperimentsClient.Update method.
-type ExperimentsClientUpdateOptions struct {
+// OperationStatusesClientGetOptions contains the optional parameters for the OperationStatusesClient.Get method.
+type OperationStatusesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
 // OperationsClientListAllOptions contains the optional parameters for the OperationsClient.NewListAllPager method.
 type OperationsClientListAllOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions contains the optional parameters for the PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection
+// method.
+type PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateAccessesClientBeginUpdateAPrivateEndpointConnectionOptions contains the optional parameters for the PrivateAccessesClient.BeginUpdateAPrivateEndpointConnection
+// method.
+type PrivateAccessesClientBeginUpdateAPrivateEndpointConnectionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateAccessesClientCreateOrUpdateOptions contains the optional parameters for the PrivateAccessesClient.CreateOrUpdate
+// method.
+type PrivateAccessesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientDeleteOptions contains the optional parameters for the PrivateAccessesClient.Delete method.
+type PrivateAccessesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientGetAPrivateEndpointConnectionOptions contains the optional parameters for the PrivateAccessesClient.GetAPrivateEndpointConnection
+// method.
+type PrivateAccessesClientGetAPrivateEndpointConnectionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientGetOptions contains the optional parameters for the PrivateAccessesClient.Get method.
+type PrivateAccessesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientGetPrivateLinkResourcesOptions contains the optional parameters for the PrivateAccessesClient.GetPrivateLinkResources
+// method.
+type PrivateAccessesClientGetPrivateLinkResourcesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientListAllOptions contains the optional parameters for the PrivateAccessesClient.NewListAllPager method.
+type PrivateAccessesClientListAllOptions struct {
+	// String that sets the continuation token.
+	ContinuationToken *string
+}
+
+// PrivateAccessesClientListOptions contains the optional parameters for the PrivateAccessesClient.NewListPager method.
+type PrivateAccessesClientListOptions struct {
+	// String that sets the continuation token.
+	ContinuationToken *string
+}
+
+// PrivateAccessesClientListPrivateEndpointConnectionsOptions contains the optional parameters for the PrivateAccessesClient.NewListPrivateEndpointConnectionsPager
+// method.
+type PrivateAccessesClientListPrivateEndpointConnectionsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientUpdateOptions contains the optional parameters for the PrivateAccessesClient.Update method.
+type PrivateAccessesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
