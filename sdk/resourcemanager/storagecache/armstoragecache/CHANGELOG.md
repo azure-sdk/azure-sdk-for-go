@@ -1,5 +1,21 @@
 # Release History
 
+## 4.0.0-beta.1 (2023-10-02)
+### Breaking Changes
+
+- Struct `AmlFilesystemClientInfo` has been removed
+- Struct `AmlFilesystemContainerStorageInterface` has been removed
+- Field `ClientInfo` of struct `AmlFilesystemProperties` has been removed
+
+### Features Added
+
+- New enum type `AmlFilesystemSquashMode` with values `AmlFilesystemSquashModeAll`, `AmlFilesystemSquashModeNone`, `AmlFilesystemSquashModeRootOnly`
+- New struct `AmlFilesystemRootSquashSettings`
+- New field `LustreVersion`, `MgsAddress`, `MountCommand`, `RootSquashSettings` in struct `AmlFilesystemProperties`
+- New field `RootSquashSettings` in struct `AmlFilesystemUpdateProperties`
+- New field `ScalingFactor` in struct `CacheProperties`
+
+
 ## 3.2.1 (2023-06-23)
 ### Bugs Fixed
 
