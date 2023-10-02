@@ -207,6 +207,15 @@ func (c *ContinuousAction) GetAction() *Action {
 	}
 }
 
+// CustomerDataStorageProperties - Model that represents the Customer Managed Storage for an Experiment.
+type CustomerDataStorageProperties struct {
+	// Name of the Azure Blob Storage container to use or create.
+	BlobContainerName *string
+
+	// ARM Resource ID of the Storage account to use for Customer Data storage.
+	StorageAccountResourceID *string
+}
+
 // DelayAction - Model that represents a delay action.
 type DelayAction struct {
 	// REQUIRED; ISO8601 formatted string that represents a duration.
@@ -304,20 +313,14 @@ type Experiment struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Most recent provisioning state for the given experiment resource.
+	ProvisioningState *ProvisioningState
+
 	// READ-ONLY; The system metadata of the experiment resource.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// ExperimentCancelOperationResult - Model that represents the result of a cancel Experiment operation.
-type ExperimentCancelOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
 }
 
 // ExperimentExecutionActionTargetDetailsError - Model that represents the Experiment action target details error model.
@@ -422,17 +425,8 @@ type ExperimentProperties struct {
 	// REQUIRED; List of steps.
 	Steps []*Step
 
-	// A boolean value that indicates if experiment should be started on creation or not.
-	StartOnCreation *bool
-}
-
-// ExperimentStartOperationResult - Model that represents the result of a start Experiment operation.
-type ExperimentStartOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
+	// Optional customer-managed Storage account where Experiment schema will be stored.
+	CustomerDataStorage *CustomerDataStorageProperties
 }
 
 // ExperimentStatus - Model that represents the status of a Experiment.
@@ -570,6 +564,27 @@ type OperationListResult struct {
 
 	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// OperationStatus - The status of operation.
+type OperationStatus struct {
+	// The end time of the operation.
+	EndTime *string
+
+	// The error detail of the operation if any.
+	Error *ErrorResponse
+
+	// The operation Id.
+	ID *string
+
+	// The operation name.
+	Name *string
+
+	// The start time of the operation.
+	StartTime *string
+
+	// The status of the operation.
+	Status *string
 }
 
 // QuerySelector - Model that represents a query selector.

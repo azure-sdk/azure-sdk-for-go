@@ -1,5 +1,29 @@
 # Release History
 
+## 0.8.0 (2023-10-02)
+### Breaking Changes
+
+- Operation `*ExperimentsClient.Cancel` has been changed to LRO, use `*ExperimentsClient.BeginCancel` instead.
+- Operation `*ExperimentsClient.CreateOrUpdate` has been changed to LRO, use `*ExperimentsClient.BeginCreateOrUpdate` instead.
+- Operation `*ExperimentsClient.Delete` has been changed to LRO, use `*ExperimentsClient.BeginDelete` instead.
+- Operation `*ExperimentsClient.Start` has been changed to LRO, use `*ExperimentsClient.BeginStart` instead.
+- Operation `*ExperimentsClient.Update` has been changed to LRO, use `*ExperimentsClient.BeginUpdate` instead.
+- Struct `ExperimentCancelOperationResult` has been removed
+- Struct `ExperimentStartOperationResult` has been removed
+- Field `StartOnCreation` of struct `ExperimentProperties` has been removed
+
+### Features Added
+
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New function `*ClientFactory.NewOperationStatusesClient() *OperationStatusesClient`
+- New function `NewOperationStatusesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationStatusesClient, error)`
+- New function `*OperationStatusesClient.Get(context.Context, string, string, *OperationStatusesClientGetOptions) (OperationStatusesClientGetResponse, error)`
+- New struct `CustomerDataStorageProperties`
+- New struct `OperationStatus`
+- New field `ProvisioningState` in struct `Experiment`
+- New field `CustomerDataStorage` in struct `ExperimentProperties`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 
