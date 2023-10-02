@@ -25,6 +25,12 @@ type AllowedPrincipals struct {
 	Identities []*string
 }
 
+// AppInsightsConfiguration - Configuration of Application Insights
+type AppInsightsConfiguration struct {
+	// Application Insights connection string
+	ConnectionString *string
+}
+
 // AppLogsConfiguration - Configuration of application logs
 type AppLogsConfiguration struct {
 	// Logs destination, can be 'log-analytics', 'azure-monitor' or 'none'
@@ -93,6 +99,9 @@ type AuthConfigCollection struct {
 
 // AuthConfigProperties - AuthConfig resource specific properties
 type AuthConfigProperties struct {
+	// The configuration settings of the secrets references of encryption key and signing key for ContainerApp Service Authentication/Authorization.
+	EncryptionSettings *EncryptionSettings
+
 	// The configuration settings that determines the validation flow of users using Service Authentication/Authorization.
 	GlobalValidation *GlobalValidation
 
@@ -164,6 +173,9 @@ type AvailableWorkloadProfileProperties struct {
 
 	// The everyday name of the workload profile.
 	DisplayName *string
+
+	// Number of GPUs.
+	Gpus *int32
 
 	// Memory in GiB.
 	MemoryGiB *int32
@@ -363,6 +375,156 @@ type BillingMeterProperties struct {
 	MeterType *string
 }
 
+// BlobStorageTokenStore - The configuration settings of the storage of the tokens if blob storage is used.
+type BlobStorageTokenStore struct {
+	// REQUIRED; The name of the app secrets containing the SAS URL of the blob storage containing the tokens.
+	SasURLSettingName *string
+}
+
+// BuildCollection - The response of a BuildResource list operation.
+type BuildCollection struct {
+	// REQUIRED; The BuildResource items on this page
+	Value []*BuildResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// BuildConfiguration - Configuration of the build.
+type BuildConfiguration struct {
+	// Base OS used to build and run the app.
+	BaseOs *string
+
+	// List of environment variables to be passed to the build and application runtime.
+	EnvironmentVariables []*EnvironmentVariable
+
+	// Platform to be used to build and run the app.
+	Platform *string
+
+	// Platform version to be used to build and run the app.
+	PlatformVersion *string
+
+	// List of steps to perform before the build.
+	PreBuildSteps []*PreBuildStep
+}
+
+// BuildProperties - The build properties.
+type BuildProperties struct {
+	// Configuration of the build.
+	Configuration *BuildConfiguration
+
+	// Container registry that the final image will be uploaded to.
+	DestinationContainerRegistry *ContainerRegistryWithCustomImage
+
+	// READ-ONLY; Status of the build once it has been provisioned.
+	BuildStatus *BuildStatus
+
+	// READ-ONLY; Endpoint from which the build logs can be streamed.
+	LogStreamEndpoint *string
+
+	// READ-ONLY; Build provisioning state.
+	ProvisioningState *BuildProvisioningState
+
+	// READ-ONLY; Endpoint to use to retrieve an authentication token for log streaming and uploading source code.
+	TokenEndpoint *string
+
+	// READ-ONLY; Endpoint to which the source code should be uploaded.
+	UploadEndpoint *string
+}
+
+// BuildResource - Information pertaining to an individual build.
+type BuildResource struct {
+	// The resource-specific properties for this resource.
+	Properties *BuildProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// BuildToken - Build Auth Token.
+type BuildToken struct {
+	// READ-ONLY; Token expiration date.
+	Expires *time.Time
+
+	// READ-ONLY; Authentication token.
+	Token *string
+}
+
+// BuilderCollection - The response of a BuilderResource list operation.
+type BuilderCollection struct {
+	// REQUIRED; The BuilderResource items on this page
+	Value []*BuilderResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// BuilderProperties - The builder properties.
+type BuilderProperties struct {
+	// REQUIRED; Resource ID of the container apps environment that the builder is associated with.
+	EnvironmentID *string
+
+	// List of mappings of container registries and the managed identity used to connect to it.
+	ContainerRegistries []*ContainerRegistry
+
+	// READ-ONLY; Provisioning state of a builder resource.
+	ProvisioningState *BuilderProvisioningState
+}
+
+// BuilderResource - Information about the SourceToCloud builder resource.
+type BuilderResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
+
+	// The resource-specific properties for this resource.
+	Properties *BuilderProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// BuilderResourceUpdate - The type used for update operations of the BuilderResource.
+type BuilderResourceUpdate struct {
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
+
+	// The updatable properties of the BuilderResource.
+	Properties *BuilderResourceUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// BuilderResourceUpdateProperties - The updatable properties of the BuilderResource.
+type BuilderResourceUpdateProperties struct {
+	// Resource ID of the container apps environment that the builder is associated with.
+	EnvironmentID *string
+}
+
 // Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
 type Certificate struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -406,6 +568,9 @@ type CertificatePatch struct {
 type CertificateProperties struct {
 	// Certificate password.
 	Password *string
+
+	// The type of the certificate. Allowed values are ServerSSLCertificate and ImagePullTrustedCA
+	Type *CertificateType
 
 	// PFX or PEM blob
 	Value []byte
@@ -828,6 +993,25 @@ type ContainerAppSecret struct {
 	Value *string
 }
 
+// ContainerRegistry - Model representing a mapping from a container registry to the identity used to connect to it.
+type ContainerRegistry struct {
+	// REQUIRED; Login server of the container registry.
+	ContainerRegistryServer *string
+
+	// REQUIRED; Resource ID of the managed identity.
+	IdentityResourceID *string
+}
+
+// ContainerRegistryWithCustomImage - Container registry that the final image will be uploaded to.
+type ContainerRegistryWithCustomImage struct {
+	// REQUIRED; Login server of the container registry that the final image should be uploaded to. Builder resource needs to
+	// have this container registry defined along with an identity to use to access it.
+	Server *string
+
+	// Full name that the final image should be uploaded as, including both image name and tag.
+	Image *string
+}
+
 // ContainerResources - Container App container resource requirements.
 type ContainerResources struct {
 	// Required CPU in cores, e.g. 0.5
@@ -1065,8 +1249,23 @@ type DaprComponentProperties struct {
 	// Collection of secrets used by a Dapr component
 	Secrets []*Secret
 
+	// List of container app services that are bound to the Dapr component
+	ServiceComponentBind []*DaprComponentServiceBinding
+
 	// Component version
 	Version *string
+}
+
+// DaprComponentServiceBinding - Configuration to bind a Dapr Component to a dev ContainerApp Service
+type DaprComponentServiceBinding struct {
+	// Service bind metadata
+	Metadata *DaprServiceBindMetadata
+
+	// Name of the service bind
+	Name *string
+
+	// Resource id of the target service
+	ServiceID *string
 }
 
 // DaprComponentsCollection - Dapr Components ARM resource.
@@ -1109,6 +1308,24 @@ type DaprSecret struct {
 type DaprSecretsCollection struct {
 	// REQUIRED; Collection of secrets used by a Dapr component
 	Value []*DaprSecret
+}
+
+// DaprServiceBindMetadata - Dapr component metadata.
+type DaprServiceBindMetadata struct {
+	// Service bind metadata property name.
+	Name *string
+
+	// Service bind metadata property value.
+	Value *string
+}
+
+// DataDogConfiguration - Configuration of datadog
+type DataDogConfiguration struct {
+	// The data dog api key
+	Key *string
+
+	// The data dog site
+	Site *string
 }
 
 // DefaultAuthorizationPolicy - The configuration settings of the Azure Active Directory default authorization policy.
@@ -1154,6 +1371,12 @@ type DefaultErrorResponseErrorDetailsItem struct {
 
 	// READ-ONLY; Detailed error description and debugging information.
 	Target *string
+}
+
+// DestinationsConfiguration - Configuration of Open Telemetry destinations
+type DestinationsConfiguration struct {
+	// Open telemetry datadog destination configuration
+	DataDogConfiguration *DataDogConfiguration
 }
 
 // DiagnosticDataProviderMetadata - Details of a diagnostics data provider
@@ -1312,6 +1535,16 @@ type DiagnosticsStatus struct {
 	StatusID *int32
 }
 
+// EncryptionSettings - The configuration settings of the secrets references of encryption key and signing key for ContainerApp
+// Service Authentication/Authorization.
+type EncryptionSettings struct {
+	// The secret name which is referenced for EncryptionKey.
+	ContainerAppAuthEncryptionSecretName *string
+
+	// The secret name which is referenced for SigningKey.
+	ContainerAppAuthSigningSecretName *string
+}
+
 // EnvironmentAuthToken - Environment Auth Token.
 type EnvironmentAuthToken struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -1354,6 +1587,15 @@ type EnvironmentVar struct {
 	SecretRef *string
 
 	// Non-secret environment variable value.
+	Value *string
+}
+
+// EnvironmentVariable - Model representing an environment variable.
+type EnvironmentVariable struct {
+	// REQUIRED; Environment variable name.
+	Name *string
+
+	// REQUIRED; Environment variable value.
 	Value *string
 }
 
@@ -1498,6 +1740,18 @@ type Google struct {
 	Validation *AllowedAudiencesValidation
 }
 
+// HTTPGet - Model representing a http get request.
+type HTTPGet struct {
+	// REQUIRED; URL to make HTTP GET request against.
+	URL *string
+
+	// Name of the file that the request should be saved to.
+	FileName *string
+
+	// List of headers to send with the request.
+	Headers []*string
+}
+
 // HTTPScaleRule - Container App container Http scaling rule.
 type HTTPScaleRule struct {
 	// Authentication secrets for the custom scale rule.
@@ -1572,6 +1826,9 @@ type IdentityProviders struct {
 
 // Ingress - Container App Ingress configuration.
 type Ingress struct {
+	// Settings to expose additional ports on container app
+	AdditionalPortMappings []*IngressPortMapping
+
 	// Bool indicating if HTTP connections to is allowed. If set to false HTTP connections are automatically redirected to HTTPS
 	// connections
 	AllowInsecure *bool
@@ -1610,6 +1867,18 @@ type Ingress struct {
 
 	// READ-ONLY; Hostname.
 	Fqdn *string
+}
+
+// IngressPortMapping - Port mappings of container app ingress
+type IngressPortMapping struct {
+	// REQUIRED; Specifies whether the app port is accessible outside of the environment
+	External *bool
+
+	// REQUIRED; Specifies the port user's container listens on
+	TargetPort *int32
+
+	// Specifies the exposed port for the target port. If not specified, it defaults to target port
+	ExposedPort *int32
 }
 
 // IngressStickySessions - Sticky Sessions for Single Revision Mode
@@ -1928,6 +2197,15 @@ type KedaConfiguration struct {
 	Version *string
 }
 
+type ListUsagesResult struct {
+	// The URI to fetch the next page of compute resource usage information. Call ListNext() with this to fetch the next page
+	// of compute resource usage information.
+	NextLink *string
+
+	// The list of compute resource usages.
+	Value []*Usage
+}
+
 // LogAnalyticsConfiguration - Log Analytics configuration, must only be provided when destination is configured as 'log-analytics'
 type LogAnalyticsConfiguration struct {
 	// Log analytics customer id
@@ -1955,6 +2233,9 @@ type Login struct {
 
 	// The routes that specify the endpoints used for login and logout requests.
 	Routes *LoginRoutes
+
+	// The configuration settings of the token store.
+	TokenStore *TokenStore
 }
 
 // LoginRoutes - The routes that specify the endpoints used for login and logout requests.
@@ -1967,6 +2248,12 @@ type LoginRoutes struct {
 type LoginScopes struct {
 	// A list of the scopes that should be requested while authenticating.
 	Scopes []*string
+}
+
+// LogsConfiguration - Configuration of Open Telemetry logs
+type LogsConfiguration struct {
+	// Open telemetry logs destinations
+	Destinations []*string
 }
 
 // ManagedCertificate - Managed certificates used for Custom Domain bindings of Container Apps in a Managed Environment
@@ -2055,6 +2342,9 @@ type ManagedEnvironment struct {
 
 // ManagedEnvironmentProperties - Managed environment resource specific properties
 type ManagedEnvironmentProperties struct {
+	// Environment level Application Insights configuration
+	AppInsightsConfiguration *AppInsightsConfiguration
+
 	// Cluster configuration which enables the log daemon to export app logs to a destination. Currently only "log-analytics"
 	// is supported
 	AppLogsConfiguration *AppLogsConfiguration
@@ -2078,6 +2368,9 @@ type ManagedEnvironmentProperties struct {
 
 	// The configuration of Keda component.
 	KedaConfiguration *KedaConfiguration
+
+	// Environment Open Telemetry configuration
+	OpenTelemetryConfiguration *OpenTelemetryConfiguration
 
 	// Peer authentication settings for the Managed Environment
 	PeerAuthentication *ManagedEnvironmentPropertiesPeerAuthentication
@@ -2172,6 +2465,12 @@ type ManagedServiceIdentity struct {
 	TenantID *string
 }
 
+// MetricsConfiguration - Configuration of Open Telemetry metrics
+type MetricsConfiguration struct {
+	// Open telemetry metrics destinations
+	Destinations []*string
+}
+
 // Mtls - Configuration properties for mutual TLS authentication
 type Mtls struct {
 	// Boolean indicating whether the mutual TLS authentication is enabled
@@ -2235,6 +2534,21 @@ type OpenIDConnectRegistration struct {
 	OpenIDConnectConfiguration *OpenIDConnectConfig
 }
 
+// OpenTelemetryConfiguration - Configuration of Open Telemetry
+type OpenTelemetryConfiguration struct {
+	// Open telemetry destinations configuration
+	DestinationsConfiguration *DestinationsConfiguration
+
+	// Open telemetry logs configuration
+	LogsConfiguration *LogsConfiguration
+
+	// Open telemetry metrics configuration
+	MetricsConfiguration *MetricsConfiguration
+
+	// Open telemetry trace configuration
+	TracesConfiguration *TracesConfiguration
+}
+
 // OperationDetail - Operation detail payload
 type OperationDetail struct {
 	// Display of the operation
@@ -2263,6 +2577,122 @@ type OperationDisplay struct {
 
 	// Resource of the operation
 	Resource *string
+}
+
+// PatchCollection - Container App SourceToCloud patch collection
+type PatchCollection struct {
+	// REQUIRED; Collection of patch resources.
+	Value []*PatchResource
+
+	// the link to the next page of items
+	NextLink *string
+}
+
+// PatchDetails - The detailed info of patch operation performing when applying a patch.
+type PatchDetails struct {
+	// READ-ONLY; The status of the patch detection.
+	DetectionStatus *DetectionStatus
+
+	// READ-ONLY; The UTC timestamp that describes the latest detection was done.
+	LastDetectionTime *time.Time
+
+	// READ-ONLY; The name of the target container for the patch.
+	TargetContainerName *string
+
+	// READ-ONLY; The name of the target image for the patch.
+	TargetImage *string
+
+	// READ-ONLY; The name of the new image created by the patch.
+	NewImageName *string
+
+	// READ-ONLY; New layer update details in the target image.
+	NewLayer *PatchDetailsNewLayer
+
+	// READ-ONLY; The old layer details in the target image.
+	OldLayer *PatchDetailsOldLayer
+
+	// READ-ONLY; The type for the patch.
+	PatchType *PatchType
+}
+
+// PatchDetailsNewLayer - New layer update details in the target image.
+type PatchDetailsNewLayer struct {
+	// The framework and its version in the new run image for the target image.
+	FrameworkAndVersion *string
+
+	// The details of the new layer for the target image.
+	Name *string
+
+	// The OS name and its version in the new run image for the target image.
+	OSAndVersion *string
+}
+
+// PatchDetailsOldLayer - The old layer details in the target image.
+type PatchDetailsOldLayer struct {
+	// The framework and its version in the old run image for the target image.
+	FrameworkAndVersion *string
+
+	// The details of the old layer for the target image.
+	Name *string
+
+	// The OS name and its version in the old run image for the target image.
+	OSAndVersion *string
+}
+
+type PatchProperties struct {
+	// The id of the target container app for the patch.
+	TargetContainerAppID *string
+
+	// The id of the target environment for the patch.
+	TargetEnvironmentID *string
+
+	// The id of the target revision for the patch.
+	TargetRevisionID *string
+
+	// READ-ONLY; The UTC timestamp that describes when the patch object was created.
+	CreatedTime *time.Time
+
+	// READ-ONLY; The status of the patch operation once it has been provisioned
+	PatchApplyStatus *PatchApplyStatus
+
+	// READ-ONLY; Detailed info describes the patch operation for the target container app.
+	PatchDetails []*PatchDetails
+
+	// READ-ONLY; Patch provisioning state.
+	ProvisioningState *PatchProvisioningState
+
+	// READ-ONLY; The UTC timestamp that describes when the patch object was last updated.
+	UpdatedTime *time.Time
+}
+
+// PatchResource - Container App Patch
+type PatchResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Properties that describes current states of the patch resource.
+	Properties *PatchProperties
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PreBuildStep - Model representing a pre-build step.
+type PreBuildStep struct {
+	// Description of the pre-build step.
+	Description *string
+
+	// Http get request to send before the build.
+	HTTPGet *HTTPGet
+
+	// List of custom commands to run.
+	Scripts []*string
 }
 
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
@@ -2657,6 +3087,26 @@ type Template struct {
 	Volumes []*Volume
 }
 
+// TokenStore - The configuration settings of the token store.
+type TokenStore struct {
+	// The configuration settings of the storage of the tokens if blob storage is used.
+	AzureBlobStorage *BlobStorageTokenStore
+
+	// true to durably store platform-specific security tokens that are obtained during login flows; otherwise, false. The default
+	// is false.
+	Enabled *bool
+
+	// The number of hours after session token expiration that a session token can be used to call the token refresh API. The
+	// default is 72 hours.
+	TokenRefreshExtensionHours *float64
+}
+
+// TracesConfiguration - Configuration of Open Telemetry traces
+type TracesConfiguration struct {
+	// Open telemetry traces destinations
+	Destinations []*string
+}
+
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
@@ -2711,6 +3161,30 @@ type TwitterRegistration struct {
 
 	// The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in.
 	ConsumerSecretSettingName *string
+}
+
+// Usage - Describes Compute Resource Usage.
+type Usage struct {
+	// REQUIRED; The current usage of the resource.
+	CurrentValue *int32
+
+	// REQUIRED; The maximum permitted usage of the resource.
+	Limit *int64
+
+	// REQUIRED; The name of the type of usage.
+	Name *UsageName
+
+	// REQUIRED; An enum describing the unit of usage measurement.
+	Unit *string
+}
+
+// UsageName - The Usage Names.
+type UsageName struct {
+	// The localized name of the resource.
+	LocalizedValue *string
+
+	// The name of the resource.
+	Value *string
 }
 
 // UserAssignedIdentity - User assigned identity properties
