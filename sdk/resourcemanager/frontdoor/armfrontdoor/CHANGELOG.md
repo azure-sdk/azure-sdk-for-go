@@ -1,5 +1,17 @@
 # Release History
 
+## 1.3.0 (2023-10-03)
+### Features Added
+
+- New enum type `ScrubbingRuleEntryMatchOperator` with values `ScrubbingRuleEntryMatchOperatorEquals`, `ScrubbingRuleEntryMatchOperatorEqualsAny`
+- New enum type `ScrubbingRuleEntryMatchVariable` with values `ScrubbingRuleEntryMatchVariableQueryStringArgNames`, `ScrubbingRuleEntryMatchVariableRequestBodyJSONArgNames`, `ScrubbingRuleEntryMatchVariableRequestBodyPostArgNames`, `ScrubbingRuleEntryMatchVariableRequestCookieNames`, `ScrubbingRuleEntryMatchVariableRequestHeaderNames`, `ScrubbingRuleEntryMatchVariableRequestIPAddress`, `ScrubbingRuleEntryMatchVariableRequestURI`
+- New enum type `ScrubbingRuleEntryState` with values `ScrubbingRuleEntryStateDisabled`, `ScrubbingRuleEntryStateEnabled`
+- New enum type `WebApplicationFirewallScrubbingState` with values `WebApplicationFirewallScrubbingStateDisabled`, `WebApplicationFirewallScrubbingStateEnabled`
+- New struct `PolicySettingsLogScrubbing`
+- New struct `WebApplicationFirewallScrubbingRules`
+- New field `LogScrubbing` in struct `PolicySettings`
+
+
 ## 1.2.0 (2023-05-26)
 ### Features Added
 
