@@ -20,67 +20,67 @@ import (
 	"strings"
 )
 
-// LogFilesClient contains the methods for the LogFiles group.
-// Don't use this type directly, use NewLogFilesClient() instead.
-type LogFilesClient struct {
+// ServerCapabilitiesClient contains the methods for the ServerCapabilities group.
+// Don't use this type directly, use NewServerCapabilitiesClient() instead.
+type ServerCapabilitiesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewLogFilesClient creates a new instance of LogFilesClient with the specified values.
+// NewServerCapabilitiesClient creates a new instance of ServerCapabilitiesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewLogFilesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LogFilesClient, error) {
-	cl, err := arm.NewClient(moduleName+".LogFilesClient", moduleVersion, credential, options)
+func NewServerCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServerCapabilitiesClient, error) {
+	cl, err := arm.NewClient(moduleName+".ServerCapabilitiesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &LogFilesClient{
+	client := &ServerCapabilitiesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListByServerPager - List all the server log files in a given server.
+// NewListPager - Get capabilities for a flexible server.
 //
 // Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
-//   - options - LogFilesClientListByServerOptions contains the optional parameters for the LogFilesClient.NewListByServerPager
+//   - options - ServerCapabilitiesClientListOptions contains the optional parameters for the ServerCapabilitiesClient.NewListPager
 //     method.
-func (client *LogFilesClient) NewListByServerPager(resourceGroupName string, serverName string, options *LogFilesClientListByServerOptions) *runtime.Pager[LogFilesClientListByServerResponse] {
-	return runtime.NewPager(runtime.PagingHandler[LogFilesClientListByServerResponse]{
-		More: func(page LogFilesClientListByServerResponse) bool {
+func (client *ServerCapabilitiesClient) NewListPager(resourceGroupName string, serverName string, options *ServerCapabilitiesClientListOptions) *runtime.Pager[ServerCapabilitiesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ServerCapabilitiesClientListResponse]{
+		More: func(page ServerCapabilitiesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *LogFilesClientListByServerResponse) (LogFilesClientListByServerResponse, error) {
+		Fetcher: func(ctx context.Context, page *ServerCapabilitiesClientListResponse) (ServerCapabilitiesClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+				req, err = client.listCreateRequest(ctx, resourceGroupName, serverName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return LogFilesClientListByServerResponse{}, err
+				return ServerCapabilitiesClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return LogFilesClientListByServerResponse{}, err
+				return ServerCapabilitiesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return LogFilesClientListByServerResponse{}, runtime.NewResponseError(resp)
+				return ServerCapabilitiesClientListResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listByServerHandleResponse(resp)
+			return client.listHandleResponse(resp)
 		},
 	})
 }
 
-// listByServerCreateRequest creates the ListByServer request.
-func (client *LogFilesClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *LogFilesClientListByServerOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/logFiles"
+// listCreateRequest creates the List request.
+func (client *ServerCapabilitiesClient) listCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *ServerCapabilitiesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/capabilities"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -104,11 +104,11 @@ func (client *LogFilesClient) listByServerCreateRequest(ctx context.Context, res
 	return req, nil
 }
 
-// listByServerHandleResponse handles the ListByServer response.
-func (client *LogFilesClient) listByServerHandleResponse(resp *http.Response) (LogFilesClientListByServerResponse, error) {
-	result := LogFilesClientListByServerResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.LogFileListResult); err != nil {
-		return LogFilesClientListByServerResponse{}, err
+// listHandleResponse handles the List response.
+func (client *ServerCapabilitiesClient) listHandleResponse(resp *http.Response) (ServerCapabilitiesClientListResponse, error) {
+	result := ServerCapabilitiesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CapabilitiesListResult); err != nil {
+		return ServerCapabilitiesClientListResponse{}, err
 	}
 	return result, nil
 }
