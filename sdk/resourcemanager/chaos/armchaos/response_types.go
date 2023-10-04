@@ -43,19 +43,18 @@ type CapabilityTypesClientListResponse struct {
 	CapabilityTypeListResult
 }
 
-// ExperimentsClientCancelResponse contains the response from method ExperimentsClient.Cancel.
+// ExperimentsClientCancelResponse contains the response from method ExperimentsClient.BeginCancel.
 type ExperimentsClientCancelResponse struct {
-	// Model that represents the result of a cancel Experiment operation.
-	ExperimentCancelOperationResult
+	// placeholder for future response values
 }
 
-// ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.CreateOrUpdate.
+// ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.BeginCreateOrUpdate.
 type ExperimentsClientCreateOrUpdateResponse struct {
 	// Model that represents a Experiment resource.
 	Experiment
 }
 
-// ExperimentsClientDeleteResponse contains the response from method ExperimentsClient.Delete.
+// ExperimentsClientDeleteResponse contains the response from method ExperimentsClient.BeginDelete.
 type ExperimentsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -102,16 +101,21 @@ type ExperimentsClientListResponse struct {
 	ExperimentListResult
 }
 
-// ExperimentsClientStartResponse contains the response from method ExperimentsClient.Start.
+// ExperimentsClientStartResponse contains the response from method ExperimentsClient.BeginStart.
 type ExperimentsClientStartResponse struct {
-	// Model that represents the result of a start Experiment operation.
-	ExperimentStartOperationResult
+	// placeholder for future response values
 }
 
-// ExperimentsClientUpdateResponse contains the response from method ExperimentsClient.Update.
+// ExperimentsClientUpdateResponse contains the response from method ExperimentsClient.BeginUpdate.
 type ExperimentsClientUpdateResponse struct {
 	// Model that represents a Experiment resource.
 	Experiment
+}
+
+// OperationStatusesClientGetResponse contains the response from method OperationStatusesClient.Get.
+type OperationStatusesClientGetResponse struct {
+	// The status of operation.
+	OperationStatus
 }
 
 // OperationsClientListAllResponse contains the response from method OperationsClient.NewListAllPager.
