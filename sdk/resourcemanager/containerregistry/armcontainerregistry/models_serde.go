@@ -4634,6 +4634,7 @@ func (r RegistryProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dataEndpointHostNames", r.DataEndpointHostNames)
 	populate(objectMap, "encryption", r.Encryption)
 	populate(objectMap, "loginServer", r.LoginServer)
+	populate(objectMap, "metadataSearch", r.MetadataSearch)
 	populate(objectMap, "networkRuleBypassOptions", r.NetworkRuleBypassOptions)
 	populate(objectMap, "networkRuleSet", r.NetworkRuleSet)
 	populate(objectMap, "policies", r.Policies)
@@ -4675,6 +4676,9 @@ func (r *RegistryProperties) UnmarshalJSON(data []byte) error {
 		case "loginServer":
 			err = unpopulate(val, "LoginServer", &r.LoginServer)
 			delete(rawMsg, key)
+		case "metadataSearch":
+			err = unpopulate(val, "MetadataSearch", &r.MetadataSearch)
+			delete(rawMsg, key)
 		case "networkRuleBypassOptions":
 			err = unpopulate(val, "NetworkRuleBypassOptions", &r.NetworkRuleBypassOptions)
 			delete(rawMsg, key)
@@ -4714,6 +4718,7 @@ func (r RegistryPropertiesUpdateParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "anonymousPullEnabled", r.AnonymousPullEnabled)
 	populate(objectMap, "dataEndpointEnabled", r.DataEndpointEnabled)
 	populate(objectMap, "encryption", r.Encryption)
+	populate(objectMap, "metadataSearch", r.MetadataSearch)
 	populate(objectMap, "networkRuleBypassOptions", r.NetworkRuleBypassOptions)
 	populate(objectMap, "networkRuleSet", r.NetworkRuleSet)
 	populate(objectMap, "policies", r.Policies)
@@ -4741,6 +4746,9 @@ func (r *RegistryPropertiesUpdateParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "encryption":
 			err = unpopulate(val, "Encryption", &r.Encryption)
+			delete(rawMsg, key)
+		case "metadataSearch":
+			err = unpopulate(val, "MetadataSearch", &r.MetadataSearch)
 			delete(rawMsg, key)
 		case "networkRuleBypassOptions":
 			err = unpopulate(val, "NetworkRuleBypassOptions", &r.NetworkRuleBypassOptions)
