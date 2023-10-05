@@ -1,5 +1,27 @@
 # Release History
 
+## 4.4.0-beta.2 (2023-10-05)
+### Breaking Changes
+
+- Operation `*TrustedAccessRoleBindingsClient.CreateOrUpdate` has been changed to LRO, use `*TrustedAccessRoleBindingsClient.BeginCreateOrUpdate` instead.
+- Operation `*TrustedAccessRoleBindingsClient.Delete` has been changed to LRO, use `*TrustedAccessRoleBindingsClient.BeginDelete` instead.
+
+### Features Added
+
+- New value `NetworkPolicyNone` added to enum type `NetworkPolicy`
+- New enum type `AddonAutoscaling` with values `AddonAutoscalingDisabled`, `AddonAutoscalingEnabled`
+- New function `*ClientFactory.NewUsagesClient() *UsagesClient`
+- New function `NewUsagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UsagesClient, error)`
+- New function `*UsagesClient.List(context.Context, string, *UsagesClientListOptions) (UsagesClientListResponse, error)`
+- New struct `IstioEgressGateway`
+- New struct `ListUsagesResult`
+- New struct `Usage`
+- New struct `UsageName`
+- New field `EgressGateways` in struct `IstioComponents`
+- New field `DaemonsetEvictionForEmptyNodes`, `DaemonsetEvictionForOccupiedNodes`, `Expanders`, `IgnoreDaemonsetsUtilization` in struct `ManagedClusterPropertiesAutoScalerProfile`
+- New field `AddonAutoscaling` in struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+
+
 ## 4.4.0-beta.1 (2023-09-22)
 ### Features Added
 

@@ -96,3 +96,8 @@ func (c *ClientFactory) NewTrustedAccessRolesClient() *TrustedAccessRolesClient 
 	subClient, _ := NewTrustedAccessRolesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewUsagesClient() *UsagesClient {
+	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
