@@ -61,3 +61,13 @@ func (c *ClientFactory) NewServicesClient() *ServicesClient {
 	subClient, _ := NewServicesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewSuppressionListAddressesClient() *SuppressionListAddressesClient {
+	subClient, _ := NewSuppressionListAddressesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSuppressionListsClient() *SuppressionListsClient {
+	subClient, _ := NewSuppressionListsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
