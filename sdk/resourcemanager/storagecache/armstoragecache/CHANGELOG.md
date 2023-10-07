@@ -1,5 +1,14 @@
 # Release History
 
+## 3.3.0-beta.1 (2023-10-07)
+### Features Added
+
+- New enum type `AmlFilesystemSquashMode` with values `AmlFilesystemSquashModeAll`, `AmlFilesystemSquashModeNone`, `AmlFilesystemSquashModeRootOnly`
+- New struct `AmlFilesystemRootSquashSettings`
+- New field `RootSquashSettings` in struct `AmlFilesystemProperties`
+- New field `RootSquashSettings` in struct `AmlFilesystemUpdateProperties`
+
+
 ## 3.2.1 (2023-06-23)
 ### Bugs Fixed
 
