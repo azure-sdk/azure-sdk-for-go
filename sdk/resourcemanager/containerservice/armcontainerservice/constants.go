@@ -13,6 +13,24 @@ const (
 	moduleVersion = "v4.4.0-beta.2"
 )
 
+// AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
+type AddonAutoscaling string
+
+const (
+	// AddonAutoscalingDisabled - Feature to autoscale AKS-managed add-ons is disabled.
+	AddonAutoscalingDisabled AddonAutoscaling = "Disabled"
+	// AddonAutoscalingEnabled - Feature to autoscale AKS-managed add-ons is enabled. The default VPA update mode is Initial mode.
+	AddonAutoscalingEnabled AddonAutoscaling = "Enabled"
+)
+
+// PossibleAddonAutoscalingValues returns the possible values for the AddonAutoscaling const type.
+func PossibleAddonAutoscalingValues() []AddonAutoscaling {
+	return []AddonAutoscaling{
+		AddonAutoscalingDisabled,
+		AddonAutoscalingEnabled,
+	}
+}
+
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
 // pool restrictions and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools
 type AgentPoolMode string
@@ -59,6 +77,8 @@ const (
 	AgentPoolTypeAvailabilitySet AgentPoolType = "AvailabilitySet"
 	// AgentPoolTypeVirtualMachineScaleSets - Create an Agent Pool backed by a Virtual Machine Scale Set.
 	AgentPoolTypeVirtualMachineScaleSets AgentPoolType = "VirtualMachineScaleSets"
+	// AgentPoolTypeVirtualMachines - Create an Agent Pool backed by a Single Instance VM orchestration mode.
+	AgentPoolTypeVirtualMachines AgentPoolType = "VirtualMachines"
 )
 
 // PossibleAgentPoolTypeValues returns the possible values for the AgentPoolType const type.
@@ -66,6 +86,7 @@ func PossibleAgentPoolTypeValues() []AgentPoolType {
 	return []AgentPoolType{
 		AgentPoolTypeAvailabilitySet,
 		AgentPoolTypeVirtualMachineScaleSets,
+		AgentPoolTypeVirtualMachines,
 	}
 }
 
@@ -591,6 +612,8 @@ const (
 	NetworkPolicyCalico NetworkPolicy = "calico"
 	// NetworkPolicyCilium - Use Cilium to enforce network policies. This requires networkDataplane to be 'cilium'.
 	NetworkPolicyCilium NetworkPolicy = "cilium"
+	// NetworkPolicyNone - Network policies will not be enforced. This is the default value when NetworkPolicy is not specified.
+	NetworkPolicyNone NetworkPolicy = "none"
 )
 
 // PossibleNetworkPolicyValues returns the possible values for the NetworkPolicy const type.
@@ -599,6 +622,7 @@ func PossibleNetworkPolicyValues() []NetworkPolicy {
 		NetworkPolicyAzure,
 		NetworkPolicyCalico,
 		NetworkPolicyCilium,
+		NetworkPolicyNone,
 	}
 }
 
@@ -634,6 +658,25 @@ func PossibleNodeOSUpgradeChannelValues() []NodeOSUpgradeChannel {
 		NodeOSUpgradeChannelNone,
 		NodeOSUpgradeChannelSecurityPatch,
 		NodeOSUpgradeChannelUnmanaged,
+	}
+}
+
+// NodeProvisioningMode - Once the mode it set to Auto, it cannot be changed back to Manual.
+type NodeProvisioningMode string
+
+const (
+	// NodeProvisioningModeAuto - Nodes are provisioned automatically by AKS using Karpenter. Fixed size Node Pools can still
+	// be created, but autoscaling Node Pools cannot be. (See aka.ms/aks/nap for more details).
+	NodeProvisioningModeAuto NodeProvisioningMode = "Auto"
+	// NodeProvisioningModeManual - Nodes are provisioned manually by the user
+	NodeProvisioningModeManual NodeProvisioningMode = "Manual"
+)
+
+// PossibleNodeProvisioningModeValues returns the possible values for the NodeProvisioningMode const type.
+func PossibleNodeProvisioningModeValues() []NodeProvisioningMode {
+	return []NodeProvisioningMode{
+		NodeProvisioningModeAuto,
+		NodeProvisioningModeManual,
 	}
 }
 
@@ -682,6 +725,9 @@ const (
 	// OSSKUWindows2022 - Use Windows2022 as the OS for node images. Unsupported for system node pools. Windows2022 only supports
 	// Windows2022 containers; it cannot run Windows2019 containers and vice versa.
 	OSSKUWindows2022 OSSKU = "Windows2022"
+	// OSSKUWindowsAnnual - Use Windows Annual Channel version as the OS for node images. Unsupported for system node pools. Details
+	// about supported container images and kubernetes versions under different AKS Annual Channel versions could be seen in https://aka.ms/aks/windows-annual-channel-details.
+	OSSKUWindowsAnnual OSSKU = "WindowsAnnual"
 )
 
 // PossibleOSSKUValues returns the possible values for the OSSKU const type.
@@ -693,6 +739,7 @@ func PossibleOSSKUValues() []OSSKU {
 		OSSKUUbuntu,
 		OSSKUWindows2019,
 		OSSKUWindows2022,
+		OSSKUWindowsAnnual,
 	}
 }
 
