@@ -21,60 +21,61 @@ import (
 	"strings"
 )
 
-// UsersClient contains the methods for the Users group.
-// Don't use this type directly, use NewUsersClient() instead.
-type UsersClient struct {
+// LabSecretsClient contains the methods for the LabSecrets group.
+// Don't use this type directly, use NewLabSecretsClient() instead.
+type LabSecretsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewUsersClient creates a new instance of UsersClient with the specified values.
+// NewLabSecretsClient creates a new instance of LabSecretsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewUsersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsersClient, error) {
-	cl, err := arm.NewClient(moduleName+".UsersClient", moduleVersion, credential, options)
+func NewLabSecretsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LabSecretsClient, error) {
+	cl, err := arm.NewClient(moduleName+".LabSecretsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &UsersClient{
+	client := &LabSecretsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create or replace an existing user profile. This operation can take a while to complete.
+// BeginCreateOrUpdate - Create or replace an existing Lab Secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - name - The name of the user profile.
-//   - options - UsersClientBeginCreateOrUpdateOptions contains the optional parameters for the UsersClient.BeginCreateOrUpdate
+//   - name - The name of the lab secret.
+//   - labSecret - A shared secret in a lab.
+//   - options - LabSecretsClientBeginCreateOrUpdateOptions contains the optional parameters for the LabSecretsClient.BeginCreateOrUpdate
 //     method.
-func (client *UsersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginCreateOrUpdateOptions) (*runtime.Poller[UsersClientCreateOrUpdateResponse], error) {
+func (client *LabSecretsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, labSecret LabSecret, options *LabSecretsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LabSecretsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, labSecret, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[UsersClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[LabSecretsClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaOriginalURI,
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[UsersClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[LabSecretsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// CreateOrUpdate - Create or replace an existing user profile. This operation can take a while to complete.
+// CreateOrUpdate - Create or replace an existing Lab Secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
-func (client *UsersClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *LabSecretsClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, labSecret LabSecret, options *LabSecretsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, labSecret, options)
 	if err != nil {
 		return nil, err
 	}
@@ -90,8 +91,8 @@ func (client *UsersClient) createOrUpdate(ctx context.Context, resourceGroupName
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{name}"
+func (client *LabSecretsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, labSecret LabSecret, options *LabSecretsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -113,43 +114,40 @@ func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, reso
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.User != nil {
-		if err := runtime.MarshalAsJSON(req, *options.User); err != nil {
-			return nil, err
-		}
-		return req, nil
+	if err := runtime.MarshalAsJSON(req, labSecret); err != nil {
+		return nil, err
 	}
 	return req, nil
 }
 
-// BeginDelete - Delete user profile. This operation can take a while to complete.
+// BeginDelete - Delete lab secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - name - The name of the user profile.
-//   - options - UsersClientBeginDeleteOptions contains the optional parameters for the UsersClient.BeginDelete method.
-func (client *UsersClient) BeginDelete(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginDeleteOptions) (*runtime.Poller[UsersClientDeleteResponse], error) {
+//   - name - The name of the lab secret.
+//   - options - LabSecretsClientBeginDeleteOptions contains the optional parameters for the LabSecretsClient.BeginDelete method.
+func (client *LabSecretsClient) BeginDelete(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientBeginDeleteOptions) (*runtime.Poller[LabSecretsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, labName, name, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[UsersClientDeleteResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[LabSecretsClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaOriginalURI,
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[UsersClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[LabSecretsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Delete - Delete user profile. This operation can take a while to complete.
+// Delete - Delete lab secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
-func (client *UsersClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginDeleteOptions) (*http.Response, error) {
+func (client *LabSecretsClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, name, options)
 	if err != nil {
@@ -167,8 +165,8 @@ func (client *UsersClient) deleteOperation(ctx context.Context, resourceGroupNam
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *UsersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{name}"
+func (client *LabSecretsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -193,35 +191,35 @@ func (client *UsersClient) deleteCreateRequest(ctx context.Context, resourceGrou
 	return req, nil
 }
 
-// Get - Get user profile.
+// Get - Get lab secret.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - name - The name of the user profile.
-//   - options - UsersClientGetOptions contains the optional parameters for the UsersClient.Get method.
-func (client *UsersClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientGetOptions) (UsersClientGetResponse, error) {
+//   - name - The name of the lab secret.
+//   - options - LabSecretsClientGetOptions contains the optional parameters for the LabSecretsClient.Get method.
+func (client *LabSecretsClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientGetOptions) (LabSecretsClientGetResponse, error) {
 	var err error
 	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, name, options)
 	if err != nil {
-		return UsersClientGetResponse{}, err
+		return LabSecretsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return UsersClientGetResponse{}, err
+		return LabSecretsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return UsersClientGetResponse{}, err
+		return LabSecretsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *UsersClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{name}"
+func (client *LabSecretsClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -240,9 +238,6 @@ func (client *UsersClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -250,26 +245,26 @@ func (client *UsersClient) getCreateRequest(ctx context.Context, resourceGroupNa
 }
 
 // getHandleResponse handles the Get response.
-func (client *UsersClient) getHandleResponse(resp *http.Response) (UsersClientGetResponse, error) {
-	result := UsersClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.User); err != nil {
-		return UsersClientGetResponse{}, err
+func (client *LabSecretsClient) getHandleResponse(resp *http.Response) (LabSecretsClientGetResponse, error) {
+	result := LabSecretsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.LabSecret); err != nil {
+		return LabSecretsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List user profiles in a given lab.
+// NewListPager - List lab secrets in a given lab.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - options - UsersClientListOptions contains the optional parameters for the UsersClient.NewListPager method.
-func (client *UsersClient) NewListPager(resourceGroupName string, labName string, options *UsersClientListOptions) *runtime.Pager[UsersClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[UsersClientListResponse]{
-		More: func(page UsersClientListResponse) bool {
+//   - options - LabSecretsClientListOptions contains the optional parameters for the LabSecretsClient.NewListPager method.
+func (client *LabSecretsClient) NewListPager(resourceGroupName string, labName string, options *LabSecretsClientListOptions) *runtime.Pager[LabSecretsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[LabSecretsClientListResponse]{
+		More: func(page LabSecretsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *UsersClientListResponse) (UsersClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *LabSecretsClientListResponse) (LabSecretsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -278,14 +273,14 @@ func (client *UsersClient) NewListPager(resourceGroupName string, labName string
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return UsersClientListResponse{}, err
+				return LabSecretsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return UsersClientListResponse{}, err
+				return LabSecretsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return UsersClientListResponse{}, runtime.NewResponseError(resp)
+				return LabSecretsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -293,8 +288,8 @@ func (client *UsersClient) NewListPager(resourceGroupName string, labName string
 }
 
 // listCreateRequest creates the List request.
-func (client *UsersClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *UsersClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users"
+func (client *LabSecretsClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *LabSecretsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -309,9 +304,6 @@ func (client *UsersClient) listCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -328,44 +320,62 @@ func (client *UsersClient) listCreateRequest(ctx context.Context, resourceGroupN
 }
 
 // listHandleResponse handles the List response.
-func (client *UsersClient) listHandleResponse(resp *http.Response) (UsersClientListResponse, error) {
-	result := UsersClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UserList); err != nil {
-		return UsersClientListResponse{}, err
+func (client *LabSecretsClient) listHandleResponse(resp *http.Response) (LabSecretsClientListResponse, error) {
+	result := LabSecretsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.LabSecretList); err != nil {
+		return LabSecretsClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Allows modifying tags of user profiles. All other properties will be ignored.
+// BeginUpdate - Allows modifying tags of lab secrets. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - name - The name of the user profile.
-//   - userParam - Allows modifying tags of user profiles. All other properties will be ignored.
-//   - options - UsersClientUpdateOptions contains the optional parameters for the UsersClient.Update method.
-func (client *UsersClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, userParam UserFragment, options *UsersClientUpdateOptions) (UsersClientUpdateResponse, error) {
+//   - name - The name of the lab secret.
+//   - secret - Allows modifying tags of lab secrets. All other properties will be ignored.
+//   - options - LabSecretsClientBeginUpdateOptions contains the optional parameters for the LabSecretsClient.BeginUpdate method.
+func (client *LabSecretsClient) BeginUpdate(ctx context.Context, resourceGroupName string, labName string, name string, secret SecretFragment, options *LabSecretsClientBeginUpdateOptions) (*runtime.Poller[LabSecretsClientUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.update(ctx, resourceGroupName, labName, name, secret, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[LabSecretsClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaOriginalURI,
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[LabSecretsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Update - Allows modifying tags of lab secrets. All other properties will be ignored.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
+func (client *LabSecretsClient) update(ctx context.Context, resourceGroupName string, labName string, name string, secret SecretFragment, options *LabSecretsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, name, userParam, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, name, secret, options)
 	if err != nil {
-		return UsersClientUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return UsersClientUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
-		return UsersClientUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.updateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // updateCreateRequest creates the Update request.
-func (client *UsersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, userParam UserFragment, options *UsersClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{name}"
+func (client *LabSecretsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, secret SecretFragment, options *LabSecretsClientBeginUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -387,17 +397,8 @@ func (client *UsersClient) updateCreateRequest(ctx context.Context, resourceGrou
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, userParam); err != nil {
+	if err := runtime.MarshalAsJSON(req, secret); err != nil {
 		return nil, err
 	}
 	return req, nil
-}
-
-// updateHandleResponse handles the Update response.
-func (client *UsersClient) updateHandleResponse(resp *http.Response) (UsersClientUpdateResponse, error) {
-	result := UsersClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.User); err != nil {
-		return UsersClientUpdateResponse{}, err
-	}
-	return result, nil
 }

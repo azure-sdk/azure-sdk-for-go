@@ -21,60 +21,61 @@ import (
 	"strings"
 )
 
-// PoliciesClient contains the methods for the Policies group.
-// Don't use this type directly, use NewPoliciesClient() instead.
-type PoliciesClient struct {
+// SharedImagesClient contains the methods for the SharedImages group.
+// Don't use this type directly, use NewSharedImagesClient() instead.
+type SharedImagesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewPoliciesClient creates a new instance of PoliciesClient with the specified values.
+// NewSharedImagesClient creates a new instance of SharedImagesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PoliciesClient, error) {
-	cl, err := arm.NewClient(moduleName+".PoliciesClient", moduleVersion, credential, options)
+func NewSharedImagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SharedImagesClient, error) {
+	cl, err := arm.NewClient(moduleName+".SharedImagesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &PoliciesClient{
+	client := &SharedImagesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create or replace an existing policy.
+// CreateOrUpdate - Create or replace an existing Shared Image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - policySetName - The name of the policy set.
-//   - name - The name of the policy.
-//   - policy - A Policy.
-//   - options - PoliciesClientCreateOrUpdateOptions contains the optional parameters for the PoliciesClient.CreateOrUpdate method.
-func (client *PoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, policy Policy, options *PoliciesClientCreateOrUpdateOptions) (PoliciesClientCreateOrUpdateResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - sharedImage - Properties of a shared image
+//   - options - SharedImagesClientCreateOrUpdateOptions contains the optional parameters for the SharedImagesClient.CreateOrUpdate
+//     method.
+func (client *SharedImagesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImage, options *SharedImagesClientCreateOrUpdateOptions) (SharedImagesClientCreateOrUpdateResponse, error) {
 	var err error
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, policySetName, name, policy, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, sharedImage, options)
 	if err != nil {
-		return PoliciesClientCreateOrUpdateResponse{}, err
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return PoliciesClientCreateOrUpdateResponse{}, err
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return PoliciesClientCreateOrUpdateResponse{}, err
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *PoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, policy Policy, options *PoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets/{policySetName}/policies/{name}"
+func (client *SharedImagesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImage, options *SharedImagesClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -84,10 +85,10 @@ func (client *PoliciesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
-	if policySetName == "" {
-		return nil, errors.New("parameter policySetName cannot be empty")
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{policySetName}", url.PathEscape(policySetName))
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -100,50 +101,50 @@ func (client *PoliciesClient) createOrUpdateCreateRequest(ctx context.Context, r
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, policy); err != nil {
+	if err := runtime.MarshalAsJSON(req, sharedImage); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *PoliciesClient) createOrUpdateHandleResponse(resp *http.Response) (PoliciesClientCreateOrUpdateResponse, error) {
-	result := PoliciesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Policy); err != nil {
-		return PoliciesClientCreateOrUpdateResponse{}, err
+func (client *SharedImagesClient) createOrUpdateHandleResponse(resp *http.Response) (SharedImagesClientCreateOrUpdateResponse, error) {
+	result := SharedImagesClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImage); err != nil {
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete policy.
+// Delete - Delete shared image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - policySetName - The name of the policy set.
-//   - name - The name of the policy.
-//   - options - PoliciesClientDeleteOptions contains the optional parameters for the PoliciesClient.Delete method.
-func (client *PoliciesClient) Delete(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, options *PoliciesClientDeleteOptions) (PoliciesClientDeleteResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - options - SharedImagesClientDeleteOptions contains the optional parameters for the SharedImagesClient.Delete method.
+func (client *SharedImagesClient) Delete(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientDeleteOptions) (SharedImagesClientDeleteResponse, error) {
 	var err error
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, policySetName, name, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, options)
 	if err != nil {
-		return PoliciesClientDeleteResponse{}, err
+		return SharedImagesClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return PoliciesClientDeleteResponse{}, err
+		return SharedImagesClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return PoliciesClientDeleteResponse{}, err
+		return SharedImagesClientDeleteResponse{}, err
 	}
-	return PoliciesClientDeleteResponse{}, nil
+	return SharedImagesClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *PoliciesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, options *PoliciesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets/{policySetName}/policies/{name}"
+func (client *SharedImagesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -153,10 +154,10 @@ func (client *PoliciesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
-	if policySetName == "" {
-		return nil, errors.New("parameter policySetName cannot be empty")
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{policySetName}", url.PathEscape(policySetName))
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -172,36 +173,36 @@ func (client *PoliciesClient) deleteCreateRequest(ctx context.Context, resourceG
 	return req, nil
 }
 
-// Get - Get policy.
+// Get - Get shared image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - policySetName - The name of the policy set.
-//   - name - The name of the policy.
-//   - options - PoliciesClientGetOptions contains the optional parameters for the PoliciesClient.Get method.
-func (client *PoliciesClient) Get(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, options *PoliciesClientGetOptions) (PoliciesClientGetResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - options - SharedImagesClientGetOptions contains the optional parameters for the SharedImagesClient.Get method.
+func (client *SharedImagesClient) Get(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientGetOptions) (SharedImagesClientGetResponse, error) {
 	var err error
-	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, policySetName, name, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, options)
 	if err != nil {
-		return PoliciesClientGetResponse{}, err
+		return SharedImagesClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return PoliciesClientGetResponse{}, err
+		return SharedImagesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return PoliciesClientGetResponse{}, err
+		return SharedImagesClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *PoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, options *PoliciesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets/{policySetName}/policies/{name}"
+func (client *SharedImagesClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -211,10 +212,10 @@ func (client *PoliciesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
-	if policySetName == "" {
-		return nil, errors.New("parameter policySetName cannot be empty")
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{policySetName}", url.PathEscape(policySetName))
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -234,43 +235,43 @@ func (client *PoliciesClient) getCreateRequest(ctx context.Context, resourceGrou
 }
 
 // getHandleResponse handles the Get response.
-func (client *PoliciesClient) getHandleResponse(resp *http.Response) (PoliciesClientGetResponse, error) {
-	result := PoliciesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Policy); err != nil {
-		return PoliciesClientGetResponse{}, err
+func (client *SharedImagesClient) getHandleResponse(resp *http.Response) (SharedImagesClientGetResponse, error) {
+	result := SharedImagesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImage); err != nil {
+		return SharedImagesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List policies in a given policy set.
+// NewListPager - List shared images in a given shared gallery.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - policySetName - The name of the policy set.
-//   - options - PoliciesClientListOptions contains the optional parameters for the PoliciesClient.NewListPager method.
-func (client *PoliciesClient) NewListPager(resourceGroupName string, labName string, policySetName string, options *PoliciesClientListOptions) *runtime.Pager[PoliciesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PoliciesClientListResponse]{
-		More: func(page PoliciesClientListResponse) bool {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - options - SharedImagesClientListOptions contains the optional parameters for the SharedImagesClient.NewListPager method.
+func (client *SharedImagesClient) NewListPager(resourceGroupName string, labName string, sharedGalleryName string, options *SharedImagesClientListOptions) *runtime.Pager[SharedImagesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[SharedImagesClientListResponse]{
+		More: func(page SharedImagesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *PoliciesClientListResponse) (PoliciesClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *SharedImagesClientListResponse) (SharedImagesClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceGroupName, labName, policySetName, options)
+				req, err = client.listCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return PoliciesClientListResponse{}, err
+				return SharedImagesClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return PoliciesClientListResponse{}, err
+				return SharedImagesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return PoliciesClientListResponse{}, runtime.NewResponseError(resp)
+				return SharedImagesClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -278,8 +279,8 @@ func (client *PoliciesClient) NewListPager(resourceGroupName string, labName str
 }
 
 // listCreateRequest creates the List request.
-func (client *PoliciesClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, policySetName string, options *PoliciesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets/{policySetName}/policies"
+func (client *SharedImagesClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, options *SharedImagesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -289,10 +290,10 @@ func (client *PoliciesClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
-	if policySetName == "" {
-		return nil, errors.New("parameter policySetName cannot be empty")
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{policySetName}", url.PathEscape(policySetName))
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -317,45 +318,45 @@ func (client *PoliciesClient) listCreateRequest(ctx context.Context, resourceGro
 }
 
 // listHandleResponse handles the List response.
-func (client *PoliciesClient) listHandleResponse(resp *http.Response) (PoliciesClientListResponse, error) {
-	result := PoliciesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PolicyList); err != nil {
-		return PoliciesClientListResponse{}, err
+func (client *SharedImagesClient) listHandleResponse(resp *http.Response) (SharedImagesClientListResponse, error) {
+	result := SharedImagesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImageList); err != nil {
+		return SharedImagesClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Allows modifying tags of policies. All other properties will be ignored.
+// Update - Allows modifying tags of shared images. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab.
-//   - policySetName - The name of the policy set.
-//   - name - The name of the policy.
-//   - policy - Allows modifying tags of policies. All other properties will be ignored.
-//   - options - PoliciesClientUpdateOptions contains the optional parameters for the PoliciesClient.Update method.
-func (client *PoliciesClient) Update(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, policy PolicyFragment, options *PoliciesClientUpdateOptions) (PoliciesClientUpdateResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - sharedImage - Allows modifying tags of shared images. All other properties will be ignored.
+//   - options - SharedImagesClientUpdateOptions contains the optional parameters for the SharedImagesClient.Update method.
+func (client *SharedImagesClient) Update(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImageFragment, options *SharedImagesClientUpdateOptions) (SharedImagesClientUpdateResponse, error) {
 	var err error
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, policySetName, name, policy, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, sharedImage, options)
 	if err != nil {
-		return PoliciesClientUpdateResponse{}, err
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return PoliciesClientUpdateResponse{}, err
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return PoliciesClientUpdateResponse{}, err
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *PoliciesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, policy PolicyFragment, options *PoliciesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets/{policySetName}/policies/{name}"
+func (client *SharedImagesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImageFragment, options *SharedImagesClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -365,10 +366,10 @@ func (client *PoliciesClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
-	if policySetName == "" {
-		return nil, errors.New("parameter policySetName cannot be empty")
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{policySetName}", url.PathEscape(policySetName))
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -381,17 +382,17 @@ func (client *PoliciesClient) updateCreateRequest(ctx context.Context, resourceG
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, policy); err != nil {
+	if err := runtime.MarshalAsJSON(req, sharedImage); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
-func (client *PoliciesClient) updateHandleResponse(resp *http.Response) (PoliciesClientUpdateResponse, error) {
-	result := PoliciesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Policy); err != nil {
-		return PoliciesClientUpdateResponse{}, err
+func (client *SharedImagesClient) updateHandleResponse(resp *http.Response) (SharedImagesClientUpdateResponse, error) {
+	result := SharedImagesClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImage); err != nil {
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	return result, nil
 }
