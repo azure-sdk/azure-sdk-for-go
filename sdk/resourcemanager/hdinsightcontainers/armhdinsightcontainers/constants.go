@@ -10,7 +10,7 @@ package armhdinsightcontainers
 
 const (
 	moduleName    = "armhdinsightcontainers"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v0.1.1"
 )
 
 // Action - A string property that indicates the action to be performed on the Flink job. It can have one of the following
