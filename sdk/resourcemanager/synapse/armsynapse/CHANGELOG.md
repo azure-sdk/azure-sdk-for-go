@@ -1,5 +1,17 @@
 # Release History
 
+## 0.8.0 (2023-10-09)
+### Breaking Changes
+
+- Function `*SQLPoolsClient.Rename` has been removed
+- Struct `ResourceMoveDefinition` has been removed
+
+### Features Added
+
+- Type of `WorkspaceProperties.ExtraProperties` has been changed from `map[string]any` to `any`
+- New field `OSType`, `TargetFramework` in struct `SelfHostedIntegrationRuntimeStatusTypeProperties`
+
+
 ## 0.7.1 (2023-04-14)
 ### Bug Fixes
 
