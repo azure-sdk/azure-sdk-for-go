@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.3.0-beta.1"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -68,7 +68,7 @@ func PossibleAlternativeTypeValues() []AlternativeType {
 	}
 }
 
-// Architecture - The architecture of the image. Applicable to OS disks only.
+// Architecture - CPU architecture supported by an OS disk.
 type Architecture string
 
 const (
@@ -381,8 +381,6 @@ const (
 	DiskCreateOptionAttach DiskCreateOption = "Attach"
 	// DiskCreateOptionCopy - Create a new disk or snapshot by copying from a disk or snapshot specified by the given sourceResourceId.
 	DiskCreateOptionCopy DiskCreateOption = "Copy"
-	// DiskCreateOptionCopyFromSanSnapshot - Create a new disk by exporting from elastic san volume snapshot
-	DiskCreateOptionCopyFromSanSnapshot DiskCreateOption = "CopyFromSanSnapshot"
 	// DiskCreateOptionCopyStart - Create a new disk by using a deep copy process, where the resource creation is considered complete
 	// only after all data has been copied from the source.
 	DiskCreateOptionCopyStart DiskCreateOption = "CopyStart"
@@ -411,7 +409,6 @@ func PossibleDiskCreateOptionValues() []DiskCreateOption {
 	return []DiskCreateOption{
 		DiskCreateOptionAttach,
 		DiskCreateOptionCopy,
-		DiskCreateOptionCopyFromSanSnapshot,
 		DiskCreateOptionCopyStart,
 		DiskCreateOptionEmpty,
 		DiskCreateOptionFromImage,
@@ -635,48 +632,6 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 	}
 }
 
-// DomainNameLabelScopeTypes - The Domain name label scope.The concatenation of the hashed domain name label that generated
-// according to the policy from domain name label scope and vm index will be the domain name labels of the
-// PublicIPAddress resources that will be created
-type DomainNameLabelScopeTypes string
-
-const (
-	DomainNameLabelScopeTypesNoReuse            DomainNameLabelScopeTypes = "NoReuse"
-	DomainNameLabelScopeTypesResourceGroupReuse DomainNameLabelScopeTypes = "ResourceGroupReuse"
-	DomainNameLabelScopeTypesSubscriptionReuse  DomainNameLabelScopeTypes = "SubscriptionReuse"
-	DomainNameLabelScopeTypesTenantReuse        DomainNameLabelScopeTypes = "TenantReuse"
-)
-
-// PossibleDomainNameLabelScopeTypesValues returns the possible values for the DomainNameLabelScopeTypes const type.
-func PossibleDomainNameLabelScopeTypesValues() []DomainNameLabelScopeTypes {
-	return []DomainNameLabelScopeTypes{
-		DomainNameLabelScopeTypesNoReuse,
-		DomainNameLabelScopeTypesResourceGroupReuse,
-		DomainNameLabelScopeTypesSubscriptionReuse,
-		DomainNameLabelScopeTypesTenantReuse,
-	}
-}
-
-// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
-type EdgeZoneStorageAccountType string
-
-const (
-	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
-	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
-	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
-	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
-)
-
-// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
-func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
-	return []EdgeZoneStorageAccountType{
-		EdgeZoneStorageAccountTypePremiumLRS,
-		EdgeZoneStorageAccountTypeStandardLRS,
-		EdgeZoneStorageAccountTypeStandardSSDLRS,
-		EdgeZoneStorageAccountTypeStandardZRS,
-	}
-}
-
 // EncryptionType - The type of key used to encrypt the data of the disk.
 type EncryptionType string
 
@@ -809,24 +764,6 @@ func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	}
 }
 
-// FileFormat - Used to specify the file format when making request for SAS on a VHDX file format snapshot
-type FileFormat string
-
-const (
-	// FileFormatVHD - A VHD file is a disk image file in the Virtual Hard Disk file format.
-	FileFormatVHD FileFormat = "VHD"
-	// FileFormatVHDX - A VHDX file is a disk image file in the Virtual Hard Disk v2 file format.
-	FileFormatVHDX FileFormat = "VHDX"
-)
-
-// PossibleFileFormatValues returns the possible values for the FileFormat const type.
-func PossibleFileFormatValues() []FileFormat {
-	return []FileFormat{
-		FileFormatVHD,
-		FileFormatVHDX,
-	}
-}
-
 // GalleryApplicationCustomActionParameterType - Specifies the type of the custom action parameter. Possible values are: String,
 // ConfigurationDataBlob or LogOutputBlob
 type GalleryApplicationCustomActionParameterType string
@@ -899,11 +836,8 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
-// Possible values are:
-// Private
-// Groups
-// Community
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
+// are: Private, Groups, Community.
 type GallerySharingPermissionTypes string
 
 const (
@@ -1191,46 +1125,6 @@ func PossibleNetworkAccessPolicyValues() []NetworkAccessPolicy {
 	}
 }
 
-// NetworkInterfaceAuxiliaryMode - Specifies whether the Auxiliary mode is enabled for the Network Interface resource.
-type NetworkInterfaceAuxiliaryMode string
-
-const (
-	NetworkInterfaceAuxiliaryModeAcceleratedConnections NetworkInterfaceAuxiliaryMode = "AcceleratedConnections"
-	NetworkInterfaceAuxiliaryModeFloating               NetworkInterfaceAuxiliaryMode = "Floating"
-	NetworkInterfaceAuxiliaryModeNone                   NetworkInterfaceAuxiliaryMode = "None"
-)
-
-// PossibleNetworkInterfaceAuxiliaryModeValues returns the possible values for the NetworkInterfaceAuxiliaryMode const type.
-func PossibleNetworkInterfaceAuxiliaryModeValues() []NetworkInterfaceAuxiliaryMode {
-	return []NetworkInterfaceAuxiliaryMode{
-		NetworkInterfaceAuxiliaryModeAcceleratedConnections,
-		NetworkInterfaceAuxiliaryModeFloating,
-		NetworkInterfaceAuxiliaryModeNone,
-	}
-}
-
-// NetworkInterfaceAuxiliarySKU - Specifies whether the Auxiliary sku is enabled for the Network Interface resource.
-type NetworkInterfaceAuxiliarySKU string
-
-const (
-	NetworkInterfaceAuxiliarySKUA1   NetworkInterfaceAuxiliarySKU = "A1"
-	NetworkInterfaceAuxiliarySKUA2   NetworkInterfaceAuxiliarySKU = "A2"
-	NetworkInterfaceAuxiliarySKUA4   NetworkInterfaceAuxiliarySKU = "A4"
-	NetworkInterfaceAuxiliarySKUA8   NetworkInterfaceAuxiliarySKU = "A8"
-	NetworkInterfaceAuxiliarySKUNone NetworkInterfaceAuxiliarySKU = "None"
-)
-
-// PossibleNetworkInterfaceAuxiliarySKUValues returns the possible values for the NetworkInterfaceAuxiliarySKU const type.
-func PossibleNetworkInterfaceAuxiliarySKUValues() []NetworkInterfaceAuxiliarySKU {
-	return []NetworkInterfaceAuxiliarySKU{
-		NetworkInterfaceAuxiliarySKUA1,
-		NetworkInterfaceAuxiliarySKUA2,
-		NetworkInterfaceAuxiliarySKUA4,
-		NetworkInterfaceAuxiliarySKUA8,
-		NetworkInterfaceAuxiliarySKUNone,
-	}
-}
-
 // OperatingSystemStateTypes - This property allows the user to specify whether the virtual machines created under this image
 // are 'Generalized' or 'Specialized'.
 type OperatingSystemStateTypes string
@@ -1264,10 +1158,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// OperatingSystemTypes - The Operating System type.
 type OperatingSystemTypes string
 
 const (
@@ -1631,12 +1522,14 @@ type ReplicationStatusTypes string
 
 const (
 	ReplicationStatusTypesReplicationStatus ReplicationStatusTypes = "ReplicationStatus"
+	ReplicationStatusTypesValidationProfile ReplicationStatusTypes = "ValidationProfile"
 )
 
 // PossibleReplicationStatusTypesValues returns the possible values for the ReplicationStatusTypes const type.
 func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
+		ReplicationStatusTypesValidationProfile,
 	}
 }
 
@@ -1895,10 +1788,8 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
-// Possible values are:
-// Subscriptions
-// AADTenants
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
+// AADTenants.
 type SharingProfileGroupTypes string
 
 const (
@@ -1934,11 +1825,8 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
-// Possible values are:
-// Add
-// Remove
-// Reset
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
+// values are: Add, Remove, Reset.
 type SharingUpdateOperationTypes string
 
 const (
@@ -2001,9 +1889,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -2011,6 +1900,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }

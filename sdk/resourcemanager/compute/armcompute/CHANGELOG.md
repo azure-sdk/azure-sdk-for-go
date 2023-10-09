@@ -1,9 +1,43 @@
 # Release History
 
-## 5.3.0-beta.1 (2023-10-09)
+## 6.0.0 (2023-10-09)
+### Breaking Changes
+
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- `DiskCreateOptionCopyFromSanSnapshot` from enum `DiskCreateOption` has been removed
+- Enum `DomainNameLabelScopeTypes` has been removed
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Enum `FileFormat` has been removed
+- Enum `NetworkInterfaceAuxiliaryMode` has been removed
+- Enum `NetworkInterfaceAuxiliarySKU` has been removed
+- Field `ElasticSanResourceID` of struct `CreationData` has been removed
+- Field `LastOwnershipUpdateTime` of struct `DiskProperties` has been removed
+- Field `FileFormat` of struct `GrantAccessData` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineNetworkInterfaceConfigurationProperties` has been removed
+- Field `DomainNameLabelScope` of struct `VirtualMachinePublicIPAddressDNSSettingsConfiguration` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineScaleSetNetworkConfigurationProperties` has been removed
+- Field `DomainNameLabelScope` of struct `VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineScaleSetUpdateNetworkConfigurationProperties` has been removed
+- Field `TimeCreated` of struct `VirtualMachineScaleSetVMProperties` has been removed
+
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `ReplicationStatusTypesValidationProfile` added to enum type `ReplicationStatusTypes`
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `ExecutedValidation`
+- New struct `PlatformAttribute`
+- New struct `SharedGalleryProperties`
+- New struct `ValidationsProfile`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `ValidationsProfile` in struct `GalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
 
 ## 5.2.0 (2023-09-22)
 ### Features Added

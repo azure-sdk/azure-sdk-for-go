@@ -769,6 +769,9 @@ type CommunityGallery struct {
 	// The identifier information of community gallery.
 	Identifier *CommunityGalleryIdentifier
 
+	// Describes the properties of a community gallery.
+	Properties *CommunityGalleryProperties
+
 	// READ-ONLY; Resource location
 	Location *string
 
@@ -835,17 +838,20 @@ type CommunityGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
+
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
 
 	// Describes the disallowed disk types.
 	Disallowed *Disallowed
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
 
 	// The end of life date of the gallery image definition. This property can be used for decommissioning purposes. This property
 	// is updatable.
@@ -900,6 +906,12 @@ type CommunityGalleryImageVersionList struct {
 
 // CommunityGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type CommunityGalleryImageVersionProperties struct {
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
+
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time
@@ -936,6 +948,36 @@ type CommunityGalleryInfo struct {
 	PublicNames []*string
 }
 
+// CommunityGalleryMetadata - The metadata of community gallery.
+type CommunityGalleryMetadata struct {
+	// The eula of this community gallery.
+	Eula *string
+
+	// The privacyStatementUri of this community gallery.
+	PrivacyStatementURI *string
+
+	// A list of public names the gallery has.
+	PublicNames []*string
+
+	// The publisher contact of this community gallery.
+	PublisherContact *string
+
+	// The publisher uri of this community gallery.
+	PublisherURI *string
+}
+
+// CommunityGalleryProperties - Describes the properties of a community gallery.
+type CommunityGalleryProperties struct {
+	// The artifact tags of a community gallery resource.
+	ArtifactTags map[string]*string
+
+	// The metadata of community gallery.
+	CommunityMetadata *CommunityGalleryMetadata
+
+	// The disclaimer for a community gallery resource.
+	Disclaimer *string
+}
+
 // CopyCompletionError - Indicates the error details if the background copy of a resource created via the CopyStart operation
 // fails.
 type CopyCompletionError struct {
@@ -950,9 +992,6 @@ type CopyCompletionError struct {
 type CreationData struct {
 	// REQUIRED; This enumerates the possible sources of a disk's creation.
 	CreateOption *DiskCreateOption
-
-	// Required if createOption is CopyFromSanSnapshot. This is the ARM id of the source elastic san volume snapshot.
-	ElasticSanResourceID *string
 
 	// Required if creating from a Gallery Image. The id/sharedGalleryImageId/communityGalleryImageId of the ImageDiskReference
 	// will be the ARM id of the shared galley image version from which to create a
@@ -1628,11 +1667,6 @@ type DiskProperties struct {
 	// READ-ONLY; The state of the disk.
 	DiskState *DiskState
 
-	// READ-ONLY; The UTC time when the ownership state of the disk was last changed i.e., the time the disk was last attached
-	// or detached from a VM or the time when the VM to which the disk was attached was
-	// deallocated or started.
-	LastOwnershipUpdateTime *time.Time
-
 	// READ-ONLY; Properties of the disk for which update is pending.
 	PropertyUpdatesInProgress *PropertyUpdatesInProgress
 
@@ -1979,6 +2013,21 @@ type EncryptionSettingsElement struct {
 	KeyEncryptionKey *KeyVaultAndKeyReference
 }
 
+// ExecutedValidation - This specifies the executedValidation property of ValidationsProfile.
+type ExecutedValidation struct {
+	// This property specifies the timestamp of the validation when the image version was created.
+	ExecutionTime *time.Time
+
+	// This property specifies the status of the validationProfile of the image version that is succeeded or failed.
+	Status *string
+
+	// This property specifies the type of image version validation. This field cannot be empty if providing version.
+	Type *string
+
+	// This property specifies the valid version of the validation type. It defined the current version of the type.
+	Version *string
+}
+
 // ExtendedLocation - The complex type of the extended location.
 type ExtendedLocation struct {
 	// The name of the extended location.
@@ -2085,10 +2134,8 @@ type GalleryApplicationList struct {
 
 // GalleryApplicationProperties - Describes the properties of a gallery Application Definition.
 type GalleryApplicationProperties struct {
-	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for.
-	// Possible values are:
-	// Windows
-	// Linux
+	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for. Possible values
+	// are: Windows, Linux.
 	SupportedOSType *OperatingSystemTypes
 
 	// A list of custom actions that can be performed with all of the Gallery Application Versions within this Gallery Application.
@@ -2418,13 +2465,10 @@ type GalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -2527,6 +2571,9 @@ type GalleryImageVersionProperties struct {
 
 	// READ-ONLY; This is the replication status of the gallery image version.
 	ReplicationStatus *ReplicationStatus
+
+	// READ-ONLY; This is the validations profile of a Gallery Image Version.
+	ValidationsProfile *ValidationsProfile
 }
 
 // GalleryImageVersionPublishingProfile - The publishing profile of a gallery image Version.
@@ -2656,7 +2703,7 @@ type GalleryTargetExtendedLocation struct {
 	Name *string
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
-	StorageAccountType *EdgeZoneStorageAccountType
+	StorageAccountType *StorageAccountType
 }
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
@@ -2684,9 +2731,6 @@ type GrantAccessData struct {
 
 	// REQUIRED; Time duration in seconds until the SAS access expires.
 	DurationInSeconds *int32
-
-	// Used to specify the file format when making request for SAS on a VHDX file format snapshot
-	FileFormat *FileFormat
 
 	// Set this flag to true to get additional SAS for VM guest state
 	GetSecureVMGuestStateSAS *bool
@@ -3775,6 +3819,16 @@ type Plan struct {
 
 	// The publisher ID.
 	Publisher *string
+}
+
+// PlatformAttribute - This specifies the executedValidation property of ValidationsProfile.
+type PlatformAttribute struct {
+	// This property specifies the type of defined set of source. Supported names are sourceimagepublisher, sourceimageoffer or
+	// sourceimagesku or sourceimageversion
+	Name *string
+
+	// This property specifies the value of the corresponding sourceimagepublisher, sourceimageoffer or sourceimagesku or sourceimageversion
+	Value *string
 }
 
 // PolicyViolation - A policy violation reported against a gallery artifact.
@@ -5009,6 +5063,9 @@ type SharedGallery struct {
 	// The identifier information of shared gallery.
 	Identifier *SharedGalleryIdentifier
 
+	// Specifies the properties of a shared gallery
+	Properties *SharedGalleryProperties
+
 	// READ-ONLY; Resource location
 	Location *string
 
@@ -5080,14 +5137,14 @@ type SharedGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
+
+	// The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
 
 	// Describes the disallowed disk types.
 	Disallowed *Disallowed
@@ -5142,6 +5199,9 @@ type SharedGalleryImageVersionList struct {
 
 // SharedGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type SharedGalleryImageVersionProperties struct {
+	// The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
+
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time
@@ -5184,16 +5244,18 @@ type SharedGalleryOSDiskImage struct {
 	DiskSizeGB *int32
 }
 
+// SharedGalleryProperties - Specifies the properties of a shared gallery
+type SharedGalleryProperties struct {
+	// READ-ONLY; The artifact tags of a shared gallery resource.
+	ArtifactTags map[string]*string
+}
+
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
 	CommunityGalleryInfo *CommunityGalleryInfo
 
-	// This property allows you to specify the permission of sharing gallery.
-	// Possible values are:
-	// Private
-	// Groups
-	// Community
+	// This property allows you to specify the permission of sharing gallery. Possible values are: Private, Groups, Community.
 	Permissions *GallerySharingPermissionTypes
 
 	// READ-ONLY; A list of sharing profile groups.
@@ -5205,10 +5267,7 @@ type SharingProfileGroup struct {
 	// A list of subscription/tenant ids the gallery is aimed to be shared to.
 	IDs []*string
 
-	// This property allows you to specify the type of sharing group.
-	// Possible values are:
-	// Subscriptions
-	// AADTenants
+	// This property allows you to specify the type of sharing group. Possible values are: Subscriptions, AADTenants.
 	Type *SharingProfileGroupTypes
 }
 
@@ -5223,11 +5282,8 @@ type SharingStatus struct {
 
 // SharingUpdate - Specifies information about the gallery sharing profile update.
 type SharingUpdate struct {
-	// REQUIRED; This property allows you to specify the operation type of gallery sharing update.
-	// Possible values are:
-	// Add
-	// Remove
-	// Reset
+	// REQUIRED; This property allows you to specify the operation type of gallery sharing update. Possible values are: Add, Remove,
+	// Reset.
 	OperationType *SharingUpdateOperationTypes
 
 	// A list of sharing profile groups.
@@ -5808,6 +5864,18 @@ type VMSizeProperties struct {
 	// List all available virtual machine sizes in a region [https://docs.microsoft.com/en-us/rest/api/compute/resource-skus/list].
 	// Setting this property to 1 also means that hyper-threading is disabled.
 	VCPUsPerCore *int32
+}
+
+// ValidationsProfile - This is the validations profile of a Gallery Image Version.
+type ValidationsProfile struct {
+	// This specifies the list of executedValidations of the image version metadata
+	ExecutedValidations []*ExecutedValidation
+
+	// This specifies the list of platformAttributes of the image version metadata
+	PlatformAttributes []*PlatformAttribute
+
+	// The published time of the image version
+	ValidationEtag *string
 }
 
 // VaultCertificate - Describes a single certificate reference in a Key Vault, and where the certificate should reside on
@@ -6404,12 +6472,6 @@ type VirtualMachineNetworkInterfaceConfigurationProperties struct {
 	// REQUIRED; Specifies the IP configurations of the network interface.
 	IPConfigurations []*VirtualMachineNetworkInterfaceIPConfiguration
 
-	// Specifies whether the Auxiliary mode is enabled for the Network Interface resource.
-	AuxiliaryMode *NetworkInterfaceAuxiliaryMode
-
-	// Specifies whether the Auxiliary sku is enabled for the Network Interface resource.
-	AuxiliarySKU *NetworkInterfaceAuxiliarySKU
-
 	// The dns settings to be applied on the network interfaces.
 	DNSSettings *VirtualMachineNetworkInterfaceDNSSettingsConfiguration
 
@@ -6653,11 +6715,6 @@ type VirtualMachinePublicIPAddressDNSSettingsConfiguration struct {
 	// REQUIRED; The Domain name label prefix of the PublicIPAddress resources that will be created. The generated name label
 	// is the concatenation of the domain name label and vm network profile unique ID.
 	DomainNameLabel *string
-
-	// The Domain name label scope of the PublicIPAddress resources that will be created. The generated name label is the concatenation
-	// of the hashed domain name label with policy according to the domain
-	// name label scope and vm network profile unique ID.
-	DomainNameLabelScope *DomainNameLabelScopeTypes
 }
 
 // VirtualMachineReimageParameters - Parameters for Reimaging Virtual Machine. NOTE: Virtual Machine OS disk will always be
@@ -7182,12 +7239,6 @@ type VirtualMachineScaleSetNetworkConfigurationProperties struct {
 	// REQUIRED; Specifies the IP configurations of the network interface.
 	IPConfigurations []*VirtualMachineScaleSetIPConfiguration
 
-	// Specifies whether the Auxiliary mode is enabled for the Network Interface resource.
-	AuxiliaryMode *NetworkInterfaceAuxiliaryMode
-
-	// Specifies whether the Auxiliary sku is enabled for the Network Interface resource.
-	AuxiliarySKU *NetworkInterfaceAuxiliarySKU
-
 	// The dns settings to be applied on the network interfaces.
 	DNSSettings *VirtualMachineScaleSetNetworkConfigurationDNSSettings
 
@@ -7427,11 +7478,6 @@ type VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings struct {
 	// REQUIRED; The Domain name label.The concatenation of the domain name label and vm index will be the domain name labels
 	// of the PublicIPAddress resources that will be created
 	DomainNameLabel *string
-
-	// The Domain name label scope.The concatenation of the hashed domain name label that generated according to the policy from
-	// domain name label scope and vm index will be the domain name labels of the
-	// PublicIPAddress resources that will be created
-	DomainNameLabelScope *DomainNameLabelScopeTypes
 }
 
 // VirtualMachineScaleSetPublicIPAddressConfigurationProperties - Describes a virtual machines scale set IP Configuration's
@@ -7592,12 +7638,6 @@ type VirtualMachineScaleSetUpdateNetworkConfiguration struct {
 // VirtualMachineScaleSetUpdateNetworkConfigurationProperties - Describes a virtual machine scale set updatable network profile's
 // IP configuration.Use this object for updating network profile's IP Configuration.
 type VirtualMachineScaleSetUpdateNetworkConfigurationProperties struct {
-	// Specifies whether the Auxiliary mode is enabled for the Network Interface resource.
-	AuxiliaryMode *NetworkInterfaceAuxiliaryMode
-
-	// Specifies whether the Auxiliary sku is enabled for the Network Interface resource.
-	AuxiliarySKU *NetworkInterfaceAuxiliarySKU
-
 	// The dns settings to be applied on the network interfaces.
 	DNSSettings *VirtualMachineScaleSetNetworkConfigurationDNSSettings
 
@@ -8125,10 +8165,6 @@ type VirtualMachineScaleSetVMProperties struct {
 
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *string
-
-	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created.
-	// Minimum api-version: 2021-11-01.
-	TimeCreated *time.Time
 
 	// READ-ONLY; Azure VM unique ID.
 	VMID *string
