@@ -47,6 +47,16 @@ func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewBuildersClient() *BuildersClient {
+	subClient, _ := NewBuildersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBuildsClient() *BuildsClient {
+	subClient, _ := NewBuildsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	subClient, _ := NewCertificatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -107,8 +117,18 @@ func (c *ClientFactory) NewContainerAppsSourceControlsClient() *ContainerAppsSou
 	return subClient
 }
 
+func (c *ClientFactory) NewDaprComponentResiliencyPoliciesClient() *DaprComponentResiliencyPoliciesClient {
+	subClient, _ := NewDaprComponentResiliencyPoliciesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
 	subClient, _ := NewDaprComponentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDaprSubscriptionsClient() *DaprSubscriptionsClient {
+	subClient, _ := NewDaprSubscriptionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -129,6 +149,11 @@ func (c *ClientFactory) NewManagedCertificatesClient() *ManagedCertificatesClien
 
 func (c *ClientFactory) NewManagedEnvironmentDiagnosticsClient() *ManagedEnvironmentDiagnosticsClient {
 	subClient, _ := NewManagedEnvironmentDiagnosticsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewManagedEnvironmentUsagesClient() *ManagedEnvironmentUsagesClient {
+	subClient, _ := NewManagedEnvironmentUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -154,5 +179,15 @@ func (c *ClientFactory) NewNamespacesClient() *NamespacesClient {
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPatchesClient() *PatchesClient {
+	subClient, _ := NewPatchesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewUsagesClient() *UsagesClient {
+	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
