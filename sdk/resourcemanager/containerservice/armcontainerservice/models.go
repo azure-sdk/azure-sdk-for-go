@@ -72,6 +72,14 @@ type AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem struct {
 	KubernetesVersion *string
 }
 
+type AgentPoolGPUProfile struct {
+	// The default value is true when the vmSize of the agent pool contains a GPU, false otherwise. GPU Driver Installation can
+	// only be set true when VM has an associated GPU resource. Setting this field to
+	// false prevents automatic GPU driver installation. In that case, in order for the GPU to be usable, the user must perform
+	// GPU driver installation themselves.
+	InstallGPUDriver *bool
+}
+
 // AgentPoolListResult - The response from the List Agent Pools operation.
 type AgentPoolListResult struct {
 	// The list of agent pools.
@@ -150,6 +158,10 @@ type AgentPoolUpgradeSettings struct {
 	// practices, see:
 	// https://docs.microsoft.com/azure/aks/upgrade-cluster#customize-node-surge-upgrade
 	MaxSurge *string
+
+	// The amount of time (in minutes) to wait after draining a node and before reimaging it and moving on to next node. If not
+	// specified, the default is 0 minutes.
+	NodeSoakDurationInMinutes *int32
 }
 
 // AgentPoolWindowsProfile - The Windows agent pool's specific profile.
@@ -370,8 +382,20 @@ type IstioCertificateAuthority struct {
 
 // IstioComponents - Istio components configuration.
 type IstioComponents struct {
+	// Istio egress gateways.
+	EgressGateways []*IstioEgressGateway
+
 	// Istio ingress gateways.
 	IngressGateways []*IstioIngressGateway
+}
+
+// IstioEgressGateway - Istio egress gateway configuration.
+type IstioEgressGateway struct {
+	// REQUIRED; Whether to enable the egress gateway.
+	Enabled *bool
+
+	// NodeSelector for scheduling the egress gateway.
+	NodeSelector map[string]*string
 }
 
 // IstioIngressGateway - Istio ingress gateway configuration. For now, we support up to one external ingress gateway named
@@ -695,6 +719,14 @@ type ManagedClusterAADProfile struct {
 	TenantID *string
 }
 
+// ManagedClusterAIToolchainOperatorProfile - When enabling the operator, a set of AKS managed CRDs and controllers will be
+// installed in the cluster. The operator automates the deployment of OSS models for inference and/or training purposes. It
+// provides a set of preset models and enables distributed inference against them.
+type ManagedClusterAIToolchainOperatorProfile struct {
+	// Indicates if AI toolchain operator enabled or not.
+	Enabled *bool
+}
+
 // ManagedClusterAPIServerAccessProfile - Access profile for managed cluster API server.
 type ManagedClusterAPIServerAccessProfile struct {
 	// IP ranges are specified in CIDR format, e.g. 137.117.106.88/29. This feature is not compatible with clusters that use Public
@@ -817,6 +849,9 @@ type ManagedClusterAgentPoolProfile struct {
 
 	// GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU.
 	GpuInstanceProfile *GPUInstanceProfile
+
+	// The GPU settings of an agent pool.
+	GpuProfile *AgentPoolGPUProfile
 
 	// This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}.
 	// For more information see Azure dedicated hosts
@@ -996,6 +1031,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 
 	// GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU.
 	GpuInstanceProfile *GPUInstanceProfile
+
+	// The GPU settings of an agent pool.
+	GpuProfile *AgentPoolGPUProfile
 
 	// This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}.
 	// For more information see Azure dedicated hosts
@@ -1385,6 +1423,11 @@ type ManagedClusterNATGatewayProfile struct {
 	ManagedOutboundIPProfile *ManagedClusterManagedOutboundIPProfile
 }
 
+type ManagedClusterNodeProvisioningProfile struct {
+	// Once the mode it set to Auto, it cannot be changed back to Manual.
+	Mode *NodeProvisioningMode
+}
+
 // ManagedClusterNodeResourceGroupProfile - Node resource group lockdown profile for a managed cluster.
 type ManagedClusterNodeResourceGroupProfile struct {
 	// The restriction level applied to the cluster's node resource group
@@ -1516,6 +1559,9 @@ type ManagedClusterProperties struct {
 	// The agent pool properties.
 	AgentPoolProfiles []*ManagedClusterAgentPoolProfile
 
+	// AI toolchain operator settings that apply to the whole cluster.
+	AiToolchainOperatorProfile *ManagedClusterAIToolchainOperatorProfile
+
 	// Parameters to be applied to the cluster-autoscaler when enabled
 	AutoScalerProfile *ManagedClusterPropertiesAutoScalerProfile
 
@@ -1581,6 +1627,9 @@ type ManagedClusterProperties struct {
 
 	// The network configuration profile.
 	NetworkProfile *NetworkProfile
+
+	// Node provisioning settings that apply to the whole cluster.
+	NodeProvisioningProfile *ManagedClusterNodeProvisioningProfile
 
 	// The name of the resource group containing agent pool nodes.
 	NodeResourceGroup *string
@@ -1658,9 +1707,26 @@ type ManagedClusterPropertiesAutoScalerProfile struct {
 	// Valid values are 'true' and 'false'
 	BalanceSimilarNodeGroups *string
 
-	// If not specified, the default is 'random'. See expanders [https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders]
-	// for more information.
+	// If set to true, all daemonset pods on empty nodes will be evicted before deletion of the node. If the daemonset pod cannot
+	// be evicted another node will be chosen for scaling. If set to false, the node
+	// will be deleted without ensuring that daemonset pods are deleted or evicted.
+	DaemonsetEvictionForEmptyNodes *bool
+
+	// If set to true, all daemonset pods on occupied nodes will be evicted before deletion of the node. If the daemonset pod
+	// cannot be evicted another node will be chosen for scaling. If set to false, the
+	// node will be deleted without ensuring that daemonset pods are deleted or evicted.
+	DaemonsetEvictionForOccupiedNodes *bool
+
+	// Available values are: 'least-waste', 'most-pods', 'priority', 'random'.
 	Expander *Expander
+
+	// Available values are: 'least-waste', 'most-pods', 'priority', 'random'. If multiple expanders are configured, they will
+	// be considered in the order in which they are listed, with the first one being
+	// considered first.
+	Expanders []*Expander
+
+	// If set to true, the resources used by daemonset will be taken into account when making scaling down decisions.
+	IgnoreDaemonsetsUtilization *bool
 
 	// The default is 10.
 	MaxEmptyBulkDelete *string
@@ -1984,8 +2050,11 @@ type ManagedClusterWorkloadAutoScalerProfileKeda struct {
 }
 
 type ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler struct {
-	// REQUIRED; Whether to enable VPA. Default value is false.
+	// REQUIRED; Whether to enable VPA add-on in cluster. Default value is false.
 	Enabled *bool
+
+	// Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
+	AddonAutoscaling *AddonAutoscaling
 }
 
 type ManagedServiceIdentityUserAssignedIdentitiesValue struct {

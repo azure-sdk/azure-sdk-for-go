@@ -1,5 +1,31 @@
 # Release History
 
+## 4.4.0-beta.3 (2023-10-10)
+### Breaking Changes
+
+- Operation `*TrustedAccessRoleBindingsClient.CreateOrUpdate` has been changed to LRO, use `*TrustedAccessRoleBindingsClient.BeginCreateOrUpdate` instead.
+- Operation `*TrustedAccessRoleBindingsClient.Delete` has been changed to LRO, use `*TrustedAccessRoleBindingsClient.BeginDelete` instead.
+
+### Features Added
+
+- New value `AgentPoolTypeVirtualMachines` added to enum type `AgentPoolType`
+- New value `NetworkPolicyNone` added to enum type `NetworkPolicy`
+- New value `OSSKUWindowsAnnual` added to enum type `OSSKU`
+- New enum type `AddonAutoscaling` with values `AddonAutoscalingDisabled`, `AddonAutoscalingEnabled`
+- New enum type `NodeProvisioningMode` with values `NodeProvisioningModeAuto`, `NodeProvisioningModeManual`
+- New struct `AgentPoolGPUProfile`
+- New struct `IstioEgressGateway`
+- New struct `ManagedClusterAIToolchainOperatorProfile`
+- New struct `ManagedClusterNodeProvisioningProfile`
+- New field `NodeSoakDurationInMinutes` in struct `AgentPoolUpgradeSettings`
+- New field `EgressGateways` in struct `IstioComponents`
+- New field `GpuProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `GpuProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `AiToolchainOperatorProfile`, `NodeProvisioningProfile` in struct `ManagedClusterProperties`
+- New field `DaemonsetEvictionForEmptyNodes`, `DaemonsetEvictionForOccupiedNodes`, `Expanders`, `IgnoreDaemonsetsUtilization` in struct `ManagedClusterPropertiesAutoScalerProfile`
+- New field `AddonAutoscaling` in struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+
+
 ## 4.4.0-beta.2 (2023-10-09)
 ### Features Added
 
