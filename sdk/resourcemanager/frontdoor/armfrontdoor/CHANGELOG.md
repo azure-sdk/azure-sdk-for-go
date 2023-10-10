@@ -1,5 +1,11 @@
 # Release History
 
+## 1.3.0 (2023-10-10)
+### Features Added
+
+- New value `ActionTypeJSChallenge` added to enum type `ActionType`
+
+
 ## 1.2.0 (2023-05-26)
 ### Features Added
 
