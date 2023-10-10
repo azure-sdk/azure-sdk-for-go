@@ -1,5 +1,31 @@
 # Release History
 
+## 0.9.0 (2023-10-10)
+### Breaking Changes
+
+- Type of `Identity.UserAssignedIdentities` has been changed from `map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` to `map[string]*UserAssignedIdentitiesProperties`
+- Struct `ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` has been removed
+- Field `Value` of struct `DscConfigurationClientGetContentResponse` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewPython3PackageClient() *Python3PackageClient`
+- New function `NewPython3PackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*Python3PackageClient, error)`
+- New function `*Python3PackageClient.CreateOrUpdate(context.Context, string, string, string, PythonPackageCreateParameters, *Python3PackageClientCreateOrUpdateOptions) (Python3PackageClientCreateOrUpdateResponse, error)`
+- New function `*Python3PackageClient.Delete(context.Context, string, string, string, *Python3PackageClientDeleteOptions) (Python3PackageClientDeleteResponse, error)`
+- New function `*Python3PackageClient.Get(context.Context, string, string, string, *Python3PackageClientGetOptions) (Python3PackageClientGetResponse, error)`
+- New function `*Python3PackageClient.NewListByAutomationAccountPager(string, string, *Python3PackageClientListByAutomationAccountOptions) *runtime.Pager[Python3PackageClientListByAutomationAccountResponse]`
+- New function `*Python3PackageClient.Update(context.Context, string, string, string, PythonPackageUpdateParameters, *Python3PackageClientUpdateOptions) (Python3PackageClientUpdateResponse, error)`
+- New struct `Dimension`
+- New struct `LogSpecification`
+- New struct `MetricSpecification`
+- New struct `OperationPropertiesFormat`
+- New struct `OperationPropertiesFormatServiceSpecification`
+- New struct `UserAssignedIdentitiesProperties`
+- New field `Origin`, `Properties` in struct `Operation`
+- New field `Description` in struct `OperationDisplay`
+
+
 ## 0.8.1 (2023-04-14)
 ### Bug Fixes
 
