@@ -1,9 +1,27 @@
 # Release History
 
-## 5.3.0-beta.1 (2023-10-09)
+## 5.3.0 (2023-10-11)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `ConfidentialVMEncryptionTypeNonPersistedTPM` added to enum type `ConfidentialVMEncryptionType`
+- New value `ReplicationStatusTypesUefiSettings` added to enum type `ReplicationStatusTypes`
+- New enum type `UefiKeyType` with values `UefiKeyTypeSHA256`, `UefiKeyTypeX509`
+- New enum type `UefiSignatureTemplateName` with values `UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate`, `UefiSignatureTemplateNameMicrosoftWindowsTemplate`, `UefiSignatureTemplateNameNoSignatureTemplate`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `GalleryImageVersionUefiSettings`
+- New struct `ImageVersionSecurityProfile`
+- New struct `SharedGalleryProperties`
+- New struct `UefiKey`
+- New struct `UefiKeySignatures`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `SecurityProfile` in struct `GalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
 
 ## 5.2.0 (2023-09-22)
 ### Features Added
