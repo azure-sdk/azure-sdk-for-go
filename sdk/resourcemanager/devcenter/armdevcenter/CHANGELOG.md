@@ -1,5 +1,57 @@
 # Release History
 
+## 1.1.0-beta.1 (2023-10-12)
+### Features Added
+
+- New enum type `CatalogConnectionState` with values `CatalogConnectionStateConnected`, `CatalogConnectionStateDisconnected`
+- New enum type `CatalogResourceValidationStatus` with values `CatalogResourceValidationStatusFailed`, `CatalogResourceValidationStatusPending`, `CatalogResourceValidationStatusSucceeded`, `CatalogResourceValidationStatusUnknown`
+- New enum type `CustomizationTaskInputType` with values `CustomizationTaskInputTypeBoolean`, `CustomizationTaskInputTypeNumber`, `CustomizationTaskInputTypeString`
+- New enum type `IdentityType` with values `IdentityTypeDelegatedResourceIdentity`, `IdentityTypeSystemAssignedIdentity`, `IdentityTypeUserAssignedIdentity`
+- New enum type `ParameterType` with values `ParameterTypeArray`, `ParameterTypeBoolean`, `ParameterTypeInteger`, `ParameterTypeNumber`, `ParameterTypeObject`, `ParameterTypeString`
+- New enum type `SingleSignOnStatus` with values `SingleSignOnStatusDisabled`, `SingleSignOnStatusEnabled`
+- New function `NewCatalogDevBoxDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CatalogDevBoxDefinitionsClient, error)`
+- New function `*CatalogDevBoxDefinitionsClient.Get(context.Context, string, string, string, string, *CatalogDevBoxDefinitionsClientGetOptions) (CatalogDevBoxDefinitionsClientGetResponse, error)`
+- New function `*CatalogDevBoxDefinitionsClient.GetErrorDetails(context.Context, string, string, string, string, *CatalogDevBoxDefinitionsClientGetErrorDetailsOptions) (CatalogDevBoxDefinitionsClientGetErrorDetailsResponse, error)`
+- New function `*CatalogDevBoxDefinitionsClient.NewListByCatalogPager(string, string, string, *CatalogDevBoxDefinitionsClientListByCatalogOptions) *runtime.Pager[CatalogDevBoxDefinitionsClientListByCatalogResponse]`
+- New function `*CatalogsClient.BeginConnect(context.Context, string, string, string, *CatalogsClientBeginConnectOptions) (*runtime.Poller[CatalogsClientConnectResponse], error)`
+- New function `*CatalogsClient.GetSyncErrorDetails(context.Context, string, string, string, *CatalogsClientGetSyncErrorDetailsOptions) (CatalogsClientGetSyncErrorDetailsResponse, error)`
+- New function `*ClientFactory.NewCatalogDevBoxDefinitionsClient() *CatalogDevBoxDefinitionsClient`
+- New function `*ClientFactory.NewCustomizationTasksClient() *CustomizationTasksClient`
+- New function `*ClientFactory.NewEnvironmentDefinitionsClient() *EnvironmentDefinitionsClient`
+- New function `NewCustomizationTasksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CustomizationTasksClient, error)`
+- New function `*CustomizationTasksClient.Get(context.Context, string, string, string, string, *CustomizationTasksClientGetOptions) (CustomizationTasksClientGetResponse, error)`
+- New function `*CustomizationTasksClient.GetErrorDetails(context.Context, string, string, string, string, *CustomizationTasksClientGetErrorDetailsOptions) (CustomizationTasksClientGetErrorDetailsResponse, error)`
+- New function `*CustomizationTasksClient.NewListByCatalogPager(string, string, string, *CustomizationTasksClientListByCatalogOptions) *runtime.Pager[CustomizationTasksClientListByCatalogResponse]`
+- New function `NewEnvironmentDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EnvironmentDefinitionsClient, error)`
+- New function `*EnvironmentDefinitionsClient.Get(context.Context, string, string, string, string, *EnvironmentDefinitionsClientGetOptions) (EnvironmentDefinitionsClientGetResponse, error)`
+- New function `*EnvironmentDefinitionsClient.GetErrorDetails(context.Context, string, string, string, string, *EnvironmentDefinitionsClientGetErrorDetailsOptions) (EnvironmentDefinitionsClientGetErrorDetailsResponse, error)`
+- New function `*EnvironmentDefinitionsClient.NewListByCatalogPager(string, string, string, *EnvironmentDefinitionsClientListByCatalogOptions) *runtime.Pager[EnvironmentDefinitionsClientListByCatalogResponse]`
+- New struct `CatalogConflictError`
+- New struct `CatalogErrorDetails`
+- New struct `CatalogResourceValidationErrorDetails`
+- New struct `CatalogSyncError`
+- New struct `CustomerManagedKeyEncryption`
+- New struct `CustomerManagedKeyEncryptionKeyIdentity`
+- New struct `CustomizationTask`
+- New struct `CustomizationTaskInput`
+- New struct `CustomizationTaskListResult`
+- New struct `CustomizationTaskProperties`
+- New struct `Encryption`
+- New struct `EnvironmentDefinition`
+- New struct `EnvironmentDefinitionListResult`
+- New struct `EnvironmentDefinitionParameter`
+- New struct `EnvironmentDefinitionProperties`
+- New struct `SyncErrorDetails`
+- New struct `SyncStats`
+- New struct `UpdateProperties`
+- New field `ConnectionState`, `LastConnectionTime`, `LastSyncStats` in struct `CatalogProperties`
+- New field `ValidationStatus` in struct `DevBoxDefinitionProperties`
+- New field `DevBoxCount`, `SingleSignOnStatus` in struct `PoolProperties`
+- New field `SingleSignOnStatus` in struct `PoolUpdateProperties`
+- New field `Encryption` in struct `Properties`
+- New field `Properties` in struct `Update`
+
+
 ## 1.0.0 (2023-05-26)
 ### Breaking Changes
 
