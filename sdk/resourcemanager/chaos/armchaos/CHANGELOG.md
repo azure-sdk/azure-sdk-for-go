@@ -1,5 +1,50 @@
 # Release History
 
+## 1.0.0 (2023-10-12)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, *string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewExperimentsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, *string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*ExperimentsClient.GetExecutionDetails` has been removed
+- Function `*ExperimentsClient.GetStatus` has been removed
+- Function `*ExperimentsClient.NewListAllStatusesPager` has been removed
+- Function `*ExperimentsClient.NewListExecutionDetailsPager` has been removed
+- Operation `*ExperimentsClient.Cancel` has been changed to LRO, use `*ExperimentsClient.BeginCancel` instead.
+- Operation `*ExperimentsClient.CreateOrUpdate` has been changed to LRO, use `*ExperimentsClient.BeginCreateOrUpdate` instead.
+- Operation `*ExperimentsClient.Delete` has been changed to LRO, use `*ExperimentsClient.BeginDelete` instead.
+- Operation `*ExperimentsClient.Start` has been changed to LRO, use `*ExperimentsClient.BeginStart` instead.
+- Operation `*ExperimentsClient.Update` has been changed to LRO, use `*ExperimentsClient.BeginUpdate` instead.
+- Struct `ActionStatus` has been removed
+- Struct `BranchStatus` has been removed
+- Struct `ExperimentCancelOperationResult` has been removed
+- Struct `ExperimentExecutionActionTargetDetailsError` has been removed
+- Struct `ExperimentExecutionActionTargetDetailsProperties` has been removed
+- Struct `ExperimentExecutionDetails` has been removed
+- Struct `ExperimentExecutionDetailsListResult` has been removed
+- Struct `ExperimentExecutionDetailsProperties` has been removed
+- Struct `ExperimentExecutionDetailsPropertiesRunInformation` has been removed
+- Struct `ExperimentStartOperationResult` has been removed
+- Struct `ExperimentStatus` has been removed
+- Struct `ExperimentStatusListResult` has been removed
+- Struct `ExperimentStatusProperties` has been removed
+- Struct `StepStatus` has been removed
+- Field `StartOnCreation` of struct `ExperimentProperties` has been removed
+
+### Features Added
+
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New function `*ClientFactory.NewOperationStatusesClient() *OperationStatusesClient`
+- New function `*ExperimentsClient.GetExecution(context.Context, string, string, string, *ExperimentsClientGetExecutionOptions) (ExperimentsClientGetExecutionResponse, error)`
+- New function `*ExperimentsClient.NewListAllExecutionsPager(string, string, *ExperimentsClientListAllExecutionsOptions) *runtime.Pager[ExperimentsClientListAllExecutionsResponse]`
+- New function `NewOperationStatusesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationStatusesClient, error)`
+- New function `*OperationStatusesClient.Get(context.Context, string, string, *OperationStatusesClientGetOptions) (OperationStatusesClientGetResponse, error)`
+- New struct `ExperimentExecution`
+- New struct `ExperimentExecutionListResult`
+- New struct `ExperimentExecutionProperties`
+- New struct `OperationStatus`
+- New field `ProvisioningState` in struct `Experiment`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 

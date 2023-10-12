@@ -22,27 +22,6 @@ type Action struct {
 // GetAction implements the ActionClassification interface for type Action.
 func (a *Action) GetAction() *Action { return a }
 
-// ActionStatus - Model that represents the an action and its status.
-type ActionStatus struct {
-	// READ-ONLY; The id of the action status.
-	ActionID *string
-
-	// READ-ONLY; The name of the action status.
-	ActionName *string
-
-	// READ-ONLY; String that represents the end time of the action.
-	EndTime *time.Time
-
-	// READ-ONLY; String that represents the start time of the action.
-	StartTime *time.Time
-
-	// READ-ONLY; The status of the action.
-	Status *string
-
-	// READ-ONLY; The array of targets.
-	Targets []*ExperimentExecutionActionTargetDetailsProperties
-}
-
 // Branch - Model that represents a branch in the step.
 type Branch struct {
 	// REQUIRED; List of actions.
@@ -50,21 +29,6 @@ type Branch struct {
 
 	// REQUIRED; String of the branch name.
 	Name *string
-}
-
-// BranchStatus - Model that represents the a list of actions and action statuses.
-type BranchStatus struct {
-	// READ-ONLY; The array of actions.
-	Actions []*ActionStatus
-
-	// READ-ONLY; The id of the branch status.
-	BranchID *string
-
-	// READ-ONLY; The name of the branch status.
-	BranchName *string
-
-	// READ-ONLY; The status of the branch.
-	Status *string
 }
 
 // Capability - Model that represents a Capability resource.
@@ -304,6 +268,9 @@ type Experiment struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Most recent provisioning state for the given experiment resource.
+	ProvisioningState *ProvisioningState
+
 	// READ-ONLY; The system metadata of the experiment resource.
 	SystemData *SystemData
 
@@ -311,98 +278,43 @@ type Experiment struct {
 	Type *string
 }
 
-// ExperimentCancelOperationResult - Model that represents the result of a cancel Experiment operation.
-type ExperimentCancelOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
+// ExperimentExecution - Model that represents the execution of a Experiment.
+type ExperimentExecution struct {
+	// The properties of experiment execution status.
+	Properties *ExperimentExecutionProperties
 
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
-}
-
-// ExperimentExecutionActionTargetDetailsError - Model that represents the Experiment action target details error model.
-type ExperimentExecutionActionTargetDetailsError struct {
-	// READ-ONLY; The error code.
-	Code *string
-
-	// READ-ONLY; The error message
-	Message *string
-}
-
-// ExperimentExecutionActionTargetDetailsProperties - Model that represents the Experiment action target details properties
-// model.
-type ExperimentExecutionActionTargetDetailsProperties struct {
-	// READ-ONLY; The error of the action.
-	Error *ExperimentExecutionActionTargetDetailsError
-
-	// READ-ONLY; The status of the execution.
-	Status *string
-
-	// READ-ONLY; The target for the action.
-	Target *string
-
-	// READ-ONLY; String that represents the completed date time.
-	TargetCompletedTime *time.Time
-
-	// READ-ONLY; String that represents the failed date time.
-	TargetFailedTime *time.Time
-}
-
-// ExperimentExecutionDetails - Model that represents the execution details of a Experiment.
-type ExperimentExecutionDetails struct {
 	// READ-ONLY; String of the fully qualified resource ID.
 	ID *string
 
 	// READ-ONLY; String of the resource name.
 	Name *string
 
-	// READ-ONLY; The properties of the experiment execution details.
-	Properties *ExperimentExecutionDetailsProperties
-
 	// READ-ONLY; String of the resource type.
 	Type *string
 }
 
-// ExperimentExecutionDetailsListResult - Model that represents a list of Experiment execution details and a link for pagination.
-type ExperimentExecutionDetailsListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Experiment execution details.
+// ExperimentExecutionListResult - Model that represents a list of Experiment executions and a link for pagination.
+type ExperimentExecutionListResult struct {
+	// READ-ONLY; URL to retrieve the next page of Experiment executions.
 	NextLink *string
 
-	// READ-ONLY; List of Experiment execution details.
-	Value []*ExperimentExecutionDetails
+	// READ-ONLY; List of Experiment executions.
+	Value []*ExperimentExecution
 }
 
-// ExperimentExecutionDetailsProperties - Model that represents the Experiment execution details properties model.
-type ExperimentExecutionDetailsProperties struct {
-	// READ-ONLY; String that represents the created date time.
-	CreatedDateTime *time.Time
-
+// ExperimentExecutionProperties - Model that represents the execution properties of an Experiment.
+type ExperimentExecutionProperties struct {
 	// READ-ONLY; The id of the experiment.
 	ExperimentID *string
 
-	// READ-ONLY; The reason why the execution failed.
-	FailureReason *string
-
-	// READ-ONLY; String that represents the last action date time.
-	LastActionDateTime *time.Time
-
-	// READ-ONLY; The information of the experiment run.
-	RunInformation *ExperimentExecutionDetailsPropertiesRunInformation
-
 	// READ-ONLY; String that represents the start date time.
-	StartDateTime *time.Time
+	StartedAt *time.Time
 
-	// READ-ONLY; The value of the status of the experiment execution.
+	// READ-ONLY; The status of the execution.
 	Status *string
 
 	// READ-ONLY; String that represents the stop date time.
-	StopDateTime *time.Time
-}
-
-// ExperimentExecutionDetailsPropertiesRunInformation - The information of the experiment run.
-type ExperimentExecutionDetailsPropertiesRunInformation struct {
-	// READ-ONLY; The steps of the experiment run.
-	Steps []*StepStatus
+	StoppedAt *time.Time
 }
 
 // ExperimentListResult - Model that represents a list of Experiment resources and a link for pagination.
@@ -421,54 +333,6 @@ type ExperimentProperties struct {
 
 	// REQUIRED; List of steps.
 	Steps []*Step
-
-	// A boolean value that indicates if experiment should be started on creation or not.
-	StartOnCreation *bool
-}
-
-// ExperimentStartOperationResult - Model that represents the result of a start Experiment operation.
-type ExperimentStartOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
-}
-
-// ExperimentStatus - Model that represents the status of a Experiment.
-type ExperimentStatus struct {
-	// The properties of experiment execution status.
-	Properties *ExperimentStatusProperties
-
-	// READ-ONLY; String of the fully qualified resource ID.
-	ID *string
-
-	// READ-ONLY; String of the resource name.
-	Name *string
-
-	// READ-ONLY; String of the resource type.
-	Type *string
-}
-
-// ExperimentStatusListResult - Model that represents a list of Experiment statuses and a link for pagination.
-type ExperimentStatusListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Experiment statuses.
-	NextLink *string
-
-	// READ-ONLY; List of Experiment statuses.
-	Value []*ExperimentStatus
-}
-
-// ExperimentStatusProperties - Model that represents the Experiment status properties model.
-type ExperimentStatusProperties struct {
-	// READ-ONLY; String that represents the created date time of a Experiment.
-	CreatedDateUTC *time.Time
-
-	// READ-ONLY; String that represents the end date time of a Experiment.
-	EndDateUTC *time.Time
-
-	// READ-ONLY; String that represents the status of a Experiment.
-	Status *string
 }
 
 // ExperimentUpdate - Describes an experiment update.
@@ -570,6 +434,27 @@ type OperationListResult struct {
 
 	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// OperationStatus - The status of operation.
+type OperationStatus struct {
+	// The end time of the operation.
+	EndTime *string
+
+	// The error detail of the operation if any.
+	Error *ErrorResponse
+
+	// The operation Id.
+	ID *string
+
+	// The operation name.
+	Name *string
+
+	// The start time of the operation.
+	StartTime *string
+
+	// The status of the operation.
+	Status *string
 }
 
 // QuerySelector - Model that represents a query selector.
@@ -679,21 +564,6 @@ type Step struct {
 
 	// REQUIRED; String of the step name.
 	Name *string
-}
-
-// StepStatus - Model that represents the a list of branches and branch statuses.
-type StepStatus struct {
-	// READ-ONLY; The array of branches.
-	Branches []*BranchStatus
-
-	// READ-ONLY; The value of the status of the step.
-	Status *string
-
-	// READ-ONLY; The id of the step.
-	StepID *string
-
-	// READ-ONLY; The name of the step.
-	StepName *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

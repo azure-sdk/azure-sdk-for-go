@@ -17,6 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
+	expand         *string
 	credential     azcore.TokenCredential
 	options        *arm.ClientOptions
 }
@@ -24,15 +25,16 @@ type ClientFactory struct {
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - GUID that represents an Azure subscription ID.
+//   - expand - The expand expression to apply on the operation.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, expand *string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, expand: expand, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
@@ -48,7 +50,12 @@ func (c *ClientFactory) NewCapabilityTypesClient() *CapabilityTypesClient {
 }
 
 func (c *ClientFactory) NewExperimentsClient() *ExperimentsClient {
-	subClient, _ := NewExperimentsClient(c.subscriptionID, c.credential, c.options)
+	subClient, _ := NewExperimentsClient(c.subscriptionID, c.expand, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOperationStatusesClient() *OperationStatusesClient {
+	subClient, _ := NewOperationStatusesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
