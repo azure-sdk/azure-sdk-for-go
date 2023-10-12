@@ -47,7 +47,7 @@ func NewConfigurationAssignmentsForResourceGroupClient(subscriptionID string, cr
 // CreateOrUpdate - Register configuration for resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - Resource group name
 //   - configurationAssignmentName - Configuration assignment name
 //   - configurationAssignment - The configurationAssignment
@@ -91,7 +91,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) createOrUpdateCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configurationAssignment); err != nil {
@@ -112,7 +112,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) createOrUpdateHand
 // Delete - Unregister configuration for resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - Resource group name
 //   - configurationAssignmentName - Unique configuration assignment name
 //   - options - ConfigurationAssignmentsForResourceGroupClientDeleteOptions contains the optional parameters for the ConfigurationAssignmentsForResourceGroupClient.Delete
@@ -155,7 +155,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) deleteCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,7 +173,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) deleteHandleRespon
 // Get - Get configuration assignment for resource..
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - Resource group name
 //   - configurationAssignmentName - Configuration assignment name
 //   - options - ConfigurationAssignmentsForResourceGroupClientGetOptions contains the optional parameters for the ConfigurationAssignmentsForResourceGroupClient.Get
@@ -216,7 +216,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) getCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) getHandleResponse(
 // Update - Register configuration for resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - Resource group name
 //   - configurationAssignmentName - Configuration assignment name
 //   - configurationAssignment - The configurationAssignment
@@ -278,7 +278,7 @@ func (client *ConfigurationAssignmentsForResourceGroupClient) updateCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configurationAssignment); err != nil {
