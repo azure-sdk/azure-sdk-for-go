@@ -28,7 +28,7 @@ type TrustedAccessRoleBindingsClient struct {
 }
 
 // NewTrustedAccessRoleBindingsClient creates a new instance of TrustedAccessRoleBindingsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTrustedAccessRoleBindingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TrustedAccessRoleBindingsClient, error) {
@@ -43,44 +43,57 @@ func NewTrustedAccessRoleBindingsClient(subscriptionID string, credential azcore
 	return client, nil
 }
 
-// CreateOrUpdate - Create or update a trusted access role binding
+// BeginCreateOrUpdate - Create or update a trusted access role binding
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - trustedAccessRoleBindingName - The name of trusted access role binding.
 //   - trustedAccessRoleBinding - A trusted access role binding
-//   - options - TrustedAccessRoleBindingsClientCreateOrUpdateOptions contains the optional parameters for the TrustedAccessRoleBindingsClient.CreateOrUpdate
+//   - options - TrustedAccessRoleBindingsClientBeginCreateOrUpdateOptions contains the optional parameters for the TrustedAccessRoleBindingsClient.BeginCreateOrUpdate
 //     method.
-func (client *TrustedAccessRoleBindingsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, trustedAccessRoleBinding TrustedAccessRoleBinding, options *TrustedAccessRoleBindingsClientCreateOrUpdateOptions) (TrustedAccessRoleBindingsClientCreateOrUpdateResponse, error) {
+func (client *TrustedAccessRoleBindingsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, trustedAccessRoleBinding TrustedAccessRoleBinding, options *TrustedAccessRoleBindingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[TrustedAccessRoleBindingsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, resourceName, trustedAccessRoleBindingName, trustedAccessRoleBinding, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller[TrustedAccessRoleBindingsClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[TrustedAccessRoleBindingsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// CreateOrUpdate - Create or update a trusted access role binding
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-09-01
+func (client *TrustedAccessRoleBindingsClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, trustedAccessRoleBinding TrustedAccessRoleBinding, options *TrustedAccessRoleBindingsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "TrustedAccessRoleBindingsClient.CreateOrUpdate"
+	const operationName = "TrustedAccessRoleBindingsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, trustedAccessRoleBindingName, trustedAccessRoleBinding, options)
 	if err != nil {
-		return TrustedAccessRoleBindingsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return TrustedAccessRoleBindingsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return TrustedAccessRoleBindingsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.createOrUpdateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *TrustedAccessRoleBindingsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, trustedAccessRoleBinding TrustedAccessRoleBinding, options *TrustedAccessRoleBindingsClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *TrustedAccessRoleBindingsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, trustedAccessRoleBinding TrustedAccessRoleBinding, options *TrustedAccessRoleBindingsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/trustedAccessRoleBindings/{trustedAccessRoleBindingName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -99,7 +112,7 @@ func (client *TrustedAccessRoleBindingsClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, trustedAccessRoleBinding); err != nil {
@@ -108,51 +121,56 @@ func (client *TrustedAccessRoleBindingsClient) createOrUpdateCreateRequest(ctx c
 	return req, nil
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *TrustedAccessRoleBindingsClient) createOrUpdateHandleResponse(resp *http.Response) (TrustedAccessRoleBindingsClientCreateOrUpdateResponse, error) {
-	result := TrustedAccessRoleBindingsClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.TrustedAccessRoleBinding); err != nil {
-		return TrustedAccessRoleBindingsClientCreateOrUpdateResponse{}, err
+// BeginDelete - Delete a trusted access role binding.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-09-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the managed cluster resource.
+//   - trustedAccessRoleBindingName - The name of trusted access role binding.
+//   - options - TrustedAccessRoleBindingsClientBeginDeleteOptions contains the optional parameters for the TrustedAccessRoleBindingsClient.BeginDelete
+//     method.
+func (client *TrustedAccessRoleBindingsClient) BeginDelete(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, options *TrustedAccessRoleBindingsClientBeginDeleteOptions) (*runtime.Poller[TrustedAccessRoleBindingsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, resourceName, trustedAccessRoleBindingName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller[TrustedAccessRoleBindingsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken[TrustedAccessRoleBindingsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
-	return result, nil
 }
 
 // Delete - Delete a trusted access role binding.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - resourceName - The name of the managed cluster resource.
-//   - trustedAccessRoleBindingName - The name of trusted access role binding.
-//   - options - TrustedAccessRoleBindingsClientDeleteOptions contains the optional parameters for the TrustedAccessRoleBindingsClient.Delete
-//     method.
-func (client *TrustedAccessRoleBindingsClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, options *TrustedAccessRoleBindingsClientDeleteOptions) (TrustedAccessRoleBindingsClientDeleteResponse, error) {
+// Generated from API version 2023-09-01
+func (client *TrustedAccessRoleBindingsClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, options *TrustedAccessRoleBindingsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "TrustedAccessRoleBindingsClient.Delete"
+	const operationName = "TrustedAccessRoleBindingsClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, trustedAccessRoleBindingName, options)
 	if err != nil {
-		return TrustedAccessRoleBindingsClientDeleteResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return TrustedAccessRoleBindingsClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return TrustedAccessRoleBindingsClientDeleteResponse{}, err
+		return nil, err
 	}
-	return TrustedAccessRoleBindingsClientDeleteResponse{}, nil
+	return httpResp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *TrustedAccessRoleBindingsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, options *TrustedAccessRoleBindingsClientDeleteOptions) (*policy.Request, error) {
+func (client *TrustedAccessRoleBindingsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, options *TrustedAccessRoleBindingsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/trustedAccessRoleBindings/{trustedAccessRoleBindingName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -171,7 +189,7 @@ func (client *TrustedAccessRoleBindingsClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +198,7 @@ func (client *TrustedAccessRoleBindingsClient) deleteCreateRequest(ctx context.C
 // Get - Get a trusted access role binding.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - trustedAccessRoleBindingName - The name of trusted access role binding.
@@ -211,9 +229,6 @@ func (client *TrustedAccessRoleBindingsClient) Get(ctx context.Context, resource
 // getCreateRequest creates the Get request.
 func (client *TrustedAccessRoleBindingsClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, trustedAccessRoleBindingName string, options *TrustedAccessRoleBindingsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/trustedAccessRoleBindings/{trustedAccessRoleBindingName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -232,7 +247,7 @@ func (client *TrustedAccessRoleBindingsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +264,7 @@ func (client *TrustedAccessRoleBindingsClient) getHandleResponse(resp *http.Resp
 
 // NewListPager - List trusted access role bindings.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - options - TrustedAccessRoleBindingsClientListOptions contains the optional parameters for the TrustedAccessRoleBindingsClient.NewListPager
@@ -287,9 +302,6 @@ func (client *TrustedAccessRoleBindingsClient) NewListPager(resourceGroupName st
 // listCreateRequest creates the List request.
 func (client *TrustedAccessRoleBindingsClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *TrustedAccessRoleBindingsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/trustedAccessRoleBindings"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -304,7 +316,7 @@ func (client *TrustedAccessRoleBindingsClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
