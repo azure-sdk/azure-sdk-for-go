@@ -1,5 +1,60 @@
 # Release History
 
+## 0.8.0 (2023-10-16)
+### Breaking Changes
+
+- Type of `ExperimentProperties.Selectors` has been changed from `[]SelectorClassification` to `[]TargetSelectorClassification`
+- Type of `ExperimentProperties.Steps` has been changed from `[]*Step` to `[]*ExperimentStep`
+- Function `*Action.GetAction` has been removed
+- Function `*ContinuousAction.GetAction` has been removed
+- Function `*DelayAction.GetAction` has been removed
+- Function `*DiscreteAction.GetAction` has been removed
+- Function `*Filter.GetFilter` has been removed
+- Function `*ListSelector.GetSelector` has been removed
+- Function `*QuerySelector.GetSelector` has been removed
+- Function `*Selector.GetSelector` has been removed
+- Function `*SimpleFilter.GetFilter` has been removed
+- Operation `*ExperimentsClient.Cancel` has been changed to LRO, use `*ExperimentsClient.BeginCancel` instead.
+- Operation `*ExperimentsClient.CreateOrUpdate` has been changed to LRO, use `*ExperimentsClient.BeginCreateOrUpdate` instead.
+- Operation `*ExperimentsClient.Delete` has been changed to LRO, use `*ExperimentsClient.BeginDelete` instead.
+- Operation `*ExperimentsClient.Start` has been changed to LRO, use `*ExperimentsClient.BeginStart` instead.
+- Operation `*ExperimentsClient.Update` has been changed to LRO, use `*ExperimentsClient.BeginUpdate` instead.
+- Struct `Branch` has been removed
+- Struct `ExperimentCancelOperationResult` has been removed
+- Struct `ExperimentStartOperationResult` has been removed
+- Struct `ListSelector` has been removed
+- Struct `QuerySelector` has been removed
+- Struct `SimpleFilter` has been removed
+- Struct `SimpleFilterParameters` has been removed
+- Struct `Step` has been removed
+- Field `StartOnCreation` of struct `ExperimentProperties` has been removed
+
+### Features Added
+
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New function `*ClientFactory.NewOperationStatusesClient() *OperationStatusesClient`
+- New function `*ContinuousAction.GetExperimentAction() *ExperimentAction`
+- New function `*DelayAction.GetExperimentAction() *ExperimentAction`
+- New function `*DiscreteAction.GetExperimentAction() *ExperimentAction`
+- New function `*ExperimentAction.GetExperimentAction() *ExperimentAction`
+- New function `NewOperationStatusesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationStatusesClient, error)`
+- New function `*OperationStatusesClient.Get(context.Context, string, string, *OperationStatusesClientGetOptions) (OperationStatusesClientGetResponse, error)`
+- New function `*TargetFilter.GetTargetFilter() *TargetFilter`
+- New function `*TargetListSelector.GetTargetSelector() *TargetSelector`
+- New function `*TargetQuerySelector.GetTargetSelector() *TargetSelector`
+- New function `*TargetSelector.GetTargetSelector() *TargetSelector`
+- New function `*TargetSimpleFilter.GetTargetFilter() *TargetFilter`
+- New struct `CustomerDataStorageProperties`
+- New struct `ExperimentBranch`
+- New struct `ExperimentStep`
+- New struct `OperationStatus`
+- New struct `TargetListSelector`
+- New struct `TargetQuerySelector`
+- New struct `TargetSimpleFilter`
+- New struct `TargetSimpleFilterParameters`
+- New field `CustomerDataStorage`, `ProvisioningState` in struct `ExperimentProperties`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 
