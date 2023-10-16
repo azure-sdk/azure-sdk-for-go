@@ -10,7 +10,7 @@ package armchaos
 
 import "time"
 
-// Action - Model that represents the base action model.
+// Action - Model that represents the base action model. 9 total per experiment.
 type Action struct {
 	// REQUIRED; String that represents a Capability URN.
 	Name *string
@@ -43,7 +43,7 @@ type ActionStatus struct {
 	Targets []*ExperimentExecutionActionTargetDetailsProperties
 }
 
-// Branch - Model that represents a branch in the step.
+// Branch - Model that represents a branch in the step. 9 total per experiment.
 type Branch struct {
 	// REQUIRED; List of actions.
 	Actions []ActionClassification
@@ -311,15 +311,6 @@ type Experiment struct {
 	Type *string
 }
 
-// ExperimentCancelOperationResult - Model that represents the result of a cancel Experiment operation.
-type ExperimentCancelOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
-}
-
 // ExperimentExecutionActionTargetDetailsError - Model that represents the Experiment action target details error model.
 type ExperimentExecutionActionTargetDetailsError struct {
 	// READ-ONLY; The error code.
@@ -422,17 +413,8 @@ type ExperimentProperties struct {
 	// REQUIRED; List of steps.
 	Steps []*Step
 
-	// A boolean value that indicates if experiment should be started on creation or not.
-	StartOnCreation *bool
-}
-
-// ExperimentStartOperationResult - Model that represents the result of a start Experiment operation.
-type ExperimentStartOperationResult struct {
-	// READ-ONLY; String of the Experiment name.
-	Name *string
-
-	// READ-ONLY; URL to retrieve the Experiment status.
-	StatusURL *string
+	// READ-ONLY; Most recent provisioning state for the given experiment resource.
+	ProvisioningState *ProvisioningState
 }
 
 // ExperimentStatus - Model that represents the status of a Experiment.
@@ -570,6 +552,27 @@ type OperationListResult struct {
 
 	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// OperationStatus - The status of operation.
+type OperationStatus struct {
+	// The end time of the operation.
+	EndTime *string
+
+	// The error detail of the operation if any.
+	Error *ErrorResponse
+
+	// The operation Id.
+	ID *string
+
+	// The operation name.
+	Name *string
+
+	// The start time of the operation.
+	StartTime *string
+
+	// The status of the operation.
+	Status *string
 }
 
 // QuerySelector - Model that represents a query selector.
