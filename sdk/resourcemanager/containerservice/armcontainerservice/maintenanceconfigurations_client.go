@@ -28,7 +28,7 @@ type MaintenanceConfigurationsClient struct {
 }
 
 // NewMaintenanceConfigurationsClient creates a new instance of MaintenanceConfigurationsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewMaintenanceConfigurationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MaintenanceConfigurationsClient, error) {
@@ -46,7 +46,7 @@ func NewMaintenanceConfigurationsClient(subscriptionID string, credential azcore
 // CreateOrUpdate - Creates or updates a maintenance configuration in the specified managed cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - configName - The name of the maintenance configuration.
@@ -78,9 +78,6 @@ func (client *MaintenanceConfigurationsClient) CreateOrUpdate(ctx context.Contex
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *MaintenanceConfigurationsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, configName string, parameters MaintenanceConfiguration, options *MaintenanceConfigurationsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/maintenanceConfigurations/{configName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -99,7 +96,7 @@ func (client *MaintenanceConfigurationsClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -120,7 +117,7 @@ func (client *MaintenanceConfigurationsClient) createOrUpdateHandleResponse(resp
 // Delete - Deletes a maintenance configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - configName - The name of the maintenance configuration.
@@ -150,9 +147,6 @@ func (client *MaintenanceConfigurationsClient) Delete(ctx context.Context, resou
 // deleteCreateRequest creates the Delete request.
 func (client *MaintenanceConfigurationsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, configName string, options *MaintenanceConfigurationsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/maintenanceConfigurations/{configName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -171,7 +165,7 @@ func (client *MaintenanceConfigurationsClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +174,7 @@ func (client *MaintenanceConfigurationsClient) deleteCreateRequest(ctx context.C
 // Get - Gets the specified maintenance configuration of a managed cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - configName - The name of the maintenance configuration.
@@ -211,9 +205,6 @@ func (client *MaintenanceConfigurationsClient) Get(ctx context.Context, resource
 // getCreateRequest creates the Get request.
 func (client *MaintenanceConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, configName string, options *MaintenanceConfigurationsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/maintenanceConfigurations/{configName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -232,7 +223,7 @@ func (client *MaintenanceConfigurationsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +240,7 @@ func (client *MaintenanceConfigurationsClient) getHandleResponse(resp *http.Resp
 
 // NewListByManagedClusterPager - Gets a list of maintenance configurations in the specified managed cluster.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - options - MaintenanceConfigurationsClientListByManagedClusterOptions contains the optional parameters for the MaintenanceConfigurationsClient.NewListByManagedClusterPager
@@ -287,9 +278,6 @@ func (client *MaintenanceConfigurationsClient) NewListByManagedClusterPager(reso
 // listByManagedClusterCreateRequest creates the ListByManagedCluster request.
 func (client *MaintenanceConfigurationsClient) listByManagedClusterCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *MaintenanceConfigurationsClientListByManagedClusterOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/maintenanceConfigurations"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -304,7 +292,7 @@ func (client *MaintenanceConfigurationsClient) listByManagedClusterCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -28,7 +28,7 @@ type MachinesClient struct {
 }
 
 // NewMachinesClient creates a new instance of MachinesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewMachinesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MachinesClient, error) {
@@ -46,7 +46,7 @@ func NewMachinesClient(subscriptionID string, credential azcore.TokenCredential,
 // Get - Get a specific machine in the specified agent pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - agentPoolName - The name of the agent pool.
@@ -77,9 +77,6 @@ func (client *MachinesClient) Get(ctx context.Context, resourceGroupName string,
 // getCreateRequest creates the Get request.
 func (client *MachinesClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, machineName string, options *MachinesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/agentPools/{agentPoolName}/machines/{machineName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -102,7 +99,7 @@ func (client *MachinesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -119,7 +116,7 @@ func (client *MachinesClient) getHandleResponse(resp *http.Response) (MachinesCl
 
 // NewListPager - Gets a list of machines in the specified agent pool.
 //
-// Generated from API version 2023-07-02-preview
+// Generated from API version 2023-09-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - agentPoolName - The name of the agent pool.
@@ -157,9 +154,6 @@ func (client *MachinesClient) NewListPager(resourceGroupName string, resourceNam
 // listCreateRequest creates the List request.
 func (client *MachinesClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, agentPoolName string, options *MachinesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/agentPools/{agentPoolName}/machines"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -178,7 +172,7 @@ func (client *MachinesClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-02-preview")
+	reqQP.Set("api-version", "2023-09-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
