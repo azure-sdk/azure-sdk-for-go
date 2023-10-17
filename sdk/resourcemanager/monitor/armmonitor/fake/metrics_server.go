@@ -139,6 +139,11 @@ func (m *MetricsServerTransport) dispatchList(req *http.Request) (*http.Response
 		return nil, err
 	}
 	filterParam := getOptional(filterUnescaped)
+	rollupbyUnescaped, err := url.QueryUnescape(qp.Get("rollupby"))
+	if err != nil {
+		return nil, err
+	}
+	rollupbyParam := getOptional(rollupbyUnescaped)
 	resultTypeUnescaped, err := url.QueryUnescape(qp.Get("resultType"))
 	if err != nil {
 		return nil, err
@@ -166,7 +171,7 @@ func (m *MetricsServerTransport) dispatchList(req *http.Request) (*http.Response
 		return nil, err
 	}
 	var options *armmonitor.MetricsClientListOptions
-	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil {
+	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || rollupbyParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil {
 		options = &armmonitor.MetricsClientListOptions{
 			Timespan:            timespanParam,
 			Interval:            intervalParam,
@@ -175,6 +180,7 @@ func (m *MetricsServerTransport) dispatchList(req *http.Request) (*http.Response
 			Top:                 topParam,
 			Orderby:             orderbyParam,
 			Filter:              filterParam,
+			Rollupby:            rollupbyParam,
 			ResultType:          resultTypeParam,
 			Metricnamespace:     metricnamespaceParam,
 			AutoAdjustTimegrain: autoAdjustTimegrainParam,
@@ -255,6 +261,11 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScope(req *http.Reque
 		return nil, err
 	}
 	filterParam := getOptional(filterUnescaped)
+	rollupbyUnescaped, err := url.QueryUnescape(qp.Get("rollupby"))
+	if err != nil {
+		return nil, err
+	}
+	rollupbyParam := getOptional(rollupbyUnescaped)
 	resultTypeUnescaped, err := url.QueryUnescape(qp.Get("resultType"))
 	if err != nil {
 		return nil, err
@@ -282,7 +293,7 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScope(req *http.Reque
 		return nil, err
 	}
 	var options *armmonitor.MetricsClientListAtSubscriptionScopeOptions
-	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil {
+	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || rollupbyParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil {
 		options = &armmonitor.MetricsClientListAtSubscriptionScopeOptions{
 			Timespan:            timespanParam,
 			Interval:            intervalParam,
@@ -291,6 +302,7 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScope(req *http.Reque
 			Top:                 topParam,
 			Orderby:             orderbyParam,
 			Filter:              filterParam,
+			Rollupby:            rollupbyParam,
 			ResultType:          resultTypeParam,
 			Metricnamespace:     metricnamespaceParam,
 			AutoAdjustTimegrain: autoAdjustTimegrainParam,
