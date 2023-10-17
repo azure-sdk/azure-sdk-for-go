@@ -18463,6 +18463,33 @@ func (i *InterfaceTapConfigurationPropertiesFormat) UnmarshalJSON(data []byte) e
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type InternetIngressPublicIPsProperties.
+func (i InternetIngressPublicIPsProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "Id", i.ID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type InternetIngressPublicIPsProperties.
+func (i *InternetIngressPublicIPsProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "Id":
+			err = unpopulate(val, "ID", &i.ID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ListHubRouteTablesResult.
 func (l ListHubRouteTablesResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -31074,6 +31101,7 @@ func (v VirtualAppliancePropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "delegation", v.Delegation)
 	populate(objectMap, "deploymentType", v.DeploymentType)
 	populate(objectMap, "inboundSecurityRules", v.InboundSecurityRules)
+	populate(objectMap, "internetIngressPublicIps", v.InternetIngressPublicIPs)
 	populate(objectMap, "nvaSku", v.NvaSKU)
 	populate(objectMap, "partnerManagedResource", v.PartnerManagedResource)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
@@ -31118,6 +31146,9 @@ func (v *VirtualAppliancePropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "inboundSecurityRules":
 			err = unpopulate(val, "InboundSecurityRules", &v.InboundSecurityRules)
+			delete(rawMsg, key)
+		case "internetIngressPublicIps":
+			err = unpopulate(val, "InternetIngressPublicIPs", &v.InternetIngressPublicIPs)
 			delete(rawMsg, key)
 		case "nvaSku":
 			err = unpopulate(val, "NvaSKU", &v.NvaSKU)

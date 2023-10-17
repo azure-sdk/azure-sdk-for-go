@@ -7504,6 +7504,12 @@ type InterfaceTapConfigurationPropertiesFormat struct {
 	ProvisioningState *ProvisioningState
 }
 
+// InternetIngressPublicIPsProperties - Resource Uri of Public Ip for Standard Load Balancer Frontend End.
+type InternetIngressPublicIPsProperties struct {
+	// Resource Uri of Public Ip
+	ID *string
+}
+
 // ListHubRouteTablesResult - List of RouteTables and a URL nextLink to get the next set of results.
 type ListHubRouteTablesResult struct {
 	// URL to get the next set of operation list results if there are any.
@@ -12480,6 +12486,9 @@ type VirtualAppliancePropertiesFormat struct {
 
 	// The delegation for the Virtual Appliance
 	Delegation *DelegationProperties
+
+	// List of Resource Uri of Public IPs for Internet Ingress Scenario.
+	InternetIngressPublicIPs []*InternetIngressPublicIPsProperties
 
 	// Network Virtual Appliance SKU.
 	NvaSKU *VirtualApplianceSKUProperties
