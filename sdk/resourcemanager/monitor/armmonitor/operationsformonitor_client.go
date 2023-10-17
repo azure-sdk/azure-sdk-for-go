@@ -39,7 +39,7 @@ func NewOperationsForMonitorClient(credential azcore.TokenCredential, options *a
 
 // NewListPager - Lists available Operations for this Resource Provider
 //
-// Generated from API version 2021-06-03-preview
+// Generated from API version 2023-04-03
 //   - options - OperationsForMonitorClientListOptions contains the optional parameters for the OperationsForMonitorClient.NewListPager
 //     method.
 func (client *OperationsForMonitorClient) NewListPager(options *OperationsForMonitorClientListOptions) *runtime.Pager[OperationsForMonitorClientListResponse] {
@@ -80,7 +80,7 @@ func (client *OperationsForMonitorClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-03-preview")
+	reqQP.Set("api-version", "2023-04-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
