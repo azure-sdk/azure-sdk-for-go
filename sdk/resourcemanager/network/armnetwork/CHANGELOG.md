@@ -1,9 +1,20 @@
 # Release History
 
-## 4.3.0-beta.1 (2023-10-09)
+## 4.3.0 (2023-10-17)
 ### Features Added
 
-- Support for test fakes and OpenTelemetry trace spans.
+- New value `ActionTypeJSChallenge` added to enum type `ActionType`
+- New value `BastionHostSKUNameDeveloper` added to enum type `BastionHostSKUName`
+- New value `FirewallPolicyIDPSSignatureDirectionFour`, `FirewallPolicyIDPSSignatureDirectionThree` added to enum type `FirewallPolicyIDPSSignatureDirection`
+- New value `VirtualNetworkGatewaySKUNameErGwScale` added to enum type `VirtualNetworkGatewaySKUName`
+- New value `VirtualNetworkGatewaySKUTierErGwScale` added to enum type `VirtualNetworkGatewaySKUTier`
+- New value `WebApplicationFirewallActionJSChallenge` added to enum type `WebApplicationFirewallAction`
+- New enum type `FirewallPolicyIntrusionDetectionProfileType` with values `FirewallPolicyIntrusionDetectionProfileTypeAdvanced`, `FirewallPolicyIntrusionDetectionProfileTypeBasic`, `FirewallPolicyIntrusionDetectionProfileTypeExtended`, `FirewallPolicyIntrusionDetectionProfileTypeStandard`
+- New function `*ManagementClient.BeginDeleteBastionShareableLinkByToken(context.Context, string, string, BastionShareableLinkTokenListRequest, *ManagementClientBeginDeleteBastionShareableLinkByTokenOptions) (*runtime.Poller[ManagementClientDeleteBastionShareableLinkByTokenResponse], error)`
+- New struct `BastionShareableLinkTokenListRequest`
+- New field `HostNames` in struct `ApplicationGatewayListenerPropertiesFormat`
+- New field `Profile` in struct `FirewallPolicyIntrusionDetection`
+
 
 ## 4.2.0 (2023-09-22)
 ### Features Added
