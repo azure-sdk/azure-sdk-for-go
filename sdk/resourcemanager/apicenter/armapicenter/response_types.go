@@ -8,6 +8,227 @@
 
 package armapicenter
 
+// APIDefinitionsClientCreateOrUpdateResponse contains the response from method APIDefinitionsClient.CreateOrUpdate.
+type APIDefinitionsClientCreateOrUpdateResponse struct {
+	// API definition entity.
+	APIDefinition
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIDefinitionsClientDeleteResponse contains the response from method APIDefinitionsClient.Delete.
+type APIDefinitionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// APIDefinitionsClientExportSpecificationResponse contains the response from method APIDefinitionsClient.ExportSpecification.
+type APIDefinitionsClientExportSpecificationResponse struct {
+	// The API specification export result.
+	APISpecExportResult
+}
+
+// APIDefinitionsClientGetResponse contains the response from method APIDefinitionsClient.Get.
+type APIDefinitionsClientGetResponse struct {
+	// API definition entity.
+	APIDefinition
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIDefinitionsClientHeadResponse contains the response from method APIDefinitionsClient.Head.
+type APIDefinitionsClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// APIDefinitionsClientImportSpecificationResponse contains the response from method APIDefinitionsClient.ImportSpecification.
+type APIDefinitionsClientImportSpecificationResponse struct {
+	// placeholder for future response values
+}
+
+// APIDefinitionsClientListResponse contains the response from method APIDefinitionsClient.NewListPager.
+type APIDefinitionsClientListResponse struct {
+	// Paginated collection of API definitions.
+	APIDefinitionCollection
+}
+
+// APIVersionsClientCreateOrUpdateResponse contains the response from method APIVersionsClient.CreateOrUpdate.
+type APIVersionsClientCreateOrUpdateResponse struct {
+	// API version entity.
+	APIVersion
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIVersionsClientDeleteResponse contains the response from method APIVersionsClient.Delete.
+type APIVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// APIVersionsClientGetResponse contains the response from method APIVersionsClient.Get.
+type APIVersionsClientGetResponse struct {
+	// API version entity.
+	APIVersion
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIVersionsClientHeadResponse contains the response from method APIVersionsClient.Head.
+type APIVersionsClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// APIVersionsClientListResponse contains the response from method APIVersionsClient.NewListPager.
+type APIVersionsClientListResponse struct {
+	// Paginated collection of API versions.
+	APIVersionCollection
+}
+
+// ApisClientCreateOrUpdateResponse contains the response from method ApisClient.CreateOrUpdate.
+type ApisClientCreateOrUpdateResponse struct {
+	// API entity.
+	API
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// ApisClientDeleteResponse contains the response from method ApisClient.Delete.
+type ApisClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ApisClientGetResponse contains the response from method ApisClient.Get.
+type ApisClientGetResponse struct {
+	// API entity.
+	API
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// ApisClientHeadResponse contains the response from method ApisClient.Head.
+type ApisClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// ApisClientListResponse contains the response from method ApisClient.NewListPager.
+type ApisClientListResponse struct {
+	// Paginated collection of APIs.
+	APICollection
+}
+
+// DeploymentsClientCreateOrUpdateResponse contains the response from method DeploymentsClient.CreateOrUpdate.
+type DeploymentsClientCreateOrUpdateResponse struct {
+	// API deployment entity.
+	Deployment
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// DeploymentsClientDeleteResponse contains the response from method DeploymentsClient.Delete.
+type DeploymentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DeploymentsClientGetResponse contains the response from method DeploymentsClient.Get.
+type DeploymentsClientGetResponse struct {
+	// API deployment entity.
+	Deployment
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// DeploymentsClientHeadResponse contains the response from method DeploymentsClient.Head.
+type DeploymentsClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// DeploymentsClientListResponse contains the response from method DeploymentsClient.NewListPager.
+type DeploymentsClientListResponse struct {
+	// Paginated collection of API deployments.
+	DeploymentCollection
+}
+
+// EnvironmentsClientCreateOrUpdateResponse contains the response from method EnvironmentsClient.CreateOrUpdate.
+type EnvironmentsClientCreateOrUpdateResponse struct {
+	// Environment entity.
+	Environment
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// EnvironmentsClientDeleteResponse contains the response from method EnvironmentsClient.Delete.
+type EnvironmentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// EnvironmentsClientGetResponse contains the response from method EnvironmentsClient.Get.
+type EnvironmentsClientGetResponse struct {
+	// Environment entity.
+	Environment
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// EnvironmentsClientHeadResponse contains the response from method EnvironmentsClient.Head.
+type EnvironmentsClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// EnvironmentsClientListResponse contains the response from method EnvironmentsClient.NewListPager.
+type EnvironmentsClientListResponse struct {
+	// Paginated collection of environments.
+	EnvironmentCollection
+}
+
+// MetadataSchemasClientCreateOrUpdateResponse contains the response from method MetadataSchemasClient.CreateOrUpdate.
+type MetadataSchemasClientCreateOrUpdateResponse struct {
+	// Metadata schema entity. Used to define metadata for the entities in API catalog.
+	MetadataSchema
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// MetadataSchemasClientDeleteResponse contains the response from method MetadataSchemasClient.Delete.
+type MetadataSchemasClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MetadataSchemasClientGetResponse contains the response from method MetadataSchemasClient.Get.
+type MetadataSchemasClientGetResponse struct {
+	// Metadata schema entity. Used to define metadata for the entities in API catalog.
+	MetadataSchema
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// MetadataSchemasClientHeadResponse contains the response from method MetadataSchemasClient.Head.
+type MetadataSchemasClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// MetadataSchemasClientListResponse contains the response from method MetadataSchemasClient.NewListPager.
+type MetadataSchemasClientListResponse struct {
+	// Paginated collection of metadata schemas.
+	MetadataSchemaCollection
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
@@ -23,6 +244,12 @@ type ServicesClientCreateOrUpdateResponse struct {
 // ServicesClientDeleteResponse contains the response from method ServicesClient.Delete.
 type ServicesClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// ServicesClientExportMetadataSchemaResponse contains the response from method ServicesClient.ExportMetadataSchema.
+type ServicesClientExportMetadataSchemaResponse struct {
+	// The metadata schema export result.
+	MetadataSchemaExportResult
 }
 
 // ServicesClientGetResponse contains the response from method ServicesClient.Get.
@@ -47,4 +274,39 @@ type ServicesClientListBySubscriptionResponse struct {
 type ServicesClientUpdateResponse struct {
 	// The service entity.
 	Service
+}
+
+// WorkspacesClientCreateOrUpdateResponse contains the response from method WorkspacesClient.CreateOrUpdate.
+type WorkspacesClientCreateOrUpdateResponse struct {
+	// Workspace entity.
+	Workspace
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// WorkspacesClientDeleteResponse contains the response from method WorkspacesClient.Delete.
+type WorkspacesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// WorkspacesClientGetResponse contains the response from method WorkspacesClient.Get.
+type WorkspacesClientGetResponse struct {
+	// Workspace entity.
+	Workspace
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// WorkspacesClientHeadResponse contains the response from method WorkspacesClient.Head.
+type WorkspacesClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// WorkspacesClientListResponse contains the response from method WorkspacesClient.NewListPager.
+type WorkspacesClientListResponse struct {
+	// Paginated collection of workspaces.
+	WorkspaceCollection
 }
