@@ -1,5 +1,43 @@
 # Release History
 
+## 1.0.0 (2023-10-18)
+### Breaking Changes
+
+- Function `*ExperimentsClient.GetExecutionDetails` has been removed
+- Function `*ExperimentsClient.GetStatus` has been removed
+- Function `*ExperimentsClient.NewListAllStatusesPager` has been removed
+- Function `*ExperimentsClient.NewListExecutionDetailsPager` has been removed
+- Operation `*ExperimentsClient.Cancel` has been changed to LRO, use `*ExperimentsClient.BeginCancel` instead.
+- Operation `*ExperimentsClient.CreateOrUpdate` has been changed to LRO, use `*ExperimentsClient.BeginCreateOrUpdate` instead.
+- Operation `*ExperimentsClient.Delete` has been changed to LRO, use `*ExperimentsClient.BeginDelete` instead.
+- Operation `*ExperimentsClient.Start` has been changed to LRO, use `*ExperimentsClient.BeginStart` instead.
+- Operation `*ExperimentsClient.Update` has been changed to LRO, use `*ExperimentsClient.BeginUpdate` instead.
+- Struct `ExperimentCancelOperationResult` has been removed
+- Struct `ExperimentExecutionDetailsListResult` has been removed
+- Struct `ExperimentStartOperationResult` has been removed
+- Struct `ExperimentStatus` has been removed
+- Struct `ExperimentStatusListResult` has been removed
+- Struct `ExperimentStatusProperties` has been removed
+- Field `CreatedDateTime`, `ExperimentID`, `LastActionDateTime`, `StartDateTime`, `StopDateTime` of struct `ExperimentExecutionDetailsProperties` has been removed
+- Field `StartOnCreation` of struct `ExperimentProperties` has been removed
+
+### Features Added
+
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New function `*ClientFactory.NewOperationStatusesClient() *OperationStatusesClient`
+- New function `*ExperimentsClient.ExecutionDetails(context.Context, string, string, string, *ExperimentsClientExecutionDetailsOptions) (ExperimentsClientExecutionDetailsResponse, error)`
+- New function `*ExperimentsClient.GetExecution(context.Context, string, string, string, *ExperimentsClientGetExecutionOptions) (ExperimentsClientGetExecutionResponse, error)`
+- New function `*ExperimentsClient.NewListAllExecutionsPager(string, string, *ExperimentsClientListAllExecutionsOptions) *runtime.Pager[ExperimentsClientListAllExecutionsResponse]`
+- New function `NewOperationStatusesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationStatusesClient, error)`
+- New function `*OperationStatusesClient.Get(context.Context, string, string, *OperationStatusesClientGetOptions) (OperationStatusesClientGetResponse, error)`
+- New struct `ExperimentExecution`
+- New struct `ExperimentExecutionListResult`
+- New struct `ExperimentExecutionProperties`
+- New struct `OperationStatus`
+- New field `LastActionAt`, `StartedAt`, `StoppedAt` in struct `ExperimentExecutionDetailsProperties`
+- New field `ProvisioningState` in struct `ExperimentProperties`
+
+
 ## 0.7.0 (2023-08-25)
 ### Breaking Changes
 
