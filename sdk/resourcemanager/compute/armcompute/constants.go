@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.3.0-beta.1"
+	moduleVersion = "v5.3.0"
 )
 
 type AccessLevel string
@@ -1799,12 +1799,14 @@ func PossibleRollingUpgradeStatusCodeValues() []RollingUpgradeStatusCode {
 }
 
 // SecurityEncryptionTypes - Specifies the EncryptionType of the managed disk. It is set to DiskWithVMGuestState for encryption
-// of the managed disk along with VMGuestState blob, and VMGuestStateOnly for encryption of just the
-// VMGuestState blob. Note: It can be set for only Confidential VMs.
+// of the managed disk along with VMGuestState blob, VMGuestStateOnly for encryption of just the
+// VMGuestState blob, and NonPersistedTPM for not persisting firmware state in the VMGuestState blob.. Note: It can be set
+// for only Confidential VMs.
 type SecurityEncryptionTypes string
 
 const (
 	SecurityEncryptionTypesDiskWithVMGuestState SecurityEncryptionTypes = "DiskWithVMGuestState"
+	SecurityEncryptionTypesNonPersistedTPM      SecurityEncryptionTypes = "NonPersistedTPM"
 	SecurityEncryptionTypesVMGuestStateOnly     SecurityEncryptionTypes = "VMGuestStateOnly"
 )
 
@@ -1812,6 +1814,7 @@ const (
 func PossibleSecurityEncryptionTypesValues() []SecurityEncryptionTypes {
 	return []SecurityEncryptionTypes{
 		SecurityEncryptionTypesDiskWithVMGuestState,
+		SecurityEncryptionTypesNonPersistedTPM,
 		SecurityEncryptionTypesVMGuestStateOnly,
 	}
 }

@@ -1,5 +1,11 @@
 # Release History
 
+## 5.3.0 (2023-10-19)
+### Features Added
+
+- New value `SecurityEncryptionTypesNonPersistedTPM` added to enum type `SecurityEncryptionTypes`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 
