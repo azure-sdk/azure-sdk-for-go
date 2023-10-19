@@ -1,5 +1,25 @@
 # Release History
 
+## 1.2.0-beta.1 (2023-10-19)
+### Features Added
+
+- New enum type `ExportDetailCategory` with values `ExportDetailCategoryInformation`, `ExportDetailCategoryNotSpecified`, `ExportDetailCategoryRequiredStep`
+- New enum type `ExportDetailCode` with values `ExportDetailCodeConnectionCloningUnsupported`, `ExportDetailCodeNotSpecified`
+- New enum type `ValidationState` with values `ValidationStateFailed`, `ValidationStateNotSpecified`, `ValidationStateSucceeded`, `ValidationStateSucceededWithWarning`
+- New enum type `WorkflowExportOptions` with values `WorkflowExportOptionsCloneConnections`, `WorkflowExportOptionsCloneConnectionsGenerateInfrastructureTemplates`, `WorkflowExportOptionsGenerateInfrastructureTemplates`
+- New function `*ClientFactory.NewLocationsClient() *LocationsClient`
+- New function `NewLocationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LocationsClient, error)`
+- New function `*LocationsClient.ValidateWorkflowExport(context.Context, string, WorkflowExportRequest, *LocationsClientValidateWorkflowExportOptions) (LocationsClientValidateWorkflowExportResponse, error)`
+- New function `*LocationsClient.WorkflowExport(context.Context, string, WorkflowExportRequest, *LocationsClientWorkflowExportOptions) (LocationsClientWorkflowExportResponse, error)`
+- New struct `ConnectionExportValidity`
+- New struct `ExportDetail`
+- New struct `ResourceExportValidity`
+- New struct `WorkflowExportRequest`
+- New struct `WorkflowExportResult`
+- New struct `WorkflowExportValidity`
+- New struct `WorkflowExportValidityResult`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
