@@ -1,5 +1,28 @@
 # Release History
 
+## 1.0.0 (2023-10-19)
+### Breaking Changes
+
+- Struct `APIServerAccessProfile` has been removed
+- Struct `AgentProfile` has been removed
+- Struct `FleetHubProfile` has been removed
+- Field `HubProfile` of struct `FleetProperties` has been removed
+
+### Features Added
+
+- New enum type `FleetUpdateStrategyProvisioningState` with values `FleetUpdateStrategyProvisioningStateCanceled`, `FleetUpdateStrategyProvisioningStateFailed`, `FleetUpdateStrategyProvisioningStateSucceeded`
+- New function `*ClientFactory.NewFleetUpdateStrategiesClient() *FleetUpdateStrategiesClient`
+- New function `NewFleetUpdateStrategiesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetUpdateStrategiesClient, error)`
+- New function `*FleetUpdateStrategiesClient.BeginCreateOrUpdate(context.Context, string, string, string, FleetUpdateStrategy, *FleetUpdateStrategiesClientBeginCreateOrUpdateOptions) (*runtime.Poller[FleetUpdateStrategiesClientCreateOrUpdateResponse], error)`
+- New function `*FleetUpdateStrategiesClient.BeginDelete(context.Context, string, string, string, *FleetUpdateStrategiesClientBeginDeleteOptions) (*runtime.Poller[FleetUpdateStrategiesClientDeleteResponse], error)`
+- New function `*FleetUpdateStrategiesClient.Get(context.Context, string, string, string, *FleetUpdateStrategiesClientGetOptions) (FleetUpdateStrategiesClientGetResponse, error)`
+- New function `*FleetUpdateStrategiesClient.NewListByFleetPager(string, string, *FleetUpdateStrategiesClientListByFleetOptions) *runtime.Pager[FleetUpdateStrategiesClientListByFleetResponse]`
+- New struct `FleetUpdateStrategy`
+- New struct `FleetUpdateStrategyListResult`
+- New struct `FleetUpdateStrategyProperties`
+- New field `UpdateStrategyID` in struct `UpdateRunProperties`
+
+
 ## 0.2.0 (2023-09-22)
 ### Breaking Changes
 
