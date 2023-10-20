@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0 (2023-10-20)
+### Features Added
+
+- New field `DefaultAction` in struct `AccessControlListPatchProperties`
+- New field `DefaultAction` in struct `AccessControlListProperties`
+- New field `DefaultAction` in struct `RoutePolicyPatchableProperties`
+- New field `DefaultAction` in struct `RoutePolicyProperties`
+
+
 ## 1.0.0 (2023-07-28)
 ### Breaking Changes
 
