@@ -1,5 +1,9 @@
 # Release History
 
+## 2.1.0-beta.2 (2023-10-20)
+### Other Changes
+
+
 ## 2.1.0-beta.1 (2023-10-27)
 ### Features Added
 
