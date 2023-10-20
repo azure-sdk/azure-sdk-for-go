@@ -1,5 +1,9 @@
 # Release History
 
+## 5.2.1 (2023-10-20)
+### Other Changes
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 
