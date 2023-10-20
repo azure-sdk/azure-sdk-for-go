@@ -82,6 +82,12 @@ type Display struct {
 	Resource *string
 }
 
+// EffectiveOutboundIP represents an effective outbound IP resource of the cluster public load balancer.
+type EffectiveOutboundIP struct {
+	// The fully qualified Azure resource id of an IP address resource.
+	ID *string
+}
+
 // IngressProfile represents an ingress profile.
 type IngressProfile struct {
 	// The IP of the ingress.
@@ -92,6 +98,25 @@ type IngressProfile struct {
 
 	// Ingress visibility.
 	Visibility *Visibility
+}
+
+// LoadBalancerProfile represents the profile of the cluster public load balancer.
+type LoadBalancerProfile struct {
+	// The desired number of allocated SNAT ports per VM. Allowed values are in the range of 0 to 64000 (inclusive). The default
+	// value is 1024.
+	AllocatedOutboundPorts *int32
+
+	// The desired managed outbound IPs for the cluster public load balancer.
+	ManagedOutboundIPs *ManagedOutboundIPs
+
+	// The desired outbound IP Prefix resources for the cluster load balancer.
+	OutboundIPPrefixes []*OutboundIPPrefix
+
+	// The desired outbound IP resources for the cluster load balancer.
+	OutboundIPs []*OutboundIP
+
+	// READ-ONLY; The list of effective outbound IP addresses of the public load balancer.
+	EffectiveOutboundIPs []*EffectiveOutboundIP
 }
 
 // MachinePool represents a MachinePool
@@ -135,6 +160,13 @@ type MachinePoolUpdate struct {
 	SystemData *SystemData
 }
 
+// ManagedOutboundIPs represents the desired managed outbound IPs for the cluster public load balancer.
+type ManagedOutboundIPs struct {
+	// Count represents the desired number of IPv4 outbound IPs created and managed by Azure for the cluster public load balancer.
+	// Allowed values are in the range of 1 - 20. The default value is 1.
+	Count *int32
+}
+
 // MasterProfile represents a master profile.
 type MasterProfile struct {
 	// The resource ID of an associated DiskEncryptionSet, if applicable.
@@ -152,6 +184,9 @@ type MasterProfile struct {
 
 // NetworkProfile represents a network profile.
 type NetworkProfile struct {
+	// The cluster load balancer profile.
+	LoadBalancerProfile *LoadBalancerProfile
+
 	// The OutboundType used for egress traffic.
 	OutboundType *OutboundType
 
@@ -304,6 +339,18 @@ type OperationList struct {
 
 	// List of operations supported by the resource provider.
 	Value []*Operation
+}
+
+// OutboundIP represents a desired outbound IP resource for the cluster load balancer.
+type OutboundIP struct {
+	// The fully qualified Azure resource id of the IP address resource.
+	ID *string
+}
+
+// OutboundIPPrefix represents a desired outbound IP Prefix resource for the cluster load balancer.
+type OutboundIPPrefix struct {
+	// The fully qualified Azure resource id of an IP Prefix resource.
+	ID *string
 }
 
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a

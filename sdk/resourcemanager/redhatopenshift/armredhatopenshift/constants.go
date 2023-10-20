@@ -10,7 +10,7 @@ package armredhatopenshift
 
 const (
 	moduleName    = "armredhatopenshift"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.4.0-beta.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
