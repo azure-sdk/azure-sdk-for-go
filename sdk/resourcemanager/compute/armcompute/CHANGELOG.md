@@ -1,5 +1,13 @@
 # Release History
 
+## 5.3.0 (2023-10-23)
+### Features Added
+
+- New enum type `Mode` with values `ModeAudit`, `ModeEnforce`
+- New struct `ProxyAgentSettings`
+- New field `ProxyAgentSettings` in struct `SecurityProfile`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 

@@ -9320,6 +9320,41 @@ func (p *ProximityPlacementGroupUpdate) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ProxyAgentSettings.
+func (p ProxyAgentSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", p.Enabled)
+	populate(objectMap, "keyIncarnationId", p.KeyIncarnationID)
+	populate(objectMap, "mode", p.Mode)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ProxyAgentSettings.
+func (p *ProxyAgentSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &p.Enabled)
+			delete(rawMsg, key)
+		case "keyIncarnationId":
+			err = unpopulate(val, "KeyIncarnationID", &p.KeyIncarnationID)
+			delete(rawMsg, key)
+		case "mode":
+			err = unpopulate(val, "Mode", &p.Mode)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ProxyOnlyResource.
 func (p ProxyOnlyResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -11899,6 +11934,7 @@ func (s *SecurityPostureReference) UnmarshalJSON(data []byte) error {
 func (s SecurityProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "encryptionAtHost", s.EncryptionAtHost)
+	populate(objectMap, "proxyAgentSettings", s.ProxyAgentSettings)
 	populate(objectMap, "securityType", s.SecurityType)
 	populate(objectMap, "uefiSettings", s.UefiSettings)
 	return json.Marshal(objectMap)
@@ -11915,6 +11951,9 @@ func (s *SecurityProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "encryptionAtHost":
 			err = unpopulate(val, "EncryptionAtHost", &s.EncryptionAtHost)
+			delete(rawMsg, key)
+		case "proxyAgentSettings":
+			err = unpopulate(val, "ProxyAgentSettings", &s.ProxyAgentSettings)
 			delete(rawMsg, key)
 		case "securityType":
 			err = unpopulate(val, "SecurityType", &s.SecurityType)
