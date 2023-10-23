@@ -1,5 +1,11 @@
 # Release History
 
+## 5.3.0 (2023-10-23)
+### Features Added
+
+- New field `IsVMInStandbyPool` in struct `VirtualMachineInstanceView`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 

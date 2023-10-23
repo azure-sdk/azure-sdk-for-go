@@ -15159,6 +15159,7 @@ func (v VirtualMachineInstanceView) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disks", v.Disks)
 	populate(objectMap, "extensions", v.Extensions)
 	populate(objectMap, "hyperVGeneration", v.HyperVGeneration)
+	populate(objectMap, "isVMInStandbyPool", v.IsVMInStandbyPool)
 	populate(objectMap, "maintenanceRedeployStatus", v.MaintenanceRedeployStatus)
 	populate(objectMap, "osName", v.OSName)
 	populate(objectMap, "osVersion", v.OSVersion)
@@ -15198,6 +15199,9 @@ func (v *VirtualMachineInstanceView) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "hyperVGeneration":
 			err = unpopulate(val, "HyperVGeneration", &v.HyperVGeneration)
+			delete(rawMsg, key)
+		case "isVMInStandbyPool":
+			err = unpopulate(val, "IsVMInStandbyPool", &v.IsVMInStandbyPool)
 			delete(rawMsg, key)
 		case "maintenanceRedeployStatus":
 			err = unpopulate(val, "MaintenanceRedeployStatus", &v.MaintenanceRedeployStatus)

@@ -6377,6 +6377,9 @@ type VirtualMachineInstanceView struct {
 	// placement enabled. Minimum api-version: 2020-06-01.
 	AssignedHost *string
 
+	// READ-ONLY; [Preview Feature] Specifies whether the VM is currently in or out of the Standby Pool.
+	IsVMInStandbyPool *bool
+
 	// READ-ONLY; The health status for the VM.
 	VMHealth *VirtualMachineHealthStatus
 }
