@@ -48,6 +48,24 @@ type ClientManualFailoverResponse struct {
 	// placeholder for future response values
 }
 
+// NetworkSecurityPerimeterConfigurationsClientGetResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.Get.
+type NetworkSecurityPerimeterConfigurationsClientGetResponse struct {
+	// NSP Configuration for a IotHub.
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByIotHubResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.ListByIotHub.
+type NetworkSecurityPerimeterConfigurationsClientListByIotHubResponse struct {
+	// A list of NSP configurations for a IotHub.
+	NetworkSecurityPerimeterConfigurationListResult
+}
+
+// NetworkSecurityPerimeterConfigurationsClientReconcileResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.BeginReconcile.
+type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
+	// NSP Configuration for a IotHub.
+	NetworkSecurityPerimeterConfiguration
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// Result of the request to list IoT Hub operations. It contains a list of operations and a URL link to get the next set of

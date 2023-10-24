@@ -1,5 +1,35 @@
 # Release History
 
+## 1.3.0-beta.1 (2023-10-24)
+### Features Added
+
+- New value `PublicNetworkAccessSecuredByPerimeter` added to enum type `PublicNetworkAccess`
+- New value `RoutingSourceDigitalTwinChangeEvents`, `RoutingSourceMqttBrokerMessages` added to enum type `RoutingSource`
+- New enum type `IPVersion` with values `IPVersionIPv4`, `IPVersionIPv4IPv6`, `IPVersionIPv6`
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.Get(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetOptions) (NetworkSecurityPerimeterConfigurationsClientGetResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.ListByIotHub(context.Context, string, string, *NetworkSecurityPerimeterConfigurationsClientListByIotHubOptions) (NetworkSecurityPerimeterConfigurationsClientListByIotHubResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileResponse], error)`
+- New struct `EncryptionPropertiesDescription`
+- New struct `KeyVaultKeyProperties`
+- New struct `NSPConfigAccessRule`
+- New struct `NSPConfigAccessRuleProperties`
+- New struct `NSPConfigAssociation`
+- New struct `NSPConfigNetworkSecurityPerimeterRule`
+- New struct `NSPConfigPerimeter`
+- New struct `NSPConfigProfile`
+- New struct `NSPProvisioningIssue`
+- New struct `NSPProvisioningIssueProperties`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationListResult`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `PropertiesDeviceStreams`
+- New struct `ProxyResource`
+- New struct `RootCertificateProperties`
+- New field `DeviceStreams`, `Encryption`, `IPVersion`, `RootCertificate` in struct `Properties`
+
+
 ## 1.2.0 (2023-09-22)
 ### Features Added
 

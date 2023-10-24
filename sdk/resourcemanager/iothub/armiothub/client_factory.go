@@ -47,6 +47,11 @@ func (c *ClientFactory) NewClient() *Client {
 	return subClient
 }
 
+func (c *ClientFactory) NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient {
+	subClient, _ := NewNetworkSecurityPerimeterConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
