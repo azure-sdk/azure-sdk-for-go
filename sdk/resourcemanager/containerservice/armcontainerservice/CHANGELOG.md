@@ -1,5 +1,48 @@
 # Release History
 
+## 4.4.0 (2023-10-24)
+### Features Added
+
+- New enum type `IstioIngressGatewayMode` with values `IstioIngressGatewayModeExternal`, `IstioIngressGatewayModeInternal`
+- New enum type `ServiceMeshMode` with values `ServiceMeshModeDisabled`, `ServiceMeshModeIstio`
+- New enum type `TrustedAccessRoleBindingProvisioningState` with values `TrustedAccessRoleBindingProvisioningStateCanceled`, `TrustedAccessRoleBindingProvisioningStateDeleting`, `TrustedAccessRoleBindingProvisioningStateFailed`, `TrustedAccessRoleBindingProvisioningStateSucceeded`, `TrustedAccessRoleBindingProvisioningStateUpdating`
+- New function `*ClientFactory.NewTrustedAccessRoleBindingsClient() *TrustedAccessRoleBindingsClient`
+- New function `*ClientFactory.NewTrustedAccessRolesClient() *TrustedAccessRolesClient`
+- New function `*ManagedClustersClient.GetMeshRevisionProfile(context.Context, string, string, *ManagedClustersClientGetMeshRevisionProfileOptions) (ManagedClustersClientGetMeshRevisionProfileResponse, error)`
+- New function `*ManagedClustersClient.GetMeshUpgradeProfile(context.Context, string, string, string, *ManagedClustersClientGetMeshUpgradeProfileOptions) (ManagedClustersClientGetMeshUpgradeProfileResponse, error)`
+- New function `*ManagedClustersClient.NewListMeshRevisionProfilesPager(string, *ManagedClustersClientListMeshRevisionProfilesOptions) *runtime.Pager[ManagedClustersClientListMeshRevisionProfilesResponse]`
+- New function `*ManagedClustersClient.NewListMeshUpgradeProfilesPager(string, string, *ManagedClustersClientListMeshUpgradeProfilesOptions) *runtime.Pager[ManagedClustersClientListMeshUpgradeProfilesResponse]`
+- New function `NewTrustedAccessRoleBindingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TrustedAccessRoleBindingsClient, error)`
+- New function `*TrustedAccessRoleBindingsClient.BeginCreateOrUpdate(context.Context, string, string, string, TrustedAccessRoleBinding, *TrustedAccessRoleBindingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[TrustedAccessRoleBindingsClientCreateOrUpdateResponse], error)`
+- New function `*TrustedAccessRoleBindingsClient.BeginDelete(context.Context, string, string, string, *TrustedAccessRoleBindingsClientBeginDeleteOptions) (*runtime.Poller[TrustedAccessRoleBindingsClientDeleteResponse], error)`
+- New function `*TrustedAccessRoleBindingsClient.Get(context.Context, string, string, string, *TrustedAccessRoleBindingsClientGetOptions) (TrustedAccessRoleBindingsClientGetResponse, error)`
+- New function `*TrustedAccessRoleBindingsClient.NewListPager(string, string, *TrustedAccessRoleBindingsClientListOptions) *runtime.Pager[TrustedAccessRoleBindingsClientListResponse]`
+- New function `NewTrustedAccessRolesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TrustedAccessRolesClient, error)`
+- New function `*TrustedAccessRolesClient.NewListPager(string, *TrustedAccessRolesClientListOptions) *runtime.Pager[TrustedAccessRolesClientListResponse]`
+- New struct `CompatibleVersions`
+- New struct `IstioCertificateAuthority`
+- New struct `IstioComponents`
+- New struct `IstioEgressGateway`
+- New struct `IstioIngressGateway`
+- New struct `IstioPluginCertificateAuthority`
+- New struct `IstioServiceMesh`
+- New struct `MeshRevision`
+- New struct `MeshRevisionProfile`
+- New struct `MeshRevisionProfileList`
+- New struct `MeshRevisionProfileProperties`
+- New struct `MeshUpgradeProfile`
+- New struct `MeshUpgradeProfileList`
+- New struct `MeshUpgradeProfileProperties`
+- New struct `ServiceMeshProfile`
+- New struct `TrustedAccessRole`
+- New struct `TrustedAccessRoleBinding`
+- New struct `TrustedAccessRoleBindingListResult`
+- New struct `TrustedAccessRoleBindingProperties`
+- New struct `TrustedAccessRoleListResult`
+- New struct `TrustedAccessRoleRule`
+- New field `ResourceUID`, `ServiceMeshProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.4.0-beta.2 (2023-10-09)
 ### Features Added
 
