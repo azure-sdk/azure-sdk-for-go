@@ -46,7 +46,7 @@ func NewVirtualNetworkRulesClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Creates or updates an existing virtual network rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -70,7 +70,7 @@ func (client *VirtualNetworkRulesClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates an existing virtual network rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *VirtualNetworkRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, virtualNetworkRuleName string, parameters VirtualNetworkRule, options *VirtualNetworkRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, virtualNetworkRuleName, parameters, options)
@@ -112,7 +112,7 @@ func (client *VirtualNetworkRulesClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -124,7 +124,7 @@ func (client *VirtualNetworkRulesClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Deletes the virtual network rule with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -147,7 +147,7 @@ func (client *VirtualNetworkRulesClient) BeginDelete(ctx context.Context, resour
 // Delete - Deletes the virtual network rule with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 func (client *VirtualNetworkRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, virtualNetworkRuleName string, options *VirtualNetworkRulesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, virtualNetworkRuleName, options)
@@ -189,7 +189,7 @@ func (client *VirtualNetworkRulesClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -197,7 +197,7 @@ func (client *VirtualNetworkRulesClient) deleteCreateRequest(ctx context.Context
 // Get - Gets a virtual network rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -245,7 +245,7 @@ func (client *VirtualNetworkRulesClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *VirtualNetworkRulesClient) getHandleResponse(resp *http.Response) 
 
 // NewListByServerPager - Gets a list of virtual network rules in a server.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -316,7 +316,7 @@ func (client *VirtualNetworkRulesClient) listByServerCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
