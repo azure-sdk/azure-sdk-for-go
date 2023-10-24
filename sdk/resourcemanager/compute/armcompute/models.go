@@ -113,6 +113,11 @@ type AutomaticOSUpgradePolicy struct {
 	// is automatically set to false and cannot be set to true.
 	EnableAutomaticOSUpgrade *bool
 
+	// Indicates whether Auto OS Upgrade should undergo deferral. Deferred OS upgrades will send advanced notifications on a per-VM
+	// basis that an OS upgrade from rolling upgrades is incoming, via the IMDS
+	// tag 'Platform.PendingOSUpgrade'. The upgrade then defers until the upgrade is approved via an ApproveRollingUpgrade call.
+	OSRollingUpgradeDeferral *bool
+
 	// Indicates whether rolling upgrade policy should be used during Auto OS Upgrade. Default value is false. Auto OS Upgrade
 	// will fallback to the default policy if no policy is defined on the VMSS.
 	UseRollingUpgradePolicy *bool

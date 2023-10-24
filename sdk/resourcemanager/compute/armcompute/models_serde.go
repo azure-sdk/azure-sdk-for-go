@@ -284,6 +284,7 @@ func (a AutomaticOSUpgradePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "disableAutomaticRollback", a.DisableAutomaticRollback)
 	populate(objectMap, "enableAutomaticOSUpgrade", a.EnableAutomaticOSUpgrade)
+	populate(objectMap, "osRollingUpgradeDeferral", a.OSRollingUpgradeDeferral)
 	populate(objectMap, "useRollingUpgradePolicy", a.UseRollingUpgradePolicy)
 	return json.Marshal(objectMap)
 }
@@ -302,6 +303,9 @@ func (a *AutomaticOSUpgradePolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enableAutomaticOSUpgrade":
 			err = unpopulate(val, "EnableAutomaticOSUpgrade", &a.EnableAutomaticOSUpgrade)
+			delete(rawMsg, key)
+		case "osRollingUpgradeDeferral":
+			err = unpopulate(val, "OSRollingUpgradeDeferral", &a.OSRollingUpgradeDeferral)
 			delete(rawMsg, key)
 		case "useRollingUpgradePolicy":
 			err = unpopulate(val, "UseRollingUpgradePolicy", &a.UseRollingUpgradePolicy)

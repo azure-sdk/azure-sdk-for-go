@@ -1286,6 +1286,11 @@ type VirtualMachineScaleSetVMRunCommandsClientUpdateResponse struct {
 	VirtualMachineRunCommand
 }
 
+// VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade.
+type VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse struct {
+	// placeholder for future response values
+}
+
 // VirtualMachineScaleSetVMsClientDeallocateResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginDeallocate.
 type VirtualMachineScaleSetVMsClientDeallocateResponse struct {
 	// placeholder for future response values
@@ -1369,6 +1374,11 @@ type VirtualMachineScaleSetVMsClientStartResponse struct {
 type VirtualMachineScaleSetVMsClientUpdateResponse struct {
 	// Describes a virtual machine scale set virtual machine.
 	VirtualMachineScaleSetVM
+}
+
+// VirtualMachineScaleSetsClientApproveRollingUpgradeResponse contains the response from method VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade.
+type VirtualMachineScaleSetsClientApproveRollingUpgradeResponse struct {
+	// placeholder for future response values
 }
 
 // VirtualMachineScaleSetsClientConvertToSinglePlacementGroupResponse contains the response from method VirtualMachineScaleSetsClient.ConvertToSinglePlacementGroup.

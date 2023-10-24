@@ -1375,6 +1375,13 @@ type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	Expand *string
 }
 
+// VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade
+// method.
+type VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualMachineScaleSetVMsClientBeginDeallocateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginDeallocate
 // method.
 type VirtualMachineScaleSetVMsClientBeginDeallocateOptions struct {
@@ -1503,6 +1510,16 @@ type VirtualMachineScaleSetVMsClientRetrieveBootDiagnosticsDataOptions struct {
 // method.
 type VirtualMachineScaleSetVMsClientSimulateEvictionOptions struct {
 	// placeholder for future optional parameters
+}
+
+// VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade
+// method.
+type VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// A list of virtual machine instance IDs from the VM scale set.
+	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
 }
 
 // VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginCreateOrUpdate

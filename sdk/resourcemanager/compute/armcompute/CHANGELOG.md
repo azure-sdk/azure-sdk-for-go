@@ -1,5 +1,13 @@
 # Release History
 
+## 5.3.0 (2023-10-24)
+### Features Added
+
+- New function `*VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade(context.Context, string, string, string, *VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse], error)`
+- New function `*VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade(context.Context, string, string, *VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetsClientApproveRollingUpgradeResponse], error)`
+- New field `OSRollingUpgradeDeferral` in struct `AutomaticOSUpgradePolicy`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 
