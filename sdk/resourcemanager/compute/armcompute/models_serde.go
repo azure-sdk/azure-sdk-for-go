@@ -18498,6 +18498,7 @@ func (v VirtualMachineScaleSetVMProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "securityProfile", v.SecurityProfile)
 	populate(objectMap, "serviceArtifactReference", v.ServiceArtifactReference)
 	populate(objectMap, "storageProfile", v.StorageProfile)
+	populateTimeRFC3339(objectMap, "timeCreated", v.TimeCreated)
 	populate(objectMap, "userData", v.UserData)
 	return json.Marshal(objectMap)
 }
@@ -18558,6 +18559,9 @@ func (v *VirtualMachineScaleSetVMProfile) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storageProfile":
 			err = unpopulate(val, "StorageProfile", &v.StorageProfile)
+			delete(rawMsg, key)
+		case "timeCreated":
+			err = unpopulateTimeRFC3339(val, "TimeCreated", &v.TimeCreated)
 			delete(rawMsg, key)
 		case "userData":
 			err = unpopulate(val, "UserData", &v.UserData)

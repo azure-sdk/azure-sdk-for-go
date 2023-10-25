@@ -1,5 +1,11 @@
 # Release History
 
+## 5.3.0 (2023-10-25)
+### Features Added
+
+- New field `TimeCreated` in struct `VirtualMachineScaleSetVMProfile`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 

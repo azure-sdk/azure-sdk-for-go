@@ -8055,6 +8055,11 @@ type VirtualMachineScaleSetVMProfile struct {
 	// UserData for the virtual machines in the scale set, which must be base-64 encoded. Customer should not pass any secrets
 	// in here. Minimum api-version: 2021-03-01.
 	UserData *string
+
+	// READ-ONLY; Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. Minimum API version
+	// for this property is 2023-09-01. This value will be added to VMSS Flex VM tags when
+	// creating/updating the VMSS VM Profile with minimum api-version 2023-09-01.
+	TimeCreated *time.Time
 }
 
 // VirtualMachineScaleSetVMProperties - Describes the properties of a virtual machine scale set virtual machine.
