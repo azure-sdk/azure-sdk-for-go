@@ -5,9 +5,8 @@
 ``` yaml
 azure-arm: true
 require:
-- https://github.com/Azure/azure-rest-api-specs/blob/3066a973f4baf2e2bf072a013b585a820bb10146/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.md
-- https://github.com/Azure/azure-rest-api-specs/blob/3066a973f4baf2e2bf072a013b585a820bb10146/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.go.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.go.md
 license-header: MICROSOFT_MIT_NO_VERSION
-module-version: 0.3.0
-tag: package-2023-08-preview
+module-version: 1.0.0
 ```
