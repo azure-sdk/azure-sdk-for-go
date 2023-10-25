@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v4.4.0"
+	moduleVersion = "v4.5.0"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -772,6 +772,28 @@ const (
 func PossibleSnapshotTypeValues() []SnapshotType {
 	return []SnapshotType{
 		SnapshotTypeNodePool,
+	}
+}
+
+// TrustedAccessRoleBindingProvisioningState - The current provisioning state of trusted access role binding.
+type TrustedAccessRoleBindingProvisioningState string
+
+const (
+	TrustedAccessRoleBindingProvisioningStateCanceled  TrustedAccessRoleBindingProvisioningState = "Canceled"
+	TrustedAccessRoleBindingProvisioningStateDeleting  TrustedAccessRoleBindingProvisioningState = "Deleting"
+	TrustedAccessRoleBindingProvisioningStateFailed    TrustedAccessRoleBindingProvisioningState = "Failed"
+	TrustedAccessRoleBindingProvisioningStateSucceeded TrustedAccessRoleBindingProvisioningState = "Succeeded"
+	TrustedAccessRoleBindingProvisioningStateUpdating  TrustedAccessRoleBindingProvisioningState = "Updating"
+)
+
+// PossibleTrustedAccessRoleBindingProvisioningStateValues returns the possible values for the TrustedAccessRoleBindingProvisioningState const type.
+func PossibleTrustedAccessRoleBindingProvisioningStateValues() []TrustedAccessRoleBindingProvisioningState {
+	return []TrustedAccessRoleBindingProvisioningState{
+		TrustedAccessRoleBindingProvisioningStateCanceled,
+		TrustedAccessRoleBindingProvisioningStateDeleting,
+		TrustedAccessRoleBindingProvisioningStateFailed,
+		TrustedAccessRoleBindingProvisioningStateSucceeded,
+		TrustedAccessRoleBindingProvisioningStateUpdating,
 	}
 }
 

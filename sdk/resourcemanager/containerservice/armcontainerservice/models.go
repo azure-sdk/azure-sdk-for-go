@@ -534,7 +534,7 @@ type ManagedCluster struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -603,7 +603,7 @@ type ManagedClusterAccessProfile struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1636,7 +1636,7 @@ type MeshRevisionProfile struct {
 	// Mesh revision profile properties for a mesh
 	Properties *MeshRevisionProfileProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1668,7 +1668,7 @@ type MeshUpgradeProfile struct {
 	// Mesh upgrade profile properties for a major.minor release.
 	Properties *MeshUpgradeProfileProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2007,7 +2007,7 @@ type Snapshot struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2189,6 +2189,84 @@ type TimeSpan struct {
 
 	// The start of a time span
 	Start *time.Time
+}
+
+// TrustedAccessRole - Trusted access role definition.
+type TrustedAccessRole struct {
+	// READ-ONLY; Name of role, name is unique under a source resource type
+	Name *string
+
+	// READ-ONLY; List of rules for the role. This maps to 'rules' property of Kubernetes Cluster Role [https://kubernetes.io/docs/reference/kubernetes-api/authorization-resources/cluster-role-v1/#ClusterRole].
+	Rules []*TrustedAccessRoleRule
+
+	// READ-ONLY; Resource type of Azure resource
+	SourceResourceType *string
+}
+
+// TrustedAccessRoleBinding - Defines binding between a resource and role
+type TrustedAccessRoleBinding struct {
+	// REQUIRED; Properties for trusted access role binding
+	Properties *TrustedAccessRoleBindingProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TrustedAccessRoleBindingListResult - List of trusted access role bindings
+type TrustedAccessRoleBindingListResult struct {
+	// Role binding list
+	Value []*TrustedAccessRoleBinding
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// TrustedAccessRoleBindingProperties - Properties for trusted access role binding
+type TrustedAccessRoleBindingProperties struct {
+	// REQUIRED; A list of roles to bind, each item is a resource type qualified role name. For example: 'Microsoft.MachineLearningServices/workspaces/reader'.
+	Roles []*string
+
+	// REQUIRED; The ARM resource ID of source resource that trusted access is configured for.
+	SourceResourceID *string
+
+	// READ-ONLY; The current provisioning state of trusted access role binding.
+	ProvisioningState *TrustedAccessRoleBindingProvisioningState
+}
+
+// TrustedAccessRoleListResult - List of trusted access roles
+type TrustedAccessRoleListResult struct {
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+
+	// READ-ONLY; Role list
+	Value []*TrustedAccessRole
+}
+
+// TrustedAccessRoleRule - Rule for trusted access role
+type TrustedAccessRoleRule struct {
+	// READ-ONLY; List of allowed apiGroups
+	APIGroups []*string
+
+	// READ-ONLY; List of allowed nonResourceURLs
+	NonResourceURLs []*string
+
+	// READ-ONLY; List of allowed names
+	ResourceNames []*string
+
+	// READ-ONLY; List of allowed resources
+	Resources []*string
+
+	// READ-ONLY; List of allowed verbs
+	Verbs []*string
 }
 
 // UpgradeOverrideSettings - Settings for overrides when upgrading a cluster.
