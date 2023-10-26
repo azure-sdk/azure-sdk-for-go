@@ -28,7 +28,7 @@ type ManagedClusterSnapshotsClient struct {
 }
 
 // NewManagedClusterSnapshotsClient creates a new instance of ManagedClusterSnapshotsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagedClusterSnapshotsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedClusterSnapshotsClient, error) {
@@ -46,7 +46,7 @@ func NewManagedClusterSnapshotsClient(subscriptionID string, credential azcore.T
 // CreateOrUpdate - Creates or updates a managed cluster snapshot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-02-preview
+// Generated from API version 2023-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - parameters - The managed cluster snapshot to create or update.
@@ -77,9 +77,6 @@ func (client *ManagedClusterSnapshotsClient) CreateOrUpdate(ctx context.Context,
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *ManagedClusterSnapshotsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, parameters ManagedClusterSnapshot, options *ManagedClusterSnapshotsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedclustersnapshots/{resourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -94,7 +91,7 @@ func (client *ManagedClusterSnapshotsClient) createOrUpdateCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -115,7 +112,7 @@ func (client *ManagedClusterSnapshotsClient) createOrUpdateHandleResponse(resp *
 // Delete - Deletes a managed cluster snapshot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-02-preview
+// Generated from API version 2023-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - options - ManagedClusterSnapshotsClientDeleteOptions contains the optional parameters for the ManagedClusterSnapshotsClient.Delete
@@ -144,9 +141,6 @@ func (client *ManagedClusterSnapshotsClient) Delete(ctx context.Context, resourc
 // deleteCreateRequest creates the Delete request.
 func (client *ManagedClusterSnapshotsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *ManagedClusterSnapshotsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedclustersnapshots/{resourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -161,7 +155,7 @@ func (client *ManagedClusterSnapshotsClient) deleteCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +164,7 @@ func (client *ManagedClusterSnapshotsClient) deleteCreateRequest(ctx context.Con
 // Get - Gets a managed cluster snapshot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-02-preview
+// Generated from API version 2023-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - options - ManagedClusterSnapshotsClientGetOptions contains the optional parameters for the ManagedClusterSnapshotsClient.Get
@@ -200,9 +194,6 @@ func (client *ManagedClusterSnapshotsClient) Get(ctx context.Context, resourceGr
 // getCreateRequest creates the Get request.
 func (client *ManagedClusterSnapshotsClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *ManagedClusterSnapshotsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedclustersnapshots/{resourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -217,7 +208,7 @@ func (client *ManagedClusterSnapshotsClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +225,7 @@ func (client *ManagedClusterSnapshotsClient) getHandleResponse(resp *http.Respon
 
 // NewListPager - Gets a list of managed cluster snapshots in the specified subscription.
 //
-// Generated from API version 2023-08-02-preview
+// Generated from API version 2023-10-02-preview
 //   - options - ManagedClusterSnapshotsClientListOptions contains the optional parameters for the ManagedClusterSnapshotsClient.NewListPager
 //     method.
 func (client *ManagedClusterSnapshotsClient) NewListPager(options *ManagedClusterSnapshotsClientListOptions) *runtime.Pager[ManagedClusterSnapshotsClientListResponse] {
@@ -270,16 +261,13 @@ func (client *ManagedClusterSnapshotsClient) NewListPager(options *ManagedCluste
 // listCreateRequest creates the List request.
 func (client *ManagedClusterSnapshotsClient) listCreateRequest(ctx context.Context, options *ManagedClusterSnapshotsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/managedclustersnapshots"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +284,7 @@ func (client *ManagedClusterSnapshotsClient) listHandleResponse(resp *http.Respo
 
 // NewListByResourceGroupPager - Lists managed cluster snapshots in the specified subscription and resource group.
 //
-// Generated from API version 2023-08-02-preview
+// Generated from API version 2023-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ManagedClusterSnapshotsClientListByResourceGroupOptions contains the optional parameters for the ManagedClusterSnapshotsClient.NewListByResourceGroupPager
 //     method.
@@ -333,9 +321,6 @@ func (client *ManagedClusterSnapshotsClient) NewListByResourceGroupPager(resourc
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *ManagedClusterSnapshotsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ManagedClusterSnapshotsClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedclustersnapshots"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -346,7 +331,7 @@ func (client *ManagedClusterSnapshotsClient) listByResourceGroupCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -364,7 +349,7 @@ func (client *ManagedClusterSnapshotsClient) listByResourceGroupHandleResponse(r
 // UpdateTags - Updates tags on a managed cluster snapshot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-02-preview
+// Generated from API version 2023-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - parameters - Parameters supplied to the Update managed cluster snapshot Tags operation.
@@ -395,9 +380,6 @@ func (client *ManagedClusterSnapshotsClient) UpdateTags(ctx context.Context, res
 // updateTagsCreateRequest creates the UpdateTags request.
 func (client *ManagedClusterSnapshotsClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, parameters TagsObject, options *ManagedClusterSnapshotsClientUpdateTagsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedclustersnapshots/{resourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -412,7 +394,7 @@ func (client *ManagedClusterSnapshotsClient) updateTagsCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
