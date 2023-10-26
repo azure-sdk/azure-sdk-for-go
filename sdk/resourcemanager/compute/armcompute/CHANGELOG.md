@@ -1,5 +1,11 @@
 # Release History
 
+## 5.3.0 (2023-10-26)
+### Features Added
+
+- New function `*DedicatedHostsClient.BeginRedeploy(context.Context, string, string, string, *DedicatedHostsClientBeginRedeployOptions) (*runtime.Poller[DedicatedHostsClientRedeployResponse], error)`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 
