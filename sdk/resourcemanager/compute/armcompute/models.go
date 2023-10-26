@@ -1891,6 +1891,12 @@ type Encryption struct {
 	Type *EncryptionType
 }
 
+// EncryptionIdentity - Specifies the Managed Identity used by ADE to get access token for keyvault operations.
+type EncryptionIdentity struct {
+	// Specifies ARM Resource ID of one of the user identities associated with the VM.
+	UserAssignedIdentityResourceID *string
+}
+
 // EncryptionImages - Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the
 // gallery artifact.
 type EncryptionImages struct {
@@ -4980,6 +4986,9 @@ type SecurityProfile struct {
 	// including Resource/Temp disk at host itself. The default behavior is: The Encryption at host will be disabled unless this
 	// property is set to true for the resource.
 	EncryptionAtHost *bool
+
+	// Specifies the Managed Identity used by ADE to get access token for keyvault operations.
+	EncryptionIdentity *EncryptionIdentity
 
 	// Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings. The
 	// default behavior is: UefiSettings will not be enabled unless this property is

@@ -1,5 +1,12 @@
 # Release History
 
+## 5.3.0 (2023-10-26)
+### Features Added
+
+- New struct `EncryptionIdentity`
+- New field `EncryptionIdentity` in struct `SecurityProfile`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 
