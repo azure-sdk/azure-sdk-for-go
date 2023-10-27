@@ -10,7 +10,7 @@ package armcommunication
 
 const (
 	moduleName    = "armcommunication"
-	moduleVersion = "v2.1.0-beta.1"
+	moduleVersion = "v2.1.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
