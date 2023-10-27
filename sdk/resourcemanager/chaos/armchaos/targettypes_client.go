@@ -46,7 +46,7 @@ func NewTargetTypesClient(subscriptionID string, credential azcore.TokenCredenti
 // Get - Get a Target Type resources for given location.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-15-preview
+// Generated from API version 2023-11-01
 //   - locationName - String that represents a Location resource name.
 //   - targetTypeName - String that represents a Target Type resource name.
 //   - options - TargetTypesClientGetOptions contains the optional parameters for the TargetTypesClient.Get method.
@@ -88,7 +88,7 @@ func (client *TargetTypesClient) getCreateRequest(ctx context.Context, locationN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-15-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -105,7 +105,7 @@ func (client *TargetTypesClient) getHandleResponse(resp *http.Response) (TargetT
 
 // NewListPager - Get a list of Target Type resources for given location.
 //
-// Generated from API version 2023-04-15-preview
+// Generated from API version 2023-11-01
 //   - locationName - String that represents a Location resource name.
 //   - options - TargetTypesClientListOptions contains the optional parameters for the TargetTypesClient.NewListPager method.
 func (client *TargetTypesClient) NewListPager(locationName string, options *TargetTypesClientListOptions) *runtime.Pager[TargetTypesClientListResponse] {
@@ -152,7 +152,7 @@ func (client *TargetTypesClient) listCreateRequest(ctx context.Context, location
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-15-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}
