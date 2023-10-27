@@ -5879,6 +5879,10 @@ type VirtualMachine struct {
 	// The virtual machine zones.
 	Zones []*string
 
+	// READ-ONLY; Etag is property returned in Create/Update/Get response of the VM, so that customer can supply it in the header
+	// to ensure optimistic updates.
+	Etag *string
+
 	// READ-ONLY; Resource Id
 	ID *string
 
@@ -6857,6 +6861,10 @@ type VirtualMachineScaleSet struct {
 	// The virtual machine scale set zones. NOTE: Availability zones can only be set when you create the scale set
 	Zones []*string
 
+	// READ-ONLY; Etag is property returned in Create/Update/Get response of the VMSS, so that customer can supply it in the header
+	// to ensure optimistic updates
+	Etag *string
+
 	// READ-ONLY; Resource Id
 	ID *string
 
@@ -7830,6 +7838,10 @@ type VirtualMachineScaleSetVM struct {
 
 	// Resource tags
 	Tags map[string]*string
+
+	// READ-ONLY; Etag is property returned in Update/Get response of the VMSS VM, so that customer can supply it in the header
+	// to ensure optimistic updates.
+	Etag *string
 
 	// READ-ONLY; Resource Id
 	ID *string

@@ -1,5 +1,18 @@
 # Release History
 
+## 5.3.0 (2023-10-27)
+### Features Added
+
+- New field `Etag` in struct `VirtualMachine`
+- New field `Etag` in struct `VirtualMachineScaleSet`
+- New field `Etag` in struct `VirtualMachineScaleSetVM`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetVMsClientBeginUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetsClientBeginUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginUpdateOptions`
+
+
 ## 5.3.0-beta.1 (2023-10-09)
 ### Features Added
 
