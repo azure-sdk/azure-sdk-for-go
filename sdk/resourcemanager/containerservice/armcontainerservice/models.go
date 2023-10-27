@@ -40,6 +40,13 @@ type AgentPool struct {
 	Type *string
 }
 
+type AgentPoolArtifactStreamingProfile struct {
+	// Artifact streaming speeds up the cold-start of containers on a node through on-demand image loading. To use this feature,
+	// container images must also enable artifact streaming on ACR. If not specified,
+	// the default is false.
+	Enabled *bool
+}
+
 // AgentPoolAvailableVersions - The list of available versions for an agent pool.
 type AgentPoolAvailableVersions struct {
 	// REQUIRED; Properties of agent pool available versions.
@@ -70,6 +77,14 @@ type AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem struct {
 
 	// The Kubernetes version (major.minor.patch).
 	KubernetesVersion *string
+}
+
+type AgentPoolGPUProfile struct {
+	// The default value is true when the vmSize of the agent pool contains a GPU, false otherwise. GPU Driver Installation can
+	// only be set true when VM has an associated GPU resource. Setting this field to
+	// false prevents automatic GPU driver installation. In that case, in order for the GPU to be usable, the user must perform
+	// GPU driver installation themselves.
+	InstallGPUDriver *bool
 }
 
 // AgentPoolListResult - The response from the List Agent Pools operation.
@@ -150,6 +165,10 @@ type AgentPoolUpgradeSettings struct {
 	// practices, see:
 	// https://docs.microsoft.com/azure/aks/upgrade-cluster#customize-node-surge-upgrade
 	MaxSurge *string
+
+	// The amount of time (in minutes) to wait after draining a node and before reimaging it and moving on to next node. If not
+	// specified, the default is 0 minutes.
+	NodeSoakDurationInMinutes *int32
 }
 
 // AgentPoolWindowsProfile - The Windows agent pool's specific profile.
@@ -305,7 +324,7 @@ type GuardrailsAvailableVersion struct {
 	// REQUIRED; Whether the version is default or not and support info.
 	Properties *GuardrailsAvailableVersionsProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -670,7 +689,7 @@ type ManagedCluster struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -705,6 +724,14 @@ type ManagedClusterAADProfile struct {
 
 	// The AAD tenant ID to use for authentication. If not specified, will use the tenant of the deployment subscription.
 	TenantID *string
+}
+
+// ManagedClusterAIToolchainOperatorProfile - When enabling the operator, a set of AKS managed CRDs and controllers will be
+// installed in the cluster. The operator automates the deployment of OSS models for inference and/or training purposes. It
+// provides a set of preset models and enables distributed inference against them.
+type ManagedClusterAIToolchainOperatorProfile struct {
+	// Indicates if AI toolchain operator enabled or not.
+	Enabled *bool
 }
 
 // ManagedClusterAPIServerAccessProfile - Access profile for managed cluster API server.
@@ -746,7 +773,7 @@ type ManagedClusterAccessProfile struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -787,6 +814,9 @@ type ManagedClusterAddonProfileIdentity struct {
 type ManagedClusterAgentPoolProfile struct {
 	// REQUIRED; Windows agent pool names must be 6 characters or less.
 	Name *string
+
+	// Configuration for using artifact streaming on AKS.
+	ArtifactStreamingProfile *AgentPoolArtifactStreamingProfile
 
 	// The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType property is 'VirtualMachineScaleSets'.
 	AvailabilityZones []*string
@@ -830,6 +860,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU.
 	GpuInstanceProfile *GPUInstanceProfile
 
+	// The GPU settings of an agent pool.
+	GpuProfile *AgentPoolGPUProfile
+
 	// This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}.
 	// For more information see Azure dedicated hosts
 	// [https://docs.microsoft.com/azure/virtual-machines/dedicated-hosts].
@@ -864,6 +897,13 @@ type ManagedClusterAgentPoolProfile struct {
 
 	// Network-related settings of an agent pool.
 	NetworkProfile *AgentPoolNetworkProfile
+
+	// These taints will not be reconciled by AKS and can be removed with a kubectl call. This field can be modified after node
+	// pool is created, but nodes will not be recreated with new taints until another
+	// operation that requires recreation (e.g. node image upgrade) happens. These taints allow for required configuration to
+	// run before the node is ready to accept workloads, for example
+	// 'key1=value1:NoSchedule' that then can be removed with kubectl taint nodes node1 key1=value1:NoSchedule-
+	NodeInitializationTaints []*string
 
 	// The node labels to be persisted across all nodes in agent pool.
 	NodeLabels map[string]*string
@@ -967,6 +1007,9 @@ type ManagedClusterAgentPoolProfile struct {
 
 // ManagedClusterAgentPoolProfileProperties - Properties for the container service agent pool profile.
 type ManagedClusterAgentPoolProfileProperties struct {
+	// Configuration for using artifact streaming on AKS.
+	ArtifactStreamingProfile *AgentPoolArtifactStreamingProfile
+
 	// The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType property is 'VirtualMachineScaleSets'.
 	AvailabilityZones []*string
 
@@ -1009,6 +1052,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU.
 	GpuInstanceProfile *GPUInstanceProfile
 
+	// The GPU settings of an agent pool.
+	GpuProfile *AgentPoolGPUProfile
+
 	// This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}.
 	// For more information see Azure dedicated hosts
 	// [https://docs.microsoft.com/azure/virtual-machines/dedicated-hosts].
@@ -1043,6 +1089,13 @@ type ManagedClusterAgentPoolProfileProperties struct {
 
 	// Network-related settings of an agent pool.
 	NetworkProfile *AgentPoolNetworkProfile
+
+	// These taints will not be reconciled by AKS and can be removed with a kubectl call. This field can be modified after node
+	// pool is created, but nodes will not be recreated with new taints until another
+	// operation that requires recreation (e.g. node image upgrade) happens. These taints allow for required configuration to
+	// run before the node is ready to accept workloads, for example
+	// 'key1=value1:NoSchedule' that then can be removed with kubectl taint nodes node1 key1=value1:NoSchedule-
+	NodeInitializationTaints []*string
 
 	// The node labels to be persisted across all nodes in agent pool.
 	NodeLabels map[string]*string
@@ -1397,6 +1450,11 @@ type ManagedClusterNATGatewayProfile struct {
 	ManagedOutboundIPProfile *ManagedClusterManagedOutboundIPProfile
 }
 
+type ManagedClusterNodeProvisioningProfile struct {
+	// Once the mode it set to Auto, it cannot be changed back to Manual.
+	Mode *NodeProvisioningMode
+}
+
 // ManagedClusterNodeResourceGroupProfile - Node resource group lockdown profile for a managed cluster.
 type ManagedClusterNodeResourceGroupProfile struct {
 	// The restriction level applied to the cluster's node resource group
@@ -1528,6 +1586,9 @@ type ManagedClusterProperties struct {
 	// The agent pool properties.
 	AgentPoolProfiles []*ManagedClusterAgentPoolProfile
 
+	// AI toolchain operator settings that apply to the whole cluster.
+	AiToolchainOperatorProfile *ManagedClusterAIToolchainOperatorProfile
+
 	// Parameters to be applied to the cluster-autoscaler when enabled
 	AutoScalerProfile *ManagedClusterPropertiesAutoScalerProfile
 
@@ -1593,6 +1654,9 @@ type ManagedClusterProperties struct {
 
 	// The network configuration profile.
 	NetworkProfile *NetworkProfile
+
+	// Node provisioning settings that apply to the whole cluster.
+	NodeProvisioningProfile *ManagedClusterNodeProvisioningProfile
 
 	// The name of the resource group containing agent pool nodes.
 	NodeResourceGroup *string
@@ -1864,7 +1928,7 @@ type ManagedClusterSnapshot struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2045,7 +2109,7 @@ type MeshRevisionProfile struct {
 	// Mesh revision profile properties for a mesh
 	Properties *MeshRevisionProfileProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2077,7 +2141,7 @@ type MeshUpgradeProfile struct {
 	// Mesh upgrade profile properties for a major.minor release.
 	Properties *MeshUpgradeProfileProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2494,7 +2558,7 @@ type Snapshot struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2696,7 +2760,7 @@ type TrustedAccessRoleBinding struct {
 	// REQUIRED; Properties for trusted access role binding
 	Properties *TrustedAccessRoleBindingProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource

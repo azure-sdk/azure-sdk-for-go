@@ -1,5 +1,21 @@
 # Release History
 
+## 4.5.0-beta.2 (2023-10-27)
+### Features Added
+
+- New value `AgentPoolTypeVirtualMachines` added to enum type `AgentPoolType`
+- New value `OSSKUWindowsAnnual` added to enum type `OSSKU`
+- New enum type `NodeProvisioningMode` with values `NodeProvisioningModeAuto`, `NodeProvisioningModeManual`
+- New struct `AgentPoolArtifactStreamingProfile`
+- New struct `AgentPoolGPUProfile`
+- New struct `ManagedClusterAIToolchainOperatorProfile`
+- New struct `ManagedClusterNodeProvisioningProfile`
+- New field `NodeSoakDurationInMinutes` in struct `AgentPoolUpgradeSettings`
+- New field `ArtifactStreamingProfile`, `GpuProfile`, `NodeInitializationTaints` in struct `ManagedClusterAgentPoolProfile`
+- New field `ArtifactStreamingProfile`, `GpuProfile`, `NodeInitializationTaints` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `AiToolchainOperatorProfile`, `NodeProvisioningProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.5.0-beta.1 (2023-10-27)
 ### Features Added
 
