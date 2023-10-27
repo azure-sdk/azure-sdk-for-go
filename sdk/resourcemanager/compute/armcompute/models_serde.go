@@ -794,6 +794,7 @@ func (c *CapacityReservationGroup) UnmarshalJSON(data []byte) error {
 func (c CapacityReservationGroupInstanceView) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "capacityReservations", c.CapacityReservations)
+	populate(objectMap, "sharedSubscriptionIds", c.SharedSubscriptionIDs)
 	return json.Marshal(objectMap)
 }
 
@@ -808,6 +809,9 @@ func (c *CapacityReservationGroupInstanceView) UnmarshalJSON(data []byte) error 
 		switch key {
 		case "capacityReservations":
 			err = unpopulate(val, "CapacityReservations", &c.CapacityReservations)
+			delete(rawMsg, key)
+		case "sharedSubscriptionIds":
+			err = unpopulate(val, "SharedSubscriptionIDs", &c.SharedSubscriptionIDs)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -853,6 +857,7 @@ func (c CapacityReservationGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "capacityReservations", c.CapacityReservations)
 	populate(objectMap, "instanceView", c.InstanceView)
+	populate(objectMap, "sharingProfile", c.SharingProfile)
 	populate(objectMap, "virtualMachinesAssociated", c.VirtualMachinesAssociated)
 	return json.Marshal(objectMap)
 }
@@ -871,6 +876,9 @@ func (c *CapacityReservationGroupProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "instanceView":
 			err = unpopulate(val, "InstanceView", &c.InstanceView)
+			delete(rawMsg, key)
+		case "sharingProfile":
+			err = unpopulate(val, "SharingProfile", &c.SharingProfile)
 			delete(rawMsg, key)
 		case "virtualMachinesAssociated":
 			err = unpopulate(val, "VirtualMachinesAssociated", &c.VirtualMachinesAssociated)
@@ -10145,6 +10153,33 @@ func (r *ResourceSKUsResult) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "value":
 			err = unpopulate(val, "Value", &r.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResourceSharingProfile.
+func (r ResourceSharingProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "subscriptionIds", r.SubscriptionIDs)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResourceSharingProfile.
+func (r *ResourceSharingProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "subscriptionIds":
+			err = unpopulate(val, "SubscriptionIDs", &r.SubscriptionIDs)
 			delete(rawMsg, key)
 		}
 		if err != nil {

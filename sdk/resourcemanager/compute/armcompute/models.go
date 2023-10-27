@@ -353,6 +353,10 @@ type CapacityReservationGroup struct {
 type CapacityReservationGroupInstanceView struct {
 	// READ-ONLY; List of instance view of the capacity reservations under the capacity reservation group.
 	CapacityReservations []*CapacityReservationInstanceViewWithName
+
+	// READ-ONLY; List of the subscriptions that the capacity reservation group is shared with. Minimum api-version: 2023-09-01.
+	// Please refer to https://aka.ms/computereservationsharing for more details.
+	SharedSubscriptionIDs []*SubResourceReadOnly
 }
 
 // CapacityReservationGroupListResult - The List capacity reservation group with resource group response.
@@ -367,6 +371,10 @@ type CapacityReservationGroupListResult struct {
 
 // CapacityReservationGroupProperties - capacity reservation group Properties.
 type CapacityReservationGroupProperties struct {
+	// A list of all subscriptions that the capacity reservation group is shared with. Minimum api-version: 2023-09-01. Please
+	// refer to https://aka.ms/computereservationsharing for more details.
+	SharingProfile *ResourceSharingProfile
+
 	// READ-ONLY; A list of all capacity reservation resource ids that belong to capacity reservation group.
 	CapacityReservations []*SubResourceReadOnly
 
@@ -4278,6 +4286,12 @@ type ResourceSKUsResult struct {
 
 	// The URI to fetch the next page of Resource Skus. Call ListNext() with this URI to fetch the next page of Resource Skus
 	NextLink *string
+}
+
+type ResourceSharingProfile struct {
+	// Specifies an array of references to subscriptionIds. Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing
+	// for more details.
+	SubscriptionIDs []*SubResource
 }
 
 // ResourceURIList - The List resources which are encrypted with the disk encryption set.
