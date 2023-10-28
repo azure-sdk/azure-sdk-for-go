@@ -225,7 +225,7 @@ type AccountProperties struct {
 
 	// Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If
 	// false, then all requests, including shared access signatures, must be authorized
-	// with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
+	// with Azure Active Directory (Azure AD). The default value is null, which is equivalent to false.
 	AllowSharedKeyAccess *bool
 
 	// Restrict copy to and from Storage Accounts within an AAD tenant or with Private Links to the same VNet.
@@ -243,7 +243,7 @@ type AccountProperties struct {
 	// for this property.
 	DefaultToOAuthAuthentication *bool
 
-	// Allows https traffic only to storage service if sets to true.
+	// Allows https traffic only to storage service if set to true.
 	EnableHTTPSTrafficOnly *bool
 
 	// NFS 3.0 protocol support enabled if set to true.
@@ -253,7 +253,7 @@ type AccountProperties struct {
 	// level immutability for all the containers in the account by default.
 	ImmutableStorageWithVersioning *ImmutableStorageAccount
 
-	// Account HierarchicalNamespace enabled if sets to true.
+	// Account HierarchicalNamespace enabled if set to true.
 	IsHnsEnabled *bool
 
 	// Enables local users feature, if set to true
@@ -262,7 +262,7 @@ type AccountProperties struct {
 	// Enables Secure File Transfer Protocol, if set to true
 	IsSftpEnabled *bool
 
-	// Allow large file shares if sets to Enabled. It cannot be disabled once it is enabled.
+	// Allow large file shares if set to Enabled. It cannot be disabled once it is enabled.
 	LargeFileSharesState *LargeFileSharesState
 
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
@@ -370,7 +370,7 @@ type AccountPropertiesCreateParameters struct {
 
 	// Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If
 	// false, then all requests, including shared access signatures, must be authorized
-	// with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
+	// with Azure Active Directory (Azure AD). The default value is null, which is equivalent to false.
 	AllowSharedKeyAccess *bool
 
 	// Restrict copy to and from Storage Accounts within an AAD tenant or with Private Links to the same VNet.
@@ -393,7 +393,7 @@ type AccountPropertiesCreateParameters struct {
 	// for this property.
 	DefaultToOAuthAuthentication *bool
 
-	// Allows https traffic only to storage service if sets to true. The default value is true since API version 2019-04-01.
+	// Allows https traffic only to storage service if set to true. The default value is true since API version 2019-04-01.
 	EnableHTTPSTrafficOnly *bool
 
 	// NFS 3.0 protocol support enabled if set to true.
@@ -406,7 +406,7 @@ type AccountPropertiesCreateParameters struct {
 	// level immutability for all the new containers in the account by default.
 	ImmutableStorageWithVersioning *ImmutableStorageAccount
 
-	// Account HierarchicalNamespace enabled if sets to true.
+	// Account HierarchicalNamespace enabled if set to true.
 	IsHnsEnabled *bool
 
 	// Enables local users feature, if set to true
@@ -418,7 +418,7 @@ type AccountPropertiesCreateParameters struct {
 	// KeyPolicy assigned to the storage account.
 	KeyPolicy *KeyPolicy
 
-	// Allow large file shares if sets to Enabled. It cannot be disabled once it is enabled.
+	// Allow large file shares if set to Enabled. It cannot be disabled once it is enabled.
 	LargeFileSharesState *LargeFileSharesState
 
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
@@ -455,7 +455,7 @@ type AccountPropertiesUpdateParameters struct {
 
 	// Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If
 	// false, then all requests, including shared access signatures, must be authorized
-	// with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
+	// with Azure Active Directory (Azure AD). The default value is null, which is equivalent to false.
 	AllowSharedKeyAccess *bool
 
 	// Restrict copy to and from Storage Accounts within an AAD tenant or with Private Links to the same VNet.
@@ -478,7 +478,7 @@ type AccountPropertiesUpdateParameters struct {
 	// for this property.
 	DefaultToOAuthAuthentication *bool
 
-	// Allows https traffic only to storage service if sets to true.
+	// Allows https traffic only to storage service if set to true.
 	EnableHTTPSTrafficOnly *bool
 
 	// Not applicable. Azure Storage encryption at rest is enabled by default for all storage accounts and cannot be disabled.
@@ -497,7 +497,7 @@ type AccountPropertiesUpdateParameters struct {
 	// KeyPolicy assigned to the storage account.
 	KeyPolicy *KeyPolicy
 
-	// Allow large file shares if sets to Enabled. It cannot be disabled once it is enabled.
+	// Allow large file shares if set to Enabled. It cannot be disabled once it is enabled.
 	LargeFileSharesState *LargeFileSharesState
 
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.

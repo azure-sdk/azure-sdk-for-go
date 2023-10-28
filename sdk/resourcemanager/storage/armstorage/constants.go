@@ -10,7 +10,7 @@ package armstorage
 
 const (
 	moduleName    = "armstorage"
-	moduleVersion = "v1.5.0-beta.1"
+	moduleVersion = "v1.4.1"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -552,7 +552,7 @@ func PossibleKindValues() []Kind {
 	}
 }
 
-// LargeFileSharesState - Allow large file shares if sets to Enabled. It cannot be disabled once it is enabled.
+// LargeFileSharesState - Allow large file shares if set to Enabled. It cannot be disabled once it is enabled.
 type LargeFileSharesState string
 
 const (
