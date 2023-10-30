@@ -4525,6 +4525,9 @@ type RestorePointSourceVMStorageProfile struct {
 	// Gets the data disks of the VM captured at the time of the restore point creation.
 	DataDisks []*RestorePointSourceVMDataDisk
 
+	// Gets the disk controller type of the VM captured at the time of the restore point creation.
+	DiskControllerType *DiskControllerTypes
+
 	// Gets the OS disk of the VM captured at the time of the restore point creation.
 	OSDisk *RestorePointSourceVMOSDisk
 }

@@ -10732,6 +10732,7 @@ func (r *RestorePointSourceVMOSDisk) UnmarshalJSON(data []byte) error {
 func (r RestorePointSourceVMStorageProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "dataDisks", r.DataDisks)
+	populate(objectMap, "diskControllerType", r.DiskControllerType)
 	populate(objectMap, "osDisk", r.OSDisk)
 	return json.Marshal(objectMap)
 }
@@ -10747,6 +10748,9 @@ func (r *RestorePointSourceVMStorageProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "dataDisks":
 			err = unpopulate(val, "DataDisks", &r.DataDisks)
+			delete(rawMsg, key)
+		case "diskControllerType":
+			err = unpopulate(val, "DiskControllerType", &r.DiskControllerType)
 			delete(rawMsg, key)
 		case "osDisk":
 			err = unpopulate(val, "OSDisk", &r.OSDisk)
