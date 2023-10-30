@@ -1,5 +1,22 @@
 # Release History
 
+## 1.1.0-beta.1 (2023-10-30)
+### Features Added
+
+- New function `NewBillingInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingInfoClient, error)`
+- New function `*BillingInfoClient.Get(context.Context, string, string, *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error)`
+- New function `*ClientFactory.NewBillingInfoClient() *BillingInfoClient`
+- New function `*ClientFactory.NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient`
+- New function `NewConnectedPartnerResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedPartnerResourcesClient, error)`
+- New function `*ConnectedPartnerResourcesClient.NewListPager(string, string, *ConnectedPartnerResourcesClientListOptions) *runtime.Pager[ConnectedPartnerResourcesClientListResponse]`
+- New struct `BillingInfoResponse`
+- New struct `ConnectedPartnerResourceProperties`
+- New struct `ConnectedPartnerResourcesListFormat`
+- New struct `ConnectedPartnerResourcesListResponse`
+- New struct `MarketplaceSaaSInfo`
+- New struct `PartnerBillingEntity`
+
+
 ## 1.0.0 (2023-05-26)
 ### Features Added
 
