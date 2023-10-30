@@ -77,6 +77,11 @@ func (c *ClientFactory) NewBaselinesClient() *BaselinesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewClient() *Client {
+	subClient, _ := NewClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewDataCollectionEndpointsClient() *DataCollectionEndpointsClient {
 	subClient, _ := NewDataCollectionEndpointsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
