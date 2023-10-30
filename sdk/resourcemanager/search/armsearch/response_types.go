@@ -10,19 +10,19 @@ package armsearch
 
 // AdminKeysClientGetResponse contains the response from method AdminKeysClient.Get.
 type AdminKeysClientGetResponse struct {
-	// Response containing the primary and secondary admin API keys for a given Azure Cognitive Search service.
+	// Response containing the primary and secondary admin API keys for a given search service.
 	AdminKeyResult
 }
 
 // AdminKeysClientRegenerateResponse contains the response from method AdminKeysClient.Regenerate.
 type AdminKeysClientRegenerateResponse struct {
-	// Response containing the primary and secondary admin API keys for a given Azure Cognitive Search service.
+	// Response containing the primary and secondary admin API keys for a given search service.
 	AdminKeyResult
 }
 
 // ManagementClientUsageBySubscriptionSKUResponse contains the response from method ManagementClient.UsageBySubscriptionSKU.
 type ManagementClientUsageBySubscriptionSKUResponse struct {
-	// Describes the quota usage for a particular sku supported by Azure Cognitive Search.
+	// Describes the quota usage for a particular SKU.
 	QuotaUsageResult
 }
 
@@ -35,13 +35,13 @@ type OperationsClientListResponse struct {
 
 // PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
 type PrivateEndpointConnectionsClientDeleteResponse struct {
-	// Describes an existing Private Endpoint connection to the Azure Cognitive Search service.
+	// Describes an existing private endpoint connection to the search service.
 	PrivateEndpointConnection
 }
 
 // PrivateEndpointConnectionsClientGetResponse contains the response from method PrivateEndpointConnectionsClient.Get.
 type PrivateEndpointConnectionsClientGetResponse struct {
-	// Describes an existing Private Endpoint connection to the Azure Cognitive Search service.
+	// Describes an existing private endpoint connection to the search service.
 	PrivateEndpointConnection
 }
 
@@ -53,7 +53,7 @@ type PrivateEndpointConnectionsClientListByServiceResponse struct {
 
 // PrivateEndpointConnectionsClientUpdateResponse contains the response from method PrivateEndpointConnectionsClient.Update.
 type PrivateEndpointConnectionsClientUpdateResponse struct {
-	// Describes an existing Private Endpoint connection to the Azure Cognitive Search service.
+	// Describes an existing private endpoint connection to the search service.
 	PrivateEndpointConnection
 }
 
@@ -65,7 +65,7 @@ type PrivateLinkResourcesClientListSupportedResponse struct {
 
 // QueryKeysClientCreateResponse contains the response from method QueryKeysClient.Create.
 type QueryKeysClientCreateResponse struct {
-	// Describes an API key for a given Azure Cognitive Search service that has permissions for query operations only.
+	// Describes an API key for a given search service that has permissions for query operations only.
 	QueryKey
 }
 
@@ -76,7 +76,7 @@ type QueryKeysClientDeleteResponse struct {
 
 // QueryKeysClientListBySearchServiceResponse contains the response from method QueryKeysClient.NewListBySearchServicePager.
 type QueryKeysClientListBySearchServiceResponse struct {
-	// Response containing the query API keys for a given Azure Cognitive Search service.
+	// Response containing the query API keys for a given search service.
 	ListQueryKeysResult
 }
 
@@ -88,7 +88,7 @@ type ServicesClientCheckNameAvailabilityResponse struct {
 
 // ServicesClientCreateOrUpdateResponse contains the response from method ServicesClient.BeginCreateOrUpdate.
 type ServicesClientCreateOrUpdateResponse struct {
-	// Describes an Azure Cognitive Search service and its current state.
+	// Describes a search service and its current state.
 	Service
 }
 
@@ -99,31 +99,31 @@ type ServicesClientDeleteResponse struct {
 
 // ServicesClientGetResponse contains the response from method ServicesClient.Get.
 type ServicesClientGetResponse struct {
-	// Describes an Azure Cognitive Search service and its current state.
+	// Describes a search service and its current state.
 	Service
 }
 
 // ServicesClientListByResourceGroupResponse contains the response from method ServicesClient.NewListByResourceGroupPager.
 type ServicesClientListByResourceGroupResponse struct {
-	// Response containing a list of Azure Cognitive Search services.
+	// Response containing a list of search services.
 	ServiceListResult
 }
 
 // ServicesClientListBySubscriptionResponse contains the response from method ServicesClient.NewListBySubscriptionPager.
 type ServicesClientListBySubscriptionResponse struct {
-	// Response containing a list of Azure Cognitive Search services.
+	// Response containing a list of search services.
 	ServiceListResult
 }
 
 // ServicesClientUpdateResponse contains the response from method ServicesClient.Update.
 type ServicesClientUpdateResponse struct {
-	// Describes an Azure Cognitive Search service and its current state.
+	// Describes a search service and its current state.
 	Service
 }
 
 // SharedPrivateLinkResourcesClientCreateOrUpdateResponse contains the response from method SharedPrivateLinkResourcesClient.BeginCreateOrUpdate.
 type SharedPrivateLinkResourcesClientCreateOrUpdateResponse struct {
-	// Describes a Shared Private Link Resource managed by the Azure Cognitive Search service.
+	// Describes a Shared Private Link Resource managed by the search service.
 	SharedPrivateLinkResource
 }
 
@@ -134,7 +134,7 @@ type SharedPrivateLinkResourcesClientDeleteResponse struct {
 
 // SharedPrivateLinkResourcesClientGetResponse contains the response from method SharedPrivateLinkResourcesClient.Get.
 type SharedPrivateLinkResourcesClientGetResponse struct {
-	// Describes a Shared Private Link Resource managed by the Azure Cognitive Search service.
+	// Describes a Shared Private Link Resource managed by the search service.
 	SharedPrivateLinkResource
 }
 
@@ -146,6 +146,6 @@ type SharedPrivateLinkResourcesClientListByServiceResponse struct {
 
 // UsagesClientListBySubscriptionResponse contains the response from method UsagesClient.NewListBySubscriptionPager.
 type UsagesClientListBySubscriptionResponse struct {
-	// Response containing the quota usage information for all the supported skus of Azure Cognitive Search service.
+	// Response containing the quota usage information for all the supported SKUs of Azure AI Search.
 	QuotaUsagesListResult
 }
