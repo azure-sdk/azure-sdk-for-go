@@ -1,5 +1,26 @@
 # Release History
 
+## 2.0.0-beta.3 (2023-10-30)
+### Breaking Changes
+
+- Field `InnerError` of struct `WorkbookErrorDefinition` has been removed
+
+### Features Added
+
+- New value `WebTestKindStandard` added to enum type `WebTestKind`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New struct `ErrorFieldContract`
+- New struct `HeaderField`
+- New struct `WebTestPropertiesRequest`
+- New struct `WebTestPropertiesValidationRules`
+- New struct `WebTestPropertiesValidationRulesContentValidation`
+- New field `Details` in struct `ErrorResponse`
+- New field `Request`, `ValidationRules` in struct `WebTestProperties`
+- New field `Innererror` in struct `WorkbookErrorDefinition`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
