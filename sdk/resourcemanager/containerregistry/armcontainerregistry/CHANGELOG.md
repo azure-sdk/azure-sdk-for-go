@@ -1,5 +1,13 @@
 # Release History
 
+## 1.2.0-beta.3 (2023-10-31)
+### Features Added
+
+- New enum type `MetadataSearch` with values `MetadataSearchDisabled`, `MetadataSearchEnabled`
+- New field `MetadataSearch` in struct `RegistryProperties`
+- New field `MetadataSearch` in struct `RegistryPropertiesUpdateParameters`
+
+
 ## 1.2.0-beta.2 (2023-10-09)
 ### Other Changes
 
