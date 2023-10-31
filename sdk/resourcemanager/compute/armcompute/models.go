@@ -101,6 +101,15 @@ type ApplicationProfile struct {
 	GalleryApplications []*VMGalleryApplication
 }
 
+// AttachDetachDataDisksRequest - Specifies the input for attaching and detaching a list of managed data disks.
+type AttachDetachDataDisksRequest struct {
+	// The list of managed data disks to be attached.
+	DataDisksToAttach []*DataDisksToAttach
+
+	// The list of managed data disks to be detached.
+	DataDisksToDetach []*DataDisksToDetach
+}
+
 // AutomaticOSUpgradePolicy - The configuration parameters used for performing automatic OS upgrade.
 type AutomaticOSUpgradePolicy struct {
 	// Whether OS image rollback feature should be disabled. Default value is false.
@@ -1076,6 +1085,26 @@ type DataDiskImageEncryption struct {
 
 	// A relative URI containing the resource ID of the disk encryption set.
 	DiskEncryptionSetID *string
+}
+
+// DataDisksToAttach - Describes the data disk to be attached.
+type DataDisksToAttach struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// The logical unit number of the data disk. This value is used to identify data disks within the VM and therefore must be
+	// unique for each data disk attached to a VM. If not specified, lun would be auto
+	// assigned.
+	Lun *int32
+}
+
+// DataDisksToDetach - Describes the data disk to be detached.
+type DataDisksToDetach struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// Supported options available for Detach of a disk from a VM. Refer to DetachOption object reference for more details.
+	DetachOption *DiskDetachOptionTypes
 }
 
 // DedicatedHost - Specifies information about the Dedicated host.

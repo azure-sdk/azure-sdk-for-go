@@ -279,6 +279,37 @@ func (a *ApplicationProfile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AttachDetachDataDisksRequest.
+func (a AttachDetachDataDisksRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "dataDisksToAttach", a.DataDisksToAttach)
+	populate(objectMap, "dataDisksToDetach", a.DataDisksToDetach)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AttachDetachDataDisksRequest.
+func (a *AttachDetachDataDisksRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "dataDisksToAttach":
+			err = unpopulate(val, "DataDisksToAttach", &a.DataDisksToAttach)
+			delete(rawMsg, key)
+		case "dataDisksToDetach":
+			err = unpopulate(val, "DataDisksToDetach", &a.DataDisksToDetach)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AutomaticOSUpgradePolicy.
 func (a AutomaticOSUpgradePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2453,6 +2484,68 @@ func (d *DataDiskImageEncryption) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "lun":
 			err = unpopulate(val, "Lun", &d.Lun)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DataDisksToAttach.
+func (d DataDisksToAttach) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "diskId", d.DiskID)
+	populate(objectMap, "lun", d.Lun)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DataDisksToAttach.
+func (d *DataDisksToAttach) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "diskId":
+			err = unpopulate(val, "DiskID", &d.DiskID)
+			delete(rawMsg, key)
+		case "lun":
+			err = unpopulate(val, "Lun", &d.Lun)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DataDisksToDetach.
+func (d DataDisksToDetach) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "detachOption", d.DetachOption)
+	populate(objectMap, "diskId", d.DiskID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DataDisksToDetach.
+func (d *DataDisksToDetach) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "detachOption":
+			err = unpopulate(val, "DetachOption", &d.DetachOption)
+			delete(rawMsg, key)
+		case "diskId":
+			err = unpopulate(val, "DiskID", &d.DiskID)
 			delete(rawMsg, key)
 		}
 		if err != nil {

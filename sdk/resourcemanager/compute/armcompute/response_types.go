@@ -1286,6 +1286,12 @@ type VirtualMachineScaleSetVMRunCommandsClientUpdateResponse struct {
 	VirtualMachineRunCommand
 }
 
+// VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks.
+type VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse struct {
+	// Describes a virtual machine scale set virtual machine.
+	VirtualMachineScaleSetVM
+}
+
 // VirtualMachineScaleSetVMsClientDeallocateResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginDeallocate.
 type VirtualMachineScaleSetVMsClientDeallocateResponse struct {
 	// placeholder for future response values
@@ -1512,6 +1518,12 @@ type VirtualMachineSizesClientListResponse struct {
 type VirtualMachinesClientAssessPatchesResponse struct {
 	// Describes the properties of an AssessPatches result.
 	VirtualMachineAssessPatchesResult
+}
+
+// VirtualMachinesClientAttachDetachDataDisksResponse contains the response from method VirtualMachinesClient.BeginAttachDetachDataDisks.
+type VirtualMachinesClientAttachDetachDataDisksResponse struct {
+	// Describes a Virtual Machine.
+	VirtualMachine
 }
 
 // VirtualMachinesClientCaptureResponse contains the response from method VirtualMachinesClient.BeginCapture.

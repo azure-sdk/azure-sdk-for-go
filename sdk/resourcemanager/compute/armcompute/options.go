@@ -1375,6 +1375,13 @@ type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	Expand *string
 }
 
+// VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks
+// method.
+type VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualMachineScaleSetVMsClientBeginDeallocateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginDeallocate
 // method.
 type VirtualMachineScaleSetVMsClientBeginDeallocateOptions struct {
@@ -1715,6 +1722,13 @@ type VirtualMachineSizesClientListOptions struct {
 // VirtualMachinesClientBeginAssessPatchesOptions contains the optional parameters for the VirtualMachinesClient.BeginAssessPatches
 // method.
 type VirtualMachinesClientBeginAssessPatchesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachinesClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachinesClient.BeginAttachDetachDataDisks
+// method.
+type VirtualMachinesClientBeginAttachDetachDataDisksOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
