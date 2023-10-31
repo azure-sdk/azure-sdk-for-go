@@ -42,6 +42,160 @@ type AgentUpdateProperties struct {
 	UseSessionHostLocalTime *bool
 }
 
+// AppAttachPackage - Schema for App Attach Package properties.
+type AppAttachPackage struct {
+	// REQUIRED; Detailed properties for App Attach Package
+	Properties *AppAttachPackageProperties
+	Identity   *ResourceModelWithAllowedPropertySetIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
+	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
+	// validate and persist this value.
+	Kind *string
+
+	// The geo-location where the resource lives
+	Location *string
+
+	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
+	// Azure resource. If this is present, complete mode deployment will not
+	// delete the resource if it is removed from the template since it is managed by another resource.
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
+	SKU       *ResourceModelWithAllowedPropertySetSKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
+	// per the normal etag convention. Entity tags are used for comparing two or more entities
+	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
+	// (section 14.26), and If-Range (section 14.27) header fields.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AppAttachPackageInfoProperties - Schema for Import Package Information properties.
+type AppAttachPackageInfoProperties struct {
+	// Date certificate expires, found in the appxmanifest.xml.
+	CertificateExpiry *time.Time
+
+	// Certificate name found in the appxmanifest.xml.
+	CertificateName *string
+
+	// User friendly Name to be displayed in the portal.
+	DisplayName *string
+
+	// VHD/CIM image path on Network Share.
+	ImagePath *string
+
+	// Make this version of the package the active one across the hostpool.
+	IsActive *bool
+
+	// Is package timestamped so it can ignore the certificate expiry date
+	IsPackageTimestamped *PackageTimestamped
+
+	// Specifies how to register Package in feed.
+	IsRegularRegistration *bool
+
+	// Date Package was last updated, found in the appxmanifest.xml.
+	LastUpdated *time.Time
+
+	// Alias of App Attach Package. Assigned at import time
+	PackageAlias *string
+
+	// List of package applications.
+	PackageApplications []*MsixPackageApplications
+
+	// List of package dependencies.
+	PackageDependencies []*MsixPackageDependencies
+
+	// Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name.
+	PackageFamilyName *string
+
+	// Package Full Name from appxmanifest.xml.
+	PackageFullName *string
+
+	// Package Name from appxmanifest.xml.
+	PackageName *string
+
+	// Relative Path to the package inside the image.
+	PackageRelativePath *string
+
+	// Package Version found in the appxmanifest.xml.
+	Version *string
+}
+
+// AppAttachPackageList - List of App Attach Package definitions.
+type AppAttachPackageList struct {
+	// List of App Attach Package definitions.
+	Value []*AppAttachPackage
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// AppAttachPackagePatch - Schema for patchable App Attach Package properties.
+type AppAttachPackagePatch struct {
+	// Detailed properties for App Attach Package
+	Properties *AppAttachPackagePatchProperties
+
+	// tags to be updated
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AppAttachPackagePatchProperties - Schema for patchable fields on an App Attach Package.
+type AppAttachPackagePatchProperties struct {
+	// Parameter indicating how the health check should behave if this package fails staging
+	FailHealthCheckOnStagingFailure *FailHealthCheckOnStagingFailure
+
+	// List of Hostpool resource Ids.
+	HostPoolReferences []*string
+
+	// Detailed properties for App Attach Package
+	Image *AppAttachPackageInfoProperties
+
+	// URL of keyvault location to store certificate
+	KeyVaultURL *string
+}
+
+// AppAttachPackageProperties - Schema for App Attach Package properties.
+type AppAttachPackageProperties struct {
+	// Parameter indicating how the health check should behave if this package fails staging
+	FailHealthCheckOnStagingFailure *FailHealthCheckOnStagingFailure
+
+	// List of Hostpool resource Ids.
+	HostPoolReferences []*string
+
+	// Detailed properties for App Attach Package
+	Image *AppAttachPackageInfoProperties
+
+	// URL of keyvault location to store certificate
+	KeyVaultURL *string
+
+	// READ-ONLY; The provisioning state of the App Attach Package.
+	ProvisioningState *ProvisioningState
+}
+
 // Application - Schema for Application properties.
 type Application struct {
 	// REQUIRED; Detailed properties for Application
@@ -359,6 +513,12 @@ type ExpandMsixImageList struct {
 
 // ExpandMsixImageProperties - Schema for Expand MSIX Image properties.
 type ExpandMsixImageProperties struct {
+	// Date certificate expires, found in the appxmanifest.xml.
+	CertificateExpiry *time.Time
+
+	// Certificate name found in the appxmanifest.xml.
+	CertificateName *string
+
 	// User friendly Name to be displayed in the portal.
 	DisplayName *string
 
@@ -586,6 +746,9 @@ type HostPoolProperties struct {
 	// Is validation environment.
 	ValidationEnvironment *bool
 
+	// READ-ONLY; List of App Attach Package links.
+	AppAttachPackageReferences []*string
+
 	// READ-ONLY; List of applicationGroup links.
 	ApplicationGroupReferences []*string
 
@@ -597,6 +760,15 @@ type HostPoolProperties struct {
 
 	// READ-ONLY; List of private endpoint connection associated with the specified resource
 	PrivateEndpointConnections []*PrivateEndpointConnection
+}
+
+// ImportPackageInfoRequest - Information to import app attach package
+type ImportPackageInfoRequest struct {
+	// Possible device architectures that an app attach package can be configured for
+	PackageArchitecture *AppAttachPackageArchitectures
+
+	// URI to Image
+	Path *string
 }
 
 // LogSpecification - Specifications of the Log for Azure Monitoring
