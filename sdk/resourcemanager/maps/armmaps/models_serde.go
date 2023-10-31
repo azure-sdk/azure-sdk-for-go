@@ -451,8 +451,10 @@ func (c *CreatorList) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CreatorProperties.
 func (c CreatorProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "consumedStorageUnitSizeInBytes", c.ConsumedStorageUnitSizeInBytes)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "storageUnits", c.StorageUnits)
+	populate(objectMap, "totalStorageUnitSizeInBytes", c.TotalStorageUnitSizeInBytes)
 	return json.Marshal(objectMap)
 }
 
@@ -465,11 +467,17 @@ func (c *CreatorProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "consumedStorageUnitSizeInBytes":
+			err = unpopulate(val, "ConsumedStorageUnitSizeInBytes", &c.ConsumedStorageUnitSizeInBytes)
+			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
 			delete(rawMsg, key)
 		case "storageUnits":
 			err = unpopulate(val, "StorageUnits", &c.StorageUnits)
+			delete(rawMsg, key)
+		case "totalStorageUnitSizeInBytes":
+			err = unpopulate(val, "TotalStorageUnitSizeInBytes", &c.TotalStorageUnitSizeInBytes)
 			delete(rawMsg, key)
 		}
 		if err != nil {
