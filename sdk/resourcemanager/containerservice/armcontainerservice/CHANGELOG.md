@@ -1,5 +1,31 @@
 # Release History
 
+## 4.5.0-beta.2 (2023-10-31)
+### Breaking Changes
+
+- Field `Expanders` of struct `ManagedClusterPropertiesAutoScalerProfile` has been removed
+
+### Features Added
+
+- New value `AgentPoolTypeVirtualMachines` added to enum type `AgentPoolType`
+- New value `OSSKUWindowsAnnual` added to enum type `OSSKU`
+- New enum type `NodeProvisioningMode` with values `NodeProvisioningModeAuto`, `NodeProvisioningModeManual`
+- New function `*AgentPoolsClient.BeginDeleteMachines(context.Context, string, string, string, AgentPoolDeleteMachinesParameter, *AgentPoolsClientBeginDeleteMachinesOptions) (*runtime.Poller[AgentPoolsClientDeleteMachinesResponse], error)`
+- New struct `AgentPoolArtifactStreamingProfile`
+- New struct `AgentPoolDeleteMachinesParameter`
+- New struct `AgentPoolGPUProfile`
+- New struct `ManagedClusterAIToolchainOperatorProfile`
+- New struct `ManagedClusterNodeProvisioningProfile`
+- New struct `ManualScaleProfile`
+- New struct `ScaleProfile`
+- New struct `VirtualMachineNodes`
+- New struct `VirtualMachinesProfile`
+- New field `NodeSoakDurationInMinutes` in struct `AgentPoolUpgradeSettings`
+- New field `ArtifactStreamingProfile`, `GpuProfile`, `VirtualMachineNodesStatus`, `VirtualMachinesProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `ArtifactStreamingProfile`, `GpuProfile`, `VirtualMachineNodesStatus`, `VirtualMachinesProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `AiToolchainOperatorProfile`, `NodeProvisioningProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.5.0-beta.1 (2023-10-27)
 ### Features Added
 

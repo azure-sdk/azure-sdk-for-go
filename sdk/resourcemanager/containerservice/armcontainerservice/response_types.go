@@ -19,6 +19,11 @@ type AgentPoolsClientCreateOrUpdateResponse struct {
 	AgentPool
 }
 
+// AgentPoolsClientDeleteMachinesResponse contains the response from method AgentPoolsClient.BeginDeleteMachines.
+type AgentPoolsClientDeleteMachinesResponse struct {
+	// placeholder for future response values
+}
+
 // AgentPoolsClientDeleteResponse contains the response from method AgentPoolsClient.BeginDelete.
 type AgentPoolsClientDeleteResponse struct {
 	// placeholder for future response values
