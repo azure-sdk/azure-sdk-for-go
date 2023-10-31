@@ -14124,6 +14124,7 @@ func (v VirtualMachine) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "id", v.ID)
 	populate(objectMap, "identity", v.Identity)
 	populate(objectMap, "location", v.Location)
+	populate(objectMap, "managedBy", v.ManagedBy)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "plan", v.Plan)
 	populate(objectMap, "properties", v.Properties)
@@ -14154,6 +14155,9 @@ func (v *VirtualMachine) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "location":
 			err = unpopulate(val, "Location", &v.Location)
+			delete(rawMsg, key)
+		case "managedBy":
+			err = unpopulate(val, "ManagedBy", &v.ManagedBy)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)

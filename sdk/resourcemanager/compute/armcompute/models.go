@@ -5882,6 +5882,10 @@ type VirtualMachine struct {
 	// READ-ONLY; Resource Id
 	ID *string
 
+	// READ-ONLY; ManagedBy is set to Virtual Machine Scale Set(VMSS) flex ARM resourceID, if the VM is part of the VMSS. This
+	// property is used by platform for internal resource group delete optimization.
+	ManagedBy *string
+
 	// READ-ONLY; Resource name
 	Name *string
 
