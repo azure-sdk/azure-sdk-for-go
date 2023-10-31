@@ -142,6 +142,16 @@ func (c *ClientFactory) NewFeatureSupportClient() *FeatureSupportClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewFetchTieringCostClient() *FetchTieringCostClient {
+	subClient, _ := NewFetchTieringCostClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGetTieringCostOperationResultClient() *GetTieringCostOperationResultClient {
+	subClient, _ := NewGetTieringCostOperationResultClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewItemLevelRecoveryConnectionsClient() *ItemLevelRecoveryConnectionsClient {
 	subClient, _ := NewItemLevelRecoveryConnectionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -269,6 +279,11 @@ func (c *ClientFactory) NewRestoresClient() *RestoresClient {
 
 func (c *ClientFactory) NewSecurityPINsClient() *SecurityPINsClient {
 	subClient, _ := NewSecurityPINsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewTieringCostOperationStatusClient() *TieringCostOperationStatusClient {
+	subClient, _ := NewTieringCostOperationStatusClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
