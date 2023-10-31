@@ -1,5 +1,190 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-10-31)
+### Breaking Changes
+
+- Enum `OperationProperties` has been removed
+- Enum `RoutingPreference` has been removed
+- Enum `SSLPreference` has been removed
+- Enum `SapLandscapeMonitorProvisioningState` has been removed
+- Enum `WorkloadMonitorActionType` has been removed
+- Enum `WorkloadMonitorProvisioningState` has been removed
+- Function `*ClientFactory.NewMonitorsClient` has been removed
+- Function `*ClientFactory.NewProviderInstancesClient` has been removed
+- Function `*ClientFactory.NewSapLandscapeMonitorClient` has been removed
+- Function `*DB2ProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `*HanaDbProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `NewMonitorsClient` has been removed
+- Function `*MonitorsClient.BeginCreate` has been removed
+- Function `*MonitorsClient.BeginDelete` has been removed
+- Function `*MonitorsClient.Get` has been removed
+- Function `*MonitorsClient.NewListByResourceGroupPager` has been removed
+- Function `*MonitorsClient.NewListPager` has been removed
+- Function `*MonitorsClient.Update` has been removed
+- Function `*MsSQLServerProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `*PrometheusHaClusterProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `*PrometheusOSProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `NewProviderInstancesClient` has been removed
+- Function `*ProviderInstancesClient.BeginCreate` has been removed
+- Function `*ProviderInstancesClient.BeginDelete` has been removed
+- Function `*ProviderInstancesClient.Get` has been removed
+- Function `*ProviderInstancesClient.NewListPager` has been removed
+- Function `*ProviderSpecificProperties.GetProviderSpecificProperties` has been removed
+- Function `NewSapLandscapeMonitorClient` has been removed
+- Function `*SapLandscapeMonitorClient.Create` has been removed
+- Function `*SapLandscapeMonitorClient.Delete` has been removed
+- Function `*SapLandscapeMonitorClient.Get` has been removed
+- Function `*SapLandscapeMonitorClient.List` has been removed
+- Function `*SapLandscapeMonitorClient.Update` has been removed
+- Function `*SapNetWeaverProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Operation `*SAPApplicationServerInstancesClient.BeginUpdate` has been changed to non-LRO, use `*SAPApplicationServerInstancesClient.Update` instead.
+- Operation `*SAPCentralInstancesClient.BeginUpdate` has been changed to non-LRO, use `*SAPCentralInstancesClient.Update` instead.
+- Operation `*SAPDatabaseInstancesClient.BeginUpdate` has been changed to non-LRO, use `*SAPDatabaseInstancesClient.Update` instead.
+- Operation `*SAPVirtualInstancesClient.Update` has been changed to LRO, use `*SAPVirtualInstancesClient.BeginUpdate` instead.
+- Struct `DB2ProviderInstanceProperties` has been removed
+- Struct `Error` has been removed
+- Struct `ErrorInnerError` has been removed
+- Struct `HanaDbProviderInstanceProperties` has been removed
+- Struct `Monitor` has been removed
+- Struct `MonitorListResult` has been removed
+- Struct `MonitorProperties` has been removed
+- Struct `MonitorPropertiesErrors` has been removed
+- Struct `MsSQLServerProviderInstanceProperties` has been removed
+- Struct `OperationsContent` has been removed
+- Struct `OperationsDefinition` has been removed
+- Struct `OperationsDefinitionArrayResponseWithContinuation` has been removed
+- Struct `OperationsDefinitionDisplay` has been removed
+- Struct `OperationsDisplayDefinition` has been removed
+- Struct `PrometheusHaClusterProviderInstanceProperties` has been removed
+- Struct `PrometheusOSProviderInstanceProperties` has been removed
+- Struct `ProviderInstance` has been removed
+- Struct `ProviderInstanceListResult` has been removed
+- Struct `ProviderInstanceProperties` has been removed
+- Struct `ProviderInstancePropertiesErrors` has been removed
+- Struct `ProxyResource` has been removed
+- Struct `SapLandscapeMonitor` has been removed
+- Struct `SapLandscapeMonitorListResult` has been removed
+- Struct `SapLandscapeMonitorMetricThresholds` has been removed
+- Struct `SapLandscapeMonitorProperties` has been removed
+- Struct `SapLandscapeMonitorPropertiesGrouping` has been removed
+- Struct `SapLandscapeMonitorSidMapping` has been removed
+- Struct `SapNetWeaverProviderInstanceProperties` has been removed
+- Struct `Tags` has been removed
+- Struct `UpdateMonitorRequest` has been removed
+- Field `OperationStatusResult` of struct `SAPApplicationServerInstancesClientDeleteResponse` has been removed
+- Field `OperationStatusResult` of struct `SAPCentralInstancesClientDeleteResponse` has been removed
+- Field `OperationStatusResult` of struct `SAPDatabaseInstancesClientDeleteResponse` has been removed
+- Field `OperationStatusResult` of struct `SAPVirtualInstancesClientDeleteResponse` has been removed
+
+### Features Added
+
+- New value `SAPVirtualInstanceStateACSSInstallationBlocked` added to enum type `SAPVirtualInstanceState`
+- New value `SapVirtualInstanceProvisioningStateCanceled` added to enum type `SapVirtualInstanceProvisioningState`
+- New enum type `BackupType` with values `BackupTypeHANA`, `BackupTypeSQL`, `BackupTypeVM`
+- New enum type `ConnectorProvisioningState` with values `ConnectorProvisioningStateCanceled`, `ConnectorProvisioningStateCreating`, `ConnectorProvisioningStateDeleting`, `ConnectorProvisioningStateFailed`, `ConnectorProvisioningStateSucceeded`, `ConnectorProvisioningStateUpdating`
+- New enum type `DayOfWeek` with values `DayOfWeekFriday`, `DayOfWeekMonday`, `DayOfWeekSaturday`, `DayOfWeekSunday`, `DayOfWeekThursday`, `DayOfWeekTuesday`, `DayOfWeekWednesday`
+- New enum type `IAASVMPolicyType` with values `IAASVMPolicyTypeInvalid`, `IAASVMPolicyTypeV1`, `IAASVMPolicyTypeV2`
+- New enum type `ManagedResourcesNetworkAccessType` with values `ManagedResourcesNetworkAccessTypePrivate`, `ManagedResourcesNetworkAccessTypePublic`
+- New enum type `MonthOfYear` with values `MonthOfYearApril`, `MonthOfYearAugust`, `MonthOfYearDecember`, `MonthOfYearFebruary`, `MonthOfYearInvalid`, `MonthOfYearJanuary`, `MonthOfYearJuly`, `MonthOfYearJune`, `MonthOfYearMarch`, `MonthOfYearMay`, `MonthOfYearNovember`, `MonthOfYearOctober`, `MonthOfYearSeptember`
+- New enum type `PolicyType` with values `PolicyTypeCopyOnlyFull`, `PolicyTypeDifferential`, `PolicyTypeFull`, `PolicyTypeIncremental`, `PolicyTypeInvalid`, `PolicyTypeLog`, `PolicyTypeSnapshotCopyOnlyFull`, `PolicyTypeSnapshotFull`
+- New enum type `RetentionDurationType` with values `RetentionDurationTypeDays`, `RetentionDurationTypeInvalid`, `RetentionDurationTypeMonths`, `RetentionDurationTypeWeeks`, `RetentionDurationTypeYears`
+- New enum type `RetentionScheduleFormat` with values `RetentionScheduleFormatDaily`, `RetentionScheduleFormatInvalid`, `RetentionScheduleFormatWeekly`
+- New enum type `SSLCryptoProvider` with values `SSLCryptoProviderCommoncrypto`, `SSLCryptoProviderOpenssl`
+- New enum type `ScheduleRunType` with values `ScheduleRunTypeDaily`, `ScheduleRunTypeHourly`, `ScheduleRunTypeInvalid`, `ScheduleRunTypeWeekly`
+- New enum type `TieringMode` with values `TieringModeDoNotTier`, `TieringModeInvalid`, `TieringModeTierAfter`, `TieringModeTierRecommended`
+- New enum type `VaultType` with values `VaultTypeExisting`, `VaultTypeNew`
+- New enum type `WeekOfMonth` with values `WeekOfMonthFirst`, `WeekOfMonthFourth`, `WeekOfMonthInvalid`, `WeekOfMonthLast`, `WeekOfMonthSecond`, `WeekOfMonthThird`
+- New enum type `WorkloadType` with values `WorkloadTypeAzureFileShare`, `WorkloadTypeAzureSQLDb`, `WorkloadTypeClient`, `WorkloadTypeExchange`, `WorkloadTypeFileFolder`, `WorkloadTypeGenericDataSource`, `WorkloadTypeInvalid`, `WorkloadTypeSAPAseDatabase`, `WorkloadTypeSAPHanaDBInstance`, `WorkloadTypeSAPHanaDatabase`, `WorkloadTypeSQLDB`, `WorkloadTypeSQLDataBase`, `WorkloadTypeSharepoint`, `WorkloadTypeSystemState`, `WorkloadTypeVM`, `WorkloadTypeVMwareVM`
+- New function `NewACSSBackupConnectionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ACSSBackupConnectionsClient, error)`
+- New function `*ACSSBackupConnectionsClient.BeginCreate(context.Context, string, string, string, ACSSBackupConnection, *ACSSBackupConnectionsClientBeginCreateOptions) (*runtime.Poller[ACSSBackupConnectionsClientCreateResponse], error)`
+- New function `*ACSSBackupConnectionsClient.BeginDelete(context.Context, string, string, string, *ACSSBackupConnectionsClientBeginDeleteOptions) (*runtime.Poller[ACSSBackupConnectionsClientDeleteResponse], error)`
+- New function `*ACSSBackupConnectionsClient.Get(context.Context, string, string, string, *ACSSBackupConnectionsClientGetOptions) (ACSSBackupConnectionsClientGetResponse, error)`
+- New function `*ACSSBackupConnectionsClient.NewListPager(string, string, *ACSSBackupConnectionsClientListOptions) *runtime.Pager[ACSSBackupConnectionsClientListResponse]`
+- New function `*ACSSBackupConnectionsClient.BeginUpdate(context.Context, string, string, string, UpdateACSSBackupConnectionRequest, *ACSSBackupConnectionsClientBeginUpdateOptions) (*runtime.Poller[ACSSBackupConnectionsClientUpdateResponse], error)`
+- New function `*AzureIaaSVMProtectionPolicy.GetProtectionPolicy() *ProtectionPolicy`
+- New function `*AzureVMWorkloadProtectionPolicy.GetProtectionPolicy() *ProtectionPolicy`
+- New function `*BackupData.GetBackupData() *BackupData`
+- New function `*ClientFactory.NewACSSBackupConnectionsClient() *ACSSBackupConnectionsClient`
+- New function `*ClientFactory.NewConnectorsClient() *ConnectorsClient`
+- New function `NewConnectorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorsClient, error)`
+- New function `*ConnectorsClient.BeginCreate(context.Context, string, string, Connector, *ConnectorsClientBeginCreateOptions) (*runtime.Poller[ConnectorsClientCreateResponse], error)`
+- New function `*ConnectorsClient.BeginDelete(context.Context, string, string, *ConnectorsClientBeginDeleteOptions) (*runtime.Poller[ConnectorsClientDeleteResponse], error)`
+- New function `*ConnectorsClient.Get(context.Context, string, string, *ConnectorsClientGetOptions) (ConnectorsClientGetResponse, error)`
+- New function `*ConnectorsClient.NewListByResourceGroupPager(string, *ConnectorsClientListByResourceGroupOptions) *runtime.Pager[ConnectorsClientListByResourceGroupResponse]`
+- New function `*ConnectorsClient.NewListBySubscriptionPager(*ConnectorsClientListBySubscriptionOptions) *runtime.Pager[ConnectorsClientListBySubscriptionResponse]`
+- New function `*ConnectorsClient.Update(context.Context, string, string, UpdateConnectorRequest, *ConnectorsClientUpdateOptions) (ConnectorsClientUpdateResponse, error)`
+- New function `*ExistingRecoveryServicesVault.GetRecoveryServicesVaultProperties() *RecoveryServicesVaultProperties`
+- New function `*HanaBackupData.GetBackupData() *BackupData`
+- New function `*LogSchedulePolicy.GetSchedulePolicy() *SchedulePolicy`
+- New function `*LongTermRetentionPolicy.GetRetentionPolicy() *RetentionPolicy`
+- New function `*LongTermSchedulePolicy.GetSchedulePolicy() *SchedulePolicy`
+- New function `*ProtectionPolicy.GetProtectionPolicy() *ProtectionPolicy`
+- New function `*NewRecoveryServicesVault.GetRecoveryServicesVaultProperties() *RecoveryServicesVaultProperties`
+- New function `*RecoveryServicesVaultProperties.GetRecoveryServicesVaultProperties() *RecoveryServicesVaultProperties`
+- New function `*RetentionPolicy.GetRetentionPolicy() *RetentionPolicy`
+- New function `*SQLBackupData.GetBackupData() *BackupData`
+- New function `*SchedulePolicy.GetSchedulePolicy() *SchedulePolicy`
+- New function `*SimpleRetentionPolicy.GetRetentionPolicy() *RetentionPolicy`
+- New function `*SimpleSchedulePolicy.GetSchedulePolicy() *SchedulePolicy`
+- New function `*SimpleSchedulePolicyV2.GetSchedulePolicy() *SchedulePolicy`
+- New function `*VMBackupData.GetBackupData() *BackupData`
+- New struct `ACSSBackupConnection`
+- New struct `ACSSBackupConnectionList`
+- New struct `ACSSBackupConnectionProperties`
+- New struct `AzureIaaSVMProtectionPolicy`
+- New struct `AzureVMWorkloadProtectionPolicy`
+- New struct `Connector`
+- New struct `ConnectorErrorDefinition`
+- New struct `ConnectorList`
+- New struct `ConnectorProperties`
+- New struct `DBBackupPolicyProperties`
+- New struct `DailyRetentionFormat`
+- New struct `DailyRetentionSchedule`
+- New struct `DailySchedule`
+- New struct `Day`
+- New struct `DiskExclusionProperties`
+- New struct `ExistingRecoveryServicesVault`
+- New struct `HanaBackupData`
+- New struct `HourlySchedule`
+- New struct `InstantRPAdditionalDetails`
+- New struct `LogSchedulePolicy`
+- New struct `LongTermRetentionPolicy`
+- New struct `LongTermSchedulePolicy`
+- New struct `MonthlyRetentionSchedule`
+- New struct `NewRecoveryServicesVault`
+- New struct `RetentionDuration`
+- New struct `SQLBackupData`
+- New struct `SSLConfiguration`
+- New struct `Settings`
+- New struct `SimpleRetentionPolicy`
+- New struct `SimpleSchedulePolicy`
+- New struct `SimpleSchedulePolicyV2`
+- New struct `SnapshotBackupAdditionalDetails`
+- New struct `StartRequest`
+- New struct `SubProtectionPolicy`
+- New struct `TieringPolicy`
+- New struct `UpdateACSSBackupConnectionRequest`
+- New struct `UpdateConnectorRequest`
+- New struct `UpdateSAPVirtualInstanceProperties`
+- New struct `UserAssignedIdentityProperties`
+- New struct `UserAssignedManagedIdentityDetails`
+- New struct `VMBackupData`
+- New struct `VMBackupPolicyProperties`
+- New struct `WeeklyRetentionFormat`
+- New struct `WeeklyRetentionSchedule`
+- New struct `WeeklySchedule`
+- New struct `YearlyRetentionSchedule`
+- New field `ID` in struct `ImageReference`
+- New field `Body` in struct `SAPApplicationServerInstancesClientBeginStartInstanceOptions`
+- New field `DispatcherStatus` in struct `SAPApplicationServerProperties`
+- New field `Body` in struct `SAPCentralInstancesClientBeginStartInstanceOptions`
+- New field `Body` in struct `SAPDatabaseInstancesClientBeginStartInstanceOptions`
+- New field `ManagedResourcesNetworkAccessType` in struct `SAPVirtualInstanceProperties`
+- New field `Body` in struct `SAPVirtualInstancesClientBeginStartOptions`
+- New field `DeallocateVM` in struct `StopRequest`
+- New field `Properties` in struct `UpdateSAPVirtualInstanceRequest`
+
+
 ## 1.0.0 (2023-04-28)
 ### Breaking Changes
 
