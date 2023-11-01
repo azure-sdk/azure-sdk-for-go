@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.3.0-beta.2"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -1795,6 +1795,23 @@ func PossibleRollingUpgradeStatusCodeValues() []RollingUpgradeStatusCode {
 		RollingUpgradeStatusCodeCompleted,
 		RollingUpgradeStatusCodeFaulted,
 		RollingUpgradeStatusCodeRollingForward,
+	}
+}
+
+// SSHEncryptionTypes - The encryption type of the SSH keys to be generated. See SshEncryptionTypes for possible set of values.
+// If not provided, will default to RSA
+type SSHEncryptionTypes string
+
+const (
+	SSHEncryptionTypesEd25519 SSHEncryptionTypes = "Ed25519"
+	SSHEncryptionTypesRSA     SSHEncryptionTypes = "RSA"
+)
+
+// PossibleSSHEncryptionTypesValues returns the possible values for the SSHEncryptionTypes const type.
+func PossibleSSHEncryptionTypesValues() []SSHEncryptionTypes {
+	return []SSHEncryptionTypes{
+		SSHEncryptionTypesEd25519,
+		SSHEncryptionTypesRSA,
 	}
 }
 

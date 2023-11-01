@@ -1,5 +1,22 @@
 # Release History
 
+## 6.0.0 (2023-11-01)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New enum type `SSHEncryptionTypes` with values `SSHEncryptionTypesEd25519`, `SSHEncryptionTypesRSA`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `SSHGenerateKeyPairInputParameters`
+- New field `Parameters` in struct `SSHPublicKeysClientGenerateKeyPairOptions`
+
+
 ## 5.3.0-beta.2 (2023-10-30)
 
 ### Other Changes

@@ -11600,6 +11600,33 @@ func (s *SSHConfiguration) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type SSHGenerateKeyPairInputParameters.
+func (s SSHGenerateKeyPairInputParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "encryptionType", s.EncryptionType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SSHGenerateKeyPairInputParameters.
+func (s *SSHGenerateKeyPairInputParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "encryptionType":
+			err = unpopulate(val, "EncryptionType", &s.EncryptionType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type SSHPublicKey.
 func (s SSHPublicKey) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)

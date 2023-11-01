@@ -956,7 +956,8 @@ type SSHPublicKeysClientDeleteOptions struct {
 // SSHPublicKeysClientGenerateKeyPairOptions contains the optional parameters for the SSHPublicKeysClient.GenerateKeyPair
 // method.
 type SSHPublicKeysClientGenerateKeyPairOptions struct {
-	// placeholder for future optional parameters
+	// Parameters supplied to generate the SSH public key.
+	Parameters *SSHGenerateKeyPairInputParameters
 }
 
 // SSHPublicKeysClientGetOptions contains the optional parameters for the SSHPublicKeysClient.Get method.
