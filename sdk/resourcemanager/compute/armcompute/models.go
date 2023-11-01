@@ -99,6 +99,9 @@ type AlternativeOption struct {
 type ApplicationProfile struct {
 	// Specifies the gallery applications that should be made available to the VM/VMSS
 	GalleryApplications []*VMGalleryApplication
+
+	// The URI to fetch the next page of gallery application. Call ListNext() with this to fetch the next page of gallery application.
+	NextLink *string
 }
 
 // AutomaticOSUpgradePolicy - The configuration parameters used for performing automatic OS upgrade.
@@ -5744,6 +5747,36 @@ type UserAssignedIdentitiesValue struct {
 	PrincipalID *string
 }
 
+// VMApplicationProxyResource - The entity representing a Gallery Application Version assigned with a VM or VMSS
+type VMApplicationProxyResource struct {
+	// The properties of a Gallery Application Version
+	Properties *VMGalleryApplication
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// VMApplicationWithInstanceView - The entity representing a Gallery Application Version assigned with a VM or VMSS
+type VMApplicationWithInstanceView struct {
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; The properties of a Gallery Application Version
+	Properties *VMGalleryApplicationWithInstanceView
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
 // VMDiskSecurityProfile - Specifies the security profile settings for the managed disk. Note: It can only be set for Confidential
 // VMs.
 type VMDiskSecurityProfile struct {
@@ -5778,6 +5811,61 @@ type VMGalleryApplication struct {
 
 	// Optional, If true, any failure for any operation in the VmApplication will fail the deployment
 	TreatFailureAsDeploymentFailure *bool
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *string
+}
+
+type VMGalleryApplicationInstanceView struct {
+	// actions performed on the application
+	ActionsPerformed []*VMGalleryApplicationInstanceViewAction
+
+	// READ-ONLY; The application name
+	Name *string
+
+	// READ-ONLY; The current status of the application
+	Result *string
+
+	// READ-ONLY; The application version
+	Version *string
+}
+
+type VMGalleryApplicationInstanceViewAction struct {
+	// READ-ONLY; The action performed
+	Operation *string
+
+	// READ-ONLY; The result of the operation
+	Result *string
+}
+
+// VMGalleryApplicationWithInstanceView - The entity representing a Gallery Application Version assigned with a VM or VMSS
+// with instance view
+type VMGalleryApplicationWithInstanceView struct {
+	// REQUIRED; Specifies the GalleryApplicationVersion resource id on the form of
+	// /subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{application}/versions/{version}
+	PackageReferenceID *string
+
+	// Optional, Specifies the uri to an azure blob that will replace the default configuration for the package if provided
+	ConfigurationReference *string
+
+	// If set to true, when a new Gallery Application version is available in PIR/SIG, it will be automatically updated for the
+	// VM/VMSS
+	EnableAutomaticUpgrade *bool
+
+	// Optional, Specifies the order in which the packages have to be installed
+	Order *int32
+
+	// Optional, Specifies a passthrough value for more generic context.
+	Tags *string
+
+	// Optional, If true, any failure for any operation in the VmApplication will fail the deployment
+	TreatFailureAsDeploymentFailure *bool
+
+	// READ-ONLY; The instance view of Gallery Application Version assigned to the VM or VMSS
+	InstanceView *VMGalleryApplicationInstanceView
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *string
 }
 
 // VMImagesInEdgeZoneListResult - The List VmImages in EdgeZone operation response.
@@ -5902,6 +5990,15 @@ type VirtualMachineAgentInstanceView struct {
 
 	// The VM Agent full version.
 	VMAgentVersion *string
+}
+
+// VirtualMachineApplicationsProxyResourceListResult - The List Extension operation response
+type VirtualMachineApplicationsProxyResourceListResult struct {
+	// The URI to fetch the next page of VM/VMSS Application. Call ListNext() with this to fetch the next page of VM/VMSS Application.
+	NextLink *string
+
+	// The list of VM/VMSS Application
+	Value []*VMApplicationProxyResource
 }
 
 // VirtualMachineAssessPatchesResult - Describes the properties of an AssessPatches result.

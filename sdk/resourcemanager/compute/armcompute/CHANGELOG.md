@@ -1,5 +1,44 @@
 # Release History
 
+## 6.0.0 (2023-11-01)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewVirtualMachineApplicationsClient() *VirtualMachineApplicationsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetApplicationsClient() *VirtualMachineScaleSetApplicationsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetVirtualMachineApplicationsClient() *VirtualMachineScaleSetVirtualMachineApplicationsClient`
+- New function `NewVirtualMachineApplicationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualMachineApplicationsClient, error)`
+- New function `*VirtualMachineApplicationsClient.BeginDelete(context.Context, string, string, string, *VirtualMachineApplicationsClientBeginDeleteOptions) (*runtime.Poller[VirtualMachineApplicationsClientDeleteResponse], error)`
+- New function `*VirtualMachineApplicationsClient.Get(context.Context, string, string, string, *VirtualMachineApplicationsClientGetOptions) (VirtualMachineApplicationsClientGetResponse, error)`
+- New function `*VirtualMachineApplicationsClient.GetInstanceView(context.Context, string, string, string, *VirtualMachineApplicationsClientGetInstanceViewOptions) (VirtualMachineApplicationsClientGetInstanceViewResponse, error)`
+- New function `*VirtualMachineApplicationsClient.NewListPager(string, string, *VirtualMachineApplicationsClientListOptions) *runtime.Pager[VirtualMachineApplicationsClientListResponse]`
+- New function `*VirtualMachineApplicationsClient.BeginPut(context.Context, string, string, string, VMApplicationWithInstanceView, *VirtualMachineApplicationsClientBeginPutOptions) (*runtime.Poller[VirtualMachineApplicationsClientPutResponse], error)`
+- New function `NewVirtualMachineScaleSetApplicationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualMachineScaleSetApplicationsClient, error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.BeginDelete(context.Context, string, string, string, *VirtualMachineScaleSetApplicationsClientBeginDeleteOptions) (*runtime.Poller[VirtualMachineScaleSetApplicationsClientDeleteResponse], error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.Get(context.Context, string, string, string, *VirtualMachineScaleSetApplicationsClientGetOptions) (VirtualMachineScaleSetApplicationsClientGetResponse, error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.List(context.Context, string, string, *VirtualMachineScaleSetApplicationsClientListOptions) (VirtualMachineScaleSetApplicationsClientListResponse, error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.BeginPut(context.Context, string, string, string, VMApplicationProxyResource, *VirtualMachineScaleSetApplicationsClientBeginPutOptions) (*runtime.Poller[VirtualMachineScaleSetApplicationsClientPutResponse], error)`
+- New function `NewVirtualMachineScaleSetVirtualMachineApplicationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualMachineScaleSetVirtualMachineApplicationsClient, error)`
+- New function `*VirtualMachineScaleSetVirtualMachineApplicationsClient.GetInstanceView(context.Context, string, string, string, string, *VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewOptions) (VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewResponse, error)`
+- New function `*VirtualMachineScaleSetVirtualMachineApplicationsClient.NewGetPager(string, string, string, string, *VirtualMachineScaleSetVirtualMachineApplicationsClientGetOptions) *runtime.Pager[VirtualMachineScaleSetVirtualMachineApplicationsClientGetResponse]`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `VMApplicationProxyResource`
+- New struct `VMApplicationWithInstanceView`
+- New struct `VMGalleryApplicationInstanceView`
+- New struct `VMGalleryApplicationInstanceViewAction`
+- New struct `VMGalleryApplicationWithInstanceView`
+- New struct `VirtualMachineApplicationsProxyResourceListResult`
+- New field `NextLink` in struct `ApplicationProfile`
+- New field `ProvisioningState` in struct `VMGalleryApplication`
+
+
 ## 5.3.0-beta.2 (2023-10-30)
 
 ### Other Changes

@@ -1068,6 +1068,39 @@ type UsageClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// VirtualMachineApplicationsClientBeginDeleteOptions contains the optional parameters for the VirtualMachineApplicationsClient.BeginDelete
+// method.
+type VirtualMachineApplicationsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineApplicationsClientBeginPutOptions contains the optional parameters for the VirtualMachineApplicationsClient.BeginPut
+// method.
+type VirtualMachineApplicationsClientBeginPutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineApplicationsClientGetInstanceViewOptions contains the optional parameters for the VirtualMachineApplicationsClient.GetInstanceView
+// method.
+type VirtualMachineApplicationsClientGetInstanceViewOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineApplicationsClientGetOptions contains the optional parameters for the VirtualMachineApplicationsClient.Get
+// method.
+type VirtualMachineApplicationsClientGetOptions struct {
+	// The expand expression to apply on the operation.. Specifying any value will set the value to instanceView.
+	Expand *string
+}
+
+// VirtualMachineApplicationsClientListOptions contains the optional parameters for the VirtualMachineApplicationsClient.NewListPager
+// method.
+type VirtualMachineApplicationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // VirtualMachineExtensionImagesClientGetOptions contains the optional parameters for the VirtualMachineExtensionImagesClient.Get
 // method.
 type VirtualMachineExtensionImagesClientGetOptions struct {
@@ -1241,6 +1274,32 @@ type VirtualMachineRunCommandsClientListByVirtualMachineOptions struct {
 // VirtualMachineRunCommandsClientListOptions contains the optional parameters for the VirtualMachineRunCommandsClient.NewListPager
 // method.
 type VirtualMachineRunCommandsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineScaleSetApplicationsClientBeginDeleteOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.BeginDelete
+// method.
+type VirtualMachineScaleSetApplicationsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineScaleSetApplicationsClientBeginPutOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.BeginPut
+// method.
+type VirtualMachineScaleSetApplicationsClientBeginPutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineScaleSetApplicationsClientGetOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.Get
+// method.
+type VirtualMachineScaleSetApplicationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineScaleSetApplicationsClientListOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.List
+// method.
+type VirtualMachineScaleSetApplicationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1503,6 +1562,19 @@ type VirtualMachineScaleSetVMsClientRetrieveBootDiagnosticsDataOptions struct {
 // method.
 type VirtualMachineScaleSetVMsClientSimulateEvictionOptions struct {
 	// placeholder for future optional parameters
+}
+
+// VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewOptions contains the optional parameters for the VirtualMachineScaleSetVirtualMachineApplicationsClient.GetInstanceView
+// method.
+type VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineScaleSetVirtualMachineApplicationsClientGetOptions contains the optional parameters for the VirtualMachineScaleSetVirtualMachineApplicationsClient.NewGetPager
+// method.
+type VirtualMachineScaleSetVirtualMachineApplicationsClientGetOptions struct {
+	// The expand expression to apply on the operation.. Specifying any value will set the value to instanceView.
+	Expand *string
 }
 
 // VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginCreateOrUpdate

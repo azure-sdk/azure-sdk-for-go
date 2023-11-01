@@ -1024,6 +1024,35 @@ type UsageClientListResponse struct {
 	ListUsagesResult
 }
 
+// VirtualMachineApplicationsClientDeleteResponse contains the response from method VirtualMachineApplicationsClient.BeginDelete.
+type VirtualMachineApplicationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineApplicationsClientGetInstanceViewResponse contains the response from method VirtualMachineApplicationsClient.GetInstanceView.
+type VirtualMachineApplicationsClientGetInstanceViewResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationWithInstanceView
+}
+
+// VirtualMachineApplicationsClientGetResponse contains the response from method VirtualMachineApplicationsClient.Get.
+type VirtualMachineApplicationsClientGetResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationWithInstanceView
+}
+
+// VirtualMachineApplicationsClientListResponse contains the response from method VirtualMachineApplicationsClient.NewListPager.
+type VirtualMachineApplicationsClientListResponse struct {
+	// The List Extension operation response
+	VirtualMachineApplicationsProxyResourceListResult
+}
+
+// VirtualMachineApplicationsClientPutResponse contains the response from method VirtualMachineApplicationsClient.BeginPut.
+type VirtualMachineApplicationsClientPutResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationWithInstanceView
+}
+
 // VirtualMachineExtensionImagesClientGetResponse contains the response from method VirtualMachineExtensionImagesClient.Get.
 type VirtualMachineExtensionImagesClientGetResponse struct {
 	// Describes a Virtual Machine Extension Image.
@@ -1176,6 +1205,29 @@ type VirtualMachineRunCommandsClientListResponse struct {
 type VirtualMachineRunCommandsClientUpdateResponse struct {
 	// Describes a Virtual Machine run command.
 	VirtualMachineRunCommand
+}
+
+// VirtualMachineScaleSetApplicationsClientDeleteResponse contains the response from method VirtualMachineScaleSetApplicationsClient.BeginDelete.
+type VirtualMachineScaleSetApplicationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineScaleSetApplicationsClientGetResponse contains the response from method VirtualMachineScaleSetApplicationsClient.Get.
+type VirtualMachineScaleSetApplicationsClientGetResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationProxyResource
+}
+
+// VirtualMachineScaleSetApplicationsClientListResponse contains the response from method VirtualMachineScaleSetApplicationsClient.List.
+type VirtualMachineScaleSetApplicationsClientListResponse struct {
+	// The List Extension operation response
+	VirtualMachineApplicationsProxyResourceListResult
+}
+
+// VirtualMachineScaleSetApplicationsClientPutResponse contains the response from method VirtualMachineScaleSetApplicationsClient.BeginPut.
+type VirtualMachineScaleSetApplicationsClientPutResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationProxyResource
 }
 
 // VirtualMachineScaleSetExtensionsClientCreateOrUpdateResponse contains the response from method VirtualMachineScaleSetExtensionsClient.BeginCreateOrUpdate.
@@ -1369,6 +1421,18 @@ type VirtualMachineScaleSetVMsClientStartResponse struct {
 type VirtualMachineScaleSetVMsClientUpdateResponse struct {
 	// Describes a virtual machine scale set virtual machine.
 	VirtualMachineScaleSetVM
+}
+
+// VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewResponse contains the response from method VirtualMachineScaleSetVirtualMachineApplicationsClient.GetInstanceView.
+type VirtualMachineScaleSetVirtualMachineApplicationsClientGetInstanceViewResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationWithInstanceView
+}
+
+// VirtualMachineScaleSetVirtualMachineApplicationsClientGetResponse contains the response from method VirtualMachineScaleSetVirtualMachineApplicationsClient.NewGetPager.
+type VirtualMachineScaleSetVirtualMachineApplicationsClientGetResponse struct {
+	// The entity representing a Gallery Application Version assigned with a VM or VMSS
+	VMApplicationWithInstanceView
 }
 
 // VirtualMachineScaleSetsClientConvertToSinglePlacementGroupResponse contains the response from method VirtualMachineScaleSetsClient.ConvertToSinglePlacementGroup.
