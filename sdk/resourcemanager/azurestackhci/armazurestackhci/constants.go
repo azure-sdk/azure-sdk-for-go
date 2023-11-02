@@ -10,7 +10,7 @@ package armazurestackhci
 
 const (
 	moduleName    = "armazurestackhci"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
