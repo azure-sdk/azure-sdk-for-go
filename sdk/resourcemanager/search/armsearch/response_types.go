@@ -20,12 +20,6 @@ type AdminKeysClientRegenerateResponse struct {
 	AdminKeyResult
 }
 
-// ManagementClientUsageBySubscriptionSKUResponse contains the response from method ManagementClient.UsageBySubscriptionSKU.
-type ManagementClientUsageBySubscriptionSKUResponse struct {
-	// Describes the quota usage for a particular sku supported by Azure Cognitive Search.
-	QuotaUsageResult
-}
-
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// The result of the request to list REST API operations. It contains a list of operations and a URL to get the next set of
@@ -142,10 +136,4 @@ type SharedPrivateLinkResourcesClientGetResponse struct {
 type SharedPrivateLinkResourcesClientListByServiceResponse struct {
 	// Response containing a list of Shared Private Link Resources.
 	SharedPrivateLinkResourceListResult
-}
-
-// UsagesClientListBySubscriptionResponse contains the response from method UsagesClient.NewListBySubscriptionPager.
-type UsagesClientListBySubscriptionResponse struct {
-	// Response containing the quota usage information for all the supported skus of Azure Cognitive Search service.
-	QuotaUsagesListResult
 }

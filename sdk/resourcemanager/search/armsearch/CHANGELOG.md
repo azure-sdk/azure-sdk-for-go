@@ -1,5 +1,39 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-11-02)
+### Breaking Changes
+
+- Enum `PrivateLinkServiceConnectionProvisioningState` has been removed
+- Function `*ClientFactory.NewManagementClient` has been removed
+- Function `*ClientFactory.NewUsagesClient` has been removed
+- Function `NewManagementClient` has been removed
+- Function `*ManagementClient.UsageBySubscriptionSKU` has been removed
+- Function `NewUsagesClient` has been removed
+- Function `*UsagesClient.NewListBySubscriptionPager` has been removed
+- Struct `QuotaUsageResult` has been removed
+- Struct `QuotaUsageResultName` has been removed
+- Struct `QuotaUsagesListResult` has been removed
+- Field `GroupID`, `ProvisioningState` of struct `PrivateEndpointConnectionProperties` has been removed
+
+### Features Added
+
+- New value `IdentityTypeSystemAssignedUserAssigned`, `IdentityTypeUserAssigned` added to enum type `IdentityType`
+- New value `SearchServiceStatusStopped` added to enum type `SearchServiceStatus`
+- New enum type `SearchBypass` with values `SearchBypassAzurePortal`, `SearchBypassNone`
+- New enum type `SearchDisabledDataExfiltrationOption` with values `SearchDisabledDataExfiltrationOptionAll`
+- New struct `OperationAvailability`
+- New struct `OperationLogsSpecification`
+- New struct `OperationMetricDimension`
+- New struct `OperationMetricsSpecification`
+- New struct `OperationProperties`
+- New struct `OperationServiceSpecification`
+- New struct `UserAssignedManagedIdentity`
+- New field `UserAssignedIdentities` in struct `Identity`
+- New field `Bypass` in struct `NetworkRuleSet`
+- New field `IsDataAction`, `Origin`, `Properties` in struct `Operation`
+- New field `DisabledDataExfiltrationOptions`, `ETag` in struct `ServiceProperties`
+
+
 ## 1.2.0 (2023-10-27)
 ### Features Added
 

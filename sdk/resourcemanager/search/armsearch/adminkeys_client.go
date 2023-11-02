@@ -47,7 +47,7 @@ func NewAdminKeysClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Gets the primary and secondary admin API keys for the specified Azure Cognitive Search service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -92,7 +92,7 @@ func (client *AdminKeysClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -113,7 +113,7 @@ func (client *AdminKeysClient) getHandleResponse(resp *http.Response) (AdminKeys
 // Regenerate - Regenerates either the primary or secondary admin API key. You can only regenerate one key at a time.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -163,7 +163,7 @@ func (client *AdminKeysClient) regenerateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
