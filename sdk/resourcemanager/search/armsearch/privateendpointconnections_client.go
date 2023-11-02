@@ -47,7 +47,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // Delete - Disconnects the private endpoint connection and deletes it from the search service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -99,7 +99,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -120,7 +120,7 @@ func (client *PrivateEndpointConnectionsClient) deleteHandleResponse(resp *http.
 // Get - Gets the details of the private endpoint connection to the search service in the given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -172,7 +172,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -192,7 +192,7 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 
 // NewListByServicePager - Gets a list of all private endpoint connections in the given service.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -248,7 +248,7 @@ func (client *PrivateEndpointConnectionsClient) listByServiceCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -269,7 +269,7 @@ func (client *PrivateEndpointConnectionsClient) listByServiceHandleResponse(resp
 // Update - Updates a Private Endpoint connection to the search service in the given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -322,7 +322,7 @@ func (client *PrivateEndpointConnectionsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}

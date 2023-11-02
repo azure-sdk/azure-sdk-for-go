@@ -43,11 +43,6 @@ func (c *ClientFactory) NewAdminKeysClient() *AdminKeysClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewManagementClient() *ManagementClient {
-	subClient, _ := NewManagementClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
@@ -75,10 +70,5 @@ func (c *ClientFactory) NewServicesClient() *ServicesClient {
 
 func (c *ClientFactory) NewSharedPrivateLinkResourcesClient() *SharedPrivateLinkResourcesClient {
 	subClient, _ := NewSharedPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewUsagesClient() *UsagesClient {
-	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

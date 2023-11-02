@@ -79,10 +79,17 @@ type IPRule struct {
 	Value *string
 }
 
-// Identity for the resource.
+// Identity - Details about the search service identity. A null value indicates that the search service has no identity assigned.
 type Identity struct {
-	// REQUIRED; The identity type.
+	// REQUIRED; The type of identity used for the resource. The type 'SystemAssigned, UserAssigned' includes both an identity
+	// created by the system and a set of user assigned identities. The type 'None' will remove
+	// all identities from the service.
 	Type *IdentityType
+
+	// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserAssignedManagedIdentity
 
 	// READ-ONLY; The principal ID of the system-assigned identity of the search service.
 	PrincipalID *string
@@ -103,6 +110,9 @@ type ListQueryKeysResult struct {
 
 // NetworkRuleSet - Network specific rules that determine how the Azure Cognitive Search service may be reached.
 type NetworkRuleSet struct {
+	// Possible origins of inbound traffic that can bypass the rules defined in the 'ipRules' section.
+	Bypass *SearchBypass
+
 	// A list of IP restriction rules that defines the inbound network(s) with allowing access to the search service endpoint.
 	// At the meantime, all other public IP networks are blocked by the firewall. These
 	// restriction rules are applied only when the 'publicNetworkAccess' of the search service is 'enabled'; otherwise, traffic
@@ -116,8 +126,27 @@ type Operation struct {
 	// READ-ONLY; The object that describes the operation.
 	Display *OperationDisplay
 
+	// READ-ONLY; Describes if the specified operation is a data plane API operation. Operations where this value is not true
+	// are supported directly by the resource provider.
+	IsDataAction *bool
+
 	// READ-ONLY; The name of the operation. This name is of the form {provider}/{resource}/{operation}.
 	Name *string
+
+	// READ-ONLY; Describes which originating entities are allowed to invoke this operation.
+	Origin *string
+
+	// READ-ONLY; Describes additional properties for this operation.
+	Properties *OperationProperties
+}
+
+// OperationAvailability - Describes a particular availability for the metric specification.
+type OperationAvailability struct {
+	// READ-ONLY; The blob duration for the dimension.
+	BlobDuration *string
+
+	// READ-ONLY; The time grain for the dimension.
+	TimeGrain *string
 }
 
 // OperationDisplay - The object that describes the operation.
@@ -141,8 +170,69 @@ type OperationListResult struct {
 	// READ-ONLY; The URL to get the next set of operation list results, if any.
 	NextLink *string
 
-	// READ-ONLY; The list of operations supported by the resource provider.
+	// READ-ONLY; The list of operations by Azure Cognitive Search, some supported by the resource provider and others by data
+	// plane APIs.
 	Value []*Operation
+}
+
+// OperationLogsSpecification - Specifications of one type of log for this operation.
+type OperationLogsSpecification struct {
+	// READ-ONLY; The blob duration for the log specification.
+	BlobDuration *string
+
+	// READ-ONLY; The display name of the log specification.
+	DisplayName *string
+
+	// READ-ONLY; The name of the log specification.
+	Name *string
+}
+
+// OperationMetricDimension - Describes a particular dimension for the metric specification.
+type OperationMetricDimension struct {
+	// READ-ONLY; The display name of the dimension.
+	DisplayName *string
+
+	// READ-ONLY; The name of the dimension.
+	Name *string
+}
+
+// OperationMetricsSpecification - Specifications of one type of metric for this operation.
+type OperationMetricsSpecification struct {
+	// READ-ONLY; The type of aggregation for the metric specification.
+	AggregationType *string
+
+	// READ-ONLY; Availabilities for the metric specification.
+	Availabilities []*OperationAvailability
+
+	// READ-ONLY; Dimensions for the metric specification.
+	Dimensions []*OperationMetricDimension
+
+	// READ-ONLY; The display description of the metric specification.
+	DisplayDescription *string
+
+	// READ-ONLY; The display name of the metric specification.
+	DisplayName *string
+
+	// READ-ONLY; The name of the metric specification.
+	Name *string
+
+	// READ-ONLY; The unit for the metric specification.
+	Unit *string
+}
+
+// OperationProperties - Describes additional properties for this operation.
+type OperationProperties struct {
+	// READ-ONLY; Specifications of the service for this operation.
+	ServiceSpecification *OperationServiceSpecification
+}
+
+// OperationServiceSpecification - Specifications of the service for this operation.
+type OperationServiceSpecification struct {
+	// READ-ONLY; Specifications of logs for this operation.
+	LogSpecifications []*OperationLogsSpecification
+
+	// READ-ONLY; Specifications of metrics for this operation.
+	MetricSpecifications []*OperationMetricsSpecification
 }
 
 // PrivateEndpointConnection - Describes an existing Private Endpoint connection to the Azure Cognitive Search service.
@@ -173,17 +263,11 @@ type PrivateEndpointConnectionListResult struct {
 // PrivateEndpointConnectionProperties - Describes the properties of an existing Private Endpoint connection to the Azure
 // Cognitive Search service.
 type PrivateEndpointConnectionProperties struct {
-	// The group id from the provider of resource the private link service connection is for.
-	GroupID *string
-
 	// The private endpoint resource from Microsoft.Network provider.
 	PrivateEndpoint *PrivateEndpointConnectionPropertiesPrivateEndpoint
 
 	// Describes the current state of an existing Private Link Service connection to the Azure Private Endpoint.
 	PrivateLinkServiceConnectionState *PrivateEndpointConnectionPropertiesPrivateLinkServiceConnectionState
-
-	// The provisioning state of the private link service connection. Can be Updating, Deleting, Failed, Succeeded, or Incomplete
-	ProvisioningState *PrivateLinkServiceConnectionProvisioningState
 }
 
 // PrivateEndpointConnectionPropertiesPrivateEndpoint - The private endpoint resource from Microsoft.Network provider.
@@ -252,44 +336,6 @@ type QueryKey struct {
 	Name *string
 }
 
-// QuotaUsageResult - Describes the quota usage for a particular sku supported by Azure Cognitive Search.
-type QuotaUsageResult struct {
-	// The currently used up value for the particular search sku.
-	CurrentValue *int32
-
-	// The resource id of the quota usage sku endpoint for Microsoft.Search provider.
-	ID *string
-
-	// The quota limit for the particular search sku.
-	Limit *int32
-
-	// The unit of measurement for the search sku.
-	Unit *string
-
-	// READ-ONLY; The name of the sku supported by Azure Cognitive Search.
-	Name *QuotaUsageResultName
-}
-
-// QuotaUsageResultName - The name of the sku supported by Azure Cognitive Search.
-type QuotaUsageResultName struct {
-	// The localized string value for the sku supported by Azure Cognitive Search.
-	LocalizedValue *string
-
-	// The sku name supported by Azure Cognitive Search.
-	Value *string
-}
-
-// QuotaUsagesListResult - Response containing the quota usage information for all the supported skus of Azure Cognitive Search
-// service.
-type QuotaUsagesListResult struct {
-	// READ-ONLY; Request URL that can be used to query next page of quota usages. Returned when the total number of requested
-	// quota usages exceed maximum page size.
-	NextLink *string
-
-	// READ-ONLY; The quota usages for the SKUs supported by Azure Cognitive Search.
-	Value []*QuotaUsageResult
-}
-
 // SKU - Defines the SKU of an Azure Cognitive Search Service, which determines price tier and capacity limits.
 type SKU struct {
 	// The SKU of the search service. Valid values include: 'free': Shared service. 'basic': Dedicated service with up to 3 replicas.
@@ -350,6 +396,11 @@ type ServiceProperties struct {
 	// be set to true if 'dataPlaneAuthOptions' are defined.
 	DisableLocalAuth *bool
 
+	// A list of data exfiltration scenarios that are explicitly disallowed for the search service. Currently, the only supported
+	// value is 'All' to disable all possible data export scenarios with more fine
+	// grained controls planned for the future.
+	DisabledDataExfiltrationOptions []*SearchDisabledDataExfiltrationOption
+
 	// Specifies any policy regarding encryption of resources (such as indexes) using customer manager keys within a search service.
 	EncryptionWithCmk *EncryptionWithCmk
 
@@ -380,6 +431,10 @@ type ServiceProperties struct {
 	// Search SKUs in certain locations.
 	SemanticSearch *SearchSemanticSearch
 
+	// READ-ONLY; A system generated property representing the service's etag that can be for optimistic concurrency control during
+	// updates.
+	ETag *string
+
 	// READ-ONLY; The list of private endpoint connections to the Azure Cognitive Search service.
 	PrivateEndpointConnections []*PrivateEndpointConnection
 
@@ -401,9 +456,10 @@ type ServiceProperties struct {
 	// can occur when the underlying search units are not healthy. The search service
 	// is most likely operational, but performance might be slow and some requests might be dropped. 'disabled': The search service
 	// is disabled. In this state, the service will reject all API requests.
-	// 'error': The search service is in an error state. If your service is in the degraded, disabled, or error states, it means
-	// the Azure Cognitive Search team is actively investigating the underlying
-	// issue. Dedicated services in these states are still chargeable based on the number of search units provisioned.
+	// 'error': The search service is in an error state. 'stopped': The search service is in a subscription that's disabled. If
+	// your service is in the degraded, disabled, or error states, it means the Azure
+	// Cognitive Search team is actively investigating the underlying issue. Dedicated services in these states are still chargeable
+	// based on the number of search units provisioned.
 	Status *SearchServiceStatus
 
 	// READ-ONLY; The details of the search service status.
@@ -412,7 +468,7 @@ type ServiceProperties struct {
 
 // ServiceUpdate - The parameters used to update an Azure Cognitive Search service.
 type ServiceUpdate struct {
-	// The identity of the resource.
+	// Details about the search service identity. A null value indicates that the search service has no identity assigned.
 	Identity *Identity
 
 	// The geographic location of the resource. This must be one of the supported and registered Azure Geo Regions (for example,
@@ -501,7 +557,8 @@ type SharedPrivateLinkResourceProperties struct {
 	// The resource id of the resource the shared private link resource is for.
 	PrivateLinkResourceID *string
 
-	// The provisioning state of the shared private link resource. Can be Updating, Deleting, Failed, Succeeded or Incomplete.
+	// The provisioning state of the shared private link resource. Can be Updating, Deleting, Failed, Succeeded, Incomplete or
+	// other yet to be documented value.
 	ProvisioningState *SharedPrivateLinkResourceProvisioningState
 
 	// The request message for requesting approval of the shared private link resource.
@@ -512,6 +569,16 @@ type SharedPrivateLinkResourceProperties struct {
 	// are regional (such as Azure Kubernetes Service).
 	ResourceRegion *string
 
-	// Status of the shared private link resource. Can be Pending, Approved, Rejected or Disconnected.
+	// Status of the shared private link resource. Can be Pending, Approved, Rejected, Disconnected or other yet to be documented
+	// value.
 	Status *SharedPrivateLinkResourceStatus
+}
+
+// UserAssignedManagedIdentity - The details of the user assigned managed identity assigned to the search service.
+type UserAssignedManagedIdentity struct {
+	// READ-ONLY; The client ID of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of user assigned identity.
+	PrincipalID *string
 }

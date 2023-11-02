@@ -48,7 +48,7 @@ func NewSharedPrivateLinkResourcesClient(subscriptionID string, credential azcor
 // in the given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -78,7 +78,7 @@ func (client *SharedPrivateLinkResourcesClient) BeginCreateOrUpdate(ctx context.
 // given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 func (client *SharedPrivateLinkResourcesClient) createOrUpdate(ctx context.Context, resourceGroupName string, searchServiceName string, sharedPrivateLinkResourceName string, sharedPrivateLinkResource SharedPrivateLinkResource, searchManagementRequestOptions *SearchManagementRequestOptions, options *SharedPrivateLinkResourcesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, searchServiceName, sharedPrivateLinkResourceName, sharedPrivateLinkResource, searchManagementRequestOptions, options)
@@ -120,7 +120,7 @@ func (client *SharedPrivateLinkResourcesClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -135,7 +135,7 @@ func (client *SharedPrivateLinkResourcesClient) createOrUpdateCreateRequest(ctx 
 // BeginDelete - Initiates the deletion of the shared private link resource from the search service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -163,7 +163,7 @@ func (client *SharedPrivateLinkResourcesClient) BeginDelete(ctx context.Context,
 // Delete - Initiates the deletion of the shared private link resource from the search service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 func (client *SharedPrivateLinkResourcesClient) deleteOperation(ctx context.Context, resourceGroupName string, searchServiceName string, sharedPrivateLinkResourceName string, searchManagementRequestOptions *SearchManagementRequestOptions, options *SharedPrivateLinkResourcesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, searchServiceName, sharedPrivateLinkResourceName, searchManagementRequestOptions, options)
@@ -205,7 +205,7 @@ func (client *SharedPrivateLinkResourcesClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -217,7 +217,7 @@ func (client *SharedPrivateLinkResourcesClient) deleteCreateRequest(ctx context.
 // Get - Gets the details of the shared private link resource managed by the search service in the given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -269,7 +269,7 @@ func (client *SharedPrivateLinkResourcesClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -289,7 +289,7 @@ func (client *SharedPrivateLinkResourcesClient) getHandleResponse(resp *http.Res
 
 // NewListByServicePager - Gets a list of all shared private link resources managed by the given service.
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2021-04-01-preview
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -345,7 +345,7 @@ func (client *SharedPrivateLinkResourcesClient) listByServiceCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2021-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}

@@ -10,7 +10,7 @@ package armsearch
 
 const (
 	moduleName    = "armsearch"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // AADAuthFailureMode - Describes what response the data plane API of a Search service would send for requests that failed
@@ -72,12 +72,21 @@ func PossibleHostingModeValues() []HostingMode {
 	}
 }
 
-// IdentityType - The identity type.
+// IdentityType - The type of identity used for the resource. The type 'SystemAssigned, UserAssigned' includes both an identity
+// created by the system and a set of user assigned identities. The type 'None' will remove
+// all identities from the service.
 type IdentityType string
 
 const (
-	IdentityTypeNone           IdentityType = "None"
+	// IdentityTypeNone - Indicates that any identity associated with the search service needs to be removed.
+	IdentityTypeNone IdentityType = "None"
+	// IdentityTypeSystemAssigned - Indicates that system-assigned identity for the search service will be enabled.
 	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	// IdentityTypeSystemAssignedUserAssigned - Indicates that system-assigned identity for the search service will be enabled
+	// along with the assignment of one or more user assigned identities.
+	IdentityTypeSystemAssignedUserAssigned IdentityType = "SystemAssigned, UserAssigned"
+	// IdentityTypeUserAssigned - Indicates that one or more user assigned identities will be assigned to the search service.
+	IdentityTypeUserAssigned IdentityType = "UserAssigned"
 )
 
 // PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
@@ -85,43 +94,8 @@ func PossibleIdentityTypeValues() []IdentityType {
 	return []IdentityType{
 		IdentityTypeNone,
 		IdentityTypeSystemAssigned,
-	}
-}
-
-// PrivateLinkServiceConnectionProvisioningState - The provisioning state of the private link service connection. Can be Updating,
-// Deleting, Failed, Succeeded, or Incomplete
-type PrivateLinkServiceConnectionProvisioningState string
-
-const (
-	// PrivateLinkServiceConnectionProvisioningStateCanceled - Provisioning request for the private link service connection resource
-	// has been canceled
-	PrivateLinkServiceConnectionProvisioningStateCanceled PrivateLinkServiceConnectionProvisioningState = "Canceled"
-	// PrivateLinkServiceConnectionProvisioningStateDeleting - The private link service connection is in the process of being
-	// deleted.
-	PrivateLinkServiceConnectionProvisioningStateDeleting PrivateLinkServiceConnectionProvisioningState = "Deleting"
-	// PrivateLinkServiceConnectionProvisioningStateFailed - The private link service connection has failed to be provisioned
-	// or deleted.
-	PrivateLinkServiceConnectionProvisioningStateFailed PrivateLinkServiceConnectionProvisioningState = "Failed"
-	// PrivateLinkServiceConnectionProvisioningStateIncomplete - Provisioning request for the private link service connection
-	// resource has been accepted but the process of creation has not commenced yet.
-	PrivateLinkServiceConnectionProvisioningStateIncomplete PrivateLinkServiceConnectionProvisioningState = "Incomplete"
-	// PrivateLinkServiceConnectionProvisioningStateSucceeded - The private link service connection has finished provisioning
-	// and is ready for approval.
-	PrivateLinkServiceConnectionProvisioningStateSucceeded PrivateLinkServiceConnectionProvisioningState = "Succeeded"
-	// PrivateLinkServiceConnectionProvisioningStateUpdating - The private link service connection is in the process of being
-	// created along with other resources for it to be fully functional.
-	PrivateLinkServiceConnectionProvisioningStateUpdating PrivateLinkServiceConnectionProvisioningState = "Updating"
-)
-
-// PossiblePrivateLinkServiceConnectionProvisioningStateValues returns the possible values for the PrivateLinkServiceConnectionProvisioningState const type.
-func PossiblePrivateLinkServiceConnectionProvisioningStateValues() []PrivateLinkServiceConnectionProvisioningState {
-	return []PrivateLinkServiceConnectionProvisioningState{
-		PrivateLinkServiceConnectionProvisioningStateCanceled,
-		PrivateLinkServiceConnectionProvisioningStateDeleting,
-		PrivateLinkServiceConnectionProvisioningStateFailed,
-		PrivateLinkServiceConnectionProvisioningStateIncomplete,
-		PrivateLinkServiceConnectionProvisioningStateSucceeded,
-		PrivateLinkServiceConnectionProvisioningStateUpdating,
+		IdentityTypeSystemAssignedUserAssigned,
+		IdentityTypeUserAssigned,
 	}
 }
 
@@ -183,8 +157,11 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 type PublicNetworkAccess string
 
 const (
+	// PublicNetworkAccessDisabled - The search service is not accessible from traffic originating from the public internet. Access
+	// is only permitted over approved private endpoint connections.
 	PublicNetworkAccessDisabled PublicNetworkAccess = "disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "enabled"
+	// PublicNetworkAccessEnabled - The search service is accessible from traffic originating from the public internet.
+	PublicNetworkAccessEnabled PublicNetworkAccess = "enabled"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -232,6 +209,40 @@ func PossibleSKUNameValues() []SKUName {
 		SKUNameStandard3,
 		SKUNameStorageOptimizedL1,
 		SKUNameStorageOptimizedL2,
+	}
+}
+
+// SearchBypass - Possible origins of inbound traffic that can bypass the rules defined in the 'ipRules' section.
+type SearchBypass string
+
+const (
+	// SearchBypassAzurePortal - Indicates that requests originating from the Azure portal can bypass the rules defined in the
+	// 'ipRules' section.
+	SearchBypassAzurePortal SearchBypass = "AzurePortal"
+	// SearchBypassNone - Indicates that no origin can bypass the rules defined in the 'ipRules' section. This is the default.
+	SearchBypassNone SearchBypass = "None"
+)
+
+// PossibleSearchBypassValues returns the possible values for the SearchBypass const type.
+func PossibleSearchBypassValues() []SearchBypass {
+	return []SearchBypass{
+		SearchBypassAzurePortal,
+		SearchBypassNone,
+	}
+}
+
+// SearchDisabledDataExfiltrationOption - A specific data exfiltration scenario that is disabled for the service.
+type SearchDisabledDataExfiltrationOption string
+
+const (
+	// SearchDisabledDataExfiltrationOptionAll - Indicates that all data exfiltration scenarios are disabled.
+	SearchDisabledDataExfiltrationOptionAll SearchDisabledDataExfiltrationOption = "All"
+)
+
+// PossibleSearchDisabledDataExfiltrationOptionValues returns the possible values for the SearchDisabledDataExfiltrationOption const type.
+func PossibleSearchDisabledDataExfiltrationOptionValues() []SearchDisabledDataExfiltrationOption {
+	return []SearchDisabledDataExfiltrationOption{
+		SearchDisabledDataExfiltrationOptionAll,
 	}
 }
 
@@ -285,11 +296,10 @@ func PossibleSearchEncryptionWithCmkValues() []SearchEncryptionWithCmk {
 type SearchSemanticSearch string
 
 const (
-	// SearchSemanticSearchDisabled - Indicates that semantic search is disabled for the search service.
+	// SearchSemanticSearchDisabled - Indicates that semantic search is disabled for the search service. This is the default.
 	SearchSemanticSearchDisabled SearchSemanticSearch = "disabled"
 	// SearchSemanticSearchFree - Enables semantic search on a search service and indicates that it is to be used within the limits
-	// of the free tier. This would cap the volume of semantic search requests and is offered at no extra charge. This is the
-	// default for newly provisioned search services.
+	// of the free tier. This would cap the volume of semantic search requests and is offered at no extra charge.
 	SearchSemanticSearchFree SearchSemanticSearch = "free"
 	// SearchSemanticSearchStandard - Enables semantic search on a search service as a billable feature, with higher throughput
 	// and volume of semantic search queries.
@@ -311,9 +321,10 @@ func PossibleSearchSemanticSearchValues() []SearchSemanticSearch {
 // can occur when the underlying search units are not healthy. The search service
 // is most likely operational, but performance might be slow and some requests might be dropped. 'disabled': The search service
 // is disabled. In this state, the service will reject all API requests.
-// 'error': The search service is in an error state. If your service is in the degraded, disabled, or error states, it means
-// the Azure Cognitive Search team is actively investigating the underlying
-// issue. Dedicated services in these states are still chargeable based on the number of search units provisioned.
+// 'error': The search service is in an error state. 'stopped': The search service is in a subscription that's disabled. If
+// your service is in the degraded, disabled, or error states, it means the Azure
+// Cognitive Search team is actively investigating the underlying issue. Dedicated services in these states are still chargeable
+// based on the number of search units provisioned.
 type SearchServiceStatus string
 
 const (
@@ -329,6 +340,8 @@ const (
 	SearchServiceStatusProvisioning SearchServiceStatus = "provisioning"
 	// SearchServiceStatusRunning - The search service is running and no provisioning operations are underway.
 	SearchServiceStatusRunning SearchServiceStatus = "running"
+	// SearchServiceStatusStopped - The search service is in a subscription that's disabled.
+	SearchServiceStatusStopped SearchServiceStatus = "stopped"
 )
 
 // PossibleSearchServiceStatusValues returns the possible values for the SearchServiceStatus const type.
@@ -340,19 +353,28 @@ func PossibleSearchServiceStatusValues() []SearchServiceStatus {
 		SearchServiceStatusError,
 		SearchServiceStatusProvisioning,
 		SearchServiceStatusRunning,
+		SearchServiceStatusStopped,
 	}
 }
 
 // SharedPrivateLinkResourceProvisioningState - The provisioning state of the shared private link resource. Can be Updating,
-// Deleting, Failed, Succeeded or Incomplete.
+// Deleting, Failed, Succeeded, Incomplete or other yet to be documented value.
 type SharedPrivateLinkResourceProvisioningState string
 
 const (
-	SharedPrivateLinkResourceProvisioningStateDeleting   SharedPrivateLinkResourceProvisioningState = "Deleting"
-	SharedPrivateLinkResourceProvisioningStateFailed     SharedPrivateLinkResourceProvisioningState = "Failed"
+	// SharedPrivateLinkResourceProvisioningStateDeleting - The shared private link resource is in the process of being deleted.
+	SharedPrivateLinkResourceProvisioningStateDeleting SharedPrivateLinkResourceProvisioningState = "Deleting"
+	// SharedPrivateLinkResourceProvisioningStateFailed - The shared private link resource has failed to be provisioned or deleted.
+	SharedPrivateLinkResourceProvisioningStateFailed SharedPrivateLinkResourceProvisioningState = "Failed"
+	// SharedPrivateLinkResourceProvisioningStateIncomplete - Provisioning request for the shared private link resource has been
+	// accepted but the process of creation has not commenced yet.
 	SharedPrivateLinkResourceProvisioningStateIncomplete SharedPrivateLinkResourceProvisioningState = "Incomplete"
-	SharedPrivateLinkResourceProvisioningStateSucceeded  SharedPrivateLinkResourceProvisioningState = "Succeeded"
-	SharedPrivateLinkResourceProvisioningStateUpdating   SharedPrivateLinkResourceProvisioningState = "Updating"
+	// SharedPrivateLinkResourceProvisioningStateSucceeded - The shared private link resource has finished provisioning and is
+	// ready for approval.
+	SharedPrivateLinkResourceProvisioningStateSucceeded SharedPrivateLinkResourceProvisioningState = "Succeeded"
+	// SharedPrivateLinkResourceProvisioningStateUpdating - The shared private link resource is in the process of being created
+	// along with other resources for it to be fully functional.
+	SharedPrivateLinkResourceProvisioningStateUpdating SharedPrivateLinkResourceProvisioningState = "Updating"
 )
 
 // PossibleSharedPrivateLinkResourceProvisioningStateValues returns the possible values for the SharedPrivateLinkResourceProvisioningState const type.
@@ -366,14 +388,19 @@ func PossibleSharedPrivateLinkResourceProvisioningStateValues() []SharedPrivateL
 	}
 }
 
-// SharedPrivateLinkResourceStatus - Status of the shared private link resource. Can be Pending, Approved, Rejected or Disconnected.
+// SharedPrivateLinkResourceStatus - Status of the shared private link resource. Can be Pending, Approved, Rejected, Disconnected
+// or other yet to be documented value.
 type SharedPrivateLinkResourceStatus string
 
 const (
-	SharedPrivateLinkResourceStatusApproved     SharedPrivateLinkResourceStatus = "Approved"
+	// SharedPrivateLinkResourceStatusApproved - The shared private link resource is approved and is ready for use.
+	SharedPrivateLinkResourceStatusApproved SharedPrivateLinkResourceStatus = "Approved"
+	// SharedPrivateLinkResourceStatusDisconnected - The shared private link resource has been removed from the service.
 	SharedPrivateLinkResourceStatusDisconnected SharedPrivateLinkResourceStatus = "Disconnected"
-	SharedPrivateLinkResourceStatusPending      SharedPrivateLinkResourceStatus = "Pending"
-	SharedPrivateLinkResourceStatusRejected     SharedPrivateLinkResourceStatus = "Rejected"
+	// SharedPrivateLinkResourceStatusPending - The shared private link resource has been created and is pending approval.
+	SharedPrivateLinkResourceStatusPending SharedPrivateLinkResourceStatus = "Pending"
+	// SharedPrivateLinkResourceStatusRejected - The shared private link resource has been rejected and cannot be used.
+	SharedPrivateLinkResourceStatusRejected SharedPrivateLinkResourceStatus = "Rejected"
 )
 
 // PossibleSharedPrivateLinkResourceStatusValues returns the possible values for the SharedPrivateLinkResourceStatus const type.

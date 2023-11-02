@@ -18,12 +18,6 @@ type AdminKeysClientRegenerateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ManagementClientUsageBySubscriptionSKUOptions contains the optional parameters for the ManagementClient.UsageBySubscriptionSKU
-// method.
-type ManagementClientUsageBySubscriptionSKUOptions struct {
-	// placeholder for future optional parameters
-}
-
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -144,11 +138,5 @@ type SharedPrivateLinkResourcesClientGetOptions struct {
 // SharedPrivateLinkResourcesClientListByServiceOptions contains the optional parameters for the SharedPrivateLinkResourcesClient.NewListByServicePager
 // method.
 type SharedPrivateLinkResourcesClientListByServiceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// UsagesClientListBySubscriptionOptions contains the optional parameters for the UsagesClient.NewListBySubscriptionPager
-// method.
-type UsagesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
