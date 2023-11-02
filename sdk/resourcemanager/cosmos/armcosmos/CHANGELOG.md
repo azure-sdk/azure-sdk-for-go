@@ -1,5 +1,46 @@
 # Release History
 
+## 3.0.0-beta.2 (2023-11-02)
+### Breaking Changes
+
+- Field `Timestamp` of struct `BackupResourceProperties` has been removed
+
+### Features Added
+
+- New value `PublicNetworkAccessSecuredByPerimeter` added to enum type `PublicNetworkAccess`
+- New enum type `AutoReplicate` with values `AutoReplicateAllKeyspaces`, `AutoReplicateNone`, `AutoReplicateSystemKeyspaces`
+- New enum type `BackupState` with values `BackupStateFailed`, `BackupStateInProgress`, `BackupStateInitiated`, `BackupStateSucceeded`
+- New enum type `ClusterType` with values `ClusterTypeNonProduction`, `ClusterTypeProduction`
+- New enum type `CustomerManagedKeyStatus` with values `CustomerManagedKeyStatusAccessToTheConfiguredCustomerManagedKeyConfirmed`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheAccessRulesAreBlockingOutboundRequestsToTheAzureKeyVaultServiceForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuide4016`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheAzureCosmosDBAccountHasAnUndefinedDefaultIdentityForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideInvalidAzureCosmosDbDefaultIdentity4015`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheAzureCosmosDBAccountSKeyVaultKeyURIDoesNotFollowTheExpectedFormatForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideImproperSyntaxDetectedOnTheKeyVaultURIProperty4006`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheAzureCosmosDBServiceIsUnableToObtainTheAADAuthenticationTokenForTheAccountSDefaultIdentityForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideAzureActiveDirectoryTokenAcquisitionError4000`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheAzureCosmosDBServiceIsUnableToWrapOrUnwrapTheKeyForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideInternalUnwrappingProcedureError4005`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheAzureKeyVaultDNSNameSpecifiedByTheAccountSKeyvaultkeyuriPropertyCouldNotBeResolvedForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideUnableToResolveTheKeyVaultsDns4009`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheCorrespondentAzureKeyVaultWasNotFoundForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideAzureKeyVaultResourceNotFound4017`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheCorrespondentKeyIsNotFoundOnTheSpecifiedKeyVaultForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideAzureKeyVaultResourceNotFound4003`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedBecauseTheCurrentDefaultIdentityNoLongerHasPermissionToTheAssociatedKeyVaultKeyForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuideDefaultIdentityIsUnauthorizedToAccessTheAzureKeyVaultKey4002`, `CustomerManagedKeyStatusAccessToYourAccountIsCurrentlyRevokedForMoreDetailsAboutThisErrorAndHowToRestoreAccessToYourAccountPleaseVisitHTTPSLearnMicrosoftComEnUsAzureCosmosDbCmkTroubleshootingGuide`
+- New enum type `DataTransferJobMode` with values `DataTransferJobModeOffline`, `DataTransferJobModeOnline`
+- New enum type `DefaultPriorityLevel` with values `DefaultPriorityLevelHigh`, `DefaultPriorityLevelLow`
+- New enum type `ScheduledEventStrategy` with values `ScheduledEventStrategyIgnore`, `ScheduledEventStrategyStopAny`, `ScheduledEventStrategyStopByRack`
+- New function `*BaseCosmosDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink`
+- New function `*BaseCosmosDataTransferDataSourceSink.GetDataTransferDataSourceSink() *DataTransferDataSourceSink`
+- New function `*CassandraClustersClient.BeginGetCommandAsync(context.Context, string, string, string, *CassandraClustersClientBeginGetCommandAsyncOptions) (*runtime.Poller[CassandraClustersClientGetCommandAsyncResponse], error)`
+- New function `*CassandraClustersClient.BeginInvokeCommandAsync(context.Context, string, string, CommandPostBody, *CassandraClustersClientBeginInvokeCommandAsyncOptions) (*runtime.Poller[CassandraClustersClientInvokeCommandAsyncResponse], error)`
+- New function `*CassandraClustersClient.BeginListCommand(context.Context, string, string, *CassandraClustersClientBeginListCommandOptions) (*runtime.Poller[CassandraClustersClientListCommandResponse], error)`
+- New function `*CassandraDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink`
+- New function `*MongoDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink`
+- New function `*SQLDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink`
+- New struct `BackupSchedule`
+- New struct `CommandPublicResource`
+- New struct `ListCommands`
+- New field `BackupExpiryTimestamp`, `BackupID`, `BackupStartTimestamp`, `BackupState`, `BackupStopTimestamp` in struct `BackupResourceProperties`
+- New field `XMSForceDeallocate` in struct `CassandraClustersClientBeginDeallocateOptions`
+- New field `RemoteAccountName` in struct `CassandraDataTransferDataSourceSink`
+- New field `AutoReplicate`, `BackupSchedules`, `ClusterType`, `Extensions`, `ExternalDataCenters`, `ScheduledEventStrategy` in struct `ClusterResourceProperties`
+- New field `IsLatestModel` in struct `ComponentsM9L909SchemasCassandraclusterpublicstatusPropertiesDatacentersItemsPropertiesNodesItems`
+- New field `Duration`, `Mode` in struct `DataTransferJobProperties`
+- New field `CustomerManagedKeyStatus`, `DefaultPriorityLevel`, `EnablePriorityBasedExecution` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `CustomerManagedKeyStatus`, `DefaultPriorityLevel`, `EnablePriorityBasedExecution` in struct `DatabaseAccountGetProperties`
+- New field `CustomerManagedKeyStatus`, `DefaultPriorityLevel`, `EnablePriorityBasedExecution` in struct `DatabaseAccountUpdateProperties`
+- New field `RemoteAccountName` in struct `MongoDataTransferDataSourceSink`
+- New field `RemoteAccountName` in struct `SQLDataTransferDataSourceSink`
+- New field `InstantMaximumThroughput`, `SoftAllowedMaximumThroughput` in struct `ThroughputSettingsGetPropertiesResource`
+- New field `InstantMaximumThroughput`, `SoftAllowedMaximumThroughput` in struct `ThroughputSettingsResource`
+
+
 ## 3.0.0-beta.1 (2023-06-23)
 ### Breaking Changes
 
