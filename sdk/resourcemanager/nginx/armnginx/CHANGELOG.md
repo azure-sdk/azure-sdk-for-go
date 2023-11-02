@@ -1,5 +1,20 @@
 # Release History
 
+## 3.0.0 (2023-11-02)
+### Breaking Changes
+
+- Field `Tags` of struct `Certificate` has been removed
+- Field `Tags` of struct `Configuration` has been removed
+
+### Features Added
+
+- New struct `DeploymentScalingProperties`
+- New struct `DeploymentUserProfile`
+- New field `ProtectedFiles` in struct `ConfigurationPackage`
+- New field `ScalingProperties`, `UserProfile` in struct `DeploymentProperties`
+- New field `ScalingProperties`, `UserProfile` in struct `DeploymentUpdateProperties`
+
+
 ## 2.1.0 (2023-03-31)
 ### Features Added
 
