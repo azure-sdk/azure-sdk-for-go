@@ -20,59 +20,58 @@ import (
 	"strings"
 )
 
-// ConfigurationClient contains the methods for the Configuration group.
-// Don't use this type directly, use NewConfigurationClient() instead.
-type ConfigurationClient struct {
+// UpgradeWindowClient contains the methods for the UpgradeWindow group.
+// Don't use this type directly, use NewUpgradeWindowClient() instead.
+type UpgradeWindowClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewConfigurationClient creates a new instance of ConfigurationClient with the specified values.
+// NewUpgradeWindowClient creates a new instance of UpgradeWindowClient with the specified values.
 //   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewConfigurationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationClient, error) {
-	cl, err := arm.NewClient(moduleName+".ConfigurationClient", moduleVersion, credential, options)
+func NewUpgradeWindowClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UpgradeWindowClient, error) {
+	cl, err := arm.NewClient(moduleName+".UpgradeWindowClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ConfigurationClient{
+	client := &UpgradeWindowClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Get all Event Hubs Cluster settings - a collection of key/value pairs which represent the quotas and settings imposed
-// on the cluster.
+// Get - Get all Event Hubs Cluster upgrade window settings
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-12-01-preview
 //   - resourceGroupName - Name of the resource group within the azure subscription.
 //   - clusterName - The name of the Event Hubs Cluster.
-//   - options - ConfigurationClientGetOptions contains the optional parameters for the ConfigurationClient.Get method.
-func (client *ConfigurationClient) Get(ctx context.Context, resourceGroupName string, clusterName string, options *ConfigurationClientGetOptions) (ConfigurationClientGetResponse, error) {
+//   - options - UpgradeWindowClientGetOptions contains the optional parameters for the UpgradeWindowClient.Get method.
+func (client *UpgradeWindowClient) Get(ctx context.Context, resourceGroupName string, clusterName string, options *UpgradeWindowClientGetOptions) (UpgradeWindowClientGetResponse, error) {
 	var err error
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
-		return ConfigurationClientGetResponse{}, err
+		return UpgradeWindowClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ConfigurationClientGetResponse{}, err
+		return UpgradeWindowClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ConfigurationClientGetResponse{}, err
+		return UpgradeWindowClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ConfigurationClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ConfigurationClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/quotaConfiguration/default"
+func (client *UpgradeWindowClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *UpgradeWindowClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/upgradewindow"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -97,44 +96,44 @@ func (client *ConfigurationClient) getCreateRequest(ctx context.Context, resourc
 }
 
 // getHandleResponse handles the Get response.
-func (client *ConfigurationClient) getHandleResponse(resp *http.Response) (ConfigurationClientGetResponse, error) {
-	result := ConfigurationClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterQuotaConfigurationProperties); err != nil {
-		return ConfigurationClientGetResponse{}, err
+func (client *UpgradeWindowClient) getHandleResponse(resp *http.Response) (UpgradeWindowClientGetResponse, error) {
+	result := UpgradeWindowClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterUpgradeWindow); err != nil {
+		return UpgradeWindowClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// Patch - Replace all specified Event Hubs Cluster settings with those contained in the request body. Leaves the settings
-// not specified in the request body unmodified.
+// Patch - Replace all specified Event Hubs Cluster upgrade window settings with those contained in the request body. Leaves
+// the settings not specified in the request body unmodified.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-12-01-preview
 //   - resourceGroupName - Name of the resource group within the azure subscription.
 //   - clusterName - The name of the Event Hubs Cluster.
-//   - parameters - Parameters for creating an Event Hubs Cluster resource.
-//   - options - ConfigurationClientPatchOptions contains the optional parameters for the ConfigurationClient.Patch method.
-func (client *ConfigurationClient) Patch(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterQuotaConfigurationProperties, options *ConfigurationClientPatchOptions) (ConfigurationClientPatchResponse, error) {
+//   - parameters - Parameters for updating Event Hubs Clusters Upgrade Window
+//   - options - UpgradeWindowClientPatchOptions contains the optional parameters for the UpgradeWindowClient.Patch method.
+func (client *UpgradeWindowClient) Patch(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterUpgradeWindow, options *UpgradeWindowClientPatchOptions) (UpgradeWindowClientPatchResponse, error) {
 	var err error
 	req, err := client.patchCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)
 	if err != nil {
-		return ConfigurationClientPatchResponse{}, err
+		return UpgradeWindowClientPatchResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ConfigurationClientPatchResponse{}, err
+		return UpgradeWindowClientPatchResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ConfigurationClientPatchResponse{}, err
+		return UpgradeWindowClientPatchResponse{}, err
 	}
 	resp, err := client.patchHandleResponse(httpResp)
 	return resp, err
 }
 
 // patchCreateRequest creates the Patch request.
-func (client *ConfigurationClient) patchCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterQuotaConfigurationProperties, options *ConfigurationClientPatchOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/quotaConfiguration/default"
+func (client *UpgradeWindowClient) patchCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterUpgradeWindow, options *UpgradeWindowClientPatchOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/upgradewindow"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -162,10 +161,10 @@ func (client *ConfigurationClient) patchCreateRequest(ctx context.Context, resou
 }
 
 // patchHandleResponse handles the Patch response.
-func (client *ConfigurationClient) patchHandleResponse(resp *http.Response) (ConfigurationClientPatchResponse, error) {
-	result := ConfigurationClientPatchResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterQuotaConfigurationProperties); err != nil {
-		return ConfigurationClientPatchResponse{}, err
+func (client *UpgradeWindowClient) patchHandleResponse(resp *http.Response) (UpgradeWindowClientPatchResponse, error) {
+	result := UpgradeWindowClientPatchResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterUpgradeWindow); err != nil {
+		return UpgradeWindowClientPatchResponse{}, err
 	}
 	return result, nil
 }
