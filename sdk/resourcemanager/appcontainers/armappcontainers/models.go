@@ -93,6 +93,9 @@ type AuthConfigCollection struct {
 
 // AuthConfigProperties - AuthConfig resource specific properties
 type AuthConfigProperties struct {
+	// The configuration settings of the secrets references of encryption key and signing key for ContainerApp Service Authentication/Authorization.
+	EncryptionSettings *EncryptionSettings
+
 	// The configuration settings that determines the validation flow of users using Service Authentication/Authorization.
 	GlobalValidation *GlobalValidation
 
@@ -361,6 +364,12 @@ type BillingMeterProperties struct {
 
 	// Billing meter type.
 	MeterType *string
+}
+
+// BlobStorageTokenStore - The configuration settings of the storage of the tokens if blob storage is used.
+type BlobStorageTokenStore struct {
+	// REQUIRED; The name of the app secrets containing the SAS URL of the blob storage containing the tokens.
+	SasURLSettingName *string
 }
 
 // Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
@@ -1312,6 +1321,16 @@ type DiagnosticsStatus struct {
 	StatusID *int32
 }
 
+// EncryptionSettings - The configuration settings of the secrets references of encryption key and signing key for ContainerApp
+// Service Authentication/Authorization.
+type EncryptionSettings struct {
+	// The secret name which is referenced for EncryptionKey.
+	ContainerAppAuthEncryptionSecretName *string
+
+	// The secret name which is referenced for SigningKey.
+	ContainerAppAuthSigningSecretName *string
+}
+
 // EnvironmentAuthToken - Environment Auth Token.
 type EnvironmentAuthToken struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -1572,6 +1591,9 @@ type IdentityProviders struct {
 
 // Ingress - Container App Ingress configuration.
 type Ingress struct {
+	// Settings to expose additional ports on container app
+	AdditionalPortMappings []*IngressPortMapping
+
 	// Bool indicating if HTTP connections to is allowed. If set to false HTTP connections are automatically redirected to HTTPS
 	// connections
 	AllowInsecure *bool
@@ -1610,6 +1632,18 @@ type Ingress struct {
 
 	// READ-ONLY; Hostname.
 	Fqdn *string
+}
+
+// IngressPortMapping - Port mappings of container app ingress
+type IngressPortMapping struct {
+	// REQUIRED; Specifies whether the app port is accessible outside of the environment
+	External *bool
+
+	// REQUIRED; Specifies the port user's container listens on
+	TargetPort *int32
+
+	// Specifies the exposed port for the target port. If not specified, it defaults to target port
+	ExposedPort *int32
 }
 
 // IngressStickySessions - Sticky Sessions for Single Revision Mode
@@ -1928,6 +1962,15 @@ type KedaConfiguration struct {
 	Version *string
 }
 
+type ListUsagesResult struct {
+	// The URI to fetch the next page of compute resource usage information. Call ListNext() with this to fetch the next page
+	// of compute resource usage information.
+	NextLink *string
+
+	// The list of compute resource usages.
+	Value []*Usage
+}
+
 // LogAnalyticsConfiguration - Log Analytics configuration, must only be provided when destination is configured as 'log-analytics'
 type LogAnalyticsConfiguration struct {
 	// Log analytics customer id
@@ -1955,6 +1998,9 @@ type Login struct {
 
 	// The routes that specify the endpoints used for login and logout requests.
 	Routes *LoginRoutes
+
+	// The configuration settings of the token store.
+	TokenStore *TokenStore
 }
 
 // LoginRoutes - The routes that specify the endpoints used for login and logout requests.
@@ -2657,6 +2703,20 @@ type Template struct {
 	Volumes []*Volume
 }
 
+// TokenStore - The configuration settings of the token store.
+type TokenStore struct {
+	// The configuration settings of the storage of the tokens if blob storage is used.
+	AzureBlobStorage *BlobStorageTokenStore
+
+	// true to durably store platform-specific security tokens that are obtained during login flows; otherwise, false. The default
+	// is false.
+	Enabled *bool
+
+	// The number of hours after session token expiration that a session token can be used to call the token refresh API. The
+	// default is 72 hours.
+	TokenRefreshExtensionHours *float64
+}
+
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
@@ -2711,6 +2771,30 @@ type TwitterRegistration struct {
 
 	// The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in.
 	ConsumerSecretSettingName *string
+}
+
+// Usage - Describes Compute Resource Usage.
+type Usage struct {
+	// REQUIRED; The current usage of the resource.
+	CurrentValue *float32
+
+	// REQUIRED; The maximum permitted usage of the resource.
+	Limit *float32
+
+	// REQUIRED; The name of the type of usage.
+	Name *UsageName
+
+	// REQUIRED; An enum describing the unit of usage measurement.
+	Unit *string
+}
+
+// UsageName - The Usage Names.
+type UsageName struct {
+	// The localized name of the resource.
+	LocalizedValue *string
+
+	// The name of the resource.
+	Value *string
 }
 
 // UserAssignedIdentity - User assigned identity properties

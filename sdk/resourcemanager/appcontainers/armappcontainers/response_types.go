@@ -171,6 +171,12 @@ type ConnectedEnvironmentsStoragesClientListResponse struct {
 	ConnectedEnvironmentStoragesCollection
 }
 
+// ContainerAppsAPIClientGetCustomDomainVerificationIDResponse contains the response from method ContainerAppsAPIClient.GetCustomDomainVerificationID.
+type ContainerAppsAPIClientGetCustomDomainVerificationIDResponse struct {
+	// Custom domain verification Id of a subscription
+	Value *string
+}
+
 // ContainerAppsAPIClientJobExecutionResponse contains the response from method ContainerAppsAPIClient.JobExecution.
 type ContainerAppsAPIClientJobExecutionResponse struct {
 	// Container Apps Job execution.
@@ -491,6 +497,11 @@ type ManagedEnvironmentDiagnosticsClientListDetectorsResponse struct {
 	DiagnosticsCollection
 }
 
+// ManagedEnvironmentUsagesClientListResponse contains the response from method ManagedEnvironmentUsagesClient.NewListPager.
+type ManagedEnvironmentUsagesClientListResponse struct {
+	ListUsagesResult
+}
+
 // ManagedEnvironmentsClientCreateOrUpdateResponse contains the response from method ManagedEnvironmentsClient.BeginCreateOrUpdate.
 type ManagedEnvironmentsClientCreateOrUpdateResponse struct {
 	// An environment for hosting container apps
@@ -577,4 +588,9 @@ type NamespacesClientCheckNameAvailabilityResponse struct {
 type OperationsClientListResponse struct {
 	// Available operations of the service
 	AvailableOperations
+}
+
+// UsagesClientListResponse contains the response from method UsagesClient.NewListPager.
+type UsagesClientListResponse struct {
+	ListUsagesResult
 }
