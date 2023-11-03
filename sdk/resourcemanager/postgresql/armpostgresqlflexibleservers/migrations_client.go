@@ -43,7 +43,7 @@ func NewMigrationsClient(credential azcore.TokenCredential, options *arm.ClientO
 // Create - Creates a new migration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - subscriptionID - The subscription ID of the target database server.
 //   - resourceGroupName - The resource group name of the target database server.
 //   - targetDbServerName - The name of the target database server.
@@ -92,7 +92,7 @@ func (client *MigrationsClient) createCreateRequest(ctx context.Context, subscri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -113,7 +113,7 @@ func (client *MigrationsClient) createHandleResponse(resp *http.Response) (Migra
 // Delete - Deletes a migration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - subscriptionID - The subscription ID of the target database server.
 //   - resourceGroupName - The resource group name of the target database server.
 //   - targetDbServerName - The name of the target database server.
@@ -160,7 +160,7 @@ func (client *MigrationsClient) deleteCreateRequest(ctx context.Context, subscri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -169,7 +169,7 @@ func (client *MigrationsClient) deleteCreateRequest(ctx context.Context, subscri
 // Get - Gets details of a migration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - subscriptionID - The subscription ID of the target database server.
 //   - resourceGroupName - The resource group name of the target database server.
 //   - targetDbServerName - The name of the target database server.
@@ -217,7 +217,7 @@ func (client *MigrationsClient) getCreateRequest(ctx context.Context, subscripti
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *MigrationsClient) getHandleResponse(resp *http.Response) (Migratio
 
 // NewListByTargetServerPager - List all the migrations on a given target server.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - subscriptionID - The subscription ID of the target database server.
 //   - resourceGroupName - The resource group name of the target database server.
 //   - targetDbServerName - The name of the target database server.
@@ -288,7 +288,7 @@ func (client *MigrationsClient) listByTargetServerCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	if options != nil && options.MigrationListFilter != nil {
 		reqQP.Set("migrationListFilter", string(*options.MigrationListFilter))
 	}
@@ -310,7 +310,7 @@ func (client *MigrationsClient) listByTargetServerHandleResponse(resp *http.Resp
 // migration definition. Certain property updates initiate migration state transitions.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - subscriptionID - The subscription ID of the target database server.
 //   - resourceGroupName - The resource group name of the target database server.
 //   - targetDbServerName - The name of the target database server.
@@ -359,7 +359,7 @@ func (client *MigrationsClient) updateCreateRequest(ctx context.Context, subscri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

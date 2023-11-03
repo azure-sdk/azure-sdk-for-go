@@ -28,7 +28,7 @@ type FlexibleServerClient struct {
 }
 
 // NewFlexibleServerClient creates a new instance of FlexibleServerClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFlexibleServerClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FlexibleServerClient, error) {
@@ -46,7 +46,7 @@ func NewFlexibleServerClient(subscriptionID string, credential azcore.TokenCrede
 // BeginStartLtrBackup - Start the Long Term Retention Backup operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - parameters - Request body for operation
@@ -70,7 +70,7 @@ func (client *FlexibleServerClient) BeginStartLtrBackup(ctx context.Context, res
 // StartLtrBackup - Start the Long Term Retention Backup operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 func (client *FlexibleServerClient) startLtrBackup(ctx context.Context, resourceGroupName string, serverName string, parameters LtrBackupRequest, options *FlexibleServerClientBeginStartLtrBackupOptions) (*http.Response, error) {
 	var err error
 	req, err := client.startLtrBackupCreateRequest(ctx, resourceGroupName, serverName, parameters, options)
@@ -91,9 +91,6 @@ func (client *FlexibleServerClient) startLtrBackup(ctx context.Context, resource
 // startLtrBackupCreateRequest creates the StartLtrBackup request.
 func (client *FlexibleServerClient) startLtrBackupCreateRequest(ctx context.Context, resourceGroupName string, serverName string, parameters LtrBackupRequest, options *FlexibleServerClientBeginStartLtrBackupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/startLtrBackup"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -108,7 +105,7 @@ func (client *FlexibleServerClient) startLtrBackupCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -121,7 +118,7 @@ func (client *FlexibleServerClient) startLtrBackupCreateRequest(ctx context.Cont
 // backup operation to succeed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - parameters - Request body for operation
@@ -148,9 +145,6 @@ func (client *FlexibleServerClient) TriggerLtrPreBackup(ctx context.Context, res
 // triggerLtrPreBackupCreateRequest creates the TriggerLtrPreBackup request.
 func (client *FlexibleServerClient) triggerLtrPreBackupCreateRequest(ctx context.Context, resourceGroupName string, serverName string, parameters LtrPreBackupRequest, options *FlexibleServerClientTriggerLtrPreBackupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/ltrPreBackup"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -165,7 +159,7 @@ func (client *FlexibleServerClient) triggerLtrPreBackupCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
