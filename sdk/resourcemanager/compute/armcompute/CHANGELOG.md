@@ -1,5 +1,24 @@
 # Release History
 
+## 6.0.0 (2023-11-06)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `ResiliencyPolicy`
+- New struct `ResilientVMCreationPolicy`
+- New struct `ResilientVMDeletionPolicy`
+- New field `ResiliencyPolicy` in struct `VirtualMachineScaleSetProperties`
+- New field `ResiliencyPolicy` in struct `VirtualMachineScaleSetUpdateProperties`
+
+
 ## 5.3.0-beta.2 (2023-10-30)
 
 ### Other Changes

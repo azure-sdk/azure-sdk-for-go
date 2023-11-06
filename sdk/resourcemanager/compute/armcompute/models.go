@@ -4093,6 +4093,27 @@ type RequestRateByIntervalInput struct {
 	GroupByUserAgent *bool
 }
 
+// ResiliencyPolicy - Describes an resiliency policy - resilientVMCreationPolicy and/or resilientVMDeletionPolicy.
+type ResiliencyPolicy struct {
+	// The configuration parameters used while performing resilient VM creation.
+	ResilientVMCreationPolicy *ResilientVMCreationPolicy
+
+	// The configuration parameters used while performing resilient VM deletion.
+	ResilientVMDeletionPolicy *ResilientVMDeletionPolicy
+}
+
+// ResilientVMCreationPolicy - The configuration parameters used while performing resilient VM creation.
+type ResilientVMCreationPolicy struct {
+	// Specifies whether resilient VM creation should be enabled on the virtual machine scale set. The default value is false.
+	Enabled *bool
+}
+
+// ResilientVMDeletionPolicy - The configuration parameters used while performing resilient VM deletion.
+type ResilientVMDeletionPolicy struct {
+	// Specifies whether resilient VM deletion should be enabled on the virtual machine scale set. The default value is false.
+	Enabled *bool
+}
+
 // Resource - The Resource model definition.
 type Resource struct {
 	// REQUIRED; Resource location
@@ -7376,6 +7397,9 @@ type VirtualMachineScaleSetProperties struct {
 	// api-version: 2018-04-01.
 	ProximityPlacementGroup *SubResource
 
+	// Policy for Resiliency
+	ResiliencyPolicy *ResiliencyPolicy
+
 	// Specifies the policies applied when scaling in Virtual Machines in the Virtual Machine Scale Set.
 	ScaleInPolicy *ScaleInPolicy
 
@@ -7715,6 +7739,9 @@ type VirtualMachineScaleSetUpdateProperties struct {
 	// Specifies information about the proximity placement group that the virtual machine scale set should be assigned to.
 	// Minimum api-version: 2018-04-01.
 	ProximityPlacementGroup *SubResource
+
+	// Policy for Resiliency
+	ResiliencyPolicy *ResiliencyPolicy
 
 	// Specifies the policies applied when scaling in Virtual Machines in the Virtual Machine Scale Set.
 	ScaleInPolicy *ScaleInPolicy

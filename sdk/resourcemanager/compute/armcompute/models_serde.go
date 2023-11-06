@@ -9682,6 +9682,91 @@ func (r *RequestRateByIntervalInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ResiliencyPolicy.
+func (r ResiliencyPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "resilientVMCreationPolicy", r.ResilientVMCreationPolicy)
+	populate(objectMap, "resilientVMDeletionPolicy", r.ResilientVMDeletionPolicy)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResiliencyPolicy.
+func (r *ResiliencyPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "resilientVMCreationPolicy":
+			err = unpopulate(val, "ResilientVMCreationPolicy", &r.ResilientVMCreationPolicy)
+			delete(rawMsg, key)
+		case "resilientVMDeletionPolicy":
+			err = unpopulate(val, "ResilientVMDeletionPolicy", &r.ResilientVMDeletionPolicy)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResilientVMCreationPolicy.
+func (r ResilientVMCreationPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", r.Enabled)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResilientVMCreationPolicy.
+func (r *ResilientVMCreationPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &r.Enabled)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResilientVMDeletionPolicy.
+func (r ResilientVMDeletionPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", r.Enabled)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResilientVMDeletionPolicy.
+func (r *ResilientVMDeletionPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &r.Enabled)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Resource.
 func (r Resource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -17124,6 +17209,7 @@ func (v VirtualMachineScaleSetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "priorityMixPolicy", v.PriorityMixPolicy)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
 	populate(objectMap, "proximityPlacementGroup", v.ProximityPlacementGroup)
+	populate(objectMap, "resiliencyPolicy", v.ResiliencyPolicy)
 	populate(objectMap, "scaleInPolicy", v.ScaleInPolicy)
 	populate(objectMap, "singlePlacementGroup", v.SinglePlacementGroup)
 	populate(objectMap, "spotRestorePolicy", v.SpotRestorePolicy)
@@ -17176,6 +17262,9 @@ func (v *VirtualMachineScaleSetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "proximityPlacementGroup":
 			err = unpopulate(val, "ProximityPlacementGroup", &v.ProximityPlacementGroup)
+			delete(rawMsg, key)
+		case "resiliencyPolicy":
+			err = unpopulate(val, "ResiliencyPolicy", &v.ResiliencyPolicy)
 			delete(rawMsg, key)
 		case "scaleInPolicy":
 			err = unpopulate(val, "ScaleInPolicy", &v.ScaleInPolicy)
@@ -17835,6 +17924,7 @@ func (v VirtualMachineScaleSetUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "overprovision", v.Overprovision)
 	populate(objectMap, "priorityMixPolicy", v.PriorityMixPolicy)
 	populate(objectMap, "proximityPlacementGroup", v.ProximityPlacementGroup)
+	populate(objectMap, "resiliencyPolicy", v.ResiliencyPolicy)
 	populate(objectMap, "scaleInPolicy", v.ScaleInPolicy)
 	populate(objectMap, "singlePlacementGroup", v.SinglePlacementGroup)
 	populate(objectMap, "spotRestorePolicy", v.SpotRestorePolicy)
@@ -17869,6 +17959,9 @@ func (v *VirtualMachineScaleSetUpdateProperties) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "proximityPlacementGroup":
 			err = unpopulate(val, "ProximityPlacementGroup", &v.ProximityPlacementGroup)
+			delete(rawMsg, key)
+		case "resiliencyPolicy":
+			err = unpopulate(val, "ResiliencyPolicy", &v.ResiliencyPolicy)
 			delete(rawMsg, key)
 		case "scaleInPolicy":
 			err = unpopulate(val, "ScaleInPolicy", &v.ScaleInPolicy)
