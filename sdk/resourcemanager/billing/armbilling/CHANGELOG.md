@@ -1,5 +1,11 @@
 # Release History
 
+## 0.7.0 (2023-11-06)
+### Features Added
+
+- New value `AcceptanceModeImplicit`, `AcceptanceModeOffline`, `AcceptanceModeOther`, `AcceptanceModePhysicalSign` added to enum type `AcceptanceMode`
+
+
 ## 0.6.0 (2023-03-27)
 ### Features Added
 
