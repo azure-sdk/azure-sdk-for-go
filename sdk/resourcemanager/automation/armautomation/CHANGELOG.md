@@ -1,5 +1,98 @@
 # Release History
 
+## 0.9.0 (2023-11-06)
+### Breaking Changes
+
+- Type of `Identity.UserAssignedIdentities` has been changed from `map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` to `map[string]*UserAssignedIdentitiesProperties`
+- Struct `ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` has been removed
+- Field `Value` of struct `DscConfigurationClientGetContentResponse` has been removed
+
+### Features Added
+
+- New value `RunbookTypeEnumPython` added to enum type `RunbookTypeEnum`
+- New enum type `PackageProvisioningState` with values `PackageProvisioningStateActivitiesStored`, `PackageProvisioningStateCanceled`, `PackageProvisioningStateConnectionTypeImported`, `PackageProvisioningStateContentDownloaded`, `PackageProvisioningStateContentRetrieved`, `PackageProvisioningStateContentStored`, `PackageProvisioningStateContentValidated`, `PackageProvisioningStateCreated`, `PackageProvisioningStateCreating`, `PackageProvisioningStateFailed`, `PackageProvisioningStateModuleDataStored`, `PackageProvisioningStateModuleImportRunbookComplete`, `PackageProvisioningStateRunningImportModuleRunbook`, `PackageProvisioningStateStartingImportModuleRunbook`, `PackageProvisioningStateSucceeded`, `PackageProvisioningStateUpdating`
+- New function `*AccountClient.NewListDeletedRunbooksPager(string, string, *AccountClientListDeletedRunbooksOptions) *runtime.Pager[AccountClientListDeletedRunbooksResponse]`
+- New function `*ClientFactory.NewPackageClient() *PackageClient`
+- New function `*ClientFactory.NewPackagesClient() *PackagesClient`
+- New function `*ClientFactory.NewPython3PackageClient() *Python3PackageClient`
+- New function `*ClientFactory.NewRuntimeEnvironmentsClient() *RuntimeEnvironmentsClient`
+- New function `*HybridRunbookWorkersClient.Patch(context.Context, string, string, string, string, *HybridRunbookWorkersClientPatchOptions) (HybridRunbookWorkersClientPatchResponse, error)`
+- New function `NewPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PackageClient, error)`
+- New function `*PackageClient.CreateOrUpdate(context.Context, string, string, string, string, PackageCreateOrUpdateParameters, *PackageClientCreateOrUpdateOptions) (PackageClientCreateOrUpdateResponse, error)`
+- New function `*PackageClient.Delete(context.Context, string, string, string, string, *PackageClientDeleteOptions) (PackageClientDeleteResponse, error)`
+- New function `*PackageClient.Get(context.Context, string, string, string, string, *PackageClientGetOptions) (PackageClientGetResponse, error)`
+- New function `*PackageClient.Update(context.Context, string, string, string, string, PackageUpdateParameters, *PackageClientUpdateOptions) (PackageClientUpdateResponse, error)`
+- New function `NewPackagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PackagesClient, error)`
+- New function `*PackagesClient.NewListByRuntimeEnvironmentPager(string, string, string, *PackagesClientListByRuntimeEnvironmentOptions) *runtime.Pager[PackagesClientListByRuntimeEnvironmentResponse]`
+- New function `NewPython3PackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*Python3PackageClient, error)`
+- New function `*Python3PackageClient.CreateOrUpdate(context.Context, string, string, string, PythonPackageCreateParameters, *Python3PackageClientCreateOrUpdateOptions) (Python3PackageClientCreateOrUpdateResponse, error)`
+- New function `*Python3PackageClient.Delete(context.Context, string, string, string, *Python3PackageClientDeleteOptions) (Python3PackageClientDeleteResponse, error)`
+- New function `*Python3PackageClient.Get(context.Context, string, string, string, *Python3PackageClientGetOptions) (Python3PackageClientGetResponse, error)`
+- New function `*Python3PackageClient.NewListByAutomationAccountPager(string, string, *Python3PackageClientListByAutomationAccountOptions) *runtime.Pager[Python3PackageClientListByAutomationAccountResponse]`
+- New function `*Python3PackageClient.Update(context.Context, string, string, string, PythonPackageUpdateParameters, *Python3PackageClientUpdateOptions) (Python3PackageClientUpdateResponse, error)`
+- New function `NewRuntimeEnvironmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RuntimeEnvironmentsClient, error)`
+- New function `*RuntimeEnvironmentsClient.Create(context.Context, string, string, string, RuntimeEnvironment, *RuntimeEnvironmentsClientCreateOptions) (RuntimeEnvironmentsClientCreateResponse, error)`
+- New function `*RuntimeEnvironmentsClient.Delete(context.Context, string, string, string, *RuntimeEnvironmentsClientDeleteOptions) (RuntimeEnvironmentsClientDeleteResponse, error)`
+- New function `*RuntimeEnvironmentsClient.Get(context.Context, string, string, string, *RuntimeEnvironmentsClientGetOptions) (RuntimeEnvironmentsClientGetResponse, error)`
+- New function `*RuntimeEnvironmentsClient.NewListByAutomationAccountPager(string, string, *RuntimeEnvironmentsClientListByAutomationAccountOptions) *runtime.Pager[RuntimeEnvironmentsClientListByAutomationAccountResponse]`
+- New function `*RuntimeEnvironmentsClient.Update(context.Context, string, string, string, RuntimeEnvironmentUpdateParameters, *RuntimeEnvironmentsClientUpdateOptions) (RuntimeEnvironmentsClientUpdateResponse, error)`
+- New struct `DeletedRunbook`
+- New struct `DeletedRunbookListResult`
+- New struct `DeletedRunbookProperties`
+- New struct `Dimension`
+- New struct `JobRuntimeEnvironment`
+- New struct `LogSpecification`
+- New struct `MetricSpecification`
+- New struct `OperationPropertiesFormat`
+- New struct `OperationPropertiesFormatServiceSpecification`
+- New struct `Package`
+- New struct `PackageCreateOrUpdateParameters`
+- New struct `PackageCreateOrUpdateProperties`
+- New struct `PackageErrorInfo`
+- New struct `PackageListResult`
+- New struct `PackageProperties`
+- New struct `PackageUpdateParameters`
+- New struct `PackageUpdateProperties`
+- New struct `RuntimeEnvironment`
+- New struct `RuntimeEnvironmentListResult`
+- New struct `RuntimeEnvironmentProperties`
+- New struct `RuntimeEnvironmentUpdateParameters`
+- New struct `RuntimeEnvironmentUpdateProperties`
+- New struct `RuntimeProperties`
+- New struct `UserAssignedIdentitiesProperties`
+- New field `SystemData` in struct `Certificate`
+- New field `SystemData` in struct `Connection`
+- New field `SystemData` in struct `Credential`
+- New field `SystemData` in struct `DscCompilationJob`
+- New field `SystemData` in struct `DscConfiguration`
+- New field `SystemData` in struct `DscNode`
+- New field `SystemData` in struct `DscNodeConfiguration`
+- New field `Location`, `Tags` in struct `HybridRunbookWorker`
+- New field `Location`, `Tags` in struct `HybridRunbookWorkerGroup`
+- New field `SystemData` in struct `Job`
+- New field `SystemData` in struct `JobCollectionItem`
+- New field `JobRuntimeEnvironment`, `StartedBy` in struct `JobCollectionItemProperties`
+- New field `JobRuntimeEnvironment` in struct `JobProperties`
+- New field `SystemData` in struct `Module`
+- New field `Origin`, `Properties` in struct `Operation`
+- New field `Description` in struct `OperationDisplay`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `SystemData` in struct `PrivateLinkResource`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `Runbook`
+- New field `RuntimeEnvironment` in struct `RunbookCreateOrUpdateDraftProperties`
+- New field `RuntimeEnvironment` in struct `RunbookCreateOrUpdateProperties`
+- New field `RuntimeEnvironment` in struct `RunbookProperties`
+- New field `SystemData` in struct `Schedule`
+- New field `SystemData` in struct `SourceControl`
+- New field `RuntimeEnvironment` in struct `TestJobCreateParameters`
+- New field `SystemData` in struct `TrackedResource`
+- New field `SystemData` in struct `Variable`
+- New field `SystemData` in struct `Watcher`
+- New field `SystemData` in struct `Webhook`
+
+
 ## 0.8.1 (2023-04-14)
 ### Bug Fixes
 
