@@ -207,6 +207,12 @@ type CreatorProperties struct {
 	// REQUIRED; The storage units to be allocated. Integer values from 1 to 100, inclusive.
 	StorageUnits *int32
 
+	// The consumed storage unit size in bytes for the creator resource.
+	ConsumedStorageUnitSizeInBytes *int32
+
+	// The total allocated storage unit size in bytes for the creator resource.
+	TotalStorageUnitSizeInBytes *int32
+
 	// READ-ONLY; The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled
 	ProvisioningState *string
 }
