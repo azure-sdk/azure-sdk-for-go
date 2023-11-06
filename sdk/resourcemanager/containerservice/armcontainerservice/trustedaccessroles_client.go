@@ -28,7 +28,7 @@ type TrustedAccessRolesClient struct {
 }
 
 // NewTrustedAccessRolesClient creates a new instance of TrustedAccessRolesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTrustedAccessRolesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TrustedAccessRolesClient, error) {
@@ -45,8 +45,8 @@ func NewTrustedAccessRolesClient(subscriptionID string, credential azcore.TokenC
 
 // NewListPager - List supported trusted access roles.
 //
-// Generated from API version 2023-08-02-preview
-//   - location - The name of Azure region.
+// Generated from API version 2023-09-01
+//   - location - The name of the Azure region.
 //   - options - TrustedAccessRolesClientListOptions contains the optional parameters for the TrustedAccessRolesClient.NewListPager
 //     method.
 func (client *TrustedAccessRolesClient) NewListPager(location string, options *TrustedAccessRolesClientListOptions) *runtime.Pager[TrustedAccessRolesClientListResponse] {
@@ -82,9 +82,6 @@ func (client *TrustedAccessRolesClient) NewListPager(location string, options *T
 // listCreateRequest creates the List request.
 func (client *TrustedAccessRolesClient) listCreateRequest(ctx context.Context, location string, options *TrustedAccessRolesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/locations/{location}/trustedAccessRoles"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
@@ -95,7 +92,7 @@ func (client *TrustedAccessRolesClient) listCreateRequest(ctx context.Context, l
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-02-preview")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
