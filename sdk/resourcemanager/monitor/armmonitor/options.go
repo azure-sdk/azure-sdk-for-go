@@ -177,15 +177,16 @@ type AutoscaleSettingsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AzureMonitorWorkspacesClientBeginDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.BeginDelete
+// method.
+type AzureMonitorWorkspacesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // AzureMonitorWorkspacesClientCreateOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Create
 // method.
 type AzureMonitorWorkspacesClientCreateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AzureMonitorWorkspacesClientDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Delete
-// method.
-type AzureMonitorWorkspacesClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -248,6 +249,19 @@ type BaselinesClientListOptions struct {
 
 	// The timespan of the query. It is a string with the following format 'startDateTimeISO/endDateTimeISO'.
 	Timespan *string
+}
+
+// ClientBeginCreateNotificationsAtTenantActionGroupResourceLevelOptions contains the optional parameters for the Client.BeginCreateNotificationsAtTenantActionGroupResourceLevel
+// method.
+type ClientBeginCreateNotificationsAtTenantActionGroupResourceLevelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClientGetTestNotificationsAtTenantActionGroupResourceLevelOptions contains the optional parameters for the Client.GetTestNotificationsAtTenantActionGroupResourceLevel
+// method.
+type ClientGetTestNotificationsAtTenantActionGroupResourceLevelOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DataCollectionEndpointsClientCreateOptions contains the optional parameters for the DataCollectionEndpointsClient.Create
