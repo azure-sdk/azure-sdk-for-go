@@ -46,7 +46,7 @@ func NewBackupResourceStorageConfigsNonCRRClient(subscriptionID string, credenti
 // Get - Fetches resource storage config.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - BackupResourceStorageConfigsNonCRRClientGetOptions contains the optional parameters for the BackupResourceStorageConfigsNonCRRClient.Get
@@ -89,7 +89,7 @@ func (client *BackupResourceStorageConfigsNonCRRClient) getCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,7 +107,7 @@ func (client *BackupResourceStorageConfigsNonCRRClient) getHandleResponse(resp *
 // Patch - Updates vault storage model type.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - parameters - Vault storage config request
@@ -150,7 +150,7 @@ func (client *BackupResourceStorageConfigsNonCRRClient) patchCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -162,7 +162,7 @@ func (client *BackupResourceStorageConfigsNonCRRClient) patchCreateRequest(ctx c
 // Update - Updates vault storage model type.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - parameters - Vault storage config request
@@ -206,7 +206,7 @@ func (client *BackupResourceStorageConfigsNonCRRClient) updateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
