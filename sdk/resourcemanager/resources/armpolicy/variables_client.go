@@ -28,7 +28,7 @@ type VariablesClient struct {
 }
 
 // NewVariablesClient creates a new instance of VariablesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewVariablesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VariablesClient, error) {
@@ -73,9 +73,6 @@ func (client *VariablesClient) CreateOrUpdate(ctx context.Context, variableName 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *VariablesClient) createOrUpdateCreateRequest(ctx context.Context, variableName string, parameters Variable, options *VariablesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/variables/{variableName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if variableName == "" {
 		return nil, errors.New("parameter variableName cannot be empty")
@@ -194,9 +191,6 @@ func (client *VariablesClient) Delete(ctx context.Context, variableName string, 
 // deleteCreateRequest creates the Delete request.
 func (client *VariablesClient) deleteCreateRequest(ctx context.Context, variableName string, options *VariablesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/variables/{variableName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if variableName == "" {
 		return nil, errors.New("parameter variableName cannot be empty")
@@ -289,9 +283,6 @@ func (client *VariablesClient) Get(ctx context.Context, variableName string, opt
 // getCreateRequest creates the Get request.
 func (client *VariablesClient) getCreateRequest(ctx context.Context, variableName string, options *VariablesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/variables/{variableName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if variableName == "" {
 		return nil, errors.New("parameter variableName cannot be empty")
@@ -410,9 +401,6 @@ func (client *VariablesClient) NewListPager(options *VariablesClientListOptions)
 // listCreateRequest creates the List request.
 func (client *VariablesClient) listCreateRequest(ctx context.Context, options *VariablesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/variables"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {

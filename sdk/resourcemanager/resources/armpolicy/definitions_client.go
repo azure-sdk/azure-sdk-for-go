@@ -29,7 +29,7 @@ type DefinitionsClient struct {
 }
 
 // NewDefinitionsClient creates a new instance of DefinitionsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDefinitionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DefinitionsClient, error) {
@@ -47,7 +47,7 @@ func NewDefinitionsClient(subscriptionID string, credential azcore.TokenCredenti
 // CreateOrUpdate - This operation creates or updates a policy definition in the given subscription with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - policyDefinitionName - The name of the policy definition to create.
 //   - parameters - The policy definition properties.
 //   - options - DefinitionsClientCreateOrUpdateOptions contains the optional parameters for the DefinitionsClient.CreateOrUpdate
@@ -73,20 +73,17 @@ func (client *DefinitionsClient) CreateOrUpdate(ctx context.Context, policyDefin
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *DefinitionsClient) createOrUpdateCreateRequest(ctx context.Context, policyDefinitionName string, parameters Definition, options *DefinitionsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if policyDefinitionName == "" {
 		return nil, errors.New("parameter policyDefinitionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -108,15 +105,15 @@ func (client *DefinitionsClient) createOrUpdateHandleResponse(resp *http.Respons
 // the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
-//   - policyDefinitionName - The name of the policy definition to create.
+// Generated from API version 2023-04-01
 //   - managementGroupID - The ID of the management group.
+//   - policyDefinitionName - The name of the policy definition to create.
 //   - parameters - The policy definition properties.
 //   - options - DefinitionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the DefinitionsClient.CreateOrUpdateAtManagementGroup
 //     method.
-func (client *DefinitionsClient) CreateOrUpdateAtManagementGroup(ctx context.Context, policyDefinitionName string, managementGroupID string, parameters Definition, options *DefinitionsClientCreateOrUpdateAtManagementGroupOptions) (DefinitionsClientCreateOrUpdateAtManagementGroupResponse, error) {
+func (client *DefinitionsClient) CreateOrUpdateAtManagementGroup(ctx context.Context, managementGroupID string, policyDefinitionName string, parameters Definition, options *DefinitionsClientCreateOrUpdateAtManagementGroupOptions) (DefinitionsClientCreateOrUpdateAtManagementGroupResponse, error) {
 	var err error
-	req, err := client.createOrUpdateAtManagementGroupCreateRequest(ctx, policyDefinitionName, managementGroupID, parameters, options)
+	req, err := client.createOrUpdateAtManagementGroupCreateRequest(ctx, managementGroupID, policyDefinitionName, parameters, options)
 	if err != nil {
 		return DefinitionsClientCreateOrUpdateAtManagementGroupResponse{}, err
 	}
@@ -133,22 +130,22 @@ func (client *DefinitionsClient) CreateOrUpdateAtManagementGroup(ctx context.Con
 }
 
 // createOrUpdateAtManagementGroupCreateRequest creates the CreateOrUpdateAtManagementGroup request.
-func (client *DefinitionsClient) createOrUpdateAtManagementGroupCreateRequest(ctx context.Context, policyDefinitionName string, managementGroupID string, parameters Definition, options *DefinitionsClientCreateOrUpdateAtManagementGroupOptions) (*policy.Request, error) {
+func (client *DefinitionsClient) createOrUpdateAtManagementGroupCreateRequest(ctx context.Context, managementGroupID string, policyDefinitionName string, parameters Definition, options *DefinitionsClientCreateOrUpdateAtManagementGroupOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}"
-	if policyDefinitionName == "" {
-		return nil, errors.New("parameter policyDefinitionName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
 	if managementGroupID == "" {
 		return nil, errors.New("parameter managementGroupID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{managementGroupId}", url.PathEscape(managementGroupID))
+	if policyDefinitionName == "" {
+		return nil, errors.New("parameter policyDefinitionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -169,7 +166,7 @@ func (client *DefinitionsClient) createOrUpdateAtManagementGroupHandleResponse(r
 // Delete - This operation deletes the policy definition in the given subscription with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - policyDefinitionName - The name of the policy definition to delete.
 //   - options - DefinitionsClientDeleteOptions contains the optional parameters for the DefinitionsClient.Delete method.
 func (client *DefinitionsClient) Delete(ctx context.Context, policyDefinitionName string, options *DefinitionsClientDeleteOptions) (DefinitionsClientDeleteResponse, error) {
@@ -192,20 +189,17 @@ func (client *DefinitionsClient) Delete(ctx context.Context, policyDefinitionNam
 // deleteCreateRequest creates the Delete request.
 func (client *DefinitionsClient) deleteCreateRequest(ctx context.Context, policyDefinitionName string, options *DefinitionsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if policyDefinitionName == "" {
 		return nil, errors.New("parameter policyDefinitionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,14 +208,14 @@ func (client *DefinitionsClient) deleteCreateRequest(ctx context.Context, policy
 // DeleteAtManagementGroup - This operation deletes the policy definition in the given management group with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
-//   - policyDefinitionName - The name of the policy definition to delete.
+// Generated from API version 2023-04-01
 //   - managementGroupID - The ID of the management group.
+//   - policyDefinitionName - The name of the policy definition to delete.
 //   - options - DefinitionsClientDeleteAtManagementGroupOptions contains the optional parameters for the DefinitionsClient.DeleteAtManagementGroup
 //     method.
-func (client *DefinitionsClient) DeleteAtManagementGroup(ctx context.Context, policyDefinitionName string, managementGroupID string, options *DefinitionsClientDeleteAtManagementGroupOptions) (DefinitionsClientDeleteAtManagementGroupResponse, error) {
+func (client *DefinitionsClient) DeleteAtManagementGroup(ctx context.Context, managementGroupID string, policyDefinitionName string, options *DefinitionsClientDeleteAtManagementGroupOptions) (DefinitionsClientDeleteAtManagementGroupResponse, error) {
 	var err error
-	req, err := client.deleteAtManagementGroupCreateRequest(ctx, policyDefinitionName, managementGroupID, options)
+	req, err := client.deleteAtManagementGroupCreateRequest(ctx, managementGroupID, policyDefinitionName, options)
 	if err != nil {
 		return DefinitionsClientDeleteAtManagementGroupResponse{}, err
 	}
@@ -237,22 +231,22 @@ func (client *DefinitionsClient) DeleteAtManagementGroup(ctx context.Context, po
 }
 
 // deleteAtManagementGroupCreateRequest creates the DeleteAtManagementGroup request.
-func (client *DefinitionsClient) deleteAtManagementGroupCreateRequest(ctx context.Context, policyDefinitionName string, managementGroupID string, options *DefinitionsClientDeleteAtManagementGroupOptions) (*policy.Request, error) {
+func (client *DefinitionsClient) deleteAtManagementGroupCreateRequest(ctx context.Context, managementGroupID string, policyDefinitionName string, options *DefinitionsClientDeleteAtManagementGroupOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}"
-	if policyDefinitionName == "" {
-		return nil, errors.New("parameter policyDefinitionName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
 	if managementGroupID == "" {
 		return nil, errors.New("parameter managementGroupID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{managementGroupId}", url.PathEscape(managementGroupID))
+	if policyDefinitionName == "" {
+		return nil, errors.New("parameter policyDefinitionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,7 +255,7 @@ func (client *DefinitionsClient) deleteAtManagementGroupCreateRequest(ctx contex
 // Get - This operation retrieves the policy definition in the given subscription with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - policyDefinitionName - The name of the policy definition to get.
 //   - options - DefinitionsClientGetOptions contains the optional parameters for the DefinitionsClient.Get method.
 func (client *DefinitionsClient) Get(ctx context.Context, policyDefinitionName string, options *DefinitionsClientGetOptions) (DefinitionsClientGetResponse, error) {
@@ -285,20 +279,17 @@ func (client *DefinitionsClient) Get(ctx context.Context, policyDefinitionName s
 // getCreateRequest creates the Get request.
 func (client *DefinitionsClient) getCreateRequest(ctx context.Context, policyDefinitionName string, options *DefinitionsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if policyDefinitionName == "" {
 		return nil, errors.New("parameter policyDefinitionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,14 +307,14 @@ func (client *DefinitionsClient) getHandleResponse(resp *http.Response) (Definit
 // GetAtManagementGroup - This operation retrieves the policy definition in the given management group with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
-//   - policyDefinitionName - The name of the policy definition to get.
+// Generated from API version 2023-04-01
 //   - managementGroupID - The ID of the management group.
+//   - policyDefinitionName - The name of the policy definition to get.
 //   - options - DefinitionsClientGetAtManagementGroupOptions contains the optional parameters for the DefinitionsClient.GetAtManagementGroup
 //     method.
-func (client *DefinitionsClient) GetAtManagementGroup(ctx context.Context, policyDefinitionName string, managementGroupID string, options *DefinitionsClientGetAtManagementGroupOptions) (DefinitionsClientGetAtManagementGroupResponse, error) {
+func (client *DefinitionsClient) GetAtManagementGroup(ctx context.Context, managementGroupID string, policyDefinitionName string, options *DefinitionsClientGetAtManagementGroupOptions) (DefinitionsClientGetAtManagementGroupResponse, error) {
 	var err error
-	req, err := client.getAtManagementGroupCreateRequest(ctx, policyDefinitionName, managementGroupID, options)
+	req, err := client.getAtManagementGroupCreateRequest(ctx, managementGroupID, policyDefinitionName, options)
 	if err != nil {
 		return DefinitionsClientGetAtManagementGroupResponse{}, err
 	}
@@ -340,22 +331,22 @@ func (client *DefinitionsClient) GetAtManagementGroup(ctx context.Context, polic
 }
 
 // getAtManagementGroupCreateRequest creates the GetAtManagementGroup request.
-func (client *DefinitionsClient) getAtManagementGroupCreateRequest(ctx context.Context, policyDefinitionName string, managementGroupID string, options *DefinitionsClientGetAtManagementGroupOptions) (*policy.Request, error) {
+func (client *DefinitionsClient) getAtManagementGroupCreateRequest(ctx context.Context, managementGroupID string, policyDefinitionName string, options *DefinitionsClientGetAtManagementGroupOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}"
-	if policyDefinitionName == "" {
-		return nil, errors.New("parameter policyDefinitionName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
 	if managementGroupID == "" {
 		return nil, errors.New("parameter managementGroupID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{managementGroupId}", url.PathEscape(managementGroupID))
+	if policyDefinitionName == "" {
+		return nil, errors.New("parameter policyDefinitionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{policyDefinitionName}", url.PathEscape(policyDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -373,7 +364,7 @@ func (client *DefinitionsClient) getAtManagementGroupHandleResponse(resp *http.R
 // GetBuiltIn - This operation retrieves the built-in policy definition with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - policyDefinitionName - The name of the built-in policy definition to get.
 //   - options - DefinitionsClientGetBuiltInOptions contains the optional parameters for the DefinitionsClient.GetBuiltIn method.
 func (client *DefinitionsClient) GetBuiltIn(ctx context.Context, policyDefinitionName string, options *DefinitionsClientGetBuiltInOptions) (DefinitionsClientGetBuiltInResponse, error) {
@@ -406,7 +397,7 @@ func (client *DefinitionsClient) getBuiltInCreateRequest(ctx context.Context, po
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -431,7 +422,7 @@ func (client *DefinitionsClient) getBuiltInHandleResponse(resp *http.Response) (
 // are NotSpecified, BuiltIn, Custom, and Static. If $filter='category -eq
 // {value}' is provided, the returned list only includes all policy definitions whose category match the {value}.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - options - DefinitionsClientListOptions contains the optional parameters for the DefinitionsClient.NewListPager method.
 func (client *DefinitionsClient) NewListPager(options *DefinitionsClientListOptions) *runtime.Pager[DefinitionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DefinitionsClientListResponse]{
@@ -464,16 +455,13 @@ func (client *DefinitionsClient) NewListPager(options *DefinitionsClientListOpti
 // listCreateRequest creates the List request.
 func (client *DefinitionsClient) listCreateRequest(ctx context.Context, options *DefinitionsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policyDefinitions"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
@@ -502,7 +490,7 @@ func (client *DefinitionsClient) listHandleResponse(resp *http.Response) (Defini
 // and Static. If $filter='category -eq {value}' is provided, the returned list
 // only includes all built-in policy definitions whose category match the {value}.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - options - DefinitionsClientListBuiltInOptions contains the optional parameters for the DefinitionsClient.NewListBuiltInPager
 //     method.
 func (client *DefinitionsClient) NewListBuiltInPager(options *DefinitionsClientListBuiltInOptions) *runtime.Pager[DefinitionsClientListBuiltInResponse] {
@@ -541,7 +529,7 @@ func (client *DefinitionsClient) listBuiltInCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
@@ -575,7 +563,7 @@ func (client *DefinitionsClient) listBuiltInHandleResponse(resp *http.Response) 
 // Static. If $filter='category -eq {value}' is provided, the returned list only includes all policy definitions whose category
 // match the {value}.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01
 //   - managementGroupID - The ID of the management group.
 //   - options - DefinitionsClientListByManagementGroupOptions contains the optional parameters for the DefinitionsClient.NewListByManagementGroupPager
 //     method.
@@ -619,7 +607,7 @@ func (client *DefinitionsClient) listByManagementGroupCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
