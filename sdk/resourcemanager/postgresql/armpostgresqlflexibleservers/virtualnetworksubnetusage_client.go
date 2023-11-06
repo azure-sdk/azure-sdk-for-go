@@ -28,7 +28,7 @@ type VirtualNetworkSubnetUsageClient struct {
 }
 
 // NewVirtualNetworkSubnetUsageClient creates a new instance of VirtualNetworkSubnetUsageClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewVirtualNetworkSubnetUsageClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualNetworkSubnetUsageClient, error) {
@@ -46,7 +46,7 @@ func NewVirtualNetworkSubnetUsageClient(subscriptionID string, credential azcore
 // Execute - Get virtual network subnet usage for a given vNet resource id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - locationName - The name of the location.
 //   - parameters - The required parameters for creating or updating a server.
 //   - options - VirtualNetworkSubnetUsageClientExecuteOptions contains the optional parameters for the VirtualNetworkSubnetUsageClient.Execute
@@ -72,9 +72,6 @@ func (client *VirtualNetworkSubnetUsageClient) Execute(ctx context.Context, loca
 // executeCreateRequest creates the Execute request.
 func (client *VirtualNetworkSubnetUsageClient) executeCreateRequest(ctx context.Context, locationName string, parameters VirtualNetworkSubnetUsageParameter, options *VirtualNetworkSubnetUsageClientExecuteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/locations/{locationName}/checkVirtualNetworkSubnetUsage"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if locationName == "" {
 		return nil, errors.New("parameter locationName cannot be empty")
@@ -85,7 +82,7 @@ func (client *VirtualNetworkSubnetUsageClient) executeCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

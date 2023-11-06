@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -112,6 +112,26 @@ func (c *ClientFactory) NewPostgreSQLManagementClient() *PostgreSQLManagementCli
 	return subClient
 }
 
+func (c *ClientFactory) NewPrivateEndpointConnectionClient() *PrivateEndpointConnectionClient {
+	subClient, _ := NewPrivateEndpointConnectionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
+	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
+	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewQuotaUsagesClient() *QuotaUsagesClient {
+	subClient, _ := NewQuotaUsagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	subClient, _ := NewReplicasClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -122,8 +142,18 @@ func (c *ClientFactory) NewServerCapabilitiesClient() *ServerCapabilitiesClient 
 	return subClient
 }
 
+func (c *ClientFactory) NewServerThreatProtectionSettingsClient() *ServerThreatProtectionSettingsClient {
+	subClient, _ := NewServerThreatProtectionSettingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewServersClient() *ServersClient {
 	subClient, _ := NewServersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewVirtualEndpointsClient() *VirtualEndpointsClient {
+	subClient, _ := NewVirtualEndpointsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
