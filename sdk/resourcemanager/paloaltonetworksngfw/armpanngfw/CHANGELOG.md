@@ -1,5 +1,17 @@
 # Release History
 
+## 2.0.0 (2023-11-06)
+### Breaking Changes
+
+- Function `*LocalRulestacksClient.ListAppIDs` has been removed
+- Function `*LocalRulestacksClient.ListCountries` has been removed
+- Function `*LocalRulestacksClient.ListPredefinedURLCategories` has been removed
+
+### Features Added
+
+- New field `TrustedRanges` in struct `NetworkProfile`
+
+
 ## 1.0.0 (2023-07-14)
 ### Other Changes
 
