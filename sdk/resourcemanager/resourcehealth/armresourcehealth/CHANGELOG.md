@@ -1,5 +1,25 @@
 # Release History
 
+## 1.3.0-beta.2 (2023-11-06)
+### Breaking Changes
+
+- Struct `EmergingIssue` has been removed
+- Struct `EventImpactedResourceProperties` has been removed
+- Struct `EventProperties` has been removed
+- Struct `MetadataEntityProperties` has been removed
+- Field `Properties` of struct `EmergingIssuesGetResult` has been removed
+- Field `Properties` of struct `Event` has been removed
+- Field `Properties` of struct `EventImpactedResource` has been removed
+- Field `Properties` of struct `MetadataEntity` has been removed
+
+### Features Added
+
+- New field `RefreshTimestamp`, `StatusActiveEvents`, `StatusBanners` in struct `EmergingIssuesGetResult`
+- New field `AdditionalInformation`, `ArgQuery`, `Article`, `Description`, `Duration`, `EnableChatWithUs`, `EnableMicrosoftSupport`, `EventLevel`, `EventSource`, `EventSubType`, `EventType`, `ExternalIncidentID`, `Faqs`, `Header`, `HirStage`, `Impact`, `ImpactMitigationTime`, `ImpactStartTime`, `ImpactType`, `IsHIR`, `LastUpdateTime`, `Level`, `Links`, `MaintenanceID`, `MaintenanceType`, `PlatformInitiated`, `Priority`, `Reason`, `RecommendedActions`, `Status`, `Summary`, `Title` in struct `Event`
+- New field `Info`, `MaintenanceEndTime`, `MaintenanceStartTime`, `ResourceGroup`, `ResourceName`, `Status`, `TargetRegion`, `TargetResourceID`, `TargetResourceType` in struct `EventImpactedResource`
+- New field `ApplicableScenarios`, `DependsOn`, `DisplayName`, `SupportedValues` in struct `MetadataEntity`
+
+
 ## 1.3.0-beta.1 (2023-10-27)
 ### Features Added
 
