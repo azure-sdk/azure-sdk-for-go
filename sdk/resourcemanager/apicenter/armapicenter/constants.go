@@ -10,8 +10,67 @@ package armapicenter
 
 const (
 	moduleName    = "armapicenter"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v1.0.0"
 )
+
+// APIKind - Kind of API. For example, REST or GraphQL.
+type APIKind string
+
+const (
+	APIKindGraphql   APIKind = "graphql"
+	APIKindGrpc      APIKind = "grpc"
+	APIKindRest      APIKind = "rest"
+	APIKindSoap      APIKind = "soap"
+	APIKindWebhook   APIKind = "webhook"
+	APIKindWebsocket APIKind = "websocket"
+)
+
+// PossibleAPIKindValues returns the possible values for the APIKind const type.
+func PossibleAPIKindValues() []APIKind {
+	return []APIKind{
+		APIKindGraphql,
+		APIKindGrpc,
+		APIKindRest,
+		APIKindSoap,
+		APIKindWebhook,
+		APIKindWebsocket,
+	}
+}
+
+type APISpecExportResultFormat string
+
+const (
+	// APISpecExportResultFormatInline - The inlined content of a specification document.
+	APISpecExportResultFormatInline APISpecExportResultFormat = "inline"
+	// APISpecExportResultFormatLink - The link to the result of the export operation. The URL is valid for 5 minutes.
+	APISpecExportResultFormatLink APISpecExportResultFormat = "link"
+)
+
+// PossibleAPISpecExportResultFormatValues returns the possible values for the APISpecExportResultFormat const type.
+func PossibleAPISpecExportResultFormatValues() []APISpecExportResultFormat {
+	return []APISpecExportResultFormat{
+		APISpecExportResultFormatInline,
+		APISpecExportResultFormatLink,
+	}
+}
+
+// APISpecImportSourceFormat - Format of the API specification source.
+type APISpecImportSourceFormat string
+
+const (
+	// APISpecImportSourceFormatInline - The inlined content of a specification document.
+	APISpecImportSourceFormatInline APISpecImportSourceFormat = "inline"
+	// APISpecImportSourceFormatLink - The link to a specification document hosted on a publicly accessible internet address.
+	APISpecImportSourceFormatLink APISpecImportSourceFormat = "link"
+)
+
+// PossibleAPISpecImportSourceFormatValues returns the possible values for the APISpecImportSourceFormat const type.
+func PossibleAPISpecImportSourceFormatValues() []APISpecImportSourceFormat {
+	return []APISpecImportSourceFormat{
+		APISpecImportSourceFormatInline,
+		APISpecImportSourceFormatLink,
+	}
+}
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
 type ActionType string
@@ -47,6 +106,94 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// DeploymentState - State of API deployment.
+type DeploymentState string
+
+const (
+	DeploymentStateActive   DeploymentState = "active"
+	DeploymentStateInactive DeploymentState = "inactive"
+)
+
+// PossibleDeploymentStateValues returns the possible values for the DeploymentState const type.
+func PossibleDeploymentStateValues() []DeploymentState {
+	return []DeploymentState{
+		DeploymentStateActive,
+		DeploymentStateInactive,
+	}
+}
+
+// EnvironmentKind - Environment kind.
+type EnvironmentKind string
+
+const (
+	EnvironmentKindDevelopment EnvironmentKind = "development"
+	EnvironmentKindProduction  EnvironmentKind = "production"
+	EnvironmentKindStaging     EnvironmentKind = "staging"
+	EnvironmentKindTesting     EnvironmentKind = "testing"
+)
+
+// PossibleEnvironmentKindValues returns the possible values for the EnvironmentKind const type.
+func PossibleEnvironmentKindValues() []EnvironmentKind {
+	return []EnvironmentKind{
+		EnvironmentKindDevelopment,
+		EnvironmentKindProduction,
+		EnvironmentKindStaging,
+		EnvironmentKindTesting,
+	}
+}
+
+// EnvironmentServerType - Type of the server that represents the environment.
+type EnvironmentServerType string
+
+const (
+	EnvironmentServerTypeAWSAPIGateway         EnvironmentServerType = "AWS API Gateway"
+	EnvironmentServerTypeApigeeAPIManagement   EnvironmentServerType = "Apigee API Management"
+	EnvironmentServerTypeAzureAPIManagement    EnvironmentServerType = "Azure API Management"
+	EnvironmentServerTypeAzureComputeService   EnvironmentServerType = "Azure compute service"
+	EnvironmentServerTypeKongAPIGateway        EnvironmentServerType = "Kong API Gateway"
+	EnvironmentServerTypeKubernetes            EnvironmentServerType = "Kubernetes"
+	EnvironmentServerTypeMuleSoftAPIManagement EnvironmentServerType = "MuleSoft API Management"
+)
+
+// PossibleEnvironmentServerTypeValues returns the possible values for the EnvironmentServerType const type.
+func PossibleEnvironmentServerTypeValues() []EnvironmentServerType {
+	return []EnvironmentServerType{
+		EnvironmentServerTypeAWSAPIGateway,
+		EnvironmentServerTypeApigeeAPIManagement,
+		EnvironmentServerTypeAzureAPIManagement,
+		EnvironmentServerTypeAzureComputeService,
+		EnvironmentServerTypeKongAPIGateway,
+		EnvironmentServerTypeKubernetes,
+		EnvironmentServerTypeMuleSoftAPIManagement,
+	}
+}
+
+// LifecycleStage - Current lifecycle stage of the API.
+type LifecycleStage string
+
+const (
+	LifecycleStageDeprecated  LifecycleStage = "deprecated"
+	LifecycleStageDesign      LifecycleStage = "design"
+	LifecycleStageDevelopment LifecycleStage = "development"
+	LifecycleStagePreview     LifecycleStage = "preview"
+	LifecycleStageProduction  LifecycleStage = "production"
+	LifecycleStageRetired     LifecycleStage = "retired"
+	LifecycleStageTesting     LifecycleStage = "testing"
+)
+
+// PossibleLifecycleStageValues returns the possible values for the LifecycleStage const type.
+func PossibleLifecycleStageValues() []LifecycleStage {
+	return []LifecycleStage{
+		LifecycleStageDeprecated,
+		LifecycleStageDesign,
+		LifecycleStageDevelopment,
+		LifecycleStagePreview,
+		LifecycleStageProduction,
+		LifecycleStageRetired,
+		LifecycleStageTesting,
+	}
+}
+
 // ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
 type ManagedServiceIdentityType string
 
@@ -64,6 +211,41 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 		ManagedServiceIdentityTypeSystemAssigned,
 		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
 		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// MetadataAssignmentEntity - An entity the metadata schema is requested for.
+type MetadataAssignmentEntity string
+
+const (
+	MetadataAssignmentEntityAPI         MetadataAssignmentEntity = "api"
+	MetadataAssignmentEntityDeployment  MetadataAssignmentEntity = "deployment"
+	MetadataAssignmentEntityEnvironment MetadataAssignmentEntity = "environment"
+)
+
+// PossibleMetadataAssignmentEntityValues returns the possible values for the MetadataAssignmentEntity const type.
+func PossibleMetadataAssignmentEntityValues() []MetadataAssignmentEntity {
+	return []MetadataAssignmentEntity{
+		MetadataAssignmentEntityAPI,
+		MetadataAssignmentEntityDeployment,
+		MetadataAssignmentEntityEnvironment,
+	}
+}
+
+type MetadataSchemaExportFormat string
+
+const (
+	// MetadataSchemaExportFormatInline - The inlined content of a schema document.
+	MetadataSchemaExportFormatInline MetadataSchemaExportFormat = "inline"
+	// MetadataSchemaExportFormatLink - The link to a schema document. The URL is valid for 5 minutes.
+	MetadataSchemaExportFormatLink MetadataSchemaExportFormat = "link"
+)
+
+// PossibleMetadataSchemaExportFormatValues returns the possible values for the MetadataSchemaExportFormat const type.
+func PossibleMetadataSchemaExportFormatValues() []MetadataSchemaExportFormat {
+	return []MetadataSchemaExportFormat{
+		MetadataSchemaExportFormatInline,
+		MetadataSchemaExportFormatLink,
 	}
 }
 
