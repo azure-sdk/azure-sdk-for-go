@@ -37,6 +37,16 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+func (c *ClientFactory) NewAppAttachPackageClient() *AppAttachPackageClient {
+	subClient, _ := NewAppAttachPackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAppAttachPackageInfoClient() *AppAttachPackageInfoClient {
+	subClient, _ := NewAppAttachPackageInfoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewApplicationGroupsClient() *ApplicationGroupsClient {
 	subClient, _ := NewApplicationGroupsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
