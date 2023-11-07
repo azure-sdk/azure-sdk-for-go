@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0-beta.1 (2023-11-07)
+### Features Added
+
+- New field `ConsumedStorageUnitSizeInBytes`, `TotalStorageUnitSizeInBytes` in struct `CreatorProperties`
+
+
 ## 1.0.0 (2023-08-25)
 ### Breaking Changes
 
