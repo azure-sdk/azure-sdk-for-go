@@ -28,7 +28,7 @@ type BillingMetersClient struct {
 }
 
 // NewBillingMetersClient creates a new instance of BillingMetersClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewBillingMetersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingMetersClient, error) {
@@ -46,7 +46,7 @@ func NewBillingMetersClient(subscriptionID string, credential azcore.TokenCreden
 // Get - Get all billingMeters for a location.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - location - The name of Azure region.
 //   - options - BillingMetersClientGetOptions contains the optional parameters for the BillingMetersClient.Get method.
 func (client *BillingMetersClient) Get(ctx context.Context, location string, options *BillingMetersClientGetOptions) (BillingMetersClientGetResponse, error) {
@@ -70,9 +70,6 @@ func (client *BillingMetersClient) Get(ctx context.Context, location string, opt
 // getCreateRequest creates the Get request.
 func (client *BillingMetersClient) getCreateRequest(ctx context.Context, location string, options *BillingMetersClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.App/locations/{location}/billingMeters"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
@@ -83,7 +80,7 @@ func (client *BillingMetersClient) getCreateRequest(ctx context.Context, locatio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
