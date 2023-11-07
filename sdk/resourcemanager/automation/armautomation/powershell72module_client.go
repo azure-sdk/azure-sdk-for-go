@@ -20,61 +20,61 @@ import (
 	"strings"
 )
 
-// Python2PackageClient contains the methods for the Python2Package group.
-// Don't use this type directly, use NewPython2PackageClient() instead.
-type Python2PackageClient struct {
+// PowerShell72ModuleClient contains the methods for the PowerShell72Module group.
+// Don't use this type directly, use NewPowerShell72ModuleClient() instead.
+type PowerShell72ModuleClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewPython2PackageClient creates a new instance of Python2PackageClient with the specified values.
+// NewPowerShell72ModuleClient creates a new instance of PowerShell72ModuleClient with the specified values.
 //   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
 //     forms part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewPython2PackageClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Python2PackageClient, error) {
-	cl, err := arm.NewClient(moduleName+".Python2PackageClient", moduleVersion, credential, options)
+func NewPowerShell72ModuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PowerShell72ModuleClient, error) {
+	cl, err := arm.NewClient(moduleName+".PowerShell72ModuleClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &Python2PackageClient{
+	client := &PowerShell72ModuleClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create or Update the python 2 package identified by package name.
+// CreateOrUpdate - Create or Update the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - packageName - The name of python package.
-//   - parameters - The create or update parameters for python package.
-//   - options - Python2PackageClientCreateOrUpdateOptions contains the optional parameters for the Python2PackageClient.CreateOrUpdate
+//   - moduleName - The name of module.
+//   - parameters - The create or update parameters for module.
+//   - options - PowerShell72ModuleClientCreateOrUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.CreateOrUpdate
 //     method.
-func (client *Python2PackageClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageCreateParameters, options *Python2PackageClientCreateOrUpdateOptions) (Python2PackageClientCreateOrUpdateResponse, error) {
+func (client *PowerShell72ModuleClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientCreateOrUpdateOptions) (PowerShell72ModuleClientCreateOrUpdateResponse, error) {
 	var err error
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
-		return Python2PackageClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return Python2PackageClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return Python2PackageClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *Python2PackageClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageCreateParameters, options *Python2PackageClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}"
+func (client *PowerShell72ModuleClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -83,10 +83,10 @@ func (client *Python2PackageClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if packageName == "" {
-		return nil, errors.New("parameter packageName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -106,42 +106,43 @@ func (client *Python2PackageClient) createOrUpdateCreateRequest(ctx context.Cont
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *Python2PackageClient) createOrUpdateHandleResponse(resp *http.Response) (Python2PackageClientCreateOrUpdateResponse, error) {
-	result := Python2PackageClientCreateOrUpdateResponse{}
+func (client *PowerShell72ModuleClient) createOrUpdateHandleResponse(resp *http.Response) (PowerShell72ModuleClientCreateOrUpdateResponse, error) {
+	result := PowerShell72ModuleClientCreateOrUpdateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
-		return Python2PackageClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the python 2 package by name.
+// Delete - Delete the module by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - packageName - The python package name.
-//   - options - Python2PackageClientDeleteOptions contains the optional parameters for the Python2PackageClient.Delete method.
-func (client *Python2PackageClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python2PackageClientDeleteOptions) (Python2PackageClientDeleteResponse, error) {
+//   - moduleName - The name of module.
+//   - options - PowerShell72ModuleClientDeleteOptions contains the optional parameters for the PowerShell72ModuleClient.Delete
+//     method.
+func (client *PowerShell72ModuleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientDeleteOptions) (PowerShell72ModuleClientDeleteResponse, error) {
 	var err error
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
-		return Python2PackageClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return Python2PackageClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return Python2PackageClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
-	return Python2PackageClientDeleteResponse{}, nil
+	return PowerShell72ModuleClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *Python2PackageClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python2PackageClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}"
+func (client *PowerShell72ModuleClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -150,10 +151,10 @@ func (client *Python2PackageClient) deleteCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if packageName == "" {
-		return nil, errors.New("parameter packageName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -169,35 +170,35 @@ func (client *Python2PackageClient) deleteCreateRequest(ctx context.Context, res
 	return req, nil
 }
 
-// Get - Retrieve the python 2 package identified by package name.
+// Get - Retrieve the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - packageName - The python package name.
-//   - options - Python2PackageClientGetOptions contains the optional parameters for the Python2PackageClient.Get method.
-func (client *Python2PackageClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python2PackageClientGetOptions) (Python2PackageClientGetResponse, error) {
+//   - moduleName - The name of module.
+//   - options - PowerShell72ModuleClientGetOptions contains the optional parameters for the PowerShell72ModuleClient.Get method.
+func (client *PowerShell72ModuleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientGetOptions) (PowerShell72ModuleClientGetResponse, error) {
 	var err error
-	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
-		return Python2PackageClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return Python2PackageClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return Python2PackageClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *Python2PackageClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python2PackageClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}"
+func (client *PowerShell72ModuleClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -206,10 +207,10 @@ func (client *Python2PackageClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if packageName == "" {
-		return nil, errors.New("parameter packageName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -226,27 +227,27 @@ func (client *Python2PackageClient) getCreateRequest(ctx context.Context, resour
 }
 
 // getHandleResponse handles the Get response.
-func (client *Python2PackageClient) getHandleResponse(resp *http.Response) (Python2PackageClientGetResponse, error) {
-	result := Python2PackageClientGetResponse{}
+func (client *PowerShell72ModuleClient) getHandleResponse(resp *http.Response) (PowerShell72ModuleClientGetResponse, error) {
+	result := PowerShell72ModuleClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
-		return Python2PackageClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByAutomationAccountPager - Retrieve a list of python 2 packages.
+// NewListByAutomationAccountPager - Retrieve a list of PowerShell72 modules.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - options - Python2PackageClientListByAutomationAccountOptions contains the optional parameters for the Python2PackageClient.NewListByAutomationAccountPager
+//   - options - PowerShell72ModuleClientListByAutomationAccountOptions contains the optional parameters for the PowerShell72ModuleClient.NewListByAutomationAccountPager
 //     method.
-func (client *Python2PackageClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *Python2PackageClientListByAutomationAccountOptions) *runtime.Pager[Python2PackageClientListByAutomationAccountResponse] {
-	return runtime.NewPager(runtime.PagingHandler[Python2PackageClientListByAutomationAccountResponse]{
-		More: func(page Python2PackageClientListByAutomationAccountResponse) bool {
+func (client *PowerShell72ModuleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *PowerShell72ModuleClientListByAutomationAccountOptions) *runtime.Pager[PowerShell72ModuleClientListByAutomationAccountResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PowerShell72ModuleClientListByAutomationAccountResponse]{
+		More: func(page PowerShell72ModuleClientListByAutomationAccountResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *Python2PackageClientListByAutomationAccountResponse) (Python2PackageClientListByAutomationAccountResponse, error) {
+		Fetcher: func(ctx context.Context, page *PowerShell72ModuleClientListByAutomationAccountResponse) (PowerShell72ModuleClientListByAutomationAccountResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -255,14 +256,14 @@ func (client *Python2PackageClient) NewListByAutomationAccountPager(resourceGrou
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return Python2PackageClientListByAutomationAccountResponse{}, err
+				return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return Python2PackageClientListByAutomationAccountResponse{}, err
+				return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return Python2PackageClientListByAutomationAccountResponse{}, runtime.NewResponseError(resp)
+				return PowerShell72ModuleClientListByAutomationAccountResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByAutomationAccountHandleResponse(resp)
 		},
@@ -270,8 +271,8 @@ func (client *Python2PackageClient) NewListByAutomationAccountPager(resourceGrou
 }
 
 // listByAutomationAccountCreateRequest creates the ListByAutomationAccount request.
-func (client *Python2PackageClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *Python2PackageClientListByAutomationAccountOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages"
+func (client *PowerShell72ModuleClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *PowerShell72ModuleClientListByAutomationAccountOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -296,44 +297,45 @@ func (client *Python2PackageClient) listByAutomationAccountCreateRequest(ctx con
 }
 
 // listByAutomationAccountHandleResponse handles the ListByAutomationAccount response.
-func (client *Python2PackageClient) listByAutomationAccountHandleResponse(resp *http.Response) (Python2PackageClientListByAutomationAccountResponse, error) {
-	result := Python2PackageClientListByAutomationAccountResponse{}
+func (client *PowerShell72ModuleClient) listByAutomationAccountHandleResponse(resp *http.Response) (PowerShell72ModuleClientListByAutomationAccountResponse, error) {
+	result := PowerShell72ModuleClientListByAutomationAccountResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ModuleListResult); err != nil {
-		return Python2PackageClientListByAutomationAccountResponse{}, err
+		return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Update the python 2 package identified by package name.
+// Update - Update the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - packageName - The name of python package.
-//   - parameters - The update parameters for python package.
-//   - options - Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
-func (client *Python2PackageClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageUpdateParameters, options *Python2PackageClientUpdateOptions) (Python2PackageClientUpdateResponse, error) {
+//   - moduleName - The name of module.
+//   - parameters - The update parameters for module.
+//   - options - PowerShell72ModuleClientUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.Update
+//     method.
+func (client *PowerShell72ModuleClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *PowerShell72ModuleClientUpdateOptions) (PowerShell72ModuleClientUpdateResponse, error) {
 	var err error
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, parameters, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
-		return Python2PackageClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return Python2PackageClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return Python2PackageClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *Python2PackageClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageUpdateParameters, options *Python2PackageClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}"
+func (client *PowerShell72ModuleClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *PowerShell72ModuleClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -342,10 +344,10 @@ func (client *Python2PackageClient) updateCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if packageName == "" {
-		return nil, errors.New("parameter packageName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -365,10 +367,10 @@ func (client *Python2PackageClient) updateCreateRequest(ctx context.Context, res
 }
 
 // updateHandleResponse handles the Update response.
-func (client *Python2PackageClient) updateHandleResponse(resp *http.Response) (Python2PackageClientUpdateResponse, error) {
-	result := Python2PackageClientUpdateResponse{}
+func (client *PowerShell72ModuleClient) updateHandleResponse(resp *http.Response) (PowerShell72ModuleClientUpdateResponse, error) {
+	result := PowerShell72ModuleClientUpdateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
-		return Python2PackageClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	return result, nil
 }
