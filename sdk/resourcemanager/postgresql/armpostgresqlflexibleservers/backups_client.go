@@ -28,7 +28,7 @@ type BackupsClient struct {
 }
 
 // NewBackupsClient creates a new instance of BackupsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BackupsClient, error) {
@@ -46,7 +46,7 @@ func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, 
 // Get - Get specific backup for a given server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - backupName - The name of the backup.
@@ -72,9 +72,6 @@ func (client *BackupsClient) Get(ctx context.Context, resourceGroupName string, 
 // getCreateRequest creates the Get request.
 func (client *BackupsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, backupName string, options *BackupsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/backups/{backupName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -93,7 +90,7 @@ func (client *BackupsClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -110,7 +107,7 @@ func (client *BackupsClient) getHandleResponse(resp *http.Response) (BackupsClie
 
 // NewListByServerPager - List all the backups for a given server.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - options - BackupsClientListByServerOptions contains the optional parameters for the BackupsClient.NewListByServerPager
@@ -146,9 +143,6 @@ func (client *BackupsClient) NewListByServerPager(resourceGroupName string, serv
 // listByServerCreateRequest creates the ListByServer request.
 func (client *BackupsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *BackupsClientListByServerOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/backups"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -163,7 +157,7 @@ func (client *BackupsClient) listByServerCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
