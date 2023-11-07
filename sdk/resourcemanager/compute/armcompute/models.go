@@ -4527,6 +4527,9 @@ type RestorePointSourceVMStorageProfile struct {
 
 	// Gets the OS disk of the VM captured at the time of the restore point creation.
 	OSDisk *RestorePointSourceVMOSDisk
+
+	// READ-ONLY; Gets the disk controller type of the VM captured at the time of the restore point creation.
+	DiskControllerType *DiskControllerTypes
 }
 
 // RetrieveBootDiagnosticsDataResult - The SAS URIs of the console screenshot and serial log blobs.
