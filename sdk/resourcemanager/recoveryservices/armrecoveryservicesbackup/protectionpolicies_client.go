@@ -47,7 +47,7 @@ func NewProtectionPoliciesClient(subscriptionID string, credential azcore.TokenC
 // fetched using GetPolicyOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - policyName - Backup policy to be created.
@@ -96,7 +96,7 @@ func (client *ProtectionPoliciesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -118,7 +118,7 @@ func (client *ProtectionPoliciesClient) createOrUpdateHandleResponse(resp *http.
 // of the operation can be fetched using GetProtectionPolicyOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - policyName - Backup policy to be deleted.
@@ -141,7 +141,7 @@ func (client *ProtectionPoliciesClient) BeginDelete(ctx context.Context, vaultNa
 // the operation can be fetched using GetProtectionPolicyOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 func (client *ProtectionPoliciesClient) deleteOperation(ctx context.Context, vaultName string, resourceGroupName string, policyName string, options *ProtectionPoliciesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, vaultName, resourceGroupName, policyName, options)
@@ -183,7 +183,7 @@ func (client *ProtectionPoliciesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,7 +193,7 @@ func (client *ProtectionPoliciesClient) deleteCreateRequest(ctx context.Context,
 // Status of the operation can be fetched using GetPolicyOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - policyName - Backup policy information to be fetched.
@@ -240,7 +240,7 @@ func (client *ProtectionPoliciesClient) getCreateRequest(ctx context.Context, va
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
