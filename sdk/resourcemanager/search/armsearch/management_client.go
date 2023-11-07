@@ -29,7 +29,7 @@ type ManagementClient struct {
 
 // NewManagementClient creates a new instance of ManagementClient with the specified values.
 //   - subscriptionID - The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource
-//     Manager API or the portal.
+//     Manager API, command line tools, or the portal.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagementClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagementClient, error) {
@@ -44,12 +44,12 @@ func NewManagementClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
-// UsageBySubscriptionSKU - Gets the quota usage for a search sku in the given subscription.
+// UsageBySubscriptionSKU - Gets the quota usage for a search SKU in the given subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
 //   - location - The unique location name for a Microsoft Azure geographic region.
-//   - skuName - The unique search service sku name supported by Azure Cognitive Search.
+//   - skuName - The unique SKU name that identifies a billable tier.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - ManagementClientUsageBySubscriptionSKUOptions contains the optional parameters for the ManagementClient.UsageBySubscriptionSKU
