@@ -20,58 +20,58 @@ import (
 	"strings"
 )
 
-// EmailEventsClient contains the methods for the EmailEvents group.
-// Don't use this type directly, use NewEmailEventsClient() instead.
-type EmailEventsClient struct {
+// FirstPartyAppsClient contains the methods for the FirstPartyApps group.
+// Don't use this type directly, use NewFirstPartyAppsClient() instead.
+type FirstPartyAppsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewEmailEventsClient creates a new instance of EmailEventsClient with the specified values.
+// NewFirstPartyAppsClient creates a new instance of FirstPartyAppsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewEmailEventsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EmailEventsClient, error) {
-	cl, err := arm.NewClient(moduleName+".EmailEventsClient", moduleVersion, credential, options)
+func NewFirstPartyAppsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FirstPartyAppsClient, error) {
+	cl, err := arm.NewClient(moduleName+".FirstPartyAppsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &EmailEventsClient{
+	client := &FirstPartyAppsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Gets a email event of a Test Base Account.
+// Get - Gets a first party application to prepare a test run for a Test Base Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - emailEventResourceName - The resource name of an email event.
-//   - options - EmailEventsClientGetOptions contains the optional parameters for the EmailEventsClient.Get method.
-func (client *EmailEventsClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, emailEventResourceName string, options *EmailEventsClientGetOptions) (EmailEventsClientGetResponse, error) {
+//   - firstPartyAppResourceName - The resource name of a first party application.
+//   - options - FirstPartyAppsClientGetOptions contains the optional parameters for the FirstPartyAppsClient.Get method.
+func (client *FirstPartyAppsClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, firstPartyAppResourceName string, options *FirstPartyAppsClientGetOptions) (FirstPartyAppsClientGetResponse, error) {
 	var err error
-	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, emailEventResourceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, firstPartyAppResourceName, options)
 	if err != nil {
-		return EmailEventsClientGetResponse{}, err
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return EmailEventsClientGetResponse{}, err
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return EmailEventsClientGetResponse{}, err
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, emailEventResourceName string, options *EmailEventsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/emailEvents/{emailEventResourceName}"
+func (client *FirstPartyAppsClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, firstPartyAppResourceName string, options *FirstPartyAppsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/firstPartyApps/{firstPartyAppResourceName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -81,10 +81,10 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter testBaseAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{testBaseAccountName}", url.PathEscape(testBaseAccountName))
-	if emailEventResourceName == "" {
-		return nil, errors.New("parameter emailEventResourceName cannot be empty")
+	if firstPartyAppResourceName == "" {
+		return nil, errors.New("parameter firstPartyAppResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{emailEventResourceName}", url.PathEscape(emailEventResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{firstPartyAppResourceName}", url.PathEscape(firstPartyAppResourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -97,26 +97,26 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 }
 
 // getHandleResponse handles the Get response.
-func (client *EmailEventsClient) getHandleResponse(resp *http.Response) (EmailEventsClientGetResponse, error) {
-	result := EmailEventsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EmailEventResource); err != nil {
-		return EmailEventsClientGetResponse{}, err
+func (client *FirstPartyAppsClient) getHandleResponse(resp *http.Response) (FirstPartyAppsClientGetResponse, error) {
+	result := FirstPartyAppsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FirstPartyAppResource); err != nil {
+		return FirstPartyAppsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Lists all the email events of a Test Base Account.
+// NewListPager - Lists all first party applications currently available for test runs under a Test Base Account.
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - options - EmailEventsClientListOptions contains the optional parameters for the EmailEventsClient.NewListPager method.
-func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *EmailEventsClientListOptions) *runtime.Pager[EmailEventsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[EmailEventsClientListResponse]{
-		More: func(page EmailEventsClientListResponse) bool {
+//   - options - FirstPartyAppsClientListOptions contains the optional parameters for the FirstPartyAppsClient.NewListPager method.
+func (client *FirstPartyAppsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *FirstPartyAppsClientListOptions) *runtime.Pager[FirstPartyAppsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FirstPartyAppsClientListResponse]{
+		More: func(page FirstPartyAppsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *EmailEventsClientListResponse) (EmailEventsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FirstPartyAppsClientListResponse) (FirstPartyAppsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -125,14 +125,14 @@ func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBase
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return EmailEventsClientListResponse{}, err
+				return FirstPartyAppsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return EmailEventsClientListResponse{}, err
+				return FirstPartyAppsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return EmailEventsClientListResponse{}, runtime.NewResponseError(resp)
+				return FirstPartyAppsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -140,8 +140,8 @@ func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBase
 }
 
 // listCreateRequest creates the List request.
-func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *EmailEventsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/emailEvents"
+func (client *FirstPartyAppsClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *FirstPartyAppsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/firstPartyApps"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -163,10 +163,10 @@ func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resource
 }
 
 // listHandleResponse handles the List response.
-func (client *EmailEventsClient) listHandleResponse(resp *http.Response) (EmailEventsClientListResponse, error) {
-	result := EmailEventsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EmailEventListResult); err != nil {
-		return EmailEventsClientListResponse{}, err
+func (client *FirstPartyAppsClient) listHandleResponse(resp *http.Response) (FirstPartyAppsClientListResponse, error) {
+	result := FirstPartyAppsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FirstPartyAppListResult); err != nil {
+		return FirstPartyAppsClientListResponse{}, err
 	}
 	return result, nil
 }

@@ -20,58 +20,58 @@ import (
 	"strings"
 )
 
-// EmailEventsClient contains the methods for the EmailEvents group.
-// Don't use this type directly, use NewEmailEventsClient() instead.
-type EmailEventsClient struct {
+// ChatSessionsClient contains the methods for the ChatSessions group.
+// Don't use this type directly, use NewChatSessionsClient() instead.
+type ChatSessionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewEmailEventsClient creates a new instance of EmailEventsClient with the specified values.
+// NewChatSessionsClient creates a new instance of ChatSessionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewEmailEventsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EmailEventsClient, error) {
-	cl, err := arm.NewClient(moduleName+".EmailEventsClient", moduleVersion, credential, options)
+func NewChatSessionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ChatSessionsClient, error) {
+	cl, err := arm.NewClient(moduleName+".ChatSessionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &EmailEventsClient{
+	client := &ChatSessionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Gets a email event of a Test Base Account.
+// Get - Get a chat session
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - emailEventResourceName - The resource name of an email event.
-//   - options - EmailEventsClientGetOptions contains the optional parameters for the EmailEventsClient.Get method.
-func (client *EmailEventsClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, emailEventResourceName string, options *EmailEventsClientGetOptions) (EmailEventsClientGetResponse, error) {
+//   - chatSessionName - The chat session name.
+//   - options - ChatSessionsClientGetOptions contains the optional parameters for the ChatSessionsClient.Get method.
+func (client *ChatSessionsClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, chatSessionName string, options *ChatSessionsClientGetOptions) (ChatSessionsClientGetResponse, error) {
 	var err error
-	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, emailEventResourceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, chatSessionName, options)
 	if err != nil {
-		return EmailEventsClientGetResponse{}, err
+		return ChatSessionsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return EmailEventsClientGetResponse{}, err
+		return ChatSessionsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return EmailEventsClientGetResponse{}, err
+		return ChatSessionsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, emailEventResourceName string, options *EmailEventsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/emailEvents/{emailEventResourceName}"
+func (client *ChatSessionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, chatSessionName string, options *ChatSessionsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/chatSessions/{chatSessionName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -81,10 +81,10 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter testBaseAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{testBaseAccountName}", url.PathEscape(testBaseAccountName))
-	if emailEventResourceName == "" {
-		return nil, errors.New("parameter emailEventResourceName cannot be empty")
+	if chatSessionName == "" {
+		return nil, errors.New("parameter chatSessionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{emailEventResourceName}", url.PathEscape(emailEventResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{chatSessionName}", url.PathEscape(chatSessionName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -97,26 +97,26 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 }
 
 // getHandleResponse handles the Get response.
-func (client *EmailEventsClient) getHandleResponse(resp *http.Response) (EmailEventsClientGetResponse, error) {
-	result := EmailEventsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EmailEventResource); err != nil {
-		return EmailEventsClientGetResponse{}, err
+func (client *ChatSessionsClient) getHandleResponse(resp *http.Response) (ChatSessionsClientGetResponse, error) {
+	result := ChatSessionsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ChatSessionResource); err != nil {
+		return ChatSessionsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Lists all the email events of a Test Base Account.
+// NewListPager - List all chat sessions
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - options - EmailEventsClientListOptions contains the optional parameters for the EmailEventsClient.NewListPager method.
-func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *EmailEventsClientListOptions) *runtime.Pager[EmailEventsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[EmailEventsClientListResponse]{
-		More: func(page EmailEventsClientListResponse) bool {
+//   - options - ChatSessionsClientListOptions contains the optional parameters for the ChatSessionsClient.NewListPager method.
+func (client *ChatSessionsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *ChatSessionsClientListOptions) *runtime.Pager[ChatSessionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ChatSessionsClientListResponse]{
+		More: func(page ChatSessionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *EmailEventsClientListResponse) (EmailEventsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *ChatSessionsClientListResponse) (ChatSessionsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -125,14 +125,14 @@ func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBase
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return EmailEventsClientListResponse{}, err
+				return ChatSessionsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return EmailEventsClientListResponse{}, err
+				return ChatSessionsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return EmailEventsClientListResponse{}, runtime.NewResponseError(resp)
+				return ChatSessionsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -140,8 +140,8 @@ func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBase
 }
 
 // listCreateRequest creates the List request.
-func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *EmailEventsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/emailEvents"
+func (client *ChatSessionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *ChatSessionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/chatSessions"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -163,10 +163,10 @@ func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resource
 }
 
 // listHandleResponse handles the List response.
-func (client *EmailEventsClient) listHandleResponse(resp *http.Response) (EmailEventsClientListResponse, error) {
-	result := EmailEventsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EmailEventListResult); err != nil {
-		return EmailEventsClientListResponse{}, err
+func (client *ChatSessionsClient) listHandleResponse(resp *http.Response) (ChatSessionsClientListResponse, error) {
+	result := ChatSessionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ChatSessionResourceListResult); err != nil {
+		return ChatSessionsClientListResponse{}, err
 	}
 	return result, nil
 }

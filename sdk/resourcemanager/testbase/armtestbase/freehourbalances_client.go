@@ -20,58 +20,58 @@ import (
 	"strings"
 )
 
-// EmailEventsClient contains the methods for the EmailEvents group.
-// Don't use this type directly, use NewEmailEventsClient() instead.
-type EmailEventsClient struct {
+// FreeHourBalancesClient contains the methods for the FreeHourBalances group.
+// Don't use this type directly, use NewFreeHourBalancesClient() instead.
+type FreeHourBalancesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewEmailEventsClient creates a new instance of EmailEventsClient with the specified values.
+// NewFreeHourBalancesClient creates a new instance of FreeHourBalancesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewEmailEventsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EmailEventsClient, error) {
-	cl, err := arm.NewClient(moduleName+".EmailEventsClient", moduleVersion, credential, options)
+func NewFreeHourBalancesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FreeHourBalancesClient, error) {
+	cl, err := arm.NewClient(moduleName+".FreeHourBalancesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &EmailEventsClient{
+	client := &FreeHourBalancesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Gets a email event of a Test Base Account.
+// Get - Return the Test Base free hour balance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - emailEventResourceName - The resource name of an email event.
-//   - options - EmailEventsClientGetOptions contains the optional parameters for the EmailEventsClient.Get method.
-func (client *EmailEventsClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, emailEventResourceName string, options *EmailEventsClientGetOptions) (EmailEventsClientGetResponse, error) {
+//   - freeHourBalanceName - The name of the free hour balance of a Test Base Account.
+//   - options - FreeHourBalancesClientGetOptions contains the optional parameters for the FreeHourBalancesClient.Get method.
+func (client *FreeHourBalancesClient) Get(ctx context.Context, resourceGroupName string, testBaseAccountName string, freeHourBalanceName FreeHourBalanceName, options *FreeHourBalancesClientGetOptions) (FreeHourBalancesClientGetResponse, error) {
 	var err error
-	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, emailEventResourceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, testBaseAccountName, freeHourBalanceName, options)
 	if err != nil {
-		return EmailEventsClientGetResponse{}, err
+		return FreeHourBalancesClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return EmailEventsClientGetResponse{}, err
+		return FreeHourBalancesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return EmailEventsClientGetResponse{}, err
+		return FreeHourBalancesClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, emailEventResourceName string, options *EmailEventsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/emailEvents/{emailEventResourceName}"
+func (client *FreeHourBalancesClient) getCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, freeHourBalanceName FreeHourBalanceName, options *FreeHourBalancesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/freeHourBalances/{freeHourBalanceName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -81,10 +81,10 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter testBaseAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{testBaseAccountName}", url.PathEscape(testBaseAccountName))
-	if emailEventResourceName == "" {
-		return nil, errors.New("parameter emailEventResourceName cannot be empty")
+	if freeHourBalanceName == "" {
+		return nil, errors.New("parameter freeHourBalanceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{emailEventResourceName}", url.PathEscape(emailEventResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{freeHourBalanceName}", url.PathEscape(string(freeHourBalanceName)))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -97,26 +97,27 @@ func (client *EmailEventsClient) getCreateRequest(ctx context.Context, resourceG
 }
 
 // getHandleResponse handles the Get response.
-func (client *EmailEventsClient) getHandleResponse(resp *http.Response) (EmailEventsClientGetResponse, error) {
-	result := EmailEventsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EmailEventResource); err != nil {
-		return EmailEventsClientGetResponse{}, err
+func (client *FreeHourBalancesClient) getHandleResponse(resp *http.Response) (FreeHourBalancesClientGetResponse, error) {
+	result := FreeHourBalancesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FreeHourBalanceResource); err != nil {
+		return FreeHourBalancesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Lists all the email events of a Test Base Account.
+// NewListPager - Return the Test Base free hour balances list.
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - testBaseAccountName - The resource name of the Test Base Account.
-//   - options - EmailEventsClientListOptions contains the optional parameters for the EmailEventsClient.NewListPager method.
-func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *EmailEventsClientListOptions) *runtime.Pager[EmailEventsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[EmailEventsClientListResponse]{
-		More: func(page EmailEventsClientListResponse) bool {
+//   - options - FreeHourBalancesClientListOptions contains the optional parameters for the FreeHourBalancesClient.NewListPager
+//     method.
+func (client *FreeHourBalancesClient) NewListPager(resourceGroupName string, testBaseAccountName string, options *FreeHourBalancesClientListOptions) *runtime.Pager[FreeHourBalancesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FreeHourBalancesClientListResponse]{
+		More: func(page FreeHourBalancesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *EmailEventsClientListResponse) (EmailEventsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FreeHourBalancesClientListResponse) (FreeHourBalancesClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -125,14 +126,14 @@ func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBase
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return EmailEventsClientListResponse{}, err
+				return FreeHourBalancesClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return EmailEventsClientListResponse{}, err
+				return FreeHourBalancesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return EmailEventsClientListResponse{}, runtime.NewResponseError(resp)
+				return FreeHourBalancesClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -140,8 +141,8 @@ func (client *EmailEventsClient) NewListPager(resourceGroupName string, testBase
 }
 
 // listCreateRequest creates the List request.
-func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *EmailEventsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/emailEvents"
+func (client *FreeHourBalancesClient) listCreateRequest(ctx context.Context, resourceGroupName string, testBaseAccountName string, options *FreeHourBalancesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TestBase/testBaseAccounts/{testBaseAccountName}/freeHourBalances"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -163,10 +164,10 @@ func (client *EmailEventsClient) listCreateRequest(ctx context.Context, resource
 }
 
 // listHandleResponse handles the List response.
-func (client *EmailEventsClient) listHandleResponse(resp *http.Response) (EmailEventsClientListResponse, error) {
-	result := EmailEventsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EmailEventListResult); err != nil {
-		return EmailEventsClientListResponse{}, err
+func (client *FreeHourBalancesClient) listHandleResponse(resp *http.Response) (FreeHourBalancesClientListResponse, error) {
+	result := FreeHourBalancesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FreeHourBalancesListResult); err != nil {
+		return FreeHourBalancesClientListResponse{}, err
 	}
 	return result, nil
 }
