@@ -1,5 +1,19 @@
 # Release History
 
+## 2.1.0 (2023-11-08)
+### Features Added
+
+- New enum type `ProfileScrubbingState` with values `ProfileScrubbingStateDisabled`, `ProfileScrubbingStateEnabled`
+- New enum type `ScrubbingRuleEntryMatchOperator` with values `ScrubbingRuleEntryMatchOperatorEqualsAny`
+- New enum type `ScrubbingRuleEntryMatchVariable` with values `ScrubbingRuleEntryMatchVariableQueryStringArgNames`, `ScrubbingRuleEntryMatchVariableRequestIPAddress`, `ScrubbingRuleEntryMatchVariableRequestURI`
+- New enum type `ScrubbingRuleEntryState` with values `ScrubbingRuleEntryStateDisabled`, `ScrubbingRuleEntryStateEnabled`
+- New struct `ProfilePropertiesLogScrubbing`
+- New struct `ProfilePropertiesUpdateParametersLogScrubbing`
+- New struct `ProfileScrubbingRules`
+- New field `LogScrubbing` in struct `ProfileProperties`
+- New field `LogScrubbing` in struct `ProfilePropertiesUpdateParameters`
+
+
 ## 2.0.0 (2023-10-27)
 ### Breaking Changes
 

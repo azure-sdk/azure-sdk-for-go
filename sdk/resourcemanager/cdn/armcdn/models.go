@@ -2496,6 +2496,9 @@ type ProfileListResult struct {
 
 // ProfileProperties - The JSON object that contains the properties required to create a profile.
 type ProfileProperties struct {
+	// Defines rules to scrub sensitive fields in logs
+	LogScrubbing *ProfilePropertiesLogScrubbing
+
 	// Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns.
 	OriginResponseTimeoutSeconds *int32
 
@@ -2512,10 +2515,46 @@ type ProfileProperties struct {
 	ResourceState *ProfileResourceState
 }
 
+// ProfilePropertiesLogScrubbing - Defines rules to scrub sensitive fields in logs
+type ProfilePropertiesLogScrubbing struct {
+	// List of log scrub rules applied to logs.
+	ScrubbingRules []*ProfileScrubbingRules
+
+	// State of the log scrub config. Default value is Enabled.
+	State *ProfileScrubbingState
+}
+
 // ProfilePropertiesUpdateParameters - The JSON object containing profile update parameters.
 type ProfilePropertiesUpdateParameters struct {
+	// Defines rules to scrub sensitive fields in logs
+	LogScrubbing *ProfilePropertiesUpdateParametersLogScrubbing
+
 	// Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns.
 	OriginResponseTimeoutSeconds *int32
+}
+
+// ProfilePropertiesUpdateParametersLogScrubbing - Defines rules to scrub sensitive fields in logs
+type ProfilePropertiesUpdateParametersLogScrubbing struct {
+	// List of log scrub rules applied to logs.
+	ScrubbingRules []*ProfileScrubbingRules
+
+	// State of the log scrub config. Default value is Enabled.
+	State *ProfileScrubbingState
+}
+
+// ProfileScrubbingRules - Defines contents of a log scrub rules.
+type ProfileScrubbingRules struct {
+	// REQUIRED; The variable to be scrubbed from the logs.
+	MatchVariable *ScrubbingRuleEntryMatchVariable
+
+	// REQUIRED; Comparison type to use for matching with the variable value in log.
+	SelectorMatchOperator *ScrubbingRuleEntryMatchOperator
+
+	// Match against a specific key from the QueryString variables in the log. Default value is null.
+	Selector *string
+
+	// Defines the state of log scrubbing rule. Default value is Enabled.
+	State *ScrubbingRuleEntryState
 }
 
 // ProfileUpdateParameters - Properties required to update a profile.
