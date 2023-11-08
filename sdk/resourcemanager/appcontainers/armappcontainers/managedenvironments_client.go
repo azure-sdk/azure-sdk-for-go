@@ -28,7 +28,7 @@ type ManagedEnvironmentsClient struct {
 }
 
 // NewManagedEnvironmentsClient creates a new instance of ManagedEnvironmentsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagedEnvironmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentsClient, error) {
@@ -46,7 +46,7 @@ func NewManagedEnvironmentsClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Creates or updates a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - environmentEnvelope - Configuration details of the Environment.
@@ -68,7 +68,7 @@ func (client *ManagedEnvironmentsClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedEnvironmentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, environmentEnvelope ManagedEnvironment, options *ManagedEnvironmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, environmentEnvelope, options)
@@ -89,9 +89,6 @@ func (client *ManagedEnvironmentsClient) createOrUpdate(ctx context.Context, res
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *ManagedEnvironmentsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, environmentEnvelope ManagedEnvironment, options *ManagedEnvironmentsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -106,7 +103,7 @@ func (client *ManagedEnvironmentsClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, environmentEnvelope); err != nil {
@@ -118,7 +115,7 @@ func (client *ManagedEnvironmentsClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Delete a Managed Environment if it does not have any container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentsClientBeginDeleteOptions contains the optional parameters for the ManagedEnvironmentsClient.BeginDelete
@@ -139,7 +136,7 @@ func (client *ManagedEnvironmentsClient) BeginDelete(ctx context.Context, resour
 // Delete - Delete a Managed Environment if it does not have any container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedEnvironmentsClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, options)
@@ -160,9 +157,6 @@ func (client *ManagedEnvironmentsClient) deleteOperation(ctx context.Context, re
 // deleteCreateRequest creates the Delete request.
 func (client *ManagedEnvironmentsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -177,7 +171,7 @@ func (client *ManagedEnvironmentsClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -186,7 +180,7 @@ func (client *ManagedEnvironmentsClient) deleteCreateRequest(ctx context.Context
 // Get - Get the properties of a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentsClientGetOptions contains the optional parameters for the ManagedEnvironmentsClient.Get method.
@@ -211,9 +205,6 @@ func (client *ManagedEnvironmentsClient) Get(ctx context.Context, resourceGroupN
 // getCreateRequest creates the Get request.
 func (client *ManagedEnvironmentsClient) getCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -228,7 +219,7 @@ func (client *ManagedEnvironmentsClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,7 +237,7 @@ func (client *ManagedEnvironmentsClient) getHandleResponse(resp *http.Response) 
 // GetAuthToken - Checks if resource name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - ManagedEnvironmentsClientGetAuthTokenOptions contains the optional parameters for the ManagedEnvironmentsClient.GetAuthToken
@@ -272,9 +263,6 @@ func (client *ManagedEnvironmentsClient) GetAuthToken(ctx context.Context, resou
 // getAuthTokenCreateRequest creates the GetAuthToken request.
 func (client *ManagedEnvironmentsClient) getAuthTokenCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsClientGetAuthTokenOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/getAuthtoken"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -289,7 +277,7 @@ func (client *ManagedEnvironmentsClient) getAuthTokenCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +294,7 @@ func (client *ManagedEnvironmentsClient) getAuthTokenHandleResponse(resp *http.R
 
 // NewListByResourceGroupPager - Get all the Managed Environments in a resource group.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ManagedEnvironmentsClientListByResourceGroupOptions contains the optional parameters for the ManagedEnvironmentsClient.NewListByResourceGroupPager
 //     method.
@@ -341,9 +329,6 @@ func (client *ManagedEnvironmentsClient) NewListByResourceGroupPager(resourceGro
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *ManagedEnvironmentsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ManagedEnvironmentsClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -354,7 +339,7 @@ func (client *ManagedEnvironmentsClient) listByResourceGroupCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -371,7 +356,7 @@ func (client *ManagedEnvironmentsClient) listByResourceGroupHandleResponse(resp 
 
 // NewListBySubscriptionPager - Get all Managed Environments for a subscription.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - options - ManagedEnvironmentsClientListBySubscriptionOptions contains the optional parameters for the ManagedEnvironmentsClient.NewListBySubscriptionPager
 //     method.
 func (client *ManagedEnvironmentsClient) NewListBySubscriptionPager(options *ManagedEnvironmentsClientListBySubscriptionOptions) *runtime.Pager[ManagedEnvironmentsClientListBySubscriptionResponse] {
@@ -405,16 +390,13 @@ func (client *ManagedEnvironmentsClient) NewListBySubscriptionPager(options *Man
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
 func (client *ManagedEnvironmentsClient) listBySubscriptionCreateRequest(ctx context.Context, options *ManagedEnvironmentsClientListBySubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.App/managedEnvironments"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -431,7 +413,7 @@ func (client *ManagedEnvironmentsClient) listBySubscriptionHandleResponse(resp *
 
 // NewListWorkloadProfileStatesPager - Get all workload Profile States for a Managed Environment.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - ManagedEnvironmentsClientListWorkloadProfileStatesOptions contains the optional parameters for the ManagedEnvironmentsClient.NewListWorkloadProfileStatesPager
@@ -467,9 +449,6 @@ func (client *ManagedEnvironmentsClient) NewListWorkloadProfileStatesPager(resou
 // listWorkloadProfileStatesCreateRequest creates the ListWorkloadProfileStates request.
 func (client *ManagedEnvironmentsClient) listWorkloadProfileStatesCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsClientListWorkloadProfileStatesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/workloadProfileStates"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -484,7 +463,7 @@ func (client *ManagedEnvironmentsClient) listWorkloadProfileStatesCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -502,7 +481,7 @@ func (client *ManagedEnvironmentsClient) listWorkloadProfileStatesHandleResponse
 // BeginUpdate - Patches a Managed Environment using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - environmentEnvelope - Configuration details of the Environment.
@@ -524,7 +503,7 @@ func (client *ManagedEnvironmentsClient) BeginUpdate(ctx context.Context, resour
 // Update - Patches a Managed Environment using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedEnvironmentsClient) update(ctx context.Context, resourceGroupName string, environmentName string, environmentEnvelope ManagedEnvironment, options *ManagedEnvironmentsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, environmentName, environmentEnvelope, options)
@@ -545,9 +524,6 @@ func (client *ManagedEnvironmentsClient) update(ctx context.Context, resourceGro
 // updateCreateRequest creates the Update request.
 func (client *ManagedEnvironmentsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, environmentEnvelope ManagedEnvironment, options *ManagedEnvironmentsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -562,7 +538,7 @@ func (client *ManagedEnvironmentsClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, environmentEnvelope); err != nil {

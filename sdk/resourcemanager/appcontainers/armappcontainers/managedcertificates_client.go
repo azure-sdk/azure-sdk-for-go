@@ -28,7 +28,7 @@ type ManagedCertificatesClient struct {
 }
 
 // NewManagedCertificatesClient creates a new instance of ManagedCertificatesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagedCertificatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedCertificatesClient, error) {
@@ -46,7 +46,7 @@ func NewManagedCertificatesClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Create or Update a Managed Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - managedCertificateName - Name of the Managed Certificate.
@@ -70,7 +70,7 @@ func (client *ManagedCertificatesClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Create or Update a Managed Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ManagedCertificatesClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, managedCertificateName string, options *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, managedCertificateName, options)
@@ -91,9 +91,6 @@ func (client *ManagedCertificatesClient) createOrUpdate(ctx context.Context, res
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *ManagedCertificatesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, managedCertificateName string, options *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/managedCertificates/{managedCertificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -112,7 +109,7 @@ func (client *ManagedCertificatesClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ManagedCertificateEnvelope != nil {
@@ -127,7 +124,7 @@ func (client *ManagedCertificatesClient) createOrUpdateCreateRequest(ctx context
 // Delete - Deletes the specified Managed Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - managedCertificateName - Name of the Managed Certificate.
@@ -153,9 +150,6 @@ func (client *ManagedCertificatesClient) Delete(ctx context.Context, resourceGro
 // deleteCreateRequest creates the Delete request.
 func (client *ManagedCertificatesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, managedCertificateName string, options *ManagedCertificatesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/managedCertificates/{managedCertificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -174,7 +168,7 @@ func (client *ManagedCertificatesClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,7 +177,7 @@ func (client *ManagedCertificatesClient) deleteCreateRequest(ctx context.Context
 // Get - Get the specified Managed Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - managedCertificateName - Name of the Managed Certificate.
@@ -209,9 +203,6 @@ func (client *ManagedCertificatesClient) Get(ctx context.Context, resourceGroupN
 // getCreateRequest creates the Get request.
 func (client *ManagedCertificatesClient) getCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, managedCertificateName string, options *ManagedCertificatesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/managedCertificates/{managedCertificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -230,7 +221,7 @@ func (client *ManagedCertificatesClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,7 +238,7 @@ func (client *ManagedCertificatesClient) getHandleResponse(resp *http.Response) 
 
 // NewListPager - Get the Managed Certificates in a given managed environment.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - ManagedCertificatesClientListOptions contains the optional parameters for the ManagedCertificatesClient.NewListPager
@@ -283,9 +274,6 @@ func (client *ManagedCertificatesClient) NewListPager(resourceGroupName string, 
 // listCreateRequest creates the List request.
 func (client *ManagedCertificatesClient) listCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedCertificatesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/managedCertificates"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -300,7 +288,7 @@ func (client *ManagedCertificatesClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -318,7 +306,7 @@ func (client *ManagedCertificatesClient) listHandleResponse(resp *http.Response)
 // Update - Patches a managed certificate. Oly patching of tags is supported
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - managedCertificateName - Name of the Managed Certificate.
@@ -346,9 +334,6 @@ func (client *ManagedCertificatesClient) Update(ctx context.Context, resourceGro
 // updateCreateRequest creates the Update request.
 func (client *ManagedCertificatesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, managedCertificateName string, managedCertificateEnvelope ManagedCertificatePatch, options *ManagedCertificatesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/managedCertificates/{managedCertificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -367,7 +352,7 @@ func (client *ManagedCertificatesClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, managedCertificateEnvelope); err != nil {
