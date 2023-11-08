@@ -28,7 +28,7 @@ type AdministratorsClient struct {
 }
 
 // NewAdministratorsClient creates a new instance of AdministratorsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAdministratorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AdministratorsClient, error) {
@@ -46,7 +46,7 @@ func NewAdministratorsClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreate - Creates a new server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - objectID - Guid of the objectId for the administrator.
@@ -71,7 +71,7 @@ func (client *AdministratorsClient) BeginCreate(ctx context.Context, resourceGro
 // Create - Creates a new server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 func (client *AdministratorsClient) create(ctx context.Context, resourceGroupName string, serverName string, objectID string, parameters ActiveDirectoryAdministratorAdd, options *AdministratorsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	req, err := client.createCreateRequest(ctx, resourceGroupName, serverName, objectID, parameters, options)
@@ -92,9 +92,6 @@ func (client *AdministratorsClient) create(ctx context.Context, resourceGroupNam
 // createCreateRequest creates the Create request.
 func (client *AdministratorsClient) createCreateRequest(ctx context.Context, resourceGroupName string, serverName string, objectID string, parameters ActiveDirectoryAdministratorAdd, options *AdministratorsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/administrators/{objectId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -113,7 +110,7 @@ func (client *AdministratorsClient) createCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -125,7 +122,7 @@ func (client *AdministratorsClient) createCreateRequest(ctx context.Context, res
 // BeginDelete - Deletes an Active Directory Administrator associated with the server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - objectID - Guid of the objectId for the administrator.
@@ -149,7 +146,7 @@ func (client *AdministratorsClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Deletes an Active Directory Administrator associated with the server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 func (client *AdministratorsClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, objectID string, options *AdministratorsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, objectID, options)
@@ -170,9 +167,6 @@ func (client *AdministratorsClient) deleteOperation(ctx context.Context, resourc
 // deleteCreateRequest creates the Delete request.
 func (client *AdministratorsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serverName string, objectID string, options *AdministratorsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/administrators/{objectId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -191,7 +185,7 @@ func (client *AdministratorsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -200,7 +194,7 @@ func (client *AdministratorsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets information about a server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - objectID - Guid of the objectId for the administrator.
@@ -226,9 +220,6 @@ func (client *AdministratorsClient) Get(ctx context.Context, resourceGroupName s
 // getCreateRequest creates the Get request.
 func (client *AdministratorsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, objectID string, options *AdministratorsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/administrators/{objectId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -247,7 +238,7 @@ func (client *AdministratorsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +255,7 @@ func (client *AdministratorsClient) getHandleResponse(resp *http.Response) (Admi
 
 // NewListByServerPager - List all the AAD administrators for a given server.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - options - AdministratorsClientListByServerOptions contains the optional parameters for the AdministratorsClient.NewListByServerPager
@@ -300,9 +291,6 @@ func (client *AdministratorsClient) NewListByServerPager(resourceGroupName strin
 // listByServerCreateRequest creates the ListByServer request.
 func (client *AdministratorsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *AdministratorsClientListByServerOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/administrators"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -317,7 +305,7 @@ func (client *AdministratorsClient) listByServerCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

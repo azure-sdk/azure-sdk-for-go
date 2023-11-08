@@ -28,7 +28,7 @@ type LocationBasedCapabilitiesClient struct {
 }
 
 // NewLocationBasedCapabilitiesClient creates a new instance of LocationBasedCapabilitiesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewLocationBasedCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationBasedCapabilitiesClient, error) {
@@ -45,7 +45,7 @@ func NewLocationBasedCapabilitiesClient(subscriptionID string, credential azcore
 
 // NewExecutePager - Get capabilities at specified location in a given subscription.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - locationName - The name of the location.
 //   - options - LocationBasedCapabilitiesClientExecuteOptions contains the optional parameters for the LocationBasedCapabilitiesClient.NewExecutePager
 //     method.
@@ -80,9 +80,6 @@ func (client *LocationBasedCapabilitiesClient) NewExecutePager(locationName stri
 // executeCreateRequest creates the Execute request.
 func (client *LocationBasedCapabilitiesClient) executeCreateRequest(ctx context.Context, locationName string, options *LocationBasedCapabilitiesClientExecuteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/locations/{locationName}/capabilities"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if locationName == "" {
 		return nil, errors.New("parameter locationName cannot be empty")
@@ -93,7 +90,7 @@ func (client *LocationBasedCapabilitiesClient) executeCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
