@@ -404,6 +404,11 @@ type DedicatedHostsClientListByHostGroupResponse struct {
 	DedicatedHostListResult
 }
 
+// DedicatedHostsClientRedeployResponse contains the response from method DedicatedHostsClient.BeginRedeploy.
+type DedicatedHostsClientRedeployResponse struct {
+	// placeholder for future response values
+}
+
 // DedicatedHostsClientRestartResponse contains the response from method DedicatedHostsClient.BeginRestart.
 type DedicatedHostsClientRestartResponse struct {
 	// placeholder for future response values

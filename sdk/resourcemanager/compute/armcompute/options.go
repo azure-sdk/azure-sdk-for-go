@@ -400,6 +400,12 @@ type DedicatedHostsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// DedicatedHostsClientBeginRedeployOptions contains the optional parameters for the DedicatedHostsClient.BeginRedeploy method.
+type DedicatedHostsClientBeginRedeployOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // DedicatedHostsClientBeginRestartOptions contains the optional parameters for the DedicatedHostsClient.BeginRestart method.
 type DedicatedHostsClientBeginRestartOptions struct {
 	// Resumes the LRO from the provided token.
