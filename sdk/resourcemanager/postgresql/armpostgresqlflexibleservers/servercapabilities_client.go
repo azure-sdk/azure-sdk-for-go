@@ -28,7 +28,7 @@ type ServerCapabilitiesClient struct {
 }
 
 // NewServerCapabilitiesClient creates a new instance of ServerCapabilitiesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewServerCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServerCapabilitiesClient, error) {
@@ -45,7 +45,7 @@ func NewServerCapabilitiesClient(subscriptionID string, credential azcore.TokenC
 
 // NewListPager - Get capabilities for a flexible server.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serverName - The name of the server.
 //   - options - ServerCapabilitiesClientListOptions contains the optional parameters for the ServerCapabilitiesClient.NewListPager
@@ -81,9 +81,6 @@ func (client *ServerCapabilitiesClient) NewListPager(resourceGroupName string, s
 // listCreateRequest creates the List request.
 func (client *ServerCapabilitiesClient) listCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *ServerCapabilitiesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/capabilities"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -98,7 +95,7 @@ func (client *ServerCapabilitiesClient) listCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
