@@ -1,5 +1,38 @@
 # Release History
 
+## 0.10.0 (2023-11-09)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New function `NewBillingInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingInfoClient, error)`
+- New function `*BillingInfoClient.Get(context.Context, string, string, *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error)`
+- New function `*ClientFactory.NewBillingInfoClient() *BillingInfoClient`
+- New function `*ClientFactory.NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient`
+- New function `NewConnectedPartnerResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedPartnerResourcesClient, error)`
+- New function `*ConnectedPartnerResourcesClient.NewListPager(string, string, *ConnectedPartnerResourcesClientListOptions) *runtime.Pager[ConnectedPartnerResourcesClientListResponse]`
+- New function `*OrganizationsClient.GetElasticToAzureSubscriptionMapping(context.Context, *OrganizationsClientGetElasticToAzureSubscriptionMappingOptions) (OrganizationsClientGetElasticToAzureSubscriptionMappingResponse, error)`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `BillingInfoResponse`
+- New struct `ConnectedPartnerResourceProperties`
+- New struct `ConnectedPartnerResourcesListFormat`
+- New struct `ConnectedPartnerResourcesListResponse`
+- New struct `OrganizationToAzureSubscriptionMappingResponse`
+- New struct `OrganizationToAzureSubscriptionMappingResponseProperties`
+- New struct `PartnerBillingEntity`
+- New struct `PlanDetails`
+- New field `ElasticsearchEndPoint` in struct `DeploymentInfoResponse`
+- New field `BilledAzureSubscriptionID`, `MarketplaceStatus`, `Subscribed` in struct `MarketplaceSaaSInfo`
+- New field `SaaSAzureSubscriptionStatus`, `SourceCampaignID`, `SourceCampaignName` in struct `MonitorProperties`
+- New field `PlanDetails` in struct `MonitorResource`
+
+
 ## 0.9.0 (2023-05-26)
 ### Breaking Changes
 
