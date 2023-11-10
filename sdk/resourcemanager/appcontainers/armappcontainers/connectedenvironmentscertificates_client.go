@@ -28,11 +28,11 @@ type ConnectedEnvironmentsCertificatesClient struct {
 }
 
 // NewConnectedEnvironmentsCertificatesClient creates a new instance of ConnectedEnvironmentsCertificatesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewConnectedEnvironmentsCertificatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectedEnvironmentsCertificatesClient, error) {
-	cl, err := arm.NewClient(moduleName+".ConnectedEnvironmentsCertificatesClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewConnectedEnvironmentsCertificatesClient(subscriptionID string, credentia
 // CreateOrUpdate - Create or Update a Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Connected Environment.
 //   - certificateName - Name of the Certificate.
@@ -54,6 +54,10 @@ func NewConnectedEnvironmentsCertificatesClient(subscriptionID string, credentia
 //     method.
 func (client *ConnectedEnvironmentsCertificatesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, certificateName string, options *ConnectedEnvironmentsCertificatesClientCreateOrUpdateOptions) (ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse, error) {
 	var err error
+	const operationName = "ConnectedEnvironmentsCertificatesClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, certificateName, options)
 	if err != nil {
 		return ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse{}, err
@@ -94,7 +98,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) createOrUpdateCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.CertificateEnvelope != nil {
@@ -118,7 +122,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) createOrUpdateHandleRespo
 // Delete - Deletes the specified Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Connected Environment.
 //   - certificateName - Name of the Certificate.
@@ -126,6 +130,10 @@ func (client *ConnectedEnvironmentsCertificatesClient) createOrUpdateHandleRespo
 //     method.
 func (client *ConnectedEnvironmentsCertificatesClient) Delete(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, certificateName string, options *ConnectedEnvironmentsCertificatesClientDeleteOptions) (ConnectedEnvironmentsCertificatesClientDeleteResponse, error) {
 	var err error
+	const operationName = "ConnectedEnvironmentsCertificatesClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, certificateName, options)
 	if err != nil {
 		return ConnectedEnvironmentsCertificatesClientDeleteResponse{}, err
@@ -165,7 +173,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) deleteCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,7 +182,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) deleteCreateRequest(ctx c
 // Get - Get the specified Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Connected Environment.
 //   - certificateName - Name of the Certificate.
@@ -182,6 +190,10 @@ func (client *ConnectedEnvironmentsCertificatesClient) deleteCreateRequest(ctx c
 //     method.
 func (client *ConnectedEnvironmentsCertificatesClient) Get(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, certificateName string, options *ConnectedEnvironmentsCertificatesClientGetOptions) (ConnectedEnvironmentsCertificatesClientGetResponse, error) {
 	var err error
+	const operationName = "ConnectedEnvironmentsCertificatesClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, certificateName, options)
 	if err != nil {
 		return ConnectedEnvironmentsCertificatesClientGetResponse{}, err
@@ -222,7 +234,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) getCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +251,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) getHandleResponse(resp *h
 
 // NewListPager - Get the Certificates in a given connected environment.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Connected Environment.
 //   - options - ConnectedEnvironmentsCertificatesClientListOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.NewListPager
@@ -250,25 +262,20 @@ func (client *ConnectedEnvironmentsCertificatesClient) NewListPager(resourceGrou
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ConnectedEnvironmentsCertificatesClientListResponse) (ConnectedEnvironmentsCertificatesClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ConnectedEnvironmentsCertificatesClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, options)
+			}, nil)
 			if err != nil {
 				return ConnectedEnvironmentsCertificatesClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ConnectedEnvironmentsCertificatesClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ConnectedEnvironmentsCertificatesClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -292,7 +299,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) listCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -310,7 +317,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) listHandleResponse(resp *
 // Update - Patches a certificate. Currently only patching of tags is supported
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Connected Environment.
 //   - certificateName - Name of the Certificate.
@@ -319,6 +326,10 @@ func (client *ConnectedEnvironmentsCertificatesClient) listHandleResponse(resp *
 //     method.
 func (client *ConnectedEnvironmentsCertificatesClient) Update(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, certificateName string, certificateEnvelope CertificatePatch, options *ConnectedEnvironmentsCertificatesClientUpdateOptions) (ConnectedEnvironmentsCertificatesClientUpdateResponse, error) {
 	var err error
+	const operationName = "ConnectedEnvironmentsCertificatesClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, certificateName, certificateEnvelope, options)
 	if err != nil {
 		return ConnectedEnvironmentsCertificatesClientUpdateResponse{}, err
@@ -359,7 +370,7 @@ func (client *ConnectedEnvironmentsCertificatesClient) updateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, certificateEnvelope); err != nil {

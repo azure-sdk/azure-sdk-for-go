@@ -28,11 +28,11 @@ type ContainerAppsRevisionReplicasClient struct {
 }
 
 // NewContainerAppsRevisionReplicasClient creates a new instance of ContainerAppsRevisionReplicasClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContainerAppsRevisionReplicasClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainerAppsRevisionReplicasClient, error) {
-	cl, err := arm.NewClient(moduleName+".ContainerAppsRevisionReplicasClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewContainerAppsRevisionReplicasClient(subscriptionID string, credential az
 // GetReplica - Get a replica for a Container App Revision.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -55,6 +55,10 @@ func NewContainerAppsRevisionReplicasClient(subscriptionID string, credential az
 //     method.
 func (client *ContainerAppsRevisionReplicasClient) GetReplica(ctx context.Context, resourceGroupName string, containerAppName string, revisionName string, replicaName string, options *ContainerAppsRevisionReplicasClientGetReplicaOptions) (ContainerAppsRevisionReplicasClientGetReplicaResponse, error) {
 	var err error
+	const operationName = "ContainerAppsRevisionReplicasClient.GetReplica"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getReplicaCreateRequest(ctx, resourceGroupName, containerAppName, revisionName, replicaName, options)
 	if err != nil {
 		return ContainerAppsRevisionReplicasClientGetReplicaResponse{}, err
@@ -99,7 +103,7 @@ func (client *ContainerAppsRevisionReplicasClient) getReplicaCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +121,7 @@ func (client *ContainerAppsRevisionReplicasClient) getReplicaHandleResponse(resp
 // ListReplicas - List replicas for a Container App Revision.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -125,6 +129,10 @@ func (client *ContainerAppsRevisionReplicasClient) getReplicaHandleResponse(resp
 //     method.
 func (client *ContainerAppsRevisionReplicasClient) ListReplicas(ctx context.Context, resourceGroupName string, containerAppName string, revisionName string, options *ContainerAppsRevisionReplicasClientListReplicasOptions) (ContainerAppsRevisionReplicasClientListReplicasResponse, error) {
 	var err error
+	const operationName = "ContainerAppsRevisionReplicasClient.ListReplicas"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listReplicasCreateRequest(ctx, resourceGroupName, containerAppName, revisionName, options)
 	if err != nil {
 		return ContainerAppsRevisionReplicasClientListReplicasResponse{}, err
@@ -165,7 +173,7 @@ func (client *ContainerAppsRevisionReplicasClient) listReplicasCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
