@@ -20,60 +20,66 @@ import (
 	"strings"
 )
 
-// Client contains the methods for the DataProtection group.
-// Don't use this type directly, use NewClient() instead.
-type Client struct {
+// CrossRegionRestoreJobClient contains the methods for the CrossRegionRestoreJob group.
+// Don't use this type directly, use NewCrossRegionRestoreJobClient() instead.
+type CrossRegionRestoreJobClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewClient creates a new instance of Client with the specified values.
+// NewCrossRegionRestoreJobClient creates a new instance of CrossRegionRestoreJobClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
+func NewCrossRegionRestoreJobClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CrossRegionRestoreJobClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &Client{
+	client := &CrossRegionRestoreJobClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CheckFeatureSupport - Validates if a feature is supported
+// Get -
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - parameters - Feature support request object
-//   - options - ClientCheckFeatureSupportOptions contains the optional parameters for the Client.CheckFeatureSupport method.
-func (client *Client) CheckFeatureSupport(ctx context.Context, location string, parameters FeatureValidationRequestBaseClassification, options *ClientCheckFeatureSupportOptions) (ClientCheckFeatureSupportResponse, error) {
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parameters - Request body for operation
+//   - options - CrossRegionRestoreJobClientGetOptions contains the optional parameters for the CrossRegionRestoreJobClient.Get
+//     method.
+func (client *CrossRegionRestoreJobClient) Get(ctx context.Context, resourceGroupName string, location string, parameters CrossRegionRestoreJobRequest, options *CrossRegionRestoreJobClientGetOptions) (CrossRegionRestoreJobClientGetResponse, error) {
 	var err error
-	const operationName = "Client.CheckFeatureSupport"
+	const operationName = "CrossRegionRestoreJobClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.checkFeatureSupportCreateRequest(ctx, location, parameters, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, location, parameters, options)
 	if err != nil {
-		return ClientCheckFeatureSupportResponse{}, err
+		return CrossRegionRestoreJobClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ClientCheckFeatureSupportResponse{}, err
+		return CrossRegionRestoreJobClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ClientCheckFeatureSupportResponse{}, err
+		return CrossRegionRestoreJobClientGetResponse{}, err
 	}
-	resp, err := client.checkFeatureSupportHandleResponse(httpResp)
+	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
-// checkFeatureSupportCreateRequest creates the CheckFeatureSupport request.
-func (client *Client) checkFeatureSupportCreateRequest(ctx context.Context, location string, parameters FeatureValidationRequestBaseClassification, options *ClientCheckFeatureSupportOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DataProtection/locations/{location}/checkFeatureSupport"
+// getCreateRequest creates the Get request.
+func (client *CrossRegionRestoreJobClient) getCreateRequest(ctx context.Context, resourceGroupName string, location string, parameters CrossRegionRestoreJobRequest, options *CrossRegionRestoreJobClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/locations/{location}/fetchCrossRegionRestoreJob"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -96,11 +102,11 @@ func (client *Client) checkFeatureSupportCreateRequest(ctx context.Context, loca
 	return req, nil
 }
 
-// checkFeatureSupportHandleResponse handles the CheckFeatureSupport response.
-func (client *Client) checkFeatureSupportHandleResponse(resp *http.Response) (ClientCheckFeatureSupportResponse, error) {
-	result := ClientCheckFeatureSupportResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return ClientCheckFeatureSupportResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *CrossRegionRestoreJobClient) getHandleResponse(resp *http.Response) (CrossRegionRestoreJobClientGetResponse, error) {
+	result := CrossRegionRestoreJobClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AzureBackupJobResource); err != nil {
+		return CrossRegionRestoreJobClientGetResponse{}, err
 	}
 	return result, nil
 }
