@@ -845,7 +845,7 @@ type RouteProperties struct {
 	// a maximum length of 64 characters, and must be unique.
 	Name *string
 
-	// REQUIRED; The source that the routing rule is to be applied to, such as DeviceMessages.
+	// REQUIRED; The source to which the routing rule is to be applied to. For example, DeviceMessages
 	Source *RoutingSource
 
 	// The condition that is evaluated to apply the routing rule. If no condition is provided, it evaluates to true by default.
@@ -1226,7 +1226,7 @@ type TestAllRoutesInput struct {
 	// Routing message
 	Message *RoutingMessage
 
-	// Routing source
+	// The source to which the routing rule is to be applied to. For example, DeviceMessages
 	RoutingSource *RoutingSource
 
 	// Routing Twin Reference

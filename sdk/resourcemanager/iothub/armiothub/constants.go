@@ -9,8 +9,8 @@
 package armiothub
 
 const (
-	moduleName    = "armiothub"
-	moduleVersion = "v1.2.0"
+	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/iothub/armiothub"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessRights - The permissions assigned to the shared access policy.
@@ -408,7 +408,7 @@ func PossibleRouteErrorSeverityValues() []RouteErrorSeverity {
 	}
 }
 
-// RoutingSource - The source that the routing rule is to be applied to, such as DeviceMessages.
+// RoutingSource - The source to which the routing rule is to be applied to. For example, DeviceMessages
 type RoutingSource string
 
 const (
