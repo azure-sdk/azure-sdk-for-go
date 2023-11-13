@@ -29,83 +29,61 @@ import (
 	"strings"
 )
 
-// CreateAndAssociateIPFilterClient contains the methods for the CreateAndAssociateIPFilter group.
-// Don't use this type directly, use NewCreateAndAssociateIPFilterClient() instead.
-type CreateAndAssociateIPFilterClient struct {
+// BillingInfoClient contains the methods for the BillingInfo group.
+// Don't use this type directly, use NewBillingInfoClient() instead.
+type BillingInfoClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewCreateAndAssociateIPFilterClient creates a new instance of CreateAndAssociateIPFilterClient with the specified values.
+// NewBillingInfoClient creates a new instance of BillingInfoClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewCreateAndAssociateIPFilterClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CreateAndAssociateIPFilterClient, error) {
+func NewBillingInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingInfoClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &CreateAndAssociateIPFilterClient{
+	client := &BillingInfoClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginCreate - Create and Associate IP traffic filter for the given deployment.
+// Get - Get marketplace and organization info mapped to the given monitor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
-//   - options - CreateAndAssociateIPFilterClientBeginCreateOptions contains the optional parameters for the CreateAndAssociateIPFilterClient.BeginCreate
-//     method.
-func (client *CreateAndAssociateIPFilterClient) BeginCreate(ctx context.Context, resourceGroupName string, monitorName string, options *CreateAndAssociateIPFilterClientBeginCreateOptions) (*runtime.Poller[CreateAndAssociateIPFilterClientCreateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, monitorName, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[CreateAndAssociateIPFilterClientCreateResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[CreateAndAssociateIPFilterClientCreateResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
-// Create - Create and Associate IP traffic filter for the given deployment.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-11-01-preview
-func (client *CreateAndAssociateIPFilterClient) create(ctx context.Context, resourceGroupName string, monitorName string, options *CreateAndAssociateIPFilterClientBeginCreateOptions) (*http.Response, error) {
+//   - options - BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+func (client *BillingInfoClient) Get(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error) {
 	var err error
-	const operationName = "CreateAndAssociateIPFilterClient.BeginCreate"
+	const operationName = "BillingInfoClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, resourceGroupName, monitorName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return nil, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return BillingInfoClientGetResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return BillingInfoClientGetResponse{}, err
 	}
-	return httpResp, nil
+	resp, err := client.getHandleResponse(httpResp)
+	return resp, err
 }
 
-// createCreateRequest creates the Create request.
-func (client *CreateAndAssociateIPFilterClient) createCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *CreateAndAssociateIPFilterClientBeginCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/createAndAssociateIPFilter"
+// getCreateRequest creates the Get request.
+func (client *BillingInfoClient) getCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/getBillingInfo"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -124,13 +102,16 @@ func (client *CreateAndAssociateIPFilterClient) createCreateRequest(ctx context.
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-11-01-preview")
-	if options != nil && options.IPs != nil {
-		reqQP.Set("ips", *options.IPs)
-	}
-	if options != nil && options.Name != nil {
-		reqQP.Set("name", *options.Name)
-	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *BillingInfoClient) getHandleResponse(resp *http.Response) (BillingInfoClientGetResponse, error) {
+	result := BillingInfoClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BillingInfoResponse); err != nil {
+		return BillingInfoClientGetResponse{}, err
+	}
+	return result, nil
 }
