@@ -212,6 +212,18 @@ type FeatureSupportClientValidateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// FetchTieringCostClientBeginPostOptions contains the optional parameters for the FetchTieringCostClient.BeginPost method.
+type FetchTieringCostClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GetTieringCostOperationResultClientGetOptions contains the optional parameters for the GetTieringCostOperationResultClient.Get
+// method.
+type GetTieringCostOperationResultClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ItemLevelRecoveryConnectionsClientProvisionOptions contains the optional parameters for the ItemLevelRecoveryConnectionsClient.Provision
 // method.
 type ItemLevelRecoveryConnectionsClientProvisionOptions struct {
@@ -300,15 +312,17 @@ type ProtectedItemOperationStatusesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProtectedItemsClientCreateOrUpdateOptions contains the optional parameters for the ProtectedItemsClient.CreateOrUpdate
+// ProtectedItemsClientBeginCreateOrUpdateOptions contains the optional parameters for the ProtectedItemsClient.BeginCreateOrUpdate
 // method.
-type ProtectedItemsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+type ProtectedItemsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ProtectedItemsClientDeleteOptions contains the optional parameters for the ProtectedItemsClient.Delete method.
-type ProtectedItemsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// ProtectedItemsClientBeginDeleteOptions contains the optional parameters for the ProtectedItemsClient.BeginDelete method.
+type ProtectedItemsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ProtectedItemsClientGetOptions contains the optional parameters for the ProtectedItemsClient.Get method.
@@ -329,6 +343,20 @@ type ProtectionContainerRefreshOperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ProtectionContainersClientBeginRegisterOptions contains the optional parameters for the ProtectionContainersClient.BeginRegister
+// method.
+type ProtectionContainersClientBeginRegisterOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProtectionContainersClientBeginUnregisterOptions contains the optional parameters for the ProtectionContainersClient.BeginUnregister
+// method.
+type ProtectionContainersClientBeginUnregisterOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ProtectionContainersClientGetOptions contains the optional parameters for the ProtectionContainersClient.Get method.
 type ProtectionContainersClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -344,18 +372,6 @@ type ProtectionContainersClientInquireOptions struct {
 type ProtectionContainersClientRefreshOptions struct {
 	// OData filter options.
 	Filter *string
-}
-
-// ProtectionContainersClientRegisterOptions contains the optional parameters for the ProtectionContainersClient.Register
-// method.
-type ProtectionContainersClientRegisterOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProtectionContainersClientUnregisterOptions contains the optional parameters for the ProtectionContainersClient.Unregister
-// method.
-type ProtectionContainersClientUnregisterOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ProtectionIntentClientCreateOrUpdateOptions contains the optional parameters for the ProtectionIntentClient.CreateOrUpdate
@@ -462,6 +478,12 @@ type RestoresClientBeginTriggerOptions struct {
 type SecurityPINsClientGetOptions struct {
 	// security pin request
 	Parameters *SecurityPinBase
+}
+
+// TieringCostOperationStatusClientGetOptions contains the optional parameters for the TieringCostOperationStatusClient.Get
+// method.
+type TieringCostOperationStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ValidateOperationClientBeginTriggerOptions contains the optional parameters for the ValidateOperationClient.BeginTrigger
