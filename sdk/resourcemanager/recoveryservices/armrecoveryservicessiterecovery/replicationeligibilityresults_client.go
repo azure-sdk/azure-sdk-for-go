@@ -32,7 +32,7 @@ type ReplicationEligibilityResultsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReplicationEligibilityResultsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationEligibilityResultsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ReplicationEligibilityResultsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,13 +46,17 @@ func NewReplicationEligibilityResultsClient(subscriptionID string, credential az
 // Get - Validates whether a given VM can be protected or not in which case returns list of errors.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - virtualMachineName - Virtual Machine name.
 //   - options - ReplicationEligibilityResultsClientGetOptions contains the optional parameters for the ReplicationEligibilityResultsClient.Get
 //     method.
 func (client *ReplicationEligibilityResultsClient) Get(ctx context.Context, resourceGroupName string, virtualMachineName string, options *ReplicationEligibilityResultsClientGetOptions) (ReplicationEligibilityResultsClientGetResponse, error) {
 	var err error
+	const operationName = "ReplicationEligibilityResultsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, virtualMachineName, options)
 	if err != nil {
 		return ReplicationEligibilityResultsClientGetResponse{}, err
@@ -89,7 +93,7 @@ func (client *ReplicationEligibilityResultsClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,13 +111,17 @@ func (client *ReplicationEligibilityResultsClient) getHandleResponse(resp *http.
 // List - Validates whether a given VM can be protected or not in which case returns list of errors.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - virtualMachineName - Virtual Machine name.
 //   - options - ReplicationEligibilityResultsClientListOptions contains the optional parameters for the ReplicationEligibilityResultsClient.List
 //     method.
 func (client *ReplicationEligibilityResultsClient) List(ctx context.Context, resourceGroupName string, virtualMachineName string, options *ReplicationEligibilityResultsClientListOptions) (ReplicationEligibilityResultsClientListResponse, error) {
 	var err error
+	const operationName = "ReplicationEligibilityResultsClient.List"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listCreateRequest(ctx, resourceGroupName, virtualMachineName, options)
 	if err != nil {
 		return ReplicationEligibilityResultsClientListResponse{}, err
@@ -150,7 +158,7 @@ func (client *ReplicationEligibilityResultsClient) listCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

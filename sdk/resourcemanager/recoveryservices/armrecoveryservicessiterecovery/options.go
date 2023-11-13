@@ -142,6 +142,13 @@ type ReplicationFabricsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ReplicationInfrastructureClientBeginDeleteOptions contains the optional parameters for the ReplicationInfrastructureClient.BeginDelete
+// method.
+type ReplicationInfrastructureClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ReplicationJobsClientBeginCancelOptions contains the optional parameters for the ReplicationJobsClient.BeginCancel method.
 type ReplicationJobsClientBeginCancelOptions struct {
 	// Resumes the LRO from the provided token.

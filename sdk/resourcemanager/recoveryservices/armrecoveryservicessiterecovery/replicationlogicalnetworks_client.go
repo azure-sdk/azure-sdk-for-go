@@ -32,7 +32,7 @@ type ReplicationLogicalNetworksClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReplicationLogicalNetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationLogicalNetworksClient, error) {
-	cl, err := arm.NewClient(moduleName+".ReplicationLogicalNetworksClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewReplicationLogicalNetworksClient(subscriptionID string, credential azcor
 // Get - Gets the details of a logical network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Server Id.
@@ -55,6 +55,10 @@ func NewReplicationLogicalNetworksClient(subscriptionID string, credential azcor
 //     method.
 func (client *ReplicationLogicalNetworksClient) Get(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, logicalNetworkName string, options *ReplicationLogicalNetworksClientGetOptions) (ReplicationLogicalNetworksClientGetResponse, error) {
 	var err error
+	const operationName = "ReplicationLogicalNetworksClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, fabricName, logicalNetworkName, options)
 	if err != nil {
 		return ReplicationLogicalNetworksClientGetResponse{}, err
@@ -99,7 +103,7 @@ func (client *ReplicationLogicalNetworksClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +120,7 @@ func (client *ReplicationLogicalNetworksClient) getHandleResponse(resp *http.Res
 
 // NewListByReplicationFabricsPager - Lists all the logical networks of the Azure Site Recovery fabric.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Server Id.
@@ -128,25 +132,20 @@ func (client *ReplicationLogicalNetworksClient) NewListByReplicationFabricsPager
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationLogicalNetworksClientListByReplicationFabricsResponse) (ReplicationLogicalNetworksClientListByReplicationFabricsResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByReplicationFabricsCreateRequest(ctx, resourceName, resourceGroupName, fabricName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationLogicalNetworksClient.NewListByReplicationFabricsPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByReplicationFabricsCreateRequest(ctx, resourceName, resourceGroupName, fabricName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationLogicalNetworksClientListByReplicationFabricsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationLogicalNetworksClientListByReplicationFabricsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationLogicalNetworksClientListByReplicationFabricsResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByReplicationFabricsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -174,7 +173,7 @@ func (client *ReplicationLogicalNetworksClient) listByReplicationFabricsCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

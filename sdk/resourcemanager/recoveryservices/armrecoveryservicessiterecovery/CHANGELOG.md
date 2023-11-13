@@ -1,5 +1,26 @@
 # Release History
 
+## 3.0.0 (2023-11-13)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewReplicationInfrastructureClient() *ReplicationInfrastructureClient`
+- New function `NewReplicationInfrastructureClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReplicationInfrastructureClient, error)`
+- New function `*ReplicationInfrastructureClient.BeginDelete(context.Context, string, string, string, *ReplicationInfrastructureClientBeginDeleteOptions) (*runtime.Poller[ReplicationInfrastructureClientDeleteResponse], error)`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New field `AutoProtectionOfDataDisk` in struct `A2AEnableProtectionInput`
+
+
 ## 2.1.0 (2023-09-22)
 ### Features Added
 

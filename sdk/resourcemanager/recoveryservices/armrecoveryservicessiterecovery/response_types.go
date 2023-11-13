@@ -137,6 +137,11 @@ type ReplicationFabricsClientRenewCertificateResponse struct {
 	Fabric
 }
 
+// ReplicationInfrastructureClientDeleteResponse contains the response from method ReplicationInfrastructureClient.BeginDelete.
+type ReplicationInfrastructureClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // ReplicationJobsClientCancelResponse contains the response from method ReplicationJobsClient.BeginCancel.
 type ReplicationJobsClientCancelResponse struct {
 	// Job details.

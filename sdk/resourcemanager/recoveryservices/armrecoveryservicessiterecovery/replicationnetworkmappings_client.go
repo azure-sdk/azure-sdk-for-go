@@ -32,7 +32,7 @@ type ReplicationNetworkMappingsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReplicationNetworkMappingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationNetworkMappingsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ReplicationNetworkMappingsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewReplicationNetworkMappingsClient(subscriptionID string, credential azcor
 // BeginCreate - The operation to create an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -61,19 +61,27 @@ func (client *ReplicationNetworkMappingsClient) BeginCreate(ctx context.Context,
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ReplicationNetworkMappingsClientCreateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReplicationNetworkMappingsClientCreateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationNetworkMappingsClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReplicationNetworkMappingsClientCreateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Create - The operation to create an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 func (client *ReplicationNetworkMappingsClient) create(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, input CreateNetworkMappingInput, options *ReplicationNetworkMappingsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ReplicationNetworkMappingsClient.BeginCreate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, input, options)
 	if err != nil {
 		return nil, err
@@ -121,7 +129,7 @@ func (client *ReplicationNetworkMappingsClient) createCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {
@@ -133,7 +141,7 @@ func (client *ReplicationNetworkMappingsClient) createCreateRequest(ctx context.
 // BeginDelete - The operation to delete a network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -147,19 +155,27 @@ func (client *ReplicationNetworkMappingsClient) BeginDelete(ctx context.Context,
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ReplicationNetworkMappingsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReplicationNetworkMappingsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationNetworkMappingsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReplicationNetworkMappingsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Delete - The operation to delete a network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 func (client *ReplicationNetworkMappingsClient) deleteOperation(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, options *ReplicationNetworkMappingsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ReplicationNetworkMappingsClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, options)
 	if err != nil {
 		return nil, err
@@ -207,7 +223,7 @@ func (client *ReplicationNetworkMappingsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -215,7 +231,7 @@ func (client *ReplicationNetworkMappingsClient) deleteCreateRequest(ctx context.
 // Get - Gets the details of an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -225,6 +241,10 @@ func (client *ReplicationNetworkMappingsClient) deleteCreateRequest(ctx context.
 //     method.
 func (client *ReplicationNetworkMappingsClient) Get(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, options *ReplicationNetworkMappingsClientGetOptions) (ReplicationNetworkMappingsClientGetResponse, error) {
 	var err error
+	const operationName = "ReplicationNetworkMappingsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, options)
 	if err != nil {
 		return ReplicationNetworkMappingsClientGetResponse{}, err
@@ -273,7 +293,7 @@ func (client *ReplicationNetworkMappingsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -290,7 +310,7 @@ func (client *ReplicationNetworkMappingsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - Lists all ASR network mappings in the vault.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - ReplicationNetworkMappingsClientListOptions contains the optional parameters for the ReplicationNetworkMappingsClient.NewListPager
@@ -301,25 +321,20 @@ func (client *ReplicationNetworkMappingsClient) NewListPager(resourceName string
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationNetworkMappingsClientListResponse) (ReplicationNetworkMappingsClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationNetworkMappingsClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationNetworkMappingsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationNetworkMappingsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationNetworkMappingsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -343,7 +358,7 @@ func (client *ReplicationNetworkMappingsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -360,7 +375,7 @@ func (client *ReplicationNetworkMappingsClient) listHandleResponse(resp *http.Re
 
 // NewListByReplicationNetworksPager - Lists all ASR network mappings for the specified network.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -373,25 +388,20 @@ func (client *ReplicationNetworkMappingsClient) NewListByReplicationNetworksPage
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationNetworkMappingsClientListByReplicationNetworksResponse) (ReplicationNetworkMappingsClientListByReplicationNetworksResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByReplicationNetworksCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationNetworkMappingsClient.NewListByReplicationNetworksPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByReplicationNetworksCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationNetworkMappingsClientListByReplicationNetworksResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationNetworkMappingsClientListByReplicationNetworksResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationNetworkMappingsClientListByReplicationNetworksResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByReplicationNetworksHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -423,7 +433,7 @@ func (client *ReplicationNetworkMappingsClient) listByReplicationNetworksCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -441,7 +451,7 @@ func (client *ReplicationNetworkMappingsClient) listByReplicationNetworksHandleR
 // BeginUpdate - The operation to update an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Primary fabric name.
@@ -456,19 +466,27 @@ func (client *ReplicationNetworkMappingsClient) BeginUpdate(ctx context.Context,
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ReplicationNetworkMappingsClientUpdateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReplicationNetworkMappingsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationNetworkMappingsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReplicationNetworkMappingsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Update - The operation to update an ASR network mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 func (client *ReplicationNetworkMappingsClient) update(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, input UpdateNetworkMappingInput, options *ReplicationNetworkMappingsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ReplicationNetworkMappingsClient.BeginUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceName, resourceGroupName, fabricName, networkName, networkMappingName, input, options)
 	if err != nil {
 		return nil, err
@@ -516,7 +534,7 @@ func (client *ReplicationNetworkMappingsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {

@@ -32,7 +32,7 @@ type SupportedOperatingSystemsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewSupportedOperatingSystemsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SupportedOperatingSystemsClient, error) {
-	cl, err := arm.NewClient(moduleName+".SupportedOperatingSystemsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,13 +46,17 @@ func NewSupportedOperatingSystemsClient(subscriptionID string, credential azcore
 // Get - Gets the data of supported operating systems by SRS.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - SupportedOperatingSystemsClientGetOptions contains the optional parameters for the SupportedOperatingSystemsClient.Get
 //     method.
 func (client *SupportedOperatingSystemsClient) Get(ctx context.Context, resourceName string, resourceGroupName string, options *SupportedOperatingSystemsClientGetOptions) (SupportedOperatingSystemsClientGetResponse, error) {
 	var err error
+	const operationName = "SupportedOperatingSystemsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, options)
 	if err != nil {
 		return SupportedOperatingSystemsClientGetResponse{}, err
@@ -89,7 +93,7 @@ func (client *SupportedOperatingSystemsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	if options != nil && options.InstanceType != nil {
 		reqQP.Set("instanceType", *options.InstanceType)
 	}

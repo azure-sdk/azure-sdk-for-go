@@ -32,7 +32,7 @@ type ReplicationStorageClassificationsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReplicationStorageClassificationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationStorageClassificationsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ReplicationStorageClassificationsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewReplicationStorageClassificationsClient(subscriptionID string, credentia
 // Get - Gets the details of the specified storage classification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -55,6 +55,10 @@ func NewReplicationStorageClassificationsClient(subscriptionID string, credentia
 //     method.
 func (client *ReplicationStorageClassificationsClient) Get(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, options *ReplicationStorageClassificationsClientGetOptions) (ReplicationStorageClassificationsClientGetResponse, error) {
 	var err error
+	const operationName = "ReplicationStorageClassificationsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, fabricName, storageClassificationName, options)
 	if err != nil {
 		return ReplicationStorageClassificationsClientGetResponse{}, err
@@ -99,7 +103,7 @@ func (client *ReplicationStorageClassificationsClient) getCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +120,7 @@ func (client *ReplicationStorageClassificationsClient) getHandleResponse(resp *h
 
 // NewListPager - Lists the storage classifications in the vault.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.NewListPager
@@ -127,25 +131,20 @@ func (client *ReplicationStorageClassificationsClient) NewListPager(resourceName
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationStorageClassificationsClientListResponse) (ReplicationStorageClassificationsClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationStorageClassificationsClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationStorageClassificationsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationStorageClassificationsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationStorageClassificationsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -169,7 +168,7 @@ func (client *ReplicationStorageClassificationsClient) listCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -186,7 +185,7 @@ func (client *ReplicationStorageClassificationsClient) listHandleResponse(resp *
 
 // NewListByReplicationFabricsPager - Lists the storage classifications available in the specified fabric.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Site name of interest.
@@ -198,25 +197,20 @@ func (client *ReplicationStorageClassificationsClient) NewListByReplicationFabri
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationStorageClassificationsClientListByReplicationFabricsResponse) (ReplicationStorageClassificationsClientListByReplicationFabricsResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByReplicationFabricsCreateRequest(ctx, resourceName, resourceGroupName, fabricName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationStorageClassificationsClient.NewListByReplicationFabricsPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByReplicationFabricsCreateRequest(ctx, resourceName, resourceGroupName, fabricName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationStorageClassificationsClientListByReplicationFabricsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationStorageClassificationsClientListByReplicationFabricsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationStorageClassificationsClientListByReplicationFabricsResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByReplicationFabricsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -244,7 +238,7 @@ func (client *ReplicationStorageClassificationsClient) listByReplicationFabricsC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

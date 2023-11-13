@@ -32,7 +32,7 @@ type ReplicationStorageClassificationMappingsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReplicationStorageClassificationMappingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationStorageClassificationMappingsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ReplicationStorageClassificationMappingsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewReplicationStorageClassificationMappingsClient(subscriptionID string, cr
 // BeginCreate - The operation to create a storage classification mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -61,19 +61,27 @@ func (client *ReplicationStorageClassificationMappingsClient) BeginCreate(ctx co
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ReplicationStorageClassificationMappingsClientCreateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReplicationStorageClassificationMappingsClientCreateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationStorageClassificationMappingsClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReplicationStorageClassificationMappingsClientCreateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Create - The operation to create a storage classification mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 func (client *ReplicationStorageClassificationMappingsClient) create(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, pairingInput StorageClassificationMappingInput, options *ReplicationStorageClassificationMappingsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ReplicationStorageClassificationMappingsClient.BeginCreate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createCreateRequest(ctx, resourceName, resourceGroupName, fabricName, storageClassificationName, storageClassificationMappingName, pairingInput, options)
 	if err != nil {
 		return nil, err
@@ -121,7 +129,7 @@ func (client *ReplicationStorageClassificationMappingsClient) createCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, pairingInput); err != nil {
@@ -133,7 +141,7 @@ func (client *ReplicationStorageClassificationMappingsClient) createCreateReques
 // BeginDelete - The operation to delete a storage classification mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -147,19 +155,27 @@ func (client *ReplicationStorageClassificationMappingsClient) BeginDelete(ctx co
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ReplicationStorageClassificationMappingsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReplicationStorageClassificationMappingsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationStorageClassificationMappingsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReplicationStorageClassificationMappingsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Delete - The operation to delete a storage classification mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 func (client *ReplicationStorageClassificationMappingsClient) deleteOperation(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, options *ReplicationStorageClassificationMappingsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ReplicationStorageClassificationMappingsClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceName, resourceGroupName, fabricName, storageClassificationName, storageClassificationMappingName, options)
 	if err != nil {
 		return nil, err
@@ -207,7 +223,7 @@ func (client *ReplicationStorageClassificationMappingsClient) deleteCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -215,7 +231,7 @@ func (client *ReplicationStorageClassificationMappingsClient) deleteCreateReques
 // Get - Gets the details of the specified storage classification mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -225,6 +241,10 @@ func (client *ReplicationStorageClassificationMappingsClient) deleteCreateReques
 //     method.
 func (client *ReplicationStorageClassificationMappingsClient) Get(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, options *ReplicationStorageClassificationMappingsClientGetOptions) (ReplicationStorageClassificationMappingsClientGetResponse, error) {
 	var err error
+	const operationName = "ReplicationStorageClassificationMappingsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, fabricName, storageClassificationName, storageClassificationMappingName, options)
 	if err != nil {
 		return ReplicationStorageClassificationMappingsClientGetResponse{}, err
@@ -273,7 +293,7 @@ func (client *ReplicationStorageClassificationMappingsClient) getCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -290,7 +310,7 @@ func (client *ReplicationStorageClassificationMappingsClient) getHandleResponse(
 
 // NewListPager - Lists the storage classification mappings in the vault.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - ReplicationStorageClassificationMappingsClientListOptions contains the optional parameters for the ReplicationStorageClassificationMappingsClient.NewListPager
@@ -301,25 +321,20 @@ func (client *ReplicationStorageClassificationMappingsClient) NewListPager(resou
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationStorageClassificationMappingsClientListResponse) (ReplicationStorageClassificationMappingsClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationStorageClassificationMappingsClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationStorageClassificationMappingsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationStorageClassificationMappingsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationStorageClassificationMappingsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -343,7 +358,7 @@ func (client *ReplicationStorageClassificationMappingsClient) listCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -360,7 +375,7 @@ func (client *ReplicationStorageClassificationMappingsClient) listHandleResponse
 
 // NewListByReplicationStorageClassificationsPager - Lists the storage classification mappings for the fabric.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -373,25 +388,20 @@ func (client *ReplicationStorageClassificationMappingsClient) NewListByReplicati
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse) (ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByReplicationStorageClassificationsCreateRequest(ctx, resourceName, resourceGroupName, fabricName, storageClassificationName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ReplicationStorageClassificationMappingsClient.NewListByReplicationStorageClassificationsPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByReplicationStorageClassificationsCreateRequest(ctx, resourceName, resourceGroupName, fabricName, storageClassificationName, options)
+			}, nil)
 			if err != nil {
 				return ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByReplicationStorageClassificationsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -423,7 +433,7 @@ func (client *ReplicationStorageClassificationMappingsClient) listByReplicationS
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
