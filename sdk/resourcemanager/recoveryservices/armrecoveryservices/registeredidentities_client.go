@@ -32,7 +32,7 @@ type RegisteredIdentitiesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRegisteredIdentitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RegisteredIdentitiesClient, error) {
-	cl, err := arm.NewClient(moduleName+".RegisteredIdentitiesClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewRegisteredIdentitiesClient(subscriptionID string, credential azcore.Toke
 // Delete - Unregisters the given container from your Recovery Services vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the recovery services vault.
 //   - identityName - Name of the protection container to unregister.
@@ -54,6 +54,10 @@ func NewRegisteredIdentitiesClient(subscriptionID string, credential azcore.Toke
 //     method.
 func (client *RegisteredIdentitiesClient) Delete(ctx context.Context, resourceGroupName string, vaultName string, identityName string, options *RegisteredIdentitiesClientDeleteOptions) (RegisteredIdentitiesClientDeleteResponse, error) {
 	var err error
+	const operationName = "RegisteredIdentitiesClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, vaultName, identityName, options)
 	if err != nil {
 		return RegisteredIdentitiesClientDeleteResponse{}, err
@@ -93,7 +97,7 @@ func (client *RegisteredIdentitiesClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }

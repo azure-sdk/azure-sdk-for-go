@@ -32,7 +32,7 @@ type UsagesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
-	cl, err := arm.NewClient(moduleName+".UsagesClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByVaultsPager - Fetches the usages of the vault.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the recovery services vault.
 //   - options - UsagesClientListByVaultsOptions contains the optional parameters for the UsagesClient.NewListByVaultsPager method.
@@ -55,6 +55,7 @@ func (client *UsagesClient) NewListByVaultsPager(resourceGroupName string, vault
 			return false
 		},
 		Fetcher: func(ctx context.Context, page *UsagesClientListByVaultsResponse) (UsagesClientListByVaultsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "UsagesClient.NewListByVaultsPager")
 			req, err := client.listByVaultsCreateRequest(ctx, resourceGroupName, vaultName, options)
 			if err != nil {
 				return UsagesClientListByVaultsResponse{}, err
@@ -68,6 +69,7 @@ func (client *UsagesClient) NewListByVaultsPager(resourceGroupName string, vault
 			}
 			return client.listByVaultsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -91,7 +93,7 @@ func (client *UsagesClient) listByVaultsCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

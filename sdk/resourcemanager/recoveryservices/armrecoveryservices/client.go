@@ -32,7 +32,7 @@ type Client struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
-	cl, err := arm.NewClient(moduleName+".Client", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,12 +46,16 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 // Capabilities - API to get details about capabilities provided by Microsoft.RecoveryServices RP
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - location - Location of the resource
 //   - input - Contains information about Resource type and properties to get capabilities
 //   - options - ClientCapabilitiesOptions contains the optional parameters for the Client.Capabilities method.
 func (client *Client) Capabilities(ctx context.Context, location string, input ResourceCapabilities, options *ClientCapabilitiesOptions) (ClientCapabilitiesResponse, error) {
 	var err error
+	const operationName = "Client.Capabilities"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.capabilitiesCreateRequest(ctx, location, input, options)
 	if err != nil {
 		return ClientCapabilitiesResponse{}, err
@@ -84,7 +88,7 @@ func (client *Client) capabilitiesCreateRequest(ctx context.Context, location st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {
@@ -107,13 +111,17 @@ func (client *Client) capabilitiesHandleResponse(resp *http.Response) (ClientCap
 // these must be GC'd and their time of deletion be more than 24 Hours Ago
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - location - Location of the resource
 //   - input - Contains information about Resource type and Resource name
 //   - options - ClientCheckNameAvailabilityOptions contains the optional parameters for the Client.CheckNameAvailability method.
 func (client *Client) CheckNameAvailability(ctx context.Context, resourceGroupName string, location string, input CheckNameAvailabilityParameters, options *ClientCheckNameAvailabilityOptions) (ClientCheckNameAvailabilityResponse, error) {
 	var err error
+	const operationName = "Client.CheckNameAvailability"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, resourceGroupName, location, input, options)
 	if err != nil {
 		return ClientCheckNameAvailabilityResponse{}, err
@@ -150,7 +158,7 @@ func (client *Client) checkNameAvailabilityCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {

@@ -36,8 +36,14 @@ type CapabilitiesResponseProperties struct {
 
 // CertificateRequest - Details of the certificate to be uploaded to the vault.
 type CertificateRequest struct {
+	CertificateCreateOptions *CertificateRequestCertificateCreateOptions
+
 	// Raw certificate data.
 	Properties *RawCertificateData
+}
+
+type CertificateRequestCertificateCreateOptions struct {
+	ValidityInHours *int64
 }
 
 // CheckNameAvailabilityParameters - Resource Name availability input parameters - Resource type and resource name

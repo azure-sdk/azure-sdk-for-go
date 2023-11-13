@@ -32,7 +32,7 @@ type VaultsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewVaultsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VaultsClient, error) {
-	cl, err := arm.NewClient(moduleName+".VaultsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewVaultsClient(subscriptionID string, credential azcore.TokenCredential, o
 // BeginCreateOrUpdate - Creates or updates a Recovery Services vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the recovery services vault.
 //   - vault - Recovery Services Vault to be created.
@@ -58,19 +58,27 @@ func (client *VaultsClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[VaultsClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VaultsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[VaultsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[VaultsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // CreateOrUpdate - Creates or updates a Recovery Services vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 func (client *VaultsClient) createOrUpdate(ctx context.Context, resourceGroupName string, vaultName string, vault Vault, options *VaultsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "VaultsClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, vaultName, vault, options)
 	if err != nil {
 		return nil, err
@@ -106,7 +114,7 @@ func (client *VaultsClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, vault); err != nil {
@@ -118,12 +126,16 @@ func (client *VaultsClient) createOrUpdateCreateRequest(ctx context.Context, res
 // Delete - Deletes a vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the recovery services vault.
 //   - options - VaultsClientDeleteOptions contains the optional parameters for the VaultsClient.Delete method.
 func (client *VaultsClient) Delete(ctx context.Context, resourceGroupName string, vaultName string, options *VaultsClientDeleteOptions) (VaultsClientDeleteResponse, error) {
 	var err error
+	const operationName = "VaultsClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, vaultName, options)
 	if err != nil {
 		return VaultsClientDeleteResponse{}, err
@@ -159,7 +171,7 @@ func (client *VaultsClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -168,12 +180,16 @@ func (client *VaultsClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Get the Vault details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the recovery services vault.
 //   - options - VaultsClientGetOptions contains the optional parameters for the VaultsClient.Get method.
 func (client *VaultsClient) Get(ctx context.Context, resourceGroupName string, vaultName string, options *VaultsClientGetOptions) (VaultsClientGetResponse, error) {
 	var err error
+	const operationName = "VaultsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, vaultName, options)
 	if err != nil {
 		return VaultsClientGetResponse{}, err
@@ -210,7 +226,7 @@ func (client *VaultsClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -227,7 +243,7 @@ func (client *VaultsClient) getHandleResponse(resp *http.Response) (VaultsClient
 
 // NewListByResourceGroupPager - Retrieve a list of Vaults.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - VaultsClientListByResourceGroupOptions contains the optional parameters for the VaultsClient.NewListByResourceGroupPager
 //     method.
@@ -237,25 +253,20 @@ func (client *VaultsClient) NewListByResourceGroupPager(resourceGroupName string
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *VaultsClientListByResourceGroupResponse) (VaultsClientListByResourceGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "VaultsClient.NewListByResourceGroupPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return VaultsClientListByResourceGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return VaultsClientListByResourceGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return VaultsClientListByResourceGroupResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByResourceGroupHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -275,7 +286,7 @@ func (client *VaultsClient) listByResourceGroupCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -292,7 +303,7 @@ func (client *VaultsClient) listByResourceGroupHandleResponse(resp *http.Respons
 
 // NewListBySubscriptionIDPager - Fetches all the resources of the specified type in the subscription.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - options - VaultsClientListBySubscriptionIDOptions contains the optional parameters for the VaultsClient.NewListBySubscriptionIDPager
 //     method.
 func (client *VaultsClient) NewListBySubscriptionIDPager(options *VaultsClientListBySubscriptionIDOptions) *runtime.Pager[VaultsClientListBySubscriptionIDResponse] {
@@ -301,25 +312,20 @@ func (client *VaultsClient) NewListBySubscriptionIDPager(options *VaultsClientLi
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *VaultsClientListBySubscriptionIDResponse) (VaultsClientListBySubscriptionIDResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listBySubscriptionIDCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "VaultsClient.NewListBySubscriptionIDPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listBySubscriptionIDCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return VaultsClientListBySubscriptionIDResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return VaultsClientListBySubscriptionIDResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return VaultsClientListBySubscriptionIDResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listBySubscriptionIDHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -335,7 +341,7 @@ func (client *VaultsClient) listBySubscriptionIDCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -353,7 +359,7 @@ func (client *VaultsClient) listBySubscriptionIDHandleResponse(resp *http.Respon
 // BeginUpdate - Updates the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the recovery services vault.
 //   - vault - Recovery Services Vault to be created.
@@ -364,19 +370,27 @@ func (client *VaultsClient) BeginUpdate(ctx context.Context, resourceGroupName s
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[VaultsClientUpdateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VaultsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[VaultsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[VaultsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Update - Updates the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-06-01
 func (client *VaultsClient) update(ctx context.Context, resourceGroupName string, vaultName string, vault PatchVault, options *VaultsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "VaultsClient.BeginUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, vaultName, vault, options)
 	if err != nil {
 		return nil, err
@@ -412,7 +426,7 @@ func (client *VaultsClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, vault); err != nil {
