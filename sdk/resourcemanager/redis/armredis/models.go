@@ -137,6 +137,9 @@ type CommonPropertiesRedisConfiguration struct {
 	// Value in megabytes reserved for non-cache usage per shard e.g. failover.
 	MaxmemoryReserved *string
 
+	// The keyspace events which should be monitored.
+	NotifyKeyspaceEvents *string
+
 	// Preferred auth method to communicate to storage account used for data persistence, specify SAS or ManagedIdentity, default
 	// value is SAS
 	PreferredDataPersistenceAuthMethod *string

@@ -1,5 +1,20 @@
 # Release History
 
+## 4.0.0 (2023-11-13)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New field `NotifyKeyspaceEvents` in struct `CommonPropertiesRedisConfiguration`
+
+
 ## 3.0.0 (2023-09-22)
 ### Breaking Changes
 
