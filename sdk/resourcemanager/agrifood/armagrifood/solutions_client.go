@@ -19,66 +19,66 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
-// ExtensionsClient contains the methods for the Extensions group.
-// Don't use this type directly, use NewExtensionsClient() instead.
-type ExtensionsClient struct {
+// SolutionsClient contains the methods for the Solutions group.
+// Don't use this type directly, use NewSolutionsClient() instead.
+type SolutionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewExtensionsClient creates a new instance of ExtensionsClient with the specified values.
+// NewSolutionsClient creates a new instance of SolutionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewExtensionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExtensionsClient, error) {
+func NewSolutionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SolutionsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ExtensionsClient{
+	client := &SolutionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Install or Update extension. Additional Api Properties are merged patch and if the extension is updated
-// to a new version then the obsolete entries will be auto deleted from Additional Api Properties.
+// CreateOrUpdate - Install Or Update Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataManagerForAgricultureResourceName - DataManagerForAgriculture resource name.
-//   - extensionID - Id of extension resource.
-//   - options - ExtensionsClientCreateOrUpdateOptions contains the optional parameters for the ExtensionsClient.CreateOrUpdate
+//   - solutionID - SolutionId for Data Manager For Agriculture Resource.
+//   - options - SolutionsClientCreateOrUpdateOptions contains the optional parameters for the SolutionsClient.CreateOrUpdate
 //     method.
-func (client *ExtensionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *ExtensionsClientCreateOrUpdateOptions) (ExtensionsClientCreateOrUpdateResponse, error) {
+func (client *SolutionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, solutionID string, options *SolutionsClientCreateOrUpdateOptions) (SolutionsClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "ExtensionsClient.CreateOrUpdate"
+	const operationName = "SolutionsClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, extensionID, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, solutionID, options)
 	if err != nil {
-		return ExtensionsClientCreateOrUpdateResponse{}, err
+		return SolutionsClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ExtensionsClientCreateOrUpdateResponse{}, err
+		return SolutionsClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusCreated) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ExtensionsClientCreateOrUpdateResponse{}, err
+		return SolutionsClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ExtensionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *ExtensionsClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/extensions/{extensionId}"
+func (client *SolutionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, solutionID string, options *SolutionsClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/solutions/{solutionId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -91,10 +91,10 @@ func (client *ExtensionsClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter dataManagerForAgricultureResourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{dataManagerForAgricultureResourceName}", url.PathEscape(dataManagerForAgricultureResourceName))
-	if extensionID == "" {
-		return nil, errors.New("parameter extensionID cannot be empty")
+	if solutionID == "" {
+		return nil, errors.New("parameter solutionID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{extensionId}", url.PathEscape(extensionID))
+	urlPath = strings.ReplaceAll(urlPath, "{solutionId}", url.PathEscape(solutionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -113,46 +113,46 @@ func (client *ExtensionsClient) createOrUpdateCreateRequest(ctx context.Context,
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ExtensionsClient) createOrUpdateHandleResponse(resp *http.Response) (ExtensionsClientCreateOrUpdateResponse, error) {
-	result := ExtensionsClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Extension); err != nil {
-		return ExtensionsClientCreateOrUpdateResponse{}, err
+func (client *SolutionsClient) createOrUpdateHandleResponse(resp *http.Response) (SolutionsClientCreateOrUpdateResponse, error) {
+	result := SolutionsClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Solution); err != nil {
+		return SolutionsClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Uninstall extension.
+// Delete - Uninstall Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataManagerForAgricultureResourceName - DataManagerForAgriculture resource name.
-//   - extensionID - Id of extension resource.
-//   - options - ExtensionsClientDeleteOptions contains the optional parameters for the ExtensionsClient.Delete method.
-func (client *ExtensionsClient) Delete(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *ExtensionsClientDeleteOptions) (ExtensionsClientDeleteResponse, error) {
+//   - solutionID - SolutionId for Data Manager For Agriculture Resource.
+//   - options - SolutionsClientDeleteOptions contains the optional parameters for the SolutionsClient.Delete method.
+func (client *SolutionsClient) Delete(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, solutionID string, options *SolutionsClientDeleteOptions) (SolutionsClientDeleteResponse, error) {
 	var err error
-	const operationName = "ExtensionsClient.Delete"
+	const operationName = "SolutionsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, extensionID, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, solutionID, options)
 	if err != nil {
-		return ExtensionsClientDeleteResponse{}, err
+		return SolutionsClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ExtensionsClientDeleteResponse{}, err
+		return SolutionsClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ExtensionsClientDeleteResponse{}, err
+		return SolutionsClientDeleteResponse{}, err
 	}
-	return ExtensionsClientDeleteResponse{}, nil
+	return SolutionsClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *ExtensionsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/extensions/{extensionId}"
+func (client *SolutionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, solutionID string, options *SolutionsClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/solutions/{solutionId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -165,10 +165,10 @@ func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter dataManagerForAgricultureResourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{dataManagerForAgricultureResourceName}", url.PathEscape(dataManagerForAgricultureResourceName))
-	if extensionID == "" {
-		return nil, errors.New("parameter extensionID cannot be empty")
+	if solutionID == "" {
+		return nil, errors.New("parameter solutionID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{extensionId}", url.PathEscape(extensionID))
+	urlPath = strings.ReplaceAll(urlPath, "{solutionId}", url.PathEscape(solutionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -180,39 +180,39 @@ func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, resourc
 	return req, nil
 }
 
-// Get - Get installed extension details by extension id.
+// Get - Get installed Solution details by Solution id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataManagerForAgricultureResourceName - DataManagerForAgriculture resource name.
-//   - extensionID - Id of extension resource.
-//   - options - ExtensionsClientGetOptions contains the optional parameters for the ExtensionsClient.Get method.
-func (client *ExtensionsClient) Get(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *ExtensionsClientGetOptions) (ExtensionsClientGetResponse, error) {
+//   - solutionID - SolutionId for Data Manager For Agriculture Resource.
+//   - options - SolutionsClientGetOptions contains the optional parameters for the SolutionsClient.Get method.
+func (client *SolutionsClient) Get(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, solutionID string, options *SolutionsClientGetOptions) (SolutionsClientGetResponse, error) {
 	var err error
-	const operationName = "ExtensionsClient.Get"
+	const operationName = "SolutionsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, extensionID, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, solutionID, options)
 	if err != nil {
-		return ExtensionsClientGetResponse{}, err
+		return SolutionsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ExtensionsClientGetResponse{}, err
+		return SolutionsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ExtensionsClientGetResponse{}, err
+		return SolutionsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ExtensionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *ExtensionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/extensions/{extensionId}"
+func (client *SolutionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, solutionID string, options *SolutionsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/solutions/{solutionId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -225,10 +225,10 @@ func (client *ExtensionsClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter dataManagerForAgricultureResourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{dataManagerForAgricultureResourceName}", url.PathEscape(dataManagerForAgricultureResourceName))
-	if extensionID == "" {
-		return nil, errors.New("parameter extensionID cannot be empty")
+	if solutionID == "" {
+		return nil, errors.New("parameter solutionID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{extensionId}", url.PathEscape(extensionID))
+	urlPath = strings.ReplaceAll(urlPath, "{solutionId}", url.PathEscape(solutionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -241,47 +241,46 @@ func (client *ExtensionsClient) getCreateRequest(ctx context.Context, resourceGr
 }
 
 // getHandleResponse handles the Get response.
-func (client *ExtensionsClient) getHandleResponse(resp *http.Response) (ExtensionsClientGetResponse, error) {
-	result := ExtensionsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Extension); err != nil {
-		return ExtensionsClientGetResponse{}, err
+func (client *SolutionsClient) getHandleResponse(resp *http.Response) (SolutionsClientGetResponse, error) {
+	result := SolutionsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Solution); err != nil {
+		return SolutionsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByDataManagerForAgriculturePager - Get installed extensions details.
+// NewListPager - Get installed Solutions details.
 //
 // Generated from API version 2023-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataManagerForAgricultureResourceName - DataManagerForAgriculture resource name.
-//   - options - ExtensionsClientListByDataManagerForAgricultureOptions contains the optional parameters for the ExtensionsClient.NewListByDataManagerForAgriculturePager
-//     method.
-func (client *ExtensionsClient) NewListByDataManagerForAgriculturePager(resourceGroupName string, dataManagerForAgricultureResourceName string, options *ExtensionsClientListByDataManagerForAgricultureOptions) *runtime.Pager[ExtensionsClientListByDataManagerForAgricultureResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ExtensionsClientListByDataManagerForAgricultureResponse]{
-		More: func(page ExtensionsClientListByDataManagerForAgricultureResponse) bool {
+//   - options - SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
+func (client *SolutionsClient) NewListPager(resourceGroupName string, dataManagerForAgricultureResourceName string, options *SolutionsClientListOptions) *runtime.Pager[SolutionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[SolutionsClientListResponse]{
+		More: func(page SolutionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ExtensionsClientListByDataManagerForAgricultureResponse) (ExtensionsClientListByDataManagerForAgricultureResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ExtensionsClient.NewListByDataManagerForAgriculturePager")
+		Fetcher: func(ctx context.Context, page *SolutionsClientListResponse) (SolutionsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SolutionsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByDataManagerForAgricultureCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, dataManagerForAgricultureResourceName, options)
 			}, nil)
 			if err != nil {
-				return ExtensionsClientListByDataManagerForAgricultureResponse{}, err
+				return SolutionsClientListResponse{}, err
 			}
-			return client.listByDataManagerForAgricultureHandleResponse(resp)
+			return client.listHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listByDataManagerForAgricultureCreateRequest creates the ListByDataManagerForAgriculture request.
-func (client *ExtensionsClient) listByDataManagerForAgricultureCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, options *ExtensionsClientListByDataManagerForAgricultureOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/extensions"
+// listCreateRequest creates the List request.
+func (client *SolutionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, options *SolutionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{dataManagerForAgricultureResourceName}/solutions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -300,15 +299,42 @@ func (client *ExtensionsClient) listByDataManagerForAgricultureCreateRequest(ctx
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-06-01-preview")
-	if options != nil && options.ExtensionIDs != nil {
-		for _, qv := range options.ExtensionIDs {
-			reqQP.Add("extensionIds", qv)
+	if options != nil && options.SolutionIDs != nil {
+		for _, qv := range options.SolutionIDs {
+			reqQP.Add("solutionIds", qv)
 		}
 	}
-	if options != nil && options.ExtensionCategories != nil {
-		for _, qv := range options.ExtensionCategories {
-			reqQP.Add("extensionCategories", qv)
+	if options != nil && options.IDs != nil {
+		for _, qv := range options.IDs {
+			reqQP.Add("ids", qv)
 		}
+	}
+	if options != nil && options.Names != nil {
+		for _, qv := range options.Names {
+			reqQP.Add("names", qv)
+		}
+	}
+	if options != nil && options.PropertyFilters != nil {
+		for _, qv := range options.PropertyFilters {
+			reqQP.Add("propertyFilters", qv)
+		}
+	}
+	if options != nil && options.Statuses != nil {
+		for _, qv := range options.Statuses {
+			reqQP.Add("statuses", qv)
+		}
+	}
+	if options != nil && options.MinCreatedDateTime != nil {
+		reqQP.Set("minCreatedDateTime", options.MinCreatedDateTime.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.MaxCreatedDateTime != nil {
+		reqQP.Set("maxCreatedDateTime", options.MaxCreatedDateTime.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.MinLastModifiedDateTime != nil {
+		reqQP.Set("minLastModifiedDateTime", options.MinLastModifiedDateTime.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.MaxLastModifiedDateTime != nil {
+		reqQP.Set("maxLastModifiedDateTime", options.MaxLastModifiedDateTime.Format(time.RFC3339Nano))
 	}
 	if options != nil && options.MaxPageSize != nil {
 		reqQP.Set("$maxPageSize", strconv.FormatInt(int64(*options.MaxPageSize), 10))
@@ -321,11 +347,11 @@ func (client *ExtensionsClient) listByDataManagerForAgricultureCreateRequest(ctx
 	return req, nil
 }
 
-// listByDataManagerForAgricultureHandleResponse handles the ListByDataManagerForAgriculture response.
-func (client *ExtensionsClient) listByDataManagerForAgricultureHandleResponse(resp *http.Response) (ExtensionsClientListByDataManagerForAgricultureResponse, error) {
-	result := ExtensionsClientListByDataManagerForAgricultureResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ExtensionListResponse); err != nil {
-		return ExtensionsClientListByDataManagerForAgricultureResponse{}, err
+// listHandleResponse handles the List response.
+func (client *SolutionsClient) listHandleResponse(resp *http.Response) (SolutionsClientListResponse, error) {
+	result := SolutionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SolutionListResponse); err != nil {
+		return SolutionsClientListResponse{}, err
 	}
 	return result, nil
 }
