@@ -81,6 +81,12 @@ type AccountProperties struct {
 	// resource(s).
 	LinkedResources []*LinkedResource
 
+	// Sets data processing locations. If no locations are defined, Azure REST APIs will only enable features available in the
+	// Map account's location.
+	// Please refer to Azure Maps Data Processing Locations [https://https://learn.microsoft.com/en-us/azure/azure-maps/] for
+	// features enabled on select locations.
+	Locations []*LocationsItem
+
 	// READ-ONLY; The provisioning state of the Map account resource, Account updates can only be performed on terminal states.
 	// Terminal states: Succeeded and Failed
 	ProvisioningState *string
@@ -207,6 +213,12 @@ type CreatorProperties struct {
 	// REQUIRED; The storage units to be allocated. Integer values from 1 to 100, inclusive.
 	StorageUnits *int32
 
+	// The consumed storage unit size in bytes for the creator resource.
+	ConsumedStorageUnitSizeInBytes *int32
+
+	// The total allocated storage unit size in bytes for the creator resource.
+	TotalStorageUnitSizeInBytes *int32
+
 	// READ-ONLY; The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled
 	ProvisioningState *string
 }
@@ -328,6 +340,12 @@ type LinkedResource struct {
 
 	// REQUIRED; A provided name which uniquely identifies the linked resource.
 	UniqueName *string
+}
+
+// LocationsItem - Data processing location.
+type LocationsItem struct {
+	// REQUIRED; The location name.
+	LocationName *string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)

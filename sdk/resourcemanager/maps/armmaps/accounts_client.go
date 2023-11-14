@@ -32,7 +32,7 @@ type AccountsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AccountsClient, error) {
-	cl, err := arm.NewClient(moduleName+".AccountsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,13 +46,17 @@ func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential,
 // CreateOrUpdate - Create or update a Maps Account. A Maps Account holds the keys which allow access to the Maps REST APIs.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - mapsAccount - The new or updated parameters for the Maps Account.
 //   - options - AccountsClientCreateOrUpdateOptions contains the optional parameters for the AccountsClient.CreateOrUpdate method.
 func (client *AccountsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, mapsAccount Account, options *AccountsClientCreateOrUpdateOptions) (AccountsClientCreateOrUpdateResponse, error) {
 	var err error
+	const operationName = "AccountsClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, accountName, mapsAccount, options)
 	if err != nil {
 		return AccountsClientCreateOrUpdateResponse{}, err
@@ -89,7 +93,7 @@ func (client *AccountsClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, mapsAccount); err != nil {
@@ -110,12 +114,16 @@ func (client *AccountsClient) createOrUpdateHandleResponse(resp *http.Response) 
 // Delete - Delete a Maps Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - options - AccountsClientDeleteOptions contains the optional parameters for the AccountsClient.Delete method.
 func (client *AccountsClient) Delete(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientDeleteOptions) (AccountsClientDeleteResponse, error) {
 	var err error
+	const operationName = "AccountsClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
 		return AccountsClientDeleteResponse{}, err
@@ -151,7 +159,7 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -160,12 +168,16 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Get a Maps Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - options - AccountsClientGetOptions contains the optional parameters for the AccountsClient.Get method.
 func (client *AccountsClient) Get(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientGetOptions) (AccountsClientGetResponse, error) {
 	var err error
+	const operationName = "AccountsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
 		return AccountsClientGetResponse{}, err
@@ -202,7 +214,7 @@ func (client *AccountsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -219,7 +231,7 @@ func (client *AccountsClient) getHandleResponse(resp *http.Response) (AccountsCl
 
 // NewListByResourceGroupPager - Get all Maps Accounts in a Resource Group
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.NewListByResourceGroupPager
 //     method.
@@ -229,25 +241,20 @@ func (client *AccountsClient) NewListByResourceGroupPager(resourceGroupName stri
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *AccountsClientListByResourceGroupResponse) (AccountsClientListByResourceGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AccountsClient.NewListByResourceGroupPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return AccountsClientListByResourceGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return AccountsClientListByResourceGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return AccountsClientListByResourceGroupResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByResourceGroupHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -267,7 +274,7 @@ func (client *AccountsClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +291,7 @@ func (client *AccountsClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - Get all Maps Accounts in a Subscription
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - options - AccountsClientListBySubscriptionOptions contains the optional parameters for the AccountsClient.NewListBySubscriptionPager
 //     method.
 func (client *AccountsClient) NewListBySubscriptionPager(options *AccountsClientListBySubscriptionOptions) *runtime.Pager[AccountsClientListBySubscriptionResponse] {
@@ -293,25 +300,20 @@ func (client *AccountsClient) NewListBySubscriptionPager(options *AccountsClient
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *AccountsClientListBySubscriptionResponse) (AccountsClientListBySubscriptionResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listBySubscriptionCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AccountsClient.NewListBySubscriptionPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listBySubscriptionCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return AccountsClientListBySubscriptionResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return AccountsClientListBySubscriptionResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return AccountsClientListBySubscriptionResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listBySubscriptionHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -327,7 +329,7 @@ func (client *AccountsClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -346,12 +348,16 @@ func (client *AccountsClient) listBySubscriptionHandleResponse(resp *http.Respon
 // APIs. Only one key is needed at a time; two are given to provide seamless key regeneration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - options - AccountsClientListKeysOptions contains the optional parameters for the AccountsClient.ListKeys method.
 func (client *AccountsClient) ListKeys(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientListKeysOptions) (AccountsClientListKeysResponse, error) {
 	var err error
+	const operationName = "AccountsClient.ListKeys"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listKeysCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
 		return AccountsClientListKeysResponse{}, err
@@ -388,7 +394,7 @@ func (client *AccountsClient) listKeysCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -410,13 +416,17 @@ func (client *AccountsClient) listKeysHandleResponse(resp *http.Response) (Accou
 // 2. Create or update an Azure Map account with the same Azure region as the User Assigned Managed Identity is placed.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - mapsAccountSasParameters - The updated parameters for the Maps Account.
 //   - options - AccountsClientListSasOptions contains the optional parameters for the AccountsClient.ListSas method.
 func (client *AccountsClient) ListSas(ctx context.Context, resourceGroupName string, accountName string, mapsAccountSasParameters AccountSasParameters, options *AccountsClientListSasOptions) (AccountsClientListSasResponse, error) {
 	var err error
+	const operationName = "AccountsClient.ListSas"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listSasCreateRequest(ctx, resourceGroupName, accountName, mapsAccountSasParameters, options)
 	if err != nil {
 		return AccountsClientListSasResponse{}, err
@@ -453,7 +463,7 @@ func (client *AccountsClient) listSasCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, mapsAccountSasParameters); err != nil {
@@ -475,13 +485,17 @@ func (client *AccountsClient) listSasHandleResponse(resp *http.Response) (Accoun
 // immediately.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - keySpecification - Which key to regenerate: primary or secondary.
 //   - options - AccountsClientRegenerateKeysOptions contains the optional parameters for the AccountsClient.RegenerateKeys method.
 func (client *AccountsClient) RegenerateKeys(ctx context.Context, resourceGroupName string, accountName string, keySpecification KeySpecification, options *AccountsClientRegenerateKeysOptions) (AccountsClientRegenerateKeysResponse, error) {
 	var err error
+	const operationName = "AccountsClient.RegenerateKeys"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.regenerateKeysCreateRequest(ctx, resourceGroupName, accountName, keySpecification, options)
 	if err != nil {
 		return AccountsClientRegenerateKeysResponse{}, err
@@ -518,7 +532,7 @@ func (client *AccountsClient) regenerateKeysCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, keySpecification); err != nil {
@@ -539,13 +553,17 @@ func (client *AccountsClient) regenerateKeysHandleResponse(resp *http.Response) 
 // Update - Updates a Maps Account. Only a subset of the parameters may be updated after creation, such as Sku, Tags, Properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the Maps Account.
 //   - mapsAccountUpdateParameters - The updated parameters for the Maps Account.
 //   - options - AccountsClientUpdateOptions contains the optional parameters for the AccountsClient.Update method.
 func (client *AccountsClient) Update(ctx context.Context, resourceGroupName string, accountName string, mapsAccountUpdateParameters AccountUpdateParameters, options *AccountsClientUpdateOptions) (AccountsClientUpdateResponse, error) {
 	var err error
+	const operationName = "AccountsClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, mapsAccountUpdateParameters, options)
 	if err != nil {
 		return AccountsClientUpdateResponse{}, err
@@ -582,7 +600,7 @@ func (client *AccountsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, mapsAccountUpdateParameters); err != nil {
