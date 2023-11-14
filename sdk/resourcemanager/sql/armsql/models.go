@@ -2983,10 +2983,22 @@ type InstancePoolProperties struct {
 
 	// REQUIRED; Count of vCores belonging to this instance pool.
 	VCores *int32
+
+	// Specifies maintenance configuration id to apply to this managed instance.
+	MaintenanceConfigurationID *string
+
+	// READ-ONLY; The Dns Zone that the managed instance pool is in.
+	DNSZone *string
 }
 
 // InstancePoolUpdate - An update to an Instance pool.
 type InstancePoolUpdate struct {
+	// Resource properties.
+	Properties *InstancePoolProperties
+
+	// The name and tier of the SKU.
+	SKU *SKU
+
 	// Resource tags.
 	Tags map[string]*string
 }
@@ -3190,6 +3202,39 @@ type JobListResult struct {
 
 	// READ-ONLY; Array of results.
 	Value []*Job
+}
+
+// JobPrivateEndpoint - A job agent private endpoint.
+type JobPrivateEndpoint struct {
+	// Resource properties.
+	Properties *JobPrivateEndpointProperties
+
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// JobPrivateEndpointListResult - A list of job agent private endpoints.
+type JobPrivateEndpointListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of results.
+	Value []*JobPrivateEndpoint
+}
+
+// JobPrivateEndpointProperties - Properties of job agent private endpoint.
+type JobPrivateEndpointProperties struct {
+	// REQUIRED; ARM resource id of the server the private endpoint will target.
+	TargetServerAzureResourceID *string
+
+	// READ-ONLY; Private endpoint id of the private endpoint.
+	PrivateEndpointID *string
 }
 
 // JobProperties - Properties of a job.
