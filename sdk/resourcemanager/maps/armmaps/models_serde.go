@@ -124,6 +124,7 @@ func (a AccountProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disableLocalAuth", a.DisableLocalAuth)
 	populate(objectMap, "encryption", a.Encryption)
 	populate(objectMap, "linkedResources", a.LinkedResources)
+	populate(objectMap, "locations", a.Locations)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "uniqueId", a.UniqueID)
 	return json.Marshal(objectMap)
@@ -149,6 +150,9 @@ func (a *AccountProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "linkedResources":
 			err = unpopulate(val, "LinkedResources", &a.LinkedResources)
+			delete(rawMsg, key)
+		case "locations":
+			err = unpopulate(val, "Locations", &a.Locations)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
@@ -451,8 +455,10 @@ func (c *CreatorList) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CreatorProperties.
 func (c CreatorProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "consumedStorageUnitSizeInBytes", c.ConsumedStorageUnitSizeInBytes)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "storageUnits", c.StorageUnits)
+	populate(objectMap, "totalStorageUnitSizeInBytes", c.TotalStorageUnitSizeInBytes)
 	return json.Marshal(objectMap)
 }
 
@@ -465,11 +471,17 @@ func (c *CreatorProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "consumedStorageUnitSizeInBytes":
+			err = unpopulate(val, "ConsumedStorageUnitSizeInBytes", &c.ConsumedStorageUnitSizeInBytes)
+			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
 			delete(rawMsg, key)
 		case "storageUnits":
 			err = unpopulate(val, "StorageUnits", &c.StorageUnits)
+			delete(rawMsg, key)
+		case "totalStorageUnitSizeInBytes":
+			err = unpopulate(val, "TotalStorageUnitSizeInBytes", &c.TotalStorageUnitSizeInBytes)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -804,6 +816,33 @@ func (l *LinkedResource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "uniqueName":
 			err = unpopulate(val, "UniqueName", &l.UniqueName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LocationsItem.
+func (l LocationsItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "locationName", l.LocationName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LocationsItem.
+func (l *LocationsItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "locationName":
+			err = unpopulate(val, "LocationName", &l.LocationName)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1167,10 +1206,10 @@ func (s *ServiceSpecification) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SystemData.
 func (s SystemData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateTimeRFC3339(objectMap, "createdAt", s.CreatedAt)
+	populateDateTimeRFC3339(objectMap, "createdAt", s.CreatedAt)
 	populate(objectMap, "createdBy", s.CreatedBy)
 	populate(objectMap, "createdByType", s.CreatedByType)
-	populateTimeRFC3339(objectMap, "lastModifiedAt", s.LastModifiedAt)
+	populateDateTimeRFC3339(objectMap, "lastModifiedAt", s.LastModifiedAt)
 	populate(objectMap, "lastModifiedBy", s.LastModifiedBy)
 	populate(objectMap, "lastModifiedByType", s.LastModifiedByType)
 	return json.Marshal(objectMap)
@@ -1186,7 +1225,7 @@ func (s *SystemData) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "createdAt":
-			err = unpopulateTimeRFC3339(val, "CreatedAt", &s.CreatedAt)
+			err = unpopulateDateTimeRFC3339(val, "CreatedAt", &s.CreatedAt)
 			delete(rawMsg, key)
 		case "createdBy":
 			err = unpopulate(val, "CreatedBy", &s.CreatedBy)
@@ -1195,7 +1234,7 @@ func (s *SystemData) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "CreatedByType", &s.CreatedByType)
 			delete(rawMsg, key)
 		case "lastModifiedAt":
-			err = unpopulateTimeRFC3339(val, "LastModifiedAt", &s.LastModifiedAt)
+			err = unpopulateDateTimeRFC3339(val, "LastModifiedAt", &s.LastModifiedAt)
 			delete(rawMsg, key)
 		case "lastModifiedBy":
 			err = unpopulate(val, "LastModifiedBy", &s.LastModifiedBy)

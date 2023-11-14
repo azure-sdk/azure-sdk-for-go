@@ -32,7 +32,7 @@ type Client struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
-	cl, err := arm.NewClient(moduleName+".Client", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 
 // NewListOperationsPager - List operations available for the Maps Resource Provider
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - options - ClientListOperationsOptions contains the optional parameters for the Client.NewListOperationsPager method.
 func (client *Client) NewListOperationsPager(options *ClientListOperationsOptions) *runtime.Pager[ClientListOperationsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClientListOperationsResponse]{
@@ -53,25 +53,20 @@ func (client *Client) NewListOperationsPager(options *ClientListOperationsOption
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ClientListOperationsResponse) (ClientListOperationsResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listOperationsCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "Client.NewListOperationsPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listOperationsCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return ClientListOperationsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ClientListOperationsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ClientListOperationsResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listOperationsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -83,7 +78,7 @@ func (client *Client) listOperationsCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -100,7 +95,7 @@ func (client *Client) listOperationsHandleResponse(resp *http.Response) (ClientL
 
 // NewListSubscriptionOperationsPager - List operations available for the Maps Resource Provider
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-12-01-preview
 //   - options - ClientListSubscriptionOperationsOptions contains the optional parameters for the Client.NewListSubscriptionOperationsPager
 //     method.
 func (client *Client) NewListSubscriptionOperationsPager(options *ClientListSubscriptionOperationsOptions) *runtime.Pager[ClientListSubscriptionOperationsResponse] {
@@ -109,25 +104,20 @@ func (client *Client) NewListSubscriptionOperationsPager(options *ClientListSubs
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ClientListSubscriptionOperationsResponse) (ClientListSubscriptionOperationsResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listSubscriptionOperationsCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "Client.NewListSubscriptionOperationsPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listSubscriptionOperationsCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return ClientListSubscriptionOperationsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ClientListSubscriptionOperationsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ClientListSubscriptionOperationsResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listSubscriptionOperationsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -143,7 +133,7 @@ func (client *Client) listSubscriptionOperationsCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
