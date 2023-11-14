@@ -1,5 +1,38 @@
 # Release History
 
+## 2.0.0-beta.3 (2023-11-14)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New enum type `BackupStorageAccessTier` with values `BackupStorageAccessTierArchive`, `BackupStorageAccessTierHot`
+- New function `*ClientFactory.NewJobPrivateEndpointsClient() *JobPrivateEndpointsClient`
+- New function `NewJobPrivateEndpointsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobPrivateEndpointsClient, error)`
+- New function `*JobPrivateEndpointsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, JobPrivateEndpoint, *JobPrivateEndpointsClientBeginCreateOrUpdateOptions) (*runtime.Poller[JobPrivateEndpointsClientCreateOrUpdateResponse], error)`
+- New function `*JobPrivateEndpointsClient.BeginDelete(context.Context, string, string, string, string, *JobPrivateEndpointsClientBeginDeleteOptions) (*runtime.Poller[JobPrivateEndpointsClientDeleteResponse], error)`
+- New function `*JobPrivateEndpointsClient.Get(context.Context, string, string, string, string, *JobPrivateEndpointsClientGetOptions) (JobPrivateEndpointsClientGetResponse, error)`
+- New function `*JobPrivateEndpointsClient.NewListByAgentPager(string, string, string, *JobPrivateEndpointsClientListByAgentOptions) *runtime.Pager[JobPrivateEndpointsClientListByAgentResponse]`
+- New function `*LongTermRetentionBackupsClient.BeginChangeAccessTier(context.Context, string, string, string, string, ChangeLongTermRetentionBackupAccessTierParameters, *LongTermRetentionBackupsClientBeginChangeAccessTierOptions) (*runtime.Poller[LongTermRetentionBackupsClientChangeAccessTierResponse], error)`
+- New function `*LongTermRetentionBackupsClient.BeginChangeAccessTierByResourceGroup(context.Context, string, string, string, string, string, ChangeLongTermRetentionBackupAccessTierParameters, *LongTermRetentionBackupsClientBeginChangeAccessTierByResourceGroupOptions) (*runtime.Poller[LongTermRetentionBackupsClientChangeAccessTierByResourceGroupResponse], error)`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `ChangeLongTermRetentionBackupAccessTierParameters`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `JobPrivateEndpoint`
+- New struct `JobPrivateEndpointListResult`
+- New struct `JobPrivateEndpointProperties`
+- New field `DNSZone`, `MaintenanceConfigurationID` in struct `InstancePoolProperties`
+- New field `Properties`, `SKU` in struct `InstancePoolUpdate`
+- New field `BackupStorageAccessTier`, `IsBackupImmutable` in struct `LongTermRetentionBackupProperties`
+
+
 ## 2.0.0-beta.2 (2023-09-22)
 ### Features Added
 
