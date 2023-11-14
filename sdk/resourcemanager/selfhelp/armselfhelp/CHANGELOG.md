@@ -1,5 +1,23 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-11-14)
+### Breaking Changes
+
+- Type of `StepInput.QuestionType` has been changed from `*string` to `*QuestionType`
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New value `DiagnosticProvisioningStateRunning` added to enum type `DiagnosticProvisioningState`
+- New value `SolutionProvisioningStatePartialComplete`, `SolutionProvisioningStateRunning` added to enum type `SolutionProvisioningState`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New field `SystemData` in struct `SolutionResource`
+
+
 ## 2.0.0-beta.1 (2023-10-27)
 ### Breaking Changes
 
