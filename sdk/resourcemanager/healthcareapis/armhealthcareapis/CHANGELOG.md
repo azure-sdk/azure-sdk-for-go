@@ -1,5 +1,32 @@
 # Release History
 
+## 2.0.0 (2023-11-14)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+- Struct `FhirServiceAccessPolicyEntry` has been removed
+- Field `AccessPolicies` of struct `FhirServiceProperties` has been removed
+
+### Features Added
+
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `CorsConfiguration`
+- New struct `Encryption`
+- New struct `EncryptionCustomerManagedKeyEncryption`
+- New struct `FhirServiceImportConfiguration`
+- New struct `ImplementationGuidesConfiguration`
+- New struct `ServiceImportConfigurationInfo`
+- New field `CorsConfiguration`, `Encryption`, `EventState` in struct `DicomServiceProperties`
+- New field `Encryption`, `ImplementationGuidesConfiguration`, `ImportConfiguration` in struct `FhirServiceProperties`
+- New field `EnableRegionalMdmAccount`, `IsInternal`, `MetricFilterPattern`, `ResourceIDDimensionNameOverride`, `SourceMdmAccount` in struct `MetricSpecification`
+- New field `CrossTenantCmkApplicationID` in struct `ServiceCosmosDbConfigurationInfo`
+- New field `ImportConfiguration` in struct `ServicesProperties`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
