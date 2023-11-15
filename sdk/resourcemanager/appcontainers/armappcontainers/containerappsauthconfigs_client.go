@@ -28,11 +28,11 @@ type ContainerAppsAuthConfigsClient struct {
 }
 
 // NewContainerAppsAuthConfigsClient creates a new instance of ContainerAppsAuthConfigsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContainerAppsAuthConfigsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainerAppsAuthConfigsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ContainerAppsAuthConfigsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewContainerAppsAuthConfigsClient(subscriptionID string, credential azcore.
 // CreateOrUpdate - Create or update the AuthConfig for a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-11-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - authConfigName - Name of the Container App AuthConfig.
@@ -55,6 +55,10 @@ func NewContainerAppsAuthConfigsClient(subscriptionID string, credential azcore.
 //     method.
 func (client *ContainerAppsAuthConfigsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, containerAppName string, authConfigName string, authConfigEnvelope AuthConfig, options *ContainerAppsAuthConfigsClientCreateOrUpdateOptions) (ContainerAppsAuthConfigsClientCreateOrUpdateResponse, error) {
 	var err error
+	const operationName = "ContainerAppsAuthConfigsClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, containerAppName, authConfigName, authConfigEnvelope, options)
 	if err != nil {
 		return ContainerAppsAuthConfigsClientCreateOrUpdateResponse{}, err
@@ -95,7 +99,7 @@ func (client *ContainerAppsAuthConfigsClient) createOrUpdateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-11-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, authConfigEnvelope); err != nil {
@@ -116,7 +120,7 @@ func (client *ContainerAppsAuthConfigsClient) createOrUpdateHandleResponse(resp 
 // Delete - Delete a Container App AuthConfig.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-11-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - authConfigName - Name of the Container App AuthConfig.
@@ -124,6 +128,10 @@ func (client *ContainerAppsAuthConfigsClient) createOrUpdateHandleResponse(resp 
 //     method.
 func (client *ContainerAppsAuthConfigsClient) Delete(ctx context.Context, resourceGroupName string, containerAppName string, authConfigName string, options *ContainerAppsAuthConfigsClientDeleteOptions) (ContainerAppsAuthConfigsClientDeleteResponse, error) {
 	var err error
+	const operationName = "ContainerAppsAuthConfigsClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, containerAppName, authConfigName, options)
 	if err != nil {
 		return ContainerAppsAuthConfigsClientDeleteResponse{}, err
@@ -163,7 +171,7 @@ func (client *ContainerAppsAuthConfigsClient) deleteCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-11-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +180,7 @@ func (client *ContainerAppsAuthConfigsClient) deleteCreateRequest(ctx context.Co
 // Get - Get a AuthConfig of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-11-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - authConfigName - Name of the Container App AuthConfig.
@@ -180,6 +188,10 @@ func (client *ContainerAppsAuthConfigsClient) deleteCreateRequest(ctx context.Co
 //     method.
 func (client *ContainerAppsAuthConfigsClient) Get(ctx context.Context, resourceGroupName string, containerAppName string, authConfigName string, options *ContainerAppsAuthConfigsClientGetOptions) (ContainerAppsAuthConfigsClientGetResponse, error) {
 	var err error
+	const operationName = "ContainerAppsAuthConfigsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, containerAppName, authConfigName, options)
 	if err != nil {
 		return ContainerAppsAuthConfigsClientGetResponse{}, err
@@ -220,7 +232,7 @@ func (client *ContainerAppsAuthConfigsClient) getCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-11-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -237,7 +249,7 @@ func (client *ContainerAppsAuthConfigsClient) getHandleResponse(resp *http.Respo
 
 // NewListByContainerAppPager - Get the Container App AuthConfigs in a given resource group.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-11-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - options - ContainerAppsAuthConfigsClientListByContainerAppOptions contains the optional parameters for the ContainerAppsAuthConfigsClient.NewListByContainerAppPager
@@ -248,25 +260,20 @@ func (client *ContainerAppsAuthConfigsClient) NewListByContainerAppPager(resourc
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ContainerAppsAuthConfigsClientListByContainerAppResponse) (ContainerAppsAuthConfigsClientListByContainerAppResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByContainerAppCreateRequest(ctx, resourceGroupName, containerAppName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ContainerAppsAuthConfigsClient.NewListByContainerAppPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByContainerAppCreateRequest(ctx, resourceGroupName, containerAppName, options)
+			}, nil)
 			if err != nil {
 				return ContainerAppsAuthConfigsClientListByContainerAppResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ContainerAppsAuthConfigsClientListByContainerAppResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ContainerAppsAuthConfigsClientListByContainerAppResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByContainerAppHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -290,7 +297,7 @@ func (client *ContainerAppsAuthConfigsClient) listByContainerAppCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-11-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

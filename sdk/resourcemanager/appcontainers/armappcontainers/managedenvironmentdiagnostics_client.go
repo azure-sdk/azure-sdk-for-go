@@ -28,11 +28,11 @@ type ManagedEnvironmentDiagnosticsClient struct {
 }
 
 // NewManagedEnvironmentDiagnosticsClient creates a new instance of ManagedEnvironmentDiagnosticsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagedEnvironmentDiagnosticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentDiagnosticsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ManagedEnvironmentDiagnosticsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewManagedEnvironmentDiagnosticsClient(subscriptionID string, credential az
 // GetDetector - Get the diagnostics data for a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-11-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - detectorName - Name of the Managed Environment detector.
@@ -54,6 +54,10 @@ func NewManagedEnvironmentDiagnosticsClient(subscriptionID string, credential az
 //     method.
 func (client *ManagedEnvironmentDiagnosticsClient) GetDetector(ctx context.Context, resourceGroupName string, environmentName string, detectorName string, options *ManagedEnvironmentDiagnosticsClientGetDetectorOptions) (ManagedEnvironmentDiagnosticsClientGetDetectorResponse, error) {
 	var err error
+	const operationName = "ManagedEnvironmentDiagnosticsClient.GetDetector"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getDetectorCreateRequest(ctx, resourceGroupName, environmentName, detectorName, options)
 	if err != nil {
 		return ManagedEnvironmentDiagnosticsClientGetDetectorResponse{}, err
@@ -94,7 +98,7 @@ func (client *ManagedEnvironmentDiagnosticsClient) getDetectorCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-11-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -112,13 +116,17 @@ func (client *ManagedEnvironmentDiagnosticsClient) getDetectorHandleResponse(res
 // ListDetectors - Get the list of diagnostics for a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-11-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentDiagnosticsClientListDetectorsOptions contains the optional parameters for the ManagedEnvironmentDiagnosticsClient.ListDetectors
 //     method.
 func (client *ManagedEnvironmentDiagnosticsClient) ListDetectors(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentDiagnosticsClientListDetectorsOptions) (ManagedEnvironmentDiagnosticsClientListDetectorsResponse, error) {
 	var err error
+	const operationName = "ManagedEnvironmentDiagnosticsClient.ListDetectors"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listDetectorsCreateRequest(ctx, resourceGroupName, environmentName, options)
 	if err != nil {
 		return ManagedEnvironmentDiagnosticsClientListDetectorsResponse{}, err
@@ -155,7 +163,7 @@ func (client *ManagedEnvironmentDiagnosticsClient) listDetectorsCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-11-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
