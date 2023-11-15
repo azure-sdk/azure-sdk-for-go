@@ -32,7 +32,7 @@ type MetricsConfigurationsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewMetricsConfigurationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MetricsConfigurationsClient, error) {
-	cl, err := arm.NewClient(moduleName+".MetricsConfigurationsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewMetricsConfigurationsClient(subscriptionID string, credential azcore.Tok
 // BeginCreateOrUpdate - Create new or update the existing metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -61,19 +61,26 @@ func (client *MetricsConfigurationsClient) BeginCreateOrUpdate(ctx context.Conte
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MetricsConfigurationsClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[MetricsConfigurationsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[MetricsConfigurationsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // CreateOrUpdate - Create new or update the existing metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *MetricsConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, metricsConfigurationParameters ClusterMetricsConfiguration, options *MetricsConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "MetricsConfigurationsClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterName, metricsConfigurationName, metricsConfigurationParameters, options)
 	if err != nil {
 		return nil, err
@@ -92,6 +99,9 @@ func (client *MetricsConfigurationsClient) createOrUpdate(ctx context.Context, r
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *MetricsConfigurationsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, metricsConfigurationParameters ClusterMetricsConfiguration, options *MetricsConfigurationsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/metricsConfigurations/{metricsConfigurationName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -110,7 +120,7 @@ func (client *MetricsConfigurationsClient) createOrUpdateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, metricsConfigurationParameters); err != nil {
@@ -122,7 +132,7 @@ func (client *MetricsConfigurationsClient) createOrUpdateCreateRequest(ctx conte
 // BeginDelete - Delete the metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -136,19 +146,26 @@ func (client *MetricsConfigurationsClient) BeginDelete(ctx context.Context, reso
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MetricsConfigurationsClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[MetricsConfigurationsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[MetricsConfigurationsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Delete - Delete the metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *MetricsConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, options *MetricsConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "MetricsConfigurationsClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, metricsConfigurationName, options)
 	if err != nil {
 		return nil, err
@@ -167,6 +184,9 @@ func (client *MetricsConfigurationsClient) deleteOperation(ctx context.Context, 
 // deleteCreateRequest creates the Delete request.
 func (client *MetricsConfigurationsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, options *MetricsConfigurationsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/metricsConfigurations/{metricsConfigurationName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -185,7 +205,7 @@ func (client *MetricsConfigurationsClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +214,7 @@ func (client *MetricsConfigurationsClient) deleteCreateRequest(ctx context.Conte
 // Get - Get metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -202,6 +222,10 @@ func (client *MetricsConfigurationsClient) deleteCreateRequest(ctx context.Conte
 //     method.
 func (client *MetricsConfigurationsClient) Get(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, options *MetricsConfigurationsClientGetOptions) (MetricsConfigurationsClientGetResponse, error) {
 	var err error
+	const operationName = "MetricsConfigurationsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, metricsConfigurationName, options)
 	if err != nil {
 		return MetricsConfigurationsClientGetResponse{}, err
@@ -221,6 +245,9 @@ func (client *MetricsConfigurationsClient) Get(ctx context.Context, resourceGrou
 // getCreateRequest creates the Get request.
 func (client *MetricsConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, options *MetricsConfigurationsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/metricsConfigurations/{metricsConfigurationName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -239,7 +266,7 @@ func (client *MetricsConfigurationsClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -256,7 +283,7 @@ func (client *MetricsConfigurationsClient) getHandleResponse(resp *http.Response
 
 // NewListByClusterPager - Get a list of metrics configurations for the provided cluster.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - MetricsConfigurationsClientListByClusterOptions contains the optional parameters for the MetricsConfigurationsClient.NewListByClusterPager
@@ -267,31 +294,29 @@ func (client *MetricsConfigurationsClient) NewListByClusterPager(resourceGroupNa
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *MetricsConfigurationsClientListByClusterResponse) (MetricsConfigurationsClientListByClusterResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "MetricsConfigurationsClient.NewListByClusterPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
+			}, nil)
 			if err != nil {
 				return MetricsConfigurationsClientListByClusterResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return MetricsConfigurationsClientListByClusterResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return MetricsConfigurationsClientListByClusterResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByClusterHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listByClusterCreateRequest creates the ListByCluster request.
 func (client *MetricsConfigurationsClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *MetricsConfigurationsClientListByClusterOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/metricsConfigurations"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -306,7 +331,7 @@ func (client *MetricsConfigurationsClient) listByClusterCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -325,7 +350,7 @@ func (client *MetricsConfigurationsClient) listByClusterHandleResponse(resp *htt
 // Properties and tag updates can be done independently.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -340,10 +365,13 @@ func (client *MetricsConfigurationsClient) BeginUpdate(ctx context.Context, reso
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MetricsConfigurationsClientUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[MetricsConfigurationsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[MetricsConfigurationsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -351,9 +379,13 @@ func (client *MetricsConfigurationsClient) BeginUpdate(ctx context.Context, reso
 // and tag updates can be done independently.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *MetricsConfigurationsClient) update(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, metricsConfigurationUpdateParameters ClusterMetricsConfigurationPatchParameters, options *MetricsConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "MetricsConfigurationsClient.BeginUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, metricsConfigurationName, metricsConfigurationUpdateParameters, options)
 	if err != nil {
 		return nil, err
@@ -372,6 +404,9 @@ func (client *MetricsConfigurationsClient) update(ctx context.Context, resourceG
 // updateCreateRequest creates the Update request.
 func (client *MetricsConfigurationsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, metricsConfigurationUpdateParameters ClusterMetricsConfigurationPatchParameters, options *MetricsConfigurationsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/metricsConfigurations/{metricsConfigurationName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -390,7 +425,7 @@ func (client *MetricsConfigurationsClient) updateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, metricsConfigurationUpdateParameters); err != nil {

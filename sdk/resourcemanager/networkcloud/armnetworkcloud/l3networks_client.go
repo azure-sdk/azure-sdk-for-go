@@ -32,7 +32,7 @@ type L3NetworksClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewL3NetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*L3NetworksClient, error) {
-	cl, err := arm.NewClient(moduleName+".L3NetworksClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewL3NetworksClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Create a new layer 3 (L3) network or update the properties of the existing network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l3NetworkName - The name of the L3 network.
 //   - l3NetworkParameters - The request body.
@@ -60,19 +60,26 @@ func (client *L3NetworksClient) BeginCreateOrUpdate(ctx context.Context, resourc
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L3NetworksClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[L3NetworksClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[L3NetworksClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // CreateOrUpdate - Create a new layer 3 (L3) network or update the properties of the existing network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *L3NetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, l3NetworkName string, l3NetworkParameters L3Network, options *L3NetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "L3NetworksClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, l3NetworkName, l3NetworkParameters, options)
 	if err != nil {
 		return nil, err
@@ -91,6 +98,9 @@ func (client *L3NetworksClient) createOrUpdate(ctx context.Context, resourceGrou
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *L3NetworksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, l3NetworkName string, l3NetworkParameters L3Network, options *L3NetworksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l3Networks/{l3NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -105,7 +115,7 @@ func (client *L3NetworksClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, l3NetworkParameters); err != nil {
@@ -117,7 +127,7 @@ func (client *L3NetworksClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Delete the provided layer 3 (L3) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l3NetworkName - The name of the L3 network.
 //   - options - L3NetworksClientBeginDeleteOptions contains the optional parameters for the L3NetworksClient.BeginDelete method.
@@ -129,19 +139,26 @@ func (client *L3NetworksClient) BeginDelete(ctx context.Context, resourceGroupNa
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L3NetworksClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[L3NetworksClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[L3NetworksClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Delete - Delete the provided layer 3 (L3) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *L3NetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, l3NetworkName string, options *L3NetworksClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "L3NetworksClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, l3NetworkName, options)
 	if err != nil {
 		return nil, err
@@ -160,6 +177,9 @@ func (client *L3NetworksClient) deleteOperation(ctx context.Context, resourceGro
 // deleteCreateRequest creates the Delete request.
 func (client *L3NetworksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, l3NetworkName string, options *L3NetworksClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l3Networks/{l3NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -174,7 +194,7 @@ func (client *L3NetworksClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,12 +203,16 @@ func (client *L3NetworksClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Get properties of the provided layer 3 (L3) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l3NetworkName - The name of the L3 network.
 //   - options - L3NetworksClientGetOptions contains the optional parameters for the L3NetworksClient.Get method.
 func (client *L3NetworksClient) Get(ctx context.Context, resourceGroupName string, l3NetworkName string, options *L3NetworksClientGetOptions) (L3NetworksClientGetResponse, error) {
 	var err error
+	const operationName = "L3NetworksClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, l3NetworkName, options)
 	if err != nil {
 		return L3NetworksClientGetResponse{}, err
@@ -208,6 +232,9 @@ func (client *L3NetworksClient) Get(ctx context.Context, resourceGroupName strin
 // getCreateRequest creates the Get request.
 func (client *L3NetworksClient) getCreateRequest(ctx context.Context, resourceGroupName string, l3NetworkName string, options *L3NetworksClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l3Networks/{l3NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -222,7 +249,7 @@ func (client *L3NetworksClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +266,7 @@ func (client *L3NetworksClient) getHandleResponse(resp *http.Response) (L3Networ
 
 // NewListByResourceGroupPager - Get a list of layer 3 (L3) networks in the provided resource group.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - L3NetworksClientListByResourceGroupOptions contains the optional parameters for the L3NetworksClient.NewListByResourceGroupPager
 //     method.
@@ -249,31 +276,29 @@ func (client *L3NetworksClient) NewListByResourceGroupPager(resourceGroupName st
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *L3NetworksClientListByResourceGroupResponse) (L3NetworksClientListByResourceGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "L3NetworksClient.NewListByResourceGroupPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return L3NetworksClientListByResourceGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return L3NetworksClientListByResourceGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return L3NetworksClientListByResourceGroupResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByResourceGroupHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *L3NetworksClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *L3NetworksClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l3Networks"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -284,7 +309,7 @@ func (client *L3NetworksClient) listByResourceGroupCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -301,7 +326,7 @@ func (client *L3NetworksClient) listByResourceGroupHandleResponse(resp *http.Res
 
 // NewListBySubscriptionPager - Get a list of layer 3 (L3) networks in the provided subscription.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - options - L3NetworksClientListBySubscriptionOptions contains the optional parameters for the L3NetworksClient.NewListBySubscriptionPager
 //     method.
 func (client *L3NetworksClient) NewListBySubscriptionPager(options *L3NetworksClientListBySubscriptionOptions) *runtime.Pager[L3NetworksClientListBySubscriptionResponse] {
@@ -310,38 +335,36 @@ func (client *L3NetworksClient) NewListBySubscriptionPager(options *L3NetworksCl
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *L3NetworksClientListBySubscriptionResponse) (L3NetworksClientListBySubscriptionResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listBySubscriptionCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "L3NetworksClient.NewListBySubscriptionPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listBySubscriptionCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return L3NetworksClientListBySubscriptionResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return L3NetworksClientListBySubscriptionResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return L3NetworksClientListBySubscriptionResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listBySubscriptionHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
 func (client *L3NetworksClient) listBySubscriptionCreateRequest(ctx context.Context, options *L3NetworksClientListBySubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/l3Networks"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -359,13 +382,17 @@ func (client *L3NetworksClient) listBySubscriptionHandleResponse(resp *http.Resp
 // Update - Update tags associated with the provided layer 3 (L3) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l3NetworkName - The name of the L3 network.
 //   - l3NetworkUpdateParameters - The request body.
 //   - options - L3NetworksClientUpdateOptions contains the optional parameters for the L3NetworksClient.Update method.
 func (client *L3NetworksClient) Update(ctx context.Context, resourceGroupName string, l3NetworkName string, l3NetworkUpdateParameters L3NetworkPatchParameters, options *L3NetworksClientUpdateOptions) (L3NetworksClientUpdateResponse, error) {
 	var err error
+	const operationName = "L3NetworksClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, l3NetworkName, l3NetworkUpdateParameters, options)
 	if err != nil {
 		return L3NetworksClientUpdateResponse{}, err
@@ -385,6 +412,9 @@ func (client *L3NetworksClient) Update(ctx context.Context, resourceGroupName st
 // updateCreateRequest creates the Update request.
 func (client *L3NetworksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, l3NetworkName string, l3NetworkUpdateParameters L3NetworkPatchParameters, options *L3NetworksClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l3Networks/{l3NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -399,7 +429,7 @@ func (client *L3NetworksClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, l3NetworkUpdateParameters); err != nil {

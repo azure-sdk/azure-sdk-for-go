@@ -32,7 +32,7 @@ type L2NetworksClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewL2NetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*L2NetworksClient, error) {
-	cl, err := arm.NewClient(moduleName+".L2NetworksClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewL2NetworksClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Create a new layer 2 (L2) network or update the properties of the existing network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l2NetworkName - The name of the L2 network.
 //   - l2NetworkParameters - The request body.
@@ -60,19 +60,26 @@ func (client *L2NetworksClient) BeginCreateOrUpdate(ctx context.Context, resourc
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L2NetworksClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[L2NetworksClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[L2NetworksClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // CreateOrUpdate - Create a new layer 2 (L2) network or update the properties of the existing network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *L2NetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, l2NetworkName string, l2NetworkParameters L2Network, options *L2NetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "L2NetworksClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, l2NetworkName, l2NetworkParameters, options)
 	if err != nil {
 		return nil, err
@@ -91,6 +98,9 @@ func (client *L2NetworksClient) createOrUpdate(ctx context.Context, resourceGrou
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *L2NetworksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, l2NetworkName string, l2NetworkParameters L2Network, options *L2NetworksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l2Networks/{l2NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -105,7 +115,7 @@ func (client *L2NetworksClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, l2NetworkParameters); err != nil {
@@ -117,7 +127,7 @@ func (client *L2NetworksClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Delete the provided layer 2 (L2) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l2NetworkName - The name of the L2 network.
 //   - options - L2NetworksClientBeginDeleteOptions contains the optional parameters for the L2NetworksClient.BeginDelete method.
@@ -129,19 +139,26 @@ func (client *L2NetworksClient) BeginDelete(ctx context.Context, resourceGroupNa
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L2NetworksClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[L2NetworksClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[L2NetworksClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Delete - Delete the provided layer 2 (L2) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *L2NetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, l2NetworkName string, options *L2NetworksClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "L2NetworksClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, l2NetworkName, options)
 	if err != nil {
 		return nil, err
@@ -160,6 +177,9 @@ func (client *L2NetworksClient) deleteOperation(ctx context.Context, resourceGro
 // deleteCreateRequest creates the Delete request.
 func (client *L2NetworksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, l2NetworkName string, options *L2NetworksClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l2Networks/{l2NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -174,7 +194,7 @@ func (client *L2NetworksClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,12 +203,16 @@ func (client *L2NetworksClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Get properties of the provided layer 2 (L2) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l2NetworkName - The name of the L2 network.
 //   - options - L2NetworksClientGetOptions contains the optional parameters for the L2NetworksClient.Get method.
 func (client *L2NetworksClient) Get(ctx context.Context, resourceGroupName string, l2NetworkName string, options *L2NetworksClientGetOptions) (L2NetworksClientGetResponse, error) {
 	var err error
+	const operationName = "L2NetworksClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, l2NetworkName, options)
 	if err != nil {
 		return L2NetworksClientGetResponse{}, err
@@ -208,6 +232,9 @@ func (client *L2NetworksClient) Get(ctx context.Context, resourceGroupName strin
 // getCreateRequest creates the Get request.
 func (client *L2NetworksClient) getCreateRequest(ctx context.Context, resourceGroupName string, l2NetworkName string, options *L2NetworksClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l2Networks/{l2NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -222,7 +249,7 @@ func (client *L2NetworksClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +266,7 @@ func (client *L2NetworksClient) getHandleResponse(resp *http.Response) (L2Networ
 
 // NewListByResourceGroupPager - Get a list of layer 2 (L2) networks in the provided resource group.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - L2NetworksClientListByResourceGroupOptions contains the optional parameters for the L2NetworksClient.NewListByResourceGroupPager
 //     method.
@@ -249,31 +276,29 @@ func (client *L2NetworksClient) NewListByResourceGroupPager(resourceGroupName st
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *L2NetworksClientListByResourceGroupResponse) (L2NetworksClientListByResourceGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "L2NetworksClient.NewListByResourceGroupPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return L2NetworksClientListByResourceGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return L2NetworksClientListByResourceGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return L2NetworksClientListByResourceGroupResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByResourceGroupHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *L2NetworksClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *L2NetworksClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l2Networks"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -284,7 +309,7 @@ func (client *L2NetworksClient) listByResourceGroupCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -301,7 +326,7 @@ func (client *L2NetworksClient) listByResourceGroupHandleResponse(resp *http.Res
 
 // NewListBySubscriptionPager - Get a list of layer 2 (L2) networks in the provided subscription.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - options - L2NetworksClientListBySubscriptionOptions contains the optional parameters for the L2NetworksClient.NewListBySubscriptionPager
 //     method.
 func (client *L2NetworksClient) NewListBySubscriptionPager(options *L2NetworksClientListBySubscriptionOptions) *runtime.Pager[L2NetworksClientListBySubscriptionResponse] {
@@ -310,38 +335,36 @@ func (client *L2NetworksClient) NewListBySubscriptionPager(options *L2NetworksCl
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *L2NetworksClientListBySubscriptionResponse) (L2NetworksClientListBySubscriptionResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listBySubscriptionCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "L2NetworksClient.NewListBySubscriptionPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listBySubscriptionCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return L2NetworksClientListBySubscriptionResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return L2NetworksClientListBySubscriptionResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return L2NetworksClientListBySubscriptionResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listBySubscriptionHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
 func (client *L2NetworksClient) listBySubscriptionCreateRequest(ctx context.Context, options *L2NetworksClientListBySubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/l2Networks"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -359,13 +382,17 @@ func (client *L2NetworksClient) listBySubscriptionHandleResponse(resp *http.Resp
 // Update - Update tags associated with the provided layer 2 (L2) network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - l2NetworkName - The name of the L2 network.
 //   - l2NetworkUpdateParameters - The request body.
 //   - options - L2NetworksClientUpdateOptions contains the optional parameters for the L2NetworksClient.Update method.
 func (client *L2NetworksClient) Update(ctx context.Context, resourceGroupName string, l2NetworkName string, l2NetworkUpdateParameters L2NetworkPatchParameters, options *L2NetworksClientUpdateOptions) (L2NetworksClientUpdateResponse, error) {
 	var err error
+	const operationName = "L2NetworksClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, l2NetworkName, l2NetworkUpdateParameters, options)
 	if err != nil {
 		return L2NetworksClientUpdateResponse{}, err
@@ -385,6 +412,9 @@ func (client *L2NetworksClient) Update(ctx context.Context, resourceGroupName st
 // updateCreateRequest creates the Update request.
 func (client *L2NetworksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, l2NetworkName string, l2NetworkUpdateParameters L2NetworkPatchParameters, options *L2NetworksClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/l2Networks/{l2NetworkName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -399,7 +429,7 @@ func (client *L2NetworksClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, l2NetworkUpdateParameters); err != nil {

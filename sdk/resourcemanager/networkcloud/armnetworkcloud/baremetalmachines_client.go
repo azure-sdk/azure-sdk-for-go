@@ -32,7 +32,7 @@ type BareMetalMachinesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewBareMetalMachinesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BareMetalMachinesClient, error) {
-	cl, err := arm.NewClient(moduleName+".BareMetalMachinesClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewBareMetalMachinesClient(subscriptionID string, credential azcore.TokenCr
 // BeginCordon - Cordon the provided bare metal machine's Kubernetes node.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginCordonOptions contains the optional parameters for the BareMetalMachinesClient.BeginCordon
@@ -59,19 +59,26 @@ func (client *BareMetalMachinesClient) BeginCordon(ctx context.Context, resource
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientCordonResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientCordonResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientCordonResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Cordon - Cordon the provided bare metal machine's Kubernetes node.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) cordon(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginCordonOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginCordon"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.cordonCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -90,6 +97,9 @@ func (client *BareMetalMachinesClient) cordon(ctx context.Context, resourceGroup
 // cordonCreateRequest creates the Cordon request.
 func (client *BareMetalMachinesClient) cordonCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginCordonOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/cordon"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -104,7 +114,7 @@ func (client *BareMetalMachinesClient) cordonCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.BareMetalMachineCordonParameters != nil {
@@ -120,7 +130,7 @@ func (client *BareMetalMachinesClient) cordonCreateRequest(ctx context.Context, 
 // requests will be rejected as the life cycle of this resource is managed by the system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - bareMetalMachineParameters - The request body.
@@ -134,10 +144,13 @@ func (client *BareMetalMachinesClient) BeginCreateOrUpdate(ctx context.Context, 
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -145,9 +158,13 @@ func (client *BareMetalMachinesClient) BeginCreateOrUpdate(ctx context.Context, 
 // will be rejected as the life cycle of this resource is managed by the system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) createOrUpdate(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineParameters BareMetalMachine, options *BareMetalMachinesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, bareMetalMachineName, bareMetalMachineParameters, options)
 	if err != nil {
 		return nil, err
@@ -166,6 +183,9 @@ func (client *BareMetalMachinesClient) createOrUpdate(ctx context.Context, resou
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *BareMetalMachinesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineParameters BareMetalMachine, options *BareMetalMachinesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -180,7 +200,7 @@ func (client *BareMetalMachinesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, bareMetalMachineParameters); err != nil {
@@ -193,7 +213,7 @@ func (client *BareMetalMachinesClient) createOrUpdateCreateRequest(ctx context.C
 // of this resource is managed by the system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginDeleteOptions contains the optional parameters for the BareMetalMachinesClient.BeginDelete
@@ -206,10 +226,13 @@ func (client *BareMetalMachinesClient) BeginDelete(ctx context.Context, resource
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -217,9 +240,13 @@ func (client *BareMetalMachinesClient) BeginDelete(ctx context.Context, resource
 // this resource is managed by the system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) deleteOperation(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -238,6 +265,9 @@ func (client *BareMetalMachinesClient) deleteOperation(ctx context.Context, reso
 // deleteCreateRequest creates the Delete request.
 func (client *BareMetalMachinesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -252,7 +282,7 @@ func (client *BareMetalMachinesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,12 +291,16 @@ func (client *BareMetalMachinesClient) deleteCreateRequest(ctx context.Context, 
 // Get - Get properties of the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientGetOptions contains the optional parameters for the BareMetalMachinesClient.Get method.
 func (client *BareMetalMachinesClient) Get(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientGetOptions) (BareMetalMachinesClientGetResponse, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return BareMetalMachinesClientGetResponse{}, err
@@ -286,6 +320,9 @@ func (client *BareMetalMachinesClient) Get(ctx context.Context, resourceGroupNam
 // getCreateRequest creates the Get request.
 func (client *BareMetalMachinesClient) getCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -300,7 +337,7 @@ func (client *BareMetalMachinesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -317,7 +354,7 @@ func (client *BareMetalMachinesClient) getHandleResponse(resp *http.Response) (B
 
 // NewListByResourceGroupPager - Get a list of bare metal machines in the provided resource group.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - BareMetalMachinesClientListByResourceGroupOptions contains the optional parameters for the BareMetalMachinesClient.NewListByResourceGroupPager
 //     method.
@@ -327,31 +364,29 @@ func (client *BareMetalMachinesClient) NewListByResourceGroupPager(resourceGroup
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *BareMetalMachinesClientListByResourceGroupResponse) (BareMetalMachinesClientListByResourceGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BareMetalMachinesClient.NewListByResourceGroupPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
+			}, nil)
 			if err != nil {
 				return BareMetalMachinesClientListByResourceGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return BareMetalMachinesClientListByResourceGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return BareMetalMachinesClientListByResourceGroupResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByResourceGroupHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *BareMetalMachinesClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *BareMetalMachinesClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -362,7 +397,7 @@ func (client *BareMetalMachinesClient) listByResourceGroupCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -379,7 +414,7 @@ func (client *BareMetalMachinesClient) listByResourceGroupHandleResponse(resp *h
 
 // NewListBySubscriptionPager - Get a list of bare metal machines in the provided subscription.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - options - BareMetalMachinesClientListBySubscriptionOptions contains the optional parameters for the BareMetalMachinesClient.NewListBySubscriptionPager
 //     method.
 func (client *BareMetalMachinesClient) NewListBySubscriptionPager(options *BareMetalMachinesClientListBySubscriptionOptions) *runtime.Pager[BareMetalMachinesClientListBySubscriptionResponse] {
@@ -388,38 +423,36 @@ func (client *BareMetalMachinesClient) NewListBySubscriptionPager(options *BareM
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *BareMetalMachinesClientListBySubscriptionResponse) (BareMetalMachinesClientListBySubscriptionResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listBySubscriptionCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BareMetalMachinesClient.NewListBySubscriptionPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listBySubscriptionCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return BareMetalMachinesClientListBySubscriptionResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return BareMetalMachinesClientListBySubscriptionResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return BareMetalMachinesClientListBySubscriptionResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listBySubscriptionHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
 func (client *BareMetalMachinesClient) listBySubscriptionCreateRequest(ctx context.Context, options *BareMetalMachinesClientListBySubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/bareMetalMachines"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -437,7 +470,7 @@ func (client *BareMetalMachinesClient) listBySubscriptionHandleResponse(resp *ht
 // BeginPowerOff - Power off the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginPowerOffOptions contains the optional parameters for the BareMetalMachinesClient.BeginPowerOff
@@ -450,19 +483,26 @@ func (client *BareMetalMachinesClient) BeginPowerOff(ctx context.Context, resour
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientPowerOffResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientPowerOffResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientPowerOffResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // PowerOff - Power off the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) powerOff(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginPowerOffOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginPowerOff"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.powerOffCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -481,6 +521,9 @@ func (client *BareMetalMachinesClient) powerOff(ctx context.Context, resourceGro
 // powerOffCreateRequest creates the PowerOff request.
 func (client *BareMetalMachinesClient) powerOffCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginPowerOffOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/powerOff"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -495,7 +538,7 @@ func (client *BareMetalMachinesClient) powerOffCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.BareMetalMachinePowerOffParameters != nil {
@@ -510,7 +553,7 @@ func (client *BareMetalMachinesClient) powerOffCreateRequest(ctx context.Context
 // BeginReimage - Reimage the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginReimageOptions contains the optional parameters for the BareMetalMachinesClient.BeginReimage
@@ -523,19 +566,26 @@ func (client *BareMetalMachinesClient) BeginReimage(ctx context.Context, resourc
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientReimageResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientReimageResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientReimageResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Reimage - Reimage the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) reimage(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginReimageOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginReimage"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.reimageCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -554,6 +604,9 @@ func (client *BareMetalMachinesClient) reimage(ctx context.Context, resourceGrou
 // reimageCreateRequest creates the Reimage request.
 func (client *BareMetalMachinesClient) reimageCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginReimageOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/reimage"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -568,7 +621,7 @@ func (client *BareMetalMachinesClient) reimageCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -577,7 +630,7 @@ func (client *BareMetalMachinesClient) reimageCreateRequest(ctx context.Context,
 // BeginReplace - Replace the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginReplaceOptions contains the optional parameters for the BareMetalMachinesClient.BeginReplace
@@ -590,19 +643,26 @@ func (client *BareMetalMachinesClient) BeginReplace(ctx context.Context, resourc
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientReplaceResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientReplaceResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientReplaceResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Replace - Replace the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) replace(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginReplaceOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginReplace"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.replaceCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -621,6 +681,9 @@ func (client *BareMetalMachinesClient) replace(ctx context.Context, resourceGrou
 // replaceCreateRequest creates the Replace request.
 func (client *BareMetalMachinesClient) replaceCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginReplaceOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/replace"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -635,7 +698,7 @@ func (client *BareMetalMachinesClient) replaceCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.BareMetalMachineReplaceParameters != nil {
@@ -650,7 +713,7 @@ func (client *BareMetalMachinesClient) replaceCreateRequest(ctx context.Context,
 // BeginRestart - Restart the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginRestartOptions contains the optional parameters for the BareMetalMachinesClient.BeginRestart
@@ -663,19 +726,26 @@ func (client *BareMetalMachinesClient) BeginRestart(ctx context.Context, resourc
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientRestartResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientRestartResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientRestartResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Restart - Restart the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) restart(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginRestartOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginRestart"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.restartCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -694,6 +764,9 @@ func (client *BareMetalMachinesClient) restart(ctx context.Context, resourceGrou
 // restartCreateRequest creates the Restart request.
 func (client *BareMetalMachinesClient) restartCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginRestartOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/restart"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -708,7 +781,7 @@ func (client *BareMetalMachinesClient) restartCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -719,7 +792,7 @@ func (client *BareMetalMachinesClient) restartCreateRequest(ctx context.Context,
 // once available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - bareMetalMachineRunCommandParameters - The request body.
@@ -733,10 +806,13 @@ func (client *BareMetalMachinesClient) BeginRunCommand(ctx context.Context, reso
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientRunCommandResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientRunCommandResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientRunCommandResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -745,9 +821,13 @@ func (client *BareMetalMachinesClient) BeginRunCommand(ctx context.Context, reso
 // once available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) runCommand(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineRunCommandParameters BareMetalMachineRunCommandParameters, options *BareMetalMachinesClientBeginRunCommandOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginRunCommand"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.runCommandCreateRequest(ctx, resourceGroupName, bareMetalMachineName, bareMetalMachineRunCommandParameters, options)
 	if err != nil {
 		return nil, err
@@ -766,6 +846,9 @@ func (client *BareMetalMachinesClient) runCommand(ctx context.Context, resourceG
 // runCommandCreateRequest creates the RunCommand request.
 func (client *BareMetalMachinesClient) runCommandCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineRunCommandParameters BareMetalMachineRunCommandParameters, options *BareMetalMachinesClientBeginRunCommandOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/runCommand"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -780,7 +863,7 @@ func (client *BareMetalMachinesClient) runCommandCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, bareMetalMachineRunCommandParameters); err != nil {
@@ -794,7 +877,7 @@ func (client *BareMetalMachinesClient) runCommandCreateRequest(ctx context.Conte
 // API once available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - bareMetalMachineRunDataExtractsParameters - The request body.
@@ -808,10 +891,13 @@ func (client *BareMetalMachinesClient) BeginRunDataExtracts(ctx context.Context,
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientRunDataExtractsResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientRunDataExtractsResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientRunDataExtractsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -820,9 +906,13 @@ func (client *BareMetalMachinesClient) BeginRunDataExtracts(ctx context.Context,
 // API once available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) runDataExtracts(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineRunDataExtractsParameters BareMetalMachineRunDataExtractsParameters, options *BareMetalMachinesClientBeginRunDataExtractsOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginRunDataExtracts"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.runDataExtractsCreateRequest(ctx, resourceGroupName, bareMetalMachineName, bareMetalMachineRunDataExtractsParameters, options)
 	if err != nil {
 		return nil, err
@@ -841,6 +931,9 @@ func (client *BareMetalMachinesClient) runDataExtracts(ctx context.Context, reso
 // runDataExtractsCreateRequest creates the RunDataExtracts request.
 func (client *BareMetalMachinesClient) runDataExtractsCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineRunDataExtractsParameters BareMetalMachineRunDataExtractsParameters, options *BareMetalMachinesClientBeginRunDataExtractsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/runDataExtracts"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -855,7 +948,7 @@ func (client *BareMetalMachinesClient) runDataExtractsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, bareMetalMachineRunDataExtractsParameters); err != nil {
@@ -869,7 +962,7 @@ func (client *BareMetalMachinesClient) runDataExtractsCreateRequest(ctx context.
 // status API once available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - bareMetalMachineRunReadCommandsParameters - The request body.
@@ -883,10 +976,13 @@ func (client *BareMetalMachinesClient) BeginRunReadCommands(ctx context.Context,
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientRunReadCommandsResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientRunReadCommandsResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientRunReadCommandsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -895,9 +991,13 @@ func (client *BareMetalMachinesClient) BeginRunReadCommands(ctx context.Context,
 // status API once available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) runReadCommands(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineRunReadCommandsParameters BareMetalMachineRunReadCommandsParameters, options *BareMetalMachinesClientBeginRunReadCommandsOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginRunReadCommands"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.runReadCommandsCreateRequest(ctx, resourceGroupName, bareMetalMachineName, bareMetalMachineRunReadCommandsParameters, options)
 	if err != nil {
 		return nil, err
@@ -916,6 +1016,9 @@ func (client *BareMetalMachinesClient) runReadCommands(ctx context.Context, reso
 // runReadCommandsCreateRequest creates the RunReadCommands request.
 func (client *BareMetalMachinesClient) runReadCommandsCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineRunReadCommandsParameters BareMetalMachineRunReadCommandsParameters, options *BareMetalMachinesClientBeginRunReadCommandsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/runReadCommands"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -930,7 +1033,7 @@ func (client *BareMetalMachinesClient) runReadCommandsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, bareMetalMachineRunReadCommandsParameters); err != nil {
@@ -942,7 +1045,7 @@ func (client *BareMetalMachinesClient) runReadCommandsCreateRequest(ctx context.
 // BeginStart - Start the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginStartOptions contains the optional parameters for the BareMetalMachinesClient.BeginStart
@@ -955,19 +1058,26 @@ func (client *BareMetalMachinesClient) BeginStart(ctx context.Context, resourceG
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientStartResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientStartResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientStartResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Start - Start the provided bare metal machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) start(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginStartOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginStart"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.startCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -986,6 +1096,9 @@ func (client *BareMetalMachinesClient) start(ctx context.Context, resourceGroupN
 // startCreateRequest creates the Start request.
 func (client *BareMetalMachinesClient) startCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginStartOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/start"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1000,7 +1113,7 @@ func (client *BareMetalMachinesClient) startCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1009,7 +1122,7 @@ func (client *BareMetalMachinesClient) startCreateRequest(ctx context.Context, r
 // BeginUncordon - Uncordon the provided bare metal machine's Kubernetes node.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - options - BareMetalMachinesClientBeginUncordonOptions contains the optional parameters for the BareMetalMachinesClient.BeginUncordon
@@ -1022,19 +1135,26 @@ func (client *BareMetalMachinesClient) BeginUncordon(ctx context.Context, resour
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientUncordonResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientUncordonResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientUncordonResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Uncordon - Uncordon the provided bare metal machine's Kubernetes node.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) uncordon(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginUncordonOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginUncordon"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.uncordonCreateRequest(ctx, resourceGroupName, bareMetalMachineName, options)
 	if err != nil {
 		return nil, err
@@ -1053,6 +1173,9 @@ func (client *BareMetalMachinesClient) uncordon(ctx context.Context, resourceGro
 // uncordonCreateRequest creates the Uncordon request.
 func (client *BareMetalMachinesClient) uncordonCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, options *BareMetalMachinesClientBeginUncordonOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}/uncordon"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1067,7 +1190,7 @@ func (client *BareMetalMachinesClient) uncordonCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1077,7 +1200,7 @@ func (client *BareMetalMachinesClient) uncordonCreateRequest(ctx context.Context
 // Properties and tag updates can be done independently.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - bareMetalMachineName - The name of the bare metal machine.
 //   - bareMetalMachineUpdateParameters - The request body.
@@ -1091,10 +1214,13 @@ func (client *BareMetalMachinesClient) BeginUpdate(ctx context.Context, resource
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BareMetalMachinesClientUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[BareMetalMachinesClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BareMetalMachinesClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
@@ -1102,9 +1228,13 @@ func (client *BareMetalMachinesClient) BeginUpdate(ctx context.Context, resource
 // and tag updates can be done independently.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2023-10-01-preview
 func (client *BareMetalMachinesClient) update(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineUpdateParameters BareMetalMachinePatchParameters, options *BareMetalMachinesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "BareMetalMachinesClient.BeginUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, bareMetalMachineName, bareMetalMachineUpdateParameters, options)
 	if err != nil {
 		return nil, err
@@ -1123,6 +1253,9 @@ func (client *BareMetalMachinesClient) update(ctx context.Context, resourceGroup
 // updateCreateRequest creates the Update request.
 func (client *BareMetalMachinesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, bareMetalMachineName string, bareMetalMachineUpdateParameters BareMetalMachinePatchParameters, options *BareMetalMachinesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/bareMetalMachines/{bareMetalMachineName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1137,7 +1270,7 @@ func (client *BareMetalMachinesClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, bareMetalMachineUpdateParameters); err != nil {

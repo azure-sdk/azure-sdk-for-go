@@ -309,6 +309,15 @@ type ClustersClientBeginDeployOptions struct {
 	ResumeToken string
 }
 
+// ClustersClientBeginScanRuntimeOptions contains the optional parameters for the ClustersClient.BeginScanRuntime method.
+type ClustersClientBeginScanRuntimeOptions struct {
+	// The request body.
+	ClusterScanRuntimeParameters *ClusterScanRuntimeParameters
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ClustersClientBeginUpdateOptions contains the optional parameters for the ClustersClient.BeginUpdate method.
 type ClustersClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.

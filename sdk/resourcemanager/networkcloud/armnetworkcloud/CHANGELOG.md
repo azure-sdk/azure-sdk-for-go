@@ -1,5 +1,39 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-11-15)
+### Breaking Changes
+
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+
+### Features Added
+
+- New value `ClusterConnectionStatusDisconnected` added to enum type `ClusterConnectionStatus`
+- New enum type `ClusterScanRuntimeParametersScanActivity` with values `ClusterScanRuntimeParametersScanActivityScan`, `ClusterScanRuntimeParametersScanActivitySkip`
+- New enum type `ClusterSecretArchiveEnabled` with values `ClusterSecretArchiveEnabledFalse`, `ClusterSecretArchiveEnabledTrue`
+- New enum type `ClusterUpdateStrategyType` with values `ClusterUpdateStrategyTypeRack`
+- New enum type `RuntimeProtectionEnforcementLevel` with values `RuntimeProtectionEnforcementLevelAudit`, `RuntimeProtectionEnforcementLevelDisabled`, `RuntimeProtectionEnforcementLevelOnDemand`, `RuntimeProtectionEnforcementLevelPassive`, `RuntimeProtectionEnforcementLevelRealTime`
+- New function `*ClustersClient.BeginScanRuntime(context.Context, string, string, *ClustersClientBeginScanRuntimeOptions) (*runtime.Poller[ClustersClientScanRuntimeResponse], error)`
+- New function `dateTimeRFC3339.MarshalText() ([]byte, error)`
+- New function `*dateTimeRFC3339.Parse(string) error`
+- New function `*dateTimeRFC3339.UnmarshalText([]byte) error`
+- New struct `AdministratorConfigurationPatch`
+- New struct `ClusterScanRuntimeParameters`
+- New struct `ClusterSecretArchive`
+- New struct `ClusterUpdateStrategy`
+- New struct `NodePoolAdministratorConfigurationPatch`
+- New struct `RuntimeProtectionConfiguration`
+- New struct `RuntimeProtectionStatus`
+- New field `AdministratorConfiguration` in struct `AgentPoolPatchProperties`
+- New field `MachineRoles`, `RuntimeProtectionStatus` in struct `BareMetalMachineProperties`
+- New field `RuntimeProtectionConfiguration`, `SecretArchive`, `UpdateStrategy` in struct `ClusterPatchProperties`
+- New field `RuntimeProtectionConfiguration`, `SecretArchive`, `UpdateStrategy` in struct `ClusterProperties`
+- New field `AdministratorConfiguration` in struct `ControlPlaneNodePatchConfiguration`
+- New field `UserPrincipalName` in struct `KeySetUser`
+- New field `AdministratorConfiguration` in struct `KubernetesClusterPatchProperties`
+
+
 ## 1.0.0 (2023-08-25)
 ### Breaking Changes
 

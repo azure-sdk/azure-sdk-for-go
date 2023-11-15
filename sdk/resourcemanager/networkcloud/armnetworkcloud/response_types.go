@@ -304,6 +304,12 @@ type ClustersClientListBySubscriptionResponse struct {
 	ClusterList
 }
 
+// ClustersClientScanRuntimeResponse contains the response from method ClustersClient.BeginScanRuntime.
+type ClustersClientScanRuntimeResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
 // ClustersClientUpdateResponse contains the response from method ClustersClient.BeginUpdate.
 type ClustersClientUpdateResponse struct {
 	// Cluster represents the on-premises Network Cloud cluster.

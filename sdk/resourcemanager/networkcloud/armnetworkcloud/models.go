@@ -37,6 +37,12 @@ type AdministratorConfiguration struct {
 	SSHPublicKeys []*SSHPublicKey
 }
 
+// AdministratorConfigurationPatch represents the patching capabilities for the administrator configuration.
+type AdministratorConfigurationPatch struct {
+	// SshPublicKey represents the public key used to authenticate with a resource through SSH.
+	SSHPublicKeys []*SSHPublicKey
+}
+
 // AgentOptions are configurations that will be applied to each agent in an agent pool.
 type AgentOptions struct {
 	// REQUIRED; The number of hugepages to allocate.
@@ -93,6 +99,9 @@ type AgentPoolPatchParameters struct {
 
 // AgentPoolPatchProperties represents the properties of an agent pool that can be modified.
 type AgentPoolPatchProperties struct {
+	// The configuration of administrator credentials for the control plane nodes.
+	AdministratorConfiguration *NodePoolAdministratorConfigurationPatch
+
 	// The number of virtual machines that use this configuration.
 	Count *int64
 
@@ -438,6 +447,9 @@ type BareMetalMachineProperties struct {
 	// READ-ONLY; The version of Kubernetes running on this machine.
 	KubernetesVersion *string
 
+	// READ-ONLY; The list of roles that are assigned to the cluster node running on this machine.
+	MachineRoles []*string
+
 	// READ-ONLY; The image that is currently provisioned to the OS disk.
 	OSImage *string
 
@@ -455,6 +467,9 @@ type BareMetalMachineProperties struct {
 
 	// READ-ONLY; The indicator of whether the bare metal machine is ready to receive workloads.
 	ReadyState *BareMetalMachineReadyState
+
+	// READ-ONLY; The runtime protection status of the bare metal machine.
+	RuntimeProtectionStatus *RuntimeProtectionStatus
 
 	// READ-ONLY; The discovered value of the machine's service tag.
 	ServiceTag *string
@@ -1012,6 +1027,15 @@ type ClusterPatchProperties struct {
 
 	// The list of rack definitions for the compute racks in a multi-rack cluster, or an empty list in a single-rack cluster.
 	ComputeRackDefinitions []*RackDefinition
+
+	// The settings for cluster runtime protection.
+	RuntimeProtectionConfiguration *RuntimeProtectionConfiguration
+
+	// The configuration for use of a key vault to store secrets for later retrieval by the operator.
+	SecretArchive *ClusterSecretArchive
+
+	// The strategy for updating the cluster.
+	UpdateStrategy *ClusterUpdateStrategy
 }
 
 // ClusterProperties represents the properties of a cluster.
@@ -1046,6 +1070,15 @@ type ClusterProperties struct {
 
 	// The configuration of the managed resource group associated with the resource.
 	ManagedResourceGroupConfiguration *ManagedResourceGroupConfiguration
+
+	// The settings for cluster runtime protection.
+	RuntimeProtectionConfiguration *RuntimeProtectionConfiguration
+
+	// The configuration for use of a key vault to store secrets for later retrieval by the operator.
+	SecretArchive *ClusterSecretArchive
+
+	// The strategy for updating the cluster.
+	UpdateStrategy *ClusterUpdateStrategy
 
 	// READ-ONLY; The list of cluster runtime version upgrades available for this cluster.
 	AvailableUpgradeVersions []*ClusterAvailableUpgradeVersion
@@ -1090,6 +1123,41 @@ type ClusterProperties struct {
 
 	// READ-ONLY; The list of workload resource IDs that are hosted within this cluster.
 	WorkloadResourceIDs []*string
+}
+
+// ClusterScanRuntimeParameters defines the parameters for the cluster scan runtime operation.
+type ClusterScanRuntimeParameters struct {
+	// The choice of if the scan operation should run the scan.
+	ScanActivity *ClusterScanRuntimeParametersScanActivity
+}
+
+// ClusterSecretArchive configures the key vault to archive the secrets of the cluster for later retrieval.
+type ClusterSecretArchive struct {
+	// REQUIRED; The resource ID of the key vault to archive the secrets of the cluster.
+	KeyVaultID *string
+
+	// The indicator if the specified key vault should be used to archive the secrets of the cluster.
+	UseKeyVault *ClusterSecretArchiveEnabled
+}
+
+// ClusterUpdateStrategy represents the strategy for updating the cluster.
+type ClusterUpdateStrategy struct {
+	// REQUIRED; The mode of operation for runtime protection.
+	StrategyType *ClusterUpdateStrategyType
+
+	// REQUIRED; Selection of how the threshold should be evaluated.
+	ThresholdType *ValidationThresholdType
+
+	// REQUIRED; The numeric threshold value.
+	ThresholdValue *int64
+
+	// The maximum number of worker nodes that can be offline within the increment of update, e.g., rack-by-rack. Limited by the
+	// maximum number of machines in the increment. Defaults to the whole increment
+	// size.
+	MaxUnavailable *int64
+
+	// The time to wait between the increments of update defined by the strategy.
+	WaitTimeMinutes *int64
 }
 
 // ClusterUpdateVersionParameters represents the body of the request to update cluster version.
@@ -1145,7 +1213,7 @@ type ConsolePatchParameters struct {
 
 // ConsolePatchProperties represents the properties of the virtual machine console that can be patched.
 type ConsolePatchProperties struct {
-	// The credentials used to login to the image repository that has access to the specified image.
+	// The indicator of whether the console access is enabled.
 	Enabled *ConsoleEnabled
 
 	// The date and time after which the key will be disallowed access.
@@ -1204,6 +1272,9 @@ type ControlPlaneNodeConfiguration struct {
 // ControlPlaneNodePatchConfiguration represents the properties of the control plane that can be patched for this Kubernetes
 // cluster.
 type ControlPlaneNodePatchConfiguration struct {
+	// The configuration of administrator credentials for the control plane nodes.
+	AdministratorConfiguration *AdministratorConfigurationPatch
+
 	// The number of virtual machines that use this configuration.
 	Count *int64
 }
@@ -1399,6 +1470,9 @@ type KeySetUser struct {
 
 	// The free-form description for this user.
 	Description *string
+
+	// The user principal name (email format) used to validate this user's group membership.
+	UserPrincipalName *string
 }
 
 // KeySetUserStatus represents the status of the key set user.
@@ -1518,6 +1592,9 @@ type KubernetesClusterPatchParameters struct {
 
 // KubernetesClusterPatchProperties represents the properties of the Kubernetes cluster that can be patched.
 type KubernetesClusterPatchProperties struct {
+	// The configuration of the default administrator credentials.
+	AdministratorConfiguration *AdministratorConfigurationPatch
+
 	// The defining characteristics of the control plane that can be patched for this Kubernetes cluster.
 	ControlPlaneNodeConfiguration *ControlPlaneNodePatchConfiguration
 
@@ -1981,6 +2058,12 @@ type Nic struct {
 	Name *string
 }
 
+// NodePoolAdministratorConfigurationPatch represents the patching capabilities for the administrator configuration.
+type NodePoolAdministratorConfigurationPatch struct {
+	// SshPublicKey represents the public key used to authenticate with a resource through SSH.
+	SSHPublicKeys []*SSHPublicKey
+}
+
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
 	// Localized display information for this particular operation.
@@ -2234,6 +2317,30 @@ type RacksPatchProperties struct {
 
 	// The globally unique identifier for the rack.
 	RackSerialNumber *string
+}
+
+// RuntimeProtectionConfiguration represents the runtime protection configuration for the cluster.
+type RuntimeProtectionConfiguration struct {
+	// The mode of operation for runtime protection.
+	EnforcementLevel *RuntimeProtectionEnforcementLevel
+}
+
+// RuntimeProtectionStatus represents the runtime protection status of the bare metal machine.
+type RuntimeProtectionStatus struct {
+	// READ-ONLY; The timestamp when the malware definitions were last updated.
+	DefinitionsLastUpdated *time.Time
+
+	// READ-ONLY; The version of the malware definitions.
+	DefinitionsVersion *string
+
+	// READ-ONLY; The timestamp of the most recently completed scan, or empty if there has never been a scan.
+	ScanCompletedTime *time.Time
+
+	// READ-ONLY; The timestamp of the most recently scheduled scan, or empty if no scan has been scheduled.
+	ScanScheduledTime *time.Time
+
+	// READ-ONLY; The timestamp of the most recently started scan, or empty if there has never been a scan.
+	ScanStartedTime *time.Time
 }
 
 // SSHPublicKey - SshPublicKey represents the public key used to authenticate with a resource through SSH.
@@ -2694,7 +2801,7 @@ type VirtualMachineProperties struct {
 	// READ-ONLY; The cluster availability zone containing this virtual machine.
 	AvailabilityZone *string
 
-	// READ-ONLY; The resource ID of the bare metal machine the virtual machine has landed to.
+	// READ-ONLY; The resource ID of the bare metal machine that hosts the virtual machine.
 	BareMetalMachineID *string
 
 	// READ-ONLY; The resource ID of the cluster the virtual machine is created for.
