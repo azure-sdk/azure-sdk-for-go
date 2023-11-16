@@ -28,11 +28,11 @@ type ContainerAppsRevisionsClient struct {
 }
 
 // NewContainerAppsRevisionsClient creates a new instance of ContainerAppsRevisionsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContainerAppsRevisionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainerAppsRevisionsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ContainerAppsRevisionsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewContainerAppsRevisionsClient(subscriptionID string, credential azcore.To
 // ActivateRevision - Activates a revision for a Container App
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -54,6 +54,10 @@ func NewContainerAppsRevisionsClient(subscriptionID string, credential azcore.To
 //     method.
 func (client *ContainerAppsRevisionsClient) ActivateRevision(ctx context.Context, resourceGroupName string, containerAppName string, revisionName string, options *ContainerAppsRevisionsClientActivateRevisionOptions) (ContainerAppsRevisionsClientActivateRevisionResponse, error) {
 	var err error
+	const operationName = "ContainerAppsRevisionsClient.ActivateRevision"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.activateRevisionCreateRequest(ctx, resourceGroupName, containerAppName, revisionName, options)
 	if err != nil {
 		return ContainerAppsRevisionsClientActivateRevisionResponse{}, err
@@ -93,7 +97,7 @@ func (client *ContainerAppsRevisionsClient) activateRevisionCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -102,7 +106,7 @@ func (client *ContainerAppsRevisionsClient) activateRevisionCreateRequest(ctx co
 // DeactivateRevision - Deactivates a revision for a Container App
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -110,6 +114,10 @@ func (client *ContainerAppsRevisionsClient) activateRevisionCreateRequest(ctx co
 //     method.
 func (client *ContainerAppsRevisionsClient) DeactivateRevision(ctx context.Context, resourceGroupName string, containerAppName string, revisionName string, options *ContainerAppsRevisionsClientDeactivateRevisionOptions) (ContainerAppsRevisionsClientDeactivateRevisionResponse, error) {
 	var err error
+	const operationName = "ContainerAppsRevisionsClient.DeactivateRevision"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deactivateRevisionCreateRequest(ctx, resourceGroupName, containerAppName, revisionName, options)
 	if err != nil {
 		return ContainerAppsRevisionsClientDeactivateRevisionResponse{}, err
@@ -149,7 +157,7 @@ func (client *ContainerAppsRevisionsClient) deactivateRevisionCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -158,7 +166,7 @@ func (client *ContainerAppsRevisionsClient) deactivateRevisionCreateRequest(ctx 
 // GetRevision - Get a revision of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -166,6 +174,10 @@ func (client *ContainerAppsRevisionsClient) deactivateRevisionCreateRequest(ctx 
 //     method.
 func (client *ContainerAppsRevisionsClient) GetRevision(ctx context.Context, resourceGroupName string, containerAppName string, revisionName string, options *ContainerAppsRevisionsClientGetRevisionOptions) (ContainerAppsRevisionsClientGetRevisionResponse, error) {
 	var err error
+	const operationName = "ContainerAppsRevisionsClient.GetRevision"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getRevisionCreateRequest(ctx, resourceGroupName, containerAppName, revisionName, options)
 	if err != nil {
 		return ContainerAppsRevisionsClientGetRevisionResponse{}, err
@@ -206,7 +218,7 @@ func (client *ContainerAppsRevisionsClient) getRevisionCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -223,7 +235,7 @@ func (client *ContainerAppsRevisionsClient) getRevisionHandleResponse(resp *http
 
 // NewListRevisionsPager - Get the Revisions for a given Container App.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App for which Revisions are needed.
 //   - options - ContainerAppsRevisionsClientListRevisionsOptions contains the optional parameters for the ContainerAppsRevisionsClient.NewListRevisionsPager
@@ -234,25 +246,20 @@ func (client *ContainerAppsRevisionsClient) NewListRevisionsPager(resourceGroupN
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ContainerAppsRevisionsClientListRevisionsResponse) (ContainerAppsRevisionsClientListRevisionsResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listRevisionsCreateRequest(ctx, resourceGroupName, containerAppName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ContainerAppsRevisionsClient.NewListRevisionsPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listRevisionsCreateRequest(ctx, resourceGroupName, containerAppName, options)
+			}, nil)
 			if err != nil {
 				return ContainerAppsRevisionsClientListRevisionsResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ContainerAppsRevisionsClientListRevisionsResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ContainerAppsRevisionsClientListRevisionsResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listRevisionsHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -276,7 +283,7 @@ func (client *ContainerAppsRevisionsClient) listRevisionsCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -297,7 +304,7 @@ func (client *ContainerAppsRevisionsClient) listRevisionsHandleResponse(resp *ht
 // RestartRevision - Restarts a revision for a Container App
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -305,6 +312,10 @@ func (client *ContainerAppsRevisionsClient) listRevisionsHandleResponse(resp *ht
 //     method.
 func (client *ContainerAppsRevisionsClient) RestartRevision(ctx context.Context, resourceGroupName string, containerAppName string, revisionName string, options *ContainerAppsRevisionsClientRestartRevisionOptions) (ContainerAppsRevisionsClientRestartRevisionResponse, error) {
 	var err error
+	const operationName = "ContainerAppsRevisionsClient.RestartRevision"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.restartRevisionCreateRequest(ctx, resourceGroupName, containerAppName, revisionName, options)
 	if err != nil {
 		return ContainerAppsRevisionsClientRestartRevisionResponse{}, err
@@ -344,7 +355,7 @@ func (client *ContainerAppsRevisionsClient) restartRevisionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

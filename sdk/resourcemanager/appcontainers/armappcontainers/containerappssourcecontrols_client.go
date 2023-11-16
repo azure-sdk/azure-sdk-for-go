@@ -28,11 +28,11 @@ type ContainerAppsSourceControlsClient struct {
 }
 
 // NewContainerAppsSourceControlsClient creates a new instance of ContainerAppsSourceControlsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContainerAppsSourceControlsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainerAppsSourceControlsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ContainerAppsSourceControlsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewContainerAppsSourceControlsClient(subscriptionID string, credential azco
 // BeginCreateOrUpdate - Create or update the SourceControl for a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - sourceControlName - Name of the Container App SourceControl.
@@ -59,19 +59,27 @@ func (client *ContainerAppsSourceControlsClient) BeginCreateOrUpdate(ctx context
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ContainerAppsSourceControlsClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ContainerAppsSourceControlsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ContainerAppsSourceControlsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ContainerAppsSourceControlsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // CreateOrUpdate - Create or update the SourceControl for a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ContainerAppsSourceControlsClient) createOrUpdate(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, sourceControlEnvelope SourceControl, options *ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ContainerAppsSourceControlsClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, containerAppName, sourceControlName, sourceControlEnvelope, options)
 	if err != nil {
 		return nil, err
@@ -111,7 +119,7 @@ func (client *ContainerAppsSourceControlsClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, sourceControlEnvelope); err != nil {
@@ -123,7 +131,7 @@ func (client *ContainerAppsSourceControlsClient) createOrUpdateCreateRequest(ctx
 // BeginDelete - Delete a Container App SourceControl.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - sourceControlName - Name of the Container App SourceControl.
@@ -135,19 +143,27 @@ func (client *ContainerAppsSourceControlsClient) BeginDelete(ctx context.Context
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ContainerAppsSourceControlsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ContainerAppsSourceControlsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ContainerAppsSourceControlsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ContainerAppsSourceControlsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // Delete - Delete a Container App SourceControl.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 func (client *ContainerAppsSourceControlsClient) deleteOperation(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, options *ContainerAppsSourceControlsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ContainerAppsSourceControlsClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, containerAppName, sourceControlName, options)
 	if err != nil {
 		return nil, err
@@ -187,7 +203,7 @@ func (client *ContainerAppsSourceControlsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -196,7 +212,7 @@ func (client *ContainerAppsSourceControlsClient) deleteCreateRequest(ctx context
 // Get - Get a SourceControl of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - sourceControlName - Name of the Container App SourceControl.
@@ -204,6 +220,10 @@ func (client *ContainerAppsSourceControlsClient) deleteCreateRequest(ctx context
 //     method.
 func (client *ContainerAppsSourceControlsClient) Get(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, options *ContainerAppsSourceControlsClientGetOptions) (ContainerAppsSourceControlsClientGetResponse, error) {
 	var err error
+	const operationName = "ContainerAppsSourceControlsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, containerAppName, sourceControlName, options)
 	if err != nil {
 		return ContainerAppsSourceControlsClientGetResponse{}, err
@@ -244,7 +264,7 @@ func (client *ContainerAppsSourceControlsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,7 +281,7 @@ func (client *ContainerAppsSourceControlsClient) getHandleResponse(resp *http.Re
 
 // NewListByContainerAppPager - Get the Container App SourceControls in a given resource group.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - options - ContainerAppsSourceControlsClientListByContainerAppOptions contains the optional parameters for the ContainerAppsSourceControlsClient.NewListByContainerAppPager
@@ -272,25 +292,20 @@ func (client *ContainerAppsSourceControlsClient) NewListByContainerAppPager(reso
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ContainerAppsSourceControlsClientListByContainerAppResponse) (ContainerAppsSourceControlsClientListByContainerAppResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByContainerAppCreateRequest(ctx, resourceGroupName, containerAppName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ContainerAppsSourceControlsClient.NewListByContainerAppPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByContainerAppCreateRequest(ctx, resourceGroupName, containerAppName, options)
+			}, nil)
 			if err != nil {
 				return ContainerAppsSourceControlsClientListByContainerAppResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ContainerAppsSourceControlsClientListByContainerAppResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ContainerAppsSourceControlsClientListByContainerAppResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByContainerAppHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -314,7 +329,7 @@ func (client *ContainerAppsSourceControlsClient) listByContainerAppCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
