@@ -101,6 +101,15 @@ type ApplicationProfile struct {
 	GalleryApplications []*VMGalleryApplication
 }
 
+// AttachDetachDataDisksRequest - Specifies the input for attaching and detaching a list of managed data disks.
+type AttachDetachDataDisksRequest struct {
+	// The list of managed data disks to be attached.
+	DataDisksToAttach []*DataDisksToAttach
+
+	// The list of managed data disks to be detached.
+	DataDisksToDetach []*DataDisksToDetach
+}
+
 // AutomaticOSUpgradePolicy - The configuration parameters used for performing automatic OS upgrade.
 type AutomaticOSUpgradePolicy struct {
 	// Whether OS image rollback feature should be disabled. Default value is false.
@@ -112,6 +121,11 @@ type AutomaticOSUpgradePolicy struct {
 	// [https://docs.microsoft.com/dotnet/api/microsoft.azure.management.compute.models.windowsconfiguration.enableautomaticupdates?view=azure-dotnet]
 	// is automatically set to false and cannot be set to true.
 	EnableAutomaticOSUpgrade *bool
+
+	// Indicates whether Auto OS Upgrade should undergo deferral. Deferred OS upgrades will send advanced notifications on a per-VM
+	// basis that an OS upgrade from rolling upgrades is incoming, via the IMDS
+	// tag 'Platform.PendingOSUpgrade'. The upgrade then defers until the upgrade is approved via an ApproveRollingUpgrade call.
+	OSRollingUpgradeDeferral *bool
 
 	// Indicates whether rolling upgrade policy should be used during Auto OS Upgrade. Default value is false. Auto OS Upgrade
 	// will fallback to the default policy if no policy is defined on the VMSS.
@@ -353,6 +367,10 @@ type CapacityReservationGroup struct {
 type CapacityReservationGroupInstanceView struct {
 	// READ-ONLY; List of instance view of the capacity reservations under the capacity reservation group.
 	CapacityReservations []*CapacityReservationInstanceViewWithName
+
+	// READ-ONLY; List of the subscriptions that the capacity reservation group is shared with. Note: Minimum api-version: 2023-09-01.
+	// Please refer to https://aka.ms/computereservationsharing for more details.
+	SharedSubscriptionIDs []*SubResourceReadOnly
 }
 
 // CapacityReservationGroupListResult - The List capacity reservation group with resource group response.
@@ -367,6 +385,13 @@ type CapacityReservationGroupListResult struct {
 
 // CapacityReservationGroupProperties - capacity reservation group Properties.
 type CapacityReservationGroupProperties struct {
+	// Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in
+	// mind the capacity reservation group resource generally can be shared across
+	// subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between
+	// the AAD tenants. Note: Minimum api-version: 2023-09-01. Please refer to
+	// https://aka.ms/computereservationsharing for more details.
+	SharingProfile *ResourceSharingProfile
+
 	// READ-ONLY; A list of all capacity reservation resource ids that belong to capacity reservation group.
 	CapacityReservations []*SubResourceReadOnly
 
@@ -1076,6 +1101,26 @@ type DataDiskImageEncryption struct {
 
 	// A relative URI containing the resource ID of the disk encryption set.
 	DiskEncryptionSetID *string
+}
+
+// DataDisksToAttach - Describes the data disk to be attached.
+type DataDisksToAttach struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// The logical unit number of the data disk. This value is used to identify data disks within the VM and therefore must be
+	// unique for each data disk attached to a VM. If not specified, lun would be auto
+	// assigned.
+	Lun *int32
+}
+
+// DataDisksToDetach - Describes the data disk to be detached.
+type DataDisksToDetach struct {
+	// REQUIRED; ID of the managed data disk.
+	DiskID *string
+
+	// Supported options available for Detach of a disk from a VM. Refer to DetachOption object reference for more details.
+	DetachOption *DiskDetachOptionTypes
 }
 
 // DedicatedHost - Specifies information about the Dedicated host.
@@ -1889,6 +1934,12 @@ type Encryption struct {
 
 	// The type of key used to encrypt the data of the disk.
 	Type *EncryptionType
+}
+
+// EncryptionIdentity - Specifies the Managed Identity used by ADE to get access token for keyvault operations.
+type EncryptionIdentity struct {
+	// Specifies ARM Resource ID of one of the user identities associated with the VM.
+	UserAssignedIdentityResourceID *string
 }
 
 // EncryptionImages - Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the
@@ -3961,6 +4012,21 @@ type ProximityPlacementGroupUpdate struct {
 	Tags map[string]*string
 }
 
+// ProxyAgentSettings - Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2023-09-01.
+type ProxyAgentSettings struct {
+	// Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set.
+	Enabled *bool
+
+	// Increase the value of this property allows user to reset the key used for securing communication channel between guest
+	// and host.
+	KeyIncarnationID *int32
+
+	// Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or monitor
+	// but not enforce access control over requests to host endpoints in Audit mode,
+	// while in Enforce mode it will enforce access control. The default value is Enforce mode.
+	Mode *Mode
+}
+
 // ProxyOnlyResource - The ProxyOnly Resource model definition.
 type ProxyOnlyResource struct {
 	// READ-ONLY; Resource Id
@@ -4091,6 +4157,27 @@ type RequestRateByIntervalInput struct {
 
 	// Group query result by User Agent.
 	GroupByUserAgent *bool
+}
+
+// ResiliencyPolicy - Describes an resiliency policy - resilientVMCreationPolicy and/or resilientVMDeletionPolicy.
+type ResiliencyPolicy struct {
+	// The configuration parameters used while performing resilient VM creation.
+	ResilientVMCreationPolicy *ResilientVMCreationPolicy
+
+	// The configuration parameters used while performing resilient VM deletion.
+	ResilientVMDeletionPolicy *ResilientVMDeletionPolicy
+}
+
+// ResilientVMCreationPolicy - The configuration parameters used while performing resilient VM creation.
+type ResilientVMCreationPolicy struct {
+	// Specifies whether resilient VM creation should be enabled on the virtual machine scale set. The default value is false.
+	Enabled *bool
+}
+
+// ResilientVMDeletionPolicy - The configuration parameters used while performing resilient VM deletion.
+type ResilientVMDeletionPolicy struct {
+	// Specifies whether resilient VM deletion should be enabled on the virtual machine scale set. The default value is false.
+	Enabled *bool
 }
 
 // Resource - The Resource model definition.
@@ -4278,6 +4365,13 @@ type ResourceSKUsResult struct {
 
 	// The URI to fetch the next page of Resource Skus. Call ListNext() with this URI to fetch the next page of Resource Skus
 	NextLink *string
+}
+
+type ResourceSharingProfile struct {
+	// Specifies an array of Subscription resource Ids that capacity reservation group is shared with. The resource Id should
+	// be provided in form: /subscriptions/{subscriptionId}. Note: Minimum api-version:
+	// 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details.
+	SubscriptionIDs []*SubResource
 }
 
 // ResourceURIList - The List resources which are encrypted with the disk encryption set.
@@ -4527,6 +4621,9 @@ type RestorePointSourceVMStorageProfile struct {
 
 	// Gets the OS disk of the VM captured at the time of the restore point creation.
 	OSDisk *RestorePointSourceVMOSDisk
+
+	// READ-ONLY; Gets the disk controller type of the VM captured at the time of the restore point creation.
+	DiskControllerType *DiskControllerTypes
 }
 
 // RetrieveBootDiagnosticsDataResult - The SAS URIs of the console screenshot and serial log blobs.
@@ -4858,6 +4955,13 @@ type SSHConfiguration struct {
 	PublicKeys []*SSHPublicKey
 }
 
+// SSHGenerateKeyPairInputParameters - Parameters for GenerateSshKeyPair.
+type SSHGenerateKeyPairInputParameters struct {
+	// The encryption type of the SSH keys to be generated. See SshEncryptionTypes for possible set of values. If not provided,
+	// will default to RSA
+	EncryptionType *SSHEncryptionTypes
+}
+
 // SSHPublicKey - Contains information about SSH certificate public key and the path on the Linux VM where the public key
 // is placed.
 type SSHPublicKey struct {
@@ -4980,6 +5084,12 @@ type SecurityProfile struct {
 	// including Resource/Temp disk at host itself. The default behavior is: The Encryption at host will be disabled unless this
 	// property is set to true for the resource.
 	EncryptionAtHost *bool
+
+	// Specifies the Managed Identity used by ADE to get access token for keyvault operations.
+	EncryptionIdentity *EncryptionIdentity
+
+	// Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2023-09-01.
+	ProxyAgentSettings *ProxyAgentSettings
 
 	// Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings. The
 	// default behavior is: UefiSettings will not be enabled unless this property is
@@ -5752,8 +5862,9 @@ type VMDiskSecurityProfile struct {
 	DiskEncryptionSet *DiskEncryptionSetParameters
 
 	// Specifies the EncryptionType of the managed disk. It is set to DiskWithVMGuestState for encryption of the managed disk
-	// along with VMGuestState blob, and VMGuestStateOnly for encryption of just the
-	// VMGuestState blob. Note: It can be set for only Confidential VMs.
+	// along with VMGuestState blob, VMGuestStateOnly for encryption of just the
+	// VMGuestState blob, and NonPersistedTPM for not persisting firmware state in the VMGuestState blob.. Note: It can be set
+	// for only Confidential VMs.
 	SecurityEncryptionType *SecurityEncryptionTypes
 }
 
@@ -5879,8 +5990,16 @@ type VirtualMachine struct {
 	// The virtual machine zones.
 	Zones []*string
 
+	// READ-ONLY; Etag is property returned in Create/Update/Get response of the VM, so that customer can supply it in the header
+	// to ensure optimistic updates.
+	Etag *string
+
 	// READ-ONLY; Resource Id
 	ID *string
+
+	// READ-ONLY; ManagedBy is set to Virtual Machine Scale Set(VMSS) flex ARM resourceID, if the VM is part of the VMSS. This
+	// property is used by platform for internal resource group delete optimization.
+	ManagedBy *string
 
 	// READ-ONLY; Resource name
 	Name *string
@@ -6377,6 +6496,9 @@ type VirtualMachineInstanceView struct {
 	// placement enabled. Minimum api-version: 2020-06-01.
 	AssignedHost *string
 
+	// READ-ONLY; [Preview Feature] Specifies whether the VM is currently in or out of the Standby Pool.
+	IsVMInStandbyPool *bool
+
 	// READ-ONLY; The health status for the VM.
 	VMHealth *VirtualMachineHealthStatus
 }
@@ -6856,6 +6978,10 @@ type VirtualMachineScaleSet struct {
 
 	// The virtual machine scale set zones. NOTE: Availability zones can only be set when you create the scale set
 	Zones []*string
+
+	// READ-ONLY; Etag is property returned in Create/Update/Get response of the VMSS, so that customer can supply it in the header
+	// to ensure optimistic updates
+	Etag *string
 
 	// READ-ONLY; Resource Id
 	ID *string
@@ -7376,6 +7502,9 @@ type VirtualMachineScaleSetProperties struct {
 	// api-version: 2018-04-01.
 	ProximityPlacementGroup *SubResource
 
+	// Policy for Resiliency
+	ResiliencyPolicy *ResiliencyPolicy
+
 	// Specifies the policies applied when scaling in Virtual Machines in the Virtual Machine Scale Set.
 	ScaleInPolicy *ScaleInPolicy
 
@@ -7716,6 +7845,9 @@ type VirtualMachineScaleSetUpdateProperties struct {
 	// Minimum api-version: 2018-04-01.
 	ProximityPlacementGroup *SubResource
 
+	// Policy for Resiliency
+	ResiliencyPolicy *ResiliencyPolicy
+
 	// Specifies the policies applied when scaling in Virtual Machines in the Virtual Machine Scale Set.
 	ScaleInPolicy *ScaleInPolicy
 
@@ -7830,6 +7962,10 @@ type VirtualMachineScaleSetVM struct {
 
 	// Resource tags
 	Tags map[string]*string
+
+	// READ-ONLY; Etag is property returned in Update/Get response of the VMSS VM, so that customer can supply it in the header
+	// to ensure optimistic updates.
+	Etag *string
 
 	// READ-ONLY; Resource Id
 	ID *string
@@ -8055,6 +8191,11 @@ type VirtualMachineScaleSetVMProfile struct {
 	// UserData for the virtual machines in the scale set, which must be base-64 encoded. Customer should not pass any secrets
 	// in here. Minimum api-version: 2021-03-01.
 	UserData *string
+
+	// READ-ONLY; Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. Minimum API version
+	// for this property is 2023-09-01. This value will be added to VMSS Flex VM tags when
+	// creating/updating the VMSS VM Profile with minimum api-version 2023-09-01.
+	TimeCreated *time.Time
 }
 
 // VirtualMachineScaleSetVMProperties - Describes the properties of a virtual machine scale set virtual machine.

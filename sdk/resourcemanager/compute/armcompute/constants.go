@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v5.3.0-beta.2"
+	moduleVersion = "v5.3.0"
 )
 
 type AccessLevel string
@@ -1155,6 +1155,24 @@ func PossibleMaintenanceOperationResultCodeTypesValues() []MaintenanceOperationR
 	}
 }
 
+// Mode - Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or
+// monitor but not enforce access control over requests to host endpoints in Audit mode,
+// while in Enforce mode it will enforce access control. The default value is Enforce mode.
+type Mode string
+
+const (
+	ModeAudit   Mode = "Audit"
+	ModeEnforce Mode = "Enforce"
+)
+
+// PossibleModeValues returns the possible values for the Mode const type.
+func PossibleModeValues() []Mode {
+	return []Mode{
+		ModeAudit,
+		ModeEnforce,
+	}
+}
+
 // NetworkAPIVersion - specifies the Microsoft.Network API version used when creating networking resources in the Network
 // Interface Configurations
 type NetworkAPIVersion string
@@ -1798,13 +1816,32 @@ func PossibleRollingUpgradeStatusCodeValues() []RollingUpgradeStatusCode {
 	}
 }
 
+// SSHEncryptionTypes - The encryption type of the SSH keys to be generated. See SshEncryptionTypes for possible set of values.
+// If not provided, will default to RSA
+type SSHEncryptionTypes string
+
+const (
+	SSHEncryptionTypesEd25519 SSHEncryptionTypes = "Ed25519"
+	SSHEncryptionTypesRSA     SSHEncryptionTypes = "RSA"
+)
+
+// PossibleSSHEncryptionTypesValues returns the possible values for the SSHEncryptionTypes const type.
+func PossibleSSHEncryptionTypesValues() []SSHEncryptionTypes {
+	return []SSHEncryptionTypes{
+		SSHEncryptionTypesEd25519,
+		SSHEncryptionTypesRSA,
+	}
+}
+
 // SecurityEncryptionTypes - Specifies the EncryptionType of the managed disk. It is set to DiskWithVMGuestState for encryption
-// of the managed disk along with VMGuestState blob, and VMGuestStateOnly for encryption of just the
-// VMGuestState blob. Note: It can be set for only Confidential VMs.
+// of the managed disk along with VMGuestState blob, VMGuestStateOnly for encryption of just the
+// VMGuestState blob, and NonPersistedTPM for not persisting firmware state in the VMGuestState blob.. Note: It can be set
+// for only Confidential VMs.
 type SecurityEncryptionTypes string
 
 const (
 	SecurityEncryptionTypesDiskWithVMGuestState SecurityEncryptionTypes = "DiskWithVMGuestState"
+	SecurityEncryptionTypesNonPersistedTPM      SecurityEncryptionTypes = "NonPersistedTPM"
 	SecurityEncryptionTypesVMGuestStateOnly     SecurityEncryptionTypes = "VMGuestStateOnly"
 )
 
@@ -1812,6 +1849,7 @@ const (
 func PossibleSecurityEncryptionTypesValues() []SecurityEncryptionTypes {
 	return []SecurityEncryptionTypes{
 		SecurityEncryptionTypesDiskWithVMGuestState,
+		SecurityEncryptionTypesNonPersistedTPM,
 		SecurityEncryptionTypesVMGuestStateOnly,
 	}
 }

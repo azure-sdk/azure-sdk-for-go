@@ -1,5 +1,46 @@
 # Release History
 
+## 5.3.0 (2023-11-16)
+### Features Added
+
+- New value `SecurityEncryptionTypesNonPersistedTPM` added to enum type `SecurityEncryptionTypes`
+- New enum type `Mode` with values `ModeAudit`, `ModeEnforce`
+- New enum type `SSHEncryptionTypes` with values `SSHEncryptionTypesEd25519`, `SSHEncryptionTypesRSA`
+- New function `*DedicatedHostsClient.BeginRedeploy(context.Context, string, string, string, *DedicatedHostsClientBeginRedeployOptions) (*runtime.Poller[DedicatedHostsClientRedeployResponse], error)`
+- New function `*VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade(context.Context, string, string, string, *VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse], error)`
+- New function `*VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks(context.Context, string, string, string, AttachDetachDataDisksRequest, *VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions) (*runtime.Poller[VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse], error)`
+- New function `*VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade(context.Context, string, string, *VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetsClientApproveRollingUpgradeResponse], error)`
+- New function `*VirtualMachinesClient.BeginAttachDetachDataDisks(context.Context, string, string, AttachDetachDataDisksRequest, *VirtualMachinesClientBeginAttachDetachDataDisksOptions) (*runtime.Poller[VirtualMachinesClientAttachDetachDataDisksResponse], error)`
+- New struct `AttachDetachDataDisksRequest`
+- New struct `DataDisksToAttach`
+- New struct `DataDisksToDetach`
+- New struct `EncryptionIdentity`
+- New struct `ProxyAgentSettings`
+- New struct `ResiliencyPolicy`
+- New struct `ResilientVMCreationPolicy`
+- New struct `ResilientVMDeletionPolicy`
+- New struct `ResourceSharingProfile`
+- New struct `SSHGenerateKeyPairInputParameters`
+- New field `OSRollingUpgradeDeferral` in struct `AutomaticOSUpgradePolicy`
+- New field `SharedSubscriptionIDs` in struct `CapacityReservationGroupInstanceView`
+- New field `SharingProfile` in struct `CapacityReservationGroupProperties`
+- New field `DiskControllerType` in struct `RestorePointSourceVMStorageProfile`
+- New field `Parameters` in struct `SSHPublicKeysClientGenerateKeyPairOptions`
+- New field `EncryptionIdentity`, `ProxyAgentSettings` in struct `SecurityProfile`
+- New field `Etag`, `ManagedBy` in struct `VirtualMachine`
+- New field `IsVMInStandbyPool` in struct `VirtualMachineInstanceView`
+- New field `Etag` in struct `VirtualMachineScaleSet`
+- New field `ResiliencyPolicy` in struct `VirtualMachineScaleSetProperties`
+- New field `ResiliencyPolicy` in struct `VirtualMachineScaleSetUpdateProperties`
+- New field `Etag` in struct `VirtualMachineScaleSetVM`
+- New field `TimeCreated` in struct `VirtualMachineScaleSetVMProfile`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetVMsClientBeginUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachineScaleSetsClientBeginUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginUpdateOptions`
+
+
 ## 5.3.0-beta.2 (2023-10-30)
 
 ### Other Changes
