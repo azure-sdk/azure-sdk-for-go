@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0 (2023-11-16)
+### Features Added
+
+- New field `TrustedRanges` in struct `NetworkProfile`
+
+
 ## 1.0.0 (2023-07-14)
 ### Other Changes
 
