@@ -23,11 +23,11 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
+	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -37,122 +37,188 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewAppResiliencyClient creates a new instance of AppResiliencyClient.
+func (c *ClientFactory) NewAppResiliencyClient() *AppResiliencyClient {
+	subClient, _ := NewAppResiliencyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAvailableWorkloadProfilesClient creates a new instance of AvailableWorkloadProfilesClient.
 func (c *ClientFactory) NewAvailableWorkloadProfilesClient() *AvailableWorkloadProfilesClient {
 	subClient, _ := NewAvailableWorkloadProfilesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewBillingMetersClient creates a new instance of BillingMetersClient.
 func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
 	subClient, _ := NewBillingMetersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewBuildersClient creates a new instance of BuildersClient.
+func (c *ClientFactory) NewBuildersClient() *BuildersClient {
+	subClient, _ := NewBuildersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewBuildsClient creates a new instance of BuildsClient.
+func (c *ClientFactory) NewBuildsClient() *BuildsClient {
+	subClient, _ := NewBuildsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewCertificatesClient creates a new instance of CertificatesClient.
 func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	subClient, _ := NewCertificatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewConnectedEnvironmentsCertificatesClient creates a new instance of ConnectedEnvironmentsCertificatesClient.
 func (c *ClientFactory) NewConnectedEnvironmentsCertificatesClient() *ConnectedEnvironmentsCertificatesClient {
 	subClient, _ := NewConnectedEnvironmentsCertificatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewConnectedEnvironmentsClient creates a new instance of ConnectedEnvironmentsClient.
 func (c *ClientFactory) NewConnectedEnvironmentsClient() *ConnectedEnvironmentsClient {
 	subClient, _ := NewConnectedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewConnectedEnvironmentsDaprComponentsClient creates a new instance of ConnectedEnvironmentsDaprComponentsClient.
 func (c *ClientFactory) NewConnectedEnvironmentsDaprComponentsClient() *ConnectedEnvironmentsDaprComponentsClient {
 	subClient, _ := NewConnectedEnvironmentsDaprComponentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewConnectedEnvironmentsStoragesClient creates a new instance of ConnectedEnvironmentsStoragesClient.
 func (c *ClientFactory) NewConnectedEnvironmentsStoragesClient() *ConnectedEnvironmentsStoragesClient {
 	subClient, _ := NewConnectedEnvironmentsStoragesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsAPIClient creates a new instance of ContainerAppsAPIClient.
 func (c *ClientFactory) NewContainerAppsAPIClient() *ContainerAppsAPIClient {
 	subClient, _ := NewContainerAppsAPIClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsAuthConfigsClient creates a new instance of ContainerAppsAuthConfigsClient.
 func (c *ClientFactory) NewContainerAppsAuthConfigsClient() *ContainerAppsAuthConfigsClient {
 	subClient, _ := NewContainerAppsAuthConfigsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsClient creates a new instance of ContainerAppsClient.
 func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 	subClient, _ := NewContainerAppsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsDiagnosticsClient creates a new instance of ContainerAppsDiagnosticsClient.
 func (c *ClientFactory) NewContainerAppsDiagnosticsClient() *ContainerAppsDiagnosticsClient {
 	subClient, _ := NewContainerAppsDiagnosticsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsRevisionReplicasClient creates a new instance of ContainerAppsRevisionReplicasClient.
 func (c *ClientFactory) NewContainerAppsRevisionReplicasClient() *ContainerAppsRevisionReplicasClient {
 	subClient, _ := NewContainerAppsRevisionReplicasClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsRevisionsClient creates a new instance of ContainerAppsRevisionsClient.
 func (c *ClientFactory) NewContainerAppsRevisionsClient() *ContainerAppsRevisionsClient {
 	subClient, _ := NewContainerAppsRevisionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewContainerAppsSourceControlsClient creates a new instance of ContainerAppsSourceControlsClient.
 func (c *ClientFactory) NewContainerAppsSourceControlsClient() *ContainerAppsSourceControlsClient {
 	subClient, _ := NewContainerAppsSourceControlsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewDaprComponentResiliencyPoliciesClient creates a new instance of DaprComponentResiliencyPoliciesClient.
+func (c *ClientFactory) NewDaprComponentResiliencyPoliciesClient() *DaprComponentResiliencyPoliciesClient {
+	subClient, _ := NewDaprComponentResiliencyPoliciesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDaprComponentsClient creates a new instance of DaprComponentsClient.
 func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
 	subClient, _ := NewDaprComponentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewDaprSubscriptionsClient creates a new instance of DaprSubscriptionsClient.
+func (c *ClientFactory) NewDaprSubscriptionsClient() *DaprSubscriptionsClient {
+	subClient, _ := NewDaprSubscriptionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewJobsClient creates a new instance of JobsClient.
 func (c *ClientFactory) NewJobsClient() *JobsClient {
 	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewJobsExecutionsClient creates a new instance of JobsExecutionsClient.
 func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
 	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewManagedCertificatesClient creates a new instance of ManagedCertificatesClient.
 func (c *ClientFactory) NewManagedCertificatesClient() *ManagedCertificatesClient {
 	subClient, _ := NewManagedCertificatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewManagedEnvironmentDiagnosticsClient creates a new instance of ManagedEnvironmentDiagnosticsClient.
 func (c *ClientFactory) NewManagedEnvironmentDiagnosticsClient() *ManagedEnvironmentDiagnosticsClient {
 	subClient, _ := NewManagedEnvironmentDiagnosticsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewManagedEnvironmentUsagesClient creates a new instance of ManagedEnvironmentUsagesClient.
+func (c *ClientFactory) NewManagedEnvironmentUsagesClient() *ManagedEnvironmentUsagesClient {
+	subClient, _ := NewManagedEnvironmentUsagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewManagedEnvironmentsClient creates a new instance of ManagedEnvironmentsClient.
 func (c *ClientFactory) NewManagedEnvironmentsClient() *ManagedEnvironmentsClient {
 	subClient, _ := NewManagedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewManagedEnvironmentsDiagnosticsClient creates a new instance of ManagedEnvironmentsDiagnosticsClient.
 func (c *ClientFactory) NewManagedEnvironmentsDiagnosticsClient() *ManagedEnvironmentsDiagnosticsClient {
 	subClient, _ := NewManagedEnvironmentsDiagnosticsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewManagedEnvironmentsStoragesClient creates a new instance of ManagedEnvironmentsStoragesClient.
 func (c *ClientFactory) NewManagedEnvironmentsStoragesClient() *ManagedEnvironmentsStoragesClient {
 	subClient, _ := NewManagedEnvironmentsStoragesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewNamespacesClient creates a new instance of NamespacesClient.
 func (c *ClientFactory) NewNamespacesClient() *NamespacesClient {
 	subClient, _ := NewNamespacesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewUsagesClient creates a new instance of UsagesClient.
+func (c *ClientFactory) NewUsagesClient() *UsagesClient {
+	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
