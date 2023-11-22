@@ -32,7 +32,7 @@ type ServerAdvancedThreatProtectionSettingsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewServerAdvancedThreatProtectionSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServerAdvancedThreatProtectionSettingsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ServerAdvancedThreatProtectionSettingsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewServerAdvancedThreatProtectionSettingsClient(subscriptionID string, cred
 // BeginCreateOrUpdate - Creates or updates an Advanced Threat Protection state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -60,19 +60,27 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) BeginCreateOrUpdate(
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller[ServerAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ServerAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken[ServerAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ServerAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
 }
 
 // CreateOrUpdate - Creates or updates an Advanced Threat Protection state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2023-08-01-preview
 func (client *ServerAdvancedThreatProtectionSettingsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, advancedThreatProtectionName AdvancedThreatProtectionName, parameters ServerAdvancedThreatProtection, options *ServerAdvancedThreatProtectionSettingsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
+	const operationName = "ServerAdvancedThreatProtectionSettingsClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, advancedThreatProtectionName, parameters, options)
 	if err != nil {
 		return nil, err
@@ -112,7 +120,7 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) createOrUpdateCreate
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -124,7 +132,7 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) createOrUpdateCreate
 // Get - Get a server's Advanced Threat Protection state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -133,6 +141,10 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) createOrUpdateCreate
 //     method.
 func (client *ServerAdvancedThreatProtectionSettingsClient) Get(ctx context.Context, resourceGroupName string, serverName string, advancedThreatProtectionName AdvancedThreatProtectionName, options *ServerAdvancedThreatProtectionSettingsClientGetOptions) (ServerAdvancedThreatProtectionSettingsClientGetResponse, error) {
 	var err error
+	const operationName = "ServerAdvancedThreatProtectionSettingsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, advancedThreatProtectionName, options)
 	if err != nil {
 		return ServerAdvancedThreatProtectionSettingsClientGetResponse{}, err
@@ -173,7 +185,7 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) getCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -190,7 +202,7 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) getHandleResponse(re
 
 // NewListByServerPager - Get a list of the server's Advanced Threat Protection states.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -202,25 +214,20 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) NewListByServerPager
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ServerAdvancedThreatProtectionSettingsClientListByServerResponse) (ServerAdvancedThreatProtectionSettingsClientListByServerResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ServerAdvancedThreatProtectionSettingsClient.NewListByServerPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			}, nil)
 			if err != nil {
 				return ServerAdvancedThreatProtectionSettingsClientListByServerResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ServerAdvancedThreatProtectionSettingsClientListByServerResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ServerAdvancedThreatProtectionSettingsClientListByServerResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByServerHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -244,7 +251,7 @@ func (client *ServerAdvancedThreatProtectionSettingsClient) listByServerCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

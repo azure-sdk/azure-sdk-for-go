@@ -32,7 +32,7 @@ type DatabaseRecommendedActionsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDatabaseRecommendedActionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DatabaseRecommendedActionsClient, error) {
-	cl, err := arm.NewClient(moduleName+".DatabaseRecommendedActionsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewDatabaseRecommendedActionsClient(subscriptionID string, credential azcor
 // Get - Gets a database recommended action.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -57,6 +57,10 @@ func NewDatabaseRecommendedActionsClient(subscriptionID string, credential azcor
 //     method.
 func (client *DatabaseRecommendedActionsClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, advisorName string, recommendedActionName string, options *DatabaseRecommendedActionsClientGetOptions) (DatabaseRecommendedActionsClientGetResponse, error) {
 	var err error
+	const operationName = "DatabaseRecommendedActionsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, databaseName, advisorName, recommendedActionName, options)
 	if err != nil {
 		return DatabaseRecommendedActionsClientGetResponse{}, err
@@ -105,7 +109,7 @@ func (client *DatabaseRecommendedActionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,7 +127,7 @@ func (client *DatabaseRecommendedActionsClient) getHandleResponse(resp *http.Res
 // ListByDatabaseAdvisor - Gets list of Database Recommended Actions.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -133,6 +137,10 @@ func (client *DatabaseRecommendedActionsClient) getHandleResponse(resp *http.Res
 //     method.
 func (client *DatabaseRecommendedActionsClient) ListByDatabaseAdvisor(ctx context.Context, resourceGroupName string, serverName string, databaseName string, advisorName string, options *DatabaseRecommendedActionsClientListByDatabaseAdvisorOptions) (DatabaseRecommendedActionsClientListByDatabaseAdvisorResponse, error) {
 	var err error
+	const operationName = "DatabaseRecommendedActionsClient.ListByDatabaseAdvisor"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listByDatabaseAdvisorCreateRequest(ctx, resourceGroupName, serverName, databaseName, advisorName, options)
 	if err != nil {
 		return DatabaseRecommendedActionsClientListByDatabaseAdvisorResponse{}, err
@@ -177,7 +185,7 @@ func (client *DatabaseRecommendedActionsClient) listByDatabaseAdvisorCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,7 +203,7 @@ func (client *DatabaseRecommendedActionsClient) listByDatabaseAdvisorHandleRespo
 // Update - Updates a database recommended action.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -207,6 +215,10 @@ func (client *DatabaseRecommendedActionsClient) listByDatabaseAdvisorHandleRespo
 //     method.
 func (client *DatabaseRecommendedActionsClient) Update(ctx context.Context, resourceGroupName string, serverName string, databaseName string, advisorName string, recommendedActionName string, parameters RecommendedAction, options *DatabaseRecommendedActionsClientUpdateOptions) (DatabaseRecommendedActionsClientUpdateResponse, error) {
 	var err error
+	const operationName = "DatabaseRecommendedActionsClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverName, databaseName, advisorName, recommendedActionName, parameters, options)
 	if err != nil {
 		return DatabaseRecommendedActionsClientUpdateResponse{}, err
@@ -255,7 +267,7 @@ func (client *DatabaseRecommendedActionsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

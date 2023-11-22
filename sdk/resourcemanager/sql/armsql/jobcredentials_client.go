@@ -32,7 +32,7 @@ type JobCredentialsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewJobCredentialsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobCredentialsClient, error) {
-	cl, err := arm.NewClient(moduleName+".JobCredentialsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewJobCredentialsClient(subscriptionID string, credential azcore.TokenCrede
 // CreateOrUpdate - Creates or updates a job credential.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -57,6 +57,10 @@ func NewJobCredentialsClient(subscriptionID string, credential azcore.TokenCrede
 //     method.
 func (client *JobCredentialsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, jobAgentName string, credentialName string, parameters JobCredential, options *JobCredentialsClientCreateOrUpdateOptions) (JobCredentialsClientCreateOrUpdateResponse, error) {
 	var err error
+	const operationName = "JobCredentialsClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, jobAgentName, credentialName, parameters, options)
 	if err != nil {
 		return JobCredentialsClientCreateOrUpdateResponse{}, err
@@ -101,7 +105,7 @@ func (client *JobCredentialsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -122,7 +126,7 @@ func (client *JobCredentialsClient) createOrUpdateHandleResponse(resp *http.Resp
 // Delete - Deletes a job credential.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -131,6 +135,10 @@ func (client *JobCredentialsClient) createOrUpdateHandleResponse(resp *http.Resp
 //   - options - JobCredentialsClientDeleteOptions contains the optional parameters for the JobCredentialsClient.Delete method.
 func (client *JobCredentialsClient) Delete(ctx context.Context, resourceGroupName string, serverName string, jobAgentName string, credentialName string, options *JobCredentialsClientDeleteOptions) (JobCredentialsClientDeleteResponse, error) {
 	var err error
+	const operationName = "JobCredentialsClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, jobAgentName, credentialName, options)
 	if err != nil {
 		return JobCredentialsClientDeleteResponse{}, err
@@ -174,7 +182,7 @@ func (client *JobCredentialsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -182,7 +190,7 @@ func (client *JobCredentialsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets a jobs credential.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -191,6 +199,10 @@ func (client *JobCredentialsClient) deleteCreateRequest(ctx context.Context, res
 //   - options - JobCredentialsClientGetOptions contains the optional parameters for the JobCredentialsClient.Get method.
 func (client *JobCredentialsClient) Get(ctx context.Context, resourceGroupName string, serverName string, jobAgentName string, credentialName string, options *JobCredentialsClientGetOptions) (JobCredentialsClientGetResponse, error) {
 	var err error
+	const operationName = "JobCredentialsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, jobAgentName, credentialName, options)
 	if err != nil {
 		return JobCredentialsClientGetResponse{}, err
@@ -235,7 +247,7 @@ func (client *JobCredentialsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -252,7 +264,7 @@ func (client *JobCredentialsClient) getHandleResponse(resp *http.Response) (JobC
 
 // NewListByAgentPager - Gets a list of jobs credentials.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -265,25 +277,20 @@ func (client *JobCredentialsClient) NewListByAgentPager(resourceGroupName string
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *JobCredentialsClientListByAgentResponse) (JobCredentialsClientListByAgentResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByAgentCreateRequest(ctx, resourceGroupName, serverName, jobAgentName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "JobCredentialsClient.NewListByAgentPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByAgentCreateRequest(ctx, resourceGroupName, serverName, jobAgentName, options)
+			}, nil)
 			if err != nil {
 				return JobCredentialsClientListByAgentResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return JobCredentialsClientListByAgentResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return JobCredentialsClientListByAgentResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByAgentHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -311,7 +318,7 @@ func (client *JobCredentialsClient) listByAgentCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

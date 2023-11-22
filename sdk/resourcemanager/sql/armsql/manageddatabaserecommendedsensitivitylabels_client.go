@@ -32,7 +32,7 @@ type ManagedDatabaseRecommendedSensitivityLabelsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagedDatabaseRecommendedSensitivityLabelsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedDatabaseRecommendedSensitivityLabelsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ManagedDatabaseRecommendedSensitivityLabelsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewManagedDatabaseRecommendedSensitivityLabelsClient(subscriptionID string,
 // Update - Update recommended sensitivity labels states of a given database using an operations batch.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -55,6 +55,10 @@ func NewManagedDatabaseRecommendedSensitivityLabelsClient(subscriptionID string,
 //     method.
 func (client *ManagedDatabaseRecommendedSensitivityLabelsClient) Update(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, parameters RecommendedSensitivityLabelUpdateList, options *ManagedDatabaseRecommendedSensitivityLabelsClientUpdateOptions) (ManagedDatabaseRecommendedSensitivityLabelsClientUpdateResponse, error) {
 	var err error
+	const operationName = "ManagedDatabaseRecommendedSensitivityLabelsClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, managedInstanceName, databaseName, parameters, options)
 	if err != nil {
 		return ManagedDatabaseRecommendedSensitivityLabelsClientUpdateResponse{}, err
@@ -94,7 +98,7 @@ func (client *ManagedDatabaseRecommendedSensitivityLabelsClient) updateCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
 		return nil, err

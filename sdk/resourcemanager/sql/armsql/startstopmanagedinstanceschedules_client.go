@@ -32,7 +32,7 @@ type StartStopManagedInstanceSchedulesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewStartStopManagedInstanceSchedulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StartStopManagedInstanceSchedulesClient, error) {
-	cl, err := arm.NewClient(moduleName+".StartStopManagedInstanceSchedulesClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewStartStopManagedInstanceSchedulesClient(subscriptionID string, credentia
 // CreateOrUpdate - Creates or updates the managed instance's Start/Stop schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -56,6 +56,10 @@ func NewStartStopManagedInstanceSchedulesClient(subscriptionID string, credentia
 //     method.
 func (client *StartStopManagedInstanceSchedulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, startStopScheduleName StartStopScheduleName, parameters StartStopManagedInstanceSchedule, options *StartStopManagedInstanceSchedulesClientCreateOrUpdateOptions) (StartStopManagedInstanceSchedulesClientCreateOrUpdateResponse, error) {
 	var err error
+	const operationName = "StartStopManagedInstanceSchedulesClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, managedInstanceName, startStopScheduleName, parameters, options)
 	if err != nil {
 		return StartStopManagedInstanceSchedulesClientCreateOrUpdateResponse{}, err
@@ -96,7 +100,7 @@ func (client *StartStopManagedInstanceSchedulesClient) createOrUpdateCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -117,7 +121,7 @@ func (client *StartStopManagedInstanceSchedulesClient) createOrUpdateHandleRespo
 // Delete - Deletes the managed instance's Start/Stop schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -126,6 +130,10 @@ func (client *StartStopManagedInstanceSchedulesClient) createOrUpdateHandleRespo
 //     method.
 func (client *StartStopManagedInstanceSchedulesClient) Delete(ctx context.Context, resourceGroupName string, managedInstanceName string, startStopScheduleName StartStopScheduleName, options *StartStopManagedInstanceSchedulesClientDeleteOptions) (StartStopManagedInstanceSchedulesClientDeleteResponse, error) {
 	var err error
+	const operationName = "StartStopManagedInstanceSchedulesClient.Delete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, managedInstanceName, startStopScheduleName, options)
 	if err != nil {
 		return StartStopManagedInstanceSchedulesClientDeleteResponse{}, err
@@ -165,7 +173,7 @@ func (client *StartStopManagedInstanceSchedulesClient) deleteCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -173,7 +181,7 @@ func (client *StartStopManagedInstanceSchedulesClient) deleteCreateRequest(ctx c
 // Get - Gets the managed instance's Start/Stop schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -182,6 +190,10 @@ func (client *StartStopManagedInstanceSchedulesClient) deleteCreateRequest(ctx c
 //     method.
 func (client *StartStopManagedInstanceSchedulesClient) Get(ctx context.Context, resourceGroupName string, managedInstanceName string, startStopScheduleName StartStopScheduleName, options *StartStopManagedInstanceSchedulesClientGetOptions) (StartStopManagedInstanceSchedulesClientGetResponse, error) {
 	var err error
+	const operationName = "StartStopManagedInstanceSchedulesClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, managedInstanceName, startStopScheduleName, options)
 	if err != nil {
 		return StartStopManagedInstanceSchedulesClientGetResponse{}, err
@@ -222,7 +234,7 @@ func (client *StartStopManagedInstanceSchedulesClient) getCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +251,7 @@ func (client *StartStopManagedInstanceSchedulesClient) getHandleResponse(resp *h
 
 // NewListByInstancePager - Lists the managed instance's Start/Stop schedules.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -251,25 +263,20 @@ func (client *StartStopManagedInstanceSchedulesClient) NewListByInstancePager(re
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *StartStopManagedInstanceSchedulesClientListByInstanceResponse) (StartStopManagedInstanceSchedulesClientListByInstanceResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByInstanceCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "StartStopManagedInstanceSchedulesClient.NewListByInstancePager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
 			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByInstanceCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
+			}, nil)
 			if err != nil {
 				return StartStopManagedInstanceSchedulesClientListByInstanceResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return StartStopManagedInstanceSchedulesClientListByInstanceResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return StartStopManagedInstanceSchedulesClientListByInstanceResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByInstanceHandleResponse(resp)
 		},
+		Tracer: client.internal.Tracer(),
 	})
 }
 
@@ -293,7 +300,7 @@ func (client *StartStopManagedInstanceSchedulesClient) listByInstanceCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

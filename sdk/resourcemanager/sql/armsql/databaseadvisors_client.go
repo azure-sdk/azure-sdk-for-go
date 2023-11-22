@@ -32,7 +32,7 @@ type DatabaseAdvisorsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDatabaseAdvisorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DatabaseAdvisorsClient, error) {
-	cl, err := arm.NewClient(moduleName+".DatabaseAdvisorsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewDatabaseAdvisorsClient(subscriptionID string, credential azcore.TokenCre
 // Get - Gets a database advisor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -55,6 +55,10 @@ func NewDatabaseAdvisorsClient(subscriptionID string, credential azcore.TokenCre
 //   - options - DatabaseAdvisorsClientGetOptions contains the optional parameters for the DatabaseAdvisorsClient.Get method.
 func (client *DatabaseAdvisorsClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, advisorName string, options *DatabaseAdvisorsClientGetOptions) (DatabaseAdvisorsClientGetResponse, error) {
 	var err error
+	const operationName = "DatabaseAdvisorsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, databaseName, advisorName, options)
 	if err != nil {
 		return DatabaseAdvisorsClientGetResponse{}, err
@@ -99,7 +103,7 @@ func (client *DatabaseAdvisorsClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +121,7 @@ func (client *DatabaseAdvisorsClient) getHandleResponse(resp *http.Response) (Da
 // ListByDatabase - Gets a list of database advisors.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -126,6 +130,10 @@ func (client *DatabaseAdvisorsClient) getHandleResponse(resp *http.Response) (Da
 //     method.
 func (client *DatabaseAdvisorsClient) ListByDatabase(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabaseAdvisorsClientListByDatabaseOptions) (DatabaseAdvisorsClientListByDatabaseResponse, error) {
 	var err error
+	const operationName = "DatabaseAdvisorsClient.ListByDatabase"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listByDatabaseCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
 		return DatabaseAdvisorsClientListByDatabaseResponse{}, err
@@ -169,7 +177,7 @@ func (client *DatabaseAdvisorsClient) listByDatabaseCreateRequest(ctx context.Co
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -187,7 +195,7 @@ func (client *DatabaseAdvisorsClient) listByDatabaseHandleResponse(resp *http.Re
 // Update - Updates a database advisor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -197,6 +205,10 @@ func (client *DatabaseAdvisorsClient) listByDatabaseHandleResponse(resp *http.Re
 //   - options - DatabaseAdvisorsClientUpdateOptions contains the optional parameters for the DatabaseAdvisorsClient.Update method.
 func (client *DatabaseAdvisorsClient) Update(ctx context.Context, resourceGroupName string, serverName string, databaseName string, advisorName string, parameters Advisor, options *DatabaseAdvisorsClientUpdateOptions) (DatabaseAdvisorsClientUpdateResponse, error) {
 	var err error
+	const operationName = "DatabaseAdvisorsClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverName, databaseName, advisorName, parameters, options)
 	if err != nil {
 		return DatabaseAdvisorsClientUpdateResponse{}, err
@@ -241,7 +253,7 @@ func (client *DatabaseAdvisorsClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

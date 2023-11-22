@@ -32,7 +32,7 @@ type CapabilitiesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CapabilitiesClient, error) {
-	cl, err := arm.NewClient(moduleName+".CapabilitiesClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,12 +46,16 @@ func NewCapabilitiesClient(subscriptionID string, credential azcore.TokenCredent
 // ListByLocation - Gets the subscription capabilities available for the specified location.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - locationName - The location name whose capabilities are retrieved.
 //   - options - CapabilitiesClientListByLocationOptions contains the optional parameters for the CapabilitiesClient.ListByLocation
 //     method.
 func (client *CapabilitiesClient) ListByLocation(ctx context.Context, locationName string, options *CapabilitiesClientListByLocationOptions) (CapabilitiesClientListByLocationResponse, error) {
 	var err error
+	const operationName = "CapabilitiesClient.ListByLocation"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listByLocationCreateRequest(ctx, locationName, options)
 	if err != nil {
 		return CapabilitiesClientListByLocationResponse{}, err
@@ -87,7 +91,7 @@ func (client *CapabilitiesClient) listByLocationCreateRequest(ctx context.Contex
 	if options != nil && options.Include != nil {
 		reqQP.Set("include", string(*options.Include))
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

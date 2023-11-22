@@ -32,7 +32,7 @@ type AgentClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAgentClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AgentClient, error) {
-	cl, err := arm.NewClient(moduleName+".AgentClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,13 +46,17 @@ func NewAgentClient(subscriptionID string, credential azcore.TokenCredential, op
 // CreateOrUpdate - Puts new sql agent configuration to instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
 //   - options - AgentClientCreateOrUpdateOptions contains the optional parameters for the AgentClient.CreateOrUpdate method.
 func (client *AgentClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, parameters AgentConfiguration, options *AgentClientCreateOrUpdateOptions) (AgentClientCreateOrUpdateResponse, error) {
 	var err error
+	const operationName = "AgentClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, managedInstanceName, parameters, options)
 	if err != nil {
 		return AgentClientCreateOrUpdateResponse{}, err
@@ -89,7 +93,7 @@ func (client *AgentClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -110,13 +114,17 @@ func (client *AgentClient) createOrUpdateHandleResponse(resp *http.Response) (Ag
 // Get - Gets current instance sql agent configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
 //   - options - AgentClientGetOptions contains the optional parameters for the AgentClient.Get method.
 func (client *AgentClient) Get(ctx context.Context, resourceGroupName string, managedInstanceName string, options *AgentClientGetOptions) (AgentClientGetResponse, error) {
 	var err error
+	const operationName = "AgentClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, managedInstanceName, options)
 	if err != nil {
 		return AgentClientGetResponse{}, err
@@ -153,7 +161,7 @@ func (client *AgentClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

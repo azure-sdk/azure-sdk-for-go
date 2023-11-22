@@ -32,7 +32,7 @@ type ServerAdvisorsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewServerAdvisorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServerAdvisorsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ServerAdvisorsClient", moduleVersion, credential, options)
+	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func NewServerAdvisorsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Gets a server advisor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -54,6 +54,10 @@ func NewServerAdvisorsClient(subscriptionID string, credential azcore.TokenCrede
 //   - options - ServerAdvisorsClientGetOptions contains the optional parameters for the ServerAdvisorsClient.Get method.
 func (client *ServerAdvisorsClient) Get(ctx context.Context, resourceGroupName string, serverName string, advisorName string, options *ServerAdvisorsClientGetOptions) (ServerAdvisorsClientGetResponse, error) {
 	var err error
+	const operationName = "ServerAdvisorsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, advisorName, options)
 	if err != nil {
 		return ServerAdvisorsClientGetResponse{}, err
@@ -94,7 +98,7 @@ func (client *ServerAdvisorsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -112,7 +116,7 @@ func (client *ServerAdvisorsClient) getHandleResponse(resp *http.Response) (Serv
 // ListByServer - Gets a list of server advisors.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -120,6 +124,10 @@ func (client *ServerAdvisorsClient) getHandleResponse(resp *http.Response) (Serv
 //     method.
 func (client *ServerAdvisorsClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string, options *ServerAdvisorsClientListByServerOptions) (ServerAdvisorsClientListByServerResponse, error) {
 	var err error
+	const operationName = "ServerAdvisorsClient.ListByServer"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
 	if err != nil {
 		return ServerAdvisorsClientListByServerResponse{}, err
@@ -159,7 +167,7 @@ func (client *ServerAdvisorsClient) listByServerCreateRequest(ctx context.Contex
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -177,7 +185,7 @@ func (client *ServerAdvisorsClient) listByServerHandleResponse(resp *http.Respon
 // Update - Updates a server advisor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2023-08-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -186,6 +194,10 @@ func (client *ServerAdvisorsClient) listByServerHandleResponse(resp *http.Respon
 //   - options - ServerAdvisorsClientUpdateOptions contains the optional parameters for the ServerAdvisorsClient.Update method.
 func (client *ServerAdvisorsClient) Update(ctx context.Context, resourceGroupName string, serverName string, advisorName string, parameters Advisor, options *ServerAdvisorsClientUpdateOptions) (ServerAdvisorsClientUpdateResponse, error) {
 	var err error
+	const operationName = "ServerAdvisorsClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverName, advisorName, parameters, options)
 	if err != nil {
 		return ServerAdvisorsClientUpdateResponse{}, err
@@ -226,7 +238,7 @@ func (client *ServerAdvisorsClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2023-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
