@@ -1,5 +1,17 @@
 # Release History
 
+## 1.2.0-beta.2 (2023-11-24)
+### Breaking Changes
+
+- Type of `ClusterDefinition.Kind` has been changed from `*string` to `*ClusterKind`
+
+### Features Added
+
+- New enum type `ClusterKind` with values `ClusterKindHADOOP`, `ClusterKindHBASE`, `ClusterKindINTERACTIVEHIVE`, `ClusterKindKAFKA`, `ClusterKindSPARK`
+- New enum type `OutboundDependenciesManagedType` with values `OutboundDependenciesManagedTypeExternal`, `OutboundDependenciesManagedTypeManaged`
+- New field `OutboundDependenciesManagedType` in struct `NetworkProperties`
+
+
 ## 1.2.0-beta.1 (2023-07-28)
 ### Features Added
 
