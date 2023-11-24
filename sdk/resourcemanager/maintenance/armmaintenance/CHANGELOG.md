@@ -1,5 +1,12 @@
 # Release History
 
+## 1.4.0-beta.1 (2023-11-24)
+### Features Added
+
+- New value `UpdateStatusCancel`, `UpdateStatusCancelled`, `UpdateStatusNoUpdatesPending` added to enum type `UpdateStatus`
+- New function `*ApplyUpdatesClient.CreateOrUpdateOrCancel(context.Context, string, string, string, string, string, ApplyUpdate, *ApplyUpdatesClientCreateOrUpdateOrCancelOptions) (ApplyUpdatesClientCreateOrUpdateOrCancelResponse, error)`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 

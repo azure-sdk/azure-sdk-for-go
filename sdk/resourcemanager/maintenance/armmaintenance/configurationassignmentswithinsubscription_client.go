@@ -46,7 +46,7 @@ func NewConfigurationAssignmentsWithinSubscriptionClient(subscriptionID string, 
 
 // NewListPager - Get configuration assignment within a subscription
 //
-// Generated from API version 2023-04-01
+// Generated from API version 2023-09-01-preview
 //   - options - ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.NewListPager
 //     method.
 func (client *ConfigurationAssignmentsWithinSubscriptionClient) NewListPager(options *ConfigurationAssignmentsWithinSubscriptionClientListOptions) *runtime.Pager[ConfigurationAssignmentsWithinSubscriptionClientListResponse] {
@@ -85,7 +85,7 @@ func (client *ConfigurationAssignmentsWithinSubscriptionClient) listCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-04-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

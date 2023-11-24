@@ -14,6 +14,12 @@ type ApplyUpdateForResourceGroupClientListResponse struct {
 	ListApplyUpdate
 }
 
+// ApplyUpdatesClientCreateOrUpdateOrCancelResponse contains the response from method ApplyUpdatesClient.CreateOrUpdateOrCancel.
+type ApplyUpdatesClientCreateOrUpdateOrCancelResponse struct {
+	// Apply Update request
+	ApplyUpdate
+}
+
 // ApplyUpdatesClientCreateOrUpdateParentResponse contains the response from method ApplyUpdatesClient.CreateOrUpdateParent.
 type ApplyUpdatesClientCreateOrUpdateParentResponse struct {
 	// Apply Update request
