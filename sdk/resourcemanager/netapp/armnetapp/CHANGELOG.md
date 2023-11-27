@@ -1,5 +1,15 @@
 # Release History
 
+## 6.0.0 (2023-11-27)
+### Breaking Changes
+
+- Field `DeploymentSpecID` of struct `VolumeGroupMetaData` has been removed
+
+### Features Added
+
+- New value `RelationshipStatusFailed`, `RelationshipStatusUnknown` added to enum type `RelationshipStatus`
+
+
 ## 5.1.0 (2023-11-24)
 ### Features Added
 

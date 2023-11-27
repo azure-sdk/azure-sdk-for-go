@@ -3289,7 +3289,6 @@ func (v VolumeGroupMetaData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "applicationIdentifier", v.ApplicationIdentifier)
 	populate(objectMap, "applicationType", v.ApplicationType)
-	populate(objectMap, "deploymentSpecId", v.DeploymentSpecID)
 	populate(objectMap, "globalPlacementRules", v.GlobalPlacementRules)
 	populate(objectMap, "groupDescription", v.GroupDescription)
 	populate(objectMap, "volumesCount", v.VolumesCount)
@@ -3310,9 +3309,6 @@ func (v *VolumeGroupMetaData) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "applicationType":
 			err = unpopulate(val, "ApplicationType", &v.ApplicationType)
-			delete(rawMsg, key)
-		case "deploymentSpecId":
-			err = unpopulate(val, "DeploymentSpecID", &v.DeploymentSpecID)
 			delete(rawMsg, key)
 		case "globalPlacementRules":
 			err = unpopulate(val, "GlobalPlacementRules", &v.GlobalPlacementRules)
