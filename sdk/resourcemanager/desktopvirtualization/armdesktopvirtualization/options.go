@@ -8,6 +8,61 @@
 
 package armdesktopvirtualization
 
+// ActiveSessionHostConfigurationsClientGetOptions contains the optional parameters for the ActiveSessionHostConfigurationsClient.Get
+// method.
+type ActiveSessionHostConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActiveSessionHostConfigurationsClientListByHostPoolOptions contains the optional parameters for the ActiveSessionHostConfigurationsClient.NewListByHostPoolPager
+// method.
+type ActiveSessionHostConfigurationsClientListByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AppAttachPackageClientCreateOrUpdateOptions contains the optional parameters for the AppAttachPackageClient.CreateOrUpdate
+// method.
+type AppAttachPackageClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AppAttachPackageClientDeleteOptions contains the optional parameters for the AppAttachPackageClient.Delete method.
+type AppAttachPackageClientDeleteOptions struct {
+	// Force flag to delete App Attach package.
+	Force *bool
+}
+
+// AppAttachPackageClientGetOptions contains the optional parameters for the AppAttachPackageClient.Get method.
+type AppAttachPackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AppAttachPackageClientListByResourceGroupOptions contains the optional parameters for the AppAttachPackageClient.NewListByResourceGroupPager
+// method.
+type AppAttachPackageClientListByResourceGroupOptions struct {
+	// OData filter expression. Valid properties for filtering are package name and host pool.
+	Filter *string
+}
+
+// AppAttachPackageClientListBySubscriptionOptions contains the optional parameters for the AppAttachPackageClient.NewListBySubscriptionPager
+// method.
+type AppAttachPackageClientListBySubscriptionOptions struct {
+	// OData filter expression. Valid properties for filtering are package name, host pool, and resource group.
+	Filter *string
+}
+
+// AppAttachPackageClientUpdateOptions contains the optional parameters for the AppAttachPackageClient.Update method.
+type AppAttachPackageClientUpdateOptions struct {
+	// Object containing App Attach Package definition.
+	AppAttachPackagePatch *AppAttachPackagePatch
+}
+
+// AppAttachPackageInfoClientImportOptions contains the optional parameters for the AppAttachPackageInfoClient.NewImportPager
+// method.
+type AppAttachPackageInfoClientImportOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ApplicationGroupsClientCreateOrUpdateOptions contains the optional parameters for the ApplicationGroupsClient.CreateOrUpdate
 // method.
 type ApplicationGroupsClientCreateOrUpdateOptions struct {
@@ -86,6 +141,13 @@ type ApplicationsClientUpdateOptions struct {
 	Application *ApplicationPatch
 }
 
+// ControlSessionHostUpdateClientBeginPostOptions contains the optional parameters for the ControlSessionHostUpdateClient.BeginPost
+// method.
+type ControlSessionHostUpdateClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // DesktopsClientGetOptions contains the optional parameters for the DesktopsClient.Get method.
 type DesktopsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -160,6 +222,16 @@ type HostPoolsClientRetrieveRegistrationTokenOptions struct {
 type HostPoolsClientUpdateOptions struct {
 	// Object containing HostPool definitions.
 	HostPool *HostPoolPatch
+}
+
+// InitiateSessionHostUpdateClientBeginPostOptions contains the optional parameters for the InitiateSessionHostUpdateClient.BeginPost
+// method.
+type InitiateSessionHostUpdateClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// Object containing the definition for properties to be used in the sessionHostUpdate validation.
+	UpdateSessionHostsRequestBody *UpdateSessionHostsRequestBody
 }
 
 // MSIXPackagesClientCreateOrUpdateOptions contains the optional parameters for the MSIXPackagesClient.CreateOrUpdate method.
@@ -422,6 +494,109 @@ type ScalingPlansClientUpdateOptions struct {
 	ScalingPlan *ScalingPlanPatch
 }
 
+// SessionHostClientRetryProvisioningOptions contains the optional parameters for the SessionHostClient.RetryProvisioning
+// method.
+type SessionHostClientRetryProvisioningOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the SessionHostConfigurationsClient.BeginCreateOrUpdate
+// method.
+type SessionHostConfigurationsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SessionHostConfigurationsClientBeginUpdateOptions contains the optional parameters for the SessionHostConfigurationsClient.BeginUpdate
+// method.
+type SessionHostConfigurationsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// Object containing SessionHostConfiguration definitions.
+	SessionHostConfiguration *SessionHostConfigurationPatch
+}
+
+// SessionHostConfigurationsClientGetOptions contains the optional parameters for the SessionHostConfigurationsClient.Get
+// method.
+type SessionHostConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostConfigurationsClientListByHostPoolOptions contains the optional parameters for the SessionHostConfigurationsClient.NewListByHostPoolPager
+// method.
+type SessionHostConfigurationsClientListByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostConfigurationsOperationStatusClientGetOptions contains the optional parameters for the SessionHostConfigurationsOperationStatusClient.Get
+// method.
+type SessionHostConfigurationsOperationStatusClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostConfigurationsOperationStatusClientListOptions contains the optional parameters for the SessionHostConfigurationsOperationStatusClient.NewListPager
+// method.
+type SessionHostConfigurationsOperationStatusClientListOptions struct {
+	// Returns the most recent sessionHostConfiguration operation.
+	IsLatest *bool
+
+	// Returns currently running operations. Ignored if 'isLatest' is true
+	IsNonTerminal *bool
+}
+
+// SessionHostManagementsClientCreateOrUpdateOptions contains the optional parameters for the SessionHostManagementsClient.CreateOrUpdate
+// method.
+type SessionHostManagementsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientGetOptions contains the optional parameters for the SessionHostManagementsClient.Get method.
+type SessionHostManagementsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientListByHostPoolOptions contains the optional parameters for the SessionHostManagementsClient.NewListByHostPoolPager
+// method.
+type SessionHostManagementsClientListByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientUpdateOptions contains the optional parameters for the SessionHostManagementsClient.Update
+// method.
+type SessionHostManagementsClientUpdateOptions struct {
+	// Object containing SessionHostManagement definitions.
+	SessionHostManagement *SessionHostManagementPatch
+}
+
+// SessionHostManagementsOperationStatusClientGetOptions contains the optional parameters for the SessionHostManagementsOperationStatusClient.Get
+// method.
+type SessionHostManagementsOperationStatusClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsOperationStatusClientListOptions contains the optional parameters for the SessionHostManagementsOperationStatusClient.NewListPager
+// method.
+type SessionHostManagementsOperationStatusClientListOptions struct {
+	// Action type for the Operation Status list to be filtered on. Valid actions are: start | retry | pause | resume | cancel).
+	Action *string
+
+	// CorrelationId of the sessionHostManagement operations to be returned.
+	CorrelationID *string
+
+	// Filter option to only return operations that initiated a sessionHostManagement operation.
+	IsInitiatingOperation *bool
+
+	// Returns the most recent sessionHostManagement operation.
+	IsLatest *bool
+
+	// Returns currently running operations. Ignored if 'isLatest' is true
+	IsNonTerminal *bool
+
+	// Filter based on the type of sessionHostManagement operation. Valid values are 'InitiateSessionHostUpdate' and 'ValidateSessionHostUpdate'
+	Type *string
+}
+
 // SessionHostsClientDeleteOptions contains the optional parameters for the SessionHostsClient.Delete method.
 type SessionHostsClientDeleteOptions struct {
 	// Force flag to force sessionHost deletion even when userSession exists.
@@ -514,6 +689,16 @@ type UserSessionsClientListOptions struct {
 type UserSessionsClientSendMessageOptions struct {
 	// Object containing message includes title and message body
 	SendMessage *SendMessage
+}
+
+// ValidateSessionHostUpdateClientBeginPostOptions contains the optional parameters for the ValidateSessionHostUpdateClient.BeginPost
+// method.
+type ValidateSessionHostUpdateClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// Object containing the definition for properties to be used in the sessionHostUpdate validation.
+	ValidateSessionHostUpdateRequestBody *ValidateSessionHostUpdateRequestBody
 }
 
 // WorkspacesClientCreateOrUpdateOptions contains the optional parameters for the WorkspacesClient.CreateOrUpdate method.
