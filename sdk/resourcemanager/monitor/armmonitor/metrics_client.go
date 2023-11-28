@@ -47,7 +47,7 @@ func NewMetricsClient(subscriptionID string, credential azcore.TokenCredential, 
 // List - Lists the metric values for a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-11-01
 //   - resourceURI - The identifier of the resource.
 //   - options - MetricsClientListOptions contains the optional parameters for the MetricsClient.List method.
 func (client *MetricsClient) List(ctx context.Context, resourceURI string, options *MetricsClientListOptions) (MetricsClientListResponse, error) {
@@ -105,7 +105,7 @@ func (client *MetricsClient) listCreateRequest(ctx context.Context, resourceURI 
 	if options != nil && options.ResultType != nil {
 		reqQP.Set("resultType", string(*options.ResultType))
 	}
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.Metricnamespace != nil {
 		reqQP.Set("metricnamespace", *options.Metricnamespace)
 	}
@@ -132,7 +132,7 @@ func (client *MetricsClient) listHandleResponse(resp *http.Response) (MetricsCli
 // ListAtSubscriptionScope - Lists the metric data for a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-11-01
 //   - region - The region where the metrics you want reside.
 //   - options - MetricsClientListAtSubscriptionScopeOptions contains the optional parameters for the MetricsClient.ListAtSubscriptionScope
 //     method.
@@ -170,7 +170,7 @@ func (client *MetricsClient) listAtSubscriptionScopeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-11-01")
 	reqQP.Set("region", region)
 	if options != nil && options.Timespan != nil {
 		reqQP.Set("timespan", *options.Timespan)
@@ -223,7 +223,7 @@ func (client *MetricsClient) listAtSubscriptionScopeHandleResponse(resp *http.Re
 // or the body.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-11-01
 //   - region - The region where the metrics you want reside.
 //   - options - MetricsClientListAtSubscriptionScopePostOptions contains the optional parameters for the MetricsClient.ListAtSubscriptionScopePost
 //     method.
@@ -261,7 +261,7 @@ func (client *MetricsClient) listAtSubscriptionScopePostCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-11-01")
 	reqQP.Set("region", region)
 	if options != nil && options.Timespan != nil {
 		reqQP.Set("timespan", *options.Timespan)
