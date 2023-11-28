@@ -40,9 +40,13 @@ func NewReservationsDetailsClient(credential azcore.TokenCredential, options *ar
 	return client, nil
 }
 
-// NewListPager - Lists the reservations details for the defined scope and provided date range.
+// NewListPager - Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently
+// callers get 400 when the response size exceeds the ARM limit. If the data size is too
+// large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with
+// smaller date ranges or a call to Generate Reservation Details Report API should
+// be made as it is asynchronous and will not run into response size time outs.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - resourceScope - The scope associated with reservations details operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
 //     for BillingAccount scope (legacy), and
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile
@@ -96,7 +100,7 @@ func (client *ReservationsDetailsClient) listCreateRequest(ctx context.Context, 
 	if options != nil && options.ReservationOrderID != nil {
 		reqQP.Set("reservationOrderId", *options.ReservationOrderID)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -111,9 +115,13 @@ func (client *ReservationsDetailsClient) listHandleResponse(resp *http.Response)
 	return result, nil
 }
 
-// NewListByReservationOrderPager - Lists the reservations details for provided date range.
+// NewListByReservationOrderPager - Lists the reservations details for provided date range. Note: ARM has a payload size limit
+// of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. If the data size is too
+// large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with
+// smaller date ranges or a call to Generate Reservation Details Report API should
+// be made as it is asynchronous and will not run into response size time outs.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - reservationOrderID - Order Id of the reservation
 //   - filter - Filter reservation details by date range. The properties/UsageDate for start date and end date. The filter supports
 //     'le' and 'ge'
@@ -155,7 +163,7 @@ func (client *ReservationsDetailsClient) listByReservationOrderCreateRequest(ctx
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,9 +178,14 @@ func (client *ReservationsDetailsClient) listByReservationOrderHandleResponse(re
 	return result, nil
 }
 
-// NewListByReservationOrderAndReservationPager - Lists the reservations details for provided date range.
+// NewListByReservationOrderAndReservationPager - Lists the reservations details for provided date range. Note: ARM has a
+// payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. If the data size
+// is too
+// large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with
+// smaller date ranges or a call to Generate Reservation Details Report API should
+// be made as it is asynchronous and will not run into response size time outs.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - reservationOrderID - Order Id of the reservation
 //   - reservationID - Id of the reservation
 //   - filter - Filter reservation details by date range. The properties/UsageDate for start date and end date. The filter supports
@@ -219,7 +232,7 @@ func (client *ReservationsDetailsClient) listByReservationOrderAndReservationCre
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
