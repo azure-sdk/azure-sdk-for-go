@@ -52236,9 +52236,11 @@ func (w WebActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "connectVia", w.ConnectVia)
 	populate(objectMap, "datasets", w.Datasets)
 	populate(objectMap, "disableCertValidation", w.DisableCertValidation)
+	populateAny(objectMap, "httpRequestTimeout", w.HTTPRequestTimeout)
 	populateAny(objectMap, "headers", w.Headers)
 	populate(objectMap, "linkedServices", w.LinkedServices)
 	populate(objectMap, "method", w.Method)
+	populate(objectMap, "turnOffAsync", w.TurnOffAsync)
 	populateAny(objectMap, "url", w.URL)
 	return json.Marshal(objectMap)
 }
@@ -52267,6 +52269,9 @@ func (w *WebActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		case "disableCertValidation":
 			err = unpopulate(val, "DisableCertValidation", &w.DisableCertValidation)
 			delete(rawMsg, key)
+		case "httpRequestTimeout":
+			err = unpopulate(val, "HTTPRequestTimeout", &w.HTTPRequestTimeout)
+			delete(rawMsg, key)
 		case "headers":
 			err = unpopulate(val, "Headers", &w.Headers)
 			delete(rawMsg, key)
@@ -52275,6 +52280,9 @@ func (w *WebActivityTypeProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "method":
 			err = unpopulate(val, "Method", &w.Method)
+			delete(rawMsg, key)
+		case "turnOffAsync":
+			err = unpopulate(val, "TurnOffAsync", &w.TurnOffAsync)
 			delete(rawMsg, key)
 		case "url":
 			err = unpopulate(val, "URL", &w.URL)

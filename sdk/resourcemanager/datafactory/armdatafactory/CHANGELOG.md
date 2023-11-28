@@ -1,5 +1,11 @@
 # Release History
 
+## 4.1.0 (2023-11-28)
+### Features Added
+
+- New field `HTTPRequestTimeout`, `TurnOffAsync` in struct `WebActivityTypeProperties`
+
+
 ## 4.0.0 (2023-12-22)
 ### Breaking Changes
 
