@@ -79,12 +79,6 @@ func (c *ClientFactory) NewNetworkInterfacesClient() *NetworkInterfacesClient {
 	return subClient
 }
 
-// NewOperationsClient creates a new instance of OperationsClient.
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
-}
-
 // NewStorageContainersClient creates a new instance of StorageContainersClient.
 func (c *ClientFactory) NewStorageContainersClient() *StorageContainersClient {
 	subClient, _ := NewStorageContainersClient(c.subscriptionID, c.credential, c.options)

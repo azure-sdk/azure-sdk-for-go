@@ -26,7 +26,6 @@ type ServerFactory struct {
 	LogicalNetworksServer          LogicalNetworksServer
 	MarketplaceGalleryImagesServer MarketplaceGalleryImagesServer
 	NetworkInterfacesServer        NetworkInterfacesServer
-	OperationsServer               OperationsServer
 	StorageContainersServer        StorageContainersServer
 	VirtualHardDisksServer         VirtualHardDisksServer
 	VirtualMachineInstancesServer  VirtualMachineInstancesServer
@@ -53,7 +52,6 @@ type ServerFactoryTransport struct {
 	trLogicalNetworksServer          *LogicalNetworksServerTransport
 	trMarketplaceGalleryImagesServer *MarketplaceGalleryImagesServerTransport
 	trNetworkInterfacesServer        *NetworkInterfacesServerTransport
-	trOperationsServer               *OperationsServerTransport
 	trStorageContainersServer        *StorageContainersServerTransport
 	trVirtualHardDisksServer         *VirtualHardDisksServerTransport
 	trVirtualMachineInstancesServer  *VirtualMachineInstancesServerTransport
@@ -103,9 +101,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewNetworkInterfacesServerTransport(&s.srv.NetworkInterfacesServer)
 		})
 		resp, err = s.trNetworkInterfacesServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
 	case "StorageContainersClient":
 		initServer(s, &s.trStorageContainersServer, func() *StorageContainersServerTransport {
 			return NewStorageContainersServerTransport(&s.srv.StorageContainersServer)

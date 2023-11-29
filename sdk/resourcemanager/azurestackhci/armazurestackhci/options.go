@@ -187,11 +187,6 @@ type NetworkInterfacesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // StorageContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the StorageContainersClient.BeginCreateOrUpdate
 // method.
 type StorageContainersClientBeginCreateOrUpdateOptions struct {
