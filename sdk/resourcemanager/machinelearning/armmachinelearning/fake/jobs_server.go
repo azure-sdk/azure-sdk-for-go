@@ -16,10 +16,11 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v4"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // JobsServer is a fake server for instances of the armmachinelearning.JobsClient type.
@@ -43,6 +44,10 @@ type JobsServer struct {
 	// NewListPager is the fake for method JobsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, workspaceName string, options *armmachinelearning.JobsClientListOptions) (resp azfake.PagerResponder[armmachinelearning.JobsClientListResponse])
+
+	// Update is the fake for method JobsClient.Update
+	// HTTP status codes to indicate success: http.StatusOK
+	Update func(ctx context.Context, resourceGroupName string, workspaceName string, id string, body armmachinelearning.PartialJobBasePartialResource, options *armmachinelearning.JobsClientUpdateOptions) (resp azfake.Responder[armmachinelearning.JobsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewJobsServerTransport creates a new instance of JobsServerTransport with the provided implementation.
@@ -88,6 +93,8 @@ func (j *JobsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = j.dispatchGet(req)
 	case "JobsClient.NewListPager":
 		resp, err = j.dispatchNewListPager(req)
+	case "JobsClient.Update":
+		resp, err = j.dispatchUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -314,13 +321,40 @@ func (j *JobsServerTransport) dispatchNewListPager(req *http.Request) (*http.Res
 			return nil, err
 		}
 		listViewTypeParam := getOptional(armmachinelearning.ListViewType(listViewTypeUnescaped))
+		assetNameUnescaped, err := url.QueryUnescape(qp.Get("assetName"))
+		if err != nil {
+			return nil, err
+		}
+		assetNameParam := getOptional(assetNameUnescaped)
+		scheduledUnescaped, err := url.QueryUnescape(qp.Get("scheduled"))
+		if err != nil {
+			return nil, err
+		}
+		scheduledParam, err := parseOptional(scheduledUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		scheduleIDUnescaped, err := url.QueryUnescape(qp.Get("scheduleId"))
+		if err != nil {
+			return nil, err
+		}
+		scheduleIDParam := getOptional(scheduleIDUnescaped)
+		propertiesUnescaped, err := url.QueryUnescape(qp.Get("properties"))
+		if err != nil {
+			return nil, err
+		}
+		propertiesParam := getOptional(propertiesUnescaped)
 		var options *armmachinelearning.JobsClientListOptions
-		if skipParam != nil || jobTypeParam != nil || tagParam != nil || listViewTypeParam != nil {
+		if skipParam != nil || jobTypeParam != nil || tagParam != nil || listViewTypeParam != nil || assetNameParam != nil || scheduledParam != nil || scheduleIDParam != nil || propertiesParam != nil {
 			options = &armmachinelearning.JobsClientListOptions{
 				Skip:         skipParam,
 				JobType:      jobTypeParam,
 				Tag:          tagParam,
 				ListViewType: listViewTypeParam,
+				AssetName:    assetNameParam,
+				Scheduled:    scheduledParam,
+				ScheduleID:   scheduleIDParam,
+				Properties:   propertiesParam,
 			}
 		}
 		resp := j.srv.NewListPager(resourceGroupNameParam, workspaceNameParam, options)
@@ -340,6 +374,47 @@ func (j *JobsServerTransport) dispatchNewListPager(req *http.Request) (*http.Res
 	}
 	if !server.PagerResponderMore(newListPager) {
 		j.newListPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (j *JobsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
+	if j.srv.Update == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MachineLearningServices/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/jobs/(?P<id>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armmachinelearning.PartialJobBasePartialResource](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+	if err != nil {
+		return nil, err
+	}
+	idParam, err := url.PathUnescape(matches[regex.SubexpIndex("id")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := j.srv.Update(req.Context(), resourceGroupNameParam, workspaceNameParam, idParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).JobBase, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
