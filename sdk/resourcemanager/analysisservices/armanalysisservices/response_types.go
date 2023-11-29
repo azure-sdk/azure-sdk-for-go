@@ -8,16 +8,12 @@
 
 package armanalysisservices
 
+import "encoding/json"
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Result of listing consumption operations. It contains a list of operations and a URL link to get the next set of results.
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
-}
-
-// ServersClientCheckNameAvailabilityResponse contains the response from method ServersClient.CheckNameAvailability.
-type ServersClientCheckNameAvailabilityResponse struct {
-	// The checking result of server name availability.
-	CheckServerNameAvailabilityResult
 }
 
 // ServersClientCreateResponse contains the response from method ServersClient.BeginCreate.
@@ -33,7 +29,8 @@ type ServersClientDeleteResponse struct {
 
 // ServersClientDissociateGatewayResponse contains the response from method ServersClient.DissociateGateway.
 type ServersClientDissociateGatewayResponse struct {
-	// placeholder for future response values
+	// Anything
+	Interface any
 }
 
 // ServersClientGetDetailsResponse contains the response from method ServersClient.GetDetails.
@@ -44,8 +41,8 @@ type ServersClientGetDetailsResponse struct {
 
 // ServersClientListByResourceGroupResponse contains the response from method ServersClient.NewListByResourceGroupPager.
 type ServersClientListByResourceGroupResponse struct {
-	// An array of Analysis Services resources.
-	Servers
+	// The response of a AnalysisServicesServer list operation.
+	ServerListResult
 }
 
 // ServersClientListGatewayStatusResponse contains the response from method ServersClient.ListGatewayStatus.
@@ -54,43 +51,32 @@ type ServersClientListGatewayStatusResponse struct {
 	GatewayListStatusLive
 }
 
-// ServersClientListOperationResultsResponse contains the response from method ServersClient.ListOperationResults.
-type ServersClientListOperationResultsResponse struct {
-	// placeholder for future response values
-}
-
-// ServersClientListOperationStatusesResponse contains the response from method ServersClient.ListOperationStatuses.
-type ServersClientListOperationStatusesResponse struct {
-	// The status of operation.
-	OperationStatus
-}
-
-// ServersClientListResponse contains the response from method ServersClient.NewListPager.
-type ServersClientListResponse struct {
-	// An array of Analysis Services resources.
-	Servers
-}
-
 // ServersClientListSKUsForExistingResponse contains the response from method ServersClient.ListSKUsForExisting.
 type ServersClientListSKUsForExistingResponse struct {
 	// An object that represents enumerating SKUs for existing resources.
 	SKUEnumerationForExistingResourceResult
 }
 
-// ServersClientListSKUsForNewResponse contains the response from method ServersClient.ListSKUsForNew.
-type ServersClientListSKUsForNewResponse struct {
-	// An object that represents enumerating SKUs for new resources.
-	SKUEnumerationForNewResourceResult
-}
-
 // ServersClientResumeResponse contains the response from method ServersClient.BeginResume.
 type ServersClientResumeResponse struct {
-	// placeholder for future response values
+	// Anything
+	Interface any
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ServersClientResumeResponse.
+func (s *ServersClientResumeResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &s.Interface)
 }
 
 // ServersClientSuspendResponse contains the response from method ServersClient.BeginSuspend.
 type ServersClientSuspendResponse struct {
-	// placeholder for future response values
+	// Anything
+	Interface any
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ServersClientSuspendResponse.
+func (s *ServersClientSuspendResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &s.Interface)
 }
 
 // ServersClientUpdateResponse contains the response from method ServersClient.BeginUpdate.

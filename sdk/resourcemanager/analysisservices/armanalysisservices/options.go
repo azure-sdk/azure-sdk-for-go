@@ -43,12 +43,6 @@ type ServersClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
-// ServersClientCheckNameAvailabilityOptions contains the optional parameters for the ServersClient.CheckNameAvailability
-// method.
-type ServersClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ServersClientDissociateGatewayOptions contains the optional parameters for the ServersClient.DissociateGateway method.
 type ServersClientDissociateGatewayOptions struct {
 	// placeholder for future optional parameters
@@ -70,28 +64,7 @@ type ServersClientListGatewayStatusOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServersClientListOperationResultsOptions contains the optional parameters for the ServersClient.ListOperationResults method.
-type ServersClientListOperationResultsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServersClientListOperationStatusesOptions contains the optional parameters for the ServersClient.ListOperationStatuses
-// method.
-type ServersClientListOperationStatusesOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServersClientListOptions contains the optional parameters for the ServersClient.NewListPager method.
-type ServersClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ServersClientListSKUsForExistingOptions contains the optional parameters for the ServersClient.ListSKUsForExisting method.
 type ServersClientListSKUsForExistingOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServersClientListSKUsForNewOptions contains the optional parameters for the ServersClient.ListSKUsForNew method.
-type ServersClientListSKUsForNewOptions struct {
 	// placeholder for future optional parameters
 }

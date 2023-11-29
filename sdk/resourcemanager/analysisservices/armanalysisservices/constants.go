@@ -10,14 +10,23 @@ package armanalysisservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/analysisservices/armanalysisservices"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
-// ConnectionMode - How the read-write server's participation in the query pool is controlled.
-// It can have the following values: * readOnly - indicates that the read-write server is intended not to participate in query
-// operations
-// * all - indicates that the read-write server can participate in query operations
-// Specifying readOnly when capacity is 1 results in error.
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
+
 type ConnectionMode string
 
 const (
@@ -33,24 +42,59 @@ func PossibleConnectionModeValues() []ConnectionMode {
 	}
 }
 
-// ManagedMode - The managed mode of the server (0 = not managed, 1 = managed).
-type ManagedMode int32
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
 
 const (
-	ManagedModeOne  ManagedMode = 1
-	ManagedModeZero ManagedMode = 0
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
 )
 
-// PossibleManagedModeValues returns the possible values for the ManagedMode const type.
-func PossibleManagedModeValues() []ManagedMode {
-	return []ManagedMode{
-		ManagedModeOne,
-		ManagedModeZero,
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
-// ProvisioningState - The current deployment state of Analysis Services resource. The provisioningState is to indicate states
-// for resource provisioning.
+// GatewayListStatusLiveStatus - Live message of list gateway. Status: 0 - Live
+type GatewayListStatusLiveStatus float32
+
+const (
+	GatewayListStatusLiveStatusZero GatewayListStatusLiveStatus = 0
+)
+
+// PossibleGatewayListStatusLiveStatusValues returns the possible values for the GatewayListStatusLiveStatus const type.
+func PossibleGatewayListStatusLiveStatusValues() []GatewayListStatusLiveStatus {
+	return []GatewayListStatusLiveStatus{
+		GatewayListStatusLiveStatusZero,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
 type ProvisioningState string
 
 const (
@@ -86,12 +130,15 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// SKUTier - The name of the Azure pricing tier to which the SKU applies.
+// SKUTier - This field is required to be implemented by the Resource Provider if the service has more than one tier, but
+// is not required on a PUT.
 type SKUTier string
 
 const (
 	SKUTierBasic       SKUTier = "Basic"
 	SKUTierDevelopment SKUTier = "Development"
+	SKUTierFree        SKUTier = "Free"
+	SKUTierPremium     SKUTier = "Premium"
 	SKUTierStandard    SKUTier = "Standard"
 )
 
@@ -100,27 +147,12 @@ func PossibleSKUTierValues() []SKUTier {
 	return []SKUTier{
 		SKUTierBasic,
 		SKUTierDevelopment,
+		SKUTierFree,
+		SKUTierPremium,
 		SKUTierStandard,
 	}
 }
 
-// ServerMonitorMode - The server monitor mode for AS server
-type ServerMonitorMode int32
-
-const (
-	ServerMonitorModeOne  ServerMonitorMode = 1
-	ServerMonitorModeZero ServerMonitorMode = 0
-)
-
-// PossibleServerMonitorModeValues returns the possible values for the ServerMonitorMode const type.
-func PossibleServerMonitorModeValues() []ServerMonitorMode {
-	return []ServerMonitorMode{
-		ServerMonitorModeOne,
-		ServerMonitorModeZero,
-	}
-}
-
-// State - The current state of Analysis Services resource. The state is to indicate more states outside of resource provisioning.
 type State string
 
 const (
@@ -153,5 +185,19 @@ func PossibleStateValues() []State {
 		StateSuspended,
 		StateSuspending,
 		StateUpdating,
+	}
+}
+
+// Versions - The available API versions.
+type Versions string
+
+const (
+	VersionsV20170801 Versions = "2017-08-01"
+)
+
+// PossibleVersionsValues returns the possible values for the Versions const type.
+func PossibleVersionsValues() []Versions {
+	return []Versions{
+		VersionsV20170801,
 	}
 }

@@ -37,7 +37,7 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - Lists all of the available consumption REST API operations.
+// NewListPager - List the operations for the provider
 //
 // Generated from API version 2017-08-01
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.

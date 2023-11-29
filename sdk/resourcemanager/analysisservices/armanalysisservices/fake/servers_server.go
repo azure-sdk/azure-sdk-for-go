@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/analysisservices/armanalysisservices"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/analysisservices/armanalysisservices/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,13 +24,9 @@ import (
 
 // ServersServer is a fake server for instances of the armanalysisservices.ServersClient type.
 type ServersServer struct {
-	// CheckNameAvailability is the fake for method ServersClient.CheckNameAvailability
-	// HTTP status codes to indicate success: http.StatusOK
-	CheckNameAvailability func(ctx context.Context, location string, serverParameters armanalysisservices.CheckServerNameAvailabilityParameters, options *armanalysisservices.ServersClientCheckNameAvailabilityOptions) (resp azfake.Responder[armanalysisservices.ServersClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
-
 	// BeginCreate is the fake for method ServersClient.BeginCreate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceGroupName string, serverName string, serverParameters armanalysisservices.Server, options *armanalysisservices.ServersClientBeginCreateOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientCreateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	BeginCreate func(ctx context.Context, resourceGroupName string, serverName string, resource armanalysisservices.Server, options *armanalysisservices.ServersClientBeginCreateOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ServersClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -37,15 +34,11 @@ type ServersServer struct {
 
 	// DissociateGateway is the fake for method ServersClient.DissociateGateway
 	// HTTP status codes to indicate success: http.StatusOK
-	DissociateGateway func(ctx context.Context, resourceGroupName string, serverName string, options *armanalysisservices.ServersClientDissociateGatewayOptions) (resp azfake.Responder[armanalysisservices.ServersClientDissociateGatewayResponse], errResp azfake.ErrorResponder)
+	DissociateGateway func(ctx context.Context, resourceGroupName string, serverName string, body any, options *armanalysisservices.ServersClientDissociateGatewayOptions) (resp azfake.Responder[armanalysisservices.ServersClientDissociateGatewayResponse], errResp azfake.ErrorResponder)
 
 	// GetDetails is the fake for method ServersClient.GetDetails
 	// HTTP status codes to indicate success: http.StatusOK
 	GetDetails func(ctx context.Context, resourceGroupName string, serverName string, options *armanalysisservices.ServersClientGetDetailsOptions) (resp azfake.Responder[armanalysisservices.ServersClientGetDetailsResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method ServersClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armanalysisservices.ServersClientListOptions) (resp azfake.PagerResponder[armanalysisservices.ServersClientListResponse])
 
 	// NewListByResourceGroupPager is the fake for method ServersClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -53,35 +46,23 @@ type ServersServer struct {
 
 	// ListGatewayStatus is the fake for method ServersClient.ListGatewayStatus
 	// HTTP status codes to indicate success: http.StatusOK
-	ListGatewayStatus func(ctx context.Context, resourceGroupName string, serverName string, options *armanalysisservices.ServersClientListGatewayStatusOptions) (resp azfake.Responder[armanalysisservices.ServersClientListGatewayStatusResponse], errResp azfake.ErrorResponder)
-
-	// ListOperationResults is the fake for method ServersClient.ListOperationResults
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	ListOperationResults func(ctx context.Context, location string, operationID string, options *armanalysisservices.ServersClientListOperationResultsOptions) (resp azfake.Responder[armanalysisservices.ServersClientListOperationResultsResponse], errResp azfake.ErrorResponder)
-
-	// ListOperationStatuses is the fake for method ServersClient.ListOperationStatuses
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	ListOperationStatuses func(ctx context.Context, location string, operationID string, options *armanalysisservices.ServersClientListOperationStatusesOptions) (resp azfake.Responder[armanalysisservices.ServersClientListOperationStatusesResponse], errResp azfake.ErrorResponder)
+	ListGatewayStatus func(ctx context.Context, resourceGroupName string, serverName string, body any, options *armanalysisservices.ServersClientListGatewayStatusOptions) (resp azfake.Responder[armanalysisservices.ServersClientListGatewayStatusResponse], errResp azfake.ErrorResponder)
 
 	// ListSKUsForExisting is the fake for method ServersClient.ListSKUsForExisting
 	// HTTP status codes to indicate success: http.StatusOK
-	ListSKUsForExisting func(ctx context.Context, resourceGroupName string, serverName string, options *armanalysisservices.ServersClientListSKUsForExistingOptions) (resp azfake.Responder[armanalysisservices.ServersClientListSKUsForExistingResponse], errResp azfake.ErrorResponder)
-
-	// ListSKUsForNew is the fake for method ServersClient.ListSKUsForNew
-	// HTTP status codes to indicate success: http.StatusOK
-	ListSKUsForNew func(ctx context.Context, options *armanalysisservices.ServersClientListSKUsForNewOptions) (resp azfake.Responder[armanalysisservices.ServersClientListSKUsForNewResponse], errResp azfake.ErrorResponder)
+	ListSKUsForExisting func(ctx context.Context, resourceGroupName string, serverName string, subscriptionID string, options *armanalysisservices.ServersClientListSKUsForExistingOptions) (resp azfake.Responder[armanalysisservices.ServersClientListSKUsForExistingResponse], errResp azfake.ErrorResponder)
 
 	// BeginResume is the fake for method ServersClient.BeginResume
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginResume func(ctx context.Context, resourceGroupName string, serverName string, options *armanalysisservices.ServersClientBeginResumeOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientResumeResponse], errResp azfake.ErrorResponder)
+	BeginResume func(ctx context.Context, resourceGroupName string, serverName string, body any, options *armanalysisservices.ServersClientBeginResumeOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientResumeResponse], errResp azfake.ErrorResponder)
 
 	// BeginSuspend is the fake for method ServersClient.BeginSuspend
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginSuspend func(ctx context.Context, resourceGroupName string, serverName string, options *armanalysisservices.ServersClientBeginSuspendOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientSuspendResponse], errResp azfake.ErrorResponder)
+	BeginSuspend func(ctx context.Context, resourceGroupName string, serverName string, body any, options *armanalysisservices.ServersClientBeginSuspendOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientSuspendResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method ServersClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, serverName string, serverUpdateParameters armanalysisservices.ServerUpdateParameters, options *armanalysisservices.ServersClientBeginUpdateOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, serverName string, properties armanalysisservices.ServerUpdate, options *armanalysisservices.ServersClientBeginUpdateOptions) (resp azfake.PollerResponder[armanalysisservices.ServersClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewServersServerTransport creates a new instance of ServersServerTransport with the provided implementation.
@@ -92,7 +73,6 @@ func NewServersServerTransport(srv *ServersServer) *ServersServerTransport {
 		srv:                         srv,
 		beginCreate:                 newTracker[azfake.PollerResponder[armanalysisservices.ServersClientCreateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armanalysisservices.ServersClientDeleteResponse]](),
-		newListPager:                newTracker[azfake.PagerResponder[armanalysisservices.ServersClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armanalysisservices.ServersClientListByResourceGroupResponse]](),
 		beginResume:                 newTracker[azfake.PollerResponder[armanalysisservices.ServersClientResumeResponse]](),
 		beginSuspend:                newTracker[azfake.PollerResponder[armanalysisservices.ServersClientSuspendResponse]](),
@@ -106,7 +86,6 @@ type ServersServerTransport struct {
 	srv                         *ServersServer
 	beginCreate                 *tracker[azfake.PollerResponder[armanalysisservices.ServersClientCreateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armanalysisservices.ServersClientDeleteResponse]]
-	newListPager                *tracker[azfake.PagerResponder[armanalysisservices.ServersClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armanalysisservices.ServersClientListByResourceGroupResponse]]
 	beginResume                 *tracker[azfake.PollerResponder[armanalysisservices.ServersClientResumeResponse]]
 	beginSuspend                *tracker[azfake.PollerResponder[armanalysisservices.ServersClientSuspendResponse]]
@@ -125,8 +104,6 @@ func (s *ServersServerTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch method {
-	case "ServersClient.CheckNameAvailability":
-		resp, err = s.dispatchCheckNameAvailability(req)
 	case "ServersClient.BeginCreate":
 		resp, err = s.dispatchBeginCreate(req)
 	case "ServersClient.BeginDelete":
@@ -135,20 +112,12 @@ func (s *ServersServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = s.dispatchDissociateGateway(req)
 	case "ServersClient.GetDetails":
 		resp, err = s.dispatchGetDetails(req)
-	case "ServersClient.NewListPager":
-		resp, err = s.dispatchNewListPager(req)
 	case "ServersClient.NewListByResourceGroupPager":
 		resp, err = s.dispatchNewListByResourceGroupPager(req)
 	case "ServersClient.ListGatewayStatus":
 		resp, err = s.dispatchListGatewayStatus(req)
-	case "ServersClient.ListOperationResults":
-		resp, err = s.dispatchListOperationResults(req)
-	case "ServersClient.ListOperationStatuses":
-		resp, err = s.dispatchListOperationStatuses(req)
 	case "ServersClient.ListSKUsForExisting":
 		resp, err = s.dispatchListSKUsForExisting(req)
-	case "ServersClient.ListSKUsForNew":
-		resp, err = s.dispatchListSKUsForNew(req)
 	case "ServersClient.BeginResume":
 		resp, err = s.dispatchBeginResume(req)
 	case "ServersClient.BeginSuspend":
@@ -163,39 +132,6 @@ func (s *ServersServerTransport) Do(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (s *ServersServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
-	if s.srv.CheckNameAvailability == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CheckNameAvailability not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/checkNameAvailability`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 2 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armanalysisservices.CheckServerNameAvailabilityParameters](req)
-	if err != nil {
-		return nil, err
-	}
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.CheckNameAvailability(req.Context(), locationParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CheckServerNameAvailabilityResult, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
@@ -236,9 +172,9 @@ func (s *ServersServerTransport) dispatchBeginCreate(req *http.Request) (*http.R
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		s.beginCreate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreate) {
 		s.beginCreate.remove(req)
@@ -301,6 +237,10 @@ func (s *ServersServerTransport) dispatchDissociateGateway(req *http.Request) (*
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[any](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -309,7 +249,7 @@ func (s *ServersServerTransport) dispatchDissociateGateway(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.DissociateGateway(req.Context(), resourceGroupNameParam, serverNameParam, nil)
+	respr, errRespr := s.srv.DissociateGateway(req.Context(), resourceGroupNameParam, serverNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -317,7 +257,7 @@ func (s *ServersServerTransport) dispatchDissociateGateway(req *http.Request) (*
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.NewResponse(respContent, req, nil)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Interface, req)
 	if err != nil {
 		return nil, err
 	}
@@ -357,36 +297,6 @@ func (s *ServersServerTransport) dispatchGetDetails(req *http.Request) (*http.Re
 	return resp, nil
 }
 
-func (s *ServersServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if s.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := s.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/servers`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := s.srv.NewListPager(nil)
-		newListPager = &resp
-		s.newListPager.add(req, newListPager)
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		s.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		s.newListPager.remove(req)
-	}
-	return resp, nil
-}
-
 func (s *ServersServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
 	if s.srv.NewListByResourceGroupPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
@@ -406,6 +316,9 @@ func (s *ServersServerTransport) dispatchNewListByResourceGroupPager(req *http.R
 		resp := s.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
 		newListByResourceGroupPager = &resp
 		s.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
+		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armanalysisservices.ServersClientListByResourceGroupResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
 	if err != nil {
@@ -431,6 +344,10 @@ func (s *ServersServerTransport) dispatchListGatewayStatus(req *http.Request) (*
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[any](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -439,7 +356,7 @@ func (s *ServersServerTransport) dispatchListGatewayStatus(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.ListGatewayStatus(req.Context(), resourceGroupNameParam, serverNameParam, nil)
+	respr, errRespr := s.srv.ListGatewayStatus(req.Context(), resourceGroupNameParam, serverNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -454,77 +371,11 @@ func (s *ServersServerTransport) dispatchListGatewayStatus(req *http.Request) (*
 	return resp, nil
 }
 
-func (s *ServersServerTransport) dispatchListOperationResults(req *http.Request) (*http.Response, error) {
-	if s.srv.ListOperationResults == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListOperationResults not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/operationresults/(?P<operationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-	if err != nil {
-		return nil, err
-	}
-	operationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("operationId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.ListOperationResults(req.Context(), locationParam, operationIDParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", respContent.HTTPStatus)}
-	}
-	resp, err := server.NewResponse(respContent, req, nil)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (s *ServersServerTransport) dispatchListOperationStatuses(req *http.Request) (*http.Response, error) {
-	if s.srv.ListOperationStatuses == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListOperationStatuses not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/operationstatuses/(?P<operationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-	if err != nil {
-		return nil, err
-	}
-	operationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("operationId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.ListOperationStatuses(req.Context(), locationParam, operationIDParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OperationStatus, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
 func (s *ServersServerTransport) dispatchListSKUsForExisting(req *http.Request) (*http.Response, error) {
 	if s.srv.ListSKUsForExisting == nil {
 		return nil, &nonRetriableError{errors.New("fake for method ListSKUsForExisting not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/skus`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/skus/{resourceGroupName}/{serverName}/{subscriptionId}`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {
@@ -538,7 +389,11 @@ func (s *ServersServerTransport) dispatchListSKUsForExisting(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.ListSKUsForExisting(req.Context(), resourceGroupNameParam, serverNameParam, nil)
+	subscriptionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("subscriptionId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.ListSKUsForExisting(req.Context(), resourceGroupNameParam, serverNameParam, subscriptionIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -547,31 +402,6 @@ func (s *ServersServerTransport) dispatchListSKUsForExisting(req *http.Request) 
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SKUEnumerationForExistingResourceResult, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (s *ServersServerTransport) dispatchListSKUsForNew(req *http.Request) (*http.Response, error) {
-	if s.srv.ListSKUsForNew == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListSKUsForNew not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AnalysisServices/skus`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	respr, errRespr := s.srv.ListSKUsForNew(req.Context(), nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SKUEnumerationForNewResourceResult, req)
 	if err != nil {
 		return nil, err
 	}
@@ -590,6 +420,10 @@ func (s *ServersServerTransport) dispatchBeginResume(req *http.Request) (*http.R
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		body, err := server.UnmarshalRequestAsJSON[any](req)
+		if err != nil {
+			return nil, err
+		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -598,7 +432,7 @@ func (s *ServersServerTransport) dispatchBeginResume(req *http.Request) (*http.R
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := s.srv.BeginResume(req.Context(), resourceGroupNameParam, serverNameParam, nil)
+		respr, errRespr := s.srv.BeginResume(req.Context(), resourceGroupNameParam, serverNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -634,6 +468,10 @@ func (s *ServersServerTransport) dispatchBeginSuspend(req *http.Request) (*http.
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		body, err := server.UnmarshalRequestAsJSON[any](req)
+		if err != nil {
+			return nil, err
+		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -642,7 +480,7 @@ func (s *ServersServerTransport) dispatchBeginSuspend(req *http.Request) (*http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := s.srv.BeginSuspend(req.Context(), resourceGroupNameParam, serverNameParam, nil)
+		respr, errRespr := s.srv.BeginSuspend(req.Context(), resourceGroupNameParam, serverNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -678,7 +516,7 @@ func (s *ServersServerTransport) dispatchBeginUpdate(req *http.Request) (*http.R
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armanalysisservices.ServerUpdateParameters](req)
+		body, err := server.UnmarshalRequestAsJSON[armanalysisservices.ServerUpdate](req)
 		if err != nil {
 			return nil, err
 		}

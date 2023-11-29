@@ -8,6 +8,55 @@
 
 package armanalysisservices
 
+import "time"
+
+// AzureCoreFoundationsError - The error object.
+type AzureCoreFoundationsError struct {
+	// REQUIRED; One of a server-defined set of error codes.
+	Code *string
+
+	// REQUIRED; A human-readable representation of the error.
+	Message *string
+
+	// An array of details about specific errors that led to this reported error.
+	Details []*AzureCoreFoundationsError
+
+	// An object containing more specific information than the current object about the error.
+	Innererror *AzureCoreFoundationsInnerError
+
+	// The target of the error.
+	Target *string
+}
+
+// AzureCoreFoundationsErrorResponse - A response containing error details.
+type AzureCoreFoundationsErrorResponse struct {
+	// REQUIRED; The error object.
+	Error *AzureCoreFoundationsError
+}
+
+// AzureCoreFoundationsInnerError - An object containing more specific information about the error. As per Microsoft One API
+// guidelines -
+// https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#7102-error-condition-responses.
+type AzureCoreFoundationsInnerError struct {
+	// One of a server-defined set of error codes.
+	Code *string
+
+	// Inner error.
+	Innererror *AzureCoreFoundationsInnerError
+}
+
+// AzureResourceManagerResourceSKU - The SKU (Stock Keeping Unit) assigned to this resource.
+type AzureResourceManagerResourceSKU struct {
+	// The SKU (Stock Keeping Unit) assigned to this resource.
+	SKU *SKU
+}
+
+// AzureResourceManagerResourceSKUUpdate - The SKU (Stock Keeping Unit) assigned to this resource.
+type AzureResourceManagerResourceSKUUpdate struct {
+	// The SKU (Stock Keeping Unit) assigned to this resource.
+	SKU *SKU
+}
+
 // CheckServerNameAvailabilityParameters - Details of server name request body.
 type CheckServerNameAvailabilityParameters struct {
 	// Name for checking availability.
@@ -49,25 +98,17 @@ type ErrorDetail struct {
 	// READ-ONLY; The error details.
 	Details []*ErrorDetail
 
-	// READ-ONLY; The http status code
-	HTTPStatusCode *int32
-
 	// READ-ONLY; The error message.
 	Message *string
 
-	// READ-ONLY; The error sub code
-	SubCode *int32
-
 	// READ-ONLY; The error target.
 	Target *string
-
-	// READ-ONLY; the timestamp for the error.
-	TimeStamp *string
 }
 
-// ErrorResponse - Describes the format of Error response.
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// The error object
+	// The error object.
 	Error *ErrorDetail
 }
 
@@ -83,16 +124,10 @@ type GatewayDetails struct {
 	GatewayObjectID *string
 }
 
-// GatewayListStatusError - Status of gateway is error.
-type GatewayListStatusError struct {
-	// Error of the list gateway status.
-	Error *ErrorDetail
-}
-
 // GatewayListStatusLive - Status of gateway is live.
 type GatewayListStatusLive struct {
 	// Live message of list gateway. Status: 0 - Live
-	Status *int32
+	Status *GatewayListStatusLiveStatus
 }
 
 // IPv4FirewallRule - The detail of firewall rule.
@@ -158,43 +193,52 @@ type MetricSpecifications struct {
 	Unit *string
 }
 
-// Operation - A Consumption REST API operation.
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// The object that represents the operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
 
-	// Additional properties to expose performance metrics to shoebox.
-	Properties *OperationProperties
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
 
-	// READ-ONLY; Operation name: {provider}/{resource}/{operation}.
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
 
-	// READ-ONLY; The origin
-	Origin *string
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
 }
 
-// OperationDisplay - The object that represents the operation.
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// READ-ONLY; Description of the operation object.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// READ-ONLY; Operation type: Read, write, delete, etc.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// READ-ONLY; Service provider: Microsoft.Consumption.
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// READ-ONLY; Resource on which the operation is performed: UsageDetail, etc.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationListResult - Result of listing consumption operations. It contains a list of operations and a URL link to get
-// the next set of results.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
 type OperationListResult struct {
-	// READ-ONLY; URL to get the next set of operation list results if there are any.
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
 	NextLink *string
 
-	// READ-ONLY; List of analysis services operations supported by the Microsoft.AnalysisServices resource provider.
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
 }
 
@@ -218,9 +262,6 @@ type OperationStatus struct {
 	// The end time of the operation.
 	EndTime *string
 
-	// The error detail of the operation if any.
-	Error *ErrorDetail
-
 	// The operation Id.
 	ID *string
 
@@ -234,36 +275,38 @@ type OperationStatus struct {
 	Status *string
 }
 
-// Resource - Represents an instance of an Analysis Services resource.
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// REQUIRED; Location of the Analysis Services resource.
-	Location *string
-
-	// REQUIRED; The SKU of the Analysis Services resource.
-	SKU *ResourceSKU
-
-	// Key-value pairs of additional resource provisioning properties.
-	Tags map[string]*string
-
-	// READ-ONLY; An identifier that represents the Analysis Services resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the Analysis Services resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the Analysis Services resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ResourceSKU - Represents the SKU name and Azure pricing tier for Analysis Services resource.
-type ResourceSKU struct {
-	// REQUIRED; Name of the SKU level.
+// SKU - The resource model definition representing SKU
+type SKU struct {
+	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
 	Name *string
 
-	// The number of instances in the read only query pool.
+	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
+	// resource this may be omitted.
 	Capacity *int32
 
-	// The name of the Azure pricing tier to which the SKU applies.
+	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
+	Family *string
+
+	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
+	Size *string
+
+	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
+	// on a PUT.
 	Tier *SKUTier
 }
 
@@ -273,7 +316,7 @@ type SKUDetailsForExistingResource struct {
 	ResourceType *string
 
 	// The SKU in SKU details for existing resources.
-	SKU *ResourceSKU
+	SKU *AzureResourceManagerResourceSKU
 }
 
 // SKUEnumerationForExistingResourceResult - An object that represents enumerating SKUs for existing resources.
@@ -282,33 +325,27 @@ type SKUEnumerationForExistingResourceResult struct {
 	Value []*SKUDetailsForExistingResource
 }
 
-// SKUEnumerationForNewResourceResult - An object that represents enumerating SKUs for new resources.
-type SKUEnumerationForNewResourceResult struct {
-	// The collection of available SKUs for new resources.
-	Value []*ResourceSKU
-}
-
 // Server - Represents an instance of an Analysis Services resource.
 type Server struct {
-	// REQUIRED; Location of the Analysis Services resource.
+	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; The SKU of the Analysis Services resource.
-	SKU *ResourceSKU
-
-	// Properties of the provision operation request.
+	// The resource-specific properties for this resource.
 	Properties *ServerProperties
 
-	// Key-value pairs of additional resource provisioning properties.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; An identifier that represents the Analysis Services resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the Analysis Services resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the Analysis Services resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -318,63 +355,19 @@ type ServerAdministrators struct {
 	Members []*string
 }
 
-// ServerMutableProperties - An object that represents a set of mutable Analysis Services resource properties.
-type ServerMutableProperties struct {
-	// A collection of AS server administrators
-	AsAdministrators *ServerAdministrators
+// ServerListResult - The response of a AnalysisServicesServer list operation.
+type ServerListResult struct {
+	// REQUIRED; The AnalysisServicesServer items on this page
+	Value []*Server
 
-	// The SAS container URI to the backup container.
-	BackupBlobContainerURI *string
-
-	// The gateway details configured for the AS server.
-	GatewayDetails *GatewayDetails
-
-	// The firewall settings for the AS server.
-	IPV4FirewallSettings *IPv4FirewallSettings
-
-	// The managed mode of the server (0 = not managed, 1 = managed).
-	ManagedMode *ManagedMode
-
-	// How the read-write server's participation in the query pool is controlled.
-	// It can have the following values: * readOnly - indicates that the read-write server is intended not to participate in query
-	// operations
-	// * all - indicates that the read-write server can participate in query operations
-	// Specifying readOnly when capacity is 1 results in error.
-	QuerypoolConnectionMode *ConnectionMode
-
-	// The server monitor mode for AS server
-	ServerMonitorMode *ServerMonitorMode
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ServerProperties - Properties of Analysis Services resource.
 type ServerProperties struct {
-	// A collection of AS server administrators
-	AsAdministrators *ServerAdministrators
-
-	// The SAS container URI to the backup container.
-	BackupBlobContainerURI *string
-
-	// The gateway details configured for the AS server.
-	GatewayDetails *GatewayDetails
-
-	// The firewall settings for the AS server.
-	IPV4FirewallSettings *IPv4FirewallSettings
-
-	// The managed mode of the server (0 = not managed, 1 = managed).
-	ManagedMode *ManagedMode
-
-	// How the read-write server's participation in the query pool is controlled.
-	// It can have the following values: * readOnly - indicates that the read-write server is intended not to participate in query
-	// operations
-	// * all - indicates that the read-write server can participate in query operations
-	// Specifying readOnly when capacity is 1 results in error.
-	QuerypoolConnectionMode *ConnectionMode
-
 	// The SKU of the Analysis Services resource.
-	SKU *ResourceSKU
-
-	// The server monitor mode for AS server
-	ServerMonitorMode *ServerMonitorMode
+	SKU *AzureResourceManagerResourceSKU
 
 	// READ-ONLY; The current deployment state of Analysis Services resource. The provisioningState is to indicate states for
 	// resource provisioning.
@@ -387,20 +380,60 @@ type ServerProperties struct {
 	State *State
 }
 
-// ServerUpdateParameters - Provision request specification
-type ServerUpdateParameters struct {
-	// Properties of the provision operation request.
-	Properties *ServerMutableProperties
+// ServerUpdate - The type used for update operations of the AnalysisServicesServer.
+type ServerUpdate struct {
+	// The updatable properties of the AnalysisServicesServer.
+	Properties *ServerUpdateProperties
 
-	// The SKU of the Analysis Services resource.
-	SKU *ResourceSKU
-
-	// Key-value pairs of additional provisioning properties.
+	// Resource tags.
 	Tags map[string]*string
 }
 
-// Servers - An array of Analysis Services resources.
-type Servers struct {
-	// REQUIRED; An array of Analysis Services resources.
-	Value []*Server
+// ServerUpdateProperties - The updatable properties of the AnalysisServicesServer.
+type ServerUpdateProperties struct {
+	// The SKU of the Analysis Services resource.
+	SKU *AzureResourceManagerResourceSKUUpdate
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
