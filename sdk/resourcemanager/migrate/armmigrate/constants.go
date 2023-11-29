@@ -10,14 +10,85 @@ package armmigrate
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
-// AssessmentSizingCriterion - Assessment sizing criterion.
+// APIVersions - Common API Versions for Assessment Project Tracked Resource.
+type APIVersions string
+
+const (
+	// APIVersionsV20191001 - 2019-10-01 API Version.
+	APIVersionsV20191001 APIVersions = "2019-10-01"
+	// APIVersionsV20200101 - 2020-01-01 API Version.
+	APIVersionsV20200101 APIVersions = "2020-01-01"
+	// APIVersionsV20200501Preview - 2020-05-01-preview API Version.
+	APIVersionsV20200501Preview APIVersions = "2020-05-01-preview"
+	// APIVersionsV20220202Preview - 2022-02-02-preview API Version.
+	APIVersionsV20220202Preview APIVersions = "2022-02-02-preview"
+	// APIVersionsV20230303 - 2023-03-03 API Version.
+	APIVersionsV20230303 APIVersions = "2023-03-03"
+	// APIVersionsV20230315 - 2023-03-15 API Version.
+	APIVersionsV20230315 APIVersions = "2023-03-15"
+	// APIVersionsV20230401Preview - 2023-04-01-preview API Version.
+	APIVersionsV20230401Preview APIVersions = "2023-04-01-preview"
+	// APIVersionsV20230707Preview - 2023-07-07-preview API Version.
+	APIVersionsV20230707Preview APIVersions = "2023-07-07-preview"
+)
+
+// PossibleAPIVersionsValues returns the possible values for the APIVersions const type.
+func PossibleAPIVersionsValues() []APIVersions {
+	return []APIVersions{
+		APIVersionsV20191001,
+		APIVersionsV20200101,
+		APIVersionsV20200501Preview,
+		APIVersionsV20220202Preview,
+		APIVersionsV20230303,
+		APIVersionsV20230315,
+		APIVersionsV20230401Preview,
+		APIVersionsV20230707Preview,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
+
+type AssessedMachineType string
+
+const (
+	AssessedMachineTypeAssessedMachine    AssessedMachineType = "AssessedMachine"
+	AssessedMachineTypeAvsAssessedMachine AssessedMachineType = "AvsAssessedMachine"
+	AssessedMachineTypeSQLAssessedMachine AssessedMachineType = "SqlAssessedMachine"
+	AssessedMachineTypeUnknown            AssessedMachineType = "Unknown"
+)
+
+// PossibleAssessedMachineTypeValues returns the possible values for the AssessedMachineType const type.
+func PossibleAssessedMachineTypeValues() []AssessedMachineType {
+	return []AssessedMachineType{
+		AssessedMachineTypeAssessedMachine,
+		AssessedMachineTypeAvsAssessedMachine,
+		AssessedMachineTypeSQLAssessedMachine,
+		AssessedMachineTypeUnknown,
+	}
+}
+
+// AssessmentSizingCriterion - Assessment Sizing Criteria.
 type AssessmentSizingCriterion string
 
 const (
-	AssessmentSizingCriterionAsOnPremises     AssessmentSizingCriterion = "AsOnPremises"
+	// AssessmentSizingCriterionAsOnPremises - As On Premises or Static Data based Sizing.
+	AssessmentSizingCriterionAsOnPremises AssessmentSizingCriterion = "AsOnPremises"
+	// AssessmentSizingCriterionPerformanceBased - Performance Data based Sizing.
 	AssessmentSizingCriterionPerformanceBased AssessmentSizingCriterion = "PerformanceBased"
 )
 
@@ -29,7 +100,6 @@ func PossibleAssessmentSizingCriterionValues() []AssessmentSizingCriterion {
 	}
 }
 
-// AssessmentStage - User configurable setting that describes the status of the assessment.
 type AssessmentStage string
 
 const (
@@ -47,17 +117,26 @@ func PossibleAssessmentStageValues() []AssessmentStage {
 	}
 }
 
-// AssessmentStatus - Whether the assessment has been created and is valid.
+// AssessmentStatus - Assessment Status.
 type AssessmentStatus string
 
 const (
+	// AssessmentStatusCompleted - Assessment is Completed or Ready.
 	AssessmentStatusCompleted AssessmentStatus = "Completed"
-	AssessmentStatusCreated   AssessmentStatus = "Created"
-	AssessmentStatusInvalid   AssessmentStatus = "Invalid"
-	AssessmentStatusOutDated  AssessmentStatus = "OutDated"
+	// AssessmentStatusCreated - Assessment is Created.
+	AssessmentStatusCreated AssessmentStatus = "Created"
+	// AssessmentStatusDeleted - Assessment is Deleted.
+	AssessmentStatusDeleted AssessmentStatus = "Deleted"
+	// AssessmentStatusInvalid - Assessment is Failed i.e. it is now invalid.
+	AssessmentStatusInvalid AssessmentStatus = "Invalid"
+	// AssessmentStatusOutDated - Assessment is Out Dated.
+	AssessmentStatusOutDated AssessmentStatus = "OutDated"
+	// AssessmentStatusOutOfSync - Assessment is Out of Sync.
 	AssessmentStatusOutOfSync AssessmentStatus = "OutOfSync"
-	AssessmentStatusRunning   AssessmentStatus = "Running"
-	AssessmentStatusUpdated   AssessmentStatus = "Updated"
+	// AssessmentStatusRunning - Assessment is currently running.
+	AssessmentStatusRunning AssessmentStatus = "Running"
+	// AssessmentStatusUpdated - Assessment is Updated.
+	AssessmentStatusUpdated AssessmentStatus = "Updated"
 )
 
 // PossibleAssessmentStatusValues returns the possible values for the AssessmentStatus const type.
@@ -65,6 +144,7 @@ func PossibleAssessmentStatusValues() []AssessmentStatus {
 	return []AssessmentStatus{
 		AssessmentStatusCompleted,
 		AssessmentStatusCreated,
+		AssessmentStatusDeleted,
 		AssessmentStatusInvalid,
 		AssessmentStatusOutDated,
 		AssessmentStatusOutOfSync,
@@ -73,13 +153,191 @@ func PossibleAssessmentStatusValues() []AssessmentStatus {
 	}
 }
 
-// AzureDiskSize - Recommended Azure size for the disk, given utilization data and preferences set on Assessment.
+type AssessmentType string
+
+const (
+	AssessmentTypeAvsAssessment     AssessmentType = "AvsAssessment"
+	AssessmentTypeMachineAssessment AssessmentType = "MachineAssessment"
+	AssessmentTypeSQLAssessment     AssessmentType = "SqlAssessment"
+	AssessmentTypeUnknown           AssessmentType = "Unknown"
+	AssessmentTypeWebAppAssessment  AssessmentType = "WebAppAssessment"
+)
+
+// PossibleAssessmentTypeValues returns the possible values for the AssessmentType const type.
+func PossibleAssessmentTypeValues() []AssessmentType {
+	return []AssessmentType{
+		AssessmentTypeAvsAssessment,
+		AssessmentTypeMachineAssessment,
+		AssessmentTypeSQLAssessment,
+		AssessmentTypeUnknown,
+		AssessmentTypeWebAppAssessment,
+	}
+}
+
+type AsyncCommitModeIntent string
+
+const (
+	AsyncCommitModeIntentDisasterRecovery AsyncCommitModeIntent = "DisasterRecovery"
+	AsyncCommitModeIntentHighAvailability AsyncCommitModeIntent = "HighAvailability"
+	AsyncCommitModeIntentNone             AsyncCommitModeIntent = "None"
+)
+
+// PossibleAsyncCommitModeIntentValues returns the possible values for the AsyncCommitModeIntent const type.
+func PossibleAsyncCommitModeIntentValues() []AsyncCommitModeIntent {
+	return []AsyncCommitModeIntent{
+		AsyncCommitModeIntentDisasterRecovery,
+		AsyncCommitModeIntentHighAvailability,
+		AsyncCommitModeIntentNone,
+	}
+}
+
+type AzureAvsNodeType string
+
+const (
+	AzureAvsNodeTypeAV36    AzureAvsNodeType = "AV36"
+	AzureAvsNodeTypeUnknown AzureAvsNodeType = "Unknown"
+)
+
+// PossibleAzureAvsNodeTypeValues returns the possible values for the AzureAvsNodeType const type.
+func PossibleAzureAvsNodeTypeValues() []AzureAvsNodeType {
+	return []AzureAvsNodeType{
+		AzureAvsNodeTypeAV36,
+		AzureAvsNodeTypeUnknown,
+	}
+}
+
+type AzureAvsSuitabilityExplanation string
+
+const (
+	AzureAvsSuitabilityExplanationNotApplicable                      AzureAvsSuitabilityExplanation = "NotApplicable"
+	AzureAvsSuitabilityExplanationUnknown                            AzureAvsSuitabilityExplanation = "Unknown"
+	AzureAvsSuitabilityExplanationUnsupportedLocationForSelectedNode AzureAvsSuitabilityExplanation = "UnsupportedLocationForSelectedNode"
+)
+
+// PossibleAzureAvsSuitabilityExplanationValues returns the possible values for the AzureAvsSuitabilityExplanation const type.
+func PossibleAzureAvsSuitabilityExplanationValues() []AzureAvsSuitabilityExplanation {
+	return []AzureAvsSuitabilityExplanation{
+		AzureAvsSuitabilityExplanationNotApplicable,
+		AzureAvsSuitabilityExplanationUnknown,
+		AzureAvsSuitabilityExplanationUnsupportedLocationForSelectedNode,
+	}
+}
+
+type AzureAvsVMSuitabilityDetail string
+
+const (
+	AzureAvsVMSuitabilityDetailNone                                  AzureAvsVMSuitabilityDetail = "None"
+	AzureAvsVMSuitabilityDetailPercentageOfCoresUtilizedMissing      AzureAvsVMSuitabilityDetail = "PercentageOfCoresUtilizedMissing"
+	AzureAvsVMSuitabilityDetailPercentageOfCoresUtilizedOutOfRange   AzureAvsVMSuitabilityDetail = "PercentageOfCoresUtilizedOutOfRange"
+	AzureAvsVMSuitabilityDetailPercentageOfMemoryUtilizedMissing     AzureAvsVMSuitabilityDetail = "PercentageOfMemoryUtilizedMissing"
+	AzureAvsVMSuitabilityDetailPercentageOfMemoryUtilizedOutOfRange  AzureAvsVMSuitabilityDetail = "PercentageOfMemoryUtilizedOutOfRange"
+	AzureAvsVMSuitabilityDetailPercentageOfStorageUtilizedOutOfRange AzureAvsVMSuitabilityDetail = "PercentageOfStorageUtilizedOutOfRange"
+)
+
+// PossibleAzureAvsVMSuitabilityDetailValues returns the possible values for the AzureAvsVMSuitabilityDetail const type.
+func PossibleAzureAvsVMSuitabilityDetailValues() []AzureAvsVMSuitabilityDetail {
+	return []AzureAvsVMSuitabilityDetail{
+		AzureAvsVMSuitabilityDetailNone,
+		AzureAvsVMSuitabilityDetailPercentageOfCoresUtilizedMissing,
+		AzureAvsVMSuitabilityDetailPercentageOfCoresUtilizedOutOfRange,
+		AzureAvsVMSuitabilityDetailPercentageOfMemoryUtilizedMissing,
+		AzureAvsVMSuitabilityDetailPercentageOfMemoryUtilizedOutOfRange,
+		AzureAvsVMSuitabilityDetailPercentageOfStorageUtilizedOutOfRange,
+	}
+}
+
+type AzureAvsVMSuitabilityExplanation string
+
+const (
+	AzureAvsVMSuitabilityExplanationIPV6NotSupported           AzureAvsVMSuitabilityExplanation = "IpV6NotSupported"
+	AzureAvsVMSuitabilityExplanationNotApplicable              AzureAvsVMSuitabilityExplanation = "NotApplicable"
+	AzureAvsVMSuitabilityExplanationUnknown                    AzureAvsVMSuitabilityExplanation = "Unknown"
+	AzureAvsVMSuitabilityExplanationUnsupportedOperatingSystem AzureAvsVMSuitabilityExplanation = "UnsupportedOperatingSystem"
+)
+
+// PossibleAzureAvsVMSuitabilityExplanationValues returns the possible values for the AzureAvsVMSuitabilityExplanation const type.
+func PossibleAzureAvsVMSuitabilityExplanationValues() []AzureAvsVMSuitabilityExplanation {
+	return []AzureAvsVMSuitabilityExplanation{
+		AzureAvsVMSuitabilityExplanationIPV6NotSupported,
+		AzureAvsVMSuitabilityExplanationNotApplicable,
+		AzureAvsVMSuitabilityExplanationUnknown,
+		AzureAvsVMSuitabilityExplanationUnsupportedOperatingSystem,
+	}
+}
+
+// AzureCurrency - Currency for Azure.
+type AzureCurrency string
+
+const (
+	AzureCurrencyARS     AzureCurrency = "ARS"
+	AzureCurrencyAUD     AzureCurrency = "AUD"
+	AzureCurrencyBRL     AzureCurrency = "BRL"
+	AzureCurrencyCAD     AzureCurrency = "CAD"
+	AzureCurrencyCHF     AzureCurrency = "CHF"
+	AzureCurrencyCNY     AzureCurrency = "CNY"
+	AzureCurrencyDKK     AzureCurrency = "DKK"
+	AzureCurrencyEUR     AzureCurrency = "EUR"
+	AzureCurrencyGBP     AzureCurrency = "GBP"
+	AzureCurrencyHKD     AzureCurrency = "HKD"
+	AzureCurrencyIDR     AzureCurrency = "IDR"
+	AzureCurrencyINR     AzureCurrency = "INR"
+	AzureCurrencyJPY     AzureCurrency = "JPY"
+	AzureCurrencyKRW     AzureCurrency = "KRW"
+	AzureCurrencyMXN     AzureCurrency = "MXN"
+	AzureCurrencyMYR     AzureCurrency = "MYR"
+	AzureCurrencyNOK     AzureCurrency = "NOK"
+	AzureCurrencyNZD     AzureCurrency = "NZD"
+	AzureCurrencyRUB     AzureCurrency = "RUB"
+	AzureCurrencySAR     AzureCurrency = "SAR"
+	AzureCurrencySEK     AzureCurrency = "SEK"
+	AzureCurrencyTRY     AzureCurrency = "TRY"
+	AzureCurrencyTWD     AzureCurrency = "TWD"
+	AzureCurrencyUSD     AzureCurrency = "USD"
+	AzureCurrencyUnknown AzureCurrency = "Unknown"
+	AzureCurrencyZAR     AzureCurrency = "ZAR"
+)
+
+// PossibleAzureCurrencyValues returns the possible values for the AzureCurrency const type.
+func PossibleAzureCurrencyValues() []AzureCurrency {
+	return []AzureCurrency{
+		AzureCurrencyARS,
+		AzureCurrencyAUD,
+		AzureCurrencyBRL,
+		AzureCurrencyCAD,
+		AzureCurrencyCHF,
+		AzureCurrencyCNY,
+		AzureCurrencyDKK,
+		AzureCurrencyEUR,
+		AzureCurrencyGBP,
+		AzureCurrencyHKD,
+		AzureCurrencyIDR,
+		AzureCurrencyINR,
+		AzureCurrencyJPY,
+		AzureCurrencyKRW,
+		AzureCurrencyMXN,
+		AzureCurrencyMYR,
+		AzureCurrencyNOK,
+		AzureCurrencyNZD,
+		AzureCurrencyRUB,
+		AzureCurrencySAR,
+		AzureCurrencySEK,
+		AzureCurrencyTRY,
+		AzureCurrencyTWD,
+		AzureCurrencyUSD,
+		AzureCurrencyUnknown,
+		AzureCurrencyZAR,
+	}
+}
+
 type AzureDiskSize string
 
 const (
+	AzureDiskSizePremiumP1      AzureDiskSize = "Premium_P1"
 	AzureDiskSizePremiumP10     AzureDiskSize = "Premium_P10"
 	AzureDiskSizePremiumP15     AzureDiskSize = "Premium_P15"
+	AzureDiskSizePremiumP2      AzureDiskSize = "Premium_P2"
 	AzureDiskSizePremiumP20     AzureDiskSize = "Premium_P20"
+	AzureDiskSizePremiumP3      AzureDiskSize = "Premium_P3"
 	AzureDiskSizePremiumP30     AzureDiskSize = "Premium_P30"
 	AzureDiskSizePremiumP4      AzureDiskSize = "Premium_P4"
 	AzureDiskSizePremiumP40     AzureDiskSize = "Premium_P40"
@@ -88,6 +346,7 @@ const (
 	AzureDiskSizePremiumP60     AzureDiskSize = "Premium_P60"
 	AzureDiskSizePremiumP70     AzureDiskSize = "Premium_P70"
 	AzureDiskSizePremiumP80     AzureDiskSize = "Premium_P80"
+	AzureDiskSizePremiumV2      AzureDiskSize = "PremiumV2"
 	AzureDiskSizeStandardS10    AzureDiskSize = "Standard_S10"
 	AzureDiskSizeStandardS15    AzureDiskSize = "Standard_S15"
 	AzureDiskSizeStandardS20    AzureDiskSize = "Standard_S20"
@@ -99,9 +358,12 @@ const (
 	AzureDiskSizeStandardS60    AzureDiskSize = "Standard_S60"
 	AzureDiskSizeStandardS70    AzureDiskSize = "Standard_S70"
 	AzureDiskSizeStandardS80    AzureDiskSize = "Standard_S80"
+	AzureDiskSizeStandardSSDE1  AzureDiskSize = "StandardSSD_E1"
 	AzureDiskSizeStandardSSDE10 AzureDiskSize = "StandardSSD_E10"
 	AzureDiskSizeStandardSSDE15 AzureDiskSize = "StandardSSD_E15"
+	AzureDiskSizeStandardSSDE2  AzureDiskSize = "StandardSSD_E2"
 	AzureDiskSizeStandardSSDE20 AzureDiskSize = "StandardSSD_E20"
+	AzureDiskSizeStandardSSDE3  AzureDiskSize = "StandardSSD_E3"
 	AzureDiskSizeStandardSSDE30 AzureDiskSize = "StandardSSD_E30"
 	AzureDiskSizeStandardSSDE4  AzureDiskSize = "StandardSSD_E4"
 	AzureDiskSizeStandardSSDE40 AzureDiskSize = "StandardSSD_E40"
@@ -110,15 +372,19 @@ const (
 	AzureDiskSizeStandardSSDE60 AzureDiskSize = "StandardSSD_E60"
 	AzureDiskSizeStandardSSDE70 AzureDiskSize = "StandardSSD_E70"
 	AzureDiskSizeStandardSSDE80 AzureDiskSize = "StandardSSD_E80"
+	AzureDiskSizeUltra          AzureDiskSize = "Ultra"
 	AzureDiskSizeUnknown        AzureDiskSize = "Unknown"
 )
 
 // PossibleAzureDiskSizeValues returns the possible values for the AzureDiskSize const type.
 func PossibleAzureDiskSizeValues() []AzureDiskSize {
 	return []AzureDiskSize{
+		AzureDiskSizePremiumP1,
 		AzureDiskSizePremiumP10,
 		AzureDiskSizePremiumP15,
+		AzureDiskSizePremiumP2,
 		AzureDiskSizePremiumP20,
+		AzureDiskSizePremiumP3,
 		AzureDiskSizePremiumP30,
 		AzureDiskSizePremiumP4,
 		AzureDiskSizePremiumP40,
@@ -127,6 +393,7 @@ func PossibleAzureDiskSizeValues() []AzureDiskSize {
 		AzureDiskSizePremiumP60,
 		AzureDiskSizePremiumP70,
 		AzureDiskSizePremiumP80,
+		AzureDiskSizePremiumV2,
 		AzureDiskSizeStandardS10,
 		AzureDiskSizeStandardS15,
 		AzureDiskSizeStandardS20,
@@ -138,9 +405,12 @@ func PossibleAzureDiskSizeValues() []AzureDiskSize {
 		AzureDiskSizeStandardS60,
 		AzureDiskSizeStandardS70,
 		AzureDiskSizeStandardS80,
+		AzureDiskSizeStandardSSDE1,
 		AzureDiskSizeStandardSSDE10,
 		AzureDiskSizeStandardSSDE15,
+		AzureDiskSizeStandardSSDE2,
 		AzureDiskSizeStandardSSDE20,
+		AzureDiskSizeStandardSSDE3,
 		AzureDiskSizeStandardSSDE30,
 		AzureDiskSizeStandardSSDE4,
 		AzureDiskSizeStandardSSDE40,
@@ -149,12 +419,11 @@ func PossibleAzureDiskSizeValues() []AzureDiskSize {
 		AzureDiskSizeStandardSSDE60,
 		AzureDiskSizeStandardSSDE70,
 		AzureDiskSizeStandardSSDE80,
+		AzureDiskSizeUltra,
 		AzureDiskSizeUnknown,
 	}
 }
 
-// AzureDiskSuitabilityDetail - If disk is suitable to be migrate but some conditions/checks were not considered while calculating
-// suitability, this explains the details.
 type AzureDiskSuitabilityDetail string
 
 const (
@@ -192,7 +461,6 @@ func PossibleAzureDiskSuitabilityDetailValues() []AzureDiskSuitabilityDetail {
 	}
 }
 
-// AzureDiskSuitabilityExplanation - If disk is not suitable to be migrated, this explains the reasons and mitigation steps.
 type AzureDiskSuitabilityExplanation string
 
 const (
@@ -222,14 +490,15 @@ func PossibleAzureDiskSuitabilityExplanationValues() []AzureDiskSuitabilityExpla
 	}
 }
 
-// AzureDiskType - Storage type selected for this disk.
 type AzureDiskType string
 
 const (
 	AzureDiskTypePremium           AzureDiskType = "Premium"
+	AzureDiskTypePremiumV2         AzureDiskType = "PremiumV2"
 	AzureDiskTypeStandard          AzureDiskType = "Standard"
 	AzureDiskTypeStandardOrPremium AzureDiskType = "StandardOrPremium"
 	AzureDiskTypeStandardSSD       AzureDiskType = "StandardSSD"
+	AzureDiskTypeUltra             AzureDiskType = "Ultra"
 	AzureDiskTypeUnknown           AzureDiskType = "Unknown"
 )
 
@@ -237,14 +506,15 @@ const (
 func PossibleAzureDiskTypeValues() []AzureDiskType {
 	return []AzureDiskType{
 		AzureDiskTypePremium,
+		AzureDiskTypePremiumV2,
 		AzureDiskTypeStandard,
 		AzureDiskTypeStandardOrPremium,
 		AzureDiskTypeStandardSSD,
+		AzureDiskTypeUltra,
 		AzureDiskTypeUnknown,
 	}
 }
 
-// AzureHybridUseBenefit - AHUB discount on windows virtual machines.
 type AzureHybridUseBenefit string
 
 const (
@@ -262,11 +532,12 @@ func PossibleAzureHybridUseBenefitValues() []AzureHybridUseBenefit {
 	}
 }
 
-// AzureLocation - Target Azure location for which the machines should be assessed. These enums are the same as used by Compute
-// API.
+// AzureLocation - Location for Azure.
 type AzureLocation string
 
 const (
+	AzureLocationAustraliaCentral   AzureLocation = "AustraliaCentral"
+	AzureLocationAustraliaCentral2  AzureLocation = "AustraliaCentral2"
 	AzureLocationAustraliaEast      AzureLocation = "AustraliaEast"
 	AzureLocationAustraliaSoutheast AzureLocation = "AustraliaSoutheast"
 	AzureLocationBrazilSouth        AzureLocation = "BrazilSouth"
@@ -275,21 +546,37 @@ const (
 	AzureLocationCentralIndia       AzureLocation = "CentralIndia"
 	AzureLocationCentralUs          AzureLocation = "CentralUs"
 	AzureLocationChinaEast          AzureLocation = "ChinaEast"
+	AzureLocationChinaEast2         AzureLocation = "ChinaEast2"
 	AzureLocationChinaNorth         AzureLocation = "ChinaNorth"
+	AzureLocationChinaNorth2        AzureLocation = "ChinaNorth2"
 	AzureLocationEastAsia           AzureLocation = "EastAsia"
 	AzureLocationEastUs             AzureLocation = "EastUs"
 	AzureLocationEastUs2            AzureLocation = "EastUs2"
+	AzureLocationFranceCentral      AzureLocation = "FranceCentral"
+	AzureLocationFranceSouth        AzureLocation = "FranceSouth"
 	AzureLocationGermanyCentral     AzureLocation = "GermanyCentral"
+	AzureLocationGermanyNorth       AzureLocation = "GermanyNorth"
 	AzureLocationGermanyNortheast   AzureLocation = "GermanyNortheast"
+	AzureLocationGermanyWestCentral AzureLocation = "GermanyWestCentral"
 	AzureLocationJapanEast          AzureLocation = "JapanEast"
 	AzureLocationJapanWest          AzureLocation = "JapanWest"
 	AzureLocationKoreaCentral       AzureLocation = "KoreaCentral"
 	AzureLocationKoreaSouth         AzureLocation = "KoreaSouth"
 	AzureLocationNorthCentralUs     AzureLocation = "NorthCentralUs"
 	AzureLocationNorthEurope        AzureLocation = "NorthEurope"
+	AzureLocationNorwayEast         AzureLocation = "NorwayEast"
+	AzureLocationNorwayWest         AzureLocation = "NorwayWest"
+	AzureLocationQatarCentral       AzureLocation = "QatarCentral"
+	AzureLocationSouthAfricaNorth   AzureLocation = "SouthAfricaNorth"
+	AzureLocationSouthAfricaWest    AzureLocation = "SouthAfricaWest"
 	AzureLocationSouthCentralUs     AzureLocation = "SouthCentralUs"
 	AzureLocationSouthIndia         AzureLocation = "SouthIndia"
 	AzureLocationSoutheastAsia      AzureLocation = "SoutheastAsia"
+	AzureLocationSwedenCentral      AzureLocation = "SwedenCentral"
+	AzureLocationSwitzerlandNorth   AzureLocation = "SwitzerlandNorth"
+	AzureLocationSwitzerlandWest    AzureLocation = "SwitzerlandWest"
+	AzureLocationUAECentral         AzureLocation = "UAECentral"
+	AzureLocationUAENorth           AzureLocation = "UAENorth"
 	AzureLocationUSDoDCentral       AzureLocation = "USDoDCentral"
 	AzureLocationUSDoDEast          AzureLocation = "USDoDEast"
 	AzureLocationUSGovArizona       AzureLocation = "USGovArizona"
@@ -299,6 +586,11 @@ const (
 	AzureLocationUkSouth            AzureLocation = "UkSouth"
 	AzureLocationUkWest             AzureLocation = "UkWest"
 	AzureLocationUnknown            AzureLocation = "Unknown"
+	AzureLocationUsNatEast          AzureLocation = "UsNatEast"
+	AzureLocationUsNatWest          AzureLocation = "UsNatWest"
+	AzureLocationUsSecCentral       AzureLocation = "UsSecCentral"
+	AzureLocationUsSecEast          AzureLocation = "UsSecEast"
+	AzureLocationUsSecWest          AzureLocation = "UsSecWest"
 	AzureLocationWestCentralUs      AzureLocation = "WestCentralUs"
 	AzureLocationWestEurope         AzureLocation = "WestEurope"
 	AzureLocationWestIndia          AzureLocation = "WestIndia"
@@ -309,6 +601,8 @@ const (
 // PossibleAzureLocationValues returns the possible values for the AzureLocation const type.
 func PossibleAzureLocationValues() []AzureLocation {
 	return []AzureLocation{
+		AzureLocationAustraliaCentral,
+		AzureLocationAustraliaCentral2,
 		AzureLocationAustraliaEast,
 		AzureLocationAustraliaSoutheast,
 		AzureLocationBrazilSouth,
@@ -317,21 +611,37 @@ func PossibleAzureLocationValues() []AzureLocation {
 		AzureLocationCentralIndia,
 		AzureLocationCentralUs,
 		AzureLocationChinaEast,
+		AzureLocationChinaEast2,
 		AzureLocationChinaNorth,
+		AzureLocationChinaNorth2,
 		AzureLocationEastAsia,
 		AzureLocationEastUs,
 		AzureLocationEastUs2,
+		AzureLocationFranceCentral,
+		AzureLocationFranceSouth,
 		AzureLocationGermanyCentral,
+		AzureLocationGermanyNorth,
 		AzureLocationGermanyNortheast,
+		AzureLocationGermanyWestCentral,
 		AzureLocationJapanEast,
 		AzureLocationJapanWest,
 		AzureLocationKoreaCentral,
 		AzureLocationKoreaSouth,
 		AzureLocationNorthCentralUs,
 		AzureLocationNorthEurope,
+		AzureLocationNorwayEast,
+		AzureLocationNorwayWest,
+		AzureLocationQatarCentral,
+		AzureLocationSouthAfricaNorth,
+		AzureLocationSouthAfricaWest,
 		AzureLocationSouthCentralUs,
 		AzureLocationSouthIndia,
 		AzureLocationSoutheastAsia,
+		AzureLocationSwedenCentral,
+		AzureLocationSwitzerlandNorth,
+		AzureLocationSwitzerlandWest,
+		AzureLocationUAECentral,
+		AzureLocationUAENorth,
 		AzureLocationUSDoDCentral,
 		AzureLocationUSDoDEast,
 		AzureLocationUSGovArizona,
@@ -341,6 +651,11 @@ func PossibleAzureLocationValues() []AzureLocation {
 		AzureLocationUkSouth,
 		AzureLocationUkWest,
 		AzureLocationUnknown,
+		AzureLocationUsNatEast,
+		AzureLocationUsNatWest,
+		AzureLocationUsSecCentral,
+		AzureLocationUsSecEast,
+		AzureLocationUsSecWest,
 		AzureLocationWestCentralUs,
 		AzureLocationWestEurope,
 		AzureLocationWestIndia,
@@ -349,10 +664,53 @@ func PossibleAzureLocationValues() []AzureLocation {
 	}
 }
 
-// AzureNetworkAdapterSuitabilityDetail - If network adapter is not suitable for cloud, this explains the reasons.
+type AzureManagedDiskSKUDTODiskRedundancy string
+
+const (
+	AzureManagedDiskSKUDTODiskRedundancyLRS     AzureManagedDiskSKUDTODiskRedundancy = "LRS"
+	AzureManagedDiskSKUDTODiskRedundancyUnknown AzureManagedDiskSKUDTODiskRedundancy = "Unknown"
+	AzureManagedDiskSKUDTODiskRedundancyZRS     AzureManagedDiskSKUDTODiskRedundancy = "ZRS"
+)
+
+// PossibleAzureManagedDiskSKUDTODiskRedundancyValues returns the possible values for the AzureManagedDiskSKUDTODiskRedundancy const type.
+func PossibleAzureManagedDiskSKUDTODiskRedundancyValues() []AzureManagedDiskSKUDTODiskRedundancy {
+	return []AzureManagedDiskSKUDTODiskRedundancy{
+		AzureManagedDiskSKUDTODiskRedundancyLRS,
+		AzureManagedDiskSKUDTODiskRedundancyUnknown,
+		AzureManagedDiskSKUDTODiskRedundancyZRS,
+	}
+}
+
+type AzureManagedDiskSKUDTODiskType string
+
+const (
+	AzureManagedDiskSKUDTODiskTypePremium           AzureManagedDiskSKUDTODiskType = "Premium"
+	AzureManagedDiskSKUDTODiskTypePremiumV2         AzureManagedDiskSKUDTODiskType = "PremiumV2"
+	AzureManagedDiskSKUDTODiskTypeStandard          AzureManagedDiskSKUDTODiskType = "Standard"
+	AzureManagedDiskSKUDTODiskTypeStandardOrPremium AzureManagedDiskSKUDTODiskType = "StandardOrPremium"
+	AzureManagedDiskSKUDTODiskTypeStandardSSD       AzureManagedDiskSKUDTODiskType = "StandardSSD"
+	AzureManagedDiskSKUDTODiskTypeUltra             AzureManagedDiskSKUDTODiskType = "Ultra"
+	AzureManagedDiskSKUDTODiskTypeUnknown           AzureManagedDiskSKUDTODiskType = "Unknown"
+)
+
+// PossibleAzureManagedDiskSKUDTODiskTypeValues returns the possible values for the AzureManagedDiskSKUDTODiskType const type.
+func PossibleAzureManagedDiskSKUDTODiskTypeValues() []AzureManagedDiskSKUDTODiskType {
+	return []AzureManagedDiskSKUDTODiskType{
+		AzureManagedDiskSKUDTODiskTypePremium,
+		AzureManagedDiskSKUDTODiskTypePremiumV2,
+		AzureManagedDiskSKUDTODiskTypeStandard,
+		AzureManagedDiskSKUDTODiskTypeStandardOrPremium,
+		AzureManagedDiskSKUDTODiskTypeStandardSSD,
+		AzureManagedDiskSKUDTODiskTypeUltra,
+		AzureManagedDiskSKUDTODiskTypeUnknown,
+	}
+}
+
 type AzureNetworkAdapterSuitabilityDetail string
 
 const (
+	AzureNetworkAdapterSuitabilityDetailMegabytesOfDataRecievedMissing       AzureNetworkAdapterSuitabilityDetail = "MegabytesOfDataRecievedMissing"
+	AzureNetworkAdapterSuitabilityDetailMegabytesOfDataRecievedOutOfRange    AzureNetworkAdapterSuitabilityDetail = "MegabytesOfDataRecievedOutOfRange"
 	AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedMissing    AzureNetworkAdapterSuitabilityDetail = "MegabytesOfDataTransmittedMissing"
 	AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedOutOfRange AzureNetworkAdapterSuitabilityDetail = "MegabytesOfDataTransmittedOutOfRange"
 	AzureNetworkAdapterSuitabilityDetailNone                                 AzureNetworkAdapterSuitabilityDetail = "None"
@@ -361,13 +719,14 @@ const (
 // PossibleAzureNetworkAdapterSuitabilityDetailValues returns the possible values for the AzureNetworkAdapterSuitabilityDetail const type.
 func PossibleAzureNetworkAdapterSuitabilityDetailValues() []AzureNetworkAdapterSuitabilityDetail {
 	return []AzureNetworkAdapterSuitabilityDetail{
+		AzureNetworkAdapterSuitabilityDetailMegabytesOfDataRecievedMissing,
+		AzureNetworkAdapterSuitabilityDetailMegabytesOfDataRecievedOutOfRange,
 		AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedMissing,
 		AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedOutOfRange,
 		AzureNetworkAdapterSuitabilityDetailNone,
 	}
 }
 
-// AzureNetworkAdapterSuitabilityExplanation - If network adapter is suitable, this explains the reasons and mitigation steps.
 type AzureNetworkAdapterSuitabilityExplanation string
 
 const (
@@ -385,99 +744,103 @@ func PossibleAzureNetworkAdapterSuitabilityExplanationValues() []AzureNetworkAda
 	}
 }
 
-// AzureOfferCode - Offer code according to which cost estimation is done.
 type AzureOfferCode string
 
 const (
-	AzureOfferCodeEA              AzureOfferCode = "EA"
-	AzureOfferCodeMSAZR0003P      AzureOfferCode = "MSAZR0003P"
-	AzureOfferCodeMSAZR0022P      AzureOfferCode = "MSAZR0022P"
-	AzureOfferCodeMSAZR0023P      AzureOfferCode = "MSAZR0023P"
-	AzureOfferCodeMSAZR0025P      AzureOfferCode = "MSAZR0025P"
-	AzureOfferCodeMSAZR0029P      AzureOfferCode = "MSAZR0029P"
-	AzureOfferCodeMSAZR0036P      AzureOfferCode = "MSAZR0036P"
-	AzureOfferCodeMSAZR0044P      AzureOfferCode = "MSAZR0044P"
-	AzureOfferCodeMSAZR0059P      AzureOfferCode = "MSAZR0059P"
-	AzureOfferCodeMSAZR0060P      AzureOfferCode = "MSAZR0060P"
-	AzureOfferCodeMSAZR0062P      AzureOfferCode = "MSAZR0062P"
-	AzureOfferCodeMSAZR0063P      AzureOfferCode = "MSAZR0063P"
-	AzureOfferCodeMSAZR0064P      AzureOfferCode = "MSAZR0064P"
-	AzureOfferCodeMSAZR0111P      AzureOfferCode = "MSAZR0111P"
-	AzureOfferCodeMSAZR0120P      AzureOfferCode = "MSAZR0120P"
-	AzureOfferCodeMSAZR0121P      AzureOfferCode = "MSAZR0121P"
-	AzureOfferCodeMSAZR0122P      AzureOfferCode = "MSAZR0122P"
-	AzureOfferCodeMSAZR0123P      AzureOfferCode = "MSAZR0123P"
-	AzureOfferCodeMSAZR0124P      AzureOfferCode = "MSAZR0124P"
-	AzureOfferCodeMSAZR0125P      AzureOfferCode = "MSAZR0125P"
-	AzureOfferCodeMSAZR0126P      AzureOfferCode = "MSAZR0126P"
-	AzureOfferCodeMSAZR0127P      AzureOfferCode = "MSAZR0127P"
-	AzureOfferCodeMSAZR0128P      AzureOfferCode = "MSAZR0128P"
-	AzureOfferCodeMSAZR0129P      AzureOfferCode = "MSAZR0129P"
-	AzureOfferCodeMSAZR0130P      AzureOfferCode = "MSAZR0130P"
-	AzureOfferCodeMSAZR0144P      AzureOfferCode = "MSAZR0144P"
-	AzureOfferCodeMSAZR0148P      AzureOfferCode = "MSAZR0148P"
-	AzureOfferCodeMSAZR0149P      AzureOfferCode = "MSAZR0149P"
-	AzureOfferCodeMSAZRDE0003P    AzureOfferCode = "MSAZRDE0003P"
-	AzureOfferCodeMSAZRDE0044P    AzureOfferCode = "MSAZRDE0044P"
-	AzureOfferCodeMSAZRUSGOV0003P AzureOfferCode = "MSAZRUSGOV0003P"
-	AzureOfferCodeMSMCAZR0044P    AzureOfferCode = "MSMCAZR0044P"
-	AzureOfferCodeMSMCAZR0059P    AzureOfferCode = "MSMCAZR0059P"
-	AzureOfferCodeMSMCAZR0060P    AzureOfferCode = "MSMCAZR0060P"
-	AzureOfferCodeMSMCAZR0063P    AzureOfferCode = "MSMCAZR0063P"
-	AzureOfferCodeMSMCAZR0120P    AzureOfferCode = "MSMCAZR0120P"
-	AzureOfferCodeMSMCAZR0121P    AzureOfferCode = "MSMCAZR0121P"
-	AzureOfferCodeMSMCAZR0125P    AzureOfferCode = "MSMCAZR0125P"
-	AzureOfferCodeMSMCAZR0128P    AzureOfferCode = "MSMCAZR0128P"
-	AzureOfferCodeUnknown         AzureOfferCode = "Unknown"
+	AzureOfferCodeEA               AzureOfferCode = "EA"
+	AzureOfferCodeMsazr0003P       AzureOfferCode = "MSAZR0003P"
+	AzureOfferCodeMsazr0022P       AzureOfferCode = "MSAZR0022P"
+	AzureOfferCodeMsazr0023P       AzureOfferCode = "MSAZR0023P"
+	AzureOfferCodeMsazr0025P       AzureOfferCode = "MSAZR0025P"
+	AzureOfferCodeMsazr0029P       AzureOfferCode = "MSAZR0029P"
+	AzureOfferCodeMsazr0036P       AzureOfferCode = "MSAZR0036P"
+	AzureOfferCodeMsazr0044P       AzureOfferCode = "MSAZR0044P"
+	AzureOfferCodeMsazr0059P       AzureOfferCode = "MSAZR0059P"
+	AzureOfferCodeMsazr0060P       AzureOfferCode = "MSAZR0060P"
+	AzureOfferCodeMsazr0062P       AzureOfferCode = "MSAZR0062P"
+	AzureOfferCodeMsazr0063P       AzureOfferCode = "MSAZR0063P"
+	AzureOfferCodeMsazr0064P       AzureOfferCode = "MSAZR0064P"
+	AzureOfferCodeMsazr0111P       AzureOfferCode = "MSAZR0111P"
+	AzureOfferCodeMsazr0120P       AzureOfferCode = "MSAZR0120P"
+	AzureOfferCodeMsazr0121P       AzureOfferCode = "MSAZR0121P"
+	AzureOfferCodeMsazr0122P       AzureOfferCode = "MSAZR0122P"
+	AzureOfferCodeMsazr0123P       AzureOfferCode = "MSAZR0123P"
+	AzureOfferCodeMsazr0124P       AzureOfferCode = "MSAZR0124P"
+	AzureOfferCodeMsazr0125P       AzureOfferCode = "MSAZR0125P"
+	AzureOfferCodeMsazr0126P       AzureOfferCode = "MSAZR0126P"
+	AzureOfferCodeMsazr0127P       AzureOfferCode = "MSAZR0127P"
+	AzureOfferCodeMsazr0128P       AzureOfferCode = "MSAZR0128P"
+	AzureOfferCodeMsazr0129P       AzureOfferCode = "MSAZR0129P"
+	AzureOfferCodeMsazr0130P       AzureOfferCode = "MSAZR0130P"
+	AzureOfferCodeMsazr0144P       AzureOfferCode = "MSAZR0144P"
+	AzureOfferCodeMsazr0148P       AzureOfferCode = "MSAZR0148P"
+	AzureOfferCodeMsazr0149P       AzureOfferCode = "MSAZR0149P"
+	AzureOfferCodeMsazr0243P       AzureOfferCode = "MSAZR0243P"
+	AzureOfferCodeMsazrde0003P     AzureOfferCode = "MSAZRDE0003P"
+	AzureOfferCodeMsazrde0044P     AzureOfferCode = "MSAZRDE0044P"
+	AzureOfferCodeMsazrusgov0003P  AzureOfferCode = "MSAZRUSGOV0003P"
+	AzureOfferCodeMsmcazr0044P     AzureOfferCode = "MSMCAZR0044P"
+	AzureOfferCodeMsmcazr0059P     AzureOfferCode = "MSMCAZR0059P"
+	AzureOfferCodeMsmcazr0060P     AzureOfferCode = "MSMCAZR0060P"
+	AzureOfferCodeMsmcazr0063P     AzureOfferCode = "MSMCAZR0063P"
+	AzureOfferCodeMsmcazr0120P     AzureOfferCode = "MSMCAZR0120P"
+	AzureOfferCodeMsmcazr0121P     AzureOfferCode = "MSMCAZR0121P"
+	AzureOfferCodeMsmcazr0125P     AzureOfferCode = "MSMCAZR0125P"
+	AzureOfferCodeMsmcazr0128P     AzureOfferCode = "MSMCAZR0128P"
+	AzureOfferCodeSavingsPlan1Year AzureOfferCode = "SavingsPlan1Year"
+	AzureOfferCodeSavingsPlan3Year AzureOfferCode = "SavingsPlan3Year"
+	AzureOfferCodeUnknown          AzureOfferCode = "Unknown"
 )
 
 // PossibleAzureOfferCodeValues returns the possible values for the AzureOfferCode const type.
 func PossibleAzureOfferCodeValues() []AzureOfferCode {
 	return []AzureOfferCode{
 		AzureOfferCodeEA,
-		AzureOfferCodeMSAZR0003P,
-		AzureOfferCodeMSAZR0022P,
-		AzureOfferCodeMSAZR0023P,
-		AzureOfferCodeMSAZR0025P,
-		AzureOfferCodeMSAZR0029P,
-		AzureOfferCodeMSAZR0036P,
-		AzureOfferCodeMSAZR0044P,
-		AzureOfferCodeMSAZR0059P,
-		AzureOfferCodeMSAZR0060P,
-		AzureOfferCodeMSAZR0062P,
-		AzureOfferCodeMSAZR0063P,
-		AzureOfferCodeMSAZR0064P,
-		AzureOfferCodeMSAZR0111P,
-		AzureOfferCodeMSAZR0120P,
-		AzureOfferCodeMSAZR0121P,
-		AzureOfferCodeMSAZR0122P,
-		AzureOfferCodeMSAZR0123P,
-		AzureOfferCodeMSAZR0124P,
-		AzureOfferCodeMSAZR0125P,
-		AzureOfferCodeMSAZR0126P,
-		AzureOfferCodeMSAZR0127P,
-		AzureOfferCodeMSAZR0128P,
-		AzureOfferCodeMSAZR0129P,
-		AzureOfferCodeMSAZR0130P,
-		AzureOfferCodeMSAZR0144P,
-		AzureOfferCodeMSAZR0148P,
-		AzureOfferCodeMSAZR0149P,
-		AzureOfferCodeMSAZRDE0003P,
-		AzureOfferCodeMSAZRDE0044P,
-		AzureOfferCodeMSAZRUSGOV0003P,
-		AzureOfferCodeMSMCAZR0044P,
-		AzureOfferCodeMSMCAZR0059P,
-		AzureOfferCodeMSMCAZR0060P,
-		AzureOfferCodeMSMCAZR0063P,
-		AzureOfferCodeMSMCAZR0120P,
-		AzureOfferCodeMSMCAZR0121P,
-		AzureOfferCodeMSMCAZR0125P,
-		AzureOfferCodeMSMCAZR0128P,
+		AzureOfferCodeMsazr0003P,
+		AzureOfferCodeMsazr0022P,
+		AzureOfferCodeMsazr0023P,
+		AzureOfferCodeMsazr0025P,
+		AzureOfferCodeMsazr0029P,
+		AzureOfferCodeMsazr0036P,
+		AzureOfferCodeMsazr0044P,
+		AzureOfferCodeMsazr0059P,
+		AzureOfferCodeMsazr0060P,
+		AzureOfferCodeMsazr0062P,
+		AzureOfferCodeMsazr0063P,
+		AzureOfferCodeMsazr0064P,
+		AzureOfferCodeMsazr0111P,
+		AzureOfferCodeMsazr0120P,
+		AzureOfferCodeMsazr0121P,
+		AzureOfferCodeMsazr0122P,
+		AzureOfferCodeMsazr0123P,
+		AzureOfferCodeMsazr0124P,
+		AzureOfferCodeMsazr0125P,
+		AzureOfferCodeMsazr0126P,
+		AzureOfferCodeMsazr0127P,
+		AzureOfferCodeMsazr0128P,
+		AzureOfferCodeMsazr0129P,
+		AzureOfferCodeMsazr0130P,
+		AzureOfferCodeMsazr0144P,
+		AzureOfferCodeMsazr0148P,
+		AzureOfferCodeMsazr0149P,
+		AzureOfferCodeMsazr0243P,
+		AzureOfferCodeMsazrde0003P,
+		AzureOfferCodeMsazrde0044P,
+		AzureOfferCodeMsazrusgov0003P,
+		AzureOfferCodeMsmcazr0044P,
+		AzureOfferCodeMsmcazr0059P,
+		AzureOfferCodeMsmcazr0060P,
+		AzureOfferCodeMsmcazr0063P,
+		AzureOfferCodeMsmcazr0120P,
+		AzureOfferCodeMsmcazr0121P,
+		AzureOfferCodeMsmcazr0125P,
+		AzureOfferCodeMsmcazr0128P,
+		AzureOfferCodeSavingsPlan1Year,
+		AzureOfferCodeSavingsPlan3Year,
 		AzureOfferCodeUnknown,
 	}
 }
 
-// AzurePricingTier - Pricing tier for Size evaluation.
 type AzurePricingTier string
 
 const (
@@ -493,7 +856,131 @@ func PossibleAzurePricingTierValues() []AzurePricingTier {
 	}
 }
 
-// AzureStorageRedundancy - Storage Redundancy type offered by Azure.
+type AzureQuorumWitnessDTOQuorumWitnessType string
+
+const (
+	AzureQuorumWitnessDTOQuorumWitnessTypeCloud   AzureQuorumWitnessDTOQuorumWitnessType = "Cloud"
+	AzureQuorumWitnessDTOQuorumWitnessTypeDisk    AzureQuorumWitnessDTOQuorumWitnessType = "Disk"
+	AzureQuorumWitnessDTOQuorumWitnessTypeUnknown AzureQuorumWitnessDTOQuorumWitnessType = "Unknown"
+)
+
+// PossibleAzureQuorumWitnessDTOQuorumWitnessTypeValues returns the possible values for the AzureQuorumWitnessDTOQuorumWitnessType const type.
+func PossibleAzureQuorumWitnessDTOQuorumWitnessTypeValues() []AzureQuorumWitnessDTOQuorumWitnessType {
+	return []AzureQuorumWitnessDTOQuorumWitnessType{
+		AzureQuorumWitnessDTOQuorumWitnessTypeCloud,
+		AzureQuorumWitnessDTOQuorumWitnessTypeDisk,
+		AzureQuorumWitnessDTOQuorumWitnessTypeUnknown,
+	}
+}
+
+type AzureReservedInstance string
+
+const (
+	AzureReservedInstanceNone    AzureReservedInstance = "None"
+	AzureReservedInstanceRI1Year AzureReservedInstance = "RI1Year"
+	AzureReservedInstanceRI3Year AzureReservedInstance = "RI3Year"
+)
+
+// PossibleAzureReservedInstanceValues returns the possible values for the AzureReservedInstance const type.
+func PossibleAzureReservedInstanceValues() []AzureReservedInstance {
+	return []AzureReservedInstance{
+		AzureReservedInstanceNone,
+		AzureReservedInstanceRI1Year,
+		AzureReservedInstanceRI3Year,
+	}
+}
+
+type AzureSQLDataBaseType string
+
+const (
+	AzureSQLDataBaseTypeAutomatic      AzureSQLDataBaseType = "Automatic"
+	AzureSQLDataBaseTypeElasticPool    AzureSQLDataBaseType = "ElasticPool"
+	AzureSQLDataBaseTypeSingleDatabase AzureSQLDataBaseType = "SingleDatabase"
+	AzureSQLDataBaseTypeUnknown        AzureSQLDataBaseType = "Unknown"
+)
+
+// PossibleAzureSQLDataBaseTypeValues returns the possible values for the AzureSQLDataBaseType const type.
+func PossibleAzureSQLDataBaseTypeValues() []AzureSQLDataBaseType {
+	return []AzureSQLDataBaseType{
+		AzureSQLDataBaseTypeAutomatic,
+		AzureSQLDataBaseTypeElasticPool,
+		AzureSQLDataBaseTypeSingleDatabase,
+		AzureSQLDataBaseTypeUnknown,
+	}
+}
+
+type AzureSQLInstanceType string
+
+const (
+	AzureSQLInstanceTypeAutomatic      AzureSQLInstanceType = "Automatic"
+	AzureSQLInstanceTypeInstancePools  AzureSQLInstanceType = "InstancePools"
+	AzureSQLInstanceTypeSingleInstance AzureSQLInstanceType = "SingleInstance"
+	AzureSQLInstanceTypeUnknown        AzureSQLInstanceType = "Unknown"
+)
+
+// PossibleAzureSQLInstanceTypeValues returns the possible values for the AzureSQLInstanceType const type.
+func PossibleAzureSQLInstanceTypeValues() []AzureSQLInstanceType {
+	return []AzureSQLInstanceType{
+		AzureSQLInstanceTypeAutomatic,
+		AzureSQLInstanceTypeInstancePools,
+		AzureSQLInstanceTypeSingleInstance,
+		AzureSQLInstanceTypeUnknown,
+	}
+}
+
+type AzureSQLPurchaseModel string
+
+const (
+	AzureSQLPurchaseModelDTU     AzureSQLPurchaseModel = "DTU"
+	AzureSQLPurchaseModelUnknown AzureSQLPurchaseModel = "Unknown"
+	AzureSQLPurchaseModelVCore   AzureSQLPurchaseModel = "VCore"
+)
+
+// PossibleAzureSQLPurchaseModelValues returns the possible values for the AzureSQLPurchaseModel const type.
+func PossibleAzureSQLPurchaseModelValues() []AzureSQLPurchaseModel {
+	return []AzureSQLPurchaseModel{
+		AzureSQLPurchaseModelDTU,
+		AzureSQLPurchaseModelUnknown,
+		AzureSQLPurchaseModelVCore,
+	}
+}
+
+type AzureSQLServiceTier string
+
+const (
+	AzureSQLServiceTierAutomatic        AzureSQLServiceTier = "Automatic"
+	AzureSQLServiceTierBusinessCritical AzureSQLServiceTier = "BusinessCritical"
+	AzureSQLServiceTierGeneralPurpose   AzureSQLServiceTier = "GeneralPurpose"
+	AzureSQLServiceTierHyperScale       AzureSQLServiceTier = "HyperScale"
+	AzureSQLServiceTierUnknown          AzureSQLServiceTier = "Unknown"
+)
+
+// PossibleAzureSQLServiceTierValues returns the possible values for the AzureSQLServiceTier const type.
+func PossibleAzureSQLServiceTierValues() []AzureSQLServiceTier {
+	return []AzureSQLServiceTier{
+		AzureSQLServiceTierAutomatic,
+		AzureSQLServiceTierBusinessCritical,
+		AzureSQLServiceTierGeneralPurpose,
+		AzureSQLServiceTierHyperScale,
+		AzureSQLServiceTierUnknown,
+	}
+}
+
+type AzureSecurityOfferingType string
+
+const (
+	AzureSecurityOfferingTypeMDC AzureSecurityOfferingType = "MDC"
+	AzureSecurityOfferingTypeNO  AzureSecurityOfferingType = "NO"
+)
+
+// PossibleAzureSecurityOfferingTypeValues returns the possible values for the AzureSecurityOfferingType const type.
+func PossibleAzureSecurityOfferingTypeValues() []AzureSecurityOfferingType {
+	return []AzureSecurityOfferingType{
+		AzureSecurityOfferingTypeMDC,
+		AzureSecurityOfferingTypeNO,
+	}
+}
+
 type AzureStorageRedundancy string
 
 const (
@@ -515,7 +1002,6 @@ func PossibleAzureStorageRedundancyValues() []AzureStorageRedundancy {
 	}
 }
 
-// AzureVMFamily - Azure VM family.
 type AzureVMFamily string
 
 const (
@@ -525,11 +1011,37 @@ const (
 	AzureVMFamilyDSSeries      AzureVMFamily = "DS_series"
 	AzureVMFamilyDSeries       AzureVMFamily = "D_series"
 	AzureVMFamilyDSv2Series    AzureVMFamily = "DSv2_series"
+	AzureVMFamilyDadsv5Series  AzureVMFamily = "Dadsv5_series"
+	AzureVMFamilyDasv4Series   AzureVMFamily = "Dasv4_series"
+	AzureVMFamilyDasv5Series   AzureVMFamily = "Dasv5_series"
+	AzureVMFamilyDav4Series    AzureVMFamily = "Dav4_series"
+	AzureVMFamilyDdsv4Series   AzureVMFamily = "Ddsv4_series"
+	AzureVMFamilyDdsv5Series   AzureVMFamily = "Ddsv5_series"
+	AzureVMFamilyDdv4Series    AzureVMFamily = "Ddv4_series"
+	AzureVMFamilyDdv5Series    AzureVMFamily = "Ddv5_series"
 	AzureVMFamilyDsv3Series    AzureVMFamily = "Dsv3_series"
+	AzureVMFamilyDsv4Series    AzureVMFamily = "Dsv4_series"
+	AzureVMFamilyDsv5Series    AzureVMFamily = "Dsv5_series"
 	AzureVMFamilyDv2Series     AzureVMFamily = "Dv2_series"
 	AzureVMFamilyDv3Series     AzureVMFamily = "Dv3_series"
+	AzureVMFamilyDv4Series     AzureVMFamily = "Dv4_series"
+	AzureVMFamilyDv5Series     AzureVMFamily = "Dv5_series"
+	AzureVMFamilyEadsv5Series  AzureVMFamily = "Eadsv5_series"
+	AzureVMFamilyEasv4Series   AzureVMFamily = "Easv4_series"
+	AzureVMFamilyEasv5Series   AzureVMFamily = "Easv5_series"
+	AzureVMFamilyEav4Series    AzureVMFamily = "Eav4_series"
+	AzureVMFamilyEbdsv5Series  AzureVMFamily = "Ebdsv5_series"
+	AzureVMFamilyEbsv5Series   AzureVMFamily = "Ebsv5_series"
+	AzureVMFamilyEdsv4Series   AzureVMFamily = "Edsv4_series"
+	AzureVMFamilyEdsv5Series   AzureVMFamily = "Edsv5_series"
+	AzureVMFamilyEdv4Series    AzureVMFamily = "Edv4_series"
+	AzureVMFamilyEdv5Series    AzureVMFamily = "Edv5_series"
 	AzureVMFamilyEsv3Series    AzureVMFamily = "Esv3_series"
+	AzureVMFamilyEsv4Series    AzureVMFamily = "Esv4_series"
+	AzureVMFamilyEsv5Series    AzureVMFamily = "Esv5_series"
 	AzureVMFamilyEv3Series     AzureVMFamily = "Ev3_series"
+	AzureVMFamilyEv4Series     AzureVMFamily = "Ev4_series"
+	AzureVMFamilyEv5Series     AzureVMFamily = "Ev5_series"
 	AzureVMFamilyFSeries       AzureVMFamily = "F_series"
 	AzureVMFamilyFsSeries      AzureVMFamily = "Fs_series"
 	AzureVMFamilyFsv2Series    AzureVMFamily = "Fsv2_series"
@@ -537,7 +1049,11 @@ const (
 	AzureVMFamilyGSeries       AzureVMFamily = "G_series"
 	AzureVMFamilyHSeries       AzureVMFamily = "H_series"
 	AzureVMFamilyLsSeries      AzureVMFamily = "Ls_series"
+	AzureVMFamilyLsv2Series    AzureVMFamily = "Lsv2_series"
 	AzureVMFamilyMSeries       AzureVMFamily = "M_series"
+	AzureVMFamilyMdsv2Series   AzureVMFamily = "Mdsv2_series"
+	AzureVMFamilyMsv2Series    AzureVMFamily = "Msv2_series"
+	AzureVMFamilyMv2Series     AzureVMFamily = "Mv2_series"
 	AzureVMFamilyStandardA0A7  AzureVMFamily = "Standard_A0_A7"
 	AzureVMFamilyStandardA8A11 AzureVMFamily = "Standard_A8_A11"
 	AzureVMFamilyUnknown       AzureVMFamily = "Unknown"
@@ -552,11 +1068,37 @@ func PossibleAzureVMFamilyValues() []AzureVMFamily {
 		AzureVMFamilyDSSeries,
 		AzureVMFamilyDSeries,
 		AzureVMFamilyDSv2Series,
+		AzureVMFamilyDadsv5Series,
+		AzureVMFamilyDasv4Series,
+		AzureVMFamilyDasv5Series,
+		AzureVMFamilyDav4Series,
+		AzureVMFamilyDdsv4Series,
+		AzureVMFamilyDdsv5Series,
+		AzureVMFamilyDdv4Series,
+		AzureVMFamilyDdv5Series,
 		AzureVMFamilyDsv3Series,
+		AzureVMFamilyDsv4Series,
+		AzureVMFamilyDsv5Series,
 		AzureVMFamilyDv2Series,
 		AzureVMFamilyDv3Series,
+		AzureVMFamilyDv4Series,
+		AzureVMFamilyDv5Series,
+		AzureVMFamilyEadsv5Series,
+		AzureVMFamilyEasv4Series,
+		AzureVMFamilyEasv5Series,
+		AzureVMFamilyEav4Series,
+		AzureVMFamilyEbdsv5Series,
+		AzureVMFamilyEbsv5Series,
+		AzureVMFamilyEdsv4Series,
+		AzureVMFamilyEdsv5Series,
+		AzureVMFamilyEdv4Series,
+		AzureVMFamilyEdv5Series,
 		AzureVMFamilyEsv3Series,
+		AzureVMFamilyEsv4Series,
+		AzureVMFamilyEsv5Series,
 		AzureVMFamilyEv3Series,
+		AzureVMFamilyEv4Series,
+		AzureVMFamilyEv5Series,
 		AzureVMFamilyFSeries,
 		AzureVMFamilyFsSeries,
 		AzureVMFamilyFsv2Series,
@@ -564,143 +1106,510 @@ func PossibleAzureVMFamilyValues() []AzureVMFamily {
 		AzureVMFamilyGSeries,
 		AzureVMFamilyHSeries,
 		AzureVMFamilyLsSeries,
+		AzureVMFamilyLsv2Series,
 		AzureVMFamilyMSeries,
+		AzureVMFamilyMdsv2Series,
+		AzureVMFamilyMsv2Series,
+		AzureVMFamilyMv2Series,
 		AzureVMFamilyStandardA0A7,
 		AzureVMFamilyStandardA8A11,
 		AzureVMFamilyUnknown,
 	}
 }
 
-// AzureVMSize - Recommended Azure size for this machine.
 type AzureVMSize string
 
 const (
-	AzureVMSizeBasicA0        AzureVMSize = "Basic_A0"
-	AzureVMSizeBasicA1        AzureVMSize = "Basic_A1"
-	AzureVMSizeBasicA2        AzureVMSize = "Basic_A2"
-	AzureVMSizeBasicA3        AzureVMSize = "Basic_A3"
-	AzureVMSizeBasicA4        AzureVMSize = "Basic_A4"
-	AzureVMSizeStandardA0     AzureVMSize = "Standard_A0"
-	AzureVMSizeStandardA1     AzureVMSize = "Standard_A1"
-	AzureVMSizeStandardA10    AzureVMSize = "Standard_A10"
-	AzureVMSizeStandardA11    AzureVMSize = "Standard_A11"
-	AzureVMSizeStandardA1V2   AzureVMSize = "Standard_A1_v2"
-	AzureVMSizeStandardA2     AzureVMSize = "Standard_A2"
-	AzureVMSizeStandardA2MV2  AzureVMSize = "Standard_A2m_v2"
-	AzureVMSizeStandardA2V2   AzureVMSize = "Standard_A2_v2"
-	AzureVMSizeStandardA3     AzureVMSize = "Standard_A3"
-	AzureVMSizeStandardA4     AzureVMSize = "Standard_A4"
-	AzureVMSizeStandardA4MV2  AzureVMSize = "Standard_A4m_v2"
-	AzureVMSizeStandardA4V2   AzureVMSize = "Standard_A4_v2"
-	AzureVMSizeStandardA5     AzureVMSize = "Standard_A5"
-	AzureVMSizeStandardA6     AzureVMSize = "Standard_A6"
-	AzureVMSizeStandardA7     AzureVMSize = "Standard_A7"
-	AzureVMSizeStandardA8     AzureVMSize = "Standard_A8"
-	AzureVMSizeStandardA8MV2  AzureVMSize = "Standard_A8m_v2"
-	AzureVMSizeStandardA8V2   AzureVMSize = "Standard_A8_v2"
-	AzureVMSizeStandardA9     AzureVMSize = "Standard_A9"
-	AzureVMSizeStandardD1     AzureVMSize = "Standard_D1"
-	AzureVMSizeStandardD11    AzureVMSize = "Standard_D11"
-	AzureVMSizeStandardD11V2  AzureVMSize = "Standard_D11_v2"
-	AzureVMSizeStandardD12    AzureVMSize = "Standard_D12"
-	AzureVMSizeStandardD12V2  AzureVMSize = "Standard_D12_v2"
-	AzureVMSizeStandardD13    AzureVMSize = "Standard_D13"
-	AzureVMSizeStandardD13V2  AzureVMSize = "Standard_D13_v2"
-	AzureVMSizeStandardD14    AzureVMSize = "Standard_D14"
-	AzureVMSizeStandardD14V2  AzureVMSize = "Standard_D14_v2"
-	AzureVMSizeStandardD15V2  AzureVMSize = "Standard_D15_v2"
-	AzureVMSizeStandardD16SV3 AzureVMSize = "Standard_D16s_v3"
-	AzureVMSizeStandardD16V3  AzureVMSize = "Standard_D16_v3"
-	AzureVMSizeStandardD1V2   AzureVMSize = "Standard_D1_v2"
-	AzureVMSizeStandardD2     AzureVMSize = "Standard_D2"
-	AzureVMSizeStandardD2SV3  AzureVMSize = "Standard_D2s_v3"
-	AzureVMSizeStandardD2V2   AzureVMSize = "Standard_D2_v2"
-	AzureVMSizeStandardD2V3   AzureVMSize = "Standard_D2_v3"
-	AzureVMSizeStandardD3     AzureVMSize = "Standard_D3"
-	AzureVMSizeStandardD32SV3 AzureVMSize = "Standard_D32s_v3"
-	AzureVMSizeStandardD32V3  AzureVMSize = "Standard_D32_v3"
-	AzureVMSizeStandardD3V2   AzureVMSize = "Standard_D3_v2"
-	AzureVMSizeStandardD4     AzureVMSize = "Standard_D4"
-	AzureVMSizeStandardD4SV3  AzureVMSize = "Standard_D4s_v3"
-	AzureVMSizeStandardD4V2   AzureVMSize = "Standard_D4_v2"
-	AzureVMSizeStandardD4V3   AzureVMSize = "Standard_D4_v3"
-	AzureVMSizeStandardD5V2   AzureVMSize = "Standard_D5_v2"
-	AzureVMSizeStandardD64SV3 AzureVMSize = "Standard_D64s_v3"
-	AzureVMSizeStandardD64V3  AzureVMSize = "Standard_D64_v3"
-	AzureVMSizeStandardD8SV3  AzureVMSize = "Standard_D8s_v3"
-	AzureVMSizeStandardD8V3   AzureVMSize = "Standard_D8_v3"
-	AzureVMSizeStandardDS1    AzureVMSize = "Standard_DS1"
-	AzureVMSizeStandardDS11   AzureVMSize = "Standard_DS11"
-	AzureVMSizeStandardDS11V2 AzureVMSize = "Standard_DS11_v2"
-	AzureVMSizeStandardDS12   AzureVMSize = "Standard_DS12"
-	AzureVMSizeStandardDS12V2 AzureVMSize = "Standard_DS12_v2"
-	AzureVMSizeStandardDS13   AzureVMSize = "Standard_DS13"
-	AzureVMSizeStandardDS13V2 AzureVMSize = "Standard_DS13_v2"
-	AzureVMSizeStandardDS14   AzureVMSize = "Standard_DS14"
-	AzureVMSizeStandardDS14V2 AzureVMSize = "Standard_DS14_v2"
-	AzureVMSizeStandardDS15V2 AzureVMSize = "Standard_DS15_v2"
-	AzureVMSizeStandardDS1V2  AzureVMSize = "Standard_DS1_v2"
-	AzureVMSizeStandardDS2    AzureVMSize = "Standard_DS2"
-	AzureVMSizeStandardDS2V2  AzureVMSize = "Standard_DS2_v2"
-	AzureVMSizeStandardDS3    AzureVMSize = "Standard_DS3"
-	AzureVMSizeStandardDS3V2  AzureVMSize = "Standard_DS3_v2"
-	AzureVMSizeStandardDS4    AzureVMSize = "Standard_DS4"
-	AzureVMSizeStandardDS4V2  AzureVMSize = "Standard_DS4_v2"
-	AzureVMSizeStandardDS5V2  AzureVMSize = "Standard_DS5_v2"
-	AzureVMSizeStandardE16SV3 AzureVMSize = "Standard_E16s_v3"
-	AzureVMSizeStandardE16V3  AzureVMSize = "Standard_E16_v3"
-	AzureVMSizeStandardE2SV3  AzureVMSize = "Standard_E2s_v3"
-	AzureVMSizeStandardE2V3   AzureVMSize = "Standard_E2_v3"
-	AzureVMSizeStandardE32SV3 AzureVMSize = "Standard_E32s_v3"
-	AzureVMSizeStandardE32V3  AzureVMSize = "Standard_E32_v3"
-	AzureVMSizeStandardE4SV3  AzureVMSize = "Standard_E4s_v3"
-	AzureVMSizeStandardE4V3   AzureVMSize = "Standard_E4_v3"
-	AzureVMSizeStandardE64SV3 AzureVMSize = "Standard_E64s_v3"
-	AzureVMSizeStandardE64V3  AzureVMSize = "Standard_E64_v3"
-	AzureVMSizeStandardE8SV3  AzureVMSize = "Standard_E8s_v3"
-	AzureVMSizeStandardE8V3   AzureVMSize = "Standard_E8_v3"
-	AzureVMSizeStandardF1     AzureVMSize = "Standard_F1"
-	AzureVMSizeStandardF16    AzureVMSize = "Standard_F16"
-	AzureVMSizeStandardF16S   AzureVMSize = "Standard_F16s"
-	AzureVMSizeStandardF16SV2 AzureVMSize = "Standard_F16s_v2"
-	AzureVMSizeStandardF1S    AzureVMSize = "Standard_F1s"
-	AzureVMSizeStandardF2     AzureVMSize = "Standard_F2"
-	AzureVMSizeStandardF2S    AzureVMSize = "Standard_F2s"
-	AzureVMSizeStandardF2SV2  AzureVMSize = "Standard_F2s_v2"
-	AzureVMSizeStandardF32SV2 AzureVMSize = "Standard_F32s_v2"
-	AzureVMSizeStandardF4     AzureVMSize = "Standard_F4"
-	AzureVMSizeStandardF4S    AzureVMSize = "Standard_F4s"
-	AzureVMSizeStandardF4SV2  AzureVMSize = "Standard_F4s_v2"
-	AzureVMSizeStandardF64SV2 AzureVMSize = "Standard_F64s_v2"
-	AzureVMSizeStandardF72SV2 AzureVMSize = "Standard_F72s_v2"
-	AzureVMSizeStandardF8     AzureVMSize = "Standard_F8"
-	AzureVMSizeStandardF8S    AzureVMSize = "Standard_F8s"
-	AzureVMSizeStandardF8SV2  AzureVMSize = "Standard_F8s_v2"
-	AzureVMSizeStandardG1     AzureVMSize = "Standard_G1"
-	AzureVMSizeStandardG2     AzureVMSize = "Standard_G2"
-	AzureVMSizeStandardG3     AzureVMSize = "Standard_G3"
-	AzureVMSizeStandardG4     AzureVMSize = "Standard_G4"
-	AzureVMSizeStandardG5     AzureVMSize = "Standard_G5"
-	AzureVMSizeStandardGS1    AzureVMSize = "Standard_GS1"
-	AzureVMSizeStandardGS2    AzureVMSize = "Standard_GS2"
-	AzureVMSizeStandardGS3    AzureVMSize = "Standard_GS3"
-	AzureVMSizeStandardGS4    AzureVMSize = "Standard_GS4"
-	AzureVMSizeStandardGS5    AzureVMSize = "Standard_GS5"
-	AzureVMSizeStandardH16    AzureVMSize = "Standard_H16"
-	AzureVMSizeStandardH16M   AzureVMSize = "Standard_H16m"
-	AzureVMSizeStandardH16Mr  AzureVMSize = "Standard_H16mr"
-	AzureVMSizeStandardH16R   AzureVMSize = "Standard_H16r"
-	AzureVMSizeStandardH8     AzureVMSize = "Standard_H8"
-	AzureVMSizeStandardH8M    AzureVMSize = "Standard_H8m"
-	AzureVMSizeStandardL16S   AzureVMSize = "Standard_L16s"
-	AzureVMSizeStandardL32S   AzureVMSize = "Standard_L32s"
-	AzureVMSizeStandardL4S    AzureVMSize = "Standard_L4s"
-	AzureVMSizeStandardL8S    AzureVMSize = "Standard_L8s"
-	AzureVMSizeStandardM128Ms AzureVMSize = "Standard_M128ms"
-	AzureVMSizeStandardM128S  AzureVMSize = "Standard_M128s"
-	AzureVMSizeStandardM64Ms  AzureVMSize = "Standard_M64ms"
-	AzureVMSizeStandardM64S   AzureVMSize = "Standard_M64s"
-	AzureVMSizeUnknown        AzureVMSize = "Unknown"
+	AzureVMSizeBasicA0             AzureVMSize = "Basic_A0"
+	AzureVMSizeBasicA1             AzureVMSize = "Basic_A1"
+	AzureVMSizeBasicA2             AzureVMSize = "Basic_A2"
+	AzureVMSizeBasicA3             AzureVMSize = "Basic_A3"
+	AzureVMSizeBasicA4             AzureVMSize = "Basic_A4"
+	AzureVMSizeStandardA0          AzureVMSize = "Standard_A0"
+	AzureVMSizeStandardA1          AzureVMSize = "Standard_A1"
+	AzureVMSizeStandardA10         AzureVMSize = "Standard_A10"
+	AzureVMSizeStandardA11         AzureVMSize = "Standard_A11"
+	AzureVMSizeStandardA1V2        AzureVMSize = "Standard_A1_v2"
+	AzureVMSizeStandardA2          AzureVMSize = "Standard_A2"
+	AzureVMSizeStandardA2MV2       AzureVMSize = "Standard_A2m_v2"
+	AzureVMSizeStandardA2V2        AzureVMSize = "Standard_A2_v2"
+	AzureVMSizeStandardA3          AzureVMSize = "Standard_A3"
+	AzureVMSizeStandardA4          AzureVMSize = "Standard_A4"
+	AzureVMSizeStandardA4MV2       AzureVMSize = "Standard_A4m_v2"
+	AzureVMSizeStandardA4V2        AzureVMSize = "Standard_A4_v2"
+	AzureVMSizeStandardA5          AzureVMSize = "Standard_A5"
+	AzureVMSizeStandardA6          AzureVMSize = "Standard_A6"
+	AzureVMSizeStandardA7          AzureVMSize = "Standard_A7"
+	AzureVMSizeStandardA8          AzureVMSize = "Standard_A8"
+	AzureVMSizeStandardA8MV2       AzureVMSize = "Standard_A8m_v2"
+	AzureVMSizeStandardA8V2        AzureVMSize = "Standard_A8_v2"
+	AzureVMSizeStandardA9          AzureVMSize = "Standard_A9"
+	AzureVMSizeStandardD1          AzureVMSize = "Standard_D1"
+	AzureVMSizeStandardD11         AzureVMSize = "Standard_D11"
+	AzureVMSizeStandardD11V2       AzureVMSize = "Standard_D11_v2"
+	AzureVMSizeStandardD12         AzureVMSize = "Standard_D12"
+	AzureVMSizeStandardD12V2       AzureVMSize = "Standard_D12_v2"
+	AzureVMSizeStandardD13         AzureVMSize = "Standard_D13"
+	AzureVMSizeStandardD13V2       AzureVMSize = "Standard_D13_v2"
+	AzureVMSizeStandardD14         AzureVMSize = "Standard_D14"
+	AzureVMSizeStandardD14V2       AzureVMSize = "Standard_D14_v2"
+	AzureVMSizeStandardD15V2       AzureVMSize = "Standard_D15_v2"
+	AzureVMSizeStandardD16AV4      AzureVMSize = "Standard_D16a_v4"
+	AzureVMSizeStandardD16AdsV5    AzureVMSize = "Standard_D16ads_v5"
+	AzureVMSizeStandardD16AsV4     AzureVMSize = "Standard_D16as_v4"
+	AzureVMSizeStandardD16AsV5     AzureVMSize = "Standard_D16as_v5"
+	AzureVMSizeStandardD16DV4      AzureVMSize = "Standard_D16d_v4"
+	AzureVMSizeStandardD16DV5      AzureVMSize = "Standard_D16d_v5"
+	AzureVMSizeStandardD16DsV4     AzureVMSize = "Standard_D16ds_v4"
+	AzureVMSizeStandardD16DsV5     AzureVMSize = "Standard_D16ds_v5"
+	AzureVMSizeStandardD16SV3      AzureVMSize = "Standard_D16s_v3"
+	AzureVMSizeStandardD16SV4      AzureVMSize = "Standard_D16s_v4"
+	AzureVMSizeStandardD16SV5      AzureVMSize = "Standard_D16s_v5"
+	AzureVMSizeStandardD16V3       AzureVMSize = "Standard_D16_v3"
+	AzureVMSizeStandardD16V4       AzureVMSize = "Standard_D16_v4"
+	AzureVMSizeStandardD16V5       AzureVMSize = "Standard_D16_v5"
+	AzureVMSizeStandardD1V2        AzureVMSize = "Standard_D1_v2"
+	AzureVMSizeStandardD2          AzureVMSize = "Standard_D2"
+	AzureVMSizeStandardD2AV4       AzureVMSize = "Standard_D2a_v4"
+	AzureVMSizeStandardD2AdsV5     AzureVMSize = "Standard_D2ads_v5"
+	AzureVMSizeStandardD2AsV4      AzureVMSize = "Standard_D2as_v4"
+	AzureVMSizeStandardD2AsV5      AzureVMSize = "Standard_D2as_v5"
+	AzureVMSizeStandardD2DV4       AzureVMSize = "Standard_D2d_v4"
+	AzureVMSizeStandardD2DV5       AzureVMSize = "Standard_D2d_v5"
+	AzureVMSizeStandardD2DsV4      AzureVMSize = "Standard_D2ds_v4"
+	AzureVMSizeStandardD2DsV5      AzureVMSize = "Standard_D2ds_v5"
+	AzureVMSizeStandardD2SV3       AzureVMSize = "Standard_D2s_v3"
+	AzureVMSizeStandardD2SV4       AzureVMSize = "Standard_D2s_v4"
+	AzureVMSizeStandardD2SV5       AzureVMSize = "Standard_D2s_v5"
+	AzureVMSizeStandardD2V2        AzureVMSize = "Standard_D2_v2"
+	AzureVMSizeStandardD2V3        AzureVMSize = "Standard_D2_v3"
+	AzureVMSizeStandardD2V4        AzureVMSize = "Standard_D2_v4"
+	AzureVMSizeStandardD2V5        AzureVMSize = "Standard_D2_v5"
+	AzureVMSizeStandardD3          AzureVMSize = "Standard_D3"
+	AzureVMSizeStandardD32AV4      AzureVMSize = "Standard_D32a_v4"
+	AzureVMSizeStandardD32AdsV5    AzureVMSize = "Standard_D32ads_v5"
+	AzureVMSizeStandardD32AsV4     AzureVMSize = "Standard_D32as_v4"
+	AzureVMSizeStandardD32AsV5     AzureVMSize = "Standard_D32as_v5"
+	AzureVMSizeStandardD32DV4      AzureVMSize = "Standard_D32d_v4"
+	AzureVMSizeStandardD32DV5      AzureVMSize = "Standard_D32d_v5"
+	AzureVMSizeStandardD32DsV4     AzureVMSize = "Standard_D32ds_v4"
+	AzureVMSizeStandardD32DsV5     AzureVMSize = "Standard_D32ds_v5"
+	AzureVMSizeStandardD32SV3      AzureVMSize = "Standard_D32s_v3"
+	AzureVMSizeStandardD32SV4      AzureVMSize = "Standard_D32s_v4"
+	AzureVMSizeStandardD32SV5      AzureVMSize = "Standard_D32s_v5"
+	AzureVMSizeStandardD32V3       AzureVMSize = "Standard_D32_v3"
+	AzureVMSizeStandardD32V4       AzureVMSize = "Standard_D32_v4"
+	AzureVMSizeStandardD32V5       AzureVMSize = "Standard_D32_v5"
+	AzureVMSizeStandardD3V2        AzureVMSize = "Standard_D3_v2"
+	AzureVMSizeStandardD4          AzureVMSize = "Standard_D4"
+	AzureVMSizeStandardD48AV4      AzureVMSize = "Standard_D48a_v4"
+	AzureVMSizeStandardD48AdsV5    AzureVMSize = "Standard_D48ads_v5"
+	AzureVMSizeStandardD48AsV4     AzureVMSize = "Standard_D48as_v4"
+	AzureVMSizeStandardD48AsV5     AzureVMSize = "Standard_D48as_v5"
+	AzureVMSizeStandardD48DV4      AzureVMSize = "Standard_D48d_v4"
+	AzureVMSizeStandardD48DV5      AzureVMSize = "Standard_D48d_v5"
+	AzureVMSizeStandardD48DsV4     AzureVMSize = "Standard_D48ds_v4"
+	AzureVMSizeStandardD48DsV5     AzureVMSize = "Standard_D48ds_v5"
+	AzureVMSizeStandardD48SV4      AzureVMSize = "Standard_D48s_v4"
+	AzureVMSizeStandardD48SV5      AzureVMSize = "Standard_D48s_v5"
+	AzureVMSizeStandardD48V4       AzureVMSize = "Standard_D48_v4"
+	AzureVMSizeStandardD48V5       AzureVMSize = "Standard_D48_v5"
+	AzureVMSizeStandardD4AV4       AzureVMSize = "Standard_D4a_v4"
+	AzureVMSizeStandardD4AdsV5     AzureVMSize = "Standard_D4ads_v5"
+	AzureVMSizeStandardD4AsV4      AzureVMSize = "Standard_D4as_v4"
+	AzureVMSizeStandardD4AsV5      AzureVMSize = "Standard_D4as_v5"
+	AzureVMSizeStandardD4DV4       AzureVMSize = "Standard_D4d_v4"
+	AzureVMSizeStandardD4DV5       AzureVMSize = "Standard_D4d_v5"
+	AzureVMSizeStandardD4DsV4      AzureVMSize = "Standard_D4ds_v4"
+	AzureVMSizeStandardD4DsV5      AzureVMSize = "Standard_D4ds_v5"
+	AzureVMSizeStandardD4SV3       AzureVMSize = "Standard_D4s_v3"
+	AzureVMSizeStandardD4SV4       AzureVMSize = "Standard_D4s_v4"
+	AzureVMSizeStandardD4SV5       AzureVMSize = "Standard_D4s_v5"
+	AzureVMSizeStandardD4V2        AzureVMSize = "Standard_D4_v2"
+	AzureVMSizeStandardD4V3        AzureVMSize = "Standard_D4_v3"
+	AzureVMSizeStandardD4V4        AzureVMSize = "Standard_D4_v4"
+	AzureVMSizeStandardD4V5        AzureVMSize = "Standard_D4_v5"
+	AzureVMSizeStandardD5V2        AzureVMSize = "Standard_D5_v2"
+	AzureVMSizeStandardD64AV4      AzureVMSize = "Standard_D64a_v4"
+	AzureVMSizeStandardD64AdsV5    AzureVMSize = "Standard_D64ads_v5"
+	AzureVMSizeStandardD64AsV4     AzureVMSize = "Standard_D64as_v4"
+	AzureVMSizeStandardD64AsV5     AzureVMSize = "Standard_D64as_v5"
+	AzureVMSizeStandardD64DV4      AzureVMSize = "Standard_D64d_v4"
+	AzureVMSizeStandardD64DV5      AzureVMSize = "Standard_D64d_v5"
+	AzureVMSizeStandardD64DsV4     AzureVMSize = "Standard_D64ds_v4"
+	AzureVMSizeStandardD64DsV5     AzureVMSize = "Standard_D64ds_v5"
+	AzureVMSizeStandardD64SV3      AzureVMSize = "Standard_D64s_v3"
+	AzureVMSizeStandardD64SV4      AzureVMSize = "Standard_D64s_v4"
+	AzureVMSizeStandardD64SV5      AzureVMSize = "Standard_D64s_v5"
+	AzureVMSizeStandardD64V3       AzureVMSize = "Standard_D64_v3"
+	AzureVMSizeStandardD64V4       AzureVMSize = "Standard_D64_v4"
+	AzureVMSizeStandardD64V5       AzureVMSize = "Standard_D64_v5"
+	AzureVMSizeStandardD8AV4       AzureVMSize = "Standard_D8a_v4"
+	AzureVMSizeStandardD8AdsV5     AzureVMSize = "Standard_D8ads_v5"
+	AzureVMSizeStandardD8AsV4      AzureVMSize = "Standard_D8as_v4"
+	AzureVMSizeStandardD8AsV5      AzureVMSize = "Standard_D8as_v5"
+	AzureVMSizeStandardD8DV4       AzureVMSize = "Standard_D8d_v4"
+	AzureVMSizeStandardD8DV5       AzureVMSize = "Standard_D8d_v5"
+	AzureVMSizeStandardD8DsV4      AzureVMSize = "Standard_D8ds_v4"
+	AzureVMSizeStandardD8DsV5      AzureVMSize = "Standard_D8ds_v5"
+	AzureVMSizeStandardD8SV3       AzureVMSize = "Standard_D8s_v3"
+	AzureVMSizeStandardD8SV4       AzureVMSize = "Standard_D8s_v4"
+	AzureVMSizeStandardD8SV5       AzureVMSize = "Standard_D8s_v5"
+	AzureVMSizeStandardD8V3        AzureVMSize = "Standard_D8_v3"
+	AzureVMSizeStandardD8V4        AzureVMSize = "Standard_D8_v4"
+	AzureVMSizeStandardD8V5        AzureVMSize = "Standard_D8_v5"
+	AzureVMSizeStandardD96AV4      AzureVMSize = "Standard_D96a_v4"
+	AzureVMSizeStandardD96AdsV5    AzureVMSize = "Standard_D96ads_v5"
+	AzureVMSizeStandardD96AsV4     AzureVMSize = "Standard_D96as_v4"
+	AzureVMSizeStandardD96AsV5     AzureVMSize = "Standard_D96as_v5"
+	AzureVMSizeStandardD96DV5      AzureVMSize = "Standard_D96d_v5"
+	AzureVMSizeStandardD96DsV5     AzureVMSize = "Standard_D96ds_v5"
+	AzureVMSizeStandardD96SV5      AzureVMSize = "Standard_D96s_v5"
+	AzureVMSizeStandardD96V5       AzureVMSize = "Standard_D96_v5"
+	AzureVMSizeStandardDC2S        AzureVMSize = "Standard_DC2s"
+	AzureVMSizeStandardDC4S        AzureVMSize = "Standard_DC4s"
+	AzureVMSizeStandardDS1         AzureVMSize = "Standard_DS1"
+	AzureVMSizeStandardDS11        AzureVMSize = "Standard_DS11"
+	AzureVMSizeStandardDS111V2     AzureVMSize = "Standard_DS11_1_v2"
+	AzureVMSizeStandardDS11V2      AzureVMSize = "Standard_DS11_v2"
+	AzureVMSizeStandardDS12        AzureVMSize = "Standard_DS12"
+	AzureVMSizeStandardDS121V2     AzureVMSize = "Standard_DS12_1_v2"
+	AzureVMSizeStandardDS122V2     AzureVMSize = "Standard_DS12_2_v2"
+	AzureVMSizeStandardDS12V2      AzureVMSize = "Standard_DS12_v2"
+	AzureVMSizeStandardDS13        AzureVMSize = "Standard_DS13"
+	AzureVMSizeStandardDS132V2     AzureVMSize = "Standard_DS13_2_v2"
+	AzureVMSizeStandardDS134V2     AzureVMSize = "Standard_DS13_4_v2"
+	AzureVMSizeStandardDS13V2      AzureVMSize = "Standard_DS13_v2"
+	AzureVMSizeStandardDS14        AzureVMSize = "Standard_DS14"
+	AzureVMSizeStandardDS144V2     AzureVMSize = "Standard_DS14_4_v2"
+	AzureVMSizeStandardDS148V2     AzureVMSize = "Standard_DS14_8_v2"
+	AzureVMSizeStandardDS14V2      AzureVMSize = "Standard_DS14_v2"
+	AzureVMSizeStandardDS15V2      AzureVMSize = "Standard_DS15_v2"
+	AzureVMSizeStandardDS1V2       AzureVMSize = "Standard_DS1_v2"
+	AzureVMSizeStandardDS2         AzureVMSize = "Standard_DS2"
+	AzureVMSizeStandardDS2V2       AzureVMSize = "Standard_DS2_v2"
+	AzureVMSizeStandardDS3         AzureVMSize = "Standard_DS3"
+	AzureVMSizeStandardDS3V2       AzureVMSize = "Standard_DS3_v2"
+	AzureVMSizeStandardDS4         AzureVMSize = "Standard_DS4"
+	AzureVMSizeStandardDS4V2       AzureVMSize = "Standard_DS4_v2"
+	AzureVMSizeStandardDS5V2       AzureVMSize = "Standard_DS5_v2"
+	AzureVMSizeStandardE104IDV5    AzureVMSize = "Standard_E104id_v5"
+	AzureVMSizeStandardE104IDsV5   AzureVMSize = "Standard_E104ids_v5"
+	AzureVMSizeStandardE104IV5     AzureVMSize = "Standard_E104i_v5"
+	AzureVMSizeStandardE104IsV5    AzureVMSize = "Standard_E104is_v5"
+	AzureVMSizeStandardE164AdsV5   AzureVMSize = "Standard_E16_4ads_v5"
+	AzureVMSizeStandardE164AsV4    AzureVMSize = "Standard_E16_4as_v4"
+	AzureVMSizeStandardE164AsV5    AzureVMSize = "Standard_E16_4as_v5"
+	AzureVMSizeStandardE164DsV4    AzureVMSize = "Standard_E16_4ds_v4"
+	AzureVMSizeStandardE164DsV5    AzureVMSize = "Standard_E16_4ds_v5"
+	AzureVMSizeStandardE164SV3     AzureVMSize = "Standard_E16_4s_v3"
+	AzureVMSizeStandardE164SV4     AzureVMSize = "Standard_E16_4s_v4"
+	AzureVMSizeStandardE164SV5     AzureVMSize = "Standard_E16_4s_v5"
+	AzureVMSizeStandardE168AdsV5   AzureVMSize = "Standard_E16_8ads_v5"
+	AzureVMSizeStandardE168AsV4    AzureVMSize = "Standard_E16_8as_v4"
+	AzureVMSizeStandardE168AsV5    AzureVMSize = "Standard_E16_8as_v5"
+	AzureVMSizeStandardE168DsV4    AzureVMSize = "Standard_E16_8ds_v4"
+	AzureVMSizeStandardE168DsV5    AzureVMSize = "Standard_E16_8ds_v5"
+	AzureVMSizeStandardE168SV3     AzureVMSize = "Standard_E16_8s_v3"
+	AzureVMSizeStandardE168SV4     AzureVMSize = "Standard_E16_8s_v4"
+	AzureVMSizeStandardE168SV5     AzureVMSize = "Standard_E16_8s_v5"
+	AzureVMSizeStandardE16AV4      AzureVMSize = "Standard_E16a_v4"
+	AzureVMSizeStandardE16AdsV5    AzureVMSize = "Standard_E16ads_v5"
+	AzureVMSizeStandardE16AsV4     AzureVMSize = "Standard_E16as_v4"
+	AzureVMSizeStandardE16AsV5     AzureVMSize = "Standard_E16as_v5"
+	AzureVMSizeStandardE16BdsV5    AzureVMSize = "Standard_E16bds_v5"
+	AzureVMSizeStandardE16BsV5     AzureVMSize = "Standard_E16bs_v5"
+	AzureVMSizeStandardE16DV4      AzureVMSize = "Standard_E16d_v4"
+	AzureVMSizeStandardE16DV5      AzureVMSize = "Standard_E16d_v5"
+	AzureVMSizeStandardE16DsV4     AzureVMSize = "Standard_E16ds_v4"
+	AzureVMSizeStandardE16DsV5     AzureVMSize = "Standard_E16ds_v5"
+	AzureVMSizeStandardE16SV3      AzureVMSize = "Standard_E16s_v3"
+	AzureVMSizeStandardE16SV4      AzureVMSize = "Standard_E16s_v4"
+	AzureVMSizeStandardE16SV5      AzureVMSize = "Standard_E16s_v5"
+	AzureVMSizeStandardE16V3       AzureVMSize = "Standard_E16_v3"
+	AzureVMSizeStandardE16V4       AzureVMSize = "Standard_E16_v4"
+	AzureVMSizeStandardE16V5       AzureVMSize = "Standard_E16_v5"
+	AzureVMSizeStandardE20AV4      AzureVMSize = "Standard_E20a_v4"
+	AzureVMSizeStandardE20AdsV5    AzureVMSize = "Standard_E20ads_v5"
+	AzureVMSizeStandardE20AsV4     AzureVMSize = "Standard_E20as_v4"
+	AzureVMSizeStandardE20AsV5     AzureVMSize = "Standard_E20as_v5"
+	AzureVMSizeStandardE20DV4      AzureVMSize = "Standard_E20d_v4"
+	AzureVMSizeStandardE20DV5      AzureVMSize = "Standard_E20d_v5"
+	AzureVMSizeStandardE20DsV4     AzureVMSize = "Standard_E20ds_v4"
+	AzureVMSizeStandardE20DsV5     AzureVMSize = "Standard_E20ds_v5"
+	AzureVMSizeStandardE20SV3      AzureVMSize = "Standard_E20s_v3"
+	AzureVMSizeStandardE20SV4      AzureVMSize = "Standard_E20s_v4"
+	AzureVMSizeStandardE20SV5      AzureVMSize = "Standard_E20s_v5"
+	AzureVMSizeStandardE20V3       AzureVMSize = "Standard_E20_v3"
+	AzureVMSizeStandardE20V4       AzureVMSize = "Standard_E20_v4"
+	AzureVMSizeStandardE20V5       AzureVMSize = "Standard_E20_v5"
+	AzureVMSizeStandardE2AV4       AzureVMSize = "Standard_E2a_v4"
+	AzureVMSizeStandardE2AdsV5     AzureVMSize = "Standard_E2ads_v5"
+	AzureVMSizeStandardE2AsV4      AzureVMSize = "Standard_E2as_v4"
+	AzureVMSizeStandardE2AsV5      AzureVMSize = "Standard_E2as_v5"
+	AzureVMSizeStandardE2BdsV5     AzureVMSize = "Standard_E2bds_v5"
+	AzureVMSizeStandardE2BsV5      AzureVMSize = "Standard_E2bs_v5"
+	AzureVMSizeStandardE2DV4       AzureVMSize = "Standard_E2d_v4"
+	AzureVMSizeStandardE2DV5       AzureVMSize = "Standard_E2d_v5"
+	AzureVMSizeStandardE2DsV4      AzureVMSize = "Standard_E2ds_v4"
+	AzureVMSizeStandardE2DsV5      AzureVMSize = "Standard_E2ds_v5"
+	AzureVMSizeStandardE2SV3       AzureVMSize = "Standard_E2s_v3"
+	AzureVMSizeStandardE2SV4       AzureVMSize = "Standard_E2s_v4"
+	AzureVMSizeStandardE2SV5       AzureVMSize = "Standard_E2s_v5"
+	AzureVMSizeStandardE2V3        AzureVMSize = "Standard_E2_v3"
+	AzureVMSizeStandardE2V4        AzureVMSize = "Standard_E2_v4"
+	AzureVMSizeStandardE2V5        AzureVMSize = "Standard_E2_v5"
+	AzureVMSizeStandardE3216AdsV5  AzureVMSize = "Standard_E32_16ads_v5"
+	AzureVMSizeStandardE3216AsV4   AzureVMSize = "Standard_E32_16as_v4"
+	AzureVMSizeStandardE3216AsV5   AzureVMSize = "Standard_E32_16as_v5"
+	AzureVMSizeStandardE3216DsV4   AzureVMSize = "Standard_E32_16ds_v4"
+	AzureVMSizeStandardE3216DsV5   AzureVMSize = "Standard_E32_16ds_v5"
+	AzureVMSizeStandardE3216SV3    AzureVMSize = "Standard_E32_16s_v3"
+	AzureVMSizeStandardE3216SV4    AzureVMSize = "Standard_E32_16s_v4"
+	AzureVMSizeStandardE3216SV5    AzureVMSize = "Standard_E32_16s_v5"
+	AzureVMSizeStandardE328AdsV5   AzureVMSize = "Standard_E32_8ads_v5"
+	AzureVMSizeStandardE328AsV4    AzureVMSize = "Standard_E32_8as_v4"
+	AzureVMSizeStandardE328AsV5    AzureVMSize = "Standard_E32_8as_v5"
+	AzureVMSizeStandardE328DsV4    AzureVMSize = "Standard_E32_8ds_v4"
+	AzureVMSizeStandardE328DsV5    AzureVMSize = "Standard_E32_8ds_v5"
+	AzureVMSizeStandardE328SV3     AzureVMSize = "Standard_E32_8s_v3"
+	AzureVMSizeStandardE328SV4     AzureVMSize = "Standard_E32_8s_v4"
+	AzureVMSizeStandardE328SV5     AzureVMSize = "Standard_E32_8s_v5"
+	AzureVMSizeStandardE32AV4      AzureVMSize = "Standard_E32a_v4"
+	AzureVMSizeStandardE32AdsV5    AzureVMSize = "Standard_E32ads_v5"
+	AzureVMSizeStandardE32AsV4     AzureVMSize = "Standard_E32as_v4"
+	AzureVMSizeStandardE32AsV5     AzureVMSize = "Standard_E32as_v5"
+	AzureVMSizeStandardE32BdsV5    AzureVMSize = "Standard_E32bds_v5"
+	AzureVMSizeStandardE32BsV5     AzureVMSize = "Standard_E32bs_v5"
+	AzureVMSizeStandardE32DV4      AzureVMSize = "Standard_E32d_v4"
+	AzureVMSizeStandardE32DV5      AzureVMSize = "Standard_E32d_v5"
+	AzureVMSizeStandardE32DsV4     AzureVMSize = "Standard_E32ds_v4"
+	AzureVMSizeStandardE32DsV5     AzureVMSize = "Standard_E32ds_v5"
+	AzureVMSizeStandardE32SV3      AzureVMSize = "Standard_E32s_v3"
+	AzureVMSizeStandardE32SV4      AzureVMSize = "Standard_E32s_v4"
+	AzureVMSizeStandardE32SV5      AzureVMSize = "Standard_E32s_v5"
+	AzureVMSizeStandardE32V3       AzureVMSize = "Standard_E32_v3"
+	AzureVMSizeStandardE32V4       AzureVMSize = "Standard_E32_v4"
+	AzureVMSizeStandardE32V5       AzureVMSize = "Standard_E32_v5"
+	AzureVMSizeStandardE42AdsV5    AzureVMSize = "Standard_E4_2ads_v5"
+	AzureVMSizeStandardE42AsV4     AzureVMSize = "Standard_E4_2as_v4"
+	AzureVMSizeStandardE42AsV5     AzureVMSize = "Standard_E4_2as_v5"
+	AzureVMSizeStandardE42DsV4     AzureVMSize = "Standard_E4_2ds_v4"
+	AzureVMSizeStandardE42DsV5     AzureVMSize = "Standard_E4_2ds_v5"
+	AzureVMSizeStandardE42SV3      AzureVMSize = "Standard_E4_2s_v3"
+	AzureVMSizeStandardE42SV4      AzureVMSize = "Standard_E4_2s_v4"
+	AzureVMSizeStandardE42SV5      AzureVMSize = "Standard_E4_2s_v5"
+	AzureVMSizeStandardE48AV4      AzureVMSize = "Standard_E48a_v4"
+	AzureVMSizeStandardE48AdsV5    AzureVMSize = "Standard_E48ads_v5"
+	AzureVMSizeStandardE48AsV4     AzureVMSize = "Standard_E48as_v4"
+	AzureVMSizeStandardE48AsV5     AzureVMSize = "Standard_E48as_v5"
+	AzureVMSizeStandardE48BdsV5    AzureVMSize = "Standard_E48bds_v5"
+	AzureVMSizeStandardE48BsV5     AzureVMSize = "Standard_E48bs_v5"
+	AzureVMSizeStandardE48DV4      AzureVMSize = "Standard_E48d_v4"
+	AzureVMSizeStandardE48DV5      AzureVMSize = "Standard_E48d_v5"
+	AzureVMSizeStandardE48DsV4     AzureVMSize = "Standard_E48ds_v4"
+	AzureVMSizeStandardE48DsV5     AzureVMSize = "Standard_E48ds_v5"
+	AzureVMSizeStandardE48SV3      AzureVMSize = "Standard_E48s_v3"
+	AzureVMSizeStandardE48SV4      AzureVMSize = "Standard_E48s_v4"
+	AzureVMSizeStandardE48SV5      AzureVMSize = "Standard_E48s_v5"
+	AzureVMSizeStandardE48V3       AzureVMSize = "Standard_E48_v3"
+	AzureVMSizeStandardE48V4       AzureVMSize = "Standard_E48_v4"
+	AzureVMSizeStandardE48V5       AzureVMSize = "Standard_E48_v5"
+	AzureVMSizeStandardE4AV4       AzureVMSize = "Standard_E4a_v4"
+	AzureVMSizeStandardE4AdsV5     AzureVMSize = "Standard_E4ads_v5"
+	AzureVMSizeStandardE4AsV4      AzureVMSize = "Standard_E4as_v4"
+	AzureVMSizeStandardE4AsV5      AzureVMSize = "Standard_E4as_v5"
+	AzureVMSizeStandardE4BdsV5     AzureVMSize = "Standard_E4bds_v5"
+	AzureVMSizeStandardE4BsV5      AzureVMSize = "Standard_E4bs_v5"
+	AzureVMSizeStandardE4DV4       AzureVMSize = "Standard_E4d_v4"
+	AzureVMSizeStandardE4DV5       AzureVMSize = "Standard_E4d_v5"
+	AzureVMSizeStandardE4DsV4      AzureVMSize = "Standard_E4ds_v4"
+	AzureVMSizeStandardE4DsV5      AzureVMSize = "Standard_E4ds_v5"
+	AzureVMSizeStandardE4SV3       AzureVMSize = "Standard_E4s_v3"
+	AzureVMSizeStandardE4SV4       AzureVMSize = "Standard_E4s_v4"
+	AzureVMSizeStandardE4SV5       AzureVMSize = "Standard_E4s_v5"
+	AzureVMSizeStandardE4V3        AzureVMSize = "Standard_E4_v3"
+	AzureVMSizeStandardE4V4        AzureVMSize = "Standard_E4_v4"
+	AzureVMSizeStandardE4V5        AzureVMSize = "Standard_E4_v5"
+	AzureVMSizeStandardE6416AdsV5  AzureVMSize = "Standard_E64_16ads_v5"
+	AzureVMSizeStandardE6416AsV4   AzureVMSize = "Standard_E64_16as_v4"
+	AzureVMSizeStandardE6416AsV5   AzureVMSize = "Standard_E64_16as_v5"
+	AzureVMSizeStandardE6416DsV4   AzureVMSize = "Standard_E64_16ds_v4"
+	AzureVMSizeStandardE6416DsV5   AzureVMSize = "Standard_E64_16ds_v5"
+	AzureVMSizeStandardE6416SV3    AzureVMSize = "Standard_E64_16s_v3"
+	AzureVMSizeStandardE6416SV4    AzureVMSize = "Standard_E64_16s_v4"
+	AzureVMSizeStandardE6416SV5    AzureVMSize = "Standard_E64_16s_v5"
+	AzureVMSizeStandardE6432AdsV5  AzureVMSize = "Standard_E64_32ads_v5"
+	AzureVMSizeStandardE6432AsV4   AzureVMSize = "Standard_E64_32as_v4"
+	AzureVMSizeStandardE6432AsV5   AzureVMSize = "Standard_E64_32as_v5"
+	AzureVMSizeStandardE6432DsV4   AzureVMSize = "Standard_E64_32ds_v4"
+	AzureVMSizeStandardE6432DsV5   AzureVMSize = "Standard_E64_32ds_v5"
+	AzureVMSizeStandardE6432SV3    AzureVMSize = "Standard_E64_32s_v3"
+	AzureVMSizeStandardE6432SV4    AzureVMSize = "Standard_E64_32s_v4"
+	AzureVMSizeStandardE6432SV5    AzureVMSize = "Standard_E64_32s_v5"
+	AzureVMSizeStandardE64AV4      AzureVMSize = "Standard_E64a_v4"
+	AzureVMSizeStandardE64AdsV5    AzureVMSize = "Standard_E64ads_v5"
+	AzureVMSizeStandardE64AsV4     AzureVMSize = "Standard_E64as_v4"
+	AzureVMSizeStandardE64AsV5     AzureVMSize = "Standard_E64as_v5"
+	AzureVMSizeStandardE64BdsV5    AzureVMSize = "Standard_E64bds_v5"
+	AzureVMSizeStandardE64BsV5     AzureVMSize = "Standard_E64bs_v5"
+	AzureVMSizeStandardE64DV4      AzureVMSize = "Standard_E64d_v4"
+	AzureVMSizeStandardE64DV5      AzureVMSize = "Standard_E64d_v5"
+	AzureVMSizeStandardE64DsV4     AzureVMSize = "Standard_E64ds_v4"
+	AzureVMSizeStandardE64DsV5     AzureVMSize = "Standard_E64ds_v5"
+	AzureVMSizeStandardE64IV3      AzureVMSize = "Standard_E64i_v3"
+	AzureVMSizeStandardE64IsV3     AzureVMSize = "Standard_E64is_v3"
+	AzureVMSizeStandardE64SV3      AzureVMSize = "Standard_E64s_v3"
+	AzureVMSizeStandardE64SV4      AzureVMSize = "Standard_E64s_v4"
+	AzureVMSizeStandardE64SV5      AzureVMSize = "Standard_E64s_v5"
+	AzureVMSizeStandardE64V3       AzureVMSize = "Standard_E64_v3"
+	AzureVMSizeStandardE64V4       AzureVMSize = "Standard_E64_v4"
+	AzureVMSizeStandardE64V5       AzureVMSize = "Standard_E64_v5"
+	AzureVMSizeStandardE80IDsV4    AzureVMSize = "Standard_E80ids_v4"
+	AzureVMSizeStandardE80IsV4     AzureVMSize = "Standard_E80is_v4"
+	AzureVMSizeStandardE82AdsV5    AzureVMSize = "Standard_E8_2ads_v5"
+	AzureVMSizeStandardE82AsV4     AzureVMSize = "Standard_E8_2as_v4"
+	AzureVMSizeStandardE82AsV5     AzureVMSize = "Standard_E8_2as_v5"
+	AzureVMSizeStandardE82DsV4     AzureVMSize = "Standard_E8_2ds_v4"
+	AzureVMSizeStandardE82DsV5     AzureVMSize = "Standard_E8_2ds_v5"
+	AzureVMSizeStandardE82SV3      AzureVMSize = "Standard_E8_2s_v3"
+	AzureVMSizeStandardE82SV4      AzureVMSize = "Standard_E8_2s_v4"
+	AzureVMSizeStandardE82SV5      AzureVMSize = "Standard_E8_2s_v5"
+	AzureVMSizeStandardE84AdsV5    AzureVMSize = "Standard_E8_4ads_v5"
+	AzureVMSizeStandardE84AsV4     AzureVMSize = "Standard_E8_4as_v4"
+	AzureVMSizeStandardE84AsV5     AzureVMSize = "Standard_E8_4as_v5"
+	AzureVMSizeStandardE84DsV4     AzureVMSize = "Standard_E8_4ds_v4"
+	AzureVMSizeStandardE84DsV5     AzureVMSize = "Standard_E8_4ds_v5"
+	AzureVMSizeStandardE84SV3      AzureVMSize = "Standard_E8_4s_v3"
+	AzureVMSizeStandardE84SV4      AzureVMSize = "Standard_E8_4s_v4"
+	AzureVMSizeStandardE84SV5      AzureVMSize = "Standard_E8_4s_v5"
+	AzureVMSizeStandardE8AV4       AzureVMSize = "Standard_E8a_v4"
+	AzureVMSizeStandardE8AdsV5     AzureVMSize = "Standard_E8ads_v5"
+	AzureVMSizeStandardE8AsV4      AzureVMSize = "Standard_E8as_v4"
+	AzureVMSizeStandardE8AsV5      AzureVMSize = "Standard_E8as_v5"
+	AzureVMSizeStandardE8BdsV5     AzureVMSize = "Standard_E8bds_v5"
+	AzureVMSizeStandardE8BsV5      AzureVMSize = "Standard_E8bs_v5"
+	AzureVMSizeStandardE8DV4       AzureVMSize = "Standard_E8d_v4"
+	AzureVMSizeStandardE8DV5       AzureVMSize = "Standard_E8d_v5"
+	AzureVMSizeStandardE8DsV4      AzureVMSize = "Standard_E8ds_v4"
+	AzureVMSizeStandardE8DsV5      AzureVMSize = "Standard_E8ds_v5"
+	AzureVMSizeStandardE8SV3       AzureVMSize = "Standard_E8s_v3"
+	AzureVMSizeStandardE8SV4       AzureVMSize = "Standard_E8s_v4"
+	AzureVMSizeStandardE8SV5       AzureVMSize = "Standard_E8s_v5"
+	AzureVMSizeStandardE8V3        AzureVMSize = "Standard_E8_v3"
+	AzureVMSizeStandardE8V4        AzureVMSize = "Standard_E8_v4"
+	AzureVMSizeStandardE8V5        AzureVMSize = "Standard_E8_v5"
+	AzureVMSizeStandardE9624AdsV5  AzureVMSize = "Standard_E96_24ads_v5"
+	AzureVMSizeStandardE9624AsV4   AzureVMSize = "Standard_E96_24as_v4"
+	AzureVMSizeStandardE9624AsV5   AzureVMSize = "Standard_E96_24as_v5"
+	AzureVMSizeStandardE9624DsV5   AzureVMSize = "Standard_E96_24ds_v5"
+	AzureVMSizeStandardE9624SV5    AzureVMSize = "Standard_E96_24s_v5"
+	AzureVMSizeStandardE9648AdsV5  AzureVMSize = "Standard_E96_48ads_v5"
+	AzureVMSizeStandardE9648AsV4   AzureVMSize = "Standard_E96_48as_v4"
+	AzureVMSizeStandardE9648AsV5   AzureVMSize = "Standard_E96_48as_v5"
+	AzureVMSizeStandardE9648DsV5   AzureVMSize = "Standard_E96_48ds_v5"
+	AzureVMSizeStandardE9648SV5    AzureVMSize = "Standard_E96_48s_v5"
+	AzureVMSizeStandardE96AV4      AzureVMSize = "Standard_E96a_v4"
+	AzureVMSizeStandardE96AdsV5    AzureVMSize = "Standard_E96ads_v5"
+	AzureVMSizeStandardE96AsV4     AzureVMSize = "Standard_E96as_v4"
+	AzureVMSizeStandardE96AsV5     AzureVMSize = "Standard_E96as_v5"
+	AzureVMSizeStandardE96DV5      AzureVMSize = "Standard_E96d_v5"
+	AzureVMSizeStandardE96DsV5     AzureVMSize = "Standard_E96ds_v5"
+	AzureVMSizeStandardE96SV5      AzureVMSize = "Standard_E96s_v5"
+	AzureVMSizeStandardE96V5       AzureVMSize = "Standard_E96_v5"
+	AzureVMSizeStandardF1          AzureVMSize = "Standard_F1"
+	AzureVMSizeStandardF16         AzureVMSize = "Standard_F16"
+	AzureVMSizeStandardF16S        AzureVMSize = "Standard_F16s"
+	AzureVMSizeStandardF16SV2      AzureVMSize = "Standard_F16s_v2"
+	AzureVMSizeStandardF1S         AzureVMSize = "Standard_F1s"
+	AzureVMSizeStandardF2          AzureVMSize = "Standard_F2"
+	AzureVMSizeStandardF2S         AzureVMSize = "Standard_F2s"
+	AzureVMSizeStandardF2SV2       AzureVMSize = "Standard_F2s_v2"
+	AzureVMSizeStandardF32SV2      AzureVMSize = "Standard_F32s_v2"
+	AzureVMSizeStandardF4          AzureVMSize = "Standard_F4"
+	AzureVMSizeStandardF48SV2      AzureVMSize = "Standard_F48s_v2"
+	AzureVMSizeStandardF4S         AzureVMSize = "Standard_F4s"
+	AzureVMSizeStandardF4SV2       AzureVMSize = "Standard_F4s_v2"
+	AzureVMSizeStandardF64SV2      AzureVMSize = "Standard_F64s_v2"
+	AzureVMSizeStandardF72SV2      AzureVMSize = "Standard_F72s_v2"
+	AzureVMSizeStandardF8          AzureVMSize = "Standard_F8"
+	AzureVMSizeStandardF8S         AzureVMSize = "Standard_F8s"
+	AzureVMSizeStandardF8SV2       AzureVMSize = "Standard_F8s_v2"
+	AzureVMSizeStandardG1          AzureVMSize = "Standard_G1"
+	AzureVMSizeStandardG2          AzureVMSize = "Standard_G2"
+	AzureVMSizeStandardG3          AzureVMSize = "Standard_G3"
+	AzureVMSizeStandardG4          AzureVMSize = "Standard_G4"
+	AzureVMSizeStandardG5          AzureVMSize = "Standard_G5"
+	AzureVMSizeStandardGS1         AzureVMSize = "Standard_GS1"
+	AzureVMSizeStandardGS2         AzureVMSize = "Standard_GS2"
+	AzureVMSizeStandardGS3         AzureVMSize = "Standard_GS3"
+	AzureVMSizeStandardGS4         AzureVMSize = "Standard_GS4"
+	AzureVMSizeStandardGS44        AzureVMSize = "Standard_GS4_4"
+	AzureVMSizeStandardGS48        AzureVMSize = "Standard_GS4_8"
+	AzureVMSizeStandardGS5         AzureVMSize = "Standard_GS5"
+	AzureVMSizeStandardGS516       AzureVMSize = "Standard_GS5_16"
+	AzureVMSizeStandardGS58        AzureVMSize = "Standard_GS5_8"
+	AzureVMSizeStandardH16         AzureVMSize = "Standard_H16"
+	AzureVMSizeStandardH16M        AzureVMSize = "Standard_H16m"
+	AzureVMSizeStandardH16Mr       AzureVMSize = "Standard_H16mr"
+	AzureVMSizeStandardH16R        AzureVMSize = "Standard_H16r"
+	AzureVMSizeStandardH8          AzureVMSize = "Standard_H8"
+	AzureVMSizeStandardH8M         AzureVMSize = "Standard_H8m"
+	AzureVMSizeStandardL16S        AzureVMSize = "Standard_L16s"
+	AzureVMSizeStandardL16SV2      AzureVMSize = "Standard_L16s_v2"
+	AzureVMSizeStandardL32S        AzureVMSize = "Standard_L32s"
+	AzureVMSizeStandardL32SV2      AzureVMSize = "Standard_L32s_v2"
+	AzureVMSizeStandardL48SV2      AzureVMSize = "Standard_L48s_v2"
+	AzureVMSizeStandardL4S         AzureVMSize = "Standard_L4s"
+	AzureVMSizeStandardL64SV2      AzureVMSize = "Standard_L64s_v2"
+	AzureVMSizeStandardL80SV2      AzureVMSize = "Standard_L80s_v2"
+	AzureVMSizeStandardL8S         AzureVMSize = "Standard_L8s"
+	AzureVMSizeStandardL8SV2       AzureVMSize = "Standard_L8s_v2"
+	AzureVMSizeStandardM128        AzureVMSize = "Standard_M128"
+	AzureVMSizeStandardM12832Ms    AzureVMSize = "Standard_M128_32ms"
+	AzureVMSizeStandardM12864Ms    AzureVMSize = "Standard_M128_64ms"
+	AzureVMSizeStandardM128DmsV2   AzureVMSize = "Standard_M128dms_v2"
+	AzureVMSizeStandardM128DsV2    AzureVMSize = "Standard_M128ds_v2"
+	AzureVMSizeStandardM128M       AzureVMSize = "Standard_M128m"
+	AzureVMSizeStandardM128Ms      AzureVMSize = "Standard_M128ms"
+	AzureVMSizeStandardM128MsV2    AzureVMSize = "Standard_M128ms_v2"
+	AzureVMSizeStandardM128S       AzureVMSize = "Standard_M128s"
+	AzureVMSizeStandardM128SV2     AzureVMSize = "Standard_M128s_v2"
+	AzureVMSizeStandardM164Ms      AzureVMSize = "Standard_M16_4ms"
+	AzureVMSizeStandardM168Ms      AzureVMSize = "Standard_M16_8ms"
+	AzureVMSizeStandardM16Ms       AzureVMSize = "Standard_M16ms"
+	AzureVMSizeStandardM192IDsV2   AzureVMSize = "Standard_M192ids_v2"
+	AzureVMSizeStandardM192IdmsV2  AzureVMSize = "Standard_M192idms_v2"
+	AzureVMSizeStandardM192ImsV2   AzureVMSize = "Standard_M192ims_v2"
+	AzureVMSizeStandardM192IsV2    AzureVMSize = "Standard_M192is_v2"
+	AzureVMSizeStandardM208MsV2    AzureVMSize = "Standard_M208ms_v2"
+	AzureVMSizeStandardM208SV2     AzureVMSize = "Standard_M208s_v2"
+	AzureVMSizeStandardM3216Ms     AzureVMSize = "Standard_M32_16ms"
+	AzureVMSizeStandardM328Ms      AzureVMSize = "Standard_M32_8ms"
+	AzureVMSizeStandardM32DmsV2    AzureVMSize = "Standard_M32dms_v2"
+	AzureVMSizeStandardM32Ls       AzureVMSize = "Standard_M32ls"
+	AzureVMSizeStandardM32Ms       AzureVMSize = "Standard_M32ms"
+	AzureVMSizeStandardM32MsV2     AzureVMSize = "Standard_M32ms_v2"
+	AzureVMSizeStandardM32Ts       AzureVMSize = "Standard_M32ts"
+	AzureVMSizeStandardM416208MsV2 AzureVMSize = "Standard_M416_208ms_v2"
+	AzureVMSizeStandardM416208SV2  AzureVMSize = "Standard_M416_208s_v2"
+	AzureVMSizeStandardM416MsV2    AzureVMSize = "Standard_M416ms_v2"
+	AzureVMSizeStandardM416SV2     AzureVMSize = "Standard_M416s_v2"
+	AzureVMSizeStandardM64         AzureVMSize = "Standard_M64"
+	AzureVMSizeStandardM6416Ms     AzureVMSize = "Standard_M64_16ms"
+	AzureVMSizeStandardM6432Ms     AzureVMSize = "Standard_M64_32ms"
+	AzureVMSizeStandardM64DmsV2    AzureVMSize = "Standard_M64dms_v2"
+	AzureVMSizeStandardM64DsV2     AzureVMSize = "Standard_M64ds_v2"
+	AzureVMSizeStandardM64Ls       AzureVMSize = "Standard_M64ls"
+	AzureVMSizeStandardM64M        AzureVMSize = "Standard_M64m"
+	AzureVMSizeStandardM64Ms       AzureVMSize = "Standard_M64ms"
+	AzureVMSizeStandardM64MsV2     AzureVMSize = "Standard_M64ms_v2"
+	AzureVMSizeStandardM64S        AzureVMSize = "Standard_M64s"
+	AzureVMSizeStandardM64SV2      AzureVMSize = "Standard_M64s_v2"
+	AzureVMSizeStandardM82Ms       AzureVMSize = "Standard_M8_2ms"
+	AzureVMSizeStandardM84Ms       AzureVMSize = "Standard_M8_4ms"
+	AzureVMSizeStandardM8Ms        AzureVMSize = "Standard_M8ms"
+	AzureVMSizeUnknown             AzureVMSize = "Unknown"
 )
 
 // PossibleAzureVMSizeValues returns the possible values for the AzureVMSize const type.
@@ -740,34 +1649,135 @@ func PossibleAzureVMSizeValues() []AzureVMSize {
 		AzureVMSizeStandardD14,
 		AzureVMSizeStandardD14V2,
 		AzureVMSizeStandardD15V2,
+		AzureVMSizeStandardD16AV4,
+		AzureVMSizeStandardD16AdsV5,
+		AzureVMSizeStandardD16AsV4,
+		AzureVMSizeStandardD16AsV5,
+		AzureVMSizeStandardD16DV4,
+		AzureVMSizeStandardD16DV5,
+		AzureVMSizeStandardD16DsV4,
+		AzureVMSizeStandardD16DsV5,
 		AzureVMSizeStandardD16SV3,
+		AzureVMSizeStandardD16SV4,
+		AzureVMSizeStandardD16SV5,
 		AzureVMSizeStandardD16V3,
+		AzureVMSizeStandardD16V4,
+		AzureVMSizeStandardD16V5,
 		AzureVMSizeStandardD1V2,
 		AzureVMSizeStandardD2,
+		AzureVMSizeStandardD2AV4,
+		AzureVMSizeStandardD2AdsV5,
+		AzureVMSizeStandardD2AsV4,
+		AzureVMSizeStandardD2AsV5,
+		AzureVMSizeStandardD2DV4,
+		AzureVMSizeStandardD2DV5,
+		AzureVMSizeStandardD2DsV4,
+		AzureVMSizeStandardD2DsV5,
 		AzureVMSizeStandardD2SV3,
+		AzureVMSizeStandardD2SV4,
+		AzureVMSizeStandardD2SV5,
 		AzureVMSizeStandardD2V2,
 		AzureVMSizeStandardD2V3,
+		AzureVMSizeStandardD2V4,
+		AzureVMSizeStandardD2V5,
 		AzureVMSizeStandardD3,
+		AzureVMSizeStandardD32AV4,
+		AzureVMSizeStandardD32AdsV5,
+		AzureVMSizeStandardD32AsV4,
+		AzureVMSizeStandardD32AsV5,
+		AzureVMSizeStandardD32DV4,
+		AzureVMSizeStandardD32DV5,
+		AzureVMSizeStandardD32DsV4,
+		AzureVMSizeStandardD32DsV5,
 		AzureVMSizeStandardD32SV3,
+		AzureVMSizeStandardD32SV4,
+		AzureVMSizeStandardD32SV5,
 		AzureVMSizeStandardD32V3,
+		AzureVMSizeStandardD32V4,
+		AzureVMSizeStandardD32V5,
 		AzureVMSizeStandardD3V2,
 		AzureVMSizeStandardD4,
+		AzureVMSizeStandardD48AV4,
+		AzureVMSizeStandardD48AdsV5,
+		AzureVMSizeStandardD48AsV4,
+		AzureVMSizeStandardD48AsV5,
+		AzureVMSizeStandardD48DV4,
+		AzureVMSizeStandardD48DV5,
+		AzureVMSizeStandardD48DsV4,
+		AzureVMSizeStandardD48DsV5,
+		AzureVMSizeStandardD48SV4,
+		AzureVMSizeStandardD48SV5,
+		AzureVMSizeStandardD48V4,
+		AzureVMSizeStandardD48V5,
+		AzureVMSizeStandardD4AV4,
+		AzureVMSizeStandardD4AdsV5,
+		AzureVMSizeStandardD4AsV4,
+		AzureVMSizeStandardD4AsV5,
+		AzureVMSizeStandardD4DV4,
+		AzureVMSizeStandardD4DV5,
+		AzureVMSizeStandardD4DsV4,
+		AzureVMSizeStandardD4DsV5,
 		AzureVMSizeStandardD4SV3,
+		AzureVMSizeStandardD4SV4,
+		AzureVMSizeStandardD4SV5,
 		AzureVMSizeStandardD4V2,
 		AzureVMSizeStandardD4V3,
+		AzureVMSizeStandardD4V4,
+		AzureVMSizeStandardD4V5,
 		AzureVMSizeStandardD5V2,
+		AzureVMSizeStandardD64AV4,
+		AzureVMSizeStandardD64AdsV5,
+		AzureVMSizeStandardD64AsV4,
+		AzureVMSizeStandardD64AsV5,
+		AzureVMSizeStandardD64DV4,
+		AzureVMSizeStandardD64DV5,
+		AzureVMSizeStandardD64DsV4,
+		AzureVMSizeStandardD64DsV5,
 		AzureVMSizeStandardD64SV3,
+		AzureVMSizeStandardD64SV4,
+		AzureVMSizeStandardD64SV5,
 		AzureVMSizeStandardD64V3,
+		AzureVMSizeStandardD64V4,
+		AzureVMSizeStandardD64V5,
+		AzureVMSizeStandardD8AV4,
+		AzureVMSizeStandardD8AdsV5,
+		AzureVMSizeStandardD8AsV4,
+		AzureVMSizeStandardD8AsV5,
+		AzureVMSizeStandardD8DV4,
+		AzureVMSizeStandardD8DV5,
+		AzureVMSizeStandardD8DsV4,
+		AzureVMSizeStandardD8DsV5,
 		AzureVMSizeStandardD8SV3,
+		AzureVMSizeStandardD8SV4,
+		AzureVMSizeStandardD8SV5,
 		AzureVMSizeStandardD8V3,
+		AzureVMSizeStandardD8V4,
+		AzureVMSizeStandardD8V5,
+		AzureVMSizeStandardD96AV4,
+		AzureVMSizeStandardD96AdsV5,
+		AzureVMSizeStandardD96AsV4,
+		AzureVMSizeStandardD96AsV5,
+		AzureVMSizeStandardD96DV5,
+		AzureVMSizeStandardD96DsV5,
+		AzureVMSizeStandardD96SV5,
+		AzureVMSizeStandardD96V5,
+		AzureVMSizeStandardDC2S,
+		AzureVMSizeStandardDC4S,
 		AzureVMSizeStandardDS1,
 		AzureVMSizeStandardDS11,
+		AzureVMSizeStandardDS111V2,
 		AzureVMSizeStandardDS11V2,
 		AzureVMSizeStandardDS12,
+		AzureVMSizeStandardDS121V2,
+		AzureVMSizeStandardDS122V2,
 		AzureVMSizeStandardDS12V2,
 		AzureVMSizeStandardDS13,
+		AzureVMSizeStandardDS132V2,
+		AzureVMSizeStandardDS134V2,
 		AzureVMSizeStandardDS13V2,
 		AzureVMSizeStandardDS14,
+		AzureVMSizeStandardDS144V2,
+		AzureVMSizeStandardDS148V2,
 		AzureVMSizeStandardDS14V2,
 		AzureVMSizeStandardDS15V2,
 		AzureVMSizeStandardDS1V2,
@@ -778,18 +1788,230 @@ func PossibleAzureVMSizeValues() []AzureVMSize {
 		AzureVMSizeStandardDS4,
 		AzureVMSizeStandardDS4V2,
 		AzureVMSizeStandardDS5V2,
+		AzureVMSizeStandardE104IDV5,
+		AzureVMSizeStandardE104IDsV5,
+		AzureVMSizeStandardE104IV5,
+		AzureVMSizeStandardE104IsV5,
+		AzureVMSizeStandardE164AdsV5,
+		AzureVMSizeStandardE164AsV4,
+		AzureVMSizeStandardE164AsV5,
+		AzureVMSizeStandardE164DsV4,
+		AzureVMSizeStandardE164DsV5,
+		AzureVMSizeStandardE164SV3,
+		AzureVMSizeStandardE164SV4,
+		AzureVMSizeStandardE164SV5,
+		AzureVMSizeStandardE168AdsV5,
+		AzureVMSizeStandardE168AsV4,
+		AzureVMSizeStandardE168AsV5,
+		AzureVMSizeStandardE168DsV4,
+		AzureVMSizeStandardE168DsV5,
+		AzureVMSizeStandardE168SV3,
+		AzureVMSizeStandardE168SV4,
+		AzureVMSizeStandardE168SV5,
+		AzureVMSizeStandardE16AV4,
+		AzureVMSizeStandardE16AdsV5,
+		AzureVMSizeStandardE16AsV4,
+		AzureVMSizeStandardE16AsV5,
+		AzureVMSizeStandardE16BdsV5,
+		AzureVMSizeStandardE16BsV5,
+		AzureVMSizeStandardE16DV4,
+		AzureVMSizeStandardE16DV5,
+		AzureVMSizeStandardE16DsV4,
+		AzureVMSizeStandardE16DsV5,
 		AzureVMSizeStandardE16SV3,
+		AzureVMSizeStandardE16SV4,
+		AzureVMSizeStandardE16SV5,
 		AzureVMSizeStandardE16V3,
+		AzureVMSizeStandardE16V4,
+		AzureVMSizeStandardE16V5,
+		AzureVMSizeStandardE20AV4,
+		AzureVMSizeStandardE20AdsV5,
+		AzureVMSizeStandardE20AsV4,
+		AzureVMSizeStandardE20AsV5,
+		AzureVMSizeStandardE20DV4,
+		AzureVMSizeStandardE20DV5,
+		AzureVMSizeStandardE20DsV4,
+		AzureVMSizeStandardE20DsV5,
+		AzureVMSizeStandardE20SV3,
+		AzureVMSizeStandardE20SV4,
+		AzureVMSizeStandardE20SV5,
+		AzureVMSizeStandardE20V3,
+		AzureVMSizeStandardE20V4,
+		AzureVMSizeStandardE20V5,
+		AzureVMSizeStandardE2AV4,
+		AzureVMSizeStandardE2AdsV5,
+		AzureVMSizeStandardE2AsV4,
+		AzureVMSizeStandardE2AsV5,
+		AzureVMSizeStandardE2BdsV5,
+		AzureVMSizeStandardE2BsV5,
+		AzureVMSizeStandardE2DV4,
+		AzureVMSizeStandardE2DV5,
+		AzureVMSizeStandardE2DsV4,
+		AzureVMSizeStandardE2DsV5,
 		AzureVMSizeStandardE2SV3,
+		AzureVMSizeStandardE2SV4,
+		AzureVMSizeStandardE2SV5,
 		AzureVMSizeStandardE2V3,
+		AzureVMSizeStandardE2V4,
+		AzureVMSizeStandardE2V5,
+		AzureVMSizeStandardE3216AdsV5,
+		AzureVMSizeStandardE3216AsV4,
+		AzureVMSizeStandardE3216AsV5,
+		AzureVMSizeStandardE3216DsV4,
+		AzureVMSizeStandardE3216DsV5,
+		AzureVMSizeStandardE3216SV3,
+		AzureVMSizeStandardE3216SV4,
+		AzureVMSizeStandardE3216SV5,
+		AzureVMSizeStandardE328AdsV5,
+		AzureVMSizeStandardE328AsV4,
+		AzureVMSizeStandardE328AsV5,
+		AzureVMSizeStandardE328DsV4,
+		AzureVMSizeStandardE328DsV5,
+		AzureVMSizeStandardE328SV3,
+		AzureVMSizeStandardE328SV4,
+		AzureVMSizeStandardE328SV5,
+		AzureVMSizeStandardE32AV4,
+		AzureVMSizeStandardE32AdsV5,
+		AzureVMSizeStandardE32AsV4,
+		AzureVMSizeStandardE32AsV5,
+		AzureVMSizeStandardE32BdsV5,
+		AzureVMSizeStandardE32BsV5,
+		AzureVMSizeStandardE32DV4,
+		AzureVMSizeStandardE32DV5,
+		AzureVMSizeStandardE32DsV4,
+		AzureVMSizeStandardE32DsV5,
 		AzureVMSizeStandardE32SV3,
+		AzureVMSizeStandardE32SV4,
+		AzureVMSizeStandardE32SV5,
 		AzureVMSizeStandardE32V3,
+		AzureVMSizeStandardE32V4,
+		AzureVMSizeStandardE32V5,
+		AzureVMSizeStandardE42AdsV5,
+		AzureVMSizeStandardE42AsV4,
+		AzureVMSizeStandardE42AsV5,
+		AzureVMSizeStandardE42DsV4,
+		AzureVMSizeStandardE42DsV5,
+		AzureVMSizeStandardE42SV3,
+		AzureVMSizeStandardE42SV4,
+		AzureVMSizeStandardE42SV5,
+		AzureVMSizeStandardE48AV4,
+		AzureVMSizeStandardE48AdsV5,
+		AzureVMSizeStandardE48AsV4,
+		AzureVMSizeStandardE48AsV5,
+		AzureVMSizeStandardE48BdsV5,
+		AzureVMSizeStandardE48BsV5,
+		AzureVMSizeStandardE48DV4,
+		AzureVMSizeStandardE48DV5,
+		AzureVMSizeStandardE48DsV4,
+		AzureVMSizeStandardE48DsV5,
+		AzureVMSizeStandardE48SV3,
+		AzureVMSizeStandardE48SV4,
+		AzureVMSizeStandardE48SV5,
+		AzureVMSizeStandardE48V3,
+		AzureVMSizeStandardE48V4,
+		AzureVMSizeStandardE48V5,
+		AzureVMSizeStandardE4AV4,
+		AzureVMSizeStandardE4AdsV5,
+		AzureVMSizeStandardE4AsV4,
+		AzureVMSizeStandardE4AsV5,
+		AzureVMSizeStandardE4BdsV5,
+		AzureVMSizeStandardE4BsV5,
+		AzureVMSizeStandardE4DV4,
+		AzureVMSizeStandardE4DV5,
+		AzureVMSizeStandardE4DsV4,
+		AzureVMSizeStandardE4DsV5,
 		AzureVMSizeStandardE4SV3,
+		AzureVMSizeStandardE4SV4,
+		AzureVMSizeStandardE4SV5,
 		AzureVMSizeStandardE4V3,
+		AzureVMSizeStandardE4V4,
+		AzureVMSizeStandardE4V5,
+		AzureVMSizeStandardE6416AdsV5,
+		AzureVMSizeStandardE6416AsV4,
+		AzureVMSizeStandardE6416AsV5,
+		AzureVMSizeStandardE6416DsV4,
+		AzureVMSizeStandardE6416DsV5,
+		AzureVMSizeStandardE6416SV3,
+		AzureVMSizeStandardE6416SV4,
+		AzureVMSizeStandardE6416SV5,
+		AzureVMSizeStandardE6432AdsV5,
+		AzureVMSizeStandardE6432AsV4,
+		AzureVMSizeStandardE6432AsV5,
+		AzureVMSizeStandardE6432DsV4,
+		AzureVMSizeStandardE6432DsV5,
+		AzureVMSizeStandardE6432SV3,
+		AzureVMSizeStandardE6432SV4,
+		AzureVMSizeStandardE6432SV5,
+		AzureVMSizeStandardE64AV4,
+		AzureVMSizeStandardE64AdsV5,
+		AzureVMSizeStandardE64AsV4,
+		AzureVMSizeStandardE64AsV5,
+		AzureVMSizeStandardE64BdsV5,
+		AzureVMSizeStandardE64BsV5,
+		AzureVMSizeStandardE64DV4,
+		AzureVMSizeStandardE64DV5,
+		AzureVMSizeStandardE64DsV4,
+		AzureVMSizeStandardE64DsV5,
+		AzureVMSizeStandardE64IV3,
+		AzureVMSizeStandardE64IsV3,
 		AzureVMSizeStandardE64SV3,
+		AzureVMSizeStandardE64SV4,
+		AzureVMSizeStandardE64SV5,
 		AzureVMSizeStandardE64V3,
+		AzureVMSizeStandardE64V4,
+		AzureVMSizeStandardE64V5,
+		AzureVMSizeStandardE80IDsV4,
+		AzureVMSizeStandardE80IsV4,
+		AzureVMSizeStandardE82AdsV5,
+		AzureVMSizeStandardE82AsV4,
+		AzureVMSizeStandardE82AsV5,
+		AzureVMSizeStandardE82DsV4,
+		AzureVMSizeStandardE82DsV5,
+		AzureVMSizeStandardE82SV3,
+		AzureVMSizeStandardE82SV4,
+		AzureVMSizeStandardE82SV5,
+		AzureVMSizeStandardE84AdsV5,
+		AzureVMSizeStandardE84AsV4,
+		AzureVMSizeStandardE84AsV5,
+		AzureVMSizeStandardE84DsV4,
+		AzureVMSizeStandardE84DsV5,
+		AzureVMSizeStandardE84SV3,
+		AzureVMSizeStandardE84SV4,
+		AzureVMSizeStandardE84SV5,
+		AzureVMSizeStandardE8AV4,
+		AzureVMSizeStandardE8AdsV5,
+		AzureVMSizeStandardE8AsV4,
+		AzureVMSizeStandardE8AsV5,
+		AzureVMSizeStandardE8BdsV5,
+		AzureVMSizeStandardE8BsV5,
+		AzureVMSizeStandardE8DV4,
+		AzureVMSizeStandardE8DV5,
+		AzureVMSizeStandardE8DsV4,
+		AzureVMSizeStandardE8DsV5,
 		AzureVMSizeStandardE8SV3,
+		AzureVMSizeStandardE8SV4,
+		AzureVMSizeStandardE8SV5,
 		AzureVMSizeStandardE8V3,
+		AzureVMSizeStandardE8V4,
+		AzureVMSizeStandardE8V5,
+		AzureVMSizeStandardE9624AdsV5,
+		AzureVMSizeStandardE9624AsV4,
+		AzureVMSizeStandardE9624AsV5,
+		AzureVMSizeStandardE9624DsV5,
+		AzureVMSizeStandardE9624SV5,
+		AzureVMSizeStandardE9648AdsV5,
+		AzureVMSizeStandardE9648AsV4,
+		AzureVMSizeStandardE9648AsV5,
+		AzureVMSizeStandardE9648DsV5,
+		AzureVMSizeStandardE9648SV5,
+		AzureVMSizeStandardE96AV4,
+		AzureVMSizeStandardE96AdsV5,
+		AzureVMSizeStandardE96AsV4,
+		AzureVMSizeStandardE96AsV5,
+		AzureVMSizeStandardE96DV5,
+		AzureVMSizeStandardE96DsV5,
+		AzureVMSizeStandardE96SV5,
+		AzureVMSizeStandardE96V5,
 		AzureVMSizeStandardF1,
 		AzureVMSizeStandardF16,
 		AzureVMSizeStandardF16S,
@@ -800,6 +2022,7 @@ func PossibleAzureVMSizeValues() []AzureVMSize {
 		AzureVMSizeStandardF2SV2,
 		AzureVMSizeStandardF32SV2,
 		AzureVMSizeStandardF4,
+		AzureVMSizeStandardF48SV2,
 		AzureVMSizeStandardF4S,
 		AzureVMSizeStandardF4SV2,
 		AzureVMSizeStandardF64SV2,
@@ -816,7 +2039,11 @@ func PossibleAzureVMSizeValues() []AzureVMSize {
 		AzureVMSizeStandardGS2,
 		AzureVMSizeStandardGS3,
 		AzureVMSizeStandardGS4,
+		AzureVMSizeStandardGS44,
+		AzureVMSizeStandardGS48,
 		AzureVMSizeStandardGS5,
+		AzureVMSizeStandardGS516,
+		AzureVMSizeStandardGS58,
 		AzureVMSizeStandardH16,
 		AzureVMSizeStandardH16M,
 		AzureVMSizeStandardH16Mr,
@@ -824,18 +2051,63 @@ func PossibleAzureVMSizeValues() []AzureVMSize {
 		AzureVMSizeStandardH8,
 		AzureVMSizeStandardH8M,
 		AzureVMSizeStandardL16S,
+		AzureVMSizeStandardL16SV2,
 		AzureVMSizeStandardL32S,
+		AzureVMSizeStandardL32SV2,
+		AzureVMSizeStandardL48SV2,
 		AzureVMSizeStandardL4S,
+		AzureVMSizeStandardL64SV2,
+		AzureVMSizeStandardL80SV2,
 		AzureVMSizeStandardL8S,
+		AzureVMSizeStandardL8SV2,
+		AzureVMSizeStandardM128,
+		AzureVMSizeStandardM12832Ms,
+		AzureVMSizeStandardM12864Ms,
+		AzureVMSizeStandardM128DmsV2,
+		AzureVMSizeStandardM128DsV2,
+		AzureVMSizeStandardM128M,
 		AzureVMSizeStandardM128Ms,
+		AzureVMSizeStandardM128MsV2,
 		AzureVMSizeStandardM128S,
+		AzureVMSizeStandardM128SV2,
+		AzureVMSizeStandardM164Ms,
+		AzureVMSizeStandardM168Ms,
+		AzureVMSizeStandardM16Ms,
+		AzureVMSizeStandardM192IDsV2,
+		AzureVMSizeStandardM192IdmsV2,
+		AzureVMSizeStandardM192ImsV2,
+		AzureVMSizeStandardM192IsV2,
+		AzureVMSizeStandardM208MsV2,
+		AzureVMSizeStandardM208SV2,
+		AzureVMSizeStandardM3216Ms,
+		AzureVMSizeStandardM328Ms,
+		AzureVMSizeStandardM32DmsV2,
+		AzureVMSizeStandardM32Ls,
+		AzureVMSizeStandardM32Ms,
+		AzureVMSizeStandardM32MsV2,
+		AzureVMSizeStandardM32Ts,
+		AzureVMSizeStandardM416208MsV2,
+		AzureVMSizeStandardM416208SV2,
+		AzureVMSizeStandardM416MsV2,
+		AzureVMSizeStandardM416SV2,
+		AzureVMSizeStandardM64,
+		AzureVMSizeStandardM6416Ms,
+		AzureVMSizeStandardM6432Ms,
+		AzureVMSizeStandardM64DmsV2,
+		AzureVMSizeStandardM64DsV2,
+		AzureVMSizeStandardM64Ls,
+		AzureVMSizeStandardM64M,
 		AzureVMSizeStandardM64Ms,
+		AzureVMSizeStandardM64MsV2,
 		AzureVMSizeStandardM64S,
+		AzureVMSizeStandardM64SV2,
+		AzureVMSizeStandardM82Ms,
+		AzureVMSizeStandardM84Ms,
+		AzureVMSizeStandardM8Ms,
 		AzureVMSizeUnknown,
 	}
 }
 
-// AzureVMSuitabilityDetail - If machine is not suitable for cloud, this explains the reasons.
 type AzureVMSuitabilityDetail string
 
 const (
@@ -865,46 +2137,48 @@ func PossibleAzureVMSuitabilityDetailValues() []AzureVMSuitabilityDetail {
 	}
 }
 
-// AzureVMSuitabilityExplanation - If machine is not ready to be migrated, this explains the reasons and mitigation steps.
 type AzureVMSuitabilityExplanation string
 
 const (
-	AzureVMSuitabilityExplanationBootTypeNotSupported                         AzureVMSuitabilityExplanation = "BootTypeNotSupported"
-	AzureVMSuitabilityExplanationBootTypeUnknown                              AzureVMSuitabilityExplanation = "BootTypeUnknown"
-	AzureVMSuitabilityExplanationCheckCentOsVersion                           AzureVMSuitabilityExplanation = "CheckCentOsVersion"
-	AzureVMSuitabilityExplanationCheckCoreOsLinuxVersion                      AzureVMSuitabilityExplanation = "CheckCoreOsLinuxVersion"
-	AzureVMSuitabilityExplanationCheckDebianLinuxVersion                      AzureVMSuitabilityExplanation = "CheckDebianLinuxVersion"
-	AzureVMSuitabilityExplanationCheckOpenSuseLinuxVersion                    AzureVMSuitabilityExplanation = "CheckOpenSuseLinuxVersion"
-	AzureVMSuitabilityExplanationCheckOracleLinuxVersion                      AzureVMSuitabilityExplanation = "CheckOracleLinuxVersion"
-	AzureVMSuitabilityExplanationCheckRedHatLinuxVersion                      AzureVMSuitabilityExplanation = "CheckRedHatLinuxVersion"
-	AzureVMSuitabilityExplanationCheckSuseLinuxVersion                        AzureVMSuitabilityExplanation = "CheckSuseLinuxVersion"
-	AzureVMSuitabilityExplanationCheckUbuntuLinuxVersion                      AzureVMSuitabilityExplanation = "CheckUbuntuLinuxVersion"
-	AzureVMSuitabilityExplanationCheckWindowsServer2008R2Version              AzureVMSuitabilityExplanation = "CheckWindowsServer2008R2Version"
-	AzureVMSuitabilityExplanationEndorsedWithConditionsLinuxDistributions     AzureVMSuitabilityExplanation = "EndorsedWithConditionsLinuxDistributions"
-	AzureVMSuitabilityExplanationGuestOperatingSystemArchitectureNotSupported AzureVMSuitabilityExplanation = "GuestOperatingSystemArchitectureNotSupported"
-	AzureVMSuitabilityExplanationGuestOperatingSystemNotSupported             AzureVMSuitabilityExplanation = "GuestOperatingSystemNotSupported"
-	AzureVMSuitabilityExplanationGuestOperatingSystemUnknown                  AzureVMSuitabilityExplanation = "GuestOperatingSystemUnknown"
-	AzureVMSuitabilityExplanationInternalErrorOccurredDuringComputeEvaluation AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringComputeEvaluation"
-	AzureVMSuitabilityExplanationInternalErrorOccurredDuringNetworkEvaluation AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringNetworkEvaluation"
-	AzureVMSuitabilityExplanationInternalErrorOccurredDuringStorageEvaluation AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringStorageEvaluation"
-	AzureVMSuitabilityExplanationMoreDisksThanSupported                       AzureVMSuitabilityExplanation = "MoreDisksThanSupported"
-	AzureVMSuitabilityExplanationNoGuestOperatingSystemConditionallySupported AzureVMSuitabilityExplanation = "NoGuestOperatingSystemConditionallySupported"
-	AzureVMSuitabilityExplanationNoSuitableVMSizeFound                        AzureVMSuitabilityExplanation = "NoSuitableVmSizeFound"
-	AzureVMSuitabilityExplanationNoVMSizeForBasicPricingTier                  AzureVMSuitabilityExplanation = "NoVmSizeForBasicPricingTier"
-	AzureVMSuitabilityExplanationNoVMSizeForSelectedAzureLocation             AzureVMSuitabilityExplanation = "NoVmSizeForSelectedAzureLocation"
-	AzureVMSuitabilityExplanationNoVMSizeForSelectedPricingTier               AzureVMSuitabilityExplanation = "NoVmSizeForSelectedPricingTier"
-	AzureVMSuitabilityExplanationNoVMSizeForStandardPricingTier               AzureVMSuitabilityExplanation = "NoVmSizeForStandardPricingTier"
-	AzureVMSuitabilityExplanationNoVMSizeSupportsNetworkPerformance           AzureVMSuitabilityExplanation = "NoVmSizeSupportsNetworkPerformance"
-	AzureVMSuitabilityExplanationNoVMSizeSupportsStoragePerformance           AzureVMSuitabilityExplanation = "NoVmSizeSupportsStoragePerformance"
-	AzureVMSuitabilityExplanationNotApplicable                                AzureVMSuitabilityExplanation = "NotApplicable"
-	AzureVMSuitabilityExplanationOneOrMoreAdaptersNotSuitable                 AzureVMSuitabilityExplanation = "OneOrMoreAdaptersNotSuitable"
-	AzureVMSuitabilityExplanationOneOrMoreDisksNotSuitable                    AzureVMSuitabilityExplanation = "OneOrMoreDisksNotSuitable"
-	AzureVMSuitabilityExplanationUnendorsedLinuxDistributions                 AzureVMSuitabilityExplanation = "UnendorsedLinuxDistributions"
-	AzureVMSuitabilityExplanationUnknown                                      AzureVMSuitabilityExplanation = "Unknown"
-	AzureVMSuitabilityExplanationWindowsClientVersionsConditionallySupported  AzureVMSuitabilityExplanation = "WindowsClientVersionsConditionallySupported"
-	AzureVMSuitabilityExplanationWindowsOSNoLongerUnderMSSupport              AzureVMSuitabilityExplanation = "WindowsOSNoLongerUnderMSSupport"
-	AzureVMSuitabilityExplanationWindowsServerVersionConditionallySupported   AzureVMSuitabilityExplanation = "WindowsServerVersionConditionallySupported"
-	AzureVMSuitabilityExplanationWindowsServerVersionsSupportedWithCaveat     AzureVMSuitabilityExplanation = "WindowsServerVersionsSupportedWithCaveat"
+	AzureVMSuitabilityExplanationBootTypeNotSupported                          AzureVMSuitabilityExplanation = "BootTypeNotSupported"
+	AzureVMSuitabilityExplanationBootTypeUnknown                               AzureVMSuitabilityExplanation = "BootTypeUnknown"
+	AzureVMSuitabilityExplanationCheckCentOsVersion                            AzureVMSuitabilityExplanation = "CheckCentOsVersion"
+	AzureVMSuitabilityExplanationCheckCoreOsLinuxVersion                       AzureVMSuitabilityExplanation = "CheckCoreOsLinuxVersion"
+	AzureVMSuitabilityExplanationCheckDebianLinuxVersion                       AzureVMSuitabilityExplanation = "CheckDebianLinuxVersion"
+	AzureVMSuitabilityExplanationCheckOpenSuseLinuxVersion                     AzureVMSuitabilityExplanation = "CheckOpenSuseLinuxVersion"
+	AzureVMSuitabilityExplanationCheckOracleLinuxVersion                       AzureVMSuitabilityExplanation = "CheckOracleLinuxVersion"
+	AzureVMSuitabilityExplanationCheckRedHatLinuxVersion                       AzureVMSuitabilityExplanation = "CheckRedHatLinuxVersion"
+	AzureVMSuitabilityExplanationCheckSuseLinuxVersion                         AzureVMSuitabilityExplanation = "CheckSuseLinuxVersion"
+	AzureVMSuitabilityExplanationCheckUbuntuLinuxVersion                       AzureVMSuitabilityExplanation = "CheckUbuntuLinuxVersion"
+	AzureVMSuitabilityExplanationCheckWindowsServer2008R2Version               AzureVMSuitabilityExplanation = "CheckWindowsServer2008R2Version"
+	AzureVMSuitabilityExplanationEndorsedWithConditionsLinuxDistributions      AzureVMSuitabilityExplanation = "EndorsedWithConditionsLinuxDistributions"
+	AzureVMSuitabilityExplanationGuestOperatingSystemArchitectureNotSupported  AzureVMSuitabilityExplanation = "GuestOperatingSystemArchitectureNotSupported"
+	AzureVMSuitabilityExplanationGuestOperatingSystemNotSupported              AzureVMSuitabilityExplanation = "GuestOperatingSystemNotSupported"
+	AzureVMSuitabilityExplanationGuestOperatingSystemUnknown                   AzureVMSuitabilityExplanation = "GuestOperatingSystemUnknown"
+	AzureVMSuitabilityExplanationInternalErrorOccurredDuringComputeEvaluation  AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringComputeEvaluation"
+	AzureVMSuitabilityExplanationInternalErrorOccurredDuringNetworkEvaluation  AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringNetworkEvaluation"
+	AzureVMSuitabilityExplanationInternalErrorOccurredDuringStorageEvaluation  AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringStorageEvaluation"
+	AzureVMSuitabilityExplanationMoreDisksThanSupported                        AzureVMSuitabilityExplanation = "MoreDisksThanSupported"
+	AzureVMSuitabilityExplanationNoEaPriceFoundForVMSize                       AzureVMSuitabilityExplanation = "NoEaPriceFoundForVmSize"
+	AzureVMSuitabilityExplanationNoGuestOperatingSystemConditionallySupported  AzureVMSuitabilityExplanation = "NoGuestOperatingSystemConditionallySupported"
+	AzureVMSuitabilityExplanationNoSuitableVMSizeFound                         AzureVMSuitabilityExplanation = "NoSuitableVmSizeFound"
+	AzureVMSuitabilityExplanationNoVMSizeForBasicPricingTier                   AzureVMSuitabilityExplanation = "NoVmSizeForBasicPricingTier"
+	AzureVMSuitabilityExplanationNoVMSizeForSelectedAzureLocation              AzureVMSuitabilityExplanation = "NoVmSizeForSelectedAzureLocation"
+	AzureVMSuitabilityExplanationNoVMSizeForSelectedPricingTier                AzureVMSuitabilityExplanation = "NoVmSizeForSelectedPricingTier"
+	AzureVMSuitabilityExplanationNoVMSizeForStandardPricingTier                AzureVMSuitabilityExplanation = "NoVmSizeForStandardPricingTier"
+	AzureVMSuitabilityExplanationNoVMSizeFoundForOfferCurrencyReservedInstance AzureVMSuitabilityExplanation = "NoVmSizeFoundForOfferCurrencyReservedInstance"
+	AzureVMSuitabilityExplanationNoVMSizeInSelectedFamilyFound                 AzureVMSuitabilityExplanation = "NoVmSizeInSelectedFamilyFound"
+	AzureVMSuitabilityExplanationNoVMSizeSupportsNetworkPerformance            AzureVMSuitabilityExplanation = "NoVmSizeSupportsNetworkPerformance"
+	AzureVMSuitabilityExplanationNoVMSizeSupportsStoragePerformance            AzureVMSuitabilityExplanation = "NoVmSizeSupportsStoragePerformance"
+	AzureVMSuitabilityExplanationNotApplicable                                 AzureVMSuitabilityExplanation = "NotApplicable"
+	AzureVMSuitabilityExplanationOneOrMoreAdaptersNotSuitable                  AzureVMSuitabilityExplanation = "OneOrMoreAdaptersNotSuitable"
+	AzureVMSuitabilityExplanationOneOrMoreDisksNotSuitable                     AzureVMSuitabilityExplanation = "OneOrMoreDisksNotSuitable"
+	AzureVMSuitabilityExplanationUnendorsedLinuxDistributions                  AzureVMSuitabilityExplanation = "UnendorsedLinuxDistributions"
+	AzureVMSuitabilityExplanationUnknown                                       AzureVMSuitabilityExplanation = "Unknown"
+	AzureVMSuitabilityExplanationWindowsClientVersionsConditionallySupported   AzureVMSuitabilityExplanation = "WindowsClientVersionsConditionallySupported"
+	AzureVMSuitabilityExplanationWindowsOSNoLongerUnderMSSupport               AzureVMSuitabilityExplanation = "WindowsOSNoLongerUnderMSSupport"
+	AzureVMSuitabilityExplanationWindowsServerVersionConditionallySupported    AzureVMSuitabilityExplanation = "WindowsServerVersionConditionallySupported"
+	AzureVMSuitabilityExplanationWindowsServerVersionsSupportedWithCaveat      AzureVMSuitabilityExplanation = "WindowsServerVersionsSupportedWithCaveat"
 )
 
 // PossibleAzureVMSuitabilityExplanationValues returns the possible values for the AzureVMSuitabilityExplanation const type.
@@ -929,12 +2203,15 @@ func PossibleAzureVMSuitabilityExplanationValues() []AzureVMSuitabilityExplanati
 		AzureVMSuitabilityExplanationInternalErrorOccurredDuringNetworkEvaluation,
 		AzureVMSuitabilityExplanationInternalErrorOccurredDuringStorageEvaluation,
 		AzureVMSuitabilityExplanationMoreDisksThanSupported,
+		AzureVMSuitabilityExplanationNoEaPriceFoundForVMSize,
 		AzureVMSuitabilityExplanationNoGuestOperatingSystemConditionallySupported,
 		AzureVMSuitabilityExplanationNoSuitableVMSizeFound,
 		AzureVMSuitabilityExplanationNoVMSizeForBasicPricingTier,
 		AzureVMSuitabilityExplanationNoVMSizeForSelectedAzureLocation,
 		AzureVMSuitabilityExplanationNoVMSizeForSelectedPricingTier,
 		AzureVMSuitabilityExplanationNoVMSizeForStandardPricingTier,
+		AzureVMSuitabilityExplanationNoVMSizeFoundForOfferCurrencyReservedInstance,
+		AzureVMSuitabilityExplanationNoVMSizeInSelectedFamilyFound,
 		AzureVMSuitabilityExplanationNoVMSizeSupportsNetworkPerformance,
 		AzureVMSuitabilityExplanationNoVMSizeSupportsStoragePerformance,
 		AzureVMSuitabilityExplanationNotApplicable,
@@ -949,15 +2226,20 @@ func PossibleAzureVMSuitabilityExplanationValues() []AzureVMSuitabilityExplanati
 	}
 }
 
-// CloudSuitability - Whether this disk is suitable for Azure.
+// CloudSuitability - Cloud Suitability for Azure.
 type CloudSuitability string
 
 const (
+	// CloudSuitabilityConditionallySuitable - Conditionally Suitable for Azure.
 	CloudSuitabilityConditionallySuitable CloudSuitability = "ConditionallySuitable"
-	CloudSuitabilityNotSuitable           CloudSuitability = "NotSuitable"
-	CloudSuitabilityReadinessUnknown      CloudSuitability = "ReadinessUnknown"
-	CloudSuitabilitySuitable              CloudSuitability = "Suitable"
-	CloudSuitabilityUnknown               CloudSuitability = "Unknown"
+	// CloudSuitabilityNotSuitable - Not Suitable for Azure.
+	CloudSuitabilityNotSuitable CloudSuitability = "NotSuitable"
+	// CloudSuitabilityReadinessUnknown - Unknown Readiness for Azure.
+	CloudSuitabilityReadinessUnknown CloudSuitability = "ReadinessUnknown"
+	// CloudSuitabilitySuitable - Suitable for Azure.
+	CloudSuitabilitySuitable CloudSuitability = "Suitable"
+	// CloudSuitabilityUnknown - Unknown. Indicates missing data.
+	CloudSuitabilityUnknown CloudSuitability = "Unknown"
 )
 
 // PossibleCloudSuitabilityValues returns the possible values for the CloudSuitability const type.
@@ -971,71 +2253,132 @@ func PossibleCloudSuitabilityValues() []CloudSuitability {
 	}
 }
 
-// Currency - Currency to report prices in.
-type Currency string
+type CompatibilityLevel string
 
 const (
-	CurrencyARS     Currency = "ARS"
-	CurrencyAUD     Currency = "AUD"
-	CurrencyBRL     Currency = "BRL"
-	CurrencyCAD     Currency = "CAD"
-	CurrencyCHF     Currency = "CHF"
-	CurrencyCNY     Currency = "CNY"
-	CurrencyDKK     Currency = "DKK"
-	CurrencyEUR     Currency = "EUR"
-	CurrencyGBP     Currency = "GBP"
-	CurrencyHKD     Currency = "HKD"
-	CurrencyIDR     Currency = "IDR"
-	CurrencyINR     Currency = "INR"
-	CurrencyJPY     Currency = "JPY"
-	CurrencyKRW     Currency = "KRW"
-	CurrencyMXN     Currency = "MXN"
-	CurrencyMYR     Currency = "MYR"
-	CurrencyNOK     Currency = "NOK"
-	CurrencyNZD     Currency = "NZD"
-	CurrencyRUB     Currency = "RUB"
-	CurrencySAR     Currency = "SAR"
-	CurrencySEK     Currency = "SEK"
-	CurrencyTRY     Currency = "TRY"
-	CurrencyTWD     Currency = "TWD"
-	CurrencyUSD     Currency = "USD"
-	CurrencyUnknown Currency = "Unknown"
-	CurrencyZAR     Currency = "ZAR"
+	CompatibilityLevelCompatLevel100 CompatibilityLevel = "CompatLevel100"
+	CompatibilityLevelCompatLevel110 CompatibilityLevel = "CompatLevel110"
+	CompatibilityLevelCompatLevel120 CompatibilityLevel = "CompatLevel120"
+	CompatibilityLevelCompatLevel130 CompatibilityLevel = "CompatLevel130"
+	CompatibilityLevelCompatLevel140 CompatibilityLevel = "CompatLevel140"
+	CompatibilityLevelCompatLevel150 CompatibilityLevel = "CompatLevel150"
+	CompatibilityLevelCompatLevel80  CompatibilityLevel = "CompatLevel80"
+	CompatibilityLevelCompatLevel90  CompatibilityLevel = "CompatLevel90"
+	CompatibilityLevelUnknown        CompatibilityLevel = "Unknown"
 )
 
-// PossibleCurrencyValues returns the possible values for the Currency const type.
-func PossibleCurrencyValues() []Currency {
-	return []Currency{
-		CurrencyARS,
-		CurrencyAUD,
-		CurrencyBRL,
-		CurrencyCAD,
-		CurrencyCHF,
-		CurrencyCNY,
-		CurrencyDKK,
-		CurrencyEUR,
-		CurrencyGBP,
-		CurrencyHKD,
-		CurrencyIDR,
-		CurrencyINR,
-		CurrencyJPY,
-		CurrencyKRW,
-		CurrencyMXN,
-		CurrencyMYR,
-		CurrencyNOK,
-		CurrencyNZD,
-		CurrencyRUB,
-		CurrencySAR,
-		CurrencySEK,
-		CurrencyTRY,
-		CurrencyTWD,
-		CurrencyUSD,
-		CurrencyUnknown,
-		CurrencyZAR,
+// PossibleCompatibilityLevelValues returns the possible values for the CompatibilityLevel const type.
+func PossibleCompatibilityLevelValues() []CompatibilityLevel {
+	return []CompatibilityLevel{
+		CompatibilityLevelCompatLevel100,
+		CompatibilityLevelCompatLevel110,
+		CompatibilityLevelCompatLevel120,
+		CompatibilityLevelCompatLevel130,
+		CompatibilityLevelCompatLevel140,
+		CompatibilityLevelCompatLevel150,
+		CompatibilityLevelCompatLevel80,
+		CompatibilityLevelCompatLevel90,
+		CompatibilityLevelUnknown,
 	}
 }
 
-// GroupStatus - Whether the group has been created and is valid.
+type ComputeTier string
+
+const (
+	ComputeTierAutomatic   ComputeTier = "Automatic"
+	ComputeTierProvisioned ComputeTier = "Provisioned"
+	ComputeTierServerless  ComputeTier = "Serverless"
+	ComputeTierUnknown     ComputeTier = "Unknown"
+)
+
+// PossibleComputeTierValues returns the possible values for the ComputeTier const type.
+func PossibleComputeTierValues() []ComputeTier {
+	return []ComputeTier{
+		ComputeTierAutomatic,
+		ComputeTierProvisioned,
+		ComputeTierServerless,
+		ComputeTierUnknown,
+	}
+}
+
+// CostComponentName - Enum to represent component name.
+type CostComponentName string
+
+const (
+	CostComponentNameMonthlyAzureHybridCostSavings CostComponentName = "MonthlyAzureHybridCostSavings"
+	CostComponentNameMonthlyPremiumV2StorageCost   CostComponentName = "MonthlyPremiumV2StorageCost"
+	CostComponentNameMonthlySecurityCost           CostComponentName = "MonthlySecurityCost"
+	CostComponentNameUnknown                       CostComponentName = "Unknown"
+)
+
+// PossibleCostComponentNameValues returns the possible values for the CostComponentName const type.
+func PossibleCostComponentNameValues() []CostComponentName {
+	return []CostComponentName{
+		CostComponentNameMonthlyAzureHybridCostSavings,
+		CostComponentNameMonthlyPremiumV2StorageCost,
+		CostComponentNameMonthlySecurityCost,
+		CostComponentNameUnknown,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
+
+type EnvironmentType string
+
+const (
+	EnvironmentTypeProduction EnvironmentType = "Production"
+	EnvironmentTypeTest       EnvironmentType = "Test"
+)
+
+// PossibleEnvironmentTypeValues returns the possible values for the EnvironmentType const type.
+func PossibleEnvironmentTypeValues() []EnvironmentType {
+	return []EnvironmentType{
+		EnvironmentTypeProduction,
+		EnvironmentTypeTest,
+	}
+}
+
+type FttAndRaidLevel string
+
+const (
+	FttAndRaidLevelFtt1Raid1 FttAndRaidLevel = "Ftt1Raid1"
+	FttAndRaidLevelFtt1Raid5 FttAndRaidLevel = "Ftt1Raid5"
+	FttAndRaidLevelFtt2Raid1 FttAndRaidLevel = "Ftt2Raid1"
+	FttAndRaidLevelFtt2Raid6 FttAndRaidLevel = "Ftt2Raid6"
+	FttAndRaidLevelFtt3Raid1 FttAndRaidLevel = "Ftt3Raid1"
+	FttAndRaidLevelUnknown   FttAndRaidLevel = "Unknown"
+)
+
+// PossibleFttAndRaidLevelValues returns the possible values for the FttAndRaidLevel const type.
+func PossibleFttAndRaidLevelValues() []FttAndRaidLevel {
+	return []FttAndRaidLevel{
+		FttAndRaidLevelFtt1Raid1,
+		FttAndRaidLevelFtt1Raid5,
+		FttAndRaidLevelFtt2Raid1,
+		FttAndRaidLevelFtt2Raid6,
+		FttAndRaidLevelFtt3Raid1,
+		FttAndRaidLevelUnknown,
+	}
+}
+
 type GroupStatus string
 
 const (
@@ -1057,7 +2400,21 @@ func PossibleGroupStatusValues() []GroupStatus {
 	}
 }
 
-// GroupUpdateOperation - Whether to add or remove the machines.
+type GroupType string
+
+const (
+	GroupTypeDefault GroupType = "Default"
+	GroupTypeImport  GroupType = "Import"
+)
+
+// PossibleGroupTypeValues returns the possible values for the GroupType const type.
+func PossibleGroupTypeValues() []GroupType {
+	return []GroupType{
+		GroupTypeDefault,
+		GroupTypeImport,
+	}
+}
+
 type GroupUpdateOperation string
 
 const (
@@ -1073,25 +2430,137 @@ func PossibleGroupUpdateOperationValues() []GroupUpdateOperation {
 	}
 }
 
-// MachineBootType - Boot type of the machine.
+type GuestOperatingSystemArchitecture string
+
+const (
+	GuestOperatingSystemArchitectureUnknown GuestOperatingSystemArchitecture = "Unknown"
+	GuestOperatingSystemArchitectureX64     GuestOperatingSystemArchitecture = "X64"
+	GuestOperatingSystemArchitectureX86     GuestOperatingSystemArchitecture = "X86"
+)
+
+// PossibleGuestOperatingSystemArchitectureValues returns the possible values for the GuestOperatingSystemArchitecture const type.
+func PossibleGuestOperatingSystemArchitectureValues() []GuestOperatingSystemArchitecture {
+	return []GuestOperatingSystemArchitecture{
+		GuestOperatingSystemArchitectureUnknown,
+		GuestOperatingSystemArchitectureX64,
+		GuestOperatingSystemArchitectureX86,
+	}
+}
+
+type HardwareGeneration string
+
+const (
+	HardwareGenerationAutomatic  HardwareGeneration = "Automatic"
+	HardwareGenerationDCSeries   HardwareGeneration = "DC_series"
+	HardwareGenerationFsv2Series HardwareGeneration = "Fsv2_series"
+	HardwareGenerationGen5       HardwareGeneration = "Gen5"
+	HardwareGenerationMSeries    HardwareGeneration = "M_series"
+	HardwareGenerationUnknown    HardwareGeneration = "Unknown"
+)
+
+// PossibleHardwareGenerationValues returns the possible values for the HardwareGeneration const type.
+func PossibleHardwareGenerationValues() []HardwareGeneration {
+	return []HardwareGeneration{
+		HardwareGenerationAutomatic,
+		HardwareGenerationDCSeries,
+		HardwareGenerationFsv2Series,
+		HardwareGenerationGen5,
+		HardwareGenerationMSeries,
+		HardwareGenerationUnknown,
+	}
+}
+
 type MachineBootType string
 
 const (
-	MachineBootTypeBIOS    MachineBootType = "BIOS"
-	MachineBootTypeEFI     MachineBootType = "EFI"
-	MachineBootTypeUnknown MachineBootType = "Unknown"
+	MachineBootTypeBios         MachineBootType = "BIOS"
+	MachineBootTypeEFI          MachineBootType = "EFI"
+	MachineBootTypeNotSpecified MachineBootType = "NotSpecified"
+	MachineBootTypeUnknown      MachineBootType = "Unknown"
 )
 
 // PossibleMachineBootTypeValues returns the possible values for the MachineBootType const type.
 func PossibleMachineBootTypeValues() []MachineBootType {
 	return []MachineBootType{
-		MachineBootTypeBIOS,
+		MachineBootTypeBios,
 		MachineBootTypeEFI,
+		MachineBootTypeNotSpecified,
 		MachineBootTypeUnknown,
 	}
 }
 
-// Percentile - Percentile of performance data used to recommend Azure size.
+type MultiSubnetIntent string
+
+const (
+	MultiSubnetIntentDisasterRecovery MultiSubnetIntent = "DisasterRecovery"
+	MultiSubnetIntentHighAvailability MultiSubnetIntent = "HighAvailability"
+	MultiSubnetIntentNone             MultiSubnetIntent = "None"
+)
+
+// PossibleMultiSubnetIntentValues returns the possible values for the MultiSubnetIntent const type.
+func PossibleMultiSubnetIntentValues() []MultiSubnetIntent {
+	return []MultiSubnetIntent{
+		MultiSubnetIntentDisasterRecovery,
+		MultiSubnetIntentHighAvailability,
+		MultiSubnetIntentNone,
+	}
+}
+
+type OptimizationLogic string
+
+const (
+	OptimizationLogicMinimizeCost          OptimizationLogic = "MinimizeCost"
+	OptimizationLogicModernizeToAzureSQLDb OptimizationLogic = "ModernizeToAzureSqlDb"
+	OptimizationLogicModernizeToAzureSQLMi OptimizationLogic = "ModernizeToAzureSqlMi"
+	OptimizationLogicModernizeToPaaS       OptimizationLogic = "ModernizeToPaaS"
+)
+
+// PossibleOptimizationLogicValues returns the possible values for the OptimizationLogic const type.
+func PossibleOptimizationLogicValues() []OptimizationLogic {
+	return []OptimizationLogic{
+		OptimizationLogicMinimizeCost,
+		OptimizationLogicModernizeToAzureSQLDb,
+		OptimizationLogicModernizeToAzureSQLMi,
+		OptimizationLogicModernizeToPaaS,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
+type OsLicense string
+
+const (
+	OsLicenseNo      OsLicense = "No"
+	OsLicenseUnknown OsLicense = "Unknown"
+	OsLicenseYes     OsLicense = "Yes"
+)
+
+// PossibleOsLicenseValues returns the possible values for the OsLicense const type.
+func PossibleOsLicenseValues() []OsLicense {
+	return []OsLicense{
+		OsLicenseNo,
+		OsLicenseUnknown,
+		OsLicenseYes,
+	}
+}
+
 type Percentile string
 
 const (
@@ -1111,51 +2580,51 @@ func PossiblePercentileValues() []Percentile {
 	}
 }
 
-// PrivateEndpointConnectionPropertiesProvisioningState - Indicates whether there is an ongoing operation on the private endpoint.
-type PrivateEndpointConnectionPropertiesProvisioningState string
+// PrivateEndpointConnectionProvisioningState - The current provisioning state.
+type PrivateEndpointConnectionProvisioningState string
 
 const (
-	PrivateEndpointConnectionPropertiesProvisioningStateAccepted   PrivateEndpointConnectionPropertiesProvisioningState = "Accepted"
-	PrivateEndpointConnectionPropertiesProvisioningStateFailed     PrivateEndpointConnectionPropertiesProvisioningState = "Failed"
-	PrivateEndpointConnectionPropertiesProvisioningStateInProgress PrivateEndpointConnectionPropertiesProvisioningState = "InProgress"
-	PrivateEndpointConnectionPropertiesProvisioningStateSucceeded  PrivateEndpointConnectionPropertiesProvisioningState = "Succeeded"
+	PrivateEndpointConnectionProvisioningStateCreating  PrivateEndpointConnectionProvisioningState = "Creating"
+	PrivateEndpointConnectionProvisioningStateDeleting  PrivateEndpointConnectionProvisioningState = "Deleting"
+	PrivateEndpointConnectionProvisioningStateFailed    PrivateEndpointConnectionProvisioningState = "Failed"
+	PrivateEndpointConnectionProvisioningStateSucceeded PrivateEndpointConnectionProvisioningState = "Succeeded"
 )
 
-// PossiblePrivateEndpointConnectionPropertiesProvisioningStateValues returns the possible values for the PrivateEndpointConnectionPropertiesProvisioningState const type.
-func PossiblePrivateEndpointConnectionPropertiesProvisioningStateValues() []PrivateEndpointConnectionPropertiesProvisioningState {
-	return []PrivateEndpointConnectionPropertiesProvisioningState{
-		PrivateEndpointConnectionPropertiesProvisioningStateAccepted,
-		PrivateEndpointConnectionPropertiesProvisioningStateFailed,
-		PrivateEndpointConnectionPropertiesProvisioningStateInProgress,
-		PrivateEndpointConnectionPropertiesProvisioningStateSucceeded,
+// PossiblePrivateEndpointConnectionProvisioningStateValues returns the possible values for the PrivateEndpointConnectionProvisioningState const type.
+func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState {
+	return []PrivateEndpointConnectionProvisioningState{
+		PrivateEndpointConnectionProvisioningStateCreating,
+		PrivateEndpointConnectionProvisioningStateDeleting,
+		PrivateEndpointConnectionProvisioningStateFailed,
+		PrivateEndpointConnectionProvisioningStateSucceeded,
 	}
 }
 
-// PrivateLinkServiceConnectionStateStatus - Connection status of the private endpoint connection.
-type PrivateLinkServiceConnectionStateStatus string
+// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
+type PrivateEndpointServiceConnectionStatus string
 
 const (
-	PrivateLinkServiceConnectionStateStatusApproved     PrivateLinkServiceConnectionStateStatus = "Approved"
-	PrivateLinkServiceConnectionStateStatusDisconnected PrivateLinkServiceConnectionStateStatus = "Disconnected"
-	PrivateLinkServiceConnectionStateStatusPending      PrivateLinkServiceConnectionStateStatus = "Pending"
-	PrivateLinkServiceConnectionStateStatusRejected     PrivateLinkServiceConnectionStateStatus = "Rejected"
+	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
+	PrivateEndpointServiceConnectionStatusPending  PrivateEndpointServiceConnectionStatus = "Pending"
+	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
 )
 
-// PossiblePrivateLinkServiceConnectionStateStatusValues returns the possible values for the PrivateLinkServiceConnectionStateStatus const type.
-func PossiblePrivateLinkServiceConnectionStateStatusValues() []PrivateLinkServiceConnectionStateStatus {
-	return []PrivateLinkServiceConnectionStateStatus{
-		PrivateLinkServiceConnectionStateStatusApproved,
-		PrivateLinkServiceConnectionStateStatusDisconnected,
-		PrivateLinkServiceConnectionStateStatusPending,
-		PrivateLinkServiceConnectionStateStatusRejected,
+// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
+func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
+	return []PrivateEndpointServiceConnectionStatus{
+		PrivateEndpointServiceConnectionStatusApproved,
+		PrivateEndpointServiceConnectionStatusPending,
+		PrivateEndpointServiceConnectionStatusRejected,
 	}
 }
 
-// ProjectStatus - Assessment project status.
+// ProjectStatus - Project Status.
 type ProjectStatus string
 
 const (
-	ProjectStatusActive   ProjectStatus = "Active"
+	// ProjectStatusActive - Active Status.
+	ProjectStatusActive ProjectStatus = "Active"
+	// ProjectStatusInactive - Inactive Status.
 	ProjectStatusInactive ProjectStatus = "Inactive"
 )
 
@@ -1167,49 +2636,215 @@ func PossibleProjectStatusValues() []ProjectStatus {
 	}
 }
 
-// ProvisioningState - Provisioning state of the project.
+// ProvisioningState - The status of the current operation.
 type ProvisioningState string
 
 const (
-	ProvisioningStateAccepted  ProvisioningState = "Accepted"
-	ProvisioningStateCreating  ProvisioningState = "Creating"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
-	ProvisioningStateMoving    ProvisioningState = "Moving"
+	// ProvisioningStateAccepted - Resource is being Accepted.
+	ProvisioningStateAccepted ProvisioningState = "Accepted"
+	// ProvisioningStateCanceled - Resource creation was canceled.
+	ProvisioningStateCanceled ProvisioningState = "Canceled"
+	// ProvisioningStateDeleting - Resource is being Deleted.
+	ProvisioningStateDeleting ProvisioningState = "Deleting"
+	// ProvisioningStateFailed - Resource creation failed.
+	ProvisioningStateFailed ProvisioningState = "Failed"
+	// ProvisioningStateProvisioning - Resource is being Provisioned.
+	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
+	// ProvisioningStateSucceeded - Resource has been created.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	// ProvisioningStateUpdating - Resource is being Updated.
+	ProvisioningStateUpdating ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
 		ProvisioningStateAccepted,
-		ProvisioningStateCreating,
+		ProvisioningStateCanceled,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
-		ProvisioningStateMoving,
+		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
 	}
 }
 
-// ReservedInstance - Azure reserved instance.
-type ReservedInstance string
+type RecommendedSuitability string
 
 const (
-	ReservedInstanceNone    ReservedInstance = "None"
-	ReservedInstanceRI1Year ReservedInstance = "RI1Year"
-	ReservedInstanceRI3Year ReservedInstance = "RI3Year"
+	RecommendedSuitabilityConditionallySuitableForSQLDB RecommendedSuitability = "ConditionallySuitableForSqlDB"
+	RecommendedSuitabilityConditionallySuitableForSQLMI RecommendedSuitability = "ConditionallySuitableForSqlMI"
+	RecommendedSuitabilityConditionallySuitableForSQLVM RecommendedSuitability = "ConditionallySuitableForSqlVM"
+	RecommendedSuitabilityConditionallySuitableForVM    RecommendedSuitability = "ConditionallySuitableForVM"
+	RecommendedSuitabilityNotSuitable                   RecommendedSuitability = "NotSuitable"
+	RecommendedSuitabilityPotentiallySuitableForVM      RecommendedSuitability = "PotentiallySuitableForVM"
+	RecommendedSuitabilityReadinessUnknown              RecommendedSuitability = "ReadinessUnknown"
+	RecommendedSuitabilitySuitableForSQLDB              RecommendedSuitability = "SuitableForSqlDB"
+	RecommendedSuitabilitySuitableForSQLMI              RecommendedSuitability = "SuitableForSqlMI"
+	RecommendedSuitabilitySuitableForSQLVM              RecommendedSuitability = "SuitableForSqlVM"
+	RecommendedSuitabilitySuitableForVM                 RecommendedSuitability = "SuitableForVM"
+	RecommendedSuitabilityUnknown                       RecommendedSuitability = "Unknown"
 )
 
-// PossibleReservedInstanceValues returns the possible values for the ReservedInstance const type.
-func PossibleReservedInstanceValues() []ReservedInstance {
-	return []ReservedInstance{
-		ReservedInstanceNone,
-		ReservedInstanceRI1Year,
-		ReservedInstanceRI3Year,
+// PossibleRecommendedSuitabilityValues returns the possible values for the RecommendedSuitability const type.
+func PossibleRecommendedSuitabilityValues() []RecommendedSuitability {
+	return []RecommendedSuitability{
+		RecommendedSuitabilityConditionallySuitableForSQLDB,
+		RecommendedSuitabilityConditionallySuitableForSQLMI,
+		RecommendedSuitabilityConditionallySuitableForSQLVM,
+		RecommendedSuitabilityConditionallySuitableForVM,
+		RecommendedSuitabilityNotSuitable,
+		RecommendedSuitabilityPotentiallySuitableForVM,
+		RecommendedSuitabilityReadinessUnknown,
+		RecommendedSuitabilitySuitableForSQLDB,
+		RecommendedSuitabilitySuitableForSQLMI,
+		RecommendedSuitabilitySuitableForSQLVM,
+		RecommendedSuitabilitySuitableForVM,
+		RecommendedSuitabilityUnknown,
 	}
 }
 
-// TimeRange - Time range of performance data used to recommend a size.
+type SKUReplicationMode string
+
+const (
+	SKUReplicationModeActiveGeoReplication  SKUReplicationMode = "ActiveGeoReplication"
+	SKUReplicationModeFailoverGroupInstance SKUReplicationMode = "FailoverGroupInstance"
+	SKUReplicationModeNotApplicable         SKUReplicationMode = "NotApplicable"
+)
+
+// PossibleSKUReplicationModeValues returns the possible values for the SKUReplicationMode const type.
+func PossibleSKUReplicationModeValues() []SKUReplicationMode {
+	return []SKUReplicationMode{
+		SKUReplicationModeActiveGeoReplication,
+		SKUReplicationModeFailoverGroupInstance,
+		SKUReplicationModeNotApplicable,
+	}
+}
+
+type SQLAssessmentMigrationIssueCategory string
+
+const (
+	SQLAssessmentMigrationIssueCategoryInternal SQLAssessmentMigrationIssueCategory = "Internal"
+	SQLAssessmentMigrationIssueCategoryIssue    SQLAssessmentMigrationIssueCategory = "Issue"
+	SQLAssessmentMigrationIssueCategoryWarning  SQLAssessmentMigrationIssueCategory = "Warning"
+)
+
+// PossibleSQLAssessmentMigrationIssueCategoryValues returns the possible values for the SQLAssessmentMigrationIssueCategory const type.
+func PossibleSQLAssessmentMigrationIssueCategoryValues() []SQLAssessmentMigrationIssueCategory {
+	return []SQLAssessmentMigrationIssueCategory{
+		SQLAssessmentMigrationIssueCategoryInternal,
+		SQLAssessmentMigrationIssueCategoryIssue,
+		SQLAssessmentMigrationIssueCategoryWarning,
+	}
+}
+
+type SQLFCIMetadataState string
+
+const (
+	SQLFCIMetadataStateFailed         SQLFCIMetadataState = "Failed"
+	SQLFCIMetadataStateInherited      SQLFCIMetadataState = "Inherited"
+	SQLFCIMetadataStateInitializing   SQLFCIMetadataState = "Initializing"
+	SQLFCIMetadataStateOffline        SQLFCIMetadataState = "Offline"
+	SQLFCIMetadataStateOfflinePending SQLFCIMetadataState = "OfflinePending"
+	SQLFCIMetadataStateOnline         SQLFCIMetadataState = "Online"
+	SQLFCIMetadataStateOnlinePending  SQLFCIMetadataState = "OnlinePending"
+	SQLFCIMetadataStatePending        SQLFCIMetadataState = "Pending"
+	SQLFCIMetadataStateUnknown        SQLFCIMetadataState = "Unknown"
+)
+
+// PossibleSQLFCIMetadataStateValues returns the possible values for the SQLFCIMetadataState const type.
+func PossibleSQLFCIMetadataStateValues() []SQLFCIMetadataState {
+	return []SQLFCIMetadataState{
+		SQLFCIMetadataStateFailed,
+		SQLFCIMetadataStateInherited,
+		SQLFCIMetadataStateInitializing,
+		SQLFCIMetadataStateOffline,
+		SQLFCIMetadataStateOfflinePending,
+		SQLFCIMetadataStateOnline,
+		SQLFCIMetadataStateOnlinePending,
+		SQLFCIMetadataStatePending,
+		SQLFCIMetadataStateUnknown,
+	}
+}
+
+type SQLFCIState string
+
+const (
+	SQLFCIStateActive        SQLFCIState = "Active"
+	SQLFCIStateNotApplicable SQLFCIState = "NotApplicable"
+	SQLFCIStatePassive       SQLFCIState = "Passive"
+	SQLFCIStateUnknown       SQLFCIState = "Unknown"
+)
+
+// PossibleSQLFCIStateValues returns the possible values for the SQLFCIState const type.
+func PossibleSQLFCIStateValues() []SQLFCIState {
+	return []SQLFCIState{
+		SQLFCIStateActive,
+		SQLFCIStateNotApplicable,
+		SQLFCIStatePassive,
+		SQLFCIStateUnknown,
+	}
+}
+
+type SQLMigrationGuidelineCategory string
+
+const (
+	SQLMigrationGuidelineCategoryAvailabilityGroupGuideline      SQLMigrationGuidelineCategory = "AvailabilityGroupGuideline"
+	SQLMigrationGuidelineCategoryFailoverCluterInstanceGuideLine SQLMigrationGuidelineCategory = "FailoverCluterInstanceGuideLine"
+	SQLMigrationGuidelineCategoryGeneral                         SQLMigrationGuidelineCategory = "General"
+	SQLMigrationGuidelineCategoryUnknown                         SQLMigrationGuidelineCategory = "Unknown"
+)
+
+// PossibleSQLMigrationGuidelineCategoryValues returns the possible values for the SQLMigrationGuidelineCategory const type.
+func PossibleSQLMigrationGuidelineCategoryValues() []SQLMigrationGuidelineCategory {
+	return []SQLMigrationGuidelineCategory{
+		SQLMigrationGuidelineCategoryAvailabilityGroupGuideline,
+		SQLMigrationGuidelineCategoryFailoverCluterInstanceGuideLine,
+		SQLMigrationGuidelineCategoryGeneral,
+		SQLMigrationGuidelineCategoryUnknown,
+	}
+}
+
+type SQLServerLicense string
+
+const (
+	SQLServerLicenseNo      SQLServerLicense = "No"
+	SQLServerLicenseUnknown SQLServerLicense = "Unknown"
+	SQLServerLicenseYes     SQLServerLicense = "Yes"
+)
+
+// PossibleSQLServerLicenseValues returns the possible values for the SQLServerLicense const type.
+func PossibleSQLServerLicenseValues() []SQLServerLicense {
+	return []SQLServerLicense{
+		SQLServerLicenseNo,
+		SQLServerLicenseUnknown,
+		SQLServerLicenseYes,
+	}
+}
+
+type TargetType string
+
+const (
+	TargetTypeAzureSQLDatabase        TargetType = "AzureSqlDatabase"
+	TargetTypeAzureSQLManagedInstance TargetType = "AzureSqlManagedInstance"
+	TargetTypeAzureSQLVirtualMachine  TargetType = "AzureSqlVirtualMachine"
+	TargetTypeAzureVirtualMachine     TargetType = "AzureVirtualMachine"
+	TargetTypeRecommended             TargetType = "Recommended"
+	TargetTypeUnknown                 TargetType = "Unknown"
+)
+
+// PossibleTargetTypeValues returns the possible values for the TargetType const type.
+func PossibleTargetTypeValues() []TargetType {
+	return []TargetType{
+		TargetTypeAzureSQLDatabase,
+		TargetTypeAzureSQLManagedInstance,
+		TargetTypeAzureSQLVirtualMachine,
+		TargetTypeAzureVirtualMachine,
+		TargetTypeRecommended,
+		TargetTypeUnknown,
+	}
+}
+
 type TimeRange string
 
 const (
