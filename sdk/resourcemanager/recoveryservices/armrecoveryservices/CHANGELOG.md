@@ -1,5 +1,13 @@
 # Release History
 
+## 1.7.0 (2023-11-29)
+### Features Added
+
+- New value `StandardTierStorageRedundancyInvalid` added to enum type `StandardTierStorageRedundancy`
+- New enum type `EnhancedSecurityState` with values `EnhancedSecurityStateAlwaysON`, `EnhancedSecurityStateDisabled`, `EnhancedSecurityStateEnabled`, `EnhancedSecurityStateInvalid`
+- New field `EnhancedSecurityState` in struct `SoftDeleteSettings`
+
+
 ## 1.6.0 (2023-11-30)
 ### Features Added
 
