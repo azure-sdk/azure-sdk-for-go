@@ -1,5 +1,13 @@
 # Release History
 
+## 4.0.0 (2023-11-29)
+### Breaking Changes
+
+- Function `*ConfigurationsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *ConfigurationsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, *ConfigurationsClientBeginCreateOrUpdateOptions)`
+- Function `*ConfigurationsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, *ConfigurationsClientBeginDeleteOptions)` to `(context.Context, string, string, *ConfigurationsClientBeginDeleteOptions)`
+- Function `*ConfigurationsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *ConfigurationsClientGetOptions)` to `(context.Context, string, string, *ConfigurationsClientGetOptions)`
+
+
 ## 3.0.0 (2023-11-24)
 ### Breaking Changes
 

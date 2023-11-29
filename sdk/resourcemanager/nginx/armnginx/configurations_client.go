@@ -49,12 +49,11 @@ func NewConfigurationsClient(subscriptionID string, credential azcore.TokenCrede
 // Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of targeted NGINX deployment
-//   - configurationName - The name of configuration, only 'default' is supported value due to the singleton of NGINX conf
 //   - options - ConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginCreateOrUpdate
 //     method.
-func (client *ConfigurationsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ConfigurationsClientCreateOrUpdateResponse], error) {
+func (client *ConfigurationsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ConfigurationsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, deploymentName, configurationName, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, deploymentName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,13 +73,13 @@ func (client *ConfigurationsClient) BeginCreateOrUpdate(ctx context.Context, res
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-04-01
-func (client *ConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *ConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, deploymentName, configurationName, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, deploymentName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,8 +95,8 @@ func (client *ConfigurationsClient) createOrUpdate(ctx context.Context, resource
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ConfigurationsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/configurations/{configurationName}"
+func (client *ConfigurationsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/configurations/default"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -110,10 +109,6 @@ func (client *ConfigurationsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter deploymentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{deploymentName}", url.PathEscape(deploymentName))
-	if configurationName == "" {
-		return nil, errors.New("parameter configurationName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -137,12 +132,11 @@ func (client *ConfigurationsClient) createOrUpdateCreateRequest(ctx context.Cont
 // Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of targeted NGINX deployment
-//   - configurationName - The name of configuration, only 'default' is supported value due to the singleton of NGINX conf
 //   - options - ConfigurationsClientBeginDeleteOptions contains the optional parameters for the ConfigurationsClient.BeginDelete
 //     method.
-func (client *ConfigurationsClient) BeginDelete(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientBeginDeleteOptions) (*runtime.Poller[ConfigurationsClientDeleteResponse], error) {
+func (client *ConfigurationsClient) BeginDelete(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientBeginDeleteOptions) (*runtime.Poller[ConfigurationsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, deploymentName, configurationName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, deploymentName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -161,13 +155,13 @@ func (client *ConfigurationsClient) BeginDelete(ctx context.Context, resourceGro
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-04-01
-func (client *ConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
+func (client *ConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationsClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, deploymentName, configurationName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, deploymentName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -183,8 +177,8 @@ func (client *ConfigurationsClient) deleteOperation(ctx context.Context, resourc
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ConfigurationsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/configurations/{configurationName}"
+func (client *ConfigurationsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/configurations/default"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -197,10 +191,6 @@ func (client *ConfigurationsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter deploymentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{deploymentName}", url.PathEscape(deploymentName))
-	if configurationName == "" {
-		return nil, errors.New("parameter configurationName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -218,15 +208,14 @@ func (client *ConfigurationsClient) deleteCreateRequest(ctx context.Context, res
 // Generated from API version 2023-04-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - deploymentName - The name of targeted NGINX deployment
-//   - configurationName - The name of configuration, only 'default' is supported value due to the singleton of NGINX conf
 //   - options - ConfigurationsClientGetOptions contains the optional parameters for the ConfigurationsClient.Get method.
-func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientGetOptions) (ConfigurationsClientGetResponse, error) {
+func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientGetOptions) (ConfigurationsClientGetResponse, error) {
 	var err error
 	const operationName = "ConfigurationsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, deploymentName, configurationName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, deploymentName, options)
 	if err != nil {
 		return ConfigurationsClientGetResponse{}, err
 	}
@@ -243,8 +232,8 @@ func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // getCreateRequest creates the Get request.
-func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, deploymentName string, configurationName string, options *ConfigurationsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/configurations/{configurationName}"
+func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, deploymentName string, options *ConfigurationsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/configurations/default"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -257,10 +246,6 @@ func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter deploymentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{deploymentName}", url.PathEscape(deploymentName))
-	if configurationName == "" {
-		return nil, errors.New("parameter configurationName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
