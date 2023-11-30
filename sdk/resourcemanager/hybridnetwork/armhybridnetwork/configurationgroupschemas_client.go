@@ -46,7 +46,7 @@ func NewConfigurationGroupSchemasClient(subscriptionID string, credential azcore
 // BeginCreateOrUpdate - Creates or updates a configuration group schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - configurationGroupSchemaName - The name of the configuration group schema.
@@ -74,7 +74,7 @@ func (client *ConfigurationGroupSchemasClient) BeginCreateOrUpdate(ctx context.C
 // CreateOrUpdate - Creates or updates a configuration group schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ConfigurationGroupSchemasClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, configurationGroupSchemaName string, parameters ConfigurationGroupSchema, options *ConfigurationGroupSchemasClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationGroupSchemasClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *ConfigurationGroupSchemasClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -132,7 +132,7 @@ func (client *ConfigurationGroupSchemasClient) createOrUpdateCreateRequest(ctx c
 // BeginDelete - Deletes a specified configuration group schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - configurationGroupSchemaName - The name of the configuration group schema.
@@ -159,7 +159,7 @@ func (client *ConfigurationGroupSchemasClient) BeginDelete(ctx context.Context, 
 // Delete - Deletes a specified configuration group schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ConfigurationGroupSchemasClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, configurationGroupSchemaName string, options *ConfigurationGroupSchemasClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationGroupSchemasClient.BeginDelete"
@@ -174,7 +174,7 @@ func (client *ConfigurationGroupSchemasClient) deleteOperation(ctx context.Conte
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (client *ConfigurationGroupSchemasClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *ConfigurationGroupSchemasClient) deleteCreateRequest(ctx context.C
 // Get - Gets information about the specified configuration group schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - configurationGroupSchemaName - The name of the configuration group schema.
@@ -266,7 +266,7 @@ func (client *ConfigurationGroupSchemasClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -283,7 +283,7 @@ func (client *ConfigurationGroupSchemasClient) getHandleResponse(resp *http.Resp
 
 // NewListByPublisherPager - Gets information of the configuration group schemas under a publisher.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - ConfigurationGroupSchemasClientListByPublisherOptions contains the optional parameters for the ConfigurationGroupSchemasClient.NewListByPublisherPager
@@ -331,7 +331,7 @@ func (client *ConfigurationGroupSchemasClient) listByPublisherCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -349,7 +349,7 @@ func (client *ConfigurationGroupSchemasClient) listByPublisherHandleResponse(res
 // Update - Updates a configuration group schema resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - configurationGroupSchemaName - The name of the configuration group schema.
@@ -402,7 +402,7 @@ func (client *ConfigurationGroupSchemasClient) updateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -423,7 +423,7 @@ func (client *ConfigurationGroupSchemasClient) updateHandleResponse(resp *http.R
 // BeginUpdateState - Update configuration group schema state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - configurationGroupSchemaName - The name of the configuration group schema.
@@ -451,7 +451,7 @@ func (client *ConfigurationGroupSchemasClient) BeginUpdateState(ctx context.Cont
 // UpdateState - Update configuration group schema state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ConfigurationGroupSchemasClient) updateState(ctx context.Context, resourceGroupName string, publisherName string, configurationGroupSchemaName string, parameters ConfigurationGroupSchemaVersionUpdateState, options *ConfigurationGroupSchemasClientBeginUpdateStateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationGroupSchemasClient.BeginUpdateState"
@@ -497,7 +497,7 @@ func (client *ConfigurationGroupSchemasClient) updateStateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

@@ -46,7 +46,7 @@ func NewArtifactManifestsClient(subscriptionID string, credential azcore.TokenCr
 // BeginCreateOrUpdate - Creates or updates a artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -75,7 +75,7 @@ func (client *ArtifactManifestsClient) BeginCreateOrUpdate(ctx context.Context, 
 // CreateOrUpdate - Creates or updates a artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ArtifactManifestsClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, artifactManifestName string, parameters ArtifactManifest, options *ArtifactManifestsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactManifestsClient.BeginCreateOrUpdate"
@@ -125,7 +125,7 @@ func (client *ArtifactManifestsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -137,7 +137,7 @@ func (client *ArtifactManifestsClient) createOrUpdateCreateRequest(ctx context.C
 // BeginDelete - Deletes the specified artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -165,7 +165,7 @@ func (client *ArtifactManifestsClient) BeginDelete(ctx context.Context, resource
 // Delete - Deletes the specified artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ArtifactManifestsClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, artifactManifestName string, options *ArtifactManifestsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactManifestsClient.BeginDelete"
@@ -215,7 +215,7 @@ func (client *ArtifactManifestsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -224,7 +224,7 @@ func (client *ArtifactManifestsClient) deleteCreateRequest(ctx context.Context, 
 // Get - Gets information about a artifact manifest resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -280,7 +280,7 @@ func (client *ArtifactManifestsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -297,7 +297,7 @@ func (client *ArtifactManifestsClient) getHandleResponse(resp *http.Response) (A
 
 // NewListByArtifactStorePager - Gets information about the artifact manifest.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -350,7 +350,7 @@ func (client *ArtifactManifestsClient) listByArtifactStoreCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -368,7 +368,7 @@ func (client *ArtifactManifestsClient) listByArtifactStoreHandleResponse(resp *h
 // ListCredential - List credential for publishing artifacts defined in artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -425,7 +425,7 @@ func (client *ArtifactManifestsClient) listCredentialCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -443,7 +443,7 @@ func (client *ArtifactManifestsClient) listCredentialHandleResponse(resp *http.R
 // Update - Updates a artifact manifest resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -501,7 +501,7 @@ func (client *ArtifactManifestsClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -522,7 +522,7 @@ func (client *ArtifactManifestsClient) updateHandleResponse(resp *http.Response)
 // BeginUpdateState - Update state for artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -551,7 +551,7 @@ func (client *ArtifactManifestsClient) BeginUpdateState(ctx context.Context, res
 // UpdateState - Update state for artifact manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ArtifactManifestsClient) updateState(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, artifactManifestName string, parameters ArtifactManifestUpdateState, options *ArtifactManifestsClientBeginUpdateStateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactManifestsClient.BeginUpdateState"
@@ -601,7 +601,7 @@ func (client *ArtifactManifestsClient) updateStateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

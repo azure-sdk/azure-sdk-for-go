@@ -29,7 +29,7 @@ type ConfigurationGroupSchemasServer struct {
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, publisherName string, configurationGroupSchemaName string, parameters armhybridnetwork.ConfigurationGroupSchema, options *armhybridnetwork.ConfigurationGroupSchemasClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhybridnetwork.ConfigurationGroupSchemasClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ConfigurationGroupSchemasClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, publisherName string, configurationGroupSchemaName string, options *armhybridnetwork.ConfigurationGroupSchemasClientBeginDeleteOptions) (resp azfake.PollerResponder[armhybridnetwork.ConfigurationGroupSchemasClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ConfigurationGroupSchemasClient.Get
@@ -196,9 +196,9 @@ func (c *ConfigurationGroupSchemasServerTransport) dispatchBeginDelete(req *http
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		c.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		c.beginDelete.remove(req)

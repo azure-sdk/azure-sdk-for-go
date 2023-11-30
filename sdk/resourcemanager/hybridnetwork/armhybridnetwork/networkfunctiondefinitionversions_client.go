@@ -46,7 +46,7 @@ func NewNetworkFunctionDefinitionVersionsClient(subscriptionID string, credentia
 // BeginCreateOrUpdate - Creates or updates a network function definition version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkFunctionDefinitionGroupName - The name of the network function definition group.
@@ -76,7 +76,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) BeginCreateOrUpdate(ctx c
 // CreateOrUpdate - Creates or updates a network function definition version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *NetworkFunctionDefinitionVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, networkFunctionDefinitionGroupName string, networkFunctionDefinitionVersionName string, parameters NetworkFunctionDefinitionVersion, options *NetworkFunctionDefinitionVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkFunctionDefinitionVersionsClient.BeginCreateOrUpdate"
@@ -126,7 +126,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) createOrUpdateCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -138,7 +138,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) createOrUpdateCreateReque
 // BeginDelete - Deletes the specified network function definition version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkFunctionDefinitionGroupName - The name of the network function definition group.
@@ -167,7 +167,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) BeginDelete(ctx context.C
 // Delete - Deletes the specified network function definition version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *NetworkFunctionDefinitionVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, networkFunctionDefinitionGroupName string, networkFunctionDefinitionVersionName string, options *NetworkFunctionDefinitionVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkFunctionDefinitionVersionsClient.BeginDelete"
@@ -217,7 +217,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) deleteCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -226,7 +226,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) deleteCreateRequest(ctx c
 // Get - Gets information about a network function definition version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkFunctionDefinitionGroupName - The name of the network function definition group.
@@ -284,7 +284,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) getCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -302,7 +302,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) getHandleResponse(resp *h
 // NewListByNetworkFunctionDefinitionGroupPager - Gets information about a list of network function definition versions under
 // a network function definition group.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkFunctionDefinitionGroupName - The name of the network function definition group.
@@ -355,7 +355,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) listByNetworkFunctionDefi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -373,7 +373,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) listByNetworkFunctionDefi
 // Update - Updates a network function definition version resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkFunctionDefinitionGroupName - The name of the network function definition group.
@@ -432,7 +432,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) updateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -453,7 +453,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) updateHandleResponse(resp
 // BeginUpdateState - Update network function definition version state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkFunctionDefinitionGroupName - The name of the network function definition group.
@@ -483,7 +483,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) BeginUpdateState(ctx cont
 // UpdateState - Update network function definition version state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *NetworkFunctionDefinitionVersionsClient) updateState(ctx context.Context, resourceGroupName string, publisherName string, networkFunctionDefinitionGroupName string, networkFunctionDefinitionVersionName string, parameters NetworkFunctionDefinitionVersionUpdateState, options *NetworkFunctionDefinitionVersionsClientBeginUpdateStateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkFunctionDefinitionVersionsClient.BeginUpdateState"
@@ -533,7 +533,7 @@ func (client *NetworkFunctionDefinitionVersionsClient) updateStateCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
