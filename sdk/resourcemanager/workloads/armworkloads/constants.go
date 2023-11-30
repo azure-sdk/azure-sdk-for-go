@@ -10,7 +10,7 @@ package armworkloads
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.1.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -351,7 +351,8 @@ func PossibleSAPHealthStateValues() []SAPHealthState {
 	}
 }
 
-// SAPHighAvailabilityType - The high availability type (AvailabilitySet or AvailabilityZone).
+// SAPHighAvailabilityType - The high availability Type. AvailabilitySet guarantees 99.95% availability. Availability Zone
+// guarantees 99.99% availability.
 type SAPHighAvailabilityType string
 
 const (

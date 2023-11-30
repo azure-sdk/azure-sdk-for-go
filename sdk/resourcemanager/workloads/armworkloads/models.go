@@ -84,15 +84,12 @@ type CentralServerVMDetails struct {
 	VirtualMachineID *string
 }
 
-// CreateAndMountFileShareConfiguration - Gets or sets the file share configuration where the transport directory fileshare
-// is created and mounted as a part of the create infra flow. Please pre-create the resource group you intend to place
-// the transport directory in. The storage account and fileshare will be auto-created by the ACSS and doesn’t need to pre-created.
+// CreateAndMountFileShareConfiguration - Gets or sets the file share configuration for file share created with the VIS case.
 type CreateAndMountFileShareConfiguration struct {
 	// REQUIRED; The type of file share config.
 	ConfigurationType *ConfigurationType
 
-	// The name of transport file share resource group. This should be pre created by the customer. The app rg is used in case
-	// of missing input.
+	// The name of file share resource group. The app rg is used in case of missing input.
 	ResourceGroup *string
 
 	// The name of file share storage account name . A custom name is used in case of missing input.
@@ -295,14 +292,14 @@ type DiskDetails struct {
 	// The minimum supported disk count.
 	MinimumSupportedDiskCount *int64
 
-	// The type of disk sku. For example, StandardLRS, StandardZRS, PremiumLRS, PremiumZRS.
+	// The disk sku.
 	SKU *DiskSKU
 
 	// The disk size in GB.
 	SizeGB *int64
 }
 
-// DiskSKU - The type of disk sku. For example, StandardLRS, StandardZRS, PremiumLRS, PremiumZRS.
+// DiskSKU - The disk sku.
 type DiskSKU struct {
 	// Defines the disk sku name.
 	Name *DiskSKUName
@@ -644,7 +641,7 @@ type Monitor struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// [currently not in use] Managed service identity(user assigned identities)
+	// Managed service identity (user assigned identities)
 	Identity *UserAssignedServiceIdentity
 
 	// SAP monitor properties
@@ -728,8 +725,7 @@ type MonitorPropertiesErrors struct {
 	Target *string
 }
 
-// MountFileShareConfiguration - Gets or sets the file share configuration where the transport directory fileshare already
-// exists, and user wishes to mount the fileshare as a part of the create infra flow.
+// MountFileShareConfiguration - Gets or sets the file share configuration for externally mounted cases.
 type MountFileShareConfiguration struct {
 	// REQUIRED; The type of file share config.
 	ConfigurationType *ConfigurationType
@@ -1066,7 +1062,7 @@ func (p *PrometheusOSProviderInstanceProperties) GetProviderSpecificProperties()
 
 // ProviderInstance - A provider instance associated with SAP monitor.
 type ProviderInstance struct {
-	// [currently not in use] Managed service identity(user assigned identities)
+	// Managed service identity (user assigned identities)
 	Identity *UserAssignedServiceIdentity
 
 	// Provider Instance properties
@@ -1096,7 +1092,7 @@ type ProviderInstanceListResult struct {
 
 // ProviderInstanceProperties - Describes the properties of a provider instance.
 type ProviderInstanceProperties struct {
-	// Defines the provider specific properties.
+	// Defines the provider instance errors.
 	ProviderSettings ProviderSpecificPropertiesClassification
 
 	// READ-ONLY; Defines the provider instance errors.
@@ -1576,8 +1572,7 @@ type SAPVirtualInstance struct {
 	// REQUIRED; Defines the Virtual Instance for SAP solutions resource properties.
 	Properties *SAPVirtualInstanceProperties
 
-	// A pre-created user assigned identity with appropriate roles assigned. To learn more on identity and roles required, visit
-	// the ACSS how-to-guide.
+	// Managed service identity (user assigned identities)
 	Identity *UserAssignedServiceIdentity
 
 	// Resource tags.
@@ -1825,8 +1820,7 @@ type SharedStorageResourceNames struct {
 	SharedStorageAccountPrivateEndPointName *string
 }
 
-// SingleServerConfiguration - Gets or sets the single server configuration. For prerequisites for creating the infrastructure,
-// please see here [https://go.microsoft.com/fwlink/?linkid=2212611&clcid=0x409]
+// SingleServerConfiguration - Gets or sets the single server configuration.
 type SingleServerConfiguration struct {
 	// REQUIRED; The application resource group where SAP system resources will be deployed.
 	AppResourceGroup *string
@@ -1906,8 +1900,7 @@ func (s *SingleServerRecommendationResult) GetSAPSizingRecommendationResult() *S
 	}
 }
 
-// SkipFileShareConfiguration - Gets or sets the file share configuration for scenarios where transport directory fileshare
-// is not created or required.
+// SkipFileShareConfiguration - Gets or sets the skip file share configuration
 type SkipFileShareConfiguration struct {
 	// REQUIRED; The type of file share config.
 	ConfigurationType *ConfigurationType
@@ -1977,8 +1970,7 @@ type Tags struct {
 	Tags map[string]*string
 }
 
-// ThreeTierConfiguration - Gets or sets the three tier SAP configuration. For prerequisites for creating the infrastructure,
-// please see here [https://go.microsoft.com/fwlink/?linkid=2212611&clcid=0x409]
+// ThreeTierConfiguration - Gets or sets the three tier SAP configuration.
 type ThreeTierConfiguration struct {
 	// REQUIRED; The application resource group where SAP system resources will be deployed.
 	AppResourceGroup *string
@@ -2111,7 +2103,7 @@ type TrackedResource struct {
 
 // UpdateMonitorRequest - Defines the request body for updating SAP monitor resource.
 type UpdateMonitorRequest struct {
-	// [currently not in use] Managed service identity(user assigned identities)
+	// Managed service identity (user assigned identities)
 	Identity *UserAssignedServiceIdentity
 
 	// Gets or sets the Resource tags.
@@ -2138,8 +2130,7 @@ type UpdateSAPDatabaseInstanceRequest struct {
 
 // UpdateSAPVirtualInstanceRequest - Defines the request body for updating Virtual Instance for SAP.
 type UpdateSAPVirtualInstanceRequest struct {
-	// A pre-created user assigned identity with appropriate roles assigned. To learn more on identity and roles required, visit
-	// the ACSS how-to-guide.
+	// Managed service identity (user assigned identities)
 	Identity *UserAssignedServiceIdentity
 
 	// Gets or sets the Resource tags.
@@ -2155,8 +2146,7 @@ type UserAssignedIdentity struct {
 	PrincipalID *string
 }
 
-// UserAssignedServiceIdentity - A pre-created user assigned identity with appropriate roles assigned. To learn more on identity
-// and roles required, visit the ACSS how-to-guide.
+// UserAssignedServiceIdentity - Managed service identity (user assigned identities)
 type UserAssignedServiceIdentity struct {
 	// REQUIRED; Type of manage identity
 	Type *ManagedServiceIdentityType
