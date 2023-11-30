@@ -14,49 +14,49 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// ReportClientCreateOrUpdateResponse contains the response from method ReportClient.BeginCreateOrUpdate.
-type ReportClientCreateOrUpdateResponse struct {
+// ReportResourcesClientCreateOrUpdateResponse contains the response from method ReportResourcesClient.BeginCreateOrUpdate.
+type ReportResourcesClientCreateOrUpdateResponse struct {
 	// A class represent an AppComplianceAutomation report resource.
 	ReportResource
 }
 
-// ReportClientDeleteResponse contains the response from method ReportClient.BeginDelete.
-type ReportClientDeleteResponse struct {
+// ReportResourcesClientDeleteResponse contains the response from method ReportResourcesClient.BeginDelete.
+type ReportResourcesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// ReportClientGetResponse contains the response from method ReportClient.Get.
-type ReportClientGetResponse struct {
+// ReportResourcesClientGetResponse contains the response from method ReportResourcesClient.Get.
+type ReportResourcesClientGetResponse struct {
 	// A class represent an AppComplianceAutomation report resource.
 	ReportResource
 }
 
-// ReportClientUpdateResponse contains the response from method ReportClient.BeginUpdate.
-type ReportClientUpdateResponse struct {
+// ReportResourcesClientListByTenantResponse contains the response from method ReportResourcesClient.NewListByTenantPager.
+type ReportResourcesClientListByTenantResponse struct {
+	// The response of a ReportResource list operation.
+	ReportResourceListResult
+}
+
+// ReportResourcesClientUpdateResponse contains the response from method ReportResourcesClient.BeginUpdate.
+type ReportResourcesClientUpdateResponse struct {
 	// A class represent an AppComplianceAutomation report resource.
 	ReportResource
 }
 
-// ReportsClientListResponse contains the response from method ReportsClient.NewListPager.
-type ReportsClientListResponse struct {
-	// Object that includes an array of resources and a possible link for next set.
-	ReportResourceList
-}
-
-// SnapshotClientDownloadResponse contains the response from method SnapshotClient.BeginDownload.
-type SnapshotClientDownloadResponse struct {
+// SnapshotResourcesClientDownloadResponse contains the response from method SnapshotResourcesClient.BeginDownload.
+type SnapshotResourcesClientDownloadResponse struct {
 	// Object that includes all the possible response for the download operation.
 	DownloadResponse
 }
 
-// SnapshotClientGetResponse contains the response from method SnapshotClient.Get.
-type SnapshotClientGetResponse struct {
+// SnapshotResourcesClientGetResponse contains the response from method SnapshotResourcesClient.Get.
+type SnapshotResourcesClientGetResponse struct {
 	// A class represent a AppComplianceAutomation snapshot resource.
 	SnapshotResource
 }
 
-// SnapshotsClientListResponse contains the response from method SnapshotsClient.NewListPager.
-type SnapshotsClientListResponse struct {
-	// Object that includes an array of resources and a possible link for next set.
-	SnapshotResourceList
+// SnapshotResourcesClientListByReportResourceResponse contains the response from method SnapshotResourcesClient.NewListByReportResourcePager.
+type SnapshotResourcesClientListByReportResourceResponse struct {
+	// The response of a SnapshotResource list operation.
+	SnapshotResourceListResult
 }

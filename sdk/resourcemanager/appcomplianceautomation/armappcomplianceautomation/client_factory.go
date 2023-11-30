@@ -41,26 +41,14 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
-// NewReportClient creates a new instance of ReportClient.
-func (c *ClientFactory) NewReportClient() *ReportClient {
-	subClient, _ := NewReportClient(c.credential, c.options)
+// NewReportResourcesClient creates a new instance of ReportResourcesClient.
+func (c *ClientFactory) NewReportResourcesClient() *ReportResourcesClient {
+	subClient, _ := NewReportResourcesClient(c.credential, c.options)
 	return subClient
 }
 
-// NewReportsClient creates a new instance of ReportsClient.
-func (c *ClientFactory) NewReportsClient() *ReportsClient {
-	subClient, _ := NewReportsClient(c.credential, c.options)
-	return subClient
-}
-
-// NewSnapshotClient creates a new instance of SnapshotClient.
-func (c *ClientFactory) NewSnapshotClient() *SnapshotClient {
-	subClient, _ := NewSnapshotClient(c.credential, c.options)
-	return subClient
-}
-
-// NewSnapshotsClient creates a new instance of SnapshotsClient.
-func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
-	subClient, _ := NewSnapshotsClient(c.credential, c.options)
+// NewSnapshotResourcesClient creates a new instance of SnapshotResourcesClient.
+func (c *ClientFactory) NewSnapshotResourcesClient() *SnapshotResourcesClient {
+	subClient, _ := NewSnapshotResourcesClient(c.credential, c.options)
 	return subClient
 }

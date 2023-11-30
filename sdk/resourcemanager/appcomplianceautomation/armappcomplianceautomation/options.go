@@ -13,31 +13,33 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReportClientBeginCreateOrUpdateOptions contains the optional parameters for the ReportClient.BeginCreateOrUpdate method.
-type ReportClientBeginCreateOrUpdateOptions struct {
+// ReportResourcesClientBeginCreateOrUpdateOptions contains the optional parameters for the ReportResourcesClient.BeginCreateOrUpdate
+// method.
+type ReportResourcesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// ReportClientBeginDeleteOptions contains the optional parameters for the ReportClient.BeginDelete method.
-type ReportClientBeginDeleteOptions struct {
+// ReportResourcesClientBeginDeleteOptions contains the optional parameters for the ReportResourcesClient.BeginDelete method.
+type ReportResourcesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// ReportClientBeginUpdateOptions contains the optional parameters for the ReportClient.BeginUpdate method.
-type ReportClientBeginUpdateOptions struct {
+// ReportResourcesClientBeginUpdateOptions contains the optional parameters for the ReportResourcesClient.BeginUpdate method.
+type ReportResourcesClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// ReportClientGetOptions contains the optional parameters for the ReportClient.Get method.
-type ReportClientGetOptions struct {
+// ReportResourcesClientGetOptions contains the optional parameters for the ReportResourcesClient.Get method.
+type ReportResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReportsClientListOptions contains the optional parameters for the ReportsClient.NewListPager method.
-type ReportsClientListOptions struct {
+// ReportResourcesClientListByTenantOptions contains the optional parameters for the ReportResourcesClient.NewListByTenantPager
+// method.
+type ReportResourcesClientListByTenantOptions struct {
 	// The offerGuid which mapping to the reports.
 	OfferGUID *string
 
@@ -54,19 +56,21 @@ type ReportsClientListOptions struct {
 	Top *int32
 }
 
-// SnapshotClientBeginDownloadOptions contains the optional parameters for the SnapshotClient.BeginDownload method.
-type SnapshotClientBeginDownloadOptions struct {
+// SnapshotResourcesClientBeginDownloadOptions contains the optional parameters for the SnapshotResourcesClient.BeginDownload
+// method.
+type SnapshotResourcesClientBeginDownloadOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SnapshotClientGetOptions contains the optional parameters for the SnapshotClient.Get method.
-type SnapshotClientGetOptions struct {
+// SnapshotResourcesClientGetOptions contains the optional parameters for the SnapshotResourcesClient.Get method.
+type SnapshotResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.NewListPager method.
-type SnapshotsClientListOptions struct {
+// SnapshotResourcesClientListByReportResourceOptions contains the optional parameters for the SnapshotResourcesClient.NewListByReportResourcePager
+// method.
+type SnapshotResourcesClientListByReportResourceOptions struct {
 	// The offerGuid which mapping to the reports.
 	OfferGUID *string
 

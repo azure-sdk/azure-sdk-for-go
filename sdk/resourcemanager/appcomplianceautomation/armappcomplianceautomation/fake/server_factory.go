@@ -19,11 +19,9 @@ import (
 
 // ServerFactory is a fake server for instances of the armappcomplianceautomation.ClientFactory type.
 type ServerFactory struct {
-	OperationsServer OperationsServer
-	ReportServer     ReportServer
-	ReportsServer    ReportsServer
-	SnapshotServer   SnapshotServer
-	SnapshotsServer  SnapshotsServer
+	OperationsServer        OperationsServer
+	ReportResourcesServer   ReportResourcesServer
+	SnapshotResourcesServer SnapshotResourcesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -38,13 +36,11 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armappcomplianceautomation.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                *ServerFactory
-	trMu               sync.Mutex
-	trOperationsServer *OperationsServerTransport
-	trReportServer     *ReportServerTransport
-	trReportsServer    *ReportsServerTransport
-	trSnapshotServer   *SnapshotServerTransport
-	trSnapshotsServer  *SnapshotsServerTransport
+	srv                       *ServerFactory
+	trMu                      sync.Mutex
+	trOperationsServer        *OperationsServerTransport
+	trReportResourcesServer   *ReportResourcesServerTransport
+	trSnapshotResourcesServer *SnapshotResourcesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -63,18 +59,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "ReportClient":
-		initServer(s, &s.trReportServer, func() *ReportServerTransport { return NewReportServerTransport(&s.srv.ReportServer) })
-		resp, err = s.trReportServer.Do(req)
-	case "ReportsClient":
-		initServer(s, &s.trReportsServer, func() *ReportsServerTransport { return NewReportsServerTransport(&s.srv.ReportsServer) })
-		resp, err = s.trReportsServer.Do(req)
-	case "SnapshotClient":
-		initServer(s, &s.trSnapshotServer, func() *SnapshotServerTransport { return NewSnapshotServerTransport(&s.srv.SnapshotServer) })
-		resp, err = s.trSnapshotServer.Do(req)
-	case "SnapshotsClient":
-		initServer(s, &s.trSnapshotsServer, func() *SnapshotsServerTransport { return NewSnapshotsServerTransport(&s.srv.SnapshotsServer) })
-		resp, err = s.trSnapshotsServer.Do(req)
+	case "ReportResourcesClient":
+		initServer(s, &s.trReportResourcesServer, func() *ReportResourcesServerTransport {
+			return NewReportResourcesServerTransport(&s.srv.ReportResourcesServer)
+		})
+		resp, err = s.trReportResourcesServer.Do(req)
+	case "SnapshotResourcesClient":
+		initServer(s, &s.trSnapshotResourcesServer, func() *SnapshotResourcesServerTransport {
+			return NewSnapshotResourcesServerTransport(&s.srv.SnapshotResourcesServer)
+		})
+		resp, err = s.trSnapshotResourcesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

@@ -298,7 +298,7 @@ type ReportProperties struct {
 
 // ReportResource - A class represent an AppComplianceAutomation report resource.
 type ReportResource struct {
-	// REQUIRED; Report property.
+	// The resource-specific properties for this resource.
 	Properties *ReportProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -314,19 +314,35 @@ type ReportResource struct {
 	Type *string
 }
 
-// ReportResourceList - Object that includes an array of resources and a possible link for next set.
-type ReportResourceList struct {
-	// The URL the client should use to fetch the next page (per server side paging). It's null for now, added for future use.
-	NextLink *string
-
-	// READ-ONLY; List of the reports
+// ReportResourceListResult - The response of a ReportResource list operation.
+type ReportResourceListResult struct {
+	// REQUIRED; The ReportResource items on this page
 	Value []*ReportResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// ReportResourcePatch - A class represent a AppComplianceAutomation report resource update properties.
-type ReportResourcePatch struct {
-	// Report property.
-	Properties *ReportProperties
+// ReportResourceUpdate - The type used for update operations of the ReportResource.
+type ReportResourceUpdate struct {
+	// The updatable properties of the ReportResource.
+	Properties *ReportResourceUpdateProperties
+}
+
+// ReportResourceUpdateProperties - The updatable properties of the ReportResource.
+type ReportResourceUpdateProperties struct {
+	// Report offer Guid.
+	OfferGUID *string
+
+	// List of resource data.
+	Resources []*ResourceMetadata
+
+	// Report collection trigger time's time zone, the available list can be obtained by executing "Get-TimeZone -ListAvailable"
+	// in PowerShell. An example of valid timezone id is "Pacific Standard Time".
+	TimeZone *string
+
+	// Report collection trigger time.
+	TriggerTime *time.Time
 }
 
 // ResourceItem - Resource Id.
@@ -391,23 +407,20 @@ type SnapshotProperties struct {
 	// READ-ONLY; The report essential info.
 	ReportProperties *ReportProperties
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	ReportSystemData *SystemData
-
 	// READ-ONLY; Snapshot name.
 	SnapshotName *string
 }
 
 // SnapshotResource - A class represent a AppComplianceAutomation snapshot resource.
 type SnapshotResource struct {
+	// The resource-specific properties for this resource.
+	Properties *SnapshotProperties
+
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
-
-	// READ-ONLY; Snapshot's property'.
-	Properties *SnapshotProperties
 
 	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
@@ -416,13 +429,13 @@ type SnapshotResource struct {
 	Type *string
 }
 
-// SnapshotResourceList - Object that includes an array of resources and a possible link for next set.
-type SnapshotResourceList struct {
-	// The URL the client should use to fetch the next page (per server side paging). It's null for now, added for future use.
-	NextLink *string
-
-	// READ-ONLY; List of the snapshots
+// SnapshotResourceListResult - The response of a SnapshotResource list operation.
+type SnapshotResourceListResult struct {
+	// REQUIRED; The SnapshotResource items on this page
 	Value []*SnapshotResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

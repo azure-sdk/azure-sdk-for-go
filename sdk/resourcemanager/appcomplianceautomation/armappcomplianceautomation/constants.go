@@ -10,7 +10,7 @@ package armappcomplianceautomation
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcomplianceautomation/armappcomplianceautomation"
-	moduleVersion = "v0.3.0"
+	moduleVersion = "v0.4.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -27,7 +27,6 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// AssessmentSeverity - Indicates the assessment severity.
 type AssessmentSeverity string
 
 const (
@@ -45,7 +44,6 @@ func PossibleAssessmentSeverityValues() []AssessmentSeverity {
 	}
 }
 
-// CategoryStatus - Indicates the category status.
 type CategoryStatus string
 
 const (
@@ -61,7 +59,6 @@ func PossibleCategoryStatusValues() []CategoryStatus {
 	}
 }
 
-// CategoryType - Indicates the compliance category type.
 type CategoryType string
 
 const (
@@ -79,7 +76,6 @@ func PossibleCategoryTypeValues() []CategoryType {
 	}
 }
 
-// ComplianceState - The compliance result's status.
 type ComplianceState string
 
 const (
@@ -95,7 +91,6 @@ func PossibleComplianceStateValues() []ComplianceState {
 	}
 }
 
-// ControlFamilyStatus - Indicates the control family status.
 type ControlFamilyStatus string
 
 const (
@@ -111,7 +106,6 @@ func PossibleControlFamilyStatusValues() []ControlFamilyStatus {
 	}
 }
 
-// ControlFamilyType - Indicates the control family type.
 type ControlFamilyType string
 
 const (
@@ -129,7 +123,6 @@ func PossibleControlFamilyTypeValues() []ControlFamilyType {
 	}
 }
 
-// ControlStatus - Indicates the control status.
 type ControlStatus string
 
 const (
@@ -147,7 +140,6 @@ func PossibleControlStatusValues() []ControlStatus {
 	}
 }
 
-// ControlType - Indicates the control type.
 type ControlType string
 
 const (
@@ -185,7 +177,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DownloadType - Indicates the download type.
 type DownloadType string
 
 const (
@@ -205,7 +196,6 @@ func PossibleDownloadTypeValues() []DownloadType {
 	}
 }
 
-// IsPass - Indicates whether all the resource(s) are compliant.
 type IsPass string
 
 const (
@@ -240,7 +230,6 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
-// ProvisioningState - Resource provisioning states.
 type ProvisioningState string
 
 const (
@@ -264,7 +253,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// ReportStatus - Report status.
 type ReportStatus string
 
 const (
@@ -282,7 +270,6 @@ func PossibleReportStatusValues() []ReportStatus {
 	}
 }
 
-// ResourceStatus - Indicates the resource status.
 type ResourceStatus string
 
 const (

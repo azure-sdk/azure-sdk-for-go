@@ -37,7 +37,7 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - Lists all of the available REST API operations of the Microsoft.AppComplianceAutomation provider.
+// NewListPager - List the operations for the provider
 //
 // Generated from API version 2022-11-16-preview
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
