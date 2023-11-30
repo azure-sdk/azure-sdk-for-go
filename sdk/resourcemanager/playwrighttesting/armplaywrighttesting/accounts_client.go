@@ -48,7 +48,7 @@ func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential,
 //
 // Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - name - Name of account
+//   - name - Name of account.
 //   - resource - Resource create parameters.
 //   - options - AccountsClientBeginCreateOrUpdateOptions contains the optional parameters for the AccountsClient.BeginCreateOrUpdate
 //     method.
@@ -129,7 +129,7 @@ func (client *AccountsClient) createOrUpdateCreateRequest(ctx context.Context, r
 //
 // Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - name - Name of account
+//   - name - Name of account.
 //   - options - AccountsClientBeginDeleteOptions contains the optional parameters for the AccountsClient.BeginDelete method.
 func (client *AccountsClient) BeginDelete(ctx context.Context, resourceGroupName string, name string, options *AccountsClientBeginDeleteOptions) (*runtime.Poller[AccountsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -205,7 +205,7 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 //
 // Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - name - Name of account
+//   - name - Name of account.
 //   - options - AccountsClientGetOptions contains the optional parameters for the AccountsClient.Get method.
 func (client *AccountsClient) Get(ctx context.Context, resourceGroupName string, name string, options *AccountsClientGetOptions) (AccountsClientGetResponse, error) {
 	var err error
@@ -384,7 +384,7 @@ func (client *AccountsClient) listBySubscriptionHandleResponse(resp *http.Respon
 //
 // Generated from API version 2023-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - name - Name of account
+//   - name - Name of account.
 //   - properties - The resource properties to be updated.
 //   - options - AccountsClientUpdateOptions contains the optional parameters for the AccountsClient.Update method.
 func (client *AccountsClient) Update(ctx context.Context, resourceGroupName string, name string, properties AccountUpdate, options *AccountsClientUpdateOptions) (AccountsClientUpdateResponse, error) {
