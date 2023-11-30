@@ -62,7 +62,7 @@ type FleetUpdateStrategiesClientListByFleetResponse struct {
 
 // FleetsClientCreateOrUpdateResponse contains the response from method FleetsClient.BeginCreateOrUpdate.
 type FleetsClientCreateOrUpdateResponse struct {
-	// The Fleet resource.
+	// The Fleet resource..
 	Fleet
 }
 
@@ -73,7 +73,7 @@ type FleetsClientDeleteResponse struct {
 
 // FleetsClientGetResponse contains the response from method FleetsClient.Get.
 type FleetsClientGetResponse struct {
-	// The Fleet resource.
+	// The Fleet resource..
 	Fleet
 }
 
@@ -97,7 +97,7 @@ type FleetsClientListCredentialsResponse struct {
 
 // FleetsClientUpdateResponse contains the response from method FleetsClient.BeginUpdate.
 type FleetsClientUpdateResponse struct {
-	// The Fleet resource.
+	// The Fleet resource..
 	Fleet
 }
 

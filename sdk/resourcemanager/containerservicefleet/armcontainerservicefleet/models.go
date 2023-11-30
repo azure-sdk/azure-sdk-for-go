@@ -37,7 +37,7 @@ type ErrorDetail struct {
 	Target *string
 }
 
-// Fleet - The Fleet resource.
+// Fleet - The Fleet resource..
 type Fleet struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
