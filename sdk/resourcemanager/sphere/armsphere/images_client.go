@@ -50,7 +50,7 @@ func NewImagesClient(subscriptionID string, credential azcore.TokenCredential, o
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - imageName - Image name. Use .default for image creation.
+//   - imageName - Image name. Use .default for image creation..
 //   - resource - Resource create parameters.
 //   - options - ImagesClientBeginCreateOrUpdateOptions contains the optional parameters for the ImagesClient.BeginCreateOrUpdate
 //     method.
@@ -136,7 +136,7 @@ func (client *ImagesClient) createOrUpdateCreateRequest(ctx context.Context, res
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - imageName - Image name. Use .default for image creation.
+//   - imageName - Image name. Use .default for image creation..
 //   - options - ImagesClientBeginDeleteOptions contains the optional parameters for the ImagesClient.BeginDelete method.
 func (client *ImagesClient) BeginDelete(ctx context.Context, resourceGroupName string, catalogName string, imageName string, options *ImagesClientBeginDeleteOptions) (*runtime.Poller[ImagesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -217,7 +217,7 @@ func (client *ImagesClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - imageName - Image name. Use .default for image creation.
+//   - imageName - Image name. Use .default for image creation..
 //   - options - ImagesClientGetOptions contains the optional parameters for the ImagesClient.Get method.
 func (client *ImagesClient) Get(ctx context.Context, resourceGroupName string, catalogName string, imageName string, options *ImagesClientGetOptions) (ImagesClientGetResponse, error) {
 	var err error
