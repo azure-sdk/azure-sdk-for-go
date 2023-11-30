@@ -375,7 +375,7 @@ type ListRoleAssignments struct {
 
 // ManagedResourceGroupConfiguration - ManagedResourceGroup related properties
 type ManagedResourceGroupConfiguration struct {
-	// REQUIRED; Managed Resource Group location
+	// REQUIRED; Managed Resource Group location.
 	Location *string
 
 	// REQUIRED; Name of managed resource group
