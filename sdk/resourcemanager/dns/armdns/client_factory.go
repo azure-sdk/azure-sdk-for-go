@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Specifies the Azure subscription ID, which uniquely identifies the Microsoft Azure subscription.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -35,6 +35,12 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 		subscriptionID: subscriptionID, credential: credential,
 		options: options.Clone(),
 	}, nil
+}
+
+// NewDnssecConfigsClient creates a new instance of DnssecConfigsClient.
+func (c *ClientFactory) NewDnssecConfigsClient() *DnssecConfigsClient {
+	subClient, _ := NewDnssecConfigsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
 }
 
 // NewRecordSetsClient creates a new instance of RecordSetsClient.
