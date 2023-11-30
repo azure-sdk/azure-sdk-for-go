@@ -1,5 +1,29 @@
 # Release History
 
+## 2.0.0 (2023-11-30)
+### Breaking Changes
+
+- Type of `CommunicationsGatewayProperties.APIBridge` has been changed from `any` to `*APIBridgeProperties`
+
+### Features Added
+
+- New value `CommunicationsPlatformTeamsDirectRouting` added to enum type `CommunicationsPlatform`
+- New enum type `APIBridgeActivationState` with values `APIBridgeActivationStateDisabled`, `APIBridgeActivationStateEnabled`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `SKUTier` with values `SKUTierBasic`, `SKUTierFree`, `SKUTierPremium`, `SKUTierStandard`
+- New struct `APIBridgeProperties`
+- New struct `CustomSipHeader`
+- New struct `CustomSipHeadersProperties`
+- New struct `DNSDelegationProperties`
+- New struct `DNSDelegationsProperties`
+- New struct `ManagedServiceIdentity`
+- New struct `SKU`
+- New struct `UserAssignedIdentity`
+- New field `Identity`, `SKU` in struct `CommunicationsGateway`
+- New field `AllocatedMediaAddressPrefixes`, `AllocatedSignalingAddressPrefixes`, `CustomSipHeaders`, `DNSDelegations`, `IntegratedMcpEnabled` in struct `CommunicationsGatewayProperties`
+- New field `Identity`, `SKU` in struct `CommunicationsGatewayUpdate`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
