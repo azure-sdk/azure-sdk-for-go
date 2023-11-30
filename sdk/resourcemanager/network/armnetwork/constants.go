@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v4.3.0"
+	moduleVersion = "v5.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -81,23 +81,6 @@ func PossibleAdminRuleKindValues() []AdminRuleKind {
 	}
 }
 
-// AdminState - Property to indicate if the Express Route Gateway serves traffic when there are multiple Express Route Gateways
-// in the vnet
-type AdminState string
-
-const (
-	AdminStateDisabled AdminState = "Disabled"
-	AdminStateEnabled  AdminState = "Enabled"
-)
-
-// PossibleAdminStateValues returns the possible values for the AdminState const type.
-func PossibleAdminStateValues() []AdminState {
-	return []AdminState{
-		AdminStateDisabled,
-		AdminStateEnabled,
-	}
-}
-
 // ApplicationGatewayBackendHealthServerHealth - Health of backend server.
 type ApplicationGatewayBackendHealthServerHealth string
 
@@ -152,33 +135,19 @@ func PossibleApplicationGatewayCookieBasedAffinityValues() []ApplicationGatewayC
 	}
 }
 
-// ApplicationGatewayCustomErrorStatusCode - Status code of the application gateway custom error.
+// ApplicationGatewayCustomErrorStatusCode - Status code of the application gateway customer error.
 type ApplicationGatewayCustomErrorStatusCode string
 
 const (
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus400 ApplicationGatewayCustomErrorStatusCode = "HttpStatus400"
 	ApplicationGatewayCustomErrorStatusCodeHTTPStatus403 ApplicationGatewayCustomErrorStatusCode = "HttpStatus403"
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus404 ApplicationGatewayCustomErrorStatusCode = "HttpStatus404"
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus405 ApplicationGatewayCustomErrorStatusCode = "HttpStatus405"
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus408 ApplicationGatewayCustomErrorStatusCode = "HttpStatus408"
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus500 ApplicationGatewayCustomErrorStatusCode = "HttpStatus500"
 	ApplicationGatewayCustomErrorStatusCodeHTTPStatus502 ApplicationGatewayCustomErrorStatusCode = "HttpStatus502"
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus503 ApplicationGatewayCustomErrorStatusCode = "HttpStatus503"
-	ApplicationGatewayCustomErrorStatusCodeHTTPStatus504 ApplicationGatewayCustomErrorStatusCode = "HttpStatus504"
 )
 
 // PossibleApplicationGatewayCustomErrorStatusCodeValues returns the possible values for the ApplicationGatewayCustomErrorStatusCode const type.
 func PossibleApplicationGatewayCustomErrorStatusCodeValues() []ApplicationGatewayCustomErrorStatusCode {
 	return []ApplicationGatewayCustomErrorStatusCode{
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus400,
 		ApplicationGatewayCustomErrorStatusCodeHTTPStatus403,
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus404,
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus405,
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus408,
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus500,
 		ApplicationGatewayCustomErrorStatusCodeHTTPStatus502,
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus503,
-		ApplicationGatewayCustomErrorStatusCodeHTTPStatus504,
 	}
 }
 
@@ -195,41 +164,6 @@ func PossibleApplicationGatewayFirewallModeValues() []ApplicationGatewayFirewall
 	return []ApplicationGatewayFirewallMode{
 		ApplicationGatewayFirewallModeDetection,
 		ApplicationGatewayFirewallModePrevention,
-	}
-}
-
-// ApplicationGatewayFirewallRateLimitDuration - Duration over which Rate Limit policy will be applied. Applies only when
-// ruleType is RateLimitRule.
-type ApplicationGatewayFirewallRateLimitDuration string
-
-const (
-	ApplicationGatewayFirewallRateLimitDurationFiveMins ApplicationGatewayFirewallRateLimitDuration = "FiveMins"
-	ApplicationGatewayFirewallRateLimitDurationOneMin   ApplicationGatewayFirewallRateLimitDuration = "OneMin"
-)
-
-// PossibleApplicationGatewayFirewallRateLimitDurationValues returns the possible values for the ApplicationGatewayFirewallRateLimitDuration const type.
-func PossibleApplicationGatewayFirewallRateLimitDurationValues() []ApplicationGatewayFirewallRateLimitDuration {
-	return []ApplicationGatewayFirewallRateLimitDuration{
-		ApplicationGatewayFirewallRateLimitDurationFiveMins,
-		ApplicationGatewayFirewallRateLimitDurationOneMin,
-	}
-}
-
-// ApplicationGatewayFirewallUserSessionVariable - User Session clause variable.
-type ApplicationGatewayFirewallUserSessionVariable string
-
-const (
-	ApplicationGatewayFirewallUserSessionVariableClientAddr  ApplicationGatewayFirewallUserSessionVariable = "ClientAddr"
-	ApplicationGatewayFirewallUserSessionVariableGeoLocation ApplicationGatewayFirewallUserSessionVariable = "GeoLocation"
-	ApplicationGatewayFirewallUserSessionVariableNone        ApplicationGatewayFirewallUserSessionVariable = "None"
-)
-
-// PossibleApplicationGatewayFirewallUserSessionVariableValues returns the possible values for the ApplicationGatewayFirewallUserSessionVariable const type.
-func PossibleApplicationGatewayFirewallUserSessionVariableValues() []ApplicationGatewayFirewallUserSessionVariable {
-	return []ApplicationGatewayFirewallUserSessionVariable{
-		ApplicationGatewayFirewallUserSessionVariableClientAddr,
-		ApplicationGatewayFirewallUserSessionVariableGeoLocation,
-		ApplicationGatewayFirewallUserSessionVariableNone,
 	}
 }
 
@@ -351,7 +285,7 @@ func PossibleApplicationGatewayRuleSetStatusOptionsValues() []ApplicationGateway
 type ApplicationGatewaySKUName string
 
 const (
-	ApplicationGatewaySKUNameBasic          ApplicationGatewaySKUName = "Basic"
+	ApplicationGatewaySKUNameStandardBasic  ApplicationGatewaySKUName = "Standard_Basic"
 	ApplicationGatewaySKUNameStandardLarge  ApplicationGatewaySKUName = "Standard_Large"
 	ApplicationGatewaySKUNameStandardMedium ApplicationGatewaySKUName = "Standard_Medium"
 	ApplicationGatewaySKUNameStandardSmall  ApplicationGatewaySKUName = "Standard_Small"
@@ -364,7 +298,7 @@ const (
 // PossibleApplicationGatewaySKUNameValues returns the possible values for the ApplicationGatewaySKUName const type.
 func PossibleApplicationGatewaySKUNameValues() []ApplicationGatewaySKUName {
 	return []ApplicationGatewaySKUName{
-		ApplicationGatewaySKUNameBasic,
+		ApplicationGatewaySKUNameStandardBasic,
 		ApplicationGatewaySKUNameStandardLarge,
 		ApplicationGatewaySKUNameStandardMedium,
 		ApplicationGatewaySKUNameStandardSmall,
@@ -507,18 +441,18 @@ func PossibleApplicationGatewaySSLProtocolValues() []ApplicationGatewaySSLProtoc
 type ApplicationGatewayTier string
 
 const (
-	ApplicationGatewayTierBasic      ApplicationGatewayTier = "Basic"
-	ApplicationGatewayTierStandard   ApplicationGatewayTier = "Standard"
-	ApplicationGatewayTierStandardV2 ApplicationGatewayTier = "Standard_v2"
-	ApplicationGatewayTierWAF        ApplicationGatewayTier = "WAF"
-	ApplicationGatewayTierWAFV2      ApplicationGatewayTier = "WAF_v2"
+	ApplicationGatewayTierStandard      ApplicationGatewayTier = "Standard"
+	ApplicationGatewayTierStandardBasic ApplicationGatewayTier = "Standard_Basic"
+	ApplicationGatewayTierStandardV2    ApplicationGatewayTier = "Standard_v2"
+	ApplicationGatewayTierWAF           ApplicationGatewayTier = "WAF"
+	ApplicationGatewayTierWAFV2         ApplicationGatewayTier = "WAF_v2"
 )
 
 // PossibleApplicationGatewayTierValues returns the possible values for the ApplicationGatewayTier const type.
 func PossibleApplicationGatewayTierValues() []ApplicationGatewayTier {
 	return []ApplicationGatewayTier{
-		ApplicationGatewayTierBasic,
 		ApplicationGatewayTierStandard,
+		ApplicationGatewayTierStandardBasic,
 		ApplicationGatewayTierStandardV2,
 		ApplicationGatewayTierWAF,
 		ApplicationGatewayTierWAFV2,
@@ -697,30 +631,6 @@ func PossibleAzureFirewallNetworkRuleProtocolValues() []AzureFirewallNetworkRule
 		AzureFirewallNetworkRuleProtocolICMP,
 		AzureFirewallNetworkRuleProtocolTCP,
 		AzureFirewallNetworkRuleProtocolUDP,
-	}
-}
-
-// AzureFirewallPacketCaptureFlagsType - The flags type to be captured.
-type AzureFirewallPacketCaptureFlagsType string
-
-const (
-	AzureFirewallPacketCaptureFlagsTypeAck  AzureFirewallPacketCaptureFlagsType = "ack"
-	AzureFirewallPacketCaptureFlagsTypeFin  AzureFirewallPacketCaptureFlagsType = "fin"
-	AzureFirewallPacketCaptureFlagsTypePush AzureFirewallPacketCaptureFlagsType = "push"
-	AzureFirewallPacketCaptureFlagsTypeRst  AzureFirewallPacketCaptureFlagsType = "rst"
-	AzureFirewallPacketCaptureFlagsTypeSyn  AzureFirewallPacketCaptureFlagsType = "syn"
-	AzureFirewallPacketCaptureFlagsTypeUrg  AzureFirewallPacketCaptureFlagsType = "urg"
-)
-
-// PossibleAzureFirewallPacketCaptureFlagsTypeValues returns the possible values for the AzureFirewallPacketCaptureFlagsType const type.
-func PossibleAzureFirewallPacketCaptureFlagsTypeValues() []AzureFirewallPacketCaptureFlagsType {
-	return []AzureFirewallPacketCaptureFlagsType{
-		AzureFirewallPacketCaptureFlagsTypeAck,
-		AzureFirewallPacketCaptureFlagsTypeFin,
-		AzureFirewallPacketCaptureFlagsTypePush,
-		AzureFirewallPacketCaptureFlagsTypeRst,
-		AzureFirewallPacketCaptureFlagsTypeSyn,
-		AzureFirewallPacketCaptureFlagsTypeUrg,
 	}
 }
 
@@ -2249,15 +2159,17 @@ func PossibleIssueTypeValues() []IssueType {
 type LoadBalancerBackendAddressAdminState string
 
 const (
-	LoadBalancerBackendAddressAdminStateDown LoadBalancerBackendAddressAdminState = "Down"
-	LoadBalancerBackendAddressAdminStateNone LoadBalancerBackendAddressAdminState = "None"
-	LoadBalancerBackendAddressAdminStateUp   LoadBalancerBackendAddressAdminState = "Up"
+	LoadBalancerBackendAddressAdminStateDown  LoadBalancerBackendAddressAdminState = "Down"
+	LoadBalancerBackendAddressAdminStateDrain LoadBalancerBackendAddressAdminState = "Drain"
+	LoadBalancerBackendAddressAdminStateNone  LoadBalancerBackendAddressAdminState = "None"
+	LoadBalancerBackendAddressAdminStateUp    LoadBalancerBackendAddressAdminState = "Up"
 )
 
 // PossibleLoadBalancerBackendAddressAdminStateValues returns the possible values for the LoadBalancerBackendAddressAdminState const type.
 func PossibleLoadBalancerBackendAddressAdminStateValues() []LoadBalancerBackendAddressAdminState {
 	return []LoadBalancerBackendAddressAdminState{
 		LoadBalancerBackendAddressAdminStateDown,
+		LoadBalancerBackendAddressAdminStateDrain,
 		LoadBalancerBackendAddressAdminStateNone,
 		LoadBalancerBackendAddressAdminStateUp,
 	}
@@ -2385,41 +2297,17 @@ func PossibleNetworkIntentPolicyBasedServiceValues() []NetworkIntentPolicyBasedS
 type NetworkInterfaceAuxiliaryMode string
 
 const (
-	NetworkInterfaceAuxiliaryModeAcceleratedConnections NetworkInterfaceAuxiliaryMode = "AcceleratedConnections"
-	NetworkInterfaceAuxiliaryModeFloating               NetworkInterfaceAuxiliaryMode = "Floating"
-	NetworkInterfaceAuxiliaryModeMaxConnections         NetworkInterfaceAuxiliaryMode = "MaxConnections"
-	NetworkInterfaceAuxiliaryModeNone                   NetworkInterfaceAuxiliaryMode = "None"
+	NetworkInterfaceAuxiliaryModeFloating       NetworkInterfaceAuxiliaryMode = "Floating"
+	NetworkInterfaceAuxiliaryModeMaxConnections NetworkInterfaceAuxiliaryMode = "MaxConnections"
+	NetworkInterfaceAuxiliaryModeNone           NetworkInterfaceAuxiliaryMode = "None"
 )
 
 // PossibleNetworkInterfaceAuxiliaryModeValues returns the possible values for the NetworkInterfaceAuxiliaryMode const type.
 func PossibleNetworkInterfaceAuxiliaryModeValues() []NetworkInterfaceAuxiliaryMode {
 	return []NetworkInterfaceAuxiliaryMode{
-		NetworkInterfaceAuxiliaryModeAcceleratedConnections,
 		NetworkInterfaceAuxiliaryModeFloating,
 		NetworkInterfaceAuxiliaryModeMaxConnections,
 		NetworkInterfaceAuxiliaryModeNone,
-	}
-}
-
-// NetworkInterfaceAuxiliarySKU - Auxiliary sku of Network Interface resource.
-type NetworkInterfaceAuxiliarySKU string
-
-const (
-	NetworkInterfaceAuxiliarySKUA1   NetworkInterfaceAuxiliarySKU = "A1"
-	NetworkInterfaceAuxiliarySKUA2   NetworkInterfaceAuxiliarySKU = "A2"
-	NetworkInterfaceAuxiliarySKUA4   NetworkInterfaceAuxiliarySKU = "A4"
-	NetworkInterfaceAuxiliarySKUA8   NetworkInterfaceAuxiliarySKU = "A8"
-	NetworkInterfaceAuxiliarySKUNone NetworkInterfaceAuxiliarySKU = "None"
-)
-
-// PossibleNetworkInterfaceAuxiliarySKUValues returns the possible values for the NetworkInterfaceAuxiliarySKU const type.
-func PossibleNetworkInterfaceAuxiliarySKUValues() []NetworkInterfaceAuxiliarySKU {
-	return []NetworkInterfaceAuxiliarySKU{
-		NetworkInterfaceAuxiliarySKUA1,
-		NetworkInterfaceAuxiliarySKUA2,
-		NetworkInterfaceAuxiliarySKUA4,
-		NetworkInterfaceAuxiliarySKUA8,
-		NetworkInterfaceAuxiliarySKUNone,
 	}
 }
 
@@ -2874,29 +2762,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// PublicIPAddressDNSSettingsDomainNameLabelScope - The domain name label scope. If a domain name label and a domain name
-// label scope are specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system with a hashed
-// value
-// includes in FQDN.
-type PublicIPAddressDNSSettingsDomainNameLabelScope string
-
-const (
-	PublicIPAddressDNSSettingsDomainNameLabelScopeNoReuse            PublicIPAddressDNSSettingsDomainNameLabelScope = "NoReuse"
-	PublicIPAddressDNSSettingsDomainNameLabelScopeResourceGroupReuse PublicIPAddressDNSSettingsDomainNameLabelScope = "ResourceGroupReuse"
-	PublicIPAddressDNSSettingsDomainNameLabelScopeSubscriptionReuse  PublicIPAddressDNSSettingsDomainNameLabelScope = "SubscriptionReuse"
-	PublicIPAddressDNSSettingsDomainNameLabelScopeTenantReuse        PublicIPAddressDNSSettingsDomainNameLabelScope = "TenantReuse"
-)
-
-// PossiblePublicIPAddressDNSSettingsDomainNameLabelScopeValues returns the possible values for the PublicIPAddressDNSSettingsDomainNameLabelScope const type.
-func PossiblePublicIPAddressDNSSettingsDomainNameLabelScopeValues() []PublicIPAddressDNSSettingsDomainNameLabelScope {
-	return []PublicIPAddressDNSSettingsDomainNameLabelScope{
-		PublicIPAddressDNSSettingsDomainNameLabelScopeNoReuse,
-		PublicIPAddressDNSSettingsDomainNameLabelScopeResourceGroupReuse,
-		PublicIPAddressDNSSettingsDomainNameLabelScopeSubscriptionReuse,
-		PublicIPAddressDNSSettingsDomainNameLabelScopeTenantReuse,
-	}
-}
-
 // PublicIPAddressMigrationPhase - Migration phase of Public IP Address.
 type PublicIPAddressMigrationPhase string
 
@@ -3126,63 +2991,6 @@ func PossibleScopeConnectionStateValues() []ScopeConnectionState {
 	}
 }
 
-// ScrubbingRuleEntryMatchOperator - When matchVariable is a collection, operate on the selector to specify which elements
-// in the collection this rule applies to.
-type ScrubbingRuleEntryMatchOperator string
-
-const (
-	ScrubbingRuleEntryMatchOperatorEquals    ScrubbingRuleEntryMatchOperator = "Equals"
-	ScrubbingRuleEntryMatchOperatorEqualsAny ScrubbingRuleEntryMatchOperator = "EqualsAny"
-)
-
-// PossibleScrubbingRuleEntryMatchOperatorValues returns the possible values for the ScrubbingRuleEntryMatchOperator const type.
-func PossibleScrubbingRuleEntryMatchOperatorValues() []ScrubbingRuleEntryMatchOperator {
-	return []ScrubbingRuleEntryMatchOperator{
-		ScrubbingRuleEntryMatchOperatorEquals,
-		ScrubbingRuleEntryMatchOperatorEqualsAny,
-	}
-}
-
-// ScrubbingRuleEntryMatchVariable - The variable to be scrubbed from the logs.
-type ScrubbingRuleEntryMatchVariable string
-
-const (
-	ScrubbingRuleEntryMatchVariableRequestArgNames     ScrubbingRuleEntryMatchVariable = "RequestArgNames"
-	ScrubbingRuleEntryMatchVariableRequestCookieNames  ScrubbingRuleEntryMatchVariable = "RequestCookieNames"
-	ScrubbingRuleEntryMatchVariableRequestHeaderNames  ScrubbingRuleEntryMatchVariable = "RequestHeaderNames"
-	ScrubbingRuleEntryMatchVariableRequestIPAddress    ScrubbingRuleEntryMatchVariable = "RequestIPAddress"
-	ScrubbingRuleEntryMatchVariableRequestJSONArgNames ScrubbingRuleEntryMatchVariable = "RequestJSONArgNames"
-	ScrubbingRuleEntryMatchVariableRequestPostArgNames ScrubbingRuleEntryMatchVariable = "RequestPostArgNames"
-)
-
-// PossibleScrubbingRuleEntryMatchVariableValues returns the possible values for the ScrubbingRuleEntryMatchVariable const type.
-func PossibleScrubbingRuleEntryMatchVariableValues() []ScrubbingRuleEntryMatchVariable {
-	return []ScrubbingRuleEntryMatchVariable{
-		ScrubbingRuleEntryMatchVariableRequestArgNames,
-		ScrubbingRuleEntryMatchVariableRequestCookieNames,
-		ScrubbingRuleEntryMatchVariableRequestHeaderNames,
-		ScrubbingRuleEntryMatchVariableRequestIPAddress,
-		ScrubbingRuleEntryMatchVariableRequestJSONArgNames,
-		ScrubbingRuleEntryMatchVariableRequestPostArgNames,
-	}
-}
-
-// ScrubbingRuleEntryState - Defines the state of log scrubbing rule. Default value is Enabled.
-type ScrubbingRuleEntryState string
-
-const (
-	ScrubbingRuleEntryStateDisabled ScrubbingRuleEntryState = "Disabled"
-	ScrubbingRuleEntryStateEnabled  ScrubbingRuleEntryState = "Enabled"
-)
-
-// PossibleScrubbingRuleEntryStateValues returns the possible values for the ScrubbingRuleEntryState const type.
-func PossibleScrubbingRuleEntryStateValues() []ScrubbingRuleEntryState {
-	return []ScrubbingRuleEntryState{
-		ScrubbingRuleEntryStateDisabled,
-		ScrubbingRuleEntryStateEnabled,
-	}
-}
-
 // SecurityConfigurationRuleAccess - Whether network traffic is allowed or denied.
 type SecurityConfigurationRuleAccess string
 
@@ -3386,22 +3194,6 @@ func PossibleSlotTypeValues() []SlotType {
 	return []SlotType{
 		SlotTypeProduction,
 		SlotTypeStaging,
-	}
-}
-
-// SyncMode - Backend address synchronous mode for the backend pool
-type SyncMode string
-
-const (
-	SyncModeAutomatic SyncMode = "Automatic"
-	SyncModeManual    SyncMode = "Manual"
-)
-
-// PossibleSyncModeValues returns the possible values for the SyncMode const type.
-func PossibleSyncModeValues() []SyncMode {
-	return []SyncMode{
-		SyncModeAutomatic,
-		SyncModeManual,
 	}
 }
 
@@ -4124,9 +3916,8 @@ func PossibleWebApplicationFirewallPolicyResourceStateValues() []WebApplicationF
 type WebApplicationFirewallRuleType string
 
 const (
-	WebApplicationFirewallRuleTypeInvalid       WebApplicationFirewallRuleType = "Invalid"
-	WebApplicationFirewallRuleTypeMatchRule     WebApplicationFirewallRuleType = "MatchRule"
-	WebApplicationFirewallRuleTypeRateLimitRule WebApplicationFirewallRuleType = "RateLimitRule"
+	WebApplicationFirewallRuleTypeInvalid   WebApplicationFirewallRuleType = "Invalid"
+	WebApplicationFirewallRuleTypeMatchRule WebApplicationFirewallRuleType = "MatchRule"
 )
 
 // PossibleWebApplicationFirewallRuleTypeValues returns the possible values for the WebApplicationFirewallRuleType const type.
@@ -4134,40 +3925,6 @@ func PossibleWebApplicationFirewallRuleTypeValues() []WebApplicationFirewallRule
 	return []WebApplicationFirewallRuleType{
 		WebApplicationFirewallRuleTypeInvalid,
 		WebApplicationFirewallRuleTypeMatchRule,
-		WebApplicationFirewallRuleTypeRateLimitRule,
-	}
-}
-
-// WebApplicationFirewallScrubbingState - State of the log scrubbing config. Default value is Enabled.
-type WebApplicationFirewallScrubbingState string
-
-const (
-	WebApplicationFirewallScrubbingStateDisabled WebApplicationFirewallScrubbingState = "Disabled"
-	WebApplicationFirewallScrubbingStateEnabled  WebApplicationFirewallScrubbingState = "Enabled"
-)
-
-// PossibleWebApplicationFirewallScrubbingStateValues returns the possible values for the WebApplicationFirewallScrubbingState const type.
-func PossibleWebApplicationFirewallScrubbingStateValues() []WebApplicationFirewallScrubbingState {
-	return []WebApplicationFirewallScrubbingState{
-		WebApplicationFirewallScrubbingStateDisabled,
-		WebApplicationFirewallScrubbingStateEnabled,
-	}
-}
-
-// WebApplicationFirewallState - Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not
-// specified.
-type WebApplicationFirewallState string
-
-const (
-	WebApplicationFirewallStateDisabled WebApplicationFirewallState = "Disabled"
-	WebApplicationFirewallStateEnabled  WebApplicationFirewallState = "Enabled"
-)
-
-// PossibleWebApplicationFirewallStateValues returns the possible values for the WebApplicationFirewallState const type.
-func PossibleWebApplicationFirewallStateValues() []WebApplicationFirewallState {
-	return []WebApplicationFirewallState{
-		WebApplicationFirewallStateDisabled,
-		WebApplicationFirewallStateEnabled,
 	}
 }
 

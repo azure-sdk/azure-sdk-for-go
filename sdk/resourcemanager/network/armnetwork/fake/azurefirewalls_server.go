@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -48,10 +48,6 @@ type AzureFirewallsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginListLearnedPrefixes func(ctx context.Context, resourceGroupName string, azureFirewallName string, options *armnetwork.AzureFirewallsClientBeginListLearnedPrefixesOptions) (resp azfake.PollerResponder[armnetwork.AzureFirewallsClientListLearnedPrefixesResponse], errResp azfake.ErrorResponder)
 
-	// BeginPacketCapture is the fake for method AzureFirewallsClient.BeginPacketCapture
-	// HTTP status codes to indicate success: http.StatusAccepted
-	BeginPacketCapture func(ctx context.Context, resourceGroupName string, azureFirewallName string, parameters armnetwork.FirewallPacketCaptureParameters, options *armnetwork.AzureFirewallsClientBeginPacketCaptureOptions) (resp azfake.PollerResponder[armnetwork.AzureFirewallsClientPacketCaptureResponse], errResp azfake.ErrorResponder)
-
 	// BeginUpdateTags is the fake for method AzureFirewallsClient.BeginUpdateTags
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdateTags func(ctx context.Context, resourceGroupName string, azureFirewallName string, parameters armnetwork.TagsObject, options *armnetwork.AzureFirewallsClientBeginUpdateTagsOptions) (resp azfake.PollerResponder[armnetwork.AzureFirewallsClientUpdateTagsResponse], errResp azfake.ErrorResponder)
@@ -68,7 +64,6 @@ func NewAzureFirewallsServerTransport(srv *AzureFirewallsServer) *AzureFirewalls
 		newListPager:             newTracker[azfake.PagerResponder[armnetwork.AzureFirewallsClientListResponse]](),
 		newListAllPager:          newTracker[azfake.PagerResponder[armnetwork.AzureFirewallsClientListAllResponse]](),
 		beginListLearnedPrefixes: newTracker[azfake.PollerResponder[armnetwork.AzureFirewallsClientListLearnedPrefixesResponse]](),
-		beginPacketCapture:       newTracker[azfake.PollerResponder[armnetwork.AzureFirewallsClientPacketCaptureResponse]](),
 		beginUpdateTags:          newTracker[azfake.PollerResponder[armnetwork.AzureFirewallsClientUpdateTagsResponse]](),
 	}
 }
@@ -82,7 +77,6 @@ type AzureFirewallsServerTransport struct {
 	newListPager             *tracker[azfake.PagerResponder[armnetwork.AzureFirewallsClientListResponse]]
 	newListAllPager          *tracker[azfake.PagerResponder[armnetwork.AzureFirewallsClientListAllResponse]]
 	beginListLearnedPrefixes *tracker[azfake.PollerResponder[armnetwork.AzureFirewallsClientListLearnedPrefixesResponse]]
-	beginPacketCapture       *tracker[azfake.PollerResponder[armnetwork.AzureFirewallsClientPacketCaptureResponse]]
 	beginUpdateTags          *tracker[azfake.PollerResponder[armnetwork.AzureFirewallsClientUpdateTagsResponse]]
 }
 
@@ -110,8 +104,6 @@ func (a *AzureFirewallsServerTransport) Do(req *http.Request) (*http.Response, e
 		resp, err = a.dispatchNewListAllPager(req)
 	case "AzureFirewallsClient.BeginListLearnedPrefixes":
 		resp, err = a.dispatchBeginListLearnedPrefixes(req)
-	case "AzureFirewallsClient.BeginPacketCapture":
-		resp, err = a.dispatchBeginPacketCapture(req)
 	case "AzureFirewallsClient.BeginUpdateTags":
 		resp, err = a.dispatchBeginUpdateTags(req)
 	default:
@@ -359,54 +351,6 @@ func (a *AzureFirewallsServerTransport) dispatchBeginListLearnedPrefixes(req *ht
 	}
 	if !server.PollerResponderMore(beginListLearnedPrefixes) {
 		a.beginListLearnedPrefixes.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (a *AzureFirewallsServerTransport) dispatchBeginPacketCapture(req *http.Request) (*http.Response, error) {
-	if a.srv.BeginPacketCapture == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginPacketCapture not implemented")}
-	}
-	beginPacketCapture := a.beginPacketCapture.get(req)
-	if beginPacketCapture == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/azureFirewalls/(?P<azureFirewallName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/packetCapture`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armnetwork.FirewallPacketCaptureParameters](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		azureFirewallNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("azureFirewallName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := a.srv.BeginPacketCapture(req.Context(), resourceGroupNameParam, azureFirewallNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginPacketCapture = &respr
-		a.beginPacketCapture.add(req, beginPacketCapture)
-	}
-
-	resp, err := server.PollerResponderNext(beginPacketCapture, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
-		a.beginPacketCapture.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginPacketCapture) {
-		a.beginPacketCapture.remove(req)
 	}
 
 	return resp, nil

@@ -710,12 +710,6 @@ func (c *ClientFactory) NewVipSwapClient() *VipSwapClient {
 	return subClient
 }
 
-// NewVirtualApplianceConnectionsClient creates a new instance of VirtualApplianceConnectionsClient.
-func (c *ClientFactory) NewVirtualApplianceConnectionsClient() *VirtualApplianceConnectionsClient {
-	subClient, _ := NewVirtualApplianceConnectionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 // NewVirtualApplianceSKUsClient creates a new instance of VirtualApplianceSKUsClient.
 func (c *ClientFactory) NewVirtualApplianceSKUsClient() *VirtualApplianceSKUsClient {
 	subClient, _ := NewVirtualApplianceSKUsClient(c.subscriptionID, c.credential, c.options)

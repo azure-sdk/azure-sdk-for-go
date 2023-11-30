@@ -1,5 +1,99 @@
 # Release History
 
+## 5.0.0 (2023-11-30)
+### Breaking Changes
+
+- Type of `EffectiveRouteMapRoute.Prefix` has been changed from `*string` to `[]*string`
+- `ApplicationGatewayCustomErrorStatusCodeHTTPStatus400`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus404`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus405`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus408`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus500`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus503`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus504` from enum `ApplicationGatewayCustomErrorStatusCode` has been removed
+- `ApplicationGatewaySKUNameBasic` from enum `ApplicationGatewaySKUName` has been removed
+- `ApplicationGatewayTierBasic` from enum `ApplicationGatewayTier` has been removed
+- `NetworkInterfaceAuxiliaryModeAcceleratedConnections` from enum `NetworkInterfaceAuxiliaryMode` has been removed
+- `WebApplicationFirewallRuleTypeRateLimitRule` from enum `WebApplicationFirewallRuleType` has been removed
+- Enum `AdminState` has been removed
+- Enum `ApplicationGatewayFirewallRateLimitDuration` has been removed
+- Enum `ApplicationGatewayFirewallUserSessionVariable` has been removed
+- Enum `AzureFirewallPacketCaptureFlagsType` has been removed
+- Enum `NetworkInterfaceAuxiliarySKU` has been removed
+- Enum `PublicIPAddressDNSSettingsDomainNameLabelScope` has been removed
+- Enum `ScrubbingRuleEntryMatchOperator` has been removed
+- Enum `ScrubbingRuleEntryMatchVariable` has been removed
+- Enum `ScrubbingRuleEntryState` has been removed
+- Enum `SyncMode` has been removed
+- Enum `WebApplicationFirewallScrubbingState` has been removed
+- Enum `WebApplicationFirewallState` has been removed
+- Function `*AzureFirewallsClient.BeginPacketCapture` has been removed
+- Function `*ClientFactory.NewVirtualApplianceConnectionsClient` has been removed
+- Function `*LoadBalancersClient.MigrateToIPBased` has been removed
+- Function `NewVirtualApplianceConnectionsClient` has been removed
+- Function `*VirtualApplianceConnectionsClient.BeginCreateOrUpdate` has been removed
+- Function `*VirtualApplianceConnectionsClient.BeginDelete` has been removed
+- Function `*VirtualApplianceConnectionsClient.Get` has been removed
+- Function `*VirtualApplianceConnectionsClient.NewListPager` has been removed
+- Struct `AzureFirewallPacketCaptureFlags` has been removed
+- Struct `AzureFirewallPacketCaptureRule` has been removed
+- Struct `BastionHostPropertiesFormatNetworkACLs` has been removed
+- Struct `EffectiveRouteMapRouteList` has been removed
+- Struct `FirewallPacketCaptureParameters` has been removed
+- Struct `FirewallPacketCaptureParametersFormat` has been removed
+- Struct `FirewallPolicyHTTPHeaderToInsert` has been removed
+- Struct `GroupByUserSession` has been removed
+- Struct `GroupByVariable` has been removed
+- Struct `IPRule` has been removed
+- Struct `MigrateLoadBalancerToIPBasedRequest` has been removed
+- Struct `MigratedPools` has been removed
+- Struct `PolicySettingsLogScrubbing` has been removed
+- Struct `PropagatedRouteTableNfv` has been removed
+- Struct `RoutingConfigurationNfv` has been removed
+- Struct `RoutingConfigurationNfvSubResource` has been removed
+- Struct `VirtualApplianceAdditionalNicProperties` has been removed
+- Struct `VirtualApplianceConnection` has been removed
+- Struct `VirtualApplianceConnectionList` has been removed
+- Struct `VirtualApplianceConnectionProperties` has been removed
+- Struct `VirtualNetworkGatewayAutoScaleBounds` has been removed
+- Struct `VirtualNetworkGatewayAutoScaleConfiguration` has been removed
+- Struct `WebApplicationFirewallScrubbingRules` has been removed
+- Field `ResourceGUID` of struct `AdminPropertiesFormat` has been removed
+- Field `ResourceGUID` of struct `AdminRuleCollectionPropertiesFormat` has been removed
+- Field `DefaultPredefinedSSLPolicy` of struct `ApplicationGatewayPropertiesFormat` has been removed
+- Field `HTTPHeadersToInsert` of struct `ApplicationRule` has been removed
+- Field `SyncMode` of struct `BackendAddressPoolPropertiesFormat` has been removed
+- Field `EnableKerberos`, `NetworkACLs`, `VirtualNetwork` of struct `BastionHostPropertiesFormat` has been removed
+- Field `ResourceGUID` of struct `ConnectivityConfigurationProperties` has been removed
+- Field `ResourceGUID` of struct `DefaultAdminPropertiesFormat` has been removed
+- Field `AuthorizationStatus` of struct `ExpressRouteCircuitPropertiesFormat` has been removed
+- Field `Size` of struct `FirewallPolicyPropertiesFormat` has been removed
+- Field `Size` of struct `FirewallPolicyRuleCollectionGroupProperties` has been removed
+- Field `ResourceGUID` of struct `GroupProperties` has been removed
+- Field `AuxiliarySKU` of struct `InterfacePropertiesFormat` has been removed
+- Field `ResourceGUID` of struct `ManagerProperties` has been removed
+- Field `FileUploadEnforcement`, `LogScrubbing`, `RequestBodyEnforcement`, `RequestBodyInspectLimitInKB` of struct `PolicySettings` has been removed
+- Field `PrivateEndpointLocation` of struct `PrivateEndpointConnectionProperties` has been removed
+- Field `DomainNameLabelScope` of struct `PublicIPAddressDNSSettings` has been removed
+- Field `ResourceGUID` of struct `SecurityAdminConfigurationPropertiesFormat` has been removed
+- Field `DefaultOutboundAccess` of struct `SubnetPropertiesFormat` has been removed
+- Field `IPConfigurationID` of struct `VPNGatewaysClientBeginResetOptions` has been removed
+- Field `InstanceName` of struct `VirtualApplianceNicProperties` has been removed
+- Field `AdditionalNics`, `VirtualApplianceConnections` of struct `VirtualAppliancePropertiesFormat` has been removed
+- Field `Value` of struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse` has been removed
+- Field `Value` of struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse` has been removed
+- Field `VirtualHubEffectiveRouteList` of struct `VirtualHubsClientGetEffectiveVirtualHubRoutesResponse` has been removed
+- Field `EffectiveRouteMapRouteList` of struct `VirtualHubsClientGetInboundRoutesResponse` has been removed
+- Field `EffectiveRouteMapRouteList` of struct `VirtualHubsClientGetOutboundRoutesResponse` has been removed
+- Field `AdminState`, `AutoScaleConfiguration` of struct `VirtualNetworkGatewayPropertiesFormat` has been removed
+- Field `FlowLogs` of struct `VirtualNetworkPropertiesFormat` has been removed
+- Field `GroupByUserSession`, `RateLimitDuration`, `RateLimitThreshold`, `State` of struct `WebApplicationFirewallCustomRule` has been removed
+
+### Features Added
+
+- New value `ApplicationGatewaySKUNameStandardBasic` added to enum type `ApplicationGatewaySKUName`
+- New value `ApplicationGatewayTierStandardBasic` added to enum type `ApplicationGatewayTier`
+- New value `LoadBalancerBackendAddressAdminStateDrain` added to enum type `LoadBalancerBackendAddressAdminState`
+- New struct `PeerRouteList`
+- New field `EnableDirectPortRateLimit` in struct `ExpressRouteCircuitPropertiesFormat`
+- New anonymous field `PeerRouteList` in struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse`
+- New anonymous field `PeerRouteList` in struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse`
+
+
 ## 4.3.0 (2023-11-24)
 ### Features Added
 

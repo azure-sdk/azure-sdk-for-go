@@ -131,7 +131,6 @@ type ServerFactory struct {
 	VPNSitesServer                                        VPNSitesServer
 	VPNSitesConfigurationServer                           VPNSitesConfigurationServer
 	VipSwapServer                                         VipSwapServer
-	VirtualApplianceConnectionsServer                     VirtualApplianceConnectionsServer
 	VirtualApplianceSKUsServer                            VirtualApplianceSKUsServer
 	VirtualApplianceSitesServer                           VirtualApplianceSitesServer
 	VirtualAppliancesServer                               VirtualAppliancesServer
@@ -280,7 +279,6 @@ type ServerFactoryTransport struct {
 	trVPNSitesServer                                        *VPNSitesServerTransport
 	trVPNSitesConfigurationServer                           *VPNSitesConfigurationServerTransport
 	trVipSwapServer                                         *VipSwapServerTransport
-	trVirtualApplianceConnectionsServer                     *VirtualApplianceConnectionsServerTransport
 	trVirtualApplianceSKUsServer                            *VirtualApplianceSKUsServerTransport
 	trVirtualApplianceSitesServer                           *VirtualApplianceSitesServerTransport
 	trVirtualAppliancesServer                               *VirtualAppliancesServerTransport
@@ -830,11 +828,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "VipSwapClient":
 		initServer(s, &s.trVipSwapServer, func() *VipSwapServerTransport { return NewVipSwapServerTransport(&s.srv.VipSwapServer) })
 		resp, err = s.trVipSwapServer.Do(req)
-	case "VirtualApplianceConnectionsClient":
-		initServer(s, &s.trVirtualApplianceConnectionsServer, func() *VirtualApplianceConnectionsServerTransport {
-			return NewVirtualApplianceConnectionsServerTransport(&s.srv.VirtualApplianceConnectionsServer)
-		})
-		resp, err = s.trVirtualApplianceConnectionsServer.Do(req)
 	case "VirtualApplianceSKUsClient":
 		initServer(s, &s.trVirtualApplianceSKUsServer, func() *VirtualApplianceSKUsServerTransport {
 			return NewVirtualApplianceSKUsServerTransport(&s.srv.VirtualApplianceSKUsServer)

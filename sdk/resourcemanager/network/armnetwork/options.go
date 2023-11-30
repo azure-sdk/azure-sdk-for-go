@@ -335,13 +335,6 @@ type AzureFirewallsClientBeginListLearnedPrefixesOptions struct {
 	ResumeToken string
 }
 
-// AzureFirewallsClientBeginPacketCaptureOptions contains the optional parameters for the AzureFirewallsClient.BeginPacketCapture
-// method.
-type AzureFirewallsClientBeginPacketCaptureOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // AzureFirewallsClientBeginUpdateTagsOptions contains the optional parameters for the AzureFirewallsClient.BeginUpdateTags
 // method.
 type AzureFirewallsClientBeginUpdateTagsOptions struct {
@@ -1615,13 +1608,6 @@ type LoadBalancersClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LoadBalancersClientMigrateToIPBasedOptions contains the optional parameters for the LoadBalancersClient.MigrateToIPBased
-// method.
-type LoadBalancersClientMigrateToIPBasedOptions struct {
-	// Parameters supplied to the migrateToIpBased Api.
-	Parameters *MigrateLoadBalancerToIPBasedRequest
-}
-
 // LoadBalancersClientUpdateTagsOptions contains the optional parameters for the LoadBalancersClient.UpdateTags method.
 type LoadBalancersClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
@@ -2861,9 +2847,6 @@ type VPNGatewaysClientBeginDeleteOptions struct {
 
 // VPNGatewaysClientBeginResetOptions contains the optional parameters for the VPNGatewaysClient.BeginReset method.
 type VPNGatewaysClientBeginResetOptions struct {
-	// VpnGateway ipConfigurationId to specify the gateway instance.
-	IPConfigurationID *string
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -3043,32 +3026,6 @@ type VipSwapClientGetOptions struct {
 
 // VipSwapClientListOptions contains the optional parameters for the VipSwapClient.List method.
 type VipSwapClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VirtualApplianceConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualApplianceConnectionsClient.BeginCreateOrUpdate
-// method.
-type VirtualApplianceConnectionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualApplianceConnectionsClientBeginDeleteOptions contains the optional parameters for the VirtualApplianceConnectionsClient.BeginDelete
-// method.
-type VirtualApplianceConnectionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualApplianceConnectionsClientGetOptions contains the optional parameters for the VirtualApplianceConnectionsClient.Get
-// method.
-type VirtualApplianceConnectionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VirtualApplianceConnectionsClientListOptions contains the optional parameters for the VirtualApplianceConnectionsClient.NewListPager
-// method.
-type VirtualApplianceConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 

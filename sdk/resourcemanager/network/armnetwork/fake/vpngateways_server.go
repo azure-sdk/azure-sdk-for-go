@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v5"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -341,7 +341,6 @@ func (v *VPNGatewaysServerTransport) dispatchBeginReset(req *http.Request) (*htt
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		qp := req.URL.Query()
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -350,18 +349,7 @@ func (v *VPNGatewaysServerTransport) dispatchBeginReset(req *http.Request) (*htt
 		if err != nil {
 			return nil, err
 		}
-		iPConfigurationIDUnescaped, err := url.QueryUnescape(qp.Get("ipConfigurationId"))
-		if err != nil {
-			return nil, err
-		}
-		iPConfigurationIDParam := getOptional(iPConfigurationIDUnescaped)
-		var options *armnetwork.VPNGatewaysClientBeginResetOptions
-		if iPConfigurationIDParam != nil {
-			options = &armnetwork.VPNGatewaysClientBeginResetOptions{
-				IPConfigurationID: iPConfigurationIDParam,
-			}
-		}
-		respr, errRespr := v.srv.BeginReset(req.Context(), resourceGroupNameParam, gatewayNameParam, options)
+		respr, errRespr := v.srv.BeginReset(req.Context(), resourceGroupNameParam, gatewayNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
