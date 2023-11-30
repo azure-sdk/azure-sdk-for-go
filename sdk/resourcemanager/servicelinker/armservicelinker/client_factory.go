@@ -35,9 +35,27 @@ func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOpti
 	}, nil
 }
 
+// NewConfigurationNamesClient creates a new instance of ConfigurationNamesClient.
+func (c *ClientFactory) NewConfigurationNamesClient() *ConfigurationNamesClient {
+	subClient, _ := NewConfigurationNamesClient(c.credential, c.options)
+	return subClient
+}
+
+// NewConnectorClient creates a new instance of ConnectorClient.
+func (c *ClientFactory) NewConnectorClient() *ConnectorClient {
+	subClient, _ := NewConnectorClient(c.credential, c.options)
+	return subClient
+}
+
 // NewLinkerClient creates a new instance of LinkerClient.
 func (c *ClientFactory) NewLinkerClient() *LinkerClient {
 	subClient, _ := NewLinkerClient(c.credential, c.options)
+	return subClient
+}
+
+// NewLinkersClient creates a new instance of LinkersClient.
+func (c *ClientFactory) NewLinkersClient() *LinkersClient {
+	subClient, _ := NewLinkersClient(c.credential, c.options)
 	return subClient
 }
 
