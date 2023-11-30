@@ -26,7 +26,7 @@ import (
 type ProductsServer struct {
 	// CountDevices is the fake for method ProductsClient.CountDevices
 	// HTTP status codes to indicate success: http.StatusOK
-	CountDevices func(ctx context.Context, resourceGroupName string, catalogName string, productName string, options *armsphere.ProductsClientCountDevicesOptions) (resp azfake.Responder[armsphere.ProductsClientCountDevicesResponse], errResp azfake.ErrorResponder)
+	CountDevices func(ctx context.Context, resourceGroupName string, catalogName string, productName string, body any, options *armsphere.ProductsClientCountDevicesOptions) (resp azfake.Responder[armsphere.ProductsClientCountDevicesResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method ProductsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
@@ -38,7 +38,7 @@ type ProductsServer struct {
 
 	// NewGenerateDefaultDeviceGroupsPager is the fake for method ProductsClient.NewGenerateDefaultDeviceGroupsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewGenerateDefaultDeviceGroupsPager func(resourceGroupName string, catalogName string, productName string, options *armsphere.ProductsClientGenerateDefaultDeviceGroupsOptions) (resp azfake.PagerResponder[armsphere.ProductsClientGenerateDefaultDeviceGroupsResponse])
+	NewGenerateDefaultDeviceGroupsPager func(resourceGroupName string, catalogName string, productName string, body any, options *armsphere.ProductsClientGenerateDefaultDeviceGroupsOptions) (resp azfake.PagerResponder[armsphere.ProductsClientGenerateDefaultDeviceGroupsResponse])
 
 	// Get is the fake for method ProductsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -125,6 +125,10 @@ func (p *ProductsServerTransport) dispatchCountDevices(req *http.Request) (*http
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[any](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -137,7 +141,7 @@ func (p *ProductsServerTransport) dispatchCountDevices(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.CountDevices(req.Context(), resourceGroupNameParam, catalogNameParam, productNameParam, nil)
+	respr, errRespr := p.srv.CountDevices(req.Context(), resourceGroupNameParam, catalogNameParam, productNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -264,6 +268,10 @@ func (p *ProductsServerTransport) dispatchNewGenerateDefaultDeviceGroupsPager(re
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		body, err := server.UnmarshalRequestAsJSON[any](req)
+		if err != nil {
+			return nil, err
+		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -276,7 +284,7 @@ func (p *ProductsServerTransport) dispatchNewGenerateDefaultDeviceGroupsPager(re
 		if err != nil {
 			return nil, err
 		}
-		resp := p.srv.NewGenerateDefaultDeviceGroupsPager(resourceGroupNameParam, catalogNameParam, productNameParam, nil)
+		resp := p.srv.NewGenerateDefaultDeviceGroupsPager(resourceGroupNameParam, catalogNameParam, productNameParam, body, nil)
 		newGenerateDefaultDeviceGroupsPager = &resp
 		p.newGenerateDefaultDeviceGroupsPager.add(req, newGenerateDefaultDeviceGroupsPager)
 		server.PagerResponderInjectNextLinks(newGenerateDefaultDeviceGroupsPager, req, func(page *armsphere.ProductsClientGenerateDefaultDeviceGroupsResponse, createLink func() string) {

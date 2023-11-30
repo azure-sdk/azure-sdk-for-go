@@ -34,7 +34,7 @@ type DevicesServer struct {
 
 	// BeginGenerateCapabilityImage is the fake for method DevicesClient.BeginGenerateCapabilityImage
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginGenerateCapabilityImage func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, generateDeviceCapabilityRequest armsphere.GenerateCapabilityImageRequest, options *armsphere.DevicesClientBeginGenerateCapabilityImageOptions) (resp azfake.PollerResponder[armsphere.DevicesClientGenerateCapabilityImageResponse], errResp azfake.ErrorResponder)
+	BeginGenerateCapabilityImage func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, body armsphere.GenerateCapabilityImageRequest, options *armsphere.DevicesClientBeginGenerateCapabilityImageOptions) (resp azfake.PollerResponder[armsphere.DevicesClientGenerateCapabilityImageResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method DevicesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -46,7 +46,7 @@ type DevicesServer struct {
 
 	// BeginUpdate is the fake for method DevicesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties armsphere.DeviceUpdate, options *armsphere.DevicesClientBeginUpdateOptions) (resp azfake.PollerResponder[armsphere.DevicesClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties any, options *armsphere.DevicesClientBeginUpdateOptions) (resp azfake.PollerResponder[armsphere.DevicesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDevicesServerTransport creates a new instance of DevicesServerTransport with the provided implementation.
@@ -391,7 +391,7 @@ func (d *DevicesServerTransport) dispatchBeginUpdate(req *http.Request) (*http.R
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armsphere.DeviceUpdate](req)
+		body, err := server.UnmarshalRequestAsJSON[any](req)
 		if err != nil {
 			return nil, err
 		}

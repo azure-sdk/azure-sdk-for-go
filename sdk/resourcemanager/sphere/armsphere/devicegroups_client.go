@@ -53,12 +53,12 @@ func NewDeviceGroupsClient(subscriptionID string, credential azcore.TokenCredent
 //   - catalogName - Name of catalog
 //   - productName - Name of product.
 //   - deviceGroupName - Name of device group.
-//   - claimDevicesRequest - Bulk claim devices request body.
+//   - body - The content of the action request
 //   - options - DeviceGroupsClientBeginClaimDevicesOptions contains the optional parameters for the DeviceGroupsClient.BeginClaimDevices
 //     method.
-func (client *DeviceGroupsClient) BeginClaimDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, claimDevicesRequest ClaimDevicesRequest, options *DeviceGroupsClientBeginClaimDevicesOptions) (*runtime.Poller[DeviceGroupsClientClaimDevicesResponse], error) {
+func (client *DeviceGroupsClient) BeginClaimDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body ClaimDevicesRequest, options *DeviceGroupsClientBeginClaimDevicesOptions) (*runtime.Poller[DeviceGroupsClientClaimDevicesResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.claimDevices(ctx, resourceGroupName, catalogName, productName, deviceGroupName, claimDevicesRequest, options)
+		resp, err := client.claimDevices(ctx, resourceGroupName, catalogName, productName, deviceGroupName, body, options)
 		if err != nil {
 			return nil, err
 		}
@@ -79,13 +79,13 @@ func (client *DeviceGroupsClient) BeginClaimDevices(ctx context.Context, resourc
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-09-01-preview
-func (client *DeviceGroupsClient) claimDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, claimDevicesRequest ClaimDevicesRequest, options *DeviceGroupsClientBeginClaimDevicesOptions) (*http.Response, error) {
+func (client *DeviceGroupsClient) claimDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body ClaimDevicesRequest, options *DeviceGroupsClientBeginClaimDevicesOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeviceGroupsClient.BeginClaimDevices"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.claimDevicesCreateRequest(ctx, resourceGroupName, catalogName, productName, deviceGroupName, claimDevicesRequest, options)
+	req, err := client.claimDevicesCreateRequest(ctx, resourceGroupName, catalogName, productName, deviceGroupName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func (client *DeviceGroupsClient) claimDevices(ctx context.Context, resourceGrou
 }
 
 // claimDevicesCreateRequest creates the ClaimDevices request.
-func (client *DeviceGroupsClient) claimDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, claimDevicesRequest ClaimDevicesRequest, options *DeviceGroupsClientBeginClaimDevicesOptions) (*policy.Request, error) {
+func (client *DeviceGroupsClient) claimDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body ClaimDevicesRequest, options *DeviceGroupsClientBeginClaimDevicesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/products/{productName}/deviceGroups/{deviceGroupName}/claimDevices"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -131,7 +131,7 @@ func (client *DeviceGroupsClient) claimDevicesCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, claimDevicesRequest); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -146,15 +146,16 @@ func (client *DeviceGroupsClient) claimDevicesCreateRequest(ctx context.Context,
 //   - catalogName - Name of catalog
 //   - productName - Name of product.
 //   - deviceGroupName - Name of device group.
+//   - body - The content of the action request
 //   - options - DeviceGroupsClientCountDevicesOptions contains the optional parameters for the DeviceGroupsClient.CountDevices
 //     method.
-func (client *DeviceGroupsClient) CountDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, options *DeviceGroupsClientCountDevicesOptions) (DeviceGroupsClientCountDevicesResponse, error) {
+func (client *DeviceGroupsClient) CountDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body any, options *DeviceGroupsClientCountDevicesOptions) (DeviceGroupsClientCountDevicesResponse, error) {
 	var err error
 	const operationName = "DeviceGroupsClient.CountDevices"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.countDevicesCreateRequest(ctx, resourceGroupName, catalogName, productName, deviceGroupName, options)
+	req, err := client.countDevicesCreateRequest(ctx, resourceGroupName, catalogName, productName, deviceGroupName, body, options)
 	if err != nil {
 		return DeviceGroupsClientCountDevicesResponse{}, err
 	}
@@ -171,7 +172,7 @@ func (client *DeviceGroupsClient) CountDevices(ctx context.Context, resourceGrou
 }
 
 // countDevicesCreateRequest creates the CountDevices request.
-func (client *DeviceGroupsClient) countDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, options *DeviceGroupsClientCountDevicesOptions) (*policy.Request, error) {
+func (client *DeviceGroupsClient) countDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body any, options *DeviceGroupsClientCountDevicesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/products/{productName}/deviceGroups/{deviceGroupName}/countDevices"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -201,6 +202,9 @@ func (client *DeviceGroupsClient) countDevicesCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -526,6 +530,7 @@ func (client *DeviceGroupsClient) listByProductCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -538,7 +543,6 @@ func (client *DeviceGroupsClient) listByProductCreateRequest(ctx context.Context
 	if options != nil && options.Maxpagesize != nil {
 		reqQP.Set("$maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
 	}
-	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

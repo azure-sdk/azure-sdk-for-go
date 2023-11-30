@@ -27,11 +27,11 @@ import (
 type DeviceGroupsServer struct {
 	// BeginClaimDevices is the fake for method DeviceGroupsClient.BeginClaimDevices
 	// HTTP status codes to indicate success: http.StatusAccepted
-	BeginClaimDevices func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, claimDevicesRequest armsphere.ClaimDevicesRequest, options *armsphere.DeviceGroupsClientBeginClaimDevicesOptions) (resp azfake.PollerResponder[armsphere.DeviceGroupsClientClaimDevicesResponse], errResp azfake.ErrorResponder)
+	BeginClaimDevices func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body armsphere.ClaimDevicesRequest, options *armsphere.DeviceGroupsClientBeginClaimDevicesOptions) (resp azfake.PollerResponder[armsphere.DeviceGroupsClientClaimDevicesResponse], errResp azfake.ErrorResponder)
 
 	// CountDevices is the fake for method DeviceGroupsClient.CountDevices
 	// HTTP status codes to indicate success: http.StatusOK
-	CountDevices func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, options *armsphere.DeviceGroupsClientCountDevicesOptions) (resp azfake.Responder[armsphere.DeviceGroupsClientCountDevicesResponse], errResp azfake.ErrorResponder)
+	CountDevices func(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, body any, options *armsphere.DeviceGroupsClientCountDevicesOptions) (resp azfake.Responder[armsphere.DeviceGroupsClientCountDevicesResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method DeviceGroupsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
@@ -182,6 +182,10 @@ func (d *DeviceGroupsServerTransport) dispatchCountDevices(req *http.Request) (*
 	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[any](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -198,7 +202,7 @@ func (d *DeviceGroupsServerTransport) dispatchCountDevices(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := d.srv.CountDevices(req.Context(), resourceGroupNameParam, catalogNameParam, productNameParam, deviceGroupNameParam, nil)
+	respr, errRespr := d.srv.CountDevices(req.Context(), resourceGroupNameParam, catalogNameParam, productNameParam, deviceGroupNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -375,6 +379,10 @@ func (d *DeviceGroupsServerTransport) dispatchNewListByProductPager(req *http.Re
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
 		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
@@ -419,10 +427,6 @@ func (d *DeviceGroupsServerTransport) dispatchNewListByProductPager(req *http.Re
 			}
 			return int32(p), nil
 		})
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}

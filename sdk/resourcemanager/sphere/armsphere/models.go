@@ -49,8 +49,8 @@ type CatalogProperties struct {
 	ProvisioningState *ProvisioningState
 }
 
-// CatalogUpdate - The type used for update operations of the Catalog.
-type CatalogUpdate struct {
+// CatalogTagsUpdate - The type used for updating tags in Catalog resources.
+type CatalogTagsUpdate struct {
 	// Resource tags.
 	Tags map[string]*string
 }
@@ -317,18 +317,6 @@ type DeviceProperties struct {
 
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
-}
-
-// DeviceUpdate - The type used for update operations of the Device.
-type DeviceUpdate struct {
-	// The updatable properties of the Device.
-	Properties *DeviceUpdateProperties
-}
-
-// DeviceUpdateProperties - The updatable properties of the Device.
-type DeviceUpdateProperties struct {
-	// Device group id
-	DeviceGroupID *string
 }
 
 // GenerateCapabilityImageRequest - Request of the action to create a signed device capability image

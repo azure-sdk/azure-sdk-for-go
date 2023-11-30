@@ -51,14 +51,15 @@ func NewProductsClient(subscriptionID string, credential azcore.TokenCredential,
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
 //   - productName - Name of product.
+//   - body - The content of the action request
 //   - options - ProductsClientCountDevicesOptions contains the optional parameters for the ProductsClient.CountDevices method.
-func (client *ProductsClient) CountDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, options *ProductsClientCountDevicesOptions) (ProductsClientCountDevicesResponse, error) {
+func (client *ProductsClient) CountDevices(ctx context.Context, resourceGroupName string, catalogName string, productName string, body any, options *ProductsClientCountDevicesOptions) (ProductsClientCountDevicesResponse, error) {
 	var err error
 	const operationName = "ProductsClient.CountDevices"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.countDevicesCreateRequest(ctx, resourceGroupName, catalogName, productName, options)
+	req, err := client.countDevicesCreateRequest(ctx, resourceGroupName, catalogName, productName, body, options)
 	if err != nil {
 		return ProductsClientCountDevicesResponse{}, err
 	}
@@ -75,7 +76,7 @@ func (client *ProductsClient) CountDevices(ctx context.Context, resourceGroupNam
 }
 
 // countDevicesCreateRequest creates the CountDevices request.
-func (client *ProductsClient) countDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, options *ProductsClientCountDevicesOptions) (*policy.Request, error) {
+func (client *ProductsClient) countDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, body any, options *ProductsClientCountDevicesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/products/{productName}/countDevices"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -101,6 +102,9 @@ func (client *ProductsClient) countDevicesCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -289,9 +293,10 @@ func (client *ProductsClient) deleteCreateRequest(ctx context.Context, resourceG
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
 //   - productName - Name of product.
+//   - body - The content of the action request
 //   - options - ProductsClientGenerateDefaultDeviceGroupsOptions contains the optional parameters for the ProductsClient.NewGenerateDefaultDeviceGroupsPager
 //     method.
-func (client *ProductsClient) NewGenerateDefaultDeviceGroupsPager(resourceGroupName string, catalogName string, productName string, options *ProductsClientGenerateDefaultDeviceGroupsOptions) *runtime.Pager[ProductsClientGenerateDefaultDeviceGroupsResponse] {
+func (client *ProductsClient) NewGenerateDefaultDeviceGroupsPager(resourceGroupName string, catalogName string, productName string, body any, options *ProductsClientGenerateDefaultDeviceGroupsOptions) *runtime.Pager[ProductsClientGenerateDefaultDeviceGroupsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ProductsClientGenerateDefaultDeviceGroupsResponse]{
 		More: func(page ProductsClientGenerateDefaultDeviceGroupsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -303,7 +308,7 @@ func (client *ProductsClient) NewGenerateDefaultDeviceGroupsPager(resourceGroupN
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.generateDefaultDeviceGroupsCreateRequest(ctx, resourceGroupName, catalogName, productName, options)
+				return client.generateDefaultDeviceGroupsCreateRequest(ctx, resourceGroupName, catalogName, productName, body, options)
 			}, nil)
 			if err != nil {
 				return ProductsClientGenerateDefaultDeviceGroupsResponse{}, err
@@ -315,7 +320,7 @@ func (client *ProductsClient) NewGenerateDefaultDeviceGroupsPager(resourceGroupN
 }
 
 // generateDefaultDeviceGroupsCreateRequest creates the GenerateDefaultDeviceGroups request.
-func (client *ProductsClient) generateDefaultDeviceGroupsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, options *ProductsClientGenerateDefaultDeviceGroupsOptions) (*policy.Request, error) {
+func (client *ProductsClient) generateDefaultDeviceGroupsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, body any, options *ProductsClientGenerateDefaultDeviceGroupsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/products/{productName}/generateDefaultDeviceGroups"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -341,6 +346,9 @@ func (client *ProductsClient) generateDefaultDeviceGroupsCreateRequest(ctx conte
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 

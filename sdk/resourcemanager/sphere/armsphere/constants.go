@@ -10,7 +10,7 @@ package armsphere
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sphere/armsphere"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -27,7 +27,6 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// AllowCrashDumpCollection - Allow crash dumps values.
 type AllowCrashDumpCollection string
 
 const (
@@ -45,7 +44,6 @@ func PossibleAllowCrashDumpCollectionValues() []AllowCrashDumpCollection {
 	}
 }
 
-// CapabilityType - Capability image type
 type CapabilityType string
 
 const (
@@ -63,7 +61,6 @@ func PossibleCapabilityTypeValues() []CapabilityType {
 	}
 }
 
-// CertificateStatus - Certificate status values.
 type CertificateStatus string
 
 const (
@@ -107,7 +104,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// ImageType - Image type values.
 type ImageType string
 
 const (
@@ -191,7 +187,6 @@ func PossibleImageTypeValues() []ImageType {
 	}
 }
 
-// OSFeedType - OS feed type values.
 type OSFeedType string
 
 const (
@@ -228,7 +223,6 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
-// ProvisioningState - Provisioning state of the resource.
 type ProvisioningState string
 
 const (
@@ -261,7 +255,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// RegionalDataBoundary - Regional data boundary values.
 type RegionalDataBoundary string
 
 const (
@@ -279,7 +272,6 @@ func PossibleRegionalDataBoundaryValues() []RegionalDataBoundary {
 	}
 }
 
-// UpdatePolicy - Update policy values.
 type UpdatePolicy string
 
 const (

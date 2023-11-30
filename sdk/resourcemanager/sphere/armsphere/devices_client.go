@@ -243,12 +243,12 @@ func (client *DevicesClient) deleteCreateRequest(ctx context.Context, resourceGr
 //   - productName - Name of product.
 //   - deviceGroupName - Name of device group.
 //   - deviceName - Device name
-//   - generateDeviceCapabilityRequest - Generate capability image request body.
+//   - body - The content of the action request
 //   - options - DevicesClientBeginGenerateCapabilityImageOptions contains the optional parameters for the DevicesClient.BeginGenerateCapabilityImage
 //     method.
-func (client *DevicesClient) BeginGenerateCapabilityImage(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, generateDeviceCapabilityRequest GenerateCapabilityImageRequest, options *DevicesClientBeginGenerateCapabilityImageOptions) (*runtime.Poller[DevicesClientGenerateCapabilityImageResponse], error) {
+func (client *DevicesClient) BeginGenerateCapabilityImage(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, body GenerateCapabilityImageRequest, options *DevicesClientBeginGenerateCapabilityImageOptions) (*runtime.Poller[DevicesClientGenerateCapabilityImageResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.generateCapabilityImage(ctx, resourceGroupName, catalogName, productName, deviceGroupName, deviceName, generateDeviceCapabilityRequest, options)
+		resp, err := client.generateCapabilityImage(ctx, resourceGroupName, catalogName, productName, deviceGroupName, deviceName, body, options)
 		if err != nil {
 			return nil, err
 		}
@@ -270,13 +270,13 @@ func (client *DevicesClient) BeginGenerateCapabilityImage(ctx context.Context, r
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-09-01-preview
-func (client *DevicesClient) generateCapabilityImage(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, generateDeviceCapabilityRequest GenerateCapabilityImageRequest, options *DevicesClientBeginGenerateCapabilityImageOptions) (*http.Response, error) {
+func (client *DevicesClient) generateCapabilityImage(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, body GenerateCapabilityImageRequest, options *DevicesClientBeginGenerateCapabilityImageOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DevicesClient.BeginGenerateCapabilityImage"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.generateCapabilityImageCreateRequest(ctx, resourceGroupName, catalogName, productName, deviceGroupName, deviceName, generateDeviceCapabilityRequest, options)
+	req, err := client.generateCapabilityImageCreateRequest(ctx, resourceGroupName, catalogName, productName, deviceGroupName, deviceName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -292,7 +292,7 @@ func (client *DevicesClient) generateCapabilityImage(ctx context.Context, resour
 }
 
 // generateCapabilityImageCreateRequest creates the GenerateCapabilityImage request.
-func (client *DevicesClient) generateCapabilityImageCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, generateDeviceCapabilityRequest GenerateCapabilityImageRequest, options *DevicesClientBeginGenerateCapabilityImageOptions) (*policy.Request, error) {
+func (client *DevicesClient) generateCapabilityImageCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, body GenerateCapabilityImageRequest, options *DevicesClientBeginGenerateCapabilityImageOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/products/{productName}/deviceGroups/{deviceGroupName}/devices/{deviceName}/generateCapabilityImage"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -326,7 +326,7 @@ func (client *DevicesClient) generateCapabilityImageCreateRequest(ctx context.Co
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, generateDeviceCapabilityRequest); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -500,7 +500,7 @@ func (client *DevicesClient) listByDeviceGroupHandleResponse(resp *http.Response
 //   - deviceName - Device name
 //   - properties - The resource properties to be updated.
 //   - options - DevicesClientBeginUpdateOptions contains the optional parameters for the DevicesClient.BeginUpdate method.
-func (client *DevicesClient) BeginUpdate(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties DeviceUpdate, options *DevicesClientBeginUpdateOptions) (*runtime.Poller[DevicesClientUpdateResponse], error) {
+func (client *DevicesClient) BeginUpdate(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties any, options *DevicesClientBeginUpdateOptions) (*runtime.Poller[DevicesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, catalogName, productName, deviceGroupName, deviceName, properties, options)
 		if err != nil {
@@ -523,7 +523,7 @@ func (client *DevicesClient) BeginUpdate(ctx context.Context, resourceGroupName 
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-09-01-preview
-func (client *DevicesClient) update(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties DeviceUpdate, options *DevicesClientBeginUpdateOptions) (*http.Response, error) {
+func (client *DevicesClient) update(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties any, options *DevicesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DevicesClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -545,7 +545,7 @@ func (client *DevicesClient) update(ctx context.Context, resourceGroupName strin
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DevicesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties DeviceUpdate, options *DevicesClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *DevicesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, productName string, deviceGroupName string, deviceName string, properties any, options *DevicesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/products/{productName}/deviceGroups/{deviceGroupName}/devices/{deviceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")

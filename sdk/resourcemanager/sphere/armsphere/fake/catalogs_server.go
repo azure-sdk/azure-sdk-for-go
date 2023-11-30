@@ -27,7 +27,7 @@ import (
 type CatalogsServer struct {
 	// CountDevices is the fake for method CatalogsClient.CountDevices
 	// HTTP status codes to indicate success: http.StatusOK
-	CountDevices func(ctx context.Context, resourceGroupName string, catalogName string, options *armsphere.CatalogsClientCountDevicesOptions) (resp azfake.Responder[armsphere.CatalogsClientCountDevicesResponse], errResp azfake.ErrorResponder)
+	CountDevices func(ctx context.Context, resourceGroupName string, catalogName string, body any, options *armsphere.CatalogsClientCountDevicesOptions) (resp azfake.Responder[armsphere.CatalogsClientCountDevicesResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method CatalogsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
@@ -51,23 +51,23 @@ type CatalogsServer struct {
 
 	// NewListDeploymentsPager is the fake for method CatalogsClient.NewListDeploymentsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListDeploymentsPager func(resourceGroupName string, catalogName string, options *armsphere.CatalogsClientListDeploymentsOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDeploymentsResponse])
+	NewListDeploymentsPager func(resourceGroupName string, catalogName string, body any, options *armsphere.CatalogsClientListDeploymentsOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDeploymentsResponse])
 
 	// NewListDeviceGroupsPager is the fake for method CatalogsClient.NewListDeviceGroupsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListDeviceGroupsPager func(resourceGroupName string, catalogName string, listDeviceGroupsRequest armsphere.ListDeviceGroupsRequest, options *armsphere.CatalogsClientListDeviceGroupsOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDeviceGroupsResponse])
+	NewListDeviceGroupsPager func(resourceGroupName string, catalogName string, body armsphere.ListDeviceGroupsRequest, options *armsphere.CatalogsClientListDeviceGroupsOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDeviceGroupsResponse])
 
 	// NewListDeviceInsightsPager is the fake for method CatalogsClient.NewListDeviceInsightsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListDeviceInsightsPager func(resourceGroupName string, catalogName string, options *armsphere.CatalogsClientListDeviceInsightsOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDeviceInsightsResponse])
+	NewListDeviceInsightsPager func(resourceGroupName string, catalogName string, body any, options *armsphere.CatalogsClientListDeviceInsightsOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDeviceInsightsResponse])
 
 	// NewListDevicesPager is the fake for method CatalogsClient.NewListDevicesPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListDevicesPager func(resourceGroupName string, catalogName string, options *armsphere.CatalogsClientListDevicesOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDevicesResponse])
+	NewListDevicesPager func(resourceGroupName string, catalogName string, body any, options *armsphere.CatalogsClientListDevicesOptions) (resp azfake.PagerResponder[armsphere.CatalogsClientListDevicesResponse])
 
 	// Update is the fake for method CatalogsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, catalogName string, properties armsphere.CatalogUpdate, options *armsphere.CatalogsClientUpdateOptions) (resp azfake.Responder[armsphere.CatalogsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, catalogName string, properties armsphere.CatalogTagsUpdate, options *armsphere.CatalogsClientUpdateOptions) (resp azfake.Responder[armsphere.CatalogsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewCatalogsServerTransport creates a new instance of CatalogsServerTransport with the provided implementation.
@@ -156,6 +156,10 @@ func (c *CatalogsServerTransport) dispatchCountDevices(req *http.Request) (*http
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[any](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -164,7 +168,7 @@ func (c *CatalogsServerTransport) dispatchCountDevices(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := c.srv.CountDevices(req.Context(), resourceGroupNameParam, catalogNameParam, nil)
+	respr, errRespr := c.srv.CountDevices(req.Context(), resourceGroupNameParam, catalogNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -387,11 +391,11 @@ func (c *CatalogsServerTransport) dispatchNewListDeploymentsPager(req *http.Requ
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		body, err := server.UnmarshalRequestAsJSON[any](req)
 		if err != nil {
 			return nil, err
 		}
-		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
@@ -442,6 +446,10 @@ func (c *CatalogsServerTransport) dispatchNewListDeploymentsPager(req *http.Requ
 		if err != nil {
 			return nil, err
 		}
+		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
+		if err != nil {
+			return nil, err
+		}
 		var options *armsphere.CatalogsClientListDeploymentsOptions
 		if filterParam != nil || topParam != nil || skipParam != nil || maxpagesizeParam != nil {
 			options = &armsphere.CatalogsClientListDeploymentsOptions{
@@ -451,7 +459,7 @@ func (c *CatalogsServerTransport) dispatchNewListDeploymentsPager(req *http.Requ
 				Maxpagesize: maxpagesizeParam,
 			}
 		}
-		resp := c.srv.NewListDeploymentsPager(resourceGroupNameParam, catalogNameParam, options)
+		resp := c.srv.NewListDeploymentsPager(resourceGroupNameParam, catalogNameParam, body, options)
 		newListDeploymentsPager = &resp
 		c.newListDeploymentsPager.add(req, newListDeploymentsPager)
 		server.PagerResponderInjectNextLinks(newListDeploymentsPager, req, func(page *armsphere.CatalogsClientListDeploymentsResponse, createLink func() string) {
@@ -493,10 +501,6 @@ func (c *CatalogsServerTransport) dispatchNewListDeviceGroupsPager(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
-		if err != nil {
-			return nil, err
-		}
 		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
@@ -541,6 +545,10 @@ func (c *CatalogsServerTransport) dispatchNewListDeviceGroupsPager(req *http.Req
 			}
 			return int32(p), nil
 		})
+		if err != nil {
+			return nil, err
+		}
+		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
 		if err != nil {
 			return nil, err
 		}
@@ -587,11 +595,11 @@ func (c *CatalogsServerTransport) dispatchNewListDeviceInsightsPager(req *http.R
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		body, err := server.UnmarshalRequestAsJSON[any](req)
 		if err != nil {
 			return nil, err
 		}
-		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
@@ -642,6 +650,10 @@ func (c *CatalogsServerTransport) dispatchNewListDeviceInsightsPager(req *http.R
 		if err != nil {
 			return nil, err
 		}
+		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
+		if err != nil {
+			return nil, err
+		}
 		var options *armsphere.CatalogsClientListDeviceInsightsOptions
 		if filterParam != nil || topParam != nil || skipParam != nil || maxpagesizeParam != nil {
 			options = &armsphere.CatalogsClientListDeviceInsightsOptions{
@@ -651,7 +663,7 @@ func (c *CatalogsServerTransport) dispatchNewListDeviceInsightsPager(req *http.R
 				Maxpagesize: maxpagesizeParam,
 			}
 		}
-		resp := c.srv.NewListDeviceInsightsPager(resourceGroupNameParam, catalogNameParam, options)
+		resp := c.srv.NewListDeviceInsightsPager(resourceGroupNameParam, catalogNameParam, body, options)
 		newListDeviceInsightsPager = &resp
 		c.newListDeviceInsightsPager.add(req, newListDeviceInsightsPager)
 		server.PagerResponderInjectNextLinks(newListDeviceInsightsPager, req, func(page *armsphere.CatalogsClientListDeviceInsightsResponse, createLink func() string) {
@@ -685,11 +697,11 @@ func (c *CatalogsServerTransport) dispatchNewListDevicesPager(req *http.Request)
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		body, err := server.UnmarshalRequestAsJSON[any](req)
 		if err != nil {
 			return nil, err
 		}
-		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
@@ -740,6 +752,10 @@ func (c *CatalogsServerTransport) dispatchNewListDevicesPager(req *http.Request)
 		if err != nil {
 			return nil, err
 		}
+		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
+		if err != nil {
+			return nil, err
+		}
 		var options *armsphere.CatalogsClientListDevicesOptions
 		if filterParam != nil || topParam != nil || skipParam != nil || maxpagesizeParam != nil {
 			options = &armsphere.CatalogsClientListDevicesOptions{
@@ -749,7 +765,7 @@ func (c *CatalogsServerTransport) dispatchNewListDevicesPager(req *http.Request)
 				Maxpagesize: maxpagesizeParam,
 			}
 		}
-		resp := c.srv.NewListDevicesPager(resourceGroupNameParam, catalogNameParam, options)
+		resp := c.srv.NewListDevicesPager(resourceGroupNameParam, catalogNameParam, body, options)
 		newListDevicesPager = &resp
 		c.newListDevicesPager.add(req, newListDevicesPager)
 		server.PagerResponderInjectNextLinks(newListDevicesPager, req, func(page *armsphere.CatalogsClientListDevicesResponse, createLink func() string) {
@@ -780,7 +796,7 @@ func (c *CatalogsServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armsphere.CatalogUpdate](req)
+	body, err := server.UnmarshalRequestAsJSON[armsphere.CatalogTagsUpdate](req)
 	if err != nil {
 		return nil, err
 	}

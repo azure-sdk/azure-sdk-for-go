@@ -163,6 +163,7 @@ func (client *CertificatesClient) listByCatalogCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -175,7 +176,6 @@ func (client *CertificatesClient) listByCatalogCreateRequest(ctx context.Context
 	if options != nil && options.Maxpagesize != nil {
 		reqQP.Set("$maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
 	}
-	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -197,15 +197,16 @@ func (client *CertificatesClient) listByCatalogHandleResponse(resp *http.Respons
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
 //   - serialNumber - Serial number of the certificate. Use '.default' to get current active certificate.
+//   - body - The content of the action request
 //   - options - CertificatesClientRetrieveCertChainOptions contains the optional parameters for the CertificatesClient.RetrieveCertChain
 //     method.
-func (client *CertificatesClient) RetrieveCertChain(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, options *CertificatesClientRetrieveCertChainOptions) (CertificatesClientRetrieveCertChainResponse, error) {
+func (client *CertificatesClient) RetrieveCertChain(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, body any, options *CertificatesClientRetrieveCertChainOptions) (CertificatesClientRetrieveCertChainResponse, error) {
 	var err error
 	const operationName = "CertificatesClient.RetrieveCertChain"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.retrieveCertChainCreateRequest(ctx, resourceGroupName, catalogName, serialNumber, options)
+	req, err := client.retrieveCertChainCreateRequest(ctx, resourceGroupName, catalogName, serialNumber, body, options)
 	if err != nil {
 		return CertificatesClientRetrieveCertChainResponse{}, err
 	}
@@ -222,7 +223,7 @@ func (client *CertificatesClient) RetrieveCertChain(ctx context.Context, resourc
 }
 
 // retrieveCertChainCreateRequest creates the RetrieveCertChain request.
-func (client *CertificatesClient) retrieveCertChainCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, options *CertificatesClientRetrieveCertChainOptions) (*policy.Request, error) {
+func (client *CertificatesClient) retrieveCertChainCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, body any, options *CertificatesClientRetrieveCertChainOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/certificates/{serialNumber}/retrieveCertChain"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -248,6 +249,9 @@ func (client *CertificatesClient) retrieveCertChainCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -267,16 +271,16 @@ func (client *CertificatesClient) retrieveCertChainHandleResponse(resp *http.Res
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
 //   - serialNumber - Serial number of the certificate. Use '.default' to get current active certificate.
-//   - proofOfPossessionNonceRequest - Proof of possession nonce request body
+//   - body - The content of the action request
 //   - options - CertificatesClientRetrieveProofOfPossessionNonceOptions contains the optional parameters for the CertificatesClient.RetrieveProofOfPossessionNonce
 //     method.
-func (client *CertificatesClient) RetrieveProofOfPossessionNonce(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, proofOfPossessionNonceRequest ProofOfPossessionNonceRequest, options *CertificatesClientRetrieveProofOfPossessionNonceOptions) (CertificatesClientRetrieveProofOfPossessionNonceResponse, error) {
+func (client *CertificatesClient) RetrieveProofOfPossessionNonce(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, body ProofOfPossessionNonceRequest, options *CertificatesClientRetrieveProofOfPossessionNonceOptions) (CertificatesClientRetrieveProofOfPossessionNonceResponse, error) {
 	var err error
 	const operationName = "CertificatesClient.RetrieveProofOfPossessionNonce"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.retrieveProofOfPossessionNonceCreateRequest(ctx, resourceGroupName, catalogName, serialNumber, proofOfPossessionNonceRequest, options)
+	req, err := client.retrieveProofOfPossessionNonceCreateRequest(ctx, resourceGroupName, catalogName, serialNumber, body, options)
 	if err != nil {
 		return CertificatesClientRetrieveProofOfPossessionNonceResponse{}, err
 	}
@@ -293,7 +297,7 @@ func (client *CertificatesClient) RetrieveProofOfPossessionNonce(ctx context.Con
 }
 
 // retrieveProofOfPossessionNonceCreateRequest creates the RetrieveProofOfPossessionNonce request.
-func (client *CertificatesClient) retrieveProofOfPossessionNonceCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, proofOfPossessionNonceRequest ProofOfPossessionNonceRequest, options *CertificatesClientRetrieveProofOfPossessionNonceOptions) (*policy.Request, error) {
+func (client *CertificatesClient) retrieveProofOfPossessionNonceCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, body ProofOfPossessionNonceRequest, options *CertificatesClientRetrieveProofOfPossessionNonceOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/certificates/{serialNumber}/retrieveProofOfPossessionNonce"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -319,7 +323,7 @@ func (client *CertificatesClient) retrieveProofOfPossessionNonceCreateRequest(ct
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, proofOfPossessionNonceRequest); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil

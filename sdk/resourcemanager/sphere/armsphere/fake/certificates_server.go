@@ -35,11 +35,11 @@ type CertificatesServer struct {
 
 	// RetrieveCertChain is the fake for method CertificatesClient.RetrieveCertChain
 	// HTTP status codes to indicate success: http.StatusOK
-	RetrieveCertChain func(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, options *armsphere.CertificatesClientRetrieveCertChainOptions) (resp azfake.Responder[armsphere.CertificatesClientRetrieveCertChainResponse], errResp azfake.ErrorResponder)
+	RetrieveCertChain func(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, body any, options *armsphere.CertificatesClientRetrieveCertChainOptions) (resp azfake.Responder[armsphere.CertificatesClientRetrieveCertChainResponse], errResp azfake.ErrorResponder)
 
 	// RetrieveProofOfPossessionNonce is the fake for method CertificatesClient.RetrieveProofOfPossessionNonce
 	// HTTP status codes to indicate success: http.StatusOK
-	RetrieveProofOfPossessionNonce func(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, proofOfPossessionNonceRequest armsphere.ProofOfPossessionNonceRequest, options *armsphere.CertificatesClientRetrieveProofOfPossessionNonceOptions) (resp azfake.Responder[armsphere.CertificatesClientRetrieveProofOfPossessionNonceResponse], errResp azfake.ErrorResponder)
+	RetrieveProofOfPossessionNonce func(ctx context.Context, resourceGroupName string, catalogName string, serialNumber string, body armsphere.ProofOfPossessionNonceRequest, options *armsphere.CertificatesClientRetrieveProofOfPossessionNonceOptions) (resp azfake.Responder[armsphere.CertificatesClientRetrieveProofOfPossessionNonceResponse], errResp azfake.ErrorResponder)
 }
 
 // NewCertificatesServerTransport creates a new instance of CertificatesServerTransport with the provided implementation.
@@ -140,6 +140,10 @@ func (c *CertificatesServerTransport) dispatchNewListByCatalogPager(req *http.Re
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
 		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
@@ -187,10 +191,6 @@ func (c *CertificatesServerTransport) dispatchNewListByCatalogPager(req *http.Re
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
 		catalogNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("catalogName")])
 		if err != nil {
 			return nil, err
@@ -235,6 +235,10 @@ func (c *CertificatesServerTransport) dispatchRetrieveCertChain(req *http.Reques
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[any](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -247,7 +251,7 @@ func (c *CertificatesServerTransport) dispatchRetrieveCertChain(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := c.srv.RetrieveCertChain(req.Context(), resourceGroupNameParam, catalogNameParam, serialNumberParam, nil)
+	respr, errRespr := c.srv.RetrieveCertChain(req.Context(), resourceGroupNameParam, catalogNameParam, serialNumberParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

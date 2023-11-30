@@ -50,14 +50,15 @@ func NewCatalogsClient(subscriptionID string, credential azcore.TokenCredential,
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
+//   - body - The content of the action request
 //   - options - CatalogsClientCountDevicesOptions contains the optional parameters for the CatalogsClient.CountDevices method.
-func (client *CatalogsClient) CountDevices(ctx context.Context, resourceGroupName string, catalogName string, options *CatalogsClientCountDevicesOptions) (CatalogsClientCountDevicesResponse, error) {
+func (client *CatalogsClient) CountDevices(ctx context.Context, resourceGroupName string, catalogName string, body any, options *CatalogsClientCountDevicesOptions) (CatalogsClientCountDevicesResponse, error) {
 	var err error
 	const operationName = "CatalogsClient.CountDevices"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.countDevicesCreateRequest(ctx, resourceGroupName, catalogName, options)
+	req, err := client.countDevicesCreateRequest(ctx, resourceGroupName, catalogName, body, options)
 	if err != nil {
 		return CatalogsClientCountDevicesResponse{}, err
 	}
@@ -74,7 +75,7 @@ func (client *CatalogsClient) CountDevices(ctx context.Context, resourceGroupNam
 }
 
 // countDevicesCreateRequest creates the CountDevices request.
-func (client *CatalogsClient) countDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, options *CatalogsClientCountDevicesOptions) (*policy.Request, error) {
+func (client *CatalogsClient) countDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, body any, options *CatalogsClientCountDevicesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/countDevices"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -96,6 +97,9 @@ func (client *CatalogsClient) countDevicesCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -449,9 +453,10 @@ func (client *CatalogsClient) listBySubscriptionHandleResponse(resp *http.Respon
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
+//   - body - The content of the action request
 //   - options - CatalogsClientListDeploymentsOptions contains the optional parameters for the CatalogsClient.NewListDeploymentsPager
 //     method.
-func (client *CatalogsClient) NewListDeploymentsPager(resourceGroupName string, catalogName string, options *CatalogsClientListDeploymentsOptions) *runtime.Pager[CatalogsClientListDeploymentsResponse] {
+func (client *CatalogsClient) NewListDeploymentsPager(resourceGroupName string, catalogName string, body any, options *CatalogsClientListDeploymentsOptions) *runtime.Pager[CatalogsClientListDeploymentsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CatalogsClientListDeploymentsResponse]{
 		More: func(page CatalogsClientListDeploymentsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -463,7 +468,7 @@ func (client *CatalogsClient) NewListDeploymentsPager(resourceGroupName string, 
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listDeploymentsCreateRequest(ctx, resourceGroupName, catalogName, options)
+				return client.listDeploymentsCreateRequest(ctx, resourceGroupName, catalogName, body, options)
 			}, nil)
 			if err != nil {
 				return CatalogsClientListDeploymentsResponse{}, err
@@ -475,7 +480,7 @@ func (client *CatalogsClient) NewListDeploymentsPager(resourceGroupName string, 
 }
 
 // listDeploymentsCreateRequest creates the ListDeployments request.
-func (client *CatalogsClient) listDeploymentsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, options *CatalogsClientListDeploymentsOptions) (*policy.Request, error) {
+func (client *CatalogsClient) listDeploymentsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, body any, options *CatalogsClientListDeploymentsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/listDeployments"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -509,6 +514,9 @@ func (client *CatalogsClient) listDeploymentsCreateRequest(ctx context.Context, 
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -526,10 +534,10 @@ func (client *CatalogsClient) listDeploymentsHandleResponse(resp *http.Response)
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - listDeviceGroupsRequest - List device groups for catalog.
+//   - body - The content of the action request
 //   - options - CatalogsClientListDeviceGroupsOptions contains the optional parameters for the CatalogsClient.NewListDeviceGroupsPager
 //     method.
-func (client *CatalogsClient) NewListDeviceGroupsPager(resourceGroupName string, catalogName string, listDeviceGroupsRequest ListDeviceGroupsRequest, options *CatalogsClientListDeviceGroupsOptions) *runtime.Pager[CatalogsClientListDeviceGroupsResponse] {
+func (client *CatalogsClient) NewListDeviceGroupsPager(resourceGroupName string, catalogName string, body ListDeviceGroupsRequest, options *CatalogsClientListDeviceGroupsOptions) *runtime.Pager[CatalogsClientListDeviceGroupsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CatalogsClientListDeviceGroupsResponse]{
 		More: func(page CatalogsClientListDeviceGroupsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -541,7 +549,7 @@ func (client *CatalogsClient) NewListDeviceGroupsPager(resourceGroupName string,
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listDeviceGroupsCreateRequest(ctx, resourceGroupName, catalogName, listDeviceGroupsRequest, options)
+				return client.listDeviceGroupsCreateRequest(ctx, resourceGroupName, catalogName, body, options)
 			}, nil)
 			if err != nil {
 				return CatalogsClientListDeviceGroupsResponse{}, err
@@ -553,7 +561,7 @@ func (client *CatalogsClient) NewListDeviceGroupsPager(resourceGroupName string,
 }
 
 // listDeviceGroupsCreateRequest creates the ListDeviceGroups request.
-func (client *CatalogsClient) listDeviceGroupsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, listDeviceGroupsRequest ListDeviceGroupsRequest, options *CatalogsClientListDeviceGroupsOptions) (*policy.Request, error) {
+func (client *CatalogsClient) listDeviceGroupsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, body ListDeviceGroupsRequest, options *CatalogsClientListDeviceGroupsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/listDeviceGroups"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -587,7 +595,7 @@ func (client *CatalogsClient) listDeviceGroupsCreateRequest(ctx context.Context,
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, listDeviceGroupsRequest); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -607,9 +615,10 @@ func (client *CatalogsClient) listDeviceGroupsHandleResponse(resp *http.Response
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
+//   - body - The content of the action request
 //   - options - CatalogsClientListDeviceInsightsOptions contains the optional parameters for the CatalogsClient.NewListDeviceInsightsPager
 //     method.
-func (client *CatalogsClient) NewListDeviceInsightsPager(resourceGroupName string, catalogName string, options *CatalogsClientListDeviceInsightsOptions) *runtime.Pager[CatalogsClientListDeviceInsightsResponse] {
+func (client *CatalogsClient) NewListDeviceInsightsPager(resourceGroupName string, catalogName string, body any, options *CatalogsClientListDeviceInsightsOptions) *runtime.Pager[CatalogsClientListDeviceInsightsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CatalogsClientListDeviceInsightsResponse]{
 		More: func(page CatalogsClientListDeviceInsightsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -621,7 +630,7 @@ func (client *CatalogsClient) NewListDeviceInsightsPager(resourceGroupName strin
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listDeviceInsightsCreateRequest(ctx, resourceGroupName, catalogName, options)
+				return client.listDeviceInsightsCreateRequest(ctx, resourceGroupName, catalogName, body, options)
 			}, nil)
 			if err != nil {
 				return CatalogsClientListDeviceInsightsResponse{}, err
@@ -633,7 +642,7 @@ func (client *CatalogsClient) NewListDeviceInsightsPager(resourceGroupName strin
 }
 
 // listDeviceInsightsCreateRequest creates the ListDeviceInsights request.
-func (client *CatalogsClient) listDeviceInsightsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, options *CatalogsClientListDeviceInsightsOptions) (*policy.Request, error) {
+func (client *CatalogsClient) listDeviceInsightsCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, body any, options *CatalogsClientListDeviceInsightsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/listDeviceInsights"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -667,6 +676,9 @@ func (client *CatalogsClient) listDeviceInsightsCreateRequest(ctx context.Contex
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -684,9 +696,10 @@ func (client *CatalogsClient) listDeviceInsightsHandleResponse(resp *http.Respon
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
+//   - body - The content of the action request
 //   - options - CatalogsClientListDevicesOptions contains the optional parameters for the CatalogsClient.NewListDevicesPager
 //     method.
-func (client *CatalogsClient) NewListDevicesPager(resourceGroupName string, catalogName string, options *CatalogsClientListDevicesOptions) *runtime.Pager[CatalogsClientListDevicesResponse] {
+func (client *CatalogsClient) NewListDevicesPager(resourceGroupName string, catalogName string, body any, options *CatalogsClientListDevicesOptions) *runtime.Pager[CatalogsClientListDevicesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CatalogsClientListDevicesResponse]{
 		More: func(page CatalogsClientListDevicesResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -698,7 +711,7 @@ func (client *CatalogsClient) NewListDevicesPager(resourceGroupName string, cata
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listDevicesCreateRequest(ctx, resourceGroupName, catalogName, options)
+				return client.listDevicesCreateRequest(ctx, resourceGroupName, catalogName, body, options)
 			}, nil)
 			if err != nil {
 				return CatalogsClientListDevicesResponse{}, err
@@ -710,7 +723,7 @@ func (client *CatalogsClient) NewListDevicesPager(resourceGroupName string, cata
 }
 
 // listDevicesCreateRequest creates the ListDevices request.
-func (client *CatalogsClient) listDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, options *CatalogsClientListDevicesOptions) (*policy.Request, error) {
+func (client *CatalogsClient) listDevicesCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, body any, options *CatalogsClientListDevicesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}/listDevices"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -744,6 +757,9 @@ func (client *CatalogsClient) listDevicesCreateRequest(ctx context.Context, reso
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
@@ -764,7 +780,7 @@ func (client *CatalogsClient) listDevicesHandleResponse(resp *http.Response) (Ca
 //   - catalogName - Name of catalog
 //   - properties - The resource properties to be updated.
 //   - options - CatalogsClientUpdateOptions contains the optional parameters for the CatalogsClient.Update method.
-func (client *CatalogsClient) Update(ctx context.Context, resourceGroupName string, catalogName string, properties CatalogUpdate, options *CatalogsClientUpdateOptions) (CatalogsClientUpdateResponse, error) {
+func (client *CatalogsClient) Update(ctx context.Context, resourceGroupName string, catalogName string, properties CatalogTagsUpdate, options *CatalogsClientUpdateOptions) (CatalogsClientUpdateResponse, error) {
 	var err error
 	const operationName = "CatalogsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -787,7 +803,7 @@ func (client *CatalogsClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // updateCreateRequest creates the Update request.
-func (client *CatalogsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, properties CatalogUpdate, options *CatalogsClientUpdateOptions) (*policy.Request, error) {
+func (client *CatalogsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, catalogName string, properties CatalogTagsUpdate, options *CatalogsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureSphere/catalogs/{catalogName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
