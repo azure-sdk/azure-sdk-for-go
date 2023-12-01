@@ -46,7 +46,7 @@ func NewArtifactStoresClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreateOrUpdate - Creates or updates a artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -74,7 +74,7 @@ func (client *ArtifactStoresClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Creates or updates a artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ArtifactStoresClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStore, options *ArtifactStoresClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactStoresClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *ArtifactStoresClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -132,7 +132,7 @@ func (client *ArtifactStoresClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Deletes the specified artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -159,7 +159,7 @@ func (client *ArtifactStoresClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Deletes the specified artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ArtifactStoresClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactStoresClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *ArtifactStoresClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *ArtifactStoresClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets information about the specified artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -265,7 +265,7 @@ func (client *ArtifactStoresClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *ArtifactStoresClient) getHandleResponse(resp *http.Response) (Arti
 
 // NewListByPublisherPager - Gets information of the ArtifactStores under publisher.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - ArtifactStoresClientListByPublisherOptions contains the optional parameters for the ArtifactStoresClient.NewListByPublisherPager
@@ -330,7 +330,7 @@ func (client *ArtifactStoresClient) listByPublisherCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -348,7 +348,7 @@ func (client *ArtifactStoresClient) listByPublisherHandleResponse(resp *http.Res
 // Update - Update artifact store resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -400,7 +400,7 @@ func (client *ArtifactStoresClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

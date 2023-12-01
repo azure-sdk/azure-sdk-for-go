@@ -46,7 +46,7 @@ func NewSitesClient(subscriptionID string, credential azcore.TokenCredential, op
 // BeginCreateOrUpdate - Creates or updates a network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The name of the network service site.
 //   - parameters - Parameters supplied to the create or update network site operation.
@@ -73,7 +73,7 @@ func (client *SitesClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 // CreateOrUpdate - Creates or updates a network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *SitesClient) createOrUpdate(ctx context.Context, resourceGroupName string, siteName string, parameters Site, options *SitesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SitesClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *SitesClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -127,7 +127,7 @@ func (client *SitesClient) createOrUpdateCreateRequest(ctx context.Context, reso
 // BeginDelete - Deletes the specified network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The name of the network service site.
 //   - options - SitesClientBeginDeleteOptions contains the optional parameters for the SitesClient.BeginDelete method.
@@ -152,7 +152,7 @@ func (client *SitesClient) BeginDelete(ctx context.Context, resourceGroupName st
 // Delete - Deletes the specified network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *SitesClient) deleteOperation(ctx context.Context, resourceGroupName string, siteName string, options *SitesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SitesClient.BeginDelete"
@@ -194,7 +194,7 @@ func (client *SitesClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -203,7 +203,7 @@ func (client *SitesClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // Get - Gets information about the specified network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The name of the network service site.
 //   - options - SitesClientGetOptions contains the optional parameters for the SitesClient.Get method.
@@ -249,7 +249,7 @@ func (client *SitesClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,7 +266,7 @@ func (client *SitesClient) getHandleResponse(resp *http.Response) (SitesClientGe
 
 // NewListByResourceGroupPager - Lists all sites in the network service.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - SitesClientListByResourceGroupOptions contains the optional parameters for the SitesClient.NewListByResourceGroupPager
 //     method.
@@ -309,7 +309,7 @@ func (client *SitesClient) listByResourceGroupCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -326,7 +326,7 @@ func (client *SitesClient) listByResourceGroupHandleResponse(resp *http.Response
 
 // NewListBySubscriptionPager - Lists all sites in the network service in a subscription.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - options - SitesClientListBySubscriptionOptions contains the optional parameters for the SitesClient.NewListBySubscriptionPager
 //     method.
 func (client *SitesClient) NewListBySubscriptionPager(options *SitesClientListBySubscriptionOptions) *runtime.Pager[SitesClientListBySubscriptionResponse] {
@@ -364,7 +364,7 @@ func (client *SitesClient) listBySubscriptionCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -382,7 +382,7 @@ func (client *SitesClient) listBySubscriptionHandleResponse(resp *http.Response)
 // UpdateTags - Updates a site update tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The name of the network service site.
 //   - parameters - Parameters supplied to update network site tags.
@@ -429,7 +429,7 @@ func (client *SitesClient) updateTagsCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

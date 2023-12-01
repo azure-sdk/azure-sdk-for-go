@@ -46,7 +46,7 @@ func NewPublishersClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Creates or updates a publisher.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - PublishersClientBeginCreateOrUpdateOptions contains the optional parameters for the PublishersClient.BeginCreateOrUpdate
@@ -72,7 +72,7 @@ func (client *PublishersClient) BeginCreateOrUpdate(ctx context.Context, resourc
 // CreateOrUpdate - Creates or updates a publisher.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *PublishersClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, options *PublishersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PublishersClient.BeginCreateOrUpdate"
@@ -114,7 +114,7 @@ func (client *PublishersClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -129,7 +129,7 @@ func (client *PublishersClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Deletes the specified publisher.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - PublishersClientBeginDeleteOptions contains the optional parameters for the PublishersClient.BeginDelete method.
@@ -154,7 +154,7 @@ func (client *PublishersClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Deletes the specified publisher.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *PublishersClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, options *PublishersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PublishersClient.BeginDelete"
@@ -196,7 +196,7 @@ func (client *PublishersClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -205,7 +205,7 @@ func (client *PublishersClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets information about the specified publisher.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - PublishersClientGetOptions contains the optional parameters for the PublishersClient.Get method.
@@ -251,7 +251,7 @@ func (client *PublishersClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -268,7 +268,7 @@ func (client *PublishersClient) getHandleResponse(resp *http.Response) (Publishe
 
 // NewListByResourceGroupPager - Lists all the publishers in a resource group.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - PublishersClientListByResourceGroupOptions contains the optional parameters for the PublishersClient.NewListByResourceGroupPager
 //     method.
@@ -311,7 +311,7 @@ func (client *PublishersClient) listByResourceGroupCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +328,7 @@ func (client *PublishersClient) listByResourceGroupHandleResponse(resp *http.Res
 
 // NewListBySubscriptionPager - Lists all the publishers in a subscription.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - options - PublishersClientListBySubscriptionOptions contains the optional parameters for the PublishersClient.NewListBySubscriptionPager
 //     method.
 func (client *PublishersClient) NewListBySubscriptionPager(options *PublishersClientListBySubscriptionOptions) *runtime.Pager[PublishersClientListBySubscriptionResponse] {
@@ -366,7 +366,7 @@ func (client *PublishersClient) listBySubscriptionCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -384,7 +384,7 @@ func (client *PublishersClient) listBySubscriptionHandleResponse(resp *http.Resp
 // Update - Update a publisher resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - PublishersClientUpdateOptions contains the optional parameters for the PublishersClient.Update method.
@@ -430,7 +430,7 @@ func (client *PublishersClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {

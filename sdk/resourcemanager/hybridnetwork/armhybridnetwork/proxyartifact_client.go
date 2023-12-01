@@ -45,7 +45,7 @@ func NewProxyArtifactClient(subscriptionID string, credential azcore.TokenCreden
 
 // NewGetPager - Get a Artifact overview information.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -99,7 +99,7 @@ func (client *ProxyArtifactClient) getCreateRequest(ctx context.Context, resourc
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("artifactName", artifactName)
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +116,7 @@ func (client *ProxyArtifactClient) getHandleResponse(resp *http.Response) (Proxy
 
 // NewListPager - Lists all the available artifacts in the parent Artifact Store.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -168,7 +168,7 @@ func (client *ProxyArtifactClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -186,7 +186,7 @@ func (client *ProxyArtifactClient) listHandleResponse(resp *http.Response) (Prox
 // BeginUpdateState - Change artifact state defined in artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -216,7 +216,7 @@ func (client *ProxyArtifactClient) BeginUpdateState(ctx context.Context, resourc
 // UpdateState - Change artifact state defined in artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-10-01
 func (client *ProxyArtifactClient) updateState(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, artifactName string, artifactVersionName string, parameters ArtifactChangeState, options *ProxyArtifactClientBeginUpdateStateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProxyArtifactClient.BeginUpdateState"
@@ -267,7 +267,7 @@ func (client *ProxyArtifactClient) updateStateCreateRequest(ctx context.Context,
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("artifactName", artifactName)
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
