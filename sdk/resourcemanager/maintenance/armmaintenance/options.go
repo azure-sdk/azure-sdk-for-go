@@ -19,6 +19,12 @@ type ApplyUpdatesClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ApplyUpdatesClientCreateOrUpdateOrCancelOptions contains the optional parameters for the ApplyUpdatesClient.CreateOrUpdateOrCancel
+// method.
+type ApplyUpdatesClientCreateOrUpdateOrCancelOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ApplyUpdatesClientCreateOrUpdateParentOptions contains the optional parameters for the ApplyUpdatesClient.CreateOrUpdateParent
 // method.
 type ApplyUpdatesClientCreateOrUpdateParentOptions struct {
