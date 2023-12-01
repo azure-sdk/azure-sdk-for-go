@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Azure Subscription Id in which project was created.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -37,39 +37,99 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-// NewAssessedMachinesClient creates a new instance of AssessedMachinesClient.
-func (c *ClientFactory) NewAssessedMachinesClient() *AssessedMachinesClient {
-	subClient, _ := NewAssessedMachinesClient(c.subscriptionID, c.credential, c.options)
+// NewAssessedMachinesOperationsClient creates a new instance of AssessedMachinesOperationsClient.
+func (c *ClientFactory) NewAssessedMachinesOperationsClient() *AssessedMachinesOperationsClient {
+	subClient, _ := NewAssessedMachinesOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewAssessmentsClient creates a new instance of AssessmentsClient.
-func (c *ClientFactory) NewAssessmentsClient() *AssessmentsClient {
-	subClient, _ := NewAssessmentsClient(c.subscriptionID, c.credential, c.options)
+// NewAssessedSQLDatabaseV2OperationsClient creates a new instance of AssessedSQLDatabaseV2OperationsClient.
+func (c *ClientFactory) NewAssessedSQLDatabaseV2OperationsClient() *AssessedSQLDatabaseV2OperationsClient {
+	subClient, _ := NewAssessedSQLDatabaseV2OperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewGroupsClient creates a new instance of GroupsClient.
-func (c *ClientFactory) NewGroupsClient() *GroupsClient {
-	subClient, _ := NewGroupsClient(c.subscriptionID, c.credential, c.options)
+// NewAssessedSQLInstanceV2OperationsClient creates a new instance of AssessedSQLInstanceV2OperationsClient.
+func (c *ClientFactory) NewAssessedSQLInstanceV2OperationsClient() *AssessedSQLInstanceV2OperationsClient {
+	subClient, _ := NewAssessedSQLInstanceV2OperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewHyperVCollectorsClient creates a new instance of HyperVCollectorsClient.
-func (c *ClientFactory) NewHyperVCollectorsClient() *HyperVCollectorsClient {
-	subClient, _ := NewHyperVCollectorsClient(c.subscriptionID, c.credential, c.options)
+// NewAssessedSQLMachinesOperationsClient creates a new instance of AssessedSQLMachinesOperationsClient.
+func (c *ClientFactory) NewAssessedSQLMachinesOperationsClient() *AssessedSQLMachinesOperationsClient {
+	subClient, _ := NewAssessedSQLMachinesOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewImportCollectorsClient creates a new instance of ImportCollectorsClient.
-func (c *ClientFactory) NewImportCollectorsClient() *ImportCollectorsClient {
-	subClient, _ := NewImportCollectorsClient(c.subscriptionID, c.credential, c.options)
+// NewAssessedSQLRecommendedEntityOperationsClient creates a new instance of AssessedSQLRecommendedEntityOperationsClient.
+func (c *ClientFactory) NewAssessedSQLRecommendedEntityOperationsClient() *AssessedSQLRecommendedEntityOperationsClient {
+	subClient, _ := NewAssessedSQLRecommendedEntityOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewMachinesClient creates a new instance of MachinesClient.
-func (c *ClientFactory) NewMachinesClient() *MachinesClient {
-	subClient, _ := NewMachinesClient(c.subscriptionID, c.credential, c.options)
+// NewAssessmentOptionsOperationsClient creates a new instance of AssessmentOptionsOperationsClient.
+func (c *ClientFactory) NewAssessmentOptionsOperationsClient() *AssessmentOptionsOperationsClient {
+	subClient, _ := NewAssessmentOptionsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAssessmentProjectSummaryOperationsClient creates a new instance of AssessmentProjectSummaryOperationsClient.
+func (c *ClientFactory) NewAssessmentProjectSummaryOperationsClient() *AssessmentProjectSummaryOperationsClient {
+	subClient, _ := NewAssessmentProjectSummaryOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAssessmentProjectsOperationsClient creates a new instance of AssessmentProjectsOperationsClient.
+func (c *ClientFactory) NewAssessmentProjectsOperationsClient() *AssessmentProjectsOperationsClient {
+	subClient, _ := NewAssessmentProjectsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAssessmentsOperationsClient creates a new instance of AssessmentsOperationsClient.
+func (c *ClientFactory) NewAssessmentsOperationsClient() *AssessmentsOperationsClient {
+	subClient, _ := NewAssessmentsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAvsAssessedMachinesOperationsClient creates a new instance of AvsAssessedMachinesOperationsClient.
+func (c *ClientFactory) NewAvsAssessedMachinesOperationsClient() *AvsAssessedMachinesOperationsClient {
+	subClient, _ := NewAvsAssessedMachinesOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAvsAssessmentOptionsOperationsClient creates a new instance of AvsAssessmentOptionsOperationsClient.
+func (c *ClientFactory) NewAvsAssessmentOptionsOperationsClient() *AvsAssessmentOptionsOperationsClient {
+	subClient, _ := NewAvsAssessmentOptionsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAvsAssessmentsOperationsClient creates a new instance of AvsAssessmentsOperationsClient.
+func (c *ClientFactory) NewAvsAssessmentsOperationsClient() *AvsAssessmentsOperationsClient {
+	subClient, _ := NewAvsAssessmentsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGroupsOperationsClient creates a new instance of GroupsOperationsClient.
+func (c *ClientFactory) NewGroupsOperationsClient() *GroupsOperationsClient {
+	subClient, _ := NewGroupsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewHypervCollectorsOperationsClient creates a new instance of HypervCollectorsOperationsClient.
+func (c *ClientFactory) NewHypervCollectorsOperationsClient() *HypervCollectorsOperationsClient {
+	subClient, _ := NewHypervCollectorsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewImportCollectorsOperationsClient creates a new instance of ImportCollectorsOperationsClient.
+func (c *ClientFactory) NewImportCollectorsOperationsClient() *ImportCollectorsOperationsClient {
+	subClient, _ := NewImportCollectorsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewMachinesOperationsClient creates a new instance of MachinesOperationsClient.
+func (c *ClientFactory) NewMachinesOperationsClient() *MachinesOperationsClient {
+	subClient, _ := NewMachinesOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -79,32 +139,50 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
-// NewPrivateEndpointConnectionClient creates a new instance of PrivateEndpointConnectionClient.
-func (c *ClientFactory) NewPrivateEndpointConnectionClient() *PrivateEndpointConnectionClient {
-	subClient, _ := NewPrivateEndpointConnectionClient(c.subscriptionID, c.credential, c.options)
+// NewPrivateEndpointConnectionOperationsClient creates a new instance of PrivateEndpointConnectionOperationsClient.
+func (c *ClientFactory) NewPrivateEndpointConnectionOperationsClient() *PrivateEndpointConnectionOperationsClient {
+	subClient, _ := NewPrivateEndpointConnectionOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewPrivateLinkResourceClient creates a new instance of PrivateLinkResourceClient.
-func (c *ClientFactory) NewPrivateLinkResourceClient() *PrivateLinkResourceClient {
-	subClient, _ := NewPrivateLinkResourceClient(c.subscriptionID, c.credential, c.options)
+// NewPrivateLinkResourceOperationsClient creates a new instance of PrivateLinkResourceOperationsClient.
+func (c *ClientFactory) NewPrivateLinkResourceOperationsClient() *PrivateLinkResourceOperationsClient {
+	subClient, _ := NewPrivateLinkResourceOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewProjectsClient creates a new instance of ProjectsClient.
-func (c *ClientFactory) NewProjectsClient() *ProjectsClient {
-	subClient, _ := NewProjectsClient(c.subscriptionID, c.credential, c.options)
+// NewSQLAssessmentOptionsOperationsClient creates a new instance of SQLAssessmentOptionsOperationsClient.
+func (c *ClientFactory) NewSQLAssessmentOptionsOperationsClient() *SQLAssessmentOptionsOperationsClient {
+	subClient, _ := NewSQLAssessmentOptionsOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewServerCollectorsClient creates a new instance of ServerCollectorsClient.
-func (c *ClientFactory) NewServerCollectorsClient() *ServerCollectorsClient {
-	subClient, _ := NewServerCollectorsClient(c.subscriptionID, c.credential, c.options)
+// NewSQLAssessmentV2OperationsClient creates a new instance of SQLAssessmentV2OperationsClient.
+func (c *ClientFactory) NewSQLAssessmentV2OperationsClient() *SQLAssessmentV2OperationsClient {
+	subClient, _ := NewSQLAssessmentV2OperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewVMwareCollectorsClient creates a new instance of VMwareCollectorsClient.
-func (c *ClientFactory) NewVMwareCollectorsClient() *VMwareCollectorsClient {
-	subClient, _ := NewVMwareCollectorsClient(c.subscriptionID, c.credential, c.options)
+// NewSQLAssessmentV2SummaryOperationsClient creates a new instance of SQLAssessmentV2SummaryOperationsClient.
+func (c *ClientFactory) NewSQLAssessmentV2SummaryOperationsClient() *SQLAssessmentV2SummaryOperationsClient {
+	subClient, _ := NewSQLAssessmentV2SummaryOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSQLCollectorOperationsClient creates a new instance of SQLCollectorOperationsClient.
+func (c *ClientFactory) NewSQLCollectorOperationsClient() *SQLCollectorOperationsClient {
+	subClient, _ := NewSQLCollectorOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewServerCollectorsOperationsClient creates a new instance of ServerCollectorsOperationsClient.
+func (c *ClientFactory) NewServerCollectorsOperationsClient() *ServerCollectorsOperationsClient {
+	subClient, _ := NewServerCollectorsOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewVmwareCollectorsOperationsClient creates a new instance of VmwareCollectorsOperationsClient.
+func (c *ClientFactory) NewVmwareCollectorsOperationsClient() *VmwareCollectorsOperationsClient {
+	subClient, _ := NewVmwareCollectorsOperationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
