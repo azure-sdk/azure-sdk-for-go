@@ -8,129 +8,371 @@
 
 package armmigrate
 
-// AssessedMachinesClientGetOptions contains the optional parameters for the AssessedMachinesClient.Get method.
-type AssessedMachinesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessedMachinesClientListByAssessmentOptions contains the optional parameters for the AssessedMachinesClient.NewListByAssessmentPager
+// AssessedMachinesOperationsClientGetOptions contains the optional parameters for the AssessedMachinesOperationsClient.Get
 // method.
-type AssessedMachinesClientListByAssessmentOptions struct {
+type AssessedMachinesOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AssessmentsClientCreateOptions contains the optional parameters for the AssessmentsClient.Create method.
-type AssessmentsClientCreateOptions struct {
-	// New or Updated Assessment object.
-	Assessment *Assessment
-}
-
-// AssessmentsClientDeleteOptions contains the optional parameters for the AssessmentsClient.Delete method.
-type AssessmentsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessmentsClientGetOptions contains the optional parameters for the AssessmentsClient.Get method.
-type AssessmentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessmentsClientGetReportDownloadURLOptions contains the optional parameters for the AssessmentsClient.GetReportDownloadURL
+// AssessedMachinesOperationsClientListByAssessmentOptions contains the optional parameters for the AssessedMachinesOperationsClient.NewListByAssessmentPager
 // method.
-type AssessmentsClientGetReportDownloadURLOptions struct {
-	// placeholder for future optional parameters
+type AssessedMachinesOperationsClientListByAssessmentOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
 }
 
-// AssessmentsClientListByGroupOptions contains the optional parameters for the AssessmentsClient.NewListByGroupPager method.
-type AssessmentsClientListByGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessmentsClientListByProjectOptions contains the optional parameters for the AssessmentsClient.NewListByProjectPager
+// AssessedSQLDatabaseV2OperationsClientGetOptions contains the optional parameters for the AssessedSQLDatabaseV2OperationsClient.Get
 // method.
-type AssessmentsClientListByProjectOptions struct {
+type AssessedSQLDatabaseV2OperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GroupsClientCreateOptions contains the optional parameters for the GroupsClient.Create method.
-type GroupsClientCreateOptions struct {
-	// New or Updated Group object.
-	Group *Group
-}
-
-// GroupsClientDeleteOptions contains the optional parameters for the GroupsClient.Delete method.
-type GroupsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
-type GroupsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GroupsClientListByProjectOptions contains the optional parameters for the GroupsClient.NewListByProjectPager method.
-type GroupsClientListByProjectOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GroupsClientUpdateMachinesOptions contains the optional parameters for the GroupsClient.UpdateMachines method.
-type GroupsClientUpdateMachinesOptions struct {
-	// Machines list to be added or removed from group.
-	GroupUpdateProperties *UpdateGroupBody
-}
-
-// HyperVCollectorsClientCreateOptions contains the optional parameters for the HyperVCollectorsClient.Create method.
-type HyperVCollectorsClientCreateOptions struct {
-	// New or Updated Hyper-V collector.
-	CollectorBody *HyperVCollector
-}
-
-// HyperVCollectorsClientDeleteOptions contains the optional parameters for the HyperVCollectorsClient.Delete method.
-type HyperVCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HyperVCollectorsClientGetOptions contains the optional parameters for the HyperVCollectorsClient.Get method.
-type HyperVCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HyperVCollectorsClientListByProjectOptions contains the optional parameters for the HyperVCollectorsClient.NewListByProjectPager
+// AssessedSQLDatabaseV2OperationsClientListBySQLAssessmentV2Options contains the optional parameters for the AssessedSQLDatabaseV2OperationsClient.NewListBySQLAssessmentV2Pager
 // method.
-type HyperVCollectorsClientListByProjectOptions struct {
-	// placeholder for future optional parameters
+type AssessedSQLDatabaseV2OperationsClientListBySQLAssessmentV2Options struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
 }
 
-// ImportCollectorsClientCreateOptions contains the optional parameters for the ImportCollectorsClient.Create method.
-type ImportCollectorsClientCreateOptions struct {
-	// New or Updated Import collector.
-	CollectorBody *ImportCollector
-}
-
-// ImportCollectorsClientDeleteOptions contains the optional parameters for the ImportCollectorsClient.Delete method.
-type ImportCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ImportCollectorsClientGetOptions contains the optional parameters for the ImportCollectorsClient.Get method.
-type ImportCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ImportCollectorsClientListByProjectOptions contains the optional parameters for the ImportCollectorsClient.NewListByProjectPager
+// AssessedSQLInstanceV2OperationsClientGetOptions contains the optional parameters for the AssessedSQLInstanceV2OperationsClient.Get
 // method.
-type ImportCollectorsClientListByProjectOptions struct {
+type AssessedSQLInstanceV2OperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MachinesClientGetOptions contains the optional parameters for the MachinesClient.Get method.
-type MachinesClientGetOptions struct {
+// AssessedSQLInstanceV2OperationsClientListBySQLAssessmentV2Options contains the optional parameters for the AssessedSQLInstanceV2OperationsClient.NewListBySQLAssessmentV2Pager
+// method.
+type AssessedSQLInstanceV2OperationsClientListBySQLAssessmentV2Options struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
+}
+
+// AssessedSQLMachinesOperationsClientGetOptions contains the optional parameters for the AssessedSQLMachinesOperationsClient.Get
+// method.
+type AssessedSQLMachinesOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MachinesClientListByProjectOptions contains the optional parameters for the MachinesClient.NewListByProjectPager method.
-type MachinesClientListByProjectOptions struct {
+// AssessedSQLMachinesOperationsClientListBySQLAssessmentV2Options contains the optional parameters for the AssessedSQLMachinesOperationsClient.NewListBySQLAssessmentV2Pager
+// method.
+type AssessedSQLMachinesOperationsClientListBySQLAssessmentV2Options struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
+}
+
+// AssessedSQLRecommendedEntityOperationsClientGetOptions contains the optional parameters for the AssessedSQLRecommendedEntityOperationsClient.Get
+// method.
+type AssessedSQLRecommendedEntityOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// AssessedSQLRecommendedEntityOperationsClientListBySQLAssessmentV2Options contains the optional parameters for the AssessedSQLRecommendedEntityOperationsClient.NewListBySQLAssessmentV2Pager
+// method.
+type AssessedSQLRecommendedEntityOperationsClientListBySQLAssessmentV2Options struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
+}
+
+// AssessmentOptionsOperationsClientGetOptions contains the optional parameters for the AssessmentOptionsOperationsClient.Get
+// method.
+type AssessmentOptionsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentOptionsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the AssessmentOptionsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type AssessmentOptionsOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentProjectSummaryOperationsClientGetOptions contains the optional parameters for the AssessmentProjectSummaryOperationsClient.Get
+// method.
+type AssessmentProjectSummaryOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentProjectSummaryOperationsClientListByAssessmentProjectOptions contains the optional parameters for the AssessmentProjectSummaryOperationsClient.NewListByAssessmentProjectPager
+// method.
+type AssessmentProjectSummaryOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentProjectsOperationsClientBeginCreateOptions contains the optional parameters for the AssessmentProjectsOperationsClient.BeginCreate
+// method.
+type AssessmentProjectsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AssessmentProjectsOperationsClientBeginUpdateOptions contains the optional parameters for the AssessmentProjectsOperationsClient.BeginUpdate
+// method.
+type AssessmentProjectsOperationsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AssessmentProjectsOperationsClientDeleteOptions contains the optional parameters for the AssessmentProjectsOperationsClient.Delete
+// method.
+type AssessmentProjectsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentProjectsOperationsClientGetOptions contains the optional parameters for the AssessmentProjectsOperationsClient.Get
+// method.
+type AssessmentProjectsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentProjectsOperationsClientListByResourceGroupOptions contains the optional parameters for the AssessmentProjectsOperationsClient.NewListByResourceGroupPager
+// method.
+type AssessmentProjectsOperationsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentProjectsOperationsClientListBySubscriptionOptions contains the optional parameters for the AssessmentProjectsOperationsClient.NewListBySubscriptionPager
+// method.
+type AssessmentProjectsOperationsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentsOperationsClientBeginCreateOptions contains the optional parameters for the AssessmentsOperationsClient.BeginCreate
+// method.
+type AssessmentsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AssessmentsOperationsClientBeginDownloadURLOptions contains the optional parameters for the AssessmentsOperationsClient.BeginDownloadURL
+// method.
+type AssessmentsOperationsClientBeginDownloadURLOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AssessmentsOperationsClientDeleteOptions contains the optional parameters for the AssessmentsOperationsClient.Delete method.
+type AssessmentsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentsOperationsClientGetOptions contains the optional parameters for the AssessmentsOperationsClient.Get method.
+type AssessmentsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AssessmentsOperationsClientListByGroupOptions contains the optional parameters for the AssessmentsOperationsClient.NewListByGroupPager
+// method.
+type AssessmentsOperationsClientListByGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvsAssessedMachinesOperationsClientGetOptions contains the optional parameters for the AvsAssessedMachinesOperationsClient.Get
+// method.
+type AvsAssessedMachinesOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvsAssessedMachinesOperationsClientListByAvsAssessmentOptions contains the optional parameters for the AvsAssessedMachinesOperationsClient.NewListByAvsAssessmentPager
+// method.
+type AvsAssessedMachinesOperationsClientListByAvsAssessmentOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
+}
+
+// AvsAssessmentOptionsOperationsClientGetOptions contains the optional parameters for the AvsAssessmentOptionsOperationsClient.Get
+// method.
+type AvsAssessmentOptionsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvsAssessmentOptionsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the AvsAssessmentOptionsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type AvsAssessmentOptionsOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvsAssessmentsOperationsClientBeginCreateOptions contains the optional parameters for the AvsAssessmentsOperationsClient.BeginCreate
+// method.
+type AvsAssessmentsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AvsAssessmentsOperationsClientBeginDownloadURLOptions contains the optional parameters for the AvsAssessmentsOperationsClient.BeginDownloadURL
+// method.
+type AvsAssessmentsOperationsClientBeginDownloadURLOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AvsAssessmentsOperationsClientDeleteOptions contains the optional parameters for the AvsAssessmentsOperationsClient.Delete
+// method.
+type AvsAssessmentsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvsAssessmentsOperationsClientGetOptions contains the optional parameters for the AvsAssessmentsOperationsClient.Get method.
+type AvsAssessmentsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AvsAssessmentsOperationsClientListByGroupOptions contains the optional parameters for the AvsAssessmentsOperationsClient.NewListByGroupPager
+// method.
+type AvsAssessmentsOperationsClientListByGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GroupsOperationsClientBeginCreateOptions contains the optional parameters for the GroupsOperationsClient.BeginCreate method.
+type GroupsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GroupsOperationsClientBeginUpdateMachinesOptions contains the optional parameters for the GroupsOperationsClient.BeginUpdateMachines
+// method.
+type GroupsOperationsClientBeginUpdateMachinesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GroupsOperationsClientDeleteOptions contains the optional parameters for the GroupsOperationsClient.Delete method.
+type GroupsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GroupsOperationsClientGetOptions contains the optional parameters for the GroupsOperationsClient.Get method.
+type GroupsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GroupsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the GroupsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type GroupsOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervCollectorsOperationsClientBeginCreateOptions contains the optional parameters for the HypervCollectorsOperationsClient.BeginCreate
+// method.
+type HypervCollectorsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervCollectorsOperationsClientDeleteOptions contains the optional parameters for the HypervCollectorsOperationsClient.Delete
+// method.
+type HypervCollectorsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervCollectorsOperationsClientGetOptions contains the optional parameters for the HypervCollectorsOperationsClient.Get
+// method.
+type HypervCollectorsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervCollectorsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the HypervCollectorsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type HypervCollectorsOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportCollectorsOperationsClientBeginCreateOptions contains the optional parameters for the ImportCollectorsOperationsClient.BeginCreate
+// method.
+type ImportCollectorsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ImportCollectorsOperationsClientDeleteOptions contains the optional parameters for the ImportCollectorsOperationsClient.Delete
+// method.
+type ImportCollectorsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportCollectorsOperationsClientGetOptions contains the optional parameters for the ImportCollectorsOperationsClient.Get
+// method.
+type ImportCollectorsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportCollectorsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the ImportCollectorsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type ImportCollectorsOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MachinesOperationsClientGetOptions contains the optional parameters for the MachinesOperationsClient.Get method.
+type MachinesOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MachinesOperationsClientListByAssessmentProjectOptions contains the optional parameters for the MachinesOperationsClient.NewListByAssessmentProjectPager
+// method.
+type MachinesOperationsClientListByAssessmentProjectOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// Filter query.
+	Filter *string
+
+	// Optional parameter for page size.
+	PageSize *int32
+
+	// Total record count.
+	TotalRecordCount *int32
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -138,126 +380,169 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionClient.Delete
+// PrivateEndpointConnectionOperationsClientBeginUpdateOptions contains the optional parameters for the PrivateEndpointConnectionOperationsClient.BeginUpdate
 // method.
-type PrivateEndpointConnectionClientDeleteOptions struct {
-	// placeholder for future optional parameters
+type PrivateEndpointConnectionOperationsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// PrivateEndpointConnectionClientGetOptions contains the optional parameters for the PrivateEndpointConnectionClient.Get
+// PrivateEndpointConnectionOperationsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionOperationsClient.Delete
 // method.
-type PrivateEndpointConnectionClientGetOptions struct {
+type PrivateEndpointConnectionOperationsClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientListByProjectOptions contains the optional parameters for the PrivateEndpointConnectionClient.ListByProject
+// PrivateEndpointConnectionOperationsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionOperationsClient.Get
 // method.
-type PrivateEndpointConnectionClientListByProjectOptions struct {
+type PrivateEndpointConnectionOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientUpdateOptions contains the optional parameters for the PrivateEndpointConnectionClient.Update
+// PrivateEndpointConnectionOperationsClientListByAssessmentProjectOptions contains the optional parameters for the PrivateEndpointConnectionOperationsClient.NewListByAssessmentProjectPager
 // method.
-type PrivateEndpointConnectionClientUpdateOptions struct {
-	// New or Updated Private Endpoint Connection object.
-	PrivateEndpointConnectionBody *PrivateEndpointConnection
-}
-
-// PrivateLinkResourceClientGetOptions contains the optional parameters for the PrivateLinkResourceClient.Get method.
-type PrivateLinkResourceClientGetOptions struct {
+type PrivateEndpointConnectionOperationsClientListByAssessmentProjectOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourceClientListByProjectOptions contains the optional parameters for the PrivateLinkResourceClient.ListByProject
+// PrivateLinkResourceOperationsClientGetOptions contains the optional parameters for the PrivateLinkResourceOperationsClient.Get
 // method.
-type PrivateLinkResourceClientListByProjectOptions struct {
+type PrivateLinkResourceOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientAssessmentOptionsListOptions contains the optional parameters for the ProjectsClient.NewAssessmentOptionsListPager
+// PrivateLinkResourceOperationsClientListByAssessmentProjectOptions contains the optional parameters for the PrivateLinkResourceOperationsClient.NewListByAssessmentProjectPager
 // method.
-type ProjectsClientAssessmentOptionsListOptions struct {
+type PrivateLinkResourceOperationsClientListByAssessmentProjectOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientAssessmentOptionsOptions contains the optional parameters for the ProjectsClient.AssessmentOptions method.
-type ProjectsClientAssessmentOptionsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientCreateOptions contains the optional parameters for the ProjectsClient.Create method.
-type ProjectsClientCreateOptions struct {
-	// New or Updated project object.
-	Project *Project
-}
-
-// ProjectsClientDeleteOptions contains the optional parameters for the ProjectsClient.Delete method.
-type ProjectsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientGetOptions contains the optional parameters for the ProjectsClient.Get method.
-type ProjectsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientListBySubscriptionOptions contains the optional parameters for the ProjectsClient.NewListBySubscriptionPager
+// SQLAssessmentOptionsOperationsClientGetOptions contains the optional parameters for the SQLAssessmentOptionsOperationsClient.Get
 // method.
-type ProjectsClientListBySubscriptionOptions struct {
+type SQLAssessmentOptionsOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientListOptions contains the optional parameters for the ProjectsClient.NewListPager method.
-type ProjectsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientUpdateOptions contains the optional parameters for the ProjectsClient.Update method.
-type ProjectsClientUpdateOptions struct {
-	// Updated project object.
-	Project *Project
-}
-
-// ServerCollectorsClientCreateOptions contains the optional parameters for the ServerCollectorsClient.Create method.
-type ServerCollectorsClientCreateOptions struct {
-	// New or Updated Server collector.
-	CollectorBody *ServerCollector
-}
-
-// ServerCollectorsClientDeleteOptions contains the optional parameters for the ServerCollectorsClient.Delete method.
-type ServerCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCollectorsClientGetOptions contains the optional parameters for the ServerCollectorsClient.Get method.
-type ServerCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCollectorsClientListByProjectOptions contains the optional parameters for the ServerCollectorsClient.NewListByProjectPager
+// SQLAssessmentOptionsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the SQLAssessmentOptionsOperationsClient.NewListByAssessmentProjectPager
 // method.
-type ServerCollectorsClientListByProjectOptions struct {
+type SQLAssessmentOptionsOperationsClientListByAssessmentProjectOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VMwareCollectorsClientCreateOptions contains the optional parameters for the VMwareCollectorsClient.Create method.
-type VMwareCollectorsClientCreateOptions struct {
-	// New or Updated VMware collector.
-	CollectorBody *VMwareCollector
-}
-
-// VMwareCollectorsClientDeleteOptions contains the optional parameters for the VMwareCollectorsClient.Delete method.
-type VMwareCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VMwareCollectorsClientGetOptions contains the optional parameters for the VMwareCollectorsClient.Get method.
-type VMwareCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VMwareCollectorsClientListByProjectOptions contains the optional parameters for the VMwareCollectorsClient.NewListByProjectPager
+// SQLAssessmentV2OperationsClientBeginCreateOptions contains the optional parameters for the SQLAssessmentV2OperationsClient.BeginCreate
 // method.
-type VMwareCollectorsClientListByProjectOptions struct {
+type SQLAssessmentV2OperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLAssessmentV2OperationsClientBeginDownloadURLOptions contains the optional parameters for the SQLAssessmentV2OperationsClient.BeginDownloadURL
+// method.
+type SQLAssessmentV2OperationsClientBeginDownloadURLOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLAssessmentV2OperationsClientDeleteOptions contains the optional parameters for the SQLAssessmentV2OperationsClient.Delete
+// method.
+type SQLAssessmentV2OperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAssessmentV2OperationsClientGetOptions contains the optional parameters for the SQLAssessmentV2OperationsClient.Get
+// method.
+type SQLAssessmentV2OperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAssessmentV2OperationsClientListByGroupOptions contains the optional parameters for the SQLAssessmentV2OperationsClient.NewListByGroupPager
+// method.
+type SQLAssessmentV2OperationsClientListByGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAssessmentV2SummaryOperationsClientGetOptions contains the optional parameters for the SQLAssessmentV2SummaryOperationsClient.Get
+// method.
+type SQLAssessmentV2SummaryOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAssessmentV2SummaryOperationsClientListBySQLAssessmentV2Options contains the optional parameters for the SQLAssessmentV2SummaryOperationsClient.NewListBySQLAssessmentV2Pager
+// method.
+type SQLAssessmentV2SummaryOperationsClientListBySQLAssessmentV2Options struct {
+	// placeholder for future optional parameters
+}
+
+// SQLCollectorOperationsClientBeginCreateOptions contains the optional parameters for the SQLCollectorOperationsClient.BeginCreate
+// method.
+type SQLCollectorOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLCollectorOperationsClientDeleteOptions contains the optional parameters for the SQLCollectorOperationsClient.Delete
+// method.
+type SQLCollectorOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLCollectorOperationsClientGetOptions contains the optional parameters for the SQLCollectorOperationsClient.Get method.
+type SQLCollectorOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLCollectorOperationsClientListByAssessmentProjectOptions contains the optional parameters for the SQLCollectorOperationsClient.NewListByAssessmentProjectPager
+// method.
+type SQLCollectorOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerCollectorsOperationsClientBeginCreateOptions contains the optional parameters for the ServerCollectorsOperationsClient.BeginCreate
+// method.
+type ServerCollectorsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerCollectorsOperationsClientDeleteOptions contains the optional parameters for the ServerCollectorsOperationsClient.Delete
+// method.
+type ServerCollectorsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerCollectorsOperationsClientGetOptions contains the optional parameters for the ServerCollectorsOperationsClient.Get
+// method.
+type ServerCollectorsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerCollectorsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the ServerCollectorsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type ServerCollectorsOperationsClientListByAssessmentProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwareCollectorsOperationsClientBeginCreateOptions contains the optional parameters for the VmwareCollectorsOperationsClient.BeginCreate
+// method.
+type VmwareCollectorsOperationsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VmwareCollectorsOperationsClientDeleteOptions contains the optional parameters for the VmwareCollectorsOperationsClient.Delete
+// method.
+type VmwareCollectorsOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwareCollectorsOperationsClientGetOptions contains the optional parameters for the VmwareCollectorsOperationsClient.Get
+// method.
+type VmwareCollectorsOperationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwareCollectorsOperationsClientListByAssessmentProjectOptions contains the optional parameters for the VmwareCollectorsOperationsClient.NewListByAssessmentProjectPager
+// method.
+type VmwareCollectorsOperationsClientListByAssessmentProjectOptions struct {
 	// placeholder for future optional parameters
 }
