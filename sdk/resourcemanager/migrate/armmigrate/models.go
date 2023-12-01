@@ -10,243 +10,872 @@ package armmigrate
 
 import "time"
 
-// AssessedDisk - A disk assessed for an assessment.
 type AssessedDisk struct {
-	// READ-ONLY; User friendly name of the assessed disk.
+	// Gets the machine display name.
 	DisplayName *string
 
-	// READ-ONLY; Gigabytes of storage provided by the recommended Azure disk size.
+	// Gets the recommended disk size.
 	GigabytesForRecommendedDiskSize *int32
 
-	// READ-ONLY; Gigabytes of storage provisioned for this disk.
-	GigabytesProvisioned *float64
+	// Gets the gigabytes provisioned.
+	GigabytesProvisioned *float32
 
-	// READ-ONLY; Disk throughput in MegaBytes per second.
-	MegabytesPerSecondOfRead *float64
+	// Gets the megabytes per second of read.
+	MegabytesPerSecondOfRead *float32
 
-	// READ-ONLY; Disk throughput in MegaBytes per second.
-	MegabytesPerSecondOfWrite *float64
+	// Gets the megabytes per second of write.
+	MegabytesPerSecondOfWrite *float32
 
-	// READ-ONLY; Estimated aggregate storage cost for a 31-day month for this disk.
-	MonthlyStorageCost *float64
+	// Gets the monthly storage cost.
+	MonthlyStorageCost *float32
 
-	// READ-ONLY; Name of the assessed disk.
+	// Gets the name.
 	Name *string
 
-	// READ-ONLY; Number of read operations per second for the disk.
-	NumberOfReadOperationsPerSecond *float64
+	// Gets the number of read operations per second.
+	NumberOfReadOperationsPerSecond *float32
 
-	// READ-ONLY; Number of read and write operations per second for the disk.
-	NumberOfWriteOperationsPerSecond *float64
+	// Gets the number of write operations per second.
+	NumberOfWriteOperationsPerSecond *float32
 
-	// READ-ONLY; Recommended Azure size for the disk, given utilization data and preferences set on Assessment.
+	// Gets the recommended disk throughput.
+	RecommendDiskThroughputInMbps *float32
+
+	// Gets the recommended disk iops.
+	RecommendedDiskIops *float32
+
+	// Gets the recommended disk size.
 	RecommendedDiskSize *AzureDiskSize
 
-	// READ-ONLY; Storage type selected for this disk.
+	// Gets the recommended disk type.
 	RecommendedDiskType *AzureDiskType
 
-	// READ-ONLY; Whether this disk is suitable for Azure.
+	// Gets the suitability.
 	Suitability *CloudSuitability
 
-	// READ-ONLY; If disk is suitable to be migrate but some conditions/checks were not considered while calculating suitability,
-	// this explains the details.
+	// Gets the suitability detail.
 	SuitabilityDetail *AzureDiskSuitabilityDetail
 
-	// READ-ONLY; If disk is not suitable to be migrated, this explains the reasons and mitigation steps.
+	// Gets the suitability explanation.
 	SuitabilityExplanation *AzureDiskSuitabilityExplanation
 }
 
-// AssessedMachine - A machine evaluated as part of an assessment.
-type AssessedMachine struct {
-	// For optimistic concurrency control.
-	ETag *string
+// AssessedDiskData - Assessed Disk data. Used in Assessed SQL machine DTO.
+type AssessedDiskData struct {
+	// Gets the machine display name.
+	DisplayName *string
 
-	// Properties of an assessed machine.
-	Properties *AssessedMachineProperties
+	// Gets the gigabytes provisioned.
+	GigabytesProvisioned *float32
 
-	// READ-ONLY; Path reference to this assessed machine.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/groups/{groupName}/assessments/{assessmentName}/assessedMachines/{assessedMachineName}
-	ID *string
+	// Gets the megabytes per second of read.
+	MegabytesPerSecondOfRead *float32
 
-	// READ-ONLY; Name of the machine.
+	// Gets the megabytes per second of write.
+	MegabytesPerSecondOfWrite *float32
+
+	// Gets the monthly storage cost.
+	MonthlyStorageCost *float32
+
+	// Gets the name.
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/groups/assessments/assessedMachines].
+	// Gets the number of read operations per second.
+	NumberOfReadOperationsPerSecond *float32
+
+	// Gets the number of write operations per second.
+	NumberOfWriteOperationsPerSecond *float32
+
+	// Gets the recommended disk throughput.
+	RecommendDiskThroughputInMbps *float32
+
+	// Gets the recommended disk iops.
+	RecommendedDiskIops *float32
+
+	// Gets the recommended disk size.
+	RecommendedDiskSize *AzureDiskSize
+
+	// Gets the recommended disk size.
+	RecommendedDiskSizeGigabytes *int32
+
+	// Gets the recommended disk type.
+	RecommendedDiskType *AzureDiskType
+
+	// Gets the suitability.
+	Suitability *CloudSuitability
+
+	// Gets the suitability detail.
+	SuitabilityDetail *AzureDiskSuitabilityDetail
+
+	// Gets the suitability explanation.
+	SuitabilityExplanation *AzureDiskSuitabilityExplanation
+}
+
+// AssessedMachine - Machine assessment Assessed Machine resource.
+type AssessedMachine struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessedMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// AssessedMachineProperties - Properties of an assessed machine.
+// AssessedMachineListResult - The response of a AssessedMachine list operation.
+type AssessedMachineListResult struct {
+	// REQUIRED; The AssessedMachine items on this page
+	Value []*AssessedMachine
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AssessedMachineProperties - Assessed machine properties class.
 type AssessedMachineProperties struct {
-	// READ-ONLY; Boot type of the machine.
+	// Gets or sets the collection of cost components.
+	CostComponents []*CostComponent
+
+	// Gets or sets the processor details of the host.
+	HostProcessor *ProcessorInfo
+
+	// READ-ONLY; Boot type of machine discovered in private data center.
 	BootType *MachineBootType
 
-	// READ-ONLY; Confidence rating of assessed machine.
-	ConfidenceRatingInPercentage *float64
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
 
-	// READ-ONLY; Time when this machine was created. Date-Time represented in ISO-8601 format.
+	// READ-ONLY; When was machine first created.
 	CreatedTimestamp *time.Time
 
-	// READ-ONLY; ARM ID of the discovered machine.
+	// READ-ONLY; Data center machine ARM id.
 	DatacenterMachineArmID *string
 
-	// READ-ONLY; ARM ID of the discovered datacenter.
+	// READ-ONLY; Data center management server ARM id.
 	DatacenterManagementServerArmID *string
 
-	// READ-ONLY; Name of the server hosting the datacenter management solution.
+	// READ-ONLY; Data center management server name.
 	DatacenterManagementServerName *string
 
-	// READ-ONLY; Description of the machine
+	// READ-ONLY; Description for the machine.
 	Description *string
 
 	// READ-ONLY; Dictionary of disks attached to the machine. Key is ID of disk. Value is a disk object.
 	Disks map[string]*AssessedDisk
 
-	// READ-ONLY; User readable name of the machine as defined by the user in their private datacenter.
+	// READ-ONLY; Display Name of the Machine.
 	DisplayName *string
 
-	// READ-ONLY; Memory in Megabytes.
-	MegabytesOfMemory *float64
+	// READ-ONLY; List of errors for this machine.
+	Errors []*Error
 
-	// READ-ONLY; Megabytes of memory in the Recommended Azure VM Size.
-	MegabytesOfMemoryForRecommendedSize *float64
+	// READ-ONLY; Megabytes of memory found allocated for the machine in private data center.
+	MegabytesOfMemory *float32
 
-	// READ-ONLY; Monthly network cost estimate for the network adapters that are attached to this machine as a group, for a 31-day
-	// month.
-	MonthlyBandwidthCost *float64
+	// READ-ONLY; Megabytes of memory for recommended size. Read Only.
+	MegabytesOfMemoryForRecommendedSize *float32
 
-	// READ-ONLY; Compute Cost for a 31-day month, if the machine is migrated to Azure with the Recommended Size.
-	MonthlyComputeCostForRecommendedSize *float64
+	// READ-ONLY; Monthly networking cost.
+	MonthlyBandwidthCost *float32
 
-	// READ-ONLY; Monthly premium storage cost estimate for the disks that are attached to this machine as a group, for a 31-day
-	// month.
-	MonthlyPremiumStorageCost *float64
+	// READ-ONLY; Monthly Compute cost calculated for Recommended size, for a 31-day month.
+	MonthlyComputeCostForRecommendedSize *float32
 
-	// READ-ONLY; Monthly standard SSD storage cost estimate for the disks that are attached to this machine as a group, for a
-	// 31-day month.
-	MonthlyStandardSSDStorageCost *float64
+	// READ-ONLY; Monthly premium storage cost.
+	MonthlyPremiumStorageCost *float32
 
-	// READ-ONLY; Monthly storage cost estimate for the disks that are attached to this machine as a group, for a 31-day month.
-	MonthlyStorageCost *float64
+	// READ-ONLY; Monthly standard SSD storage cost.
+	MonthlyStandardSsdStorageCost *float32
 
-	// READ-ONLY; Dictionary of network adapters attached to the machine. Key is name of the adapter. Value is a network adapter
-	// object.
+	// READ-ONLY; Monthly storage cost.
+	MonthlyStorageCost *float32
+
+	// READ-ONLY; Monthly ultra storage cost.
+	MonthlyUltraStorageCost *float32
+
+	// READ-ONLY; List of Network Adapters that were assessed as part of this machine's assessment.
 	NetworkAdapters map[string]*AssessedNetworkAdapter
 
-	// READ-ONLY; Processor count.
+	// READ-ONLY; Number of CPU cores found on the machine.
 	NumberOfCores *int32
 
-	// READ-ONLY; Number of CPU cores in the Recommended Azure VM Size.
+	// READ-ONLY; Number of cores for recommended size. Read Only.
 	NumberOfCoresForRecommendedSize *int32
 
-	// READ-ONLY; Operating System name of the machine.
+	// READ-ONLY; Operating system architecture as reported by datacenter management solution.
+	OperatingSystemArchitecture *GuestOperatingSystemArchitecture
+
+	// READ-ONLY; Operating system as reported by datacenter management solution.
 	OperatingSystemName *string
 
-	// READ-ONLY; Operating System type of the machine.
+	// READ-ONLY; Operating system as reported by datacenter management solution.
 	OperatingSystemType *string
 
-	// READ-ONLY; Operating System version of the machine.
+	// READ-ONLY; Operating system version as reported by datacenter management solution.
 	OperatingSystemVersion *string
 
-	// READ-ONLY; Utilization percentage of the processor core as observed in the private data center, in the Time Range selected
-	// on Assessment, reported as the Percentile value based on the percentile number selected
-	// in assessment.
-	PercentageCoresUtilization *float64
+	// READ-ONLY; Percentile of Percentage of Cores Utilized noted during time period T.
+	// Here N and T are settings on Assessment.
+	PercentageCoresUtilization *float32
 
-	// READ-ONLY; Utilization percentage of the memory as observed in the private data center, in the Time Range selected on Assessment,
-	// reported as the Percentile value based on the percentile number selected in
-	// assessment.
-	PercentageMemoryUtilization *float64
+	// READ-ONLY; Percentile of Percentage of Memory Utilized noted during time period T.
+	// Here N and T are settings on Assessment.
+	PercentageMemoryUtilization *float32
 
-	// READ-ONLY; Recommended Azure size for this machine.
+	// READ-ONLY; Gets the product support status related details.
+	ProductSupportStatus *ProductSupportStatus
+
+	// READ-ONLY; Recommended Azure Size for the machine.
 	RecommendedSize *AzureVMSize
 
-	// READ-ONLY; Whether machine is suitable for migration to Azure.
+	// READ-ONLY; Gets a value indicating whether machine is suitable for the cloud platform selected.
 	Suitability *CloudSuitability
 
-	// READ-ONLY; If machine is not suitable for cloud, this explains the reasons.
+	// READ-ONLY; Gets the details if machine is not suitable for cloud.
 	SuitabilityDetail *AzureVMSuitabilityDetail
 
-	// READ-ONLY; If machine is not ready to be migrated, this explains the reasons and mitigation steps.
+	// READ-ONLY; Gets the explanation if machine is not suitable for cloud.
 	SuitabilityExplanation *AzureVMSuitabilityExplanation
 
-	// READ-ONLY; Time when this machine was last updated. Date-Time represented in ISO-8601 format.
+	// READ-ONLY; Assessed machine type.
+	Type *AssessedMachineType
+
+	// READ-ONLY; When was machine last updated.
 	UpdatedTimestamp *time.Time
 }
 
-// AssessedMachineResultList - List of assessed machines.
-type AssessedMachineResultList struct {
-	NextLink *string
-
-	// List of assessed machines.
-	Value []*AssessedMachine
-}
-
-// AssessedNetworkAdapter - A network adapter assessed for an assessment.
+// AssessedNetworkAdapter - Assessed Network Adapter.
 type AssessedNetworkAdapter struct {
-	// Gigabytes transmitted through this adapter each month.
-	NetGigabytesTransmittedPerMonth *float64
-
-	// READ-ONLY; User friendly name of the assessed network adapter.
+	// Gets the display name.
 	DisplayName *string
 
-	// READ-ONLY; List of IP Addresses on the network adapter.
-	IPAddresses []*string
-
-	// READ-ONLY; MAC Address of the network adapter.
+	// Gets the mac address.
 	MacAddress *string
 
-	// READ-ONLY; Adapter throughput for incoming traffic in MegaBytes per second.
-	MegabytesPerSecondReceived *float64
+	// Gets the megabytes per second received.
+	MegabytesPerSecondReceived *float32
 
-	// READ-ONLY; Adapter throughput for outgoing traffic in MegaBytes per second.
-	MegabytesPerSecondTransmitted *float64
+	// Gets the megabytes per second transmitted.
+	MegabytesPerSecondTransmitted *float32
 
-	// READ-ONLY; Monthly cost estimate for network bandwidth used by this network adapter.
-	MonthlyBandwidthCosts *float64
+	// Gets the monthly bandwidth costs.
+	MonthlyBandwidthCosts *float32
 
-	// READ-ONLY; Whether this adapter is suitable for Azure.
+	// Gets the net gigabytes transmitted per month.
+	NetGigabytesTransmittedPerMonth *float32
+
+	// Gets the suitability.
 	Suitability *CloudSuitability
 
-	// READ-ONLY; If network adapter is not suitable for cloud, this explains the reasons.
+	// Gets the suitability detail.
 	SuitabilityDetail *AzureNetworkAdapterSuitabilityDetail
 
-	// READ-ONLY; If network adapter is suitable, this explains the reasons and mitigation steps.
+	// Gets the suitability explanation.
 	SuitabilityExplanation *AzureNetworkAdapterSuitabilityExplanation
+
+	// READ-ONLY; Gets the ip addresses.
+	IPAddresses []*string
 }
 
-// Assessment - An assessment created for a group in the Migration project.
-type Assessment struct {
-	// REQUIRED; Properties of the assessment.
-	Properties *AssessmentProperties
+// AssessedSQLDatabaseV2 - Assessed SQL database web model class.
+type AssessedSQLDatabaseV2 struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessedSQLDatabaseV2Properties
 
-	// For optimistic concurrency control.
-	ETag *string
-
-	// READ-ONLY; Path reference to this assessment.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/groups/{groupName}/assessment/{assessmentName}
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Unique name of an assessment.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/groups/assessments].
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// AssessmentOptions - Assessment options.
-type AssessmentOptions struct {
-	// REQUIRED; Properties of the assessment options.
-	Properties *AssessmentOptionsProperties
+// AssessedSQLDatabaseV2ListResult - The response of a AssessedSqlDatabaseV2 list operation.
+type AssessedSQLDatabaseV2ListResult struct {
+	// REQUIRED; The AssessedSqlDatabaseV2 items on this page
+	Value []*AssessedSQLDatabaseV2
 
-	// READ-ONLY; Unique identifier of an assessment options.
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AssessedSQLDatabaseV2Properties - Assessed SQL database properties web model.
+type AssessedSQLDatabaseV2Properties struct {
+	// READ-ONLY; Assessed SQL instance arm id.
+	AssessedSQLInstanceArmID *string
+
+	// READ-ONLY; Gets or sets the azure SQL DB suitability details.
+	AzureSQLDBSuitabilityDetails *SQLAssessmentV2PaasSuitabilityData
+
+	// READ-ONLY; Gets or sets the azure SQL MI suitability details.
+	AzureSQLMISuitabilityDetails *SQLAssessmentV2PaasSuitabilityData
+
+	// READ-ONLY; Gets or sets the aggregated cache size of this database. This is a performance data metric for this DB.
+	BufferCacheSizeInMB *float32
+
+	// READ-ONLY; Database compatibility level.
+	CompatibilityLevel *CompatibilityLevel
+
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// READ-ONLY; When was assessed SQL database first created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; SQL database name.
+	DatabaseName *string
+
+	// READ-ONLY; SQL database size in megabytes.
+	DatabaseSizeInMB *float32
+
+	// READ-ONLY; SQL instance name.
+	InstanceName *string
+
+	// READ-ONLY; Gets a value indicating whether the assessed SQL database is highly available or not.
+	IsDatabaseHighlyAvailable *bool
+
+	// READ-ONLY; Gets the linked availability group overview if the database being assessed is highly available.
+	LinkedAvailabilityGroupOverview *SQLAvailabilityGroupDataOverview
+
+	// READ-ONLY; Machine arm id.
+	MachineArmID *string
+
+	// READ-ONLY; Machine display name.
+	MachineName *string
+
+	// READ-ONLY; The read throughput of the SQL database.
+	MegabytesPerSecondOfRead *float32
+
+	// READ-ONLY; The write throughput of the SQL database.
+	MegabytesPerSecondOfWrite *float32
+
+	// READ-ONLY; The read operations per second of the SQL database.
+	NumberOfReadOperationsPerSecond *float32
+
+	// READ-ONLY; The write operations per second of the SQL database.
+	NumberOfWriteOperationsPerSecond *float32
+
+	// READ-ONLY; The percentage of the total number of cores being utilized by the SQL database.
+	PercentageCoresUtilization *float32
+
+	// READ-ONLY; Gets the product support status related details.
+	ProductSupportStatus *ProductSupportStatus
+
+	// READ-ONLY; Gets or sets the recommended azure SQL target type.
+	RecommendedAzureSQLTargetType *TargetType
+
+	// READ-ONLY; Gets or sets the recommended azure SQL suitability.
+	RecommendedSuitability *RecommendedSuitability
+
+	// READ-ONLY; SQL database SDS arm id.
+	SQLDatabaseSdsArmID *string
+
+	// READ-ONLY; Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+
+	// READ-ONLY; When was assessed SQL database last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// AssessedSQLInstanceDatabaseSummary - Assessed Sql Instance Database Summary.
+type AssessedSQLInstanceDatabaseSummary struct {
+	// Gets the largest database size in MB.
+	LargestDatabaseSizeInMB *float32
+
+	// Gets the number of user databases.
+	NumberOfUserDatabases *int32
+
+	// Gets the total database size in MB.
+	TotalDatabaseSizeInMB *float32
+
+	// Gets the total discovered user databases.
+	TotalDiscoveredUserDatabases *int32
+}
+
+// AssessedSQLInstanceDiskDetails - Assessed Sql Instance Disk Details.
+type AssessedSQLInstanceDiskDetails struct {
+	// Gets the disk id.
+	DiskID *string
+
+	// Gets the disk size in mb.
+	DiskSizeInMB *float32
+
+	// Gets the megabytes per second of read.
+	MegabytesPerSecondOfRead *float32
+
+	// Gets the megabytes per second of write.
+	MegabytesPerSecondOfWrite *float32
+
+	// Gets the number of read operations per second.
+	NumberOfReadOperationsPerSecond *float32
+
+	// Gets the number of write operations per second.
+	NumberOfWriteOperationsPerSecond *float32
+}
+
+// AssessedSQLInstanceStorageDetails - Assessed Sql Instance Storage Details.
+type AssessedSQLInstanceStorageDetails struct {
+	// Gets the disk size in mb.
+	DiskSizeInMB *float32
+
+	// Gets the megabytes per second of read.
+	MegabytesPerSecondOfRead *float32
+
+	// Gets the megabytes per second of read.
+	MegabytesPerSecondOfWrite *float32
+
+	// Gets the number of read operations per second.
+	NumberOfReadOperationsPerSecond *float32
+
+	// Gets the number of write operations per second.
+	NumberOfWriteOperationsPerSecond *float32
+
+	// Gets the storage type.
+	StorageType *string
+}
+
+// AssessedSQLInstanceSummary - Assessed Sql Instance Summary.
+type AssessedSQLInstanceSummary struct {
+	// Gets the instance id.
+	InstanceID *string
+
+	// Gets the instance name.
+	InstanceName *string
+
+	// Gets whether Sql is clustered.
+	IsClustered *bool
+
+	// Gets whether Sql is highly available.
+	IsHighAvailabilityEnabled *bool
+
+	// Gets the Sql edition.
+	SQLEdition *string
+
+	// Gets the Sql Fci state.
+	SQLFciState *SQLFCIState
+
+	// Gets the instance entity id.
+	SQLInstanceEntityID *string
+
+	// Gets the instance arm id.
+	SQLInstanceSdsArmID *string
+
+	// Gets the Sql version.
+	SQLVersion *string
+}
+
+// AssessedSQLInstanceV2 - Assessed SQL instance web model class.
+type AssessedSQLInstanceV2 struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessedSQLInstanceV2Properties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Unique name of an assessment options.
+	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AssessedSQLInstanceV2ListResult - The response of a AssessedSqlInstanceV2 list operation.
+type AssessedSQLInstanceV2ListResult struct {
+	// REQUIRED; The AssessedSqlInstanceV2 items on this page
+	Value []*AssessedSQLInstanceV2
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AssessedSQLInstanceV2Properties - Assessed SQL instance properties web model.
+type AssessedSQLInstanceV2Properties struct {
+	// READ-ONLY; Gets the overview counts of availability replicas in the assessed instance, by commit mode and read type.
+	AvailabilityReplicaSummary *SQLAvailabilityReplicaSummary
+
+	// READ-ONLY; SQL instance azure SQL DB suitability details.
+	AzureSQLDBSuitabilityDetails *SQLAssessmentV2PaasSuitabilityData
+
+	// READ-ONLY; SQL instance azure SQL MI suitability details.
+	AzureSQLMISuitabilityDetails *SQLAssessmentV2PaasSuitabilityData
+
+	// READ-ONLY; SQL instance azure SQL VM suitability details.
+	AzureSQLVMSuitabilityDetails *SQLAssessmentV2IaasSuitabilityData
+
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// READ-ONLY; When was assessed SQL instance first created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; The databases summary.
+	DatabaseSummary *AssessedSQLInstanceDatabaseSummary
+
+	// READ-ONLY; Gets the FCI metadata if this instance represents an FCI instance.
+	FciMetadata *SQLFCIMetadata
+
+	// READ-ONLY; Gets or sets a value indicating whether SQL instance has been deep discovered.
+	HasScanOccurred *bool
+
+	// READ-ONLY; SQL instance name.
+	InstanceName *string
+
+	// READ-ONLY; Gets a value indicating whether the SQL instance is clustered or not.
+	IsClustered *bool
+
+	// READ-ONLY; Gets a value indicating whether the high availability is enabled or not.
+	IsHighAvailabilityEnabled *bool
+
+	// READ-ONLY; The logical disk details.
+	LogicalDisks []*AssessedSQLInstanceDiskDetails
+
+	// READ-ONLY; Machine arm id.
+	MachineArmID *string
+
+	// READ-ONLY; Machine display name.
+	MachineName *string
+
+	// READ-ONLY; Gets or sets the memory used by SQL instance in megabytes.
+	MemoryInUseInMB *float32
+
+	// READ-ONLY; Number of CPU cores assigned to the SQL instance.
+	NumberOfCoresAllocated *int32
+
+	// READ-ONLY; The percentage of the total number of cores being utilized by the SQL instance.
+	PercentageCoresUtilization *float32
+
+	// READ-ONLY; Gets the product support status related details.
+	ProductSupportStatus *ProductSupportStatus
+
+	// READ-ONLY; Gets or sets the recommended azure SQL target type.
+	RecommendedAzureSQLTargetType *TargetType
+
+	// READ-ONLY; Gets or sets the recommended azure SQL suitability.
+	RecommendedSuitability *RecommendedSuitability
+
+	// READ-ONLY; Gets the list of recommended target reasoning.
+	RecommendedTargetReasonings []*SQLRecommendationReasoning
+
+	// READ-ONLY; SQL instance edition.
+	SQLEdition *string
+
+	// READ-ONLY; SQL instance SDS arm id.
+	SQLInstanceSdsArmID *string
+
+	// READ-ONLY; SQL instance version.
+	SQLVersion *string
+
+	// READ-ONLY; Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+
+	// READ-ONLY; Gets the storage details.
+	StorageTypeBasedDetails []*AssessedSQLInstanceStorageDetails
+
+	// READ-ONLY; When was assessed SQL instance last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// AssessedSQLMachine - SQL Assessment REST resource.
+type AssessedSQLMachine struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessedSQLMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AssessedSQLMachineListResult - The response of a AssessedSqlMachine list operation.
+type AssessedSQLMachineListResult struct {
+	// REQUIRED; The AssessedSqlMachine items on this page
+	Value []*AssessedSQLMachine
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AssessedSQLMachineProperties - Assessed SQL machine properties.
+type AssessedSQLMachineProperties struct {
+	// Gets the collection of cost components.
+	CostComponents []*CostComponent
+
+	// READ-ONLY; Gets or sets the BIOS GUID for the machine.
+	BiosGUID *string
+
+	// READ-ONLY; Boot type of machine discovered in private data center.
+	BootType *MachineBootType
+
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// READ-ONLY; When was machine first created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Data center machine ARM id.
+	DatacenterMachineArmID *string
+
+	// READ-ONLY; Data center management server ARM id.
+	DatacenterManagementServerArmID *string
+
+	// READ-ONLY; Data center management server name.
+	DatacenterManagementServerName *string
+
+	// READ-ONLY; Description for the machine.
+	Description *string
+
+	// READ-ONLY; Gets the list of data disks that were assessed as part of this assessment.
+	Disks map[string]*AssessedDiskData
+
+	// READ-ONLY; Display Name of the Machine.
+	DisplayName *string
+
+	// READ-ONLY; Gets or sets the FQDN for the machine.
+	Fqdn *string
+
+	// READ-ONLY; Megabytes of memory found allocated for the machine in private data center.
+	MegabytesOfMemory *float32
+
+	// READ-ONLY; Gets the list of migration guidelines applicable.
+	MigrationGuidelines []*SQLMigrationGuideline
+
+	// READ-ONLY; Gets or sets the monthly networking cost.
+	MonthlyBandwidthCost *float32
+
+	// READ-ONLY; Gets or sets the monthly compute cost calculated for recommended size.
+	MonthlyComputeCost *float32
+
+	// READ-ONLY; Gets or sets the monthly total storage cost.
+	MonthlyStorageCost *float32
+
+	// READ-ONLY; Gets the list of network adapters that were assessed as part of this assessment.
+	NetworkAdapters map[string]*SQLAssessedNetworkAdapter
+
+	// READ-ONLY; Number of CPU cores found on the machine.
+	NumberOfCores *int32
+
+	// READ-ONLY; Operating system architecture as reported by datacenter management solution.
+	OperatingSystemArchitecture *GuestOperatingSystemArchitecture
+
+	// READ-ONLY; Operating system as reported by datacenter management solution.
+	OperatingSystemName *string
+
+	// READ-ONLY; Operating system as reported by datacenter management solution.
+	OperatingSystemType *string
+
+	// READ-ONLY; Operating system version as reported by datacenter management solution.
+	OperatingSystemVersion *string
+
+	// READ-ONLY; Percentile of Percentage of Cores Utilized noted during time period T.
+	// Here N and T are settings on Assessment.
+	PercentageCoresUtilization *float32
+
+	// READ-ONLY; Percentile of Percentage of Memory Utilized noted during time period T.
+	// Here N and T are settings on Assessment.
+	PercentageMemoryUtilization *float32
+
+	// READ-ONLY; Gets the product support status related details.
+	ProductSupportStatus *ProductSupportStatus
+
+	// READ-ONLY; Gets or sets the Recommended Azure VM Family for the machine.
+	RecommendedVMFamily *AzureVMFamily
+
+	// READ-ONLY; Gets or sets the Recommended Azure Size for the machine.
+	RecommendedVMSize *AzureVMSize
+
+	// READ-ONLY; Gets or sets the Megabytes of memory for recommended size.
+	RecommendedVMSizeMegabytesOfMemory *float32
+
+	// READ-ONLY; Gets or sets the Number of cores for recommended size.
+	RecommendedVMSizeNumberOfCores *int32
+
+	// READ-ONLY; Gets the list of SQL instances discovered on the machine.
+	SQLInstances []*AssessedSQLInstanceSummary
+
+	// READ-ONLY; Gets the suitability for Microsoft cloud defender.
+	SecuritySuitability *CloudSuitability
+
+	// READ-ONLY; Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+
+	// READ-ONLY; Gets a value indicating whether machine is suitable for the cloud platform selected.
+	Suitability *CloudSuitability
+
+	// READ-ONLY; Gets or sets the detailed messages that were set on the machine during evaluation.
+	SuitabilityDetail *AzureVMSuitabilityDetail
+
+	// READ-ONLY; Gets or sets the explanation if machine is not suitable for cloud.
+	SuitabilityExplanation *AzureVMSuitabilityExplanation
+
+	// READ-ONLY; Assessed machine type.
+	Type *AssessedMachineType
+
+	// READ-ONLY; When was machine last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// AssessedSQLRecommendedEntity - SQL Assessment REST resource.
+type AssessedSQLRecommendedEntity struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessedSQLRecommendedEntityProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AssessedSQLRecommendedEntityListResult - The response of a AssessedSqlRecommendedEntity list operation.
+type AssessedSQLRecommendedEntityListResult struct {
+	// REQUIRED; The AssessedSqlRecommendedEntity items on this page
+	Value []*AssessedSQLRecommendedEntity
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AssessedSQLRecommendedEntityProperties - Assessed SQL recommended entity properties.
+type AssessedSQLRecommendedEntityProperties struct {
+	// Gets or sets Arm id of assessed entity.
+	AssessedSQLEntityArmID *string
+
+	// READ-ONLY; SQL instance azure SQL DB suitability details.
+	AzureSQLDBSuitabilityDetails *SQLAssessmentV2PaasSuitabilityData
+
+	// READ-ONLY; SQL instance azure SQL MI suitability details.
+	AzureSQLMISuitabilityDetails *SQLAssessmentV2PaasSuitabilityData
+
+	// READ-ONLY; SQL instance azure SQL VM suitability details.
+	AzureSQLVMSuitabilityDetails *SQLAssessmentV2IaasSuitabilityData
+
+	// READ-ONLY; Gets or sets assessed database count.
+	DbCount *int32
+
+	// READ-ONLY; Gets or sets the total discovered database count.
+	DiscoveredDBCount *int32
+
+	// READ-ONLY; Gets or sets a value indicating whether instance deep discovery has occurred or not.
+	HasScanOccurred *bool
+
+	// READ-ONLY; Gets or sets SQL instance name.
+	InstanceName *string
+
+	// READ-ONLY; Gets or sets a value indicating whether the SQL instance is clustered or not.
+	IsClustered *bool
+
+	// READ-ONLY; Gets or sets a value indicating whether the high availability is enabled or not.
+	IsHighAvailabilityEnabled *bool
+
+	// READ-ONLY; Gets or sets machine name.
+	MachineName *string
+
+	// READ-ONLY; Gets the product support status related details.
+	ProductSupportStatus *ProductSupportStatus
+
+	// READ-ONLY; Gets or sets the recommended azure SQL target type.
+	RecommendedAzureSQLTargetType *TargetType
+
+	// READ-ONLY; Gets or sets the recommended azure SQL suitability.
+	RecommendedSuitability *RecommendedSuitability
+
+	// READ-ONLY; Gets the SQL edition from the recommended entity if applicable.
+	SQLEdition *string
+
+	// READ-ONLY; Gets the SQL version from the recommended entity if applicable.
+	SQLVersion *string
+
+	// READ-ONLY; Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+}
+
+// Assessment - Machine assessment resource.
+type Assessment struct {
+	// The resource-specific properties for this resource.
+	Properties *MachineAssessmentProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AssessmentListResult - The response of a Assessment list operation.
+type AssessmentListResult struct {
+	// REQUIRED; The Assessment items on this page
+	Value []*Assessment
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AssessmentOptions - Assessment options resource.
+type AssessmentOptions struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessmentOptionsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AssessmentOptionsListResult - The response of a AssessmentOptions list operation.
+type AssessmentOptionsListResult struct {
+	// REQUIRED; The AssessmentOptions items on this page
+	Value []*AssessmentOptions
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // AssessmentOptionsProperties - Assessment options properties.
 type AssessmentOptionsProperties struct {
+	// READ-ONLY; List of VM Families that support premium disks for assessments.
+	PremiumDiskVMFamilies []*string
+
 	// READ-ONLY; List of supported currencies for reserved instances.
 	ReservedInstanceSupportedCurrencies []*string
 
@@ -259,164 +888,672 @@ type AssessmentOptionsProperties struct {
 	// READ-ONLY; List of supported VM Families.
 	ReservedInstanceVMFamilies []*string
 
+	// READ-ONLY; List of Azure locations that support Savings plan offer for assessments.
+	SavingsPlanSupportedLocations []*string
+
+	// READ-ONLY; List of VM Families that support Savings plan offer for assessments.
+	SavingsPlanVMFamilies []*string
+
+	// READ-ONLY; Ultra disk related assessment options.
+	UltraDiskVMFamilies []*UltraDiskAssessmentOptions
+
 	// READ-ONLY; Dictionary of VM families grouped by vm family name describing the targeted azure locations of VM family and
 	// the category of the family.
-	VMFamilies []*VMFamily
+	VMFamilies []*VMFamilyOptions
 }
 
-// AssessmentOptionsResultList - List of API operations.
-type AssessmentOptionsResultList struct {
-	// List of operations.
-	Value []*AssessmentOptions
+// AssessmentProject - An Assessment project site resource.
+type AssessmentProject struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *ProjectProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
-// AssessmentProperties - Properties of an assessment.
-type AssessmentProperties struct {
-	// REQUIRED; Storage type selected for this disk.
-	AzureDiskType *AzureDiskType
+// AssessmentProjectListResult - The response of a AssessmentProject list operation.
+type AssessmentProjectListResult struct {
+	// REQUIRED; The AssessmentProject items on this page
+	Value []*AssessmentProject
 
-	// REQUIRED; AHUB discount on windows virtual machines.
-	AzureHybridUseBenefit *AzureHybridUseBenefit
+	// The link to the next page of items
+	NextLink *string
+}
 
-	// REQUIRED; Target Azure location for which the machines should be assessed. These enums are the same as used by Compute
-	// API.
-	AzureLocation *AzureLocation
+// AssessmentProjectSummary - Assessment project summary resource.
+type AssessmentProjectSummary struct {
+	// The resource-specific properties for this resource.
+	Properties *AssessmentProjectSummaryProperties
 
-	// REQUIRED; Offer code according to which cost estimation is done.
-	AzureOfferCode *AzureOfferCode
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
 
-	// REQUIRED; Pricing tier for Size evaluation.
-	AzurePricingTier *AzurePricingTier
+	// READ-ONLY; The name of the resource
+	Name *string
 
-	// REQUIRED; Storage Redundancy type offered by Azure.
-	AzureStorageRedundancy *AzureStorageRedundancy
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
-	// REQUIRED; List of azure VM families.
-	AzureVMFamilies []*AzureVMFamily
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
 
-	// REQUIRED; Currency to report prices in.
-	Currency *Currency
+// AssessmentProjectSummaryListResult - The response of a AssessmentProjectSummary list operation.
+type AssessmentProjectSummaryListResult struct {
+	// REQUIRED; The AssessmentProjectSummary items on this page
+	Value []*AssessmentProjectSummary
 
-	// REQUIRED; Custom discount percentage to be applied on final costs. Can be in the range [0, 100].
-	DiscountPercentage *float64
+	// The link to the next page of items
+	NextLink *string
+}
 
-	// REQUIRED; Percentile of performance data used to recommend Azure size.
-	Percentile *Percentile
+// AssessmentProjectSummaryProperties - Assessment project summary properties class.
+type AssessmentProjectSummaryProperties struct {
+	// READ-ONLY; Gets the Error summary by feature. Contains number of affected Entities per feature.
+	ErrorSummaryAffectedEntities []*ErrorSummary
 
-	// REQUIRED; Azure reserved instance.
-	ReservedInstance *ReservedInstance
+	// READ-ONLY; Gets the last assessment timestamp.
+	LastAssessmentTimestamp *time.Time
 
-	// REQUIRED; Scaling factor used over utilization data to add a performance buffer for new machines to be created in Azure.
-	// Min Value = 1.0, Max value = 1.9, Default = 1.3.
-	ScalingFactor *float64
+	// READ-ONLY; Gets the number of assessments created in this project.
+	NumberOfAssessments *int32
 
-	// REQUIRED; Assessment sizing criterion.
-	SizingCriterion *AssessmentSizingCriterion
+	// READ-ONLY; Gets the number of groups created in this project.
+	NumberOfGroups *int32
 
-	// REQUIRED; User configurable setting that describes the status of the assessment.
-	Stage *AssessmentStage
+	// READ-ONLY; Gets the number of import machines part of this project.
+	NumberOfImportMachines *int32
 
-	// REQUIRED; Time range of performance data used to recommend a size.
-	TimeRange *TimeRange
-
-	// REQUIRED; Specify the duration for which the VMs are up in the on-premises environment.
-	VMUptime *VMUptime
-
-	// READ-ONLY; Confidence rating percentage for assessment. Can be in the range [0, 100].
-	ConfidenceRatingInPercentage *float64
-
-	// READ-ONLY; Time when this project was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *time.Time
-
-	// READ-ONLY; Enterprise agreement subscription arm id.
-	EaSubscriptionID *string
-
-	// READ-ONLY; Monthly network cost estimate for the machines that are part of this assessment as a group, for a 31-day month.
-	MonthlyBandwidthCost *float64
-
-	// READ-ONLY; Monthly compute cost estimate for the machines that are part of this assessment as a group, for a 31-day month.
-	MonthlyComputeCost *float64
-
-	// READ-ONLY; Monthly premium storage cost estimate for the machines that are part of this assessment as a group, for a 31-day
-	// month.
-	MonthlyPremiumStorageCost *float64
-
-	// READ-ONLY; Monthly standard SSD storage cost estimate for the machines that are part of this assessment as a group, for
-	// a 31-day month.
-	MonthlyStandardSSDStorageCost *float64
-
-	// READ-ONLY; Monthly storage cost estimate for the machines that are part of this assessment as a group, for a 31-day month.
-	MonthlyStorageCost *float64
-
-	// READ-ONLY; Number of assessed machines part of this assessment.
+	// READ-ONLY; Gets the number of machines part of this project.
 	NumberOfMachines *int32
 
-	// READ-ONLY; End time to consider performance data for assessment
+	// READ-ONLY; Gets the number of private endpoint connections.
+	NumberOfPrivateEndpointConnections *int32
+}
+
+// AssessmentProjectUpdate - The type used for update operations of the AssessmentProject.
+type AssessmentProjectUpdate struct {
+	// The updatable properties of the AssessmentProject.
+	Properties *AssessmentProjectUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// AssessmentProjectUpdateProperties - The updatable properties of the AssessmentProject.
+type AssessmentProjectUpdateProperties struct {
+	// Assessment solution ARM id tracked by Microsoft.Migrate/migrateProjects.
+	AssessmentSolutionID *string
+
+	// The ARM id of the storage account used for interactions when public access is disabled.
+	CustomerStorageAccountArmID *string
+
+	// The ARM id of service map workspace created by customer.
+	CustomerWorkspaceID *string
+
+	// Location of service map workspace created by customer.
+	CustomerWorkspaceLocation *string
+
+	// Assessment project status.
+	ProjectStatus *ProjectStatus
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// This value can be set to 'enabled' to avoid breaking changes on existing customer resources and templates. If set to 'disabled',
+	// traffic over public interface is not allowed, and private endpoint
+	// connections would be the exclusive access method.
+	PublicNetworkAccess *string
+}
+
+// AvsAssessedDisk - AVS assessed disk web model class.
+type AvsAssessedDisk struct {
+	// READ-ONLY; Gets the display name of the disk.
+	DisplayName *string
+
+	// READ-ONLY; Gigabytes Provisioned for a disk in private data center.
+	GigabytesProvisioned *float32
+
+	// READ-ONLY; Disk Read Throughput in MB/s.
+	MegabytesPerSecondOfRead *float32
+
+	// READ-ONLY; Disk Write Throughput in MB/s.
+	MegabytesPerSecondOfWrite *float32
+
+	// READ-ONLY; Gets the ID of the disk.
+	Name *string
+
+	// READ-ONLY; Read Operations per second.
+	NumberOfReadOperationsPerSecond *float32
+
+	// READ-ONLY; Write Operations per second.
+	NumberOfWriteOperationsPerSecond *float32
+}
+
+// AvsAssessedMachine - AVS assessment Assessed Machine resource.
+type AvsAssessedMachine struct {
+	// The resource-specific properties for this resource.
+	Properties *AvsAssessedMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AvsAssessedMachineListResult - The response of a AvsAssessedMachine list operation.
+type AvsAssessedMachineListResult struct {
+	// REQUIRED; The AvsAssessedMachine items on this page
+	Value []*AvsAssessedMachine
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AvsAssessedMachineProperties - AVS assessed machine properties web model.
+type AvsAssessedMachineProperties struct {
+	// READ-ONLY; Boot type of machine discovered in private data center.
+	BootType *MachineBootType
+
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// READ-ONLY; When was machine first created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Data center machine ARM id.
+	DatacenterMachineArmID *string
+
+	// READ-ONLY; Data center management server ARM id.
+	DatacenterManagementServerArmID *string
+
+	// READ-ONLY; Data center management server name.
+	DatacenterManagementServerName *string
+
+	// READ-ONLY; Description for the machine.
+	Description *string
+
+	// READ-ONLY; List of Disks that were assessed as part of this machine's assessment.
+	Disks map[string]*AvsAssessedDisk
+
+	// READ-ONLY; Display Name of the Machine.
+	DisplayName *string
+
+	// READ-ONLY; List of errors for this machine.
+	Errors []*Error
+
+	// READ-ONLY; Megabytes of memory found allocated for the machine in private data center.
+	MegabytesOfMemory *float32
+
+	// READ-ONLY; List of Network Adapters that were assessed as part of this machine's assessment.
+	NetworkAdapters map[string]*AvsAssessedNetworkAdapter
+
+	// READ-ONLY; Number of CPU cores found on the machine.
+	NumberOfCores *int32
+
+	// READ-ONLY; Operating system architecture as reported by datacenter management solution.
+	OperatingSystemArchitecture *GuestOperatingSystemArchitecture
+
+	// READ-ONLY; Operating system as reported by datacenter management solution.
+	OperatingSystemName *string
+
+	// READ-ONLY; Operating system as reported by datacenter management solution.
+	OperatingSystemType *string
+
+	// READ-ONLY; Operating system version as reported by datacenter management solution.
+	OperatingSystemVersion *string
+
+	// READ-ONLY; Percentile of Percentage of Cores Utilized noted during time period T.
+	// Here N and T are settings on Assessment.
+	PercentageCoresUtilization *float32
+
+	// READ-ONLY; Percentile of Percentage of Memory Utilized noted during time period T.
+	// Here N and T are settings on Assessment.
+	PercentageMemoryUtilization *float32
+
+	// READ-ONLY; Gets the storage in use.
+	StorageInUseGB *float32
+
+	// READ-ONLY; Gets a value indicating whether machine is suitable for the cloud platform selected.
+	Suitability *CloudSuitability
+
+	// READ-ONLY; Gets the details if machine is not suitable for cloud.
+	SuitabilityDetail *AzureAvsVMSuitabilityDetail
+
+	// READ-ONLY; Gets the explanation if machine is not suitable for cloud.
+	SuitabilityExplanation *AzureAvsVMSuitabilityExplanation
+
+	// READ-ONLY; Assessed machine type.
+	Type *AssessedMachineType
+
+	// READ-ONLY; When was machine last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// AvsAssessedNetworkAdapter - Second level object returned as part of AVS AssessedMachine REST resource.
+type AvsAssessedNetworkAdapter struct {
+	// READ-ONLY; Gets the display name of the network adapter.
+	DisplayName *string
+
+	// READ-ONLY; IP V4 addresses for the machine.
+	IPAddresses []*string
+
+	// READ-ONLY; Mac address of the NIC.
+	MacAddress *string
+
+	// READ-ONLY; Gets the Received data for Network Adapter in MB/s. This value is the percentile of historical data based on
+	// options selected in Assessment.
+	MegabytesPerSecondReceived *float32
+
+	// READ-ONLY; Gets the Transmitted data for Network Adapter in MB/s. This value is the percentile of historical data based
+	// on options selected in Assessment.
+	MegabytesPerSecondTransmitted *float32
+}
+
+// AvsAssessment - AVS assessment resource.
+type AvsAssessment struct {
+	// The resource-specific properties for this resource.
+	Properties *AvsAssessmentProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AvsAssessmentListResult - The response of a AvsAssessment list operation.
+type AvsAssessmentListResult struct {
+	// REQUIRED; The AvsAssessment items on this page
+	Value []*AvsAssessment
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AvsAssessmentOptions - AVS Assessment options resource.
+type AvsAssessmentOptions struct {
+	// The resource-specific properties for this resource.
+	Properties *AvsAssessmentOptionsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AvsAssessmentOptionsListResult - The response of a AvsAssessmentOptions list operation.
+type AvsAssessmentOptionsListResult struct {
+	// REQUIRED; The AvsAssessmentOptions items on this page
+	Value []*AvsAssessmentOptions
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AvsAssessmentOptionsProperties - AVS Assessment options properties.
+type AvsAssessmentOptionsProperties struct {
+	// AVS SKU Nodes.
+	AvsNodes []*AvsSKUOptions
+
+	// FTT and Raid level values.
+	FailuresToTolerateAndRaidLevelValues []*FttAndRaidLevel
+
+	// List of AVS nodes for RI.
+	ReservedInstanceAvsNodes []*AzureAvsNodeType
+
+	// List of supported currencies for reserved instances.
+	ReservedInstanceSupportedCurrencies []*AzureCurrency
+
+	// List of supported Azure regions for reserved instances.
+	ReservedInstanceSupportedLocations []*AzureLocation
+
+	// List of supported Azure offer codes for reserved instances.
+	ReservedInstanceSupportedOffers []*AzureOfferCode
+}
+
+// AvsAssessmentProperties - Properties of the AVS assessment.
+type AvsAssessmentProperties struct {
+	// Azure Location or Azure region where to which the machines will be migrated.
+	AzureLocation *AzureLocation
+
+	// Azure Offer code according to which cost estimation is done.
+	AzureOfferCode *AzureOfferCode
+
+	// Currency in which prices should be reported.
+	Currency *AzureCurrency
+
+	// De-duplication compression.
+	DedupeCompression *float32
+
+	// Custom discount percentage.
+	DiscountPercentage *float32
+
+	// Failures to tolerate and RAID level in a common property.
+	FailuresToTolerateAndRaidLevel *FttAndRaidLevel
+
+	// Is Stretch Cluster Enabled.
+	IsStretchClusterEnabled *bool
+
+	// Memory overcommit.
+	MemOvercommit *float32
+
+	// AVS node type.
+	NodeType *AzureAvsNodeType
+
+	// Percentile of the utilization data values to be considered while assessing machines.
+	Percentile *Percentile
+
+	// Gets or sets the end time to consider performance data for assessment.
 	PerfDataEndTime *time.Time
 
-	// READ-ONLY; Start time to consider performance data for assessment
+	// Gets or sets the start time to consider performance data for assessment.
 	PerfDataStartTime *time.Time
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Reserved instance.
+	ReservedInstance *AzureReservedInstance
+
+	// Percentage of buffer that user wants on performance metrics when recommending Azure sizes.
+	ScalingFactor *float32
+
+	// Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+
+	// Time Range for which the historic utilization data should be considered for assessment.
+	TimeRange *TimeRange
+
+	// VCPU over subscription.
+	VcpuOversubscription *float32
+
+	// READ-ONLY; Gets the assessment error summary. This is the number of machines affected by each type of error in this assessment.
+	AssessmentErrorSummary map[string]*int32
+
+	// READ-ONLY; Assessment type of the assessment.
+	AssessmentType *AssessmentType
+
+	// READ-ONLY; Predicted CPU utilization.
+	CPUUtilization *float32
+
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// READ-ONLY; Date and Time when assessment was created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Gets the group type for the assessment.
+	GroupType *GroupType
+
+	// READ-ONLY; Limiting factor.
+	LimitingFactor *string
+
+	// READ-ONLY; Number of machines part of the assessment.
+	NumberOfMachines *int32
+
+	// READ-ONLY; Recommended number of nodes.
+	NumberOfNodes *int32
 
 	// READ-ONLY; Time when the Azure Prices were queried. Date-Time represented in ISO-8601 format.
 	PricesTimestamp *time.Time
 
-	// READ-ONLY; Whether the assessment has been created and is valid.
+	// READ-ONLY; Predicted RAM utilization.
+	RAMUtilization *float32
+
+	// READ-ONLY; Schema version.
+	SchemaVersion *string
+
+	// READ-ONLY; User configurable setting to display the Stage of Assessment.
+	Stage *AssessmentStage
+
+	// READ-ONLY; Whether assessment is in valid state and all machines have been assessed.
 	Status *AssessmentStatus
 
-	// READ-ONLY; Time when this project was last updated. Date-Time represented in ISO-8601 format.
+	// READ-ONLY; Predicted storage utilization.
+	StorageUtilization *float32
+
+	// READ-ONLY; Gets or sets the Assessment cloud suitability.
+	Suitability *CloudSuitability
+
+	// READ-ONLY; Gets or sets the Assessment suitability explanation.
+	SuitabilityExplanation *AzureAvsSuitabilityExplanation
+
+	// READ-ONLY; Cloud suitability summary for all the machines in the assessment.
+	SuitabilitySummary map[string]*int32
+
+	// READ-ONLY; Predicted total CPU cores used.
+	TotalCPUCores *float32
+
+	// READ-ONLY; Total monthly cost.
+	TotalMonthlyCost *float32
+
+	// READ-ONLY; Predicted total RAM used in GB.
+	TotalRAMInGB *float32
+
+	// READ-ONLY; Predicted total Storage used in GB.
+	TotalStorageInGB *float32
+
+	// READ-ONLY; Date and Time when assessment was last updated.
 	UpdatedTimestamp *time.Time
 }
 
-// AssessmentResultList - List of assessments.
-type AssessmentResultList struct {
-	// List of assessments.
-	Value []*Assessment
+// AvsSKUOptions - AVS SKU specific options.
+type AvsSKUOptions struct {
+	// AVS Node type.
+	NodeType *AzureAvsNodeType
+
+	// List of locations where this node type is available.
+	TargetLocations []*AzureLocation
 }
 
-type CollectorAgentProperties struct {
-	SpnDetails *CollectorBodyAgentSpnProperties
+// AzureManagedDiskSKUDTO - Class representing an Azure Managed Disk SKU.
+type AzureManagedDiskSKUDTO struct {
+	// READ-ONLY; Gets disk redundancy - e.g. LRS, ZRS.
+	DiskRedundancy *AzureManagedDiskSKUDTODiskRedundancy
 
-	// READ-ONLY
+	// READ-ONLY; Gets the Size of the managed disk - e.g. P30, P40.
+	DiskSize *AzureDiskSize
+
+	// READ-ONLY; Gets the Type ("tier") of disk - e.g. standard, premium, ultra.
+	DiskType *AzureManagedDiskSKUDTODiskType
+
+	// READ-ONLY; Gets the recommended IOPS of the managed disk.
+	RecommendedIops *float32
+
+	// READ-ONLY; Gets the recommended in GB of the managed disk.
+	RecommendedSizeInGib *float32
+
+	// READ-ONLY; Gets the recommended throughput in MBPS of the managed disk.
+	RecommendedThroughputInMbps *float32
+
+	// READ-ONLY; Gets the managed disk storage cost.
+	StorageCost *float32
+}
+
+// AzureQuorumWitnessDTO - Quorum Witness.
+type AzureQuorumWitnessDTO struct {
+	// READ-ONLY; Gets quorum witness type.
+	QuorumWitnessType *AzureQuorumWitnessDTOQuorumWitnessType
+}
+
+// AzureResourceProperties - Common properties for all azure tracked and proxy resources.
+type AzureResourceProperties struct {
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// AzureSQLIaasSKUDTO - Class representing Azure SQL IAAS SKU.
+type AzureSQLIaasSKUDTO struct {
+	// READ-ONLY; Gets the target type.
+	AzureSQLTargetType *TargetType
+
+	// READ-ONLY; Gets the The list of data disk sizes.
+	DataDiskSizes []*AzureManagedDiskSKUDTO
+
+	// READ-ONLY; Gets the The list of log disk sizes.
+	LogDiskSizes []*AzureManagedDiskSKUDTO
+
+	// READ-ONLY; Gets the The Azure Compute Virtual Machine.
+	VirtualMachineSize *AzureVirtualMachineSKUDTO
+}
+
+// AzureSQLPaasSKUDTO - Class representing Azure SQL PAAS SKU.
+type AzureSQLPaasSKUDTO struct {
+	// READ-ONLY; Gets the compute tier.
+	AzureSQLComputeTier *ComputeTier
+
+	// READ-ONLY; Gets the hardware generation.
+	AzureSQLHardwareGeneration *HardwareGeneration
+
+	// READ-ONLY; Gets the service tier.
+	AzureSQLServiceTier *AzureSQLServiceTier
+
+	// READ-ONLY; Gets the target type.
+	AzureSQLTargetType *TargetType
+
+	// READ-ONLY; Gets the number of cores.
+	Cores *int32
+
+	// READ-ONLY; Gets the predicted data size in megabytes in the Azure SQL, will impact the billing cost.
+	PredictedDataSizeInMB *float32
+
+	// READ-ONLY; Gets the predicted log size in megabytes in the Azure SQL, will impact the billing cost.
+	PredictedLogSizeInMB *float32
+
+	// READ-ONLY; Gets the storage maximum size in megabytes.
+	StorageMaxSizeInMB *float32
+}
+
+// AzureVirtualMachineSKUDTO - Azure Virtual Machine SKU.
+type AzureVirtualMachineSKUDTO struct {
+	// READ-ONLY; Gets the Available vCores. This can be less than the vCores in the Constrained vCPU VM Sizes.
+	AvailableCores *int32
+
+	// READ-ONLY; Gets the Virtual Machine SKU name,: E.g. : Standard_F16s.
+	AzureSKUName *AzureVMSize
+
+	// READ-ONLY; Gets the Virtual Machine Family, for example : standardMSFamily.
+	AzureVMFamily *AzureVMFamily
+
+	// READ-ONLY; Gets the Compute Size in vCores.
+	Cores *int32
+
+	// READ-ONLY; Gets the Max network interfaces.
+	MaxNetworkInterfaces *int32
+}
+
+// CollectorAgentPropertiesBase - Collector agent property class.
+type CollectorAgentPropertiesBase struct {
+	// Gets the collector agent id.
 	ID *string
 
-	// READ-ONLY
+	// Gets the collector last heartbeat time.
 	LastHeartbeatUTC *time.Time
 
-	// READ-ONLY
+	// Gets or sets the SPN details.
+	SpnDetails *CollectorAgentSpnPropertiesBase
+
+	// Gets the collector agent version.
 	Version *string
 }
 
-type CollectorBodyAgentSpnProperties struct {
-	// Application/client Id for the service principal with which the on-premise management/data plane components would communicate
-	// with our Azure services.
+// CollectorAgentSpnPropertiesBase - Collector agent SPN details class.
+type CollectorAgentSpnPropertiesBase struct {
+	// Gets the AAD application id.
 	ApplicationID *string
 
-	// Intended audience for the service principal.
+	// Gets the AAD audience url.
 	Audience *string
 
-	// AAD Authority URL which was used to request the token for the service principal.
+	// Gets the AAD authority endpoint.
 	Authority *string
 
-	// Object Id of the service principal with which the on-premise management/data plane components would communicate with our
-	// Azure services.
+	// Gets the object id of the AAD application.
 	ObjectID *string
 
-	// Tenant Id for the service principal with which the on-premise management/data plane components would communicate with our
-	// Azure services.
+	// Gets the tenant id of the AAD application.
 	TenantID *string
 }
 
-type CollectorProperties struct {
-	AgentProperties *CollectorAgentProperties
-
-	// The ARM id of the discovery service site.
+// CollectorPropertiesBase - Collector properties class.
+type CollectorPropertiesBase struct {
+	// Gets the discovery site id.
 	DiscoverySiteID *string
 
-	// READ-ONLY; Time when this collector was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *string
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; Time when this collector was updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *string
+	// READ-ONLY; Gets the Timestamp when collector was created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Timestamp when collector was last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// CollectorPropertiesBaseWithAgent - Collector properties class.
+type CollectorPropertiesBaseWithAgent struct {
+	// Gets or sets the collector agent properties.
+	AgentProperties *CollectorAgentPropertiesBase
+
+	// Gets the discovery site id.
+	DiscoverySiteID *string
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the Timestamp when collector was created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Timestamp when collector was last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// CostComponent - Class to represent the component of the cost.
+type CostComponent struct {
+	// The textual description of the component.
+	Description *string
+
+	// The value of the component.
+	Value *float32
+
+	// READ-ONLY; Gets the name of the component.
+	Name *CostComponentName
 }
 
 // Disk - A disk discovered on a machine.
@@ -425,10 +1562,10 @@ type Disk struct {
 	DisplayName *string
 
 	// READ-ONLY; Gigabytes of storage provisioned for this disk.
-	GigabytesAllocated *float64
+	GigabytesAllocated *float32
 }
 
-// DownloadURL - Download URL for assessment report.
+// DownloadURL - Data model of Download URL for assessment report.
 type DownloadURL struct {
 	// READ-ONLY; Hyperlink to download report.
 	AssessmentReportURL *string
@@ -437,21 +1574,115 @@ type DownloadURL struct {
 	ExpirationTime *time.Time
 }
 
-// Group - A group created in a Migration project.
+// EntityUptime - Entity Uptime.
+type EntityUptime struct {
+	// Gets the days per month.
+	DaysPerMonth *int32
+
+	// Gets the hours per day.
+	HoursPerDay *int32
+}
+
+// Error web model class.
+type Error struct {
+	// READ-ONLY; Gets the agent scenario where this error occurred.
+	AgentScenario *string
+
+	// READ-ONLY; Gets the Appliance name.
+	ApplianceName *string
+
+	// READ-ONLY; Gets the error code.
+	Code *string
+
+	// READ-ONLY; Gets the error ID.
+	ID *int32
+
+	// READ-ONLY; Gets the type of assessment impacted by this error.
+	ImpactedAssessmentType *string
+
+	// READ-ONLY; Gets the error message.
+	Message *string
+
+	// READ-ONLY; Gets the error message parameters.
+	MessageParameters map[string]*string
+
+	// READ-ONLY; Gets the error possible causes.
+	PossibleCauses *string
+
+	// READ-ONLY; Gets the recommended action for the error.
+	RecommendedAction *string
+
+	// READ-ONLY; Gets the Run as account ID.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the error severity.
+	Severity *string
+
+	// READ-ONLY; Gets the error summary message.
+	SummaryMessage *string
+
+	// READ-ONLY; Gets the time stamp when the error was updated.
+	UpdatedTimeStamp *time.Time
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
+}
+
+// ErrorSummary - Error summary containing affected entities for each type of assessment.
+type ErrorSummary struct {
+	// READ-ONLY; Gets the assessment type.
+	AssessmentType *AssessmentType
+
+	// READ-ONLY; Gets the affected entity count.
+	Count *int32
+}
+
+// Group resource.
 type Group struct {
-	// REQUIRED; Properties of the group.
+	// The resource-specific properties for this resource.
 	Properties *GroupProperties
 
-	// For optimistic concurrency control.
-	ETag *string
-
-	// READ-ONLY; Path reference to this group. /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/groups/{groupName}
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Name of the group.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/groups].
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -464,10 +1695,25 @@ type GroupBodyProperties struct {
 	OperationType *GroupUpdateOperation
 }
 
+// GroupListResult - The response of a Group list operation.
+type GroupListResult struct {
+	// REQUIRED; The Group items on this page
+	Value []*Group
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // GroupProperties - Properties of group resource.
 type GroupProperties struct {
 	// The type of group.
-	GroupType *string
+	GroupType *GroupType
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// List of assessment types supported on this group.
+	SupportedAssessmentTypes []*AssessmentType
 
 	// READ-ONLY; If the assessments are in running state.
 	AreAssessmentsRunning *bool
@@ -488,139 +1734,302 @@ type GroupProperties struct {
 	UpdatedTimestamp *time.Time
 }
 
-// GroupResultList - List of groups.
-type GroupResultList struct {
-	// List of groups.
-	Value []*Group
-}
+// HypervCollector - Hyper-V collector resource.
+type HypervCollector struct {
+	// The resource-specific properties for this resource.
+	Properties *CollectorPropertiesBaseWithAgent
 
-type HyperVCollector struct {
-	ETag       *string
-	Properties *CollectorProperties
-
-	// READ-ONLY
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// HyperVCollectorList - List of Hyper-V collectors.
-type HyperVCollectorList struct {
-	// List of Hyper-V collectors.
-	Value []*HyperVCollector
+// HypervCollectorListResult - The response of a HypervCollector list operation.
+type HypervCollectorListResult struct {
+	// REQUIRED; The HypervCollector items on this page
+	Value []*HypervCollector
+
+	// The link to the next page of items
+	NextLink *string
 }
 
+// ImpactedAssessmentObject - Class representing the impacted objects.
+type ImpactedAssessmentObject struct {
+	// READ-ONLY; Gets the object name.
+	ObjectName *string
+
+	// READ-ONLY; Gets the object type.
+	ObjectType *string
+}
+
+// ImportCollector - Import collector resource.
 type ImportCollector struct {
-	ETag       *string
-	Properties *ImportCollectorProperties
+	// The resource-specific properties for this resource.
+	Properties *CollectorPropertiesBase
 
-	// READ-ONLY
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ImportCollectorList - List of Import collectors.
-type ImportCollectorList struct {
-	// List of Import collectors.
+// ImportCollectorListResult - The response of a ImportCollector list operation.
+type ImportCollectorListResult struct {
+	// REQUIRED; The ImportCollector items on this page
 	Value []*ImportCollector
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-type ImportCollectorProperties struct {
-	DiscoverySiteID *string
-
-	// READ-ONLY
-	CreatedTimestamp *string
-
-	// READ-ONLY
-	UpdatedTimestamp *string
-}
-
-// Machine - A machine in a migration project.
+// Machine resource.
 type Machine struct {
-	// For optimistic concurrency control.
-	ETag *string
-
-	// Properties of the machine.
+	// The resource-specific properties for this resource.
 	Properties *MachineProperties
 
-	// READ-ONLY; Path reference to this machine. /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/machines/{machineName}
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Name of the machine. It is a GUID which is unique identifier of machine in private data center. For user-readable
-	// name, we have a displayName property on this machine.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/machines].
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// MachineAssessmentProperties - Properties of an assessment.
+type MachineAssessmentProperties struct {
+	// Gets or sets the azure storage type. Premium, Standard etc.
+	AzureDiskTypes []*AzureDiskType
+
+	// Gets or sets the user configurable setting to display the azure hybrid use benefit.
+	AzureHybridUseBenefit *AzureHybridUseBenefit
+
+	// Azure Location or Azure region where to which the machines will be migrated.
+	AzureLocation *string
+
+	// Azure Offer Code.
+	AzureOfferCode *AzureOfferCode
+
+	// Gets or sets Azure Pricing Tier - Free, Basic, etc.
+	AzurePricingTier *AzurePricingTier
+
+	// Gets or sets the Azure Storage Redundancy. Example: Locally Redundant Storage.
+	AzureStorageRedundancy *AzureStorageRedundancy
+
+	// Gets or sets the Azure VM families.
+	AzureVMFamilies []*AzureVMFamily
+
+	// Currency in which prices should be reported.
+	Currency *AzureCurrency
+
+	// Custom discount percentage.
+	DiscountPercentage *float32
+
+	// Gets or sets enterprise agreement subscription id.
+	EaSubscriptionID *string
+
+	// Gets or sets the user configurable setting to display the linux azure hybrid use benefit.
+	LinuxAzureHybridUseBenefit *LinuxAzureHybridUseBenefit
+
+	// Percentile of the utilization data values to be considered while assessing machines.
+	Percentile *Percentile
+
+	// Gets or sets the end time to consider performance data for assessment.
+	PerfDataEndTime *time.Time
+
+	// Gets or sets the start time to consider performance data for assessment.
+	PerfDataStartTime *time.Time
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Gets or sets the Azure Reserved Instance - 1-Year, 3-Year.
+	ReservedInstance *AzureReservedInstance
+
+	// Percentage of buffer that user wants on performance metrics when recommending Azure sizes.
+	ScalingFactor *float32
+
+	// Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+
+	// Time Range for which the historic utilization data should be considered for assessment.
+	TimeRange *TimeRange
+
+	// Gets or sets the duration for which the VMs are up in the on-premises environment.
+	VMUptime *VMUptime
+
+	// READ-ONLY; Gets or sets the assessment error summary. This is the number of machines affected by each type of error in
+	// this assessment.
+	AssessmentErrorSummary map[string]*int32
+
+	// READ-ONLY; Assessment type of the assessment.
+	AssessmentType *AssessmentType
+
+	// READ-ONLY; Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// READ-ONLY; Gets the collection of cost components.
+	CostComponents []*CostComponent
+
+	// READ-ONLY; Date and Time when assessment was created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Gets the distribution by os name.
+	DistributionByOsName map[string]*int32
+
+	// READ-ONLY; Gets the distribution distribution of sqlInstances by service pack insight.
+	DistributionByServicePackInsight map[string]*int32
+
+	// READ-ONLY; Gets the distribution of sqlInstances by support status.
+	DistributionBySupportStatus map[string]*int32
+
+	// READ-ONLY; Gets the group type for the assessment.
+	GroupType *GroupType
+
+	// READ-ONLY; Gets or sets the aggregate Bandwidth Cost for all machines in the assessment.
+	MonthlyBandwidthCost *float32
+
+	// READ-ONLY; Gets or sets the aggregate Compute Cost for all machines in the assessment.
+	MonthlyComputeCost *float32
+
+	// READ-ONLY; Gets or sets the aggregate premium storage cost for all machines in the assessment.
+	MonthlyPremiumStorageCost *float32
+
+	// READ-ONLY; Gets or sets the aggregate standard SSD storage cost for all the machines in the assessment.
+	MonthlyStandardSsdStorageCost *float32
+
+	// READ-ONLY; Gets or sets the aggregate Storage Cost for all machines in the assessment.
+	MonthlyStorageCost *float32
+
+	// READ-ONLY; Gets or sets the aggregate ultra storage cost for all machines in the assessment.
+	MonthlyUltraStorageCost *float32
+
+	// READ-ONLY; Gets or sets the Number of machines part of the assessment.
+	NumberOfMachines *int32
+
+	// READ-ONLY; Last time when rates were queried.
+	PricesTimestamp *time.Time
+
+	// READ-ONLY; Schema version.
+	SchemaVersion *string
+
+	// READ-ONLY; User configurable setting to display the Stage of Assessment.
+	Stage *AssessmentStage
+
+	// READ-ONLY; Whether assessment is in valid state and all machines have been assessed.
+	Status *AssessmentStatus
+
+	// READ-ONLY; Gets or sets the Cloud suitability summary for all the machines in the assessment.
+	SuitabilitySummary map[string]*int32
+
+	// READ-ONLY; Date and Time when assessment was last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// MachineListResult - The response of a Machine list operation.
+type MachineListResult struct {
+	// REQUIRED; The Machine items on this page
+	Value []*Machine
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // MachineProperties - Properties of a machine.
 type MachineProperties struct {
-	// READ-ONLY; Boot type of the machine.
+	// READ-ONLY; Boot type of machine discovered in private data center.
 	BootType *MachineBootType
 
-	// READ-ONLY; Time when this machine was created. Date-Time represented in ISO-8601 format.
+	// READ-ONLY; When was machine first created.
 	CreatedTimestamp *time.Time
 
-	// READ-ONLY; ARM ID of the data center as tracked by the Microsoft.OffAzure.
+	// READ-ONLY; The data center management server ARM Id for the machine.
 	DatacenterManagementServerArmID *string
 
-	// READ-ONLY; Name of the server hosting the datacenter management solution.
+	// READ-ONLY; The data center management server name for the machine.
 	DatacenterManagementServerName *string
 
-	// READ-ONLY; Description of the machine
+	// READ-ONLY; Description for the machine.
 	Description *string
 
-	// READ-ONLY; ARM ID of the machine as tracked by the Microsoft.OffAzure.
+	// READ-ONLY; Site id of machine discovered in private data center.
 	DiscoveryMachineArmID *string
 
-	// READ-ONLY; Dictionary of disks attached to the machine. Key is ID of disk. Value is a disk object
+	// READ-ONLY; Disks attached to the machine discovered in private data center.
 	Disks map[string]*Disk
 
-	// READ-ONLY; User readable name of the machine as defined by the user in their private datacenter.
+	// READ-ONLY; Display Name of the Machine.
 	DisplayName *string
 
-	// READ-ONLY; List of references to the groups that the machine is member of.
+	// READ-ONLY; List of errors for this machine.
+	Errors []*Error
+
+	// READ-ONLY; Gets the References to the groups that this machine is member of.
 	Groups []*string
 
-	// READ-ONLY; Memory in Megabytes.
+	// READ-ONLY; Gets Processor details of the host.
+	HostProcessor *ProcessorInfo
+
+	// READ-ONLY; Megabytes of memory found allocated for the machine in private data center.
 	MegabytesOfMemory *float32
 
-	// READ-ONLY; Dictionary of network adapters attached to the machine. Key is ID of network adapter. Value is a network adapter
-	// object
+	// READ-ONLY; Network adapters attached to the machine discovered in private data center.
 	NetworkAdapters map[string]*NetworkAdapter
 
-	// READ-ONLY; Processor count.
+	// READ-ONLY; Number of CPU cores found on the machine.
 	NumberOfCores *int32
 
-	// READ-ONLY; Operating System name of the machine.
+	// READ-ONLY; Operating system as reported by datacenter management solution.
 	OperatingSystemName *string
 
-	// READ-ONLY; Operating System type of the machine.
+	// READ-ONLY; Operating system as reported by datacenter management solution.
 	OperatingSystemType *string
 
-	// READ-ONLY; Operating System version of the machine.
+	// READ-ONLY; Operating system version as reported by datacenter management solution.
 	OperatingSystemVersion *string
 
-	// READ-ONLY; Time when this machine was last updated. Date-Time represented in ISO-8601 format.
+	// READ-ONLY; Gets the product support status related details.
+	ProductSupportStatus *ProductSupportStatus
+
+	// READ-ONLY; SQL instances discovered on the machine.
+	SQLInstances []*string
+
+	// READ-ONLY; When was machine last updated.
 	UpdatedTimestamp *time.Time
+
+	// READ-ONLY; Web applications discovered on the machine.
+	WebApplications []*string
+
+	// READ-ONLY; Gets or sets workload summary.
+	WorkloadSummary *WorkloadSummary
 }
 
-// MachineResultList - List of machines.
-type MachineResultList struct {
-	NextLink *string
+// MigrationGuidelineContext - Migration Guideline Context.
+type MigrationGuidelineContext struct {
+	// Gets the reasoning context key.
+	ContextKey *string
 
-	// List of machines.
-	Value []*Machine
+	// Gets the reasoning context value.
+	ContextValue *string
 }
 
 // NetworkAdapter - A network adapter discovered on a machine.
@@ -635,150 +2044,201 @@ type NetworkAdapter struct {
 	MacAddress *string
 }
 
-// Operation - A REST API operation supported by the provider.
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// READ-ONLY; Displayable properties of the operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
 
-	// READ-ONLY; Name of the operation.
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
 
-	// READ-ONLY; Origin of the operation.
-	Origin *string
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
 }
 
-// OperationDisplay - Displayable properties of the operation.
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// READ-ONLY; Description of the operation.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// READ-ONLY; Operation Type.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// READ-ONLY; Provider of the operation.
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// READ-ONLY; Resource operated on by the operation.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationResultList - List of API operations.
-type OperationResultList struct {
-	// List of operations.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
+
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
 }
 
-// PrivateEndpointConnection - A private endpoint connection for a project.
+// PrivateEndpoint - The private endpoint resource.
+type PrivateEndpoint struct {
+	// READ-ONLY; The ARM identifier for private endpoint.
+	ID *string
+}
+
+// PrivateEndpointConnection - Private endpoint connection resource.
 type PrivateEndpointConnection struct {
-	// REQUIRED; Properties of the private endpoint endpoint connection.
+	// The resource-specific properties for this resource.
 	Properties *PrivateEndpointConnectionProperties
 
-	// For optimistic concurrency control.
-	ETag *string
-
-	// READ-ONLY; Path reference to this private endpoint endpoint connection.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/privateEndpointConnections/{privateEndpointConnectionName}
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; Name of the private endpoint endpoint connection.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/privateEndpointConnections].
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PrivateEndpointConnectionCollection - A collection of private endpoint connections for a project.
-type PrivateEndpointConnectionCollection struct {
-	// READ-ONLY
-	NextLink *string
-
-	// READ-ONLY; A list of private endpoint connections for a project.
+// PrivateEndpointConnectionListResult - The response of a PrivateEndpointConnection list operation.
+type PrivateEndpointConnectionListResult struct {
+	// REQUIRED; The PrivateEndpointConnection items on this page
 	Value []*PrivateEndpointConnection
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// PrivateEndpointConnectionProperties - Private endpoint connection properties.
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
-	// State of the private endpoint connection.
+	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// READ-ONLY; ARM id for the private endpoint resource corresponding to the connection.
-	PrivateEndpoint *ResourceID
+	// The private endpoint resource.
+	PrivateEndpoint *PrivateEndpoint
 
-	// READ-ONLY; Indicates whether there is an ongoing operation on the private endpoint.
-	ProvisioningState *PrivateEndpointConnectionPropertiesProvisioningState
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string
+
+	// READ-ONLY; The provisioning state of the private endpoint connection resource.
+	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
-// PrivateLinkResource - A private link resource for a project for which a private endpoint can be created.
+// PrivateLinkResource - Private link resource.
 type PrivateLinkResource struct {
-	// READ-ONLY; Path reference to this private link resource.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/privateLinkResources/{privateLinkResourceName}
-	ID *string
-
-	// READ-ONLY; Name of the private link resource.
-	Name *string
-
-	// READ-ONLY; Properties of the private link resource.
+	// The resource-specific properties for this resource.
 	Properties *PrivateLinkResourceProperties
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/privateLinkResources].
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PrivateLinkResourceCollection - A list of private link resources
-type PrivateLinkResourceCollection struct {
-	// READ-ONLY; Link to retrieve next page of results.
-	NextLink *string
-
-	// READ-ONLY; Array of results.
+// PrivateLinkResourceListResult - The response of a PrivateLinkResource list operation.
+type PrivateLinkResourceListResult struct {
+	// REQUIRED; The PrivateLinkResource items on this page
 	Value []*PrivateLinkResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
+	// The private link resource private link DNS zone name.
+	RequiredZoneNames []*string
+
 	// READ-ONLY; The private link resource group id.
 	GroupID *string
 
 	// READ-ONLY; The private link resource required member names.
 	RequiredMembers []*string
-
-	// READ-ONLY; Required DNS zone names of the the private link resource.
-	RequiredZoneNames []*string
 }
 
-// PrivateLinkServiceConnectionState - State of a private endpoint connection.
+// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
+// and provider.
 type PrivateLinkServiceConnectionState struct {
-	// Actions required on the private endpoint connection.
+	// A message indicating if changes on the service provider require any updates on the consumer.
 	ActionsRequired *string
 
-	// Description of the private endpoint connection.
+	// The reason for approval/rejection of the connection.
 	Description *string
 
-	// Connection status of the private endpoint connection.
-	Status *PrivateLinkServiceConnectionStateStatus
+	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
+	Status *PrivateEndpointServiceConnectionStatus
 }
 
-// Project - Azure Migrate Project.
-type Project struct {
-	// For optimistic concurrency control.
-	ETag *string
-
-	// Azure location in which project is created.
-	Location *string
-
-	// Properties of the project.
-	Properties *ProjectProperties
-
-	// Tags provided by Azure Tagging service.
-	Tags any
-
-	// READ-ONLY; Path reference to this project /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}
-	ID *string
-
-	// READ-ONLY; Name of the project.
+// ProcessorInfo - Represents a information \ details of a processor.
+type ProcessorInfo struct {
+	// Gets or sets the name \ model of a processor.
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects].
-	Type *string
+	// Gets or sets the number of cores in a socket.
+	NumberOfCoresPerSocket *int32
+
+	// Gets or sets the number of sockets.
+	NumberOfSockets *int32
+}
+
+// ProductSupportStatus - Class to represent the Product Support Status.
+type ProductSupportStatus struct {
+	// READ-ONLY; Gets or sets the current ESU support year.
+	CurrentEsuYear *string
+
+	// READ-ONLY; Gets or sets current version of ServicePack.
+	CurrentVersion *string
+
+	// READ-ONLY; Gets or sets the Extended Security Update ESU status.
+	EsuStatus *string
+
+	// READ-ONLY; Gets or sets the ETA.
+	Eta *int32
+
+	// READ-ONLY; Gets or sets the extended security update year 1 end date of the product.
+	ExtendedSecurityUpdateYear1EndDate *time.Time
+
+	// READ-ONLY; Gets or sets the extended security update year 2 end date of the product.
+	ExtendedSecurityUpdateYear2EndDate *time.Time
+
+	// READ-ONLY; Gets or sets the extended security update year 3 end date of the product.
+	ExtendedSecurityUpdateYear3EndDate *time.Time
+
+	// READ-ONLY; Gets or sets the extended support end date of the product.
+	ExtendedSupportEndDate *time.Time
+
+	// READ-ONLY; Gets or sets the main stream end date of the product.
+	MainstreamEndDate *time.Time
+
+	// READ-ONLY; Gets or sets ServicePack of the product.
+	ServicePackStatus *string
+
+	// READ-ONLY; Gets or sets the support status of the product.
+	SupportStatus *string
 }
 
 // ProjectProperties - Properties of a project.
@@ -798,6 +2258,9 @@ type ProjectProperties struct {
 	// Assessment project status.
 	ProjectStatus *ProjectStatus
 
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
 	// This value can be set to 'enabled' to avoid breaking changes on existing customer resources and templates. If set to 'disabled',
 	// traffic over public interface is not allowed, and private endpoint
 	// connections would be the exclusive access method.
@@ -806,24 +2269,8 @@ type ProjectProperties struct {
 	// READ-ONLY; Time when this project was created. Date-Time represented in ISO-8601 format.
 	CreatedTimestamp *time.Time
 
-	// READ-ONLY; Time when last assessment was created. Date-Time represented in ISO-8601 format. This value will be null until
-	// assessment is created.
-	LastAssessmentTimestamp *time.Time
-
-	// READ-ONLY; Number of assessments created in the project.
-	NumberOfAssessments *int32
-
-	// READ-ONLY; Number of groups created in the project.
-	NumberOfGroups *int32
-
-	// READ-ONLY; Number of machines in the project.
-	NumberOfMachines *int32
-
 	// READ-ONLY; The list of private endpoint connections to the project.
 	PrivateEndpointConnections []*PrivateEndpointConnection
-
-	// READ-ONLY; Provisioning state of the project.
-	ProvisioningState *ProvisioningState
 
 	// READ-ONLY; Endpoint at which the collector agent can call agent REST API.
 	ServiceEndpoint *string
@@ -832,38 +2279,738 @@ type ProjectProperties struct {
 	UpdatedTimestamp *time.Time
 }
 
-// ProjectResultList - List of projects.
-type ProjectResultList struct {
-	NextLink *string
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
 
-	// List of projects.
-	Value []*Project
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // ResourceID - ARM id for a resource.
 type ResourceID struct {
-	// READ-ONLY
+	// READ-ONLY; Gets the relative URL to get to this REST resource.
 	ID *string
 }
 
-type ServerCollector struct {
-	ETag       *string
-	Properties *CollectorProperties
+// SQLAssessedNetworkAdapter - SQL Assessed Network Adapter.
+type SQLAssessedNetworkAdapter struct {
+	// Gets the display name.
+	DisplayName *string
 
-	// READ-ONLY
-	ID *string
+	// Gets the mac address.
+	MacAddress *string
 
-	// READ-ONLY
+	// Gets the megabytes per second received.
+	MegabytesPerSecondReceived *float32
+
+	// Gets the megabytes per second transmitted.
+	MegabytesPerSecondTransmitted *float32
+
+	// Gets the monthly bandwidth costs.
+	MonthlyBandwidthCosts *float32
+
+	// Gets the name.
 	Name *string
 
-	// READ-ONLY
+	// Gets the net gigabytes transmitted per month.
+	NetGigabytesTransmittedPerMonth *float32
+
+	// Gets the suitability.
+	Suitability *CloudSuitability
+
+	// Gets the suitability detail.
+	SuitabilityDetail *AzureNetworkAdapterSuitabilityDetail
+
+	// Gets the suitability explanation.
+	SuitabilityExplanation *AzureNetworkAdapterSuitabilityExplanation
+
+	// READ-ONLY; Gets the ip addresses.
+	IPAddresses []*string
+}
+
+// SQLAssessmentMigrationIssue - Class representing the SQL migration issues.
+type SQLAssessmentMigrationIssue struct {
+	// READ-ONLY; Gets the list of impacted objects.
+	ImpactedObjects []*ImpactedAssessmentObject
+
+	// READ-ONLY; Gets the issue category.
+	IssueCategory *SQLAssessmentMigrationIssueCategory
+
+	// READ-ONLY; Gets the issue id.
+	IssueID *string
+}
+
+// SQLAssessmentOptions - SQL Assessment options web model object.
+type SQLAssessmentOptions struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLAssessmentOptionsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ServerCollectorList - List of Server collectors.
-type ServerCollectorList struct {
-	// List of Server collectors.
+// SQLAssessmentOptionsListResult - The response of a SqlAssessmentOptions list operation.
+type SQLAssessmentOptionsListResult struct {
+	// REQUIRED; The SqlAssessmentOptions items on this page
+	Value []*SQLAssessmentOptions
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLAssessmentOptionsProperties - SQL Assessment options properties Web model object.
+type SQLAssessmentOptionsProperties struct {
+	// Gets or sets the Reserved Instance SQL target types.
+	ReservedInstanceSQLTargets []*TargetType
+
+	// Gets or sets the list of currencies supported for Reserved Instances.
+	ReservedInstanceSupportedCurrencies []*AzureCurrency
+
+	// Gets or sets the list of Azure locations supporting Reserved Instances.
+	ReservedInstanceSupportedLocations []*AzureLocation
+
+	// Gets or sets the list of Azure locations supporting Reserved Instances for IAAS.
+	ReservedInstanceSupportedLocationsForIaas []*AzureLocation
+
+	// Gets or sets the list of offers supported for Reserved Instances.
+	ReservedInstanceSupportedOffers []*AzureOfferCode
+
+	// Gets or sets the list of SQL target SKU properties for dropdowns.
+	SQLSKUs []*SQLPaaSTargetOptions
+
+	// Gets or sets the list of Azure locations supporting Saving Plans for IAAS.
+	SavingsPlanSupportedLocations []*AzureLocation
+
+	// Gets or sets the list of Azure locations supporting Saving Plans for PAAS.
+	SavingsPlanSupportedLocationsForPaas []*AzureLocation
+
+	// Gets or sets the list of Azure Offers supporting Saving Plans.
+	SavingsPlanSupportedOffers []*AzureOfferCode
+
+	// Gets or sets the Premium disk VM Families list.
+	SavingsPlanVMFamilies []*AzureVMFamily
+
+	// Gets or sets the list of offers supported for SQL assessments.
+	SupportedOffers []*AzureOfferCode
+
+	// READ-ONLY; Gets the Premium disk VM Families list.
+	PremiumDiskVMFamilies []*AzureVMFamily
+
+	// READ-ONLY; Gets the Reserved Instance VM Families list.
+	ReservedInstanceVMFamilies []*AzureVMFamily
+
+	// READ-ONLY; Gets the list of VM families.
+	VMFamilies []*VMFamilyOptions
+}
+
+// SQLAssessmentV2 - SQL Assessment REST resource.
+type SQLAssessmentV2 struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLAssessmentV2Properties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLAssessmentV2IaasSuitabilityData - Class representing Azure SQL IAAS suitability details.
+type SQLAssessmentV2IaasSuitabilityData struct {
+	// Gets the collection of cost components.
+	CostComponents []*CostComponent
+
+	// READ-ONLY; Gets the azure SQL IAAS SKU.
+	AzureSQLSKU *AzureSQLIaasSKUDTO
+
+	// READ-ONLY; Gets the list of migration guidelines applicable to this target.
+	MigrationGuidelines []*SQLMigrationGuideline
+
+	// READ-ONLY; Gets the list of migrations issues.
+	MigrationIssues []*SQLAssessmentMigrationIssue
+
+	// READ-ONLY; Gets the migration target platform.
+	MigrationTargetPlatform *TargetType
+
+	// READ-ONLY; Gets the monthly compute cost.
+	MonthlyComputeCost *float32
+
+	// READ-ONLY; Gets the monthly storage cost.
+	MonthlyStorageCost *float32
+
+	// READ-ONLY; Gets the list of SQL recommendation Reasoning.
+	RecommendationReasonings []*SQLRecommendationReasoning
+
+	// READ-ONLY; Gets the replica azure SQL IAAS SKU.
+	ReplicaAzureSQLSKU []*AzureSQLIaasSKUDTO
+
+	// READ-ONLY; Gets the replication mode.
+	SKUReplicationMode *SKUReplicationMode
+
+	// READ-ONLY; Gets the suitability for Microsoft cloud defender.
+	SecuritySuitability *CloudSuitability
+
+	// READ-ONLY; Gets the shared resources.
+	SharedResources *SharedResourcesDTO
+
+	// READ-ONLY; Gets a value indicating whether replicas should be provisioned.
+	ShouldProvisionReplicas *bool
+
+	// READ-ONLY; Gets the azure suitability.
+	Suitability *CloudSuitability
+}
+
+// SQLAssessmentV2ListResult - The response of a SqlAssessmentV2 list operation.
+type SQLAssessmentV2ListResult struct {
+	// REQUIRED; The SqlAssessmentV2 items on this page
+	Value []*SQLAssessmentV2
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLAssessmentV2PaasSuitabilityData - Class representing Azure SQL PAAS suitability details.
+type SQLAssessmentV2PaasSuitabilityData struct {
+	// Gets the collection of cost components.
+	CostComponents []*CostComponent
+
+	// READ-ONLY; Gets the azure SQL PAAS SKU.
+	AzureSQLSKU *AzureSQLPaasSKUDTO
+
+	// READ-ONLY; Gets the list of migration guidelines applicable to this target.
+	MigrationGuidelines []*SQLMigrationGuideline
+
+	// READ-ONLY; Gets the list of migrations issues.
+	MigrationIssues []*SQLAssessmentMigrationIssue
+
+	// READ-ONLY; Gets the migration target platform.
+	MigrationTargetPlatform *TargetType
+
+	// READ-ONLY; Gets the monthly compute cost.
+	MonthlyComputeCost *float32
+
+	// READ-ONLY; Gets the monthly storage cost.
+	MonthlyStorageCost *float32
+
+	// READ-ONLY; Gets the list of SQL recommendation Reasoning.
+	RecommendationReasonings []*SQLRecommendationReasoning
+
+	// READ-ONLY; Gets the replica azure SQL PAAS SKU.
+	ReplicaAzureSQLSKU []*AzureSQLPaasSKUDTO
+
+	// READ-ONLY; Gets the replication mode.
+	SKUReplicationMode *SKUReplicationMode
+
+	// READ-ONLY; Gets the suitability for Microsoft cloud defender.
+	SecuritySuitability *CloudSuitability
+
+	// READ-ONLY; Gets the shared resources.
+	SharedResources *SharedResourcesDTO
+
+	// READ-ONLY; Gets a value indicating whether replicas should be provisioned.
+	ShouldProvisionReplicas *bool
+
+	// READ-ONLY; Gets the azure suitability.
+	Suitability *CloudSuitability
+}
+
+// SQLAssessmentV2Properties - SQL assessment properties class.
+type SQLAssessmentV2Properties struct {
+	// Assessment type of the assessment.
+	AssessmentType *AssessmentType
+
+	// Gets or sets user preference indicating intent of async commit mode.
+	AsyncCommitModeIntent *AsyncCommitModeIntent
+
+	// Azure Location or Azure region where to which the machines will be migrated.
+	AzureLocation *string
+
+	// Azure Offer Code.
+	AzureOfferCode *AzureOfferCode
+
+	// Gets or sets Azure Offer Code for VM.
+	AzureOfferCodeForVM *AzureOfferCode
+
+	// Gets or sets user configurable SQL database settings.
+	AzureSQLDatabaseSettings *SQLDbSettings
+
+	// Gets or sets user configurable SQL managed instance settings.
+	AzureSQLManagedInstanceSettings *SQLMiSettings
+
+	// Gets or sets user configurable SQL VM settings.
+	AzureSQLVMSettings *SQLVMSettings
+
+	// Gets or sets a value indicating azure security offering type.
+	AzureSecurityOfferingType *AzureSecurityOfferingType
+
+	// Confidence Rating in Percentage.
+	ConfidenceRatingInPercentage *float32
+
+	// Currency in which prices should be reported.
+	Currency *AzureCurrency
+
+	// Gets or sets the Azure Location or Azure region where to which the machines will be migrated.
+	DisasterRecoveryLocation *AzureLocation
+
+	// Custom discount percentage.
+	DiscountPercentage *float32
+
+	// Gets or sets the Enterprise agreement subscription id.
+	EaSubscriptionID *string
+
+	// Gets or sets a value indicating whether HADR assessments needs to be created.
+	EnableHadrAssessment *bool
+
+	// Gets or sets the duration for which the entity (SQL, VMs) are up in the on-premises environment.
+	EntityUptime *EntityUptime
+
+	// Gets or sets user configurable setting to display the environment type.
+	EnvironmentType *EnvironmentType
+
+	// Gets the group type for the assessment.
+	GroupType *GroupType
+
+	// Gets or sets a value indicating whether internet access is available.
+	IsInternetAccessAvailable *bool
+
+	// Gets or sets user preference indicating intent of multi-subnet configuration.
+	MultiSubnetIntent *MultiSubnetIntent
+
+	// Gets or sets user configurable setting to display the azure hybrid use benefit.
+	OSLicense *OsLicense
+
+	// Gets or sets SQL optimization logic.
+	OptimizationLogic *OptimizationLogic
+
+	// Percentile of the utilization data values to be considered while assessing machines.
+	Percentile *Percentile
+
+	// Gets or sets the end time to consider performance data for assessment.
+	PerfDataEndTime *time.Time
+
+	// Gets or sets the start time to consider performance data for assessment.
+	PerfDataStartTime *time.Time
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Reserved instance.
+	ReservedInstance *AzureReservedInstance
+
+	// Gets or sets azure reserved instance for VM.
+	ReservedInstanceForVM *AzureReservedInstance
+
+	// SQL server license.
+	SQLServerLicense *SQLServerLicense
+
+	// Percentage of buffer that user wants on performance metrics when recommending Azure sizes.
+	ScalingFactor *float32
+
+	// Assessment sizing criterion.
+	SizingCriterion *AssessmentSizingCriterion
+
+	// Time Range for which the historic utilization data should be considered for assessment.
+	TimeRange *TimeRange
+
+	// READ-ONLY; Date and Time when assessment was created.
+	CreatedTimestamp *time.Time
+
+	// READ-ONLY; Last time when rates were queried.
+	PricesTimestamp *time.Time
+
+	// READ-ONLY; Schema version.
+	SchemaVersion *string
+
+	// READ-ONLY; User configurable setting to display the Stage of Assessment.
+	Stage *AssessmentStage
+
+	// READ-ONLY; Whether assessment is in valid state and all machines have been assessed.
+	Status *AssessmentStatus
+
+	// READ-ONLY; Date and Time when assessment was last updated.
+	UpdatedTimestamp *time.Time
+}
+
+// SQLAssessmentV2Summary - SQL Assessment REST resource.
+type SQLAssessmentV2Summary struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLAssessmentV2SummaryProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLAssessmentV2SummaryData - SQL Assessment V2 summary data.
+type SQLAssessmentV2SummaryData struct {
+	// READ-ONLY; Confidence Rating
+	ConfidenceScore *float32
+
+	// READ-ONLY; Monthly compute cost
+	MonthlyComputeCost *float32
+
+	// READ-ONLY; Monthly license cost
+	MonthlyLicenseCost *float32
+
+	// READ-ONLY; Monthly security cost
+	MonthlySecurityCost *float32
+
+	// READ-ONLY; Monthly storage cost
+	MonthlyStorageCost *float32
+
+	// READ-ONLY; Sql assessment summary data
+	SuitabilitySummary map[string]*int32
+}
+
+// SQLAssessmentV2SummaryListResult - The response of a SqlAssessmentV2Summary list operation.
+type SQLAssessmentV2SummaryListResult struct {
+	// REQUIRED; The SqlAssessmentV2Summary items on this page
+	Value []*SQLAssessmentV2Summary
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLAssessmentV2SummaryProperties - SQL Assessment V2 summary properties.
+type SQLAssessmentV2SummaryProperties struct {
+	// READ-ONLY; Gets or sets the Assessment summary.
+	AssessmentSummary map[string]*SQLAssessmentV2SummaryData
+
+	// READ-ONLY; Gets the database distribution by sizing criterion.
+	DatabaseDistributionBySizingCriterion map[string]*int32
+
+	// READ-ONLY; Gets the distribution of sqlInstances by sql edition.
+	DistributionBySQLEdition map[string]*int32
+
+	// READ-ONLY; Gets the distribution of sqlInstances by sql version.
+	DistributionBySQLVersion map[string]*int32
+
+	// READ-ONLY; Gets the distribution distribution of sqlInstances by service pack insight.
+	DistributionByServicePackInsight map[string]*int32
+
+	// READ-ONLY; Gets the distribution of sqlInstances by support status.
+	DistributionBySupportStatus map[string]*int32
+
+	// READ-ONLY; Gets the instance distribution by sizing criterion.
+	InstanceDistributionBySizingCriterion map[string]*int32
+
+	// READ-ONLY; Number of sql failover cluster instances part of the assessment.
+	NumberOfFciInstances *int32
+
+	// READ-ONLY; Number of machines part of the assessment.
+	NumberOfMachines *int32
+
+	// READ-ONLY; Number of sql availability groups part of the assessment.
+	NumberOfSQLAvailabilityGroups *int32
+
+	// READ-ONLY; Number of sql databases part of the assessment.
+	NumberOfSQLDatabases *int32
+
+	// READ-ONLY; Number of sql instances part of the assessment.
+	NumberOfSQLInstances *int32
+}
+
+// SQLAvailabilityGroupDataOverview - Assessed Sql Availability Group Data Overview.
+type SQLAvailabilityGroupDataOverview struct {
+	// Gets the availability group id.
+	AvailabilityGroupID *string
+
+	// Gets the availability group name.
+	AvailabilityGroupName *string
+
+	// Gets the availability group entity id.
+	SQLAvailabilityGroupEntityID *string
+
+	// Gets the availability group arm id.
+	SQLAvailabilityGroupSdsArmID *string
+
+	// Gets the availability replica id.
+	SQLAvailabilityReplicaID *string
+}
+
+// SQLAvailabilityReplicaSummary - Assessed Sql Availability Replica Summary.
+type SQLAvailabilityReplicaSummary struct {
+	// Gets the number Of asynchronous non read replicas.
+	NumberOfAsynchronousNonReadReplicas *int32
+
+	// Gets the number Of asynchronous read replicas.
+	NumberOfAsynchronousReadReplicas *int32
+
+	// Gets the number Of primary replicas.
+	NumberOfPrimaryReplicas *int32
+
+	// Gets the number Of synchronous non read replicas.
+	NumberOfSynchronousNonReadReplicas *int32
+
+	// Gets the number Of synchronous read replicas.
+	NumberOfSynchronousReadReplicas *int32
+}
+
+// SQLCollector - The SQL collector REST object.
+type SQLCollector struct {
+	// The resource-specific properties for this resource.
+	Properties *CollectorPropertiesBaseWithAgent
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLCollectorListResult - The response of a SqlCollector list operation.
+type SQLCollectorListResult struct {
+	// REQUIRED; The SqlCollector items on this page
+	Value []*SQLCollector
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLDbSettings - SQL database assessment settings.
+type SQLDbSettings struct {
+	// Gets or sets the azure SQL compute tier.
+	AzureSQLComputeTier *ComputeTier
+
+	// Gets or sets the azure PAAS SQL instance type.
+	AzureSQLDataBaseType *AzureSQLDataBaseType
+
+	// Gets or sets the azure SQL purchase model.
+	AzureSQLPurchaseModel *AzureSQLPurchaseModel
+
+	// Gets or sets the azure SQL service tier.
+	AzureSQLServiceTier *AzureSQLServiceTier
+}
+
+// SQLFCIMetadata - Sql fci meta data.
+type SQLFCIMetadata struct {
+	// Gets the fci shared disk count.
+	FciSharedDiskCount *int32
+
+	// Gets whether fci is multi subnet.
+	IsMultiSubnet *bool
+
+	// Gets the Sql fci meta data state.
+	State *SQLFCIMetadataState
+}
+
+// SQLMiSettings - SQL managed instance assessment settings.
+type SQLMiSettings struct {
+	// Gets or sets the azure PAAS SQL instance type.
+	AzureSQLInstanceType *AzureSQLInstanceType
+
+	// Gets or sets the azure SQL service tier.
+	AzureSQLServiceTier *AzureSQLServiceTier
+}
+
+// SQLMigrationGuideline - Sql Migration Guideline.
+type SQLMigrationGuideline struct {
+	// Gets the guideline id.
+	GuidelineID *string
+
+	// Gets the migration guideline category.
+	MigrationGuidelineCategory *SQLMigrationGuidelineCategory
+
+	// READ-ONLY; Gets the migration guideline context.
+	MigrationGuidelineContext []*MigrationGuidelineContext
+}
+
+// SQLPaaSTargetOptions - SQL target options.
+type SQLPaaSTargetOptions struct {
+	// Gets or sets the Azure SQL compute tier.
+	ComputeTier *ComputeTier
+
+	// Gets or sets the Azure SQL hardware generation.
+	HardwareGeneration *HardwareGeneration
+
+	// Gets or sets the Azure SQL service tier.
+	ServiceTier *AzureSQLServiceTier
+
+	// Gets or sets the target location.
+	TargetLocations []*AzureLocation
+
+	// Gets or sets the Azure SQL target type.
+	TargetType *TargetType
+}
+
+// SQLRecommendationReasoning - Class representing Azure SQL Recommendation Reasoning.
+type SQLRecommendationReasoning struct {
+	// Gets the reasoning category.
+	ReasoningCategory *string
+
+	// Gets the reasoning id.
+	ReasoningID *string
+
+	// Gets the reasoning status.
+	ReasoningString *string
+
+	// READ-ONLY; Gets the Sql recommended reasoning parameters.
+	ContextParameters []*SQLRecommendationReasoningContext
+}
+
+// SQLRecommendationReasoningContext - Class representing Azure SQL Recommendation Reasoning Context.
+type SQLRecommendationReasoningContext struct {
+	// Gets the reasoning context key.
+	ContextKey *string
+
+	// Gets the reasoning context value.
+	ContextValue *string
+}
+
+// SQLVMSettings - SQL VM assessment settings.
+type SQLVMSettings struct {
+	// Gets or sets the Azure VM families (calling instance series to keep it consistent with other targets).
+	InstanceSeries []*AzureVMFamily
+}
+
+// ServerCollector - Physical server collector resource.
+type ServerCollector struct {
+	// The resource-specific properties for this resource.
+	Properties *CollectorPropertiesBaseWithAgent
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServerCollectorListResult - The response of a ServerCollector list operation.
+type ServerCollectorListResult struct {
+	// REQUIRED; The ServerCollector items on this page
 	Value []*ServerCollector
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SharedResourcesDTO - Shared Resources.
+type SharedResourcesDTO struct {
+	// READ-ONLY; Gets number of mounts of shared disks.
+	NumberOfMounts *int32
+
+	// READ-ONLY; Gets quorum witness.
+	QuorumWitness *AzureQuorumWitnessDTO
+
+	// READ-ONLY; Gets the list of shared data disks.
+	SharedDataDisks []*AzureManagedDiskSKUDTO
+
+	// READ-ONLY; Gets the list of shared log disks.
+	SharedLogDisks []*AzureManagedDiskSKUDTO
+
+	// READ-ONLY; Gets the list of shared Temporary database disks.
+	SharedTempDbDisks []*AzureManagedDiskSKUDTO
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// UltraDiskAssessmentOptions - Assessment options for Ultra disk type.
+type UltraDiskAssessmentOptions struct {
+	// Family name.
+	FamilyName *string
+
+	// List of locations where ultra disk is supported for this VMfamily.
+	TargetLocations []*string
 }
 
 // UpdateGroupBody - Properties of group update.
@@ -875,8 +3022,8 @@ type UpdateGroupBody struct {
 	Properties *GroupBodyProperties
 }
 
-// VMFamily - VM family name, the list of targeted azure locations and the category of the family.
-type VMFamily struct {
+// VMFamilyOptions - VM family name, the list of targeted azure locations and the category of the family.
+type VMFamilyOptions struct {
 	// READ-ONLY; Category of the VM family.
 	Category []*string
 
@@ -887,6 +3034,7 @@ type VMFamily struct {
 	TargetLocations []*string
 }
 
+// VMUptime - Details on the total up-time for the VM.
 type VMUptime struct {
 	// Number of days in a month for VM uptime.
 	DaysPerMonth *int32
@@ -895,22 +3043,38 @@ type VMUptime struct {
 	HoursPerDay *int32
 }
 
-type VMwareCollector struct {
-	ETag       *string
-	Properties *CollectorProperties
+// VmwareCollector - VMware collector resource.
+type VmwareCollector struct {
+	// The resource-specific properties for this resource.
+	Properties *CollectorPropertiesBaseWithAgent
 
-	// READ-ONLY
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// VMwareCollectorList - List of VMware collectors.
-type VMwareCollectorList struct {
-	// List of VMware collectors.
-	Value []*VMwareCollector
+// VmwareCollectorListResult - The response of a VmwareCollector list operation.
+type VmwareCollectorListResult struct {
+	// REQUIRED; The VmwareCollector items on this page
+	Value []*VmwareCollector
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// WorkloadSummary - Workload summary.
+type WorkloadSummary struct {
+	// Gets or sets oracle databases.
+	OracleInstances *int32
+
+	// Gets or sets oracle databases.
+	SpringApps *int32
 }

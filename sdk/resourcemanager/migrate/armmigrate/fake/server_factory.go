@@ -19,18 +19,31 @@ import (
 
 // ServerFactory is a fake server for instances of the armmigrate.ClientFactory type.
 type ServerFactory struct {
-	AssessedMachinesServer          AssessedMachinesServer
-	AssessmentsServer               AssessmentsServer
-	GroupsServer                    GroupsServer
-	HyperVCollectorsServer          HyperVCollectorsServer
-	ImportCollectorsServer          ImportCollectorsServer
-	MachinesServer                  MachinesServer
-	OperationsServer                OperationsServer
-	PrivateEndpointConnectionServer PrivateEndpointConnectionServer
-	PrivateLinkResourceServer       PrivateLinkResourceServer
-	ProjectsServer                  ProjectsServer
-	ServerCollectorsServer          ServerCollectorsServer
-	VMwareCollectorsServer          VMwareCollectorsServer
+	AssessedMachinesOperationsServer             AssessedMachinesOperationsServer
+	AssessedSQLDatabaseV2OperationsServer        AssessedSQLDatabaseV2OperationsServer
+	AssessedSQLInstanceV2OperationsServer        AssessedSQLInstanceV2OperationsServer
+	AssessedSQLMachinesOperationsServer          AssessedSQLMachinesOperationsServer
+	AssessedSQLRecommendedEntityOperationsServer AssessedSQLRecommendedEntityOperationsServer
+	AssessmentOptionsOperationsServer            AssessmentOptionsOperationsServer
+	AssessmentProjectSummaryOperationsServer     AssessmentProjectSummaryOperationsServer
+	AssessmentProjectsOperationsServer           AssessmentProjectsOperationsServer
+	AssessmentsOperationsServer                  AssessmentsOperationsServer
+	AvsAssessedMachinesOperationsServer          AvsAssessedMachinesOperationsServer
+	AvsAssessmentOptionsOperationsServer         AvsAssessmentOptionsOperationsServer
+	AvsAssessmentsOperationsServer               AvsAssessmentsOperationsServer
+	GroupsOperationsServer                       GroupsOperationsServer
+	HypervCollectorsOperationsServer             HypervCollectorsOperationsServer
+	ImportCollectorsOperationsServer             ImportCollectorsOperationsServer
+	MachinesOperationsServer                     MachinesOperationsServer
+	OperationsServer                             OperationsServer
+	PrivateEndpointConnectionOperationsServer    PrivateEndpointConnectionOperationsServer
+	PrivateLinkResourceOperationsServer          PrivateLinkResourceOperationsServer
+	SQLAssessmentOptionsOperationsServer         SQLAssessmentOptionsOperationsServer
+	SQLAssessmentV2OperationsServer              SQLAssessmentV2OperationsServer
+	SQLAssessmentV2SummaryOperationsServer       SQLAssessmentV2SummaryOperationsServer
+	SQLCollectorOperationsServer                 SQLCollectorOperationsServer
+	ServerCollectorsOperationsServer             ServerCollectorsOperationsServer
+	VmwareCollectorsOperationsServer             VmwareCollectorsOperationsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -45,20 +58,33 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armmigrate.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                               *ServerFactory
-	trMu                              sync.Mutex
-	trAssessedMachinesServer          *AssessedMachinesServerTransport
-	trAssessmentsServer               *AssessmentsServerTransport
-	trGroupsServer                    *GroupsServerTransport
-	trHyperVCollectorsServer          *HyperVCollectorsServerTransport
-	trImportCollectorsServer          *ImportCollectorsServerTransport
-	trMachinesServer                  *MachinesServerTransport
-	trOperationsServer                *OperationsServerTransport
-	trPrivateEndpointConnectionServer *PrivateEndpointConnectionServerTransport
-	trPrivateLinkResourceServer       *PrivateLinkResourceServerTransport
-	trProjectsServer                  *ProjectsServerTransport
-	trServerCollectorsServer          *ServerCollectorsServerTransport
-	trVMwareCollectorsServer          *VMwareCollectorsServerTransport
+	srv                                            *ServerFactory
+	trMu                                           sync.Mutex
+	trAssessedMachinesOperationsServer             *AssessedMachinesOperationsServerTransport
+	trAssessedSQLDatabaseV2OperationsServer        *AssessedSQLDatabaseV2OperationsServerTransport
+	trAssessedSQLInstanceV2OperationsServer        *AssessedSQLInstanceV2OperationsServerTransport
+	trAssessedSQLMachinesOperationsServer          *AssessedSQLMachinesOperationsServerTransport
+	trAssessedSQLRecommendedEntityOperationsServer *AssessedSQLRecommendedEntityOperationsServerTransport
+	trAssessmentOptionsOperationsServer            *AssessmentOptionsOperationsServerTransport
+	trAssessmentProjectSummaryOperationsServer     *AssessmentProjectSummaryOperationsServerTransport
+	trAssessmentProjectsOperationsServer           *AssessmentProjectsOperationsServerTransport
+	trAssessmentsOperationsServer                  *AssessmentsOperationsServerTransport
+	trAvsAssessedMachinesOperationsServer          *AvsAssessedMachinesOperationsServerTransport
+	trAvsAssessmentOptionsOperationsServer         *AvsAssessmentOptionsOperationsServerTransport
+	trAvsAssessmentsOperationsServer               *AvsAssessmentsOperationsServerTransport
+	trGroupsOperationsServer                       *GroupsOperationsServerTransport
+	trHypervCollectorsOperationsServer             *HypervCollectorsOperationsServerTransport
+	trImportCollectorsOperationsServer             *ImportCollectorsOperationsServerTransport
+	trMachinesOperationsServer                     *MachinesOperationsServerTransport
+	trOperationsServer                             *OperationsServerTransport
+	trPrivateEndpointConnectionOperationsServer    *PrivateEndpointConnectionOperationsServerTransport
+	trPrivateLinkResourceOperationsServer          *PrivateLinkResourceOperationsServerTransport
+	trSQLAssessmentOptionsOperationsServer         *SQLAssessmentOptionsOperationsServerTransport
+	trSQLAssessmentV2OperationsServer              *SQLAssessmentV2OperationsServerTransport
+	trSQLAssessmentV2SummaryOperationsServer       *SQLAssessmentV2SummaryOperationsServerTransport
+	trSQLCollectorOperationsServer                 *SQLCollectorOperationsServerTransport
+	trServerCollectorsOperationsServer             *ServerCollectorsOperationsServerTransport
+	trVmwareCollectorsOperationsServer             *VmwareCollectorsOperationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -74,56 +100,129 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "AssessedMachinesClient":
-		initServer(s, &s.trAssessedMachinesServer, func() *AssessedMachinesServerTransport {
-			return NewAssessedMachinesServerTransport(&s.srv.AssessedMachinesServer)
+	case "AssessedMachinesOperationsClient":
+		initServer(s, &s.trAssessedMachinesOperationsServer, func() *AssessedMachinesOperationsServerTransport {
+			return NewAssessedMachinesOperationsServerTransport(&s.srv.AssessedMachinesOperationsServer)
 		})
-		resp, err = s.trAssessedMachinesServer.Do(req)
-	case "AssessmentsClient":
-		initServer(s, &s.trAssessmentsServer, func() *AssessmentsServerTransport { return NewAssessmentsServerTransport(&s.srv.AssessmentsServer) })
-		resp, err = s.trAssessmentsServer.Do(req)
-	case "GroupsClient":
-		initServer(s, &s.trGroupsServer, func() *GroupsServerTransport { return NewGroupsServerTransport(&s.srv.GroupsServer) })
-		resp, err = s.trGroupsServer.Do(req)
-	case "HyperVCollectorsClient":
-		initServer(s, &s.trHyperVCollectorsServer, func() *HyperVCollectorsServerTransport {
-			return NewHyperVCollectorsServerTransport(&s.srv.HyperVCollectorsServer)
+		resp, err = s.trAssessedMachinesOperationsServer.Do(req)
+	case "AssessedSQLDatabaseV2OperationsClient":
+		initServer(s, &s.trAssessedSQLDatabaseV2OperationsServer, func() *AssessedSQLDatabaseV2OperationsServerTransport {
+			return NewAssessedSQLDatabaseV2OperationsServerTransport(&s.srv.AssessedSQLDatabaseV2OperationsServer)
 		})
-		resp, err = s.trHyperVCollectorsServer.Do(req)
-	case "ImportCollectorsClient":
-		initServer(s, &s.trImportCollectorsServer, func() *ImportCollectorsServerTransport {
-			return NewImportCollectorsServerTransport(&s.srv.ImportCollectorsServer)
+		resp, err = s.trAssessedSQLDatabaseV2OperationsServer.Do(req)
+	case "AssessedSQLInstanceV2OperationsClient":
+		initServer(s, &s.trAssessedSQLInstanceV2OperationsServer, func() *AssessedSQLInstanceV2OperationsServerTransport {
+			return NewAssessedSQLInstanceV2OperationsServerTransport(&s.srv.AssessedSQLInstanceV2OperationsServer)
 		})
-		resp, err = s.trImportCollectorsServer.Do(req)
-	case "MachinesClient":
-		initServer(s, &s.trMachinesServer, func() *MachinesServerTransport { return NewMachinesServerTransport(&s.srv.MachinesServer) })
-		resp, err = s.trMachinesServer.Do(req)
+		resp, err = s.trAssessedSQLInstanceV2OperationsServer.Do(req)
+	case "AssessedSQLMachinesOperationsClient":
+		initServer(s, &s.trAssessedSQLMachinesOperationsServer, func() *AssessedSQLMachinesOperationsServerTransport {
+			return NewAssessedSQLMachinesOperationsServerTransport(&s.srv.AssessedSQLMachinesOperationsServer)
+		})
+		resp, err = s.trAssessedSQLMachinesOperationsServer.Do(req)
+	case "AssessedSQLRecommendedEntityOperationsClient":
+		initServer(s, &s.trAssessedSQLRecommendedEntityOperationsServer, func() *AssessedSQLRecommendedEntityOperationsServerTransport {
+			return NewAssessedSQLRecommendedEntityOperationsServerTransport(&s.srv.AssessedSQLRecommendedEntityOperationsServer)
+		})
+		resp, err = s.trAssessedSQLRecommendedEntityOperationsServer.Do(req)
+	case "AssessmentOptionsOperationsClient":
+		initServer(s, &s.trAssessmentOptionsOperationsServer, func() *AssessmentOptionsOperationsServerTransport {
+			return NewAssessmentOptionsOperationsServerTransport(&s.srv.AssessmentOptionsOperationsServer)
+		})
+		resp, err = s.trAssessmentOptionsOperationsServer.Do(req)
+	case "AssessmentProjectSummaryOperationsClient":
+		initServer(s, &s.trAssessmentProjectSummaryOperationsServer, func() *AssessmentProjectSummaryOperationsServerTransport {
+			return NewAssessmentProjectSummaryOperationsServerTransport(&s.srv.AssessmentProjectSummaryOperationsServer)
+		})
+		resp, err = s.trAssessmentProjectSummaryOperationsServer.Do(req)
+	case "AssessmentProjectsOperationsClient":
+		initServer(s, &s.trAssessmentProjectsOperationsServer, func() *AssessmentProjectsOperationsServerTransport {
+			return NewAssessmentProjectsOperationsServerTransport(&s.srv.AssessmentProjectsOperationsServer)
+		})
+		resp, err = s.trAssessmentProjectsOperationsServer.Do(req)
+	case "AssessmentsOperationsClient":
+		initServer(s, &s.trAssessmentsOperationsServer, func() *AssessmentsOperationsServerTransport {
+			return NewAssessmentsOperationsServerTransport(&s.srv.AssessmentsOperationsServer)
+		})
+		resp, err = s.trAssessmentsOperationsServer.Do(req)
+	case "AvsAssessedMachinesOperationsClient":
+		initServer(s, &s.trAvsAssessedMachinesOperationsServer, func() *AvsAssessedMachinesOperationsServerTransport {
+			return NewAvsAssessedMachinesOperationsServerTransport(&s.srv.AvsAssessedMachinesOperationsServer)
+		})
+		resp, err = s.trAvsAssessedMachinesOperationsServer.Do(req)
+	case "AvsAssessmentOptionsOperationsClient":
+		initServer(s, &s.trAvsAssessmentOptionsOperationsServer, func() *AvsAssessmentOptionsOperationsServerTransport {
+			return NewAvsAssessmentOptionsOperationsServerTransport(&s.srv.AvsAssessmentOptionsOperationsServer)
+		})
+		resp, err = s.trAvsAssessmentOptionsOperationsServer.Do(req)
+	case "AvsAssessmentsOperationsClient":
+		initServer(s, &s.trAvsAssessmentsOperationsServer, func() *AvsAssessmentsOperationsServerTransport {
+			return NewAvsAssessmentsOperationsServerTransport(&s.srv.AvsAssessmentsOperationsServer)
+		})
+		resp, err = s.trAvsAssessmentsOperationsServer.Do(req)
+	case "GroupsOperationsClient":
+		initServer(s, &s.trGroupsOperationsServer, func() *GroupsOperationsServerTransport {
+			return NewGroupsOperationsServerTransport(&s.srv.GroupsOperationsServer)
+		})
+		resp, err = s.trGroupsOperationsServer.Do(req)
+	case "HypervCollectorsOperationsClient":
+		initServer(s, &s.trHypervCollectorsOperationsServer, func() *HypervCollectorsOperationsServerTransport {
+			return NewHypervCollectorsOperationsServerTransport(&s.srv.HypervCollectorsOperationsServer)
+		})
+		resp, err = s.trHypervCollectorsOperationsServer.Do(req)
+	case "ImportCollectorsOperationsClient":
+		initServer(s, &s.trImportCollectorsOperationsServer, func() *ImportCollectorsOperationsServerTransport {
+			return NewImportCollectorsOperationsServerTransport(&s.srv.ImportCollectorsOperationsServer)
+		})
+		resp, err = s.trImportCollectorsOperationsServer.Do(req)
+	case "MachinesOperationsClient":
+		initServer(s, &s.trMachinesOperationsServer, func() *MachinesOperationsServerTransport {
+			return NewMachinesOperationsServerTransport(&s.srv.MachinesOperationsServer)
+		})
+		resp, err = s.trMachinesOperationsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "PrivateEndpointConnectionClient":
-		initServer(s, &s.trPrivateEndpointConnectionServer, func() *PrivateEndpointConnectionServerTransport {
-			return NewPrivateEndpointConnectionServerTransport(&s.srv.PrivateEndpointConnectionServer)
+	case "PrivateEndpointConnectionOperationsClient":
+		initServer(s, &s.trPrivateEndpointConnectionOperationsServer, func() *PrivateEndpointConnectionOperationsServerTransport {
+			return NewPrivateEndpointConnectionOperationsServerTransport(&s.srv.PrivateEndpointConnectionOperationsServer)
 		})
-		resp, err = s.trPrivateEndpointConnectionServer.Do(req)
-	case "PrivateLinkResourceClient":
-		initServer(s, &s.trPrivateLinkResourceServer, func() *PrivateLinkResourceServerTransport {
-			return NewPrivateLinkResourceServerTransport(&s.srv.PrivateLinkResourceServer)
+		resp, err = s.trPrivateEndpointConnectionOperationsServer.Do(req)
+	case "PrivateLinkResourceOperationsClient":
+		initServer(s, &s.trPrivateLinkResourceOperationsServer, func() *PrivateLinkResourceOperationsServerTransport {
+			return NewPrivateLinkResourceOperationsServerTransport(&s.srv.PrivateLinkResourceOperationsServer)
 		})
-		resp, err = s.trPrivateLinkResourceServer.Do(req)
-	case "ProjectsClient":
-		initServer(s, &s.trProjectsServer, func() *ProjectsServerTransport { return NewProjectsServerTransport(&s.srv.ProjectsServer) })
-		resp, err = s.trProjectsServer.Do(req)
-	case "ServerCollectorsClient":
-		initServer(s, &s.trServerCollectorsServer, func() *ServerCollectorsServerTransport {
-			return NewServerCollectorsServerTransport(&s.srv.ServerCollectorsServer)
+		resp, err = s.trPrivateLinkResourceOperationsServer.Do(req)
+	case "SQLAssessmentOptionsOperationsClient":
+		initServer(s, &s.trSQLAssessmentOptionsOperationsServer, func() *SQLAssessmentOptionsOperationsServerTransport {
+			return NewSQLAssessmentOptionsOperationsServerTransport(&s.srv.SQLAssessmentOptionsOperationsServer)
 		})
-		resp, err = s.trServerCollectorsServer.Do(req)
-	case "VMwareCollectorsClient":
-		initServer(s, &s.trVMwareCollectorsServer, func() *VMwareCollectorsServerTransport {
-			return NewVMwareCollectorsServerTransport(&s.srv.VMwareCollectorsServer)
+		resp, err = s.trSQLAssessmentOptionsOperationsServer.Do(req)
+	case "SQLAssessmentV2OperationsClient":
+		initServer(s, &s.trSQLAssessmentV2OperationsServer, func() *SQLAssessmentV2OperationsServerTransport {
+			return NewSQLAssessmentV2OperationsServerTransport(&s.srv.SQLAssessmentV2OperationsServer)
 		})
-		resp, err = s.trVMwareCollectorsServer.Do(req)
+		resp, err = s.trSQLAssessmentV2OperationsServer.Do(req)
+	case "SQLAssessmentV2SummaryOperationsClient":
+		initServer(s, &s.trSQLAssessmentV2SummaryOperationsServer, func() *SQLAssessmentV2SummaryOperationsServerTransport {
+			return NewSQLAssessmentV2SummaryOperationsServerTransport(&s.srv.SQLAssessmentV2SummaryOperationsServer)
+		})
+		resp, err = s.trSQLAssessmentV2SummaryOperationsServer.Do(req)
+	case "SQLCollectorOperationsClient":
+		initServer(s, &s.trSQLCollectorOperationsServer, func() *SQLCollectorOperationsServerTransport {
+			return NewSQLCollectorOperationsServerTransport(&s.srv.SQLCollectorOperationsServer)
+		})
+		resp, err = s.trSQLCollectorOperationsServer.Do(req)
+	case "ServerCollectorsOperationsClient":
+		initServer(s, &s.trServerCollectorsOperationsServer, func() *ServerCollectorsOperationsServerTransport {
+			return NewServerCollectorsOperationsServerTransport(&s.srv.ServerCollectorsOperationsServer)
+		})
+		resp, err = s.trServerCollectorsOperationsServer.Do(req)
+	case "VmwareCollectorsOperationsClient":
+		initServer(s, &s.trVmwareCollectorsOperationsServer, func() *VmwareCollectorsOperationsServerTransport {
+			return NewVmwareCollectorsOperationsServerTransport(&s.srv.VmwareCollectorsOperationsServer)
+		})
+		resp, err = s.trVmwareCollectorsOperationsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
