@@ -47,7 +47,7 @@ func NewMetricsClient(subscriptionID string, credential azcore.TokenCredential, 
 // List - Lists the metric values for a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-10-01
 //   - resourceURI - The identifier of the resource.
 //   - options - MetricsClientListOptions contains the optional parameters for the MetricsClient.List method.
 func (client *MetricsClient) List(ctx context.Context, resourceURI string, options *MetricsClientListOptions) (MetricsClientListResponse, error) {
@@ -105,7 +105,7 @@ func (client *MetricsClient) listCreateRequest(ctx context.Context, resourceURI 
 	if options != nil && options.ResultType != nil {
 		reqQP.Set("resultType", string(*options.ResultType))
 	}
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-10-01")
 	if options != nil && options.Metricnamespace != nil {
 		reqQP.Set("metricnamespace", *options.Metricnamespace)
 	}
@@ -114,6 +114,9 @@ func (client *MetricsClient) listCreateRequest(ctx context.Context, resourceURI 
 	}
 	if options != nil && options.ValidateDimensions != nil {
 		reqQP.Set("ValidateDimensions", strconv.FormatBool(*options.ValidateDimensions))
+	}
+	if options != nil && options.Rollupby != nil {
+		reqQP.Set("rollupby", *options.Rollupby)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -132,7 +135,7 @@ func (client *MetricsClient) listHandleResponse(resp *http.Response) (MetricsCli
 // ListAtSubscriptionScope - Lists the metric data for a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-10-01
 //   - region - The region where the metrics you want reside.
 //   - options - MetricsClientListAtSubscriptionScopeOptions contains the optional parameters for the MetricsClient.ListAtSubscriptionScope
 //     method.
@@ -170,7 +173,7 @@ func (client *MetricsClient) listAtSubscriptionScopeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-10-01")
 	reqQP.Set("region", region)
 	if options != nil && options.Timespan != nil {
 		reqQP.Set("timespan", *options.Timespan)
@@ -205,6 +208,9 @@ func (client *MetricsClient) listAtSubscriptionScopeCreateRequest(ctx context.Co
 	if options != nil && options.ValidateDimensions != nil {
 		reqQP.Set("ValidateDimensions", strconv.FormatBool(*options.ValidateDimensions))
 	}
+	if options != nil && options.Rollupby != nil {
+		reqQP.Set("rollupby", *options.Rollupby)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +219,7 @@ func (client *MetricsClient) listAtSubscriptionScopeCreateRequest(ctx context.Co
 // listAtSubscriptionScopeHandleResponse handles the ListAtSubscriptionScope response.
 func (client *MetricsClient) listAtSubscriptionScopeHandleResponse(resp *http.Response) (MetricsClientListAtSubscriptionScopeResponse, error) {
 	result := MetricsClientListAtSubscriptionScopeResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SubscriptionScopeMetricResponse); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.Response); err != nil {
 		return MetricsClientListAtSubscriptionScopeResponse{}, err
 	}
 	return result, nil
@@ -223,7 +229,7 @@ func (client *MetricsClient) listAtSubscriptionScopeHandleResponse(resp *http.Re
 // or the body.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2023-10-01
 //   - region - The region where the metrics you want reside.
 //   - options - MetricsClientListAtSubscriptionScopePostOptions contains the optional parameters for the MetricsClient.ListAtSubscriptionScopePost
 //     method.
@@ -261,7 +267,7 @@ func (client *MetricsClient) listAtSubscriptionScopePostCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2023-10-01")
 	reqQP.Set("region", region)
 	if options != nil && options.Timespan != nil {
 		reqQP.Set("timespan", *options.Timespan)
@@ -296,6 +302,9 @@ func (client *MetricsClient) listAtSubscriptionScopePostCreateRequest(ctx contex
 	if options != nil && options.ValidateDimensions != nil {
 		reqQP.Set("ValidateDimensions", strconv.FormatBool(*options.ValidateDimensions))
 	}
+	if options != nil && options.Rollupby != nil {
+		reqQP.Set("rollupby", *options.Rollupby)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -310,7 +319,7 @@ func (client *MetricsClient) listAtSubscriptionScopePostCreateRequest(ctx contex
 // listAtSubscriptionScopePostHandleResponse handles the ListAtSubscriptionScopePost response.
 func (client *MetricsClient) listAtSubscriptionScopePostHandleResponse(resp *http.Response) (MetricsClientListAtSubscriptionScopePostResponse, error) {
 	result := MetricsClientListAtSubscriptionScopePostResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SubscriptionScopeMetricResponse); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.Response); err != nil {
 		return MetricsClientListAtSubscriptionScopePostResponse{}, err
 	}
 	return result, nil

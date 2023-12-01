@@ -85,6 +85,12 @@ func (c *ClientFactory) NewBaselinesClient() *BaselinesClient {
 	return subClient
 }
 
+// NewClient creates a new instance of Client.
+func (c *ClientFactory) NewClient() *Client {
+	subClient, _ := NewClient(c.credential, c.options)
+	return subClient
+}
+
 // NewDataCollectionEndpointsClient creates a new instance of DataCollectionEndpointsClient.
 func (c *ClientFactory) NewDataCollectionEndpointsClient() *DataCollectionEndpointsClient {
 	subClient, _ := NewDataCollectionEndpointsClient(c.subscriptionID, c.credential, c.options)
