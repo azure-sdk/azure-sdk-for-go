@@ -10,7 +10,7 @@ package armmonitor
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
-	moduleVersion = "v0.11.0"
+	moduleVersion = "v0.12.0"
 )
 
 // AccessMode - Access mode types.
@@ -43,7 +43,7 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// AggregationType - the aggregation type of the metric.
+// AggregationType - The aggregation type of the metric.
 type AggregationType string
 
 const (
@@ -771,7 +771,7 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
-// MetricAggregationType - the aggregation type of the metric.
+// MetricAggregationType - The aggregation type of the metric.
 type MetricAggregationType string
 
 const (
@@ -860,19 +860,33 @@ func PossibleMetricStatisticTypeValues() []MetricStatisticType {
 type MetricUnit string
 
 const (
-	MetricUnitBitsPerSecond  MetricUnit = "BitsPerSecond"
-	MetricUnitByteSeconds    MetricUnit = "ByteSeconds"
-	MetricUnitBytes          MetricUnit = "Bytes"
+	// MetricUnitBitsPerSecond - Rate unit of binary digits per second.
+	MetricUnitBitsPerSecond MetricUnit = "BitsPerSecond"
+	// MetricUnitByteSeconds - Unit of data transfer or storage. It is the size of the data in bytes multiplied by the time it
+	// takes to transfer or store the data in seconds.
+	MetricUnitByteSeconds MetricUnit = "ByteSeconds"
+	// MetricUnitBytes - Unit of memory in bytes.
+	MetricUnitBytes MetricUnit = "Bytes"
+	// MetricUnitBytesPerSecond - Rate unit of memory in bytes per second.
 	MetricUnitBytesPerSecond MetricUnit = "BytesPerSecond"
-	MetricUnitCores          MetricUnit = "Cores"
-	MetricUnitCount          MetricUnit = "Count"
+	// MetricUnitCores - Unit of processing power.
+	MetricUnitCores MetricUnit = "Cores"
+	// MetricUnitCount - Unit of raw quantity.
+	MetricUnitCount MetricUnit = "Count"
+	// MetricUnitCountPerSecond - Rate unit of raw quantity per second.
 	MetricUnitCountPerSecond MetricUnit = "CountPerSecond"
-	MetricUnitMilliCores     MetricUnit = "MilliCores"
-	MetricUnitMilliSeconds   MetricUnit = "MilliSeconds"
-	MetricUnitNanoCores      MetricUnit = "NanoCores"
-	MetricUnitPercent        MetricUnit = "Percent"
-	MetricUnitSeconds        MetricUnit = "Seconds"
-	MetricUnitUnspecified    MetricUnit = "Unspecified"
+	// MetricUnitMilliCores - Unit of processing power in 1/1000th of a CPU core.
+	MetricUnitMilliCores MetricUnit = "MilliCores"
+	// MetricUnitMilliSeconds - Unit of time in 1/1000th of a second.
+	MetricUnitMilliSeconds MetricUnit = "MilliSeconds"
+	// MetricUnitNanoCores - Unit of processing power in one billionth of a CPU core.
+	MetricUnitNanoCores MetricUnit = "NanoCores"
+	// MetricUnitPercent - Percentage unit.
+	MetricUnitPercent MetricUnit = "Percent"
+	// MetricUnitSeconds - Unit of time in seconds.
+	MetricUnitSeconds MetricUnit = "Seconds"
+	// MetricUnitUnspecified - No specified unit.
+	MetricUnitUnspecified MetricUnit = "Unspecified"
 )
 
 // PossibleMetricUnitValues returns the possible values for the MetricUnit const type.
@@ -1046,7 +1060,7 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy.
+// ProvisioningState - The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy.
 type ProvisioningState string
 
 const (
@@ -1270,43 +1284,5 @@ func PossibleTimeAggregationTypeValues() []TimeAggregationType {
 		TimeAggregationTypeMaximum,
 		TimeAggregationTypeMinimum,
 		TimeAggregationTypeTotal,
-	}
-}
-
-// Unit - The unit of the metric.
-type Unit string
-
-const (
-	UnitBitsPerSecond  Unit = "BitsPerSecond"
-	UnitByteSeconds    Unit = "ByteSeconds"
-	UnitBytes          Unit = "Bytes"
-	UnitBytesPerSecond Unit = "BytesPerSecond"
-	UnitCores          Unit = "Cores"
-	UnitCount          Unit = "Count"
-	UnitCountPerSecond Unit = "CountPerSecond"
-	UnitMilliCores     Unit = "MilliCores"
-	UnitMilliSeconds   Unit = "MilliSeconds"
-	UnitNanoCores      Unit = "NanoCores"
-	UnitPercent        Unit = "Percent"
-	UnitSeconds        Unit = "Seconds"
-	UnitUnspecified    Unit = "Unspecified"
-)
-
-// PossibleUnitValues returns the possible values for the Unit const type.
-func PossibleUnitValues() []Unit {
-	return []Unit{
-		UnitBitsPerSecond,
-		UnitByteSeconds,
-		UnitBytes,
-		UnitBytesPerSecond,
-		UnitCores,
-		UnitCount,
-		UnitCountPerSecond,
-		UnitMilliCores,
-		UnitMilliSeconds,
-		UnitNanoCores,
-		UnitPercent,
-		UnitSeconds,
-		UnitUnspecified,
 	}
 }
