@@ -1,5 +1,449 @@
 # Release History
 
+## 2.0.0 (2023-12-03)
+### Breaking Changes
+
+- Type of `AssessedDisk.GigabytesProvisioned` has been changed from `*float64` to `*float32`
+- Type of `AssessedDisk.MegabytesPerSecondOfRead` has been changed from `*float64` to `*float32`
+- Type of `AssessedDisk.MegabytesPerSecondOfWrite` has been changed from `*float64` to `*float32`
+- Type of `AssessedDisk.MonthlyStorageCost` has been changed from `*float64` to `*float32`
+- Type of `AssessedDisk.NumberOfReadOperationsPerSecond` has been changed from `*float64` to `*float32`
+- Type of `AssessedDisk.NumberOfWriteOperationsPerSecond` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.ConfidenceRatingInPercentage` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.MegabytesOfMemory` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.MegabytesOfMemoryForRecommendedSize` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.MonthlyBandwidthCost` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.MonthlyComputeCostForRecommendedSize` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.MonthlyPremiumStorageCost` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.MonthlyStorageCost` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.PercentageCoresUtilization` has been changed from `*float64` to `*float32`
+- Type of `AssessedMachineProperties.PercentageMemoryUtilization` has been changed from `*float64` to `*float32`
+- Type of `AssessedNetworkAdapter.MegabytesPerSecondReceived` has been changed from `*float64` to `*float32`
+- Type of `AssessedNetworkAdapter.MegabytesPerSecondTransmitted` has been changed from `*float64` to `*float32`
+- Type of `AssessedNetworkAdapter.MonthlyBandwidthCosts` has been changed from `*float64` to `*float32`
+- Type of `AssessedNetworkAdapter.NetGigabytesTransmittedPerMonth` has been changed from `*float64` to `*float32`
+- Type of `Assessment.Properties` has been changed from `*AssessmentProperties` to `*MachineAssessmentProperties`
+- Type of `AssessmentOptionsProperties.VMFamilies` has been changed from `[]*VMFamily` to `[]*VMFamilyOptions`
+- Type of `Disk.GigabytesAllocated` has been changed from `*float64` to `*float32`
+- Type of `GroupProperties.GroupType` has been changed from `*string` to `*GroupType`
+- Type of `ImportCollector.Properties` has been changed from `*ImportCollectorProperties` to `*CollectorPropertiesBase`
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Type of `PrivateEndpointConnectionProperties.PrivateEndpoint` has been changed from `*ResourceID` to `*PrivateEndpoint`
+- Type of `PrivateEndpointConnectionProperties.ProvisioningState` has been changed from `*PrivateEndpointConnectionPropertiesProvisioningState` to `*PrivateEndpointConnectionProvisioningState`
+- Type of `PrivateLinkServiceConnectionState.Status` has been changed from `*PrivateLinkServiceConnectionStateStatus` to `*PrivateEndpointServiceConnectionStatus`
+- Type of `ServerCollector.Properties` has been changed from `*CollectorProperties` to `*CollectorPropertiesBaseWithAgent`
+- `AzureOfferCodeMSAZR0003P`, `AzureOfferCodeMSAZR0022P`, `AzureOfferCodeMSAZR0023P`, `AzureOfferCodeMSAZR0025P`, `AzureOfferCodeMSAZR0029P`, `AzureOfferCodeMSAZR0036P`, `AzureOfferCodeMSAZR0044P`, `AzureOfferCodeMSAZR0059P`, `AzureOfferCodeMSAZR0060P`, `AzureOfferCodeMSAZR0062P`, `AzureOfferCodeMSAZR0063P`, `AzureOfferCodeMSAZR0064P`, `AzureOfferCodeMSAZR0111P`, `AzureOfferCodeMSAZR0120P`, `AzureOfferCodeMSAZR0121P`, `AzureOfferCodeMSAZR0122P`, `AzureOfferCodeMSAZR0123P`, `AzureOfferCodeMSAZR0124P`, `AzureOfferCodeMSAZR0125P`, `AzureOfferCodeMSAZR0126P`, `AzureOfferCodeMSAZR0127P`, `AzureOfferCodeMSAZR0128P`, `AzureOfferCodeMSAZR0129P`, `AzureOfferCodeMSAZR0130P`, `AzureOfferCodeMSAZR0144P`, `AzureOfferCodeMSAZR0148P`, `AzureOfferCodeMSAZR0149P`, `AzureOfferCodeMSAZRDE0003P`, `AzureOfferCodeMSAZRDE0044P`, `AzureOfferCodeMSAZRUSGOV0003P`, `AzureOfferCodeMSMCAZR0044P`, `AzureOfferCodeMSMCAZR0059P`, `AzureOfferCodeMSMCAZR0060P`, `AzureOfferCodeMSMCAZR0063P`, `AzureOfferCodeMSMCAZR0120P`, `AzureOfferCodeMSMCAZR0121P`, `AzureOfferCodeMSMCAZR0125P`, `AzureOfferCodeMSMCAZR0128P` from enum `AzureOfferCode` has been removed
+- `MachineBootTypeBIOS` from enum `MachineBootType` has been removed
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `Currency` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+- Field `ETag` of struct `AssessedMachine` has been removed
+- Field `MonthlyStandardSSDStorageCost` of struct `AssessedMachineProperties` has been removed
+- Field `ETag` of struct `Assessment` has been removed
+- Field `ETag` of struct `Group` has been removed
+- Field `ETag` of struct `ImportCollector` has been removed
+- Field `ETag` of struct `Machine` has been removed
+- Field `OperationResultList` of struct `OperationsClientListResponse` has been removed
+- Field `ETag` of struct `PrivateEndpointConnection` has been removed
+- Field `LastAssessmentTimestamp`, `NumberOfAssessments`, `NumberOfGroups`, `NumberOfMachines` of struct `ProjectProperties` has been removed
+- Field `ETag` of struct `ServerCollector` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted` added to enum type `AssessmentStatus`
+- New value `AzureDiskSizePremiumP1`, `AzureDiskSizePremiumP2`, `AzureDiskSizePremiumP3`, `AzureDiskSizePremiumV2`, `AzureDiskSizeStandardSSDE1`, `AzureDiskSizeStandardSSDE2`, `AzureDiskSizeStandardSSDE3`, `AzureDiskSizeUltra` added to enum type `AzureDiskSize`
+- New value `AzureDiskTypePremiumV2`, `AzureDiskTypeUltra` added to enum type `AzureDiskType`
+- New value `AzureLocationAustraliaCentral`, `AzureLocationAustraliaCentral2`, `AzureLocationChinaEast2`, `AzureLocationChinaNorth2`, `AzureLocationFranceCentral`, `AzureLocationFranceSouth`, `AzureLocationGermanyNorth`, `AzureLocationGermanyWestCentral`, `AzureLocationNorwayEast`, `AzureLocationNorwayWest`, `AzureLocationQatarCentral`, `AzureLocationSouthAfricaNorth`, `AzureLocationSouthAfricaWest`, `AzureLocationSwedenCentral`, `AzureLocationSwitzerlandNorth`, `AzureLocationSwitzerlandWest`, `AzureLocationUAECentral`, `AzureLocationUAENorth`, `AzureLocationUsNatEast`, `AzureLocationUsNatWest`, `AzureLocationUsSecCentral`, `AzureLocationUsSecEast`, `AzureLocationUsSecWest` added to enum type `AzureLocation`
+- New value `AzureNetworkAdapterSuitabilityDetailMegabytesOfDataRecievedMissing`, `AzureNetworkAdapterSuitabilityDetailMegabytesOfDataRecievedOutOfRange` added to enum type `AzureNetworkAdapterSuitabilityDetail`
+- New value `AzureOfferCodeMsazr0003P`, `AzureOfferCodeMsazr0022P`, `AzureOfferCodeMsazr0023P`, `AzureOfferCodeMsazr0025P`, `AzureOfferCodeMsazr0029P`, `AzureOfferCodeMsazr0036P`, `AzureOfferCodeMsazr0044P`, `AzureOfferCodeMsazr0059P`, `AzureOfferCodeMsazr0060P`, `AzureOfferCodeMsazr0062P`, `AzureOfferCodeMsazr0063P`, `AzureOfferCodeMsazr0064P`, `AzureOfferCodeMsazr0111P`, `AzureOfferCodeMsazr0120P`, `AzureOfferCodeMsazr0121P`, `AzureOfferCodeMsazr0122P`, `AzureOfferCodeMsazr0123P`, `AzureOfferCodeMsazr0124P`, `AzureOfferCodeMsazr0125P`, `AzureOfferCodeMsazr0126P`, `AzureOfferCodeMsazr0127P`, `AzureOfferCodeMsazr0128P`, `AzureOfferCodeMsazr0129P`, `AzureOfferCodeMsazr0130P`, `AzureOfferCodeMsazr0144P`, `AzureOfferCodeMsazr0148P`, `AzureOfferCodeMsazr0149P`, `AzureOfferCodeMsazr0243P`, `AzureOfferCodeMsazrde0003P`, `AzureOfferCodeMsazrde0044P`, `AzureOfferCodeMsazrusgov0003P`, `AzureOfferCodeMsmcazr0044P`, `AzureOfferCodeMsmcazr0059P`, `AzureOfferCodeMsmcazr0060P`, `AzureOfferCodeMsmcazr0063P`, `AzureOfferCodeMsmcazr0120P`, `AzureOfferCodeMsmcazr0121P`, `AzureOfferCodeMsmcazr0125P`, `AzureOfferCodeMsmcazr0128P`, `AzureOfferCodeSavingsPlan1Year`, `AzureOfferCodeSavingsPlan3Year` added to enum type `AzureOfferCode`
+- New value `AzureVMFamilyDadsv5Series`, `AzureVMFamilyDasv4Series`, `AzureVMFamilyDasv5Series`, `AzureVMFamilyDav4Series`, `AzureVMFamilyDdsv4Series`, `AzureVMFamilyDdsv5Series`, `AzureVMFamilyDdv4Series`, `AzureVMFamilyDdv5Series`, `AzureVMFamilyDsv4Series`, `AzureVMFamilyDsv5Series`, `AzureVMFamilyDv4Series`, `AzureVMFamilyDv5Series`, `AzureVMFamilyEadsv5Series`, `AzureVMFamilyEasv4Series`, `AzureVMFamilyEasv5Series`, `AzureVMFamilyEav4Series`, `AzureVMFamilyEbdsv5Series`, `AzureVMFamilyEbsv5Series`, `AzureVMFamilyEdsv4Series`, `AzureVMFamilyEdsv5Series`, `AzureVMFamilyEdv4Series`, `AzureVMFamilyEdv5Series`, `AzureVMFamilyEsv4Series`, `AzureVMFamilyEsv5Series`, `AzureVMFamilyEv4Series`, `AzureVMFamilyEv5Series`, `AzureVMFamilyLsv2Series`, `AzureVMFamilyMdsv2Series`, `AzureVMFamilyMsv2Series`, `AzureVMFamilyMv2Series` added to enum type `AzureVMFamily`
+- New value `AzureVMSizeStandardD16AV4`, `AzureVMSizeStandardD16AdsV5`, `AzureVMSizeStandardD16AsV4`, `AzureVMSizeStandardD16AsV5`, `AzureVMSizeStandardD16DV4`, `AzureVMSizeStandardD16DV5`, `AzureVMSizeStandardD16DsV4`, `AzureVMSizeStandardD16DsV5`, `AzureVMSizeStandardD16SV4`, `AzureVMSizeStandardD16SV5`, `AzureVMSizeStandardD16V4`, `AzureVMSizeStandardD16V5`, `AzureVMSizeStandardD2AV4`, `AzureVMSizeStandardD2AdsV5`, `AzureVMSizeStandardD2AsV4`, `AzureVMSizeStandardD2AsV5`, `AzureVMSizeStandardD2DV4`, `AzureVMSizeStandardD2DV5`, `AzureVMSizeStandardD2DsV4`, `AzureVMSizeStandardD2DsV5`, `AzureVMSizeStandardD2SV4`, `AzureVMSizeStandardD2SV5`, `AzureVMSizeStandardD2V4`, `AzureVMSizeStandardD2V5`, `AzureVMSizeStandardD32AV4`, `AzureVMSizeStandardD32AdsV5`, `AzureVMSizeStandardD32AsV4`, `AzureVMSizeStandardD32AsV5`, `AzureVMSizeStandardD32DV4`, `AzureVMSizeStandardD32DV5`, `AzureVMSizeStandardD32DsV4`, `AzureVMSizeStandardD32DsV5`, `AzureVMSizeStandardD32SV4`, `AzureVMSizeStandardD32SV5`, `AzureVMSizeStandardD32V4`, `AzureVMSizeStandardD32V5`, `AzureVMSizeStandardD48AV4`, `AzureVMSizeStandardD48AdsV5`, `AzureVMSizeStandardD48AsV4`, `AzureVMSizeStandardD48AsV5`, `AzureVMSizeStandardD48DV4`, `AzureVMSizeStandardD48DV5`, `AzureVMSizeStandardD48DsV4`, `AzureVMSizeStandardD48DsV5`, `AzureVMSizeStandardD48SV4`, `AzureVMSizeStandardD48SV5`, `AzureVMSizeStandardD48V4`, `AzureVMSizeStandardD48V5`, `AzureVMSizeStandardD4AV4`, `AzureVMSizeStandardD4AdsV5`, `AzureVMSizeStandardD4AsV4`, `AzureVMSizeStandardD4AsV5`, `AzureVMSizeStandardD4DV4`, `AzureVMSizeStandardD4DV5`, `AzureVMSizeStandardD4DsV4`, `AzureVMSizeStandardD4DsV5`, `AzureVMSizeStandardD4SV4`, `AzureVMSizeStandardD4SV5`, `AzureVMSizeStandardD4V4`, `AzureVMSizeStandardD4V5`, `AzureVMSizeStandardD64AV4`, `AzureVMSizeStandardD64AdsV5`, `AzureVMSizeStandardD64AsV4`, `AzureVMSizeStandardD64AsV5`, `AzureVMSizeStandardD64DV4`, `AzureVMSizeStandardD64DV5`, `AzureVMSizeStandardD64DsV4`, `AzureVMSizeStandardD64DsV5`, `AzureVMSizeStandardD64SV4`, `AzureVMSizeStandardD64SV5`, `AzureVMSizeStandardD64V4`, `AzureVMSizeStandardD64V5`, `AzureVMSizeStandardD8AV4`, `AzureVMSizeStandardD8AdsV5`, `AzureVMSizeStandardD8AsV4`, `AzureVMSizeStandardD8AsV5`, `AzureVMSizeStandardD8DV4`, `AzureVMSizeStandardD8DV5`, `AzureVMSizeStandardD8DsV4`, `AzureVMSizeStandardD8DsV5`, `AzureVMSizeStandardD8SV4`, `AzureVMSizeStandardD8SV5`, `AzureVMSizeStandardD8V4`, `AzureVMSizeStandardD8V5`, `AzureVMSizeStandardD96AV4`, `AzureVMSizeStandardD96AdsV5`, `AzureVMSizeStandardD96AsV4`, `AzureVMSizeStandardD96AsV5`, `AzureVMSizeStandardD96DV5`, `AzureVMSizeStandardD96DsV5`, `AzureVMSizeStandardD96SV5`, `AzureVMSizeStandardD96V5`, `AzureVMSizeStandardDC2S`, `AzureVMSizeStandardDC4S`, `AzureVMSizeStandardDS111V2`, `AzureVMSizeStandardDS121V2`, `AzureVMSizeStandardDS122V2`, `AzureVMSizeStandardDS132V2`, `AzureVMSizeStandardDS134V2`, `AzureVMSizeStandardDS144V2`, `AzureVMSizeStandardDS148V2`, `AzureVMSizeStandardE104IDV5`, `AzureVMSizeStandardE104IDsV5`, `AzureVMSizeStandardE104IV5`, `AzureVMSizeStandardE104IsV5`, `AzureVMSizeStandardE164AdsV5`, `AzureVMSizeStandardE164AsV4`, `AzureVMSizeStandardE164AsV5`, `AzureVMSizeStandardE164DsV4`, `AzureVMSizeStandardE164DsV5`, `AzureVMSizeStandardE164SV3`, `AzureVMSizeStandardE164SV4`, `AzureVMSizeStandardE164SV5`, `AzureVMSizeStandardE168AdsV5`, `AzureVMSizeStandardE168AsV4`, `AzureVMSizeStandardE168AsV5`, `AzureVMSizeStandardE168DsV4`, `AzureVMSizeStandardE168DsV5`, `AzureVMSizeStandardE168SV3`, `AzureVMSizeStandardE168SV4`, `AzureVMSizeStandardE168SV5`, `AzureVMSizeStandardE16AV4`, `AzureVMSizeStandardE16AdsV5`, `AzureVMSizeStandardE16AsV4`, `AzureVMSizeStandardE16AsV5`, `AzureVMSizeStandardE16BdsV5`, `AzureVMSizeStandardE16BsV5`, `AzureVMSizeStandardE16DV4`, `AzureVMSizeStandardE16DV5`, `AzureVMSizeStandardE16DsV4`, `AzureVMSizeStandardE16DsV5`, `AzureVMSizeStandardE16SV4`, `AzureVMSizeStandardE16SV5`, `AzureVMSizeStandardE16V4`, `AzureVMSizeStandardE16V5`, `AzureVMSizeStandardE20AV4`, `AzureVMSizeStandardE20AdsV5`, `AzureVMSizeStandardE20AsV4`, `AzureVMSizeStandardE20AsV5`, `AzureVMSizeStandardE20DV4`, `AzureVMSizeStandardE20DV5`, `AzureVMSizeStandardE20DsV4`, `AzureVMSizeStandardE20DsV5`, `AzureVMSizeStandardE20SV3`, `AzureVMSizeStandardE20SV4`, `AzureVMSizeStandardE20SV5`, `AzureVMSizeStandardE20V3`, `AzureVMSizeStandardE20V4`, `AzureVMSizeStandardE20V5`, `AzureVMSizeStandardE2AV4`, `AzureVMSizeStandardE2AdsV5`, `AzureVMSizeStandardE2AsV4`, `AzureVMSizeStandardE2AsV5`, `AzureVMSizeStandardE2BdsV5`, `AzureVMSizeStandardE2BsV5`, `AzureVMSizeStandardE2DV4`, `AzureVMSizeStandardE2DV5`, `AzureVMSizeStandardE2DsV4`, `AzureVMSizeStandardE2DsV5`, `AzureVMSizeStandardE2SV4`, `AzureVMSizeStandardE2SV5`, `AzureVMSizeStandardE2V4`, `AzureVMSizeStandardE2V5`, `AzureVMSizeStandardE3216AdsV5`, `AzureVMSizeStandardE3216AsV4`, `AzureVMSizeStandardE3216AsV5`, `AzureVMSizeStandardE3216DsV4`, `AzureVMSizeStandardE3216DsV5`, `AzureVMSizeStandardE3216SV3`, `AzureVMSizeStandardE3216SV4`, `AzureVMSizeStandardE3216SV5`, `AzureVMSizeStandardE328AdsV5`, `AzureVMSizeStandardE328AsV4`, `AzureVMSizeStandardE328AsV5`, `AzureVMSizeStandardE328DsV4`, `AzureVMSizeStandardE328DsV5`, `AzureVMSizeStandardE328SV3`, `AzureVMSizeStandardE328SV4`, `AzureVMSizeStandardE328SV5`, `AzureVMSizeStandardE32AV4`, `AzureVMSizeStandardE32AdsV5`, `AzureVMSizeStandardE32AsV4`, `AzureVMSizeStandardE32AsV5`, `AzureVMSizeStandardE32BdsV5`, `AzureVMSizeStandardE32BsV5`, `AzureVMSizeStandardE32DV4`, `AzureVMSizeStandardE32DV5`, `AzureVMSizeStandardE32DsV4`, `AzureVMSizeStandardE32DsV5`, `AzureVMSizeStandardE32SV4`, `AzureVMSizeStandardE32SV5`, `AzureVMSizeStandardE32V4`, `AzureVMSizeStandardE32V5`, `AzureVMSizeStandardE42AdsV5`, `AzureVMSizeStandardE42AsV4`, `AzureVMSizeStandardE42AsV5`, `AzureVMSizeStandardE42DsV4`, `AzureVMSizeStandardE42DsV5`, `AzureVMSizeStandardE42SV3`, `AzureVMSizeStandardE42SV4`, `AzureVMSizeStandardE42SV5`, `AzureVMSizeStandardE48AV4`, `AzureVMSizeStandardE48AdsV5`, `AzureVMSizeStandardE48AsV4`, `AzureVMSizeStandardE48AsV5`, `AzureVMSizeStandardE48BdsV5`, `AzureVMSizeStandardE48BsV5`, `AzureVMSizeStandardE48DV4`, `AzureVMSizeStandardE48DV5`, `AzureVMSizeStandardE48DsV4`, `AzureVMSizeStandardE48DsV5`, `AzureVMSizeStandardE48SV3`, `AzureVMSizeStandardE48SV4`, `AzureVMSizeStandardE48SV5`, `AzureVMSizeStandardE48V3`, `AzureVMSizeStandardE48V4`, `AzureVMSizeStandardE48V5`, `AzureVMSizeStandardE4AV4`, `AzureVMSizeStandardE4AdsV5`, `AzureVMSizeStandardE4AsV4`, `AzureVMSizeStandardE4AsV5`, `AzureVMSizeStandardE4BdsV5`, `AzureVMSizeStandardE4BsV5`, `AzureVMSizeStandardE4DV4`, `AzureVMSizeStandardE4DV5`, `AzureVMSizeStandardE4DsV4`, `AzureVMSizeStandardE4DsV5`, `AzureVMSizeStandardE4SV4`, `AzureVMSizeStandardE4SV5`, `AzureVMSizeStandardE4V4`, `AzureVMSizeStandardE4V5`, `AzureVMSizeStandardE6416AdsV5`, `AzureVMSizeStandardE6416AsV4`, `AzureVMSizeStandardE6416AsV5`, `AzureVMSizeStandardE6416DsV4`, `AzureVMSizeStandardE6416DsV5`, `AzureVMSizeStandardE6416SV3`, `AzureVMSizeStandardE6416SV4`, `AzureVMSizeStandardE6416SV5`, `AzureVMSizeStandardE6432AdsV5`, `AzureVMSizeStandardE6432AsV4`, `AzureVMSizeStandardE6432AsV5`, `AzureVMSizeStandardE6432DsV4`, `AzureVMSizeStandardE6432DsV5`, `AzureVMSizeStandardE6432SV3`, `AzureVMSizeStandardE6432SV4`, `AzureVMSizeStandardE6432SV5`, `AzureVMSizeStandardE64AV4`, `AzureVMSizeStandardE64AdsV5`, `AzureVMSizeStandardE64AsV4`, `AzureVMSizeStandardE64AsV5`, `AzureVMSizeStandardE64BdsV5`, `AzureVMSizeStandardE64BsV5`, `AzureVMSizeStandardE64DV4`, `AzureVMSizeStandardE64DV5`, `AzureVMSizeStandardE64DsV4`, `AzureVMSizeStandardE64DsV5`, `AzureVMSizeStandardE64IV3`, `AzureVMSizeStandardE64IsV3`, `AzureVMSizeStandardE64SV4`, `AzureVMSizeStandardE64SV5`, `AzureVMSizeStandardE64V4`, `AzureVMSizeStandardE64V5`, `AzureVMSizeStandardE80IDsV4`, `AzureVMSizeStandardE80IsV4`, `AzureVMSizeStandardE82AdsV5`, `AzureVMSizeStandardE82AsV4`, `AzureVMSizeStandardE82AsV5`, `AzureVMSizeStandardE82DsV4`, `AzureVMSizeStandardE82DsV5`, `AzureVMSizeStandardE82SV3`, `AzureVMSizeStandardE82SV4`, `AzureVMSizeStandardE82SV5`, `AzureVMSizeStandardE84AdsV5`, `AzureVMSizeStandardE84AsV4`, `AzureVMSizeStandardE84AsV5`, `AzureVMSizeStandardE84DsV4`, `AzureVMSizeStandardE84DsV5`, `AzureVMSizeStandardE84SV3`, `AzureVMSizeStandardE84SV4`, `AzureVMSizeStandardE84SV5`, `AzureVMSizeStandardE8AV4`, `AzureVMSizeStandardE8AdsV5`, `AzureVMSizeStandardE8AsV4`, `AzureVMSizeStandardE8AsV5`, `AzureVMSizeStandardE8BdsV5`, `AzureVMSizeStandardE8BsV5`, `AzureVMSizeStandardE8DV4`, `AzureVMSizeStandardE8DV5`, `AzureVMSizeStandardE8DsV4`, `AzureVMSizeStandardE8DsV5`, `AzureVMSizeStandardE8SV4`, `AzureVMSizeStandardE8SV5`, `AzureVMSizeStandardE8V4`, `AzureVMSizeStandardE8V5`, `AzureVMSizeStandardE9624AdsV5`, `AzureVMSizeStandardE9624AsV4`, `AzureVMSizeStandardE9624AsV5`, `AzureVMSizeStandardE9624DsV5`, `AzureVMSizeStandardE9624SV5`, `AzureVMSizeStandardE9648AdsV5`, `AzureVMSizeStandardE9648AsV4`, `AzureVMSizeStandardE9648AsV5`, `AzureVMSizeStandardE9648DsV5`, `AzureVMSizeStandardE9648SV5`, `AzureVMSizeStandardE96AV4`, `AzureVMSizeStandardE96AdsV5`, `AzureVMSizeStandardE96AsV4`, `AzureVMSizeStandardE96AsV5`, `AzureVMSizeStandardE96DV5`, `AzureVMSizeStandardE96DsV5`, `AzureVMSizeStandardE96SV5`, `AzureVMSizeStandardE96V5`, `AzureVMSizeStandardF48SV2`, `AzureVMSizeStandardGS44`, `AzureVMSizeStandardGS48`, `AzureVMSizeStandardGS516`, `AzureVMSizeStandardGS58`, `AzureVMSizeStandardL16SV2`, `AzureVMSizeStandardL32SV2`, `AzureVMSizeStandardL48SV2`, `AzureVMSizeStandardL64SV2`, `AzureVMSizeStandardL80SV2`, `AzureVMSizeStandardL8SV2`, `AzureVMSizeStandardM128`, `AzureVMSizeStandardM12832Ms`, `AzureVMSizeStandardM12864Ms`, `AzureVMSizeStandardM128DmsV2`, `AzureVMSizeStandardM128DsV2`, `AzureVMSizeStandardM128M`, `AzureVMSizeStandardM128MsV2`, `AzureVMSizeStandardM128SV2`, `AzureVMSizeStandardM164Ms`, `AzureVMSizeStandardM168Ms`, `AzureVMSizeStandardM16Ms`, `AzureVMSizeStandardM192IDsV2`, `AzureVMSizeStandardM192IdmsV2`, `AzureVMSizeStandardM192ImsV2`, `AzureVMSizeStandardM192IsV2`, `AzureVMSizeStandardM208MsV2`, `AzureVMSizeStandardM208SV2`, `AzureVMSizeStandardM3216Ms`, `AzureVMSizeStandardM328Ms`, `AzureVMSizeStandardM32DmsV2`, `AzureVMSizeStandardM32Ls`, `AzureVMSizeStandardM32Ms`, `AzureVMSizeStandardM32MsV2`, `AzureVMSizeStandardM32Ts`, `AzureVMSizeStandardM416208MsV2`, `AzureVMSizeStandardM416208SV2`, `AzureVMSizeStandardM416MsV2`, `AzureVMSizeStandardM416SV2`, `AzureVMSizeStandardM64`, `AzureVMSizeStandardM6416Ms`, `AzureVMSizeStandardM6432Ms`, `AzureVMSizeStandardM64DmsV2`, `AzureVMSizeStandardM64DsV2`, `AzureVMSizeStandardM64Ls`, `AzureVMSizeStandardM64M`, `AzureVMSizeStandardM64MsV2`, `AzureVMSizeStandardM64SV2`, `AzureVMSizeStandardM82Ms`, `AzureVMSizeStandardM84Ms`, `AzureVMSizeStandardM8Ms` added to enum type `AzureVMSize`
+- New value `AzureVMSuitabilityExplanationNoEaPriceFoundForVMSize`, `AzureVMSuitabilityExplanationNoVMSizeFoundForOfferCurrencyReservedInstance`, `AzureVMSuitabilityExplanationNoVMSizeInSelectedFamilyFound` added to enum type `AzureVMSuitabilityExplanation`
+- New value `MachineBootTypeBios`, `MachineBootTypeNotSpecified` added to enum type `MachineBootType`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `APIVersions` with values `APIVersionsV20191001`, `APIVersionsV20200101`, `APIVersionsV20200501Preview`, `APIVersionsV20220202Preview`, `APIVersionsV20230303`, `APIVersionsV20230315`, `APIVersionsV20230401Preview`, `APIVersionsV20230707Preview`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `AssessedMachineType` with values `AssessedMachineTypeAssessedMachine`, `AssessedMachineTypeAvsAssessedMachine`, `AssessedMachineTypeSQLAssessedMachine`, `AssessedMachineTypeUnknown`
+- New enum type `AssessmentType` with values `AssessmentTypeAvsAssessment`, `AssessmentTypeMachineAssessment`, `AssessmentTypeSQLAssessment`, `AssessmentTypeUnknown`, `AssessmentTypeWebAppAssessment`
+- New enum type `AsyncCommitModeIntent` with values `AsyncCommitModeIntentDisasterRecovery`, `AsyncCommitModeIntentHighAvailability`, `AsyncCommitModeIntentNone`
+- New enum type `AzureAvsNodeType` with values `AzureAvsNodeTypeAV36`, `AzureAvsNodeTypeUnknown`
+- New enum type `AzureAvsSuitabilityExplanation` with values `AzureAvsSuitabilityExplanationNotApplicable`, `AzureAvsSuitabilityExplanationUnknown`, `AzureAvsSuitabilityExplanationUnsupportedLocationForSelectedNode`
+- New enum type `AzureAvsVMSuitabilityDetail` with values `AzureAvsVMSuitabilityDetailNone`, `AzureAvsVMSuitabilityDetailPercentageOfCoresUtilizedMissing`, `AzureAvsVMSuitabilityDetailPercentageOfCoresUtilizedOutOfRange`, `AzureAvsVMSuitabilityDetailPercentageOfMemoryUtilizedMissing`, `AzureAvsVMSuitabilityDetailPercentageOfMemoryUtilizedOutOfRange`, `AzureAvsVMSuitabilityDetailPercentageOfStorageUtilizedOutOfRange`
+- New enum type `AzureAvsVMSuitabilityExplanation` with values `AzureAvsVMSuitabilityExplanationIPV6NotSupported`, `AzureAvsVMSuitabilityExplanationNotApplicable`, `AzureAvsVMSuitabilityExplanationUnknown`, `AzureAvsVMSuitabilityExplanationUnsupportedOperatingSystem`
+- New enum type `AzureCurrency` with values `AzureCurrencyARS`, `AzureCurrencyAUD`, `AzureCurrencyBRL`, `AzureCurrencyCAD`, `AzureCurrencyCHF`, `AzureCurrencyCNY`, `AzureCurrencyDKK`, `AzureCurrencyEUR`, `AzureCurrencyGBP`, `AzureCurrencyHKD`, `AzureCurrencyIDR`, `AzureCurrencyINR`, `AzureCurrencyJPY`, `AzureCurrencyKRW`, `AzureCurrencyMXN`, `AzureCurrencyMYR`, `AzureCurrencyNOK`, `AzureCurrencyNZD`, `AzureCurrencyRUB`, `AzureCurrencySAR`, `AzureCurrencySEK`, `AzureCurrencyTRY`, `AzureCurrencyTWD`, `AzureCurrencyUSD`, `AzureCurrencyUnknown`, `AzureCurrencyZAR`
+- New enum type `AzureManagedDiskSKUDTODiskRedundancy` with values `AzureManagedDiskSKUDTODiskRedundancyLRS`, `AzureManagedDiskSKUDTODiskRedundancyUnknown`, `AzureManagedDiskSKUDTODiskRedundancyZRS`
+- New enum type `AzureManagedDiskSKUDTODiskType` with values `AzureManagedDiskSKUDTODiskTypePremium`, `AzureManagedDiskSKUDTODiskTypePremiumV2`, `AzureManagedDiskSKUDTODiskTypeStandard`, `AzureManagedDiskSKUDTODiskTypeStandardOrPremium`, `AzureManagedDiskSKUDTODiskTypeStandardSSD`, `AzureManagedDiskSKUDTODiskTypeUltra`, `AzureManagedDiskSKUDTODiskTypeUnknown`
+- New enum type `AzureQuorumWitnessDTOQuorumWitnessType` with values `AzureQuorumWitnessDTOQuorumWitnessTypeCloud`, `AzureQuorumWitnessDTOQuorumWitnessTypeDisk`, `AzureQuorumWitnessDTOQuorumWitnessTypeUnknown`
+- New enum type `AzureReservedInstance` with values `AzureReservedInstanceNone`, `AzureReservedInstanceRI1Year`, `AzureReservedInstanceRI3Year`
+- New enum type `AzureSQLDataBaseType` with values `AzureSQLDataBaseTypeAutomatic`, `AzureSQLDataBaseTypeElasticPool`, `AzureSQLDataBaseTypeSingleDatabase`, `AzureSQLDataBaseTypeUnknown`
+- New enum type `AzureSQLInstanceType` with values `AzureSQLInstanceTypeAutomatic`, `AzureSQLInstanceTypeInstancePools`, `AzureSQLInstanceTypeSingleInstance`, `AzureSQLInstanceTypeUnknown`
+- New enum type `AzureSQLPurchaseModel` with values `AzureSQLPurchaseModelDTU`, `AzureSQLPurchaseModelUnknown`, `AzureSQLPurchaseModelVCore`
+- New enum type `AzureSQLServiceTier` with values `AzureSQLServiceTierAutomatic`, `AzureSQLServiceTierBusinessCritical`, `AzureSQLServiceTierGeneralPurpose`, `AzureSQLServiceTierHyperScale`, `AzureSQLServiceTierUnknown`
+- New enum type `AzureSecurityOfferingType` with values `AzureSecurityOfferingTypeMDC`, `AzureSecurityOfferingTypeNO`
+- New enum type `CompatibilityLevel` with values `CompatibilityLevelCompatLevel100`, `CompatibilityLevelCompatLevel110`, `CompatibilityLevelCompatLevel120`, `CompatibilityLevelCompatLevel130`, `CompatibilityLevelCompatLevel140`, `CompatibilityLevelCompatLevel150`, `CompatibilityLevelCompatLevel80`, `CompatibilityLevelCompatLevel90`, `CompatibilityLevelUnknown`
+- New enum type `ComputeTier` with values `ComputeTierAutomatic`, `ComputeTierProvisioned`, `ComputeTierServerless`, `ComputeTierUnknown`
+- New enum type `CostComponentName` with values `CostComponentNameMonthlyAzureHybridCostSavings`, `CostComponentNameMonthlyPremiumV2StorageCost`, `CostComponentNameMonthlySecurityCost`, `CostComponentNameUnknown`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnvironmentType` with values `EnvironmentTypeProduction`, `EnvironmentTypeTest`
+- New enum type `FttAndRaidLevel` with values `FttAndRaidLevelFtt1Raid1`, `FttAndRaidLevelFtt1Raid5`, `FttAndRaidLevelFtt2Raid1`, `FttAndRaidLevelFtt2Raid6`, `FttAndRaidLevelFtt3Raid1`, `FttAndRaidLevelUnknown`
+- New enum type `GroupType` with values `GroupTypeDefault`, `GroupTypeImport`
+- New enum type `GuestOperatingSystemArchitecture` with values `GuestOperatingSystemArchitectureUnknown`, `GuestOperatingSystemArchitectureX64`, `GuestOperatingSystemArchitectureX86`
+- New enum type `HardwareGeneration` with values `HardwareGenerationAutomatic`, `HardwareGenerationDCSeries`, `HardwareGenerationFsv2Series`, `HardwareGenerationGen5`, `HardwareGenerationMSeries`, `HardwareGenerationUnknown`
+- New enum type `MultiSubnetIntent` with values `MultiSubnetIntentDisasterRecovery`, `MultiSubnetIntentHighAvailability`, `MultiSubnetIntentNone`
+- New enum type `OptimizationLogic` with values `OptimizationLogicMinimizeCost`, `OptimizationLogicModernizeToAzureSQLDb`, `OptimizationLogicModernizeToAzureSQLMi`, `OptimizationLogicModernizeToPaaS`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `OsLicense` with values `OsLicenseNo`, `OsLicenseUnknown`, `OsLicenseYes`
+- New enum type `PrivateEndpointConnectionProvisioningState` with values `PrivateEndpointConnectionProvisioningStateCreating`, `PrivateEndpointConnectionProvisioningStateDeleting`, `PrivateEndpointConnectionProvisioningStateFailed`, `PrivateEndpointConnectionProvisioningStateSucceeded`
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New enum type `RecommendedSuitability` with values `RecommendedSuitabilityConditionallySuitableForSQLDB`, `RecommendedSuitabilityConditionallySuitableForSQLMI`, `RecommendedSuitabilityConditionallySuitableForSQLVM`, `RecommendedSuitabilityConditionallySuitableForVM`, `RecommendedSuitabilityNotSuitable`, `RecommendedSuitabilityPotentiallySuitableForVM`, `RecommendedSuitabilityReadinessUnknown`, `RecommendedSuitabilitySuitableForSQLDB`, `RecommendedSuitabilitySuitableForSQLMI`, `RecommendedSuitabilitySuitableForSQLVM`, `RecommendedSuitabilitySuitableForVM`, `RecommendedSuitabilityUnknown`
+- New enum type `SKUReplicationMode` with values `SKUReplicationModeActiveGeoReplication`, `SKUReplicationModeFailoverGroupInstance`, `SKUReplicationModeNotApplicable`
+- New enum type `SQLAssessmentMigrationIssueCategory` with values `SQLAssessmentMigrationIssueCategoryInternal`, `SQLAssessmentMigrationIssueCategoryIssue`, `SQLAssessmentMigrationIssueCategoryWarning`
+- New enum type `SQLFCIMetadataState` with values `SQLFCIMetadataStateFailed`, `SQLFCIMetadataStateInherited`, `SQLFCIMetadataStateInitializing`, `SQLFCIMetadataStateOffline`, `SQLFCIMetadataStateOfflinePending`, `SQLFCIMetadataStateOnline`, `SQLFCIMetadataStateOnlinePending`, `SQLFCIMetadataStatePending`, `SQLFCIMetadataStateUnknown`
+- New enum type `SQLFCIState` with values `SQLFCIStateActive`, `SQLFCIStateNotApplicable`, `SQLFCIStatePassive`, `SQLFCIStateUnknown`
+- New enum type `SQLMigrationGuidelineCategory` with values `SQLMigrationGuidelineCategoryAvailabilityGroupGuideline`, `SQLMigrationGuidelineCategoryFailoverCluterInstanceGuideLine`, `SQLMigrationGuidelineCategoryGeneral`, `SQLMigrationGuidelineCategoryUnknown`
+- New enum type `SQLServerLicense` with values `SQLServerLicenseNo`, `SQLServerLicenseUnknown`, `SQLServerLicenseYes`
+- New enum type `TargetType` with values `TargetTypeAzureSQLDatabase`, `TargetTypeAzureSQLManagedInstance`, `TargetTypeAzureSQLVirtualMachine`, `TargetTypeAzureVirtualMachine`, `TargetTypeRecommended`, `TargetTypeUnknown`
+- New function `NewAssessedMachinesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedMachinesOperationsClient, error)`
+- New function `*AssessedMachinesOperationsClient.Get(context.Context, string, string, string, string, string, *AssessedMachinesOperationsClientGetOptions) (AssessedMachinesOperationsClientGetResponse, error)`
+- New function `*AssessedMachinesOperationsClient.NewListByAssessmentPager(string, string, string, string, *AssessedMachinesOperationsClientListByAssessmentOptions) *runtime.Pager[AssessedMachinesOperationsClientListByAssessmentResponse]`
+- New function `NewAssessedSQLDatabaseV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLDatabaseV2OperationsClient, error)`
+- New function `*AssessedSQLDatabaseV2OperationsClient.Get(context.Context, string, string, string, string, string, *AssessedSQLDatabaseV2OperationsClientGetOptions) (AssessedSQLDatabaseV2OperationsClientGetResponse, error)`
+- New function `*AssessedSQLDatabaseV2OperationsClient.NewListBySQLAssessmentV2Pager(string, string, string, string, *AssessedSQLDatabaseV2OperationsClientListBySQLAssessmentV2Options) *runtime.Pager[AssessedSQLDatabaseV2OperationsClientListBySQLAssessmentV2Response]`
+- New function `NewAssessedSQLInstanceV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLInstanceV2OperationsClient, error)`
+- New function `*AssessedSQLInstanceV2OperationsClient.Get(context.Context, string, string, string, string, string, *AssessedSQLInstanceV2OperationsClientGetOptions) (AssessedSQLInstanceV2OperationsClientGetResponse, error)`
+- New function `*AssessedSQLInstanceV2OperationsClient.NewListBySQLAssessmentV2Pager(string, string, string, string, *AssessedSQLInstanceV2OperationsClientListBySQLAssessmentV2Options) *runtime.Pager[AssessedSQLInstanceV2OperationsClientListBySQLAssessmentV2Response]`
+- New function `NewAssessedSQLMachinesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLMachinesOperationsClient, error)`
+- New function `*AssessedSQLMachinesOperationsClient.Get(context.Context, string, string, string, string, string, *AssessedSQLMachinesOperationsClientGetOptions) (AssessedSQLMachinesOperationsClientGetResponse, error)`
+- New function `*AssessedSQLMachinesOperationsClient.NewListBySQLAssessmentV2Pager(string, string, string, string, *AssessedSQLMachinesOperationsClientListBySQLAssessmentV2Options) *runtime.Pager[AssessedSQLMachinesOperationsClientListBySQLAssessmentV2Response]`
+- New function `NewAssessedSQLRecommendedEntityOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLRecommendedEntityOperationsClient, error)`
+- New function `*AssessedSQLRecommendedEntityOperationsClient.Get(context.Context, string, string, string, string, string, *AssessedSQLRecommendedEntityOperationsClientGetOptions) (AssessedSQLRecommendedEntityOperationsClientGetResponse, error)`
+- New function `*AssessedSQLRecommendedEntityOperationsClient.NewListBySQLAssessmentV2Pager(string, string, string, string, *AssessedSQLRecommendedEntityOperationsClientListBySQLAssessmentV2Options) *runtime.Pager[AssessedSQLRecommendedEntityOperationsClientListBySQLAssessmentV2Response]`
+- New function `NewAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessmentOptionsOperationsClient, error)`
+- New function `*AssessmentOptionsOperationsClient.Get(context.Context, string, string, string, *AssessmentOptionsOperationsClientGetOptions) (AssessmentOptionsOperationsClientGetResponse, error)`
+- New function `*AssessmentOptionsOperationsClient.NewListByAssessmentProjectPager(string, string, *AssessmentOptionsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[AssessmentOptionsOperationsClientListByAssessmentProjectResponse]`
+- New function `NewAssessmentProjectSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessmentProjectSummaryOperationsClient, error)`
+- New function `*AssessmentProjectSummaryOperationsClient.Get(context.Context, string, string, string, *AssessmentProjectSummaryOperationsClientGetOptions) (AssessmentProjectSummaryOperationsClientGetResponse, error)`
+- New function `*AssessmentProjectSummaryOperationsClient.NewListByAssessmentProjectPager(string, string, *AssessmentProjectSummaryOperationsClientListByAssessmentProjectOptions) *runtime.Pager[AssessmentProjectSummaryOperationsClientListByAssessmentProjectResponse]`
+- New function `NewAssessmentProjectsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessmentProjectsOperationsClient, error)`
+- New function `*AssessmentProjectsOperationsClient.BeginCreate(context.Context, string, string, AssessmentProject, *AssessmentProjectsOperationsClientBeginCreateOptions) (*runtime.Poller[AssessmentProjectsOperationsClientCreateResponse], error)`
+- New function `*AssessmentProjectsOperationsClient.Delete(context.Context, string, string, *AssessmentProjectsOperationsClientDeleteOptions) (AssessmentProjectsOperationsClientDeleteResponse, error)`
+- New function `*AssessmentProjectsOperationsClient.Get(context.Context, string, string, *AssessmentProjectsOperationsClientGetOptions) (AssessmentProjectsOperationsClientGetResponse, error)`
+- New function `*AssessmentProjectsOperationsClient.NewListByResourceGroupPager(string, *AssessmentProjectsOperationsClientListByResourceGroupOptions) *runtime.Pager[AssessmentProjectsOperationsClientListByResourceGroupResponse]`
+- New function `*AssessmentProjectsOperationsClient.NewListBySubscriptionPager(*AssessmentProjectsOperationsClientListBySubscriptionOptions) *runtime.Pager[AssessmentProjectsOperationsClientListBySubscriptionResponse]`
+- New function `*AssessmentProjectsOperationsClient.BeginUpdate(context.Context, string, string, AssessmentProjectUpdate, *AssessmentProjectsOperationsClientBeginUpdateOptions) (*runtime.Poller[AssessmentProjectsOperationsClientUpdateResponse], error)`
+- New function `NewAssessmentsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessmentsOperationsClient, error)`
+- New function `*AssessmentsOperationsClient.BeginCreate(context.Context, string, string, string, string, Assessment, *AssessmentsOperationsClientBeginCreateOptions) (*runtime.Poller[AssessmentsOperationsClientCreateResponse], error)`
+- New function `*AssessmentsOperationsClient.Delete(context.Context, string, string, string, string, *AssessmentsOperationsClientDeleteOptions) (AssessmentsOperationsClientDeleteResponse, error)`
+- New function `*AssessmentsOperationsClient.BeginDownloadURL(context.Context, string, string, string, string, any, *AssessmentsOperationsClientBeginDownloadURLOptions) (*runtime.Poller[AssessmentsOperationsClientDownloadURLResponse], error)`
+- New function `*AssessmentsOperationsClient.Get(context.Context, string, string, string, string, *AssessmentsOperationsClientGetOptions) (AssessmentsOperationsClientGetResponse, error)`
+- New function `*AssessmentsOperationsClient.NewListByGroupPager(string, string, string, *AssessmentsOperationsClientListByGroupOptions) *runtime.Pager[AssessmentsOperationsClientListByGroupResponse]`
+- New function `NewAvsAssessedMachinesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsAssessedMachinesOperationsClient, error)`
+- New function `*AvsAssessedMachinesOperationsClient.Get(context.Context, string, string, string, string, string, *AvsAssessedMachinesOperationsClientGetOptions) (AvsAssessedMachinesOperationsClientGetResponse, error)`
+- New function `*AvsAssessedMachinesOperationsClient.NewListByAvsAssessmentPager(string, string, string, string, *AvsAssessedMachinesOperationsClientListByAvsAssessmentOptions) *runtime.Pager[AvsAssessedMachinesOperationsClientListByAvsAssessmentResponse]`
+- New function `NewAvsAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsAssessmentOptionsOperationsClient, error)`
+- New function `*AvsAssessmentOptionsOperationsClient.Get(context.Context, string, string, string, *AvsAssessmentOptionsOperationsClientGetOptions) (AvsAssessmentOptionsOperationsClientGetResponse, error)`
+- New function `*AvsAssessmentOptionsOperationsClient.NewListByAssessmentProjectPager(string, string, *AvsAssessmentOptionsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[AvsAssessmentOptionsOperationsClientListByAssessmentProjectResponse]`
+- New function `NewAvsAssessmentsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsAssessmentsOperationsClient, error)`
+- New function `*AvsAssessmentsOperationsClient.BeginCreate(context.Context, string, string, string, string, AvsAssessment, *AvsAssessmentsOperationsClientBeginCreateOptions) (*runtime.Poller[AvsAssessmentsOperationsClientCreateResponse], error)`
+- New function `*AvsAssessmentsOperationsClient.Delete(context.Context, string, string, string, string, *AvsAssessmentsOperationsClientDeleteOptions) (AvsAssessmentsOperationsClientDeleteResponse, error)`
+- New function `*AvsAssessmentsOperationsClient.BeginDownloadURL(context.Context, string, string, string, string, any, *AvsAssessmentsOperationsClientBeginDownloadURLOptions) (*runtime.Poller[AvsAssessmentsOperationsClientDownloadURLResponse], error)`
+- New function `*AvsAssessmentsOperationsClient.Get(context.Context, string, string, string, string, *AvsAssessmentsOperationsClientGetOptions) (AvsAssessmentsOperationsClientGetResponse, error)`
+- New function `*AvsAssessmentsOperationsClient.NewListByGroupPager(string, string, string, *AvsAssessmentsOperationsClientListByGroupOptions) *runtime.Pager[AvsAssessmentsOperationsClientListByGroupResponse]`
+- New function `*ClientFactory.NewAssessedMachinesOperationsClient() *AssessedMachinesOperationsClient`
+- New function `*ClientFactory.NewAssessedSQLDatabaseV2OperationsClient() *AssessedSQLDatabaseV2OperationsClient`
+- New function `*ClientFactory.NewAssessedSQLInstanceV2OperationsClient() *AssessedSQLInstanceV2OperationsClient`
+- New function `*ClientFactory.NewAssessedSQLMachinesOperationsClient() *AssessedSQLMachinesOperationsClient`
+- New function `*ClientFactory.NewAssessedSQLRecommendedEntityOperationsClient() *AssessedSQLRecommendedEntityOperationsClient`
+- New function `*ClientFactory.NewAssessmentOptionsOperationsClient() *AssessmentOptionsOperationsClient`
+- New function `*ClientFactory.NewAssessmentProjectSummaryOperationsClient() *AssessmentProjectSummaryOperationsClient`
+- New function `*ClientFactory.NewAssessmentProjectsOperationsClient() *AssessmentProjectsOperationsClient`
+- New function `*ClientFactory.NewAssessmentsOperationsClient() *AssessmentsOperationsClient`
+- New function `*ClientFactory.NewAvsAssessedMachinesOperationsClient() *AvsAssessedMachinesOperationsClient`
+- New function `*ClientFactory.NewAvsAssessmentOptionsOperationsClient() *AvsAssessmentOptionsOperationsClient`
+- New function `*ClientFactory.NewAvsAssessmentsOperationsClient() *AvsAssessmentsOperationsClient`
+- New function `*ClientFactory.NewGroupsOperationsClient() *GroupsOperationsClient`
+- New function `*ClientFactory.NewHypervCollectorsOperationsClient() *HypervCollectorsOperationsClient`
+- New function `*ClientFactory.NewImportCollectorsOperationsClient() *ImportCollectorsOperationsClient`
+- New function `*ClientFactory.NewMachinesOperationsClient() *MachinesOperationsClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionOperationsClient() *PrivateEndpointConnectionOperationsClient`
+- New function `*ClientFactory.NewPrivateLinkResourceOperationsClient() *PrivateLinkResourceOperationsClient`
+- New function `*ClientFactory.NewSQLAssessmentOptionsOperationsClient() *SQLAssessmentOptionsOperationsClient`
+- New function `*ClientFactory.NewSQLAssessmentV2OperationsClient() *SQLAssessmentV2OperationsClient`
+- New function `*ClientFactory.NewSQLAssessmentV2SummaryOperationsClient() *SQLAssessmentV2SummaryOperationsClient`
+- New function `*ClientFactory.NewSQLCollectorOperationsClient() *SQLCollectorOperationsClient`
+- New function `*ClientFactory.NewServerCollectorsOperationsClient() *ServerCollectorsOperationsClient`
+- New function `*ClientFactory.NewVmwareCollectorsOperationsClient() *VmwareCollectorsOperationsClient`
+- New function `NewGroupsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GroupsOperationsClient, error)`
+- New function `*GroupsOperationsClient.BeginCreate(context.Context, string, string, string, Group, *GroupsOperationsClientBeginCreateOptions) (*runtime.Poller[GroupsOperationsClientCreateResponse], error)`
+- New function `*GroupsOperationsClient.Delete(context.Context, string, string, string, *GroupsOperationsClientDeleteOptions) (GroupsOperationsClientDeleteResponse, error)`
+- New function `*GroupsOperationsClient.Get(context.Context, string, string, string, *GroupsOperationsClientGetOptions) (GroupsOperationsClientGetResponse, error)`
+- New function `*GroupsOperationsClient.NewListByAssessmentProjectPager(string, string, *GroupsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[GroupsOperationsClientListByAssessmentProjectResponse]`
+- New function `*GroupsOperationsClient.BeginUpdateMachines(context.Context, string, string, string, UpdateGroupBody, *GroupsOperationsClientBeginUpdateMachinesOptions) (*runtime.Poller[GroupsOperationsClientUpdateMachinesResponse], error)`
+- New function `NewHypervCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervCollectorsOperationsClient, error)`
+- New function `*HypervCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, HypervCollector, *HypervCollectorsOperationsClientBeginCreateOptions) (*runtime.Poller[HypervCollectorsOperationsClientCreateResponse], error)`
+- New function `*HypervCollectorsOperationsClient.Delete(context.Context, string, string, string, *HypervCollectorsOperationsClientDeleteOptions) (HypervCollectorsOperationsClientDeleteResponse, error)`
+- New function `*HypervCollectorsOperationsClient.Get(context.Context, string, string, string, *HypervCollectorsOperationsClientGetOptions) (HypervCollectorsOperationsClientGetResponse, error)`
+- New function `*HypervCollectorsOperationsClient.NewListByAssessmentProjectPager(string, string, *HypervCollectorsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[HypervCollectorsOperationsClientListByAssessmentProjectResponse]`
+- New function `NewImportCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ImportCollectorsOperationsClient, error)`
+- New function `*ImportCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, ImportCollector, *ImportCollectorsOperationsClientBeginCreateOptions) (*runtime.Poller[ImportCollectorsOperationsClientCreateResponse], error)`
+- New function `*ImportCollectorsOperationsClient.Delete(context.Context, string, string, string, *ImportCollectorsOperationsClientDeleteOptions) (ImportCollectorsOperationsClientDeleteResponse, error)`
+- New function `*ImportCollectorsOperationsClient.Get(context.Context, string, string, string, *ImportCollectorsOperationsClientGetOptions) (ImportCollectorsOperationsClientGetResponse, error)`
+- New function `*ImportCollectorsOperationsClient.NewListByAssessmentProjectPager(string, string, *ImportCollectorsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[ImportCollectorsOperationsClientListByAssessmentProjectResponse]`
+- New function `NewMachinesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachinesOperationsClient, error)`
+- New function `*MachinesOperationsClient.Get(context.Context, string, string, string, *MachinesOperationsClientGetOptions) (MachinesOperationsClientGetResponse, error)`
+- New function `*MachinesOperationsClient.NewListByAssessmentProjectPager(string, string, *MachinesOperationsClientListByAssessmentProjectOptions) *runtime.Pager[MachinesOperationsClientListByAssessmentProjectResponse]`
+- New function `NewPrivateEndpointConnectionOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionOperationsClient, error)`
+- New function `*PrivateEndpointConnectionOperationsClient.Delete(context.Context, string, string, string, *PrivateEndpointConnectionOperationsClientDeleteOptions) (PrivateEndpointConnectionOperationsClientDeleteResponse, error)`
+- New function `*PrivateEndpointConnectionOperationsClient.Get(context.Context, string, string, string, *PrivateEndpointConnectionOperationsClientGetOptions) (PrivateEndpointConnectionOperationsClientGetResponse, error)`
+- New function `*PrivateEndpointConnectionOperationsClient.NewListByAssessmentProjectPager(string, string, *PrivateEndpointConnectionOperationsClientListByAssessmentProjectOptions) *runtime.Pager[PrivateEndpointConnectionOperationsClientListByAssessmentProjectResponse]`
+- New function `*PrivateEndpointConnectionOperationsClient.BeginUpdate(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionOperationsClientBeginUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionOperationsClientUpdateResponse], error)`
+- New function `NewPrivateLinkResourceOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourceOperationsClient, error)`
+- New function `*PrivateLinkResourceOperationsClient.Get(context.Context, string, string, string, *PrivateLinkResourceOperationsClientGetOptions) (PrivateLinkResourceOperationsClientGetResponse, error)`
+- New function `*PrivateLinkResourceOperationsClient.NewListByAssessmentProjectPager(string, string, *PrivateLinkResourceOperationsClientListByAssessmentProjectOptions) *runtime.Pager[PrivateLinkResourceOperationsClientListByAssessmentProjectResponse]`
+- New function `NewSQLAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLAssessmentOptionsOperationsClient, error)`
+- New function `*SQLAssessmentOptionsOperationsClient.Get(context.Context, string, string, string, *SQLAssessmentOptionsOperationsClientGetOptions) (SQLAssessmentOptionsOperationsClientGetResponse, error)`
+- New function `*SQLAssessmentOptionsOperationsClient.NewListByAssessmentProjectPager(string, string, *SQLAssessmentOptionsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[SQLAssessmentOptionsOperationsClientListByAssessmentProjectResponse]`
+- New function `NewSQLAssessmentV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLAssessmentV2OperationsClient, error)`
+- New function `*SQLAssessmentV2OperationsClient.BeginCreate(context.Context, string, string, string, string, SQLAssessmentV2, *SQLAssessmentV2OperationsClientBeginCreateOptions) (*runtime.Poller[SQLAssessmentV2OperationsClientCreateResponse], error)`
+- New function `*SQLAssessmentV2OperationsClient.Delete(context.Context, string, string, string, string, *SQLAssessmentV2OperationsClientDeleteOptions) (SQLAssessmentV2OperationsClientDeleteResponse, error)`
+- New function `*SQLAssessmentV2OperationsClient.BeginDownloadURL(context.Context, string, string, string, string, any, *SQLAssessmentV2OperationsClientBeginDownloadURLOptions) (*runtime.Poller[SQLAssessmentV2OperationsClientDownloadURLResponse], error)`
+- New function `*SQLAssessmentV2OperationsClient.Get(context.Context, string, string, string, string, *SQLAssessmentV2OperationsClientGetOptions) (SQLAssessmentV2OperationsClientGetResponse, error)`
+- New function `*SQLAssessmentV2OperationsClient.NewListByGroupPager(string, string, string, *SQLAssessmentV2OperationsClientListByGroupOptions) *runtime.Pager[SQLAssessmentV2OperationsClientListByGroupResponse]`
+- New function `NewSQLAssessmentV2SummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLAssessmentV2SummaryOperationsClient, error)`
+- New function `*SQLAssessmentV2SummaryOperationsClient.Get(context.Context, string, string, string, string, string, *SQLAssessmentV2SummaryOperationsClientGetOptions) (SQLAssessmentV2SummaryOperationsClientGetResponse, error)`
+- New function `*SQLAssessmentV2SummaryOperationsClient.NewListBySQLAssessmentV2Pager(string, string, string, string, *SQLAssessmentV2SummaryOperationsClientListBySQLAssessmentV2Options) *runtime.Pager[SQLAssessmentV2SummaryOperationsClientListBySQLAssessmentV2Response]`
+- New function `NewSQLCollectorOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLCollectorOperationsClient, error)`
+- New function `*SQLCollectorOperationsClient.BeginCreate(context.Context, string, string, string, SQLCollector, *SQLCollectorOperationsClientBeginCreateOptions) (*runtime.Poller[SQLCollectorOperationsClientCreateResponse], error)`
+- New function `*SQLCollectorOperationsClient.Delete(context.Context, string, string, string, *SQLCollectorOperationsClientDeleteOptions) (SQLCollectorOperationsClientDeleteResponse, error)`
+- New function `*SQLCollectorOperationsClient.Get(context.Context, string, string, string, *SQLCollectorOperationsClientGetOptions) (SQLCollectorOperationsClientGetResponse, error)`
+- New function `*SQLCollectorOperationsClient.NewListByAssessmentProjectPager(string, string, *SQLCollectorOperationsClientListByAssessmentProjectOptions) *runtime.Pager[SQLCollectorOperationsClientListByAssessmentProjectResponse]`
+- New function `NewServerCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerCollectorsOperationsClient, error)`
+- New function `*ServerCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, ServerCollector, *ServerCollectorsOperationsClientBeginCreateOptions) (*runtime.Poller[ServerCollectorsOperationsClientCreateResponse], error)`
+- New function `*ServerCollectorsOperationsClient.Delete(context.Context, string, string, string, *ServerCollectorsOperationsClientDeleteOptions) (ServerCollectorsOperationsClientDeleteResponse, error)`
+- New function `*ServerCollectorsOperationsClient.Get(context.Context, string, string, string, *ServerCollectorsOperationsClientGetOptions) (ServerCollectorsOperationsClientGetResponse, error)`
+- New function `*ServerCollectorsOperationsClient.NewListByAssessmentProjectPager(string, string, *ServerCollectorsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[ServerCollectorsOperationsClientListByAssessmentProjectResponse]`
+- New function `NewVmwareCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VmwareCollectorsOperationsClient, error)`
+- New function `*VmwareCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, VmwareCollector, *VmwareCollectorsOperationsClientBeginCreateOptions) (*runtime.Poller[VmwareCollectorsOperationsClientCreateResponse], error)`
+- New function `*VmwareCollectorsOperationsClient.Delete(context.Context, string, string, string, *VmwareCollectorsOperationsClientDeleteOptions) (VmwareCollectorsOperationsClientDeleteResponse, error)`
+- New function `*VmwareCollectorsOperationsClient.Get(context.Context, string, string, string, *VmwareCollectorsOperationsClientGetOptions) (VmwareCollectorsOperationsClientGetResponse, error)`
+- New function `*VmwareCollectorsOperationsClient.NewListByAssessmentProjectPager(string, string, *VmwareCollectorsOperationsClientListByAssessmentProjectOptions) *runtime.Pager[VmwareCollectorsOperationsClientListByAssessmentProjectResponse]`
+- New struct `AssessedDiskData`
+- New struct `AssessedMachineListResult`
+- New struct `AssessedSQLDatabaseV2`
+- New struct `AssessedSQLDatabaseV2ListResult`
+- New struct `AssessedSQLDatabaseV2Properties`
+- New struct `AssessedSQLInstanceDatabaseSummary`
+- New struct `AssessedSQLInstanceDiskDetails`
+- New struct `AssessedSQLInstanceStorageDetails`
+- New struct `AssessedSQLInstanceSummary`
+- New struct `AssessedSQLInstanceV2`
+- New struct `AssessedSQLInstanceV2ListResult`
+- New struct `AssessedSQLInstanceV2Properties`
+- New struct `AssessedSQLMachine`
+- New struct `AssessedSQLMachineListResult`
+- New struct `AssessedSQLMachineProperties`
+- New struct `AssessedSQLRecommendedEntity`
+- New struct `AssessedSQLRecommendedEntityListResult`
+- New struct `AssessedSQLRecommendedEntityProperties`
+- New struct `AssessmentListResult`
+- New struct `AssessmentOptionsListResult`
+- New struct `AssessmentProject`
+- New struct `AssessmentProjectListResult`
+- New struct `AssessmentProjectSummary`
+- New struct `AssessmentProjectSummaryListResult`
+- New struct `AssessmentProjectSummaryProperties`
+- New struct `AssessmentProjectUpdate`
+- New struct `AssessmentProjectUpdateProperties`
+- New struct `AvsAssessedDisk`
+- New struct `AvsAssessedMachine`
+- New struct `AvsAssessedMachineListResult`
+- New struct `AvsAssessedMachineProperties`
+- New struct `AvsAssessedNetworkAdapter`
+- New struct `AvsAssessment`
+- New struct `AvsAssessmentListResult`
+- New struct `AvsAssessmentOptions`
+- New struct `AvsAssessmentOptionsListResult`
+- New struct `AvsAssessmentOptionsProperties`
+- New struct `AvsAssessmentProperties`
+- New struct `AvsSKUOptions`
+- New struct `AzureManagedDiskSKUDTO`
+- New struct `AzureQuorumWitnessDTO`
+- New struct `AzureResourceProperties`
+- New struct `AzureSQLIaasSKUDTO`
+- New struct `AzureSQLPaasSKUDTO`
+- New struct `AzureVirtualMachineSKUDTO`
+- New struct `CollectorAgentPropertiesBase`
+- New struct `CollectorAgentSpnPropertiesBase`
+- New struct `CollectorPropertiesBase`
+- New struct `CollectorPropertiesBaseWithAgent`
+- New struct `CostComponent`
+- New struct `EntityUptime`
+- New struct `Error`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `ErrorSummary`
+- New struct `GroupListResult`
+- New struct `HypervCollector`
+- New struct `HypervCollectorListResult`
+- New struct `ImpactedAssessmentObject`
+- New struct `ImportCollectorListResult`
+- New struct `MachineAssessmentProperties`
+- New struct `MachineListResult`
+- New struct `MigrationGuidelineContext`
+- New struct `OperationListResult`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateLinkResourceListResult`
+- New struct `ProcessorInfo`
+- New struct `ProductSupportStatus`
+- New struct `ProxyResource`
+- New struct `Resource`
+- New struct `SQLAssessedNetworkAdapter`
+- New struct `SQLAssessmentMigrationIssue`
+- New struct `SQLAssessmentOptions`
+- New struct `SQLAssessmentOptionsListResult`
+- New struct `SQLAssessmentOptionsProperties`
+- New struct `SQLAssessmentV2`
+- New struct `SQLAssessmentV2IaasSuitabilityData`
+- New struct `SQLAssessmentV2ListResult`
+- New struct `SQLAssessmentV2PaasSuitabilityData`
+- New struct `SQLAssessmentV2Properties`
+- New struct `SQLAssessmentV2Summary`
+- New struct `SQLAssessmentV2SummaryData`
+- New struct `SQLAssessmentV2SummaryListResult`
+- New struct `SQLAssessmentV2SummaryProperties`
+- New struct `SQLAvailabilityGroupDataOverview`
+- New struct `SQLAvailabilityReplicaSummary`
+- New struct `SQLCollector`
+- New struct `SQLCollectorListResult`
+- New struct `SQLDbSettings`
+- New struct `SQLFCIMetadata`
+- New struct `SQLMiSettings`
+- New struct `SQLMigrationGuideline`
+- New struct `SQLPaaSTargetOptions`
+- New struct `SQLRecommendationReasoning`
+- New struct `SQLRecommendationReasoningContext`
+- New struct `SQLVMSettings`
+- New struct `ServerCollectorListResult`
+- New struct `SharedResourcesDTO`
+- New struct `SystemData`
+- New struct `TrackedResource`
+- New struct `UltraDiskAssessmentOptions`
+- New struct `VMFamilyOptions`
+- New struct `VmwareCollector`
+- New struct `VmwareCollectorListResult`
+- New struct `WorkloadSummary`
+- New field `RecommendDiskThroughputInMbps`, `RecommendedDiskIops` in struct `AssessedDisk`
+- New field `SystemData` in struct `AssessedMachine`
+- New field `CostComponents`, `Errors`, `HostProcessor`, `MonthlyStandardSsdStorageCost`, `MonthlyUltraStorageCost`, `OperatingSystemArchitecture`, `ProductSupportStatus`, `Type` in struct `AssessedMachineProperties`
+- New field `SystemData` in struct `Assessment`
+- New field `SystemData`, `Type` in struct `AssessmentOptions`
+- New field `PremiumDiskVMFamilies`, `SavingsPlanSupportedLocations`, `SavingsPlanVMFamilies`, `UltraDiskVMFamilies` in struct `AssessmentOptionsProperties`
+- New field `SystemData` in struct `Group`
+- New field `ProvisioningState`, `SupportedAssessmentTypes` in struct `GroupProperties`
+- New field `SystemData` in struct `ImportCollector`
+- New field `SystemData` in struct `Machine`
+- New field `Errors`, `HostProcessor`, `ProductSupportStatus`, `SQLInstances`, `WebApplications`, `WorkloadSummary` in struct `MachineProperties`
+- New field `ActionType`, `IsDataAction` in struct `Operation`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+- New field `SystemData` in struct `PrivateLinkResource`
+- New field `SystemData` in struct `ServerCollector`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
