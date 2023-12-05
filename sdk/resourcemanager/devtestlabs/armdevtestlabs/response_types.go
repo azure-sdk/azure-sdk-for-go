@@ -16,7 +16,7 @@ type ArmTemplatesClientGetResponse struct {
 
 // ArmTemplatesClientListResponse contains the response from method ArmTemplatesClient.NewListPager.
 type ArmTemplatesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of armTemplates and their properties
 	ArmTemplateList
 }
 
@@ -39,7 +39,7 @@ type ArtifactSourcesClientGetResponse struct {
 
 // ArtifactSourcesClientListResponse contains the response from method ArtifactSourcesClient.NewListPager.
 type ArtifactSourcesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of artifactSources and their properties
 	ArtifactSourceList
 }
 
@@ -63,8 +63,37 @@ type ArtifactsClientGetResponse struct {
 
 // ArtifactsClientListResponse contains the response from method ArtifactsClient.NewListPager.
 type ArtifactsClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of artifacts and their properties
 	ArtifactList
+}
+
+// BastionHostsClientCreateOrUpdateResponse contains the response from method BastionHostsClient.BeginCreateOrUpdate.
+type BastionHostsClientCreateOrUpdateResponse struct {
+	// Profile of a Bastion Host
+	BastionHost
+}
+
+// BastionHostsClientDeleteResponse contains the response from method BastionHostsClient.BeginDelete.
+type BastionHostsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// BastionHostsClientGetResponse contains the response from method BastionHostsClient.Get.
+type BastionHostsClientGetResponse struct {
+	// Profile of a Bastion Host
+	BastionHost
+}
+
+// BastionHostsClientListResponse contains the response from method BastionHostsClient.NewListPager.
+type BastionHostsClientListResponse struct {
+	// Contains a list of bastionHosts and their properties
+	BastionHostList
+}
+
+// BastionHostsClientUpdateResponse contains the response from method BastionHostsClient.Update.
+type BastionHostsClientUpdateResponse struct {
+	// Profile of a Bastion Host
+	BastionHost
 }
 
 // CostsClientCreateOrUpdateResponse contains the response from method CostsClient.CreateOrUpdate.
@@ -98,7 +127,7 @@ type CustomImagesClientGetResponse struct {
 
 // CustomImagesClientListResponse contains the response from method CustomImagesClient.NewListPager.
 type CustomImagesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of customImages and their properties
 	CustomImageList
 }
 
@@ -137,7 +166,7 @@ type DisksClientGetResponse struct {
 
 // DisksClientListResponse contains the response from method DisksClient.NewListPager.
 type DisksClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of disks and their properties
 	DiskList
 }
 
@@ -166,7 +195,7 @@ type EnvironmentsClientGetResponse struct {
 
 // EnvironmentsClientListResponse contains the response from method EnvironmentsClient.NewListPager.
 type EnvironmentsClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of environments and their properties
 	DtlEnvironmentList
 }
 
@@ -195,7 +224,7 @@ type FormulasClientGetResponse struct {
 
 // FormulasClientListResponse contains the response from method FormulasClient.NewListPager.
 type FormulasClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of formulas and their properties
 	FormulaList
 }
 
@@ -205,9 +234,15 @@ type FormulasClientUpdateResponse struct {
 	Formula
 }
 
+// GalleryImagesClientGetResponse contains the response from method GalleryImagesClient.Get.
+type GalleryImagesClientGetResponse struct {
+	// A gallery image.
+	GalleryImage
+}
+
 // GalleryImagesClientListResponse contains the response from method GalleryImagesClient.NewListPager.
 type GalleryImagesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of galleryImages and their properties
 	GalleryImageList
 }
 
@@ -235,13 +270,13 @@ type GlobalSchedulesClientGetResponse struct {
 
 // GlobalSchedulesClientListByResourceGroupResponse contains the response from method GlobalSchedulesClient.NewListByResourceGroupPager.
 type GlobalSchedulesClientListByResourceGroupResponse struct {
-	// The response of a list operation.
+	// Contains a list of schedules and their properties
 	ScheduleList
 }
 
 // GlobalSchedulesClientListBySubscriptionResponse contains the response from method GlobalSchedulesClient.NewListBySubscriptionPager.
 type GlobalSchedulesClientListBySubscriptionResponse struct {
-	// The response of a list operation.
+	// Contains a list of schedules and their properties
 	ScheduleList
 }
 
@@ -254,6 +289,35 @@ type GlobalSchedulesClientRetargetResponse struct {
 type GlobalSchedulesClientUpdateResponse struct {
 	// A schedule.
 	Schedule
+}
+
+// LabSecretsClientCreateOrUpdateResponse contains the response from method LabSecretsClient.BeginCreateOrUpdate.
+type LabSecretsClientCreateOrUpdateResponse struct {
+	// A shared secret in a lab.
+	LabSecret
+}
+
+// LabSecretsClientDeleteResponse contains the response from method LabSecretsClient.BeginDelete.
+type LabSecretsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// LabSecretsClientGetResponse contains the response from method LabSecretsClient.Get.
+type LabSecretsClientGetResponse struct {
+	// A shared secret in a lab.
+	LabSecret
+}
+
+// LabSecretsClientListResponse contains the response from method LabSecretsClient.NewListPager.
+type LabSecretsClientListResponse struct {
+	// Contains a list of secrets and their properties
+	LabSecretList
+}
+
+// LabSecretsClientUpdateResponse contains the response from method LabSecretsClient.Update.
+type LabSecretsClientUpdateResponse struct {
+	// A shared secret in a lab.
+	LabSecret
 }
 
 // LabsClientClaimAnyVMResponse contains the response from method LabsClient.BeginClaimAnyVM.
@@ -274,6 +338,11 @@ type LabsClientCreateOrUpdateResponse struct {
 
 // LabsClientDeleteResponse contains the response from method LabsClient.BeginDelete.
 type LabsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// LabsClientEnsureCurrentUserProfileResponse contains the response from method LabsClient.EnsureCurrentUserProfile.
+type LabsClientEnsureCurrentUserProfileResponse struct {
 	// placeholder for future response values
 }
 
@@ -301,19 +370,19 @@ type LabsClientImportVirtualMachineResponse struct {
 
 // LabsClientListByResourceGroupResponse contains the response from method LabsClient.NewListByResourceGroupPager.
 type LabsClientListByResourceGroupResponse struct {
-	// The response of a list operation.
+	// Contains a list of labs and their properties
 	LabList
 }
 
 // LabsClientListBySubscriptionResponse contains the response from method LabsClient.NewListBySubscriptionPager.
 type LabsClientListBySubscriptionResponse struct {
-	// The response of a list operation.
+	// Contains a list of labs and their properties
 	LabList
 }
 
 // LabsClientListVhdsResponse contains the response from method LabsClient.NewListVhdsPager.
 type LabsClientListVhdsResponse struct {
-	// The response of a list operation.
+	// Contains a list of Lab Vhd and their properties
 	LabVhdList
 }
 
@@ -342,7 +411,7 @@ type NotificationChannelsClientGetResponse struct {
 
 // NotificationChannelsClientListResponse contains the response from method NotificationChannelsClient.NewListPager.
 type NotificationChannelsClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of notificationChannels and their properties
 	NotificationChannelList
 }
 
@@ -382,7 +451,7 @@ type PoliciesClientGetResponse struct {
 
 // PoliciesClientListResponse contains the response from method PoliciesClient.NewListPager.
 type PoliciesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of policies and their properties
 	PolicyList
 }
 
@@ -396,6 +465,12 @@ type PoliciesClientUpdateResponse struct {
 type PolicySetsClientEvaluatePoliciesResponse struct {
 	// Response body for evaluating a policy set.
 	EvaluatePoliciesResponse
+}
+
+// PolicySetsClientListResponse contains the response from method PolicySetsClient.NewListPager.
+type PolicySetsClientListResponse struct {
+	// Contains a list of policySets and their properties
+	PolicySetList
 }
 
 // ProviderOperationsClientListResponse contains the response from method ProviderOperationsClient.NewListPager.
@@ -428,13 +503,13 @@ type SchedulesClientGetResponse struct {
 
 // SchedulesClientListApplicableResponse contains the response from method SchedulesClient.NewListApplicablePager.
 type SchedulesClientListApplicableResponse struct {
-	// The response of a list operation.
+	// Contains a list of schedules and their properties
 	ScheduleList
 }
 
 // SchedulesClientListResponse contains the response from method SchedulesClient.NewListPager.
 type SchedulesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of schedules and their properties
 	ScheduleList
 }
 
@@ -463,7 +538,7 @@ type SecretsClientGetResponse struct {
 
 // SecretsClientListResponse contains the response from method SecretsClient.NewListPager.
 type SecretsClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of secrets and their properties
 	SecretList
 }
 
@@ -497,7 +572,7 @@ type ServiceFabricSchedulesClientGetResponse struct {
 
 // ServiceFabricSchedulesClientListResponse contains the response from method ServiceFabricSchedulesClient.NewListPager.
 type ServiceFabricSchedulesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of schedules and their properties
 	ScheduleList
 }
 
@@ -532,7 +607,7 @@ type ServiceFabricsClientListApplicableSchedulesResponse struct {
 
 // ServiceFabricsClientListResponse contains the response from method ServiceFabricsClient.NewListPager.
 type ServiceFabricsClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of serviceFabrics and their properties
 	ServiceFabricList
 }
 
@@ -552,13 +627,13 @@ type ServiceFabricsClientUpdateResponse struct {
 	ServiceFabric
 }
 
-// ServiceRunnersClientCreateOrUpdateResponse contains the response from method ServiceRunnersClient.CreateOrUpdate.
+// ServiceRunnersClientCreateOrUpdateResponse contains the response from method ServiceRunnersClient.BeginCreateOrUpdate.
 type ServiceRunnersClientCreateOrUpdateResponse struct {
 	// A container for a managed identity to execute DevTest lab services.
 	ServiceRunner
 }
 
-// ServiceRunnersClientDeleteResponse contains the response from method ServiceRunnersClient.Delete.
+// ServiceRunnersClientDeleteResponse contains the response from method ServiceRunnersClient.BeginDelete.
 type ServiceRunnersClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -567,6 +642,70 @@ type ServiceRunnersClientDeleteResponse struct {
 type ServiceRunnersClientGetResponse struct {
 	// A container for a managed identity to execute DevTest lab services.
 	ServiceRunner
+}
+
+// ServiceRunnersClientListResponse contains the response from method ServiceRunnersClient.NewListPager.
+type ServiceRunnersClientListResponse struct {
+	// Contains a list of serviceRunners and their properties
+	ServiceRunnerList
+}
+
+// SharedGalleriesClientCreateOrUpdateResponse contains the response from method SharedGalleriesClient.CreateOrUpdate.
+type SharedGalleriesClientCreateOrUpdateResponse struct {
+	// Properties of a shared gallery
+	SharedGallery
+}
+
+// SharedGalleriesClientDeleteResponse contains the response from method SharedGalleriesClient.Delete.
+type SharedGalleriesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SharedGalleriesClientGetResponse contains the response from method SharedGalleriesClient.Get.
+type SharedGalleriesClientGetResponse struct {
+	// Properties of a shared gallery
+	SharedGallery
+}
+
+// SharedGalleriesClientListResponse contains the response from method SharedGalleriesClient.NewListPager.
+type SharedGalleriesClientListResponse struct {
+	// Contains a list of sharedGalleries and their properties
+	SharedGalleryList
+}
+
+// SharedGalleriesClientUpdateResponse contains the response from method SharedGalleriesClient.Update.
+type SharedGalleriesClientUpdateResponse struct {
+	// Properties of a shared gallery
+	SharedGallery
+}
+
+// SharedImagesClientCreateOrUpdateResponse contains the response from method SharedImagesClient.CreateOrUpdate.
+type SharedImagesClientCreateOrUpdateResponse struct {
+	// Properties of a shared image
+	SharedImage
+}
+
+// SharedImagesClientDeleteResponse contains the response from method SharedImagesClient.Delete.
+type SharedImagesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SharedImagesClientGetResponse contains the response from method SharedImagesClient.Get.
+type SharedImagesClientGetResponse struct {
+	// Properties of a shared image
+	SharedImage
+}
+
+// SharedImagesClientListResponse contains the response from method SharedImagesClient.NewListPager.
+type SharedImagesClientListResponse struct {
+	// Contains a list of sharedImages and their properties
+	SharedImageList
+}
+
+// SharedImagesClientUpdateResponse contains the response from method SharedImagesClient.Update.
+type SharedImagesClientUpdateResponse struct {
+	// Properties of a shared image
+	SharedImage
 }
 
 // UsersClientCreateOrUpdateResponse contains the response from method UsersClient.BeginCreateOrUpdate.
@@ -588,7 +727,7 @@ type UsersClientGetResponse struct {
 
 // UsersClientListResponse contains the response from method UsersClient.NewListPager.
 type UsersClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of users and their properties
 	UserList
 }
 
@@ -622,7 +761,7 @@ type VirtualMachineSchedulesClientGetResponse struct {
 
 // VirtualMachineSchedulesClientListResponse contains the response from method VirtualMachineSchedulesClient.NewListPager.
 type VirtualMachineSchedulesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of schedules and their properties
 	ScheduleList
 }
 
@@ -644,6 +783,11 @@ type VirtualMachinesClientApplyArtifactsResponse struct {
 
 // VirtualMachinesClientClaimResponse contains the response from method VirtualMachinesClient.BeginClaim.
 type VirtualMachinesClientClaimResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachinesClientClearArtifactResultsResponse contains the response from method VirtualMachinesClient.ClearArtifactResults.
+type VirtualMachinesClientClearArtifactResultsResponse struct {
 	// placeholder for future response values
 }
 
@@ -683,7 +827,7 @@ type VirtualMachinesClientListApplicableSchedulesResponse struct {
 
 // VirtualMachinesClientListResponse contains the response from method VirtualMachinesClient.NewListPager.
 type VirtualMachinesClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of virtualMachines and their properties
 	LabVirtualMachineList
 }
 
@@ -747,7 +891,7 @@ type VirtualNetworksClientGetResponse struct {
 
 // VirtualNetworksClientListResponse contains the response from method VirtualNetworksClient.NewListPager.
 type VirtualNetworksClientListResponse struct {
-	// The response of a list operation.
+	// Contains a list of virtualNetworks and their properties
 	VirtualNetworkList
 }
 

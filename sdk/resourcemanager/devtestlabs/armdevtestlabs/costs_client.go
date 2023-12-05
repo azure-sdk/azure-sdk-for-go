@@ -46,7 +46,7 @@ func NewCostsClient(subscriptionID string, credential azcore.TokenCredential, op
 // CreateOrUpdate - Create or replace an existing cost.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the cost.
@@ -98,7 +98,7 @@ func (client *CostsClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, labCost); err != nil {
@@ -119,7 +119,7 @@ func (client *CostsClient) createOrUpdateHandleResponse(resp *http.Response) (Co
 // Get - Get cost.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the cost.
@@ -173,7 +173,7 @@ func (client *CostsClient) getCreateRequest(ctx context.Context, resourceGroupNa
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

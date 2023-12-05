@@ -47,7 +47,7 @@ func NewEnvironmentsClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - Create or replace an existing environment. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -75,7 +75,7 @@ func (client *EnvironmentsClient) BeginCreateOrUpdate(ctx context.Context, resou
 // CreateOrUpdate - Create or replace an existing environment. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *EnvironmentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, userName string, name string, dtlEnvironment DtlEnvironment, options *EnvironmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "EnvironmentsClient.BeginCreateOrUpdate"
@@ -125,7 +125,7 @@ func (client *EnvironmentsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dtlEnvironment); err != nil {
@@ -137,7 +137,7 @@ func (client *EnvironmentsClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Delete environment. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -164,7 +164,7 @@ func (client *EnvironmentsClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Delete environment. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *EnvironmentsClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, userName string, name string, options *EnvironmentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "EnvironmentsClient.BeginDelete"
@@ -214,7 +214,7 @@ func (client *EnvironmentsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -223,7 +223,7 @@ func (client *EnvironmentsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -282,7 +282,7 @@ func (client *EnvironmentsClient) getCreateRequest(ctx context.Context, resource
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -299,7 +299,7 @@ func (client *EnvironmentsClient) getHandleResponse(resp *http.Response) (Enviro
 
 // NewListPager - List environments in a given user profile.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -363,7 +363,7 @@ func (client *EnvironmentsClient) listCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -381,12 +381,12 @@ func (client *EnvironmentsClient) listHandleResponse(resp *http.Response) (Envir
 // Update - Allows modifying tags of environments. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
 //   - name - The name of the environment.
-//   - dtlEnvironment - An environment, which is essentially an ARM template deployment.
+//   - dtlEnvironment - Allows modifying tags of environments. All other properties will be ignored.
 //   - options - EnvironmentsClientUpdateOptions contains the optional parameters for the EnvironmentsClient.Update method.
 func (client *EnvironmentsClient) Update(ctx context.Context, resourceGroupName string, labName string, userName string, name string, dtlEnvironment DtlEnvironmentFragment, options *EnvironmentsClientUpdateOptions) (EnvironmentsClientUpdateResponse, error) {
 	var err error
@@ -438,7 +438,7 @@ func (client *EnvironmentsClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dtlEnvironment); err != nil {

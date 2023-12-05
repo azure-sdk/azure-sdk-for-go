@@ -44,10 +44,10 @@ func NewNotificationChannelsClient(subscriptionID string, credential azcore.Toke
 	return client, nil
 }
 
-// CreateOrUpdate - Create or replace an existing notification channel.
+// CreateOrUpdate - Create or replace an existing Notification Channel.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the notification channel.
@@ -100,7 +100,7 @@ func (client *NotificationChannelsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, notificationChannel); err != nil {
@@ -121,7 +121,7 @@ func (client *NotificationChannelsClient) createOrUpdateHandleResponse(resp *htt
 // Delete - Delete notification channel.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the notification channel.
@@ -172,7 +172,7 @@ func (client *NotificationChannelsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,7 +181,7 @@ func (client *NotificationChannelsClient) deleteCreateRequest(ctx context.Contex
 // Get - Get notification channel.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the notification channel.
@@ -236,7 +236,7 @@ func (client *NotificationChannelsClient) getCreateRequest(ctx context.Context, 
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *NotificationChannelsClient) getHandleResponse(resp *http.Response)
 
 // NewListPager - List notification channels in a given lab.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - options - NotificationChannelsClientListOptions contains the optional parameters for the NotificationChannelsClient.NewListPager
@@ -313,7 +313,7 @@ func (client *NotificationChannelsClient) listCreateRequest(ctx context.Context,
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -331,7 +331,7 @@ func (client *NotificationChannelsClient) listHandleResponse(resp *http.Response
 // Notify - Send notification to provided channel.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the notification channel.
@@ -383,7 +383,7 @@ func (client *NotificationChannelsClient) notifyCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, notifyParameters); err != nil {
@@ -395,11 +395,11 @@ func (client *NotificationChannelsClient) notifyCreateRequest(ctx context.Contex
 // Update - Allows modifying tags of notification channels. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the notification channel.
-//   - notificationChannel - A notification.
+//   - notificationChannel - Allows modifying tags of notification channels. All other properties will be ignored.
 //   - options - NotificationChannelsClientUpdateOptions contains the optional parameters for the NotificationChannelsClient.Update
 //     method.
 func (client *NotificationChannelsClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, notificationChannel NotificationChannelFragment, options *NotificationChannelsClientUpdateOptions) (NotificationChannelsClientUpdateResponse, error) {
@@ -448,7 +448,7 @@ func (client *NotificationChannelsClient) updateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, notificationChannel); err != nil {

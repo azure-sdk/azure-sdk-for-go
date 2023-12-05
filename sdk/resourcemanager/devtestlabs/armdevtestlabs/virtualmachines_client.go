@@ -47,7 +47,7 @@ func NewVirtualMachinesClient(subscriptionID string, credential azcore.TokenCred
 // BeginAddDataDisk - Attach a new or existing data disk to virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -74,7 +74,7 @@ func (client *VirtualMachinesClient) BeginAddDataDisk(ctx context.Context, resou
 // AddDataDisk - Attach a new or existing data disk to virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) addDataDisk(ctx context.Context, resourceGroupName string, labName string, name string, dataDiskProperties DataDiskProperties, options *VirtualMachinesClientBeginAddDataDiskOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginAddDataDisk"
@@ -120,7 +120,7 @@ func (client *VirtualMachinesClient) addDataDiskCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dataDiskProperties); err != nil {
@@ -132,7 +132,7 @@ func (client *VirtualMachinesClient) addDataDiskCreateRequest(ctx context.Contex
 // BeginApplyArtifacts - Apply artifacts to virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -159,7 +159,7 @@ func (client *VirtualMachinesClient) BeginApplyArtifacts(ctx context.Context, re
 // ApplyArtifacts - Apply artifacts to virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) applyArtifacts(ctx context.Context, resourceGroupName string, labName string, name string, applyArtifactsRequest ApplyArtifactsRequest, options *VirtualMachinesClientBeginApplyArtifactsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginApplyArtifacts"
@@ -205,7 +205,7 @@ func (client *VirtualMachinesClient) applyArtifactsCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, applyArtifactsRequest); err != nil {
@@ -217,7 +217,7 @@ func (client *VirtualMachinesClient) applyArtifactsCreateRequest(ctx context.Con
 // BeginClaim - Take ownership of an existing virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -243,7 +243,7 @@ func (client *VirtualMachinesClient) BeginClaim(ctx context.Context, resourceGro
 // Claim - Take ownership of an existing virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) claim(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginClaimOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginClaim"
@@ -289,16 +289,76 @@ func (client *VirtualMachinesClient) claimCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// BeginCreateOrUpdate - Create or replace an existing virtual machine. This operation can take a while to complete.
+// ClearArtifactResults - Clears the artifact results of the virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
+//   - resourceGroupName - The name of the resource group.
+//   - labName - The name of the lab.
+//   - name - The name of the virtual machine.
+//   - options - VirtualMachinesClientClearArtifactResultsOptions contains the optional parameters for the VirtualMachinesClient.ClearArtifactResults
+//     method.
+func (client *VirtualMachinesClient) ClearArtifactResults(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientClearArtifactResultsOptions) (VirtualMachinesClientClearArtifactResultsResponse, error) {
+	var err error
+	const operationName = "VirtualMachinesClient.ClearArtifactResults"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.clearArtifactResultsCreateRequest(ctx, resourceGroupName, labName, name, options)
+	if err != nil {
+		return VirtualMachinesClientClearArtifactResultsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return VirtualMachinesClientClearArtifactResultsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return VirtualMachinesClientClearArtifactResultsResponse{}, err
+	}
+	return VirtualMachinesClientClearArtifactResultsResponse{}, nil
+}
+
+// clearArtifactResultsCreateRequest creates the ClearArtifactResults request.
+func (client *VirtualMachinesClient) clearArtifactResultsCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientClearArtifactResultsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{name}/clearArtifactResults"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if labName == "" {
+		return nil, errors.New("parameter labName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// BeginCreateOrUpdate - Create or replace an existing Virtual machine. This operation can take a while to complete.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -322,10 +382,10 @@ func (client *VirtualMachinesClient) BeginCreateOrUpdate(ctx context.Context, re
 	}
 }
 
-// CreateOrUpdate - Create or replace an existing virtual machine. This operation can take a while to complete.
+// CreateOrUpdate - Create or replace an existing Virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, labVirtualMachine LabVirtualMachine, options *VirtualMachinesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginCreateOrUpdate"
@@ -371,7 +431,7 @@ func (client *VirtualMachinesClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, labVirtualMachine); err != nil {
@@ -383,7 +443,7 @@ func (client *VirtualMachinesClient) createOrUpdateCreateRequest(ctx context.Con
 // BeginDelete - Delete virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -409,7 +469,7 @@ func (client *VirtualMachinesClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Delete virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginDelete"
@@ -455,7 +515,7 @@ func (client *VirtualMachinesClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -464,7 +524,7 @@ func (client *VirtualMachinesClient) deleteCreateRequest(ctx context.Context, re
 // BeginDetachDataDisk - Detach the specified disk from the virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -491,7 +551,7 @@ func (client *VirtualMachinesClient) BeginDetachDataDisk(ctx context.Context, re
 // DetachDataDisk - Detach the specified disk from the virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) detachDataDisk(ctx context.Context, resourceGroupName string, labName string, name string, detachDataDiskProperties DetachDataDiskProperties, options *VirtualMachinesClientBeginDetachDataDiskOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginDetachDataDisk"
@@ -537,7 +597,7 @@ func (client *VirtualMachinesClient) detachDataDiskCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, detachDataDiskProperties); err != nil {
@@ -549,7 +609,7 @@ func (client *VirtualMachinesClient) detachDataDiskCreateRequest(ctx context.Con
 // Get - Get virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -603,7 +663,7 @@ func (client *VirtualMachinesClient) getCreateRequest(ctx context.Context, resou
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -621,7 +681,7 @@ func (client *VirtualMachinesClient) getHandleResponse(resp *http.Response) (Vir
 // GetRdpFileContents - Gets a string that represents the contents of the RDP file for the virtual machine
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -673,7 +733,7 @@ func (client *VirtualMachinesClient) getRdpFileContentsCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -690,7 +750,7 @@ func (client *VirtualMachinesClient) getRdpFileContentsHandleResponse(resp *http
 
 // NewListPager - List virtual machines in a given lab.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - options - VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.NewListPager
@@ -750,7 +810,7 @@ func (client *VirtualMachinesClient) listCreateRequest(ctx context.Context, reso
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -768,7 +828,7 @@ func (client *VirtualMachinesClient) listHandleResponse(resp *http.Response) (Vi
 // ListApplicableSchedules - Lists the applicable start/stop schedules, if any.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -820,7 +880,7 @@ func (client *VirtualMachinesClient) listApplicableSchedulesCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -838,7 +898,7 @@ func (client *VirtualMachinesClient) listApplicableSchedulesHandleResponse(resp 
 // BeginRedeploy - Redeploy a virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -864,7 +924,7 @@ func (client *VirtualMachinesClient) BeginRedeploy(ctx context.Context, resource
 // Redeploy - Redeploy a virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) redeploy(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginRedeployOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginRedeploy"
@@ -910,7 +970,7 @@ func (client *VirtualMachinesClient) redeployCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -919,7 +979,7 @@ func (client *VirtualMachinesClient) redeployCreateRequest(ctx context.Context, 
 // BeginResize - Resize Virtual Machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -946,7 +1006,7 @@ func (client *VirtualMachinesClient) BeginResize(ctx context.Context, resourceGr
 // Resize - Resize Virtual Machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) resize(ctx context.Context, resourceGroupName string, labName string, name string, resizeLabVirtualMachineProperties ResizeLabVirtualMachineProperties, options *VirtualMachinesClientBeginResizeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginResize"
@@ -992,7 +1052,7 @@ func (client *VirtualMachinesClient) resizeCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resizeLabVirtualMachineProperties); err != nil {
@@ -1004,7 +1064,7 @@ func (client *VirtualMachinesClient) resizeCreateRequest(ctx context.Context, re
 // BeginRestart - Restart a virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -1030,7 +1090,7 @@ func (client *VirtualMachinesClient) BeginRestart(ctx context.Context, resourceG
 // Restart - Restart a virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) restart(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginRestartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginRestart"
@@ -1076,7 +1136,7 @@ func (client *VirtualMachinesClient) restartCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1085,7 +1145,7 @@ func (client *VirtualMachinesClient) restartCreateRequest(ctx context.Context, r
 // BeginStart - Start a virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -1111,7 +1171,7 @@ func (client *VirtualMachinesClient) BeginStart(ctx context.Context, resourceGro
 // Start - Start a virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) start(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginStartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginStart"
@@ -1157,7 +1217,7 @@ func (client *VirtualMachinesClient) startCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1166,7 +1226,7 @@ func (client *VirtualMachinesClient) startCreateRequest(ctx context.Context, res
 // BeginStop - Stop a virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -1192,7 +1252,7 @@ func (client *VirtualMachinesClient) BeginStop(ctx context.Context, resourceGrou
 // Stop - Stop a virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) stop(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginStopOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginStop"
@@ -1238,7 +1298,7 @@ func (client *VirtualMachinesClient) stopCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1248,7 +1308,7 @@ func (client *VirtualMachinesClient) stopCreateRequest(ctx context.Context, reso
 // can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -1275,7 +1335,7 @@ func (client *VirtualMachinesClient) BeginTransferDisks(ctx context.Context, res
 // can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) transferDisks(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginTransferDisksOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginTransferDisks"
@@ -1321,7 +1381,7 @@ func (client *VirtualMachinesClient) transferDisksCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1330,7 +1390,7 @@ func (client *VirtualMachinesClient) transferDisksCreateRequest(ctx context.Cont
 // BeginUnClaim - Release ownership of an existing virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
@@ -1356,7 +1416,7 @@ func (client *VirtualMachinesClient) BeginUnClaim(ctx context.Context, resourceG
 // UnClaim - Release ownership of an existing virtual machine This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachinesClient) unClaim(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualMachinesClientBeginUnClaimOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginUnClaim"
@@ -1402,7 +1462,7 @@ func (client *VirtualMachinesClient) unClaimCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1411,11 +1471,11 @@ func (client *VirtualMachinesClient) unClaimCreateRequest(ctx context.Context, r
 // Update - Allows modifying tags of virtual machines. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the virtual machine.
-//   - labVirtualMachine - A virtual machine.
+//   - labVirtualMachine - Allows modifying tags of virtual machines. All other properties will be ignored.
 //   - options - VirtualMachinesClientUpdateOptions contains the optional parameters for the VirtualMachinesClient.Update method.
 func (client *VirtualMachinesClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, labVirtualMachine LabVirtualMachineFragment, options *VirtualMachinesClientUpdateOptions) (VirtualMachinesClientUpdateResponse, error) {
 	var err error
@@ -1463,7 +1523,7 @@ func (client *VirtualMachinesClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, labVirtualMachine); err != nil {

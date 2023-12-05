@@ -47,7 +47,7 @@ func NewArmTemplatesClient(subscriptionID string, credential azcore.TokenCredent
 // Get - Get azure resource manager template.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - artifactSourceName - The name of the artifact source.
@@ -106,7 +106,7 @@ func (client *ArmTemplatesClient) getCreateRequest(ctx context.Context, resource
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,7 +123,7 @@ func (client *ArmTemplatesClient) getHandleResponse(resp *http.Response) (ArmTem
 
 // NewListPager - List azure resource manager templates in a given artifact source.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - artifactSourceName - The name of the artifact source.
@@ -187,7 +187,7 @@ func (client *ArmTemplatesClient) listCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

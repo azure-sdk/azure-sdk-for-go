@@ -47,7 +47,7 @@ func NewDisksClient(subscriptionID string, credential azcore.TokenCredential, op
 // BeginAttach - Attach and create the lease of the disk to the virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -74,7 +74,7 @@ func (client *DisksClient) BeginAttach(ctx context.Context, resourceGroupName st
 // Attach - Attach and create the lease of the disk to the virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *DisksClient) attach(ctx context.Context, resourceGroupName string, labName string, userName string, name string, attachDiskProperties AttachDiskProperties, options *DisksClientBeginAttachOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginAttach"
@@ -124,7 +124,7 @@ func (client *DisksClient) attachCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, attachDiskProperties); err != nil {
@@ -136,7 +136,7 @@ func (client *DisksClient) attachCreateRequest(ctx context.Context, resourceGrou
 // BeginCreateOrUpdate - Create or replace an existing disk. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -164,7 +164,7 @@ func (client *DisksClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 // CreateOrUpdate - Create or replace an existing disk. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *DisksClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, userName string, name string, disk Disk, options *DisksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginCreateOrUpdate"
@@ -214,7 +214,7 @@ func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, disk); err != nil {
@@ -226,7 +226,7 @@ func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, reso
 // BeginDelete - Delete disk. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -252,7 +252,7 @@ func (client *DisksClient) BeginDelete(ctx context.Context, resourceGroupName st
 // Delete - Delete disk. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *DisksClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, userName string, name string, options *DisksClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginDelete"
@@ -302,7 +302,7 @@ func (client *DisksClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,7 +312,7 @@ func (client *DisksClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -339,7 +339,7 @@ func (client *DisksClient) BeginDetach(ctx context.Context, resourceGroupName st
 // Detach - Detach and break the lease of the disk attached to the virtual machine. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *DisksClient) detach(ctx context.Context, resourceGroupName string, labName string, userName string, name string, detachDiskProperties DetachDiskProperties, options *DisksClientBeginDetachOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginDetach"
@@ -389,7 +389,7 @@ func (client *DisksClient) detachCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, detachDiskProperties); err != nil {
@@ -401,7 +401,7 @@ func (client *DisksClient) detachCreateRequest(ctx context.Context, resourceGrou
 // Get - Get disk.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -460,7 +460,7 @@ func (client *DisksClient) getCreateRequest(ctx context.Context, resourceGroupNa
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -477,7 +477,7 @@ func (client *DisksClient) getHandleResponse(resp *http.Response) (DisksClientGe
 
 // NewListPager - List disks in a given user profile.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -541,7 +541,7 @@ func (client *DisksClient) listCreateRequest(ctx context.Context, resourceGroupN
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -559,12 +559,12 @@ func (client *DisksClient) listHandleResponse(resp *http.Response) (DisksClientL
 // Update - Allows modifying tags of disks. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
 //   - name - The name of the disk.
-//   - disk - A Disk.
+//   - disk - Allows modifying tags of disks. All other properties will be ignored.
 //   - options - DisksClientUpdateOptions contains the optional parameters for the DisksClient.Update method.
 func (client *DisksClient) Update(ctx context.Context, resourceGroupName string, labName string, userName string, name string, disk DiskFragment, options *DisksClientUpdateOptions) (DisksClientUpdateResponse, error) {
 	var err error
@@ -616,7 +616,7 @@ func (client *DisksClient) updateCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, disk); err != nil {

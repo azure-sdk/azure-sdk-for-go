@@ -21,67 +21,68 @@ import (
 	"strings"
 )
 
-// VirtualNetworksClient contains the methods for the VirtualNetworks group.
-// Don't use this type directly, use NewVirtualNetworksClient() instead.
-type VirtualNetworksClient struct {
+// BastionHostsClient contains the methods for the BastionHosts group.
+// Don't use this type directly, use NewBastionHostsClient() instead.
+type BastionHostsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewVirtualNetworksClient creates a new instance of VirtualNetworksClient with the specified values.
+// NewBastionHostsClient creates a new instance of BastionHostsClient with the specified values.
 //   - subscriptionID - The subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewVirtualNetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualNetworksClient, error) {
+func NewBastionHostsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BastionHostsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &VirtualNetworksClient{
+	client := &BastionHostsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create or replace an existing virtual network. This operation can take a while to complete.
+// BeginCreateOrUpdate - Create or replace an existing bastionHost. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the virtual network.
-//   - virtualNetwork - A virtual network.
-//   - options - VirtualNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualNetworksClient.BeginCreateOrUpdate
+//   - virtualNetworkName - The name of the virtual network.
+//   - name - The name of the bastionhost.
+//   - bastionHost - Profile of a Bastion Host
+//   - options - BastionHostsClientBeginCreateOrUpdateOptions contains the optional parameters for the BastionHostsClient.BeginCreateOrUpdate
 //     method.
-func (client *VirtualNetworksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, virtualNetwork VirtualNetwork, options *VirtualNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[VirtualNetworksClientCreateOrUpdateResponse], error) {
+func (client *BastionHostsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, bastionHost BastionHost, options *BastionHostsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BastionHostsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, virtualNetwork, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, virtualNetworkName, name, bastionHost, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualNetworksClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BastionHostsClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[VirtualNetworksClientCreateOrUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BastionHostsClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// CreateOrUpdate - Create or replace an existing virtual network. This operation can take a while to complete.
+// CreateOrUpdate - Create or replace an existing bastionHost. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
-func (client *VirtualNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, virtualNetwork VirtualNetwork, options *VirtualNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *BastionHostsClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, bastionHost BastionHost, options *BastionHostsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "VirtualNetworksClient.BeginCreateOrUpdate"
+	const operationName = "BastionHostsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, virtualNetwork, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, virtualNetworkName, name, bastionHost, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +98,8 @@ func (client *VirtualNetworksClient) createOrUpdate(ctx context.Context, resourc
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *VirtualNetworksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, virtualNetwork VirtualNetwork, options *VirtualNetworksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{name}"
+func (client *BastionHostsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, bastionHost BastionHost, options *BastionHostsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -111,6 +112,10 @@ func (client *VirtualNetworksClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if virtualNetworkName == "" {
+		return nil, errors.New("parameter virtualNetworkName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{virtualNetworkName}", url.PathEscape(virtualNetworkName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -123,49 +128,50 @@ func (client *VirtualNetworksClient) createOrUpdateCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, virtualNetwork); err != nil {
+	if err := runtime.MarshalAsJSON(req, bastionHost); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
-// BeginDelete - Delete virtual network. This operation can take a while to complete.
+// BeginDelete - Delete bastionhost. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the virtual network.
-//   - options - VirtualNetworksClientBeginDeleteOptions contains the optional parameters for the VirtualNetworksClient.BeginDelete
+//   - virtualNetworkName - The name of the virtual network.
+//   - name - The name of the bastionhost.
+//   - options - BastionHostsClientBeginDeleteOptions contains the optional parameters for the BastionHostsClient.BeginDelete
 //     method.
-func (client *VirtualNetworksClient) BeginDelete(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualNetworksClientBeginDeleteOptions) (*runtime.Poller[VirtualNetworksClientDeleteResponse], error) {
+func (client *BastionHostsClient) BeginDelete(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, options *BastionHostsClientBeginDeleteOptions) (*runtime.Poller[BastionHostsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, labName, name, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, labName, virtualNetworkName, name, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualNetworksClientDeleteResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BastionHostsClientDeleteResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[VirtualNetworksClientDeleteResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BastionHostsClientDeleteResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// Delete - Delete virtual network. This operation can take a while to complete.
+// Delete - Delete bastionhost. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
-func (client *VirtualNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualNetworksClientBeginDeleteOptions) (*http.Response, error) {
+func (client *BastionHostsClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, options *BastionHostsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "VirtualNetworksClient.BeginDelete"
+	const operationName = "BastionHostsClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, name, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, virtualNetworkName, name, options)
 	if err != nil {
 		return nil, err
 	}
@@ -181,8 +187,8 @@ func (client *VirtualNetworksClient) deleteOperation(ctx context.Context, resour
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *VirtualNetworksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualNetworksClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{name}"
+func (client *BastionHostsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, options *BastionHostsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -195,6 +201,10 @@ func (client *VirtualNetworksClient) deleteCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if virtualNetworkName == "" {
+		return nil, errors.New("parameter virtualNetworkName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{virtualNetworkName}", url.PathEscape(virtualNetworkName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -210,39 +220,40 @@ func (client *VirtualNetworksClient) deleteCreateRequest(ctx context.Context, re
 	return req, nil
 }
 
-// Get - Get virtual network.
+// Get - Get bastionhost.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the virtual network.
-//   - options - VirtualNetworksClientGetOptions contains the optional parameters for the VirtualNetworksClient.Get method.
-func (client *VirtualNetworksClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualNetworksClientGetOptions) (VirtualNetworksClientGetResponse, error) {
+//   - virtualNetworkName - The name of the virtual network.
+//   - name - The name of the bastionhost.
+//   - options - BastionHostsClientGetOptions contains the optional parameters for the BastionHostsClient.Get method.
+func (client *BastionHostsClient) Get(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, options *BastionHostsClientGetOptions) (BastionHostsClientGetResponse, error) {
 	var err error
-	const operationName = "VirtualNetworksClient.Get"
+	const operationName = "BastionHostsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, name, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, virtualNetworkName, name, options)
 	if err != nil {
-		return VirtualNetworksClientGetResponse{}, err
+		return BastionHostsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return VirtualNetworksClientGetResponse{}, err
+		return BastionHostsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return VirtualNetworksClientGetResponse{}, err
+		return BastionHostsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *VirtualNetworksClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *VirtualNetworksClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{name}"
+func (client *BastionHostsClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, options *BastionHostsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -255,6 +266,10 @@ func (client *VirtualNetworksClient) getCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if virtualNetworkName == "" {
+		return nil, errors.New("parameter virtualNetworkName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{virtualNetworkName}", url.PathEscape(virtualNetworkName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -264,9 +279,6 @@ func (client *VirtualNetworksClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -274,37 +286,37 @@ func (client *VirtualNetworksClient) getCreateRequest(ctx context.Context, resou
 }
 
 // getHandleResponse handles the Get response.
-func (client *VirtualNetworksClient) getHandleResponse(resp *http.Response) (VirtualNetworksClientGetResponse, error) {
-	result := VirtualNetworksClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualNetwork); err != nil {
-		return VirtualNetworksClientGetResponse{}, err
+func (client *BastionHostsClient) getHandleResponse(resp *http.Response) (BastionHostsClientGetResponse, error) {
+	result := BastionHostsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BastionHost); err != nil {
+		return BastionHostsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List virtual networks in a given lab.
+// NewListPager - List bastionhosts in a given virtual network.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - options - VirtualNetworksClientListOptions contains the optional parameters for the VirtualNetworksClient.NewListPager
-//     method.
-func (client *VirtualNetworksClient) NewListPager(resourceGroupName string, labName string, options *VirtualNetworksClientListOptions) *runtime.Pager[VirtualNetworksClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[VirtualNetworksClientListResponse]{
-		More: func(page VirtualNetworksClientListResponse) bool {
+//   - virtualNetworkName - The name of the virtual network.
+//   - options - BastionHostsClientListOptions contains the optional parameters for the BastionHostsClient.NewListPager method.
+func (client *BastionHostsClient) NewListPager(resourceGroupName string, labName string, virtualNetworkName string, options *BastionHostsClientListOptions) *runtime.Pager[BastionHostsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[BastionHostsClientListResponse]{
+		More: func(page BastionHostsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *VirtualNetworksClientListResponse) (VirtualNetworksClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "VirtualNetworksClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *BastionHostsClientListResponse) (BastionHostsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BastionHostsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, labName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, labName, virtualNetworkName, options)
 			}, nil)
 			if err != nil {
-				return VirtualNetworksClientListResponse{}, err
+				return BastionHostsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -313,8 +325,8 @@ func (client *VirtualNetworksClient) NewListPager(resourceGroupName string, labN
 }
 
 // listCreateRequest creates the List request.
-func (client *VirtualNetworksClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *VirtualNetworksClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks"
+func (client *BastionHostsClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, options *BastionHostsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -327,14 +339,15 @@ func (client *VirtualNetworksClient) listCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if virtualNetworkName == "" {
+		return nil, errors.New("parameter virtualNetworkName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{virtualNetworkName}", url.PathEscape(virtualNetworkName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -351,48 +364,49 @@ func (client *VirtualNetworksClient) listCreateRequest(ctx context.Context, reso
 }
 
 // listHandleResponse handles the List response.
-func (client *VirtualNetworksClient) listHandleResponse(resp *http.Response) (VirtualNetworksClientListResponse, error) {
-	result := VirtualNetworksClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualNetworkList); err != nil {
-		return VirtualNetworksClientListResponse{}, err
+func (client *BastionHostsClient) listHandleResponse(resp *http.Response) (BastionHostsClientListResponse, error) {
+	result := BastionHostsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BastionHostList); err != nil {
+		return BastionHostsClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Allows modifying tags of virtual networks. All other properties will be ignored.
+// Update - Allows modifying tags of bastionhosts. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the virtual network.
-//   - virtualNetwork - Allows modifying tags of virtual networks. All other properties will be ignored.
-//   - options - VirtualNetworksClientUpdateOptions contains the optional parameters for the VirtualNetworksClient.Update method.
-func (client *VirtualNetworksClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, virtualNetwork VirtualNetworkFragment, options *VirtualNetworksClientUpdateOptions) (VirtualNetworksClientUpdateResponse, error) {
+//   - virtualNetworkName - The name of the virtual network.
+//   - name - The name of the bastionhost.
+//   - bastionHost - Allows modifying tags of bastionhosts. All other properties will be ignored.
+//   - options - BastionHostsClientUpdateOptions contains the optional parameters for the BastionHostsClient.Update method.
+func (client *BastionHostsClient) Update(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, bastionHost BastionHostFragment, options *BastionHostsClientUpdateOptions) (BastionHostsClientUpdateResponse, error) {
 	var err error
-	const operationName = "VirtualNetworksClient.Update"
+	const operationName = "BastionHostsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, name, virtualNetwork, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, virtualNetworkName, name, bastionHost, options)
 	if err != nil {
-		return VirtualNetworksClientUpdateResponse{}, err
+		return BastionHostsClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return VirtualNetworksClientUpdateResponse{}, err
+		return BastionHostsClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return VirtualNetworksClientUpdateResponse{}, err
+		return BastionHostsClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *VirtualNetworksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, virtualNetwork VirtualNetworkFragment, options *VirtualNetworksClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{name}"
+func (client *BastionHostsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, virtualNetworkName string, name string, bastionHost BastionHostFragment, options *BastionHostsClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -405,6 +419,10 @@ func (client *VirtualNetworksClient) updateCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if virtualNetworkName == "" {
+		return nil, errors.New("parameter virtualNetworkName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{virtualNetworkName}", url.PathEscape(virtualNetworkName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -417,17 +435,17 @@ func (client *VirtualNetworksClient) updateCreateRequest(ctx context.Context, re
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, virtualNetwork); err != nil {
+	if err := runtime.MarshalAsJSON(req, bastionHost); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
-func (client *VirtualNetworksClient) updateHandleResponse(resp *http.Response) (VirtualNetworksClientUpdateResponse, error) {
-	result := VirtualNetworksClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualNetwork); err != nil {
-		return VirtualNetworksClientUpdateResponse{}, err
+func (client *BastionHostsClient) updateHandleResponse(resp *http.Response) (BastionHostsClientUpdateResponse, error) {
+	result := BastionHostsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BastionHost); err != nil {
+		return BastionHostsClientUpdateResponse{}, err
 	}
 	return result, nil
 }

@@ -47,7 +47,7 @@ func NewVirtualMachineSchedulesClient(subscriptionID string, credential azcore.T
 // CreateOrUpdate - Create or replace an existing schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - virtualMachineName - The name of the virtual machine.
@@ -105,7 +105,7 @@ func (client *VirtualMachineSchedulesClient) createOrUpdateCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, schedule); err != nil {
@@ -126,7 +126,7 @@ func (client *VirtualMachineSchedulesClient) createOrUpdateHandleResponse(resp *
 // Delete - Delete schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - virtualMachineName - The name of the virtual machine.
@@ -182,7 +182,7 @@ func (client *VirtualMachineSchedulesClient) deleteCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *VirtualMachineSchedulesClient) deleteCreateRequest(ctx context.Con
 // BeginExecute - Execute a schedule. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - virtualMachineName - The name of the virtual machine.
@@ -218,7 +218,7 @@ func (client *VirtualMachineSchedulesClient) BeginExecute(ctx context.Context, r
 // Execute - Execute a schedule. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *VirtualMachineSchedulesClient) execute(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, options *VirtualMachineSchedulesClientBeginExecuteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachineSchedulesClient.BeginExecute"
@@ -268,7 +268,7 @@ func (client *VirtualMachineSchedulesClient) executeCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +277,7 @@ func (client *VirtualMachineSchedulesClient) executeCreateRequest(ctx context.Co
 // Get - Get schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - virtualMachineName - The name of the virtual machine.
@@ -337,7 +337,7 @@ func (client *VirtualMachineSchedulesClient) getCreateRequest(ctx context.Contex
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -354,7 +354,7 @@ func (client *VirtualMachineSchedulesClient) getHandleResponse(resp *http.Respon
 
 // NewListPager - List schedules in a given virtual machine.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - virtualMachineName - The name of the virtual machine.
@@ -419,7 +419,7 @@ func (client *VirtualMachineSchedulesClient) listCreateRequest(ctx context.Conte
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -437,12 +437,12 @@ func (client *VirtualMachineSchedulesClient) listHandleResponse(resp *http.Respo
 // Update - Allows modifying tags of schedules. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - virtualMachineName - The name of the virtual machine.
 //   - name - The name of the schedule.
-//   - schedule - A schedule.
+//   - schedule - Allows modifying tags of schedules. All other properties will be ignored.
 //   - options - VirtualMachineSchedulesClientUpdateOptions contains the optional parameters for the VirtualMachineSchedulesClient.Update
 //     method.
 func (client *VirtualMachineSchedulesClient) Update(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, schedule ScheduleFragment, options *VirtualMachineSchedulesClientUpdateOptions) (VirtualMachineSchedulesClientUpdateResponse, error) {
@@ -495,7 +495,7 @@ func (client *VirtualMachineSchedulesClient) updateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, schedule); err != nil {

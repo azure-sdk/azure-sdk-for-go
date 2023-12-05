@@ -15,27 +15,23 @@ type ApplicableSchedule struct {
 	// REQUIRED; The properties of the resource.
 	Properties *ApplicableScheduleProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
-	Type *string
-}
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
 
-// ApplicableScheduleFragment - Schedules applicable to a virtual machine. The schedules may have been defined on a VM or
-// on lab level.
-type ApplicableScheduleFragment struct {
-	// The tags of the resource.
-	Tags map[string]*string
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // ApplicableScheduleProperties - Properties of a schedules applicable to a virtual machine.
@@ -58,19 +54,22 @@ type ArmTemplate struct {
 	// REQUIRED; The properties of the resource.
 	Properties *ArmTemplateProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -83,12 +82,12 @@ type ArmTemplateInfo struct {
 	Template any
 }
 
-// ArmTemplateList - The response of a list operation.
+// ArmTemplateList - Contains a list of armTemplates and their properties
 type ArmTemplateList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of armTemplates and their properties
 	Value []*ArmTemplate
 }
 
@@ -133,19 +132,22 @@ type Artifact struct {
 	// REQUIRED; The properties of the resource.
 	Properties *ArtifactProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -185,12 +187,12 @@ type ArtifactInstallProperties struct {
 	VMExtensionStatusMessage *string
 }
 
-// ArtifactList - The response of a list operation.
+// ArtifactList - Contains a list of artifacts and their properties
 type ArtifactList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of artifacts and their properties
 	Value []*Artifact
 }
 
@@ -235,34 +237,37 @@ type ArtifactSource struct {
 	// REQUIRED; The properties of the resource.
 	Properties *ArtifactSourceProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ArtifactSourceFragment - Properties of an artifact source.
+// ArtifactSourceFragment - Patch
 type ArtifactSourceFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// ArtifactSourceList - The response of a list operation.
+// ArtifactSourceList - Contains a list of artifactSources and their properties
 type ArtifactSourceList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of artifactSources and their properties
 	Value []*ArtifactSource
 }
 
@@ -320,10 +325,106 @@ type AttachNewDataDiskOptions struct {
 	DiskType *StorageType
 }
 
+// AzureEntityResource - The resource model definition for an Azure Resource Manager resource with an etag.
+type AzureEntityResource struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// BastionHost - Profile of a Bastion Host
+type BastionHost struct {
+	// REQUIRED; The properties of the resource.
+	Properties *BastionHostProperties
+
+	// The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// BastionHostFragment - Patch
+type BastionHostFragment struct {
+	// The tags of the resource.
+	Tags map[string]*string
+}
+
+// BastionHostList - Contains a list of bastionHosts and their properties
+type BastionHostList struct {
+	// URL to get the next set of operation list results if there are any
+	NextLink *string
+
+	// List of bastionHosts and their properties
+	Value []*BastionHost
+}
+
+// BastionHostProperties - Properties of a BastionHost profile.
+type BastionHostProperties struct {
+	// READ-ONLY; The ID of the external BastionHost resource that corresponds to this DTL BastionHost
+	ExternalBastionHostID *string
+
+	// READ-ONLY; The ID of the PublicIpAddress resource that is created by and paired with this BastionHost
+	IPAddressID *string
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
+}
+
 // BulkCreationParameters - Parameters for creating multiple virtual machines as a single action.
 type BulkCreationParameters struct {
 	// The number of virtual machine instances to create.
 	InstanceCount *int32
+}
+
+// CheckNameAvailabilityRequest - The check availability request body.
+type CheckNameAvailabilityRequest struct {
+	// The name of the resource for which availability needs to be checked.
+	Name *string
+
+	// The resource type.
+	Type *string
+}
+
+// CheckNameAvailabilityResponse - The check availability result.
+type CheckNameAvailabilityResponse struct {
+	// Detailed reason why the given name is available.
+	Message *string
+
+	// Indicates if the resource name is available.
+	NameAvailable *bool
+
+	// The reason why the given name is not available.
+	Reason *CheckNameAvailabilityReason
 }
 
 // ComputeDataDisk - A data disks attached to a virtual machine.
@@ -377,6 +478,30 @@ type ComputeVMProperties struct {
 	VMSize *string
 }
 
+// Cost - A cost item.
+type Cost struct {
+	// REQUIRED; The properties of the resource.
+	Properties *LabCostProperties
+
+	// The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // CostThresholdProperties - Properties of a cost threshold item.
 type CostThresholdProperties struct {
 	// Indicates whether this threshold will be displayed on cost charts.
@@ -400,34 +525,37 @@ type CustomImage struct {
 	// REQUIRED; The properties of the resource.
 	Properties *CustomImageProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// CustomImageFragment - A custom image.
+// CustomImageFragment - Patch
 type CustomImageFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// CustomImageList - The response of a list operation.
+// CustomImageList - Contains a list of customImages and their properties
 type CustomImageList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of customImages and their properties
 	Value []*CustomImage
 }
 
@@ -494,6 +622,18 @@ type CustomImagePropertiesFromPlan struct {
 	Publisher *string
 }
 
+// CustomImagePropertiesFromPlanFragment - Properties for plan on a custom image.
+type CustomImagePropertiesFromPlanFragment struct {
+	// The id of the plan, equivalent to name of the plan
+	ID *string
+
+	// The offer for the plan from the marketplace image the custom image is derived from
+	Offer *string
+
+	// The publisher for the plan from the marketplace image the custom image is derived from
+	Publisher *string
+}
+
 // CustomImagePropertiesFromVM - Properties for creating a custom image from a virtual machine.
 type CustomImagePropertiesFromVM struct {
 	// The Linux OS information of the VM.
@@ -550,34 +690,37 @@ type Disk struct {
 	// REQUIRED; The properties of the resource.
 	Properties *DiskProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// DiskFragment - A Disk.
+// DiskFragment - Patch
 type DiskFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// DiskList - The response of a list operation.
+// DiskList - Contains a list of disks and their properties
 type DiskList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of disks and their properties
 	Value []*Disk
 }
 
@@ -622,35 +765,57 @@ type DtlEnvironment struct {
 	// REQUIRED; The properties of the resource.
 	Properties *EnvironmentProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// DtlEnvironmentFragment - An environment, which is essentially an ARM template deployment.
+// DtlEnvironmentFragment - Patch
 type DtlEnvironmentFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// DtlEnvironmentList - The response of a list operation.
+// DtlEnvironmentList - Contains a list of environments and their properties
 type DtlEnvironmentList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of environments and their properties
 	Value []*DtlEnvironment
+}
+
+// Encryption settings
+type Encryption struct {
+	// Gets or sets resourceId of the disk encryption set to use for enabling encryption at rest.
+	DiskEncryptionSetID *string
+
+	// Gets or sets the type of key used to encrypt the data of the disk. Possible values include: 'EncryptionAtRestWithPlatformKey',
+	// 'EncryptionAtRestWithCustomerKey'
+	Type *EncryptionType
+}
+
+// EncryptionProperties - Configuration of key for data encryption
+type EncryptionProperties struct {
+	// Key vault properties.
+	KeyVaultProperties *KeyVaultProperties
+
+	// Indicates whether or not the encryption is enabled for container registry.
+	Status *EncryptionStatus
 }
 
 // EnvironmentDeploymentProperties - Properties of an environment deployment.
@@ -681,6 +846,40 @@ type EnvironmentProperties struct {
 
 	// READ-ONLY; The unique immutable identifier of a resource (Guid).
 	UniqueIdentifier *string
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
 }
 
 // EvaluatePoliciesProperties - Properties for evaluating a policy set.
@@ -739,34 +938,37 @@ type Formula struct {
 	// REQUIRED; The properties of the resource.
 	Properties *FormulaProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// FormulaFragment - A formula for creating a VM, specifying an image base and other parameters
+// FormulaFragment - Patch
 type FormulaFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// FormulaList - The response of a list operation.
+// FormulaList - Contains a list of formulas and their properties
 type FormulaList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of formulas and their properties
 	Value []*Formula
 }
 
@@ -808,28 +1010,31 @@ type GalleryImage struct {
 	// REQUIRED; The properties of the resource.
 	Properties *GalleryImageProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// GalleryImageList - The response of a list operation.
+// GalleryImageList - Contains a list of galleryImages and their properties
 type GalleryImageList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of galleryImages and their properties
 	Value []*GalleryImage
 }
 
@@ -911,6 +1116,18 @@ type HourDetails struct {
 	Minute *int32
 }
 
+// Identity for the resource.
+type Identity struct {
+	// The identity type.
+	Type *string
+
+	// READ-ONLY; The principal ID of resource identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of resource.
+	TenantID *string
+}
+
 // IdentityProperties - Properties of a managed identity
 type IdentityProperties struct {
 	// The client secret URL of the identity.
@@ -922,8 +1139,17 @@ type IdentityProperties struct {
 	// The tenant identifier of resource.
 	TenantID *string
 
-	// Managed identity.
+	// Type of identity (SystemAssigned, UserAssigned, None)
 	Type *ManagedIdentityType
+
+	// If Type is 'UserAssigned': List of user assigned identities.
+	UserAssignedIdentities map[string]any
+}
+
+// ImageVersionProperties - Properties for a shared image version.
+type ImageVersionProperties struct {
+	// Image version name
+	Name *string
 }
 
 // ImportLabVirtualMachineRequest - This represents the payload required to import a virtual machine from a different lab
@@ -949,24 +1175,38 @@ type InboundNatRule struct {
 	TransportProtocol *TransportProtocol
 }
 
+type KeyVaultProperties struct {
+	// The client ID of the identity which will be used to access key vault.
+	Identity *string
+
+	// Key vault uri to access the encryption key.
+	KeyIdentifier *string
+}
+
 // Lab - A lab.
 type Lab struct {
-	// The location of the resource.
+	// The identity of the resource.
+	Identity *IdentityProperties
+
+	// The geo-location where the resource lives
 	Location *string
 
 	// The properties of the resource.
 	Properties *LabProperties
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -996,22 +1236,25 @@ type LabAnnouncementProperties struct {
 
 // LabCost - A cost item.
 type LabCost struct {
-	// REQUIRED; The properties of the resource.
-	Properties *LabCostProperties
-
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// The properties of the resource.
+	Properties *LabCostProperties
+
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1025,6 +1268,15 @@ type LabCostDetailsProperties struct {
 
 	// The date of the cost item.
 	Date *time.Time
+}
+
+// LabCostList - Contains a list of costs and their properties
+type LabCostList struct {
+	// URL to get the next set of operation list results if there are any
+	NextLink *string
+
+	// List of costs and their properties
+	Value []*LabCost
 }
 
 // LabCostProperties - Properties of a cost item.
@@ -1066,18 +1318,18 @@ type LabCostSummaryProperties struct {
 	EstimatedLabCost *float64
 }
 
-// LabFragment - A lab.
+// LabFragment - Patch
 type LabFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// LabList - The response of a list operation.
+// LabList - Contains a list of labs and their properties
 type LabList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of labs and their properties
 	Value []*Lab
 }
 
@@ -1086,14 +1338,32 @@ type LabProperties struct {
 	// The properties of any lab announcement associated with this lab
 	Announcement *LabAnnouncementProperties
 
+	// Is browser connect enabled for the lab
+	BrowserConnect *EnableStatus
+
+	// Default secret for creating virtual machines.
+	DefaultSecretName *string
+
+	// Is auto upgrade of CSE disabled for the lab?
+	DisableAutoUpgradeCseMinorVersion *bool
+
+	// Mechanism used for encryption of resources in a lab (such as virtual machines).
+	Encryption *Encryption
+
 	// The access rights to be granted to the user when provisioning an environment
 	EnvironmentPermission *EnvironmentPermission
 
 	// Extended properties of the lab used for experimental features
 	ExtendedProperties map[string]*string
 
+	// Indicates whether to create Lab resources (e.g. Storage accounts and Key Vaults) in network isolation.
+	IsolateLabResources *EnableStatus
+
 	// Type of storage used by the lab. It can be either Premium or Standard. Default is Premium.
 	LabStorageType *StorageType
+
+	// List of identities which can be used for management of resources.
+	ManagementIdentities map[string]any
 
 	// The ordered list of artifact resource IDs that should be applied on all Linux VM creations by default, prior to the artifacts
 	// specified by the user.
@@ -1141,8 +1411,8 @@ type LabProperties struct {
 	// READ-ONLY; The unique immutable identifier of a resource (Guid).
 	UniqueIdentifier *string
 
-	// READ-ONLY; The resource group in which all new lab virtual machines will be created. To let DevTest Labs manage resource
-	// group creation, set this value to null.
+	// READ-ONLY; The resource group ID in which all new lab virtual machines will be created. Ex: /subscriptions/subId/resourceGroups/rgName
+	// To let DevTest Labs manage resource group creation, set this value to null.
 	VMCreationResourceGroup *string
 
 	// READ-ONLY; The lab's Key vault.
@@ -1179,6 +1449,69 @@ type LabResourceCostProperties struct {
 	Resourcename *string
 }
 
+// LabSecret - A shared secret in a lab.
+type LabSecret struct {
+	// REQUIRED; The properties of the resource.
+	Properties *LabSecretProperties
+
+	// The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// LabSecretFragment - Patch
+type LabSecretFragment struct {
+	// The tags of the resource.
+	Tags map[string]*string
+}
+
+// LabSecretList - Contains a list of secrets and their properties
+type LabSecretList struct {
+	// URL to get the next set of operation list results if there are any
+	NextLink *string
+
+	// List of secrets and their properties
+	Value []*LabSecret
+}
+
+// LabSecretProperties - The properties of labs secrets
+type LabSecretProperties struct {
+	// Is the secret enabled for use with ARM environments?
+	EnabledForArmEnvironments *bool
+
+	// Is the secret enabled for use with artifacts?
+	EnabledForArtifacts *bool
+
+	// Is the secret enabled for use with creation of VMs?
+	EnabledForVMCreation *bool
+
+	// The value of the secret for secret creation.
+	Value *string
+
+	// READ-ONLY; The name of the entry in the lab KeyVault.
+	KeyVaultEntry *string
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
+}
+
 // LabSupportProperties - Properties of a lab's support banner
 type LabSupportProperties struct {
 	// Is the lab support banner active/enabled at this time?
@@ -1194,33 +1527,36 @@ type LabVhd struct {
 	ID *string
 }
 
-// LabVhdList - The response of a list operation.
+// LabVhdList - Contains a list of Lab Vhd and their properties
 type LabVhdList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of Lab Vhd and their properties
 	Value []*LabVhd
 }
 
 // LabVirtualMachine - A virtual machine.
 type LabVirtualMachine struct {
-	// REQUIRED; The properties of the resource.
-	Properties *LabVirtualMachineProperties
-
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// The properties of the resource.
+	Properties *LabVirtualMachineProperties
+
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1271,6 +1607,9 @@ type LabVirtualMachineCreationParameterProperties struct {
 	// The Microsoft Azure Marketplace image reference of the virtual machine.
 	GalleryImageReference *GalleryImageReference
 
+	// The shared gallery image version resource identifier of the virtual machine.
+	GalleryImageVersionID *string
+
 	// Indicates whether this virtual machine uses an SSH key for authentication.
 	IsAuthenticationWithSSHKey *bool
 
@@ -1285,6 +1624,10 @@ type LabVirtualMachineCreationParameterProperties struct {
 
 	// The notes of the virtual machine.
 	Notes *string
+
+	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
+	// virtual machine image.
+	OSDiskSizeGb *int32
 
 	// The object identifier of the owner of the virtual machine.
 	OwnerObjectID *string
@@ -1304,28 +1647,73 @@ type LabVirtualMachineCreationParameterProperties struct {
 	// Virtual Machine schedules to be created
 	ScheduleParameters []*ScheduleCreationParameter
 
+	// The shared image resource identifier of the virtual machine.
+	SharedImageID *string
+
+	// The shared image version for the specified shared image Id. Will use latest if not specified.
+	SharedImageVersion *string
+
 	// The size of the virtual machine.
 	Size *string
 
-	// Storage type to use for virtual machine (i.e. Standard, Premium).
-	StorageType *string
+	// Storage type to use for virtual machine (i.e. Standard, Premium, StandardSSD).
+	StorageType *StorageType
 
 	// The user name of the virtual machine.
 	UserName *string
+
+	// READ-ONLY; The applicable schedule for the virtual machine.
+	ApplicableSchedule *ApplicableSchedule
+
+	// READ-ONLY; The artifact deployment status for the virtual machine.
+	ArtifactDeploymentStatus *ArtifactDeploymentStatusProperties
+
+	// READ-ONLY; Flag to determine if apply artifacts can be triggered at the time of fetching the document.
+	CanApplyArtifacts *bool
+
+	// READ-ONLY; The resource identifier (Microsoft.Compute) of the virtual machine.
+	ComputeID *string
+
+	// READ-ONLY; The compute virtual machine properties.
+	ComputeVM *ComputeVMProperties
+
+	// READ-ONLY; The email address of creator of the virtual machine.
+	CreatedByUser *string
+
+	// READ-ONLY; The object identifier of the creator of the virtual machine.
+	CreatedByUserID *string
+
+	// READ-ONLY; The fully-qualified domain name of the virtual machine.
+	Fqdn *string
+
+	// READ-ONLY; Last known compute power state captured in DTL
+	LastKnownPowerState *string
+
+	// READ-ONLY; The OS type of the virtual machine.
+	OSType *string
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
+
+	// READ-ONLY; Tells source of creation of lab virtual machine. Output property only.
+	VirtualMachineCreationSource *VirtualMachineCreationSource
 }
 
-// LabVirtualMachineFragment - A virtual machine.
+// LabVirtualMachineFragment - Patch
 type LabVirtualMachineFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// LabVirtualMachineList - The response of a list operation.
+// LabVirtualMachineList - Contains a list of virtualMachines and their properties
 type LabVirtualMachineList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of virtualMachines and their properties
 	Value []*LabVirtualMachine
 }
 
@@ -1358,6 +1746,9 @@ type LabVirtualMachineProperties struct {
 	// The Microsoft Azure Marketplace image reference of the virtual machine.
 	GalleryImageReference *GalleryImageReference
 
+	// The shared gallery image version resource identifier of the virtual machine.
+	GalleryImageVersionID *string
+
 	// Indicates whether this virtual machine uses an SSH key for authentication.
 	IsAuthenticationWithSSHKey *bool
 
@@ -1372,6 +1763,10 @@ type LabVirtualMachineProperties struct {
 
 	// The notes of the virtual machine.
 	Notes *string
+
+	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
+	// virtual machine image.
+	OSDiskSizeGb *int32
 
 	// The object identifier of the owner of the virtual machine.
 	OwnerObjectID *string
@@ -1391,11 +1786,17 @@ type LabVirtualMachineProperties struct {
 	// Virtual Machine schedules to be created
 	ScheduleParameters []*ScheduleCreationParameter
 
+	// The shared image resource identifier of the virtual machine.
+	SharedImageID *string
+
+	// The shared image version for the specified shared image Id. Will use latest if not specified.
+	SharedImageVersion *string
+
 	// The size of the virtual machine.
 	Size *string
 
-	// Storage type to use for virtual machine (i.e. Standard, Premium).
-	StorageType *string
+	// Storage type to use for virtual machine (i.e. Standard, Premium, StandardSSD).
+	StorageType *StorageTypes
 
 	// The user name of the virtual machine.
 	UserName *string
@@ -1405,6 +1806,9 @@ type LabVirtualMachineProperties struct {
 
 	// READ-ONLY; The artifact deployment status for the virtual machine.
 	ArtifactDeploymentStatus *ArtifactDeploymentStatusProperties
+
+	// READ-ONLY; Flag to determine if apply artifacts can be triggered at the time of fetching the document.
+	CanApplyArtifacts *bool
 
 	// READ-ONLY; The resource identifier (Microsoft.Compute) of the virtual machine.
 	ComputeID *string
@@ -1443,6 +1847,21 @@ type LinuxOsInfo struct {
 	LinuxOsState *LinuxOsState
 }
 
+// LocationData - Metadata pertaining to the geographic location of the resource.
+type LocationData struct {
+	// REQUIRED; A canonical name for the geographic or physical location.
+	Name *string
+
+	// The city or locality where the resource is located.
+	City *string
+
+	// The country or region where the resource is located
+	CountryOrRegion *string
+
+	// The district, state, or province where the resource is located.
+	District *string
+}
+
 // NetworkInterfaceProperties - Properties of a network interface.
 type NetworkInterfaceProperties struct {
 	// The DNS name.
@@ -1476,37 +1895,40 @@ type NetworkInterfaceProperties struct {
 
 // NotificationChannel - A notification.
 type NotificationChannel struct {
-	// REQUIRED; The properties of the resource.
-	Properties *NotificationChannelProperties
-
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// The properties of the resource.
+	Properties *NotificationChannelProperties
+
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// NotificationChannelFragment - A notification.
+// NotificationChannelFragment - Patch
 type NotificationChannelFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// NotificationChannelList - The response of a list operation.
+// NotificationChannelList - Contains a list of notificationChannels and their properties
 type NotificationChannelList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of notificationChannels and their properties
 	Value []*NotificationChannel
 }
 
@@ -1564,6 +1986,45 @@ type NotifyParameters struct {
 	JSONPayload *string
 }
 
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+type Operation struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
+
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
+	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
+}
+
+// OperationDisplay - Localized display information for this particular operation.
+type OperationDisplay struct {
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
+	Description *string
+
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
+	Operation *string
+
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
+	Provider *string
+
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
+	Resource *string
+}
+
 // OperationError - Error details for the operation in case of a failure.
 type OperationError struct {
 	// The error code of the operation error.
@@ -1571,6 +2032,16 @@ type OperationError struct {
 
 	// The error message of the operation error.
 	Message *string
+}
+
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
+
+	// READ-ONLY; List of operations supported by the resource provider
+	Value []*Operation
 }
 
 // OperationMetadata - The REST API operation supported by DevTestLab ResourceProvider.
@@ -1609,6 +2080,33 @@ type OperationResult struct {
 	StatusCode *HTTPStatusCode
 }
 
+// OperationStatusResult - The current status of an async operation.
+type OperationStatusResult struct {
+	// REQUIRED; Operation status.
+	Status *string
+
+	// The end time of the operation.
+	EndTime *time.Time
+
+	// If present, details of the operation error.
+	Error *ErrorDetail
+
+	// Fully qualified ID for the async operation.
+	ID *string
+
+	// Name of the async operation.
+	Name *string
+
+	// The operations list.
+	Operations []*OperationStatusResult
+
+	// Percent of the operation that is complete.
+	PercentComplete *float32
+
+	// The start time of the operation.
+	StartTime *time.Time
+}
+
 // ParameterInfo - Information about an artifact's parameter.
 type ParameterInfo struct {
 	// The name of the artifact parameter.
@@ -1633,39 +2131,61 @@ type PercentageCostThresholdProperties struct {
 	ThresholdValue *float64
 }
 
-// Policy - A Policy.
-type Policy struct {
-	// REQUIRED; The properties of the resource.
-	Properties *PolicyProperties
-
-	// The location of the resource.
-	Location *string
-
-	// The tags of the resource.
-	Tags map[string]*string
-
-	// READ-ONLY; The identifier of the resource.
-	ID *string
-
-	// READ-ONLY; The name of the resource.
+// Plan for the resource.
+type Plan struct {
+	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
+	// at the time of Data Market onboarding.
+	Product *string
+
+	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
+	Publisher *string
+
+	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
+	PromotionCode *string
+
+	// The version of the desired product/artifact.
+	Version *string
+}
+
+// Policy - A Policy.
+type Policy struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// The properties of the resource.
+	Properties *PolicyProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PolicyFragment - A Policy.
+// PolicyFragment - Patch
 type PolicyFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// PolicyList - The response of a list operation.
+// PolicyList - Contains a list of policies and their properties
 type PolicyList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of policies and their properties
 	Value []*Policy
 }
 
@@ -1692,6 +2212,48 @@ type PolicyProperties struct {
 	// READ-ONLY; The creation date of the policy.
 	CreatedDate *time.Time
 
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
+}
+
+// PolicySet - A PolicySet.
+type PolicySet struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// The properties of the resource.
+	Properties *PolicySetProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PolicySetList - Contains a list of policySets and their properties
+type PolicySetList struct {
+	// URL to get the next set of operation list results if there are any
+	NextLink *string
+
+	// READ-ONLY; List of policySets and their properties
+	Value []*PolicySet
+}
+
+// PolicySetProperties - Properties of a PolicySet.
+type PolicySetProperties struct {
 	// READ-ONLY; The provisioning status of the resource.
 	ProvisioningState *string
 
@@ -1735,6 +2297,25 @@ type ProviderOperationResult struct {
 	NextLink *string
 }
 
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // RdpConnection - Represents a .rdp file
 type RdpConnection struct {
 	// The contents of the .rdp file
@@ -1747,22 +2328,109 @@ type ResizeLabVirtualMachineProperties struct {
 	Size *string
 }
 
-// Resource - An Azure resource.
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// ResourceModelWithAllowedPropertySet - The resource model definition containing the full set of allowed properties for a
+// resource. Except properties bag, there cannot be a top level property outside of this set.
+type ResourceModelWithAllowedPropertySet struct {
+	Identity *ResourceModelWithAllowedPropertySetIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
+	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
+	// validate and persist this value.
+	Kind *string
+
+	// The geo-location where the resource lives
+	Location *string
+
+	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
+	// Azure resource. If this is present, complete mode deployment will not
+	// delete the resource if it is removed from the template since it is managed by another resource.
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
+	SKU       *ResourceModelWithAllowedPropertySetSKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
+	// per the normal etag convention. Entity tags are used for comparing two or more entities
+	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
+	// (section 14.26), and If-Range (section 14.27) header fields.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type ResourceModelWithAllowedPropertySetIdentity struct {
+	// The identity type.
+	Type *string
+
+	// READ-ONLY; The principal ID of resource identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of resource.
+	TenantID *string
+}
+
+type ResourceModelWithAllowedPropertySetPlan struct {
+	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
+	Name *string
+
+	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
+	// at the time of Data Market onboarding.
+	Product *string
+
+	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
+	Publisher *string
+
+	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
+	PromotionCode *string
+
+	// The version of the desired product/artifact.
+	Version *string
+}
+
+type ResourceModelWithAllowedPropertySetSKU struct {
+	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
+	Name *string
+
+	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
+	// resource this may be omitted.
+	Capacity *int32
+
+	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
+	Family *string
+
+	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
+	Size *string
+
+	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
+	// on a PUT.
+	Tier *SKUTier
 }
 
 // RetargetScheduleProperties - Properties for retargeting a virtual machine schedule.
@@ -1774,24 +2442,47 @@ type RetargetScheduleProperties struct {
 	TargetResourceID *string
 }
 
-// Schedule - A schedule.
-type Schedule struct {
-	// REQUIRED; The properties of the resource.
-	Properties *ScheduleProperties
-
-	// The location of the resource.
-	Location *string
-
-	// The tags of the resource.
-	Tags map[string]*string
-
-	// READ-ONLY; The identifier of the resource.
-	ID *string
-
-	// READ-ONLY; The name of the resource.
+// SKU - The resource model definition representing SKU
+type SKU struct {
+	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
+	// resource this may be omitted.
+	Capacity *int32
+
+	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
+	Family *string
+
+	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
+	Size *string
+
+	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
+	// on a PUT.
+	Tier *SKUTier
+}
+
+// Schedule - A schedule.
+type Schedule struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// The properties of the resource.
+	Properties *ScheduleProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1835,20 +2526,29 @@ type ScheduleCreationParameterProperties struct {
 
 	// If the schedule will occur only some days of the week, specify the weekly recurrence.
 	WeeklyRecurrence *WeekDetails
+
+	// READ-ONLY; The creation date of the schedule.
+	CreatedDate *time.Time
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
 }
 
-// ScheduleFragment - A schedule.
+// ScheduleFragment - Patch
 type ScheduleFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// ScheduleList - The response of a list operation.
+// ScheduleList - Contains a list of schedules and their properties
 type ScheduleList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of schedules and their properties
 	Value []*Schedule
 }
 
@@ -1890,37 +2590,40 @@ type ScheduleProperties struct {
 
 // Secret - A secret.
 type Secret struct {
-	// REQUIRED; The properties of the resource.
-	Properties *SecretProperties
-
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// The properties of the resource.
+	Properties *SecretProperties
+
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// SecretFragment - A secret.
+// SecretFragment - Patch
 type SecretFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// SecretList - The response of a list operation.
+// SecretList - Contains a list of secrets and their properties
 type SecretList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of secrets and their properties
 	Value []*Secret
 }
 
@@ -1938,37 +2641,40 @@ type SecretProperties struct {
 
 // ServiceFabric - A Service Fabric.
 type ServiceFabric struct {
-	// REQUIRED; The properties of the resource.
-	Properties *ServiceFabricProperties
-
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// The properties of the resource.
+	Properties *ServiceFabricProperties
+
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ServiceFabricFragment - A Service Fabric.
+// ServiceFabricFragment - Patch
 type ServiceFabricFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// ServiceFabricList - The response of a list operation.
+// ServiceFabricList - Contains a list of serviceFabrics and their properties
 type ServiceFabricList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of serviceFabrics and their properties
 	Value []*ServiceFabric
 }
 
@@ -1995,78 +2701,174 @@ type ServiceRunner struct {
 	// The identity of the resource.
 	Identity *IdentityProperties
 
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
-	// The tags of the resource.
+	// The properties of the resource.
+	Properties *ServiceRunnerProperties
+
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ServiceRunnerList - The response of a list operation.
+// ServiceRunnerList - Contains a list of serviceRunners and their properties
 type ServiceRunnerList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of serviceRunners and their properties
 	Value []*ServiceRunner
+}
+
+// ServiceRunnerProperties - Properties of a virtual machine.
+type ServiceRunnerProperties struct {
+	// The purpose of bringing the identity to the lab. Ex: To use during Environment creation or to deploy on the VMs.
+	IdentityUsageType *string
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
+}
+
+// SharedGallery - Properties of a shared gallery
+type SharedGallery struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// The properties of the resource.
+	Properties *SharedGalleryProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SharedGalleryFragment - Patch
+type SharedGalleryFragment struct {
+	// The tags of the resource.
+	Tags map[string]*string
+}
+
+// SharedGalleryList - Contains a list of sharedGalleries and their properties
+type SharedGalleryList struct {
+	// URL to get the next set of operation list results if there are any
+	NextLink *string
+
+	// List of sharedGalleries and their properties
+	Value []*SharedGallery
+}
+
+// SharedGalleryProperties - Properties of a shared gallery
+type SharedGalleryProperties struct {
+	// Enables all images in the gallery to be available in the lab for VM creation. This will override the EnableState on shared
+	// images
+	AllowAllImages *EnableState
+
+	// The shared image gallery resource Id
+	GalleryID *string
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
+}
+
+// SharedImage - Properties of a shared image
+type SharedImage struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// The properties of the resource.
+	Properties *SharedImageProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SharedImageFragment - Patch
+type SharedImageFragment struct {
+	// The tags of the resource.
+	Tags map[string]*string
+}
+
+// SharedImageList - Contains a list of sharedImages and their properties
+type SharedImageList struct {
+	// URL to get the next set of operation list results if there are any
+	NextLink *string
+
+	// List of sharedImages and their properties
+	Value []*SharedImage
+}
+
+// SharedImageProperties - Properties of a shared image
+type SharedImageProperties struct {
+	// Shared Image definition name in shared image gallery
+	DefinitionName *string
+
+	// Display name of the image
+	DisplayName *string
+
+	// Whether or not the image is enabled.
+	EnableState *EnableState
+
+	// The type of image in the gallery (generalized or specialized)
+	ImageType *ImageType
+
+	// The operating system of the image
+	OSType *OsType
+
+	// List of image versions in definition
+	Versions []*ImageVersionProperties
+
+	// READ-ONLY; The provisioning status of the resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The unique immutable identifier of a resource (Guid).
+	UniqueIdentifier *string
 }
 
 // SharedPublicIPAddressConfiguration - Properties of a virtual machine that determine how it is connected to a load balancer.
 type SharedPublicIPAddressConfiguration struct {
 	// The incoming NAT rules
 	InboundNatRules []*InboundNatRule
-}
-
-// ShutdownNotificationContent - The contents of a shutdown notification. Webhooks can use this type to deserialize the request
-// body when they get notified of an imminent shutdown.
-type ShutdownNotificationContent struct {
-	// The URL to delay shutdown by 2 hours.
-	DelayUrl120 *string
-
-	// The URL to delay shutdown by 60 minutes.
-	DelayUrl60 *string
-
-	// The event for which a notification will be sent.
-	EventType *string
-
-	// The GUID for the virtual machine to be shut down.
-	GUID *string
-
-	// The lab for the schedule.
-	LabName *string
-
-	// Minutes remaining until shutdown
-	MinutesUntilShutdown *string
-
-	// The owner of the virtual machine.
-	Owner *string
-
-	// The resource group name for the schedule.
-	ResourceGroupName *string
-
-	// The URL to skip auto-shutdown.
-	SkipURL *string
-
-	// The subscription ID for the schedule.
-	SubscriptionID *string
-
-	// The text for the notification.
-	Text *string
-
-	// The virtual machine to be shut down.
-	VMName *string
-
-	// The URL of the virtual machine.
-	VMURL *string
 }
 
 // Subnet information.
@@ -2108,6 +2910,27 @@ type SubnetSharedPublicIPAddressConfiguration struct {
 	AllowedPorts []*Port
 }
 
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
 // TargetCostProperties - Properties of a cost target.
 type TargetCostProperties struct {
 	// Cost thresholds.
@@ -2137,26 +2960,29 @@ type UpdateResource struct {
 
 // User - Profile of a lab user.
 type User struct {
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
 	// The properties of the resource.
 	Properties *UserProperties
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// UserFragment - Profile of a lab user.
+// UserFragment - Patch
 type UserFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
@@ -2181,12 +3007,12 @@ type UserIdentity struct {
 	TenantID *string
 }
 
-// UserList - The response of a list operation.
+// UserList - Contains a list of users and their properties
 type UserList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of users and their properties
 	Value []*User
 }
 
@@ -2219,37 +3045,40 @@ type UserSecretStore struct {
 
 // VirtualNetwork - A virtual network.
 type VirtualNetwork struct {
-	// The location of the resource.
+	// The geo-location where the resource lives
 	Location *string
 
 	// The properties of the resource.
 	Properties *VirtualNetworkProperties
 
-	// The tags of the resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; The identifier of the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; The system metadata relating to this resource
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// VirtualNetworkFragment - A virtual network.
+// VirtualNetworkFragment - Patch
 type VirtualNetworkFragment struct {
 	// The tags of the resource.
 	Tags map[string]*string
 }
 
-// VirtualNetworkList - The response of a list operation.
+// VirtualNetworkList - Contains a list of virtualNetworks and their properties
 type VirtualNetworkList struct {
-	// Link for next set of results.
+	// URL to get the next set of operation list results if there are any
 	NextLink *string
 
-	// Results of the list operation.
+	// List of virtualNetworks and their properties
 	Value []*VirtualNetwork
 }
 
@@ -2282,6 +3111,15 @@ type VirtualNetworkProperties struct {
 
 // WeekDetails - Properties of a weekly schedule.
 type WeekDetails struct {
+	// The time of the day the schedule will occur.
+	Time *string
+
+	// The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.).
+	Weekdays []*string
+}
+
+// WeekDetailsFragment - Properties of a weekly schedule.
+type WeekDetailsFragment struct {
 	// The time of the day the schedule will occur.
 	Time *string
 

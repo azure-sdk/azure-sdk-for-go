@@ -48,7 +48,7 @@ func NewArtifactsClient(subscriptionID string, credential azcore.TokenCredential
 // and validates the generated artifact.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - artifactSourceName - The name of the artifact source.
@@ -106,7 +106,7 @@ func (client *ArtifactsClient) generateArmTemplateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, generateArmTemplateRequest); err != nil {
@@ -127,7 +127,7 @@ func (client *ArtifactsClient) generateArmTemplateHandleResponse(resp *http.Resp
 // Get - Get artifact.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - artifactSourceName - The name of the artifact source.
@@ -186,7 +186,7 @@ func (client *ArtifactsClient) getCreateRequest(ctx context.Context, resourceGro
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -203,7 +203,7 @@ func (client *ArtifactsClient) getHandleResponse(resp *http.Response) (Artifacts
 
 // NewListPager - List artifacts in a given artifact source.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - artifactSourceName - The name of the artifact source.
@@ -267,7 +267,7 @@ func (client *ArtifactsClient) listCreateRequest(ctx context.Context, resourceGr
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -21,64 +21,84 @@ import (
 	"strings"
 )
 
-// ArtifactSourcesClient contains the methods for the ArtifactSources group.
-// Don't use this type directly, use NewArtifactSourcesClient() instead.
-type ArtifactSourcesClient struct {
+// LabSecretsClient contains the methods for the LabSecrets group.
+// Don't use this type directly, use NewLabSecretsClient() instead.
+type LabSecretsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewArtifactSourcesClient creates a new instance of ArtifactSourcesClient with the specified values.
+// NewLabSecretsClient creates a new instance of LabSecretsClient with the specified values.
 //   - subscriptionID - The subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewArtifactSourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ArtifactSourcesClient, error) {
+func NewLabSecretsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LabSecretsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ArtifactSourcesClient{
+	client := &LabSecretsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create or replace an existing artifact source.
+// BeginCreateOrUpdate - Create or replace an existing Lab Secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - artifactSource - Properties of an artifact source.
-//   - options - ArtifactSourcesClientCreateOrUpdateOptions contains the optional parameters for the ArtifactSourcesClient.CreateOrUpdate
+//   - name - The name of the lab secret.
+//   - labSecret - A shared secret in a lab.
+//   - options - LabSecretsClientBeginCreateOrUpdateOptions contains the optional parameters for the LabSecretsClient.BeginCreateOrUpdate
 //     method.
-func (client *ArtifactSourcesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSource, options *ArtifactSourcesClientCreateOrUpdateOptions) (ArtifactSourcesClientCreateOrUpdateResponse, error) {
+func (client *LabSecretsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, labSecret LabSecret, options *LabSecretsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LabSecretsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, labSecret, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[LabSecretsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[LabSecretsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// CreateOrUpdate - Create or replace an existing Lab Secret. This operation can take a while to complete.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
+func (client *LabSecretsClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, labSecret LabSecret, options *LabSecretsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.CreateOrUpdate"
+	const operationName = "LabSecretsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, artifactSource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, labSecret, options)
 	if err != nil {
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
+	if !runtime.HasStatusCode(httpResp, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.createOrUpdateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ArtifactSourcesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSource, options *ArtifactSourcesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *LabSecretsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, labSecret LabSecret, options *LabSecretsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -103,53 +123,65 @@ func (client *ArtifactSourcesClient) createOrUpdateCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, artifactSource); err != nil {
+	if err := runtime.MarshalAsJSON(req, labSecret); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ArtifactSourcesClient) createOrUpdateHandleResponse(resp *http.Response) (ArtifactSourcesClientCreateOrUpdateResponse, error) {
-	result := ArtifactSourcesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSource); err != nil {
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
-	}
-	return result, nil
-}
-
-// Delete - Delete artifact source.
+// BeginDelete - Delete lab secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - options - ArtifactSourcesClientDeleteOptions contains the optional parameters for the ArtifactSourcesClient.Delete method.
-func (client *ArtifactSourcesClient) Delete(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientDeleteOptions) (ArtifactSourcesClientDeleteResponse, error) {
+//   - name - The name of the lab secret.
+//   - options - LabSecretsClientBeginDeleteOptions contains the optional parameters for the LabSecretsClient.BeginDelete method.
+func (client *LabSecretsClient) BeginDelete(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientBeginDeleteOptions) (*runtime.Poller[LabSecretsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, labName, name, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[LabSecretsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[LabSecretsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Delete - Delete lab secret. This operation can take a while to complete.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
+func (client *LabSecretsClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.Delete"
+	const operationName = "LabSecretsClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, name, options)
 	if err != nil {
-		return ArtifactSourcesClientDeleteResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientDeleteResponse{}, err
+		return nil, err
 	}
-	return ArtifactSourcesClientDeleteResponse{}, nil
+	return httpResp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ArtifactSourcesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *LabSecretsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -177,39 +209,39 @@ func (client *ArtifactSourcesClient) deleteCreateRequest(ctx context.Context, re
 	return req, nil
 }
 
-// Get - Get artifact source.
+// Get - Get lab secret.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - options - ArtifactSourcesClientGetOptions contains the optional parameters for the ArtifactSourcesClient.Get method.
-func (client *ArtifactSourcesClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientGetOptions) (ArtifactSourcesClientGetResponse, error) {
+//   - name - The name of the lab secret.
+//   - options - LabSecretsClientGetOptions contains the optional parameters for the LabSecretsClient.Get method.
+func (client *LabSecretsClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientGetOptions) (LabSecretsClientGetResponse, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.Get"
+	const operationName = "LabSecretsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, name, options)
 	if err != nil {
-		return ArtifactSourcesClientGetResponse{}, err
+		return LabSecretsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientGetResponse{}, err
+		return LabSecretsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientGetResponse{}, err
+		return LabSecretsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ArtifactSourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *LabSecretsClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *LabSecretsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -231,9 +263,6 @@ func (client *ArtifactSourcesClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -241,28 +270,27 @@ func (client *ArtifactSourcesClient) getCreateRequest(ctx context.Context, resou
 }
 
 // getHandleResponse handles the Get response.
-func (client *ArtifactSourcesClient) getHandleResponse(resp *http.Response) (ArtifactSourcesClientGetResponse, error) {
-	result := ArtifactSourcesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSource); err != nil {
-		return ArtifactSourcesClientGetResponse{}, err
+func (client *LabSecretsClient) getHandleResponse(resp *http.Response) (LabSecretsClientGetResponse, error) {
+	result := LabSecretsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.LabSecret); err != nil {
+		return LabSecretsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List artifact sources in a given lab.
+// NewListPager - List lab secrets in a given lab.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - options - ArtifactSourcesClientListOptions contains the optional parameters for the ArtifactSourcesClient.NewListPager
-//     method.
-func (client *ArtifactSourcesClient) NewListPager(resourceGroupName string, labName string, options *ArtifactSourcesClientListOptions) *runtime.Pager[ArtifactSourcesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ArtifactSourcesClientListResponse]{
-		More: func(page ArtifactSourcesClientListResponse) bool {
+//   - options - LabSecretsClientListOptions contains the optional parameters for the LabSecretsClient.NewListPager method.
+func (client *LabSecretsClient) NewListPager(resourceGroupName string, labName string, options *LabSecretsClientListOptions) *runtime.Pager[LabSecretsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[LabSecretsClientListResponse]{
+		More: func(page LabSecretsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ArtifactSourcesClientListResponse) (ArtifactSourcesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ArtifactSourcesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *LabSecretsClientListResponse) (LabSecretsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "LabSecretsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -271,7 +299,7 @@ func (client *ArtifactSourcesClient) NewListPager(resourceGroupName string, labN
 				return client.listCreateRequest(ctx, resourceGroupName, labName, options)
 			}, nil)
 			if err != nil {
-				return ArtifactSourcesClientListResponse{}, err
+				return LabSecretsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -280,8 +308,8 @@ func (client *ArtifactSourcesClient) NewListPager(resourceGroupName string, labN
 }
 
 // listCreateRequest creates the List request.
-func (client *ArtifactSourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *ArtifactSourcesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources"
+func (client *LabSecretsClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *LabSecretsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -299,9 +327,6 @@ func (client *ArtifactSourcesClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -318,48 +343,48 @@ func (client *ArtifactSourcesClient) listCreateRequest(ctx context.Context, reso
 }
 
 // listHandleResponse handles the List response.
-func (client *ArtifactSourcesClient) listHandleResponse(resp *http.Response) (ArtifactSourcesClientListResponse, error) {
-	result := ArtifactSourcesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSourceList); err != nil {
-		return ArtifactSourcesClientListResponse{}, err
+func (client *LabSecretsClient) listHandleResponse(resp *http.Response) (LabSecretsClientListResponse, error) {
+	result := LabSecretsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.LabSecretList); err != nil {
+		return LabSecretsClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Allows modifying tags of artifact sources. All other properties will be ignored.
+// Update - Allows modifying tags of lab secrets. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - artifactSource - Allows modifying tags of artifact sources. All other properties will be ignored.
-//   - options - ArtifactSourcesClientUpdateOptions contains the optional parameters for the ArtifactSourcesClient.Update method.
-func (client *ArtifactSourcesClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSourceFragment, options *ArtifactSourcesClientUpdateOptions) (ArtifactSourcesClientUpdateResponse, error) {
+//   - name - The name of the lab secret.
+//   - secret - Allows modifying tags of lab secrets. All other properties will be ignored.
+//   - options - LabSecretsClientUpdateOptions contains the optional parameters for the LabSecretsClient.Update method.
+func (client *LabSecretsClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, secret SecretFragment, options *LabSecretsClientUpdateOptions) (LabSecretsClientUpdateResponse, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.Update"
+	const operationName = "LabSecretsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, name, artifactSource, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, name, secret, options)
 	if err != nil {
-		return ArtifactSourcesClientUpdateResponse{}, err
+		return LabSecretsClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientUpdateResponse{}, err
+		return LabSecretsClientUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientUpdateResponse{}, err
+		return LabSecretsClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ArtifactSourcesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSourceFragment, options *ArtifactSourcesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *LabSecretsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, secret SecretFragment, options *LabSecretsClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -384,17 +409,17 @@ func (client *ArtifactSourcesClient) updateCreateRequest(ctx context.Context, re
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, artifactSource); err != nil {
+	if err := runtime.MarshalAsJSON(req, secret); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
-func (client *ArtifactSourcesClient) updateHandleResponse(resp *http.Response) (ArtifactSourcesClientUpdateResponse, error) {
-	result := ArtifactSourcesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSource); err != nil {
-		return ArtifactSourcesClientUpdateResponse{}, err
+func (client *LabSecretsClient) updateHandleResponse(resp *http.Response) (LabSecretsClientUpdateResponse, error) {
+	result := LabSecretsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.LabSecret); err != nil {
+		return LabSecretsClientUpdateResponse{}, err
 	}
 	return result, nil
 }

@@ -23,48 +23,48 @@ import (
 	"strconv"
 )
 
-// ArtifactSourcesServer is a fake server for instances of the armdevtestlabs.ArtifactSourcesClient type.
-type ArtifactSourcesServer struct {
-	// CreateOrUpdate is the fake for method ArtifactSourcesClient.CreateOrUpdate
+// SharedGalleriesServer is a fake server for instances of the armdevtestlabs.SharedGalleriesClient type.
+type SharedGalleriesServer struct {
+	// CreateOrUpdate is the fake for method SharedGalleriesClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource armdevtestlabs.ArtifactSource, options *armdevtestlabs.ArtifactSourcesClientCreateOrUpdateOptions) (resp azfake.Responder[armdevtestlabs.ArtifactSourcesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, labName string, name string, sharedGallery armdevtestlabs.SharedGallery, options *armdevtestlabs.SharedGalleriesClientCreateOrUpdateOptions) (resp azfake.Responder[armdevtestlabs.SharedGalleriesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
-	// Delete is the fake for method ArtifactSourcesClient.Delete
+	// Delete is the fake for method SharedGalleriesClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.ArtifactSourcesClientDeleteOptions) (resp azfake.Responder[armdevtestlabs.ArtifactSourcesClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.SharedGalleriesClientDeleteOptions) (resp azfake.Responder[armdevtestlabs.SharedGalleriesClientDeleteResponse], errResp azfake.ErrorResponder)
 
-	// Get is the fake for method ArtifactSourcesClient.Get
+	// Get is the fake for method SharedGalleriesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.ArtifactSourcesClientGetOptions) (resp azfake.Responder[armdevtestlabs.ArtifactSourcesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.SharedGalleriesClientGetOptions) (resp azfake.Responder[armdevtestlabs.SharedGalleriesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method ArtifactSourcesClient.NewListPager
+	// NewListPager is the fake for method SharedGalleriesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, labName string, options *armdevtestlabs.ArtifactSourcesClientListOptions) (resp azfake.PagerResponder[armdevtestlabs.ArtifactSourcesClientListResponse])
+	NewListPager func(resourceGroupName string, labName string, options *armdevtestlabs.SharedGalleriesClientListOptions) (resp azfake.PagerResponder[armdevtestlabs.SharedGalleriesClientListResponse])
 
-	// Update is the fake for method ArtifactSourcesClient.Update
+	// Update is the fake for method SharedGalleriesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource armdevtestlabs.ArtifactSourceFragment, options *armdevtestlabs.ArtifactSourcesClientUpdateOptions) (resp azfake.Responder[armdevtestlabs.ArtifactSourcesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, labName string, name string, sharedGallery armdevtestlabs.SharedGalleryFragment, options *armdevtestlabs.SharedGalleriesClientUpdateOptions) (resp azfake.Responder[armdevtestlabs.SharedGalleriesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
-// NewArtifactSourcesServerTransport creates a new instance of ArtifactSourcesServerTransport with the provided implementation.
-// The returned ArtifactSourcesServerTransport instance is connected to an instance of armdevtestlabs.ArtifactSourcesClient via the
+// NewSharedGalleriesServerTransport creates a new instance of SharedGalleriesServerTransport with the provided implementation.
+// The returned SharedGalleriesServerTransport instance is connected to an instance of armdevtestlabs.SharedGalleriesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewArtifactSourcesServerTransport(srv *ArtifactSourcesServer) *ArtifactSourcesServerTransport {
-	return &ArtifactSourcesServerTransport{
+func NewSharedGalleriesServerTransport(srv *SharedGalleriesServer) *SharedGalleriesServerTransport {
+	return &SharedGalleriesServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armdevtestlabs.ArtifactSourcesClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armdevtestlabs.SharedGalleriesClientListResponse]](),
 	}
 }
 
-// ArtifactSourcesServerTransport connects instances of armdevtestlabs.ArtifactSourcesClient to instances of ArtifactSourcesServer.
-// Don't use this type directly, use NewArtifactSourcesServerTransport instead.
-type ArtifactSourcesServerTransport struct {
-	srv          *ArtifactSourcesServer
-	newListPager *tracker[azfake.PagerResponder[armdevtestlabs.ArtifactSourcesClientListResponse]]
+// SharedGalleriesServerTransport connects instances of armdevtestlabs.SharedGalleriesClient to instances of SharedGalleriesServer.
+// Don't use this type directly, use NewSharedGalleriesServerTransport instead.
+type SharedGalleriesServerTransport struct {
+	srv          *SharedGalleriesServer
+	newListPager *tracker[azfake.PagerResponder[armdevtestlabs.SharedGalleriesClientListResponse]]
 }
 
-// Do implements the policy.Transporter interface for ArtifactSourcesServerTransport.
-func (a *ArtifactSourcesServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for SharedGalleriesServerTransport.
+func (s *SharedGalleriesServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
@@ -75,16 +75,16 @@ func (a *ArtifactSourcesServerTransport) Do(req *http.Request) (*http.Response, 
 	var err error
 
 	switch method {
-	case "ArtifactSourcesClient.CreateOrUpdate":
-		resp, err = a.dispatchCreateOrUpdate(req)
-	case "ArtifactSourcesClient.Delete":
-		resp, err = a.dispatchDelete(req)
-	case "ArtifactSourcesClient.Get":
-		resp, err = a.dispatchGet(req)
-	case "ArtifactSourcesClient.NewListPager":
-		resp, err = a.dispatchNewListPager(req)
-	case "ArtifactSourcesClient.Update":
-		resp, err = a.dispatchUpdate(req)
+	case "SharedGalleriesClient.CreateOrUpdate":
+		resp, err = s.dispatchCreateOrUpdate(req)
+	case "SharedGalleriesClient.Delete":
+		resp, err = s.dispatchDelete(req)
+	case "SharedGalleriesClient.Get":
+		resp, err = s.dispatchGet(req)
+	case "SharedGalleriesClient.NewListPager":
+		resp, err = s.dispatchNewListPager(req)
+	case "SharedGalleriesClient.Update":
+		resp, err = s.dispatchUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -96,17 +96,17 @@ func (a *ArtifactSourcesServerTransport) Do(req *http.Request) (*http.Response, 
 	return resp, nil
 }
 
-func (a *ArtifactSourcesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if a.srv.CreateOrUpdate == nil {
+func (s *SharedGalleriesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.CreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactsources/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.ArtifactSource](req)
+	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.SharedGallery](req)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func (a *ArtifactSourcesServerTransport) dispatchCreateOrUpdate(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, labNameParam, nameParam, body, nil)
+	respr, errRespr := s.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, labNameParam, nameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -130,18 +130,18 @@ func (a *ArtifactSourcesServerTransport) dispatchCreateOrUpdate(req *http.Reques
 	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ArtifactSource, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedGallery, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (a *ArtifactSourcesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
-	if a.srv.Delete == nil {
+func (s *SharedGalleriesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
+	if s.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactsources/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -159,7 +159,7 @@ func (a *ArtifactSourcesServerTransport) dispatchDelete(req *http.Request) (*htt
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.Delete(req.Context(), resourceGroupNameParam, labNameParam, nameParam, nil)
+	respr, errRespr := s.srv.Delete(req.Context(), resourceGroupNameParam, labNameParam, nameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -174,11 +174,11 @@ func (a *ArtifactSourcesServerTransport) dispatchDelete(req *http.Request) (*htt
 	return resp, nil
 }
 
-func (a *ArtifactSourcesServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if a.srv.Get == nil {
+func (s *SharedGalleriesServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if s.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactsources/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -202,13 +202,13 @@ func (a *ArtifactSourcesServerTransport) dispatchGet(req *http.Request) (*http.R
 		return nil, err
 	}
 	expandParam := getOptional(expandUnescaped)
-	var options *armdevtestlabs.ArtifactSourcesClientGetOptions
+	var options *armdevtestlabs.SharedGalleriesClientGetOptions
 	if expandParam != nil {
-		options = &armdevtestlabs.ArtifactSourcesClientGetOptions{
+		options = &armdevtestlabs.SharedGalleriesClientGetOptions{
 			Expand: expandParam,
 		}
 	}
-	respr, errRespr := a.srv.Get(req.Context(), resourceGroupNameParam, labNameParam, nameParam, options)
+	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, labNameParam, nameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -216,20 +216,20 @@ func (a *ArtifactSourcesServerTransport) dispatchGet(req *http.Request) (*http.R
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ArtifactSource, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedGallery, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (a *ArtifactSourcesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if a.srv.NewListPager == nil {
+func (s *SharedGalleriesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
-	newListPager := a.newListPager.get(req)
+	newListPager := s.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactsources`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 3 {
@@ -273,19 +273,19 @@ func (a *ArtifactSourcesServerTransport) dispatchNewListPager(req *http.Request)
 			return nil, err
 		}
 		orderbyParam := getOptional(orderbyUnescaped)
-		var options *armdevtestlabs.ArtifactSourcesClientListOptions
+		var options *armdevtestlabs.SharedGalleriesClientListOptions
 		if expandParam != nil || filterParam != nil || topParam != nil || orderbyParam != nil {
-			options = &armdevtestlabs.ArtifactSourcesClientListOptions{
+			options = &armdevtestlabs.SharedGalleriesClientListOptions{
 				Expand:  expandParam,
 				Filter:  filterParam,
 				Top:     topParam,
 				Orderby: orderbyParam,
 			}
 		}
-		resp := a.srv.NewListPager(resourceGroupNameParam, labNameParam, options)
+		resp := s.srv.NewListPager(resourceGroupNameParam, labNameParam, options)
 		newListPager = &resp
-		a.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdevtestlabs.ArtifactSourcesClientListResponse, createLink func() string) {
+		s.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdevtestlabs.SharedGalleriesClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
@@ -294,26 +294,26 @@ func (a *ArtifactSourcesServerTransport) dispatchNewListPager(req *http.Request)
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		a.newListPager.remove(req)
+		s.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PagerResponderMore(newListPager) {
-		a.newListPager.remove(req)
+		s.newListPager.remove(req)
 	}
 	return resp, nil
 }
 
-func (a *ArtifactSourcesServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if a.srv.Update == nil {
+func (s *SharedGalleriesServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.Update == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactsources/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.ArtifactSourceFragment](req)
+	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.SharedGalleryFragment](req)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +329,7 @@ func (a *ArtifactSourcesServerTransport) dispatchUpdate(req *http.Request) (*htt
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.Update(req.Context(), resourceGroupNameParam, labNameParam, nameParam, body, nil)
+	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, labNameParam, nameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -337,7 +337,7 @@ func (a *ArtifactSourcesServerTransport) dispatchUpdate(req *http.Request) (*htt
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ArtifactSource, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedGallery, req)
 	if err != nil {
 		return nil, err
 	}

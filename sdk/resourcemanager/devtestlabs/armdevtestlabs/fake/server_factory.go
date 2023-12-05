@@ -22,6 +22,7 @@ type ServerFactory struct {
 	ArmTemplatesServer            ArmTemplatesServer
 	ArtifactSourcesServer         ArtifactSourcesServer
 	ArtifactsServer               ArtifactsServer
+	BastionHostsServer            BastionHostsServer
 	CostsServer                   CostsServer
 	CustomImagesServer            CustomImagesServer
 	DisksServer                   DisksServer
@@ -29,6 +30,7 @@ type ServerFactory struct {
 	FormulasServer                FormulasServer
 	GalleryImagesServer           GalleryImagesServer
 	GlobalSchedulesServer         GlobalSchedulesServer
+	LabSecretsServer              LabSecretsServer
 	LabsServer                    LabsServer
 	NotificationChannelsServer    NotificationChannelsServer
 	OperationsServer              OperationsServer
@@ -40,6 +42,8 @@ type ServerFactory struct {
 	ServiceFabricSchedulesServer  ServiceFabricSchedulesServer
 	ServiceFabricsServer          ServiceFabricsServer
 	ServiceRunnersServer          ServiceRunnersServer
+	SharedGalleriesServer         SharedGalleriesServer
+	SharedImagesServer            SharedImagesServer
 	UsersServer                   UsersServer
 	VirtualMachineSchedulesServer VirtualMachineSchedulesServer
 	VirtualMachinesServer         VirtualMachinesServer
@@ -63,6 +67,7 @@ type ServerFactoryTransport struct {
 	trArmTemplatesServer            *ArmTemplatesServerTransport
 	trArtifactSourcesServer         *ArtifactSourcesServerTransport
 	trArtifactsServer               *ArtifactsServerTransport
+	trBastionHostsServer            *BastionHostsServerTransport
 	trCostsServer                   *CostsServerTransport
 	trCustomImagesServer            *CustomImagesServerTransport
 	trDisksServer                   *DisksServerTransport
@@ -70,6 +75,7 @@ type ServerFactoryTransport struct {
 	trFormulasServer                *FormulasServerTransport
 	trGalleryImagesServer           *GalleryImagesServerTransport
 	trGlobalSchedulesServer         *GlobalSchedulesServerTransport
+	trLabSecretsServer              *LabSecretsServerTransport
 	trLabsServer                    *LabsServerTransport
 	trNotificationChannelsServer    *NotificationChannelsServerTransport
 	trOperationsServer              *OperationsServerTransport
@@ -81,6 +87,8 @@ type ServerFactoryTransport struct {
 	trServiceFabricSchedulesServer  *ServiceFabricSchedulesServerTransport
 	trServiceFabricsServer          *ServiceFabricsServerTransport
 	trServiceRunnersServer          *ServiceRunnersServerTransport
+	trSharedGalleriesServer         *SharedGalleriesServerTransport
+	trSharedImagesServer            *SharedImagesServerTransport
 	trUsersServer                   *UsersServerTransport
 	trVirtualMachineSchedulesServer *VirtualMachineSchedulesServerTransport
 	trVirtualMachinesServer         *VirtualMachinesServerTransport
@@ -111,6 +119,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ArtifactsClient":
 		initServer(s, &s.trArtifactsServer, func() *ArtifactsServerTransport { return NewArtifactsServerTransport(&s.srv.ArtifactsServer) })
 		resp, err = s.trArtifactsServer.Do(req)
+	case "BastionHostsClient":
+		initServer(s, &s.trBastionHostsServer, func() *BastionHostsServerTransport { return NewBastionHostsServerTransport(&s.srv.BastionHostsServer) })
+		resp, err = s.trBastionHostsServer.Do(req)
 	case "CostsClient":
 		initServer(s, &s.trCostsServer, func() *CostsServerTransport { return NewCostsServerTransport(&s.srv.CostsServer) })
 		resp, err = s.trCostsServer.Do(req)
@@ -136,6 +147,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewGlobalSchedulesServerTransport(&s.srv.GlobalSchedulesServer)
 		})
 		resp, err = s.trGlobalSchedulesServer.Do(req)
+	case "LabSecretsClient":
+		initServer(s, &s.trLabSecretsServer, func() *LabSecretsServerTransport { return NewLabSecretsServerTransport(&s.srv.LabSecretsServer) })
+		resp, err = s.trLabSecretsServer.Do(req)
 	case "LabsClient":
 		initServer(s, &s.trLabsServer, func() *LabsServerTransport { return NewLabsServerTransport(&s.srv.LabsServer) })
 		resp, err = s.trLabsServer.Do(req)
@@ -179,6 +193,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewServiceRunnersServerTransport(&s.srv.ServiceRunnersServer)
 		})
 		resp, err = s.trServiceRunnersServer.Do(req)
+	case "SharedGalleriesClient":
+		initServer(s, &s.trSharedGalleriesServer, func() *SharedGalleriesServerTransport {
+			return NewSharedGalleriesServerTransport(&s.srv.SharedGalleriesServer)
+		})
+		resp, err = s.trSharedGalleriesServer.Do(req)
+	case "SharedImagesClient":
+		initServer(s, &s.trSharedImagesServer, func() *SharedImagesServerTransport { return NewSharedImagesServerTransport(&s.srv.SharedImagesServer) })
+		resp, err = s.trSharedImagesServer.Do(req)
 	case "UsersClient":
 		initServer(s, &s.trUsersServer, func() *UsersServerTransport { return NewUsersServerTransport(&s.srv.UsersServer) })
 		resp, err = s.trUsersServer.Do(req)

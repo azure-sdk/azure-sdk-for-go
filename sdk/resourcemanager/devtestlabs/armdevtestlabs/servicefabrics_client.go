@@ -44,10 +44,10 @@ func NewServiceFabricsClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create or replace an existing service fabric. This operation can take a while to complete.
+// BeginCreateOrUpdate - Create or replace an existing Service Fabric. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -72,10 +72,10 @@ func (client *ServiceFabricsClient) BeginCreateOrUpdate(ctx context.Context, res
 	}
 }
 
-// CreateOrUpdate - Create or replace an existing service fabric. This operation can take a while to complete.
+// CreateOrUpdate - Create or replace an existing Service Fabric. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *ServiceFabricsClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, userName string, name string, serviceFabric ServiceFabric, options *ServiceFabricsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServiceFabricsClient.BeginCreateOrUpdate"
@@ -125,7 +125,7 @@ func (client *ServiceFabricsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, serviceFabric); err != nil {
@@ -137,7 +137,7 @@ func (client *ServiceFabricsClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Delete service fabric. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -164,7 +164,7 @@ func (client *ServiceFabricsClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Delete service fabric. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *ServiceFabricsClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, userName string, name string, options *ServiceFabricsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServiceFabricsClient.BeginDelete"
@@ -214,7 +214,7 @@ func (client *ServiceFabricsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -223,7 +223,7 @@ func (client *ServiceFabricsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Get service fabric.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -282,7 +282,7 @@ func (client *ServiceFabricsClient) getCreateRequest(ctx context.Context, resour
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -299,7 +299,7 @@ func (client *ServiceFabricsClient) getHandleResponse(resp *http.Response) (Serv
 
 // NewListPager - List service fabrics in a given user profile.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -363,7 +363,7 @@ func (client *ServiceFabricsClient) listCreateRequest(ctx context.Context, resou
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -381,7 +381,7 @@ func (client *ServiceFabricsClient) listHandleResponse(resp *http.Response) (Ser
 // ListApplicableSchedules - Lists the applicable start/stop schedules, if any.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -438,7 +438,7 @@ func (client *ServiceFabricsClient) listApplicableSchedulesCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -456,7 +456,7 @@ func (client *ServiceFabricsClient) listApplicableSchedulesHandleResponse(resp *
 // BeginStart - Start a service fabric. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -483,7 +483,7 @@ func (client *ServiceFabricsClient) BeginStart(ctx context.Context, resourceGrou
 // Start - Start a service fabric. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *ServiceFabricsClient) start(ctx context.Context, resourceGroupName string, labName string, userName string, name string, options *ServiceFabricsClientBeginStartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServiceFabricsClient.BeginStart"
@@ -533,7 +533,7 @@ func (client *ServiceFabricsClient) startCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -542,7 +542,7 @@ func (client *ServiceFabricsClient) startCreateRequest(ctx context.Context, reso
 // BeginStop - Stop a service fabric This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -569,7 +569,7 @@ func (client *ServiceFabricsClient) BeginStop(ctx context.Context, resourceGroup
 // Stop - Stop a service fabric This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *ServiceFabricsClient) stop(ctx context.Context, resourceGroupName string, labName string, userName string, name string, options *ServiceFabricsClientBeginStopOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServiceFabricsClient.BeginStop"
@@ -619,7 +619,7 @@ func (client *ServiceFabricsClient) stopCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -628,12 +628,12 @@ func (client *ServiceFabricsClient) stopCreateRequest(ctx context.Context, resou
 // Update - Allows modifying tags of service fabrics. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
 //   - name - The name of the service fabric.
-//   - serviceFabric - A Service Fabric.
+//   - serviceFabric - Allows modifying tags of service fabrics. All other properties will be ignored.
 //   - options - ServiceFabricsClientUpdateOptions contains the optional parameters for the ServiceFabricsClient.Update method.
 func (client *ServiceFabricsClient) Update(ctx context.Context, resourceGroupName string, labName string, userName string, name string, serviceFabric ServiceFabricFragment, options *ServiceFabricsClientUpdateOptions) (ServiceFabricsClientUpdateResponse, error) {
 	var err error
@@ -685,7 +685,7 @@ func (client *ServiceFabricsClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, serviceFabric); err != nil {

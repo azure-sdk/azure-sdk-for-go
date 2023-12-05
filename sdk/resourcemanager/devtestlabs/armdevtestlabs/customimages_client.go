@@ -47,7 +47,7 @@ func NewCustomImagesClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - Create or replace an existing custom image. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the custom image.
@@ -74,7 +74,7 @@ func (client *CustomImagesClient) BeginCreateOrUpdate(ctx context.Context, resou
 // CreateOrUpdate - Create or replace an existing custom image. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *CustomImagesClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, customImage CustomImage, options *CustomImagesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CustomImagesClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *CustomImagesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, customImage); err != nil {
@@ -132,7 +132,7 @@ func (client *CustomImagesClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Delete custom image. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the custom image.
@@ -158,7 +158,7 @@ func (client *CustomImagesClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Delete custom image. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *CustomImagesClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *CustomImagesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CustomImagesClient.BeginDelete"
@@ -204,7 +204,7 @@ func (client *CustomImagesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *CustomImagesClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get custom image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the custom image.
@@ -267,7 +267,7 @@ func (client *CustomImagesClient) getCreateRequest(ctx context.Context, resource
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *CustomImagesClient) getHandleResponse(resp *http.Response) (Custom
 
 // NewListPager - List custom images in a given lab.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - options - CustomImagesClientListOptions contains the optional parameters for the CustomImagesClient.NewListPager method.
@@ -343,7 +343,7 @@ func (client *CustomImagesClient) listCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -361,11 +361,11 @@ func (client *CustomImagesClient) listHandleResponse(resp *http.Response) (Custo
 // Update - Allows modifying tags of custom images. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the custom image.
-//   - customImage - A custom image.
+//   - customImage - Allows modifying tags of custom images. All other properties will be ignored.
 //   - options - CustomImagesClientUpdateOptions contains the optional parameters for the CustomImagesClient.Update method.
 func (client *CustomImagesClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, customImage CustomImageFragment, options *CustomImagesClientUpdateOptions) (CustomImagesClientUpdateResponse, error) {
 	var err error
@@ -413,7 +413,7 @@ func (client *CustomImagesClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, customImage); err != nil {

@@ -55,6 +55,12 @@ func (c *ClientFactory) NewArtifactsClient() *ArtifactsClient {
 	return subClient
 }
 
+// NewBastionHostsClient creates a new instance of BastionHostsClient.
+func (c *ClientFactory) NewBastionHostsClient() *BastionHostsClient {
+	subClient, _ := NewBastionHostsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewCostsClient creates a new instance of CostsClient.
 func (c *ClientFactory) NewCostsClient() *CostsClient {
 	subClient, _ := NewCostsClient(c.subscriptionID, c.credential, c.options)
@@ -94,6 +100,12 @@ func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
 // NewGlobalSchedulesClient creates a new instance of GlobalSchedulesClient.
 func (c *ClientFactory) NewGlobalSchedulesClient() *GlobalSchedulesClient {
 	subClient, _ := NewGlobalSchedulesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewLabSecretsClient creates a new instance of LabSecretsClient.
+func (c *ClientFactory) NewLabSecretsClient() *LabSecretsClient {
+	subClient, _ := NewLabSecretsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -160,6 +172,18 @@ func (c *ClientFactory) NewServiceFabricsClient() *ServiceFabricsClient {
 // NewServiceRunnersClient creates a new instance of ServiceRunnersClient.
 func (c *ClientFactory) NewServiceRunnersClient() *ServiceRunnersClient {
 	subClient, _ := NewServiceRunnersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSharedGalleriesClient creates a new instance of SharedGalleriesClient.
+func (c *ClientFactory) NewSharedGalleriesClient() *SharedGalleriesClient {
+	subClient, _ := NewSharedGalleriesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSharedImagesClient creates a new instance of SharedImagesClient.
+func (c *ClientFactory) NewSharedImagesClient() *SharedImagesClient {
+	subClient, _ := NewSharedImagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

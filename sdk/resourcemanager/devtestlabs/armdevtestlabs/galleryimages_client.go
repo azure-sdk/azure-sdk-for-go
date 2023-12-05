@@ -44,9 +44,78 @@ func NewGalleryImagesClient(subscriptionID string, credential azcore.TokenCreden
 	return client, nil
 }
 
+// Get - Get gallery image.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
+//   - resourceGroupName - The name of the resource group.
+//   - labName - The name of the lab.
+//   - name - The name of the gallery image.
+//   - options - GalleryImagesClientGetOptions contains the optional parameters for the GalleryImagesClient.Get method.
+func (client *GalleryImagesClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *GalleryImagesClientGetOptions) (GalleryImagesClientGetResponse, error) {
+	var err error
+	const operationName = "GalleryImagesClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, name, options)
+	if err != nil {
+		return GalleryImagesClientGetResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return GalleryImagesClientGetResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return GalleryImagesClientGetResponse{}, err
+	}
+	resp, err := client.getHandleResponse(httpResp)
+	return resp, err
+}
+
+// getCreateRequest creates the Get request.
+func (client *GalleryImagesClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *GalleryImagesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/galleryimages/{name}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if labName == "" {
+		return nil, errors.New("parameter labName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *GalleryImagesClient) getHandleResponse(resp *http.Response) (GalleryImagesClientGetResponse, error) {
+	result := GalleryImagesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GalleryImage); err != nil {
+		return GalleryImagesClientGetResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListPager - List gallery images in a given lab.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - options - GalleryImagesClientListOptions contains the optional parameters for the GalleryImagesClient.NewListPager method.
@@ -105,7 +174,7 @@ func (client *GalleryImagesClient) listCreateRequest(ctx context.Context, resour
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -19,7 +19,7 @@ type ArmTemplatesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=displayName)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -51,7 +51,7 @@ type ArtifactSourcesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=displayName)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -83,7 +83,7 @@ type ArtifactsClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=title)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -91,6 +91,41 @@ type ArtifactsClientListOptions struct {
 
 	// The maximum number of resources to return from the operation. Example: '$top=10'
 	Top *int32
+}
+
+// BastionHostsClientBeginCreateOrUpdateOptions contains the optional parameters for the BastionHostsClient.BeginCreateOrUpdate
+// method.
+type BastionHostsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BastionHostsClientBeginDeleteOptions contains the optional parameters for the BastionHostsClient.BeginDelete method.
+type BastionHostsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BastionHostsClientGetOptions contains the optional parameters for the BastionHostsClient.Get method.
+type BastionHostsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BastionHostsClientListOptions contains the optional parameters for the BastionHostsClient.NewListPager method.
+type BastionHostsClientListOptions struct {
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
+	Filter *string
+
+	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
+	Orderby *string
+
+	// The maximum number of resources to return from the operation. Example: '$top=10'
+	Top *int32
+}
+
+// BastionHostsClientUpdateOptions contains the optional parameters for the BastionHostsClient.Update method.
+type BastionHostsClientUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // CostsClientCreateOrUpdateOptions contains the optional parameters for the CostsClient.CreateOrUpdate method.
@@ -128,7 +163,7 @@ type CustomImagesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=vm)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -178,7 +213,7 @@ type DisksClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=diskType)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -217,7 +252,7 @@ type EnvironmentsClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=deploymentProperties)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -254,7 +289,7 @@ type FormulasClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=description)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -269,12 +304,17 @@ type FormulasClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// GalleryImagesClientGetOptions contains the optional parameters for the GalleryImagesClient.Get method.
+type GalleryImagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // GalleryImagesClientListOptions contains the optional parameters for the GalleryImagesClient.NewListPager method.
 type GalleryImagesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=author)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -320,7 +360,7 @@ type GlobalSchedulesClientListByResourceGroupOptions struct {
 	// Specify the $expand query. Example: 'properties($select=status)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -336,7 +376,7 @@ type GlobalSchedulesClientListBySubscriptionOptions struct {
 	// Specify the $expand query. Example: 'properties($select=status)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -348,6 +388,41 @@ type GlobalSchedulesClientListBySubscriptionOptions struct {
 
 // GlobalSchedulesClientUpdateOptions contains the optional parameters for the GlobalSchedulesClient.Update method.
 type GlobalSchedulesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LabSecretsClientBeginCreateOrUpdateOptions contains the optional parameters for the LabSecretsClient.BeginCreateOrUpdate
+// method.
+type LabSecretsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LabSecretsClientBeginDeleteOptions contains the optional parameters for the LabSecretsClient.BeginDelete method.
+type LabSecretsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LabSecretsClientGetOptions contains the optional parameters for the LabSecretsClient.Get method.
+type LabSecretsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LabSecretsClientListOptions contains the optional parameters for the LabSecretsClient.NewListPager method.
+type LabSecretsClientListOptions struct {
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
+	Filter *string
+
+	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
+	Orderby *string
+
+	// The maximum number of resources to return from the operation. Example: '$top=10'
+	Top *int32
+}
+
+// LabSecretsClientUpdateOptions contains the optional parameters for the LabSecretsClient.Update method.
+type LabSecretsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -389,6 +464,12 @@ type LabsClientBeginImportVirtualMachineOptions struct {
 	ResumeToken string
 }
 
+// LabsClientEnsureCurrentUserProfileOptions contains the optional parameters for the LabsClient.EnsureCurrentUserProfile
+// method.
+type LabsClientEnsureCurrentUserProfileOptions struct {
+	// placeholder for future optional parameters
+}
+
 // LabsClientGenerateUploadURIOptions contains the optional parameters for the LabsClient.GenerateUploadURI method.
 type LabsClientGenerateUploadURIOptions struct {
 	// placeholder for future optional parameters
@@ -405,7 +486,7 @@ type LabsClientListByResourceGroupOptions struct {
 	// Specify the $expand query. Example: 'properties($select=defaultStorageAccount)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -420,7 +501,7 @@ type LabsClientListBySubscriptionOptions struct {
 	// Specify the $expand query. Example: 'properties($select=defaultStorageAccount)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -463,7 +544,7 @@ type NotificationChannelsClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=webHookUrl)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -509,7 +590,7 @@ type PoliciesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=description)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -527,6 +608,18 @@ type PoliciesClientUpdateOptions struct {
 // PolicySetsClientEvaluatePoliciesOptions contains the optional parameters for the PolicySetsClient.EvaluatePolicies method.
 type PolicySetsClientEvaluatePoliciesOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PolicySetsClientListOptions contains the optional parameters for the PolicySetsClient.NewListPager method.
+type PolicySetsClientListOptions struct {
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
+	Filter *string
+
+	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
+	Orderby *string
+
+	// The maximum number of resources to return from the operation. Example: '$top=10'
+	Top *int32
 }
 
 // ProviderOperationsClientListOptions contains the optional parameters for the ProviderOperationsClient.NewListPager method.
@@ -566,7 +659,7 @@ type SchedulesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=status)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -603,7 +696,7 @@ type SecretsClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=value)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -649,7 +742,7 @@ type ServiceFabricSchedulesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=status)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -707,7 +800,7 @@ type ServiceFabricsClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($expand=applicableSchedule)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -722,15 +815,17 @@ type ServiceFabricsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServiceRunnersClientCreateOrUpdateOptions contains the optional parameters for the ServiceRunnersClient.CreateOrUpdate
+// ServiceRunnersClientBeginCreateOrUpdateOptions contains the optional parameters for the ServiceRunnersClient.BeginCreateOrUpdate
 // method.
-type ServiceRunnersClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+type ServiceRunnersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ServiceRunnersClientDeleteOptions contains the optional parameters for the ServiceRunnersClient.Delete method.
-type ServiceRunnersClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// ServiceRunnersClientBeginDeleteOptions contains the optional parameters for the ServiceRunnersClient.BeginDelete method.
+type ServiceRunnersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ServiceRunnersClientGetOptions contains the optional parameters for the ServiceRunnersClient.Get method.
@@ -738,10 +833,98 @@ type ServiceRunnersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ServiceRunnersClientListOptions contains the optional parameters for the ServiceRunnersClient.NewListPager method.
+type ServiceRunnersClientListOptions struct {
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
+	Filter *string
+
+	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
+	Orderby *string
+
+	// The maximum number of resources to return from the operation. Example: '$top=10'
+	Top *int32
+}
+
+// SharedGalleriesClientCreateOrUpdateOptions contains the optional parameters for the SharedGalleriesClient.CreateOrUpdate
+// method.
+type SharedGalleriesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SharedGalleriesClientDeleteOptions contains the optional parameters for the SharedGalleriesClient.Delete method.
+type SharedGalleriesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SharedGalleriesClientGetOptions contains the optional parameters for the SharedGalleriesClient.Get method.
+type SharedGalleriesClientGetOptions struct {
+	// Specify the $expand query. Example: 'properties($select=identity)'
+	Expand *string
+}
+
+// SharedGalleriesClientListOptions contains the optional parameters for the SharedGalleriesClient.NewListPager method.
+type SharedGalleriesClientListOptions struct {
+	// Specify the $expand query. Example: 'properties($select=identity)'
+	Expand *string
+
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
+	Filter *string
+
+	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
+	Orderby *string
+
+	// The maximum number of resources to return from the operation. Example: '$top=10'
+	Top *int32
+}
+
+// SharedGalleriesClientUpdateOptions contains the optional parameters for the SharedGalleriesClient.Update method.
+type SharedGalleriesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SharedImagesClientCreateOrUpdateOptions contains the optional parameters for the SharedImagesClient.CreateOrUpdate method.
+type SharedImagesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SharedImagesClientDeleteOptions contains the optional parameters for the SharedImagesClient.Delete method.
+type SharedImagesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SharedImagesClientGetOptions contains the optional parameters for the SharedImagesClient.Get method.
+type SharedImagesClientGetOptions struct {
+	// Specify the $expand query. Example: 'properties($expand=versions)'
+	Expand *string
+}
+
+// SharedImagesClientListOptions contains the optional parameters for the SharedImagesClient.NewListPager method.
+type SharedImagesClientListOptions struct {
+	// Specify the $expand query. Example: 'properties($expand=versions)'
+	Expand *string
+
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
+	Filter *string
+
+	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
+	Orderby *string
+
+	// The maximum number of resources to return from the operation. Example: '$top=10'
+	Top *int32
+}
+
+// SharedImagesClientUpdateOptions contains the optional parameters for the SharedImagesClient.Update method.
+type SharedImagesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // UsersClientBeginCreateOrUpdateOptions contains the optional parameters for the UsersClient.BeginCreateOrUpdate method.
 type UsersClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+
+	// Profile of a lab user.
+	User *User
 }
 
 // UsersClientBeginDeleteOptions contains the optional parameters for the UsersClient.BeginDelete method.
@@ -761,7 +944,7 @@ type UsersClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=identity)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -807,7 +990,7 @@ type VirtualMachineSchedulesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($select=status)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -907,6 +1090,12 @@ type VirtualMachinesClientBeginUnClaimOptions struct {
 	ResumeToken string
 }
 
+// VirtualMachinesClientClearArtifactResultsOptions contains the optional parameters for the VirtualMachinesClient.ClearArtifactResults
+// method.
+type VirtualMachinesClientClearArtifactResultsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // VirtualMachinesClientGetOptions contains the optional parameters for the VirtualMachinesClient.Get method.
 type VirtualMachinesClientGetOptions struct {
 	// Specify the $expand query. Example: 'properties($expand=artifacts,computeVm,networkInterface,applicableSchedule)'
@@ -930,7 +1119,7 @@ type VirtualMachinesClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($expand=artifacts,computeVm,networkInterface,applicableSchedule)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'
@@ -969,7 +1158,7 @@ type VirtualNetworksClientListOptions struct {
 	// Specify the $expand query. Example: 'properties($expand=externalSubnets)'
 	Expand *string
 
-	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')
+	// The filter to apply to the operation. Example: '$filter=contains(name,'myName')'
 	Filter *string
 
 	// The ordering expression for the results, using OData notation. Example: '$orderby=name desc'

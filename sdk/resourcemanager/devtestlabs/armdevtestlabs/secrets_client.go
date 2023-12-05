@@ -47,7 +47,7 @@ func NewSecretsClient(subscriptionID string, credential azcore.TokenCredential, 
 // BeginCreateOrUpdate - Create or replace an existing secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -75,7 +75,7 @@ func (client *SecretsClient) BeginCreateOrUpdate(ctx context.Context, resourceGr
 // CreateOrUpdate - Create or replace an existing secret. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *SecretsClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, userName string, name string, secret Secret, options *SecretsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SecretsClient.BeginCreateOrUpdate"
@@ -125,7 +125,7 @@ func (client *SecretsClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, secret); err != nil {
@@ -137,7 +137,7 @@ func (client *SecretsClient) createOrUpdateCreateRequest(ctx context.Context, re
 // Delete - Delete secret.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -192,7 +192,7 @@ func (client *SecretsClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -201,7 +201,7 @@ func (client *SecretsClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Get secret.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -260,7 +260,7 @@ func (client *SecretsClient) getCreateRequest(ctx context.Context, resourceGroup
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +277,7 @@ func (client *SecretsClient) getHandleResponse(resp *http.Response) (SecretsClie
 
 // NewListPager - List secrets in a given user profile.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
@@ -341,7 +341,7 @@ func (client *SecretsClient) listCreateRequest(ctx context.Context, resourceGrou
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -359,12 +359,12 @@ func (client *SecretsClient) listHandleResponse(resp *http.Response) (SecretsCli
 // Update - Allows modifying tags of secrets. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - userName - The name of the user profile.
 //   - name - The name of the secret.
-//   - secret - A secret.
+//   - secret - Allows modifying tags of secrets. All other properties will be ignored.
 //   - options - SecretsClientUpdateOptions contains the optional parameters for the SecretsClient.Update method.
 func (client *SecretsClient) Update(ctx context.Context, resourceGroupName string, labName string, userName string, name string, secret SecretFragment, options *SecretsClientUpdateOptions) (SecretsClientUpdateResponse, error) {
 	var err error
@@ -416,7 +416,7 @@ func (client *SecretsClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, secret); err != nil {

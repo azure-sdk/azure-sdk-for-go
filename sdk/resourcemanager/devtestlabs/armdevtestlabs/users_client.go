@@ -47,16 +47,15 @@ func NewUsersClient(subscriptionID string, credential azcore.TokenCredential, op
 // BeginCreateOrUpdate - Create or replace an existing user profile. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the user profile.
-//   - userParam - Profile of a lab user.
 //   - options - UsersClientBeginCreateOrUpdateOptions contains the optional parameters for the UsersClient.BeginCreateOrUpdate
 //     method.
-func (client *UsersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, userParam User, options *UsersClientBeginCreateOrUpdateOptions) (*runtime.Poller[UsersClientCreateOrUpdateResponse], error) {
+func (client *UsersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginCreateOrUpdateOptions) (*runtime.Poller[UsersClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, userParam, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,14 +73,14 @@ func (client *UsersClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 // CreateOrUpdate - Create or replace an existing user profile. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
-func (client *UsersClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, userParam User, options *UsersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2021-09-01
+func (client *UsersClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "UsersClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, userParam, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +96,7 @@ func (client *UsersClient) createOrUpdate(ctx context.Context, resourceGroupName
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, userParam User, options *UsersClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,11 +119,14 @@ func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, userParam); err != nil {
-		return nil, err
+	if options != nil && options.User != nil {
+		if err := runtime.MarshalAsJSON(req, *options.User); err != nil {
+			return nil, err
+		}
+		return req, nil
 	}
 	return req, nil
 }
@@ -132,7 +134,7 @@ func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, reso
 // BeginDelete - Delete user profile. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the user profile.
@@ -157,7 +159,7 @@ func (client *UsersClient) BeginDelete(ctx context.Context, resourceGroupName st
 // Delete - Delete user profile. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 func (client *UsersClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *UsersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "UsersClient.BeginDelete"
@@ -203,7 +205,7 @@ func (client *UsersClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,7 +214,7 @@ func (client *UsersClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // Get - Get user profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the user profile.
@@ -266,7 +268,7 @@ func (client *UsersClient) getCreateRequest(ctx context.Context, resourceGroupNa
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -283,7 +285,7 @@ func (client *UsersClient) getHandleResponse(resp *http.Response) (UsersClientGe
 
 // NewListPager - List user profiles in a given lab.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - options - UsersClientListOptions contains the optional parameters for the UsersClient.NewListPager method.
@@ -342,7 +344,7 @@ func (client *UsersClient) listCreateRequest(ctx context.Context, resourceGroupN
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -360,11 +362,11 @@ func (client *UsersClient) listHandleResponse(resp *http.Response) (UsersClientL
 // Update - Allows modifying tags of user profiles. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the user profile.
-//   - userParam - Profile of a lab user.
+//   - userParam - Allows modifying tags of user profiles. All other properties will be ignored.
 //   - options - UsersClientUpdateOptions contains the optional parameters for the UsersClient.Update method.
 func (client *UsersClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, userParam UserFragment, options *UsersClientUpdateOptions) (UsersClientUpdateResponse, error) {
 	var err error
@@ -412,7 +414,7 @@ func (client *UsersClient) updateCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, userParam); err != nil {

@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -40,6 +40,10 @@ type LabsServer struct {
 	// BeginDelete is the fake for method LabsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, name string, options *armdevtestlabs.LabsClientBeginDeleteOptions) (resp azfake.PollerResponder[armdevtestlabs.LabsClientDeleteResponse], errResp azfake.ErrorResponder)
+
+	// EnsureCurrentUserProfile is the fake for method LabsClient.EnsureCurrentUserProfile
+	// HTTP status codes to indicate success: http.StatusOK
+	EnsureCurrentUserProfile func(ctx context.Context, resourceGroupName string, name string, options *armdevtestlabs.LabsClientEnsureCurrentUserProfileOptions) (resp azfake.Responder[armdevtestlabs.LabsClientEnsureCurrentUserProfileResponse], errResp azfake.ErrorResponder)
 
 	// BeginExportResourceUsage is the fake for method LabsClient.BeginExportResourceUsage
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -127,6 +131,8 @@ func (l *LabsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = l.dispatchBeginCreateOrUpdate(req)
 	case "LabsClient.BeginDelete":
 		resp, err = l.dispatchBeginDelete(req)
+	case "LabsClient.EnsureCurrentUserProfile":
+		resp, err = l.dispatchEnsureCurrentUserProfile(req)
 	case "LabsClient.BeginExportResourceUsage":
 		resp, err = l.dispatchBeginExportResourceUsage(req)
 	case "LabsClient.GenerateUploadURI":
@@ -335,6 +341,39 @@ func (l *LabsServerTransport) dispatchBeginDelete(req *http.Request) (*http.Resp
 		l.beginDelete.remove(req)
 	}
 
+	return resp, nil
+}
+
+func (l *LabsServerTransport) dispatchEnsureCurrentUserProfile(req *http.Request) (*http.Response, error) {
+	if l.srv.EnsureCurrentUserProfile == nil {
+		return nil, &nonRetriableError{errors.New("fake for method EnsureCurrentUserProfile not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/ensureCurrentUserProfile`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := l.srv.EnsureCurrentUserProfile(req.Context(), resourceGroupNameParam, nameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

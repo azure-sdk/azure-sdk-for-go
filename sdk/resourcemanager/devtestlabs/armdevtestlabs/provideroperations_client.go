@@ -39,7 +39,7 @@ func NewProviderOperationsClient(credential azcore.TokenCredential, options *arm
 
 // NewListPager - Result of the request to list REST API operations
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - options - ProviderOperationsClientListOptions contains the optional parameters for the ProviderOperationsClient.NewListPager
 //     method.
 func (client *ProviderOperationsClient) NewListPager(options *ProviderOperationsClientListOptions) *runtime.Pager[ProviderOperationsClientListResponse] {
@@ -73,7 +73,7 @@ func (client *ProviderOperationsClient) listCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

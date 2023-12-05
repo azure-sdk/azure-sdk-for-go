@@ -17,6 +17,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -43,40 +44,60 @@ func NewServiceRunnersClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// CreateOrUpdate - Create or replace an existing service runner.
+// BeginCreateOrUpdate - Create or replace an existing Service runner. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the service runner.
 //   - serviceRunner - A container for a managed identity to execute DevTest lab services.
-//   - options - ServiceRunnersClientCreateOrUpdateOptions contains the optional parameters for the ServiceRunnersClient.CreateOrUpdate
+//   - options - ServiceRunnersClientBeginCreateOrUpdateOptions contains the optional parameters for the ServiceRunnersClient.BeginCreateOrUpdate
 //     method.
-func (client *ServiceRunnersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, serviceRunner ServiceRunner, options *ServiceRunnersClientCreateOrUpdateOptions) (ServiceRunnersClientCreateOrUpdateResponse, error) {
+func (client *ServiceRunnersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, serviceRunner ServiceRunner, options *ServiceRunnersClientBeginCreateOrUpdateOptions) (*runtime.Poller[ServiceRunnersClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, labName, name, serviceRunner, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ServiceRunnersClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ServiceRunnersClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// CreateOrUpdate - Create or replace an existing Service runner. This operation can take a while to complete.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
+func (client *ServiceRunnersClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, serviceRunner ServiceRunner, options *ServiceRunnersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ServiceRunnersClient.CreateOrUpdate"
+	const operationName = "ServiceRunnersClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, serviceRunner, options)
 	if err != nil {
-		return ServiceRunnersClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ServiceRunnersClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ServiceRunnersClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.createOrUpdateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ServiceRunnersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, serviceRunner ServiceRunner, options *ServiceRunnersClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ServiceRunnersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, serviceRunner ServiceRunner, options *ServiceRunnersClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/servicerunners/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -99,7 +120,7 @@ func (client *ServiceRunnersClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, serviceRunner); err != nil {
@@ -108,46 +129,59 @@ func (client *ServiceRunnersClient) createOrUpdateCreateRequest(ctx context.Cont
 	return req, nil
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ServiceRunnersClient) createOrUpdateHandleResponse(resp *http.Response) (ServiceRunnersClientCreateOrUpdateResponse, error) {
-	result := ServiceRunnersClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceRunner); err != nil {
-		return ServiceRunnersClientCreateOrUpdateResponse{}, err
-	}
-	return result, nil
-}
-
-// Delete - Delete service runner.
+// BeginDelete - Delete service runner. This operation can take a while to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the service runner.
-//   - options - ServiceRunnersClientDeleteOptions contains the optional parameters for the ServiceRunnersClient.Delete method.
-func (client *ServiceRunnersClient) Delete(ctx context.Context, resourceGroupName string, labName string, name string, options *ServiceRunnersClientDeleteOptions) (ServiceRunnersClientDeleteResponse, error) {
+//   - options - ServiceRunnersClientBeginDeleteOptions contains the optional parameters for the ServiceRunnersClient.BeginDelete
+//     method.
+func (client *ServiceRunnersClient) BeginDelete(ctx context.Context, resourceGroupName string, labName string, name string, options *ServiceRunnersClientBeginDeleteOptions) (*runtime.Poller[ServiceRunnersClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, labName, name, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ServiceRunnersClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ServiceRunnersClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Delete - Delete service runner. This operation can take a while to complete.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-09-01
+func (client *ServiceRunnersClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, name string, options *ServiceRunnersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ServiceRunnersClient.Delete"
+	const operationName = "ServiceRunnersClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, name, options)
 	if err != nil {
-		return ServiceRunnersClientDeleteResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ServiceRunnersClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ServiceRunnersClientDeleteResponse{}, err
+		return nil, err
 	}
-	return ServiceRunnersClientDeleteResponse{}, nil
+	return httpResp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ServiceRunnersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *ServiceRunnersClientDeleteOptions) (*policy.Request, error) {
+func (client *ServiceRunnersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *ServiceRunnersClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/servicerunners/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -170,7 +204,7 @@ func (client *ServiceRunnersClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,7 +213,7 @@ func (client *ServiceRunnersClient) deleteCreateRequest(ctx context.Context, res
 // Get - Get service runner.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-09-15
+// Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
 //   - name - The name of the service runner.
@@ -230,7 +264,7 @@ func (client *ServiceRunnersClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-09-15")
+	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -241,6 +275,79 @@ func (client *ServiceRunnersClient) getHandleResponse(resp *http.Response) (Serv
 	result := ServiceRunnersClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceRunner); err != nil {
 		return ServiceRunnersClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListPager - List service runners in a given lab.
+//
+// Generated from API version 2021-09-01
+//   - resourceGroupName - The name of the resource group.
+//   - labName - The name of the lab.
+//   - options - ServiceRunnersClientListOptions contains the optional parameters for the ServiceRunnersClient.NewListPager method.
+func (client *ServiceRunnersClient) NewListPager(resourceGroupName string, labName string, options *ServiceRunnersClientListOptions) *runtime.Pager[ServiceRunnersClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ServiceRunnersClientListResponse]{
+		More: func(page ServiceRunnersClientListResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ServiceRunnersClientListResponse) (ServiceRunnersClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ServiceRunnersClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceGroupName, labName, options)
+			}, nil)
+			if err != nil {
+				return ServiceRunnersClientListResponse{}, err
+			}
+			return client.listHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listCreateRequest creates the List request.
+func (client *ServiceRunnersClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *ServiceRunnersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/servicerunners"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if labName == "" {
+		return nil, errors.New("parameter labName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	}
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
+	}
+	reqQP.Set("api-version", "2021-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listHandleResponse handles the List response.
+func (client *ServiceRunnersClient) listHandleResponse(resp *http.Response) (ServiceRunnersClientListResponse, error) {
+	result := ServiceRunnersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceRunnerList); err != nil {
+		return ServiceRunnersClientListResponse{}, err
 	}
 	return result, nil
 }

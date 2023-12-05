@@ -16,9 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs/v2"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -27,7 +28,7 @@ import (
 type UsersServer struct {
 	// BeginCreateOrUpdate is the fake for method UsersClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, labName string, name string, userParam armdevtestlabs.User, options *armdevtestlabs.UsersClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armdevtestlabs.UsersClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.UsersClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armdevtestlabs.UsersClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method UsersClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -128,7 +129,13 @@ func (u *UsersServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := u.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, labNameParam, nameParam, body, nil)
+		var options *armdevtestlabs.UsersClientBeginCreateOrUpdateOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armdevtestlabs.UsersClientBeginCreateOrUpdateOptions{
+				User: &body,
+			}
+		}
+		respr, errRespr := u.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, labNameParam, nameParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

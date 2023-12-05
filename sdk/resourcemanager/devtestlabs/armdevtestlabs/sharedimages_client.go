@@ -21,64 +21,65 @@ import (
 	"strings"
 )
 
-// ArtifactSourcesClient contains the methods for the ArtifactSources group.
-// Don't use this type directly, use NewArtifactSourcesClient() instead.
-type ArtifactSourcesClient struct {
+// SharedImagesClient contains the methods for the SharedImages group.
+// Don't use this type directly, use NewSharedImagesClient() instead.
+type SharedImagesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewArtifactSourcesClient creates a new instance of ArtifactSourcesClient with the specified values.
+// NewSharedImagesClient creates a new instance of SharedImagesClient with the specified values.
 //   - subscriptionID - The subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewArtifactSourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ArtifactSourcesClient, error) {
+func NewSharedImagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SharedImagesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ArtifactSourcesClient{
+	client := &SharedImagesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create or replace an existing artifact source.
+// CreateOrUpdate - Create or replace an existing Shared Image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - artifactSource - Properties of an artifact source.
-//   - options - ArtifactSourcesClientCreateOrUpdateOptions contains the optional parameters for the ArtifactSourcesClient.CreateOrUpdate
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - sharedImage - Properties of a shared image
+//   - options - SharedImagesClientCreateOrUpdateOptions contains the optional parameters for the SharedImagesClient.CreateOrUpdate
 //     method.
-func (client *ArtifactSourcesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSource, options *ArtifactSourcesClientCreateOrUpdateOptions) (ArtifactSourcesClientCreateOrUpdateResponse, error) {
+func (client *SharedImagesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImage, options *SharedImagesClientCreateOrUpdateOptions) (SharedImagesClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.CreateOrUpdate"
+	const operationName = "SharedImagesClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, name, artifactSource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, sharedImage, options)
 	if err != nil {
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ArtifactSourcesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSource, options *ArtifactSourcesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *SharedImagesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImage, options *SharedImagesClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -91,6 +92,10 @@ func (client *ArtifactSourcesClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -103,53 +108,54 @@ func (client *ArtifactSourcesClient) createOrUpdateCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, artifactSource); err != nil {
+	if err := runtime.MarshalAsJSON(req, sharedImage); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ArtifactSourcesClient) createOrUpdateHandleResponse(resp *http.Response) (ArtifactSourcesClientCreateOrUpdateResponse, error) {
-	result := ArtifactSourcesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSource); err != nil {
-		return ArtifactSourcesClientCreateOrUpdateResponse{}, err
+func (client *SharedImagesClient) createOrUpdateHandleResponse(resp *http.Response) (SharedImagesClientCreateOrUpdateResponse, error) {
+	result := SharedImagesClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImage); err != nil {
+		return SharedImagesClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete artifact source.
+// Delete - Delete shared image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - options - ArtifactSourcesClientDeleteOptions contains the optional parameters for the ArtifactSourcesClient.Delete method.
-func (client *ArtifactSourcesClient) Delete(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientDeleteOptions) (ArtifactSourcesClientDeleteResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - options - SharedImagesClientDeleteOptions contains the optional parameters for the SharedImagesClient.Delete method.
+func (client *SharedImagesClient) Delete(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientDeleteOptions) (SharedImagesClientDeleteResponse, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.Delete"
+	const operationName = "SharedImagesClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, name, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, options)
 	if err != nil {
-		return ArtifactSourcesClientDeleteResponse{}, err
+		return SharedImagesClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientDeleteResponse{}, err
+		return SharedImagesClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientDeleteResponse{}, err
+		return SharedImagesClientDeleteResponse{}, err
 	}
-	return ArtifactSourcesClientDeleteResponse{}, nil
+	return SharedImagesClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ArtifactSourcesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *SharedImagesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -162,6 +168,10 @@ func (client *ArtifactSourcesClient) deleteCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -177,39 +187,40 @@ func (client *ArtifactSourcesClient) deleteCreateRequest(ctx context.Context, re
 	return req, nil
 }
 
-// Get - Get artifact source.
+// Get - Get shared image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - options - ArtifactSourcesClientGetOptions contains the optional parameters for the ArtifactSourcesClient.Get method.
-func (client *ArtifactSourcesClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientGetOptions) (ArtifactSourcesClientGetResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - options - SharedImagesClientGetOptions contains the optional parameters for the SharedImagesClient.Get method.
+func (client *SharedImagesClient) Get(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientGetOptions) (SharedImagesClientGetResponse, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.Get"
+	const operationName = "SharedImagesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, name, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, options)
 	if err != nil {
-		return ArtifactSourcesClientGetResponse{}, err
+		return SharedImagesClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientGetResponse{}, err
+		return SharedImagesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientGetResponse{}, err
+		return SharedImagesClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ArtifactSourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, options *ArtifactSourcesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *SharedImagesClient) getCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *SharedImagesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -222,6 +233,10 @@ func (client *ArtifactSourcesClient) getCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -241,37 +256,37 @@ func (client *ArtifactSourcesClient) getCreateRequest(ctx context.Context, resou
 }
 
 // getHandleResponse handles the Get response.
-func (client *ArtifactSourcesClient) getHandleResponse(resp *http.Response) (ArtifactSourcesClientGetResponse, error) {
-	result := ArtifactSourcesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSource); err != nil {
-		return ArtifactSourcesClientGetResponse{}, err
+func (client *SharedImagesClient) getHandleResponse(resp *http.Response) (SharedImagesClientGetResponse, error) {
+	result := SharedImagesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImage); err != nil {
+		return SharedImagesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List artifact sources in a given lab.
+// NewListPager - List shared images in a given shared gallery.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - options - ArtifactSourcesClientListOptions contains the optional parameters for the ArtifactSourcesClient.NewListPager
-//     method.
-func (client *ArtifactSourcesClient) NewListPager(resourceGroupName string, labName string, options *ArtifactSourcesClientListOptions) *runtime.Pager[ArtifactSourcesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ArtifactSourcesClientListResponse]{
-		More: func(page ArtifactSourcesClientListResponse) bool {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - options - SharedImagesClientListOptions contains the optional parameters for the SharedImagesClient.NewListPager method.
+func (client *SharedImagesClient) NewListPager(resourceGroupName string, labName string, sharedGalleryName string, options *SharedImagesClientListOptions) *runtime.Pager[SharedImagesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[SharedImagesClientListResponse]{
+		More: func(page SharedImagesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ArtifactSourcesClientListResponse) (ArtifactSourcesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ArtifactSourcesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *SharedImagesClientListResponse) (SharedImagesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SharedImagesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, labName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, options)
 			}, nil)
 			if err != nil {
-				return ArtifactSourcesClientListResponse{}, err
+				return SharedImagesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -280,8 +295,8 @@ func (client *ArtifactSourcesClient) NewListPager(resourceGroupName string, labN
 }
 
 // listCreateRequest creates the List request.
-func (client *ArtifactSourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, options *ArtifactSourcesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources"
+func (client *SharedImagesClient) listCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, options *SharedImagesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -294,6 +309,10 @@ func (client *ArtifactSourcesClient) listCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -318,48 +337,49 @@ func (client *ArtifactSourcesClient) listCreateRequest(ctx context.Context, reso
 }
 
 // listHandleResponse handles the List response.
-func (client *ArtifactSourcesClient) listHandleResponse(resp *http.Response) (ArtifactSourcesClientListResponse, error) {
-	result := ArtifactSourcesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSourceList); err != nil {
-		return ArtifactSourcesClientListResponse{}, err
+func (client *SharedImagesClient) listHandleResponse(resp *http.Response) (SharedImagesClientListResponse, error) {
+	result := SharedImagesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImageList); err != nil {
+		return SharedImagesClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Allows modifying tags of artifact sources. All other properties will be ignored.
+// Update - Allows modifying tags of shared images. All other properties will be ignored.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-09-01
 //   - resourceGroupName - The name of the resource group.
 //   - labName - The name of the lab.
-//   - name - The name of the artifact source.
-//   - artifactSource - Allows modifying tags of artifact sources. All other properties will be ignored.
-//   - options - ArtifactSourcesClientUpdateOptions contains the optional parameters for the ArtifactSourcesClient.Update method.
-func (client *ArtifactSourcesClient) Update(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSourceFragment, options *ArtifactSourcesClientUpdateOptions) (ArtifactSourcesClientUpdateResponse, error) {
+//   - sharedGalleryName - The name of the shared gallery.
+//   - name - The name of the shared image.
+//   - sharedImage - Allows modifying tags of shared images. All other properties will be ignored.
+//   - options - SharedImagesClientUpdateOptions contains the optional parameters for the SharedImagesClient.Update method.
+func (client *SharedImagesClient) Update(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImageFragment, options *SharedImagesClientUpdateOptions) (SharedImagesClientUpdateResponse, error) {
 	var err error
-	const operationName = "ArtifactSourcesClient.Update"
+	const operationName = "SharedImagesClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, name, artifactSource, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, labName, sharedGalleryName, name, sharedImage, options)
 	if err != nil {
-		return ArtifactSourcesClientUpdateResponse{}, err
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ArtifactSourcesClientUpdateResponse{}, err
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ArtifactSourcesClientUpdateResponse{}, err
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ArtifactSourcesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, name string, artifactSource ArtifactSourceFragment, options *ArtifactSourcesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}"
+func (client *SharedImagesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage SharedImageFragment, options *SharedImagesClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{sharedGalleryName}/sharedimages/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -372,6 +392,10 @@ func (client *ArtifactSourcesClient) updateCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter labName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{labName}", url.PathEscape(labName))
+	if sharedGalleryName == "" {
+		return nil, errors.New("parameter sharedGalleryName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{sharedGalleryName}", url.PathEscape(sharedGalleryName))
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
@@ -384,17 +408,17 @@ func (client *ArtifactSourcesClient) updateCreateRequest(ctx context.Context, re
 	reqQP.Set("api-version", "2021-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, artifactSource); err != nil {
+	if err := runtime.MarshalAsJSON(req, sharedImage); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
-func (client *ArtifactSourcesClient) updateHandleResponse(resp *http.Response) (ArtifactSourcesClientUpdateResponse, error) {
-	result := ArtifactSourcesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactSource); err != nil {
-		return ArtifactSourcesClientUpdateResponse{}, err
+func (client *SharedImagesClient) updateHandleResponse(resp *http.Response) (SharedImagesClientUpdateResponse, error) {
+	result := SharedImagesClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedImage); err != nil {
+		return SharedImagesClientUpdateResponse{}, err
 	}
 	return result, nil
 }

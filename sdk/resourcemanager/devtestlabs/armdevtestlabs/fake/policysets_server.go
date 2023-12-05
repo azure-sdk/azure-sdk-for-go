@@ -15,10 +15,12 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs/v2"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // PolicySetsServer is a fake server for instances of the armdevtestlabs.PolicySetsClient type.
@@ -26,19 +28,27 @@ type PolicySetsServer struct {
 	// EvaluatePolicies is the fake for method PolicySetsClient.EvaluatePolicies
 	// HTTP status codes to indicate success: http.StatusOK
 	EvaluatePolicies func(ctx context.Context, resourceGroupName string, labName string, name string, evaluatePoliciesRequest armdevtestlabs.EvaluatePoliciesRequest, options *armdevtestlabs.PolicySetsClientEvaluatePoliciesOptions) (resp azfake.Responder[armdevtestlabs.PolicySetsClientEvaluatePoliciesResponse], errResp azfake.ErrorResponder)
+
+	// NewListPager is the fake for method PolicySetsClient.NewListPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListPager func(resourceGroupName string, labName string, options *armdevtestlabs.PolicySetsClientListOptions) (resp azfake.PagerResponder[armdevtestlabs.PolicySetsClientListResponse])
 }
 
 // NewPolicySetsServerTransport creates a new instance of PolicySetsServerTransport with the provided implementation.
 // The returned PolicySetsServerTransport instance is connected to an instance of armdevtestlabs.PolicySetsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPolicySetsServerTransport(srv *PolicySetsServer) *PolicySetsServerTransport {
-	return &PolicySetsServerTransport{srv: srv}
+	return &PolicySetsServerTransport{
+		srv:          srv,
+		newListPager: newTracker[azfake.PagerResponder[armdevtestlabs.PolicySetsClientListResponse]](),
+	}
 }
 
 // PolicySetsServerTransport connects instances of armdevtestlabs.PolicySetsClient to instances of PolicySetsServer.
 // Don't use this type directly, use NewPolicySetsServerTransport instead.
 type PolicySetsServerTransport struct {
-	srv *PolicySetsServer
+	srv          *PolicySetsServer
+	newListPager *tracker[azfake.PagerResponder[armdevtestlabs.PolicySetsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for PolicySetsServerTransport.
@@ -55,6 +65,8 @@ func (p *PolicySetsServerTransport) Do(req *http.Request) (*http.Response, error
 	switch method {
 	case "PolicySetsClient.EvaluatePolicies":
 		resp, err = p.dispatchEvaluatePolicies(req)
+	case "PolicySetsClient.NewListPager":
+		resp, err = p.dispatchNewListPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -103,6 +115,80 @@ func (p *PolicySetsServerTransport) dispatchEvaluatePolicies(req *http.Request) 
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).EvaluatePoliciesResponse, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PolicySetsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+	}
+	newListPager := p.newListPager.get(req)
+	if newListPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policysets`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		labNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("labName")])
+		if err != nil {
+			return nil, err
+		}
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
+		if err != nil {
+			return nil, err
+		}
+		topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
+		orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+		if err != nil {
+			return nil, err
+		}
+		orderbyParam := getOptional(orderbyUnescaped)
+		var options *armdevtestlabs.PolicySetsClientListOptions
+		if filterParam != nil || topParam != nil || orderbyParam != nil {
+			options = &armdevtestlabs.PolicySetsClientListOptions{
+				Filter:  filterParam,
+				Top:     topParam,
+				Orderby: orderbyParam,
+			}
+		}
+		resp := p.srv.NewListPager(resourceGroupNameParam, labNameParam, options)
+		newListPager = &resp
+		p.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdevtestlabs.PolicySetsClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListPager) {
+		p.newListPager.remove(req)
 	}
 	return resp, nil
 }

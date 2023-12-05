@@ -10,8 +10,38 @@ package armdevtestlabs
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
+
+// CheckNameAvailabilityReason - The reason why the given name is not available.
+type CheckNameAvailabilityReason string
+
+const (
+	CheckNameAvailabilityReasonAlreadyExists CheckNameAvailabilityReason = "AlreadyExists"
+	CheckNameAvailabilityReasonInvalid       CheckNameAvailabilityReason = "Invalid"
+)
+
+// PossibleCheckNameAvailabilityReasonValues returns the possible values for the CheckNameAvailabilityReason const type.
+func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
+	return []CheckNameAvailabilityReason{
+		CheckNameAvailabilityReasonAlreadyExists,
+		CheckNameAvailabilityReasonInvalid,
+	}
+}
 
 // CostThresholdStatus - Indicates whether this threshold will be displayed on cost charts.
 type CostThresholdStatus string
@@ -47,6 +77,26 @@ func PossibleCostTypeValues() []CostType {
 	}
 }
 
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
+
 // CustomImageOsType - The OS type of the custom image (i.e. Windows, Linux)
 type CustomImageOsType string
 
@@ -65,6 +115,23 @@ func PossibleCustomImageOsTypeValues() []CustomImageOsType {
 	}
 }
 
+// EnableState - Enables all images in the gallery to be available in the lab for VM creation. This will override the EnableState
+// on shared images
+type EnableState string
+
+const (
+	EnableStateDisabled EnableState = "Disabled"
+	EnableStateEnabled  EnableState = "Enabled"
+)
+
+// PossibleEnableStateValues returns the possible values for the EnableState const type.
+func PossibleEnableStateValues() []EnableState {
+	return []EnableState{
+		EnableStateDisabled,
+		EnableStateEnabled,
+	}
+}
+
 // EnableStatus - Indicates if the artifact source is enabled (values: Enabled, Disabled).
 type EnableStatus string
 
@@ -78,6 +145,39 @@ func PossibleEnableStatusValues() []EnableStatus {
 	return []EnableStatus{
 		EnableStatusDisabled,
 		EnableStatusEnabled,
+	}
+}
+
+// EncryptionStatus - Indicates whether or not the encryption is enabled for container registry.
+type EncryptionStatus string
+
+const (
+	EncryptionStatusDisabled EncryptionStatus = "disabled"
+	EncryptionStatusEnabled  EncryptionStatus = "enabled"
+)
+
+// PossibleEncryptionStatusValues returns the possible values for the EncryptionStatus const type.
+func PossibleEncryptionStatusValues() []EncryptionStatus {
+	return []EncryptionStatus{
+		EncryptionStatusDisabled,
+		EncryptionStatusEnabled,
+	}
+}
+
+// EncryptionType - Gets or sets the type of key used to encrypt the data of the disk. Possible values include: 'EncryptionAtRestWithPlatformKey',
+// 'EncryptionAtRestWithCustomerKey'
+type EncryptionType string
+
+const (
+	EncryptionTypeEncryptionAtRestWithCustomerKey EncryptionType = "EncryptionAtRestWithCustomerKey"
+	EncryptionTypeEncryptionAtRestWithPlatformKey EncryptionType = "EncryptionAtRestWithPlatformKey"
+)
+
+// PossibleEncryptionTypeValues returns the possible values for the EncryptionType const type.
+func PossibleEncryptionTypeValues() []EncryptionType {
+	return []EncryptionType{
+		EncryptionTypeEncryptionAtRestWithCustomerKey,
+		EncryptionTypeEncryptionAtRestWithPlatformKey,
 	}
 }
 
@@ -117,92 +217,126 @@ func PossibleFileUploadOptionsValues() []FileUploadOptions {
 type HTTPStatusCode string
 
 const (
-	HTTPStatusCodeAccepted                     HTTPStatusCode = "Accepted"
-	HTTPStatusCodeAmbiguous                    HTTPStatusCode = "Ambiguous"
-	HTTPStatusCodeBadGateway                   HTTPStatusCode = "BadGateway"
-	HTTPStatusCodeBadRequest                   HTTPStatusCode = "BadRequest"
-	HTTPStatusCodeConflict                     HTTPStatusCode = "Conflict"
-	HTTPStatusCodeContinue                     HTTPStatusCode = "Continue"
-	HTTPStatusCodeCreated                      HTTPStatusCode = "Created"
-	HTTPStatusCodeExpectationFailed            HTTPStatusCode = "ExpectationFailed"
-	HTTPStatusCodeForbidden                    HTTPStatusCode = "Forbidden"
-	HTTPStatusCodeFound                        HTTPStatusCode = "Found"
-	HTTPStatusCodeGatewayTimeout               HTTPStatusCode = "GatewayTimeout"
-	HTTPStatusCodeGone                         HTTPStatusCode = "Gone"
-	HTTPStatusCodeHTTPVersionNotSupported      HTTPStatusCode = "HttpVersionNotSupported"
-	HTTPStatusCodeInternalServerError          HTTPStatusCode = "InternalServerError"
-	HTTPStatusCodeLengthRequired               HTTPStatusCode = "LengthRequired"
-	HTTPStatusCodeMethodNotAllowed             HTTPStatusCode = "MethodNotAllowed"
-	HTTPStatusCodeMoved                        HTTPStatusCode = "Moved"
-	HTTPStatusCodeMovedPermanently             HTTPStatusCode = "MovedPermanently"
-	HTTPStatusCodeMultipleChoices              HTTPStatusCode = "MultipleChoices"
-	HTTPStatusCodeNoContent                    HTTPStatusCode = "NoContent"
-	HTTPStatusCodeNonAuthoritativeInformation  HTTPStatusCode = "NonAuthoritativeInformation"
-	HTTPStatusCodeNotAcceptable                HTTPStatusCode = "NotAcceptable"
-	HTTPStatusCodeNotFound                     HTTPStatusCode = "NotFound"
-	HTTPStatusCodeNotImplemented               HTTPStatusCode = "NotImplemented"
-	HTTPStatusCodeNotModified                  HTTPStatusCode = "NotModified"
-	HTTPStatusCodeOK                           HTTPStatusCode = "OK"
-	HTTPStatusCodePartialContent               HTTPStatusCode = "PartialContent"
-	HTTPStatusCodePaymentRequired              HTTPStatusCode = "PaymentRequired"
-	HTTPStatusCodePreconditionFailed           HTTPStatusCode = "PreconditionFailed"
-	HTTPStatusCodeProxyAuthenticationRequired  HTTPStatusCode = "ProxyAuthenticationRequired"
-	HTTPStatusCodeRedirect                     HTTPStatusCode = "Redirect"
-	HTTPStatusCodeRedirectKeepVerb             HTTPStatusCode = "RedirectKeepVerb"
-	HTTPStatusCodeRedirectMethod               HTTPStatusCode = "RedirectMethod"
-	HTTPStatusCodeRequestEntityTooLarge        HTTPStatusCode = "RequestEntityTooLarge"
-	HTTPStatusCodeRequestTimeout               HTTPStatusCode = "RequestTimeout"
-	HTTPStatusCodeRequestURITooLong            HTTPStatusCode = "RequestUriTooLong"
-	HTTPStatusCodeRequestedRangeNotSatisfiable HTTPStatusCode = "RequestedRangeNotSatisfiable"
-	HTTPStatusCodeResetContent                 HTTPStatusCode = "ResetContent"
-	HTTPStatusCodeSeeOther                     HTTPStatusCode = "SeeOther"
-	HTTPStatusCodeServiceUnavailable           HTTPStatusCode = "ServiceUnavailable"
-	HTTPStatusCodeSwitchingProtocols           HTTPStatusCode = "SwitchingProtocols"
-	HTTPStatusCodeTemporaryRedirect            HTTPStatusCode = "TemporaryRedirect"
-	HTTPStatusCodeUnauthorized                 HTTPStatusCode = "Unauthorized"
-	HTTPStatusCodeUnsupportedMediaType         HTTPStatusCode = "UnsupportedMediaType"
-	HTTPStatusCodeUnused                       HTTPStatusCode = "Unused"
-	HTTPStatusCodeUpgradeRequired              HTTPStatusCode = "UpgradeRequired"
-	HTTPStatusCodeUseProxy                     HTTPStatusCode = "UseProxy"
+	HTTPStatusCodeAccepted                      HTTPStatusCode = "Accepted"
+	HTTPStatusCodeAlreadyReported               HTTPStatusCode = "AlreadyReported"
+	HTTPStatusCodeAmbiguous                     HTTPStatusCode = "Ambiguous"
+	HTTPStatusCodeBadGateway                    HTTPStatusCode = "BadGateway"
+	HTTPStatusCodeBadRequest                    HTTPStatusCode = "BadRequest"
+	HTTPStatusCodeConflict                      HTTPStatusCode = "Conflict"
+	HTTPStatusCodeContinue                      HTTPStatusCode = "Continue"
+	HTTPStatusCodeCreated                       HTTPStatusCode = "Created"
+	HTTPStatusCodeEarlyHints                    HTTPStatusCode = "EarlyHints"
+	HTTPStatusCodeExpectationFailed             HTTPStatusCode = "ExpectationFailed"
+	HTTPStatusCodeFailedDependency              HTTPStatusCode = "FailedDependency"
+	HTTPStatusCodeForbidden                     HTTPStatusCode = "Forbidden"
+	HTTPStatusCodeFound                         HTTPStatusCode = "Found"
+	HTTPStatusCodeGatewayTimeout                HTTPStatusCode = "GatewayTimeout"
+	HTTPStatusCodeGone                          HTTPStatusCode = "Gone"
+	HTTPStatusCodeHTTPVersionNotSupported       HTTPStatusCode = "HttpVersionNotSupported"
+	HTTPStatusCodeIMUsed                        HTTPStatusCode = "IMUsed"
+	HTTPStatusCodeInsufficientStorage           HTTPStatusCode = "InsufficientStorage"
+	HTTPStatusCodeInternalServerError           HTTPStatusCode = "InternalServerError"
+	HTTPStatusCodeLengthRequired                HTTPStatusCode = "LengthRequired"
+	HTTPStatusCodeLocked                        HTTPStatusCode = "Locked"
+	HTTPStatusCodeLoopDetected                  HTTPStatusCode = "LoopDetected"
+	HTTPStatusCodeMethodNotAllowed              HTTPStatusCode = "MethodNotAllowed"
+	HTTPStatusCodeMisdirectedRequest            HTTPStatusCode = "MisdirectedRequest"
+	HTTPStatusCodeMoved                         HTTPStatusCode = "Moved"
+	HTTPStatusCodeMovedPermanently              HTTPStatusCode = "MovedPermanently"
+	HTTPStatusCodeMultiStatus                   HTTPStatusCode = "MultiStatus"
+	HTTPStatusCodeMultipleChoices               HTTPStatusCode = "MultipleChoices"
+	HTTPStatusCodeNetworkAuthenticationRequired HTTPStatusCode = "NetworkAuthenticationRequired"
+	HTTPStatusCodeNoContent                     HTTPStatusCode = "NoContent"
+	HTTPStatusCodeNonAuthoritativeInformation   HTTPStatusCode = "NonAuthoritativeInformation"
+	HTTPStatusCodeNotAcceptable                 HTTPStatusCode = "NotAcceptable"
+	HTTPStatusCodeNotExtended                   HTTPStatusCode = "NotExtended"
+	HTTPStatusCodeNotFound                      HTTPStatusCode = "NotFound"
+	HTTPStatusCodeNotImplemented                HTTPStatusCode = "NotImplemented"
+	HTTPStatusCodeNotModified                   HTTPStatusCode = "NotModified"
+	HTTPStatusCodeOK                            HTTPStatusCode = "OK"
+	HTTPStatusCodePartialContent                HTTPStatusCode = "PartialContent"
+	HTTPStatusCodePaymentRequired               HTTPStatusCode = "PaymentRequired"
+	HTTPStatusCodePermanentRedirect             HTTPStatusCode = "PermanentRedirect"
+	HTTPStatusCodePreconditionFailed            HTTPStatusCode = "PreconditionFailed"
+	HTTPStatusCodePreconditionRequired          HTTPStatusCode = "PreconditionRequired"
+	HTTPStatusCodeProcessing                    HTTPStatusCode = "Processing"
+	HTTPStatusCodeProxyAuthenticationRequired   HTTPStatusCode = "ProxyAuthenticationRequired"
+	HTTPStatusCodeRedirect                      HTTPStatusCode = "Redirect"
+	HTTPStatusCodeRedirectKeepVerb              HTTPStatusCode = "RedirectKeepVerb"
+	HTTPStatusCodeRedirectMethod                HTTPStatusCode = "RedirectMethod"
+	HTTPStatusCodeRequestEntityTooLarge         HTTPStatusCode = "RequestEntityTooLarge"
+	HTTPStatusCodeRequestHeaderFieldsTooLarge   HTTPStatusCode = "RequestHeaderFieldsTooLarge"
+	HTTPStatusCodeRequestTimeout                HTTPStatusCode = "RequestTimeout"
+	HTTPStatusCodeRequestURITooLong             HTTPStatusCode = "RequestUriTooLong"
+	HTTPStatusCodeRequestedRangeNotSatisfiable  HTTPStatusCode = "RequestedRangeNotSatisfiable"
+	HTTPStatusCodeResetContent                  HTTPStatusCode = "ResetContent"
+	HTTPStatusCodeSeeOther                      HTTPStatusCode = "SeeOther"
+	HTTPStatusCodeServiceUnavailable            HTTPStatusCode = "ServiceUnavailable"
+	HTTPStatusCodeSwitchingProtocols            HTTPStatusCode = "SwitchingProtocols"
+	HTTPStatusCodeTemporaryRedirect             HTTPStatusCode = "TemporaryRedirect"
+	HTTPStatusCodeTooManyRequests               HTTPStatusCode = "TooManyRequests"
+	HTTPStatusCodeUnauthorized                  HTTPStatusCode = "Unauthorized"
+	HTTPStatusCodeUnavailableForLegalReasons    HTTPStatusCode = "UnavailableForLegalReasons"
+	HTTPStatusCodeUnprocessableEntity           HTTPStatusCode = "UnprocessableEntity"
+	HTTPStatusCodeUnsupportedMediaType          HTTPStatusCode = "UnsupportedMediaType"
+	HTTPStatusCodeUnused                        HTTPStatusCode = "Unused"
+	HTTPStatusCodeUpgradeRequired               HTTPStatusCode = "UpgradeRequired"
+	HTTPStatusCodeUseProxy                      HTTPStatusCode = "UseProxy"
+	HTTPStatusCodeVariantAlsoNegotiates         HTTPStatusCode = "VariantAlsoNegotiates"
 )
 
 // PossibleHTTPStatusCodeValues returns the possible values for the HTTPStatusCode const type.
 func PossibleHTTPStatusCodeValues() []HTTPStatusCode {
 	return []HTTPStatusCode{
 		HTTPStatusCodeAccepted,
+		HTTPStatusCodeAlreadyReported,
 		HTTPStatusCodeAmbiguous,
 		HTTPStatusCodeBadGateway,
 		HTTPStatusCodeBadRequest,
 		HTTPStatusCodeConflict,
 		HTTPStatusCodeContinue,
 		HTTPStatusCodeCreated,
+		HTTPStatusCodeEarlyHints,
 		HTTPStatusCodeExpectationFailed,
+		HTTPStatusCodeFailedDependency,
 		HTTPStatusCodeForbidden,
 		HTTPStatusCodeFound,
 		HTTPStatusCodeGatewayTimeout,
 		HTTPStatusCodeGone,
 		HTTPStatusCodeHTTPVersionNotSupported,
+		HTTPStatusCodeIMUsed,
+		HTTPStatusCodeInsufficientStorage,
 		HTTPStatusCodeInternalServerError,
 		HTTPStatusCodeLengthRequired,
+		HTTPStatusCodeLocked,
+		HTTPStatusCodeLoopDetected,
 		HTTPStatusCodeMethodNotAllowed,
+		HTTPStatusCodeMisdirectedRequest,
 		HTTPStatusCodeMoved,
 		HTTPStatusCodeMovedPermanently,
+		HTTPStatusCodeMultiStatus,
 		HTTPStatusCodeMultipleChoices,
+		HTTPStatusCodeNetworkAuthenticationRequired,
 		HTTPStatusCodeNoContent,
 		HTTPStatusCodeNonAuthoritativeInformation,
 		HTTPStatusCodeNotAcceptable,
+		HTTPStatusCodeNotExtended,
 		HTTPStatusCodeNotFound,
 		HTTPStatusCodeNotImplemented,
 		HTTPStatusCodeNotModified,
 		HTTPStatusCodeOK,
 		HTTPStatusCodePartialContent,
 		HTTPStatusCodePaymentRequired,
+		HTTPStatusCodePermanentRedirect,
 		HTTPStatusCodePreconditionFailed,
+		HTTPStatusCodePreconditionRequired,
+		HTTPStatusCodeProcessing,
 		HTTPStatusCodeProxyAuthenticationRequired,
 		HTTPStatusCodeRedirect,
 		HTTPStatusCodeRedirectKeepVerb,
 		HTTPStatusCodeRedirectMethod,
 		HTTPStatusCodeRequestEntityTooLarge,
+		HTTPStatusCodeRequestHeaderFieldsTooLarge,
 		HTTPStatusCodeRequestTimeout,
 		HTTPStatusCodeRequestURITooLong,
 		HTTPStatusCodeRequestedRangeNotSatisfiable,
@@ -211,11 +345,15 @@ func PossibleHTTPStatusCodeValues() []HTTPStatusCode {
 		HTTPStatusCodeServiceUnavailable,
 		HTTPStatusCodeSwitchingProtocols,
 		HTTPStatusCodeTemporaryRedirect,
+		HTTPStatusCodeTooManyRequests,
 		HTTPStatusCodeUnauthorized,
+		HTTPStatusCodeUnavailableForLegalReasons,
+		HTTPStatusCodeUnprocessableEntity,
 		HTTPStatusCodeUnsupportedMediaType,
 		HTTPStatusCodeUnused,
 		HTTPStatusCodeUpgradeRequired,
 		HTTPStatusCodeUseProxy,
+		HTTPStatusCodeVariantAlsoNegotiates,
 	}
 }
 
@@ -237,6 +375,22 @@ func PossibleHostCachingOptionsValues() []HostCachingOptions {
 	}
 }
 
+// ImageType - The type of image in the gallery (generalized or specialized)
+type ImageType string
+
+const (
+	ImageTypeGeneralized ImageType = "Generalized"
+	ImageTypeSpecialized ImageType = "Specialized"
+)
+
+// PossibleImageTypeValues returns the possible values for the ImageType const type.
+func PossibleImageTypeValues() []ImageType {
+	return []ImageType{
+		ImageTypeGeneralized,
+		ImageTypeSpecialized,
+	}
+}
+
 // LinuxOsState - The state of the Linux OS (i.e. NonDeprovisioned, DeprovisionRequested, DeprovisionApplied).
 type LinuxOsState string
 
@@ -255,7 +409,7 @@ func PossibleLinuxOsStateValues() []LinuxOsState {
 	}
 }
 
-// ManagedIdentityType - Managed identity.
+// ManagedIdentityType - Type of identity (SystemAssigned, UserAssigned, None)
 type ManagedIdentityType string
 
 const (
@@ -288,6 +442,41 @@ func PossibleNotificationChannelEventTypeValues() []NotificationChannelEventType
 	return []NotificationChannelEventType{
 		NotificationChannelEventTypeAutoShutdown,
 		NotificationChannelEventTypeCost,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
+// OsType - The operating system of the image
+type OsType string
+
+const (
+	OsTypeLinux   OsType = "Linux"
+	OsTypeWindows OsType = "Windows"
+)
+
+// PossibleOsTypeValues returns the possible values for the OsType const type.
+func PossibleOsTypeValues() []OsType {
+	return []OsType{
+		OsTypeLinux,
+		OsTypeWindows,
 	}
 }
 
@@ -389,6 +578,27 @@ func PossibleReportingCycleTypeValues() []ReportingCycleType {
 	}
 }
 
+// SKUTier - This field is required to be implemented by the Resource Provider if the service has more than one tier, but
+// is not required on a PUT.
+type SKUTier string
+
+const (
+	SKUTierBasic    SKUTier = "Basic"
+	SKUTierFree     SKUTier = "Free"
+	SKUTierPremium  SKUTier = "Premium"
+	SKUTierStandard SKUTier = "Standard"
+)
+
+// PossibleSKUTierValues returns the possible values for the SKUTier const type.
+func PossibleSKUTierValues() []SKUTier {
+	return []SKUTier{
+		SKUTierBasic,
+		SKUTierFree,
+		SKUTierPremium,
+		SKUTierStandard,
+	}
+}
+
 // SourceControlType - The artifact source's type.
 type SourceControlType string
 
@@ -422,6 +632,24 @@ func PossibleStorageTypeValues() []StorageType {
 		StorageTypePremium,
 		StorageTypeStandard,
 		StorageTypeStandardSSD,
+	}
+}
+
+// StorageTypes - Storage type to use for virtual machine (i.e. Standard, Premium, StandardSSD).
+type StorageTypes string
+
+const (
+	StorageTypesPremium     StorageTypes = "Premium"
+	StorageTypesStandard    StorageTypes = "Standard"
+	StorageTypesStandardSSD StorageTypes = "StandardSSD"
+)
+
+// PossibleStorageTypesValues returns the possible values for the StorageTypes const type.
+func PossibleStorageTypesValues() []StorageTypes {
+	return []StorageTypes{
+		StorageTypesPremium,
+		StorageTypesStandard,
+		StorageTypesStandardSSD,
 	}
 }
 

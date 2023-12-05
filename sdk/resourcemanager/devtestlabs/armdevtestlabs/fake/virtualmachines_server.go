@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -36,6 +36,10 @@ type VirtualMachinesServer struct {
 	// BeginClaim is the fake for method VirtualMachinesClient.BeginClaim
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginClaim func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.VirtualMachinesClientBeginClaimOptions) (resp azfake.PollerResponder[armdevtestlabs.VirtualMachinesClientClaimResponse], errResp azfake.ErrorResponder)
+
+	// ClearArtifactResults is the fake for method VirtualMachinesClient.ClearArtifactResults
+	// HTTP status codes to indicate success: http.StatusOK
+	ClearArtifactResults func(ctx context.Context, resourceGroupName string, labName string, name string, options *armdevtestlabs.VirtualMachinesClientClearArtifactResultsOptions) (resp azfake.Responder[armdevtestlabs.VirtualMachinesClientClearArtifactResultsResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method VirtualMachinesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
@@ -159,6 +163,8 @@ func (v *VirtualMachinesServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = v.dispatchBeginApplyArtifacts(req)
 	case "VirtualMachinesClient.BeginClaim":
 		resp, err = v.dispatchBeginClaim(req)
+	case "VirtualMachinesClient.ClearArtifactResults":
+		resp, err = v.dispatchClearArtifactResults(req)
 	case "VirtualMachinesClient.BeginCreateOrUpdate":
 		resp, err = v.dispatchBeginCreateOrUpdate(req)
 	case "VirtualMachinesClient.BeginDelete":
@@ -349,6 +355,43 @@ func (v *VirtualMachinesServerTransport) dispatchBeginClaim(req *http.Request) (
 		v.beginClaim.remove(req)
 	}
 
+	return resp, nil
+}
+
+func (v *VirtualMachinesServerTransport) dispatchClearArtifactResults(req *http.Request) (*http.Response, error) {
+	if v.srv.ClearArtifactResults == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ClearArtifactResults not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualmachines/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/clearArtifactResults`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	labNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("labName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := v.srv.ClearArtifactResults(req.Context(), resourceGroupNameParam, labNameParam, nameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

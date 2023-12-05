@@ -23,48 +23,48 @@ import (
 	"strconv"
 )
 
-// PoliciesServer is a fake server for instances of the armdevtestlabs.PoliciesClient type.
-type PoliciesServer struct {
-	// CreateOrUpdate is the fake for method PoliciesClient.CreateOrUpdate
+// SharedImagesServer is a fake server for instances of the armdevtestlabs.SharedImagesClient type.
+type SharedImagesServer struct {
+	// CreateOrUpdate is the fake for method SharedImagesClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, policy armdevtestlabs.Policy, options *armdevtestlabs.PoliciesClientCreateOrUpdateOptions) (resp azfake.Responder[armdevtestlabs.PoliciesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage armdevtestlabs.SharedImage, options *armdevtestlabs.SharedImagesClientCreateOrUpdateOptions) (resp azfake.Responder[armdevtestlabs.SharedImagesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
-	// Delete is the fake for method PoliciesClient.Delete
+	// Delete is the fake for method SharedImagesClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, options *armdevtestlabs.PoliciesClientDeleteOptions) (resp azfake.Responder[armdevtestlabs.PoliciesClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *armdevtestlabs.SharedImagesClientDeleteOptions) (resp azfake.Responder[armdevtestlabs.SharedImagesClientDeleteResponse], errResp azfake.ErrorResponder)
 
-	// Get is the fake for method PoliciesClient.Get
+	// Get is the fake for method SharedImagesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, options *armdevtestlabs.PoliciesClientGetOptions) (resp azfake.Responder[armdevtestlabs.PoliciesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, options *armdevtestlabs.SharedImagesClientGetOptions) (resp azfake.Responder[armdevtestlabs.SharedImagesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method PoliciesClient.NewListPager
+	// NewListPager is the fake for method SharedImagesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, labName string, policySetName string, options *armdevtestlabs.PoliciesClientListOptions) (resp azfake.PagerResponder[armdevtestlabs.PoliciesClientListResponse])
+	NewListPager func(resourceGroupName string, labName string, sharedGalleryName string, options *armdevtestlabs.SharedImagesClientListOptions) (resp azfake.PagerResponder[armdevtestlabs.SharedImagesClientListResponse])
 
-	// Update is the fake for method PoliciesClient.Update
+	// Update is the fake for method SharedImagesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, labName string, policySetName string, name string, policy armdevtestlabs.PolicyFragment, options *armdevtestlabs.PoliciesClientUpdateOptions) (resp azfake.Responder[armdevtestlabs.PoliciesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, labName string, sharedGalleryName string, name string, sharedImage armdevtestlabs.SharedImageFragment, options *armdevtestlabs.SharedImagesClientUpdateOptions) (resp azfake.Responder[armdevtestlabs.SharedImagesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
-// NewPoliciesServerTransport creates a new instance of PoliciesServerTransport with the provided implementation.
-// The returned PoliciesServerTransport instance is connected to an instance of armdevtestlabs.PoliciesClient via the
+// NewSharedImagesServerTransport creates a new instance of SharedImagesServerTransport with the provided implementation.
+// The returned SharedImagesServerTransport instance is connected to an instance of armdevtestlabs.SharedImagesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewPoliciesServerTransport(srv *PoliciesServer) *PoliciesServerTransport {
-	return &PoliciesServerTransport{
+func NewSharedImagesServerTransport(srv *SharedImagesServer) *SharedImagesServerTransport {
+	return &SharedImagesServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armdevtestlabs.PoliciesClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armdevtestlabs.SharedImagesClientListResponse]](),
 	}
 }
 
-// PoliciesServerTransport connects instances of armdevtestlabs.PoliciesClient to instances of PoliciesServer.
-// Don't use this type directly, use NewPoliciesServerTransport instead.
-type PoliciesServerTransport struct {
-	srv          *PoliciesServer
-	newListPager *tracker[azfake.PagerResponder[armdevtestlabs.PoliciesClientListResponse]]
+// SharedImagesServerTransport connects instances of armdevtestlabs.SharedImagesClient to instances of SharedImagesServer.
+// Don't use this type directly, use NewSharedImagesServerTransport instead.
+type SharedImagesServerTransport struct {
+	srv          *SharedImagesServer
+	newListPager *tracker[azfake.PagerResponder[armdevtestlabs.SharedImagesClientListResponse]]
 }
 
-// Do implements the policy.Transporter interface for PoliciesServerTransport.
-func (p *PoliciesServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for SharedImagesServerTransport.
+func (s *SharedImagesServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
@@ -75,16 +75,16 @@ func (p *PoliciesServerTransport) Do(req *http.Request) (*http.Response, error) 
 	var err error
 
 	switch method {
-	case "PoliciesClient.CreateOrUpdate":
-		resp, err = p.dispatchCreateOrUpdate(req)
-	case "PoliciesClient.Delete":
-		resp, err = p.dispatchDelete(req)
-	case "PoliciesClient.Get":
-		resp, err = p.dispatchGet(req)
-	case "PoliciesClient.NewListPager":
-		resp, err = p.dispatchNewListPager(req)
-	case "PoliciesClient.Update":
-		resp, err = p.dispatchUpdate(req)
+	case "SharedImagesClient.CreateOrUpdate":
+		resp, err = s.dispatchCreateOrUpdate(req)
+	case "SharedImagesClient.Delete":
+		resp, err = s.dispatchDelete(req)
+	case "SharedImagesClient.Get":
+		resp, err = s.dispatchGet(req)
+	case "SharedImagesClient.NewListPager":
+		resp, err = s.dispatchNewListPager(req)
+	case "SharedImagesClient.Update":
+		resp, err = s.dispatchUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -96,17 +96,17 @@ func (p *PoliciesServerTransport) Do(req *http.Request) (*http.Response, error) 
 	return resp, nil
 }
 
-func (p *PoliciesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if p.srv.CreateOrUpdate == nil {
+func (s *SharedImagesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.CreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policysets/(?P<policySetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<sharedGalleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedimages/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.Policy](req)
+	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.SharedImage](req)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func (p *PoliciesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*ht
 	if err != nil {
 		return nil, err
 	}
-	policySetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetName")])
+	sharedGalleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedGalleryName")])
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +126,7 @@ func (p *PoliciesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*ht
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, labNameParam, policySetNameParam, nameParam, body, nil)
+	respr, errRespr := s.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, labNameParam, sharedGalleryNameParam, nameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -134,18 +134,18 @@ func (p *PoliciesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*ht
 	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Policy, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedImage, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (p *PoliciesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
-	if p.srv.Delete == nil {
+func (s *SharedImagesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
+	if s.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policysets/(?P<policySetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<sharedGalleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedimages/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 5 {
@@ -159,7 +159,7 @@ func (p *PoliciesServerTransport) dispatchDelete(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	policySetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetName")])
+	sharedGalleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedGalleryName")])
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func (p *PoliciesServerTransport) dispatchDelete(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.Delete(req.Context(), resourceGroupNameParam, labNameParam, policySetNameParam, nameParam, nil)
+	respr, errRespr := s.srv.Delete(req.Context(), resourceGroupNameParam, labNameParam, sharedGalleryNameParam, nameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -182,11 +182,11 @@ func (p *PoliciesServerTransport) dispatchDelete(req *http.Request) (*http.Respo
 	return resp, nil
 }
 
-func (p *PoliciesServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if p.srv.Get == nil {
+func (s *SharedImagesServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if s.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policysets/(?P<policySetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<sharedGalleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedimages/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 5 {
@@ -201,7 +201,7 @@ func (p *PoliciesServerTransport) dispatchGet(req *http.Request) (*http.Response
 	if err != nil {
 		return nil, err
 	}
-	policySetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetName")])
+	sharedGalleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedGalleryName")])
 	if err != nil {
 		return nil, err
 	}
@@ -214,13 +214,13 @@ func (p *PoliciesServerTransport) dispatchGet(req *http.Request) (*http.Response
 		return nil, err
 	}
 	expandParam := getOptional(expandUnescaped)
-	var options *armdevtestlabs.PoliciesClientGetOptions
+	var options *armdevtestlabs.SharedImagesClientGetOptions
 	if expandParam != nil {
-		options = &armdevtestlabs.PoliciesClientGetOptions{
+		options = &armdevtestlabs.SharedImagesClientGetOptions{
 			Expand: expandParam,
 		}
 	}
-	respr, errRespr := p.srv.Get(req.Context(), resourceGroupNameParam, labNameParam, policySetNameParam, nameParam, options)
+	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, labNameParam, sharedGalleryNameParam, nameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -228,20 +228,20 @@ func (p *PoliciesServerTransport) dispatchGet(req *http.Request) (*http.Response
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Policy, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedImage, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (p *PoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListPager == nil {
+func (s *SharedImagesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
-	newListPager := p.newListPager.get(req)
+	newListPager := s.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policysets/(?P<policySetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<sharedGalleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedimages`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 4 {
@@ -256,7 +256,7 @@ func (p *PoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http
 		if err != nil {
 			return nil, err
 		}
-		policySetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetName")])
+		sharedGalleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedGalleryName")])
 		if err != nil {
 			return nil, err
 		}
@@ -289,19 +289,19 @@ func (p *PoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http
 			return nil, err
 		}
 		orderbyParam := getOptional(orderbyUnescaped)
-		var options *armdevtestlabs.PoliciesClientListOptions
+		var options *armdevtestlabs.SharedImagesClientListOptions
 		if expandParam != nil || filterParam != nil || topParam != nil || orderbyParam != nil {
-			options = &armdevtestlabs.PoliciesClientListOptions{
+			options = &armdevtestlabs.SharedImagesClientListOptions{
 				Expand:  expandParam,
 				Filter:  filterParam,
 				Top:     topParam,
 				Orderby: orderbyParam,
 			}
 		}
-		resp := p.srv.NewListPager(resourceGroupNameParam, labNameParam, policySetNameParam, options)
+		resp := s.srv.NewListPager(resourceGroupNameParam, labNameParam, sharedGalleryNameParam, options)
 		newListPager = &resp
-		p.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdevtestlabs.PoliciesClientListResponse, createLink func() string) {
+		s.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdevtestlabs.SharedImagesClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
@@ -310,26 +310,26 @@ func (p *PoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListPager.remove(req)
+		s.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PagerResponderMore(newListPager) {
-		p.newListPager.remove(req)
+		s.newListPager.remove(req)
 	}
 	return resp, nil
 }
 
-func (p *PoliciesServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if p.srv.Update == nil {
+func (s *SharedImagesServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.Update == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policysets/(?P<policySetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevTestLab/labs/(?P<labName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedgalleries/(?P<sharedGalleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedimages/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.PolicyFragment](req)
+	body, err := server.UnmarshalRequestAsJSON[armdevtestlabs.SharedImageFragment](req)
 	if err != nil {
 		return nil, err
 	}
@@ -341,7 +341,7 @@ func (p *PoliciesServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	policySetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetName")])
+	sharedGalleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedGalleryName")])
 	if err != nil {
 		return nil, err
 	}
@@ -349,7 +349,7 @@ func (p *PoliciesServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.Update(req.Context(), resourceGroupNameParam, labNameParam, policySetNameParam, nameParam, body, nil)
+	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, labNameParam, sharedGalleryNameParam, nameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -357,7 +357,7 @@ func (p *PoliciesServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Policy, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedImage, req)
 	if err != nil {
 		return nil, err
 	}
