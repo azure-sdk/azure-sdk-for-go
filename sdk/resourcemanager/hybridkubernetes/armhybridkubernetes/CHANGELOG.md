@@ -1,5 +1,23 @@
 # Release History
 
+## 2.0.0 (2023-12-05)
+### Breaking Changes
+
+- Type of `ConnectedClusterPatch.Properties` has been changed from `any` to `*ConnectedClusterPatchProperties`
+
+### Features Added
+
+- New enum type `AutoUpgradeOptions` with values `AutoUpgradeOptionsDisabled`, `AutoUpgradeOptionsEnabled`
+- New enum type `AzureHybridBenefit` with values `AzureHybridBenefitFalse`, `AzureHybridBenefitNotApplicable`, `AzureHybridBenefitTrue`
+- New enum type `ConnectedClusterKind` with values `ConnectedClusterKindProvisionedCluster`
+- New enum type `PrivateLinkState` with values `PrivateLinkStateDisabled`, `PrivateLinkStateEnabled`
+- New struct `AADProfile`
+- New struct `ArcAgentProfile`
+- New struct `ConnectedClusterPatchProperties`
+- New field `Kind` in struct `ConnectedCluster`
+- New field `AADProfile`, `ArcAgentProfile`, `AzureHybridBenefit`, `DistributionVersion`, `MiscellaneousProperties`, `PrivateLinkScopeResourceID`, `PrivateLinkState` in struct `ConnectedClusterProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
