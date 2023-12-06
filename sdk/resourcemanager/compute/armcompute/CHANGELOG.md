@@ -1,5 +1,28 @@
 # Release History
 
+## 5.4.0 (2023-12-06)
+### Features Added
+
+- New value `ConfidentialVMEncryptionTypeNonPersistedTPM` added to enum type `ConfidentialVMEncryptionType`
+- New value `ReplicationStatusTypesUefiSettings` added to enum type `ReplicationStatusTypes`
+- New enum type `UefiKeyType` with values `UefiKeyTypeSHA256`, `UefiKeyTypeX509`
+- New enum type `UefiSignatureTemplateName` with values `UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate`, `UefiSignatureTemplateNameMicrosoftWindowsTemplate`, `UefiSignatureTemplateNameNoSignatureTemplate`
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `GalleryImageVersionUefiSettings`
+- New struct `ImageVersionSecurityProfile`
+- New struct `SharedGalleryProperties`
+- New struct `UefiKey`
+- New struct `UefiKeySignatures`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `SecurityProfile` in struct `GalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
+
 ## 5.3.0 (2023-11-24)
 ### Features Added
 
