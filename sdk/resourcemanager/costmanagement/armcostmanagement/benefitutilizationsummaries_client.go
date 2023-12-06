@@ -43,7 +43,7 @@ func NewBenefitUtilizationSummariesClient(credential azcore.TokenCredential, opt
 // NewListByBillingAccountIDPager - Lists savings plan utilization summaries for the enterprise agreement scope. Supported
 // at grain values: 'Daily' and 'Monthly'.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - billingAccountID - Billing account ID
 //   - options - BenefitUtilizationSummariesClientListByBillingAccountIDOptions contains the optional parameters for the BenefitUtilizationSummariesClient.NewListByBillingAccountIDPager
 //     method.
@@ -82,7 +82,7 @@ func (client *BenefitUtilizationSummariesClient) listByBillingAccountIDCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.GrainParameter != nil {
 		reqQP.Set("grainParameter", string(*options.GrainParameter))
 	}
@@ -106,7 +106,7 @@ func (client *BenefitUtilizationSummariesClient) listByBillingAccountIDHandleRes
 // NewListByBillingProfileIDPager - Lists savings plan utilization summaries for billing profile. Supported at grain values:
 // 'Daily' and 'Monthly'.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - billingAccountID - Billing account ID
 //   - billingProfileID - Billing profile ID.
 //   - options - BenefitUtilizationSummariesClientListByBillingProfileIDOptions contains the optional parameters for the BenefitUtilizationSummariesClient.NewListByBillingProfileIDPager
@@ -150,7 +150,7 @@ func (client *BenefitUtilizationSummariesClient) listByBillingProfileIDCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.GrainParameter != nil {
 		reqQP.Set("grainParameter", string(*options.GrainParameter))
 	}
@@ -173,7 +173,7 @@ func (client *BenefitUtilizationSummariesClient) listByBillingProfileIDHandleRes
 
 // NewListBySavingsPlanIDPager - Lists the savings plan utilization summaries for daily or monthly grain.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - savingsPlanOrderID - Savings plan order ID.
 //   - savingsPlanID - Savings plan ID.
 //   - options - BenefitUtilizationSummariesClientListBySavingsPlanIDOptions contains the optional parameters for the BenefitUtilizationSummariesClient.NewListBySavingsPlanIDPager
@@ -217,7 +217,7 @@ func (client *BenefitUtilizationSummariesClient) listBySavingsPlanIDCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -240,7 +240,7 @@ func (client *BenefitUtilizationSummariesClient) listBySavingsPlanIDHandleRespon
 
 // NewListBySavingsPlanOrderPager - Lists the savings plan utilization summaries for daily or monthly grain.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - savingsPlanOrderID - Savings plan order ID.
 //   - options - BenefitUtilizationSummariesClientListBySavingsPlanOrderOptions contains the optional parameters for the BenefitUtilizationSummariesClient.NewListBySavingsPlanOrderPager
 //     method.
@@ -279,7 +279,7 @@ func (client *BenefitUtilizationSummariesClient) listBySavingsPlanOrderCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

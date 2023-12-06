@@ -45,7 +45,7 @@ func NewGenerateReservationDetailsReportClient(credential azcore.TokenCredential
 // on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - billingAccountID - Enrollment ID (Legacy BillingAccount ID)
 //   - startDate - Start Date
 //   - endDate - End Date
@@ -74,7 +74,7 @@ func (client *GenerateReservationDetailsReportClient) BeginByBillingAccountID(ct
 // on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 func (client *GenerateReservationDetailsReportClient) byBillingAccountID(ctx context.Context, billingAccountID string, startDate string, endDate string, options *GenerateReservationDetailsReportClientBeginByBillingAccountIDOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GenerateReservationDetailsReportClient.BeginByBillingAccountID"
@@ -110,7 +110,7 @@ func (client *GenerateReservationDetailsReportClient) byBillingAccountIDCreateRe
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("startDate", startDate)
 	reqQP.Set("endDate", endDate)
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *GenerateReservationDetailsReportClient) byBillingAccountIDCreateRe
 // details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - billingAccountID - Billing account ID
 //   - billingProfileID - Billing profile ID.
 //   - startDate - Start Date
@@ -151,7 +151,7 @@ func (client *GenerateReservationDetailsReportClient) BeginByBillingProfileID(ct
 // details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 func (client *GenerateReservationDetailsReportClient) byBillingProfileID(ctx context.Context, billingAccountID string, billingProfileID string, startDate string, endDate string, options *GenerateReservationDetailsReportClientBeginByBillingProfileIDOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GenerateReservationDetailsReportClient.BeginByBillingProfileID"
@@ -191,7 +191,7 @@ func (client *GenerateReservationDetailsReportClient) byBillingProfileIDCreateRe
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("startDate", startDate)
 	reqQP.Set("endDate", endDate)
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

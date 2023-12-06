@@ -53,6 +53,18 @@ func (c *ClientFactory) NewBenefitUtilizationSummariesClient() *BenefitUtilizati
 	return subClient
 }
 
+// NewBudgetsClient creates a new instance of BudgetsClient.
+func (c *ClientFactory) NewBudgetsClient() *BudgetsClient {
+	subClient, _ := NewBudgetsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewCostAllocationRulesClient creates a new instance of CostAllocationRulesClient.
+func (c *ClientFactory) NewCostAllocationRulesClient() *CostAllocationRulesClient {
+	subClient, _ := NewCostAllocationRulesClient(c.credential, c.options)
+	return subClient
+}
+
 // NewDimensionsClient creates a new instance of DimensionsClient.
 func (c *ClientFactory) NewDimensionsClient() *DimensionsClient {
 	subClient, _ := NewDimensionsClient(c.credential, c.options)
@@ -68,6 +80,12 @@ func (c *ClientFactory) NewExportsClient() *ExportsClient {
 // NewForecastClient creates a new instance of ForecastClient.
 func (c *ClientFactory) NewForecastClient() *ForecastClient {
 	subClient, _ := NewForecastClient(c.credential, c.options)
+	return subClient
+}
+
+// NewGenerateBenefitUtilizationSummariesReportClient creates a new instance of GenerateBenefitUtilizationSummariesReportClient.
+func (c *ClientFactory) NewGenerateBenefitUtilizationSummariesReportClient() *GenerateBenefitUtilizationSummariesReportClient {
+	subClient, _ := NewGenerateBenefitUtilizationSummariesReportClient(c.credential, c.options)
 	return subClient
 }
 
@@ -122,6 +140,12 @@ func (c *ClientFactory) NewQueryClient() *QueryClient {
 // NewScheduledActionsClient creates a new instance of ScheduledActionsClient.
 func (c *ClientFactory) NewScheduledActionsClient() *ScheduledActionsClient {
 	subClient, _ := NewScheduledActionsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewSettingsClient creates a new instance of SettingsClient.
+func (c *ClientFactory) NewSettingsClient() *SettingsClient {
+	subClient, _ := NewSettingsClient(c.credential, c.options)
 	return subClient
 }
 
