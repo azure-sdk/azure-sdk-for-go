@@ -1,5 +1,406 @@
 # Release History
 
+## 2.0.0-beta.3 (2023-12-06)
+### Breaking Changes
+
+- Enum `CloudInitDataSource` has been removed
+- Enum `DiskFileFormat` has been removed
+- Enum `ExtendedLocationTypes` has been removed
+- Enum `HyperVGeneration` has been removed
+- Enum `IPAllocationMethodEnum` has been removed
+- Enum `IPPoolTypeEnum` has been removed
+- Enum `OperatingSystemTypes` has been removed
+- Enum `PowerStateEnum` has been removed
+- Enum `ProvisioningAction` has been removed
+- Enum `ProvisioningStateEnum` has been removed
+- Enum `SecurityTypes` has been removed
+- Enum `StatusTypes` has been removed
+- Enum `VMSizeEnum` has been removed
+- Function `*ClientFactory.NewGalleryImagesClient` has been removed
+- Function `*ClientFactory.NewGuestAgentClient` has been removed
+- Function `*ClientFactory.NewGuestAgentsClient` has been removed
+- Function `*ClientFactory.NewHybridIdentityMetadataClient` has been removed
+- Function `*ClientFactory.NewLogicalNetworksClient` has been removed
+- Function `*ClientFactory.NewMarketplaceGalleryImagesClient` has been removed
+- Function `*ClientFactory.NewNetworkInterfacesClient` has been removed
+- Function `*ClientFactory.NewStorageContainersClient` has been removed
+- Function `*ClientFactory.NewVirtualHardDisksClient` has been removed
+- Function `*ClientFactory.NewVirtualMachineInstancesClient` has been removed
+- Function `NewGalleryImagesClient` has been removed
+- Function `*GalleryImagesClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryImagesClient.BeginDelete` has been removed
+- Function `*GalleryImagesClient.Get` has been removed
+- Function `*GalleryImagesClient.NewListAllPager` has been removed
+- Function `*GalleryImagesClient.NewListPager` has been removed
+- Function `*GalleryImagesClient.BeginUpdate` has been removed
+- Function `NewGuestAgentClient` has been removed
+- Function `*GuestAgentClient.BeginCreate` has been removed
+- Function `*GuestAgentClient.BeginDelete` has been removed
+- Function `*GuestAgentClient.Get` has been removed
+- Function `NewGuestAgentsClient` has been removed
+- Function `*GuestAgentsClient.NewListPager` has been removed
+- Function `NewHybridIdentityMetadataClient` has been removed
+- Function `*HybridIdentityMetadataClient.Get` has been removed
+- Function `*HybridIdentityMetadataClient.NewListPager` has been removed
+- Function `NewLogicalNetworksClient` has been removed
+- Function `*LogicalNetworksClient.BeginCreateOrUpdate` has been removed
+- Function `*LogicalNetworksClient.BeginDelete` has been removed
+- Function `*LogicalNetworksClient.Get` has been removed
+- Function `*LogicalNetworksClient.NewListAllPager` has been removed
+- Function `*LogicalNetworksClient.NewListPager` has been removed
+- Function `*LogicalNetworksClient.BeginUpdate` has been removed
+- Function `NewMarketplaceGalleryImagesClient` has been removed
+- Function `*MarketplaceGalleryImagesClient.BeginCreateOrUpdate` has been removed
+- Function `*MarketplaceGalleryImagesClient.BeginDelete` has been removed
+- Function `*MarketplaceGalleryImagesClient.Get` has been removed
+- Function `*MarketplaceGalleryImagesClient.NewListAllPager` has been removed
+- Function `*MarketplaceGalleryImagesClient.NewListPager` has been removed
+- Function `*MarketplaceGalleryImagesClient.BeginUpdate` has been removed
+- Function `NewStorageContainersClient` has been removed
+- Function `*StorageContainersClient.BeginCreateOrUpdate` has been removed
+- Function `*StorageContainersClient.BeginDelete` has been removed
+- Function `*StorageContainersClient.Get` has been removed
+- Function `*StorageContainersClient.NewListAllPager` has been removed
+- Function `*StorageContainersClient.NewListPager` has been removed
+- Function `*StorageContainersClient.BeginUpdate` has been removed
+- Function `NewVirtualHardDisksClient` has been removed
+- Function `*VirtualHardDisksClient.BeginCreateOrUpdate` has been removed
+- Function `*VirtualHardDisksClient.BeginDelete` has been removed
+- Function `*VirtualHardDisksClient.Get` has been removed
+- Function `*VirtualHardDisksClient.NewListAllPager` has been removed
+- Function `*VirtualHardDisksClient.NewListPager` has been removed
+- Function `*VirtualHardDisksClient.BeginUpdate` has been removed
+- Function `NewVirtualMachineInstancesClient` has been removed
+- Function `*VirtualMachineInstancesClient.BeginCreateOrUpdate` has been removed
+- Function `*VirtualMachineInstancesClient.BeginDelete` has been removed
+- Function `*VirtualMachineInstancesClient.Get` has been removed
+- Function `*VirtualMachineInstancesClient.NewListPager` has been removed
+- Function `*VirtualMachineInstancesClient.BeginRestart` has been removed
+- Function `*VirtualMachineInstancesClient.BeginStart` has been removed
+- Function `*VirtualMachineInstancesClient.BeginStop` has been removed
+- Function `*VirtualMachineInstancesClient.BeginUpdate` has been removed
+- Function `NewNetworkInterfacesClient` has been removed
+- Function `*NetworkInterfacesClient.BeginCreateOrUpdate` has been removed
+- Function `*NetworkInterfacesClient.BeginDelete` has been removed
+- Function `*NetworkInterfacesClient.Get` has been removed
+- Function `*NetworkInterfacesClient.NewListAllPager` has been removed
+- Function `*NetworkInterfacesClient.NewListPager` has been removed
+- Function `*NetworkInterfacesClient.BeginUpdate` has been removed
+- Operation `*OperationsClient.NewListPager` does not support pagination anymore, use `*OperationsClient.List` instead.
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ExtendedLocation` has been removed
+- Struct `GalleryImageIdentifier` has been removed
+- Struct `GalleryImageProperties` has been removed
+- Struct `GalleryImageStatus` has been removed
+- Struct `GalleryImageStatusDownloadStatus` has been removed
+- Struct `GalleryImageStatusProvisioningStatus` has been removed
+- Struct `GalleryImageVersion` has been removed
+- Struct `GalleryImageVersionProperties` has been removed
+- Struct `GalleryImageVersionStorageProfile` has been removed
+- Struct `GalleryImages` has been removed
+- Struct `GalleryImagesListResult` has been removed
+- Struct `GalleryImagesUpdateRequest` has been removed
+- Struct `GalleryOSDiskImage` has been removed
+- Struct `GuestAgent` has been removed
+- Struct `GuestAgentInstallStatus` has been removed
+- Struct `GuestAgentList` has been removed
+- Struct `GuestAgentProperties` has been removed
+- Struct `GuestCredential` has been removed
+- Struct `HTTPProxyConfiguration` has been removed
+- Struct `HardwareProfileUpdate` has been removed
+- Struct `HybridIdentityMetadata` has been removed
+- Struct `HybridIdentityMetadataList` has been removed
+- Struct `HybridIdentityMetadataProperties` has been removed
+- Struct `IPConfiguration` has been removed
+- Struct `IPConfigurationProperties` has been removed
+- Struct `IPConfigurationPropertiesSubnet` has been removed
+- Struct `IPPool` has been removed
+- Struct `IPPoolInfo` has been removed
+- Struct `Identity` has been removed
+- Struct `InstanceViewStatus` has been removed
+- Struct `InterfaceDNSSettings` has been removed
+- Struct `LogicalNetworkProperties` has been removed
+- Struct `LogicalNetworkPropertiesDhcpOptions` has been removed
+- Struct `LogicalNetworkStatus` has been removed
+- Struct `LogicalNetworkStatusProvisioningStatus` has been removed
+- Struct `LogicalNetworks` has been removed
+- Struct `LogicalNetworksListResult` has been removed
+- Struct `LogicalNetworksUpdateRequest` has been removed
+- Struct `MarketplaceGalleryImageProperties` has been removed
+- Struct `MarketplaceGalleryImageStatus` has been removed
+- Struct `MarketplaceGalleryImageStatusDownloadStatus` has been removed
+- Struct `MarketplaceGalleryImageStatusProvisioningStatus` has been removed
+- Struct `MarketplaceGalleryImages` has been removed
+- Struct `MarketplaceGalleryImagesListResult` has been removed
+- Struct `MarketplaceGalleryImagesUpdateRequest` has been removed
+- Struct `NetworkInterfaceProperties` has been removed
+- Struct `NetworkInterfaceStatus` has been removed
+- Struct `NetworkInterfaceStatusProvisioningStatus` has been removed
+- Struct `NetworkInterfaces` has been removed
+- Struct `NetworkInterfacesListResult` has been removed
+- Struct `NetworkInterfacesUpdateRequest` has been removed
+- Struct `NetworkProfileUpdate` has been removed
+- Struct `NetworkProfileUpdateNetworkInterfacesItem` has been removed
+- Struct `OsProfileUpdate` has been removed
+- Struct `OsProfileUpdateLinuxConfiguration` has been removed
+- Struct `OsProfileUpdateWindowsConfiguration` has been removed
+- Struct `Route` has been removed
+- Struct `RoutePropertiesFormat` has been removed
+- Struct `RouteTable` has been removed
+- Struct `RouteTablePropertiesFormat` has been removed
+- Struct `SSHConfiguration` has been removed
+- Struct `SSHPublicKey` has been removed
+- Struct `StorageContainerProperties` has been removed
+- Struct `StorageContainerStatus` has been removed
+- Struct `StorageContainerStatusProvisioningStatus` has been removed
+- Struct `StorageContainers` has been removed
+- Struct `StorageContainersListResult` has been removed
+- Struct `StorageContainersUpdateRequest` has been removed
+- Struct `StorageProfileUpdate` has been removed
+- Struct `StorageProfileUpdateDataDisksItem` has been removed
+- Struct `Subnet` has been removed
+- Struct `SubnetPropertiesFormat` has been removed
+- Struct `SubnetPropertiesFormatIPConfigurationReferencesItem` has been removed
+- Struct `VirtualHardDiskProperties` has been removed
+- Struct `VirtualHardDiskStatus` has been removed
+- Struct `VirtualHardDiskStatusProvisioningStatus` has been removed
+- Struct `VirtualHardDisks` has been removed
+- Struct `VirtualHardDisksListResult` has been removed
+- Struct `VirtualHardDisksUpdateRequest` has been removed
+- Struct `VirtualMachineConfigAgentInstanceView` has been removed
+- Struct `VirtualMachineInstance` has been removed
+- Struct `VirtualMachineInstanceListResult` has been removed
+- Struct `VirtualMachineInstanceProperties` has been removed
+- Struct `VirtualMachineInstancePropertiesHardwareProfile` has been removed
+- Struct `VirtualMachineInstancePropertiesHardwareProfileDynamicMemoryConfig` has been removed
+- Struct `VirtualMachineInstancePropertiesNetworkProfile` has been removed
+- Struct `VirtualMachineInstancePropertiesNetworkProfileNetworkInterfacesItem` has been removed
+- Struct `VirtualMachineInstancePropertiesOsProfile` has been removed
+- Struct `VirtualMachineInstancePropertiesOsProfileLinuxConfiguration` has been removed
+- Struct `VirtualMachineInstancePropertiesOsProfileWindowsConfiguration` has been removed
+- Struct `VirtualMachineInstancePropertiesSecurityProfile` has been removed
+- Struct `VirtualMachineInstancePropertiesSecurityProfileUefiSettings` has been removed
+- Struct `VirtualMachineInstancePropertiesStorageProfile` has been removed
+- Struct `VirtualMachineInstancePropertiesStorageProfileDataDisksItem` has been removed
+- Struct `VirtualMachineInstancePropertiesStorageProfileImageReference` has been removed
+- Struct `VirtualMachineInstancePropertiesStorageProfileOsDisk` has been removed
+- Struct `VirtualMachineInstanceStatus` has been removed
+- Struct `VirtualMachineInstanceStatusProvisioningStatus` has been removed
+- Struct `VirtualMachineInstanceUpdateProperties` has been removed
+- Struct `VirtualMachineInstanceUpdateRequest` has been removed
+- Struct `VirtualMachineInstanceView` has been removed
+
+### Features Added
+
+- New value `StatusConnectedRecently`, `StatusDeploymentFailed`, `StatusDeploymentInProgress`, `StatusDeploymentSuccess`, `StatusDisconnected`, `StatusError`, `StatusNotConnectedRecently`, `StatusNotSpecified`, `StatusNotYetRegistered`, `StatusValidationFailed`, `StatusValidationInProgress`, `StatusValidationSuccess` added to enum type `Status`
+- New enum type `ArcSettingAggregateState` with values `ArcSettingAggregateStateAccepted`, `ArcSettingAggregateStateCanceled`, `ArcSettingAggregateStateConnected`, `ArcSettingAggregateStateCreating`, `ArcSettingAggregateStateDeleted`, `ArcSettingAggregateStateDeleting`, `ArcSettingAggregateStateDisableInProgress`, `ArcSettingAggregateStateDisconnected`, `ArcSettingAggregateStateError`, `ArcSettingAggregateStateFailed`, `ArcSettingAggregateStateInProgress`, `ArcSettingAggregateStateMoving`, `ArcSettingAggregateStateNotSpecified`, `ArcSettingAggregateStatePartiallyConnected`, `ArcSettingAggregateStatePartiallySucceeded`, `ArcSettingAggregateStateProvisioning`, `ArcSettingAggregateStateSucceeded`, `ArcSettingAggregateStateUpdating`
+- New enum type `AvailabilityType` with values `AvailabilityTypeLocal`, `AvailabilityTypeNotify`, `AvailabilityTypeOnline`
+- New enum type `ClusterNodeType` with values `ClusterNodeTypeFirstParty`, `ClusterNodeTypeThirdParty`
+- New enum type `ComplianceAssignmentType` with values `ComplianceAssignmentTypeApplyAndAutoCorrect`, `ComplianceAssignmentTypeAudit`
+- New enum type `ComplianceStatus` with values `ComplianceStatusCompliant`, `ComplianceStatusNonCompliant`, `ComplianceStatusPending`
+- New enum type `ConnectivityStatus` with values `ConnectivityStatusConnected`, `ConnectivityStatusDisconnected`, `ConnectivityStatusNotConnectedRecently`, `ConnectivityStatusNotSpecified`, `ConnectivityStatusNotYetRegistered`, `ConnectivityStatusPartiallyConnected`
+- New enum type `DeploymentMode` with values `DeploymentModeDeploy`, `DeploymentModeValidate`
+- New enum type `DiagnosticLevel` with values `DiagnosticLevelBasic`, `DiagnosticLevelEnhanced`, `DiagnosticLevelOff`
+- New enum type `ExtensionAggregateState` with values `ExtensionAggregateStateAccepted`, `ExtensionAggregateStateCanceled`, `ExtensionAggregateStateConnected`, `ExtensionAggregateStateCreating`, `ExtensionAggregateStateDeleted`, `ExtensionAggregateStateDeleting`, `ExtensionAggregateStateDisconnected`, `ExtensionAggregateStateError`, `ExtensionAggregateStateFailed`, `ExtensionAggregateStateInProgress`, `ExtensionAggregateStateMoving`, `ExtensionAggregateStateNotSpecified`, `ExtensionAggregateStatePartiallyConnected`, `ExtensionAggregateStatePartiallySucceeded`, `ExtensionAggregateStateProvisioning`, `ExtensionAggregateStateSucceeded`, `ExtensionAggregateStateUpdating`, `ExtensionAggregateStateUpgradeFailedRollbackSucceeded`
+- New enum type `ExtensionManagedBy` with values `ExtensionManagedByAzure`, `ExtensionManagedByUser`
+- New enum type `HealthState` with values `HealthStateError`, `HealthStateFailure`, `HealthStateInProgress`, `HealthStateSuccess`, `HealthStateUnknown`, `HealthStateWarning`
+- New enum type `ImdsAttestation` with values `ImdsAttestationDisabled`, `ImdsAttestationEnabled`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `NodeArcState` with values `NodeArcStateAccepted`, `NodeArcStateCanceled`, `NodeArcStateConnected`, `NodeArcStateCreating`, `NodeArcStateDeleted`, `NodeArcStateDeleting`, `NodeArcStateDisableInProgress`, `NodeArcStateDisconnected`, `NodeArcStateError`, `NodeArcStateFailed`, `NodeArcStateInProgress`, `NodeArcStateMoving`, `NodeArcStateNotSpecified`, `NodeArcStatePartiallyConnected`, `NodeArcStatePartiallySucceeded`, `NodeArcStateProvisioning`, `NodeArcStateSucceeded`, `NodeArcStateUpdating`
+- New enum type `NodeExtensionState` with values `NodeExtensionStateAccepted`, `NodeExtensionStateCanceled`, `NodeExtensionStateConnected`, `NodeExtensionStateCreating`, `NodeExtensionStateDeleted`, `NodeExtensionStateDeleting`, `NodeExtensionStateDisconnected`, `NodeExtensionStateError`, `NodeExtensionStateFailed`, `NodeExtensionStateInProgress`, `NodeExtensionStateMoving`, `NodeExtensionStateNotSpecified`, `NodeExtensionStatePartiallyConnected`, `NodeExtensionStatePartiallySucceeded`, `NodeExtensionStateProvisioning`, `NodeExtensionStateSucceeded`, `NodeExtensionStateUpdating`
+- New enum type `OemActivation` with values `OemActivationDisabled`, `OemActivationEnabled`
+- New enum type `ProvisioningState` with values `ProvisioningStateAccepted`, `ProvisioningStateCanceled`, `ProvisioningStateConnected`, `ProvisioningStateCreating`, `ProvisioningStateDeleted`, `ProvisioningStateDeleting`, `ProvisioningStateDisableInProgress`, `ProvisioningStateDisconnected`, `ProvisioningStateError`, `ProvisioningStateFailed`, `ProvisioningStateInProgress`, `ProvisioningStateMoving`, `ProvisioningStateNotSpecified`, `ProvisioningStatePartiallyConnected`, `ProvisioningStatePartiallySucceeded`, `ProvisioningStateProvisioning`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New enum type `RebootRequirement` with values `RebootRequirementFalse`, `RebootRequirementTrue`, `RebootRequirementUnknown`
+- New enum type `Severity` with values `SeverityCritical`, `SeverityHidden`, `SeverityInformational`, `SeverityWarning`
+- New enum type `SoftwareAssuranceIntent` with values `SoftwareAssuranceIntentDisable`, `SoftwareAssuranceIntentEnable`
+- New enum type `SoftwareAssuranceStatus` with values `SoftwareAssuranceStatusDisabled`, `SoftwareAssuranceStatusEnabled`
+- New enum type `State` with values `StateAdditionalContentRequired`, `StateDownloadFailed`, `StateDownloading`, `StateHasPrerequisite`, `StateHealthCheckFailed`, `StateHealthChecking`, `StateInstallationFailed`, `StateInstalled`, `StateInstalling`, `StateInvalid`, `StateNotApplicableBecauseAnotherUpdateIsInProgress`, `StateObsolete`, `StatePreparationFailed`, `StatePreparing`, `StateReady`, `StateReadyToInstall`, `StateRecalled`, `StateScanFailed`, `StateScanInProgress`
+- New enum type `UpdateRunPropertiesState` with values `UpdateRunPropertiesStateFailed`, `UpdateRunPropertiesStateInProgress`, `UpdateRunPropertiesStateSucceeded`, `UpdateRunPropertiesStateUnknown`
+- New enum type `UpdateSummariesPropertiesState` with values `UpdateSummariesPropertiesStateAppliedSuccessfully`, `UpdateSummariesPropertiesStateNeedsAttention`, `UpdateSummariesPropertiesStatePreparationFailed`, `UpdateSummariesPropertiesStatePreparationInProgress`, `UpdateSummariesPropertiesStateUnknown`, `UpdateSummariesPropertiesStateUpdateAvailable`, `UpdateSummariesPropertiesStateUpdateFailed`, `UpdateSummariesPropertiesStateUpdateInProgress`
+- New enum type `WindowsServerSubscription` with values `WindowsServerSubscriptionDisabled`, `WindowsServerSubscriptionEnabled`
+- New function `NewArcSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ArcSettingsClient, error)`
+- New function `*ArcSettingsClient.ConsentAndInstallDefaultExtensions(context.Context, string, string, string, *ArcSettingsClientConsentAndInstallDefaultExtensionsOptions) (ArcSettingsClientConsentAndInstallDefaultExtensionsResponse, error)`
+- New function `*ArcSettingsClient.Create(context.Context, string, string, string, ArcSetting, *ArcSettingsClientCreateOptions) (ArcSettingsClientCreateResponse, error)`
+- New function `*ArcSettingsClient.BeginCreateIdentity(context.Context, string, string, string, *ArcSettingsClientBeginCreateIdentityOptions) (*runtime.Poller[ArcSettingsClientCreateIdentityResponse], error)`
+- New function `*ArcSettingsClient.BeginDelete(context.Context, string, string, string, *ArcSettingsClientBeginDeleteOptions) (*runtime.Poller[ArcSettingsClientDeleteResponse], error)`
+- New function `*ArcSettingsClient.GeneratePassword(context.Context, string, string, string, *ArcSettingsClientGeneratePasswordOptions) (ArcSettingsClientGeneratePasswordResponse, error)`
+- New function `*ArcSettingsClient.Get(context.Context, string, string, string, *ArcSettingsClientGetOptions) (ArcSettingsClientGetResponse, error)`
+- New function `*ArcSettingsClient.BeginInitializeDisableProcess(context.Context, string, string, string, *ArcSettingsClientBeginInitializeDisableProcessOptions) (*runtime.Poller[ArcSettingsClientInitializeDisableProcessResponse], error)`
+- New function `*ArcSettingsClient.NewListByClusterPager(string, string, *ArcSettingsClientListByClusterOptions) *runtime.Pager[ArcSettingsClientListByClusterResponse]`
+- New function `*ArcSettingsClient.Update(context.Context, string, string, string, ArcSettingsPatch, *ArcSettingsClientUpdateOptions) (ArcSettingsClientUpdateResponse, error)`
+- New function `*ClientFactory.NewArcSettingsClient() *ArcSettingsClient`
+- New function `*ClientFactory.NewClustersClient() *ClustersClient`
+- New function `*ClientFactory.NewDeploymentSettingsClient() *DeploymentSettingsClient`
+- New function `*ClientFactory.NewEdgeDevicesClient() *EdgeDevicesClient`
+- New function `*ClientFactory.NewExtensionsClient() *ExtensionsClient`
+- New function `*ClientFactory.NewOffersClient() *OffersClient`
+- New function `*ClientFactory.NewPublishersClient() *PublishersClient`
+- New function `*ClientFactory.NewSKUsClient() *SKUsClient`
+- New function `*ClientFactory.NewSecuritySettingsClient() *SecuritySettingsClient`
+- New function `*ClientFactory.NewUpdateRunsClient() *UpdateRunsClient`
+- New function `*ClientFactory.NewUpdateSummariesClient() *UpdateSummariesClient`
+- New function `*ClientFactory.NewUpdatesClient() *UpdatesClient`
+- New function `NewClustersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ClustersClient, error)`
+- New function `*ClustersClient.Create(context.Context, string, string, Cluster, *ClustersClientCreateOptions) (ClustersClientCreateResponse, error)`
+- New function `*ClustersClient.BeginCreateIdentity(context.Context, string, string, *ClustersClientBeginCreateIdentityOptions) (*runtime.Poller[ClustersClientCreateIdentityResponse], error)`
+- New function `*ClustersClient.BeginDelete(context.Context, string, string, *ClustersClientBeginDeleteOptions) (*runtime.Poller[ClustersClientDeleteResponse], error)`
+- New function `*ClustersClient.BeginExtendSoftwareAssuranceBenefit(context.Context, string, string, SoftwareAssuranceChangeRequest, *ClustersClientBeginExtendSoftwareAssuranceBenefitOptions) (*runtime.Poller[ClustersClientExtendSoftwareAssuranceBenefitResponse], error)`
+- New function `*ClustersClient.Get(context.Context, string, string, *ClustersClientGetOptions) (ClustersClientGetResponse, error)`
+- New function `*ClustersClient.NewListByResourceGroupPager(string, *ClustersClientListByResourceGroupOptions) *runtime.Pager[ClustersClientListByResourceGroupResponse]`
+- New function `*ClustersClient.NewListBySubscriptionPager(*ClustersClientListBySubscriptionOptions) *runtime.Pager[ClustersClientListBySubscriptionResponse]`
+- New function `*ClustersClient.Update(context.Context, string, string, ClusterPatch, *ClustersClientUpdateOptions) (ClustersClientUpdateResponse, error)`
+- New function `*ClustersClient.BeginUploadCertificate(context.Context, string, string, UploadCertificateRequest, *ClustersClientBeginUploadCertificateOptions) (*runtime.Poller[ClustersClientUploadCertificateResponse], error)`
+- New function `NewDeploymentSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DeploymentSettingsClient, error)`
+- New function `*DeploymentSettingsClient.BeginCreateOrUpdate(context.Context, string, string, string, DeploymentSetting, *DeploymentSettingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DeploymentSettingsClientCreateOrUpdateResponse], error)`
+- New function `*DeploymentSettingsClient.BeginDelete(context.Context, string, string, string, *DeploymentSettingsClientBeginDeleteOptions) (*runtime.Poller[DeploymentSettingsClientDeleteResponse], error)`
+- New function `*DeploymentSettingsClient.Get(context.Context, string, string, string, *DeploymentSettingsClientGetOptions) (DeploymentSettingsClientGetResponse, error)`
+- New function `*DeploymentSettingsClient.NewListByClustersPager(string, string, *DeploymentSettingsClientListByClustersOptions) *runtime.Pager[DeploymentSettingsClientListByClustersResponse]`
+- New function `NewEdgeDevicesClient(azcore.TokenCredential, *arm.ClientOptions) (*EdgeDevicesClient, error)`
+- New function `*EdgeDevicesClient.BeginCreateOrUpdate(context.Context, string, string, EdgeDevice, *EdgeDevicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[EdgeDevicesClientCreateOrUpdateResponse], error)`
+- New function `*EdgeDevicesClient.BeginDelete(context.Context, string, string, *EdgeDevicesClientBeginDeleteOptions) (*runtime.Poller[EdgeDevicesClientDeleteResponse], error)`
+- New function `*EdgeDevicesClient.Get(context.Context, string, string, *EdgeDevicesClientGetOptions) (EdgeDevicesClientGetResponse, error)`
+- New function `*EdgeDevicesClient.NewListPager(string, *EdgeDevicesClientListOptions) *runtime.Pager[EdgeDevicesClientListResponse]`
+- New function `*EdgeDevicesClient.BeginValidate(context.Context, string, string, ValidateRequest, *EdgeDevicesClientBeginValidateOptions) (*runtime.Poller[EdgeDevicesClientValidateResponse], error)`
+- New function `NewExtensionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ExtensionsClient, error)`
+- New function `*ExtensionsClient.BeginCreate(context.Context, string, string, string, string, Extension, *ExtensionsClientBeginCreateOptions) (*runtime.Poller[ExtensionsClientCreateResponse], error)`
+- New function `*ExtensionsClient.BeginDelete(context.Context, string, string, string, string, *ExtensionsClientBeginDeleteOptions) (*runtime.Poller[ExtensionsClientDeleteResponse], error)`
+- New function `*ExtensionsClient.Get(context.Context, string, string, string, string, *ExtensionsClientGetOptions) (ExtensionsClientGetResponse, error)`
+- New function `*ExtensionsClient.NewListByArcSettingPager(string, string, string, *ExtensionsClientListByArcSettingOptions) *runtime.Pager[ExtensionsClientListByArcSettingResponse]`
+- New function `*ExtensionsClient.BeginUpdate(context.Context, string, string, string, string, ExtensionPatch, *ExtensionsClientBeginUpdateOptions) (*runtime.Poller[ExtensionsClientUpdateResponse], error)`
+- New function `*ExtensionsClient.BeginUpgrade(context.Context, string, string, string, string, ExtensionUpgradeParameters, *ExtensionsClientBeginUpgradeOptions) (*runtime.Poller[ExtensionsClientUpgradeResponse], error)`
+- New function `NewOffersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OffersClient, error)`
+- New function `*OffersClient.Get(context.Context, string, string, string, string, *OffersClientGetOptions) (OffersClientGetResponse, error)`
+- New function `*OffersClient.NewListByClusterPager(string, string, *OffersClientListByClusterOptions) *runtime.Pager[OffersClientListByClusterResponse]`
+- New function `*OffersClient.NewListByPublisherPager(string, string, string, *OffersClientListByPublisherOptions) *runtime.Pager[OffersClientListByPublisherResponse]`
+- New function `NewPublishersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PublishersClient, error)`
+- New function `*PublishersClient.Get(context.Context, string, string, string, *PublishersClientGetOptions) (PublishersClientGetResponse, error)`
+- New function `*PublishersClient.NewListByClusterPager(string, string, *PublishersClientListByClusterOptions) *runtime.Pager[PublishersClientListByClusterResponse]`
+- New function `NewSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsClient, error)`
+- New function `*SKUsClient.Get(context.Context, string, string, string, string, string, *SKUsClientGetOptions) (SKUsClientGetResponse, error)`
+- New function `*SKUsClient.NewListByOfferPager(string, string, string, string, *SKUsClientListByOfferOptions) *runtime.Pager[SKUsClientListByOfferResponse]`
+- New function `NewSecuritySettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecuritySettingsClient, error)`
+- New function `*SecuritySettingsClient.BeginCreateOrUpdate(context.Context, string, string, string, SecuritySetting, *SecuritySettingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SecuritySettingsClientCreateOrUpdateResponse], error)`
+- New function `*SecuritySettingsClient.BeginDelete(context.Context, string, string, string, *SecuritySettingsClientBeginDeleteOptions) (*runtime.Poller[SecuritySettingsClientDeleteResponse], error)`
+- New function `*SecuritySettingsClient.Get(context.Context, string, string, string, *SecuritySettingsClientGetOptions) (SecuritySettingsClientGetResponse, error)`
+- New function `*SecuritySettingsClient.NewListByClustersPager(string, string, *SecuritySettingsClientListByClustersOptions) *runtime.Pager[SecuritySettingsClientListByClustersResponse]`
+- New function `NewUpdateRunsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdateRunsClient, error)`
+- New function `*UpdateRunsClient.BeginDelete(context.Context, string, string, string, string, *UpdateRunsClientBeginDeleteOptions) (*runtime.Poller[UpdateRunsClientDeleteResponse], error)`
+- New function `*UpdateRunsClient.Get(context.Context, string, string, string, string, *UpdateRunsClientGetOptions) (UpdateRunsClientGetResponse, error)`
+- New function `*UpdateRunsClient.NewListPager(string, string, string, *UpdateRunsClientListOptions) *runtime.Pager[UpdateRunsClientListResponse]`
+- New function `*UpdateRunsClient.Put(context.Context, string, string, string, string, UpdateRun, *UpdateRunsClientPutOptions) (UpdateRunsClientPutResponse, error)`
+- New function `NewUpdateSummariesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdateSummariesClient, error)`
+- New function `*UpdateSummariesClient.BeginDelete(context.Context, string, string, *UpdateSummariesClientBeginDeleteOptions) (*runtime.Poller[UpdateSummariesClientDeleteResponse], error)`
+- New function `*UpdateSummariesClient.Get(context.Context, string, string, *UpdateSummariesClientGetOptions) (UpdateSummariesClientGetResponse, error)`
+- New function `*UpdateSummariesClient.NewListPager(string, string, *UpdateSummariesClientListOptions) *runtime.Pager[UpdateSummariesClientListResponse]`
+- New function `*UpdateSummariesClient.Put(context.Context, string, string, UpdateSummaries, *UpdateSummariesClientPutOptions) (UpdateSummariesClientPutResponse, error)`
+- New function `NewUpdatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdatesClient, error)`
+- New function `*UpdatesClient.BeginDelete(context.Context, string, string, string, *UpdatesClientBeginDeleteOptions) (*runtime.Poller[UpdatesClientDeleteResponse], error)`
+- New function `*UpdatesClient.Get(context.Context, string, string, string, *UpdatesClientGetOptions) (UpdatesClientGetResponse, error)`
+- New function `*UpdatesClient.NewListPager(string, string, *UpdatesClientListOptions) *runtime.Pager[UpdatesClientListResponse]`
+- New function `*UpdatesClient.BeginPost(context.Context, string, string, string, *UpdatesClientBeginPostOptions) (*runtime.Poller[UpdatesClientPostResponse], error)`
+- New function `*UpdatesClient.Put(context.Context, string, string, string, Update, *UpdatesClientPutOptions) (UpdatesClientPutResponse, error)`
+- New struct `AdapterPropertyOverrides`
+- New struct `ArcIdentityResponse`
+- New struct `ArcIdentityResponseProperties`
+- New struct `ArcSetting`
+- New struct `ArcSettingList`
+- New struct `ArcSettingProperties`
+- New struct `ArcSettingsPatch`
+- New struct `ArcSettingsPatchProperties`
+- New struct `Cluster`
+- New struct `ClusterDesiredProperties`
+- New struct `ClusterIdentityResponse`
+- New struct `ClusterIdentityResponseProperties`
+- New struct `ClusterList`
+- New struct `ClusterNode`
+- New struct `ClusterPatch`
+- New struct `ClusterPatchProperties`
+- New struct `ClusterProperties`
+- New struct `ClusterReportedProperties`
+- New struct `DefaultExtensionDetails`
+- New struct `DeploymentCluster`
+- New struct `DeploymentConfiguration`
+- New struct `DeploymentData`
+- New struct `DeploymentSecuritySettings`
+- New struct `DeploymentSetting`
+- New struct `DeploymentSettingListResult`
+- New struct `DeploymentSettingsProperties`
+- New struct `DeploymentStatus`
+- New struct `DeploymentStep`
+- New struct `DeviceConfiguration`
+- New struct `EdgeDevice`
+- New struct `EdgeDeviceListResult`
+- New struct `EdgeDeviceProperties`
+- New struct `Extension`
+- New struct `ExtensionInstanceView`
+- New struct `ExtensionInstanceViewStatus`
+- New struct `ExtensionList`
+- New struct `ExtensionParameters`
+- New struct `ExtensionPatch`
+- New struct `ExtensionPatchParameters`
+- New struct `ExtensionPatchProperties`
+- New struct `ExtensionProperties`
+- New struct `ExtensionUpgradeParameters`
+- New struct `HostNetwork`
+- New struct `IPPools`
+- New struct `InfrastructureNetwork`
+- New struct `Intents`
+- New struct `IsolatedVMAttestationConfiguration`
+- New struct `ManagedServiceIdentity`
+- New struct `NicDetail`
+- New struct `Observability`
+- New struct `Offer`
+- New struct `OfferList`
+- New struct `OfferProperties`
+- New struct `OptionalServices`
+- New struct `PackageVersionInfo`
+- New struct `PasswordCredential`
+- New struct `PerNodeExtensionState`
+- New struct `PerNodeState`
+- New struct `PhysicalNodes`
+- New struct `PrecheckResult`
+- New struct `PrecheckResultTags`
+- New struct `Publisher`
+- New struct `PublisherList`
+- New struct `PublisherProperties`
+- New struct `QosPolicyOverrides`
+- New struct `RawCertificateData`
+- New struct `ReportedProperties`
+- New struct `SKU`
+- New struct `SKUList`
+- New struct `SKUMappings`
+- New struct `SKUProperties`
+- New struct `ScaleUnits`
+- New struct `SecurityComplianceStatus`
+- New struct `SecurityProperties`
+- New struct `SecuritySetting`
+- New struct `SecuritySettingListResult`
+- New struct `SoftwareAssuranceChangeRequest`
+- New struct `SoftwareAssuranceChangeRequestProperties`
+- New struct `SoftwareAssuranceProperties`
+- New struct `Step`
+- New struct `Storage`
+- New struct `StorageNetworks`
+- New struct `Update`
+- New struct `UpdateList`
+- New struct `UpdatePrerequisite`
+- New struct `UpdateProperties`
+- New struct `UpdateRun`
+- New struct `UpdateRunList`
+- New struct `UpdateRunProperties`
+- New struct `UpdateStateProperties`
+- New struct `UpdateSummaries`
+- New struct `UpdateSummariesList`
+- New struct `UpdateSummariesProperties`
+- New struct `UploadCertificateRequest`
+- New struct `UserAssignedIdentity`
+- New struct `ValidateRequest`
+- New struct `ValidateResponse`
+- New struct `ValidationStatus`
+- New struct `VirtualSwitchConfigurationOverrides`
+
+
 ## 2.0.0-beta.2 (2023-11-30)
 ### Features Added
 
