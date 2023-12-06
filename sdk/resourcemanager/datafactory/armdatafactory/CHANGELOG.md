@@ -1,5 +1,17 @@
 # Release History
 
+## 5.0.0 (2023-12-06)
+### Breaking Changes
+
+- Field `Pwd` of struct `MariaDBLinkedServiceTypeProperties` has been removed
+
+### Features Added
+
+- New field `Database`, `DriverVersion`, `Password`, `Port`, `Server`, `Username` in struct `MariaDBLinkedServiceTypeProperties`
+- New field `Database`, `DriverVersion`, `Port`, `SSLMode`, `Server`, `UseSystemTrustStore`, `Username` in struct `MySQLLinkedServiceTypeProperties`
+- New field `HTTPRequestTimeout`, `TurnOffAsync` in struct `WebActivityTypeProperties`
+
+
 ## 4.0.0 (2023-12-22)
 ### Breaking Changes
 

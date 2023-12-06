@@ -30937,8 +30937,13 @@ func (m *MariaDBLinkedService) UnmarshalJSON(data []byte) error {
 func (m MariaDBLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populateAny(objectMap, "connectionString", m.ConnectionString)
+	populateAny(objectMap, "database", m.Database)
+	populateAny(objectMap, "driverVersion", m.DriverVersion)
 	populate(objectMap, "encryptedCredential", m.EncryptedCredential)
-	populate(objectMap, "pwd", m.Pwd)
+	populate(objectMap, "password", m.Password)
+	populateAny(objectMap, "port", m.Port)
+	populateAny(objectMap, "server", m.Server)
+	populateAny(objectMap, "username", m.Username)
 	return json.Marshal(objectMap)
 }
 
@@ -30954,11 +30959,26 @@ func (m *MariaDBLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &m.ConnectionString)
 			delete(rawMsg, key)
+		case "database":
+			err = unpopulate(val, "Database", &m.Database)
+			delete(rawMsg, key)
+		case "driverVersion":
+			err = unpopulate(val, "DriverVersion", &m.DriverVersion)
+			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &m.EncryptedCredential)
 			delete(rawMsg, key)
-		case "pwd":
-			err = unpopulate(val, "Pwd", &m.Pwd)
+		case "password":
+			err = unpopulate(val, "Password", &m.Password)
+			delete(rawMsg, key)
+		case "port":
+			err = unpopulate(val, "Port", &m.Port)
+			delete(rawMsg, key)
+		case "server":
+			err = unpopulate(val, "Server", &m.Server)
+			delete(rawMsg, key)
+		case "username":
+			err = unpopulate(val, "Username", &m.Username)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -32904,8 +32924,15 @@ func (m *MySQLLinkedService) UnmarshalJSON(data []byte) error {
 func (m MySQLLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populateAny(objectMap, "connectionString", m.ConnectionString)
+	populateAny(objectMap, "database", m.Database)
+	populateAny(objectMap, "driverVersion", m.DriverVersion)
 	populate(objectMap, "encryptedCredential", m.EncryptedCredential)
 	populate(objectMap, "password", m.Password)
+	populateAny(objectMap, "port", m.Port)
+	populateAny(objectMap, "sslMode", m.SSLMode)
+	populateAny(objectMap, "server", m.Server)
+	populateAny(objectMap, "useSystemTrustStore", m.UseSystemTrustStore)
+	populateAny(objectMap, "username", m.Username)
 	return json.Marshal(objectMap)
 }
 
@@ -32921,11 +32948,32 @@ func (m *MySQLLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &m.ConnectionString)
 			delete(rawMsg, key)
+		case "database":
+			err = unpopulate(val, "Database", &m.Database)
+			delete(rawMsg, key)
+		case "driverVersion":
+			err = unpopulate(val, "DriverVersion", &m.DriverVersion)
+			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &m.EncryptedCredential)
 			delete(rawMsg, key)
 		case "password":
 			err = unpopulate(val, "Password", &m.Password)
+			delete(rawMsg, key)
+		case "port":
+			err = unpopulate(val, "Port", &m.Port)
+			delete(rawMsg, key)
+		case "sslMode":
+			err = unpopulate(val, "SSLMode", &m.SSLMode)
+			delete(rawMsg, key)
+		case "server":
+			err = unpopulate(val, "Server", &m.Server)
+			delete(rawMsg, key)
+		case "useSystemTrustStore":
+			err = unpopulate(val, "UseSystemTrustStore", &m.UseSystemTrustStore)
+			delete(rawMsg, key)
+		case "username":
+			err = unpopulate(val, "Username", &m.Username)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -52236,9 +52284,11 @@ func (w WebActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "connectVia", w.ConnectVia)
 	populate(objectMap, "datasets", w.Datasets)
 	populate(objectMap, "disableCertValidation", w.DisableCertValidation)
+	populateAny(objectMap, "httpRequestTimeout", w.HTTPRequestTimeout)
 	populateAny(objectMap, "headers", w.Headers)
 	populate(objectMap, "linkedServices", w.LinkedServices)
 	populate(objectMap, "method", w.Method)
+	populate(objectMap, "turnOffAsync", w.TurnOffAsync)
 	populateAny(objectMap, "url", w.URL)
 	return json.Marshal(objectMap)
 }
@@ -52267,6 +52317,9 @@ func (w *WebActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		case "disableCertValidation":
 			err = unpopulate(val, "DisableCertValidation", &w.DisableCertValidation)
 			delete(rawMsg, key)
+		case "httpRequestTimeout":
+			err = unpopulate(val, "HTTPRequestTimeout", &w.HTTPRequestTimeout)
+			delete(rawMsg, key)
 		case "headers":
 			err = unpopulate(val, "Headers", &w.Headers)
 			delete(rawMsg, key)
@@ -52275,6 +52328,9 @@ func (w *WebActivityTypeProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "method":
 			err = unpopulate(val, "Method", &w.Method)
+			delete(rawMsg, key)
+		case "turnOffAsync":
+			err = unpopulate(val, "TurnOffAsync", &w.TurnOffAsync)
 			delete(rawMsg, key)
 		case "url":
 			err = unpopulate(val, "URL", &w.URL)
