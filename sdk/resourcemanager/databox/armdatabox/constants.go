@@ -10,7 +10,7 @@ package armdatabox
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/databox/armdatabox"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 type AccessProtocol string
@@ -213,11 +213,13 @@ const (
 	DataCenterCodeAM2     DataCenterCode = "AM2"
 	DataCenterCodeAMS06   DataCenterCode = "AMS06"
 	DataCenterCodeAMS20   DataCenterCode = "AMS20"
+	DataCenterCodeAMS25   DataCenterCode = "AMS25"
 	DataCenterCodeAUH20   DataCenterCode = "AUH20"
 	DataCenterCodeAdHoc   DataCenterCode = "AdHoc"
 	DataCenterCodeBJB     DataCenterCode = "BJB"
 	DataCenterCodeBJS20   DataCenterCode = "BJS20"
 	DataCenterCodeBL20    DataCenterCode = "BL20"
+	DataCenterCodeBL24    DataCenterCode = "BL24"
 	DataCenterCodeBL7     DataCenterCode = "BL7"
 	DataCenterCodeBN1     DataCenterCode = "BN1"
 	DataCenterCodeBN7     DataCenterCode = "BN7"
@@ -230,12 +232,16 @@ const (
 	DataCenterCodeCH1     DataCenterCode = "CH1"
 	DataCenterCodeCPQ02   DataCenterCode = "CPQ02"
 	DataCenterCodeCPQ20   DataCenterCode = "CPQ20"
+	DataCenterCodeCPQ21   DataCenterCode = "CPQ21"
 	DataCenterCodeCWL20   DataCenterCode = "CWL20"
 	DataCenterCodeCYS04   DataCenterCode = "CYS04"
 	DataCenterCodeDSM05   DataCenterCode = "DSM05"
+	DataCenterCodeDSM11   DataCenterCode = "DSM11"
 	DataCenterCodeDUB07   DataCenterCode = "DUB07"
+	DataCenterCodeDXB23   DataCenterCode = "DXB23"
 	DataCenterCodeFRA22   DataCenterCode = "FRA22"
 	DataCenterCodeHKG20   DataCenterCode = "HKG20"
+	DataCenterCodeIDC5    DataCenterCode = "IDC5"
 	DataCenterCodeInvalid DataCenterCode = "Invalid"
 	DataCenterCodeJNB21   DataCenterCode = "JNB21"
 	DataCenterCodeJNB22   DataCenterCode = "JNB22"
@@ -244,10 +250,12 @@ const (
 	DataCenterCodeMEL23   DataCenterCode = "MEL23"
 	DataCenterCodeMNZ21   DataCenterCode = "MNZ21"
 	DataCenterCodeMWH01   DataCenterCode = "MWH01"
+	DataCenterCodeNTG20   DataCenterCode = "NTG20"
 	DataCenterCodeORK70   DataCenterCode = "ORK70"
 	DataCenterCodeOSA02   DataCenterCode = "OSA02"
 	DataCenterCodeOSA20   DataCenterCode = "OSA20"
 	DataCenterCodeOSA22   DataCenterCode = "OSA22"
+	DataCenterCodeOSA23   DataCenterCode = "OSA23"
 	DataCenterCodePAR22   DataCenterCode = "PAR22"
 	DataCenterCodePNQ01   DataCenterCode = "PNQ01"
 	DataCenterCodePUS20   DataCenterCode = "PUS20"
@@ -265,6 +273,7 @@ const (
 	DataCenterCodeSYD23   DataCenterCode = "SYD23"
 	DataCenterCodeTYO01   DataCenterCode = "TYO01"
 	DataCenterCodeTYO22   DataCenterCode = "TYO22"
+	DataCenterCodeTYO23   DataCenterCode = "TYO23"
 	DataCenterCodeYQB20   DataCenterCode = "YQB20"
 	DataCenterCodeYTO20   DataCenterCode = "YTO20"
 	DataCenterCodeYTO21   DataCenterCode = "YTO21"
@@ -277,11 +286,13 @@ func PossibleDataCenterCodeValues() []DataCenterCode {
 		DataCenterCodeAM2,
 		DataCenterCodeAMS06,
 		DataCenterCodeAMS20,
+		DataCenterCodeAMS25,
 		DataCenterCodeAUH20,
 		DataCenterCodeAdHoc,
 		DataCenterCodeBJB,
 		DataCenterCodeBJS20,
 		DataCenterCodeBL20,
+		DataCenterCodeBL24,
 		DataCenterCodeBL7,
 		DataCenterCodeBN1,
 		DataCenterCodeBN7,
@@ -294,12 +305,16 @@ func PossibleDataCenterCodeValues() []DataCenterCode {
 		DataCenterCodeCH1,
 		DataCenterCodeCPQ02,
 		DataCenterCodeCPQ20,
+		DataCenterCodeCPQ21,
 		DataCenterCodeCWL20,
 		DataCenterCodeCYS04,
 		DataCenterCodeDSM05,
+		DataCenterCodeDSM11,
 		DataCenterCodeDUB07,
+		DataCenterCodeDXB23,
 		DataCenterCodeFRA22,
 		DataCenterCodeHKG20,
+		DataCenterCodeIDC5,
 		DataCenterCodeInvalid,
 		DataCenterCodeJNB21,
 		DataCenterCodeJNB22,
@@ -308,10 +323,12 @@ func PossibleDataCenterCodeValues() []DataCenterCode {
 		DataCenterCodeMEL23,
 		DataCenterCodeMNZ21,
 		DataCenterCodeMWH01,
+		DataCenterCodeNTG20,
 		DataCenterCodeORK70,
 		DataCenterCodeOSA02,
 		DataCenterCodeOSA20,
 		DataCenterCodeOSA22,
+		DataCenterCodeOSA23,
 		DataCenterCodePAR22,
 		DataCenterCodePNQ01,
 		DataCenterCodePUS20,
@@ -329,6 +346,7 @@ func PossibleDataCenterCodeValues() []DataCenterCode {
 		DataCenterCodeSYD23,
 		DataCenterCodeTYO01,
 		DataCenterCodeTYO22,
+		DataCenterCodeTYO23,
 		DataCenterCodeYQB20,
 		DataCenterCodeYTO20,
 		DataCenterCodeYTO21,
@@ -351,6 +369,24 @@ func PossibleDatacenterAddressTypeValues() []DatacenterAddressType {
 	return []DatacenterAddressType{
 		DatacenterAddressTypeDatacenterAddressInstruction,
 		DatacenterAddressTypeDatacenterAddressLocation,
+	}
+}
+
+// DelayNotificationStatus - Status of notification
+type DelayNotificationStatus string
+
+const (
+	// DelayNotificationStatusActive - Delay is still active
+	DelayNotificationStatusActive DelayNotificationStatus = "Active"
+	// DelayNotificationStatusResolved - Delay has been resolved
+	DelayNotificationStatusResolved DelayNotificationStatus = "Resolved"
+)
+
+// PossibleDelayNotificationStatusValues returns the possible values for the DelayNotificationStatus const type.
+func PossibleDelayNotificationStatusValues() []DelayNotificationStatus {
+	return []DelayNotificationStatus{
+		DelayNotificationStatusActive,
+		DelayNotificationStatusResolved,
 	}
 }
 
@@ -390,11 +426,11 @@ func PossibleFilterFileTypeValues() []FilterFileType {
 	}
 }
 
-// HardwareEncryption - Defines Hardware level encryption (Only for disk)
+// HardwareEncryption - Hardware encryption support for a given sku for a given region.
 type HardwareEncryption string
 
 const (
-	// HardwareEncryptionDisabled - Hardware-based encryption is enabled.
+	// HardwareEncryptionDisabled - Hardware-based encryption is disabled.
 	HardwareEncryptionDisabled HardwareEncryption = "Disabled"
 	// HardwareEncryptionEnabled - Hardware-based encryption is enabled.
 	HardwareEncryptionEnabled HardwareEncryption = "Enabled"
@@ -516,6 +552,30 @@ func PossibleOverallValidationStatusValues() []OverallValidationStatus {
 		OverallValidationStatusAllValidToProceed,
 		OverallValidationStatusCertainInputValidationsSkipped,
 		OverallValidationStatusInputsRevisitRequired,
+	}
+}
+
+// PortalDelayErrorCode - Delay Error code
+type PortalDelayErrorCode string
+
+const (
+	// PortalDelayErrorCodeActiveOrderLimitBreachedDelay - Active Order limit breached.
+	PortalDelayErrorCodeActiveOrderLimitBreachedDelay PortalDelayErrorCode = "ActiveOrderLimitBreachedDelay"
+	// PortalDelayErrorCodeActiveOrderLimitBreachedDelay - Active Order limit breached.
+	PortalDelayErrorCodeActiveOrderLimitBreachedDelay PortalDelayErrorCode = "ActiveOrderLimitBreachedDelay"
+	// PortalDelayErrorCodeActiveOrderLimitBreachedDelay - Active Order limit breached.
+	PortalDelayErrorCodeActiveOrderLimitBreachedDelay PortalDelayErrorCode = "ActiveOrderLimitBreachedDelay"
+	// PortalDelayErrorCodeInternalIssueDelay - Delay due to any internal reasons
+	PortalDelayErrorCodeInternalIssueDelay PortalDelayErrorCode = "InternalIssueDelay"
+)
+
+// PossiblePortalDelayErrorCodeValues returns the possible values for the PortalDelayErrorCode const type.
+func PossiblePortalDelayErrorCodeValues() []PortalDelayErrorCode {
+	return []PortalDelayErrorCode{
+		PortalDelayErrorCodeActiveOrderLimitBreachedDelay,
+		PortalDelayErrorCodeActiveOrderLimitBreachedDelay,
+		PortalDelayErrorCodeActiveOrderLimitBreachedDelay,
+		PortalDelayErrorCodeInternalIssueDelay,
 	}
 }
 
