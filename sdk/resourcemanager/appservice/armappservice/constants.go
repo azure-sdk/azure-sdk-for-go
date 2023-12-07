@@ -10,7 +10,7 @@ package armappservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice"
-	moduleVersion = "v2.3.0"
+	moduleVersion = "v3.0.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -73,7 +73,7 @@ func PossibleAutoHealActionTypeValues() []AutoHealActionType {
 	}
 }
 
-// AzureResourceType - Type of the Azure resource the hostname is assigned to.
+// AzureResourceType - Azure resource type.
 type AzureResourceType string
 
 const (
@@ -241,94 +241,6 @@ func PossibleBuiltInAuthenticationProviderValues() []BuiltInAuthenticationProvid
 		BuiltInAuthenticationProviderGoogle,
 		BuiltInAuthenticationProviderMicrosoftAccount,
 		BuiltInAuthenticationProviderTwitter,
-	}
-}
-
-// CertificateOrderActionType - Action type.
-type CertificateOrderActionType string
-
-const (
-	CertificateOrderActionTypeCertificateExpirationWarning CertificateOrderActionType = "CertificateExpirationWarning"
-	CertificateOrderActionTypeCertificateExpired           CertificateOrderActionType = "CertificateExpired"
-	CertificateOrderActionTypeCertificateIssued            CertificateOrderActionType = "CertificateIssued"
-	CertificateOrderActionTypeCertificateOrderCanceled     CertificateOrderActionType = "CertificateOrderCanceled"
-	CertificateOrderActionTypeCertificateOrderCreated      CertificateOrderActionType = "CertificateOrderCreated"
-	CertificateOrderActionTypeCertificateRevoked           CertificateOrderActionType = "CertificateRevoked"
-	CertificateOrderActionTypeDomainValidationComplete     CertificateOrderActionType = "DomainValidationComplete"
-	CertificateOrderActionTypeFraudCleared                 CertificateOrderActionType = "FraudCleared"
-	CertificateOrderActionTypeFraudDetected                CertificateOrderActionType = "FraudDetected"
-	CertificateOrderActionTypeFraudDocumentationRequired   CertificateOrderActionType = "FraudDocumentationRequired"
-	CertificateOrderActionTypeOrgNameChange                CertificateOrderActionType = "OrgNameChange"
-	CertificateOrderActionTypeOrgValidationComplete        CertificateOrderActionType = "OrgValidationComplete"
-	CertificateOrderActionTypeSanDrop                      CertificateOrderActionType = "SanDrop"
-	CertificateOrderActionTypeUnknown                      CertificateOrderActionType = "Unknown"
-)
-
-// PossibleCertificateOrderActionTypeValues returns the possible values for the CertificateOrderActionType const type.
-func PossibleCertificateOrderActionTypeValues() []CertificateOrderActionType {
-	return []CertificateOrderActionType{
-		CertificateOrderActionTypeCertificateExpirationWarning,
-		CertificateOrderActionTypeCertificateExpired,
-		CertificateOrderActionTypeCertificateIssued,
-		CertificateOrderActionTypeCertificateOrderCanceled,
-		CertificateOrderActionTypeCertificateOrderCreated,
-		CertificateOrderActionTypeCertificateRevoked,
-		CertificateOrderActionTypeDomainValidationComplete,
-		CertificateOrderActionTypeFraudCleared,
-		CertificateOrderActionTypeFraudDetected,
-		CertificateOrderActionTypeFraudDocumentationRequired,
-		CertificateOrderActionTypeOrgNameChange,
-		CertificateOrderActionTypeOrgValidationComplete,
-		CertificateOrderActionTypeSanDrop,
-		CertificateOrderActionTypeUnknown,
-	}
-}
-
-// CertificateOrderStatus - Current order status.
-type CertificateOrderStatus string
-
-const (
-	CertificateOrderStatusCanceled          CertificateOrderStatus = "Canceled"
-	CertificateOrderStatusDenied            CertificateOrderStatus = "Denied"
-	CertificateOrderStatusExpired           CertificateOrderStatus = "Expired"
-	CertificateOrderStatusIssued            CertificateOrderStatus = "Issued"
-	CertificateOrderStatusNotSubmitted      CertificateOrderStatus = "NotSubmitted"
-	CertificateOrderStatusPendingRekey      CertificateOrderStatus = "PendingRekey"
-	CertificateOrderStatusPendingissuance   CertificateOrderStatus = "Pendingissuance"
-	CertificateOrderStatusPendingrevocation CertificateOrderStatus = "Pendingrevocation"
-	CertificateOrderStatusRevoked           CertificateOrderStatus = "Revoked"
-	CertificateOrderStatusUnused            CertificateOrderStatus = "Unused"
-)
-
-// PossibleCertificateOrderStatusValues returns the possible values for the CertificateOrderStatus const type.
-func PossibleCertificateOrderStatusValues() []CertificateOrderStatus {
-	return []CertificateOrderStatus{
-		CertificateOrderStatusCanceled,
-		CertificateOrderStatusDenied,
-		CertificateOrderStatusExpired,
-		CertificateOrderStatusIssued,
-		CertificateOrderStatusNotSubmitted,
-		CertificateOrderStatusPendingRekey,
-		CertificateOrderStatusPendingissuance,
-		CertificateOrderStatusPendingrevocation,
-		CertificateOrderStatusRevoked,
-		CertificateOrderStatusUnused,
-	}
-}
-
-// CertificateProductType - Certificate product type.
-type CertificateProductType string
-
-const (
-	CertificateProductTypeStandardDomainValidatedSSL         CertificateProductType = "StandardDomainValidatedSsl"
-	CertificateProductTypeStandardDomainValidatedWildCardSSL CertificateProductType = "StandardDomainValidatedWildCardSsl"
-)
-
-// PossibleCertificateProductTypeValues returns the possible values for the CertificateProductType const type.
-func PossibleCertificateProductTypeValues() []CertificateProductType {
-	return []CertificateProductType{
-		CertificateProductTypeStandardDomainValidatedSSL,
-		CertificateProductTypeStandardDomainValidatedWildCardSSL,
 	}
 }
 
@@ -576,7 +488,7 @@ func PossibleCustomDomainStatusValues() []CustomDomainStatus {
 	}
 }
 
-// CustomHostNameDNSRecordType - Type of the DNS record.
+// CustomHostNameDNSRecordType - Custom DNS record type.
 type CustomHostNameDNSRecordType string
 
 const (
@@ -589,22 +501,6 @@ func PossibleCustomHostNameDNSRecordTypeValues() []CustomHostNameDNSRecordType {
 	return []CustomHostNameDNSRecordType{
 		CustomHostNameDNSRecordTypeA,
 		CustomHostNameDNSRecordTypeCName,
-	}
-}
-
-// DNSType - Current DNS type
-type DNSType string
-
-const (
-	DNSTypeAzureDNS                  DNSType = "AzureDns"
-	DNSTypeDefaultDomainRegistrarDNS DNSType = "DefaultDomainRegistrarDns"
-)
-
-// PossibleDNSTypeValues returns the possible values for the DNSType const type.
-func PossibleDNSTypeValues() []DNSType {
-	return []DNSType{
-		DNSTypeAzureDNS,
-		DNSTypeDefaultDomainRegistrarDNS,
 	}
 }
 
@@ -789,77 +685,6 @@ func PossibleDetectorTypeValues() []DetectorType {
 	}
 }
 
-// DomainStatus - Domain registration status.
-type DomainStatus string
-
-const (
-	DomainStatusActive              DomainStatus = "Active"
-	DomainStatusAwaiting            DomainStatus = "Awaiting"
-	DomainStatusCancelled           DomainStatus = "Cancelled"
-	DomainStatusConfiscated         DomainStatus = "Confiscated"
-	DomainStatusDisabled            DomainStatus = "Disabled"
-	DomainStatusExcluded            DomainStatus = "Excluded"
-	DomainStatusExpired             DomainStatus = "Expired"
-	DomainStatusFailed              DomainStatus = "Failed"
-	DomainStatusHeld                DomainStatus = "Held"
-	DomainStatusJSONConverterFailed DomainStatus = "JsonConverterFailed"
-	DomainStatusLocked              DomainStatus = "Locked"
-	DomainStatusParked              DomainStatus = "Parked"
-	DomainStatusPending             DomainStatus = "Pending"
-	DomainStatusReserved            DomainStatus = "Reserved"
-	DomainStatusReverted            DomainStatus = "Reverted"
-	DomainStatusSuspended           DomainStatus = "Suspended"
-	DomainStatusTransferred         DomainStatus = "Transferred"
-	DomainStatusUnknown             DomainStatus = "Unknown"
-	DomainStatusUnlocked            DomainStatus = "Unlocked"
-	DomainStatusUnparked            DomainStatus = "Unparked"
-	DomainStatusUpdated             DomainStatus = "Updated"
-)
-
-// PossibleDomainStatusValues returns the possible values for the DomainStatus const type.
-func PossibleDomainStatusValues() []DomainStatus {
-	return []DomainStatus{
-		DomainStatusActive,
-		DomainStatusAwaiting,
-		DomainStatusCancelled,
-		DomainStatusConfiscated,
-		DomainStatusDisabled,
-		DomainStatusExcluded,
-		DomainStatusExpired,
-		DomainStatusFailed,
-		DomainStatusHeld,
-		DomainStatusJSONConverterFailed,
-		DomainStatusLocked,
-		DomainStatusParked,
-		DomainStatusPending,
-		DomainStatusReserved,
-		DomainStatusReverted,
-		DomainStatusSuspended,
-		DomainStatusTransferred,
-		DomainStatusUnknown,
-		DomainStatusUnlocked,
-		DomainStatusUnparked,
-		DomainStatusUpdated,
-	}
-}
-
-// DomainType - Valid values are Regular domain: Azure will charge the full price of domain registration, SoftDeleted: Purchasing
-// this domain will simply restore it and this operation will not cost anything.
-type DomainType string
-
-const (
-	DomainTypeRegular     DomainType = "Regular"
-	DomainTypeSoftDeleted DomainType = "SoftDeleted"
-)
-
-// PossibleDomainTypeValues returns the possible values for the DomainType const type.
-func PossibleDomainTypeValues() []DomainType {
-	return []DomainType{
-		DomainTypeRegular,
-		DomainTypeSoftDeleted,
-	}
-}
-
 // EnterpriseGradeCdnStatus - State indicating the status of the enterprise grade CDN serving traffic to the static web app.
 type EnterpriseGradeCdnStatus string
 
@@ -948,7 +773,7 @@ func PossibleFtpsStateValues() []FtpsState {
 	}
 }
 
-// HostNameType - Type of the hostname.
+// HostNameType - Hostname type.
 type HostNameType string
 
 const (
@@ -1461,7 +1286,7 @@ func PossibleProviderStackOsTypeValues() []ProviderStackOsType {
 	}
 }
 
-// ProvisioningState - Status of certificate order.
+// ProvisioningState - Provisioning state of the App Service Plan.
 type ProvisioningState string
 
 const (
@@ -1661,23 +1486,6 @@ func PossibleResolveStatusValues() []ResolveStatus {
 		ResolveStatusSecretVersionNotFound,
 		ResolveStatusUnauthorizedClient,
 		ResolveStatusVaultNotFound,
-	}
-}
-
-type ResourceNotRenewableReason string
-
-const (
-	ResourceNotRenewableReasonExpirationNotInRenewalTimeRange          ResourceNotRenewableReason = "ExpirationNotInRenewalTimeRange"
-	ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ResourceNotRenewableReason = "RegistrationStatusNotSupportedForRenewal"
-	ResourceNotRenewableReasonSubscriptionNotActive                    ResourceNotRenewableReason = "SubscriptionNotActive"
-)
-
-// PossibleResourceNotRenewableReasonValues returns the possible values for the ResourceNotRenewableReason const type.
-func PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason {
-	return []ResourceNotRenewableReason{
-		ResourceNotRenewableReasonExpirationNotInRenewalTimeRange,
-		ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal,
-		ResourceNotRenewableReasonSubscriptionNotActive,
 	}
 }
 
