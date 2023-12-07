@@ -37,45 +37,39 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-// NewGalleryImagesClient creates a new instance of GalleryImagesClient.
-func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
-	subClient, _ := NewGalleryImagesClient(c.subscriptionID, c.credential, c.options)
+// NewArcSettingsClient creates a new instance of ArcSettingsClient.
+func (c *ClientFactory) NewArcSettingsClient() *ArcSettingsClient {
+	subClient, _ := NewArcSettingsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewGuestAgentClient creates a new instance of GuestAgentClient.
-func (c *ClientFactory) NewGuestAgentClient() *GuestAgentClient {
-	subClient, _ := NewGuestAgentClient(c.credential, c.options)
+// NewClustersClient creates a new instance of ClustersClient.
+func (c *ClientFactory) NewClustersClient() *ClustersClient {
+	subClient, _ := NewClustersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewGuestAgentsClient creates a new instance of GuestAgentsClient.
-func (c *ClientFactory) NewGuestAgentsClient() *GuestAgentsClient {
-	subClient, _ := NewGuestAgentsClient(c.credential, c.options)
+// NewDeploymentSettingsClient creates a new instance of DeploymentSettingsClient.
+func (c *ClientFactory) NewDeploymentSettingsClient() *DeploymentSettingsClient {
+	subClient, _ := NewDeploymentSettingsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewHybridIdentityMetadataClient creates a new instance of HybridIdentityMetadataClient.
-func (c *ClientFactory) NewHybridIdentityMetadataClient() *HybridIdentityMetadataClient {
-	subClient, _ := NewHybridIdentityMetadataClient(c.credential, c.options)
+// NewEdgeDevicesClient creates a new instance of EdgeDevicesClient.
+func (c *ClientFactory) NewEdgeDevicesClient() *EdgeDevicesClient {
+	subClient, _ := NewEdgeDevicesClient(c.credential, c.options)
 	return subClient
 }
 
-// NewLogicalNetworksClient creates a new instance of LogicalNetworksClient.
-func (c *ClientFactory) NewLogicalNetworksClient() *LogicalNetworksClient {
-	subClient, _ := NewLogicalNetworksClient(c.subscriptionID, c.credential, c.options)
+// NewExtensionsClient creates a new instance of ExtensionsClient.
+func (c *ClientFactory) NewExtensionsClient() *ExtensionsClient {
+	subClient, _ := NewExtensionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewMarketplaceGalleryImagesClient creates a new instance of MarketplaceGalleryImagesClient.
-func (c *ClientFactory) NewMarketplaceGalleryImagesClient() *MarketplaceGalleryImagesClient {
-	subClient, _ := NewMarketplaceGalleryImagesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewNetworkInterfacesClient creates a new instance of NetworkInterfacesClient.
-func (c *ClientFactory) NewNetworkInterfacesClient() *NetworkInterfacesClient {
-	subClient, _ := NewNetworkInterfacesClient(c.subscriptionID, c.credential, c.options)
+// NewOffersClient creates a new instance of OffersClient.
+func (c *ClientFactory) NewOffersClient() *OffersClient {
+	subClient, _ := NewOffersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -85,20 +79,38 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
-// NewStorageContainersClient creates a new instance of StorageContainersClient.
-func (c *ClientFactory) NewStorageContainersClient() *StorageContainersClient {
-	subClient, _ := NewStorageContainersClient(c.subscriptionID, c.credential, c.options)
+// NewPublishersClient creates a new instance of PublishersClient.
+func (c *ClientFactory) NewPublishersClient() *PublishersClient {
+	subClient, _ := NewPublishersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewVirtualHardDisksClient creates a new instance of VirtualHardDisksClient.
-func (c *ClientFactory) NewVirtualHardDisksClient() *VirtualHardDisksClient {
-	subClient, _ := NewVirtualHardDisksClient(c.subscriptionID, c.credential, c.options)
+// NewSKUsClient creates a new instance of SKUsClient.
+func (c *ClientFactory) NewSKUsClient() *SKUsClient {
+	subClient, _ := NewSKUsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewVirtualMachineInstancesClient creates a new instance of VirtualMachineInstancesClient.
-func (c *ClientFactory) NewVirtualMachineInstancesClient() *VirtualMachineInstancesClient {
-	subClient, _ := NewVirtualMachineInstancesClient(c.credential, c.options)
+// NewSecuritySettingsClient creates a new instance of SecuritySettingsClient.
+func (c *ClientFactory) NewSecuritySettingsClient() *SecuritySettingsClient {
+	subClient, _ := NewSecuritySettingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewUpdateRunsClient creates a new instance of UpdateRunsClient.
+func (c *ClientFactory) NewUpdateRunsClient() *UpdateRunsClient {
+	subClient, _ := NewUpdateRunsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewUpdateSummariesClient creates a new instance of UpdateSummariesClient.
+func (c *ClientFactory) NewUpdateSummariesClient() *UpdateSummariesClient {
+	subClient, _ := NewUpdateSummariesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewUpdatesClient creates a new instance of UpdatesClient.
+func (c *ClientFactory) NewUpdatesClient() *UpdatesClient {
+	subClient, _ := NewUpdatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

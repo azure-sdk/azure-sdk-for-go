@@ -10,7 +10,7 @@ package armazurestackhci
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0-beta.3"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -27,19 +27,149 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// CloudInitDataSource - Datasource for the gallery image when provisioning with cloud-init [NoCloud, Azure]
-type CloudInitDataSource string
+// ArcSettingAggregateState - Aggregate state of Arc agent across the nodes in this HCI cluster.
+type ArcSettingAggregateState string
 
 const (
-	CloudInitDataSourceAzure   CloudInitDataSource = "Azure"
-	CloudInitDataSourceNoCloud CloudInitDataSource = "NoCloud"
+	ArcSettingAggregateStateAccepted           ArcSettingAggregateState = "Accepted"
+	ArcSettingAggregateStateCanceled           ArcSettingAggregateState = "Canceled"
+	ArcSettingAggregateStateConnected          ArcSettingAggregateState = "Connected"
+	ArcSettingAggregateStateCreating           ArcSettingAggregateState = "Creating"
+	ArcSettingAggregateStateDeleted            ArcSettingAggregateState = "Deleted"
+	ArcSettingAggregateStateDeleting           ArcSettingAggregateState = "Deleting"
+	ArcSettingAggregateStateDisableInProgress  ArcSettingAggregateState = "DisableInProgress"
+	ArcSettingAggregateStateDisconnected       ArcSettingAggregateState = "Disconnected"
+	ArcSettingAggregateStateError              ArcSettingAggregateState = "Error"
+	ArcSettingAggregateStateFailed             ArcSettingAggregateState = "Failed"
+	ArcSettingAggregateStateInProgress         ArcSettingAggregateState = "InProgress"
+	ArcSettingAggregateStateMoving             ArcSettingAggregateState = "Moving"
+	ArcSettingAggregateStateNotSpecified       ArcSettingAggregateState = "NotSpecified"
+	ArcSettingAggregateStatePartiallyConnected ArcSettingAggregateState = "PartiallyConnected"
+	ArcSettingAggregateStatePartiallySucceeded ArcSettingAggregateState = "PartiallySucceeded"
+	ArcSettingAggregateStateProvisioning       ArcSettingAggregateState = "Provisioning"
+	ArcSettingAggregateStateSucceeded          ArcSettingAggregateState = "Succeeded"
+	ArcSettingAggregateStateUpdating           ArcSettingAggregateState = "Updating"
 )
 
-// PossibleCloudInitDataSourceValues returns the possible values for the CloudInitDataSource const type.
-func PossibleCloudInitDataSourceValues() []CloudInitDataSource {
-	return []CloudInitDataSource{
-		CloudInitDataSourceAzure,
-		CloudInitDataSourceNoCloud,
+// PossibleArcSettingAggregateStateValues returns the possible values for the ArcSettingAggregateState const type.
+func PossibleArcSettingAggregateStateValues() []ArcSettingAggregateState {
+	return []ArcSettingAggregateState{
+		ArcSettingAggregateStateAccepted,
+		ArcSettingAggregateStateCanceled,
+		ArcSettingAggregateStateConnected,
+		ArcSettingAggregateStateCreating,
+		ArcSettingAggregateStateDeleted,
+		ArcSettingAggregateStateDeleting,
+		ArcSettingAggregateStateDisableInProgress,
+		ArcSettingAggregateStateDisconnected,
+		ArcSettingAggregateStateError,
+		ArcSettingAggregateStateFailed,
+		ArcSettingAggregateStateInProgress,
+		ArcSettingAggregateStateMoving,
+		ArcSettingAggregateStateNotSpecified,
+		ArcSettingAggregateStatePartiallyConnected,
+		ArcSettingAggregateStatePartiallySucceeded,
+		ArcSettingAggregateStateProvisioning,
+		ArcSettingAggregateStateSucceeded,
+		ArcSettingAggregateStateUpdating,
+	}
+}
+
+// AvailabilityType - Indicates the way the update content can be downloaded.
+type AvailabilityType string
+
+const (
+	AvailabilityTypeLocal  AvailabilityType = "Local"
+	AvailabilityTypeNotify AvailabilityType = "Notify"
+	AvailabilityTypeOnline AvailabilityType = "Online"
+)
+
+// PossibleAvailabilityTypeValues returns the possible values for the AvailabilityType const type.
+func PossibleAvailabilityTypeValues() []AvailabilityType {
+	return []AvailabilityType{
+		AvailabilityTypeLocal,
+		AvailabilityTypeNotify,
+		AvailabilityTypeOnline,
+	}
+}
+
+// ClusterNodeType - The node type of all the nodes of the cluster.
+type ClusterNodeType string
+
+const (
+	ClusterNodeTypeFirstParty ClusterNodeType = "FirstParty"
+	ClusterNodeTypeThirdParty ClusterNodeType = "ThirdParty"
+)
+
+// PossibleClusterNodeTypeValues returns the possible values for the ClusterNodeType const type.
+func PossibleClusterNodeTypeValues() []ClusterNodeType {
+	return []ClusterNodeType{
+		ClusterNodeTypeFirstParty,
+		ClusterNodeTypeThirdParty,
+	}
+}
+
+// ComplianceAssignmentType - Represents the compliance assignment type of a resource.
+type ComplianceAssignmentType string
+
+const (
+	// ComplianceAssignmentTypeApplyAndAutoCorrect - Applied to the machine. If it drifts, the local service inside the machine
+	// makes a correction at the next evaluation.
+	ComplianceAssignmentTypeApplyAndAutoCorrect ComplianceAssignmentType = "ApplyAndAutoCorrect"
+	// ComplianceAssignmentTypeAudit - Report on the state of the machine, but don't make changes.
+	ComplianceAssignmentTypeAudit ComplianceAssignmentType = "Audit"
+)
+
+// PossibleComplianceAssignmentTypeValues returns the possible values for the ComplianceAssignmentType const type.
+func PossibleComplianceAssignmentTypeValues() []ComplianceAssignmentType {
+	return []ComplianceAssignmentType{
+		ComplianceAssignmentTypeApplyAndAutoCorrect,
+		ComplianceAssignmentTypeAudit,
+	}
+}
+
+// ComplianceStatus - Represents the compliance status of a resource.
+type ComplianceStatus string
+
+const (
+	// ComplianceStatusCompliant - The resource is compliant
+	ComplianceStatusCompliant ComplianceStatus = "Compliant"
+	// ComplianceStatusNonCompliant - The resource is non-compliant
+	ComplianceStatusNonCompliant ComplianceStatus = "NonCompliant"
+	// ComplianceStatusPending - The resource compliance status is pending
+	ComplianceStatusPending ComplianceStatus = "Pending"
+)
+
+// PossibleComplianceStatusValues returns the possible values for the ComplianceStatus const type.
+func PossibleComplianceStatusValues() []ComplianceStatus {
+	return []ComplianceStatus{
+		ComplianceStatusCompliant,
+		ComplianceStatusNonCompliant,
+		ComplianceStatusPending,
+	}
+}
+
+// ConnectivityStatus - Overall connectivity status for the cluster resource.
+type ConnectivityStatus string
+
+const (
+	ConnectivityStatusConnected            ConnectivityStatus = "Connected"
+	ConnectivityStatusDisconnected         ConnectivityStatus = "Disconnected"
+	ConnectivityStatusNotConnectedRecently ConnectivityStatus = "NotConnectedRecently"
+	ConnectivityStatusNotSpecified         ConnectivityStatus = "NotSpecified"
+	ConnectivityStatusNotYetRegistered     ConnectivityStatus = "NotYetRegistered"
+	ConnectivityStatusPartiallyConnected   ConnectivityStatus = "PartiallyConnected"
+)
+
+// PossibleConnectivityStatusValues returns the possible values for the ConnectivityStatus const type.
+func PossibleConnectivityStatusValues() []ConnectivityStatus {
+	return []ConnectivityStatus{
+		ConnectivityStatusConnected,
+		ConnectivityStatusDisconnected,
+		ConnectivityStatusNotConnectedRecently,
+		ConnectivityStatusNotSpecified,
+		ConnectivityStatusNotYetRegistered,
+		ConnectivityStatusPartiallyConnected,
 	}
 }
 
@@ -63,97 +193,272 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DiskFileFormat - The format of the actual VHD file [vhd, vhdx]
-type DiskFileFormat string
+// DeploymentMode - The deployment mode for cluster deployment.
+type DeploymentMode string
 
 const (
-	DiskFileFormatVhd  DiskFileFormat = "vhd"
-	DiskFileFormatVhdx DiskFileFormat = "vhdx"
+	// DeploymentModeDeploy - Deploy cluster using deployment settings.
+	DeploymentModeDeploy DeploymentMode = "Deploy"
+	// DeploymentModeValidate - Validate deployment settings for cluster.
+	DeploymentModeValidate DeploymentMode = "Validate"
 )
 
-// PossibleDiskFileFormatValues returns the possible values for the DiskFileFormat const type.
-func PossibleDiskFileFormatValues() []DiskFileFormat {
-	return []DiskFileFormat{
-		DiskFileFormatVhd,
-		DiskFileFormatVhdx,
+// PossibleDeploymentModeValues returns the possible values for the DeploymentMode const type.
+func PossibleDeploymentModeValues() []DeploymentMode {
+	return []DeploymentMode{
+		DeploymentModeDeploy,
+		DeploymentModeValidate,
 	}
 }
 
-// ExtendedLocationTypes - The type of extendedLocation.
-type ExtendedLocationTypes string
+// DiagnosticLevel - Desired level of diagnostic data emitted by the cluster.
+type DiagnosticLevel string
 
 const (
-	ExtendedLocationTypesCustomLocation ExtendedLocationTypes = "CustomLocation"
+	DiagnosticLevelBasic    DiagnosticLevel = "Basic"
+	DiagnosticLevelEnhanced DiagnosticLevel = "Enhanced"
+	DiagnosticLevelOff      DiagnosticLevel = "Off"
 )
 
-// PossibleExtendedLocationTypesValues returns the possible values for the ExtendedLocationTypes const type.
-func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
-	return []ExtendedLocationTypes{
-		ExtendedLocationTypesCustomLocation,
+// PossibleDiagnosticLevelValues returns the possible values for the DiagnosticLevel const type.
+func PossibleDiagnosticLevelValues() []DiagnosticLevel {
+	return []DiagnosticLevel{
+		DiagnosticLevelBasic,
+		DiagnosticLevelEnhanced,
+		DiagnosticLevelOff,
 	}
 }
 
-// HyperVGeneration - The hypervisor generation of the Virtual Machine [V1, V2]
-type HyperVGeneration string
+// ExtensionAggregateState - Aggregate state of Arc Extensions across the nodes in this HCI cluster.
+type ExtensionAggregateState string
 
 const (
-	HyperVGenerationV1 HyperVGeneration = "V1"
-	HyperVGenerationV2 HyperVGeneration = "V2"
+	ExtensionAggregateStateAccepted                       ExtensionAggregateState = "Accepted"
+	ExtensionAggregateStateCanceled                       ExtensionAggregateState = "Canceled"
+	ExtensionAggregateStateConnected                      ExtensionAggregateState = "Connected"
+	ExtensionAggregateStateCreating                       ExtensionAggregateState = "Creating"
+	ExtensionAggregateStateDeleted                        ExtensionAggregateState = "Deleted"
+	ExtensionAggregateStateDeleting                       ExtensionAggregateState = "Deleting"
+	ExtensionAggregateStateDisconnected                   ExtensionAggregateState = "Disconnected"
+	ExtensionAggregateStateError                          ExtensionAggregateState = "Error"
+	ExtensionAggregateStateFailed                         ExtensionAggregateState = "Failed"
+	ExtensionAggregateStateInProgress                     ExtensionAggregateState = "InProgress"
+	ExtensionAggregateStateMoving                         ExtensionAggregateState = "Moving"
+	ExtensionAggregateStateNotSpecified                   ExtensionAggregateState = "NotSpecified"
+	ExtensionAggregateStatePartiallyConnected             ExtensionAggregateState = "PartiallyConnected"
+	ExtensionAggregateStatePartiallySucceeded             ExtensionAggregateState = "PartiallySucceeded"
+	ExtensionAggregateStateProvisioning                   ExtensionAggregateState = "Provisioning"
+	ExtensionAggregateStateSucceeded                      ExtensionAggregateState = "Succeeded"
+	ExtensionAggregateStateUpdating                       ExtensionAggregateState = "Updating"
+	ExtensionAggregateStateUpgradeFailedRollbackSucceeded ExtensionAggregateState = "UpgradeFailedRollbackSucceeded"
 )
 
-// PossibleHyperVGenerationValues returns the possible values for the HyperVGeneration const type.
-func PossibleHyperVGenerationValues() []HyperVGeneration {
-	return []HyperVGeneration{
-		HyperVGenerationV1,
-		HyperVGenerationV2,
+// PossibleExtensionAggregateStateValues returns the possible values for the ExtensionAggregateState const type.
+func PossibleExtensionAggregateStateValues() []ExtensionAggregateState {
+	return []ExtensionAggregateState{
+		ExtensionAggregateStateAccepted,
+		ExtensionAggregateStateCanceled,
+		ExtensionAggregateStateConnected,
+		ExtensionAggregateStateCreating,
+		ExtensionAggregateStateDeleted,
+		ExtensionAggregateStateDeleting,
+		ExtensionAggregateStateDisconnected,
+		ExtensionAggregateStateError,
+		ExtensionAggregateStateFailed,
+		ExtensionAggregateStateInProgress,
+		ExtensionAggregateStateMoving,
+		ExtensionAggregateStateNotSpecified,
+		ExtensionAggregateStatePartiallyConnected,
+		ExtensionAggregateStatePartiallySucceeded,
+		ExtensionAggregateStateProvisioning,
+		ExtensionAggregateStateSucceeded,
+		ExtensionAggregateStateUpdating,
+		ExtensionAggregateStateUpgradeFailedRollbackSucceeded,
 	}
 }
 
-// IPAllocationMethodEnum - IPAllocationMethod - The IP address allocation method. Possible values include: 'Static', 'Dynamic'
-type IPAllocationMethodEnum string
+// ExtensionManagedBy - Indicates if the extension is managed by azure or the user.
+type ExtensionManagedBy string
 
 const (
-	IPAllocationMethodEnumDynamic IPAllocationMethodEnum = "Dynamic"
-	IPAllocationMethodEnumStatic  IPAllocationMethodEnum = "Static"
+	ExtensionManagedByAzure ExtensionManagedBy = "Azure"
+	ExtensionManagedByUser  ExtensionManagedBy = "User"
 )
 
-// PossibleIPAllocationMethodEnumValues returns the possible values for the IPAllocationMethodEnum const type.
-func PossibleIPAllocationMethodEnumValues() []IPAllocationMethodEnum {
-	return []IPAllocationMethodEnum{
-		IPAllocationMethodEnumDynamic,
-		IPAllocationMethodEnumStatic,
+// PossibleExtensionManagedByValues returns the possible values for the ExtensionManagedBy const type.
+func PossibleExtensionManagedByValues() []ExtensionManagedBy {
+	return []ExtensionManagedBy{
+		ExtensionManagedByAzure,
+		ExtensionManagedByUser,
 	}
 }
 
-// IPPoolTypeEnum - Type of the IP Pool [vm, vippool]
-type IPPoolTypeEnum string
+type HealthState string
 
 const (
-	IPPoolTypeEnumVM      IPPoolTypeEnum = "vm"
-	IPPoolTypeEnumVippool IPPoolTypeEnum = "vippool"
+	HealthStateError      HealthState = "Error"
+	HealthStateFailure    HealthState = "Failure"
+	HealthStateInProgress HealthState = "InProgress"
+	HealthStateSuccess    HealthState = "Success"
+	HealthStateUnknown    HealthState = "Unknown"
+	HealthStateWarning    HealthState = "Warning"
 )
 
-// PossibleIPPoolTypeEnumValues returns the possible values for the IPPoolTypeEnum const type.
-func PossibleIPPoolTypeEnumValues() []IPPoolTypeEnum {
-	return []IPPoolTypeEnum{
-		IPPoolTypeEnumVM,
-		IPPoolTypeEnumVippool,
+// PossibleHealthStateValues returns the possible values for the HealthState const type.
+func PossibleHealthStateValues() []HealthState {
+	return []HealthState{
+		HealthStateError,
+		HealthStateFailure,
+		HealthStateInProgress,
+		HealthStateSuccess,
+		HealthStateUnknown,
+		HealthStateWarning,
 	}
 }
 
-// OperatingSystemTypes - Operating system type that the gallery image uses [Windows, Linux]
-type OperatingSystemTypes string
+// ImdsAttestation - IMDS attestation status of the cluster.
+type ImdsAttestation string
 
 const (
-	OperatingSystemTypesLinux   OperatingSystemTypes = "Linux"
-	OperatingSystemTypesWindows OperatingSystemTypes = "Windows"
+	ImdsAttestationDisabled ImdsAttestation = "Disabled"
+	ImdsAttestationEnabled  ImdsAttestation = "Enabled"
 )
 
-// PossibleOperatingSystemTypesValues returns the possible values for the OperatingSystemTypes const type.
-func PossibleOperatingSystemTypesValues() []OperatingSystemTypes {
-	return []OperatingSystemTypes{
-		OperatingSystemTypesLinux,
-		OperatingSystemTypesWindows,
+// PossibleImdsAttestationValues returns the possible values for the ImdsAttestation const type.
+func PossibleImdsAttestationValues() []ImdsAttestation {
+	return []ImdsAttestation{
+		ImdsAttestationDisabled,
+		ImdsAttestationEnabled,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned, UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// NodeArcState - State of Arc agent in this node.
+type NodeArcState string
+
+const (
+	NodeArcStateAccepted           NodeArcState = "Accepted"
+	NodeArcStateCanceled           NodeArcState = "Canceled"
+	NodeArcStateConnected          NodeArcState = "Connected"
+	NodeArcStateCreating           NodeArcState = "Creating"
+	NodeArcStateDeleted            NodeArcState = "Deleted"
+	NodeArcStateDeleting           NodeArcState = "Deleting"
+	NodeArcStateDisableInProgress  NodeArcState = "DisableInProgress"
+	NodeArcStateDisconnected       NodeArcState = "Disconnected"
+	NodeArcStateError              NodeArcState = "Error"
+	NodeArcStateFailed             NodeArcState = "Failed"
+	NodeArcStateInProgress         NodeArcState = "InProgress"
+	NodeArcStateMoving             NodeArcState = "Moving"
+	NodeArcStateNotSpecified       NodeArcState = "NotSpecified"
+	NodeArcStatePartiallyConnected NodeArcState = "PartiallyConnected"
+	NodeArcStatePartiallySucceeded NodeArcState = "PartiallySucceeded"
+	NodeArcStateProvisioning       NodeArcState = "Provisioning"
+	NodeArcStateSucceeded          NodeArcState = "Succeeded"
+	NodeArcStateUpdating           NodeArcState = "Updating"
+)
+
+// PossibleNodeArcStateValues returns the possible values for the NodeArcState const type.
+func PossibleNodeArcStateValues() []NodeArcState {
+	return []NodeArcState{
+		NodeArcStateAccepted,
+		NodeArcStateCanceled,
+		NodeArcStateConnected,
+		NodeArcStateCreating,
+		NodeArcStateDeleted,
+		NodeArcStateDeleting,
+		NodeArcStateDisableInProgress,
+		NodeArcStateDisconnected,
+		NodeArcStateError,
+		NodeArcStateFailed,
+		NodeArcStateInProgress,
+		NodeArcStateMoving,
+		NodeArcStateNotSpecified,
+		NodeArcStatePartiallyConnected,
+		NodeArcStatePartiallySucceeded,
+		NodeArcStateProvisioning,
+		NodeArcStateSucceeded,
+		NodeArcStateUpdating,
+	}
+}
+
+// NodeExtensionState - State of Arc Extension in this node.
+type NodeExtensionState string
+
+const (
+	NodeExtensionStateAccepted           NodeExtensionState = "Accepted"
+	NodeExtensionStateCanceled           NodeExtensionState = "Canceled"
+	NodeExtensionStateConnected          NodeExtensionState = "Connected"
+	NodeExtensionStateCreating           NodeExtensionState = "Creating"
+	NodeExtensionStateDeleted            NodeExtensionState = "Deleted"
+	NodeExtensionStateDeleting           NodeExtensionState = "Deleting"
+	NodeExtensionStateDisconnected       NodeExtensionState = "Disconnected"
+	NodeExtensionStateError              NodeExtensionState = "Error"
+	NodeExtensionStateFailed             NodeExtensionState = "Failed"
+	NodeExtensionStateInProgress         NodeExtensionState = "InProgress"
+	NodeExtensionStateMoving             NodeExtensionState = "Moving"
+	NodeExtensionStateNotSpecified       NodeExtensionState = "NotSpecified"
+	NodeExtensionStatePartiallyConnected NodeExtensionState = "PartiallyConnected"
+	NodeExtensionStatePartiallySucceeded NodeExtensionState = "PartiallySucceeded"
+	NodeExtensionStateProvisioning       NodeExtensionState = "Provisioning"
+	NodeExtensionStateSucceeded          NodeExtensionState = "Succeeded"
+	NodeExtensionStateUpdating           NodeExtensionState = "Updating"
+)
+
+// PossibleNodeExtensionStateValues returns the possible values for the NodeExtensionState const type.
+func PossibleNodeExtensionStateValues() []NodeExtensionState {
+	return []NodeExtensionState{
+		NodeExtensionStateAccepted,
+		NodeExtensionStateCanceled,
+		NodeExtensionStateConnected,
+		NodeExtensionStateCreating,
+		NodeExtensionStateDeleted,
+		NodeExtensionStateDeleting,
+		NodeExtensionStateDisconnected,
+		NodeExtensionStateError,
+		NodeExtensionStateFailed,
+		NodeExtensionStateInProgress,
+		NodeExtensionStateMoving,
+		NodeExtensionStateNotSpecified,
+		NodeExtensionStatePartiallyConnected,
+		NodeExtensionStatePartiallySucceeded,
+		NodeExtensionStateProvisioning,
+		NodeExtensionStateSucceeded,
+		NodeExtensionStateUpdating,
+	}
+}
+
+// OemActivation - OEM activation status of the cluster.
+type OemActivation string
+
+const (
+	OemActivationDisabled OemActivation = "Disabled"
+	OemActivationEnabled  OemActivation = "Enabled"
+)
+
+// PossibleOemActivationValues returns the possible values for the OemActivation const type.
+func PossibleOemActivationValues() []OemActivation {
+	return []OemActivation{
+		OemActivationDisabled,
+		OemActivationEnabled,
 	}
 }
 
@@ -176,106 +481,213 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
-// PowerStateEnum - The power state of the virtual machine instance
-type PowerStateEnum string
+// ProvisioningState - Provisioning state of the ArcSetting proxy resource.
+type ProvisioningState string
 
 const (
-	PowerStateEnumDeallocated  PowerStateEnum = "Deallocated"
-	PowerStateEnumDeallocating PowerStateEnum = "Deallocating"
-	PowerStateEnumRunning      PowerStateEnum = "Running"
-	PowerStateEnumStarting     PowerStateEnum = "Starting"
-	PowerStateEnumStopped      PowerStateEnum = "Stopped"
-	PowerStateEnumStopping     PowerStateEnum = "Stopping"
-	PowerStateEnumUnknown      PowerStateEnum = "Unknown"
+	ProvisioningStateAccepted           ProvisioningState = "Accepted"
+	ProvisioningStateCanceled           ProvisioningState = "Canceled"
+	ProvisioningStateConnected          ProvisioningState = "Connected"
+	ProvisioningStateCreating           ProvisioningState = "Creating"
+	ProvisioningStateDeleted            ProvisioningState = "Deleted"
+	ProvisioningStateDeleting           ProvisioningState = "Deleting"
+	ProvisioningStateDisableInProgress  ProvisioningState = "DisableInProgress"
+	ProvisioningStateDisconnected       ProvisioningState = "Disconnected"
+	ProvisioningStateError              ProvisioningState = "Error"
+	ProvisioningStateFailed             ProvisioningState = "Failed"
+	ProvisioningStateInProgress         ProvisioningState = "InProgress"
+	ProvisioningStateMoving             ProvisioningState = "Moving"
+	ProvisioningStateNotSpecified       ProvisioningState = "NotSpecified"
+	ProvisioningStatePartiallyConnected ProvisioningState = "PartiallyConnected"
+	ProvisioningStatePartiallySucceeded ProvisioningState = "PartiallySucceeded"
+	ProvisioningStateProvisioning       ProvisioningState = "Provisioning"
+	ProvisioningStateSucceeded          ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating           ProvisioningState = "Updating"
 )
 
-// PossiblePowerStateEnumValues returns the possible values for the PowerStateEnum const type.
-func PossiblePowerStateEnumValues() []PowerStateEnum {
-	return []PowerStateEnum{
-		PowerStateEnumDeallocated,
-		PowerStateEnumDeallocating,
-		PowerStateEnumRunning,
-		PowerStateEnumStarting,
-		PowerStateEnumStopped,
-		PowerStateEnumStopping,
-		PowerStateEnumUnknown,
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateAccepted,
+		ProvisioningStateCanceled,
+		ProvisioningStateConnected,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleted,
+		ProvisioningStateDeleting,
+		ProvisioningStateDisableInProgress,
+		ProvisioningStateDisconnected,
+		ProvisioningStateError,
+		ProvisioningStateFailed,
+		ProvisioningStateInProgress,
+		ProvisioningStateMoving,
+		ProvisioningStateNotSpecified,
+		ProvisioningStatePartiallyConnected,
+		ProvisioningStatePartiallySucceeded,
+		ProvisioningStateProvisioning,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
 	}
 }
 
-// ProvisioningAction - Defines the different types of operations for guest agent.
-type ProvisioningAction string
+type RebootRequirement string
 
 const (
-	ProvisioningActionInstall   ProvisioningAction = "install"
-	ProvisioningActionRepair    ProvisioningAction = "repair"
-	ProvisioningActionUninstall ProvisioningAction = "uninstall"
+	RebootRequirementFalse   RebootRequirement = "False"
+	RebootRequirementTrue    RebootRequirement = "True"
+	RebootRequirementUnknown RebootRequirement = "Unknown"
 )
 
-// PossibleProvisioningActionValues returns the possible values for the ProvisioningAction const type.
-func PossibleProvisioningActionValues() []ProvisioningAction {
-	return []ProvisioningAction{
-		ProvisioningActionInstall,
-		ProvisioningActionRepair,
-		ProvisioningActionUninstall,
+// PossibleRebootRequirementValues returns the possible values for the RebootRequirement const type.
+func PossibleRebootRequirementValues() []RebootRequirement {
+	return []RebootRequirement{
+		RebootRequirementFalse,
+		RebootRequirementTrue,
+		RebootRequirementUnknown,
 	}
 }
 
-// ProvisioningStateEnum - Provisioning state of the gallery image.
-type ProvisioningStateEnum string
+// Severity - Severity of the result (Critical, Warning, Informational, Hidden). This answers how important the result is.
+// Critical is the only update-blocking severity.
+type Severity string
 
 const (
-	ProvisioningStateEnumAccepted   ProvisioningStateEnum = "Accepted"
-	ProvisioningStateEnumCanceled   ProvisioningStateEnum = "Canceled"
-	ProvisioningStateEnumDeleting   ProvisioningStateEnum = "Deleting"
-	ProvisioningStateEnumFailed     ProvisioningStateEnum = "Failed"
-	ProvisioningStateEnumInProgress ProvisioningStateEnum = "InProgress"
-	ProvisioningStateEnumSucceeded  ProvisioningStateEnum = "Succeeded"
+	SeverityCritical      Severity = "Critical"
+	SeverityHidden        Severity = "Hidden"
+	SeverityInformational Severity = "Informational"
+	SeverityWarning       Severity = "Warning"
 )
 
-// PossibleProvisioningStateEnumValues returns the possible values for the ProvisioningStateEnum const type.
-func PossibleProvisioningStateEnumValues() []ProvisioningStateEnum {
-	return []ProvisioningStateEnum{
-		ProvisioningStateEnumAccepted,
-		ProvisioningStateEnumCanceled,
-		ProvisioningStateEnumDeleting,
-		ProvisioningStateEnumFailed,
-		ProvisioningStateEnumInProgress,
-		ProvisioningStateEnumSucceeded,
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityCritical,
+		SeverityHidden,
+		SeverityInformational,
+		SeverityWarning,
 	}
 }
 
-// SecurityTypes - Specifies the SecurityType of the virtual machine. EnableTPM and SecureBootEnabled must be set to true
-// for SecurityType to function.
-type SecurityTypes string
+// SoftwareAssuranceIntent - Customer Intent for Software Assurance Benefit.
+type SoftwareAssuranceIntent string
 
 const (
-	SecurityTypesConfidentialVM SecurityTypes = "ConfidentialVM"
-	SecurityTypesTrustedLaunch  SecurityTypes = "TrustedLaunch"
+	SoftwareAssuranceIntentDisable SoftwareAssuranceIntent = "Disable"
+	SoftwareAssuranceIntentEnable  SoftwareAssuranceIntent = "Enable"
 )
 
-// PossibleSecurityTypesValues returns the possible values for the SecurityTypes const type.
-func PossibleSecurityTypesValues() []SecurityTypes {
-	return []SecurityTypes{
-		SecurityTypesConfidentialVM,
-		SecurityTypesTrustedLaunch,
+// PossibleSoftwareAssuranceIntentValues returns the possible values for the SoftwareAssuranceIntent const type.
+func PossibleSoftwareAssuranceIntentValues() []SoftwareAssuranceIntent {
+	return []SoftwareAssuranceIntent{
+		SoftwareAssuranceIntentDisable,
+		SoftwareAssuranceIntentEnable,
 	}
 }
 
-// Status - The status of the operation performed on the gallery image [Succeeded, Failed, InProgress]
+// SoftwareAssuranceStatus - Status of the Software Assurance for the cluster.
+type SoftwareAssuranceStatus string
+
+const (
+	SoftwareAssuranceStatusDisabled SoftwareAssuranceStatus = "Disabled"
+	SoftwareAssuranceStatusEnabled  SoftwareAssuranceStatus = "Enabled"
+)
+
+// PossibleSoftwareAssuranceStatusValues returns the possible values for the SoftwareAssuranceStatus const type.
+func PossibleSoftwareAssuranceStatusValues() []SoftwareAssuranceStatus {
+	return []SoftwareAssuranceStatus{
+		SoftwareAssuranceStatusDisabled,
+		SoftwareAssuranceStatusEnabled,
+	}
+}
+
+// State - State of the update as it relates to this stamp.
+type State string
+
+const (
+	StateAdditionalContentRequired                     State = "AdditionalContentRequired"
+	StateDownloadFailed                                State = "DownloadFailed"
+	StateDownloading                                   State = "Downloading"
+	StateHasPrerequisite                               State = "HasPrerequisite"
+	StateHealthCheckFailed                             State = "HealthCheckFailed"
+	StateHealthChecking                                State = "HealthChecking"
+	StateInstallationFailed                            State = "InstallationFailed"
+	StateInstalled                                     State = "Installed"
+	StateInstalling                                    State = "Installing"
+	StateInvalid                                       State = "Invalid"
+	StateNotApplicableBecauseAnotherUpdateIsInProgress State = "NotApplicableBecauseAnotherUpdateIsInProgress"
+	StateObsolete                                      State = "Obsolete"
+	StatePreparationFailed                             State = "PreparationFailed"
+	StatePreparing                                     State = "Preparing"
+	StateReady                                         State = "Ready"
+	StateReadyToInstall                                State = "ReadyToInstall"
+	StateRecalled                                      State = "Recalled"
+	StateScanFailed                                    State = "ScanFailed"
+	StateScanInProgress                                State = "ScanInProgress"
+)
+
+// PossibleStateValues returns the possible values for the State const type.
+func PossibleStateValues() []State {
+	return []State{
+		StateAdditionalContentRequired,
+		StateDownloadFailed,
+		StateDownloading,
+		StateHasPrerequisite,
+		StateHealthCheckFailed,
+		StateHealthChecking,
+		StateInstallationFailed,
+		StateInstalled,
+		StateInstalling,
+		StateInvalid,
+		StateNotApplicableBecauseAnotherUpdateIsInProgress,
+		StateObsolete,
+		StatePreparationFailed,
+		StatePreparing,
+		StateReady,
+		StateReadyToInstall,
+		StateRecalled,
+		StateScanFailed,
+		StateScanInProgress,
+	}
+}
+
+// Status - Status of the cluster agent.
 type Status string
 
 const (
-	StatusFailed     Status = "Failed"
-	StatusInProgress Status = "InProgress"
-	StatusSucceeded  Status = "Succeeded"
+	StatusConnectedRecently    Status = "ConnectedRecently"
+	StatusDeploymentFailed     Status = "DeploymentFailed"
+	StatusDeploymentInProgress Status = "DeploymentInProgress"
+	StatusDeploymentSuccess    Status = "DeploymentSuccess"
+	StatusDisconnected         Status = "Disconnected"
+	StatusError                Status = "Error"
+	StatusFailed               Status = "Failed"
+	StatusInProgress           Status = "InProgress"
+	StatusNotConnectedRecently Status = "NotConnectedRecently"
+	StatusNotSpecified         Status = "NotSpecified"
+	StatusNotYetRegistered     Status = "NotYetRegistered"
+	StatusSucceeded            Status = "Succeeded"
+	StatusValidationFailed     Status = "ValidationFailed"
+	StatusValidationInProgress Status = "ValidationInProgress"
+	StatusValidationSuccess    Status = "ValidationSuccess"
 )
 
 // PossibleStatusValues returns the possible values for the Status const type.
 func PossibleStatusValues() []Status {
 	return []Status{
+		StatusConnectedRecently,
+		StatusDeploymentFailed,
+		StatusDeploymentInProgress,
+		StatusDeploymentSuccess,
+		StatusDisconnected,
+		StatusError,
 		StatusFailed,
 		StatusInProgress,
+		StatusNotConnectedRecently,
+		StatusNotSpecified,
+		StatusNotYetRegistered,
 		StatusSucceeded,
+		StatusValidationFailed,
+		StatusValidationInProgress,
+		StatusValidationSuccess,
 	}
 }
 
@@ -297,77 +709,66 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 	}
 }
 
-// StatusTypes - The installation status of the hybrid machine agent installation.
-type StatusTypes string
+// UpdateRunPropertiesState - State of the update run.
+type UpdateRunPropertiesState string
 
 const (
-	StatusTypesFailed     StatusTypes = "Failed"
-	StatusTypesInProgress StatusTypes = "InProgress"
-	StatusTypesSucceeded  StatusTypes = "Succeeded"
+	UpdateRunPropertiesStateFailed     UpdateRunPropertiesState = "Failed"
+	UpdateRunPropertiesStateInProgress UpdateRunPropertiesState = "InProgress"
+	UpdateRunPropertiesStateSucceeded  UpdateRunPropertiesState = "Succeeded"
+	UpdateRunPropertiesStateUnknown    UpdateRunPropertiesState = "Unknown"
 )
 
-// PossibleStatusTypesValues returns the possible values for the StatusTypes const type.
-func PossibleStatusTypesValues() []StatusTypes {
-	return []StatusTypes{
-		StatusTypesFailed,
-		StatusTypesInProgress,
-		StatusTypesSucceeded,
+// PossibleUpdateRunPropertiesStateValues returns the possible values for the UpdateRunPropertiesState const type.
+func PossibleUpdateRunPropertiesStateValues() []UpdateRunPropertiesState {
+	return []UpdateRunPropertiesState{
+		UpdateRunPropertiesStateFailed,
+		UpdateRunPropertiesStateInProgress,
+		UpdateRunPropertiesStateSucceeded,
+		UpdateRunPropertiesStateUnknown,
 	}
 }
 
-type VMSizeEnum string
+// UpdateSummariesPropertiesState - Overall update state of the stamp.
+type UpdateSummariesPropertiesState string
 
 const (
-	VMSizeEnumCustom         VMSizeEnum = "Custom"
-	VMSizeEnumDefault        VMSizeEnum = "Default"
-	VMSizeEnumStandardA2V2   VMSizeEnum = "Standard_A2_v2"
-	VMSizeEnumStandardA4V2   VMSizeEnum = "Standard_A4_v2"
-	VMSizeEnumStandardD16SV3 VMSizeEnum = "Standard_D16s_v3"
-	VMSizeEnumStandardD2SV3  VMSizeEnum = "Standard_D2s_v3"
-	VMSizeEnumStandardD32SV3 VMSizeEnum = "Standard_D32s_v3"
-	VMSizeEnumStandardD4SV3  VMSizeEnum = "Standard_D4s_v3"
-	VMSizeEnumStandardD8SV3  VMSizeEnum = "Standard_D8s_v3"
-	VMSizeEnumStandardDS13V2 VMSizeEnum = "Standard_DS13_v2"
-	VMSizeEnumStandardDS2V2  VMSizeEnum = "Standard_DS2_v2"
-	VMSizeEnumStandardDS3V2  VMSizeEnum = "Standard_DS3_v2"
-	VMSizeEnumStandardDS4V2  VMSizeEnum = "Standard_DS4_v2"
-	VMSizeEnumStandardDS5V2  VMSizeEnum = "Standard_DS5_v2"
-	VMSizeEnumStandardK8S2V1 VMSizeEnum = "Standard_K8S2_v1"
-	VMSizeEnumStandardK8S3V1 VMSizeEnum = "Standard_K8S3_v1"
-	VMSizeEnumStandardK8S4V1 VMSizeEnum = "Standard_K8S4_v1"
-	VMSizeEnumStandardK8S5V1 VMSizeEnum = "Standard_K8S5_v1"
-	VMSizeEnumStandardK8SV1  VMSizeEnum = "Standard_K8S_v1"
-	VMSizeEnumStandardNK12   VMSizeEnum = "Standard_NK12"
-	VMSizeEnumStandardNK6    VMSizeEnum = "Standard_NK6"
-	VMSizeEnumStandardNV12   VMSizeEnum = "Standard_NV12"
-	VMSizeEnumStandardNV6    VMSizeEnum = "Standard_NV6"
+	UpdateSummariesPropertiesStateAppliedSuccessfully   UpdateSummariesPropertiesState = "AppliedSuccessfully"
+	UpdateSummariesPropertiesStateNeedsAttention        UpdateSummariesPropertiesState = "NeedsAttention"
+	UpdateSummariesPropertiesStatePreparationFailed     UpdateSummariesPropertiesState = "PreparationFailed"
+	UpdateSummariesPropertiesStatePreparationInProgress UpdateSummariesPropertiesState = "PreparationInProgress"
+	UpdateSummariesPropertiesStateUnknown               UpdateSummariesPropertiesState = "Unknown"
+	UpdateSummariesPropertiesStateUpdateAvailable       UpdateSummariesPropertiesState = "UpdateAvailable"
+	UpdateSummariesPropertiesStateUpdateFailed          UpdateSummariesPropertiesState = "UpdateFailed"
+	UpdateSummariesPropertiesStateUpdateInProgress      UpdateSummariesPropertiesState = "UpdateInProgress"
 )
 
-// PossibleVMSizeEnumValues returns the possible values for the VMSizeEnum const type.
-func PossibleVMSizeEnumValues() []VMSizeEnum {
-	return []VMSizeEnum{
-		VMSizeEnumCustom,
-		VMSizeEnumDefault,
-		VMSizeEnumStandardA2V2,
-		VMSizeEnumStandardA4V2,
-		VMSizeEnumStandardD16SV3,
-		VMSizeEnumStandardD2SV3,
-		VMSizeEnumStandardD32SV3,
-		VMSizeEnumStandardD4SV3,
-		VMSizeEnumStandardD8SV3,
-		VMSizeEnumStandardDS13V2,
-		VMSizeEnumStandardDS2V2,
-		VMSizeEnumStandardDS3V2,
-		VMSizeEnumStandardDS4V2,
-		VMSizeEnumStandardDS5V2,
-		VMSizeEnumStandardK8S2V1,
-		VMSizeEnumStandardK8S3V1,
-		VMSizeEnumStandardK8S4V1,
-		VMSizeEnumStandardK8S5V1,
-		VMSizeEnumStandardK8SV1,
-		VMSizeEnumStandardNK12,
-		VMSizeEnumStandardNK6,
-		VMSizeEnumStandardNV12,
-		VMSizeEnumStandardNV6,
+// PossibleUpdateSummariesPropertiesStateValues returns the possible values for the UpdateSummariesPropertiesState const type.
+func PossibleUpdateSummariesPropertiesStateValues() []UpdateSummariesPropertiesState {
+	return []UpdateSummariesPropertiesState{
+		UpdateSummariesPropertiesStateAppliedSuccessfully,
+		UpdateSummariesPropertiesStateNeedsAttention,
+		UpdateSummariesPropertiesStatePreparationFailed,
+		UpdateSummariesPropertiesStatePreparationInProgress,
+		UpdateSummariesPropertiesStateUnknown,
+		UpdateSummariesPropertiesStateUpdateAvailable,
+		UpdateSummariesPropertiesStateUpdateFailed,
+		UpdateSummariesPropertiesStateUpdateInProgress,
+	}
+}
+
+// WindowsServerSubscription - Desired state of Windows Server Subscription.
+type WindowsServerSubscription string
+
+const (
+	WindowsServerSubscriptionDisabled WindowsServerSubscription = "Disabled"
+	WindowsServerSubscriptionEnabled  WindowsServerSubscription = "Enabled"
+)
+
+// PossibleWindowsServerSubscriptionValues returns the possible values for the WindowsServerSubscription const type.
+func PossibleWindowsServerSubscriptionValues() []WindowsServerSubscription {
+	return []WindowsServerSubscription{
+		WindowsServerSubscriptionDisabled,
+		WindowsServerSubscriptionEnabled,
 	}
 }

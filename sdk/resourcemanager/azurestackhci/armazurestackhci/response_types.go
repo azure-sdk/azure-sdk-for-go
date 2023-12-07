@@ -8,289 +8,336 @@
 
 package armazurestackhci
 
-// GalleryImagesClientCreateOrUpdateResponse contains the response from method GalleryImagesClient.BeginCreateOrUpdate.
-type GalleryImagesClientCreateOrUpdateResponse struct {
-	// The gallery images resource definition.
-	GalleryImages
+// ArcSettingsClientConsentAndInstallDefaultExtensionsResponse contains the response from method ArcSettingsClient.ConsentAndInstallDefaultExtensions.
+type ArcSettingsClientConsentAndInstallDefaultExtensionsResponse struct {
+	// ArcSetting details.
+	ArcSetting
 }
 
-// GalleryImagesClientDeleteResponse contains the response from method GalleryImagesClient.BeginDelete.
-type GalleryImagesClientDeleteResponse struct {
+// ArcSettingsClientCreateIdentityResponse contains the response from method ArcSettingsClient.BeginCreateIdentity.
+type ArcSettingsClientCreateIdentityResponse struct {
+	// ArcIdentity details.
+	ArcIdentityResponse
+}
+
+// ArcSettingsClientCreateResponse contains the response from method ArcSettingsClient.Create.
+type ArcSettingsClientCreateResponse struct {
+	// ArcSetting details.
+	ArcSetting
+}
+
+// ArcSettingsClientDeleteResponse contains the response from method ArcSettingsClient.BeginDelete.
+type ArcSettingsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// GalleryImagesClientGetResponse contains the response from method GalleryImagesClient.Get.
-type GalleryImagesClientGetResponse struct {
-	// The gallery images resource definition.
-	GalleryImages
+// ArcSettingsClientGeneratePasswordResponse contains the response from method ArcSettingsClient.GeneratePassword.
+type ArcSettingsClientGeneratePasswordResponse struct {
+	PasswordCredential
 }
 
-// GalleryImagesClientListAllResponse contains the response from method GalleryImagesClient.NewListAllPager.
-type GalleryImagesClientListAllResponse struct {
-	// List of gallery images.
-	GalleryImagesListResult
+// ArcSettingsClientGetResponse contains the response from method ArcSettingsClient.Get.
+type ArcSettingsClientGetResponse struct {
+	// ArcSetting details.
+	ArcSetting
 }
 
-// GalleryImagesClientListResponse contains the response from method GalleryImagesClient.NewListPager.
-type GalleryImagesClientListResponse struct {
-	// List of gallery images.
-	GalleryImagesListResult
-}
-
-// GalleryImagesClientUpdateResponse contains the response from method GalleryImagesClient.BeginUpdate.
-type GalleryImagesClientUpdateResponse struct {
-	// The gallery images resource definition.
-	GalleryImages
-}
-
-// GuestAgentClientCreateResponse contains the response from method GuestAgentClient.BeginCreate.
-type GuestAgentClientCreateResponse struct {
-	// Defines the GuestAgent.
-	GuestAgent
-}
-
-// GuestAgentClientDeleteResponse contains the response from method GuestAgentClient.BeginDelete.
-type GuestAgentClientDeleteResponse struct {
+// ArcSettingsClientInitializeDisableProcessResponse contains the response from method ArcSettingsClient.BeginInitializeDisableProcess.
+type ArcSettingsClientInitializeDisableProcessResponse struct {
 	// placeholder for future response values
 }
 
-// GuestAgentClientGetResponse contains the response from method GuestAgentClient.Get.
-type GuestAgentClientGetResponse struct {
-	// Defines the GuestAgent.
-	GuestAgent
+// ArcSettingsClientListByClusterResponse contains the response from method ArcSettingsClient.NewListByClusterPager.
+type ArcSettingsClientListByClusterResponse struct {
+	// List of ArcSetting proxy resources for the HCI cluster.
+	ArcSettingList
 }
 
-// GuestAgentsClientListResponse contains the response from method GuestAgentsClient.NewListPager.
-type GuestAgentsClientListResponse struct {
-	// List of GuestAgent.
-	GuestAgentList
+// ArcSettingsClientUpdateResponse contains the response from method ArcSettingsClient.Update.
+type ArcSettingsClientUpdateResponse struct {
+	// ArcSetting details.
+	ArcSetting
 }
 
-// HybridIdentityMetadataClientGetResponse contains the response from method HybridIdentityMetadataClient.Get.
-type HybridIdentityMetadataClientGetResponse struct {
-	// Defines the HybridIdentityMetadata.
-	HybridIdentityMetadata
+// ClustersClientCreateIdentityResponse contains the response from method ClustersClient.BeginCreateIdentity.
+type ClustersClientCreateIdentityResponse struct {
+	// Cluster Identity details.
+	ClusterIdentityResponse
 }
 
-// HybridIdentityMetadataClientListResponse contains the response from method HybridIdentityMetadataClient.NewListPager.
-type HybridIdentityMetadataClientListResponse struct {
-	// List of HybridIdentityMetadata.
-	HybridIdentityMetadataList
+// ClustersClientCreateResponse contains the response from method ClustersClient.Create.
+type ClustersClientCreateResponse struct {
+	// Cluster details.
+	Cluster
 }
 
-// LogicalNetworksClientCreateOrUpdateResponse contains the response from method LogicalNetworksClient.BeginCreateOrUpdate.
-type LogicalNetworksClientCreateOrUpdateResponse struct {
-	// The logical network resource definition.
-	LogicalNetworks
-}
-
-// LogicalNetworksClientDeleteResponse contains the response from method LogicalNetworksClient.BeginDelete.
-type LogicalNetworksClientDeleteResponse struct {
+// ClustersClientDeleteResponse contains the response from method ClustersClient.BeginDelete.
+type ClustersClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// LogicalNetworksClientGetResponse contains the response from method LogicalNetworksClient.Get.
-type LogicalNetworksClientGetResponse struct {
-	// The logical network resource definition.
-	LogicalNetworks
+// ClustersClientExtendSoftwareAssuranceBenefitResponse contains the response from method ClustersClient.BeginExtendSoftwareAssuranceBenefit.
+type ClustersClientExtendSoftwareAssuranceBenefitResponse struct {
+	// Cluster details.
+	Cluster
 }
 
-// LogicalNetworksClientListAllResponse contains the response from method LogicalNetworksClient.NewListAllPager.
-type LogicalNetworksClientListAllResponse struct {
-	LogicalNetworksListResult
+// ClustersClientGetResponse contains the response from method ClustersClient.Get.
+type ClustersClientGetResponse struct {
+	// Cluster details.
+	Cluster
 }
 
-// LogicalNetworksClientListResponse contains the response from method LogicalNetworksClient.NewListPager.
-type LogicalNetworksClientListResponse struct {
-	LogicalNetworksListResult
+// ClustersClientListByResourceGroupResponse contains the response from method ClustersClient.NewListByResourceGroupPager.
+type ClustersClientListByResourceGroupResponse struct {
+	// List of clusters.
+	ClusterList
 }
 
-// LogicalNetworksClientUpdateResponse contains the response from method LogicalNetworksClient.BeginUpdate.
-type LogicalNetworksClientUpdateResponse struct {
-	// The logical network resource definition.
-	LogicalNetworks
+// ClustersClientListBySubscriptionResponse contains the response from method ClustersClient.NewListBySubscriptionPager.
+type ClustersClientListBySubscriptionResponse struct {
+	// List of clusters.
+	ClusterList
 }
 
-// MarketplaceGalleryImagesClientCreateOrUpdateResponse contains the response from method MarketplaceGalleryImagesClient.BeginCreateOrUpdate.
-type MarketplaceGalleryImagesClientCreateOrUpdateResponse struct {
-	// The marketplace gallery image resource definition.
-	MarketplaceGalleryImages
+// ClustersClientUpdateResponse contains the response from method ClustersClient.Update.
+type ClustersClientUpdateResponse struct {
+	// Cluster details.
+	Cluster
 }
 
-// MarketplaceGalleryImagesClientDeleteResponse contains the response from method MarketplaceGalleryImagesClient.BeginDelete.
-type MarketplaceGalleryImagesClientDeleteResponse struct {
+// ClustersClientUploadCertificateResponse contains the response from method ClustersClient.BeginUploadCertificate.
+type ClustersClientUploadCertificateResponse struct {
 	// placeholder for future response values
 }
 
-// MarketplaceGalleryImagesClientGetResponse contains the response from method MarketplaceGalleryImagesClient.Get.
-type MarketplaceGalleryImagesClientGetResponse struct {
-	// The marketplace gallery image resource definition.
-	MarketplaceGalleryImages
+// DeploymentSettingsClientCreateOrUpdateResponse contains the response from method DeploymentSettingsClient.BeginCreateOrUpdate.
+type DeploymentSettingsClientCreateOrUpdateResponse struct {
+	// Edge device resource
+	DeploymentSetting
 }
 
-// MarketplaceGalleryImagesClientListAllResponse contains the response from method MarketplaceGalleryImagesClient.NewListAllPager.
-type MarketplaceGalleryImagesClientListAllResponse struct {
-	MarketplaceGalleryImagesListResult
-}
-
-// MarketplaceGalleryImagesClientListResponse contains the response from method MarketplaceGalleryImagesClient.NewListPager.
-type MarketplaceGalleryImagesClientListResponse struct {
-	MarketplaceGalleryImagesListResult
-}
-
-// MarketplaceGalleryImagesClientUpdateResponse contains the response from method MarketplaceGalleryImagesClient.BeginUpdate.
-type MarketplaceGalleryImagesClientUpdateResponse struct {
-	// The marketplace gallery image resource definition.
-	MarketplaceGalleryImages
-}
-
-// NetworkInterfacesClientCreateOrUpdateResponse contains the response from method NetworkInterfacesClient.BeginCreateOrUpdate.
-type NetworkInterfacesClientCreateOrUpdateResponse struct {
-	// The network interface resource definition.
-	NetworkInterfaces
-}
-
-// NetworkInterfacesClientDeleteResponse contains the response from method NetworkInterfacesClient.BeginDelete.
-type NetworkInterfacesClientDeleteResponse struct {
+// DeploymentSettingsClientDeleteResponse contains the response from method DeploymentSettingsClient.BeginDelete.
+type DeploymentSettingsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// NetworkInterfacesClientGetResponse contains the response from method NetworkInterfacesClient.Get.
-type NetworkInterfacesClientGetResponse struct {
-	// The network interface resource definition.
-	NetworkInterfaces
+// DeploymentSettingsClientGetResponse contains the response from method DeploymentSettingsClient.Get.
+type DeploymentSettingsClientGetResponse struct {
+	// Edge device resource
+	DeploymentSetting
 }
 
-// NetworkInterfacesClientListAllResponse contains the response from method NetworkInterfacesClient.NewListAllPager.
-type NetworkInterfacesClientListAllResponse struct {
-	NetworkInterfacesListResult
+// DeploymentSettingsClientListByClustersResponse contains the response from method DeploymentSettingsClient.NewListByClustersPager.
+type DeploymentSettingsClientListByClustersResponse struct {
+	// The response of a DeploymentSetting list operation.
+	DeploymentSettingListResult
 }
 
-// NetworkInterfacesClientListResponse contains the response from method NetworkInterfacesClient.NewListPager.
-type NetworkInterfacesClientListResponse struct {
-	NetworkInterfacesListResult
+// EdgeDevicesClientCreateOrUpdateResponse contains the response from method EdgeDevicesClient.BeginCreateOrUpdate.
+type EdgeDevicesClientCreateOrUpdateResponse struct {
+	// Edge device resource
+	EdgeDevice
 }
 
-// NetworkInterfacesClientUpdateResponse contains the response from method NetworkInterfacesClient.BeginUpdate.
-type NetworkInterfacesClientUpdateResponse struct {
-	// The network interface resource definition.
-	NetworkInterfaces
+// EdgeDevicesClientDeleteResponse contains the response from method EdgeDevicesClient.BeginDelete.
+type EdgeDevicesClientDeleteResponse struct {
+	// placeholder for future response values
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
+// EdgeDevicesClientGetResponse contains the response from method EdgeDevicesClient.Get.
+type EdgeDevicesClientGetResponse struct {
+	// Edge device resource
+	EdgeDevice
+}
+
+// EdgeDevicesClientListResponse contains the response from method EdgeDevicesClient.NewListPager.
+type EdgeDevicesClientListResponse struct {
+	// The response of a EdgeDevice list operation.
+	EdgeDeviceListResult
+}
+
+// EdgeDevicesClientValidateResponse contains the response from method EdgeDevicesClient.BeginValidate.
+type EdgeDevicesClientValidateResponse struct {
+	// An Accepted response with an Operation-Location header.
+	ValidateResponse
+}
+
+// ExtensionsClientCreateResponse contains the response from method ExtensionsClient.BeginCreate.
+type ExtensionsClientCreateResponse struct {
+	// Details of a particular extension in HCI Cluster.
+	Extension
+}
+
+// ExtensionsClientDeleteResponse contains the response from method ExtensionsClient.BeginDelete.
+type ExtensionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ExtensionsClientGetResponse contains the response from method ExtensionsClient.Get.
+type ExtensionsClientGetResponse struct {
+	// Details of a particular extension in HCI Cluster.
+	Extension
+}
+
+// ExtensionsClientListByArcSettingResponse contains the response from method ExtensionsClient.NewListByArcSettingPager.
+type ExtensionsClientListByArcSettingResponse struct {
+	// List of Extensions in HCI cluster.
+	ExtensionList
+}
+
+// ExtensionsClientUpdateResponse contains the response from method ExtensionsClient.BeginUpdate.
+type ExtensionsClientUpdateResponse struct {
+	// Details of a particular extension in HCI Cluster.
+	Extension
+}
+
+// ExtensionsClientUpgradeResponse contains the response from method ExtensionsClient.BeginUpgrade.
+type ExtensionsClientUpgradeResponse struct {
+	// placeholder for future response values
+}
+
+// OffersClientGetResponse contains the response from method OffersClient.Get.
+type OffersClientGetResponse struct {
+	// Offer details.
+	Offer
+}
+
+// OffersClientListByClusterResponse contains the response from method OffersClient.NewListByClusterPager.
+type OffersClientListByClusterResponse struct {
+	// List of Offer proxy resources for the HCI cluster.
+	OfferList
+}
+
+// OffersClientListByPublisherResponse contains the response from method OffersClient.NewListByPublisherPager.
+type OffersClientListByPublisherResponse struct {
+	// List of Offer proxy resources for the HCI cluster.
+	OfferList
+}
+
+// OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 
-// StorageContainersClientCreateOrUpdateResponse contains the response from method StorageContainersClient.BeginCreateOrUpdate.
-type StorageContainersClientCreateOrUpdateResponse struct {
-	// The storage container resource definition.
-	StorageContainers
+// PublishersClientGetResponse contains the response from method PublishersClient.Get.
+type PublishersClientGetResponse struct {
+	// Publisher details.
+	Publisher
 }
 
-// StorageContainersClientDeleteResponse contains the response from method StorageContainersClient.BeginDelete.
-type StorageContainersClientDeleteResponse struct {
+// PublishersClientListByClusterResponse contains the response from method PublishersClient.NewListByClusterPager.
+type PublishersClientListByClusterResponse struct {
+	// List of Publisher proxy resources for the HCI cluster.
+	PublisherList
+}
+
+// SKUsClientGetResponse contains the response from method SKUsClient.Get.
+type SKUsClientGetResponse struct {
+	// Sku details.
+	SKU
+}
+
+// SKUsClientListByOfferResponse contains the response from method SKUsClient.NewListByOfferPager.
+type SKUsClientListByOfferResponse struct {
+	// List of SKU proxy resources for the HCI cluster.
+	SKUList
+}
+
+// SecuritySettingsClientCreateOrUpdateResponse contains the response from method SecuritySettingsClient.BeginCreateOrUpdate.
+type SecuritySettingsClientCreateOrUpdateResponse struct {
+	// Security settings proxy resource
+	SecuritySetting
+}
+
+// SecuritySettingsClientDeleteResponse contains the response from method SecuritySettingsClient.BeginDelete.
+type SecuritySettingsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// StorageContainersClientGetResponse contains the response from method StorageContainersClient.Get.
-type StorageContainersClientGetResponse struct {
-	// The storage container resource definition.
-	StorageContainers
+// SecuritySettingsClientGetResponse contains the response from method SecuritySettingsClient.Get.
+type SecuritySettingsClientGetResponse struct {
+	// Security settings proxy resource
+	SecuritySetting
 }
 
-// StorageContainersClientListAllResponse contains the response from method StorageContainersClient.NewListAllPager.
-type StorageContainersClientListAllResponse struct {
-	StorageContainersListResult
+// SecuritySettingsClientListByClustersResponse contains the response from method SecuritySettingsClient.NewListByClustersPager.
+type SecuritySettingsClientListByClustersResponse struct {
+	// The response of a SecuritySetting list operation.
+	SecuritySettingListResult
 }
 
-// StorageContainersClientListResponse contains the response from method StorageContainersClient.NewListPager.
-type StorageContainersClientListResponse struct {
-	StorageContainersListResult
-}
-
-// StorageContainersClientUpdateResponse contains the response from method StorageContainersClient.BeginUpdate.
-type StorageContainersClientUpdateResponse struct {
-	// The storage container resource definition.
-	StorageContainers
-}
-
-// VirtualHardDisksClientCreateOrUpdateResponse contains the response from method VirtualHardDisksClient.BeginCreateOrUpdate.
-type VirtualHardDisksClientCreateOrUpdateResponse struct {
-	// The virtual hard disk resource definition.
-	VirtualHardDisks
-}
-
-// VirtualHardDisksClientDeleteResponse contains the response from method VirtualHardDisksClient.BeginDelete.
-type VirtualHardDisksClientDeleteResponse struct {
+// UpdateRunsClientDeleteResponse contains the response from method UpdateRunsClient.BeginDelete.
+type UpdateRunsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// VirtualHardDisksClientGetResponse contains the response from method VirtualHardDisksClient.Get.
-type VirtualHardDisksClientGetResponse struct {
-	// The virtual hard disk resource definition.
-	VirtualHardDisks
+// UpdateRunsClientGetResponse contains the response from method UpdateRunsClient.Get.
+type UpdateRunsClientGetResponse struct {
+	// Details of an Update run
+	UpdateRun
 }
 
-// VirtualHardDisksClientListAllResponse contains the response from method VirtualHardDisksClient.NewListAllPager.
-type VirtualHardDisksClientListAllResponse struct {
-	VirtualHardDisksListResult
+// UpdateRunsClientListResponse contains the response from method UpdateRunsClient.NewListPager.
+type UpdateRunsClientListResponse struct {
+	// List of Update runs
+	UpdateRunList
 }
 
-// VirtualHardDisksClientListResponse contains the response from method VirtualHardDisksClient.NewListPager.
-type VirtualHardDisksClientListResponse struct {
-	VirtualHardDisksListResult
+// UpdateRunsClientPutResponse contains the response from method UpdateRunsClient.Put.
+type UpdateRunsClientPutResponse struct {
+	// Details of an Update run
+	UpdateRun
 }
 
-// VirtualHardDisksClientUpdateResponse contains the response from method VirtualHardDisksClient.BeginUpdate.
-type VirtualHardDisksClientUpdateResponse struct {
-	// The virtual hard disk resource definition.
-	VirtualHardDisks
-}
-
-// VirtualMachineInstancesClientCreateOrUpdateResponse contains the response from method VirtualMachineInstancesClient.BeginCreateOrUpdate.
-type VirtualMachineInstancesClientCreateOrUpdateResponse struct {
-	// The virtual machine instance resource definition.
-	VirtualMachineInstance
-}
-
-// VirtualMachineInstancesClientDeleteResponse contains the response from method VirtualMachineInstancesClient.BeginDelete.
-type VirtualMachineInstancesClientDeleteResponse struct {
+// UpdateSummariesClientDeleteResponse contains the response from method UpdateSummariesClient.BeginDelete.
+type UpdateSummariesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// VirtualMachineInstancesClientGetResponse contains the response from method VirtualMachineInstancesClient.Get.
-type VirtualMachineInstancesClientGetResponse struct {
-	// The virtual machine instance resource definition.
-	VirtualMachineInstance
+// UpdateSummariesClientGetResponse contains the response from method UpdateSummariesClient.Get.
+type UpdateSummariesClientGetResponse struct {
+	// Get the update summaries for the cluster
+	UpdateSummaries
 }
 
-// VirtualMachineInstancesClientListResponse contains the response from method VirtualMachineInstancesClient.NewListPager.
-type VirtualMachineInstancesClientListResponse struct {
-	VirtualMachineInstanceListResult
+// UpdateSummariesClientListResponse contains the response from method UpdateSummariesClient.NewListPager.
+type UpdateSummariesClientListResponse struct {
+	// List of Update Summaries
+	UpdateSummariesList
 }
 
-// VirtualMachineInstancesClientRestartResponse contains the response from method VirtualMachineInstancesClient.BeginRestart.
-type VirtualMachineInstancesClientRestartResponse struct {
-	// The virtual machine instance resource definition.
-	VirtualMachineInstance
+// UpdateSummariesClientPutResponse contains the response from method UpdateSummariesClient.Put.
+type UpdateSummariesClientPutResponse struct {
+	// Get the update summaries for the cluster
+	UpdateSummaries
 }
 
-// VirtualMachineInstancesClientStartResponse contains the response from method VirtualMachineInstancesClient.BeginStart.
-type VirtualMachineInstancesClientStartResponse struct {
-	// The virtual machine instance resource definition.
-	VirtualMachineInstance
+// UpdatesClientDeleteResponse contains the response from method UpdatesClient.BeginDelete.
+type UpdatesClientDeleteResponse struct {
+	// placeholder for future response values
 }
 
-// VirtualMachineInstancesClientStopResponse contains the response from method VirtualMachineInstancesClient.BeginStop.
-type VirtualMachineInstancesClientStopResponse struct {
-	// The virtual machine instance resource definition.
-	VirtualMachineInstance
+// UpdatesClientGetResponse contains the response from method UpdatesClient.Get.
+type UpdatesClientGetResponse struct {
+	// Update details
+	Update
 }
 
-// VirtualMachineInstancesClientUpdateResponse contains the response from method VirtualMachineInstancesClient.BeginUpdate.
-type VirtualMachineInstancesClientUpdateResponse struct {
-	// The virtual machine instance resource definition.
-	VirtualMachineInstance
+// UpdatesClientListResponse contains the response from method UpdatesClient.NewListPager.
+type UpdatesClientListResponse struct {
+	// List of Updates
+	UpdateList
+}
+
+// UpdatesClientPostResponse contains the response from method UpdatesClient.BeginPost.
+type UpdatesClientPostResponse struct {
+	// placeholder for future response values
+}
+
+// UpdatesClientPutResponse contains the response from method UpdatesClient.Put.
+type UpdatesClientPutResponse struct {
+	// Update details
+	Update
 }
