@@ -240,7 +240,7 @@ type DscConfigurationClientDeleteResponse struct {
 
 // DscConfigurationClientGetContentResponse contains the response from method DscConfigurationClient.GetContent.
 type DscConfigurationClientGetContentResponse struct {
-	Value *string
+	// placeholder for future response values
 }
 
 // DscConfigurationClientGetResponse contains the response from method DscConfigurationClient.Get.
@@ -465,7 +465,7 @@ type LinkedWorkspaceClientGetResponse struct {
 	LinkedWorkspace
 }
 
-// ModuleClientCreateOrUpdateResponse contains the response from method ModuleClient.CreateOrUpdate.
+// ModuleClientCreateOrUpdateResponse contains the response from method ModuleClient.BeginCreateOrUpdate.
 type ModuleClientCreateOrUpdateResponse struct {
 	// Definition of the module type.
 	Module
@@ -536,6 +536,35 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PowerShell72ModuleClientCreateOrUpdateResponse contains the response from method PowerShell72ModuleClient.BeginCreateOrUpdate.
+type PowerShell72ModuleClientCreateOrUpdateResponse struct {
+	// Definition of the module type.
+	Module
+}
+
+// PowerShell72ModuleClientDeleteResponse contains the response from method PowerShell72ModuleClient.Delete.
+type PowerShell72ModuleClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PowerShell72ModuleClientGetResponse contains the response from method PowerShell72ModuleClient.Get.
+type PowerShell72ModuleClientGetResponse struct {
+	// Definition of the module type.
+	Module
+}
+
+// PowerShell72ModuleClientListByAutomationAccountResponse contains the response from method PowerShell72ModuleClient.NewListByAutomationAccountPager.
+type PowerShell72ModuleClientListByAutomationAccountResponse struct {
+	// The response model for the list module operation.
+	ModuleListResult
+}
+
+// PowerShell72ModuleClientUpdateResponse contains the response from method PowerShell72ModuleClient.Update.
+type PowerShell72ModuleClientUpdateResponse struct {
+	// Definition of the module type.
+	Module
+}
+
 // PrivateEndpointConnectionsClientCreateOrUpdateResponse contains the response from method PrivateEndpointConnectionsClient.BeginCreateOrUpdate.
 type PrivateEndpointConnectionsClientCreateOrUpdateResponse struct {
 	// A private endpoint connection
@@ -590,6 +619,35 @@ type Python2PackageClientListByAutomationAccountResponse struct {
 
 // Python2PackageClientUpdateResponse contains the response from method Python2PackageClient.Update.
 type Python2PackageClientUpdateResponse struct {
+	// Definition of the module type.
+	Module
+}
+
+// Python3PackageClientCreateOrUpdateResponse contains the response from method Python3PackageClient.BeginCreateOrUpdate.
+type Python3PackageClientCreateOrUpdateResponse struct {
+	// Definition of the module type.
+	Module
+}
+
+// Python3PackageClientDeleteResponse contains the response from method Python3PackageClient.Delete.
+type Python3PackageClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// Python3PackageClientGetResponse contains the response from method Python3PackageClient.Get.
+type Python3PackageClientGetResponse struct {
+	// Definition of the module type.
+	Module
+}
+
+// Python3PackageClientListByAutomationAccountResponse contains the response from method Python3PackageClient.NewListByAutomationAccountPager.
+type Python3PackageClientListByAutomationAccountResponse struct {
+	// The response model for the list module operation.
+	ModuleListResult
+}
+
+// Python3PackageClientUpdateResponse contains the response from method Python3PackageClient.Update.
+type Python3PackageClientUpdateResponse struct {
 	// Definition of the module type.
 	Module
 }
