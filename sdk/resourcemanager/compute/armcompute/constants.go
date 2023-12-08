@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.3.0"
+	moduleVersion = "v5.4.0"
 )
 
 type AccessLevel string
@@ -214,6 +214,7 @@ const (
 	ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk ConfidentialVMEncryptionType = "EncryptedVMGuestStateOnlyWithPmk"
 	ConfidentialVMEncryptionTypeEncryptedWithCmk                 ConfidentialVMEncryptionType = "EncryptedWithCmk"
 	ConfidentialVMEncryptionTypeEncryptedWithPmk                 ConfidentialVMEncryptionType = "EncryptedWithPmk"
+	ConfidentialVMEncryptionTypeNonPersistedTPM                  ConfidentialVMEncryptionType = "NonPersistedTPM"
 )
 
 // PossibleConfidentialVMEncryptionTypeValues returns the possible values for the ConfidentialVMEncryptionType const type.
@@ -222,6 +223,7 @@ func PossibleConfidentialVMEncryptionTypeValues() []ConfidentialVMEncryptionType
 		ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk,
 		ConfidentialVMEncryptionTypeEncryptedWithCmk,
 		ConfidentialVMEncryptionTypeEncryptedWithPmk,
+		ConfidentialVMEncryptionTypeNonPersistedTPM,
 	}
 }
 
@@ -899,11 +901,8 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
-// Possible values are:
-// Private
-// Groups
-// Community
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
+// are: Private, Groups, Community.
 type GallerySharingPermissionTypes string
 
 const (
@@ -1265,9 +1264,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 }
 
 // OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// Possible values are: Windows, Linux.
 type OperatingSystemTypes string
 
 const (
@@ -1631,12 +1628,14 @@ type ReplicationStatusTypes string
 
 const (
 	ReplicationStatusTypesReplicationStatus ReplicationStatusTypes = "ReplicationStatus"
+	ReplicationStatusTypesUefiSettings      ReplicationStatusTypes = "UefiSettings"
 )
 
 // PossibleReplicationStatusTypesValues returns the possible values for the ReplicationStatusTypes const type.
 func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
+		ReplicationStatusTypesUefiSettings,
 	}
 }
 
@@ -1895,10 +1894,8 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
-// Possible values are:
-// Subscriptions
-// AADTenants
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
+// AADTenants.
 type SharingProfileGroupTypes string
 
 const (
@@ -1934,11 +1931,8 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
-// Possible values are:
-// Add
-// Remove
-// Reset
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
+// values are: Add, Remove, Reset.
 type SharingUpdateOperationTypes string
 
 const (
@@ -2044,6 +2038,40 @@ func PossibleStorageAccountTypesValues() []StorageAccountTypes {
 		StorageAccountTypesStandardSSDLRS,
 		StorageAccountTypesStandardSSDZRS,
 		StorageAccountTypesUltraSSDLRS,
+	}
+}
+
+// UefiKeyType - The type of key signature.
+type UefiKeyType string
+
+const (
+	UefiKeyTypeSHA256 UefiKeyType = "sha256"
+	UefiKeyTypeX509   UefiKeyType = "x509"
+)
+
+// PossibleUefiKeyTypeValues returns the possible values for the UefiKeyType const type.
+func PossibleUefiKeyTypeValues() []UefiKeyType {
+	return []UefiKeyType{
+		UefiKeyTypeSHA256,
+		UefiKeyTypeX509,
+	}
+}
+
+// UefiSignatureTemplateName - The name of the signature template that contains default UEFI keys.
+type UefiSignatureTemplateName string
+
+const (
+	UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate UefiSignatureTemplateName = "MicrosoftUefiCertificateAuthorityTemplate"
+	UefiSignatureTemplateNameMicrosoftWindowsTemplate                  UefiSignatureTemplateName = "MicrosoftWindowsTemplate"
+	UefiSignatureTemplateNameNoSignatureTemplate                       UefiSignatureTemplateName = "NoSignatureTemplate"
+)
+
+// PossibleUefiSignatureTemplateNameValues returns the possible values for the UefiSignatureTemplateName const type.
+func PossibleUefiSignatureTemplateNameValues() []UefiSignatureTemplateName {
+	return []UefiSignatureTemplateName{
+		UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate,
+		UefiSignatureTemplateNameMicrosoftWindowsTemplate,
+		UefiSignatureTemplateNameNoSignatureTemplate,
 	}
 }
 
