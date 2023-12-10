@@ -45,19 +45,19 @@ type AccessControlListAction struct {
 
 // AccessControlListMatchCondition - Defines the match condition that is supported to filter the traffic.
 type AccessControlListMatchCondition struct {
-	// List of DSCP Markings that needs to be matched.
+	// List of DSCP Markings that need to be matched.
 	DscpMarkings []*string
 
-	// List of ether type values that needs to be matched.
+	// List of ether type values that need to be matched.
 	EtherTypes []*string
 
-	// List of IP fragment packets that needs to be matched.
+	// List of IP fragment packets that need to be matched.
 	Fragments []*string
 
 	// IP condition that needs to be matched.
 	IPCondition *IPMatchCondition
 
-	// List of IP Lengths that needs to be matched.
+	// List of IP Lengths that need to be matched.
 	IPLengths []*string
 
 	// Defines the port condition that needs to be matched.
@@ -66,7 +66,7 @@ type AccessControlListMatchCondition struct {
 	// List of the protocols that need to be matched.
 	ProtocolTypes []*string
 
-	// List of TTL [Time To Live] values that needs to be matched.
+	// List of TTL [Time To Live] values that need to be matched.
 	TTLValues []*string
 
 	// Vlan match condition that needs to be matched.
@@ -111,6 +111,9 @@ type AccessControlListPatchProperties struct {
 	// Input method to configure Access Control List.
 	ConfigurationType *ConfigurationType
 
+	// Default action that needs to be applied when no condition is matched. Example: Permit | Deny.
+	DefaultAction *CommunityActionTypes
+
 	// List of dynamic match configurations.
 	DynamicMatchConfigurations []*CommonDynamicMatchConfiguration
 
@@ -123,10 +126,11 @@ type AccessControlListPortCondition struct {
 	// REQUIRED; Layer4 protocol type that needs to be matched.
 	Layer4Protocol *Layer4Protocol
 
-	// List of protocol flags that needs to be matched.
+	// List of protocol flags that need to be matched. Example: established | initial | . List of eligible TCP Flags are ack,
+	// fin, not-ack, not-fin, not-psh, not-rst, not-syn, not-urg, psh, rst, syn, urg
 	Flags []*string
 
-	// List of the port Group Names that to be matched.
+	// List of the port Group Names that need to be matched.
 	PortGroupNames []*string
 
 	// Port type that needs to be matched.
@@ -146,6 +150,9 @@ type AccessControlListProperties struct {
 
 	// Input method to configure Access Control List.
 	ConfigurationType *ConfigurationType
+
+	// Default action that needs to be applied when no condition is matched. Example: Permit | Deny.
+	DefaultAction *CommunityActionTypes
 
 	// List of dynamic match configurations.
 	DynamicMatchConfigurations []*CommonDynamicMatchConfiguration
@@ -268,7 +275,7 @@ type CommonDynamicMatchConfiguration struct {
 	// List of IP Groups.
 	IPGroups []*IPGroupProperties
 
-	// List of the port group.
+	// List of the port groups.
 	PortGroups []*PortGroupProperties
 
 	// List of vlan groups.
@@ -437,6 +444,9 @@ type ExternalNetworkPatchProperties struct {
 	// ARM Resource ID of the RoutePolicy. This is used for the backward compatibility.
 	ImportRoutePolicyID *string
 
+	// Gets the networkToNetworkInterconnectId of the resource.
+	NetworkToNetworkInterconnectID *string
+
 	// option A properties object
 	OptionAProperties *ExternalNetworkPatchPropertiesOptionAProperties
 
@@ -503,6 +513,9 @@ type ExternalNetworkProperties struct {
 	// ARM Resource ID of the RoutePolicy. This is used for the backward compatibility.
 	ImportRoutePolicyID *string
 
+	// Gets the networkToNetworkInterconnectId of the resource.
+	NetworkToNetworkInterconnectID *string
+
 	// option A properties object
 	OptionAProperties *ExternalNetworkPropertiesOptionAProperties
 
@@ -514,9 +527,6 @@ type ExternalNetworkProperties struct {
 
 	// READ-ONLY; Configuration state of the resource.
 	ConfigurationState *ConfigurationState
-
-	// READ-ONLY; Gets the networkToNetworkInterconnectId of the resource.
-	NetworkToNetworkInterconnectID *string
 
 	// READ-ONLY; Provisioning state of the resource.
 	ProvisioningState *ProvisioningState
@@ -764,13 +774,13 @@ type IPMatchCondition struct {
 	// The List of IP Group Names that need to be matched.
 	IPGroupNames []*string
 
-	// The list of IP Prefixes.
+	// The list of IP Prefixes that need to be matched.
 	IPPrefixValues []*string
 
-	// IP Prefix Type.
+	// IP Prefix Type that needs to be matched.
 	PrefixType *PrefixType
 
-	// IP Address type.
+	// IP Address type that needs to be matched.
 	Type *SourceDestinationType
 }
 
@@ -1871,6 +1881,9 @@ type NetworkFabricProperties struct {
 	// Switch configuration description.
 	Annotation *string
 
+	// The version of Network Fabric.
+	FabricVersion *string
+
 	// IPv6Prefix for Management Network. Example: 3FFE:FFFF:0:CD40::/59
 	IPv6Prefix *string
 
@@ -1882,9 +1895,6 @@ type NetworkFabricProperties struct {
 
 	// READ-ONLY; Configuration state of the resource.
 	ConfigurationState *ConfigurationState
-
-	// READ-ONLY; The version of Network Fabric.
-	FabricVersion *string
 
 	// READ-ONLY; List of L2 Isolation Domain resource IDs under the Network Fabric.
 	L2IsolationDomains []*string
@@ -2293,7 +2303,7 @@ type NetworkTapRuleAction struct {
 
 // NetworkTapRuleMatchCondition - Defines the match condition that is supported to filter the traffic.
 type NetworkTapRuleMatchCondition struct {
-	// Encapsulation Type.
+	// Encapsulation Type that needs to be matched.
 	EncapsulationType *EncapsulationType
 
 	// IP condition that needs to be matched.
@@ -2645,7 +2655,7 @@ type PortCondition struct {
 	// REQUIRED; Layer4 protocol type that needs to be matched.
 	Layer4Protocol *Layer4Protocol
 
-	// List of the port Group Names that to be matched.
+	// List of the port Group Names that need to be matched.
 	PortGroupNames []*string
 
 	// Port type that needs to be matched.
@@ -2660,7 +2670,7 @@ type PortGroupProperties struct {
 	// The name of the port group.
 	Name *string
 
-	// List of the ports that needs to be matched.
+	// List of the ports that need to be matched.
 	Ports []*string
 }
 
@@ -2714,6 +2724,9 @@ type RoutePolicyPatch struct {
 
 // RoutePolicyPatchableProperties - Route Policy patchable properties.
 type RoutePolicyPatchableProperties struct {
+	// Default action that needs to be applied when no condition is matched. Example: Permit | Deny.
+	DefaultAction *CommunityActionTypes
+
 	// Route Policy statements.
 	Statements []*RoutePolicyStatementProperties
 }
@@ -2728,6 +2741,9 @@ type RoutePolicyProperties struct {
 
 	// Switch configuration description.
 	Annotation *string
+
+	// Default action that needs to be applied when no condition is matched. Example: Permit | Deny.
+	DefaultAction *CommunityActionTypes
 
 	// Route Policy statements.
 	Statements []*RoutePolicyStatementProperties
@@ -2935,6 +2951,14 @@ type UpdateVersion struct {
 	Version *string
 }
 
+type UpgradeNetworkFabricProperties struct {
+	// Action to be performed while upgrading the fabric.
+	Action *NetworkFabricUpgradeAction
+
+	// Specify the version.
+	Version *string
+}
+
 // VPNConfigurationPatchableProperties - Network and credential configuration currently applied on terminal server.
 type VPNConfigurationPatchableProperties struct {
 	// ARM Resource ID of the Network To Network Interconnect.
@@ -3049,14 +3073,14 @@ type VlanGroupProperties struct {
 	Vlans []*string
 }
 
-// VlanMatchCondition - The vlan match conditions that needs to be matched.
+// VlanMatchCondition - The vlan match conditions that need to be matched.
 type VlanMatchCondition struct {
-	// List of inner vlans that needs to be matched.
+	// List of inner vlans that need to be matched.
 	InnerVlans []*string
 
-	// List of vlan group names that to be matched.
+	// List of vlan group names that need to be matched.
 	VlanGroupNames []*string
 
-	// List of vlans that needs to be matched.
+	// List of vlans that need to be matched.
 	Vlans []*string
 }
