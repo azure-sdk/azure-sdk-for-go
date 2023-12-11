@@ -130,6 +130,15 @@ type ListCustomAlertRuleClassification interface {
 	GetListCustomAlertRule() *ListCustomAlertRule
 }
 
+// NotificationsSourceClassification provides polymorphic access to related types.
+// Call the interface's GetNotificationsSource() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *NotificationsSource, *NotificationsSourceAlert, *NotificationsSourceAttackPath
+type NotificationsSourceClassification interface {
+	// GetNotificationsSource returns the NotificationsSource content of the underlying type.
+	GetNotificationsSource() *NotificationsSource
+}
+
 // OnPremiseResourceDetailsClassification provides polymorphic access to related types.
 // Call the interface's GetOnPremiseResourceDetails() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -156,6 +165,15 @@ type ResourceDetailsClassification interface {
 type ResourceIdentifierClassification interface {
 	// GetResourceIdentifier returns the ResourceIdentifier content of the underlying type.
 	GetResourceIdentifier() *ResourceIdentifier
+}
+
+// ServerVulnerabilityAssessmentsSettingClassification provides polymorphic access to related types.
+// Call the interface's GetServerVulnerabilityAssessmentsSetting() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AzureServersSetting, *ServerVulnerabilityAssessmentsSetting
+type ServerVulnerabilityAssessmentsSettingClassification interface {
+	// GetServerVulnerabilityAssessmentsSetting returns the ServerVulnerabilityAssessmentsSetting content of the underlying type.
+	GetServerVulnerabilityAssessmentsSetting() *ServerVulnerabilityAssessmentsSetting
 }
 
 // SettingClassification provides polymorphic access to related types.

@@ -10,7 +10,7 @@ package armsecurity
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/security/armsecurity"
-	moduleVersion = "v0.12.0"
+	moduleVersion = "v0.13.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -46,6 +46,25 @@ func PossibleActionTypeValues() []ActionType {
 		ActionTypeEventHub,
 		ActionTypeLogicApp,
 		ActionTypeWorkspace,
+	}
+}
+
+// ActionableRemediationState - ActionableRemediation Setting. None - the setting was never set. Enabled - ActionableRemediation
+// is enabled. Disabled - ActionableRemediation is disabled.
+type ActionableRemediationState string
+
+const (
+	ActionableRemediationStateDisabled ActionableRemediationState = "Disabled"
+	ActionableRemediationStateEnabled  ActionableRemediationState = "Enabled"
+	ActionableRemediationStateNone     ActionableRemediationState = "None"
+)
+
+// PossibleActionableRemediationStateValues returns the possible values for the ActionableRemediationState const type.
+func PossibleActionableRemediationStateValues() []ActionableRemediationState {
+	return []ActionableRemediationState{
+		ActionableRemediationStateDisabled,
+		ActionableRemediationStateEnabled,
+		ActionableRemediationStateNone,
 	}
 }
 
@@ -148,6 +167,24 @@ func PossibleAlertStatusValues() []AlertStatus {
 		AlertStatusDismissed,
 		AlertStatusInProgress,
 		AlertStatusResolved,
+	}
+}
+
+// AnnotateDefaultBranchState - Configuration of PR Annotations on default branch.
+// Enabled - PR Annotations are enabled on the resource's default branch. Disabled - PR Annotations are disabled on the resource's
+// default branch.
+type AnnotateDefaultBranchState string
+
+const (
+	AnnotateDefaultBranchStateDisabled AnnotateDefaultBranchState = "Disabled"
+	AnnotateDefaultBranchStateEnabled  AnnotateDefaultBranchState = "Enabled"
+)
+
+// PossibleAnnotateDefaultBranchStateValues returns the possible values for the AnnotateDefaultBranchState const type.
+func PossibleAnnotateDefaultBranchStateValues() []AnnotateDefaultBranchState {
+	return []AnnotateDefaultBranchState{
+		AnnotateDefaultBranchStateDisabled,
+		AnnotateDefaultBranchStateEnabled,
 	}
 }
 
@@ -299,6 +336,24 @@ func PossibleAuthenticationTypeValues() []AuthenticationType {
 		AuthenticationTypeAwsAssumeRole,
 		AuthenticationTypeAwsCreds,
 		AuthenticationTypeGcpCredentials,
+	}
+}
+
+// AutoDiscovery - AutoDiscovery states.
+type AutoDiscovery string
+
+const (
+	AutoDiscoveryDisabled      AutoDiscovery = "Disabled"
+	AutoDiscoveryEnabled       AutoDiscovery = "Enabled"
+	AutoDiscoveryNotApplicable AutoDiscovery = "NotApplicable"
+)
+
+// PossibleAutoDiscoveryValues returns the possible values for the AutoDiscovery const type.
+func PossibleAutoDiscoveryValues() []AutoDiscovery {
+	return []AutoDiscovery{
+		AutoDiscoveryDisabled,
+		AutoDiscoveryEnabled,
+		AutoDiscoveryNotApplicable,
 	}
 }
 
@@ -503,6 +558,51 @@ func PossibleDataSourceValues() []DataSource {
 	}
 }
 
+// DesiredOnboardingState - Onboarding states.
+type DesiredOnboardingState string
+
+const (
+	DesiredOnboardingStateDisabled DesiredOnboardingState = "Disabled"
+	DesiredOnboardingStateEnabled  DesiredOnboardingState = "Enabled"
+)
+
+// PossibleDesiredOnboardingStateValues returns the possible values for the DesiredOnboardingState const type.
+func PossibleDesiredOnboardingStateValues() []DesiredOnboardingState {
+	return []DesiredOnboardingState{
+		DesiredOnboardingStateDisabled,
+		DesiredOnboardingStateEnabled,
+	}
+}
+
+// DevOpsProvisioningState - The provisioning state of the resource.
+// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+// successful. DeletionFailure - Deletion failure.
+type DevOpsProvisioningState string
+
+const (
+	DevOpsProvisioningStateCanceled        DevOpsProvisioningState = "Canceled"
+	DevOpsProvisioningStateDeletionFailure DevOpsProvisioningState = "DeletionFailure"
+	DevOpsProvisioningStateDeletionSuccess DevOpsProvisioningState = "DeletionSuccess"
+	DevOpsProvisioningStateFailed          DevOpsProvisioningState = "Failed"
+	DevOpsProvisioningStatePending         DevOpsProvisioningState = "Pending"
+	DevOpsProvisioningStatePendingDeletion DevOpsProvisioningState = "PendingDeletion"
+	DevOpsProvisioningStateSucceeded       DevOpsProvisioningState = "Succeeded"
+)
+
+// PossibleDevOpsProvisioningStateValues returns the possible values for the DevOpsProvisioningState const type.
+func PossibleDevOpsProvisioningStateValues() []DevOpsProvisioningState {
+	return []DevOpsProvisioningState{
+		DevOpsProvisioningStateCanceled,
+		DevOpsProvisioningStateDeletionFailure,
+		DevOpsProvisioningStateDeletionSuccess,
+		DevOpsProvisioningStateFailed,
+		DevOpsProvisioningStatePending,
+		DevOpsProvisioningStatePendingDeletion,
+		DevOpsProvisioningStateSucceeded,
+	}
+}
+
 // Direction - The rule's direction
 type Direction string
 
@@ -606,6 +706,8 @@ const (
 	EventSourceAlerts                                 EventSource = "Alerts"
 	EventSourceAssessments                            EventSource = "Assessments"
 	EventSourceAssessmentsSnapshot                    EventSource = "AssessmentsSnapshot"
+	EventSourceAttackPaths                            EventSource = "AttackPaths"
+	EventSourceAttackPathsSnapshot                    EventSource = "AttackPathsSnapshot"
 	EventSourceRegulatoryComplianceAssessment         EventSource = "RegulatoryComplianceAssessment"
 	EventSourceRegulatoryComplianceAssessmentSnapshot EventSource = "RegulatoryComplianceAssessmentSnapshot"
 	EventSourceSecureScoreControls                    EventSource = "SecureScoreControls"
@@ -622,6 +724,8 @@ func PossibleEventSourceValues() []EventSource {
 		EventSourceAlerts,
 		EventSourceAssessments,
 		EventSourceAssessmentsSnapshot,
+		EventSourceAttackPaths,
+		EventSourceAttackPathsSnapshot,
 		EventSourceRegulatoryComplianceAssessment,
 		EventSourceRegulatoryComplianceAssessmentSnapshot,
 		EventSourceSecureScoreControls,
@@ -846,6 +950,24 @@ func PossibleInformationProtectionPolicyNameValues() []InformationProtectionPoli
 	}
 }
 
+// InheritFromParentState - Update Settings.
+// Enabled - Resource should inherit configurations from parent. Disabled - Resource should not inherit configurations from
+// parent.
+type InheritFromParentState string
+
+const (
+	InheritFromParentStateDisabled InheritFromParentState = "Disabled"
+	InheritFromParentStateEnabled  InheritFromParentState = "Enabled"
+)
+
+// PossibleInheritFromParentStateValues returns the possible values for the InheritFromParentState const type.
+func PossibleInheritFromParentStateValues() []InheritFromParentState {
+	return []InheritFromParentState{
+		InheritFromParentStateDisabled,
+		InheritFromParentStateEnabled,
+	}
+}
+
 // Intent - The kill chain related intent behind the alert. For list of supported values, and explanations of Azure Security
 // Center's supported kill chain intents.
 type Intent string
@@ -955,15 +1077,39 @@ func PossibleKindValues() []Kind {
 	}
 }
 
+// MinimalRiskLevel - Defines the minimal attack path risk level which will be sent as email notifications
+type MinimalRiskLevel string
+
+const (
+	// MinimalRiskLevelCritical - Get notifications on new attack paths with Critical risk level
+	MinimalRiskLevelCritical MinimalRiskLevel = "Critical"
+	// MinimalRiskLevelHigh - Get notifications on new attack paths with High or Critical risk level
+	MinimalRiskLevelHigh MinimalRiskLevel = "High"
+	// MinimalRiskLevelLow - Get notifications on new attach paths with Low, Medium, High or Critical risk level
+	MinimalRiskLevelLow MinimalRiskLevel = "Low"
+	// MinimalRiskLevelMedium - Get notifications on new attach paths with Medium, High or Critical risk level
+	MinimalRiskLevelMedium MinimalRiskLevel = "Medium"
+)
+
+// PossibleMinimalRiskLevelValues returns the possible values for the MinimalRiskLevel const type.
+func PossibleMinimalRiskLevelValues() []MinimalRiskLevel {
+	return []MinimalRiskLevel{
+		MinimalRiskLevelCritical,
+		MinimalRiskLevelHigh,
+		MinimalRiskLevelLow,
+		MinimalRiskLevelMedium,
+	}
+}
+
 // MinimalSeverity - Defines the minimal alert severity which will be sent as email notifications
 type MinimalSeverity string
 
 const (
 	// MinimalSeverityHigh - Get notifications on new alerts with High severity
 	MinimalSeverityHigh MinimalSeverity = "High"
-	// MinimalSeverityLow - Don't get notifications on new alerts with low, medium or high severity
+	// MinimalSeverityLow - Get notifications on new alerts with Low, Medium or High severity
 	MinimalSeverityLow MinimalSeverity = "Low"
-	// MinimalSeverityMedium - Get notifications on new alerts with medium or high severity
+	// MinimalSeverityMedium - Get notifications on new alerts with Medium or High severity
 	MinimalSeverityMedium MinimalSeverity = "Medium"
 )
 
@@ -1039,6 +1185,30 @@ func PossibleOfferingTypeValues() []OfferingType {
 		OfferingTypeDefenderForServersAws,
 		OfferingTypeDefenderForServersGcp,
 		OfferingTypeInformationProtectionAws,
+	}
+}
+
+// OnboardingState - Details about resource onboarding status across all connectors.
+// OnboardedByOtherConnector - this resource has already been onboarded to another connector. This is only applicable to top-level
+// resources. Onboarded - this resource has already been onboarded by the
+// specified connector. NotOnboarded - this resource has not been onboarded to any connector. NotApplicable - the onboarding
+// state is not applicable to the current endpoint.
+type OnboardingState string
+
+const (
+	OnboardingStateNotApplicable             OnboardingState = "NotApplicable"
+	OnboardingStateNotOnboarded              OnboardingState = "NotOnboarded"
+	OnboardingStateOnboarded                 OnboardingState = "Onboarded"
+	OnboardingStateOnboardedByOtherConnector OnboardingState = "OnboardedByOtherConnector"
+)
+
+// PossibleOnboardingStateValues returns the possible values for the OnboardingState const type.
+func PossibleOnboardingStateValues() []OnboardingState {
+	return []OnboardingState{
+		OnboardingStateNotApplicable,
+		OnboardingStateNotOnboarded,
+		OnboardingStateOnboarded,
+		OnboardingStateOnboardedByOtherConnector,
 	}
 }
 
@@ -1428,27 +1598,28 @@ func PossibleResourceStatusValues() []ResourceStatus {
 	}
 }
 
-// Roles - A possible role to configure sending security notification alerts to
-type Roles string
+// RuleCategory - Rule categories. Code - code scanning results. Artifact scanning results. Dependencies scanning results.
+// IaC results. Secrets scanning results. Container scanning results.
+type RuleCategory string
 
 const (
-	// RolesAccountAdmin - If enabled, send notification on new alerts to the account admins
-	RolesAccountAdmin Roles = "AccountAdmin"
-	// RolesContributor - If enabled, send notification on new alerts to the subscription contributors
-	RolesContributor Roles = "Contributor"
-	// RolesOwner - If enabled, send notification on new alerts to the subscription owners
-	RolesOwner Roles = "Owner"
-	// RolesServiceAdmin - If enabled, send notification on new alerts to the service admins
-	RolesServiceAdmin Roles = "ServiceAdmin"
+	RuleCategoryArtifacts    RuleCategory = "Artifacts"
+	RuleCategoryCode         RuleCategory = "Code"
+	RuleCategoryContainers   RuleCategory = "Containers"
+	RuleCategoryDependencies RuleCategory = "Dependencies"
+	RuleCategoryIaC          RuleCategory = "IaC"
+	RuleCategorySecrets      RuleCategory = "Secrets"
 )
 
-// PossibleRolesValues returns the possible values for the Roles const type.
-func PossibleRolesValues() []Roles {
-	return []Roles{
-		RolesAccountAdmin,
-		RolesContributor,
-		RolesOwner,
-		RolesServiceAdmin,
+// PossibleRuleCategoryValues returns the possible values for the RuleCategory const type.
+func PossibleRuleCategoryValues() []RuleCategory {
+	return []RuleCategory{
+		RuleCategoryArtifacts,
+		RuleCategoryCode,
+		RuleCategoryContainers,
+		RuleCategoryDependencies,
+		RuleCategoryIaC,
+		RuleCategorySecrets,
 	}
 }
 
@@ -1598,23 +1769,41 @@ func PossibleScanningModeValues() []ScanningMode {
 	}
 }
 
-// ScopeName - The resource scope of the health report
-type ScopeName string
+type SecurityContactName string
 
 const (
-	ScopeNameClusters        ScopeName = "Clusters"
-	ScopeNameConnectors      ScopeName = "Connectors"
-	ScopeNameUnknown         ScopeName = "Unknown"
-	ScopeNameVirtualMachines ScopeName = "VirtualMachines"
+	// SecurityContactNameDefault - The single applicable name of the security contact object
+	SecurityContactNameDefault SecurityContactName = "default"
 )
 
-// PossibleScopeNameValues returns the possible values for the ScopeName const type.
-func PossibleScopeNameValues() []ScopeName {
-	return []ScopeName{
-		ScopeNameClusters,
-		ScopeNameConnectors,
-		ScopeNameUnknown,
-		ScopeNameVirtualMachines,
+// PossibleSecurityContactNameValues returns the possible values for the SecurityContactName const type.
+func PossibleSecurityContactNameValues() []SecurityContactName {
+	return []SecurityContactName{
+		SecurityContactNameDefault,
+	}
+}
+
+// SecurityContactRole - A possible role to configure sending security notification alerts to
+type SecurityContactRole string
+
+const (
+	// SecurityContactRoleAccountAdmin - If enabled, send notification on new alerts to the account admins
+	SecurityContactRoleAccountAdmin SecurityContactRole = "AccountAdmin"
+	// SecurityContactRoleContributor - If enabled, send notification on new alerts to the subscription contributors
+	SecurityContactRoleContributor SecurityContactRole = "Contributor"
+	// SecurityContactRoleOwner - If enabled, send notification on new alerts to the subscription owners
+	SecurityContactRoleOwner SecurityContactRole = "Owner"
+	// SecurityContactRoleServiceAdmin - If enabled, send notification on new alerts to the service admins
+	SecurityContactRoleServiceAdmin SecurityContactRole = "ServiceAdmin"
+)
+
+// PossibleSecurityContactRoleValues returns the possible values for the SecurityContactRole const type.
+func PossibleSecurityContactRoleValues() []SecurityContactRole {
+	return []SecurityContactRole{
+		SecurityContactRoleAccountAdmin,
+		SecurityContactRoleContributor,
+		SecurityContactRoleOwner,
+		SecurityContactRoleServiceAdmin,
 	}
 }
 
@@ -1677,6 +1866,50 @@ func PossibleServerVulnerabilityAssessmentPropertiesProvisioningStateValues() []
 	}
 }
 
+// ServerVulnerabilityAssessmentsAzureSettingSelectedProvider - The selected vulnerability assessments provider on Azure servers
+// in the defined scope.
+type ServerVulnerabilityAssessmentsAzureSettingSelectedProvider string
+
+const (
+	// ServerVulnerabilityAssessmentsAzureSettingSelectedProviderMdeTvm - Microsoft Defender for Endpoints threat and vulnerability
+	// management.
+	ServerVulnerabilityAssessmentsAzureSettingSelectedProviderMdeTvm ServerVulnerabilityAssessmentsAzureSettingSelectedProvider = "MdeTvm"
+)
+
+// PossibleServerVulnerabilityAssessmentsAzureSettingSelectedProviderValues returns the possible values for the ServerVulnerabilityAssessmentsAzureSettingSelectedProvider const type.
+func PossibleServerVulnerabilityAssessmentsAzureSettingSelectedProviderValues() []ServerVulnerabilityAssessmentsAzureSettingSelectedProvider {
+	return []ServerVulnerabilityAssessmentsAzureSettingSelectedProvider{
+		ServerVulnerabilityAssessmentsAzureSettingSelectedProviderMdeTvm,
+	}
+}
+
+// ServerVulnerabilityAssessmentsSettingKind - The kind of the server vulnerability assessments setting
+type ServerVulnerabilityAssessmentsSettingKind string
+
+const (
+	ServerVulnerabilityAssessmentsSettingKindAzureServersSetting ServerVulnerabilityAssessmentsSettingKind = "AzureServersSetting"
+)
+
+// PossibleServerVulnerabilityAssessmentsSettingKindValues returns the possible values for the ServerVulnerabilityAssessmentsSettingKind const type.
+func PossibleServerVulnerabilityAssessmentsSettingKindValues() []ServerVulnerabilityAssessmentsSettingKind {
+	return []ServerVulnerabilityAssessmentsSettingKind{
+		ServerVulnerabilityAssessmentsSettingKindAzureServersSetting,
+	}
+}
+
+type ServerVulnerabilityAssessmentsSettingKindName string
+
+const (
+	ServerVulnerabilityAssessmentsSettingKindNameAzureServersSetting ServerVulnerabilityAssessmentsSettingKindName = "azureServersSetting"
+)
+
+// PossibleServerVulnerabilityAssessmentsSettingKindNameValues returns the possible values for the ServerVulnerabilityAssessmentsSettingKindName const type.
+func PossibleServerVulnerabilityAssessmentsSettingKindNameValues() []ServerVulnerabilityAssessmentsSettingKindName {
+	return []ServerVulnerabilityAssessmentsSettingKindName{
+		ServerVulnerabilityAssessmentsSettingKindNameAzureServersSetting,
+	}
+}
+
 // SettingKind - the kind of the settings string
 type SettingKind string
 
@@ -1698,21 +1931,35 @@ func PossibleSettingKindValues() []SettingKind {
 type SettingName string
 
 const (
-	SettingNameMCAS                           SettingName = "MCAS"
-	SettingNameSentinel                       SettingName = "Sentinel"
-	SettingNameWDATP                          SettingName = "WDATP"
-	SettingNameWDATPEXCLUDELINUXPUBLICPREVIEW SettingName = "WDATP_EXCLUDE_LINUX_PUBLIC_PREVIEW"
-	SettingNameWDATPUNIFIEDSOLUTION           SettingName = "WDATP_UNIFIED_SOLUTION"
+	// SettingNameCurrent - Name of the Defender for Storage Settings name.
+	SettingNameCurrent SettingName = "current"
 )
 
 // PossibleSettingNameValues returns the possible values for the SettingName const type.
 func PossibleSettingNameValues() []SettingName {
 	return []SettingName{
-		SettingNameMCAS,
-		SettingNameSentinel,
-		SettingNameWDATP,
-		SettingNameWDATPEXCLUDELINUXPUBLICPREVIEW,
-		SettingNameWDATPUNIFIEDSOLUTION,
+		SettingNameCurrent,
+	}
+}
+
+type SettingNameAutoGenerated string
+
+const (
+	SettingNameAutoGeneratedMCAS                           SettingNameAutoGenerated = "MCAS"
+	SettingNameAutoGeneratedSentinel                       SettingNameAutoGenerated = "Sentinel"
+	SettingNameAutoGeneratedWDATP                          SettingNameAutoGenerated = "WDATP"
+	SettingNameAutoGeneratedWDATPEXCLUDELINUXPUBLICPREVIEW SettingNameAutoGenerated = "WDATP_EXCLUDE_LINUX_PUBLIC_PREVIEW"
+	SettingNameAutoGeneratedWDATPUNIFIEDSOLUTION           SettingNameAutoGenerated = "WDATP_UNIFIED_SOLUTION"
+)
+
+// PossibleSettingNameAutoGeneratedValues returns the possible values for the SettingNameAutoGenerated const type.
+func PossibleSettingNameAutoGeneratedValues() []SettingNameAutoGenerated {
+	return []SettingNameAutoGenerated{
+		SettingNameAutoGeneratedMCAS,
+		SettingNameAutoGeneratedSentinel,
+		SettingNameAutoGeneratedWDATP,
+		SettingNameAutoGeneratedWDATPEXCLUDELINUXPUBLICPREVIEW,
+		SettingNameAutoGeneratedWDATPUNIFIEDSOLUTION,
 	}
 }
 
@@ -1792,6 +2039,22 @@ func PossibleSourceSystemValues() []SourceSystem {
 		SourceSystemNonAzureAppLocker,
 		SourceSystemNonAzureAuditD,
 		SourceSystemNone,
+	}
+}
+
+// SourceType - The source type that will trigger the notification
+type SourceType string
+
+const (
+	SourceTypeAlert      SourceType = "Alert"
+	SourceTypeAttackPath SourceType = "AttackPath"
+)
+
+// PossibleSourceTypeValues returns the possible values for the SourceType const type.
+func PossibleSourceTypeValues() []SourceType {
+	return []SourceType{
+		SourceTypeAlert,
+		SourceTypeAttackPath,
 	}
 }
 
