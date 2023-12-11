@@ -1,5 +1,11 @@
 # Release History
 
+## 4.7.0 (2023-12-11)
+### Features Added
+
+- New field `NodeSoakDurationInMinutes` in struct `AgentPoolUpgradeSettings`
+
+
 ## 4.6.0 (2023-11-24)
 ### Features Added
 
