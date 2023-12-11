@@ -10,7 +10,7 @@ package armavs
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/avs/armavs"
-	moduleVersion = "v1.4.0"
+	moduleVersion = "v1.4.1"
 )
 
 // AddonProvisioningState - The state of the addon provisioning

@@ -799,6 +799,9 @@ type PrivateCloudList struct {
 
 // PrivateCloudProperties - The properties of a private cloud resource
 type PrivateCloudProperties struct {
+	// REQUIRED; The default cluster used for management
+	ManagementCluster *ManagementCluster
+
 	// REQUIRED; The block of addresses should be unique across VNet in your subscription as well as on-premise. Make sure the
 	// CIDR format is conformed to (A.B.C.D/X) where A,B,C,D are between 0 and 255, and X is
 	// between 0 and 22
@@ -823,9 +826,6 @@ type PrivateCloudProperties struct {
 
 	// Connectivity to internet is enabled or disabled
 	Internet *InternetEnum
-
-	// The default cluster used for management
-	ManagementCluster *ManagementCluster
 
 	// Optionally, set the NSX-T Manager password when the private cloud is created
 	NsxtPassword *string
