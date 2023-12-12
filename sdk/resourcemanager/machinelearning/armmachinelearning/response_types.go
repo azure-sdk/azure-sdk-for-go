@@ -8,6 +8,8 @@
 
 package armmachinelearning
 
+import "encoding/json"
+
 // BatchDeploymentsClientCreateOrUpdateResponse contains the response from method BatchDeploymentsClient.BeginCreateOrUpdate.
 type BatchDeploymentsClientCreateOrUpdateResponse struct {
 	BatchDeployment
@@ -66,6 +68,38 @@ type BatchEndpointsClientUpdateResponse struct {
 	BatchEndpoint
 }
 
+// CapacityReservationGroupsClientCreateOrUpdateResponse contains the response from method CapacityReservationGroupsClient.CreateOrUpdate.
+type CapacityReservationGroupsClientCreateOrUpdateResponse struct {
+	CapacityReservationGroup
+}
+
+// CapacityReservationGroupsClientDeleteResponse contains the response from method CapacityReservationGroupsClient.Delete.
+type CapacityReservationGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// CapacityReservationGroupsClientGetResponse contains the response from method CapacityReservationGroupsClient.Get.
+type CapacityReservationGroupsClientGetResponse struct {
+	CapacityReservationGroup
+}
+
+// CapacityReservationGroupsClientListBySubscriptionResponse contains the response from method CapacityReservationGroupsClient.NewListBySubscriptionPager.
+type CapacityReservationGroupsClientListBySubscriptionResponse struct {
+	// A paginated list of CapacityReservationGroup entities.
+	CapacityReservationGroupTrackedResourceArmPaginatedResult
+}
+
+// CapacityReservationGroupsClientListResponse contains the response from method CapacityReservationGroupsClient.NewListPager.
+type CapacityReservationGroupsClientListResponse struct {
+	// A paginated list of CapacityReservationGroup entities.
+	CapacityReservationGroupTrackedResourceArmPaginatedResult
+}
+
+// CapacityReservationGroupsClientUpdateResponse contains the response from method CapacityReservationGroupsClient.Update.
+type CapacityReservationGroupsClientUpdateResponse struct {
+	CapacityReservationGroup
+}
+
 // CodeContainersClientCreateOrUpdateResponse contains the response from method CodeContainersClient.CreateOrUpdate.
 type CodeContainersClientCreateOrUpdateResponse struct {
 	// Azure Resource Manager resource envelope.
@@ -89,6 +123,11 @@ type CodeContainersClientListResponse struct {
 	CodeContainerResourceArmPaginatedResult
 }
 
+// CodeVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method CodeVersionsClient.CreateOrGetStartPendingUpload.
+type CodeVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
 // CodeVersionsClientCreateOrUpdateResponse contains the response from method CodeVersionsClient.CreateOrUpdate.
 type CodeVersionsClientCreateOrUpdateResponse struct {
 	// Azure Resource Manager resource envelope.
@@ -110,6 +149,11 @@ type CodeVersionsClientGetResponse struct {
 type CodeVersionsClientListResponse struct {
 	// A paginated list of CodeVersion entities.
 	CodeVersionResourceArmPaginatedResult
+}
+
+// CodeVersionsClientPublishResponse contains the response from method CodeVersionsClient.BeginPublish.
+type CodeVersionsClientPublishResponse struct {
+	// placeholder for future response values
 }
 
 // ComponentContainersClientCreateOrUpdateResponse contains the response from method ComponentContainersClient.CreateOrUpdate.
@@ -158,6 +202,11 @@ type ComponentVersionsClientListResponse struct {
 	ComponentVersionResourceArmPaginatedResult
 }
 
+// ComponentVersionsClientPublishResponse contains the response from method ComponentVersionsClient.BeginPublish.
+type ComponentVersionsClientPublishResponse struct {
+	// placeholder for future response values
+}
+
 // ComputeClientCreateOrUpdateResponse contains the response from method ComputeClient.BeginCreateOrUpdate.
 type ComputeClientCreateOrUpdateResponse struct {
 	// Machine Learning compute object wrapped into ARM resource envelope.
@@ -167,6 +216,12 @@ type ComputeClientCreateOrUpdateResponse struct {
 // ComputeClientDeleteResponse contains the response from method ComputeClient.BeginDelete.
 type ComputeClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// ComputeClientGetAllowedResizeSizesResponse contains the response from method ComputeClient.GetAllowedResizeSizes.
+type ComputeClientGetAllowedResizeSizesResponse struct {
+	// The List Virtual Machine size operation response.
+	VirtualMachineSizeListResult
 }
 
 // ComputeClientGetResponse contains the response from method ComputeClient.Get.
@@ -203,6 +258,11 @@ type ComputeClientListResponse struct {
 	PaginatedComputeResourcesList
 }
 
+// ComputeClientResizeResponse contains the response from method ComputeClient.BeginResize.
+type ComputeClientResizeResponse struct {
+	// placeholder for future response values
+}
+
 // ComputeClientRestartResponse contains the response from method ComputeClient.BeginRestart.
 type ComputeClientRestartResponse struct {
 	// placeholder for future response values
@@ -215,6 +275,21 @@ type ComputeClientStartResponse struct {
 
 // ComputeClientStopResponse contains the response from method ComputeClient.BeginStop.
 type ComputeClientStopResponse struct {
+	// placeholder for future response values
+}
+
+// ComputeClientUpdateCustomServicesResponse contains the response from method ComputeClient.UpdateCustomServices.
+type ComputeClientUpdateCustomServicesResponse struct {
+	// placeholder for future response values
+}
+
+// ComputeClientUpdateDataMountsResponse contains the response from method ComputeClient.UpdateDataMounts.
+type ComputeClientUpdateDataMountsResponse struct {
+	// placeholder for future response values
+}
+
+// ComputeClientUpdateIdleShutdownSettingResponse contains the response from method ComputeClient.UpdateIdleShutdownSetting.
+type ComputeClientUpdateIdleShutdownSettingResponse struct {
 	// placeholder for future response values
 }
 
@@ -268,6 +343,11 @@ type DataVersionsClientGetResponse struct {
 type DataVersionsClientListResponse struct {
 	// A paginated list of DataVersionBase entities.
 	DataVersionBaseResourceArmPaginatedResult
+}
+
+// DataVersionsClientPublishResponse contains the response from method DataVersionsClient.BeginPublish.
+type DataVersionsClientPublishResponse struct {
+	// placeholder for future response values
 }
 
 // DatastoresClientCreateOrUpdateResponse contains the response from method DatastoresClient.CreateOrUpdate.
@@ -355,6 +435,221 @@ type EnvironmentVersionsClientListResponse struct {
 	EnvironmentVersionResourceArmPaginatedResult
 }
 
+// EnvironmentVersionsClientPublishResponse contains the response from method EnvironmentVersionsClient.BeginPublish.
+type EnvironmentVersionsClientPublishResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturesClientGetResponse contains the response from method FeaturesClient.Get.
+type FeaturesClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	Feature
+}
+
+// FeaturesClientListResponse contains the response from method FeaturesClient.NewListPager.
+type FeaturesClientListResponse struct {
+	// A paginated list of Feature entities.
+	FeatureResourceArmPaginatedResult
+}
+
+// FeaturesetContainersClientCreateOrUpdateResponse contains the response from method FeaturesetContainersClient.BeginCreateOrUpdate.
+type FeaturesetContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturesetContainer
+}
+
+// FeaturesetContainersClientDeleteResponse contains the response from method FeaturesetContainersClient.BeginDelete.
+type FeaturesetContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturesetContainersClientGetEntityResponse contains the response from method FeaturesetContainersClient.GetEntity.
+type FeaturesetContainersClientGetEntityResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturesetContainer
+}
+
+// FeaturesetContainersClientListResponse contains the response from method FeaturesetContainersClient.NewListPager.
+type FeaturesetContainersClientListResponse struct {
+	// A paginated list of FeaturesetContainer entities.
+	FeaturesetContainerResourceArmPaginatedResult
+}
+
+// FeaturesetVersionsClientBackfillResponse contains the response from method FeaturesetVersionsClient.BeginBackfill.
+type FeaturesetVersionsClientBackfillResponse struct {
+	// Response payload for creating a backfill request for a given feature set version
+	FeaturesetVersionBackfillResponse
+}
+
+// FeaturesetVersionsClientCreateOrUpdateResponse contains the response from method FeaturesetVersionsClient.BeginCreateOrUpdate.
+type FeaturesetVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturesetVersion
+}
+
+// FeaturesetVersionsClientDeleteResponse contains the response from method FeaturesetVersionsClient.BeginDelete.
+type FeaturesetVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturesetVersionsClientGetResponse contains the response from method FeaturesetVersionsClient.Get.
+type FeaturesetVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturesetVersion
+}
+
+// FeaturesetVersionsClientListResponse contains the response from method FeaturesetVersionsClient.NewListPager.
+type FeaturesetVersionsClientListResponse struct {
+	// A paginated list of FeaturesetVersion entities.
+	FeaturesetVersionResourceArmPaginatedResult
+}
+
+// FeaturestoreEntityContainersClientCreateOrUpdateResponse contains the response from method FeaturestoreEntityContainersClient.BeginCreateOrUpdate.
+type FeaturestoreEntityContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturestoreEntityContainer
+}
+
+// FeaturestoreEntityContainersClientDeleteResponse contains the response from method FeaturestoreEntityContainersClient.BeginDelete.
+type FeaturestoreEntityContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturestoreEntityContainersClientGetEntityResponse contains the response from method FeaturestoreEntityContainersClient.GetEntity.
+type FeaturestoreEntityContainersClientGetEntityResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturestoreEntityContainer
+}
+
+// FeaturestoreEntityContainersClientListResponse contains the response from method FeaturestoreEntityContainersClient.NewListPager.
+type FeaturestoreEntityContainersClientListResponse struct {
+	// A paginated list of FeaturestoreEntityContainer entities.
+	FeaturestoreEntityContainerResourceArmPaginatedResult
+}
+
+// FeaturestoreEntityVersionsClientCreateOrUpdateResponse contains the response from method FeaturestoreEntityVersionsClient.BeginCreateOrUpdate.
+type FeaturestoreEntityVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturestoreEntityVersion
+}
+
+// FeaturestoreEntityVersionsClientDeleteResponse contains the response from method FeaturestoreEntityVersionsClient.BeginDelete.
+type FeaturestoreEntityVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FeaturestoreEntityVersionsClientGetResponse contains the response from method FeaturestoreEntityVersionsClient.Get.
+type FeaturestoreEntityVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	FeaturestoreEntityVersion
+}
+
+// FeaturestoreEntityVersionsClientListResponse contains the response from method FeaturestoreEntityVersionsClient.NewListPager.
+type FeaturestoreEntityVersionsClientListResponse struct {
+	// A paginated list of FeaturestoreEntityVersion entities.
+	FeaturestoreEntityVersionResourceArmPaginatedResult
+}
+
+// InferenceEndpointsClientCreateOrUpdateResponse contains the response from method InferenceEndpointsClient.BeginCreateOrUpdate.
+type InferenceEndpointsClientCreateOrUpdateResponse struct {
+	InferenceEndpoint
+}
+
+// InferenceEndpointsClientDeleteResponse contains the response from method InferenceEndpointsClient.BeginDelete.
+type InferenceEndpointsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// InferenceEndpointsClientGetResponse contains the response from method InferenceEndpointsClient.Get.
+type InferenceEndpointsClientGetResponse struct {
+	InferenceEndpoint
+}
+
+// InferenceEndpointsClientListResponse contains the response from method InferenceEndpointsClient.NewListPager.
+type InferenceEndpointsClientListResponse struct {
+	// A paginated list of InferenceEndpoint entities.
+	InferenceEndpointTrackedResourceArmPaginatedResult
+}
+
+// InferenceEndpointsClientUpdateResponse contains the response from method InferenceEndpointsClient.BeginUpdate.
+type InferenceEndpointsClientUpdateResponse struct {
+	InferenceEndpoint
+}
+
+// InferenceGroupsClientCreateOrUpdateResponse contains the response from method InferenceGroupsClient.BeginCreateOrUpdate.
+type InferenceGroupsClientCreateOrUpdateResponse struct {
+	InferenceGroup
+}
+
+// InferenceGroupsClientDeleteResponse contains the response from method InferenceGroupsClient.BeginDelete.
+type InferenceGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// InferenceGroupsClientGetResponse contains the response from method InferenceGroupsClient.Get.
+type InferenceGroupsClientGetResponse struct {
+	InferenceGroup
+}
+
+// InferenceGroupsClientGetStatusResponse contains the response from method InferenceGroupsClient.GetStatus.
+type InferenceGroupsClientGetStatusResponse struct {
+	GroupStatus
+}
+
+// InferenceGroupsClientListResponse contains the response from method InferenceGroupsClient.NewListPager.
+type InferenceGroupsClientListResponse struct {
+	// A paginated list of InferenceGroup entities.
+	InferenceGroupTrackedResourceArmPaginatedResult
+}
+
+// InferenceGroupsClientListSKUsResponse contains the response from method InferenceGroupsClient.NewListSKUsPager.
+type InferenceGroupsClientListSKUsResponse struct {
+	// A paginated list of SkuResource entities.
+	SKUResourceArmPaginatedResult
+}
+
+// InferenceGroupsClientUpdateResponse contains the response from method InferenceGroupsClient.BeginUpdate.
+type InferenceGroupsClientUpdateResponse struct {
+	InferenceGroup
+}
+
+// InferencePoolsClientCreateOrUpdateResponse contains the response from method InferencePoolsClient.BeginCreateOrUpdate.
+type InferencePoolsClientCreateOrUpdateResponse struct {
+	InferencePool
+}
+
+// InferencePoolsClientDeleteResponse contains the response from method InferencePoolsClient.BeginDelete.
+type InferencePoolsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// InferencePoolsClientGetResponse contains the response from method InferencePoolsClient.Get.
+type InferencePoolsClientGetResponse struct {
+	InferencePool
+}
+
+// InferencePoolsClientGetStatusResponse contains the response from method InferencePoolsClient.GetStatus.
+type InferencePoolsClientGetStatusResponse struct {
+	PoolStatus
+}
+
+// InferencePoolsClientListResponse contains the response from method InferencePoolsClient.NewListPager.
+type InferencePoolsClientListResponse struct {
+	// A paginated list of InferencePool entities.
+	InferencePoolTrackedResourceArmPaginatedResult
+}
+
+// InferencePoolsClientListSKUsResponse contains the response from method InferencePoolsClient.NewListSKUsPager.
+type InferencePoolsClientListSKUsResponse struct {
+	// A paginated list of SkuResource entities.
+	SKUResourceArmPaginatedResult
+}
+
+// InferencePoolsClientUpdateResponse contains the response from method InferencePoolsClient.BeginUpdate.
+type InferencePoolsClientUpdateResponse struct {
+	InferencePool
+}
+
 // JobsClientCancelResponse contains the response from method JobsClient.BeginCancel.
 type JobsClientCancelResponse struct {
 	// placeholder for future response values
@@ -381,6 +676,94 @@ type JobsClientGetResponse struct {
 type JobsClientListResponse struct {
 	// A paginated list of JobBase entities.
 	JobBaseResourceArmPaginatedResult
+}
+
+// JobsClientUpdateResponse contains the response from method JobsClient.Update.
+type JobsClientUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	JobBase
+}
+
+// LabelingJobsClientCreateOrUpdateResponse contains the response from method LabelingJobsClient.BeginCreateOrUpdate.
+type LabelingJobsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	LabelingJob
+}
+
+// LabelingJobsClientDeleteResponse contains the response from method LabelingJobsClient.Delete.
+type LabelingJobsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// LabelingJobsClientExportLabelsResponse contains the response from method LabelingJobsClient.BeginExportLabels.
+type LabelingJobsClientExportLabelsResponse struct {
+	ExportSummaryClassification
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LabelingJobsClientExportLabelsResponse.
+func (l LabelingJobsClientExportLabelsResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(l.ExportSummaryClassification)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LabelingJobsClientExportLabelsResponse.
+func (l *LabelingJobsClientExportLabelsResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalExportSummaryClassification(data)
+	if err != nil {
+		return err
+	}
+	l.ExportSummaryClassification = res
+	return nil
+}
+
+// LabelingJobsClientGetResponse contains the response from method LabelingJobsClient.Get.
+type LabelingJobsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	LabelingJob
+}
+
+// LabelingJobsClientListResponse contains the response from method LabelingJobsClient.NewListPager.
+type LabelingJobsClientListResponse struct {
+	// A paginated list of LabelingJob entities.
+	LabelingJobResourceArmPaginatedResult
+}
+
+// LabelingJobsClientPauseResponse contains the response from method LabelingJobsClient.Pause.
+type LabelingJobsClientPauseResponse struct {
+	// Labeling job definition
+	LabelingJobProperties
+}
+
+// LabelingJobsClientResumeResponse contains the response from method LabelingJobsClient.BeginResume.
+type LabelingJobsClientResumeResponse struct {
+	// Labeling job definition
+	LabelingJobProperties
+}
+
+// ManagedNetworkProvisionsClientProvisionManagedNetworkResponse contains the response from method ManagedNetworkProvisionsClient.BeginProvisionManagedNetwork.
+type ManagedNetworkProvisionsClientProvisionManagedNetworkResponse struct {
+	// Status of the Provisioning for the managed network of a machine learning workspace.
+	ManagedNetworkProvisionStatus
+}
+
+// ManagedNetworkSettingsRuleClientCreateOrUpdateResponse contains the response from method ManagedNetworkSettingsRuleClient.BeginCreateOrUpdate.
+type ManagedNetworkSettingsRuleClientCreateOrUpdateResponse struct {
+	OutboundRuleBasicResource
+}
+
+// ManagedNetworkSettingsRuleClientDeleteResponse contains the response from method ManagedNetworkSettingsRuleClient.BeginDelete.
+type ManagedNetworkSettingsRuleClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagedNetworkSettingsRuleClientGetResponse contains the response from method ManagedNetworkSettingsRuleClient.Get.
+type ManagedNetworkSettingsRuleClientGetResponse struct {
+	OutboundRuleBasicResource
+}
+
+// ManagedNetworkSettingsRuleClientListResponse contains the response from method ManagedNetworkSettingsRuleClient.NewListPager.
+type ManagedNetworkSettingsRuleClientListResponse struct {
+	// List of outbound rules for the managed network of a machine learning workspace.
+	OutboundRuleListResult
 }
 
 // ModelContainersClientCreateOrUpdateResponse contains the response from method ModelContainersClient.CreateOrUpdate.
@@ -427,6 +810,17 @@ type ModelVersionsClientGetResponse struct {
 type ModelVersionsClientListResponse struct {
 	// A paginated list of ModelVersion entities.
 	ModelVersionResourceArmPaginatedResult
+}
+
+// ModelVersionsClientPackageResponse contains the response from method ModelVersionsClient.BeginPackage.
+type ModelVersionsClientPackageResponse struct {
+	// Package response returned after async package operation completes successfully.
+	PackageResponse
+}
+
+// ModelVersionsClientPublishResponse contains the response from method ModelVersionsClient.BeginPublish.
+type ModelVersionsClientPublishResponse struct {
+	// placeholder for future response values
 }
 
 // OnlineDeploymentsClientCreateOrUpdateResponse contains the response from method OnlineDeploymentsClient.BeginCreateOrUpdate.
@@ -511,8 +905,8 @@ type OnlineEndpointsClientUpdateResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// An array of operations supported by the resource provider.
-	AmlOperationListResult
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
 // PrivateEndpointConnectionsClientCreateOrUpdateResponse contains the response from method PrivateEndpointConnectionsClient.CreateOrUpdate.
@@ -538,7 +932,7 @@ type PrivateEndpointConnectionsClientListResponse struct {
 	PrivateEndpointConnectionListResult
 }
 
-// PrivateLinkResourcesClientListResponse contains the response from method PrivateLinkResourcesClient.List.
+// PrivateLinkResourcesClientListResponse contains the response from method PrivateLinkResourcesClient.NewListPager.
 type PrivateLinkResourcesClientListResponse struct {
 	// A list of private link resources
 	PrivateLinkResourceListResult
@@ -554,6 +948,300 @@ type QuotasClientListResponse struct {
 type QuotasClientUpdateResponse struct {
 	// The result of update workspace quota.
 	UpdateWorkspaceQuotasResult
+}
+
+// RegistriesClientCreateOrUpdateResponse contains the response from method RegistriesClient.BeginCreateOrUpdate.
+type RegistriesClientCreateOrUpdateResponse struct {
+	Registry
+}
+
+// RegistriesClientDeleteResponse contains the response from method RegistriesClient.BeginDelete.
+type RegistriesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistriesClientGetResponse contains the response from method RegistriesClient.Get.
+type RegistriesClientGetResponse struct {
+	Registry
+}
+
+// RegistriesClientListBySubscriptionResponse contains the response from method RegistriesClient.NewListBySubscriptionPager.
+type RegistriesClientListBySubscriptionResponse struct {
+	// A paginated list of Registry entities.
+	RegistryTrackedResourceArmPaginatedResult
+}
+
+// RegistriesClientListResponse contains the response from method RegistriesClient.NewListPager.
+type RegistriesClientListResponse struct {
+	// A paginated list of Registry entities.
+	RegistryTrackedResourceArmPaginatedResult
+}
+
+// RegistriesClientRemoveRegionsResponse contains the response from method RegistriesClient.BeginRemoveRegions.
+type RegistriesClientRemoveRegionsResponse struct {
+	Registry
+}
+
+// RegistriesClientUpdateResponse contains the response from method RegistriesClient.Update.
+type RegistriesClientUpdateResponse struct {
+	Registry
+}
+
+// RegistryCodeContainersClientCreateOrUpdateResponse contains the response from method RegistryCodeContainersClient.BeginCreateOrUpdate.
+type RegistryCodeContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	CodeContainer
+}
+
+// RegistryCodeContainersClientDeleteResponse contains the response from method RegistryCodeContainersClient.BeginDelete.
+type RegistryCodeContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryCodeContainersClientGetResponse contains the response from method RegistryCodeContainersClient.Get.
+type RegistryCodeContainersClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	CodeContainer
+}
+
+// RegistryCodeContainersClientListResponse contains the response from method RegistryCodeContainersClient.NewListPager.
+type RegistryCodeContainersClientListResponse struct {
+	// A paginated list of CodeContainer entities.
+	CodeContainerResourceArmPaginatedResult
+}
+
+// RegistryCodeVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method RegistryCodeVersionsClient.CreateOrGetStartPendingUpload.
+type RegistryCodeVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
+// RegistryCodeVersionsClientCreateOrUpdateResponse contains the response from method RegistryCodeVersionsClient.BeginCreateOrUpdate.
+type RegistryCodeVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	CodeVersion
+}
+
+// RegistryCodeVersionsClientDeleteResponse contains the response from method RegistryCodeVersionsClient.BeginDelete.
+type RegistryCodeVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryCodeVersionsClientGetResponse contains the response from method RegistryCodeVersionsClient.Get.
+type RegistryCodeVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	CodeVersion
+}
+
+// RegistryCodeVersionsClientListResponse contains the response from method RegistryCodeVersionsClient.NewListPager.
+type RegistryCodeVersionsClientListResponse struct {
+	// A paginated list of CodeVersion entities.
+	CodeVersionResourceArmPaginatedResult
+}
+
+// RegistryComponentContainersClientCreateOrUpdateResponse contains the response from method RegistryComponentContainersClient.BeginCreateOrUpdate.
+type RegistryComponentContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	ComponentContainer
+}
+
+// RegistryComponentContainersClientDeleteResponse contains the response from method RegistryComponentContainersClient.BeginDelete.
+type RegistryComponentContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryComponentContainersClientGetResponse contains the response from method RegistryComponentContainersClient.Get.
+type RegistryComponentContainersClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	ComponentContainer
+}
+
+// RegistryComponentContainersClientListResponse contains the response from method RegistryComponentContainersClient.NewListPager.
+type RegistryComponentContainersClientListResponse struct {
+	// A paginated list of ComponentContainer entities.
+	ComponentContainerResourceArmPaginatedResult
+}
+
+// RegistryComponentVersionsClientCreateOrUpdateResponse contains the response from method RegistryComponentVersionsClient.BeginCreateOrUpdate.
+type RegistryComponentVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	ComponentVersion
+}
+
+// RegistryComponentVersionsClientDeleteResponse contains the response from method RegistryComponentVersionsClient.BeginDelete.
+type RegistryComponentVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryComponentVersionsClientGetResponse contains the response from method RegistryComponentVersionsClient.Get.
+type RegistryComponentVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	ComponentVersion
+}
+
+// RegistryComponentVersionsClientListResponse contains the response from method RegistryComponentVersionsClient.NewListPager.
+type RegistryComponentVersionsClientListResponse struct {
+	// A paginated list of ComponentVersion entities.
+	ComponentVersionResourceArmPaginatedResult
+}
+
+// RegistryDataContainersClientCreateOrUpdateResponse contains the response from method RegistryDataContainersClient.BeginCreateOrUpdate.
+type RegistryDataContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	DataContainer
+}
+
+// RegistryDataContainersClientDeleteResponse contains the response from method RegistryDataContainersClient.BeginDelete.
+type RegistryDataContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryDataContainersClientGetResponse contains the response from method RegistryDataContainersClient.Get.
+type RegistryDataContainersClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	DataContainer
+}
+
+// RegistryDataContainersClientListResponse contains the response from method RegistryDataContainersClient.NewListPager.
+type RegistryDataContainersClientListResponse struct {
+	// A paginated list of DataContainer entities.
+	DataContainerResourceArmPaginatedResult
+}
+
+// RegistryDataReferencesClientGetBlobReferenceSASResponse contains the response from method RegistryDataReferencesClient.GetBlobReferenceSAS.
+type RegistryDataReferencesClientGetBlobReferenceSASResponse struct {
+	// BlobReferenceSASResponse for getBlobReferenceSAS API
+	GetBlobReferenceSASResponseDto
+}
+
+// RegistryDataVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method RegistryDataVersionsClient.CreateOrGetStartPendingUpload.
+type RegistryDataVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
+// RegistryDataVersionsClientCreateOrUpdateResponse contains the response from method RegistryDataVersionsClient.BeginCreateOrUpdate.
+type RegistryDataVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	DataVersionBase
+}
+
+// RegistryDataVersionsClientDeleteResponse contains the response from method RegistryDataVersionsClient.BeginDelete.
+type RegistryDataVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryDataVersionsClientGetResponse contains the response from method RegistryDataVersionsClient.Get.
+type RegistryDataVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	DataVersionBase
+}
+
+// RegistryDataVersionsClientListResponse contains the response from method RegistryDataVersionsClient.NewListPager.
+type RegistryDataVersionsClientListResponse struct {
+	// A paginated list of DataVersionBase entities.
+	DataVersionBaseResourceArmPaginatedResult
+}
+
+// RegistryEnvironmentContainersClientCreateOrUpdateResponse contains the response from method RegistryEnvironmentContainersClient.BeginCreateOrUpdate.
+type RegistryEnvironmentContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	EnvironmentContainer
+}
+
+// RegistryEnvironmentContainersClientDeleteResponse contains the response from method RegistryEnvironmentContainersClient.BeginDelete.
+type RegistryEnvironmentContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryEnvironmentContainersClientGetResponse contains the response from method RegistryEnvironmentContainersClient.Get.
+type RegistryEnvironmentContainersClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	EnvironmentContainer
+}
+
+// RegistryEnvironmentContainersClientListResponse contains the response from method RegistryEnvironmentContainersClient.NewListPager.
+type RegistryEnvironmentContainersClientListResponse struct {
+	// A paginated list of EnvironmentContainer entities.
+	EnvironmentContainerResourceArmPaginatedResult
+}
+
+// RegistryEnvironmentVersionsClientCreateOrUpdateResponse contains the response from method RegistryEnvironmentVersionsClient.BeginCreateOrUpdate.
+type RegistryEnvironmentVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	EnvironmentVersion
+}
+
+// RegistryEnvironmentVersionsClientDeleteResponse contains the response from method RegistryEnvironmentVersionsClient.BeginDelete.
+type RegistryEnvironmentVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryEnvironmentVersionsClientGetResponse contains the response from method RegistryEnvironmentVersionsClient.Get.
+type RegistryEnvironmentVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	EnvironmentVersion
+}
+
+// RegistryEnvironmentVersionsClientListResponse contains the response from method RegistryEnvironmentVersionsClient.NewListPager.
+type RegistryEnvironmentVersionsClientListResponse struct {
+	// A paginated list of EnvironmentVersion entities.
+	EnvironmentVersionResourceArmPaginatedResult
+}
+
+// RegistryModelContainersClientCreateOrUpdateResponse contains the response from method RegistryModelContainersClient.BeginCreateOrUpdate.
+type RegistryModelContainersClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	ModelContainer
+}
+
+// RegistryModelContainersClientDeleteResponse contains the response from method RegistryModelContainersClient.BeginDelete.
+type RegistryModelContainersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryModelContainersClientGetResponse contains the response from method RegistryModelContainersClient.Get.
+type RegistryModelContainersClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	ModelContainer
+}
+
+// RegistryModelContainersClientListResponse contains the response from method RegistryModelContainersClient.NewListPager.
+type RegistryModelContainersClientListResponse struct {
+	// A paginated list of ModelContainer entities.
+	ModelContainerResourceArmPaginatedResult
+}
+
+// RegistryModelVersionsClientCreateOrGetStartPendingUploadResponse contains the response from method RegistryModelVersionsClient.CreateOrGetStartPendingUpload.
+type RegistryModelVersionsClientCreateOrGetStartPendingUploadResponse struct {
+	PendingUploadResponseDto
+}
+
+// RegistryModelVersionsClientCreateOrUpdateResponse contains the response from method RegistryModelVersionsClient.BeginCreateOrUpdate.
+type RegistryModelVersionsClientCreateOrUpdateResponse struct {
+	// Azure Resource Manager resource envelope.
+	ModelVersion
+}
+
+// RegistryModelVersionsClientDeleteResponse contains the response from method RegistryModelVersionsClient.BeginDelete.
+type RegistryModelVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RegistryModelVersionsClientGetResponse contains the response from method RegistryModelVersionsClient.Get.
+type RegistryModelVersionsClientGetResponse struct {
+	// Azure Resource Manager resource envelope.
+	ModelVersion
+}
+
+// RegistryModelVersionsClientListResponse contains the response from method RegistryModelVersionsClient.NewListPager.
+type RegistryModelVersionsClientListResponse struct {
+	// A paginated list of ModelVersion entities.
+	ModelVersionResourceArmPaginatedResult
+}
+
+// RegistryModelVersionsClientPackageResponse contains the response from method RegistryModelVersionsClient.BeginPackage.
+type RegistryModelVersionsClientPackageResponse struct {
+	// Package response returned after async package operation completes successfully.
+	PackageResponse
 }
 
 // SchedulesClientCreateOrUpdateResponse contains the response from method SchedulesClient.BeginCreateOrUpdate.
@@ -577,6 +1265,49 @@ type SchedulesClientGetResponse struct {
 type SchedulesClientListResponse struct {
 	// A paginated list of Schedule entities.
 	ScheduleResourceArmPaginatedResult
+}
+
+// ServerlessEndpointsClientCreateOrUpdateResponse contains the response from method ServerlessEndpointsClient.BeginCreateOrUpdate.
+type ServerlessEndpointsClientCreateOrUpdateResponse struct {
+	ServerlessEndpoint
+}
+
+// ServerlessEndpointsClientDeleteResponse contains the response from method ServerlessEndpointsClient.BeginDelete.
+type ServerlessEndpointsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ServerlessEndpointsClientGetResponse contains the response from method ServerlessEndpointsClient.Get.
+type ServerlessEndpointsClientGetResponse struct {
+	ServerlessEndpoint
+}
+
+// ServerlessEndpointsClientGetStatusResponse contains the response from method ServerlessEndpointsClient.GetStatus.
+type ServerlessEndpointsClientGetStatusResponse struct {
+	ServerlessEndpointStatus
+}
+
+// ServerlessEndpointsClientListKeysResponse contains the response from method ServerlessEndpointsClient.ListKeys.
+type ServerlessEndpointsClientListKeysResponse struct {
+	// Keys for endpoint authentication.
+	EndpointAuthKeys
+}
+
+// ServerlessEndpointsClientListResponse contains the response from method ServerlessEndpointsClient.NewListPager.
+type ServerlessEndpointsClientListResponse struct {
+	// A paginated list of ServerlessEndpoint entities.
+	ServerlessEndpointTrackedResourceArmPaginatedResult
+}
+
+// ServerlessEndpointsClientRegenerateKeysResponse contains the response from method ServerlessEndpointsClient.BeginRegenerateKeys.
+type ServerlessEndpointsClientRegenerateKeysResponse struct {
+	// Keys for endpoint authentication.
+	EndpointAuthKeys
+}
+
+// ServerlessEndpointsClientUpdateResponse contains the response from method ServerlessEndpointsClient.BeginUpdate.
+type ServerlessEndpointsClientUpdateResponse struct {
+	ServerlessEndpoint
 }
 
 // UsagesClientListResponse contains the response from method UsagesClient.NewListPager.
@@ -609,6 +1340,21 @@ type WorkspaceConnectionsClientGetResponse struct {
 // WorkspaceConnectionsClientListResponse contains the response from method WorkspaceConnectionsClient.NewListPager.
 type WorkspaceConnectionsClientListResponse struct {
 	WorkspaceConnectionPropertiesV2BasicResourceArmPaginatedResult
+}
+
+// WorkspaceConnectionsClientListSecretsResponse contains the response from method WorkspaceConnectionsClient.ListSecrets.
+type WorkspaceConnectionsClientListSecretsResponse struct {
+	WorkspaceConnectionPropertiesV2BasicResource
+}
+
+// WorkspaceConnectionsClientTestConnectionResponse contains the response from method WorkspaceConnectionsClient.BeginTestConnection.
+type WorkspaceConnectionsClientTestConnectionResponse struct {
+	// placeholder for future response values
+}
+
+// WorkspaceConnectionsClientUpdateResponse contains the response from method WorkspaceConnectionsClient.Update.
+type WorkspaceConnectionsClientUpdateResponse struct {
+	WorkspaceConnectionPropertiesV2BasicResource
 }
 
 // WorkspaceFeaturesClientListResponse contains the response from method WorkspaceFeaturesClient.NewListPager.
