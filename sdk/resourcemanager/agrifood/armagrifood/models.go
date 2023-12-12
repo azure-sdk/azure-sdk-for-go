@@ -10,11 +10,54 @@ package armagrifood
 
 import "time"
 
+// APIKeyAuthCredentials - ApiKeyAuthCredentials class for ApiKey based Auth.
+type APIKeyAuthCredentials struct {
+	// REQUIRED; Properties of the key vault.
+	APIKey *KeyVaultProperties
+
+	// REQUIRED; Enum for different types of AuthCredentials supported.
+	Kind *AuthCredentialsKind
+}
+
+// GetAuthCredentials implements the AuthCredentialsClassification interface for type APIKeyAuthCredentials.
+func (a *APIKeyAuthCredentials) GetAuthCredentials() *AuthCredentials {
+	return &AuthCredentials{
+		Kind: a.Kind,
+	}
+}
+
+// APIProperties - Api properties.
+type APIProperties struct {
+	// Interval in minutes for which the weather data for the api needs to be refreshed.
+	APIFreshnessTimeInMinutes *int32
+}
+
 // ArmAsyncOperation - Arm async operation class. Ref: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/async-operations.
 type ArmAsyncOperation struct {
+	// Arm async operation error class. Ref: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md#azure-asyncoperation-resource-format.
+	Error *ArmAsyncOperationError
+
 	// Status of the async operation.
 	Status *string
 }
+
+// ArmAsyncOperationError - Arm async operation error class. Ref: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md#azure-asyncoperation-resource-format.
+type ArmAsyncOperationError struct {
+	// Status of the async operation.
+	Code *string
+
+	// Status of the async operation.
+	Message *string
+}
+
+// AuthCredentials abstract base class for Auth Purpose.
+type AuthCredentials struct {
+	// REQUIRED; Enum for different types of AuthCredentials supported.
+	Kind *AuthCredentialsKind
+}
+
+// GetAuthCredentials implements the AuthCredentialsClassification interface for type AuthCredentials.
+func (a *AuthCredentials) GetAuthCredentials() *AuthCredentials { return a }
 
 // CheckNameAvailabilityRequest - The check availability request body.
 type CheckNameAvailabilityRequest struct {
@@ -37,13 +80,276 @@ type CheckNameAvailabilityResponse struct {
 	Reason *CheckNameAvailabilityReason
 }
 
-// DetailedInformation - Model to capture detailed information for farmBeatsExtensions.
+// DataConnector Model.
+type DataConnector struct {
+	// REQUIRED; DataConnector Properties.
+	Properties *DataConnectorProperties
+
+	// READ-ONLY; The ETag value to implement optimistic concurrency.
+	ETag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataConnectorListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
+type DataConnectorListResponse struct {
+	// REQUIRED; List of requested objects.
+	Value []*DataConnector
+
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+}
+
+// DataConnectorProperties - DataConnector Properties.
+type DataConnectorProperties struct {
+	// REQUIRED; AuthCredentials abstract base class for Auth Purpose.
+	Credentials AuthCredentialsClassification
+}
+
+// DataManagerForAgriculture - Data Manager For Agriculture ARM Resource.
+type DataManagerForAgriculture struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Identity for the resource.
+	Identity *Identity
+
+	// Data Manager For Agriculture ARM Resource properties.
+	Properties *DataManagerForAgricultureProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataManagerForAgricultureExtension - DataManagerForAgriculture extension resource.
+type DataManagerForAgricultureExtension struct {
+	// DataManagerForAgricultureExtension properties.
+	Properties *DataManagerForAgricultureExtensionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataManagerForAgricultureExtensionListResponse - Paged response contains list of requested objects and a URL link to get
+// the next set of results.
+type DataManagerForAgricultureExtensionListResponse struct {
+	// REQUIRED; List of requested objects.
+	Value []*DataManagerForAgricultureExtension
+
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
+}
+
+// DataManagerForAgricultureExtensionProperties - DataManagerForAgricultureExtension properties.
+type DataManagerForAgricultureExtensionProperties struct {
+	// READ-ONLY; Textual description.
+	Description *string
+
+	// READ-ONLY; Detailed information which shows summary of requested data. Used in descriptive get extension metadata call.
+	// Information for weather category per api included are apisSupported, customParameters,
+	// PlatformParameters and Units supported.
+	DetailedInformation []*DetailedInformation
+
+	// READ-ONLY; Data Manager For Agriculture Extension api docs link.
+	ExtensionAPIDocsLink *string
+
+	// READ-ONLY; Data Manager For Agriculture Extension auth link.
+	ExtensionAuthLink *string
+
+	// READ-ONLY; Category of the extension. e.g. weather/sensor/satellite.
+	ExtensionCategory *string
+
+	// READ-ONLY; Data Manager For Agriculture Extension ID.
+	FarmBeatsExtensionID *string
+
+	// READ-ONLY; Data Manager For Agriculture Extension name.
+	FarmBeatsExtensionName *string
+
+	// READ-ONLY; Data Manager For Agriculture Extension version.
+	FarmBeatsExtensionVersion *string
+
+	// READ-ONLY; Publisher ID.
+	PublisherID *string
+
+	// READ-ONLY; Target ResourceType of the Data Manager For Agriculture Extension.
+	TargetResourceType *string
+}
+
+// DataManagerForAgricultureListResponse - Paged response contains list of requested objects and a URL link to get the next
+// set of results.
+type DataManagerForAgricultureListResponse struct {
+	// REQUIRED; List of requested objects.
+	Value []*DataManagerForAgriculture
+
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
+}
+
+// DataManagerForAgricultureProperties - Data Manager For Agriculture ARM Resource properties.
+type DataManagerForAgricultureProperties struct {
+	// Property to allow or block public traffic for an Azure Data Manager For Agriculture resource.
+	PublicNetworkAccess *PublicNetworkAccess
+
+	// Sensor integration request model.
+	SensorIntegration *SensorIntegration
+
+	// READ-ONLY; Uri of the Data Manager For Agriculture instance.
+	InstanceURI *string
+
+	// READ-ONLY; Private endpoints.
+	PrivateEndpointConnections []*PrivateEndpointConnection
+
+	// READ-ONLY; Data Manager For Agriculture instance provisioning state.
+	ProvisioningState *ProvisioningState
+}
+
+// DataManagerForAgricultureSolution - DataManagerForAgriculture solution resource.
+type DataManagerForAgricultureSolution struct {
+	// DataManagerForAgricultureSolution properties.
+	Properties *DataManagerForAgricultureSolutionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataManagerForAgricultureSolutionListResponse - Paged response contains list of requested objects and a URL link to get
+// the next set of results.
+type DataManagerForAgricultureSolutionListResponse struct {
+	// REQUIRED; List of requested objects.
+	Value []*DataManagerForAgricultureSolution
+
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
+}
+
+// DataManagerForAgricultureSolutionProperties - DataManagerForAgricultureSolution properties.
+type DataManagerForAgricultureSolutionProperties struct {
+	MarketplaceOfferDetails *MarketplaceOfferDetails
+
+	// READ-ONLY; Application id of the multi tenant application to be used by partner to access Data Manager For Agriculture
+	// data.
+	AccessFBApplicationID *string
+
+	// READ-ONLY; Application name of the multi tenant application to be used by partner to access Data Manager For Agriculture
+	// Data.
+	AccessFBApplicationName *string
+
+	// READ-ONLY; List of ActionIds needed to make the SaaS multi tenant application access relevant fb data.
+	ActionIDs []*string
+
+	// READ-ONLY; Gets scope of the Data manager For Agriculture data access that's required for processing solution request to
+	// partner. Example: For gdd they might need weatherScope and satelliteScope.
+	DataAccessScopes []*string
+
+	// READ-ONLY; Gets api-version Swagger Document Dictionary to capture all api-versions of swagger exposed by partner to Data
+	// Manager For Agriculture.
+	OpenAPISpecsDictionary map[string]any
+
+	// READ-ONLY; Solution Partner Id.
+	PartnerID *string
+
+	// READ-ONLY; Solution Partner Tenant Id.
+	PartnerTenantID *string
+
+	// READ-ONLY; Role Id of the SaaS multi tenant application to access relevant fb data.
+	RoleID *string
+
+	// READ-ONLY; Role Name of the SaaS multi tenant application to access relevant fb data.
+	RoleName *string
+
+	// READ-ONLY; Application id of the SaaS multi tenant application.
+	SaaSApplicationID *string
+}
+
+// DataManagerForAgricultureUpdateProperties - Data Manager For Agriculture ARM Resource properties.
+type DataManagerForAgricultureUpdateProperties struct {
+	// Property to allow or block public traffic for an Azure Data Manager For Agriculture resource.
+	PublicNetworkAccess *PublicNetworkAccess
+
+	// Sensor integration request model.
+	SensorIntegration *SensorIntegration
+}
+
+// DataManagerForAgricultureUpdateRequestModel - DataManagerForAgriculture update request.
+type DataManagerForAgricultureUpdateRequestModel struct {
+	// Identity for the resource.
+	Identity *Identity
+
+	// Geo-location where the resource lives.
+	Location *string
+
+	// Data Manager For Agriculture ARM Resource properties.
+	Properties *DataManagerForAgricultureUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// DetailedInformation - Model to capture detailed information for Data Manager For AgricultureExtensions.
 type DetailedInformation struct {
+	// List of defaultParameters.
+	APIDefaultInputParameters []*string
+
+	// Extension provider's API documentation link.
+	APIDocsLink *string
+
 	// List of apiInputParameters.
 	APIInputParameters []*string
 
-	// ApiName available for the farmBeatsExtension.
+	// ApiName available for the Data Manager For Agriculture Extension.
 	APIName *string
+
+	// Type of Api in Extension.
+	APIType *string
 
 	// List of customParameters.
 	CustomParameters []*string
@@ -97,7 +403,7 @@ type Extension struct {
 	// READ-ONLY; The ETag value to implement optimistic concurrency.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -110,10 +416,22 @@ type Extension struct {
 	Type *string
 }
 
+// ExtensionInstallationRequest - Extension Installation Request Body.
+type ExtensionInstallationRequest struct {
+	// Additional Api Properties.
+	AdditionalAPIProperties map[string]*APIProperties
+
+	// Extension Version.
+	ExtensionVersion *string
+}
+
 // ExtensionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
 type ExtensionListResponse struct {
-	// List of requested objects.
+	// REQUIRED; List of requested objects.
 	Value []*Extension
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
 
 	// READ-ONLY; Continuation link (absolute URI) to the next page of results in the list.
 	NextLink *string
@@ -121,6 +439,9 @@ type ExtensionListResponse struct {
 
 // ExtensionProperties - Extension resource properties.
 type ExtensionProperties struct {
+	// READ-ONLY; Additional Api Properties.
+	AdditionalAPIProperties map[string]*APIProperties
+
 	// READ-ONLY; Extension api docs link.
 	ExtensionAPIDocsLink *string
 
@@ -137,157 +458,52 @@ type ExtensionProperties struct {
 	InstalledExtensionVersion *string
 }
 
-// FarmBeats ARM Resource.
-type FarmBeats struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string
-
-	// Identity for the resource.
-	Identity *Identity
-
-	// FarmBeats ARM Resource properties.
-	Properties *FarmBeatsProperties
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// FarmBeatsExtension - FarmBeats extension resource.
-type FarmBeatsExtension struct {
-	// FarmBeatsExtension properties.
-	Properties *FarmBeatsExtensionProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// FarmBeatsExtensionListResponse - Paged response contains list of requested objects and a URL link to get the next set of
-// results.
-type FarmBeatsExtensionListResponse struct {
-	// List of requested objects.
-	Value []*FarmBeatsExtension
-
-	// READ-ONLY; Continuation link (absolute URI) to the next page of results in the list.
-	NextLink *string
-}
-
-// FarmBeatsExtensionProperties - FarmBeatsExtension properties.
-type FarmBeatsExtensionProperties struct {
-	// READ-ONLY; Textual description.
-	Description *string
-
-	// READ-ONLY; Detailed information which shows summary of requested data. Used in descriptive get extension metadata call.
-	// Information for weather category per api included are apisSupported, customParameters,
-	// PlatformParameters and Units supported.
-	DetailedInformation []*DetailedInformation
-
-	// READ-ONLY; FarmBeatsExtension api docs link.
-	ExtensionAPIDocsLink *string
-
-	// READ-ONLY; FarmBeatsExtension auth link.
-	ExtensionAuthLink *string
-
-	// READ-ONLY; Category of the extension. e.g. weather/sensor/satellite.
-	ExtensionCategory *string
-
-	// READ-ONLY; FarmBeatsExtension ID.
-	FarmBeatsExtensionID *string
-
-	// READ-ONLY; FarmBeatsExtension name.
-	FarmBeatsExtensionName *string
-
-	// READ-ONLY; FarmBeatsExtension version.
-	FarmBeatsExtensionVersion *string
-
-	// READ-ONLY; Publisher ID.
-	PublisherID *string
-
-	// READ-ONLY; Target ResourceType of the farmBeatsExtension.
-	TargetResourceType *string
-}
-
-// FarmBeatsListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
-type FarmBeatsListResponse struct {
-	// List of requested objects.
-	Value []*FarmBeats
-
-	// READ-ONLY; Continuation link (absolute URI) to the next page of results in the list.
-	NextLink *string
-}
-
-// FarmBeatsProperties - FarmBeats ARM Resource properties.
-type FarmBeatsProperties struct {
-	// Property to allow or block public traffic for an Azure FarmBeats resource.
-	PublicNetworkAccess *PublicNetworkAccess
-
-	// Sensor integration request model.
-	SensorIntegration *SensorIntegration
-
-	// READ-ONLY; Uri of the FarmBeats instance.
-	InstanceURI *string
-
-	// READ-ONLY; The Private Endpoint Connection resource.
-	PrivateEndpointConnections *PrivateEndpointConnection
-
-	// READ-ONLY; FarmBeats instance provisioning state.
-	ProvisioningState *ProvisioningState
-}
-
-// FarmBeatsUpdateProperties - FarmBeats ARM Resource properties.
-type FarmBeatsUpdateProperties struct {
-	// Property to allow or block public traffic for an Azure FarmBeats resource.
-	PublicNetworkAccess *PublicNetworkAccess
-
-	// Sensor integration request model.
-	SensorIntegration *SensorIntegration
-}
-
-// FarmBeatsUpdateRequestModel - FarmBeats update request.
-type FarmBeatsUpdateRequestModel struct {
-	// Identity for the resource.
-	Identity *Identity
-
-	// Geo-location where the resource lives.
-	Location *string
-
-	// FarmBeats ARM Resource properties.
-	Properties *FarmBeatsUpdateProperties
-
-	// Resource tags.
-	Tags map[string]*string
-}
-
 // Identity for the resource.
 type Identity struct {
 	// The identity type.
 	Type *string
 
-	// READ-ONLY; The principal ID of resource identity.
+	// READ-ONLY; The principal ID of resource identity. The value must be an UUID.
 	PrincipalID *string
 
-	// READ-ONLY; The tenant ID of resource.
+	// READ-ONLY; The tenant ID of resource. The value must be an UUID.
 	TenantID *string
+}
+
+// KeyVaultProperties - Properties of the key vault.
+type KeyVaultProperties struct {
+	// REQUIRED; Name of Key Vault key.
+	KeyName *string
+
+	// REQUIRED; Uri of the key vault.
+	KeyVaultURI *string
+
+	// REQUIRED; Version of Key Vault key.
+	KeyVersion *string
+}
+
+type MarketplaceOfferDetails struct {
+	PublisherID *string
+	SaasOfferID *string
+}
+
+// OAuthClientCredentials for clientId clientSecret auth.
+type OAuthClientCredentials struct {
+	// REQUIRED; ClientId associated with the provider.
+	ClientID *string
+
+	// REQUIRED; Properties of the key vault.
+	ClientSecret *KeyVaultProperties
+
+	// REQUIRED; Enum for different types of AuthCredentials supported.
+	Kind *AuthCredentialsKind
+}
+
+// GetAuthCredentials implements the AuthCredentialsClassification interface for type OAuthClientCredentials.
+func (o *OAuthClientCredentials) GetAuthCredentials() *AuthCredentials {
+	return &AuthCredentials{
+		Kind: o.Kind,
+	}
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -339,18 +555,18 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
+// PrivateEndpoint - The private endpoint resource.
 type PrivateEndpoint struct {
-	// READ-ONLY; The ARM identifier for Private Endpoint
+	// READ-ONLY; The ARM identifier for private endpoint.
 	ID *string
 }
 
-// PrivateEndpointConnection - The Private Endpoint Connection resource.
+// PrivateEndpointConnection - The private endpoint connection resource.
 type PrivateEndpointConnection struct {
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -363,30 +579,33 @@ type PrivateEndpointConnection struct {
 	Type *string
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connection associated with the specified storage account
+// PrivateEndpointConnectionListResult - List of private endpoint connections associated with the specified resource.
 type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
+	// Array of private endpoint connections.
 	Value []*PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
 	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// The resource of private end point.
+	// The private endpoint resource.
 	PrivateEndpoint *PrivateEndpoint
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string
 
 	// READ-ONLY; The provisioning state of the private endpoint connection resource.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
-// PrivateLinkResource - A private link resource
+// PrivateLinkResource - A private link resource.
 type PrivateLinkResource struct {
 	// Resource properties.
 	Properties *PrivateLinkResourceProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -399,7 +618,7 @@ type PrivateLinkResource struct {
 	Type *string
 }
 
-// PrivateLinkResourceListResult - A list of private link resources
+// PrivateLinkResourceListResult - A list of private link resources.
 type PrivateLinkResourceListResult struct {
 	// Array of private link resources
 	Value []*PrivateLinkResource
@@ -407,7 +626,7 @@ type PrivateLinkResourceListResult struct {
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
+	// The private link resource private link DNS zone name.
 	RequiredZoneNames []*string
 
 	// READ-ONLY; The private link resource group id.
@@ -433,7 +652,7 @@ type PrivateLinkServiceConnectionState struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -448,7 +667,7 @@ type ProxyResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -463,7 +682,7 @@ type Resource struct {
 
 // SensorIntegration - Sensor integration request model.
 type SensorIntegration struct {
-	// Sensor integration enable state. Allowed values are True, None
+	// Sensor integration enable state.
 	Enabled *string
 
 	// Common error response for all Azure Resource Manager APIs to return error details for failed operations. (This also follows
@@ -472,6 +691,69 @@ type SensorIntegration struct {
 
 	// READ-ONLY; Sensor integration instance provisioning state.
 	ProvisioningState *ProvisioningState
+}
+
+// Solution resource.
+type Solution struct {
+	// Solution resource properties.
+	Properties *SolutionProperties
+
+	// READ-ONLY; The ETag value to implement optimistic concurrency.
+	ETag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SolutionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
+type SolutionListResponse struct {
+	// REQUIRED; List of requested objects.
+	Value []*Solution
+
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string
+}
+
+// SolutionProperties - Solution resource properties.
+type SolutionProperties struct {
+	// REQUIRED; SaaS application Marketplace Publisher Id.
+	MarketplacePublisherID *string
+
+	// REQUIRED; SaaS application Offer Id.
+	OfferID *string
+
+	// REQUIRED; SaaS application Plan Id.
+	PlanID *string
+
+	// REQUIRED; SaaS subscriptionId of the installed SaaS application.
+	SaasSubscriptionID *string
+
+	// REQUIRED; SaaS subscription name of the installed SaaS application.
+	SaasSubscriptionName *string
+
+	// REQUIRED; SaaS application Term Id.
+	TermID *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Role Assignment Id.
+	RoleAssignmentID *string
+
+	// READ-ONLY; Partner Id of the Solution.
+	PartnerID *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -504,7 +786,7 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
