@@ -1,5 +1,19 @@
 # Release History
 
+## 4.1.0 (2023-12-12)
+### Features Added
+
+- New field `Metadata` in struct `AzureBlobFSWriteSettings`
+- New field `Metadata` in struct `AzureBlobStorageWriteSettings`
+- New field `Metadata` in struct `AzureDataLakeStoreWriteSettings`
+- New field `Metadata` in struct `AzureFileStorageWriteSettings`
+- New field `Metadata` in struct `FileServerWriteSettings`
+- New field `Metadata` in struct `LakeHouseWriteSettings`
+- New field `Metadata` in struct `SftpWriteSettings`
+- New field `Metadata` in struct `StoreWriteSettings`
+- New field `HTTPRequestTimeout`, `TurnOffAsync` in struct `WebActivityTypeProperties`
+
+
 ## 4.0.0 (2023-12-22)
 ### Breaking Changes
 

@@ -3699,6 +3699,7 @@ func (a AzureBlobFSWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", a.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", a.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", a.MaxConcurrentConnections)
+	populate(objectMap, "metadata", a.Metadata)
 	objectMap["type"] = "AzureBlobFSWriteSettings"
 	if a.AdditionalProperties != nil {
 		for key, val := range a.AdditionalProperties {
@@ -3728,6 +3729,9 @@ func (a *AzureBlobFSWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &a.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &a.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &a.Type)
@@ -4042,6 +4046,7 @@ func (a AzureBlobStorageWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", a.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", a.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", a.MaxConcurrentConnections)
+	populate(objectMap, "metadata", a.Metadata)
 	objectMap["type"] = "AzureBlobStorageWriteSettings"
 	if a.AdditionalProperties != nil {
 		for key, val := range a.AdditionalProperties {
@@ -4071,6 +4076,9 @@ func (a *AzureBlobStorageWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &a.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &a.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &a.Type)
@@ -5206,6 +5214,7 @@ func (a AzureDataLakeStoreWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "disableMetricsCollection", a.DisableMetricsCollection)
 	populateAny(objectMap, "expiryDateTime", a.ExpiryDateTime)
 	populateAny(objectMap, "maxConcurrentConnections", a.MaxConcurrentConnections)
+	populate(objectMap, "metadata", a.Metadata)
 	objectMap["type"] = "AzureDataLakeStoreWriteSettings"
 	if a.AdditionalProperties != nil {
 		for key, val := range a.AdditionalProperties {
@@ -5235,6 +5244,9 @@ func (a *AzureDataLakeStoreWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &a.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &a.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &a.Type)
@@ -6143,6 +6155,7 @@ func (a AzureFileStorageWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", a.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", a.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", a.MaxConcurrentConnections)
+	populate(objectMap, "metadata", a.Metadata)
 	objectMap["type"] = "AzureFileStorageWriteSettings"
 	if a.AdditionalProperties != nil {
 		for key, val := range a.AdditionalProperties {
@@ -6169,6 +6182,9 @@ func (a *AzureFileStorageWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &a.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &a.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &a.Type)
@@ -20449,6 +20465,7 @@ func (f FileServerWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", f.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", f.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", f.MaxConcurrentConnections)
+	populate(objectMap, "metadata", f.Metadata)
 	objectMap["type"] = "FileServerWriteSettings"
 	if f.AdditionalProperties != nil {
 		for key, val := range f.AdditionalProperties {
@@ -20475,6 +20492,9 @@ func (f *FileServerWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &f.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &f.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &f.Type)
@@ -28657,6 +28677,7 @@ func (l LakeHouseWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", l.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", l.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", l.MaxConcurrentConnections)
+	populate(objectMap, "metadata", l.Metadata)
 	objectMap["type"] = "LakeHouseWriteSettings"
 	if l.AdditionalProperties != nil {
 		for key, val := range l.AdditionalProperties {
@@ -28683,6 +28704,9 @@ func (l *LakeHouseWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &l.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &l.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &l.Type)
@@ -46779,6 +46803,7 @@ func (s SftpWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", s.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", s.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", s.MaxConcurrentConnections)
+	populate(objectMap, "metadata", s.Metadata)
 	populateAny(objectMap, "operationTimeout", s.OperationTimeout)
 	objectMap["type"] = "SftpWriteSettings"
 	populateAny(objectMap, "useTempFileRename", s.UseTempFileRename)
@@ -46807,6 +46832,9 @@ func (s *SftpWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &s.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &s.Metadata)
 			delete(rawMsg, key)
 		case "operationTimeout":
 			err = unpopulate(val, "OperationTimeout", &s.OperationTimeout)
@@ -49114,6 +49142,7 @@ func (s StoreWriteSettings) MarshalJSON() ([]byte, error) {
 	populateAny(objectMap, "copyBehavior", s.CopyBehavior)
 	populateAny(objectMap, "disableMetricsCollection", s.DisableMetricsCollection)
 	populateAny(objectMap, "maxConcurrentConnections", s.MaxConcurrentConnections)
+	populate(objectMap, "metadata", s.Metadata)
 	objectMap["type"] = s.Type
 	if s.AdditionalProperties != nil {
 		for key, val := range s.AdditionalProperties {
@@ -49140,6 +49169,9 @@ func (s *StoreWriteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxConcurrentConnections":
 			err = unpopulate(val, "MaxConcurrentConnections", &s.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &s.Metadata)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
@@ -52236,9 +52268,11 @@ func (w WebActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "connectVia", w.ConnectVia)
 	populate(objectMap, "datasets", w.Datasets)
 	populate(objectMap, "disableCertValidation", w.DisableCertValidation)
+	populateAny(objectMap, "httpRequestTimeout", w.HTTPRequestTimeout)
 	populateAny(objectMap, "headers", w.Headers)
 	populate(objectMap, "linkedServices", w.LinkedServices)
 	populate(objectMap, "method", w.Method)
+	populate(objectMap, "turnOffAsync", w.TurnOffAsync)
 	populateAny(objectMap, "url", w.URL)
 	return json.Marshal(objectMap)
 }
@@ -52267,6 +52301,9 @@ func (w *WebActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		case "disableCertValidation":
 			err = unpopulate(val, "DisableCertValidation", &w.DisableCertValidation)
 			delete(rawMsg, key)
+		case "httpRequestTimeout":
+			err = unpopulate(val, "HTTPRequestTimeout", &w.HTTPRequestTimeout)
+			delete(rawMsg, key)
 		case "headers":
 			err = unpopulate(val, "Headers", &w.Headers)
 			delete(rawMsg, key)
@@ -52275,6 +52312,9 @@ func (w *WebActivityTypeProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "method":
 			err = unpopulate(val, "Method", &w.Method)
+			delete(rawMsg, key)
+		case "turnOffAsync":
+			err = unpopulate(val, "TurnOffAsync", &w.TurnOffAsync)
 			delete(rawMsg, key)
 		case "url":
 			err = unpopulate(val, "URL", &w.URL)
