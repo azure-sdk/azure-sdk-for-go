@@ -21,6 +21,7 @@ import (
 type ServerFactory struct {
 	APIPortalCustomDomainsServer  APIPortalCustomDomainsServer
 	APIPortalsServer              APIPortalsServer
+	ApmsServer                    ApmsServer
 	ApplicationAcceleratorsServer ApplicationAcceleratorsServer
 	ApplicationLiveViewsServer    ApplicationLiveViewsServer
 	AppsServer                    AppsServer
@@ -32,10 +33,12 @@ type ServerFactory struct {
 	CertificatesServer            CertificatesServer
 	ConfigServersServer           ConfigServersServer
 	ConfigurationServicesServer   ConfigurationServicesServer
+	ContainerRegistriesServer     ContainerRegistriesServer
 	CustomDomainsServer           CustomDomainsServer
 	CustomizedAcceleratorsServer  CustomizedAcceleratorsServer
 	DeploymentsServer             DeploymentsServer
 	DevToolPortalsServer          DevToolPortalsServer
+	EurekaServersServer           EurekaServersServer
 	GatewayCustomDomainsServer    GatewayCustomDomainsServer
 	GatewayRouteConfigsServer     GatewayRouteConfigsServer
 	GatewaysServer                GatewaysServer
@@ -65,6 +68,7 @@ type ServerFactoryTransport struct {
 	trMu                            sync.Mutex
 	trAPIPortalCustomDomainsServer  *APIPortalCustomDomainsServerTransport
 	trAPIPortalsServer              *APIPortalsServerTransport
+	trApmsServer                    *ApmsServerTransport
 	trApplicationAcceleratorsServer *ApplicationAcceleratorsServerTransport
 	trApplicationLiveViewsServer    *ApplicationLiveViewsServerTransport
 	trAppsServer                    *AppsServerTransport
@@ -76,10 +80,12 @@ type ServerFactoryTransport struct {
 	trCertificatesServer            *CertificatesServerTransport
 	trConfigServersServer           *ConfigServersServerTransport
 	trConfigurationServicesServer   *ConfigurationServicesServerTransport
+	trContainerRegistriesServer     *ContainerRegistriesServerTransport
 	trCustomDomainsServer           *CustomDomainsServerTransport
 	trCustomizedAcceleratorsServer  *CustomizedAcceleratorsServerTransport
 	trDeploymentsServer             *DeploymentsServerTransport
 	trDevToolPortalsServer          *DevToolPortalsServerTransport
+	trEurekaServersServer           *EurekaServersServerTransport
 	trGatewayCustomDomainsServer    *GatewayCustomDomainsServerTransport
 	trGatewayRouteConfigsServer     *GatewayRouteConfigsServerTransport
 	trGatewaysServer                *GatewaysServerTransport
@@ -114,6 +120,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "APIPortalsClient":
 		initServer(s, &s.trAPIPortalsServer, func() *APIPortalsServerTransport { return NewAPIPortalsServerTransport(&s.srv.APIPortalsServer) })
 		resp, err = s.trAPIPortalsServer.Do(req)
+	case "ApmsClient":
+		initServer(s, &s.trApmsServer, func() *ApmsServerTransport { return NewApmsServerTransport(&s.srv.ApmsServer) })
+		resp, err = s.trApmsServer.Do(req)
 	case "ApplicationAcceleratorsClient":
 		initServer(s, &s.trApplicationAcceleratorsServer, func() *ApplicationAcceleratorsServerTransport {
 			return NewApplicationAcceleratorsServerTransport(&s.srv.ApplicationAcceleratorsServer)
@@ -161,6 +170,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewConfigurationServicesServerTransport(&s.srv.ConfigurationServicesServer)
 		})
 		resp, err = s.trConfigurationServicesServer.Do(req)
+	case "ContainerRegistriesClient":
+		initServer(s, &s.trContainerRegistriesServer, func() *ContainerRegistriesServerTransport {
+			return NewContainerRegistriesServerTransport(&s.srv.ContainerRegistriesServer)
+		})
+		resp, err = s.trContainerRegistriesServer.Do(req)
 	case "CustomDomainsClient":
 		initServer(s, &s.trCustomDomainsServer, func() *CustomDomainsServerTransport {
 			return NewCustomDomainsServerTransport(&s.srv.CustomDomainsServer)
@@ -179,6 +193,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDevToolPortalsServerTransport(&s.srv.DevToolPortalsServer)
 		})
 		resp, err = s.trDevToolPortalsServer.Do(req)
+	case "EurekaServersClient":
+		initServer(s, &s.trEurekaServersServer, func() *EurekaServersServerTransport {
+			return NewEurekaServersServerTransport(&s.srv.EurekaServersServer)
+		})
+		resp, err = s.trEurekaServersServer.Do(req)
 	case "GatewayCustomDomainsClient":
 		initServer(s, &s.trGatewayCustomDomainsServer, func() *GatewayCustomDomainsServerTransport {
 			return NewGatewayCustomDomainsServerTransport(&s.srv.GatewayCustomDomainsServer)
