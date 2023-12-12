@@ -72,3 +72,9 @@ func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	subClient, _ := NewReplicasClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
+
+// NewSnapshotsClient creates a new instance of SnapshotsClient.
+func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
+	subClient, _ := NewSnapshotsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
