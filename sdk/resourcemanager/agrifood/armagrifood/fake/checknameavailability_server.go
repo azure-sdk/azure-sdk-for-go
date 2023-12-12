@@ -20,28 +20,28 @@ import (
 	"regexp"
 )
 
-// LocationsServer is a fake server for instances of the armagrifood.LocationsClient type.
-type LocationsServer struct {
-	// CheckNameAvailability is the fake for method LocationsClient.CheckNameAvailability
+// CheckNameAvailabilityServer is a fake server for instances of the armagrifood.CheckNameAvailabilityClient type.
+type CheckNameAvailabilityServer struct {
+	// CheckNameAvailability is the fake for method CheckNameAvailabilityClient.CheckNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
-	CheckNameAvailability func(ctx context.Context, body armagrifood.CheckNameAvailabilityRequest, options *armagrifood.LocationsClientCheckNameAvailabilityOptions) (resp azfake.Responder[armagrifood.LocationsClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
+	CheckNameAvailability func(ctx context.Context, nameAvailabilityRequest armagrifood.CheckNameAvailabilityRequest, options *armagrifood.CheckNameAvailabilityClientCheckNameAvailabilityOptions) (resp azfake.Responder[armagrifood.CheckNameAvailabilityClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
 }
 
-// NewLocationsServerTransport creates a new instance of LocationsServerTransport with the provided implementation.
-// The returned LocationsServerTransport instance is connected to an instance of armagrifood.LocationsClient via the
+// NewCheckNameAvailabilityServerTransport creates a new instance of CheckNameAvailabilityServerTransport with the provided implementation.
+// The returned CheckNameAvailabilityServerTransport instance is connected to an instance of armagrifood.CheckNameAvailabilityClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewLocationsServerTransport(srv *LocationsServer) *LocationsServerTransport {
-	return &LocationsServerTransport{srv: srv}
+func NewCheckNameAvailabilityServerTransport(srv *CheckNameAvailabilityServer) *CheckNameAvailabilityServerTransport {
+	return &CheckNameAvailabilityServerTransport{srv: srv}
 }
 
-// LocationsServerTransport connects instances of armagrifood.LocationsClient to instances of LocationsServer.
-// Don't use this type directly, use NewLocationsServerTransport instead.
-type LocationsServerTransport struct {
-	srv *LocationsServer
+// CheckNameAvailabilityServerTransport connects instances of armagrifood.CheckNameAvailabilityClient to instances of CheckNameAvailabilityServer.
+// Don't use this type directly, use NewCheckNameAvailabilityServerTransport instead.
+type CheckNameAvailabilityServerTransport struct {
+	srv *CheckNameAvailabilityServer
 }
 
-// Do implements the policy.Transporter interface for LocationsServerTransport.
-func (l *LocationsServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for CheckNameAvailabilityServerTransport.
+func (c *CheckNameAvailabilityServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
@@ -52,8 +52,8 @@ func (l *LocationsServerTransport) Do(req *http.Request) (*http.Response, error)
 	var err error
 
 	switch method {
-	case "LocationsClient.CheckNameAvailability":
-		resp, err = l.dispatchCheckNameAvailability(req)
+	case "CheckNameAvailabilityClient.CheckNameAvailability":
+		resp, err = c.dispatchCheckNameAvailability(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -65,8 +65,8 @@ func (l *LocationsServerTransport) Do(req *http.Request) (*http.Response, error)
 	return resp, nil
 }
 
-func (l *LocationsServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
-	if l.srv.CheckNameAvailability == nil {
+func (c *CheckNameAvailabilityServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
+	if c.srv.CheckNameAvailability == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CheckNameAvailability not implemented")}
 	}
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/checkNameAvailability`
@@ -79,7 +79,7 @@ func (l *LocationsServerTransport) dispatchCheckNameAvailability(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := l.srv.CheckNameAvailability(req.Context(), body, nil)
+	respr, errRespr := c.srv.CheckNameAvailability(req.Context(), body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
