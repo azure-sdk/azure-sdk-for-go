@@ -10,8 +10,34 @@ package armdesktopvirtualization
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0-beta.1"
 )
+
+// AppAttachPackageArchitectures - Possible device architectures that an app attach package can be configured for
+type AppAttachPackageArchitectures string
+
+const (
+	AppAttachPackageArchitecturesALL     AppAttachPackageArchitectures = "ALL"
+	AppAttachPackageArchitecturesARM     AppAttachPackageArchitectures = "ARM"
+	AppAttachPackageArchitecturesARM64   AppAttachPackageArchitectures = "ARM64"
+	AppAttachPackageArchitecturesNeutral AppAttachPackageArchitectures = "Neutral"
+	AppAttachPackageArchitecturesX64     AppAttachPackageArchitectures = "x64"
+	AppAttachPackageArchitecturesX86     AppAttachPackageArchitectures = "x86"
+	AppAttachPackageArchitecturesX86A64  AppAttachPackageArchitectures = "x86a64"
+)
+
+// PossibleAppAttachPackageArchitecturesValues returns the possible values for the AppAttachPackageArchitectures const type.
+func PossibleAppAttachPackageArchitecturesValues() []AppAttachPackageArchitectures {
+	return []AppAttachPackageArchitectures{
+		AppAttachPackageArchitecturesALL,
+		AppAttachPackageArchitecturesARM,
+		AppAttachPackageArchitecturesARM64,
+		AppAttachPackageArchitecturesNeutral,
+		AppAttachPackageArchitecturesX64,
+		AppAttachPackageArchitecturesX86,
+		AppAttachPackageArchitecturesX86A64,
+	}
+}
 
 // ApplicationGroupType - Resource Type of ApplicationGroup.
 type ApplicationGroupType string
@@ -107,6 +133,42 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 		DayOfWeekThursday,
 		DayOfWeekTuesday,
 		DayOfWeekWednesday,
+	}
+}
+
+// DomainJoinType - The type of domain join done by the virtual machine.
+type DomainJoinType string
+
+const (
+	// DomainJoinTypeActiveDirectory - Using microsoft active directory.
+	DomainJoinTypeActiveDirectory DomainJoinType = "ActiveDirectory"
+	// DomainJoinTypeAzureActiveDirectory - Using microsoft azure active directory.
+	DomainJoinTypeAzureActiveDirectory DomainJoinType = "AzureActiveDirectory"
+)
+
+// PossibleDomainJoinTypeValues returns the possible values for the DomainJoinType const type.
+func PossibleDomainJoinTypeValues() []DomainJoinType {
+	return []DomainJoinType{
+		DomainJoinTypeActiveDirectory,
+		DomainJoinTypeAzureActiveDirectory,
+	}
+}
+
+// FailHealthCheckOnStagingFailure - Parameter indicating how the health check should behave if this package fails staging
+type FailHealthCheckOnStagingFailure string
+
+const (
+	FailHealthCheckOnStagingFailureDoNotFail       FailHealthCheckOnStagingFailure = "DoNotFail"
+	FailHealthCheckOnStagingFailureNeedsAssistance FailHealthCheckOnStagingFailure = "NeedsAssistance"
+	FailHealthCheckOnStagingFailureUnhealthy       FailHealthCheckOnStagingFailure = "Unhealthy"
+)
+
+// PossibleFailHealthCheckOnStagingFailureValues returns the possible values for the FailHealthCheckOnStagingFailure const type.
+func PossibleFailHealthCheckOnStagingFailureValues() []FailHealthCheckOnStagingFailure {
+	return []FailHealthCheckOnStagingFailure{
+		FailHealthCheckOnStagingFailureDoNotFail,
+		FailHealthCheckOnStagingFailureNeedsAssistance,
+		FailHealthCheckOnStagingFailureUnhealthy,
 	}
 }
 
@@ -227,6 +289,33 @@ func PossibleHostPoolTypeValues() []HostPoolType {
 	}
 }
 
+// HostPoolUpdateAction - Action types for controlling hostpool update.
+type HostPoolUpdateAction string
+
+const (
+	// HostPoolUpdateActionCancel - Cancel the hostpool update.
+	HostPoolUpdateActionCancel HostPoolUpdateAction = "Cancel"
+	// HostPoolUpdateActionPause - Pause the hostpool update.
+	HostPoolUpdateActionPause HostPoolUpdateAction = "Pause"
+	// HostPoolUpdateActionResume - Resume the hostpool update.
+	HostPoolUpdateActionResume HostPoolUpdateAction = "Resume"
+	// HostPoolUpdateActionRetry - Retry the hostpool update.
+	HostPoolUpdateActionRetry HostPoolUpdateAction = "Retry"
+	// HostPoolUpdateActionStart - Start the hostpool update.
+	HostPoolUpdateActionStart HostPoolUpdateAction = "Start"
+)
+
+// PossibleHostPoolUpdateActionValues returns the possible values for the HostPoolUpdateAction const type.
+func PossibleHostPoolUpdateActionValues() []HostPoolUpdateAction {
+	return []HostPoolUpdateAction{
+		HostPoolUpdateActionCancel,
+		HostPoolUpdateActionPause,
+		HostPoolUpdateActionResume,
+		HostPoolUpdateActionRetry,
+		HostPoolUpdateActionStart,
+	}
+}
+
 // HostpoolPublicNetworkAccess - Enabled allows this resource to be accessed from both public and private networks, Disabled
 // allows this resource to only be accessed via private endpoints
 type HostpoolPublicNetworkAccess string
@@ -263,6 +352,75 @@ func PossibleLoadBalancerTypeValues() []LoadBalancerType {
 		LoadBalancerTypeBreadthFirst,
 		LoadBalancerTypeDepthFirst,
 		LoadBalancerTypePersistent,
+	}
+}
+
+// ManagementType - The type of management for this hostpool, Automated or Standard. The default value is Automated.
+type ManagementType string
+
+const (
+	ManagementTypeAutomated ManagementType = "Automated"
+	ManagementTypeStandard  ManagementType = "Standard"
+)
+
+// PossibleManagementTypeValues returns the possible values for the ManagementType const type.
+func PossibleManagementTypeValues() []ManagementType {
+	return []ManagementType{
+		ManagementTypeAutomated,
+		ManagementTypeStandard,
+	}
+}
+
+// OperationActionSHM - Action type of the current sessionHostManagement operation.
+type OperationActionSHM string
+
+const (
+	OperationActionSHMCancel OperationActionSHM = "Cancel"
+	OperationActionSHMPause  OperationActionSHM = "Pause"
+	OperationActionSHMResume OperationActionSHM = "Resume"
+	OperationActionSHMRetry  OperationActionSHM = "Retry"
+	OperationActionSHMStart  OperationActionSHM = "Start"
+)
+
+// PossibleOperationActionSHMValues returns the possible values for the OperationActionSHM const type.
+func PossibleOperationActionSHMValues() []OperationActionSHM {
+	return []OperationActionSHM{
+		OperationActionSHMCancel,
+		OperationActionSHMPause,
+		OperationActionSHMResume,
+		OperationActionSHMRetry,
+		OperationActionSHMStart,
+	}
+}
+
+type OperationTypeSHM string
+
+const (
+	OperationTypeSHMInitiateSessionHostUpdate OperationTypeSHM = "InitiateSessionHostUpdate"
+	OperationTypeSHMValidateSessionHostUpdate OperationTypeSHM = "ValidateSessionHostUpdate"
+)
+
+// PossibleOperationTypeSHMValues returns the possible values for the OperationTypeSHM const type.
+func PossibleOperationTypeSHMValues() []OperationTypeSHM {
+	return []OperationTypeSHM{
+		OperationTypeSHMInitiateSessionHostUpdate,
+		OperationTypeSHMValidateSessionHostUpdate,
+	}
+}
+
+// PackageTimestamped - Is package timestamped so it can ignore the certificate expiry date
+type PackageTimestamped string
+
+const (
+	PackageTimestampedNotTimestamped PackageTimestamped = "NotTimestamped"
+	PackageTimestampedTimestamped    PackageTimestamped = "Timestamped"
+)
+
+// PossiblePackageTimestampedValues returns the possible values for the PackageTimestamped const type.
+func PossiblePackageTimestampedValues() []PackageTimestamped {
+	return []PackageTimestamped{
+		PackageTimestampedNotTimestamped,
+		PackageTimestampedTimestamped,
 	}
 }
 
@@ -335,6 +493,46 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 		PrivateEndpointServiceConnectionStatusApproved,
 		PrivateEndpointServiceConnectionStatusPending,
 		PrivateEndpointServiceConnectionStatusRejected,
+	}
+}
+
+// ProvisioningState - The current provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled     ProvisioningState = "Canceled"
+	ProvisioningStateFailed       ProvisioningState = "Failed"
+	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
+	ProvisioningStateSucceeded    ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateFailed,
+		ProvisioningStateProvisioning,
+		ProvisioningStateSucceeded,
+	}
+}
+
+// ProvisioningStateSHC - Provisioning state of the Session Host Configuration.
+type ProvisioningStateSHC string
+
+const (
+	ProvisioningStateSHCCanceled     ProvisioningStateSHC = "Canceled"
+	ProvisioningStateSHCFailed       ProvisioningStateSHC = "Failed"
+	ProvisioningStateSHCProvisioning ProvisioningStateSHC = "Provisioning"
+	ProvisioningStateSHCSucceeded    ProvisioningStateSHC = "Succeeded"
+)
+
+// PossibleProvisioningStateSHCValues returns the possible values for the ProvisioningStateSHC const type.
+func PossibleProvisioningStateSHCValues() []ProvisioningStateSHC {
+	return []ProvisioningStateSHC{
+		ProvisioningStateSHCCanceled,
+		ProvisioningStateSHCFailed,
+		ProvisioningStateSHCProvisioning,
+		ProvisioningStateSHCSucceeded,
 	}
 }
 
@@ -655,6 +853,24 @@ func PossibleStopHostsWhenValues() []StopHostsWhen {
 	}
 }
 
+// Type - The type of image session hosts use in the hostpool.
+type Type string
+
+const (
+	// TypeCustom - Using a custom image.
+	TypeCustom Type = "Custom"
+	// TypeMarketplace - Using default marketplace images offered by Azure Marketplace.
+	TypeMarketplace Type = "Marketplace"
+)
+
+// PossibleTypeValues returns the possible values for the Type const type.
+func PossibleTypeValues() []Type {
+	return []Type{
+		TypeCustom,
+		TypeMarketplace,
+	}
+}
+
 // UpdateState - Update state of a SessionHost.
 type UpdateState string
 
@@ -674,5 +890,50 @@ func PossibleUpdateStateValues() []UpdateState {
 		UpdateStatePending,
 		UpdateStateStarted,
 		UpdateStateSucceeded,
+	}
+}
+
+// VirtualMachineDiskType - The disk type used by virtual machine in hostpool session host.
+type VirtualMachineDiskType string
+
+const (
+	// VirtualMachineDiskTypePremiumLRS - Premium SSD locally redundant storage. Best for production and performance sensitive
+	// workloads.
+	VirtualMachineDiskTypePremiumLRS VirtualMachineDiskType = "Premium_LRS"
+	// VirtualMachineDiskTypeStandardLRS - Standard HDD locally redundant storage. Best for backup, non-critical, and infrequent
+	// access.
+	VirtualMachineDiskTypeStandardLRS VirtualMachineDiskType = "Standard_LRS"
+	// VirtualMachineDiskTypeStandardSSDLRS - Standard SSD locally redundant storage. Best for web servers, lightly used enterprise
+	// applications and dev/test.
+	VirtualMachineDiskTypeStandardSSDLRS VirtualMachineDiskType = "StandardSSD_LRS"
+)
+
+// PossibleVirtualMachineDiskTypeValues returns the possible values for the VirtualMachineDiskType const type.
+func PossibleVirtualMachineDiskTypeValues() []VirtualMachineDiskType {
+	return []VirtualMachineDiskType{
+		VirtualMachineDiskTypePremiumLRS,
+		VirtualMachineDiskTypeStandardLRS,
+		VirtualMachineDiskTypeStandardSSDLRS,
+	}
+}
+
+// VirtualMachineSecurityType - The security type used by virtual machine in hostpool session host. Default is Standard.
+type VirtualMachineSecurityType string
+
+const (
+	// VirtualMachineSecurityTypeConfidentialVM - Confidential Virtual Machine security protocol
+	VirtualMachineSecurityTypeConfidentialVM VirtualMachineSecurityType = "ConfidentialVM"
+	// VirtualMachineSecurityTypeStandard - Standard security protocol. No additional parameters
+	VirtualMachineSecurityTypeStandard VirtualMachineSecurityType = "Standard"
+	// VirtualMachineSecurityTypeTrustedLaunch - TrustedLaunch allows for secure boot adn vTPM
+	VirtualMachineSecurityTypeTrustedLaunch VirtualMachineSecurityType = "TrustedLaunch"
+)
+
+// PossibleVirtualMachineSecurityTypeValues returns the possible values for the VirtualMachineSecurityType const type.
+func PossibleVirtualMachineSecurityTypeValues() []VirtualMachineSecurityType {
+	return []VirtualMachineSecurityType{
+		VirtualMachineSecurityTypeConfidentialVM,
+		VirtualMachineSecurityTypeStandard,
+		VirtualMachineSecurityTypeTrustedLaunch,
 	}
 }
