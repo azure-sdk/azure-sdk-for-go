@@ -98,6 +98,84 @@ type AKSSchemaProperties struct {
 	SystemServices []*SystemService
 }
 
+// APIKeyAuthWorkspaceConnectionProperties - This connection type covers the generic ApiKey auth connection categories, for
+// examples: AzureOpenAI: Category:= AzureOpenAI AuthType:= ApiKey (as type discriminator) Credentials:= {ApiKey} as
+// Microsoft.MachineLearning.AccountRP.Contracts.WorkspaceConnection.ApiKey Target:= {ApiBase}
+// CognitiveService: Category:= CognitiveService AuthType:= ApiKey (as type discriminator) Credentials:= {SubscriptionKey}
+// as Microsoft.MachineLearning.AccountRP.Contracts.WorkspaceConnection.ApiKey
+// Target:= ServiceRegion={serviceRegion}
+// CognitiveSearch: Category:= CognitiveSearch AuthType:= ApiKey (as type discriminator) Credentials:= {Key} as Microsoft.MachineLearning.AccountRP.Contracts.WorkspaceConnection.ApiKey
+// Target:=
+// {Endpoint}
+// Use Metadata property bag for ApiType, ApiVersion, Kind and other metadata fields
+type APIKeyAuthWorkspaceConnectionProperties struct {
+	// REQUIRED; Authentication type of the connection target
+	AuthType *ConnectionAuthType
+
+	// Category of the connection
+	Category *ConnectionCategory
+
+	// Api key object for workspace connection credential.
+	Credentials *WorkspaceConnectionAPIKey
+	ExpiryTime  *time.Time
+
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
+
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
+}
+
+// GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type APIKeyAuthWorkspaceConnectionProperties.
+func (a *APIKeyAuthWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
+	return &WorkspaceConnectionPropertiesV2{
+		AuthType:                a.AuthType,
+		Category:                a.Category,
+		CreatedByWorkspaceArmID: a.CreatedByWorkspaceArmID,
+		ExpiryTime:              a.ExpiryTime,
+		IsSharedToAll:           a.IsSharedToAll,
+		Metadata:                a.Metadata,
+		Target:                  a.Target,
+	}
+}
+
+type AccessKeyAuthTypeWorkspaceConnectionProperties struct {
+	// REQUIRED; Authentication type of the connection target
+	AuthType *ConnectionAuthType
+
+	// Category of the connection
+	Category    *ConnectionCategory
+	Credentials *WorkspaceConnectionAccessKey
+	ExpiryTime  *time.Time
+
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
+
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
+}
+
+// GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type AccessKeyAuthTypeWorkspaceConnectionProperties.
+func (a *AccessKeyAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
+	return &WorkspaceConnectionPropertiesV2{
+		AuthType:                a.AuthType,
+		Category:                a.Category,
+		CreatedByWorkspaceArmID: a.CreatedByWorkspaceArmID,
+		ExpiryTime:              a.ExpiryTime,
+		IsSharedToAll:           a.IsSharedToAll,
+		Metadata:                a.Metadata,
+		Target:                  a.Target,
+	}
+}
+
 // AccountKeyDatastoreCredentials - Account key datastore credentials configuration.
 type AccountKeyDatastoreCredentials struct {
 	// REQUIRED; [Required] Credential type used to authentication with storage.
@@ -128,6 +206,26 @@ func (a *AccountKeyDatastoreSecrets) GetDatastoreSecrets() *DatastoreSecrets {
 	return &DatastoreSecrets{
 		SecretsType: a.SecretsType,
 	}
+}
+
+// AcrDetails - Details of ACR account to be used for the Registry
+type AcrDetails struct {
+	// Details of system created ACR account to be used for the Registry
+	SystemCreatedAcrAccount *SystemCreatedAcrAccount
+
+	// Details of user created ACR account to be used for the Registry
+	UserCreatedAcrAccount *UserCreatedAcrAccount
+}
+
+type ActualCapacityInfo struct {
+	// Gets or sets the total number of instances for the group.
+	Allocated *int32
+
+	// Gets or sets the number of instances which failed to successfully complete assignment.
+	AssignmentFailed *int32
+
+	// Gets or sets the number of instances which successfully completed assignment.
+	AssignmentSuccess *int32
 }
 
 // AksComputeSecrets - Secrets related to a Machine Learning compute based on AKS.
@@ -179,6 +277,31 @@ type AksNetworkingConfiguration struct {
 
 	// Virtual network subnet resource ID the compute nodes belong to
 	SubnetID *string
+}
+
+type AllFeatures struct {
+	// REQUIRED; [Required] Specifies the feature filter to leverage when selecting features to calculate metrics over.
+	FilterType *MonitoringFeatureFilterType
+}
+
+// GetMonitoringFeatureFilterBase implements the MonitoringFeatureFilterBaseClassification interface for type AllFeatures.
+func (a *AllFeatures) GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase {
+	return &MonitoringFeatureFilterBase{
+		FilterType: a.FilterType,
+	}
+}
+
+// AllNodes - All nodes means the service will be running on all of the nodes of the job
+type AllNodes struct {
+	// REQUIRED; [Required] Type of the Nodes value
+	NodesValueType *NodesValueType
+}
+
+// GetNodes implements the NodesClassification interface for type AllNodes.
+func (a *AllNodes) GetNodes() *Nodes {
+	return &Nodes{
+		NodesValueType: a.NodesValueType,
+	}
 }
 
 // AmlCompute - An Azure Machine Learning compute.
@@ -336,39 +459,6 @@ type AmlComputeSchema struct {
 	Properties *AmlComputeProperties
 }
 
-// AmlOperation - Azure Machine Learning workspace REST API operation
-type AmlOperation struct {
-	// Display name of operation
-	Display *AmlOperationDisplay
-
-	// Indicates whether the operation applies to data-plane
-	IsDataAction *bool
-
-	// Operation name: {provider}/{resource}/{operation}
-	Name *string
-}
-
-// AmlOperationDisplay - Display name of operation
-type AmlOperationDisplay struct {
-	// The description for the operation.
-	Description *string
-
-	// The operation that users can perform.
-	Operation *string
-
-	// The resource provider name: Microsoft.MachineLearningExperimentation
-	Provider *string
-
-	// The resource on which the operation is performed.
-	Resource *string
-}
-
-// AmlOperationListResult - An array of operations supported by the resource provider.
-type AmlOperationListResult struct {
-	// List of AML workspace operations supported by the AML workspace resource provider.
-	Value []*AmlOperation
-}
-
 // AmlToken - AML Token identity configuration.
 type AmlToken struct {
 	// REQUIRED; [Required] Specifies the type of identity framework.
@@ -379,6 +469,19 @@ type AmlToken struct {
 func (a *AmlToken) GetIdentityConfiguration() *IdentityConfiguration {
 	return &IdentityConfiguration{
 		IdentityType: a.IdentityType,
+	}
+}
+
+// AmlTokenComputeIdentity - AML token compute identity definition.
+type AmlTokenComputeIdentity struct {
+	// REQUIRED; [Required] Monitor compute identity type enum.
+	ComputeIdentityType *MonitorComputeIdentityType
+}
+
+// GetMonitorComputeIdentityBase implements the MonitorComputeIdentityBaseClassification interface for type AmlTokenComputeIdentity.
+func (a *AmlTokenComputeIdentity) GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase {
+	return &MonitorComputeIdentityBase{
+		ComputeIdentityType: a.ComputeIdentityType,
 	}
 }
 
@@ -394,14 +497,39 @@ type AmlUserFeature struct {
 	ID *string
 }
 
+// AnonymousAccessCredential - Access credential with no credentials
+type AnonymousAccessCredential struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *DataReferenceCredentialType
+}
+
+// GetDataReferenceCredential implements the DataReferenceCredentialClassification interface for type AnonymousAccessCredential.
+func (a *AnonymousAccessCredential) GetDataReferenceCredential() *DataReferenceCredential {
+	return &DataReferenceCredential{
+		CredentialType: a.CredentialType,
+	}
+}
+
+// ArmResourceID - ARM ResourceId of a resource
+type ArmResourceID struct {
+	// Arm ResourceId is in the format "/subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Storage/storageAccounts/{StorageAccountName}"
+	// or
+	// "/subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{AcrName}"
+	ResourceID *string
+}
+
 type AssetBase struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
@@ -438,12 +566,27 @@ type AssetJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // AssetJobOutput - Asset output type.
 type AssetJobOutput struct {
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -465,6 +608,14 @@ type AssignedUser struct {
 
 	// REQUIRED; User’s AAD Tenant Id.
 	TenantID *string
+}
+
+type AutoDeleteSetting struct {
+	// When to check if an asset is expired
+	Condition *AutoDeleteCondition
+
+	// Expiration condition value.
+	Value *string
 }
 
 // AutoForecastHorizon - Forecast horizon determined automatically by system.
@@ -519,14 +670,23 @@ type AutoMLJob struct {
 	// Is the asset archived?
 	IsArchived *bool
 
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
 	// Mapping of output data bindings used in the job.
 	Outputs map[string]JobOutputClassification
 
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Queue settings for the job
+	QueueSettings *QueueSettings
+
 	// Compute Resource configuration for the job.
 	Resources *JobResourceConfiguration
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
 
 	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
 	Services map[string]*JobService
@@ -541,18 +701,20 @@ type AutoMLJob struct {
 // GetJobBaseProperties implements the JobBasePropertiesClassification interface for type AutoMLJob.
 func (a *AutoMLJob) GetJobBaseProperties() *JobBaseProperties {
 	return &JobBaseProperties{
-		ComponentID:    a.ComponentID,
-		ComputeID:      a.ComputeID,
-		Description:    a.Description,
-		DisplayName:    a.DisplayName,
-		ExperimentName: a.ExperimentName,
-		Identity:       a.Identity,
-		IsArchived:     a.IsArchived,
-		JobType:        a.JobType,
-		Properties:     a.Properties,
-		Services:       a.Services,
-		Status:         a.Status,
-		Tags:           a.Tags,
+		ComponentID:          a.ComponentID,
+		ComputeID:            a.ComputeID,
+		Description:          a.Description,
+		DisplayName:          a.DisplayName,
+		ExperimentName:       a.ExperimentName,
+		Identity:             a.Identity,
+		IsArchived:           a.IsArchived,
+		JobType:              a.JobType,
+		NotificationSetting:  a.NotificationSetting,
+		Properties:           a.Properties,
+		SecretsConfiguration: a.SecretsConfiguration,
+		Services:             a.Services,
+		Status:               a.Status,
+		Tags:                 a.Tags,
 	}
 }
 
@@ -637,6 +799,12 @@ func (a *AutoTargetRollingWindowSize) GetTargetRollingWindowSize() *TargetRollin
 	}
 }
 
+// AutologgerSettings - Settings for Autologger.
+type AutologgerSettings struct {
+	// REQUIRED; [Required] Indicates whether mlflow autologger is enabled.
+	MlflowAutologger *MLFlowAutologgerState
+}
+
 // AzureBlobDatastore - Azure Blob datastore configuration.
 type AzureBlobDatastore struct {
 	// REQUIRED; [Required] Account credentials.
@@ -657,14 +825,23 @@ type AzureBlobDatastore struct {
 	// Azure cloud endpoint for the storage account.
 	Endpoint *string
 
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
+
 	// The asset property dictionary.
 	Properties map[string]*string
 
 	// Protocol used to communicate with the storage account.
 	Protocol *string
 
+	// Azure Resource Group name
+	ResourceGroup *string
+
 	// Indicates which identity to use to authenticate service data access to customer's storage.
 	ServiceDataAccessAuthIdentity *ServiceDataAccessAuthIdentity
+
+	// Azure Subscription Id
+	SubscriptionID *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -676,12 +853,13 @@ type AzureBlobDatastore struct {
 // GetDatastoreProperties implements the DatastorePropertiesClassification interface for type AzureBlobDatastore.
 func (a *AzureBlobDatastore) GetDatastoreProperties() *DatastoreProperties {
 	return &DatastoreProperties{
-		Credentials:   a.Credentials,
-		DatastoreType: a.DatastoreType,
-		Description:   a.Description,
-		IsDefault:     a.IsDefault,
-		Properties:    a.Properties,
-		Tags:          a.Tags,
+		Credentials:          a.Credentials,
+		DatastoreType:        a.DatastoreType,
+		Description:          a.Description,
+		IntellectualProperty: a.IntellectualProperty,
+		IsDefault:            a.IsDefault,
+		Properties:           a.Properties,
+		Tags:                 a.Tags,
 	}
 }
 
@@ -699,11 +877,20 @@ type AzureDataLakeGen1Datastore struct {
 	// The asset description text.
 	Description *string
 
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
+
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Azure Resource Group name
+	ResourceGroup *string
+
 	// Indicates which identity to use to authenticate service data access to customer's storage.
 	ServiceDataAccessAuthIdentity *ServiceDataAccessAuthIdentity
+
+	// Azure Subscription Id
+	SubscriptionID *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -715,12 +902,13 @@ type AzureDataLakeGen1Datastore struct {
 // GetDatastoreProperties implements the DatastorePropertiesClassification interface for type AzureDataLakeGen1Datastore.
 func (a *AzureDataLakeGen1Datastore) GetDatastoreProperties() *DatastoreProperties {
 	return &DatastoreProperties{
-		Credentials:   a.Credentials,
-		DatastoreType: a.DatastoreType,
-		Description:   a.Description,
-		IsDefault:     a.IsDefault,
-		Properties:    a.Properties,
-		Tags:          a.Tags,
+		Credentials:          a.Credentials,
+		DatastoreType:        a.DatastoreType,
+		Description:          a.Description,
+		IntellectualProperty: a.IntellectualProperty,
+		IsDefault:            a.IsDefault,
+		Properties:           a.Properties,
+		Tags:                 a.Tags,
 	}
 }
 
@@ -744,14 +932,23 @@ type AzureDataLakeGen2Datastore struct {
 	// Azure cloud endpoint for the storage account.
 	Endpoint *string
 
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
+
 	// The asset property dictionary.
 	Properties map[string]*string
 
 	// Protocol used to communicate with the storage account.
 	Protocol *string
 
+	// Azure Resource Group name
+	ResourceGroup *string
+
 	// Indicates which identity to use to authenticate service data access to customer's storage.
 	ServiceDataAccessAuthIdentity *ServiceDataAccessAuthIdentity
+
+	// Azure Subscription Id
+	SubscriptionID *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -763,12 +960,39 @@ type AzureDataLakeGen2Datastore struct {
 // GetDatastoreProperties implements the DatastorePropertiesClassification interface for type AzureDataLakeGen2Datastore.
 func (a *AzureDataLakeGen2Datastore) GetDatastoreProperties() *DatastoreProperties {
 	return &DatastoreProperties{
-		Credentials:   a.Credentials,
-		DatastoreType: a.DatastoreType,
-		Description:   a.Description,
-		IsDefault:     a.IsDefault,
-		Properties:    a.Properties,
-		Tags:          a.Tags,
+		Credentials:          a.Credentials,
+		DatastoreType:        a.DatastoreType,
+		Description:          a.Description,
+		IntellectualProperty: a.IntellectualProperty,
+		IsDefault:            a.IsDefault,
+		Properties:           a.Properties,
+		Tags:                 a.Tags,
+	}
+}
+
+// AzureDatastore - Base definition for Azure datastore contents configuration.
+type AzureDatastore struct {
+	// Azure Resource Group name
+	ResourceGroup *string
+
+	// Azure Subscription Id
+	SubscriptionID *string
+}
+
+// AzureDevOpsWebhook - Webhook details specific for Azure DevOps
+type AzureDevOpsWebhook struct {
+	// REQUIRED; [Required] Specifies the type of service to send a callback
+	WebhookType *WebhookType
+
+	// Send callback on a specified notification event
+	EventType *string
+}
+
+// GetWebhook implements the WebhookClassification interface for type AzureDevOpsWebhook.
+func (a *AzureDevOpsWebhook) GetWebhook() *Webhook {
+	return &Webhook{
+		EventType:   a.EventType,
+		WebhookType: a.WebhookType,
 	}
 }
 
@@ -792,14 +1016,23 @@ type AzureFileDatastore struct {
 	// Azure cloud endpoint for the storage account.
 	Endpoint *string
 
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
+
 	// The asset property dictionary.
 	Properties map[string]*string
 
 	// Protocol used to communicate with the storage account.
 	Protocol *string
 
+	// Azure Resource Group name
+	ResourceGroup *string
+
 	// Indicates which identity to use to authenticate service data access to customer's storage.
 	ServiceDataAccessAuthIdentity *ServiceDataAccessAuthIdentity
+
+	// Azure Subscription Id
+	SubscriptionID *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -811,12 +1044,45 @@ type AzureFileDatastore struct {
 // GetDatastoreProperties implements the DatastorePropertiesClassification interface for type AzureFileDatastore.
 func (a *AzureFileDatastore) GetDatastoreProperties() *DatastoreProperties {
 	return &DatastoreProperties{
-		Credentials:   a.Credentials,
-		DatastoreType: a.DatastoreType,
-		Description:   a.Description,
-		IsDefault:     a.IsDefault,
-		Properties:    a.Properties,
-		Tags:          a.Tags,
+		Credentials:          a.Credentials,
+		DatastoreType:        a.DatastoreType,
+		Description:          a.Description,
+		IntellectualProperty: a.IntellectualProperty,
+		IsDefault:            a.IsDefault,
+		Properties:           a.Properties,
+		Tags:                 a.Tags,
+	}
+}
+
+// AzureMLBatchInferencingServer - Azure ML batch inferencing server configurations.
+type AzureMLBatchInferencingServer struct {
+	// REQUIRED; [Required] Inferencing server type for various targets.
+	ServerType *InferencingServerType
+
+	// Code configuration for AML batch inferencing server.
+	CodeConfiguration *CodeConfiguration
+}
+
+// GetInferencingServer implements the InferencingServerClassification interface for type AzureMLBatchInferencingServer.
+func (a *AzureMLBatchInferencingServer) GetInferencingServer() *InferencingServer {
+	return &InferencingServer{
+		ServerType: a.ServerType,
+	}
+}
+
+// AzureMLOnlineInferencingServer - Azure ML online inferencing configurations.
+type AzureMLOnlineInferencingServer struct {
+	// REQUIRED; [Required] Inferencing server type for various targets.
+	ServerType *InferencingServerType
+
+	// Code configuration for AML inferencing server.
+	CodeConfiguration *CodeConfiguration
+}
+
+// GetInferencingServer implements the InferencingServerClassification interface for type AzureMLOnlineInferencingServer.
+func (a *AzureMLOnlineInferencingServer) GetInferencingServer() *InferencingServer {
+	return &InferencingServer{
+		ServerType: a.ServerType,
 	}
 }
 
@@ -846,6 +1112,30 @@ func (b *BanditPolicy) GetEarlyTerminationPolicy() *EarlyTerminationPolicy {
 		PolicyType:         b.PolicyType,
 	}
 }
+
+// BaseEnvironmentID - Base environment type.
+type BaseEnvironmentID struct {
+	// REQUIRED; [Required] Base environment type.
+	BaseEnvironmentSourceType *BaseEnvironmentSourceType
+
+	// REQUIRED; [Required] Resource id accepting ArmId or AzureMlId.
+	ResourceID *string
+}
+
+// GetBaseEnvironmentSource implements the BaseEnvironmentSourceClassification interface for type BaseEnvironmentID.
+func (b *BaseEnvironmentID) GetBaseEnvironmentSource() *BaseEnvironmentSource {
+	return &BaseEnvironmentSource{
+		BaseEnvironmentSourceType: b.BaseEnvironmentSourceType,
+	}
+}
+
+type BaseEnvironmentSource struct {
+	// REQUIRED; [Required] Base environment type.
+	BaseEnvironmentSourceType *BaseEnvironmentSourceType
+}
+
+// GetBaseEnvironmentSource implements the BaseEnvironmentSourceClassification interface for type BaseEnvironmentSource.
+func (b *BaseEnvironmentSource) GetBaseEnvironmentSource() *BaseEnvironmentSource { return b }
 
 type BatchDeployment struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -879,6 +1169,17 @@ type BatchDeployment struct {
 	Type *string
 }
 
+// BatchDeploymentConfiguration - Properties relevant to different deployment types.
+type BatchDeploymentConfiguration struct {
+	// REQUIRED; [Required] The type of the deployment
+	DeploymentConfigurationType *BatchDeploymentConfigurationType
+}
+
+// GetBatchDeploymentConfiguration implements the BatchDeploymentConfigurationClassification interface for type BatchDeploymentConfiguration.
+func (b *BatchDeploymentConfiguration) GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration {
+	return b
+}
+
 // BatchDeploymentProperties - Batch inference settings per deployment.
 type BatchDeploymentProperties struct {
 	// Code configuration for the endpoint deployment.
@@ -887,10 +1188,13 @@ type BatchDeploymentProperties struct {
 	// Compute target for batch inference operation.
 	Compute *string
 
+	// Properties relevant to different deployment types.
+	DeploymentConfiguration BatchDeploymentConfigurationClassification
+
 	// Description of the endpoint deployment.
 	Description *string
 
-	// ARM resource ID or AssetId of the environment specification for the endpoint deployment.
+	// ARM resource ID of the environment specification for the endpoint deployment.
 	EnvironmentID *string
 
 	// Environment variables configuration for the deployment.
@@ -988,7 +1292,7 @@ type BatchEndpointProperties struct {
 	// 'Key' doesn't expire but 'AMLToken' does.
 	AuthMode *EndpointAuthMode
 
-	// Default values for Batch Endpoint
+	// Default values for Batch Endpoint.
 	Defaults *BatchEndpointDefaults
 
 	// Description of the inference endpoint.
@@ -1020,6 +1324,31 @@ type BatchEndpointTrackedResourceArmPaginatedResult struct {
 	Value []*BatchEndpoint
 }
 
+// BatchPipelineComponentDeploymentConfiguration - Properties for a Batch Pipeline Component Deployment.
+type BatchPipelineComponentDeploymentConfiguration struct {
+	// REQUIRED; [Required] The type of the deployment
+	DeploymentConfigurationType *BatchDeploymentConfigurationType
+
+	// The ARM id of the component to be run.
+	ComponentID *IDAssetReference
+
+	// The description which will be applied to the job.
+	Description *string
+
+	// Run-time settings for the pipeline job.
+	Settings map[string]*string
+
+	// The tags which will be applied to the job.
+	Tags map[string]*string
+}
+
+// GetBatchDeploymentConfiguration implements the BatchDeploymentConfigurationClassification interface for type BatchPipelineComponentDeploymentConfiguration.
+func (b *BatchPipelineComponentDeploymentConfiguration) GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration {
+	return &BatchDeploymentConfiguration{
+		DeploymentConfigurationType: b.DeploymentConfigurationType,
+	}
+}
+
 // BatchRetrySettings - Retry settings for a batch inference operation.
 type BatchRetrySettings struct {
 	// Maximum retry count for a mini-batch
@@ -1042,6 +1371,28 @@ func (b *BayesianSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	}
 }
 
+type BindOptions struct {
+	// Indicate whether to create host path.
+	CreateHostPath *bool
+
+	// Type of Bind Option
+	Propagation *string
+
+	// Mention the selinux options.
+	Selinux *string
+}
+
+type BlobReferenceForConsumptionDto struct {
+	// Blob URI path for client to upload data. Example: https://blob.windows.core.net/Container/Path
+	BlobURI *string
+
+	// Credential info to access storage account
+	Credential PendingUploadCredentialDtoClassification
+
+	// Arm ID of the storage account to use
+	StorageAccountArmID *string
+}
+
 // BuildContext - Configuration settings for Docker build context
 type BuildContext struct {
 	// REQUIRED; [Required] URI of the Docker build context used to build the image. Supports blob URIs on environment creation
@@ -1050,6 +1401,147 @@ type BuildContext struct {
 
 	// Path to the Dockerfile in the build context.
 	DockerfilePath *string
+}
+
+type CSVExportSummary struct {
+	// REQUIRED; [Required] The format of exported labels, also as the discriminator.
+	Format *ExportFormatType
+
+	// READ-ONLY; The container name to which the labels will be exported.
+	ContainerName *string
+
+	// READ-ONLY; The time when the export was completed.
+	EndDateTime *time.Time
+
+	// READ-ONLY; The total number of labeled datapoints exported.
+	ExportedRowCount *int64
+
+	// READ-ONLY; Name and identifier of the job containing exported labels.
+	LabelingJobID *string
+
+	// READ-ONLY; The output path where the labels will be exported.
+	SnapshotPath *string
+
+	// READ-ONLY; The time when the export was requested.
+	StartDateTime *time.Time
+}
+
+// GetExportSummary implements the ExportSummaryClassification interface for type CSVExportSummary.
+func (c *CSVExportSummary) GetExportSummary() *ExportSummary {
+	return &ExportSummary{
+		EndDateTime:      c.EndDateTime,
+		ExportedRowCount: c.ExportedRowCount,
+		Format:           c.Format,
+		LabelingJobID:    c.LabelingJobID,
+		StartDateTime:    c.StartDateTime,
+	}
+}
+
+type CapacityReservationGroup struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *CapacityReservationGroupProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type CapacityReservationGroupProperties struct {
+	// REQUIRED; [Required] Specifies the amount of capacity to reserve.
+	ReservedCapacity *int32
+
+	// Offer used by this capacity reservation group.
+	Offer *ServerlessOffer
+}
+
+// CapacityReservationGroupTrackedResourceArmPaginatedResult - A paginated list of CapacityReservationGroup entities.
+type CapacityReservationGroupTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of CapacityReservationGroup objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type CapacityReservationGroup.
+	Value []*CapacityReservationGroup
+}
+
+type CategoricalDataDriftMetricThreshold struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// REQUIRED; [Required] The categorical data drift metric to calculate.
+	Metric *CategoricalDataDriftMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetDataDriftMetricThresholdBase implements the DataDriftMetricThresholdBaseClassification interface for type CategoricalDataDriftMetricThreshold.
+func (c *CategoricalDataDriftMetricThreshold) GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase {
+	return &DataDriftMetricThresholdBase{
+		DataType:  c.DataType,
+		Threshold: c.Threshold,
+	}
+}
+
+type CategoricalDataQualityMetricThreshold struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// REQUIRED; [Required] The categorical data quality metric to calculate.
+	Metric *CategoricalDataQualityMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetDataQualityMetricThresholdBase implements the DataQualityMetricThresholdBaseClassification interface for type CategoricalDataQualityMetricThreshold.
+func (c *CategoricalDataQualityMetricThreshold) GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase {
+	return &DataQualityMetricThresholdBase{
+		DataType:  c.DataType,
+		Threshold: c.Threshold,
+	}
+}
+
+type CategoricalPredictionDriftMetricThreshold struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// REQUIRED; [Required] The categorical prediction drift metric to calculate.
+	Metric *CategoricalPredictionDriftMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetPredictionDriftMetricThresholdBase implements the PredictionDriftMetricThresholdBaseClassification interface for type
+// CategoricalPredictionDriftMetricThreshold.
+func (c *CategoricalPredictionDriftMetricThreshold) GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase {
+	return &PredictionDriftMetricThresholdBase{
+		DataType:  c.DataType,
+		Threshold: c.Threshold,
+	}
 }
 
 // CertificateDatastoreCredentials - Certificate datastore credentials configuration.
@@ -1113,6 +1605,9 @@ type Classification struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *TableVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *TableFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *TableVerticalLimitSettings
 
@@ -1127,6 +1622,12 @@ type Classification struct {
 
 	// Primary metric for the task.
 	PrimaryMetric *ClassificationPrimaryMetrics
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*TableParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *TableSweepSettings
 
 	// Target column name: This is prediction values column. Also known as label column name in context of classification tasks.
 	TargetColumnName *string
@@ -1163,6 +1664,26 @@ func (c *Classification) GetAutoMLVertical() *AutoMLVertical {
 	}
 }
 
+type ClassificationModelPerformanceMetricThreshold struct {
+	// REQUIRED; [Required] The classification model performance to calculate.
+	Metric *ClassificationModelPerformanceMetric
+
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	ModelType *MonitoringModelType
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetModelPerformanceMetricThresholdBase implements the ModelPerformanceMetricThresholdBaseClassification interface for type
+// ClassificationModelPerformanceMetricThreshold.
+func (c *ClassificationModelPerformanceMetricThreshold) GetModelPerformanceMetricThresholdBase() *ModelPerformanceMetricThresholdBase {
+	return &ModelPerformanceMetricThresholdBase{
+		ModelType: c.ModelType,
+		Threshold: c.Threshold,
+	}
+}
+
 // ClassificationTrainingSettings - Classification Training related configuration.
 type ClassificationTrainingSettings struct {
 	// Allowed models for classification task.
@@ -1193,6 +1714,12 @@ type ClassificationTrainingSettings struct {
 
 	// Stack ensemble settings for stack ensemble run.
 	StackEnsembleSettings *StackEnsembleSettings
+
+	// TrainingMode mode - Setting to 'auto' is same as setting it to 'non-distributed' for now, however in the future may result
+	// in mixed mode or heuristics based mode selection. Default is 'auto'. If
+	// 'Distributed' then only distributed featurization is used and distributed algorithms are chosen. If 'NonDistributed' then
+	// only non distributed algorithms are chosen.
+	TrainingMode *TrainingMode
 }
 
 // ClusterUpdateParameters - AmlCompute update parameters.
@@ -1205,6 +1732,40 @@ type ClusterUpdateParameters struct {
 type ClusterUpdateProperties struct {
 	// Properties of ClusterUpdate
 	Properties *ScaleSettingsInformation
+}
+
+type CocoExportSummary struct {
+	// REQUIRED; [Required] The format of exported labels, also as the discriminator.
+	Format *ExportFormatType
+
+	// READ-ONLY; The container name to which the labels will be exported.
+	ContainerName *string
+
+	// READ-ONLY; The time when the export was completed.
+	EndDateTime *time.Time
+
+	// READ-ONLY; The total number of labeled datapoints exported.
+	ExportedRowCount *int64
+
+	// READ-ONLY; Name and identifier of the job containing exported labels.
+	LabelingJobID *string
+
+	// READ-ONLY; The output path where the labels will be exported.
+	SnapshotPath *string
+
+	// READ-ONLY; The time when the export was requested.
+	StartDateTime *time.Time
+}
+
+// GetExportSummary implements the ExportSummaryClassification interface for type CocoExportSummary.
+func (c *CocoExportSummary) GetExportSummary() *ExportSummary {
+	return &ExportSummary{
+		EndDateTime:      c.EndDateTime,
+		ExportedRowCount: c.ExportedRowCount,
+		Format:           c.Format,
+		LabelingJobID:    c.LabelingJobID,
+		StartDateTime:    c.StartDateTime,
+	}
 }
 
 // CodeConfiguration - Configuration for a scoring code asset.
@@ -1253,6 +1814,9 @@ type CodeContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the code container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // CodeContainerResourceArmPaginatedResult - A paginated list of CodeContainer entities.
@@ -1284,16 +1848,20 @@ type CodeVersion struct {
 
 // CodeVersionProperties - Code asset version details.
 type CodeVersionProperties struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Uri where code is located
 	CodeURI *string
 
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
@@ -1301,6 +1869,9 @@ type CodeVersionProperties struct {
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the code version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // CodeVersionResourceArmPaginatedResult - A paginated list of CodeVersion entities.
@@ -1310,6 +1881,22 @@ type CodeVersionResourceArmPaginatedResult struct {
 
 	// An array of objects of type CodeVersion.
 	Value []*CodeVersion
+}
+
+type Collection struct {
+	// The msi client id used to collect logging to blob storage. If it's null,backend will pick a registered endpoint identity
+	// to auth.
+	ClientID *string
+
+	// Enable or disable data collection.
+	DataCollectionMode *DataCollectionMode
+
+	// The data asset arm resource id. Client side will ensure data asset is pointing to the blob storage, and backend will collect
+	// data to the blob storage.
+	DataID *string
+
+	// The sampling rate for collection. Sampling rate 1.0 means we collect 100% of data by default.
+	SamplingRate *float64
 }
 
 // ColumnTransformer - Column transformer parameters.
@@ -1332,6 +1919,9 @@ type CommandJob struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobType *JobType
 
+	// Distribution configuration of the job. If set, this should be one of Mpi, Tensorflow, PyTorch, or null.
+	AutologgerSettings *AutologgerSettings
+
 	// ARM resource ID of the code asset.
 	CodeID *string
 
@@ -1347,7 +1937,7 @@ type CommandJob struct {
 	// Display name of job.
 	DisplayName *string
 
-	// Distribution configuration of the job. If set, this should be one of Mpi, Tensorflow, PyTorch, or null.
+	// Distribution configuration of the job. If set, this should be one of Mpi, Tensorflow, PyTorch, Ray, or null.
 	Distribution DistributionConfigurationClassification
 
 	// Environment variables included in the job.
@@ -1369,14 +1959,23 @@ type CommandJob struct {
 	// Command Job limit.
 	Limits *CommandJobLimits
 
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
 	// Mapping of output data bindings used in the job.
 	Outputs map[string]JobOutputClassification
 
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Queue settings for the job
+	QueueSettings *QueueSettings
+
 	// Compute Resource configuration for the job.
 	Resources *JobResourceConfiguration
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
 
 	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
 	Services map[string]*JobService
@@ -1394,18 +1993,20 @@ type CommandJob struct {
 // GetJobBaseProperties implements the JobBasePropertiesClassification interface for type CommandJob.
 func (c *CommandJob) GetJobBaseProperties() *JobBaseProperties {
 	return &JobBaseProperties{
-		ComponentID:    c.ComponentID,
-		ComputeID:      c.ComputeID,
-		Description:    c.Description,
-		DisplayName:    c.DisplayName,
-		ExperimentName: c.ExperimentName,
-		Identity:       c.Identity,
-		IsArchived:     c.IsArchived,
-		JobType:        c.JobType,
-		Properties:     c.Properties,
-		Services:       c.Services,
-		Status:         c.Status,
-		Tags:           c.Tags,
+		ComponentID:          c.ComponentID,
+		ComputeID:            c.ComputeID,
+		Description:          c.Description,
+		DisplayName:          c.DisplayName,
+		ExperimentName:       c.ExperimentName,
+		Identity:             c.Identity,
+		IsArchived:           c.IsArchived,
+		JobType:              c.JobType,
+		NotificationSetting:  c.NotificationSetting,
+		Properties:           c.Properties,
+		SecretsConfiguration: c.SecretsConfiguration,
+		Services:             c.Services,
+		Status:               c.Status,
+		Tags:                 c.Tags,
 	}
 }
 
@@ -1425,6 +2026,12 @@ func (c *CommandJobLimits) GetJobLimits() *JobLimits {
 		JobLimitsType: c.JobLimitsType,
 		Timeout:       c.Timeout,
 	}
+}
+
+// ComponentConfiguration - Used for sweep over component
+type ComponentConfiguration struct {
+	// Pipeline settings, for things like ContinueRunOnStepFailure etc.
+	PipelineSettings any
 }
 
 // ComponentContainer - Azure Resource Manager resource envelope.
@@ -1464,6 +2071,9 @@ type ComponentContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the component container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ComponentContainerResourceArmPaginatedResult - A paginated list of ComponentContainer entities.
@@ -1495,23 +2105,33 @@ type ComponentVersion struct {
 
 // ComponentVersionProperties - Definition of a component version: defines resources that span component types.
 type ComponentVersionProperties struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Defines Component definition details.
 	ComponentSpec any
 
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Stage in the component lifecycle
+	Stage *string
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the component version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ComponentVersionResourceArmPaginatedResult - A paginated list of ComponentVersion entities.
@@ -1622,6 +2242,12 @@ type ComputeInstanceApplication struct {
 	EndpointURI *string
 }
 
+// ComputeInstanceAutologgerSettings - Specifies settings for autologger.
+type ComputeInstanceAutologgerSettings struct {
+	// Indicates whether mlflow autologger is enabled for notebooks.
+	MlflowAutologger *MlflowAutologger
+}
+
 // ComputeInstanceConnectivityEndpoints - Defines all connectivity endpoints and properties for an ComputeInstance.
 type ComputeInstanceConnectivityEndpoints struct {
 	// READ-ONLY; Private IP Address of this ComputeInstance (local to the VNET in which the compute instance is deployed).
@@ -1690,6 +2316,9 @@ type ComputeInstanceDataMount struct {
 	// Mount Action.
 	MountAction *MountAction
 
+	// Mount Mode.
+	MountMode *MountMode
+
 	// name of the ComputeInstance data mount.
 	MountName *string
 
@@ -1740,19 +2369,45 @@ type ComputeInstanceProperties struct {
 	// user can access applications on this instance depending on his/her assigned role.
 	ApplicationSharingPolicy *ApplicationSharingPolicy
 
+	// Specifies settings for autologger.
+	AutologgerSettings *ComputeInstanceAutologgerSettings
+
 	// The Compute Instance Authorization type. Available values are personal (default).
 	ComputeInstanceAuthorizationType *ComputeInstanceAuthorizationType
+
+	// List of Custom Services added to the compute.
+	CustomServices []*CustomService
 
 	// Enable or disable node public IP address provisioning. Possible values are: Possible values are: true - Indicates that
 	// the compute nodes will have public IPs provisioned. false - Indicates that the
 	// compute nodes will have a private endpoint and no public IPs.
 	EnableNodePublicIP *bool
 
+	// Enable Auto OS Patching. Possible values are: true, false.
+	EnableOSPatching *bool
+
+	// Enable root access. Possible values are: true, false.
+	EnableRootAccess *bool
+
+	// Enable SSO (single sign on). Possible values are: true, false.
+	EnableSSO *bool
+
+	// Stops compute instance after user defined period of inactivity. Time is defined in ISO8601 format. Minimum is 15 min, maximum
+	// is 3 days.
+	IdleTimeBeforeShutdown *string
+
 	// Settings for a personal compute instance.
 	PersonalComputeInstanceSettings *PersonalComputeInstanceSettings
 
+	// Release quota if compute instance stopped. Possible values are: true - release quota if compute instance stopped. false
+	// - don't release quota when compute instance stopped.
+	ReleaseQuotaOnStop *bool
+
 	// Specifies policy and settings for SSH access.
 	SSHSettings *ComputeInstanceSSHSettings
+
+	// The list of schedules to be applied on the computes.
+	Schedules *ComputeSchedules
 
 	// Details of customized scripts to execute for setting up the cluster.
 	SetupScripts *SetupScripts
@@ -1787,8 +2442,8 @@ type ComputeInstanceProperties struct {
 	// READ-ONLY; The last operation on ComputeInstance.
 	LastOperation *ComputeInstanceLastOperation
 
-	// READ-ONLY; The list of schedules to be applied on the computes.
-	Schedules *ComputeSchedules
+	// READ-ONLY; Returns metadata about the operating system image for this compute instance.
+	OSImageMetadata *ImageMetadata
 
 	// READ-ONLY; The current state of this ComputeInstance.
 	State *ComputeInstanceState
@@ -1826,6 +2481,20 @@ type ComputeInstanceVersion struct {
 	Runtime *string
 }
 
+type ComputeRecurrenceSchedule struct {
+	// REQUIRED; [Required] List of hours for the schedule.
+	Hours []*int32
+
+	// REQUIRED; [Required] List of minutes for the schedule.
+	Minutes []*int32
+
+	// List of month days for the schedule
+	MonthDays []*int32
+
+	// List of days for the schedule.
+	WeekDays []*ComputeWeekDay
+}
+
 // ComputeResource - Machine Learning compute object wrapped into ARM resource envelope.
 type ComputeResource struct {
 	// The identity of the resource.
@@ -1861,6 +2530,10 @@ type ComputeResourceSchema struct {
 	Properties ComputeClassification
 }
 
+type ComputeRuntimeDto struct {
+	SparkRuntimeVersion *string
+}
+
 // ComputeSchedules - The list of schedules to be applied on the computes
 type ComputeSchedules struct {
 	// The list of compute start stop schedules to be applied.
@@ -1882,10 +2555,10 @@ type ComputeStartStopSchedule struct {
 	Action *ComputePowerAction
 
 	// Required if triggerType is Cron.
-	Cron *CronTrigger
+	Cron *Cron
 
 	// Required if triggerType is Recurrence.
-	Recurrence *RecurrenceTrigger
+	Recurrence *Recurrence
 
 	// [Deprecated] Not used any more.
 	Schedule *ScheduleBase
@@ -1894,7 +2567,7 @@ type ComputeStartStopSchedule struct {
 	Status *ScheduleStatus
 
 	// [Required] The schedule trigger type.
-	TriggerType *TriggerType
+	TriggerType *ComputeTriggerType
 
 	// READ-ONLY; A system assigned id for the schedule.
 	ID *string
@@ -1924,8 +2597,35 @@ type ContainerResourceSettings struct {
 }
 
 type CosmosDbSettings struct {
-	// The throughput of the collections in cosmosdb database
 	CollectionsThroughput *int32
+}
+
+type CreateMonitorAction struct {
+	// REQUIRED; [Required] Specifies the action type of the schedule
+	ActionType *ScheduleActionType
+
+	// REQUIRED; [Required] Defines the monitor.
+	MonitorDefinition *MonitorDefinition
+}
+
+// GetScheduleActionBase implements the ScheduleActionBaseClassification interface for type CreateMonitorAction.
+func (c *CreateMonitorAction) GetScheduleActionBase() *ScheduleActionBase {
+	return &ScheduleActionBase{
+		ActionType: c.ActionType,
+	}
+}
+
+// Cron - The workflow trigger cron for ComputeStartStop schedule type.
+type Cron struct {
+	// [Required] Specifies cron expression of schedule. The expression should follow NCronTab format.
+	Expression *string
+
+	// The start time in yyyy-MM-ddTHH:mm:ss format.
+	StartTime *string
+
+	// Specifies time zone in which the schedule runs. TimeZone should follow Windows time zone format. Refer:
+	// https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11
+	TimeZone *string
 }
 
 type CronTrigger struct {
@@ -1974,6 +2674,86 @@ func (c *CustomForecastHorizon) GetForecastHorizon() *ForecastHorizon {
 	}
 }
 
+// CustomIncludeAllVersionsQueryParameter - Provides the '$includeAllVersions' query parameter for list operations.
+type CustomIncludeAllVersionsQueryParameter struct {
+	// Return all the versions.
+	IncludeAllVersions *bool
+}
+
+// CustomInferencingServer - Custom inference server configurations.
+type CustomInferencingServer struct {
+	// REQUIRED; [Required] Inferencing server type for various targets.
+	ServerType *InferencingServerType
+
+	// Inference configuration for custom inferencing.
+	InferenceConfiguration *OnlineInferenceConfiguration
+}
+
+// GetInferencingServer implements the InferencingServerClassification interface for type CustomInferencingServer.
+func (c *CustomInferencingServer) GetInferencingServer() *InferencingServer {
+	return &InferencingServer{
+		ServerType: c.ServerType,
+	}
+}
+
+// CustomKeys - Custom Keys credential object
+type CustomKeys struct {
+	// Dictionary of
+	Keys map[string]*string
+}
+
+// CustomKeysWorkspaceConnectionProperties - Category:= CustomKeys AuthType:= CustomKeys (as type discriminator) Credentials:=
+// {CustomKeys} as Microsoft.MachineLearning.AccountRP.Contracts.WorkspaceConnection.CustomKeys Target:= {any value} Use
+// Metadata property bag for ApiVersion and other metadata fields
+type CustomKeysWorkspaceConnectionProperties struct {
+	// REQUIRED; Authentication type of the connection target
+	AuthType *ConnectionAuthType
+
+	// Category of the connection
+	Category *ConnectionCategory
+
+	// Custom Keys credential object
+	Credentials *CustomKeys
+	ExpiryTime  *time.Time
+
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
+
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
+}
+
+// GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type CustomKeysWorkspaceConnectionProperties.
+func (c *CustomKeysWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
+	return &WorkspaceConnectionPropertiesV2{
+		AuthType:                c.AuthType,
+		Category:                c.Category,
+		CreatedByWorkspaceArmID: c.CreatedByWorkspaceArmID,
+		ExpiryTime:              c.ExpiryTime,
+		IsSharedToAll:           c.IsSharedToAll,
+		Metadata:                c.Metadata,
+		Target:                  c.Target,
+	}
+}
+
+// CustomLatestQueryParameter - Provides the '$latest' query parameter for list operations.
+type CustomLatestQueryParameter struct {
+	// If set to true, $latest provides the latest of each index.
+	Latest *bool
+}
+
+type CustomMetricThreshold struct {
+	// REQUIRED; [Required] The user-defined metric to calculate.
+	Metric *string
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
 type CustomModelJobInput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobInputType *JobInputType
@@ -1986,6 +2766,9 @@ type CustomModelJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // GetJobInput implements the JobInputClassification interface for type CustomModelJobInput.
@@ -2000,11 +2783,23 @@ type CustomModelJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Description for the output.
 	Description *string
 
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -2015,6 +2810,41 @@ func (c *CustomModelJobOutput) GetJobOutput() *JobOutput {
 	return &JobOutput{
 		Description:   c.Description,
 		JobOutputType: c.JobOutputType,
+	}
+}
+
+type CustomMonitoringSignal struct {
+	// REQUIRED; [Required] ARM resource ID of the component resource used to calculate the custom metrics.
+	ComponentID *string
+
+	// REQUIRED; [Required] A list of metrics to calculate and their associated thresholds.
+	MetricThresholds []*CustomMetricThreshold
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// Monitoring assets to take as input. Key is the component input port name, value is the data asset.
+	InputAssets map[string]MonitoringInputDataBaseClassification
+
+	// Extra component parameters to take as input. Key is the component literal input port name, value is the parameter value.
+	Inputs map[string]JobInputClassification
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+
+	// A list of metrics to calculate and their associated thresholds.
+	WorkspaceConnection *MonitoringWorkspaceConnection
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type CustomMonitoringSignal.
+func (c *CustomMonitoringSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: c.NotificationTypes,
+		Properties:        c.Properties,
+		SignalType:        c.SignalType,
 	}
 }
 
@@ -2049,6 +2879,33 @@ func (c *CustomSeasonality) GetSeasonality() *Seasonality {
 	}
 }
 
+// CustomService - Specifies the custom service configuration
+type CustomService struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Describes the docker settings for the image
+	Docker *Docker
+
+	// Configuring the endpoints for the container
+	Endpoints []*Endpoint
+
+	// Environment Variable for the container
+	EnvironmentVariables map[string]*EnvironmentVariable
+
+	// Describes the Image Specifications
+	Image *Image
+
+	// Describes the jupyter kernel settings for the image if its a custom environment
+	Kernel *JupyterKernelConfig
+
+	// Name of the Custom Service
+	Name *string
+
+	// Configuring the volumes for the container
+	Volumes []*VolumeDefinition
+}
+
 type CustomTargetLags struct {
 	// REQUIRED; [Required] Set target lags mode - Auto/Custom
 	Mode *TargetLagsMode
@@ -2077,6 +2934,24 @@ func (c *CustomTargetRollingWindowSize) GetTargetRollingWindowSize() *TargetRoll
 	return &TargetRollingWindowSize{
 		Mode: c.Mode,
 	}
+}
+
+type DataCollector struct {
+	// REQUIRED; [Required] The collection configuration. Each collection has it own configuration to collect model data and the
+	// name of collection can be arbitrary string. Model data collector can be used for either
+	// payload logging or custom logging or both of them. Collection request and response are reserved for payload logging, others
+	// are for custom logging.
+	Collections map[string]*Collection
+
+	// The request logging configuration for mdc, it includes advanced logging settings for all collections. It's optional.
+	RequestLogging *RequestLogging
+
+	// When model data is collected to blob storage, we need to roll the data to different path to avoid logging all of them in
+	// a single blob file. If the rolling rate is hour, all data will be collected in
+	// the blob path /yyyy/MM/dd/HH/. If it's day, all data will be collected in blob path /yyyy/MM/dd/. The other benefit of
+	// rolling path is that model monitoring ui is able to select a time range of data
+	// very quickly.
+	RollingRate *RollingRateType
 }
 
 // DataContainer - Azure Resource Manager resource envelope.
@@ -2130,6 +3005,60 @@ type DataContainerResourceArmPaginatedResult struct {
 	Value []*DataContainer
 }
 
+type DataDriftMetricThresholdBase struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetDataDriftMetricThresholdBase implements the DataDriftMetricThresholdBaseClassification interface for type DataDriftMetricThresholdBase.
+func (d *DataDriftMetricThresholdBase) GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase {
+	return d
+}
+
+type DataDriftMonitoringSignal struct {
+	// REQUIRED; [Required] A list of metrics to calculate and their associated thresholds.
+	MetricThresholds []DataDriftMetricThresholdBaseClassification
+
+	// REQUIRED; [Required] The data which drift will be calculated for.
+	ProductionData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] The data to calculate drift against.
+	ReferenceData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// The data segment used for scoping on a subset of the data population.
+	DataSegment *MonitoringDataSegment
+
+	// A dictionary that maps feature names to their respective data types.
+	FeatureDataTypeOverride map[string]*MonitoringFeatureDataType
+
+	// The settings for computing feature importance.
+	FeatureImportanceSettings *FeatureImportanceSettings
+
+	// The feature filter which identifies which feature to calculate drift over.
+	Features MonitoringFeatureFilterBaseClassification
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type DataDriftMonitoringSignal.
+func (d *DataDriftMonitoringSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: d.NotificationTypes,
+		Properties:        d.Properties,
+		SignalType:        d.SignalType,
+	}
+}
+
 // DataFactory - A DataFactory compute.
 type DataFactory struct {
 	// REQUIRED; The type of compute
@@ -2179,6 +3108,72 @@ func (d *DataFactory) GetCompute() *Compute {
 		ResourceID:         d.ResourceID,
 	}
 }
+
+type DataImport struct {
+	// REQUIRED; [Required] Specifies the type of data.
+	DataType *DataType
+
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
+	DataURI *string
+
+	// Name of the asset for data import job to create
+	AssetName *string
+
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
+	// The asset description text.
+	Description *string
+
+	// Intellectual Property details. Used if data is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
+	IsAnonymous *bool
+
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
+	IsArchived *bool
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Source data of the asset to import from
+	Source DataImportSourceClassification
+
+	// Stage in the data lifecycle assigned to this data asset
+	Stage *string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+}
+
+// GetDataVersionBaseProperties implements the DataVersionBasePropertiesClassification interface for type DataImport.
+func (d *DataImport) GetDataVersionBaseProperties() *DataVersionBaseProperties {
+	return &DataVersionBaseProperties{
+		AutoDeleteSetting:    d.AutoDeleteSetting,
+		DataType:             d.DataType,
+		DataURI:              d.DataURI,
+		Description:          d.Description,
+		IntellectualProperty: d.IntellectualProperty,
+		IsAnonymous:          d.IsAnonymous,
+		IsArchived:           d.IsArchived,
+		Properties:           d.Properties,
+		Stage:                d.Stage,
+		Tags:                 d.Tags,
+	}
+}
+
+type DataImportSource struct {
+	// REQUIRED; [Required] Specifies the type of data.
+	SourceType *DataImportSourceType
+
+	// Workspace connection for data import source storage
+	Connection *string
+}
+
+// GetDataImportSource implements the DataImportSourceClassification interface for type DataImportSource.
+func (d *DataImportSource) GetDataImportSource() *DataImportSource { return d }
 
 // DataLakeAnalytics - A DataLakeAnalytics compute.
 type DataLakeAnalytics struct {
@@ -2259,6 +3254,66 @@ func (d *DataPathAssetReference) GetAssetReferenceBase() *AssetReferenceBase {
 	}
 }
 
+type DataQualityMetricThresholdBase struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetDataQualityMetricThresholdBase implements the DataQualityMetricThresholdBaseClassification interface for type DataQualityMetricThresholdBase.
+func (d *DataQualityMetricThresholdBase) GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase {
+	return d
+}
+
+type DataQualityMonitoringSignal struct {
+	// REQUIRED; [Required] A list of metrics to calculate and their associated thresholds.
+	MetricThresholds []DataQualityMetricThresholdBaseClassification
+
+	// REQUIRED; [Required] The data produced by the production service which drift will be calculated for.
+	ProductionData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] The data to calculate drift against.
+	ReferenceData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// A dictionary that maps feature names to their respective data types.
+	FeatureDataTypeOverride map[string]*MonitoringFeatureDataType
+
+	// The settings for computing feature importance.
+	FeatureImportanceSettings *FeatureImportanceSettings
+
+	// The features to calculate drift over.
+	Features MonitoringFeatureFilterBaseClassification
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type DataQualityMonitoringSignal.
+func (d *DataQualityMonitoringSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: d.NotificationTypes,
+		Properties:        d.Properties,
+		SignalType:        d.SignalType,
+	}
+}
+
+// DataReferenceCredential base class
+type DataReferenceCredential struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *DataReferenceCredentialType
+}
+
+// GetDataReferenceCredential implements the DataReferenceCredentialClassification interface for type DataReferenceCredential.
+func (d *DataReferenceCredential) GetDataReferenceCredential() *DataReferenceCredential { return d }
+
 // DataVersionBase - Azure Resource Manager resource envelope.
 type DataVersionBase struct {
 	// REQUIRED; [Required] Additional attributes of the entity.
@@ -2282,20 +3337,30 @@ type DataVersionBaseProperties struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
+
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
 
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// Intellectual Property details. Used if data is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
 	Properties map[string]*string
+
+	// Stage in the data lifecycle assigned to this data asset
+	Stage *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -2313,6 +3378,34 @@ type DataVersionBaseResourceArmPaginatedResult struct {
 
 	// An array of objects of type DataVersionBase.
 	Value []*DataVersionBase
+}
+
+type DatabaseSource struct {
+	// REQUIRED; [Required] Specifies the type of data.
+	SourceType *DataImportSourceType
+
+	// Workspace connection for data import source storage
+	Connection *string
+
+	// SQL Query statement for data import Database source
+	Query *string
+
+	// SQL StoredProcedure on data import Database source
+	StoredProcedure *string
+
+	// SQL StoredProcedure parameters
+	StoredProcedureParams []map[string]*string
+
+	// Name of the table on data import Database source
+	TableName *string
+}
+
+// GetDataImportSource implements the DataImportSourceClassification interface for type DatabaseSource.
+func (d *DatabaseSource) GetDataImportSource() *DataImportSource {
+	return &DataImportSource{
+		Connection: d.Connection,
+		SourceType: d.SourceType,
+	}
 }
 
 // Databricks - A DataFactory compute.
@@ -2404,6 +3497,37 @@ type DatabricksSchema struct {
 	Properties *DatabricksProperties
 }
 
+type DatasetExportSummary struct {
+	// REQUIRED; [Required] The format of exported labels, also as the discriminator.
+	Format *ExportFormatType
+
+	// READ-ONLY; The time when the export was completed.
+	EndDateTime *time.Time
+
+	// READ-ONLY; The total number of labeled datapoints exported.
+	ExportedRowCount *int64
+
+	// READ-ONLY; The unique name of the labeled data asset.
+	LabeledAssetName *string
+
+	// READ-ONLY; Name and identifier of the job containing exported labels.
+	LabelingJobID *string
+
+	// READ-ONLY; The time when the export was requested.
+	StartDateTime *time.Time
+}
+
+// GetExportSummary implements the ExportSummaryClassification interface for type DatasetExportSummary.
+func (d *DatasetExportSummary) GetExportSummary() *ExportSummary {
+	return &ExportSummary{
+		EndDateTime:      d.EndDateTime,
+		ExportedRowCount: d.ExportedRowCount,
+		Format:           d.Format,
+		LabelingJobID:    d.LabelingJobID,
+		StartDateTime:    d.StartDateTime,
+	}
+}
+
 // Datastore - Azure Resource Manager resource envelope.
 type Datastore struct {
 	// REQUIRED; [Required] Additional attributes of the entity.
@@ -2441,6 +3565,9 @@ type DatastoreProperties struct {
 
 	// The asset description text.
 	Description *string
+
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
 
 	// The asset property dictionary.
 	Properties map[string]*string
@@ -2505,8 +3632,27 @@ type DeploymentResourceConfiguration struct {
 	// Optional type of VM used as supported by the compute target.
 	InstanceType *string
 
+	// Locations where the job can run.
+	Locations []*string
+
+	// Optional max allowed number of instances or nodes to be used by the compute target. For use with elastic training, currently
+	// supported by PyTorch distribution type only.
+	MaxInstanceCount *int32
+
 	// Additional properties bag.
 	Properties map[string]any
+}
+
+// DestinationAsset - Publishing destination registry asset information
+type DestinationAsset struct {
+	// Destination asset name
+	DestinationName *string
+
+	// Destination asset version
+	DestinationVersion *string
+
+	// Destination registry name
+	RegistryName *string
 }
 
 type DiagnoseRequestProperties struct {
@@ -2527,6 +3673,9 @@ type DiagnoseRequestProperties struct {
 
 	// Setting for diagnosing unclassified category of problems
 	Others map[string]any
+
+	// Setting for diagnosing the presence of required resource providers in the workspace.
+	RequiredResourceProviders map[string]any
 
 	// Setting for diagnosing resource lock
 	ResourceLock map[string]any
@@ -2568,7 +3717,6 @@ type DiagnoseResult struct {
 
 // DiagnoseWorkspaceParameters - Parameters to diagnose a workspace
 type DiagnoseWorkspaceParameters struct {
-	// Value of Parameters
 	Value *DiagnoseRequestProperties
 }
 
@@ -2581,6 +3729,33 @@ type DistributionConfiguration struct {
 // GetDistributionConfiguration implements the DistributionConfigurationClassification interface for type DistributionConfiguration.
 func (d *DistributionConfiguration) GetDistributionConfiguration() *DistributionConfiguration {
 	return d
+}
+
+type Docker struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Indicate whether container shall run in privileged or non-privileged mode.
+	Privileged *bool
+}
+
+// DockerCredential - Credential for docker with username and password
+type DockerCredential struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *DataReferenceCredentialType
+
+	// DockerCredential user password
+	Password *string
+
+	// DockerCredential user name
+	UserName *string
+}
+
+// GetDataReferenceCredential implements the DataReferenceCredentialClassification interface for type DockerCredential.
+func (d *DockerCredential) GetDataReferenceCredential() *DataReferenceCredential {
+	return &DataReferenceCredential{
+		CredentialType: d.CredentialType,
+	}
 }
 
 // EarlyTerminationPolicy - Early termination policies enable canceling poor-performing runs before they complete
@@ -2598,26 +3773,51 @@ type EarlyTerminationPolicy struct {
 // GetEarlyTerminationPolicy implements the EarlyTerminationPolicyClassification interface for type EarlyTerminationPolicy.
 func (e *EarlyTerminationPolicy) GetEarlyTerminationPolicy() *EarlyTerminationPolicy { return e }
 
-type EncryptionKeyVaultProperties struct {
-	// REQUIRED; Key vault uri to access the encryption key.
+type EncryptionKeyVaultUpdateProperties struct {
+	// REQUIRED
 	KeyIdentifier *string
-
-	// REQUIRED; The ArmId of the keyVault where the customer owned encryption key is present.
-	KeyVaultArmID *string
-
-	// For future use - The client id of the identity which will be used to access key vault.
-	IdentityClientID *string
 }
 
 type EncryptionProperty struct {
-	// REQUIRED; Customer Key vault properties.
-	KeyVaultProperties *EncryptionKeyVaultProperties
+	// REQUIRED; KeyVault details to do the encryption
+	KeyVaultProperties *KeyVaultProperties
 
 	// REQUIRED; Indicates whether or not the encryption is enabled for the workspace.
 	Status *EncryptionStatus
 
-	// The identity that will be used to access the key vault for encryption at rest.
+	// The byok cosmosdb account that customer brings to store customer's data with encryption
+	CosmosDbResourceID *string
+
+	// Identity to be used with the keyVault
 	Identity *IdentityForCmk
+
+	// The byok search account that customer brings to store customer's data with encryption
+	SearchAccountResourceID *string
+
+	// The byok storage account that customer brings to store customer's data with encryption
+	StorageAccountResourceID *string
+}
+
+type EncryptionUpdateProperties struct {
+	// REQUIRED
+	KeyVaultProperties *EncryptionKeyVaultUpdateProperties
+}
+
+type Endpoint struct {
+	// Host IP over which the application is exposed from the container
+	HostIP *string
+
+	// Name of the Endpoint
+	Name *string
+
+	// Protocol over which communication will happen over this endpoint
+	Protocol *Protocol
+
+	// Port over which the application is exposed from container.
+	Published *int32
+
+	// Application port inside the container.
+	Target *int32
 }
 
 // EndpointAuthKeys - Keys for endpoint authentication.
@@ -2652,7 +3852,7 @@ type EndpointDeploymentPropertiesBase struct {
 	// Description of the endpoint deployment.
 	Description *string
 
-	// ARM resource ID or AssetId of the environment specification for the endpoint deployment.
+	// ARM resource ID of the environment specification for the endpoint deployment.
 	EnvironmentID *string
 
 	// Environment variables configuration for the deployment.
@@ -2737,6 +3937,9 @@ type EnvironmentContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the environment container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // EnvironmentContainerResourceArmPaginatedResult - A paginated list of EnvironmentContainer entities.
@@ -2746,6 +3949,17 @@ type EnvironmentContainerResourceArmPaginatedResult struct {
 
 	// An array of objects of type EnvironmentContainer.
 	Value []*EnvironmentContainer
+}
+
+type EnvironmentVariable struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Type of the Environment Variable. Possible values are: local - For local variable
+	Type *EnvironmentVariableType
+
+	// Value of the Environment variable
+	Value *string
 }
 
 // EnvironmentVersion - Azure Resource Manager resource envelope.
@@ -2768,6 +3982,9 @@ type EnvironmentVersion struct {
 
 // EnvironmentVersionProperties - Environment version details.
 type EnvironmentVersionProperties struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Defines if image needs to be rebuilt based on base image changes.
 	AutoRebuild *AutoRebuildSetting
 
@@ -2786,10 +4003,14 @@ type EnvironmentVersionProperties struct {
 	// Defines configuration specific to inference.
 	InferenceConfig *InferenceContainerProperties
 
-	// If the name version are system generated (anonymous registration).
+	// Intellectual Property details. Used if environment is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The OS type of the environment.
@@ -2798,11 +4019,17 @@ type EnvironmentVersionProperties struct {
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Stage in the environment lifecycle assigned to this environment
+	Stage *string
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
 
 	// READ-ONLY; Environment type is either user managed or curated by the Azure ML service
 	EnvironmentType *EnvironmentType
+
+	// READ-ONLY; Provisioning state for the environment version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // EnvironmentVersionResourceArmPaginatedResult - A paginated list of EnvironmentVersion entities.
@@ -2872,8 +4099,28 @@ type EstimatedVMPrices struct {
 	Values []*EstimatedVMPrice
 }
 
+type ExportSummary struct {
+	// REQUIRED; [Required] The format of exported labels, also as the discriminator.
+	Format *ExportFormatType
+
+	// READ-ONLY; The time when the export was completed.
+	EndDateTime *time.Time
+
+	// READ-ONLY; The total number of labeled datapoints exported.
+	ExportedRowCount *int64
+
+	// READ-ONLY; Name and identifier of the job containing exported labels.
+	LabelingJobID *string
+
+	// READ-ONLY; The time when the export was requested.
+	StartDateTime *time.Time
+}
+
+// GetExportSummary implements the ExportSummaryClassification interface for type ExportSummary.
+func (e *ExportSummary) GetExportSummary() *ExportSummary { return e }
+
 type ExternalFQDNResponse struct {
-	Value []*FQDNEndpoints
+	Value []*FQDNEndpointsPropertyBag
 }
 
 type FQDNEndpoint struct {
@@ -2886,18 +4133,459 @@ type FQDNEndpointDetail struct {
 }
 
 type FQDNEndpoints struct {
-	Properties *FQDNEndpointsProperties
-}
-
-type FQDNEndpointsProperties struct {
 	Category  *string
 	Endpoints []*FQDNEndpoint
+}
+
+// FQDNEndpointsPropertyBag - Property bag for FQDN endpoints result
+type FQDNEndpointsPropertyBag struct {
+	Properties *FQDNEndpoints
+}
+
+// Feature - Azure Resource Manager resource envelope.
+type Feature struct {
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *FeatureProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type FeatureAttributionDriftMonitoringSignal struct {
+	// REQUIRED; [Required] The settings for computing feature importance.
+	FeatureImportanceSettings *FeatureImportanceSettings
+
+	// REQUIRED; [Required] A list of metrics to calculate and their associated thresholds.
+	MetricThreshold *FeatureAttributionMetricThreshold
+
+	// REQUIRED; [Required] The data which drift will be calculated for.
+	ProductionData []MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] The data to calculate drift against.
+	ReferenceData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// A dictionary that maps feature names to their respective data types.
+	FeatureDataTypeOverride map[string]*MonitoringFeatureDataType
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type FeatureAttributionDriftMonitoringSignal.
+func (f *FeatureAttributionDriftMonitoringSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: f.NotificationTypes,
+		Properties:        f.Properties,
+		SignalType:        f.SignalType,
+	}
+}
+
+type FeatureAttributionMetricThreshold struct {
+	// REQUIRED; [Required] The feature attribution metric to calculate.
+	Metric *FeatureAttributionMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+type FeatureImportanceSettings struct {
+	// The mode of operation for computing feature importance.
+	Mode *FeatureImportanceMode
+
+	// The name of the target column within the input data asset.
+	TargetColumn *string
+}
+
+// FeatureProperties - Dto object representing feature
+type FeatureProperties struct {
+	// Specifies type
+	DataType *FeatureDataType
+
+	// The asset description text.
+	Description *string
+
+	// Specifies name
+	FeatureName *string
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+}
+
+// FeatureResourceArmPaginatedResult - A paginated list of Feature entities.
+type FeatureResourceArmPaginatedResult struct {
+	// The link to the next page of Feature objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type Feature.
+	Value []*Feature
+}
+
+type FeatureStoreSettings struct {
+	ComputeRuntime             *ComputeRuntimeDto
+	OfflineStoreConnectionName *string
+	OnlineStoreConnectionName  *string
+}
+
+type FeatureSubset struct {
+	// REQUIRED; [Required] The list of features to include.
+	Features []*string
+
+	// REQUIRED; [Required] Specifies the feature filter to leverage when selecting features to calculate metrics over.
+	FilterType *MonitoringFeatureFilterType
+}
+
+// GetMonitoringFeatureFilterBase implements the MonitoringFeatureFilterBaseClassification interface for type FeatureSubset.
+func (f *FeatureSubset) GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase {
+	return &MonitoringFeatureFilterBase{
+		FilterType: f.FilterType,
+	}
+}
+
+// FeatureWindow - Specifies the feature window
+type FeatureWindow struct {
+	// Specifies the feature window end time
+	FeatureWindowEnd *time.Time
+
+	// Specifies the feature window start time
+	FeatureWindowStart *time.Time
+}
+
+// FeaturesetContainer - Azure Resource Manager resource envelope.
+type FeaturesetContainer struct {
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *FeaturesetContainerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FeaturesetContainerProperties - Dto object representing feature set
+type FeaturesetContainerProperties struct {
+	// The asset description text.
+	Description *string
+
+	// Is the asset archived?
+	IsArchived *bool
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; The latest version inside this container.
+	LatestVersion *string
+
+	// READ-ONLY; The next auto incremental version
+	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the featureset container.
+	ProvisioningState *AssetProvisioningState
+}
+
+// FeaturesetContainerResourceArmPaginatedResult - A paginated list of FeaturesetContainer entities.
+type FeaturesetContainerResourceArmPaginatedResult struct {
+	// The link to the next page of FeaturesetContainer objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type FeaturesetContainer.
+	Value []*FeaturesetContainer
+}
+
+// FeaturesetSpecification - Dto object representing specification
+type FeaturesetSpecification struct {
+	// Specifies the spec path
+	Path *string
+}
+
+// FeaturesetVersion - Azure Resource Manager resource envelope.
+type FeaturesetVersion struct {
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *FeaturesetVersionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FeaturesetVersionBackfillRequest - Request payload for creating a backfill request for a given feature set version
+type FeaturesetVersionBackfillRequest struct {
+	// Specified the data availability status that you want to backfill
+	DataAvailabilityStatus []*DataAvailabilityStatus
+
+	// Specifies description
+	Description *string
+
+	// Specifies description
+	DisplayName *string
+
+	// Specifies the backfill feature window to be materialized
+	FeatureWindow *FeatureWindow
+
+	// Specify the jobId to retry the failed materialization
+	JobID *string
+
+	// Specifies the properties
+	Properties map[string]*string
+
+	// Specifies the compute resource settings
+	Resource *MaterializationComputeResource
+
+	// Specifies the spark compute settings
+	SparkConfiguration map[string]*string
+
+	// Specifies the tags
+	Tags map[string]*string
+}
+
+// FeaturesetVersionBackfillResponse - Response payload for creating a backfill request for a given feature set version
+type FeaturesetVersionBackfillResponse struct {
+	// List of jobs submitted as part of the backfill request.
+	JobIDs []*string
+}
+
+// FeaturesetVersionProperties - Dto object representing feature set version
+type FeaturesetVersionProperties struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
+	// The asset description text.
+	Description *string
+
+	// Specifies list of entities
+	Entities []*string
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
+	IsAnonymous *bool
+
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
+	IsArchived *bool
+
+	// Specifies the materialization settings
+	MaterializationSettings *MaterializationSettings
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Specifies the feature spec details
+	Specification *FeaturesetSpecification
+
+	// Specifies the asset stage
+	Stage *string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the featureset version container.
+	ProvisioningState *AssetProvisioningState
+}
+
+// FeaturesetVersionResourceArmPaginatedResult - A paginated list of FeaturesetVersion entities.
+type FeaturesetVersionResourceArmPaginatedResult struct {
+	// The link to the next page of FeaturesetVersion objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type FeaturesetVersion.
+	Value []*FeaturesetVersion
+}
+
+// FeaturestoreEntityContainer - Azure Resource Manager resource envelope.
+type FeaturestoreEntityContainer struct {
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *FeaturestoreEntityContainerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FeaturestoreEntityContainerProperties - Dto object representing feature entity
+type FeaturestoreEntityContainerProperties struct {
+	// The asset description text.
+	Description *string
+
+	// Is the asset archived?
+	IsArchived *bool
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; The latest version inside this container.
+	LatestVersion *string
+
+	// READ-ONLY; The next auto incremental version
+	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the featurestore entity container.
+	ProvisioningState *AssetProvisioningState
+}
+
+// FeaturestoreEntityContainerResourceArmPaginatedResult - A paginated list of FeaturestoreEntityContainer entities.
+type FeaturestoreEntityContainerResourceArmPaginatedResult struct {
+	// The link to the next page of FeaturestoreEntityContainer objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type FeaturestoreEntityContainer.
+	Value []*FeaturestoreEntityContainer
+}
+
+// FeaturestoreEntityVersion - Azure Resource Manager resource envelope.
+type FeaturestoreEntityVersion struct {
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *FeaturestoreEntityVersionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FeaturestoreEntityVersionProperties - Dto object representing feature entity version
+type FeaturestoreEntityVersionProperties struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
+	// The asset description text.
+	Description *string
+
+	// Specifies index columns
+	IndexColumns []*IndexColumn
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
+	IsAnonymous *bool
+
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
+	IsArchived *bool
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Specifies the asset stage
+	Stage *string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the featurestore entity version.
+	ProvisioningState *AssetProvisioningState
+}
+
+// FeaturestoreEntityVersionResourceArmPaginatedResult - A paginated list of FeaturestoreEntityVersion entities.
+type FeaturestoreEntityVersionResourceArmPaginatedResult struct {
+	// The link to the next page of FeaturestoreEntityVersion objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type FeaturestoreEntityVersion.
+	Value []*FeaturestoreEntityVersion
 }
 
 // FeaturizationSettings - Featurization Configuration.
 type FeaturizationSettings struct {
 	// Dataset language, useful for the text data.
 	DatasetLanguage *string
+}
+
+type FileSystemSource struct {
+	// REQUIRED; [Required] Specifies the type of data.
+	SourceType *DataImportSourceType
+
+	// Workspace connection for data import source storage
+	Connection *string
+
+	// Path on data import FileSystem source
+	Path *string
+}
+
+// GetDataImportSource implements the DataImportSourceClassification interface for type FileSystemSource.
+func (f *FileSystemSource) GetDataImportSource() *DataImportSource {
+	return &DataImportSource{
+		Connection: f.Connection,
+		SourceType: f.SourceType,
+	}
+}
+
+// FixedInputData - Fixed input data definition.
+type FixedInputData struct {
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	InputDataType *MonitoringInputDataType
+
+	// REQUIRED; [Required] Specifies the type of job.
+	JobInputType *JobInputType
+
+	// REQUIRED; [Required] Input Asset URI.
+	URI *string
+
+	// Mapping of column names to special uses.
+	Columns map[string]*string
+
+	// The context metadata of the data source.
+	DataContext *string
+}
+
+// GetMonitoringInputDataBase implements the MonitoringInputDataBaseClassification interface for type FixedInputData.
+func (f *FixedInputData) GetMonitoringInputDataBase() *MonitoringInputDataBase {
+	return &MonitoringInputDataBase{
+		Columns:       f.Columns,
+		DataContext:   f.DataContext,
+		InputDataType: f.InputDataType,
+		JobInputType:  f.JobInputType,
+		URI:           f.URI,
+	}
 }
 
 type FlavorData struct {
@@ -2928,6 +4616,9 @@ type Forecasting struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *TableVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *TableFixedParameters
+
 	// Forecasting task specific inputs.
 	ForecastingSettings *ForecastingSettings
 
@@ -2942,6 +4633,12 @@ type Forecasting struct {
 
 	// Primary metric for forecasting task.
 	PrimaryMetric *ForecastingPrimaryMetrics
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*TableParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *TableSweepSettings
 
 	// Target column name: This is prediction values column. Also known as label column name in context of classification tasks.
 	TargetColumnName *string
@@ -2990,6 +4687,11 @@ type ForecastingSettings struct {
 
 	// Flag for generating lags for the numeric features with 'auto' or null.
 	FeatureLags *FeatureLags
+
+	// The feature columns that are available for training but unknown at the time of forecast/inference. If featuresunknownatforecasttime
+	// is not set, it is assumed that all the feature columns in the
+	// dataset are known at inference time.
+	FeaturesUnknownAtForecastTime []*string
 
 	// The desired maximum forecast horizon in units of time-series frequency.
 	ForecastHorizon ForecastHorizonClassification
@@ -3059,6 +4761,141 @@ type ForecastingTrainingSettings struct {
 
 	// Stack ensemble settings for stack ensemble run.
 	StackEnsembleSettings *StackEnsembleSettings
+
+	// TrainingMode mode - Setting to 'auto' is same as setting it to 'non-distributed' for now, however in the future may result
+	// in mixed mode or heuristics based mode selection. Default is 'auto'. If
+	// 'Distributed' then only distributed featurization is used and distributed algorithms are chosen. If 'NonDistributed' then
+	// only non distributed algorithms are chosen.
+	TrainingMode *TrainingMode
+}
+
+// FqdnOutboundRule - FQDN Outbound Rule for the managed network of a machine learning workspace.
+type FqdnOutboundRule struct {
+	// REQUIRED; Type of a managed network outbound rule of a machine learning workspace.
+	Type *RuleType
+
+	// Category of a managed network outbound rule of a machine learning workspace.
+	Category    *RuleCategory
+	Destination *string
+
+	// Type of a managed network outbound rule of a machine learning workspace.
+	Status *RuleStatus
+}
+
+// GetOutboundRule implements the OutboundRuleClassification interface for type FqdnOutboundRule.
+func (f *FqdnOutboundRule) GetOutboundRule() *OutboundRule {
+	return &OutboundRule{
+		Category: f.Category,
+		Status:   f.Status,
+		Type:     f.Type,
+	}
+}
+
+// GenerationSafetyQualityMetricThreshold - Generation safety quality metric threshold definition.
+type GenerationSafetyQualityMetricThreshold struct {
+	// REQUIRED; [Required] Gets or sets the feature attribution metric to calculate.
+	Metric *GenerationSafetyQualityMetric
+
+	// Gets or sets the threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GenerationSafetyQualityMonitoringSignal - Generation safety quality monitoring signal definition.
+type GenerationSafetyQualityMonitoringSignal struct {
+	// REQUIRED; [Required] Gets or sets the metrics to calculate and the corresponding thresholds.
+	MetricThresholds []*GenerationSafetyQualityMetricThreshold
+
+	// REQUIRED; [Required] The sample rate of the production data, should be greater than 0 and at most 1.
+	SamplingRate *float64
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Gets or sets the production data for computing metrics.
+	ProductionData []MonitoringInputDataBaseClassification
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+
+	// Gets or sets the workspace connection ID used to connect to the content generation endpoint.
+	WorkspaceConnectionID *string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type GenerationSafetyQualityMonitoringSignal.
+func (g *GenerationSafetyQualityMonitoringSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: g.NotificationTypes,
+		Properties:        g.Properties,
+		SignalType:        g.SignalType,
+	}
+}
+
+// GenerationTokenUsageMetricThreshold - Generation token statistics metric threshold definition.
+type GenerationTokenUsageMetricThreshold struct {
+	// REQUIRED; [Required] Gets or sets the feature attribution metric to calculate.
+	Metric *GenerationTokenUsageMetric
+
+	// Gets or sets the threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GenerationTokenUsageSignal - Generation token usage signal definition.
+type GenerationTokenUsageSignal struct {
+	// REQUIRED; [Required] Gets or sets the metrics to calculate and the corresponding thresholds.
+	MetricThresholds []*GenerationTokenUsageMetricThreshold
+
+	// REQUIRED; [Required] The sample rate of the production data, should be greater than 0 and at most 1.
+	SamplingRate *float64
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Gets or sets the production data for computing metrics.
+	ProductionData []MonitoringInputDataBaseClassification
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type GenerationTokenUsageSignal.
+func (g *GenerationTokenUsageSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: g.NotificationTypes,
+		Properties:        g.Properties,
+		SignalType:        g.SignalType,
+	}
+}
+
+type GetBlobReferenceForConsumptionDto struct {
+	// Blob uri, example: https://blob.windows.core.net/Container/Path
+	BlobURI *string
+
+	// Credential info to access storage account
+	Credential DataReferenceCredentialClassification
+
+	// The ARM id of the storage account
+	StorageAccountArmID *string
+}
+
+// GetBlobReferenceSASRequestDto - BlobReferenceSASRequest for getBlobReferenceSAS API
+type GetBlobReferenceSASRequestDto struct {
+	// Id of the asset to be accessed
+	AssetID *string
+
+	// Blob uri of the asset to be accessed
+	BlobURI *string
+}
+
+// GetBlobReferenceSASResponseDto - BlobReferenceSASResponse for getBlobReferenceSAS API
+type GetBlobReferenceSASResponseDto struct {
+	// Blob reference for consumption details
+	BlobReferenceForConsumption *GetBlobReferenceForConsumptionDto
 }
 
 // GridSamplingAlgorithm - Defines a Sampling Algorithm that exhaustively generates every value combination in the space
@@ -3072,6 +4909,20 @@ func (g *GridSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	return &SamplingAlgorithm{
 		SamplingAlgorithmType: g.SamplingAlgorithmType,
 	}
+}
+
+type GroupStatus struct {
+	// Gets or sets the actual capacity info for the group.
+	ActualCapacityInfo *ActualCapacityInfo
+
+	// Gets or sets capacity used from the pool's reserved capacity.
+	BonusExtraCapacity *int32
+
+	// Gets or sets the actual number of endpoints in the group.
+	EndpointCount *int32
+
+	// Gets or sets the request number of instances for the group.
+	RequestedCapacity *int32
 }
 
 // HDInsight - A HDInsight compute.
@@ -3144,6 +4995,51 @@ type HDInsightSchema struct {
 	Properties *HDInsightProperties
 }
 
+type HdfsDatastore struct {
+	// REQUIRED; [Required] Account credentials.
+	Credentials DatastoreCredentialsClassification
+
+	// REQUIRED; [Required] Storage type backing the datastore.
+	DatastoreType *DatastoreType
+
+	// REQUIRED; [Required] IP Address or DNS HostName.
+	NameNodeAddress *string
+
+	// The asset description text.
+	Description *string
+
+	// The TLS cert of the HDFS server. Needs to be a base64 encoded string. Required if "Https" protocol is selected.
+	HdfsServerCertificate *string
+
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Protocol used to communicate with the storage account (Https/Http).
+	Protocol *string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Readonly property to indicate if datastore is the workspace default datastore
+	IsDefault *bool
+}
+
+// GetDatastoreProperties implements the DatastorePropertiesClassification interface for type HdfsDatastore.
+func (h *HdfsDatastore) GetDatastoreProperties() *DatastoreProperties {
+	return &DatastoreProperties{
+		Credentials:          h.Credentials,
+		DatastoreType:        h.DatastoreType,
+		Description:          h.Description,
+		IntellectualProperty: h.IntellectualProperty,
+		IsDefault:            h.IsDefault,
+		Properties:           h.Properties,
+		Tags:                 h.Tags,
+	}
+}
+
 // IDAssetReference - Reference to an asset via its ARM resource ID.
 type IDAssetReference struct {
 	// REQUIRED; [Required] ARM resource ID of the asset.
@@ -3169,10 +5065,31 @@ type IdentityConfiguration struct {
 // GetIdentityConfiguration implements the IdentityConfigurationClassification interface for type IdentityConfiguration.
 func (i *IdentityConfiguration) GetIdentityConfiguration() *IdentityConfiguration { return i }
 
-// IdentityForCmk - Identity that will be used to access key vault for encryption at rest
+// IdentityForCmk - Identity object used for encryption.
 type IdentityForCmk struct {
-	// The ArmId of the user assigned identity that will be used to access the customer managed key vault
+	// UserAssignedIdentity to be used to fetch the encryption key from keyVault
 	UserAssignedIdentity *string
+}
+
+// IdleShutdownSetting - Stops compute instance after user defined period of inactivity.
+type IdleShutdownSetting struct {
+	// Time is defined in ISO8601 format. Minimum is 15 min, maximum is 3 days.
+	IdleTimeBeforeShutdown *string
+}
+
+type Image struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Image reference URL if type is docker. Environment name if type is azureml
+	Reference *string
+
+	// Type of the image. Possible values are: docker - For docker images. azureml - For AzureML Environment images (custom and
+	// curated)
+	Type *ImageType
+
+	// Version of image being used. If latest then skip this field
+	Version *string
 }
 
 // ImageClassification - Image Classification. Multi-class image classification is used when an image is classified with only
@@ -3353,13 +5270,30 @@ type ImageLimitSettings struct {
 	Timeout *string
 }
 
-// ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:ModelName
-// = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";All distributions can be specified as distribution_name(min, max) or choice(val1, val2, …, valn) where distribution
-// name can be: uniform, quniform, loguniform, etc For more details on how to
-// compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information on the available settings
-// please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// ImageMetadata - Returns metadata about the operating system image for this compute instance.
+type ImageMetadata struct {
+	// Specifies the current operating system image version this compute instance is running on.
+	CurrentImageVersion *string
+
+	// Specifies whether this compute instance is running on the latest operating system image.
+	IsLatestOsImageVersion *bool
+
+	// Specifies the latest available operating system image version.
+	LatestImageVersion *string
+
+	// READ-ONLY; Metadata about the os patching.
+	OSPatchingStatus *OsPatchingStatus
+}
+
+// ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// All distributions can be specified as distribution_name(min, max) or choice(val1, val2, …, valn) where distribution name
+// can be: uniform, quniform, loguniform, etc For more details on how to compose
+// distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on the available settings please visit
+// the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettings struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string
@@ -3454,10 +5388,13 @@ type ImageModelDistributionSettings struct {
 }
 
 // ImageModelDistributionSettingsClassification - Distribution expressions to sweep over values of model settings.Some examples
-// are:ModelName = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information
-// on the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on
+// the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettingsClassification struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string
@@ -3565,10 +5502,13 @@ type ImageModelDistributionSettingsClassification struct {
 }
 
 // ImageModelDistributionSettingsObjectDetection - Distribution expressions to sweep over values of model settings.Some examples
-// are:ModelName = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information
-// on the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on
+// the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettingsObjectDetection struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string
@@ -4020,6 +5960,12 @@ type ImageModelSettingsObjectDetection struct {
 	// Type of learning rate scheduler. Must be 'warmup_cosine' or 'step'.
 	LearningRateScheduler *LearningRateScheduler
 
+	// Enable computing and logging training metrics.
+	LogTrainingMetrics *LogTrainingMetrics
+
+	// Enable computing and logging validation loss.
+	LogValidationLoss *LogValidationLoss
+
 	// Maximum size of the image to be rescaled before feeding it to the backbone. Must be a positive integer. Note: training
 	// run may get into CUDA OOM if the size is too big. Note: This settings is not
 	// supported for the 'yolov5' algorithm.
@@ -4201,6 +6147,93 @@ type ImageVertical struct {
 	ValidationDataSize *float64
 }
 
+type ImportDataAction struct {
+	// REQUIRED; [Required] Specifies the action type of the schedule
+	ActionType *ScheduleActionType
+
+	// REQUIRED; [Required] Defines Schedule action definition details.
+	DataImportDefinition *DataImport
+}
+
+// GetScheduleActionBase implements the ScheduleActionBaseClassification interface for type ImportDataAction.
+func (i *ImportDataAction) GetScheduleActionBase() *ScheduleActionBase {
+	return &ScheduleActionBase{
+		ActionType: i.ActionType,
+	}
+}
+
+// Index resource
+type Index struct {
+	// The resource-specific properties for this resource.
+	Properties *IndexVersionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// IndexColumn - Dto object representing index column
+type IndexColumn struct {
+	// Specifies the column name
+	ColumnName *string
+
+	// Specifies the data type
+	DataType *FeatureDataType
+}
+
+// IndexListResult - The response of a Index list operation.
+type IndexListResult struct {
+	// REQUIRED; The Index items on this page
+	Value []*Index
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// IndexVersion - Index Version resource
+type IndexVersion struct {
+	// The resource-specific properties for this resource.
+	Properties *IndexVersionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// IndexVersionListResult - The response of a IndexVersion list operation.
+type IndexVersionListResult struct {
+	// REQUIRED; The IndexVersion items on this page
+	Value []*IndexVersion
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// IndexVersionProperties - Index properties
+type IndexVersionProperties struct {
+	// REQUIRED; Placeholder for extras.
+	IndexConfigurations map[string]*string
+
+	// REQUIRED; Default workspace blob storage Uri. Should work across storage types and auth scenarios.
+	StorageURI *string
+}
+
 type InferenceContainerProperties struct {
 	// The route to check the liveness of the inference server container.
 	LivenessRoute *Route
@@ -4211,6 +6244,206 @@ type InferenceContainerProperties struct {
 	// The port to send the scoring requests to, within the inference server container.
 	ScoringRoute *Route
 }
+
+type InferenceEndpoint struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *InferenceEndpointProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InferenceEndpointProperties - InferenceEndpoint configuration
+type InferenceEndpointProperties struct {
+	// REQUIRED; [Required] Authentication mode for the endpoint.
+	AuthMode *AuthMode
+
+	// REQUIRED; [Required] Group within the same pool with which this endpoint needs to be associated with.
+	GroupID *string
+
+	// Description of the resource.
+	Description *string
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+
+	// READ-ONLY; Endpoint URI for the inference endpoint.
+	EndpointURI *string
+
+	// READ-ONLY; Provisioning state for the endpoint.
+	ProvisioningState *PoolProvisioningState
+}
+
+// InferenceEndpointTrackedResourceArmPaginatedResult - A paginated list of InferenceEndpoint entities.
+type InferenceEndpointTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of InferenceEndpoint objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type InferenceEndpoint.
+	Value []*InferenceEndpoint
+}
+
+type InferenceGroup struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *InferenceGroupProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InferenceGroupProperties - Inference group configuration
+type InferenceGroupProperties struct {
+	// Capacity to be used from the pool's reserved capacity. optional
+	BonusExtraCapacity *int32
+
+	// Description of the resource.
+	Description *string
+
+	// Metadata for the inference group.
+	Metadata *string
+
+	// Priority of the group within the N:Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20240101Preview.Pools.InferencePools.
+	Priority *int32
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+
+	// READ-ONLY; Provisioning state for the inference group.
+	ProvisioningState *PoolProvisioningState
+}
+
+// InferenceGroupTrackedResourceArmPaginatedResult - A paginated list of InferenceGroup entities.
+type InferenceGroupTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of InferenceGroup objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type InferenceGroup.
+	Value []*InferenceGroup
+}
+
+type InferencePool struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *InferencePoolProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InferencePoolProperties - Inference pool configuration
+type InferencePoolProperties struct {
+	// REQUIRED; [Required] Compute instance type.
+	NodeSKUType *string
+
+	// Code configuration for the inference pool.
+	CodeConfiguration *CodeConfiguration
+
+	// Description of the resource.
+	Description *string
+
+	// EnvironmentConfiguration for the inference pool.
+	EnvironmentConfiguration *PoolEnvironmentConfiguration
+
+	// ModelConfiguration for the inference pool.
+	ModelConfiguration *PoolModelConfiguration
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+
+	// Request configuration for the inference pool.
+	RequestConfiguration *RequestConfiguration
+
+	// READ-ONLY; Provisioning state for the pool.
+	ProvisioningState *PoolProvisioningState
+}
+
+// InferencePoolTrackedResourceArmPaginatedResult - A paginated list of InferencePool entities.
+type InferencePoolTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of InferencePool objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type InferencePool.
+	Value []*InferencePool
+}
+
+type InferencingServer struct {
+	// REQUIRED; [Required] Inferencing server type for various targets.
+	ServerType *InferencingServerType
+}
+
+// GetInferencingServer implements the InferencingServerClassification interface for type InferencingServer.
+func (i *InferencingServer) GetInferencingServer() *InferencingServer { return i }
 
 // InstanceTypeSchema - Instance type schema.
 type InstanceTypeSchema struct {
@@ -4228,6 +6461,15 @@ type InstanceTypeSchemaResources struct {
 
 	// Resource requests for this instance type
 	Requests map[string]*string
+}
+
+// IntellectualProperty - Intellectual Property details for a resource.
+type IntellectualProperty struct {
+	// REQUIRED; [Required] Publisher of the Intellectual Property. Must be the same as Registry publisher name.
+	Publisher *string
+
+	// Protection level of the Intellectual Property.
+	ProtectionLevel *ProtectionLevel
 }
 
 // JobBase - Azure Resource Manager resource envelope.
@@ -4275,8 +6517,14 @@ type JobBaseProperties struct {
 	// Is the asset archived?
 	IsArchived *bool
 
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
 	// The asset property dictionary.
 	Properties map[string]*string
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
 
 	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
 	Services map[string]*JobService
@@ -4348,6 +6596,13 @@ type JobResourceConfiguration struct {
 	// Optional type of VM used as supported by the compute target.
 	InstanceType *string
 
+	// Locations where the job can run.
+	Locations []*string
+
+	// Optional max allowed number of instances or nodes to be used by the compute target. For use with elastic training, currently
+	// supported by PyTorch distribution type only.
+	MaxInstanceCount *int32
+
 	// Additional properties bag.
 	Properties map[string]any
 
@@ -4380,7 +6635,11 @@ type JobService struct {
 	// Endpoint type.
 	JobServiceType *string
 
-	// Port for endpoint.
+	// Nodes that user would like to start the service on. If Nodes is not set or set to null, the service will only be started
+	// on leader node.
+	Nodes NodesClassification
+
+	// Port for endpoint set by user.
 	Port *int32
 
 	// Additional properties to set on the endpoint.
@@ -4391,6 +6650,122 @@ type JobService struct {
 
 	// READ-ONLY; Status of endpoint.
 	Status *string
+}
+
+// JupyterKernelConfig - Jupyter kernel configuration.
+type JupyterKernelConfig struct {
+	// Argument to the the runtime
+	Argv []*string
+
+	// Display name of the kernel
+	DisplayName *string
+
+	// Language of the kernel [Example value: python]
+	Language *string
+}
+
+type KerberosCredentials struct {
+	// REQUIRED; [Required] IP Address or DNS HostName.
+	KerberosKdcAddress *string
+
+	// REQUIRED; [Required] Kerberos Username
+	KerberosPrincipal *string
+
+	// REQUIRED; [Required] Domain over which a Kerberos authentication server has the authority to authenticate a user, host
+	// or service.
+	KerberosRealm *string
+}
+
+type KerberosKeytabCredentials struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialsType *CredentialsType
+
+	// REQUIRED; [Required] IP Address or DNS HostName.
+	KerberosKdcAddress *string
+
+	// REQUIRED; [Required] Kerberos Username
+	KerberosPrincipal *string
+
+	// REQUIRED; [Required] Domain over which a Kerberos authentication server has the authority to authenticate a user, host
+	// or service.
+	KerberosRealm *string
+
+	// REQUIRED; [Required] Keytab secrets.
+	Secrets *KerberosKeytabSecrets
+}
+
+// GetDatastoreCredentials implements the DatastoreCredentialsClassification interface for type KerberosKeytabCredentials.
+func (k *KerberosKeytabCredentials) GetDatastoreCredentials() *DatastoreCredentials {
+	return &DatastoreCredentials{
+		CredentialsType: k.CredentialsType,
+	}
+}
+
+type KerberosKeytabSecrets struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	SecretsType *SecretsType
+
+	// Kerberos keytab secret.
+	KerberosKeytab *string
+}
+
+// GetDatastoreSecrets implements the DatastoreSecretsClassification interface for type KerberosKeytabSecrets.
+func (k *KerberosKeytabSecrets) GetDatastoreSecrets() *DatastoreSecrets {
+	return &DatastoreSecrets{
+		SecretsType: k.SecretsType,
+	}
+}
+
+type KerberosPasswordCredentials struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialsType *CredentialsType
+
+	// REQUIRED; [Required] IP Address or DNS HostName.
+	KerberosKdcAddress *string
+
+	// REQUIRED; [Required] Kerberos Username
+	KerberosPrincipal *string
+
+	// REQUIRED; [Required] Domain over which a Kerberos authentication server has the authority to authenticate a user, host
+	// or service.
+	KerberosRealm *string
+
+	// REQUIRED; [Required] Kerberos password secrets.
+	Secrets *KerberosPasswordSecrets
+}
+
+// GetDatastoreCredentials implements the DatastoreCredentialsClassification interface for type KerberosPasswordCredentials.
+func (k *KerberosPasswordCredentials) GetDatastoreCredentials() *DatastoreCredentials {
+	return &DatastoreCredentials{
+		CredentialsType: k.CredentialsType,
+	}
+}
+
+type KerberosPasswordSecrets struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	SecretsType *SecretsType
+
+	// Kerberos password secret.
+	KerberosPassword *string
+}
+
+// GetDatastoreSecrets implements the DatastoreSecretsClassification interface for type KerberosPasswordSecrets.
+func (k *KerberosPasswordSecrets) GetDatastoreSecrets() *DatastoreSecrets {
+	return &DatastoreSecrets{
+		SecretsType: k.SecretsType,
+	}
+}
+
+// KeyVaultProperties - Customer Key vault properties.
+type KeyVaultProperties struct {
+	// REQUIRED; KeyVault key identifier to encrypt the data
+	KeyIdentifier *string
+
+	// REQUIRED; KeyVault Arm Id that contains the data encryption key
+	KeyVaultArmID *string
+
+	// Currently, we support only SystemAssigned MSI. We need this when we support UserAssignedIdentities
+	IdentityClientID *string
 }
 
 // Kubernetes - A Machine Learning compute based on Kubernetes Compute.
@@ -4460,13 +6835,16 @@ type KubernetesOnlineDeployment struct {
 	// The resource requirements for the container (cpu and memory).
 	ContainerResourceRequirements *ContainerResourceRequirements
 
+	// The mdc configuration, we disable mdc when it's null.
+	DataCollector *DataCollector
+
 	// Description of the endpoint deployment.
 	Description *string
 
 	// If Enabled, allow egress public network access. If Disabled, this will create secure egress. Default: Enabled.
 	EgressPublicNetworkAccess *EgressPublicNetworkAccessType
 
-	// ARM resource ID or AssetId of the environment specification for the endpoint deployment.
+	// ARM resource ID of the environment specification for the endpoint deployment.
 	EnvironmentID *string
 
 	// Environment variables configuration for the deployment.
@@ -4507,6 +6885,7 @@ func (k *KubernetesOnlineDeployment) GetOnlineDeploymentProperties() *OnlineDepl
 	return &OnlineDeploymentProperties{
 		AppInsightsEnabled:        k.AppInsightsEnabled,
 		CodeConfiguration:         k.CodeConfiguration,
+		DataCollector:             k.DataCollector,
 		Description:               k.Description,
 		EgressPublicNetworkAccess: k.EgressPublicNetworkAccess,
 		EndpointComputeType:       k.EndpointComputeType,
@@ -4557,6 +6936,224 @@ type KubernetesSchema struct {
 	Properties *KubernetesProperties
 }
 
+// LabelCategory - Label category definition
+type LabelCategory struct {
+	// Dictionary of label classes in this category.
+	Classes map[string]*LabelClass
+
+	// Display name of the label category.
+	DisplayName *string
+
+	// Indicates whether it is allowed to select multiple classes in this category.
+	MultiSelect *MultiSelect
+}
+
+// LabelClass - Label class definition
+type LabelClass struct {
+	// Display name of the label class.
+	DisplayName *string
+
+	// Dictionary of subclasses of the label class.
+	Subclasses map[string]*LabelClass
+}
+
+// LabelingDataConfiguration - Labeling data configuration definition
+type LabelingDataConfiguration struct {
+	// Resource Id of the data asset to perform labeling.
+	DataID *string
+
+	// Indicates whether to enable incremental data refresh.
+	IncrementalDataRefresh *IncrementalDataRefresh
+}
+
+// LabelingJob - Azure Resource Manager resource envelope.
+type LabelingJob struct {
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *LabelingJobProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// LabelingJobImageProperties - Properties of a labeling job for image data
+type LabelingJobImageProperties struct {
+	// REQUIRED; [Required] Media type of the job.
+	MediaType *MediaType
+
+	// Annotation type of image labeling job.
+	AnnotationType *ImageAnnotationType
+}
+
+// GetLabelingJobMediaProperties implements the LabelingJobMediaPropertiesClassification interface for type LabelingJobImageProperties.
+func (l *LabelingJobImageProperties) GetLabelingJobMediaProperties() *LabelingJobMediaProperties {
+	return &LabelingJobMediaProperties{
+		MediaType: l.MediaType,
+	}
+}
+
+// LabelingJobInstructions - Instructions for labeling job
+type LabelingJobInstructions struct {
+	// The link to a page with detailed labeling instructions for labelers.
+	URI *string
+}
+
+// LabelingJobMediaProperties - Properties of a labeling job
+type LabelingJobMediaProperties struct {
+	// REQUIRED; [Required] Media type of the job.
+	MediaType *MediaType
+}
+
+// GetLabelingJobMediaProperties implements the LabelingJobMediaPropertiesClassification interface for type LabelingJobMediaProperties.
+func (l *LabelingJobMediaProperties) GetLabelingJobMediaProperties() *LabelingJobMediaProperties {
+	return l
+}
+
+// LabelingJobProperties - Labeling job definition
+type LabelingJobProperties struct {
+	// REQUIRED; [Required] Specifies the type of job.
+	JobType *JobType
+
+	// ARM resource ID of the component resource.
+	ComponentID *string
+
+	// ARM resource ID of the compute resource.
+	ComputeID *string
+
+	// Configuration of data used in the job.
+	DataConfiguration *LabelingDataConfiguration
+
+	// The asset description text.
+	Description *string
+
+	// Display name of job.
+	DisplayName *string
+
+	// The name of the experiment the job belongs to. If not set, the job is placed in the "Default" experiment.
+	ExperimentName *string
+
+	// Identity configuration. If set, this should be one of AmlToken, ManagedIdentity, UserIdentity or null. Defaults to AmlToken
+	// if null.
+	Identity IdentityConfigurationClassification
+
+	// Is the asset archived?
+	IsArchived *bool
+
+	// Labeling instructions of the job.
+	JobInstructions *LabelingJobInstructions
+
+	// Label categories of the job.
+	LabelCategories map[string]*LabelCategory
+
+	// Media type specific properties in the job.
+	LabelingJobMediaProperties LabelingJobMediaPropertiesClassification
+
+	// Configuration of MLAssist feature in the job.
+	MlAssistConfiguration MLAssistConfigurationClassification
+
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
+
+	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
+	Services map[string]*JobService
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Created time of the job in UTC timezone.
+	CreatedDateTime *time.Time
+
+	// READ-ONLY; Progress metrics of the job.
+	ProgressMetrics *ProgressMetrics
+
+	// READ-ONLY; Internal id of the job(Previously called project).
+	ProjectID *string
+
+	// READ-ONLY; Specifies the labeling job provisioning state.
+	ProvisioningState *JobProvisioningState
+
+	// READ-ONLY; Status of the job.
+	Status *JobStatus
+
+	// READ-ONLY; Status messages of the job.
+	StatusMessages []*StatusMessage
+}
+
+// GetJobBaseProperties implements the JobBasePropertiesClassification interface for type LabelingJobProperties.
+func (l *LabelingJobProperties) GetJobBaseProperties() *JobBaseProperties {
+	return &JobBaseProperties{
+		ComponentID:          l.ComponentID,
+		ComputeID:            l.ComputeID,
+		Description:          l.Description,
+		DisplayName:          l.DisplayName,
+		ExperimentName:       l.ExperimentName,
+		Identity:             l.Identity,
+		IsArchived:           l.IsArchived,
+		JobType:              l.JobType,
+		NotificationSetting:  l.NotificationSetting,
+		Properties:           l.Properties,
+		SecretsConfiguration: l.SecretsConfiguration,
+		Services:             l.Services,
+		Status:               l.Status,
+		Tags:                 l.Tags,
+	}
+}
+
+// LabelingJobResourceArmPaginatedResult - A paginated list of LabelingJob entities.
+type LabelingJobResourceArmPaginatedResult struct {
+	// The link to the next page of LabelingJob objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type LabelingJob.
+	Value []*LabelingJob
+}
+
+// LabelingJobTextProperties - Properties of a labeling job for text data
+type LabelingJobTextProperties struct {
+	// REQUIRED; [Required] Media type of the job.
+	MediaType *MediaType
+
+	// Annotation type of text labeling job.
+	AnnotationType *TextAnnotationType
+}
+
+// GetLabelingJobMediaProperties implements the LabelingJobMediaPropertiesClassification interface for type LabelingJobTextProperties.
+func (l *LabelingJobTextProperties) GetLabelingJobMediaProperties() *LabelingJobMediaProperties {
+	return &LabelingJobMediaProperties{
+		MediaType: l.MediaType,
+	}
+}
+
+type LakeHouseArtifact struct {
+	// REQUIRED; [Required] OneLake artifact name
+	ArtifactName *string
+
+	// REQUIRED; [Required] OneLake artifact type
+	ArtifactType *OneLakeArtifactType
+}
+
+// GetOneLakeArtifact implements the OneLakeArtifactClassification interface for type LakeHouseArtifact.
+func (l *LakeHouseArtifact) GetOneLakeArtifact() *OneLakeArtifact {
+	return &OneLakeArtifact{
+		ArtifactName: l.ArtifactName,
+		ArtifactType: l.ArtifactType,
+	}
+}
+
 // ListAmlUserFeatureResult - The List Aml user feature operation response.
 type ListAmlUserFeatureResult struct {
 	// READ-ONLY; The URI to fetch the next page of AML user features information. Call ListNext() with this to fetch the next
@@ -4568,15 +7165,15 @@ type ListAmlUserFeatureResult struct {
 }
 
 type ListNotebookKeysResult struct {
-	// READ-ONLY
+	// READ-ONLY; The primary access key of the Notebook
 	PrimaryAccessKey *string
 
-	// READ-ONLY
+	// READ-ONLY; The secondary access key of the Notebook
 	SecondaryAccessKey *string
 }
 
 type ListStorageAccountKeysResult struct {
-	// READ-ONLY
+	// READ-ONLY; The access key of the storage
 	UserStorageKey *string
 }
 
@@ -4591,20 +7188,17 @@ type ListUsagesResult struct {
 }
 
 type ListWorkspaceKeysResult struct {
-	// READ-ONLY
+	ContainerRegistryCredentials *RegistryListCredentialsResult
+	NotebookAccessKeys           *ListNotebookKeysResult
+
+	// READ-ONLY; The access key of the workspace app insights
 	AppInsightsInstrumentationKey *string
 
-	// READ-ONLY
-	ContainerRegistryCredentials *RegistryListCredentialsResult
+	// READ-ONLY; The arm Id key of the workspace storage
+	UserStorageArmID *string
 
-	// READ-ONLY
-	NotebookAccessKeys *ListNotebookKeysResult
-
-	// READ-ONLY
+	// READ-ONLY; The access key of the workspace storage
 	UserStorageKey *string
-
-	// READ-ONLY
-	UserStorageResourceID *string
 }
 
 // ListWorkspaceQuotas - The List WorkspaceQuotasByVMFamily operation response.
@@ -4637,6 +7231,47 @@ func (l *LiteralJobInput) GetJobInput() *JobInput {
 	}
 }
 
+// MLAssistConfiguration - Labeling MLAssist configuration definition
+type MLAssistConfiguration struct {
+	// REQUIRED; [Required] Indicates whether MLAssist feature is enabled.
+	MlAssist *MLAssistConfigurationType
+}
+
+// GetMLAssistConfiguration implements the MLAssistConfigurationClassification interface for type MLAssistConfiguration.
+func (m *MLAssistConfiguration) GetMLAssistConfiguration() *MLAssistConfiguration { return m }
+
+// MLAssistConfigurationDisabled - Labeling MLAssist configuration definition when MLAssist is disabled
+type MLAssistConfigurationDisabled struct {
+	// REQUIRED; [Required] Indicates whether MLAssist feature is enabled.
+	MlAssist *MLAssistConfigurationType
+}
+
+// GetMLAssistConfiguration implements the MLAssistConfigurationClassification interface for type MLAssistConfigurationDisabled.
+func (m *MLAssistConfigurationDisabled) GetMLAssistConfiguration() *MLAssistConfiguration {
+	return &MLAssistConfiguration{
+		MlAssist: m.MlAssist,
+	}
+}
+
+// MLAssistConfigurationEnabled - Labeling MLAssist configuration definition when MLAssist is enabled
+type MLAssistConfigurationEnabled struct {
+	// REQUIRED; [Required] AML compute binding used in inferencing.
+	InferencingComputeBinding *string
+
+	// REQUIRED; [Required] Indicates whether MLAssist feature is enabled.
+	MlAssist *MLAssistConfigurationType
+
+	// REQUIRED; [Required] AML compute binding used in training.
+	TrainingComputeBinding *string
+}
+
+// GetMLAssistConfiguration implements the MLAssistConfigurationClassification interface for type MLAssistConfigurationEnabled.
+func (m *MLAssistConfigurationEnabled) GetMLAssistConfiguration() *MLAssistConfiguration {
+	return &MLAssistConfiguration{
+		MlAssist: m.MlAssist,
+	}
+}
+
 type MLFlowModelJobInput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobInputType *JobInputType
@@ -4649,6 +7284,9 @@ type MLFlowModelJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // GetJobInput implements the JobInputClassification interface for type MLFlowModelJobInput.
@@ -4663,11 +7301,23 @@ type MLFlowModelJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Description for the output.
 	Description *string
 
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -4686,16 +7336,23 @@ type MLTableData struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
+
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
 
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// Intellectual Property details. Used if data is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
@@ -4704,6 +7361,9 @@ type MLTableData struct {
 	// Uris referenced in the MLTable definition (required for lineage)
 	ReferencedUris []*string
 
+	// Stage in the data lifecycle assigned to this data asset
+	Stage *string
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
 }
@@ -4711,13 +7371,16 @@ type MLTableData struct {
 // GetDataVersionBaseProperties implements the DataVersionBasePropertiesClassification interface for type MLTableData.
 func (m *MLTableData) GetDataVersionBaseProperties() *DataVersionBaseProperties {
 	return &DataVersionBaseProperties{
-		DataType:    m.DataType,
-		DataURI:     m.DataURI,
-		Description: m.Description,
-		IsAnonymous: m.IsAnonymous,
-		IsArchived:  m.IsArchived,
-		Properties:  m.Properties,
-		Tags:        m.Tags,
+		AutoDeleteSetting:    m.AutoDeleteSetting,
+		DataType:             m.DataType,
+		DataURI:              m.DataURI,
+		Description:          m.Description,
+		IntellectualProperty: m.IntellectualProperty,
+		IsAnonymous:          m.IsAnonymous,
+		IsArchived:           m.IsArchived,
+		Properties:           m.Properties,
+		Stage:                m.Stage,
+		Tags:                 m.Tags,
 	}
 }
 
@@ -4733,6 +7396,9 @@ type MLTableJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // GetJobInput implements the JobInputClassification interface for type MLTableJobInput.
@@ -4747,11 +7413,23 @@ type MLTableJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Description for the output.
 	Description *string
 
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -4762,6 +7440,22 @@ func (m *MLTableJobOutput) GetJobOutput() *JobOutput {
 	return &JobOutput{
 		Description:   m.Description,
 		JobOutputType: m.JobOutputType,
+	}
+}
+
+// ManagedComputeIdentity - Managed compute identity definition.
+type ManagedComputeIdentity struct {
+	// REQUIRED; [Required] Monitor compute identity type enum.
+	ComputeIdentityType *MonitorComputeIdentityType
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+}
+
+// GetMonitorComputeIdentityBase implements the MonitorComputeIdentityBaseClassification interface for type ManagedComputeIdentity.
+func (m *ManagedComputeIdentity) GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase {
+	return &MonitorComputeIdentityBase{
+		ComputeIdentityType: m.ComputeIdentityType,
 	}
 }
 
@@ -4794,24 +7488,89 @@ type ManagedIdentityAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category    *ConnectionCategory
 	Credentials *WorkspaceConnectionManagedIdentity
-	Target      *string
+	ExpiryTime  *time.Time
 
-	// Value details of the workspace connection.
-	Value *string
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
 
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
 }
 
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type ManagedIdentityAuthTypeWorkspaceConnectionProperties.
 func (m *ManagedIdentityAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:    m.AuthType,
-		Category:    m.Category,
-		Target:      m.Target,
-		Value:       m.Value,
-		ValueFormat: m.ValueFormat,
+		AuthType:                m.AuthType,
+		Category:                m.Category,
+		CreatedByWorkspaceArmID: m.CreatedByWorkspaceArmID,
+		ExpiryTime:              m.ExpiryTime,
+		IsSharedToAll:           m.IsSharedToAll,
+		Metadata:                m.Metadata,
+		Target:                  m.Target,
 	}
+}
+
+// ManagedIdentityCredential - Credential for user managed identity
+type ManagedIdentityCredential struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *DataReferenceCredentialType
+
+	// ManagedIdentityCredential identity type
+	ManagedIdentityType *string
+
+	// ClientId for the UAMI. For ManagedIdentityType = SystemManaged, this field is null.
+	UserManagedIdentityClientID *string
+
+	// PrincipalId for the UAMI. For ManagedIdentityType = SystemManaged, this field is null.
+	UserManagedIdentityPrincipalID *string
+
+	// Full arm scope for the Id. For ManagedIdentityType = SystemManaged, this field is null.
+	UserManagedIdentityResourceID *string
+
+	// TenantId for the UAMI. For ManagedIdentityType = SystemManaged, this field is null.
+	UserManagedIdentityTenantID *string
+}
+
+// GetDataReferenceCredential implements the DataReferenceCredentialClassification interface for type ManagedIdentityCredential.
+func (m *ManagedIdentityCredential) GetDataReferenceCredential() *DataReferenceCredential {
+	return &DataReferenceCredential{
+		CredentialType: m.CredentialType,
+	}
+}
+
+// ManagedNetworkProvisionOptions - Managed Network Provisioning options for managed network of a machine learning workspace.
+type ManagedNetworkProvisionOptions struct {
+	IncludeSpark *bool
+}
+
+// ManagedNetworkProvisionStatus - Status of the Provisioning for the managed network of a machine learning workspace.
+type ManagedNetworkProvisionStatus struct {
+	SparkReady *bool
+
+	// Status for the managed network of a machine learning workspace.
+	Status *ManagedNetworkStatus
+}
+
+// ManagedNetworkSettings - Managed Network settings for a machine learning workspace.
+type ManagedNetworkSettings struct {
+	// Isolation mode for the managed network of a machine learning workspace.
+	IsolationMode *IsolationMode
+
+	// Dictionary of
+	OutboundRules map[string]OutboundRuleClassification
+
+	// Status of the Provisioning for the managed network of a machine learning workspace.
+	Status *ManagedNetworkProvisionStatus
+
+	// READ-ONLY; Detail isolation modes for the managed network of a machine learning workspace.
+	ChangeableIsolationModes []*IsolationMode
+
+	// READ-ONLY
+	NetworkID *string
 }
 
 // ManagedOnlineDeployment - Properties specific to a ManagedOnlineDeployment.
@@ -4825,13 +7584,16 @@ type ManagedOnlineDeployment struct {
 	// Code configuration for the endpoint deployment.
 	CodeConfiguration *CodeConfiguration
 
+	// The mdc configuration, we disable mdc when it's null.
+	DataCollector *DataCollector
+
 	// Description of the endpoint deployment.
 	Description *string
 
 	// If Enabled, allow egress public network access. If Disabled, this will create secure egress. Default: Enabled.
 	EgressPublicNetworkAccess *EgressPublicNetworkAccessType
 
-	// ARM resource ID or AssetId of the environment specification for the endpoint deployment.
+	// ARM resource ID of the environment specification for the endpoint deployment.
 	EnvironmentID *string
 
 	// Environment variables configuration for the deployment.
@@ -4872,6 +7634,7 @@ func (m *ManagedOnlineDeployment) GetOnlineDeploymentProperties() *OnlineDeploym
 	return &OnlineDeploymentProperties{
 		AppInsightsEnabled:        m.AppInsightsEnabled,
 		CodeConfiguration:         m.CodeConfiguration,
+		DataCollector:             m.DataCollector,
 		Description:               m.Description,
 		EgressPublicNetworkAccess: m.EgressPublicNetworkAccess,
 		EndpointComputeType:       m.EndpointComputeType,
@@ -4909,6 +7672,29 @@ type ManagedServiceIdentity struct {
 	TenantID *string
 }
 
+// MaterializationComputeResource - Dto object representing compute resource
+type MaterializationComputeResource struct {
+	// Specifies the instance type
+	InstanceType *string
+}
+
+type MaterializationSettings struct {
+	// Specifies the notification details
+	Notification *NotificationSetting
+
+	// Specifies the compute resource settings
+	Resource *MaterializationComputeResource
+
+	// Specifies the schedule details
+	Schedule *RecurrenceTrigger
+
+	// Specifies the spark compute settings
+	SparkConfiguration map[string]*string
+
+	// Specifies the stores to which materialization should happen
+	StoreType *MaterializationStoreType
+}
+
 // MedianStoppingPolicy - Defines an early termination policy based on running averages of the primary metric of all runs
 type MedianStoppingPolicy struct {
 	// REQUIRED; [Required] Name of policy configuration
@@ -4928,6 +7714,15 @@ func (m *MedianStoppingPolicy) GetEarlyTerminationPolicy() *EarlyTerminationPoli
 		EvaluationInterval: m.EvaluationInterval,
 		PolicyType:         m.PolicyType,
 	}
+}
+
+// ModelConfiguration - Model configuration options.
+type ModelConfiguration struct {
+	// Input delivery mode for the model.
+	Mode *PackageInputDeliveryMode
+
+	// Relative mounting path of the model in the target image.
+	MountPath *string
 }
 
 // ModelContainer - Azure Resource Manager resource envelope.
@@ -4966,6 +7761,9 @@ type ModelContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the model container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ModelContainerResourceArmPaginatedResult - A paginated list of ModelContainer entities.
@@ -4975,6 +7773,68 @@ type ModelContainerResourceArmPaginatedResult struct {
 
 	// An array of objects of type ModelContainer.
 	Value []*ModelContainer
+}
+
+// ModelPackageInput - Model package input options.
+type ModelPackageInput struct {
+	// REQUIRED; [Required] Type of the input included in the target image.
+	InputType *PackageInputType
+
+	// REQUIRED; [Required] Location of the input.
+	Path PackageInputPathBaseClassification
+
+	// Input delivery mode of the input.
+	Mode *PackageInputDeliveryMode
+
+	// Relative mount path of the input in the target image.
+	MountPath *string
+}
+
+type ModelPerformanceMetricThresholdBase struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	ModelType *MonitoringModelType
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetModelPerformanceMetricThresholdBase implements the ModelPerformanceMetricThresholdBaseClassification interface for type
+// ModelPerformanceMetricThresholdBase.
+func (m *ModelPerformanceMetricThresholdBase) GetModelPerformanceMetricThresholdBase() *ModelPerformanceMetricThresholdBase {
+	return m
+}
+
+// ModelPerformanceSignal - Model performance signal definition.
+type ModelPerformanceSignal struct {
+	// REQUIRED; [Required] A list of metrics to calculate and their associated thresholds.
+	MetricThreshold ModelPerformanceMetricThresholdBaseClassification
+
+	// REQUIRED; [Required] The data produced by the production service which performance will be calculated for.
+	ProductionData []MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] The reference data used as the basis to calculate model performance.
+	ReferenceData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// The data segment.
+	DataSegment *MonitoringDataSegment
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type ModelPerformanceSignal.
+func (m *ModelPerformanceSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: m.NotificationTypes,
+		Properties:        m.Properties,
+		SignalType:        m.SignalType,
+	}
 }
 
 // ModelVersion - Azure Resource Manager resource envelope.
@@ -4997,16 +7857,23 @@ type ModelVersion struct {
 
 // ModelVersionProperties - Model asset version details.
 type ModelVersionProperties struct {
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// The asset description text.
 	Description *string
 
 	// Mapping of model flavors to their properties.
 	Flavors map[string]*FlavorData
 
-	// If the name version are system generated (anonymous registration).
+	// Intellectual Property details. Used if model is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// Name of the training job which produced this model
@@ -5021,8 +7888,14 @@ type ModelVersionProperties struct {
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Stage in the model lifecycle assigned to this model
+	Stage *string
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the model version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ModelVersionResourceArmPaginatedResult - A paginated list of ModelVersion entities.
@@ -5032,6 +7905,155 @@ type ModelVersionResourceArmPaginatedResult struct {
 
 	// An array of objects of type ModelVersion.
 	Value []*ModelVersion
+}
+
+// MonitorComputeConfigurationBase - Monitor compute configuration base definition.
+type MonitorComputeConfigurationBase struct {
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	ComputeType *MonitorComputeType
+}
+
+// GetMonitorComputeConfigurationBase implements the MonitorComputeConfigurationBaseClassification interface for type MonitorComputeConfigurationBase.
+func (m *MonitorComputeConfigurationBase) GetMonitorComputeConfigurationBase() *MonitorComputeConfigurationBase {
+	return m
+}
+
+// MonitorComputeIdentityBase - Monitor compute identity base definition.
+type MonitorComputeIdentityBase struct {
+	// REQUIRED; [Required] Monitor compute identity type enum.
+	ComputeIdentityType *MonitorComputeIdentityType
+}
+
+// GetMonitorComputeIdentityBase implements the MonitorComputeIdentityBaseClassification interface for type MonitorComputeIdentityBase.
+func (m *MonitorComputeIdentityBase) GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase {
+	return m
+}
+
+type MonitorDefinition struct {
+	// REQUIRED; [Required] The ARM resource ID of the compute resource to run the monitoring job on.
+	ComputeConfiguration MonitorComputeConfigurationBaseClassification
+
+	// REQUIRED; [Required] The signals to monitor.
+	Signals map[string]MonitoringSignalBaseClassification
+
+	// The monitor's notification settings.
+	AlertNotificationSettings *MonitorNotificationSettings
+
+	// The ARM resource ID of either the model or deployment targeted by this monitor.
+	MonitoringTarget *MonitoringTarget
+}
+
+type MonitorEmailNotificationSettings struct {
+	// This is the email recipient list which has a limitation of 499 characters in total.
+	Emails []*string
+}
+
+type MonitorNotificationSettings struct {
+	// The AML notification email settings.
+	EmailNotificationSettings *MonitorEmailNotificationSettings
+}
+
+// MonitorServerlessSparkCompute - Monitor serverless spark compute definition.
+type MonitorServerlessSparkCompute struct {
+	// REQUIRED; [Required] The identity scheme leveraged to by the spark jobs running on serverless Spark.
+	ComputeIdentity MonitorComputeIdentityBaseClassification
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	ComputeType *MonitorComputeType
+
+	// REQUIRED; [Required] The instance type running the Spark job.
+	InstanceType *string
+
+	// REQUIRED; [Required] The Spark runtime version.
+	RuntimeVersion *string
+}
+
+// GetMonitorComputeConfigurationBase implements the MonitorComputeConfigurationBaseClassification interface for type MonitorServerlessSparkCompute.
+func (m *MonitorServerlessSparkCompute) GetMonitorComputeConfigurationBase() *MonitorComputeConfigurationBase {
+	return &MonitorComputeConfigurationBase{
+		ComputeType: m.ComputeType,
+	}
+}
+
+type MonitoringDataSegment struct {
+	// The feature to segment the data on.
+	Feature *string
+
+	// Filters for only the specified values of the given segmented feature.
+	Values []*string
+}
+
+type MonitoringFeatureFilterBase struct {
+	// REQUIRED; [Required] Specifies the feature filter to leverage when selecting features to calculate metrics over.
+	FilterType *MonitoringFeatureFilterType
+}
+
+// GetMonitoringFeatureFilterBase implements the MonitoringFeatureFilterBaseClassification interface for type MonitoringFeatureFilterBase.
+func (m *MonitoringFeatureFilterBase) GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase {
+	return m
+}
+
+// MonitoringInputDataBase - Monitoring input data base definition.
+type MonitoringInputDataBase struct {
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	InputDataType *MonitoringInputDataType
+
+	// REQUIRED; [Required] Specifies the type of job.
+	JobInputType *JobInputType
+
+	// REQUIRED; [Required] Input Asset URI.
+	URI *string
+
+	// Mapping of column names to special uses.
+	Columns map[string]*string
+
+	// The context metadata of the data source.
+	DataContext *string
+}
+
+// GetMonitoringInputDataBase implements the MonitoringInputDataBaseClassification interface for type MonitoringInputDataBase.
+func (m *MonitoringInputDataBase) GetMonitoringInputDataBase() *MonitoringInputDataBase { return m }
+
+type MonitoringSignalBase struct {
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type MonitoringSignalBase.
+func (m *MonitoringSignalBase) GetMonitoringSignalBase() *MonitoringSignalBase { return m }
+
+// MonitoringTarget - Monitoring target definition.
+type MonitoringTarget struct {
+	// REQUIRED; [Required] The machine learning task type of the model.
+	TaskType *ModelTaskType
+
+	// The ARM resource ID of either the deployment targeted by this monitor.
+	DeploymentID *string
+
+	// The ARM resource ID of either the model targeted by this monitor.
+	ModelID *string
+}
+
+type MonitoringThreshold struct {
+	// The threshold value. If null, the set default is dependent on the metric type.
+	Value *float64
+}
+
+// MonitoringWorkspaceConnection - Monitoring workspace connection definition.
+type MonitoringWorkspaceConnection struct {
+	// The properties of a workspace service connection to store as environment variables in the submitted jobs. Key is workspace
+	// connection property path, name is environment variable key.
+	EnvironmentVariables map[string]*string
+
+	// The properties of a workspace service connection to store as secrets in the submitted jobs. Key is workspace connection
+	// property path, name is secret key.
+	Secrets map[string]*string
 }
 
 // Mpi - MPI distribution configuration.
@@ -5059,13 +8081,91 @@ type NCrossValidations struct {
 // GetNCrossValidations implements the NCrossValidationsClassification interface for type NCrossValidations.
 func (n *NCrossValidations) GetNCrossValidations() *NCrossValidations { return n }
 
+// NlpFixedParameters - Fixed training parameters that won't be swept over during AutoML NLP training.
+type NlpFixedParameters struct {
+	// Number of steps to accumulate gradients over before running a backward pass.
+	GradientAccumulationSteps *int32
+
+	// The learning rate for the training procedure.
+	LearningRate *float32
+
+	// The type of learning rate schedule to use during the training procedure.
+	LearningRateScheduler *NlpLearningRateScheduler
+
+	// The name of the model to train.
+	ModelName *string
+
+	// Number of training epochs.
+	NumberOfEpochs *int32
+
+	// The batch size for the training procedure.
+	TrainingBatchSize *int32
+
+	// The batch size to be used during evaluation.
+	ValidationBatchSize *int32
+
+	// The warmup ratio, used alongside LrSchedulerType.
+	WarmupRatio *float32
+
+	// The weight decay for the training procedure.
+	WeightDecay *float32
+}
+
+// NlpParameterSubspace - Stringified search spaces for each parameter. See below examples.
+type NlpParameterSubspace struct {
+	// Number of steps to accumulate gradients over before running a backward pass.
+	GradientAccumulationSteps *string
+
+	// The learning rate for the training procedure.
+	LearningRate *string
+
+	// The type of learning rate schedule to use during the training procedure.
+	LearningRateScheduler *string
+
+	// The name of the model to train.
+	ModelName *string
+
+	// Number of training epochs.
+	NumberOfEpochs *string
+
+	// The batch size for the training procedure.
+	TrainingBatchSize *string
+
+	// The batch size to be used during evaluation.
+	ValidationBatchSize *string
+
+	// The warmup ratio, used alongside LrSchedulerType.
+	WarmupRatio *string
+
+	// The weight decay for the training procedure.
+	WeightDecay *string
+}
+
+// NlpSweepSettings - Model sweeping and hyperparameter tuning related settings.
+type NlpSweepSettings struct {
+	// REQUIRED; [Required] Type of sampling algorithm.
+	SamplingAlgorithm *SamplingAlgorithmType
+
+	// Type of early termination policy for the sweeping job.
+	EarlyTermination EarlyTerminationPolicyClassification
+}
+
 // NlpVertical - Abstract class for NLP related AutoML tasks. NLP - Natural Language Processing.
 type NlpVertical struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *NlpVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *NlpFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *NlpVerticalLimitSettings
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*NlpParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *NlpSweepSettings
 
 	// Validation data inputs.
 	ValidationData *MLTableJobInput
@@ -5081,11 +8181,17 @@ type NlpVerticalLimitSettings struct {
 	// Maximum Concurrent AutoML iterations.
 	MaxConcurrentTrials *int32
 
+	// Maximum nodes to use for the experiment.
+	MaxNodes *int32
+
 	// Number of AutoML iterations.
 	MaxTrials *int32
 
 	// AutoML job timeout.
 	Timeout *string
+
+	// Timeout for individual HD trials.
+	TrialTimeout *string
 }
 
 // NodeStateCounts - Counts of various compute node states on the amlCompute.
@@ -5109,29 +8215,44 @@ type NodeStateCounts struct {
 	UnusableNodeCount *int32
 }
 
+// Nodes - Abstract Nodes definition
+type Nodes struct {
+	// REQUIRED; [Required] Type of the Nodes value
+	NodesValueType *NodesValueType
+}
+
+// GetNodes implements the NodesClassification interface for type Nodes.
+func (n *Nodes) GetNodes() *Nodes { return n }
+
 type NoneAuthTypeWorkspaceConnectionProperties struct {
 	// REQUIRED; Authentication type of the connection target
 	AuthType *ConnectionAuthType
 
 	// Category of the connection
-	Category *ConnectionCategory
+	Category   *ConnectionCategory
+	ExpiryTime *time.Time
+
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
+
+	// Anything
+	Metadata any
 	Target   *string
 
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
 }
 
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type NoneAuthTypeWorkspaceConnectionProperties.
 func (n *NoneAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:    n.AuthType,
-		Category:    n.Category,
-		Target:      n.Target,
-		Value:       n.Value,
-		ValueFormat: n.ValueFormat,
+		AuthType:                n.AuthType,
+		Category:                n.Category,
+		CreatedByWorkspaceArmID: n.CreatedByWorkspaceArmID,
+		ExpiryTime:              n.ExpiryTime,
+		IsSharedToAll:           n.IsSharedToAll,
+		Metadata:                n.Metadata,
+		Target:                  n.Target,
 	}
 }
 
@@ -5180,13 +8301,84 @@ type NotebookPreparationError struct {
 }
 
 type NotebookResourceInfo struct {
-	Fqdn *string
+	Fqdn                 *string
+	IsPrivateLinkEnabled *bool
 
 	// The error that occurs when preparing notebook.
 	NotebookPreparationError *NotebookPreparationError
 
 	// the data plane resourceId that used to initialize notebook component
 	ResourceID *string
+}
+
+// NotificationSetting - Configuration for notification.
+type NotificationSetting struct {
+	// Send email notification to user on specified notification type
+	EmailOn []*EmailNotificationEnableType
+
+	// This is the email recipient list which has a limitation of 499 characters in total concat with comma separator
+	Emails []*string
+
+	// Send webhook callback to a service. Key is a user-provided name for the webhook.
+	Webhooks map[string]WebhookClassification
+}
+
+type NumericalDataDriftMetricThreshold struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// REQUIRED; [Required] The numerical data drift metric to calculate.
+	Metric *NumericalDataDriftMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetDataDriftMetricThresholdBase implements the DataDriftMetricThresholdBaseClassification interface for type NumericalDataDriftMetricThreshold.
+func (n *NumericalDataDriftMetricThreshold) GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase {
+	return &DataDriftMetricThresholdBase{
+		DataType:  n.DataType,
+		Threshold: n.Threshold,
+	}
+}
+
+type NumericalDataQualityMetricThreshold struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// REQUIRED; [Required] The numerical data quality metric to calculate.
+	Metric *NumericalDataQualityMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetDataQualityMetricThresholdBase implements the DataQualityMetricThresholdBaseClassification interface for type NumericalDataQualityMetricThreshold.
+func (n *NumericalDataQualityMetricThreshold) GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase {
+	return &DataQualityMetricThresholdBase{
+		DataType:  n.DataType,
+		Threshold: n.Threshold,
+	}
+}
+
+type NumericalPredictionDriftMetricThreshold struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// REQUIRED; [Required] The numerical prediction drift metric to calculate.
+	Metric *NumericalPredictionDriftMetric
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetPredictionDriftMetricThresholdBase implements the PredictionDriftMetricThresholdBaseClassification interface for type
+// NumericalPredictionDriftMetricThreshold.
+func (n *NumericalPredictionDriftMetricThreshold) GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase {
+	return &PredictionDriftMetricThresholdBase{
+		DataType:  n.DataType,
+		Threshold: n.Threshold,
+	}
 }
 
 // Objective - Optimization objective.
@@ -5196,6 +8388,67 @@ type Objective struct {
 
 	// REQUIRED; [Required] Name of the metric to optimize.
 	PrimaryMetric *string
+}
+
+// OneLakeArtifact - OneLake artifact (data source) configuration.
+type OneLakeArtifact struct {
+	// REQUIRED; [Required] OneLake artifact name
+	ArtifactName *string
+
+	// REQUIRED; [Required] OneLake artifact type
+	ArtifactType *OneLakeArtifactType
+}
+
+// GetOneLakeArtifact implements the OneLakeArtifactClassification interface for type OneLakeArtifact.
+func (o *OneLakeArtifact) GetOneLakeArtifact() *OneLakeArtifact { return o }
+
+// OneLakeDatastore - OneLake (Trident) datastore configuration.
+type OneLakeDatastore struct {
+	// REQUIRED; [Required] OneLake artifact backing the datastore.
+	Artifact OneLakeArtifactClassification
+
+	// REQUIRED; [Required] Account credentials.
+	Credentials DatastoreCredentialsClassification
+
+	// REQUIRED; [Required] Storage type backing the datastore.
+	DatastoreType *DatastoreType
+
+	// REQUIRED; [Required] OneLake workspace name.
+	OneLakeWorkspaceName *string
+
+	// The asset description text.
+	Description *string
+
+	// OneLake endpoint to use for the datastore.
+	Endpoint *string
+
+	// Intellectual Property details.
+	IntellectualProperty *IntellectualProperty
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Indicates which identity to use to authenticate service data access to customer's storage.
+	ServiceDataAccessAuthIdentity *ServiceDataAccessAuthIdentity
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Readonly property to indicate if datastore is the workspace default datastore
+	IsDefault *bool
+}
+
+// GetDatastoreProperties implements the DatastorePropertiesClassification interface for type OneLakeDatastore.
+func (o *OneLakeDatastore) GetDatastoreProperties() *DatastoreProperties {
+	return &DatastoreProperties{
+		Credentials:          o.Credentials,
+		DatastoreType:        o.DatastoreType,
+		Description:          o.Description,
+		IntellectualProperty: o.IntellectualProperty,
+		IsDefault:            o.IsDefault,
+		Properties:           o.Properties,
+		Tags:                 o.Tags,
+	}
 }
 
 type OnlineDeployment struct {
@@ -5240,13 +8493,16 @@ type OnlineDeploymentProperties struct {
 	// Code configuration for the endpoint deployment.
 	CodeConfiguration *CodeConfiguration
 
+	// The mdc configuration, we disable mdc when it's null.
+	DataCollector *DataCollector
+
 	// Description of the endpoint deployment.
 	Description *string
 
 	// If Enabled, allow egress public network access. If Disabled, this will create secure egress. Default: Enabled.
 	EgressPublicNetworkAccess *EgressPublicNetworkAccessType
 
-	// ARM resource ID or AssetId of the environment specification for the endpoint deployment.
+	// ARM resource ID of the environment specification for the endpoint deployment.
 	EnvironmentID *string
 
 	// Environment variables configuration for the deployment.
@@ -5344,6 +8600,10 @@ type OnlineEndpointProperties struct {
 	// retrieved using the ListKeys API.
 	Keys *EndpointAuthKeys
 
+	// Percentage of traffic to be mirrored to each deployment without using returned scoring. Traffic values need to sum to utmost
+	// 50.
+	MirrorTraffic map[string]*int32
+
 	// Property dictionary. Properties can be added, but not removed or altered.
 	Properties map[string]*string
 
@@ -5372,6 +8632,24 @@ type OnlineEndpointTrackedResourceArmPaginatedResult struct {
 	Value []*OnlineEndpoint
 }
 
+// OnlineInferenceConfiguration - Online inference configuration options.
+type OnlineInferenceConfiguration struct {
+	// Additional configurations
+	Configurations map[string]*string
+
+	// Entry script or command to invoke.
+	EntryScript *string
+
+	// The route to check the liveness of the inference server container.
+	LivenessRoute *Route
+
+	// The route to check the readiness of the inference server container.
+	ReadinessRoute *Route
+
+	// The port to send the scoring requests to, within the inference server container.
+	ScoringRoute *Route
+}
+
 // OnlineRequestSettings - Online deployment scoring requests configuration.
 type OnlineRequestSettings struct {
 	// The number of maximum concurrent requests per node allowed per deployment. Defaults to 1.
@@ -5392,6 +8670,112 @@ type OnlineScaleSettings struct {
 
 // GetOnlineScaleSettings implements the OnlineScaleSettingsClassification interface for type OnlineScaleSettings.
 func (o *OnlineScaleSettings) GetOnlineScaleSettings() *OnlineScaleSettings { return o }
+
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+type Operation struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
+
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
+	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
+}
+
+// OperationDisplay - Localized display information for this particular operation.
+type OperationDisplay struct {
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
+	Description *string
+
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
+	Operation *string
+
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
+	Provider *string
+
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
+	Resource *string
+}
+
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
+
+	// READ-ONLY; List of operations supported by the resource provider
+	Value []*Operation
+}
+
+// OsPatchingStatus - Returns metadata about the os patching.
+type OsPatchingStatus struct {
+	// Time of the latest os patching.
+	LatestPatchTime *string
+
+	// The os patching status.
+	PatchStatus *PatchStatus
+
+	// Specifies whether this compute instance is pending for reboot to finish os patching.
+	RebootPending *bool
+
+	// Time of scheduled reboot.
+	ScheduledRebootTime *string
+}
+
+// OutboundRule - Outbound rule for the managed network of a machine learning workspace.
+type OutboundRule struct {
+	// REQUIRED; Type of a managed network outbound rule of a machine learning workspace.
+	Type *RuleType
+
+	// Category of a managed network outbound rule of a machine learning workspace.
+	Category *RuleCategory
+
+	// Type of a managed network outbound rule of a machine learning workspace.
+	Status *RuleStatus
+}
+
+// GetOutboundRule implements the OutboundRuleClassification interface for type OutboundRule.
+func (o *OutboundRule) GetOutboundRule() *OutboundRule { return o }
+
+type OutboundRuleBasicResource struct {
+	// REQUIRED; Outbound Rule for the managed network of a machine learning workspace.
+	Properties OutboundRuleClassification
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// OutboundRuleListResult - List of outbound rules for the managed network of a machine learning workspace.
+type OutboundRuleListResult struct {
+	// The link to the next page constructed using the continuationToken. If null, there are no additional pages.
+	NextLink *string
+
+	// The list of machine learning workspaces. Since this list may be incomplete, the nextLink field should be used to request
+	// the next list of machine learning workspaces.
+	Value []*OutboundRuleBasicResource
+}
 
 // OutputPathAssetReference - Reference to an asset via its path in a job output.
 type OutputPathAssetReference struct {
@@ -5419,24 +8803,152 @@ type PATAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category    *ConnectionCategory
 	Credentials *WorkspaceConnectionPersonalAccessToken
-	Target      *string
+	ExpiryTime  *time.Time
 
-	// Value details of the workspace connection.
-	Value *string
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
 
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
 }
 
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type PATAuthTypeWorkspaceConnectionProperties.
 func (p *PATAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:    p.AuthType,
-		Category:    p.Category,
-		Target:      p.Target,
-		Value:       p.Value,
-		ValueFormat: p.ValueFormat,
+		AuthType:                p.AuthType,
+		Category:                p.Category,
+		CreatedByWorkspaceArmID: p.CreatedByWorkspaceArmID,
+		ExpiryTime:              p.ExpiryTime,
+		IsSharedToAll:           p.IsSharedToAll,
+		Metadata:                p.Metadata,
+		Target:                  p.Target,
 	}
+}
+
+type PackageInputPathBase struct {
+	// REQUIRED; [Required] Input path type for package inputs.
+	InputPathType *InputPathType
+}
+
+// GetPackageInputPathBase implements the PackageInputPathBaseClassification interface for type PackageInputPathBase.
+func (p *PackageInputPathBase) GetPackageInputPathBase() *PackageInputPathBase { return p }
+
+// PackageInputPathID - Package input path specified with a resource id.
+type PackageInputPathID struct {
+	// REQUIRED; [Required] Input path type for package inputs.
+	InputPathType *InputPathType
+
+	// Input resource id.
+	ResourceID *string
+}
+
+// GetPackageInputPathBase implements the PackageInputPathBaseClassification interface for type PackageInputPathID.
+func (p *PackageInputPathID) GetPackageInputPathBase() *PackageInputPathBase {
+	return &PackageInputPathBase{
+		InputPathType: p.InputPathType,
+	}
+}
+
+// PackageInputPathURL - Package input path specified as an url.
+type PackageInputPathURL struct {
+	// REQUIRED; [Required] Input path type for package inputs.
+	InputPathType *InputPathType
+
+	// Input path url.
+	URL *string
+}
+
+// GetPackageInputPathBase implements the PackageInputPathBaseClassification interface for type PackageInputPathURL.
+func (p *PackageInputPathURL) GetPackageInputPathBase() *PackageInputPathBase {
+	return &PackageInputPathBase{
+		InputPathType: p.InputPathType,
+	}
+}
+
+// PackageInputPathVersion - Package input path specified with name and version.
+type PackageInputPathVersion struct {
+	// REQUIRED; [Required] Input path type for package inputs.
+	InputPathType *InputPathType
+
+	// Input resource name.
+	ResourceName *string
+
+	// Input resource version.
+	ResourceVersion *string
+}
+
+// GetPackageInputPathBase implements the PackageInputPathBaseClassification interface for type PackageInputPathVersion.
+func (p *PackageInputPathVersion) GetPackageInputPathBase() *PackageInputPathBase {
+	return &PackageInputPathBase{
+		InputPathType: p.InputPathType,
+	}
+}
+
+// PackageRequest - Model package operation request properties.
+type PackageRequest struct {
+	// REQUIRED; [Required] Inferencing server configurations.
+	InferencingServer InferencingServerClassification
+
+	// REQUIRED; [Required] Arm ID of the target environment to be created by package operation.
+	TargetEnvironmentID *string
+
+	// Base environment to start with.
+	BaseEnvironmentSource BaseEnvironmentSourceClassification
+
+	// Collection of environment variables.
+	EnvironmentVariables map[string]*string
+
+	// Collection of inputs.
+	Inputs []*ModelPackageInput
+
+	// Model configuration including the mount mode.
+	ModelConfiguration *ModelConfiguration
+
+	// Property dictionary. Properties can be added, removed, and updated.
+	Properties map[string]*string
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+}
+
+// PackageResponse - Package response returned after async package operation completes successfully.
+type PackageResponse struct {
+	// READ-ONLY; Base environment to start with.
+	BaseEnvironmentSource BaseEnvironmentSourceClassification
+
+	// READ-ONLY; Build id of the image build operation.
+	BuildID *string
+
+	// READ-ONLY; Build state of the image build operation.
+	BuildState *PackageBuildState
+
+	// READ-ONLY; Collection of environment variables.
+	EnvironmentVariables map[string]*string
+
+	// READ-ONLY; Inferencing server configurations.
+	InferencingServer InferencingServerClassification
+
+	// READ-ONLY; Collection of inputs.
+	Inputs []*ModelPackageInput
+
+	// READ-ONLY; Log url of the image build operation.
+	LogURL *string
+
+	// READ-ONLY; Model configuration including the mount mode.
+	ModelConfiguration *ModelConfiguration
+
+	// READ-ONLY; Property dictionary. Tags can be added, removed, and updated.
+	Properties map[string]*string
+
+	// READ-ONLY; Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Asset ID of the target environment created by package operation.
+	TargetEnvironmentID *string
 }
 
 // PaginatedComputeResourcesList - Paginated list of Machine Learning compute objects wrapped in ARM resource envelope.
@@ -5461,6 +8973,18 @@ type PartialBatchDeploymentPartialMinimalTrackedResourceWithProperties struct {
 
 	// Resource tags.
 	Tags map[string]*string
+}
+
+// PartialJobBase - Mutable base definition for a job.
+type PartialJobBase struct {
+	// Mutable notification setting for the job
+	NotificationSetting *PartialNotificationSetting
+}
+
+// PartialJobBasePartialResource - Azure Resource Manager resource envelope strictly used in update requests.
+type PartialJobBasePartialResource struct {
+	// Additional attributes of the entity.
+	Properties *PartialJobBase
 }
 
 // PartialManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -5500,6 +9024,36 @@ type PartialMinimalTrackedResourceWithSKU struct {
 	Tags map[string]*string
 }
 
+// PartialMinimalTrackedResourceWithSKUAndIdentity - Strictly used in update requests.
+type PartialMinimalTrackedResourceWithSKUAndIdentity struct {
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *PartialManagedServiceIdentity
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *PartialSKU
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// PartialNotificationSetting - Mutable configuration for notification.
+type PartialNotificationSetting struct {
+	// Send webhook callback to a service. Key is a user-provided name for the webhook.
+	Webhooks map[string]WebhookClassification
+}
+
+// PartialRegistryPartialTrackedResource - Strictly used in update requests.
+type PartialRegistryPartialTrackedResource struct {
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *RegistryPartialManagedServiceIdentity
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *PartialSKU
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
 // PartialSKU - Common SKU definition.
 type PartialSKU struct {
 	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
@@ -5526,6 +9080,35 @@ type Password struct {
 
 	// READ-ONLY
 	Value *string
+}
+
+type PendingUploadCredentialDto struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *PendingUploadCredentialType
+}
+
+// GetPendingUploadCredentialDto implements the PendingUploadCredentialDtoClassification interface for type PendingUploadCredentialDto.
+func (p *PendingUploadCredentialDto) GetPendingUploadCredentialDto() *PendingUploadCredentialDto {
+	return p
+}
+
+type PendingUploadRequestDto struct {
+	// If PendingUploadId = null then random guid will be used.
+	PendingUploadID *string
+
+	// TemporaryBlobReference is the only supported type
+	PendingUploadType *PendingUploadType
+}
+
+type PendingUploadResponseDto struct {
+	// Container level read, write, list SAS
+	BlobReferenceForConsumption *BlobReferenceForConsumptionDto
+
+	// ID for this upload request
+	PendingUploadID *string
+
+	// TemporaryBlobReference is the only supported type
+	PendingUploadType *PendingUploadType
 }
 
 // PersonalComputeInstanceSettings - Settings for a personal compute instance.
@@ -5567,11 +9150,17 @@ type PipelineJob struct {
 	// Jobs construct the Pipeline Job.
 	Jobs map[string]any
 
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
 	// Outputs for the pipeline job
 	Outputs map[string]JobOutputClassification
 
 	// The asset property dictionary.
 	Properties map[string]*string
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
 
 	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
 	Services map[string]*JobService
@@ -5592,18 +9181,106 @@ type PipelineJob struct {
 // GetJobBaseProperties implements the JobBasePropertiesClassification interface for type PipelineJob.
 func (p *PipelineJob) GetJobBaseProperties() *JobBaseProperties {
 	return &JobBaseProperties{
-		ComponentID:    p.ComponentID,
-		ComputeID:      p.ComputeID,
-		Description:    p.Description,
-		DisplayName:    p.DisplayName,
-		ExperimentName: p.ExperimentName,
-		Identity:       p.Identity,
-		IsArchived:     p.IsArchived,
-		JobType:        p.JobType,
-		Properties:     p.Properties,
-		Services:       p.Services,
-		Status:         p.Status,
-		Tags:           p.Tags,
+		ComponentID:          p.ComponentID,
+		ComputeID:            p.ComputeID,
+		Description:          p.Description,
+		DisplayName:          p.DisplayName,
+		ExperimentName:       p.ExperimentName,
+		Identity:             p.Identity,
+		IsArchived:           p.IsArchived,
+		JobType:              p.JobType,
+		NotificationSetting:  p.NotificationSetting,
+		Properties:           p.Properties,
+		SecretsConfiguration: p.SecretsConfiguration,
+		Services:             p.Services,
+		Status:               p.Status,
+		Tags:                 p.Tags,
+	}
+}
+
+// PoolEnvironmentConfiguration - Environment configuration options.
+type PoolEnvironmentConfiguration struct {
+	// ARM resource ID of the environment specification for the inference pool.
+	EnvironmentID *string
+
+	// Environment variables configuration for the inference pool.
+	EnvironmentVariables map[string]*string
+
+	// Liveness probe monitors the health of the container regularly.
+	LivenessProbe *ProbeSettings
+
+	// Readiness probe validates if the container is ready to serve traffic. The properties and defaults are the same as liveness
+	// probe.
+	ReadinessProbe *ProbeSettings
+
+	// This verifies whether the application within a container is started. Startup probes run before any other probe, and, unless
+	// it finishes successfully, disables other probes.
+	StartupProbe *ProbeSettings
+}
+
+// PoolModelConfiguration - Model configuration options.
+type PoolModelConfiguration struct {
+	// The URI path to the model.
+	ModelID *string
+}
+
+type PoolStatus struct {
+	// Gets or sets the actual number of instances in the pool.
+	ActualCapacity *int32
+
+	// Gets or sets the actual number of groups in the pool.
+	GroupCount *int32
+
+	// Gets or sets the requested number of instances for the pool.
+	RequestedCapacity *int32
+
+	// Gets or sets the number of instances in the pool reserved by the system.
+	ReservedCapacity *int32
+}
+
+type PredictionDriftMetricThresholdBase struct {
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	DataType *MonitoringFeatureDataType
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetPredictionDriftMetricThresholdBase implements the PredictionDriftMetricThresholdBaseClassification interface for type
+// PredictionDriftMetricThresholdBase.
+func (p *PredictionDriftMetricThresholdBase) GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase {
+	return p
+}
+
+type PredictionDriftMonitoringSignal struct {
+	// REQUIRED; [Required] A list of metrics to calculate and their associated thresholds.
+	MetricThresholds []PredictionDriftMetricThresholdBaseClassification
+
+	// REQUIRED; [Required] The data which drift will be calculated for.
+	ProductionData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] The data to calculate drift against.
+	ReferenceData MonitoringInputDataBaseClassification
+
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	SignalType *MonitoringSignalType
+
+	// A dictionary that maps feature names to their respective data types.
+	FeatureDataTypeOverride map[string]*MonitoringFeatureDataType
+
+	// The current notification mode for this signal.
+	NotificationTypes []*MonitoringNotificationType
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// GetMonitoringSignalBase implements the MonitoringSignalBaseClassification interface for type PredictionDriftMonitoringSignal.
+func (p *PredictionDriftMonitoringSignal) GetMonitoringSignalBase() *MonitoringSignalBase {
+	return &MonitoringSignalBase{
+		NotificationTypes: p.NotificationTypes,
+		Properties:        p.Properties,
+		SignalType:        p.SignalType,
 	}
 }
 
@@ -5611,26 +9288,23 @@ func (p *PipelineJob) GetJobBaseProperties() *JobBaseProperties {
 type PrivateEndpoint struct {
 	// READ-ONLY; The ARM identifier for Private Endpoint
 	ID *string
-
-	// READ-ONLY; The ARM identifier for Subnet resource that private endpoint links to
-	SubnetArmID *string
 }
 
 // PrivateEndpointConnection - The Private Endpoint Connection resource.
 type PrivateEndpointConnection struct {
-	// The identity of the resource.
+	// Managed service identity (system assigned and/or user assigned identities)
 	Identity *ManagedServiceIdentity
 
-	// Specifies the location of the resource.
+	// Same as workspace location.
 	Location *string
 
-	// Resource properties.
+	// Private endpoint connection properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// The sku of the workspace.
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
-	// Contains resource tags defined as key/value pairs.
+	// Dictionary of
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -5652,33 +9326,77 @@ type PrivateEndpointConnectionListResult struct {
 	Value []*PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Private endpoint connection properties.
 type PrivateEndpointConnectionProperties struct {
-	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
+	// The Private Endpoint resource.
+	PrivateEndpoint *WorkspacePrivateEndpointResource
+
+	// The connection state.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// The resource of private end point.
-	PrivateEndpoint *PrivateEndpoint
-
-	// READ-ONLY; The provisioning state of the private endpoint connection resource.
+	// The current provisioning state.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
+}
+
+// PrivateEndpointDestination - Private Endpoint destination for a Private Endpoint Outbound Rule for the managed network
+// of a machine learning workspace.
+type PrivateEndpointDestination struct {
+	ServiceResourceID *string
+	SparkEnabled      *bool
+
+	// Type of a managed network Outbound Rule of a machine learning workspace.
+	SparkStatus       *RuleStatus
+	SubresourceTarget *string
+}
+
+// PrivateEndpointOutboundRule - Private Endpoint Outbound Rule for the managed network of a machine learning workspace.
+type PrivateEndpointOutboundRule struct {
+	// REQUIRED; Type of a managed network outbound rule of a machine learning workspace.
+	Type *RuleType
+
+	// Category of a managed network outbound rule of a machine learning workspace.
+	Category *RuleCategory
+
+	// Private Endpoint destination for a Private Endpoint Outbound Rule for the managed network of a machine learning workspace.
+	Destination *PrivateEndpointDestination
+
+	// Type of a managed network outbound rule of a machine learning workspace.
+	Status *RuleStatus
+}
+
+// GetOutboundRule implements the OutboundRuleClassification interface for type PrivateEndpointOutboundRule.
+func (p *PrivateEndpointOutboundRule) GetOutboundRule() *OutboundRule {
+	return &OutboundRule{
+		Category: p.Category,
+		Status:   p.Status,
+		Type:     p.Type,
+	}
+}
+
+// PrivateEndpointResource - The PE network resource that is linked to this PE connection.
+type PrivateEndpointResource struct {
+	// The subnetId that the private endpoint is connected to.
+	SubnetArmID *string
+
+	// READ-ONLY; The ARM identifier for Private Endpoint
+	ID *string
 }
 
 // PrivateLinkResource - A private link resource
 type PrivateLinkResource struct {
-	// The identity of the resource.
+	// Managed service identity (system assigned and/or user assigned identities)
 	Identity *ManagedServiceIdentity
 
-	// Specifies the location of the resource.
+	// Same as workspace location.
 	Location *string
 
-	// Resource properties.
+	// Properties of a private link resource.
 	Properties *PrivateLinkResourceProperties
 
-	// The sku of the workspace.
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
-	// Contains resource tags defined as key/value pairs.
+	// Dictionary of
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -5696,33 +9414,32 @@ type PrivateLinkResource struct {
 
 // PrivateLinkResourceListResult - A list of private link resources
 type PrivateLinkResourceListResult struct {
-	// Array of private link resources
 	Value []*PrivateLinkResource
 }
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
-	RequiredZoneNames []*string
-
-	// READ-ONLY; The private link resource group id.
+	// The private link resource group id.
 	GroupID *string
 
-	// READ-ONLY; The private link resource required member names.
+	// The private link resource required member names.
 	RequiredMembers []*string
+
+	// The private link resource Private link DNS zone name.
+	RequiredZoneNames []*string
 }
 
 // PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
 // and provider.
 type PrivateLinkServiceConnectionState struct {
-	// A message indicating if changes on the service provider require any updates on the consumer.
+	// Some RP chose "None". Other RPs use this for region expansion.
 	ActionsRequired *string
 
-	// The reason for approval/rejection of the connection.
+	// User-defined message that, per NRP doc, may be used for approval-related message.
 	Description *string
 
-	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
-	Status *PrivateEndpointServiceConnectionStatus
+	// Connection status of the service consumer with the service provider
+	Status *EndpointServiceConnectionStatus
 }
 
 // ProbeSettings - Deployment container liveness/readiness probe configuration.
@@ -5743,6 +9460,46 @@ type ProbeSettings struct {
 	Timeout *string
 }
 
+// ProgressMetrics - Progress metrics definition
+type ProgressMetrics struct {
+	// READ-ONLY; The completed datapoint count.
+	CompletedDatapointCount *int64
+
+	// READ-ONLY; The time of last successful incremental data refresh in UTC.
+	IncrementalDataLastRefreshDateTime *time.Time
+
+	// READ-ONLY; The skipped datapoint count.
+	SkippedDatapointCount *int64
+
+	// READ-ONLY; The total datapoint count.
+	TotalDatapointCount *int64
+}
+
+// PropertiesBase - Base definition for pool resources.
+type PropertiesBase struct {
+	// Description of the resource.
+	Description *string
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties map[string]*string
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // PyTorch distribution configuration.
 type PyTorch struct {
 	// REQUIRED; [Required] Specifies the type of distribution framework.
@@ -5757,6 +9514,14 @@ func (p *PyTorch) GetDistributionConfiguration() *DistributionConfiguration {
 	return &DistributionConfiguration{
 		DistributionType: p.DistributionType,
 	}
+}
+
+type QueueSettings struct {
+	// Controls the compute job tier
+	JobTier *JobTier
+
+	// Controls the priority of the job on a compute.
+	Priority *int32
 }
 
 // QuotaBaseProperties - The properties for Quota update or retrieval.
@@ -5788,6 +9553,9 @@ type RandomSamplingAlgorithm struct {
 	// REQUIRED; [Required] The algorithm used for generating hyperparameter values, along with configuration properties
 	SamplingAlgorithmType *SamplingAlgorithmType
 
+	// An optional positive number or e in string format to be used as base for log based random sampling
+	Logbase *string
+
 	// The specific type of random algorithm
 	Rule *RandomSamplingAlgorithmRule
 
@@ -5800,6 +9568,56 @@ func (r *RandomSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	return &SamplingAlgorithm{
 		SamplingAlgorithmType: r.SamplingAlgorithmType,
 	}
+}
+
+// Ray distribution configuration.
+type Ray struct {
+	// REQUIRED; [Required] Specifies the type of distribution framework.
+	DistributionType *DistributionType
+
+	// The address of Ray head node.
+	Address *string
+
+	// The port to bind the dashboard server to.
+	DashboardPort *int32
+
+	// Additional arguments passed to ray start in head node.
+	HeadNodeAdditionalArgs *string
+
+	// Provide this argument to start the Ray dashboard GUI.
+	IncludeDashboard *bool
+
+	// The port of the head ray process.
+	Port *int32
+
+	// Additional arguments passed to ray start in worker node.
+	WorkerNodeAdditionalArgs *string
+}
+
+// GetDistributionConfiguration implements the DistributionConfigurationClassification interface for type Ray.
+func (r *Ray) GetDistributionConfiguration() *DistributionConfiguration {
+	return &DistributionConfiguration{
+		DistributionType: r.DistributionType,
+	}
+}
+
+// Recurrence - The workflow trigger recurrence for ComputeStartStop schedule type.
+type Recurrence struct {
+	// [Required] The frequency to trigger schedule.
+	Frequency *ComputeRecurrenceFrequency
+
+	// [Required] Specifies schedule interval in conjunction with frequency
+	Interval *int32
+
+	// [Required] The recurrence schedule.
+	Schedule *ComputeRecurrenceSchedule
+
+	// The start time in yyyy-MM-ddTHH:mm:ss format.
+	StartTime *string
+
+	// Specifies time zone in which the schedule runs. TimeZone should follow Windows time zone format. Refer:
+	// https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11
+	TimeZone *string
 }
 
 type RecurrenceSchedule struct {
@@ -5860,14 +9678,151 @@ type RegenerateEndpointKeysRequest struct {
 	KeyValue *string
 }
 
+type Registry struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *RegistryProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 type RegistryListCredentialsResult struct {
 	Passwords []*Password
 
-	// READ-ONLY
+	// READ-ONLY; The location of the workspace ACR
 	Location *string
 
-	// READ-ONLY
+	// READ-ONLY; The username of the workspace ACR
 	Username *string
+}
+
+// RegistryPartialManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type RegistryPartialManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
+// RegistryPrivateEndpointConnection - Private endpoint connection definition.
+type RegistryPrivateEndpointConnection struct {
+	// This is the private endpoint connection name created on SRP Full resource id:
+	// /subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.MachineLearningServices/{resourceType}/{resourceName}/registryPrivateEndpointConnections/{peConnectionName}
+	ID *string
+
+	// Same as workspace location.
+	Location *string
+
+	// Properties of the Private Endpoint Connection
+	Properties *RegistryPrivateEndpointConnectionProperties
+}
+
+// RegistryPrivateEndpointConnectionProperties - Properties of the Private Endpoint Connection
+type RegistryPrivateEndpointConnectionProperties struct {
+	// The group ids
+	GroupIDs []*string
+
+	// The PE network resource that is linked to this PE connection.
+	PrivateEndpoint *PrivateEndpointResource
+
+	// One of null, "Succeeded", "Provisioning", "Failed". While not approved, it's null.
+	ProvisioningState *string
+
+	// The connection state.
+	RegistryPrivateLinkServiceConnectionState *RegistryPrivateLinkServiceConnectionState
+}
+
+// RegistryPrivateLinkServiceConnectionState - The connection state.
+type RegistryPrivateLinkServiceConnectionState struct {
+	// Some RP chose "None". Other RPs use this for region expansion.
+	ActionsRequired *string
+
+	// User-defined message that, per NRP doc, may be used for approval-related message.
+	Description *string
+
+	// Connection status of the service consumer with the service provider
+	Status *EndpointServiceConnectionStatus
+}
+
+// RegistryProperties - Details of the Registry
+type RegistryProperties struct {
+	// Discovery URL for the Registry
+	DiscoveryURL *string
+
+	// IntellectualPropertyPublisher for the registry
+	IntellectualPropertyPublisher *string
+
+	// ResourceId of the managed RG if the registry has system created resources
+	ManagedResourceGroup *ArmResourceID
+
+	// MLFlow Registry URI for the Registry
+	MlFlowRegistryURI *string
+
+	// Is the Registry accessible from the internet? Possible values: "Enabled" or "Disabled"
+	PublicNetworkAccess *string
+
+	// Details of each region the registry is in
+	RegionDetails []*RegistryRegionArmDetails
+
+	// Private endpoint connections info used for pending connections in private link portal
+	RegistryPrivateEndpointConnections []*RegistryPrivateEndpointConnection
+}
+
+// RegistryRegionArmDetails - Details for each region the registry is in
+type RegistryRegionArmDetails struct {
+	// List of ACR accounts
+	AcrDetails []*AcrDetails
+
+	// The location where the registry exists
+	Location *string
+
+	// List of storage accounts
+	StorageAccountDetails []*StorageAccountDetails
+}
+
+// RegistryTrackedResourceArmPaginatedResult - A paginated list of Registry entities.
+type RegistryTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of Registry objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type Registry.
+	Value []*Registry
 }
 
 // Regression task in AutoML Table vertical.
@@ -5884,6 +9839,9 @@ type Regression struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *TableVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *TableFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *TableVerticalLimitSettings
 
@@ -5895,6 +9853,12 @@ type Regression struct {
 
 	// Primary metric for regression task.
 	PrimaryMetric *RegressionPrimaryMetrics
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*TableParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *TableSweepSettings
 
 	// Target column name: This is prediction values column. Also known as label column name in context of classification tasks.
 	TargetColumnName *string
@@ -5931,6 +9895,26 @@ func (r *Regression) GetAutoMLVertical() *AutoMLVertical {
 	}
 }
 
+type RegressionModelPerformanceMetricThreshold struct {
+	// REQUIRED; [Required] The regression model performance metric to calculate.
+	Metric *RegressionModelPerformanceMetric
+
+	// REQUIRED; [Required] Specifies the data type of the metric threshold.
+	ModelType *MonitoringModelType
+
+	// The threshold value. If null, a default value will be set depending on the selected metric.
+	Threshold *MonitoringThreshold
+}
+
+// GetModelPerformanceMetricThresholdBase implements the ModelPerformanceMetricThresholdBaseClassification interface for type
+// RegressionModelPerformanceMetricThreshold.
+func (r *RegressionModelPerformanceMetricThreshold) GetModelPerformanceMetricThresholdBase() *ModelPerformanceMetricThresholdBase {
+	return &ModelPerformanceMetricThresholdBase{
+		ModelType: r.ModelType,
+		Threshold: r.Threshold,
+	}
+}
+
 // RegressionTrainingSettings - Regression Training related configuration.
 type RegressionTrainingSettings struct {
 	// Allowed models for regression task.
@@ -5961,6 +9945,34 @@ type RegressionTrainingSettings struct {
 
 	// Stack ensemble settings for stack ensemble run.
 	StackEnsembleSettings *StackEnsembleSettings
+
+	// TrainingMode mode - Setting to 'auto' is same as setting it to 'non-distributed' for now, however in the future may result
+	// in mixed mode or heuristics based mode selection. Default is 'auto'. If
+	// 'Distributed' then only distributed featurization is used and distributed algorithms are chosen. If 'NonDistributed' then
+	// only non distributed algorithms are chosen.
+	TrainingMode *TrainingMode
+}
+
+// RequestConfiguration - Scoring requests configuration.
+type RequestConfiguration struct {
+	// The number of maximum concurrent requests per node allowed per deployment. Defaults to 1.
+	MaxConcurrentRequestsPerInstance *int32
+
+	// The scoring timeout in ISO 8601 format. Defaults to 5000ms.
+	RequestTimeout *string
+}
+
+type RequestLogging struct {
+	// For payload logging, we only collect payload by default. If customers also want to collect the specified headers, they
+	// can set them in captureHeaders so that backend will collect those headers along
+	// with payload.
+	CaptureHeaders []*string
+}
+
+// ResizeSchema - Schema for Compute Instance resize.
+type ResizeSchema struct {
+	// The name of the virtual machine size.
+	TargetVMSize *string
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
@@ -5995,6 +10007,13 @@ type ResourceConfiguration struct {
 
 	// Optional type of VM used as supported by the compute target.
 	InstanceType *string
+
+	// Locations where the job can run.
+	Locations []*string
+
+	// Optional max allowed number of instances or nodes to be used by the compute target. For use with elastic training, currently
+	// supported by PyTorch distribution type only.
+	MaxInstanceCount *int32
 
 	// Additional properties bag.
 	Properties map[string]any
@@ -6036,6 +10055,44 @@ type ResourceQuota struct {
 	Unit *QuotaUnit
 }
 
+// RollingInputData - Rolling input data definition.
+type RollingInputData struct {
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	InputDataType *MonitoringInputDataType
+
+	// REQUIRED; [Required] Specifies the type of job.
+	JobInputType *JobInputType
+
+	// REQUIRED; [Required] Input Asset URI.
+	URI *string
+
+	// REQUIRED; [Required] The time offset between the end of the data window and the monitor's current run time.
+	WindowOffset *string
+
+	// REQUIRED; [Required] The size of the trailing data window.
+	WindowSize *string
+
+	// Mapping of column names to special uses.
+	Columns map[string]*string
+
+	// The context metadata of the data source.
+	DataContext *string
+
+	// The ARM resource ID of the component resource used to preprocess the data.
+	PreprocessingComponentID *string
+}
+
+// GetMonitoringInputDataBase implements the MonitoringInputDataBaseClassification interface for type RollingInputData.
+func (r *RollingInputData) GetMonitoringInputDataBase() *MonitoringInputDataBase {
+	return &MonitoringInputDataBase{
+		Columns:       r.Columns,
+		DataContext:   r.DataContext,
+		InputDataType: r.InputDataType,
+		JobInputType:  r.JobInputType,
+		URI:           r.URI,
+	}
+}
+
 type Route struct {
 	// REQUIRED; [Required] The path for the route.
 	Path *string
@@ -6051,23 +10108,60 @@ type SASAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category    *ConnectionCategory
 	Credentials *WorkspaceConnectionSharedAccessSignature
-	Target      *string
+	ExpiryTime  *time.Time
 
-	// Value details of the workspace connection.
-	Value *string
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
 
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
 }
 
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type SASAuthTypeWorkspaceConnectionProperties.
 func (s *SASAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:    s.AuthType,
-		Category:    s.Category,
-		Target:      s.Target,
-		Value:       s.Value,
-		ValueFormat: s.ValueFormat,
+		AuthType:                s.AuthType,
+		Category:                s.Category,
+		CreatedByWorkspaceArmID: s.CreatedByWorkspaceArmID,
+		ExpiryTime:              s.ExpiryTime,
+		IsSharedToAll:           s.IsSharedToAll,
+		Metadata:                s.Metadata,
+		Target:                  s.Target,
+	}
+}
+
+// SASCredential - Access with full SAS uri
+type SASCredential struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *DataReferenceCredentialType
+
+	// Full SAS Uri, including the storage, container/blob path and SAS token
+	SasURI *string
+}
+
+// GetDataReferenceCredential implements the DataReferenceCredentialClassification interface for type SASCredential.
+func (s *SASCredential) GetDataReferenceCredential() *DataReferenceCredential {
+	return &DataReferenceCredential{
+		CredentialType: s.CredentialType,
+	}
+}
+
+type SASCredentialDto struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *PendingUploadCredentialType
+
+	// Full SAS Uri, including the storage, container/blob path and SAS token
+	SasURI *string
+}
+
+// GetPendingUploadCredentialDto implements the PendingUploadCredentialDtoClassification interface for type SASCredentialDto.
+func (s *SASCredentialDto) GetPendingUploadCredentialDto() *PendingUploadCredentialDto {
+	return &PendingUploadCredentialDto{
+		CredentialType: s.CredentialType,
 	}
 }
 
@@ -6299,7 +10393,7 @@ type ScriptReference struct {
 	// The location of scripts in the mounted volume.
 	ScriptData *string
 
-	// The storage source of the script: workspace.
+	// The storage source of the script: inline, workspace.
 	ScriptSource *string
 
 	// Optional time period passed to timeout command.
@@ -6324,9 +10418,147 @@ type Seasonality struct {
 // GetSeasonality implements the SeasonalityClassification interface for type Seasonality.
 func (s *Seasonality) GetSeasonality() *Seasonality { return s }
 
+// SecretConfiguration - Secret Configuration definition.
+type SecretConfiguration struct {
+	// Secret Uri. Sample Uri : https://myvault.vault.azure.net/secrets/mysecretname/secretversion
+	URI *string
+
+	// Name of secret in workspace key vault.
+	WorkspaceSecretName *string
+}
+
+type ServerlessComputeSettings struct {
+	// The resource ID of an existing virtual network subnet in which serverless compute nodes should be deployed
+	ServerlessComputeCustomSubnet *string
+
+	// The flag to signal if serverless compute nodes deployed in custom vNet would have no public IP addresses for a workspace
+	// with private endpoint
+	ServerlessComputeNoPublicIP *bool
+}
+
+type ServerlessEndpoint struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *ServerlessEndpointProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type ServerlessEndpointCapacityReservation struct {
+	// REQUIRED; [Required] Specifies a capacity reservation group ID to allocate capacity from.
+	CapacityReservationGroupID *string
+
+	// Specifies a capacity amount to reserve for this endpoint within the parent capacity reservation group.
+	EndpointReservedCapacity *int32
+}
+
+type ServerlessEndpointProperties struct {
+	// REQUIRED; [Required] The publisher-defined Serverless Offer to provision the endpoint with.
+	Offer *ServerlessOffer
+
+	// Specifies the authentication mode for the Serverless endpoint.
+	AuthMode *ServerlessInferenceEndpointAuthMode
+
+	// Optional capacity reservation information for the endpoint. When specified, the Serverless Endpoint will be allocated capacity
+	// from the specified capacity reservation group.
+	CapacityReservation *ServerlessEndpointCapacityReservation
+
+	// READ-ONLY; The inference uri to target when making requests against the serverless endpoint
+	InferenceEndpoint *ServerlessInferenceEndpoint
+
+	// READ-ONLY; Provisioning state for the endpoint.
+	ProvisioningState *EndpointProvisioningState
+}
+
+type ServerlessEndpointStatus struct {
+	// READ-ONLY; The model-specific metrics from the backing inference endpoint.
+	Metrics map[string]*string
+}
+
+// ServerlessEndpointTrackedResourceArmPaginatedResult - A paginated list of ServerlessEndpoint entities.
+type ServerlessEndpointTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of ServerlessEndpoint objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type ServerlessEndpoint.
+	Value []*ServerlessEndpoint
+}
+
+type ServerlessInferenceEndpoint struct {
+	// REQUIRED; [Required] The inference uri to target when making requests against the Serverless Endpoint.
+	URI *string
+
+	// READ-ONLY; Specifies any required headers to target this serverless endpoint.
+	Headers map[string]*string
+}
+
+type ServerlessOffer struct {
+	// REQUIRED; [Required] The name of the Serverless Offer
+	OfferName *string
+
+	// REQUIRED; [Required] Publisher name of the Serverless Offer
+	Publisher *string
+}
+
 type ServiceManagedResourcesSettings struct {
-	// The settings for the service managed cosmosdb account.
 	CosmosDb *CosmosDbSettings
+}
+
+type ServicePrincipalAuthTypeWorkspaceConnectionProperties struct {
+	// REQUIRED; Authentication type of the connection target
+	AuthType *ConnectionAuthType
+
+	// Category of the connection
+	Category    *ConnectionCategory
+	Credentials *WorkspaceConnectionServicePrincipal
+	ExpiryTime  *time.Time
+
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
+
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
+}
+
+// GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type ServicePrincipalAuthTypeWorkspaceConnectionProperties.
+func (s *ServicePrincipalAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
+	return &WorkspaceConnectionPropertiesV2{
+		AuthType:                s.AuthType,
+		Category:                s.Category,
+		CreatedByWorkspaceArmID: s.CreatedByWorkspaceArmID,
+		ExpiryTime:              s.ExpiryTime,
+		IsSharedToAll:           s.IsSharedToAll,
+		Metadata:                s.Metadata,
+		Target:                  s.Target,
+	}
 }
 
 // ServicePrincipalDatastoreCredentials - Service Principal datastore credentials configuration.
@@ -6373,6 +10605,43 @@ func (s *ServicePrincipalDatastoreSecrets) GetDatastoreSecrets() *DatastoreSecre
 	}
 }
 
+// ServiceTagDestination - Service Tag destination for a Service Tag Outbound Rule for the managed network of a machine learning
+// workspace.
+type ServiceTagDestination struct {
+	// The action enum for networking rule.
+	Action     *RuleAction
+	PortRanges *string
+	Protocol   *string
+	ServiceTag *string
+
+	// READ-ONLY; Optional, if provided, the ServiceTag property will be ignored.
+	AddressPrefixes []*string
+}
+
+// ServiceTagOutboundRule - Service Tag Outbound Rule for the managed network of a machine learning workspace.
+type ServiceTagOutboundRule struct {
+	// REQUIRED; Type of a managed network outbound rule of a machine learning workspace.
+	Type *RuleType
+
+	// Category of a managed network outbound rule of a machine learning workspace.
+	Category *RuleCategory
+
+	// Service Tag destination for a Service Tag Outbound Rule for the managed network of a machine learning workspace.
+	Destination *ServiceTagDestination
+
+	// Type of a managed network outbound rule of a machine learning workspace.
+	Status *RuleStatus
+}
+
+// GetOutboundRule implements the OutboundRuleClassification interface for type ServiceTagOutboundRule.
+func (s *ServiceTagOutboundRule) GetOutboundRule() *OutboundRule {
+	return &OutboundRule{
+		Category: s.Category,
+		Status:   s.Status,
+		Type:     s.Type,
+	}
+}
+
 // SetupScripts - Details of customized scripts to execute for setting up the cluster.
 type SetupScripts struct {
 	// Customized setup scripts
@@ -6380,26 +10649,181 @@ type SetupScripts struct {
 }
 
 type SharedPrivateLinkResource struct {
-	// Unique name of the private link.
+	// Unique name of the private link
 	Name *string
 
-	// Resource properties.
+	// Properties of a shared private link resource.
 	Properties *SharedPrivateLinkResourceProperty
 }
 
 // SharedPrivateLinkResourceProperty - Properties of a shared private link resource.
 type SharedPrivateLinkResourceProperty struct {
-	// The private link resource group id.
+	// group id of the private link
 	GroupID *string
 
-	// The resource id that private link links to.
+	// the resource id that private link links to
 	PrivateLinkResourceID *string
 
-	// Request message.
+	// Request message
 	RequestMessage *string
 
-	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
-	Status *PrivateEndpointServiceConnectionStatus
+	// Connection status of the service consumer with the service provider
+	Status *EndpointServiceConnectionStatus
+}
+
+// SparkJob - Spark job definition.
+type SparkJob struct {
+	// REQUIRED; [Required] ARM resource ID of the code asset.
+	CodeID *string
+
+	// REQUIRED; [Required] The entry to execute on startup of the job.
+	Entry SparkJobEntryClassification
+
+	// REQUIRED; [Required] Specifies the type of job.
+	JobType *JobType
+
+	// Archive files used in the job.
+	Archives []*string
+
+	// Arguments for the job.
+	Args *string
+
+	// ARM resource ID of the component resource.
+	ComponentID *string
+
+	// ARM resource ID of the compute resource.
+	ComputeID *string
+
+	// Spark configured properties.
+	Conf map[string]*string
+
+	// The asset description text.
+	Description *string
+
+	// Display name of job.
+	DisplayName *string
+
+	// The ARM resource ID of the Environment specification for the job.
+	EnvironmentID *string
+
+	// Environment variables included in the job.
+	EnvironmentVariables map[string]*string
+
+	// The name of the experiment the job belongs to. If not set, the job is placed in the "Default" experiment.
+	ExperimentName *string
+
+	// Files used in the job.
+	Files []*string
+
+	// Identity configuration. If set, this should be one of AmlToken, ManagedIdentity, UserIdentity or null. Defaults to AmlToken
+	// if null.
+	Identity IdentityConfigurationClassification
+
+	// Mapping of input data bindings used in the job.
+	Inputs map[string]JobInputClassification
+
+	// Is the asset archived?
+	IsArchived *bool
+
+	// Jar files used in the job.
+	Jars []*string
+
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
+	// Mapping of output data bindings used in the job.
+	Outputs map[string]JobOutputClassification
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Python files used in the job.
+	PyFiles []*string
+
+	// Queue settings for the job
+	QueueSettings *QueueSettings
+
+	// Compute Resource configuration for the job.
+	Resources *SparkResourceConfiguration
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
+
+	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
+	Services map[string]*JobService
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Status of the job.
+	Status *JobStatus
+}
+
+// GetJobBaseProperties implements the JobBasePropertiesClassification interface for type SparkJob.
+func (s *SparkJob) GetJobBaseProperties() *JobBaseProperties {
+	return &JobBaseProperties{
+		ComponentID:          s.ComponentID,
+		ComputeID:            s.ComputeID,
+		Description:          s.Description,
+		DisplayName:          s.DisplayName,
+		ExperimentName:       s.ExperimentName,
+		Identity:             s.Identity,
+		IsArchived:           s.IsArchived,
+		JobType:              s.JobType,
+		NotificationSetting:  s.NotificationSetting,
+		Properties:           s.Properties,
+		SecretsConfiguration: s.SecretsConfiguration,
+		Services:             s.Services,
+		Status:               s.Status,
+		Tags:                 s.Tags,
+	}
+}
+
+// SparkJobEntry - Spark job entry point definition.
+type SparkJobEntry struct {
+	// REQUIRED; [Required] Type of the job's entry point.
+	SparkJobEntryType *SparkJobEntryType
+}
+
+// GetSparkJobEntry implements the SparkJobEntryClassification interface for type SparkJobEntry.
+func (s *SparkJobEntry) GetSparkJobEntry() *SparkJobEntry { return s }
+
+type SparkJobPythonEntry struct {
+	// REQUIRED; [Required] Relative python file path for job entry point.
+	File *string
+
+	// REQUIRED; [Required] Type of the job's entry point.
+	SparkJobEntryType *SparkJobEntryType
+}
+
+// GetSparkJobEntry implements the SparkJobEntryClassification interface for type SparkJobPythonEntry.
+func (s *SparkJobPythonEntry) GetSparkJobEntry() *SparkJobEntry {
+	return &SparkJobEntry{
+		SparkJobEntryType: s.SparkJobEntryType,
+	}
+}
+
+type SparkJobScalaEntry struct {
+	// REQUIRED; [Required] Scala class name used as entry point.
+	ClassName *string
+
+	// REQUIRED; [Required] Type of the job's entry point.
+	SparkJobEntryType *SparkJobEntryType
+}
+
+// GetSparkJobEntry implements the SparkJobEntryClassification interface for type SparkJobScalaEntry.
+func (s *SparkJobScalaEntry) GetSparkJobEntry() *SparkJobEntry {
+	return &SparkJobEntry{
+		SparkJobEntryType: s.SparkJobEntryType,
+	}
+}
+
+type SparkResourceConfiguration struct {
+	// Optional type of VM used as supported by the compute target.
+	InstanceType *string
+
+	// Version of spark runtime used for the job.
+	RuntimeVersion *string
 }
 
 // StackEnsembleSettings - Advances setting to customize StackEnsemble run.
@@ -6413,6 +10837,68 @@ type StackEnsembleSettings struct {
 
 	// The meta-learner is a model trained on the output of the individual heterogeneous models.
 	StackMetaLearnerType *StackMetaLearnerType
+}
+
+// StaticInputData - Static input data definition.
+type StaticInputData struct {
+	// REQUIRED; [Required] Specifies the type of signal to monitor.
+	InputDataType *MonitoringInputDataType
+
+	// REQUIRED; [Required] Specifies the type of job.
+	JobInputType *JobInputType
+
+	// REQUIRED; [Required] Input Asset URI.
+	URI *string
+
+	// REQUIRED; [Required] The end date of the data window.
+	WindowEnd *time.Time
+
+	// REQUIRED; [Required] The start date of the data window.
+	WindowStart *time.Time
+
+	// Mapping of column names to special uses.
+	Columns map[string]*string
+
+	// The context metadata of the data source.
+	DataContext *string
+
+	// The ARM resource ID of the component resource used to preprocess the data.
+	PreprocessingComponentID *string
+}
+
+// GetMonitoringInputDataBase implements the MonitoringInputDataBaseClassification interface for type StaticInputData.
+func (s *StaticInputData) GetMonitoringInputDataBase() *MonitoringInputDataBase {
+	return &MonitoringInputDataBase{
+		Columns:       s.Columns,
+		DataContext:   s.DataContext,
+		InputDataType: s.InputDataType,
+		JobInputType:  s.JobInputType,
+		URI:           s.URI,
+	}
+}
+
+// StatusMessage - Active message associated with project
+type StatusMessage struct {
+	// READ-ONLY; Service-defined message code.
+	Code *string
+
+	// READ-ONLY; Time in UTC at which the message was created.
+	CreatedDateTime *time.Time
+
+	// READ-ONLY; Severity level of message.
+	Level *StatusMessageLevel
+
+	// READ-ONLY; A human-readable representation of the message code.
+	Message *string
+}
+
+// StorageAccountDetails - Details of storage account to be used for the Registry
+type StorageAccountDetails struct {
+	// Details of system created storage account to be used for the registry
+	SystemCreatedStorageAccount *SystemCreatedStorageAccount
+
+	// Details of user created storage account to be used for the registry
+	UserCreatedStorageAccount *UserCreatedStorageAccount
 }
 
 // SweepJob - Sweep job definition.
@@ -6432,6 +10918,9 @@ type SweepJob struct {
 
 	// REQUIRED; [Required] Trial component definition.
 	Trial *TrialComponent
+
+	// Component Configuration for sweep over component
+	ComponentConfiguration *ComponentConfiguration
 
 	// ARM resource ID of the component resource.
 	ComponentID *string
@@ -6464,11 +10953,23 @@ type SweepJob struct {
 	// Sweep Job limit.
 	Limits *SweepJobLimits
 
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
 	// Mapping of output data bindings used in the job.
 	Outputs map[string]JobOutputClassification
 
 	// The asset property dictionary.
 	Properties map[string]*string
+
+	// Queue settings for the job
+	QueueSettings *QueueSettings
+
+	// Compute Resource configuration for the job.
+	Resources *JobResourceConfiguration
+
+	// Configuration for secrets to be made available during runtime.
+	SecretsConfiguration map[string]*SecretConfiguration
 
 	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
 	Services map[string]*JobService
@@ -6483,18 +10984,20 @@ type SweepJob struct {
 // GetJobBaseProperties implements the JobBasePropertiesClassification interface for type SweepJob.
 func (s *SweepJob) GetJobBaseProperties() *JobBaseProperties {
 	return &JobBaseProperties{
-		ComponentID:    s.ComponentID,
-		ComputeID:      s.ComputeID,
-		Description:    s.Description,
-		DisplayName:    s.DisplayName,
-		ExperimentName: s.ExperimentName,
-		Identity:       s.Identity,
-		IsArchived:     s.IsArchived,
-		JobType:        s.JobType,
-		Properties:     s.Properties,
-		Services:       s.Services,
-		Status:         s.Status,
-		Tags:           s.Tags,
+		ComponentID:          s.ComponentID,
+		ComputeID:            s.ComputeID,
+		Description:          s.Description,
+		DisplayName:          s.DisplayName,
+		ExperimentName:       s.ExperimentName,
+		Identity:             s.Identity,
+		IsArchived:           s.IsArchived,
+		JobType:              s.JobType,
+		NotificationSetting:  s.NotificationSetting,
+		Properties:           s.Properties,
+		SecretsConfiguration: s.SecretsConfiguration,
+		Services:             s.Services,
+		Status:               s.Status,
+		Tags:                 s.Tags,
 	}
 }
 
@@ -6608,6 +11111,35 @@ type SynapseSparkProperties struct {
 	WorkspaceName *string
 }
 
+type SystemCreatedAcrAccount struct {
+	// Name of the ACR account
+	AcrAccountName *string
+
+	// SKU of the ACR account
+	AcrAccountSKU *string
+
+	// This is populated once the ACR account is created.
+	ArmResourceID *ArmResourceID
+}
+
+type SystemCreatedStorageAccount struct {
+	// Public blob access allowed
+	AllowBlobPublicAccess *bool
+
+	// This is populated once the storage account is created.
+	ArmResourceID *ArmResourceID
+
+	// HNS enabled for storage account
+	StorageAccountHnsEnabled *bool
+
+	// Name of the storage account
+	StorageAccountName *string
+
+	// Allowed values: "StandardLRS", "StandardGRS", "StandardRAGRS", "StandardZRS", "StandardGZRS", "StandardRAGZRS", "PremiumLRS",
+	// "PremiumZRS"
+	StorageAccountType *string
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -6641,6 +11173,139 @@ type SystemService struct {
 	Version *string
 }
 
+// TableFixedParameters - Fixed training parameters that won't be swept over during AutoML Table training.
+type TableFixedParameters struct {
+	// Specify the boosting type, e.g gbdt for XGBoost.
+	Booster *string
+
+	// Specify the boosting type, e.g gbdt for LightGBM.
+	BoostingType *string
+
+	// Specify the grow policy, which controls the way new nodes are added to the tree.
+	GrowPolicy *string
+
+	// The learning rate for the training procedure.
+	LearningRate *float64
+
+	// Specify the Maximum number of discrete bins to bucket continuous features .
+	MaxBin *int32
+
+	// Specify the max depth to limit the tree depth explicitly.
+	MaxDepth *int32
+
+	// Specify the max leaves to limit the tree leaves explicitly.
+	MaxLeaves *int32
+
+	// The minimum number of data per leaf.
+	MinDataInLeaf *int32
+
+	// Minimum loss reduction required to make a further partition on a leaf node of the tree.
+	MinSplitGain *float64
+
+	// The name of the model to train.
+	ModelName *string
+
+	// Specify the number of trees (or rounds) in an model.
+	NEstimators *int32
+
+	// Specify the number of leaves.
+	NumLeaves *int32
+
+	// The name of the preprocessor to use.
+	PreprocessorName *string
+
+	// L1 regularization term on weights.
+	RegAlpha *float64
+
+	// L2 regularization term on weights.
+	RegLambda *float64
+
+	// Subsample ratio of the training instance.
+	Subsample *float64
+
+	// Frequency of subsample.
+	SubsampleFreq *float64
+
+	// Specify the tree method.
+	TreeMethod *string
+
+	// If true, center before scaling the data with StandardScalar.
+	WithMean *bool
+
+	// If true, scaling the data with Unit Variance with StandardScalar.
+	WithStd *bool
+}
+
+type TableParameterSubspace struct {
+	// Specify the boosting type, e.g gbdt for XGBoost.
+	Booster *string
+
+	// Specify the boosting type, e.g gbdt for LightGBM.
+	BoostingType *string
+
+	// Specify the grow policy, which controls the way new nodes are added to the tree.
+	GrowPolicy *string
+
+	// The learning rate for the training procedure.
+	LearningRate *string
+
+	// Specify the Maximum number of discrete bins to bucket continuous features .
+	MaxBin *string
+
+	// Specify the max depth to limit the tree depth explicitly.
+	MaxDepth *string
+
+	// Specify the max leaves to limit the tree leaves explicitly.
+	MaxLeaves *string
+
+	// The minimum number of data per leaf.
+	MinDataInLeaf *string
+
+	// Minimum loss reduction required to make a further partition on a leaf node of the tree.
+	MinSplitGain *string
+
+	// The name of the model to train.
+	ModelName *string
+
+	// Specify the number of trees (or rounds) in an model.
+	NEstimators *string
+
+	// Specify the number of leaves.
+	NumLeaves *string
+
+	// The name of the preprocessor to use.
+	PreprocessorName *string
+
+	// L1 regularization term on weights.
+	RegAlpha *string
+
+	// L2 regularization term on weights.
+	RegLambda *string
+
+	// Subsample ratio of the training instance.
+	Subsample *string
+
+	// Frequency of subsample
+	SubsampleFreq *string
+
+	// Specify the tree method.
+	TreeMethod *string
+
+	// If true, center before scaling the data with StandardScalar.
+	WithMean *string
+
+	// If true, scaling the data with Unit Variance with StandardScalar.
+	WithStd *string
+}
+
+type TableSweepSettings struct {
+	// REQUIRED; [Required] Type of sampling algorithm.
+	SamplingAlgorithm *SamplingAlgorithmType
+
+	// Type of early termination policy for the sweeping job.
+	EarlyTermination EarlyTerminationPolicyClassification
+}
+
 // TableVertical - Abstract class for AutoML tasks that use table dataset as input - such as Classification/Regression/Forecasting.
 type TableVertical struct {
 	// Columns to use for CVSplit data.
@@ -6649,11 +11314,20 @@ type TableVertical struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *TableVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *TableFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *TableVerticalLimitSettings
 
 	// Number of cross validation folds to be applied on training dataset when validation dataset is not provided.
 	NCrossValidations NCrossValidationsClassification
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*TableParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *TableSweepSettings
 
 	// Test data input.
 	TestData *MLTableJobInput
@@ -6713,8 +11387,17 @@ type TableVerticalLimitSettings struct {
 	// Max cores per iteration.
 	MaxCoresPerTrial *int32
 
+	// Maximum nodes to use for the experiment.
+	MaxNodes *int32
+
 	// Number of iterations.
 	MaxTrials *int32
+
+	// Number of concurrent sweeping runs that user wants to trigger.
+	SweepConcurrentTrials *int32
+
+	// Number of sweeping runs that user wants to trigger.
+	SweepTrials *int32
 
 	// AutoML job timeout.
 	Timeout *string
@@ -6795,6 +11478,9 @@ type TextClassification struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *NlpVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *NlpFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *NlpVerticalLimitSettings
 
@@ -6803,6 +11489,12 @@ type TextClassification struct {
 
 	// Primary metric for Text-Classification task.
 	PrimaryMetric *ClassificationPrimaryMetrics
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*NlpParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *NlpSweepSettings
 
 	// Target column name: This is prediction values column. Also known as label column name in context of classification tasks.
 	TargetColumnName *string
@@ -6832,11 +11524,20 @@ type TextClassificationMultilabel struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *NlpVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *NlpFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *NlpVerticalLimitSettings
 
 	// Log verbosity for the job.
 	LogVerbosity *LogVerbosity
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*NlpParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *NlpSweepSettings
 
 	// Target column name: This is prediction values column. Also known as label column name in context of classification tasks.
 	TargetColumnName *string
@@ -6870,11 +11571,20 @@ type TextNer struct {
 	// Featurization inputs needed for AutoML job.
 	FeaturizationSettings *NlpVerticalFeaturizationSettings
 
+	// Model/training parameters that will remain constant throughout training.
+	FixedParameters *NlpFixedParameters
+
 	// Execution constraints for AutoMLJob.
 	LimitSettings *NlpVerticalLimitSettings
 
 	// Log verbosity for the job.
 	LogVerbosity *LogVerbosity
+
+	// Search space for sampling different combinations of models and their hyperparameters.
+	SearchSpace []*NlpParameterSubspace
+
+	// Settings for model sweeping and hyperparameter tuning.
+	SweepSettings *NlpSweepSettings
 
 	// Target column name: This is prediction values column. Also known as label column name in context of classification tasks.
 	TargetColumnName *string
@@ -6893,6 +11603,26 @@ func (t *TextNer) GetAutoMLVertical() *AutoMLVertical {
 		TargetColumnName: t.TargetColumnName,
 		TaskType:         t.TaskType,
 		TrainingData:     t.TrainingData,
+	}
+}
+
+type TmpfsOptions struct {
+	// Mention the Tmpfs size
+	Size *int32
+}
+
+type TopNFeaturesByAttribution struct {
+	// REQUIRED; [Required] Specifies the feature filter to leverage when selecting features to calculate metrics over.
+	FilterType *MonitoringFeatureFilterType
+
+	// The number of top features to include.
+	Top *int32
+}
+
+// GetMonitoringFeatureFilterBase implements the MonitoringFeatureFilterBaseClassification interface for type TopNFeaturesByAttribution.
+func (t *TopNFeaturesByAttribution) GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase {
+	return &MonitoringFeatureFilterBase{
+		FilterType: t.FilterType,
 	}
 }
 
@@ -6942,6 +11672,12 @@ type TrainingSettings struct {
 
 	// Stack ensemble settings for stack ensemble run.
 	StackEnsembleSettings *StackEnsembleSettings
+
+	// TrainingMode mode - Setting to 'auto' is same as setting it to 'non-distributed' for now, however in the future may result
+	// in mixed mode or heuristics based mode selection. Default is 'auto'. If
+	// 'Distributed' then only distributed featurization is used and distributed algorithms are chosen. If 'NonDistributed' then
+	// only non distributed algorithms are chosen.
+	TrainingMode *TrainingMode
 }
 
 // TrialComponent - Trial component definition.
@@ -6985,6 +11721,22 @@ type TriggerBase struct {
 // GetTriggerBase implements the TriggerBaseClassification interface for type TriggerBase.
 func (t *TriggerBase) GetTriggerBase() *TriggerBase { return t }
 
+// TritonInferencingServer - Triton inferencing server configurations.
+type TritonInferencingServer struct {
+	// REQUIRED; [Required] Inferencing server type for various targets.
+	ServerType *InferencingServerType
+
+	// Inference configuration for Triton.
+	InferenceConfiguration *OnlineInferenceConfiguration
+}
+
+// GetInferencingServer implements the InferencingServerClassification interface for type TritonInferencingServer.
+func (t *TritonInferencingServer) GetInferencingServer() *InferencingServer {
+	return &InferencingServer{
+		ServerType: t.ServerType,
+	}
+}
+
 type TritonModelJobInput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobInputType *JobInputType
@@ -6997,6 +11749,9 @@ type TritonModelJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // GetJobInput implements the JobInputClassification interface for type TritonModelJobInput.
@@ -7011,11 +11766,23 @@ type TritonModelJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Description for the output.
 	Description *string
 
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -7059,20 +11826,30 @@ type URIFileDataVersion struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
+
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
 
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// Intellectual Property details. Used if data is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
 	Properties map[string]*string
+
+	// Stage in the data lifecycle assigned to this data asset
+	Stage *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -7081,13 +11858,16 @@ type URIFileDataVersion struct {
 // GetDataVersionBaseProperties implements the DataVersionBasePropertiesClassification interface for type URIFileDataVersion.
 func (u *URIFileDataVersion) GetDataVersionBaseProperties() *DataVersionBaseProperties {
 	return &DataVersionBaseProperties{
-		DataType:    u.DataType,
-		DataURI:     u.DataURI,
-		Description: u.Description,
-		IsAnonymous: u.IsAnonymous,
-		IsArchived:  u.IsArchived,
-		Properties:  u.Properties,
-		Tags:        u.Tags,
+		AutoDeleteSetting:    u.AutoDeleteSetting,
+		DataType:             u.DataType,
+		DataURI:              u.DataURI,
+		Description:          u.Description,
+		IntellectualProperty: u.IntellectualProperty,
+		IsAnonymous:          u.IsAnonymous,
+		IsArchived:           u.IsArchived,
+		Properties:           u.Properties,
+		Stage:                u.Stage,
+		Tags:                 u.Tags,
 	}
 }
 
@@ -7103,6 +11883,9 @@ type URIFileJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // GetJobInput implements the JobInputClassification interface for type URIFileJobInput.
@@ -7117,11 +11900,23 @@ type URIFileJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Description for the output.
 	Description *string
 
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -7140,20 +11935,30 @@ type URIFolderDataVersion struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
+
+	// Specifies the lifecycle setting of managed data asset.
+	AutoDeleteSetting *AutoDeleteSetting
 
 	// The asset description text.
 	Description *string
 
-	// If the name version are system generated (anonymous registration).
+	// Intellectual Property details. Used if data is an Intellectual Property.
+	IntellectualProperty *IntellectualProperty
+
+	// If the name version are system generated (anonymous registration). For types where Stage is defined, when Stage is provided
+	// it will be used to populate IsAnonymous
 	IsAnonymous *bool
 
-	// Is the asset archived?
+	// Is the asset archived? For types where Stage is defined, when Stage is provided it will be used to populate IsArchived
 	IsArchived *bool
 
 	// The asset property dictionary.
 	Properties map[string]*string
+
+	// Stage in the data lifecycle assigned to this data asset
+	Stage *string
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
@@ -7162,13 +11967,16 @@ type URIFolderDataVersion struct {
 // GetDataVersionBaseProperties implements the DataVersionBasePropertiesClassification interface for type URIFolderDataVersion.
 func (u *URIFolderDataVersion) GetDataVersionBaseProperties() *DataVersionBaseProperties {
 	return &DataVersionBaseProperties{
-		DataType:    u.DataType,
-		DataURI:     u.DataURI,
-		Description: u.Description,
-		IsAnonymous: u.IsAnonymous,
-		IsArchived:  u.IsArchived,
-		Properties:  u.Properties,
-		Tags:        u.Tags,
+		AutoDeleteSetting:    u.AutoDeleteSetting,
+		DataType:             u.DataType,
+		DataURI:              u.DataURI,
+		Description:          u.Description,
+		IntellectualProperty: u.IntellectualProperty,
+		IsAnonymous:          u.IsAnonymous,
+		IsArchived:           u.IsArchived,
+		Properties:           u.Properties,
+		Stage:                u.Stage,
+		Tags:                 u.Tags,
 	}
 }
 
@@ -7184,6 +11992,9 @@ type URIFolderJobInput struct {
 
 	// Input Asset Delivery Mode.
 	Mode *InputDeliveryMode
+
+	// Input Asset Delivery Path.
+	PathOnCompute *string
 }
 
 // GetJobInput implements the JobInputClassification interface for type URIFolderJobInput.
@@ -7198,11 +12009,23 @@ type URIFolderJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
+	// Output Asset Version.
+	AssetVersion *string
+
+	// Auto delete setting of output data asset.
+	AutoDeleteSetting *AutoDeleteSetting
+
 	// Description for the output.
 	Description *string
 
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
+
+	// Output Asset Delivery Path.
+	PathOnCompute *string
 
 	// Output Asset URI.
 	URI *string
@@ -7298,6 +12121,16 @@ type UserAssignedIdentity struct {
 	PrincipalID *string
 }
 
+type UserCreatedAcrAccount struct {
+	// ARM ResourceId of a resource
+	ArmResourceID *ArmResourceID
+}
+
+type UserCreatedStorageAccount struct {
+	// ARM ResourceId of a resource
+	ArmResourceID *ArmResourceID
+}
+
 // UserIdentity - User identity configuration.
 type UserIdentity struct {
 	// REQUIRED; [Required] Specifies the type of identity framework.
@@ -7318,23 +12151,29 @@ type UsernamePasswordAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category    *ConnectionCategory
 	Credentials *WorkspaceConnectionUsernamePassword
-	Target      *string
+	ExpiryTime  *time.Time
 
-	// Value details of the workspace connection.
-	Value *string
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
 
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	// Anything
+	Metadata any
+	Target   *string
+
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
 }
 
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type UsernamePasswordAuthTypeWorkspaceConnectionProperties.
 func (u *UsernamePasswordAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:    u.AuthType,
-		Category:    u.Category,
-		Target:      u.Target,
-		Value:       u.Value,
-		ValueFormat: u.ValueFormat,
+		AuthType:                u.AuthType,
+		Category:                u.Category,
+		CreatedByWorkspaceArmID: u.CreatedByWorkspaceArmID,
+		ExpiryTime:              u.ExpiryTime,
+		IsSharedToAll:           u.IsSharedToAll,
+		Metadata:                u.Metadata,
+		Target:                  u.Target,
 	}
 }
 
@@ -7497,21 +12336,63 @@ type VirtualMachineSizeListResult struct {
 	Value []*VirtualMachineSize
 }
 
+type VolumeDefinition struct {
+	// Bind Options of the mount
+	Bind *BindOptions
+
+	// Consistency of the volume
+	Consistency *string
+
+	// Indicate whether to mount volume as readOnly. Default value for this is false.
+	ReadOnly *bool
+
+	// Source of the mount. For bind mounts this is the host path.
+	Source *string
+
+	// Target of the mount. For bind mounts this is the path in the container.
+	Target *string
+
+	// tmpfs option of the mount
+	Tmpfs *TmpfsOptions
+
+	// Type of Volume Definition. Possible Values: bind,volume,tmpfs,npipe
+	Type *VolumeDefinitionType
+
+	// Volume Options of the mount
+	Volume *VolumeOptions
+}
+
+type VolumeOptions struct {
+	// Indicate whether volume is nocopy
+	Nocopy *bool
+}
+
+// Webhook base
+type Webhook struct {
+	// REQUIRED; [Required] Specifies the type of service to send a callback
+	WebhookType *WebhookType
+
+	// Send callback on a specified notification event
+	EventType *string
+}
+
+// GetWebhook implements the WebhookClassification interface for type Webhook.
+func (w *Webhook) GetWebhook() *Webhook { return w }
+
 // Workspace - An object that represents a machine learning workspace.
 type Workspace struct {
-	// The identity of the resource.
-	Identity *ManagedServiceIdentity
-
-	// Specifies the location of the resource.
-	Location *string
-
-	// The properties of the machine learning workspace.
+	// REQUIRED; Additional attributes of the entity.
 	Properties *WorkspaceProperties
 
-	// The sku of the workspace.
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+	Kind     *string
+	Location *string
+
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
-	// Contains resource tags defined as key/value pairs.
+	// Dictionary of
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -7525,6 +12406,16 @@ type Workspace struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// WorkspaceConnectionAPIKey - Api key object for workspace connection credential.
+type WorkspaceConnectionAPIKey struct {
+	Key *string
+}
+
+type WorkspaceConnectionAccessKey struct {
+	AccessKeyID     *string
+	SecretAccessKey *string
 }
 
 type WorkspaceConnectionManagedIdentity struct {
@@ -7541,14 +12432,18 @@ type WorkspaceConnectionPropertiesV2 struct {
 	AuthType *ConnectionAuthType
 
 	// Category of the connection
-	Category *ConnectionCategory
+	Category   *ConnectionCategory
+	ExpiryTime *time.Time
+
+	// whether this connection will be shared to all the project workspace under the hub
+	IsSharedToAll *bool
+
+	// Anything
+	Metadata any
 	Target   *string
 
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	// READ-ONLY; The arm id of the workspace which created this connection
+	CreatedByWorkspaceArmID *string
 }
 
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type WorkspaceConnectionPropertiesV2.
@@ -7574,14 +12469,24 @@ type WorkspaceConnectionPropertiesV2BasicResource struct {
 }
 
 type WorkspaceConnectionPropertiesV2BasicResourceArmPaginatedResult struct {
-	Value []*WorkspaceConnectionPropertiesV2BasicResource
-
-	// READ-ONLY
 	NextLink *string
+	Value    []*WorkspaceConnectionPropertiesV2BasicResource
+}
+
+type WorkspaceConnectionServicePrincipal struct {
+	ClientID     *string
+	ClientSecret *string
+	TenantID     *string
 }
 
 type WorkspaceConnectionSharedAccessSignature struct {
 	Sas *string
+}
+
+// WorkspaceConnectionUpdateParameter - The properties that the machine learning workspace connection will be updated with.
+type WorkspaceConnectionUpdateParameter struct {
+	// The properties that the machine learning workspace connection will be updated with.
+	Properties WorkspaceConnectionPropertiesV2Classification
 }
 
 type WorkspaceConnectionUsernamePassword struct {
@@ -7589,14 +12494,29 @@ type WorkspaceConnectionUsernamePassword struct {
 	Username *string
 }
 
+// WorkspaceHubConfig - WorkspaceHub's configuration object.
+type WorkspaceHubConfig struct {
+	AdditionalWorkspaceStorageAccounts []*string
+	DefaultWorkspaceResourceGroup      *string
+}
+
 // WorkspaceListResult - The result of a request to list machine learning workspaces.
 type WorkspaceListResult struct {
-	// The URI that can be used to request the next list of machine learning workspaces.
+	// The link to the next page constructed using the continuationToken. If null, there are no additional pages.
 	NextLink *string
 
 	// The list of machine learning workspaces. Since this list may be incomplete, the nextLink field should be used to request
 	// the next list of machine learning workspaces.
 	Value []*Workspace
+}
+
+// WorkspacePrivateEndpointResource - The Private Endpoint resource.
+type WorkspacePrivateEndpointResource struct {
+	// READ-ONLY; e.g. /subscriptions/{networkSubscriptionId}/resourceGroups/{rgName}/providers/Microsoft.Network/privateEndpoints/{privateEndpointName}
+	ID *string
+
+	// READ-ONLY; The subnetId that the private endpoint is connected to.
+	SubnetArmID *string
 }
 
 // WorkspaceProperties - The properties of a machine learning workspace.
@@ -7605,7 +12525,9 @@ type WorkspaceProperties struct {
 	AllowPublicAccessWhenBehindVnet *bool
 
 	// ARM id of the application insights associated with this workspace.
-	ApplicationInsights *string
+	ApplicationInsights  *string
+	AssociatedWorkspaces []*string
+	ContainerRegistries  []*string
 
 	// ARM id of the container registry associated with this workspace.
 	ContainerRegistry *string
@@ -7614,28 +12536,39 @@ type WorkspaceProperties struct {
 	Description *string
 
 	// Url for the discovery service to identify regional endpoints for machine learning experimentation services
-	DiscoveryURL *string
+	DiscoveryURL        *string
+	EnableDataIsolation *bool
+	Encryption          *EncryptionProperty
+	ExistingWorkspaces  []*string
 
-	// The encryption settings of Azure ML workspace.
-	Encryption *EncryptionProperty
+	// Settings for feature store type workspace.
+	FeatureStoreSettings *FeatureStoreSettings
 
 	// The friendly name for this workspace. This name in mutable
 	FriendlyName *string
 
 	// The flag to signal HBI data in the workspace and reduce diagnostic data collected by the service
-	HbiWorkspace *bool
+	HbiWorkspace  *bool
+	HubResourceID *string
 
 	// The compute name for image build
 	ImageBuildCompute *string
 
 	// ARM id of the key vault associated with this workspace. This cannot be changed once the workspace has been created
-	KeyVault *string
+	KeyVault  *string
+	KeyVaults []*string
+
+	// Managed Network settings for a machine learning workspace.
+	ManagedNetwork *ManagedNetworkSettings
 
 	// The user assigned identity resource id that represents the workspace identity.
 	PrimaryUserAssignedIdentity *string
 
 	// Whether requests from Public Network are allowed.
-	PublicNetworkAccess *PublicNetworkAccess
+	PublicNetworkAccess *PublicNetworkAccessType
+
+	// Settings for serverless compute created in the workspace
+	ServerlessComputeSettings *ServerlessComputeSettings
 
 	// The service managed resource settings.
 	ServiceManagedResourcesSettings *ServiceManagedResourcesSettings
@@ -7643,11 +12576,21 @@ type WorkspaceProperties struct {
 	// The list of shared private link resources in this workspace.
 	SharedPrivateLinkResources []*SharedPrivateLinkResource
 
+	// Retention time in days after workspace get soft deleted.
+	SoftDeleteRetentionInDays *int32
+
 	// ARM id of the storage account associated with this workspace. This cannot be changed once the workspace has been created
-	StorageAccount *string
+	StorageAccount  *string
+	StorageAccounts []*string
+
+	// The auth mode used for accessing the system datastores of the workspace.
+	SystemDatastoresAuthMode *string
 
 	// Enabling v1legacymode may prevent you from using features provided by the v2 API.
 	V1LegacyMode *bool
+
+	// WorkspaceHub's configuration object.
+	WorkspaceHubConfig *WorkspaceHubConfig
 
 	// READ-ONLY; The URI associated with this workspace that machine learning flow must point at to set up tracking.
 	MlFlowTrackingURI *string
@@ -7679,7 +12622,7 @@ type WorkspaceProperties struct {
 	WorkspaceID *string
 }
 
-// WorkspacePropertiesUpdateParameters - The parameters for updating the properties of a machine learning workspace.
+// WorkspacePropertiesUpdateParameters - The parameters for updating a machine learning workspace.
 type WorkspacePropertiesUpdateParameters struct {
 	// ARM id of the application insights associated with this workspace.
 	ApplicationInsights *string
@@ -7688,33 +12631,50 @@ type WorkspacePropertiesUpdateParameters struct {
 	ContainerRegistry *string
 
 	// The description of this workspace.
-	Description *string
+	Description         *string
+	EnableDataIsolation *bool
+	Encryption          *EncryptionUpdateProperties
 
-	// The friendly name for this workspace.
+	// Settings for feature store type workspace.
+	FeatureStoreSettings *FeatureStoreSettings
+
+	// The friendly name for this workspace. This name in mutable
 	FriendlyName *string
 
 	// The compute name for image build
 	ImageBuildCompute *string
 
+	// Managed Network settings for a machine learning workspace.
+	ManagedNetwork *ManagedNetworkSettings
+
 	// The user assigned identity resource id that represents the workspace identity.
 	PrimaryUserAssignedIdentity *string
 
 	// Whether requests from Public Network are allowed.
-	PublicNetworkAccess *PublicNetworkAccess
+	PublicNetworkAccess *PublicNetworkAccessType
+
+	// Settings for serverless compute created in the workspace
+	ServerlessComputeSettings *ServerlessComputeSettings
 
 	// The service managed resource settings.
 	ServiceManagedResourcesSettings *ServiceManagedResourcesSettings
+
+	// Retention time in days after workspace get soft deleted.
+	SoftDeleteRetentionInDays *int32
+
+	// Enabling v1legacymode may prevent you from using features provided by the v2 API.
+	V1LegacyMode *bool
 }
 
 // WorkspaceUpdateParameters - The parameters for updating a machine learning workspace.
 type WorkspaceUpdateParameters struct {
-	// The identity of the resource.
+	// Managed service identity (system assigned and/or user assigned identities)
 	Identity *ManagedServiceIdentity
 
 	// The properties that the machine learning workspace will be updated with.
 	Properties *WorkspacePropertiesUpdateParameters
 
-	// The sku of the workspace.
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
 	// The resource tags for the machine learning workspace.
