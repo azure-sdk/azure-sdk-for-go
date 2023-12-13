@@ -470,7 +470,7 @@ func (client *WebAppsClient) applySlotConfigurationSlotCreateRequest(ctx context
 //   - name - Name of the site.
 //   - options - WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions contains the optional parameters for the WebAppsClient.BeginApproveOrRejectPrivateEndpointConnection
 //     method.
-func (client *WebAppsClient) BeginApproveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*runtime.Poller[WebAppsClientApproveOrRejectPrivateEndpointConnectionResponse], error) {
+func (client *WebAppsClient) BeginApproveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*runtime.Poller[WebAppsClientApproveOrRejectPrivateEndpointConnectionResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.approveOrRejectPrivateEndpointConnection(ctx, resourceGroupName, name, privateEndpointConnectionName, privateEndpointWrapper, options)
 		if err != nil {
@@ -491,7 +491,7 @@ func (client *WebAppsClient) BeginApproveOrRejectPrivateEndpointConnection(ctx c
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-01-01
-func (client *WebAppsClient) approveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*http.Response, error) {
+func (client *WebAppsClient) approveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*http.Response, error) {
 	var err error
 	const operationName = "WebAppsClient.BeginApproveOrRejectPrivateEndpointConnection"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -513,7 +513,7 @@ func (client *WebAppsClient) approveOrRejectPrivateEndpointConnection(ctx contex
 }
 
 // approveOrRejectPrivateEndpointConnectionCreateRequest creates the ApproveOrRejectPrivateEndpointConnection request.
-func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionCreateRequest(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*policy.Request, error) {
+func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionCreateRequest(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -553,7 +553,7 @@ func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionCreateReque
 //   - name - Name of the site.
 //   - options - WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions contains the optional parameters for the
 //     WebAppsClient.BeginApproveOrRejectPrivateEndpointConnectionSlot method.
-func (client *WebAppsClient) BeginApproveOrRejectPrivateEndpointConnectionSlot(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (*runtime.Poller[WebAppsClientApproveOrRejectPrivateEndpointConnectionSlotResponse], error) {
+func (client *WebAppsClient) BeginApproveOrRejectPrivateEndpointConnectionSlot(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (*runtime.Poller[WebAppsClientApproveOrRejectPrivateEndpointConnectionSlotResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.approveOrRejectPrivateEndpointConnectionSlot(ctx, resourceGroupName, name, privateEndpointConnectionName, slot, privateEndpointWrapper, options)
 		if err != nil {
@@ -574,7 +574,7 @@ func (client *WebAppsClient) BeginApproveOrRejectPrivateEndpointConnectionSlot(c
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-01-01
-func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionSlot(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (*http.Response, error) {
+func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionSlot(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (*http.Response, error) {
 	var err error
 	const operationName = "WebAppsClient.BeginApproveOrRejectPrivateEndpointConnectionSlot"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -596,7 +596,7 @@ func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionSlot(ctx co
 }
 
 // approveOrRejectPrivateEndpointConnectionSlotCreateRequest creates the ApproveOrRejectPrivateEndpointConnectionSlot request.
-func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionSlotCreateRequest(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (*policy.Request, error) {
+func (client *WebAppsClient) approveOrRejectPrivateEndpointConnectionSlotCreateRequest(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
