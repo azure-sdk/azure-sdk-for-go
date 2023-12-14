@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Identifier of the subscription
+//   - subscriptionID - Subscription ID that identifies an Azure subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -37,9 +37,45 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewDatabaseMigrationsMongoToCosmosDbRUMongoClient creates a new instance of DatabaseMigrationsMongoToCosmosDbRUMongoClient.
+func (c *ClientFactory) NewDatabaseMigrationsMongoToCosmosDbRUMongoClient() *DatabaseMigrationsMongoToCosmosDbRUMongoClient {
+	subClient, _ := NewDatabaseMigrationsMongoToCosmosDbRUMongoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDatabaseMigrationsMongoToCosmosDbvCoreMongoClient creates a new instance of DatabaseMigrationsMongoToCosmosDbvCoreMongoClient.
+func (c *ClientFactory) NewDatabaseMigrationsMongoToCosmosDbvCoreMongoClient() *DatabaseMigrationsMongoToCosmosDbvCoreMongoClient {
+	subClient, _ := NewDatabaseMigrationsMongoToCosmosDbvCoreMongoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDatabaseMigrationsSQLDbClient creates a new instance of DatabaseMigrationsSQLDbClient.
+func (c *ClientFactory) NewDatabaseMigrationsSQLDbClient() *DatabaseMigrationsSQLDbClient {
+	subClient, _ := NewDatabaseMigrationsSQLDbClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDatabaseMigrationsSQLMiClient creates a new instance of DatabaseMigrationsSQLMiClient.
+func (c *ClientFactory) NewDatabaseMigrationsSQLMiClient() *DatabaseMigrationsSQLMiClient {
+	subClient, _ := NewDatabaseMigrationsSQLMiClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDatabaseMigrationsSQLVMClient creates a new instance of DatabaseMigrationsSQLVMClient.
+func (c *ClientFactory) NewDatabaseMigrationsSQLVMClient() *DatabaseMigrationsSQLVMClient {
+	subClient, _ := NewDatabaseMigrationsSQLVMClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewFilesClient creates a new instance of FilesClient.
 func (c *ClientFactory) NewFilesClient() *FilesClient {
 	subClient, _ := NewFilesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewMigrationServicesClient creates a new instance of MigrationServicesClient.
+func (c *ClientFactory) NewMigrationServicesClient() *MigrationServicesClient {
+	subClient, _ := NewMigrationServicesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -58,6 +94,12 @@ func (c *ClientFactory) NewProjectsClient() *ProjectsClient {
 // NewResourceSKUsClient creates a new instance of ResourceSKUsClient.
 func (c *ClientFactory) NewResourceSKUsClient() *ResourceSKUsClient {
 	subClient, _ := NewResourceSKUsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSQLMigrationServicesClient creates a new instance of SQLMigrationServicesClient.
+func (c *ClientFactory) NewSQLMigrationServicesClient() *SQLMigrationServicesClient {
+	subClient, _ := NewSQLMigrationServicesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

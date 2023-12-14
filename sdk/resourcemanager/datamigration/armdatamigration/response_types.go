@@ -8,6 +8,118 @@
 
 package armdatamigration
 
+// DatabaseMigrationsMongoToCosmosDbRUMongoClientCreateResponse contains the response from method DatabaseMigrationsMongoToCosmosDbRUMongoClient.BeginCreate.
+type DatabaseMigrationsMongoToCosmosDbRUMongoClientCreateResponse struct {
+	// Database Migration Resource for Mongo to CosmosDb.
+	DatabaseMigrationCosmosDbMongo
+}
+
+// DatabaseMigrationsMongoToCosmosDbRUMongoClientDeleteResponse contains the response from method DatabaseMigrationsMongoToCosmosDbRUMongoClient.BeginDelete.
+type DatabaseMigrationsMongoToCosmosDbRUMongoClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsMongoToCosmosDbRUMongoClientGetForScopeResponse contains the response from method DatabaseMigrationsMongoToCosmosDbRUMongoClient.NewGetForScopePager.
+type DatabaseMigrationsMongoToCosmosDbRUMongoClientGetForScopeResponse struct {
+	// A list of Database Migrations.
+	DatabaseMigrationCosmosDbMongoListResult
+}
+
+// DatabaseMigrationsMongoToCosmosDbRUMongoClientGetResponse contains the response from method DatabaseMigrationsMongoToCosmosDbRUMongoClient.Get.
+type DatabaseMigrationsMongoToCosmosDbRUMongoClientGetResponse struct {
+	// Database Migration Resource for Mongo to CosmosDb.
+	DatabaseMigrationCosmosDbMongo
+}
+
+// DatabaseMigrationsMongoToCosmosDbvCoreMongoClientCreateResponse contains the response from method DatabaseMigrationsMongoToCosmosDbvCoreMongoClient.BeginCreate.
+type DatabaseMigrationsMongoToCosmosDbvCoreMongoClientCreateResponse struct {
+	// Database Migration Resource for Mongo to CosmosDb.
+	DatabaseMigrationCosmosDbMongo
+}
+
+// DatabaseMigrationsMongoToCosmosDbvCoreMongoClientDeleteResponse contains the response from method DatabaseMigrationsMongoToCosmosDbvCoreMongoClient.BeginDelete.
+type DatabaseMigrationsMongoToCosmosDbvCoreMongoClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsMongoToCosmosDbvCoreMongoClientGetForScopeResponse contains the response from method DatabaseMigrationsMongoToCosmosDbvCoreMongoClient.NewGetForScopePager.
+type DatabaseMigrationsMongoToCosmosDbvCoreMongoClientGetForScopeResponse struct {
+	// A list of Database Migrations.
+	DatabaseMigrationCosmosDbMongoListResult
+}
+
+// DatabaseMigrationsMongoToCosmosDbvCoreMongoClientGetResponse contains the response from method DatabaseMigrationsMongoToCosmosDbvCoreMongoClient.Get.
+type DatabaseMigrationsMongoToCosmosDbvCoreMongoClientGetResponse struct {
+	// Database Migration Resource for Mongo to CosmosDb.
+	DatabaseMigrationCosmosDbMongo
+}
+
+// DatabaseMigrationsSQLDbClientCancelResponse contains the response from method DatabaseMigrationsSQLDbClient.BeginCancel.
+type DatabaseMigrationsSQLDbClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLDbClientCreateOrUpdateResponse contains the response from method DatabaseMigrationsSQLDbClient.BeginCreateOrUpdate.
+type DatabaseMigrationsSQLDbClientCreateOrUpdateResponse struct {
+	// Database Migration Resource for SQL Database.
+	DatabaseMigrationSQLDb
+}
+
+// DatabaseMigrationsSQLDbClientDeleteResponse contains the response from method DatabaseMigrationsSQLDbClient.BeginDelete.
+type DatabaseMigrationsSQLDbClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLDbClientGetResponse contains the response from method DatabaseMigrationsSQLDbClient.Get.
+type DatabaseMigrationsSQLDbClientGetResponse struct {
+	// Database Migration Resource for SQL Database.
+	DatabaseMigrationSQLDb
+}
+
+// DatabaseMigrationsSQLMiClientCancelResponse contains the response from method DatabaseMigrationsSQLMiClient.BeginCancel.
+type DatabaseMigrationsSQLMiClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLMiClientCreateOrUpdateResponse contains the response from method DatabaseMigrationsSQLMiClient.BeginCreateOrUpdate.
+type DatabaseMigrationsSQLMiClientCreateOrUpdateResponse struct {
+	// Database Migration Resource for SQL Managed Instance.
+	DatabaseMigrationSQLMi
+}
+
+// DatabaseMigrationsSQLMiClientCutoverResponse contains the response from method DatabaseMigrationsSQLMiClient.BeginCutover.
+type DatabaseMigrationsSQLMiClientCutoverResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLMiClientGetResponse contains the response from method DatabaseMigrationsSQLMiClient.Get.
+type DatabaseMigrationsSQLMiClientGetResponse struct {
+	// Database Migration Resource for SQL Managed Instance.
+	DatabaseMigrationSQLMi
+}
+
+// DatabaseMigrationsSQLVMClientCancelResponse contains the response from method DatabaseMigrationsSQLVMClient.BeginCancel.
+type DatabaseMigrationsSQLVMClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLVMClientCreateOrUpdateResponse contains the response from method DatabaseMigrationsSQLVMClient.BeginCreateOrUpdate.
+type DatabaseMigrationsSQLVMClientCreateOrUpdateResponse struct {
+	// Database Migration Resource for SQL Virtual Machine.
+	DatabaseMigrationSQLVM
+}
+
+// DatabaseMigrationsSQLVMClientCutoverResponse contains the response from method DatabaseMigrationsSQLVMClient.BeginCutover.
+type DatabaseMigrationsSQLVMClientCutoverResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLVMClientGetResponse contains the response from method DatabaseMigrationsSQLVMClient.Get.
+type DatabaseMigrationsSQLVMClientGetResponse struct {
+	// Database Migration Resource for SQL Virtual Machine.
+	DatabaseMigrationSQLVM
+}
+
 // FilesClientCreateOrUpdateResponse contains the response from method FilesClient.CreateOrUpdate.
 type FilesClientCreateOrUpdateResponse struct {
 	// A file resource
@@ -49,10 +161,51 @@ type FilesClientUpdateResponse struct {
 	ProjectFile
 }
 
+// MigrationServicesClientCreateOrUpdateResponse contains the response from method MigrationServicesClient.BeginCreateOrUpdate.
+type MigrationServicesClientCreateOrUpdateResponse struct {
+	// A Migration Service.
+	MigrationService
+}
+
+// MigrationServicesClientDeleteResponse contains the response from method MigrationServicesClient.BeginDelete.
+type MigrationServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MigrationServicesClientGetResponse contains the response from method MigrationServicesClient.Get.
+type MigrationServicesClientGetResponse struct {
+	// A Migration Service.
+	MigrationService
+}
+
+// MigrationServicesClientListByResourceGroupResponse contains the response from method MigrationServicesClient.NewListByResourceGroupPager.
+type MigrationServicesClientListByResourceGroupResponse struct {
+	// A list of Migration Service.
+	MigrationServiceListResult
+}
+
+// MigrationServicesClientListBySubscriptionResponse contains the response from method MigrationServicesClient.NewListBySubscriptionPager.
+type MigrationServicesClientListBySubscriptionResponse struct {
+	// A list of Migration Service.
+	MigrationServiceListResult
+}
+
+// MigrationServicesClientListMigrationsResponse contains the response from method MigrationServicesClient.NewListMigrationsPager.
+type MigrationServicesClientListMigrationsResponse struct {
+	// A list of Database Migrations.
+	DatabaseMigrationBaseListResult
+}
+
+// MigrationServicesClientUpdateResponse contains the response from method MigrationServicesClient.BeginUpdate.
+type MigrationServicesClientUpdateResponse struct {
+	// A Migration Service.
+	MigrationService
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// OData page of action (operation) objects
-	ServiceOperationList
+	// Result of the request to list SQL operations.
+	OperationListResult
 }
 
 // ProjectsClientCreateOrUpdateResponse contains the response from method ProjectsClient.CreateOrUpdate.
@@ -86,8 +239,73 @@ type ProjectsClientUpdateResponse struct {
 
 // ResourceSKUsClientListSKUsResponse contains the response from method ResourceSKUsClient.NewListSKUsPager.
 type ResourceSKUsClientListSKUsResponse struct {
-	// The DMS List SKUs operation response.
+	// The DMS (classic) List SKUs operation response.
 	ResourceSKUsResult
+}
+
+// SQLMigrationServicesClientCreateOrUpdateResponse contains the response from method SQLMigrationServicesClient.BeginCreateOrUpdate.
+type SQLMigrationServicesClientCreateOrUpdateResponse struct {
+	// A SQL Migration Service.
+	SQLMigrationService
+}
+
+// SQLMigrationServicesClientDeleteNodeResponse contains the response from method SQLMigrationServicesClient.DeleteNode.
+type SQLMigrationServicesClientDeleteNodeResponse struct {
+	// Details of node to be deleted.
+	DeleteNode
+}
+
+// SQLMigrationServicesClientDeleteResponse contains the response from method SQLMigrationServicesClient.BeginDelete.
+type SQLMigrationServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SQLMigrationServicesClientGetResponse contains the response from method SQLMigrationServicesClient.Get.
+type SQLMigrationServicesClientGetResponse struct {
+	// A SQL Migration Service.
+	SQLMigrationService
+}
+
+// SQLMigrationServicesClientListAuthKeysResponse contains the response from method SQLMigrationServicesClient.ListAuthKeys.
+type SQLMigrationServicesClientListAuthKeysResponse struct {
+	// An authentication key.
+	AuthenticationKeys
+}
+
+// SQLMigrationServicesClientListByResourceGroupResponse contains the response from method SQLMigrationServicesClient.NewListByResourceGroupPager.
+type SQLMigrationServicesClientListByResourceGroupResponse struct {
+	// A list of SQL Migration Service.
+	SQLMigrationListResult
+}
+
+// SQLMigrationServicesClientListBySubscriptionResponse contains the response from method SQLMigrationServicesClient.NewListBySubscriptionPager.
+type SQLMigrationServicesClientListBySubscriptionResponse struct {
+	// A list of SQL Migration Service.
+	SQLMigrationListResult
+}
+
+// SQLMigrationServicesClientListMigrationsResponse contains the response from method SQLMigrationServicesClient.NewListMigrationsPager.
+type SQLMigrationServicesClientListMigrationsResponse struct {
+	// A list of Database Migrations.
+	DatabaseMigrationListResult
+}
+
+// SQLMigrationServicesClientListMonitoringDataResponse contains the response from method SQLMigrationServicesClient.ListMonitoringData.
+type SQLMigrationServicesClientListMonitoringDataResponse struct {
+	// Integration Runtime Monitoring Data.
+	IntegrationRuntimeMonitoringData
+}
+
+// SQLMigrationServicesClientRegenerateAuthKeysResponse contains the response from method SQLMigrationServicesClient.RegenerateAuthKeys.
+type SQLMigrationServicesClientRegenerateAuthKeysResponse struct {
+	// An authentication key to regenerate.
+	RegenAuthKeys
+}
+
+// SQLMigrationServicesClientUpdateResponse contains the response from method SQLMigrationServicesClient.BeginUpdate.
+type SQLMigrationServicesClientUpdateResponse struct {
+	// A SQL Migration Service.
+	SQLMigrationService
 }
 
 // ServiceTasksClientCancelResponse contains the response from method ServiceTasksClient.Cancel.
@@ -145,7 +363,7 @@ type ServicesClientCheckStatusResponse struct {
 
 // ServicesClientCreateOrUpdateResponse contains the response from method ServicesClient.BeginCreateOrUpdate.
 type ServicesClientCreateOrUpdateResponse struct {
-	// A Database Migration Service resource
+	// An Azure Database Migration Service (classic) resource
 	Service
 }
 
@@ -156,7 +374,7 @@ type ServicesClientDeleteResponse struct {
 
 // ServicesClientGetResponse contains the response from method ServicesClient.Get.
 type ServicesClientGetResponse struct {
-	// A Database Migration Service resource
+	// An Azure Database Migration Service (classic) resource
 	Service
 }
 
@@ -190,7 +408,7 @@ type ServicesClientStopResponse struct {
 
 // ServicesClientUpdateResponse contains the response from method ServicesClient.BeginUpdate.
 type ServicesClientUpdateResponse struct {
-	// A Database Migration Service resource
+	// An Azure Database Migration Service (classic) resource
 	Service
 }
 
@@ -202,7 +420,8 @@ type TasksClientCancelResponse struct {
 
 // TasksClientCommandResponse contains the response from method TasksClient.Command.
 type TasksClientCommandResponse struct {
-	// Base class for all types of DMS command properties. If command is not supported by current client, this object is returned.
+	// Base class for all types of DMS (classic) command properties. If command is not supported by current client, this object
+	// is returned.
 	CommandPropertiesClassification
 }
 

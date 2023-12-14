@@ -10,7 +10,7 @@ package fake
 
 import (
 	"encoding/json"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datamigration/armdatamigration"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datamigration/armdatamigration/v2"
 )
 
 func unmarshalCommandPropertiesClassification(rawMsg json.RawMessage) (armdatamigration.CommandPropertiesClassification, error) {
@@ -23,15 +23,15 @@ func unmarshalCommandPropertiesClassification(rawMsg json.RawMessage) (armdatami
 	}
 	var b armdatamigration.CommandPropertiesClassification
 	switch m["commandType"] {
-	case "Migrate.SqlServer.AzureDbSqlMi.Complete":
-		b = &armdatamigration.MigrateMISyncCompleteCommandProperties{}
-	case "Migrate.Sync.Complete.Database":
-		b = &armdatamigration.MigrateSyncCompleteCommandProperties{}
-	case "cancel":
+	case string(armdatamigration.CommandTypeCancel):
 		b = &armdatamigration.MongoDbCancelCommand{}
-	case "finish":
+	case string(armdatamigration.CommandTypeFinish):
 		b = &armdatamigration.MongoDbFinishCommand{}
-	case "restart":
+	case string(armdatamigration.CommandTypeMigrateSQLServerAzureDbSQLMiComplete):
+		b = &armdatamigration.MigrateMISyncCompleteCommandProperties{}
+	case string(armdatamigration.CommandTypeMigrateSyncCompleteDatabase):
+		b = &armdatamigration.MigrateSyncCompleteCommandProperties{}
+	case string(armdatamigration.CommandTypeRestart):
 		b = &armdatamigration.MongoDbRestartCommand{}
 	default:
 		b = &armdatamigration.CommandProperties{}
