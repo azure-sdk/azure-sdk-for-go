@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -37,27 +37,39 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewCheckNameAvailabilityClient creates a new instance of CheckNameAvailabilityClient.
+func (c *ClientFactory) NewCheckNameAvailabilityClient() *CheckNameAvailabilityClient {
+	subClient, _ := NewCheckNameAvailabilityClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDataConnectorsClient creates a new instance of DataConnectorsClient.
+func (c *ClientFactory) NewDataConnectorsClient() *DataConnectorsClient {
+	subClient, _ := NewDataConnectorsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDataManagerForAgricultureExtensionsClient creates a new instance of DataManagerForAgricultureExtensionsClient.
+func (c *ClientFactory) NewDataManagerForAgricultureExtensionsClient() *DataManagerForAgricultureExtensionsClient {
+	subClient, _ := NewDataManagerForAgricultureExtensionsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewDataManagerForAgricultureResourcesClient creates a new instance of DataManagerForAgricultureResourcesClient.
+func (c *ClientFactory) NewDataManagerForAgricultureResourcesClient() *DataManagerForAgricultureResourcesClient {
+	subClient, _ := NewDataManagerForAgricultureResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewExtensionsClient creates a new instance of ExtensionsClient.
 func (c *ClientFactory) NewExtensionsClient() *ExtensionsClient {
 	subClient, _ := NewExtensionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewFarmBeatsExtensionsClient creates a new instance of FarmBeatsExtensionsClient.
-func (c *ClientFactory) NewFarmBeatsExtensionsClient() *FarmBeatsExtensionsClient {
-	subClient, _ := NewFarmBeatsExtensionsClient(c.credential, c.options)
-	return subClient
-}
-
-// NewFarmBeatsModelsClient creates a new instance of FarmBeatsModelsClient.
-func (c *ClientFactory) NewFarmBeatsModelsClient() *FarmBeatsModelsClient {
-	subClient, _ := NewFarmBeatsModelsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewLocationsClient creates a new instance of LocationsClient.
-func (c *ClientFactory) NewLocationsClient() *LocationsClient {
-	subClient, _ := NewLocationsClient(c.subscriptionID, c.credential, c.options)
+// NewOperationResultsClient creates a new instance of OperationResultsClient.
+func (c *ClientFactory) NewOperationResultsClient() *OperationResultsClient {
+	subClient, _ := NewOperationResultsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -76,5 +88,17 @@ func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointCo
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient.
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
 	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSolutionsClient creates a new instance of SolutionsClient.
+func (c *ClientFactory) NewSolutionsClient() *SolutionsClient {
+	subClient, _ := NewSolutionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSolutionsDiscoverabilityClient creates a new instance of SolutionsDiscoverabilityClient.
+func (c *ClientFactory) NewSolutionsDiscoverabilityClient() *SolutionsDiscoverabilityClient {
+	subClient, _ := NewSolutionsDiscoverabilityClient(c.credential, c.options)
 	return subClient
 }
