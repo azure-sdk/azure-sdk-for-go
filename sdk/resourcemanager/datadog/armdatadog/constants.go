@@ -10,7 +10,7 @@ package armdatadog
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.3.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
