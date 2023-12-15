@@ -52,7 +52,7 @@ type ControlActivityClassification interface {
 // - *CommonDataServiceForAppsSink, *CopySink, *CosmosDbMongoDbAPISink, *CosmosDbSQLAPISink, *DelimitedTextSink, *DocumentDbCollectionSink,
 // - *DynamicsCrmSink, *DynamicsSink, *FileSystemSink, *InformixSink, *JSONSink, *LakeHouseTableSink, *MicrosoftAccessSink,
 // - *MongoDbAtlasSink, *MongoDbV2Sink, *OdbcSink, *OracleSink, *OrcSink, *ParquetSink, *RestSink, *SQLDWSink, *SQLMISink,
-// - *SQLServerSink, *SQLSink, *SalesforceServiceCloudSink, *SalesforceSink, *SapCloudForCustomerSink, *SnowflakeSink
+// - *SQLServerSink, *SQLSink, *SalesforceServiceCloudSink, *SalesforceSink, *SapCloudForCustomerSink, *SnowflakeSink, *WarehouseSink
 type CopySinkClassification interface {
 	// GetCopySink returns the CopySink content of the underlying type.
 	GetCopySink() *CopySink
@@ -74,7 +74,8 @@ type CopySinkClassification interface {
 // - *RestSource, *SQLDWSource, *SQLMISource, *SQLServerSource, *SQLSource, *SalesforceMarketingCloudSource, *SalesforceServiceCloudSource,
 // - *SalesforceSource, *SapBwSource, *SapCloudForCustomerSource, *SapEccSource, *SapHanaSource, *SapOdpSource, *SapOpenHubSource,
 // - *SapTableSource, *ServiceNowSource, *SharePointOnlineListSource, *ShopifySource, *SnowflakeSource, *SparkSource, *SquareSource,
-// - *SybaseSource, *TabularSource, *TeradataSource, *VerticaSource, *WebSource, *XMLSource, *XeroSource, *ZohoSource
+// - *SybaseSource, *TabularSource, *TeradataSource, *VerticaSource, *WarehouseSource, *WebSource, *XMLSource, *XeroSource,
+// - *ZohoSource
 type CopySourceClassification interface {
 	// GetCopySource returns the CopySource content of the underlying type.
 	GetCopySource() *CopySource
@@ -128,7 +129,7 @@ type DataFlowClassification interface {
 // - *SapBwCubeDataset, *SapCloudForCustomerResourceDataset, *SapEccResourceDataset, *SapHanaTableDataset, *SapOdpResourceDataset,
 // - *SapOpenHubTableDataset, *SapTableResourceDataset, *ServiceNowObjectDataset, *SharePointOnlineListResourceDataset, *ShopifyObjectDataset,
 // - *SnowflakeDataset, *SparkObjectDataset, *SquareObjectDataset, *SybaseTableDataset, *TeradataTableDataset, *VerticaTableDataset,
-// - *WebTableDataset, *XMLDataset, *XeroObjectDataset, *ZohoObjectDataset
+// - *WarehouseTableDataset, *WebTableDataset, *XMLDataset, *XeroObjectDataset, *ZohoObjectDataset
 type DatasetClassification interface {
 	// GetDataset returns the Dataset content of the underlying type.
 	GetDataset() *Dataset
@@ -275,8 +276,8 @@ type LinkedIntegrationRuntimeTypeClassification interface {
 // - *SapBWLinkedService, *SapCloudForCustomerLinkedService, *SapEccLinkedService, *SapHanaLinkedService, *SapOdpLinkedService,
 // - *SapOpenHubLinkedService, *SapTableLinkedService, *ServiceNowLinkedService, *SftpServerLinkedService, *SharePointOnlineListLinkedService,
 // - *ShopifyLinkedService, *SmartsheetLinkedService, *SnowflakeLinkedService, *SparkLinkedService, *SquareLinkedService,
-// - *SybaseLinkedService, *TeamDeskLinkedService, *TeradataLinkedService, *TwilioLinkedService, *VerticaLinkedService, *WebLinkedService,
-// - *XeroLinkedService, *ZendeskLinkedService, *ZohoLinkedService
+// - *SybaseLinkedService, *TeamDeskLinkedService, *TeradataLinkedService, *TwilioLinkedService, *VerticaLinkedService, *WarehouseLinkedService,
+// - *WebLinkedService, *XeroLinkedService, *ZendeskLinkedService, *ZohoLinkedService
 type LinkedServiceClassification interface {
 	// GetLinkedService returns the LinkedService content of the underlying type.
 	GetLinkedService() *LinkedService
@@ -342,7 +343,7 @@ type StoreWriteSettingsClassification interface {
 // - *ResponsysSource, *SQLDWSource, *SQLMISource, *SQLServerSource, *SQLSource, *SalesforceMarketingCloudSource, *SalesforceSource,
 // - *SapBwSource, *SapCloudForCustomerSource, *SapEccSource, *SapHanaSource, *SapOdpSource, *SapOpenHubSource, *SapTableSource,
 // - *ServiceNowSource, *ShopifySource, *SparkSource, *SquareSource, *SybaseSource, *TabularSource, *TeradataSource, *VerticaSource,
-// - *XeroSource, *ZohoSource
+// - *WarehouseSource, *XeroSource, *ZohoSource
 type TabularSourceClassification interface {
 	CopySourceClassification
 	// GetTabularSource returns the TabularSource content of the underlying type.

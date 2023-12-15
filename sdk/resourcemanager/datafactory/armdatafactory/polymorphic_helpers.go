@@ -245,6 +245,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &SQLServerSink{}
 	case "SqlSink":
 		b = &SQLSink{}
+	case "WarehouseSink":
+		b = &WarehouseSink{}
 	default:
 		b = &CopySink{}
 	}
@@ -450,6 +452,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &TeradataSource{}
 	case "VerticaSource":
 		b = &VerticaSource{}
+	case "WarehouseSource":
+		b = &WarehouseSource{}
 	case "WebSource":
 		b = &WebSource{}
 	case "XeroSource":
@@ -734,6 +738,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &TeradataTableDataset{}
 	case "VerticaTable":
 		b = &VerticaTableDataset{}
+	case "WarehouseTable":
+		b = &WarehouseTableDataset{}
 	case "WebTable":
 		b = &WebTableDataset{}
 	case "XeroObject":
@@ -1222,6 +1228,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &TwilioLinkedService{}
 	case "Vertica":
 		b = &VerticaLinkedService{}
+	case "Warehouse":
+		b = &WarehouseLinkedService{}
 	case "Web":
 		b = &WebLinkedService{}
 	case "Xero":
