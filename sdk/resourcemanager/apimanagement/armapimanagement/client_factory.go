@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -136,6 +136,12 @@ func (c *ClientFactory) NewAPIWikiClient() *APIWikiClient {
 // NewAPIWikisClient creates a new instance of APIWikisClient.
 func (c *ClientFactory) NewAPIWikisClient() *APIWikisClient {
 	subClient, _ := NewAPIWikisClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAllPoliciesClient creates a new instance of AllPoliciesClient.
+func (c *ClientFactory) NewAllPoliciesClient() *AllPoliciesClient {
+	subClient, _ := NewAllPoliciesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -379,6 +385,18 @@ func (c *ClientFactory) NewPolicyFragmentClient() *PolicyFragmentClient {
 	return subClient
 }
 
+// NewPolicyRestrictionClient creates a new instance of PolicyRestrictionClient.
+func (c *ClientFactory) NewPolicyRestrictionClient() *PolicyRestrictionClient {
+	subClient, _ := NewPolicyRestrictionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewPolicyRestrictionValidationsClient creates a new instance of PolicyRestrictionValidationsClient.
+func (c *ClientFactory) NewPolicyRestrictionValidationsClient() *PolicyRestrictionValidationsClient {
+	subClient, _ := NewPolicyRestrictionValidationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewPortalConfigClient creates a new instance of PortalConfigClient.
 func (c *ClientFactory) NewPortalConfigClient() *PortalConfigClient {
 	subClient, _ := NewPortalConfigClient(c.subscriptionID, c.credential, c.options)
@@ -409,6 +427,12 @@ func (c *ClientFactory) NewProductAPIClient() *ProductAPIClient {
 	return subClient
 }
 
+// NewProductAPILinkClient creates a new instance of ProductAPILinkClient.
+func (c *ClientFactory) NewProductAPILinkClient() *ProductAPILinkClient {
+	subClient, _ := NewProductAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewProductClient creates a new instance of ProductClient.
 func (c *ClientFactory) NewProductClient() *ProductClient {
 	subClient, _ := NewProductClient(c.subscriptionID, c.credential, c.options)
@@ -418,6 +442,12 @@ func (c *ClientFactory) NewProductClient() *ProductClient {
 // NewProductGroupClient creates a new instance of ProductGroupClient.
 func (c *ClientFactory) NewProductGroupClient() *ProductGroupClient {
 	subClient, _ := NewProductGroupClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductGroupLinkClient creates a new instance of ProductGroupLinkClient.
+func (c *ClientFactory) NewProductGroupLinkClient() *ProductGroupLinkClient {
+	subClient, _ := NewProductGroupLinkClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -505,9 +535,27 @@ func (c *ClientFactory) NewSubscriptionClient() *SubscriptionClient {
 	return subClient
 }
 
+// NewTagAPILinkClient creates a new instance of TagAPILinkClient.
+func (c *ClientFactory) NewTagAPILinkClient() *TagAPILinkClient {
+	subClient, _ := NewTagAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewTagClient creates a new instance of TagClient.
 func (c *ClientFactory) NewTagClient() *TagClient {
 	subClient, _ := NewTagClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewTagOperationLinkClient creates a new instance of TagOperationLinkClient.
+func (c *ClientFactory) NewTagOperationLinkClient() *TagOperationLinkClient {
+	subClient, _ := NewTagOperationLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewTagProductLinkClient creates a new instance of TagProductLinkClient.
+func (c *ClientFactory) NewTagProductLinkClient() *TagProductLinkClient {
+	subClient, _ := NewTagProductLinkClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -568,5 +616,173 @@ func (c *ClientFactory) NewUserIdentitiesClient() *UserIdentitiesClient {
 // NewUserSubscriptionClient creates a new instance of UserSubscriptionClient.
 func (c *ClientFactory) NewUserSubscriptionClient() *UserSubscriptionClient {
 	subClient, _ := NewUserSubscriptionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIClient creates a new instance of WorkspaceAPIClient.
+func (c *ClientFactory) NewWorkspaceAPIClient() *WorkspaceAPIClient {
+	subClient, _ := NewWorkspaceAPIClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIExportClient creates a new instance of WorkspaceAPIExportClient.
+func (c *ClientFactory) NewWorkspaceAPIExportClient() *WorkspaceAPIExportClient {
+	subClient, _ := NewWorkspaceAPIExportClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIOperationClient creates a new instance of WorkspaceAPIOperationClient.
+func (c *ClientFactory) NewWorkspaceAPIOperationClient() *WorkspaceAPIOperationClient {
+	subClient, _ := NewWorkspaceAPIOperationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIOperationPolicyClient creates a new instance of WorkspaceAPIOperationPolicyClient.
+func (c *ClientFactory) NewWorkspaceAPIOperationPolicyClient() *WorkspaceAPIOperationPolicyClient {
+	subClient, _ := NewWorkspaceAPIOperationPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIPolicyClient creates a new instance of WorkspaceAPIPolicyClient.
+func (c *ClientFactory) NewWorkspaceAPIPolicyClient() *WorkspaceAPIPolicyClient {
+	subClient, _ := NewWorkspaceAPIPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIReleaseClient creates a new instance of WorkspaceAPIReleaseClient.
+func (c *ClientFactory) NewWorkspaceAPIReleaseClient() *WorkspaceAPIReleaseClient {
+	subClient, _ := NewWorkspaceAPIReleaseClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIRevisionClient creates a new instance of WorkspaceAPIRevisionClient.
+func (c *ClientFactory) NewWorkspaceAPIRevisionClient() *WorkspaceAPIRevisionClient {
+	subClient, _ := NewWorkspaceAPIRevisionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPISchemaClient creates a new instance of WorkspaceAPISchemaClient.
+func (c *ClientFactory) NewWorkspaceAPISchemaClient() *WorkspaceAPISchemaClient {
+	subClient, _ := NewWorkspaceAPISchemaClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceAPIVersionSetClient creates a new instance of WorkspaceAPIVersionSetClient.
+func (c *ClientFactory) NewWorkspaceAPIVersionSetClient() *WorkspaceAPIVersionSetClient {
+	subClient, _ := NewWorkspaceAPIVersionSetClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceClient creates a new instance of WorkspaceClient.
+func (c *ClientFactory) NewWorkspaceClient() *WorkspaceClient {
+	subClient, _ := NewWorkspaceClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceGlobalSchemaClient creates a new instance of WorkspaceGlobalSchemaClient.
+func (c *ClientFactory) NewWorkspaceGlobalSchemaClient() *WorkspaceGlobalSchemaClient {
+	subClient, _ := NewWorkspaceGlobalSchemaClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceGroupClient creates a new instance of WorkspaceGroupClient.
+func (c *ClientFactory) NewWorkspaceGroupClient() *WorkspaceGroupClient {
+	subClient, _ := NewWorkspaceGroupClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceGroupUserClient creates a new instance of WorkspaceGroupUserClient.
+func (c *ClientFactory) NewWorkspaceGroupUserClient() *WorkspaceGroupUserClient {
+	subClient, _ := NewWorkspaceGroupUserClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceNamedValueClient creates a new instance of WorkspaceNamedValueClient.
+func (c *ClientFactory) NewWorkspaceNamedValueClient() *WorkspaceNamedValueClient {
+	subClient, _ := NewWorkspaceNamedValueClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceNotificationClient creates a new instance of WorkspaceNotificationClient.
+func (c *ClientFactory) NewWorkspaceNotificationClient() *WorkspaceNotificationClient {
+	subClient, _ := NewWorkspaceNotificationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceNotificationRecipientEmailClient creates a new instance of WorkspaceNotificationRecipientEmailClient.
+func (c *ClientFactory) NewWorkspaceNotificationRecipientEmailClient() *WorkspaceNotificationRecipientEmailClient {
+	subClient, _ := NewWorkspaceNotificationRecipientEmailClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceNotificationRecipientUserClient creates a new instance of WorkspaceNotificationRecipientUserClient.
+func (c *ClientFactory) NewWorkspaceNotificationRecipientUserClient() *WorkspaceNotificationRecipientUserClient {
+	subClient, _ := NewWorkspaceNotificationRecipientUserClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspacePolicyClient creates a new instance of WorkspacePolicyClient.
+func (c *ClientFactory) NewWorkspacePolicyClient() *WorkspacePolicyClient {
+	subClient, _ := NewWorkspacePolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspacePolicyFragmentClient creates a new instance of WorkspacePolicyFragmentClient.
+func (c *ClientFactory) NewWorkspacePolicyFragmentClient() *WorkspacePolicyFragmentClient {
+	subClient, _ := NewWorkspacePolicyFragmentClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceProductAPILinkClient creates a new instance of WorkspaceProductAPILinkClient.
+func (c *ClientFactory) NewWorkspaceProductAPILinkClient() *WorkspaceProductAPILinkClient {
+	subClient, _ := NewWorkspaceProductAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceProductClient creates a new instance of WorkspaceProductClient.
+func (c *ClientFactory) NewWorkspaceProductClient() *WorkspaceProductClient {
+	subClient, _ := NewWorkspaceProductClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceProductGroupLinkClient creates a new instance of WorkspaceProductGroupLinkClient.
+func (c *ClientFactory) NewWorkspaceProductGroupLinkClient() *WorkspaceProductGroupLinkClient {
+	subClient, _ := NewWorkspaceProductGroupLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceProductPolicyClient creates a new instance of WorkspaceProductPolicyClient.
+func (c *ClientFactory) NewWorkspaceProductPolicyClient() *WorkspaceProductPolicyClient {
+	subClient, _ := NewWorkspaceProductPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceSubscriptionClient creates a new instance of WorkspaceSubscriptionClient.
+func (c *ClientFactory) NewWorkspaceSubscriptionClient() *WorkspaceSubscriptionClient {
+	subClient, _ := NewWorkspaceSubscriptionClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceTagAPILinkClient creates a new instance of WorkspaceTagAPILinkClient.
+func (c *ClientFactory) NewWorkspaceTagAPILinkClient() *WorkspaceTagAPILinkClient {
+	subClient, _ := NewWorkspaceTagAPILinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceTagClient creates a new instance of WorkspaceTagClient.
+func (c *ClientFactory) NewWorkspaceTagClient() *WorkspaceTagClient {
+	subClient, _ := NewWorkspaceTagClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceTagOperationLinkClient creates a new instance of WorkspaceTagOperationLinkClient.
+func (c *ClientFactory) NewWorkspaceTagOperationLinkClient() *WorkspaceTagOperationLinkClient {
+	subClient, _ := NewWorkspaceTagOperationLinkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceTagProductLinkClient creates a new instance of WorkspaceTagProductLinkClient.
+func (c *ClientFactory) NewWorkspaceTagProductLinkClient() *WorkspaceTagProductLinkClient {
+	subClient, _ := NewWorkspaceTagProductLinkClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

@@ -17,10 +17,13 @@ type APIClientBeginCreateOrUpdateOptions struct {
 	ResumeToken string
 }
 
-// APIClientDeleteOptions contains the optional parameters for the APIClient.Delete method.
-type APIClientDeleteOptions struct {
+// APIClientBeginDeleteOptions contains the optional parameters for the APIClient.BeginDelete method.
+type APIClientBeginDeleteOptions struct {
 	// Delete all revisions of the Api.
 	DeleteRevisions *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // APIClientGetEntityTagOptions contains the optional parameters for the APIClient.GetEntityTag method.
@@ -585,6 +588,12 @@ type APIWikisClientListOptions struct {
 
 	// Number of records to return.
 	Top *int32
+}
+
+// AllPoliciesClientListByServiceOptions contains the optional parameters for the AllPoliciesClient.NewListByServicePager
+// method.
+type AllPoliciesClientListByServiceOptions struct {
+	// placeholder for future optional parameters
 }
 
 // AuthorizationAccessPolicyClientCreateOrUpdateOptions contains the optional parameters for the AuthorizationAccessPolicyClient.CreateOrUpdate
@@ -1197,6 +1206,12 @@ type GatewayClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// GatewayClientInvalidateDebugCredentialsOptions contains the optional parameters for the GatewayClient.InvalidateDebugCredentials
+// method.
+type GatewayClientInvalidateDebugCredentialsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // GatewayClientListByServiceOptions contains the optional parameters for the GatewayClient.NewListByServicePager method.
 type GatewayClientListByServiceOptions struct {
 	// | Field | Usage | Supported operators | Supported functions |
@@ -1213,8 +1228,18 @@ type GatewayClientListByServiceOptions struct {
 	Top *int32
 }
 
+// GatewayClientListDebugCredentialsOptions contains the optional parameters for the GatewayClient.ListDebugCredentials method.
+type GatewayClientListDebugCredentialsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // GatewayClientListKeysOptions contains the optional parameters for the GatewayClient.ListKeys method.
 type GatewayClientListKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GatewayClientListTraceOptions contains the optional parameters for the GatewayClient.ListTrace method.
+type GatewayClientListTraceOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1814,7 +1839,7 @@ type PolicyClientGetOptions struct {
 	Format *PolicyExportFormat
 }
 
-// PolicyClientListByServiceOptions contains the optional parameters for the PolicyClient.ListByService method.
+// PolicyClientListByServiceOptions contains the optional parameters for the PolicyClient.NewListByServicePager method.
 type PolicyClientListByServiceOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1852,7 +1877,8 @@ type PolicyFragmentClientGetOptions struct {
 	Format *PolicyFragmentContentFormat
 }
 
-// PolicyFragmentClientListByServiceOptions contains the optional parameters for the PolicyFragmentClient.ListByService method.
+// PolicyFragmentClientListByServiceOptions contains the optional parameters for the PolicyFragmentClient.NewListByServicePager
+// method.
 type PolicyFragmentClientListByServiceOptions struct {
 	// | Field | Usage | Supported operators | Supported functions |
 	// |-------------|-------------|-------------|-------------|
@@ -1881,6 +1907,48 @@ type PolicyFragmentClientListReferencesOptions struct {
 	Top *int32
 }
 
+// PolicyRestrictionClientCreateOrUpdateOptions contains the optional parameters for the PolicyRestrictionClient.CreateOrUpdate
+// method.
+type PolicyRestrictionClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// PolicyRestrictionClientDeleteOptions contains the optional parameters for the PolicyRestrictionClient.Delete method.
+type PolicyRestrictionClientDeleteOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// PolicyRestrictionClientGetEntityTagOptions contains the optional parameters for the PolicyRestrictionClient.GetEntityTag
+// method.
+type PolicyRestrictionClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyRestrictionClientGetOptions contains the optional parameters for the PolicyRestrictionClient.Get method.
+type PolicyRestrictionClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyRestrictionClientListByServiceOptions contains the optional parameters for the PolicyRestrictionClient.NewListByServicePager
+// method.
+type PolicyRestrictionClientListByServiceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyRestrictionClientUpdateOptions contains the optional parameters for the PolicyRestrictionClient.Update method.
+type PolicyRestrictionClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyRestrictionValidationsClientBeginByServiceOptions contains the optional parameters for the PolicyRestrictionValidationsClient.BeginByService
+// method.
+type PolicyRestrictionValidationsClientBeginByServiceOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // PortalConfigClientCreateOrUpdateOptions contains the optional parameters for the PortalConfigClient.CreateOrUpdate method.
 type PortalConfigClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
@@ -1896,7 +1964,8 @@ type PortalConfigClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PortalConfigClientListByServiceOptions contains the optional parameters for the PortalConfigClient.ListByService method.
+// PortalConfigClientListByServiceOptions contains the optional parameters for the PortalConfigClient.NewListByServicePager
+// method.
 type PortalConfigClientListByServiceOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2020,6 +2089,37 @@ type ProductAPIClientListByProductOptions struct {
 	Top *int32
 }
 
+// ProductAPILinkClientCreateOrUpdateOptions contains the optional parameters for the ProductAPILinkClient.CreateOrUpdate
+// method.
+type ProductAPILinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductAPILinkClientDeleteOptions contains the optional parameters for the ProductAPILinkClient.Delete method.
+type ProductAPILinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductAPILinkClientGetOptions contains the optional parameters for the ProductAPILinkClient.Get method.
+type ProductAPILinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductAPILinkClientListByProductOptions contains the optional parameters for the ProductAPILinkClient.NewListByProductPager
+// method.
+type ProductAPILinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | apiId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
 // ProductClientCreateOrUpdateOptions contains the optional parameters for the ProductClient.CreateOrUpdate method.
 type ProductClientCreateOrUpdateOptions struct {
 	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
@@ -2126,6 +2226,37 @@ type ProductGroupClientListByProductOptions struct {
 	Top *int32
 }
 
+// ProductGroupLinkClientCreateOrUpdateOptions contains the optional parameters for the ProductGroupLinkClient.CreateOrUpdate
+// method.
+type ProductGroupLinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductGroupLinkClientDeleteOptions contains the optional parameters for the ProductGroupLinkClient.Delete method.
+type ProductGroupLinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductGroupLinkClientGetOptions contains the optional parameters for the ProductGroupLinkClient.Get method.
+type ProductGroupLinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductGroupLinkClientListByProductOptions contains the optional parameters for the ProductGroupLinkClient.NewListByProductPager
+// method.
+type ProductGroupLinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | groupId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
 // ProductPolicyClientCreateOrUpdateOptions contains the optional parameters for the ProductPolicyClient.CreateOrUpdate method.
 type ProductPolicyClientCreateOrUpdateOptions struct {
 	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
@@ -2148,7 +2279,8 @@ type ProductPolicyClientGetOptions struct {
 	Format *PolicyExportFormat
 }
 
-// ProductPolicyClientListByProductOptions contains the optional parameters for the ProductPolicyClient.ListByProduct method.
+// ProductPolicyClientListByProductOptions contains the optional parameters for the ProductPolicyClient.NewListByProductPager
+// method.
 type ProductPolicyClientListByProductOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2370,6 +2502,9 @@ type ServiceClientBeginDeleteOptions struct {
 
 // ServiceClientBeginMigrateToStv2Options contains the optional parameters for the ServiceClient.BeginMigrateToStv2 method.
 type ServiceClientBeginMigrateToStv2Options struct {
+	// Optional parameters supplied to migrate service.
+	Parameters *MigrateToStv2Contract
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2548,6 +2683,35 @@ type SubscriptionClientUpdateOptions struct {
 	Notify *bool
 }
 
+// TagAPILinkClientCreateOrUpdateOptions contains the optional parameters for the TagAPILinkClient.CreateOrUpdate method.
+type TagAPILinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagAPILinkClientDeleteOptions contains the optional parameters for the TagAPILinkClient.Delete method.
+type TagAPILinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagAPILinkClientGetOptions contains the optional parameters for the TagAPILinkClient.Get method.
+type TagAPILinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagAPILinkClientListByProductOptions contains the optional parameters for the TagAPILinkClient.NewListByProductPager method.
+type TagAPILinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | apiId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
 // TagClientAssignToAPIOptions contains the optional parameters for the TagClient.AssignToAPI method.
 type TagClientAssignToAPIOptions struct {
 	// placeholder for future optional parameters
@@ -2698,6 +2862,68 @@ type TagClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// TagOperationLinkClientCreateOrUpdateOptions contains the optional parameters for the TagOperationLinkClient.CreateOrUpdate
+// method.
+type TagOperationLinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagOperationLinkClientDeleteOptions contains the optional parameters for the TagOperationLinkClient.Delete method.
+type TagOperationLinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagOperationLinkClientGetOptions contains the optional parameters for the TagOperationLinkClient.Get method.
+type TagOperationLinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagOperationLinkClientListByProductOptions contains the optional parameters for the TagOperationLinkClient.NewListByProductPager
+// method.
+type TagOperationLinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | operationId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// TagProductLinkClientCreateOrUpdateOptions contains the optional parameters for the TagProductLinkClient.CreateOrUpdate
+// method.
+type TagProductLinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagProductLinkClientDeleteOptions contains the optional parameters for the TagProductLinkClient.Delete method.
+type TagProductLinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagProductLinkClientGetOptions contains the optional parameters for the TagProductLinkClient.Get method.
+type TagProductLinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TagProductLinkClientListByProductOptions contains the optional parameters for the TagProductLinkClient.NewListByProductPager
+// method.
+type TagProductLinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | productId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
 // TagResourceClientListByServiceOptions contains the optional parameters for the TagResourceClient.NewListByServicePager
 // method.
 type TagResourceClientListByServiceOptions struct {
@@ -2820,17 +3046,8 @@ type TenantSettingsClientListByServiceOptions struct {
 	Filter *string
 }
 
-// UserClientCreateOrUpdateOptions contains the optional parameters for the UserClient.CreateOrUpdate method.
-type UserClientCreateOrUpdateOptions struct {
-	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
-	IfMatch *string
-
-	// Send an Email notification to the User.
-	Notify *bool
-}
-
-// UserClientDeleteOptions contains the optional parameters for the UserClient.Delete method.
-type UserClientDeleteOptions struct {
+// UserClientBeginDeleteOptions contains the optional parameters for the UserClient.BeginDelete method.
+type UserClientBeginDeleteOptions struct {
 	// Determines the type of application which send the create user request. Default is legacy publisher portal.
 	AppType *AppType
 
@@ -2838,6 +3055,18 @@ type UserClientDeleteOptions struct {
 	DeleteSubscriptions *bool
 
 	// Send an Account Closed Email notification to the User.
+	Notify *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UserClientCreateOrUpdateOptions contains the optional parameters for the UserClient.CreateOrUpdate method.
+type UserClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Send an Email notification to the User.
 	Notify *bool
 }
 
@@ -2934,6 +3163,1083 @@ type UserSubscriptionClientListOptions struct {
 	// |scope | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 	// |userId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 	// |productId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPIClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPIClient.BeginCreateOrUpdate
+// method.
+type WorkspaceAPIClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspaceAPIClientDeleteOptions contains the optional parameters for the WorkspaceAPIClient.Delete method.
+type WorkspaceAPIClientDeleteOptions struct {
+	// Delete all revisions of the Api.
+	DeleteRevisions *bool
+}
+
+// WorkspaceAPIClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPIClient.GetEntityTag method.
+type WorkspaceAPIClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIClientGetOptions contains the optional parameters for the WorkspaceAPIClient.Get method.
+type WorkspaceAPIClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIClientListByServiceOptions contains the optional parameters for the WorkspaceAPIClient.NewListByServicePager
+// method.
+type WorkspaceAPIClientListByServiceOptions struct {
+	// Include full ApiVersionSet resource in response
+	ExpandAPIVersionSet *bool
+
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | serviceUrl | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | path | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | isCurrent | filter | eq, ne | |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Include tags in the response.
+	Tags *string
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPIClientUpdateOptions contains the optional parameters for the WorkspaceAPIClient.Update method.
+type WorkspaceAPIClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIExportClientGetOptions contains the optional parameters for the WorkspaceAPIExportClient.Get method.
+type WorkspaceAPIExportClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPIOperationClient.CreateOrUpdate
+// method.
+type WorkspaceAPIOperationClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceAPIOperationClientDeleteOptions contains the optional parameters for the WorkspaceAPIOperationClient.Delete method.
+type WorkspaceAPIOperationClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPIOperationClient.GetEntityTag
+// method.
+type WorkspaceAPIOperationClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationClientGetOptions contains the optional parameters for the WorkspaceAPIOperationClient.Get method.
+type WorkspaceAPIOperationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationClientListByAPIOptions contains the optional parameters for the WorkspaceAPIOperationClient.NewListByAPIPager
+// method.
+type WorkspaceAPIOperationClientListByAPIOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | method | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | urlTemplate | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Include tags in the response.
+	Tags *string
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPIOperationClientUpdateOptions contains the optional parameters for the WorkspaceAPIOperationClient.Update method.
+type WorkspaceAPIOperationClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationPolicyClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPIOperationPolicyClient.CreateOrUpdate
+// method.
+type WorkspaceAPIOperationPolicyClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceAPIOperationPolicyClientDeleteOptions contains the optional parameters for the WorkspaceAPIOperationPolicyClient.Delete
+// method.
+type WorkspaceAPIOperationPolicyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationPolicyClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPIOperationPolicyClient.GetEntityTag
+// method.
+type WorkspaceAPIOperationPolicyClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIOperationPolicyClientGetOptions contains the optional parameters for the WorkspaceAPIOperationPolicyClient.Get
+// method.
+type WorkspaceAPIOperationPolicyClientGetOptions struct {
+	// Policy Export Format.
+	Format *PolicyExportFormat
+}
+
+// WorkspaceAPIOperationPolicyClientListByOperationOptions contains the optional parameters for the WorkspaceAPIOperationPolicyClient.NewListByOperationPager
+// method.
+type WorkspaceAPIOperationPolicyClientListByOperationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIPolicyClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPIPolicyClient.CreateOrUpdate
+// method.
+type WorkspaceAPIPolicyClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceAPIPolicyClientDeleteOptions contains the optional parameters for the WorkspaceAPIPolicyClient.Delete method.
+type WorkspaceAPIPolicyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIPolicyClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPIPolicyClient.GetEntityTag
+// method.
+type WorkspaceAPIPolicyClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIPolicyClientGetOptions contains the optional parameters for the WorkspaceAPIPolicyClient.Get method.
+type WorkspaceAPIPolicyClientGetOptions struct {
+	// Policy Export Format.
+	Format *PolicyExportFormat
+}
+
+// WorkspaceAPIPolicyClientListByAPIOptions contains the optional parameters for the WorkspaceAPIPolicyClient.NewListByAPIPager
+// method.
+type WorkspaceAPIPolicyClientListByAPIOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIReleaseClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPIReleaseClient.CreateOrUpdate
+// method.
+type WorkspaceAPIReleaseClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceAPIReleaseClientDeleteOptions contains the optional parameters for the WorkspaceAPIReleaseClient.Delete method.
+type WorkspaceAPIReleaseClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIReleaseClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPIReleaseClient.GetEntityTag
+// method.
+type WorkspaceAPIReleaseClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIReleaseClientGetOptions contains the optional parameters for the WorkspaceAPIReleaseClient.Get method.
+type WorkspaceAPIReleaseClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIReleaseClientListByServiceOptions contains the optional parameters for the WorkspaceAPIReleaseClient.NewListByServicePager
+// method.
+type WorkspaceAPIReleaseClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | notes | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPIReleaseClientUpdateOptions contains the optional parameters for the WorkspaceAPIReleaseClient.Update method.
+type WorkspaceAPIReleaseClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIRevisionClientListByServiceOptions contains the optional parameters for the WorkspaceAPIRevisionClient.NewListByServicePager
+// method.
+type WorkspaceAPIRevisionClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | apiRevision | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPISchemaClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPISchemaClient.BeginCreateOrUpdate
+// method.
+type WorkspaceAPISchemaClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspaceAPISchemaClientDeleteOptions contains the optional parameters for the WorkspaceAPISchemaClient.Delete method.
+type WorkspaceAPISchemaClientDeleteOptions struct {
+	// If true removes all references to the schema before deleting it.
+	Force *bool
+}
+
+// WorkspaceAPISchemaClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPISchemaClient.GetEntityTag
+// method.
+type WorkspaceAPISchemaClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPISchemaClientGetOptions contains the optional parameters for the WorkspaceAPISchemaClient.Get method.
+type WorkspaceAPISchemaClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPISchemaClientListByAPIOptions contains the optional parameters for the WorkspaceAPISchemaClient.NewListByAPIPager
+// method.
+type WorkspaceAPISchemaClientListByAPIOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | contentType | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPIVersionSetClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceAPIVersionSetClient.CreateOrUpdate
+// method.
+type WorkspaceAPIVersionSetClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceAPIVersionSetClientDeleteOptions contains the optional parameters for the WorkspaceAPIVersionSetClient.Delete
+// method.
+type WorkspaceAPIVersionSetClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIVersionSetClientGetEntityTagOptions contains the optional parameters for the WorkspaceAPIVersionSetClient.GetEntityTag
+// method.
+type WorkspaceAPIVersionSetClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIVersionSetClientGetOptions contains the optional parameters for the WorkspaceAPIVersionSetClient.Get method.
+type WorkspaceAPIVersionSetClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceAPIVersionSetClientListByServiceOptions contains the optional parameters for the WorkspaceAPIVersionSetClient.NewListByServicePager
+// method.
+type WorkspaceAPIVersionSetClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceAPIVersionSetClientUpdateOptions contains the optional parameters for the WorkspaceAPIVersionSetClient.Update
+// method.
+type WorkspaceAPIVersionSetClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceClient.CreateOrUpdate method.
+type WorkspaceClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceClientDeleteOptions contains the optional parameters for the WorkspaceClient.Delete method.
+type WorkspaceClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceClientGetEntityTagOptions contains the optional parameters for the WorkspaceClient.GetEntityTag method.
+type WorkspaceClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceClientGetOptions contains the optional parameters for the WorkspaceClient.Get method.
+type WorkspaceClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceClientListByServiceOptions contains the optional parameters for the WorkspaceClient.NewListByServicePager method.
+type WorkspaceClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceClientUpdateOptions contains the optional parameters for the WorkspaceClient.Update method.
+type WorkspaceClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGlobalSchemaClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspaceGlobalSchemaClient.BeginCreateOrUpdate
+// method.
+type WorkspaceGlobalSchemaClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspaceGlobalSchemaClientDeleteOptions contains the optional parameters for the WorkspaceGlobalSchemaClient.Delete method.
+type WorkspaceGlobalSchemaClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGlobalSchemaClientGetEntityTagOptions contains the optional parameters for the WorkspaceGlobalSchemaClient.GetEntityTag
+// method.
+type WorkspaceGlobalSchemaClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGlobalSchemaClientGetOptions contains the optional parameters for the WorkspaceGlobalSchemaClient.Get method.
+type WorkspaceGlobalSchemaClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGlobalSchemaClientListByServiceOptions contains the optional parameters for the WorkspaceGlobalSchemaClient.NewListByServicePager
+// method.
+type WorkspaceGlobalSchemaClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceGroupClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceGroupClient.CreateOrUpdate
+// method.
+type WorkspaceGroupClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceGroupClientDeleteOptions contains the optional parameters for the WorkspaceGroupClient.Delete method.
+type WorkspaceGroupClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupClientGetEntityTagOptions contains the optional parameters for the WorkspaceGroupClient.GetEntityTag method.
+type WorkspaceGroupClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupClientGetOptions contains the optional parameters for the WorkspaceGroupClient.Get method.
+type WorkspaceGroupClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupClientListByServiceOptions contains the optional parameters for the WorkspaceGroupClient.NewListByServicePager
+// method.
+type WorkspaceGroupClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | externalId | filter | eq | |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceGroupClientUpdateOptions contains the optional parameters for the WorkspaceGroupClient.Update method.
+type WorkspaceGroupClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupUserClientCheckEntityExistsOptions contains the optional parameters for the WorkspaceGroupUserClient.CheckEntityExists
+// method.
+type WorkspaceGroupUserClientCheckEntityExistsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupUserClientCreateOptions contains the optional parameters for the WorkspaceGroupUserClient.Create method.
+type WorkspaceGroupUserClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupUserClientDeleteOptions contains the optional parameters for the WorkspaceGroupUserClient.Delete method.
+type WorkspaceGroupUserClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceGroupUserClientListOptions contains the optional parameters for the WorkspaceGroupUserClient.NewListPager method.
+type WorkspaceGroupUserClientListOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | firstName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | lastName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | email | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | registrationDate | filter | ge, le, eq, ne, gt, lt | |
+	// | note | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceNamedValueClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspaceNamedValueClient.BeginCreateOrUpdate
+// method.
+type WorkspaceNamedValueClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspaceNamedValueClientBeginRefreshSecretOptions contains the optional parameters for the WorkspaceNamedValueClient.BeginRefreshSecret
+// method.
+type WorkspaceNamedValueClientBeginRefreshSecretOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspaceNamedValueClientBeginUpdateOptions contains the optional parameters for the WorkspaceNamedValueClient.BeginUpdate
+// method.
+type WorkspaceNamedValueClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspaceNamedValueClientDeleteOptions contains the optional parameters for the WorkspaceNamedValueClient.Delete method.
+type WorkspaceNamedValueClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNamedValueClientGetEntityTagOptions contains the optional parameters for the WorkspaceNamedValueClient.GetEntityTag
+// method.
+type WorkspaceNamedValueClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNamedValueClientGetOptions contains the optional parameters for the WorkspaceNamedValueClient.Get method.
+type WorkspaceNamedValueClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNamedValueClientListByServiceOptions contains the optional parameters for the WorkspaceNamedValueClient.NewListByServicePager
+// method.
+type WorkspaceNamedValueClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | tags | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith, any, all |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Query parameter to fetch named value entities based on refresh status.
+	IsKeyVaultRefreshFailed *KeyVaultRefreshState
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceNamedValueClientListValueOptions contains the optional parameters for the WorkspaceNamedValueClient.ListValue
+// method.
+type WorkspaceNamedValueClientListValueOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceNotificationClient.CreateOrUpdate
+// method.
+type WorkspaceNotificationClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceNotificationClientGetOptions contains the optional parameters for the WorkspaceNotificationClient.Get method.
+type WorkspaceNotificationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationClientListByServiceOptions contains the optional parameters for the WorkspaceNotificationClient.NewListByServicePager
+// method.
+type WorkspaceNotificationClientListByServiceOptions struct {
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceNotificationRecipientEmailClientCheckEntityExistsOptions contains the optional parameters for the WorkspaceNotificationRecipientEmailClient.CheckEntityExists
+// method.
+type WorkspaceNotificationRecipientEmailClientCheckEntityExistsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientEmailClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceNotificationRecipientEmailClient.CreateOrUpdate
+// method.
+type WorkspaceNotificationRecipientEmailClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientEmailClientDeleteOptions contains the optional parameters for the WorkspaceNotificationRecipientEmailClient.Delete
+// method.
+type WorkspaceNotificationRecipientEmailClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientEmailClientListByNotificationOptions contains the optional parameters for the WorkspaceNotificationRecipientEmailClient.ListByNotification
+// method.
+type WorkspaceNotificationRecipientEmailClientListByNotificationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientUserClientCheckEntityExistsOptions contains the optional parameters for the WorkspaceNotificationRecipientUserClient.CheckEntityExists
+// method.
+type WorkspaceNotificationRecipientUserClientCheckEntityExistsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientUserClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceNotificationRecipientUserClient.CreateOrUpdate
+// method.
+type WorkspaceNotificationRecipientUserClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientUserClientDeleteOptions contains the optional parameters for the WorkspaceNotificationRecipientUserClient.Delete
+// method.
+type WorkspaceNotificationRecipientUserClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceNotificationRecipientUserClientListByNotificationOptions contains the optional parameters for the WorkspaceNotificationRecipientUserClient.ListByNotification
+// method.
+type WorkspaceNotificationRecipientUserClientListByNotificationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacePolicyClientCreateOrUpdateOptions contains the optional parameters for the WorkspacePolicyClient.CreateOrUpdate
+// method.
+type WorkspacePolicyClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspacePolicyClientDeleteOptions contains the optional parameters for the WorkspacePolicyClient.Delete method.
+type WorkspacePolicyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacePolicyClientGetEntityTagOptions contains the optional parameters for the WorkspacePolicyClient.GetEntityTag method.
+type WorkspacePolicyClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacePolicyClientGetOptions contains the optional parameters for the WorkspacePolicyClient.Get method.
+type WorkspacePolicyClientGetOptions struct {
+	// Policy Export Format.
+	Format *PolicyExportFormat
+}
+
+// WorkspacePolicyClientListByAPIOptions contains the optional parameters for the WorkspacePolicyClient.NewListByAPIPager
+// method.
+type WorkspacePolicyClientListByAPIOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacePolicyFragmentClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspacePolicyFragmentClient.BeginCreateOrUpdate
+// method.
+type WorkspacePolicyFragmentClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WorkspacePolicyFragmentClientDeleteOptions contains the optional parameters for the WorkspacePolicyFragmentClient.Delete
+// method.
+type WorkspacePolicyFragmentClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacePolicyFragmentClientGetEntityTagOptions contains the optional parameters for the WorkspacePolicyFragmentClient.GetEntityTag
+// method.
+type WorkspacePolicyFragmentClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacePolicyFragmentClientGetOptions contains the optional parameters for the WorkspacePolicyFragmentClient.Get method.
+type WorkspacePolicyFragmentClientGetOptions struct {
+	// Policy fragment content format.
+	Format *PolicyFragmentContentFormat
+}
+
+// WorkspacePolicyFragmentClientListByServiceOptions contains the optional parameters for the WorkspacePolicyFragmentClient.NewListByServicePager
+// method.
+type WorkspacePolicyFragmentClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter, orderBy | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | value | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// OData order by query option.
+	Orderby *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspacePolicyFragmentClientListReferencesOptions contains the optional parameters for the WorkspacePolicyFragmentClient.ListReferences
+// method.
+type WorkspacePolicyFragmentClientListReferencesOptions struct {
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceProductAPILinkClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceProductAPILinkClient.CreateOrUpdate
+// method.
+type WorkspaceProductAPILinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductAPILinkClientDeleteOptions contains the optional parameters for the WorkspaceProductAPILinkClient.Delete
+// method.
+type WorkspaceProductAPILinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductAPILinkClientGetOptions contains the optional parameters for the WorkspaceProductAPILinkClient.Get method.
+type WorkspaceProductAPILinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductAPILinkClientListByProductOptions contains the optional parameters for the WorkspaceProductAPILinkClient.NewListByProductPager
+// method.
+type WorkspaceProductAPILinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | apiId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceProductClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceProductClient.CreateOrUpdate
+// method.
+type WorkspaceProductClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceProductClientDeleteOptions contains the optional parameters for the WorkspaceProductClient.Delete method.
+type WorkspaceProductClientDeleteOptions struct {
+	// Delete existing subscriptions associated with the product or not.
+	DeleteSubscriptions *bool
+}
+
+// WorkspaceProductClientGetEntityTagOptions contains the optional parameters for the WorkspaceProductClient.GetEntityTag
+// method.
+type WorkspaceProductClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductClientGetOptions contains the optional parameters for the WorkspaceProductClient.Get method.
+type WorkspaceProductClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductClientListByServiceOptions contains the optional parameters for the WorkspaceProductClient.NewListByServicePager
+// method.
+type WorkspaceProductClientListByServiceOptions struct {
+	// When set to true, the response contains an array of groups that have visibility to the product. The default is false.
+	ExpandGroups *bool
+
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | terms | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | state | filter | eq | |
+	// | groups | expand | | |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Products which are part of a specific tag.
+	Tags *string
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceProductClientUpdateOptions contains the optional parameters for the WorkspaceProductClient.Update method.
+type WorkspaceProductClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductGroupLinkClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceProductGroupLinkClient.CreateOrUpdate
+// method.
+type WorkspaceProductGroupLinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductGroupLinkClientDeleteOptions contains the optional parameters for the WorkspaceProductGroupLinkClient.Delete
+// method.
+type WorkspaceProductGroupLinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductGroupLinkClientGetOptions contains the optional parameters for the WorkspaceProductGroupLinkClient.Get
+// method.
+type WorkspaceProductGroupLinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductGroupLinkClientListByProductOptions contains the optional parameters for the WorkspaceProductGroupLinkClient.NewListByProductPager
+// method.
+type WorkspaceProductGroupLinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | groupId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceProductPolicyClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceProductPolicyClient.CreateOrUpdate
+// method.
+type WorkspaceProductPolicyClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceProductPolicyClientDeleteOptions contains the optional parameters for the WorkspaceProductPolicyClient.Delete
+// method.
+type WorkspaceProductPolicyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductPolicyClientGetEntityTagOptions contains the optional parameters for the WorkspaceProductPolicyClient.GetEntityTag
+// method.
+type WorkspaceProductPolicyClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceProductPolicyClientGetOptions contains the optional parameters for the WorkspaceProductPolicyClient.Get method.
+type WorkspaceProductPolicyClientGetOptions struct {
+	// Policy Export Format.
+	Format *PolicyExportFormat
+}
+
+// WorkspaceProductPolicyClientListByProductOptions contains the optional parameters for the WorkspaceProductPolicyClient.ListByProduct
+// method.
+type WorkspaceProductPolicyClientListByProductOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceSubscriptionClient.CreateOrUpdate
+// method.
+type WorkspaceSubscriptionClientCreateOrUpdateOptions struct {
+	// Determines the type of application which send the create user request. Default is legacy publisher portal.
+	AppType *AppType
+
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+
+	// Notify change in Subscription State.
+	// * If false, do not send any email notification for change of state of subscription
+	// * If true, send email notification of change of state of subscription
+	Notify *bool
+}
+
+// WorkspaceSubscriptionClientDeleteOptions contains the optional parameters for the WorkspaceSubscriptionClient.Delete method.
+type WorkspaceSubscriptionClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientGetEntityTagOptions contains the optional parameters for the WorkspaceSubscriptionClient.GetEntityTag
+// method.
+type WorkspaceSubscriptionClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientGetOptions contains the optional parameters for the WorkspaceSubscriptionClient.Get method.
+type WorkspaceSubscriptionClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientListOptions contains the optional parameters for the WorkspaceSubscriptionClient.NewListPager
+// method.
+type WorkspaceSubscriptionClientListOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | stateComment | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | ownerId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | scope | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | userId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | productId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | state | filter | eq | |
+	// | user | expand | | |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceSubscriptionClientListSecretsOptions contains the optional parameters for the WorkspaceSubscriptionClient.ListSecrets
+// method.
+type WorkspaceSubscriptionClientListSecretsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientRegeneratePrimaryKeyOptions contains the optional parameters for the WorkspaceSubscriptionClient.RegeneratePrimaryKey
+// method.
+type WorkspaceSubscriptionClientRegeneratePrimaryKeyOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientRegenerateSecondaryKeyOptions contains the optional parameters for the WorkspaceSubscriptionClient.RegenerateSecondaryKey
+// method.
+type WorkspaceSubscriptionClientRegenerateSecondaryKeyOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceSubscriptionClientUpdateOptions contains the optional parameters for the WorkspaceSubscriptionClient.Update method.
+type WorkspaceSubscriptionClientUpdateOptions struct {
+	// Determines the type of application which send the create user request. Default is legacy publisher portal.
+	AppType *AppType
+
+	// Notify change in Subscription State.
+	// * If false, do not send any email notification for change of state of subscription
+	// * If true, send email notification of change of state of subscription
+	Notify *bool
+}
+
+// WorkspaceTagAPILinkClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceTagAPILinkClient.CreateOrUpdate
+// method.
+type WorkspaceTagAPILinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagAPILinkClientDeleteOptions contains the optional parameters for the WorkspaceTagAPILinkClient.Delete method.
+type WorkspaceTagAPILinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagAPILinkClientGetOptions contains the optional parameters for the WorkspaceTagAPILinkClient.Get method.
+type WorkspaceTagAPILinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagAPILinkClientListByProductOptions contains the optional parameters for the WorkspaceTagAPILinkClient.NewListByProductPager
+// method.
+type WorkspaceTagAPILinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | apiId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceTagClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceTagClient.CreateOrUpdate method.
+type WorkspaceTagClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// WorkspaceTagClientDeleteOptions contains the optional parameters for the WorkspaceTagClient.Delete method.
+type WorkspaceTagClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagClientGetEntityStateOptions contains the optional parameters for the WorkspaceTagClient.GetEntityState method.
+type WorkspaceTagClientGetEntityStateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagClientGetOptions contains the optional parameters for the WorkspaceTagClient.Get method.
+type WorkspaceTagClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagClientListByServiceOptions contains the optional parameters for the WorkspaceTagClient.NewListByServicePager
+// method.
+type WorkspaceTagClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Scope like 'apis', 'products' or 'apis/{apiId}
+	Scope *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceTagClientUpdateOptions contains the optional parameters for the WorkspaceTagClient.Update method.
+type WorkspaceTagClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagOperationLinkClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceTagOperationLinkClient.CreateOrUpdate
+// method.
+type WorkspaceTagOperationLinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagOperationLinkClientDeleteOptions contains the optional parameters for the WorkspaceTagOperationLinkClient.Delete
+// method.
+type WorkspaceTagOperationLinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagOperationLinkClientGetOptions contains the optional parameters for the WorkspaceTagOperationLinkClient.Get
+// method.
+type WorkspaceTagOperationLinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagOperationLinkClientListByProductOptions contains the optional parameters for the WorkspaceTagOperationLinkClient.NewListByProductPager
+// method.
+type WorkspaceTagOperationLinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | operationId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+
+	// Number of records to skip.
+	Skip *int32
+
+	// Number of records to return.
+	Top *int32
+}
+
+// WorkspaceTagProductLinkClientCreateOrUpdateOptions contains the optional parameters for the WorkspaceTagProductLinkClient.CreateOrUpdate
+// method.
+type WorkspaceTagProductLinkClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagProductLinkClientDeleteOptions contains the optional parameters for the WorkspaceTagProductLinkClient.Delete
+// method.
+type WorkspaceTagProductLinkClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagProductLinkClientGetOptions contains the optional parameters for the WorkspaceTagProductLinkClient.Get method.
+type WorkspaceTagProductLinkClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspaceTagProductLinkClientListByProductOptions contains the optional parameters for the WorkspaceTagProductLinkClient.NewListByProductPager
+// method.
+type WorkspaceTagProductLinkClientListByProductOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | productId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 	Filter *string
 
 	// Number of records to skip.
