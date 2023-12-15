@@ -55,6 +55,11 @@ type APIPortalInstance struct {
 
 // APIPortalProperties - API portal properties payload
 type APIPortalProperties struct {
+	// Indicates whether the API try-out feature is enabled or disabled. When enabled, users can try out the API by sending requests
+	// and viewing responses in API portal. When disabled, users cannot try out
+	// the API.
+	APITryOutEnabledState *APIPortalAPITryOutEnabledState
+
 	// The array of resource Ids of gateway to integrate with API portal.
 	GatewayIDs []*string
 
@@ -139,6 +144,9 @@ type AcceleratorBasicAuthSetting struct {
 	// REQUIRED; Username of git repository basic auth.
 	Username *string
 
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string
+
 	// Password of git repository basic auth.
 	Password *string
 }
@@ -168,12 +176,18 @@ type AcceleratorGitRepository struct {
 
 	// Interval for checking for updates to Git or image repository.
 	IntervalInSeconds *int32
+
+	// Folder path inside the git repository to consider as the root of the accelerator or fragment.
+	SubPath *string
 }
 
 // AcceleratorPublicSetting - Auth setting for public url.
 type AcceleratorPublicSetting struct {
 	// REQUIRED; The type of the auth setting.
 	AuthType *string
+
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string
 }
 
 // GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorPublicSetting.
@@ -209,6 +223,60 @@ func (a *AcceleratorSSHSetting) GetAcceleratorAuthSetting() *AcceleratorAuthSett
 type ActiveDeploymentCollection struct {
 	// Collection of Deployment name.
 	ActiveDeploymentNames []*string
+}
+
+// ApmProperties - Properties of an APM
+type ApmProperties struct {
+	// REQUIRED; APM Type
+	Type *string
+
+	// Non-sensitive properties for the APM
+	Properties map[string]*string
+
+	// Sensitive properties for the APM
+	Secrets map[string]*string
+
+	// READ-ONLY; State of the APM.
+	ProvisioningState *ApmProvisioningState
+}
+
+// ApmReference - A reference to the APM
+type ApmReference struct {
+	// REQUIRED; Resource Id of the APM
+	ResourceID *string
+}
+
+// ApmResource - APM Resource object
+type ApmResource struct {
+	// Properties of an APM
+	Properties *ApmProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ApmResourceCollection - Object that includes an array of APM resources and a possible link for next set
+type ApmResourceCollection struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of APM resources
+	Value []*ApmResource
+}
+
+// ApmSecretKeys - Keys of APM sensitive properties
+type ApmSecretKeys struct {
+	// Collection of the keys for the APM sensitive properties
+	Value []*string
 }
 
 // AppResource - App resource payload
@@ -261,6 +329,9 @@ type AppResourceProperties struct {
 	// App ingress settings payload.
 	IngressSettings *IngressSettings
 
+	// The type of App, whether it's long running app or short lived app
+	Kind *AppResourceType
+
 	// Collection of loaded certificates
 	LoadedCertificates []*LoadedCertificate
 
@@ -278,6 +349,9 @@ type AppResourceProperties struct {
 
 	// Additional App settings in vnet injection instance
 	VnetAddons *AppVNetAddons
+
+	// The workload profile used for this app. Supported for Consumption + Dedicated plan.
+	WorkloadProfileName *string
 
 	// READ-ONLY; Fully qualified dns Name.
 	Fqdn *string
@@ -576,8 +650,14 @@ type BuildProperties struct {
 	// The resource id of agent pool
 	AgentPool *string
 
+	// The APMs for this build
+	Apms []*ApmReference
+
 	// The resource id of builder to build the source code
 	Builder *string
+
+	// The CA Certificates for this build
+	Certificates []*CertificateReference
 
 	// The environment variables for this build
 	Env map[string]*string
@@ -652,6 +732,9 @@ type BuildResultProperties struct {
 
 	// READ-ONLY; All of the build stage (init-container and container) resources in build pod.
 	BuildStages []*BuildStageProperties
+
+	// READ-ONLY; The container registry image of this build result.
+	Image *string
 
 	// READ-ONLY; Provisioning state of the KPack build result
 	ProvisioningState *BuildResultProvisioningState
@@ -755,13 +838,16 @@ type BuildServiceCollection struct {
 
 // BuildServiceProperties - Build service resource properties payload
 type BuildServiceProperties struct {
-	// The installed KPack version in this build service.
-	KPackVersion *string
+	// The resource id of the container registry used in this build service.
+	ContainerRegistry *string
 
 	// The runtime resource configuration of this build service.
 	ResourceRequests *BuildServicePropertiesResourceRequests
 
-	// READ-ONLY; Provisioning state of the KPack build result
+	// READ-ONLY; The installed KPack version in this build service.
+	KPackVersion *string
+
+	// READ-ONLY; Provisioning state of the KPack build service
 	ProvisioningState *BuildServiceProvisioningState
 }
 
@@ -881,6 +967,9 @@ type BuildpackBindingResourceCollection struct {
 type BuildpackProperties struct {
 	// Id of the buildpack
 	ID *string
+
+	// READ-ONLY; Version of the buildpack
+	Version *string
 }
 
 // BuildpacksGroupProperties - Buildpack group properties of the Builder
@@ -925,6 +1014,12 @@ type CertificateProperties struct {
 // GetCertificateProperties implements the CertificatePropertiesClassification interface for type CertificateProperties.
 func (c *CertificateProperties) GetCertificateProperties() *CertificateProperties { return c }
 
+// CertificateReference - A reference to the certificate
+type CertificateReference struct {
+	// REQUIRED; Resource Id of the certificate
+	ResourceID *string
+}
+
 // CertificateResource - Certificate resource payload.
 type CertificateResource struct {
 	// Properties of the certificate resource payload.
@@ -957,6 +1052,9 @@ type ClusterResourceProperties struct {
 	// The name of the resource group that contains the infrastructure resources
 	InfraResourceGroup *string
 
+	// Additional Service settings for planned maintenance
+	MaintenanceScheduleConfiguration MaintenanceScheduleConfigurationClassification
+
 	// The resource Id of the Managed Environment that the Spring Apps instance builds on
 	ManagedEnvironmentID *string
 
@@ -979,7 +1077,7 @@ type ClusterResourceProperties struct {
 	// READ-ONLY; Provisioning state of the Service
 	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; ServiceInstanceEntity GUID which uniquely identifies a created resource
+	// READ-ONLY; ServiceInstanceEntity Id which uniquely identifies a created resource
 	ServiceID *string
 
 	// READ-ONLY; Version of the Service
@@ -1023,6 +1121,9 @@ type ConfigServerGitProperty struct {
 type ConfigServerProperties struct {
 	// Settings of config server.
 	ConfigServer *ConfigServerSettings
+
+	// Enabled state of the config server. This is only used in Consumption tier.
+	EnabledState *ConfigServerEnabledState
 
 	// Error when apply config server settings.
 	Error *Error
@@ -1105,6 +1206,12 @@ type ConfigurationServiceGitRepository struct {
 	// REQUIRED; URI of the repository
 	URI *string
 
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string
+
+	// Git libraries used to support various repository providers
+	GitImplementation *GitImplementation
+
 	// Public sshKey of git repository.
 	HostKey *string
 
@@ -1138,6 +1245,9 @@ type ConfigurationServiceInstance struct {
 
 // ConfigurationServiceProperties - Application Configuration Service properties payload
 type ConfigurationServiceProperties struct {
+	// The generation of the Application Configuration Service.
+	Generation *ConfigurationServiceGeneration
+
 	// The settings of Application Configuration Service.
 	Settings *ConfigurationServiceSettings
 
@@ -1195,6 +1305,9 @@ type ConfigurationServiceResourceRequests struct {
 type ConfigurationServiceSettings struct {
 	// Property of git environment.
 	GitProperty *ConfigurationServiceGitProperty
+
+	// How often (in seconds) to check repository updates. Minimum value is 0.
+	RefreshIntervalInSeconds *int32
 }
 
 // ConfigurationServiceSettingsValidateResult - Validation result for configuration service settings
@@ -1207,6 +1320,85 @@ type ConfigurationServiceSettingsValidateResult struct {
 type ContainerProbeSettings struct {
 	// Indicates whether disable the liveness and readiness probe
 	DisableProbe *bool
+}
+
+// ContainerRegistryBasicCredentials - The basic authentication properties for the container registry resource.
+type ContainerRegistryBasicCredentials struct {
+	// REQUIRED; The password of the Container Registry.
+	Password *string
+
+	// REQUIRED; The login server of the Container Registry.
+	Server *string
+
+	// REQUIRED; The credential type of the container registry credentials.
+	Type *string
+
+	// REQUIRED; The username of the Container Registry.
+	Username *string
+}
+
+// GetContainerRegistryCredentials implements the ContainerRegistryCredentialsClassification interface for type ContainerRegistryBasicCredentials.
+func (c *ContainerRegistryBasicCredentials) GetContainerRegistryCredentials() *ContainerRegistryCredentials {
+	return &ContainerRegistryCredentials{
+		Type: c.Type,
+	}
+}
+
+// ContainerRegistryCredentials - The credential for the container registry resource.
+type ContainerRegistryCredentials struct {
+	// REQUIRED; The credential type of the container registry credentials.
+	Type *string
+}
+
+// GetContainerRegistryCredentials implements the ContainerRegistryCredentialsClassification interface for type ContainerRegistryCredentials.
+func (c *ContainerRegistryCredentials) GetContainerRegistryCredentials() *ContainerRegistryCredentials {
+	return c
+}
+
+// ContainerRegistryProperties - Container registry resource payload.
+type ContainerRegistryProperties struct {
+	// REQUIRED; The credentials of the container registry resource.
+	Credentials ContainerRegistryCredentialsClassification
+
+	// READ-ONLY; State of the Container Registry.
+	ProvisioningState *ContainerRegistryProvisioningState
+}
+
+// ContainerRegistryResource - Container registry resource payload.
+type ContainerRegistryResource struct {
+	// Properties of the container registry resource payload.
+	Properties *ContainerRegistryProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ContainerRegistryResourceCollection - Collection compose of container registry resources list and a possible link for next
+// page.
+type ContainerRegistryResourceCollection struct {
+	// The link to next page of storage list.
+	NextLink *string
+
+	// The container registry resources list.
+	Value []*ContainerRegistryResource
+}
+
+// ContainerRegistryValidateResult - Validation result for container registry properties
+type ContainerRegistryValidateResult struct {
+	// Indicate if the container registry properties are valid
+	IsValid *bool
+
+	// Detailed validation messages.
+	Message *string
 }
 
 // ContentCertificateProperties - Properties of certificate imported from key vault.
@@ -1271,7 +1463,7 @@ type CustomContainer struct {
 	// Credential of the image registry
 	ImageRegistryCredential *ImageRegistryCredential
 
-	// Language framework of the container image uploaded
+	// Language framework of the container image uploaded. Supported values: "springboot", "", null.
 	LanguageFramework *string
 
 	// The name of the registry that contains the container image
@@ -1404,9 +1596,15 @@ type CustomizedAcceleratorProperties struct {
 	// REQUIRED
 	GitRepository   *AcceleratorGitRepository
 	AcceleratorTags []*string
+
+	// Type of the customized accelerator.
+	AcceleratorType *CustomizedAcceleratorType
 	Description     *string
 	DisplayName     *string
 	IconURL         *string
+
+	// READ-ONLY; Imports references all imports that this accelerator/fragment depends upon.
+	Imports []*string
 
 	// READ-ONLY; State of the customized accelerator.
 	ProvisioningState *CustomizedAcceleratorProvisioningState
@@ -1451,6 +1649,9 @@ type CustomizedAcceleratorValidateResult struct {
 type DeploymentInstance struct {
 	// READ-ONLY; Discovery status of the deployment instance
 	DiscoveryStatus *string
+
+	// READ-ONLY; End time of the deployment instance
+	EndTime *string
 
 	// READ-ONLY; Name of the deployment instance
 	Name *string
@@ -1530,6 +1731,9 @@ type DeploymentSettings struct {
 	// Collection of addons
 	AddonConfigs map[string]any
 
+	// Collection of ApmReferences
+	Apms []*ApmReference
+
 	// Container liveness and readiness probe settings
 	ContainerProbeSettings *ContainerProbeSettings
 
@@ -1567,6 +1771,17 @@ type DeploymentSettings struct {
 	// value longer than the expected cleanup time for your process. Defaults to 90
 	// seconds.
 	TerminationGracePeriodSeconds *int32
+}
+
+type DevToolPortalComponent struct {
+	// READ-ONLY; Collection of instances belong to Dev Tool Portal.
+	Instances []*DevToolPortalInstance
+
+	// READ-ONLY
+	Name *string
+
+	// READ-ONLY; The requested resource quantity for required CPU and Memory.
+	ResourceRequests *DevToolPortalResourceRequests
 }
 
 // DevToolPortalFeatureDetail - Detail settings for Dev Tool Portal feature
@@ -1607,14 +1822,11 @@ type DevToolPortalProperties struct {
 	// Single sign-on related configuration
 	SsoProperties *DevToolPortalSsoProperties
 
-	// READ-ONLY; Collection of instances belong to Dev Tool Portal.
-	Instances []*DevToolPortalInstance
+	// READ-ONLY; Collection of components belong to Dev Tool Portal.
+	Components []*DevToolPortalComponent
 
 	// READ-ONLY; State of the Dev Tool Portal.
 	ProvisioningState *DevToolPortalProvisioningState
-
-	// READ-ONLY; The requested resource quantity for required CPU and Memory.
-	ResourceRequests *DevToolPortalResourceRequests
 
 	// READ-ONLY; URL of the resource, exposed when 'public' is true.
 	URL *string
@@ -1694,6 +1906,46 @@ type Error struct {
 
 	// The message of error.
 	Message *string
+}
+
+// EurekaServerProperties - Eureka server properties payload
+type EurekaServerProperties struct {
+	// Enabled state of the eureka server. This is only used in Consumption tier.
+	EnabledState *EurekaServerEnabledState
+
+	// Error when applying eureka server settings.
+	Error *Error
+
+	// READ-ONLY; State of the eureka server.
+	ProvisioningState *EurekaServerState
+}
+
+// EurekaServerResource - Eureka server resource
+type EurekaServerResource struct {
+	// Properties of the eureka server resource
+	Properties *EurekaServerProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// EurekaServerResourceCollection - Object that includes an array of Eureka server resources and a possible link for next
+// set
+type EurekaServerResourceCollection struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of Eureka server resources
+	Value []*EurekaServerResource
 }
 
 // ExecAction describes a "run in container" action.
@@ -1778,6 +2030,9 @@ type GatewayCorsProperties struct {
 	// by default.
 	AllowedMethods []*string
 
+	// Allowed origin patterns to make cross-site requests.
+	AllowedOriginPatterns []*string
+
 	// Allowed origins to make cross-site requests. The special value * allows all domains.
 	AllowedOrigins []*string
 
@@ -1831,6 +2086,44 @@ type GatewayInstance struct {
 	Status *string
 }
 
+// GatewayLocalResponseCachePerInstanceProperties - Spring Cloud Gateway local response cache per instance properties.
+type GatewayLocalResponseCachePerInstanceProperties struct {
+	// REQUIRED; The type of the response cache.
+	ResponseCacheType *string
+
+	// Maximum size of cache (10MB, 900KB, 1GB…) to determine if the cache needs to evict some entries
+	Size *string
+
+	// Time before a cached entry is expired (300s, 5m, 1h…)
+	TimeToLive *string
+}
+
+// GetGatewayResponseCacheProperties implements the GatewayResponseCachePropertiesClassification interface for type GatewayLocalResponseCachePerInstanceProperties.
+func (g *GatewayLocalResponseCachePerInstanceProperties) GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties {
+	return &GatewayResponseCacheProperties{
+		ResponseCacheType: g.ResponseCacheType,
+	}
+}
+
+// GatewayLocalResponseCachePerRouteProperties - Spring Cloud Gateway local response cache per route properties.
+type GatewayLocalResponseCachePerRouteProperties struct {
+	// REQUIRED; The type of the response cache.
+	ResponseCacheType *string
+
+	// Maximum size of cache (10MB, 900KB, 1GB…) to determine if the cache needs to evict some entries.
+	Size *string
+
+	// Time before a cached entry is expired (300s, 5m, 1h…)
+	TimeToLive *string
+}
+
+// GetGatewayResponseCacheProperties implements the GatewayResponseCachePropertiesClassification interface for type GatewayLocalResponseCachePerRouteProperties.
+func (g *GatewayLocalResponseCachePerRouteProperties) GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties {
+	return &GatewayResponseCacheProperties{
+		ResponseCacheType: g.ResponseCacheType,
+	}
+}
+
 // GatewayOperatorProperties - Properties of the Spring Cloud Gateway Operator.
 type GatewayOperatorProperties struct {
 	// READ-ONLY; Collection of instances belong to Spring Cloud Gateway operator.
@@ -1857,8 +2150,17 @@ type GatewayProperties struct {
 	// API metadata property for Spring Cloud Gateway
 	APIMetadataProperties *GatewayAPIMetadataProperties
 
+	// Collection of addons for Spring Cloud Gateway
+	AddonConfigs map[string]any
+
 	// Collection of APM type used in Spring Cloud Gateway
 	ApmTypes []*ApmType
+
+	// Collection of ApmReferences in service level
+	Apms []*ApmReference
+
+	// Client-Certification Authentication.
+	ClientAuth *GatewayPropertiesClientAuth
 
 	// Cross-Origin Resource Sharing property
 	CorsProperties *GatewayCorsProperties
@@ -1875,6 +2177,9 @@ type GatewayProperties struct {
 	// The requested resource quantity for required CPU and Memory.
 	ResourceRequests *GatewayResourceRequests
 
+	// The properties to configure different types of response cache for Spring Cloud Gateway.
+	ResponseCacheProperties GatewayResponseCachePropertiesClassification
+
 	// Single sign-on related configuration
 	SsoProperties *SsoProperties
 
@@ -1889,6 +2194,15 @@ type GatewayProperties struct {
 
 	// READ-ONLY; URL of the Spring Cloud Gateway, exposed when 'public' is true.
 	URL *string
+}
+
+// GatewayPropertiesClientAuth - Client-Certification Authentication.
+type GatewayPropertiesClientAuth struct {
+	// Whether to enable certificate verification or not
+	CertificateVerification *GatewayCertificateVerification
+
+	// Collection of certificate resource Ids in Azure Spring Apps.
+	Certificates []*string
 }
 
 // GatewayPropertiesEnvironmentVariables - Environment variables of Spring Cloud Gateway
@@ -1937,6 +2251,17 @@ type GatewayResourceRequests struct {
 
 	// Memory allocated to each Spring Cloud Gateway instance.
 	Memory *string
+}
+
+// GatewayResponseCacheProperties - Spring Cloud Gateway response cache properties.
+type GatewayResponseCacheProperties struct {
+	// REQUIRED; The type of the response cache.
+	ResponseCacheType *string
+}
+
+// GetGatewayResponseCacheProperties implements the GatewayResponseCachePropertiesClassification interface for type GatewayResponseCacheProperties.
+func (g *GatewayResponseCacheProperties) GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties {
+	return g
 }
 
 // GatewayRouteConfigOpenAPIProperties - OpenAPI properties of Spring Cloud Gateway route config.
@@ -2036,6 +2361,12 @@ type GitPatternRepository struct {
 
 	// Username of git repository basic auth.
 	Username *string
+}
+
+// GloballyEnabledApms - Globally enabled APMs payload
+type GloballyEnabledApms struct {
+	// Collection of the globally enabled APMs
+	Value []*string
 }
 
 // HTTPGetAction describes an action based on HTTP Get requests.
@@ -2157,6 +2488,9 @@ type KeyVaultCertificateProperties struct {
 	// REQUIRED; The vault uri of user key vault.
 	VaultURI *string
 
+	// Indicates whether to automatically synchronize certificate from key vault or not.
+	AutoSync *KeyVaultCertificateAutoSync
+
 	// The certificate version of key vault.
 	CertVersion *string
 
@@ -2228,6 +2562,17 @@ type LogSpecification struct {
 
 	// Name of the log
 	Name *string
+}
+
+// MaintenanceScheduleConfiguration - Configuration for the planned maintenance
+type MaintenanceScheduleConfiguration struct {
+	// REQUIRED; The frequency to run the maintenance job
+	Frequency *Frequency
+}
+
+// GetMaintenanceScheduleConfiguration implements the MaintenanceScheduleConfigurationClassification interface for type MaintenanceScheduleConfiguration.
+func (m *MaintenanceScheduleConfiguration) GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration {
+	return m
 }
 
 // ManagedIdentityProperties - Managed identity properties retrieved from ARM request headers.
@@ -2952,6 +3297,10 @@ type ServiceSpecification struct {
 
 // ServiceVNetAddons - Additional Service settings in vnet injection instance
 type ServiceVNetAddons struct {
+	// Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could
+	// be accessed from internet.
+	DataPlanePublicEndpoint *bool
+
 	// Indicates whether the log stream in vnet injection instance could be accessed from internet.
 	LogStreamPublicEndpoint *bool
 }
@@ -3071,6 +3420,21 @@ type StorageResourceCollection struct {
 	Value []*StorageResource
 }
 
+// SupportedApmType - Supported APM type
+type SupportedApmType struct {
+	// The name of the supported APM type
+	Name *string
+}
+
+// SupportedApmTypes - Supported APM types payload
+type SupportedApmTypes struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of the supported APM type
+	Value []*SupportedApmType
+}
+
 // SupportedBuildpackResource - Supported buildpack resource payload
 type SupportedBuildpackResource struct {
 	// Supported buildpack resource properties
@@ -3093,6 +3457,9 @@ type SupportedBuildpackResource struct {
 type SupportedBuildpackResourceProperties struct {
 	// The id of supported buildpack
 	BuildpackID *string
+
+	// The version of supported buildpack
+	Version *string
 }
 
 // SupportedBuildpacksCollection - Object that includes an array of supported buildpacks resources and a possible link for
@@ -3115,6 +3482,27 @@ type SupportedRuntimeVersion struct {
 
 	// The detailed version (major.minor) of the platform.
 	Version *string
+}
+
+// SupportedServerVersion - Supported server version.
+type SupportedServerVersion struct {
+	// The server name.
+	Server *string
+
+	// The raw server version value which could be passed to deployment CRUD operations.
+	Value *string
+
+	// The Server version.
+	Version *string
+}
+
+// SupportedServerVersions - Supported server versions.
+type SupportedServerVersions struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of the supported server versions.
+	Value []*SupportedServerVersion
 }
 
 // SupportedStackResource - Supported stack resource payload
@@ -3248,6 +3636,21 @@ type TrackedResource struct {
 type TriggeredBuildResult struct {
 	// The unique build id of this build result
 	ID *string
+
+	// The container image of this build result
+	Image *string
+
+	// The last transition reason of this build result
+	LastTransitionReason *string
+
+	// The last transition status of this build result
+	LastTransitionStatus *string
+
+	// The last transition time of this build result
+	LastTransitionTime *time.Time
+
+	// READ-ONLY; The provisioning state of this build result
+	ProvisioningState *TriggeredBuildResultProvisioningState
 }
 
 // UploadedUserSourceInfo - Source with uploaded location
@@ -3301,4 +3704,64 @@ type ValidationMessages struct {
 
 	// The name of the configuration service git repository.
 	Name *string
+}
+
+// WarUploadedUserSourceInfo - Uploaded War binary for a deployment
+type WarUploadedUserSourceInfo struct {
+	// REQUIRED; Type of the source uploaded
+	Type *string
+
+	// JVM parameter
+	JvmOptions *string
+
+	// Relative path of the storage which stores the source
+	RelativePath *string
+
+	// Runtime version of the war file
+	RuntimeVersion *string
+
+	// Server version, currently only Apache Tomcat is supported
+	ServerVersion *string
+
+	// Version of the source
+	Version *string
+}
+
+// GetUploadedUserSourceInfo implements the UploadedUserSourceInfoClassification interface for type WarUploadedUserSourceInfo.
+func (w *WarUploadedUserSourceInfo) GetUploadedUserSourceInfo() *UploadedUserSourceInfo {
+	return &UploadedUserSourceInfo{
+		RelativePath: w.RelativePath,
+		Type:         w.Type,
+		Version:      w.Version,
+	}
+}
+
+// GetUserSourceInfo implements the UserSourceInfoClassification interface for type WarUploadedUserSourceInfo.
+func (w *WarUploadedUserSourceInfo) GetUserSourceInfo() *UserSourceInfo {
+	return &UserSourceInfo{
+		Type:    w.Type,
+		Version: w.Version,
+	}
+}
+
+// WeeklyMaintenanceScheduleConfiguration - Weekly planned maintenance
+type WeeklyMaintenanceScheduleConfiguration struct {
+	// REQUIRED; The day to run the maintenance job
+	Day *WeekDay
+
+	// REQUIRED; The frequency to run the maintenance job
+	Frequency *Frequency
+
+	// REQUIRED; The hour to run the maintenance job
+	Hour *int32
+
+	// READ-ONLY; The duration time to run the maintenance job, specified in ISO8601 format, e.g. PT8H
+	Duration *string
+}
+
+// GetMaintenanceScheduleConfiguration implements the MaintenanceScheduleConfigurationClassification interface for type WeeklyMaintenanceScheduleConfiguration.
+func (w *WeeklyMaintenanceScheduleConfiguration) GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration {
+	return &MaintenanceScheduleConfiguration{
+		Frequency: w.Frequency,
+	}
 }
