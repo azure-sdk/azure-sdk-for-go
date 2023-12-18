@@ -47,17 +47,17 @@ func NewApplicationGatewayWafDynamicManifestsDefaultClient(subscriptionID string
 // Get - Gets the regional application gateway waf manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
-//   - location - The region where the nrp are located at.
+// Generated from API version 2023-06-01
+//   - locations - The region where the nrp are located at.
 //   - options - ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsDefaultClient.Get
 //     method.
-func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) Get(ctx context.Context, location string, options *ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse, error) {
+func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) Get(ctx context.Context, locations string, options *ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse, error) {
 	var err error
 	const operationName = "ApplicationGatewayWafDynamicManifestsDefaultClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, location, options)
+	req, err := client.getCreateRequest(ctx, locations, options)
 	if err != nil {
 		return ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse{}, err
 	}
@@ -74,12 +74,12 @@ func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) Get(ctx contex
 }
 
 // getCreateRequest creates the Get request.
-func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) getCreateRequest(ctx context.Context, location string, options *ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/applicationGatewayWafDynamicManifests/dafault"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
+func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) getCreateRequest(ctx context.Context, locations string, options *ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{locations}/applicationGatewayWafDynamicManifests/dafault"
+	if locations == "" {
+		return nil, errors.New("parameter locations cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	urlPath = strings.ReplaceAll(urlPath, "{locations}", url.PathEscape(locations))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -89,7 +89,7 @@ func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) getCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2023-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
