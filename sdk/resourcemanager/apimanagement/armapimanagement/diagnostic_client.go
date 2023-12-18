@@ -29,7 +29,7 @@ type DiagnosticClient struct {
 }
 
 // NewDiagnosticClient creates a new instance of DiagnosticClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDiagnosticClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DiagnosticClient, error) {
@@ -47,7 +47,7 @@ func NewDiagnosticClient(subscriptionID string, credential azcore.TokenCredentia
 // CreateOrUpdate - Creates a new Diagnostic or updates an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - diagnosticID - Diagnostic identifier. Must be unique in the current API Management service instance.
@@ -100,7 +100,7 @@ func (client *DiagnosticClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -127,7 +127,7 @@ func (client *DiagnosticClient) createOrUpdateHandleResponse(resp *http.Response
 // Delete - Deletes the specified Diagnostic.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - diagnosticID - Diagnostic identifier. Must be unique in the current API Management service instance.
@@ -179,7 +179,7 @@ func (client *DiagnosticClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -189,7 +189,7 @@ func (client *DiagnosticClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets the details of the Diagnostic specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - diagnosticID - Diagnostic identifier. Must be unique in the current API Management service instance.
@@ -240,7 +240,7 @@ func (client *DiagnosticClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -260,7 +260,7 @@ func (client *DiagnosticClient) getHandleResponse(resp *http.Response) (Diagnost
 
 // GetEntityTag - Gets the entity state (Etag) version of the Diagnostic specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - diagnosticID - Diagnostic identifier. Must be unique in the current API Management service instance.
@@ -311,7 +311,7 @@ func (client *DiagnosticClient) getEntityTagCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +328,7 @@ func (client *DiagnosticClient) getEntityTagHandleResponse(resp *http.Response) 
 
 // NewListByServicePager - Lists all diagnostics of the API Management service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - DiagnosticClientListByServiceOptions contains the optional parameters for the DiagnosticClient.NewListByServicePager
@@ -385,7 +385,7 @@ func (client *DiagnosticClient) listByServiceCreateRequest(ctx context.Context, 
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -403,7 +403,7 @@ func (client *DiagnosticClient) listByServiceHandleResponse(resp *http.Response)
 // Update - Updates the details of the Diagnostic specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - diagnosticID - Diagnostic identifier. Must be unique in the current API Management service instance.
@@ -457,7 +457,7 @@ func (client *DiagnosticClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
