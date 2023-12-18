@@ -29,7 +29,7 @@ type ProductClient struct {
 }
 
 // NewProductClient creates a new instance of ProductClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProductClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductClient, error) {
@@ -47,7 +47,7 @@ func NewProductClient(subscriptionID string, credential azcore.TokenCredential, 
 // CreateOrUpdate - Creates or Updates a product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -99,7 +99,7 @@ func (client *ProductClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -126,7 +126,7 @@ func (client *ProductClient) createOrUpdateHandleResponse(resp *http.Response) (
 // Delete - Delete product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -181,7 +181,7 @@ func (client *ProductClient) deleteCreateRequest(ctx context.Context, resourceGr
 	if options != nil && options.DeleteSubscriptions != nil {
 		reqQP.Set("deleteSubscriptions", strconv.FormatBool(*options.DeleteSubscriptions))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -191,7 +191,7 @@ func (client *ProductClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Gets the details of the product specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -242,7 +242,7 @@ func (client *ProductClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *ProductClient) getHandleResponse(resp *http.Response) (ProductClie
 
 // GetEntityTag - Gets the entity state (Etag) version of the product specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -313,7 +313,7 @@ func (client *ProductClient) getEntityTagCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +330,7 @@ func (client *ProductClient) getEntityTagHandleResponse(resp *http.Response) (Pr
 
 // NewListByServicePager - Lists a collection of products in the specified service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - ProductClientListByServiceOptions contains the optional parameters for the ProductClient.NewListByServicePager
@@ -393,7 +393,7 @@ func (client *ProductClient) listByServiceCreateRequest(ctx context.Context, res
 	if options != nil && options.Tags != nil {
 		reqQP.Set("tags", *options.Tags)
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -410,7 +410,7 @@ func (client *ProductClient) listByServiceHandleResponse(resp *http.Response) (P
 
 // NewListByTagsPager - Lists a collection of products associated with tags.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - ProductClientListByTagsOptions contains the optional parameters for the ProductClient.NewListByTagsPager method.
@@ -469,7 +469,7 @@ func (client *ProductClient) listByTagsCreateRequest(ctx context.Context, resour
 	if options != nil && options.IncludeNotTaggedProducts != nil {
 		reqQP.Set("includeNotTaggedProducts", strconv.FormatBool(*options.IncludeNotTaggedProducts))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -487,7 +487,7 @@ func (client *ProductClient) listByTagsHandleResponse(resp *http.Response) (Prod
 // Update - Update existing product details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -541,7 +541,7 @@ func (client *ProductClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
