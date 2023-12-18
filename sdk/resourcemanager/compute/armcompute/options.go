@@ -30,13 +30,6 @@ type AvailabilitySetsClientListAvailableSizesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AvailabilitySetsClientListBySubscriptionOptions contains the optional parameters for the AvailabilitySetsClient.NewListBySubscriptionPager
-// method.
-type AvailabilitySetsClientListBySubscriptionOptions struct {
-	// The expand expression to apply to the operation. Allowed values are 'instanceView'.
-	Expand *string
-}
-
 // AvailabilitySetsClientListOptions contains the optional parameters for the AvailabilitySetsClient.NewListPager method.
 type AvailabilitySetsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -66,15 +59,6 @@ type CapacityReservationGroupsClientGetOptions struct {
 	// reservations under the capacity reservation group which is a snapshot of the
 	// runtime properties of a capacity reservation that is managed by the platform and can change outside of control plane operations.
 	Expand *CapacityReservationGroupInstanceViewTypes
-}
-
-// CapacityReservationGroupsClientListByResourceGroupOptions contains the optional parameters for the CapacityReservationGroupsClient.NewListByResourceGroupPager
-// method.
-type CapacityReservationGroupsClientListByResourceGroupOptions struct {
-	// The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet
-	// VM Instance or both resource Ids which are associated to capacity
-	// reservation group in the response.
-	Expand *ExpandTypesForGetCapacityReservationGroups
 }
 
 // CapacityReservationGroupsClientListBySubscriptionOptions contains the optional parameters for the CapacityReservationGroupsClient.NewListBySubscriptionPager
@@ -396,6 +380,12 @@ type DedicatedHostsClientBeginCreateOrUpdateOptions struct {
 
 // DedicatedHostsClientBeginDeleteOptions contains the optional parameters for the DedicatedHostsClient.BeginDelete method.
 type DedicatedHostsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DedicatedHostsClientBeginRedeployOptions contains the optional parameters for the DedicatedHostsClient.BeginRedeploy method.
+type DedicatedHostsClientBeginRedeployOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -956,7 +946,8 @@ type SSHPublicKeysClientDeleteOptions struct {
 // SSHPublicKeysClientGenerateKeyPairOptions contains the optional parameters for the SSHPublicKeysClient.GenerateKeyPair
 // method.
 type SSHPublicKeysClientGenerateKeyPairOptions struct {
-	// placeholder for future optional parameters
+	// Parameters supplied to generate the SSH public key.
+	Parameters *SSHGenerateKeyPairInputParameters
 }
 
 // SSHPublicKeysClientGetOptions contains the optional parameters for the SSHPublicKeysClient.Get method.
@@ -1375,6 +1366,20 @@ type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	Expand *string
 }
 
+// VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade
+// method.
+type VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks
+// method.
+type VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualMachineScaleSetVMsClientBeginDeallocateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginDeallocate
 // method.
 type VirtualMachineScaleSetVMsClientBeginDeallocateOptions struct {
@@ -1458,6 +1463,14 @@ type VirtualMachineScaleSetVMsClientBeginStartOptions struct {
 // VirtualMachineScaleSetVMsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginUpdate
 // method.
 type VirtualMachineScaleSetVMsClientBeginUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
+	// in error from server as they are not supported.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1505,9 +1518,27 @@ type VirtualMachineScaleSetVMsClientSimulateEvictionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade
+// method.
+type VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// A list of virtual machine instance IDs from the VM scale set.
+	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
+}
+
 // VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginCreateOrUpdate
 // method.
 type VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
+	// in error from server as they are not supported.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1644,6 +1675,14 @@ type VirtualMachineScaleSetsClientBeginUpdateInstancesOptions struct {
 // VirtualMachineScaleSetsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginUpdate
 // method.
 type VirtualMachineScaleSetsClientBeginUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
+	// in error from server as they are not supported.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1719,6 +1758,13 @@ type VirtualMachinesClientBeginAssessPatchesOptions struct {
 	ResumeToken string
 }
 
+// VirtualMachinesClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachinesClient.BeginAttachDetachDataDisks
+// method.
+type VirtualMachinesClientBeginAttachDetachDataDisksOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualMachinesClientBeginCaptureOptions contains the optional parameters for the VirtualMachinesClient.BeginCapture method.
 type VirtualMachinesClientBeginCaptureOptions struct {
 	// Resumes the LRO from the provided token.
@@ -1735,6 +1781,14 @@ type VirtualMachinesClientBeginConvertToManagedDisksOptions struct {
 // VirtualMachinesClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginCreateOrUpdate
 // method.
 type VirtualMachinesClientBeginCreateOrUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
+	// in error from server as they are not supported.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1826,6 +1880,14 @@ type VirtualMachinesClientBeginStartOptions struct {
 
 // VirtualMachinesClientBeginUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginUpdate method.
 type VirtualMachinesClientBeginUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+
+	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
+	// in error from server as they are not supported.
+	IfNoneMatch *string
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

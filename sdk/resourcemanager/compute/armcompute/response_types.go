@@ -43,12 +43,6 @@ type AvailabilitySetsClientListAvailableSizesResponse struct {
 	VirtualMachineSizeListResult
 }
 
-// AvailabilitySetsClientListBySubscriptionResponse contains the response from method AvailabilitySetsClient.NewListBySubscriptionPager.
-type AvailabilitySetsClientListBySubscriptionResponse struct {
-	// The List Availability Set operation response.
-	AvailabilitySetListResult
-}
-
 // AvailabilitySetsClientListResponse contains the response from method AvailabilitySetsClient.NewListPager.
 type AvailabilitySetsClientListResponse struct {
 	// The List Availability Set operation response.
@@ -85,12 +79,6 @@ type CapacityReservationGroupsClientGetResponse struct {
 	// a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity reservation
 	// cannot be added or moved to another capacity reservation group.
 	CapacityReservationGroup
-}
-
-// CapacityReservationGroupsClientListByResourceGroupResponse contains the response from method CapacityReservationGroupsClient.NewListByResourceGroupPager.
-type CapacityReservationGroupsClientListByResourceGroupResponse struct {
-	// The List capacity reservation group with resource group response.
-	CapacityReservationGroupListResult
 }
 
 // CapacityReservationGroupsClientListBySubscriptionResponse contains the response from method CapacityReservationGroupsClient.NewListBySubscriptionPager.
@@ -402,6 +390,11 @@ type DedicatedHostsClientListAvailableSizesResponse struct {
 type DedicatedHostsClientListByHostGroupResponse struct {
 	// The list dedicated host operation response.
 	DedicatedHostListResult
+}
+
+// DedicatedHostsClientRedeployResponse contains the response from method DedicatedHostsClient.BeginRedeploy.
+type DedicatedHostsClientRedeployResponse struct {
+	// placeholder for future response values
 }
 
 // DedicatedHostsClientRestartResponse contains the response from method DedicatedHostsClient.BeginRestart.
@@ -1286,6 +1279,17 @@ type VirtualMachineScaleSetVMRunCommandsClientUpdateResponse struct {
 	VirtualMachineRunCommand
 }
 
+// VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade.
+type VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks.
+type VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse struct {
+	// Specifies the storage settings for the virtual machine disks.
+	StorageProfile
+}
+
 // VirtualMachineScaleSetVMsClientDeallocateResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginDeallocate.
 type VirtualMachineScaleSetVMsClientDeallocateResponse struct {
 	// placeholder for future response values
@@ -1369,6 +1373,11 @@ type VirtualMachineScaleSetVMsClientStartResponse struct {
 type VirtualMachineScaleSetVMsClientUpdateResponse struct {
 	// Describes a virtual machine scale set virtual machine.
 	VirtualMachineScaleSetVM
+}
+
+// VirtualMachineScaleSetsClientApproveRollingUpgradeResponse contains the response from method VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade.
+type VirtualMachineScaleSetsClientApproveRollingUpgradeResponse struct {
+	// placeholder for future response values
 }
 
 // VirtualMachineScaleSetsClientConvertToSinglePlacementGroupResponse contains the response from method VirtualMachineScaleSetsClient.ConvertToSinglePlacementGroup.
@@ -1512,6 +1521,12 @@ type VirtualMachineSizesClientListResponse struct {
 type VirtualMachinesClientAssessPatchesResponse struct {
 	// Describes the properties of an AssessPatches result.
 	VirtualMachineAssessPatchesResult
+}
+
+// VirtualMachinesClientAttachDetachDataDisksResponse contains the response from method VirtualMachinesClient.BeginAttachDetachDataDisks.
+type VirtualMachinesClientAttachDetachDataDisksResponse struct {
+	// Specifies the storage settings for the virtual machine disks.
+	StorageProfile
 }
 
 // VirtualMachinesClientCaptureResponse contains the response from method VirtualMachinesClient.BeginCapture.
