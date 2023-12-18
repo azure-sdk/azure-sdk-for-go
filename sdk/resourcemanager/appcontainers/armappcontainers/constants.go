@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0-beta.1"
 )
 
 // AccessMode - Access mode for storage
@@ -127,6 +127,76 @@ func PossibleBindingTypeValues() []BindingType {
 	}
 }
 
+// BuildProvisioningState - Resource instance provisioning state.
+type BuildProvisioningState string
+
+const (
+	BuildProvisioningStateCanceled  BuildProvisioningState = "Canceled"
+	BuildProvisioningStateCreating  BuildProvisioningState = "Creating"
+	BuildProvisioningStateDeleting  BuildProvisioningState = "Deleting"
+	BuildProvisioningStateFailed    BuildProvisioningState = "Failed"
+	BuildProvisioningStateSucceeded BuildProvisioningState = "Succeeded"
+	BuildProvisioningStateUpdating  BuildProvisioningState = "Updating"
+)
+
+// PossibleBuildProvisioningStateValues returns the possible values for the BuildProvisioningState const type.
+func PossibleBuildProvisioningStateValues() []BuildProvisioningState {
+	return []BuildProvisioningState{
+		BuildProvisioningStateCanceled,
+		BuildProvisioningStateCreating,
+		BuildProvisioningStateDeleting,
+		BuildProvisioningStateFailed,
+		BuildProvisioningStateSucceeded,
+		BuildProvisioningStateUpdating,
+	}
+}
+
+// BuildStatus - Status of the build once it has been provisioned.
+type BuildStatus string
+
+const (
+	BuildStatusCanceled   BuildStatus = "Canceled"
+	BuildStatusFailed     BuildStatus = "Failed"
+	BuildStatusInProgress BuildStatus = "InProgress"
+	BuildStatusNotStarted BuildStatus = "NotStarted"
+	BuildStatusSucceeded  BuildStatus = "Succeeded"
+)
+
+// PossibleBuildStatusValues returns the possible values for the BuildStatus const type.
+func PossibleBuildStatusValues() []BuildStatus {
+	return []BuildStatus{
+		BuildStatusCanceled,
+		BuildStatusFailed,
+		BuildStatusInProgress,
+		BuildStatusNotStarted,
+		BuildStatusSucceeded,
+	}
+}
+
+// BuilderProvisioningState - Resource instance provisioning state.
+type BuilderProvisioningState string
+
+const (
+	BuilderProvisioningStateCanceled  BuilderProvisioningState = "Canceled"
+	BuilderProvisioningStateCreating  BuilderProvisioningState = "Creating"
+	BuilderProvisioningStateDeleting  BuilderProvisioningState = "Deleting"
+	BuilderProvisioningStateFailed    BuilderProvisioningState = "Failed"
+	BuilderProvisioningStateSucceeded BuilderProvisioningState = "Succeeded"
+	BuilderProvisioningStateUpdating  BuilderProvisioningState = "Updating"
+)
+
+// PossibleBuilderProvisioningStateValues returns the possible values for the BuilderProvisioningState const type.
+func PossibleBuilderProvisioningStateValues() []BuilderProvisioningState {
+	return []BuilderProvisioningState{
+		BuilderProvisioningStateCanceled,
+		BuilderProvisioningStateCreating,
+		BuilderProvisioningStateDeleting,
+		BuilderProvisioningStateFailed,
+		BuilderProvisioningStateSucceeded,
+		BuilderProvisioningStateUpdating,
+	}
+}
+
 // CertificateProvisioningState - Provisioning state of the certificate.
 type CertificateProvisioningState string
 
@@ -146,6 +216,22 @@ func PossibleCertificateProvisioningStateValues() []CertificateProvisioningState
 		CertificateProvisioningStateFailed,
 		CertificateProvisioningStatePending,
 		CertificateProvisioningStateSucceeded,
+	}
+}
+
+// CertificateType - The type of the certificate. Allowed values are ServerSSLCertificate and ImagePullTrustedCA
+type CertificateType string
+
+const (
+	CertificateTypeImagePullTrustedCA   CertificateType = "ImagePullTrustedCA"
+	CertificateTypeServerSSLCertificate CertificateType = "ServerSSLCertificate"
+)
+
+// PossibleCertificateTypeValues returns the possible values for the CertificateType const type.
+func PossibleCertificateTypeValues() []CertificateType {
+	return []CertificateType{
+		CertificateTypeImagePullTrustedCA,
+		CertificateTypeServerSSLCertificate,
 	}
 }
 
@@ -389,6 +475,22 @@ func PossibleIngressClientCertificateModeValues() []IngressClientCertificateMode
 	}
 }
 
+// IngressTargetPortHTTPScheme - Whether an http app listens on http or https
+type IngressTargetPortHTTPScheme string
+
+const (
+	IngressTargetPortHTTPSchemeHTTP  IngressTargetPortHTTPScheme = "http"
+	IngressTargetPortHTTPSchemeHTTPS IngressTargetPortHTTPScheme = "https"
+)
+
+// PossibleIngressTargetPortHTTPSchemeValues returns the possible values for the IngressTargetPortHTTPScheme const type.
+func PossibleIngressTargetPortHTTPSchemeValues() []IngressTargetPortHTTPScheme {
+	return []IngressTargetPortHTTPScheme{
+		IngressTargetPortHTTPSchemeHTTP,
+		IngressTargetPortHTTPSchemeHTTPS,
+	}
+}
+
 // IngressTransportMethod - Ingress transport protocol
 type IngressTransportMethod string
 
@@ -619,9 +721,10 @@ func PossibleSourceControlOperationStateValues() []SourceControlOperationState {
 type StorageType string
 
 const (
-	StorageTypeAzureFile StorageType = "AzureFile"
-	StorageTypeEmptyDir  StorageType = "EmptyDir"
-	StorageTypeSecret    StorageType = "Secret"
+	StorageTypeAzureFile    StorageType = "AzureFile"
+	StorageTypeEmptyDir     StorageType = "EmptyDir"
+	StorageTypeNfsAzureFile StorageType = "NfsAzureFile"
+	StorageTypeSecret       StorageType = "Secret"
 )
 
 // PossibleStorageTypeValues returns the possible values for the StorageType const type.
@@ -629,6 +732,7 @@ func PossibleStorageTypeValues() []StorageType {
 	return []StorageType{
 		StorageTypeAzureFile,
 		StorageTypeEmptyDir,
+		StorageTypeNfsAzureFile,
 		StorageTypeSecret,
 	}
 }
