@@ -10,8 +10,26 @@ package armappplatform
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appplatform/armappplatform"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0-beta.3"
 )
+
+// APIPortalAPITryOutEnabledState - Indicates whether the API try-out feature is enabled or disabled. When enabled, users
+// can try out the API by sending requests and viewing responses in API portal. When disabled, users cannot try out
+// the API.
+type APIPortalAPITryOutEnabledState string
+
+const (
+	APIPortalAPITryOutEnabledStateDisabled APIPortalAPITryOutEnabledState = "Disabled"
+	APIPortalAPITryOutEnabledStateEnabled  APIPortalAPITryOutEnabledState = "Enabled"
+)
+
+// PossibleAPIPortalAPITryOutEnabledStateValues returns the possible values for the APIPortalAPITryOutEnabledState const type.
+func PossibleAPIPortalAPITryOutEnabledStateValues() []APIPortalAPITryOutEnabledState {
+	return []APIPortalAPITryOutEnabledState{
+		APIPortalAPITryOutEnabledStateDisabled,
+		APIPortalAPITryOutEnabledStateEnabled,
+	}
+}
 
 // APIPortalProvisioningState - State of the API portal.
 type APIPortalProvisioningState string
@@ -46,6 +64,30 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// ApmProvisioningState - State of the APM.
+type ApmProvisioningState string
+
+const (
+	ApmProvisioningStateCanceled  ApmProvisioningState = "Canceled"
+	ApmProvisioningStateCreating  ApmProvisioningState = "Creating"
+	ApmProvisioningStateDeleting  ApmProvisioningState = "Deleting"
+	ApmProvisioningStateFailed    ApmProvisioningState = "Failed"
+	ApmProvisioningStateSucceeded ApmProvisioningState = "Succeeded"
+	ApmProvisioningStateUpdating  ApmProvisioningState = "Updating"
+)
+
+// PossibleApmProvisioningStateValues returns the possible values for the ApmProvisioningState const type.
+func PossibleApmProvisioningStateValues() []ApmProvisioningState {
+	return []ApmProvisioningState{
+		ApmProvisioningStateCanceled,
+		ApmProvisioningStateCreating,
+		ApmProvisioningStateDeleting,
+		ApmProvisioningStateFailed,
+		ApmProvisioningStateSucceeded,
+		ApmProvisioningStateUpdating,
 	}
 }
 
@@ -93,10 +135,27 @@ func PossibleAppResourceProvisioningStateValues() []AppResourceProvisioningState
 	}
 }
 
+// AppResourceType - The type of App, whether it's long running app or short lived app
+type AppResourceType string
+
+const (
+	AppResourceTypeApplication AppResourceType = "Application"
+	AppResourceTypeTask        AppResourceType = "Task"
+)
+
+// PossibleAppResourceTypeValues returns the possible values for the AppResourceType const type.
+func PossibleAppResourceTypeValues() []AppResourceType {
+	return []AppResourceType{
+		AppResourceTypeApplication,
+		AppResourceTypeTask,
+	}
+}
+
 // ApplicationAcceleratorProvisioningState - State of the application accelerator.
 type ApplicationAcceleratorProvisioningState string
 
 const (
+	ApplicationAcceleratorProvisioningStateCanceled  ApplicationAcceleratorProvisioningState = "Canceled"
 	ApplicationAcceleratorProvisioningStateCreating  ApplicationAcceleratorProvisioningState = "Creating"
 	ApplicationAcceleratorProvisioningStateDeleting  ApplicationAcceleratorProvisioningState = "Deleting"
 	ApplicationAcceleratorProvisioningStateFailed    ApplicationAcceleratorProvisioningState = "Failed"
@@ -107,6 +166,7 @@ const (
 // PossibleApplicationAcceleratorProvisioningStateValues returns the possible values for the ApplicationAcceleratorProvisioningState const type.
 func PossibleApplicationAcceleratorProvisioningStateValues() []ApplicationAcceleratorProvisioningState {
 	return []ApplicationAcceleratorProvisioningState{
+		ApplicationAcceleratorProvisioningStateCanceled,
 		ApplicationAcceleratorProvisioningStateCreating,
 		ApplicationAcceleratorProvisioningStateDeleting,
 		ApplicationAcceleratorProvisioningStateFailed,
@@ -225,7 +285,7 @@ func PossibleBuildResultProvisioningStateValues() []BuildResultProvisioningState
 	}
 }
 
-// BuildServiceProvisioningState - Provisioning state of the KPack build result
+// BuildServiceProvisioningState - Provisioning state of the KPack build service
 type BuildServiceProvisioningState string
 
 const (
@@ -313,6 +373,24 @@ func PossibleCertificateResourceProvisioningStateValues() []CertificateResourceP
 	}
 }
 
+// ConfigServerEnabledState - Enabled state of the config server. This is only used in Consumption tier.
+type ConfigServerEnabledState string
+
+const (
+	// ConfigServerEnabledStateDisabled - Disable the config server.
+	ConfigServerEnabledStateDisabled ConfigServerEnabledState = "Disabled"
+	// ConfigServerEnabledStateEnabled - Enable the config server.
+	ConfigServerEnabledStateEnabled ConfigServerEnabledState = "Enabled"
+)
+
+// PossibleConfigServerEnabledStateValues returns the possible values for the ConfigServerEnabledState const type.
+func PossibleConfigServerEnabledStateValues() []ConfigServerEnabledState {
+	return []ConfigServerEnabledState{
+		ConfigServerEnabledStateDisabled,
+		ConfigServerEnabledStateEnabled,
+	}
+}
+
 // ConfigServerState - State of the config server.
 type ConfigServerState string
 
@@ -335,6 +413,22 @@ func PossibleConfigServerStateValues() []ConfigServerState {
 	}
 }
 
+// ConfigurationServiceGeneration - The generation of the Application Configuration Service.
+type ConfigurationServiceGeneration string
+
+const (
+	ConfigurationServiceGenerationGen1 ConfigurationServiceGeneration = "Gen1"
+	ConfigurationServiceGenerationGen2 ConfigurationServiceGeneration = "Gen2"
+)
+
+// PossibleConfigurationServiceGenerationValues returns the possible values for the ConfigurationServiceGeneration const type.
+func PossibleConfigurationServiceGenerationValues() []ConfigurationServiceGeneration {
+	return []ConfigurationServiceGeneration{
+		ConfigurationServiceGenerationGen1,
+		ConfigurationServiceGenerationGen2,
+	}
+}
+
 // ConfigurationServiceProvisioningState - State of the Application Configuration Service.
 type ConfigurationServiceProvisioningState string
 
@@ -354,6 +448,30 @@ func PossibleConfigurationServiceProvisioningStateValues() []ConfigurationServic
 		ConfigurationServiceProvisioningStateFailed,
 		ConfigurationServiceProvisioningStateSucceeded,
 		ConfigurationServiceProvisioningStateUpdating,
+	}
+}
+
+// ContainerRegistryProvisioningState - State of the Container Registry.
+type ContainerRegistryProvisioningState string
+
+const (
+	ContainerRegistryProvisioningStateCanceled  ContainerRegistryProvisioningState = "Canceled"
+	ContainerRegistryProvisioningStateCreating  ContainerRegistryProvisioningState = "Creating"
+	ContainerRegistryProvisioningStateDeleting  ContainerRegistryProvisioningState = "Deleting"
+	ContainerRegistryProvisioningStateFailed    ContainerRegistryProvisioningState = "Failed"
+	ContainerRegistryProvisioningStateSucceeded ContainerRegistryProvisioningState = "Succeeded"
+	ContainerRegistryProvisioningStateUpdating  ContainerRegistryProvisioningState = "Updating"
+)
+
+// PossibleContainerRegistryProvisioningStateValues returns the possible values for the ContainerRegistryProvisioningState const type.
+func PossibleContainerRegistryProvisioningStateValues() []ContainerRegistryProvisioningState {
+	return []ContainerRegistryProvisioningState{
+		ContainerRegistryProvisioningStateCanceled,
+		ContainerRegistryProvisioningStateCreating,
+		ContainerRegistryProvisioningStateDeleting,
+		ContainerRegistryProvisioningStateFailed,
+		ContainerRegistryProvisioningStateSucceeded,
+		ContainerRegistryProvisioningStateUpdating,
 	}
 }
 
@@ -403,6 +521,7 @@ func PossibleCustomDomainResourceProvisioningStateValues() []CustomDomainResourc
 type CustomizedAcceleratorProvisioningState string
 
 const (
+	CustomizedAcceleratorProvisioningStateCanceled  CustomizedAcceleratorProvisioningState = "Canceled"
 	CustomizedAcceleratorProvisioningStateCreating  CustomizedAcceleratorProvisioningState = "Creating"
 	CustomizedAcceleratorProvisioningStateDeleting  CustomizedAcceleratorProvisioningState = "Deleting"
 	CustomizedAcceleratorProvisioningStateFailed    CustomizedAcceleratorProvisioningState = "Failed"
@@ -413,11 +532,28 @@ const (
 // PossibleCustomizedAcceleratorProvisioningStateValues returns the possible values for the CustomizedAcceleratorProvisioningState const type.
 func PossibleCustomizedAcceleratorProvisioningStateValues() []CustomizedAcceleratorProvisioningState {
 	return []CustomizedAcceleratorProvisioningState{
+		CustomizedAcceleratorProvisioningStateCanceled,
 		CustomizedAcceleratorProvisioningStateCreating,
 		CustomizedAcceleratorProvisioningStateDeleting,
 		CustomizedAcceleratorProvisioningStateFailed,
 		CustomizedAcceleratorProvisioningStateSucceeded,
 		CustomizedAcceleratorProvisioningStateUpdating,
+	}
+}
+
+// CustomizedAcceleratorType - Type of the customized accelerator.
+type CustomizedAcceleratorType string
+
+const (
+	CustomizedAcceleratorTypeAccelerator CustomizedAcceleratorType = "Accelerator"
+	CustomizedAcceleratorTypeFragment    CustomizedAcceleratorType = "Fragment"
+)
+
+// PossibleCustomizedAcceleratorTypeValues returns the possible values for the CustomizedAcceleratorType const type.
+func PossibleCustomizedAcceleratorTypeValues() []CustomizedAcceleratorType {
+	return []CustomizedAcceleratorType{
+		CustomizedAcceleratorTypeAccelerator,
+		CustomizedAcceleratorTypeFragment,
 	}
 }
 
@@ -517,6 +653,76 @@ func PossibleDevToolPortalProvisioningStateValues() []DevToolPortalProvisioningS
 	}
 }
 
+// EurekaServerEnabledState - Enabled state of the eureka server. This is only used in Consumption tier.
+type EurekaServerEnabledState string
+
+const (
+	// EurekaServerEnabledStateDisabled - Disable the eureka server.
+	EurekaServerEnabledStateDisabled EurekaServerEnabledState = "Disabled"
+	// EurekaServerEnabledStateEnabled - Enable the eureka server.
+	EurekaServerEnabledStateEnabled EurekaServerEnabledState = "Enabled"
+)
+
+// PossibleEurekaServerEnabledStateValues returns the possible values for the EurekaServerEnabledState const type.
+func PossibleEurekaServerEnabledStateValues() []EurekaServerEnabledState {
+	return []EurekaServerEnabledState{
+		EurekaServerEnabledStateDisabled,
+		EurekaServerEnabledStateEnabled,
+	}
+}
+
+// EurekaServerState - State of the eureka server.
+type EurekaServerState string
+
+const (
+	EurekaServerStateCanceled  EurekaServerState = "Canceled"
+	EurekaServerStateFailed    EurekaServerState = "Failed"
+	EurekaServerStateSucceeded EurekaServerState = "Succeeded"
+	EurekaServerStateUpdating  EurekaServerState = "Updating"
+)
+
+// PossibleEurekaServerStateValues returns the possible values for the EurekaServerState const type.
+func PossibleEurekaServerStateValues() []EurekaServerState {
+	return []EurekaServerState{
+		EurekaServerStateCanceled,
+		EurekaServerStateFailed,
+		EurekaServerStateSucceeded,
+		EurekaServerStateUpdating,
+	}
+}
+
+// Frequency - The frequency to run the maintenance job
+type Frequency string
+
+const (
+	FrequencyWeekly Frequency = "Weekly"
+)
+
+// PossibleFrequencyValues returns the possible values for the Frequency const type.
+func PossibleFrequencyValues() []Frequency {
+	return []Frequency{
+		FrequencyWeekly,
+	}
+}
+
+// GatewayCertificateVerification - Whether to enable certificate verification or not
+type GatewayCertificateVerification string
+
+const (
+	// GatewayCertificateVerificationDisabled - Disable certificate verification in Spring Cloud Gateway.
+	GatewayCertificateVerificationDisabled GatewayCertificateVerification = "Disabled"
+	// GatewayCertificateVerificationEnabled - Enable certificate verification in Spring Cloud Gateway.
+	GatewayCertificateVerificationEnabled GatewayCertificateVerification = "Enabled"
+)
+
+// PossibleGatewayCertificateVerificationValues returns the possible values for the GatewayCertificateVerification const type.
+func PossibleGatewayCertificateVerificationValues() []GatewayCertificateVerification {
+	return []GatewayCertificateVerification{
+		GatewayCertificateVerificationDisabled,
+		GatewayCertificateVerificationEnabled,
+	}
+}
+
 // GatewayProvisioningState - State of the Spring Cloud Gateway.
 type GatewayProvisioningState string
 
@@ -552,6 +758,22 @@ func PossibleGatewayRouteConfigProtocolValues() []GatewayRouteConfigProtocol {
 	return []GatewayRouteConfigProtocol{
 		GatewayRouteConfigProtocolHTTP,
 		GatewayRouteConfigProtocolHTTPS,
+	}
+}
+
+// GitImplementation - Git libraries used to support various repository providers
+type GitImplementation string
+
+const (
+	GitImplementationGoGit   GitImplementation = "go-git"
+	GitImplementationLibgit2 GitImplementation = "libgit2"
+)
+
+// PossibleGitImplementationValues returns the possible values for the GitImplementation const type.
+func PossibleGitImplementationValues() []GitImplementation {
+	return []GitImplementation{
+		GitImplementationGoGit,
+		GitImplementationLibgit2,
 	}
 }
 
@@ -591,6 +813,22 @@ func PossibleKPackBuildStageProvisioningStateValues() []KPackBuildStageProvision
 		KPackBuildStageProvisioningStateNotStarted,
 		KPackBuildStageProvisioningStateRunning,
 		KPackBuildStageProvisioningStateSucceeded,
+	}
+}
+
+// KeyVaultCertificateAutoSync - Indicates whether to automatically synchronize certificate from key vault or not.
+type KeyVaultCertificateAutoSync string
+
+const (
+	KeyVaultCertificateAutoSyncDisabled KeyVaultCertificateAutoSync = "Disabled"
+	KeyVaultCertificateAutoSyncEnabled  KeyVaultCertificateAutoSync = "Enabled"
+)
+
+// PossibleKeyVaultCertificateAutoSyncValues returns the possible values for the KeyVaultCertificateAutoSync const type.
+func PossibleKeyVaultCertificateAutoSyncValues() []KeyVaultCertificateAutoSync {
+	return []KeyVaultCertificateAutoSync{
+		KeyVaultCertificateAutoSyncDisabled,
+		KeyVaultCertificateAutoSyncEnabled,
 	}
 }
 
@@ -674,6 +912,7 @@ func PossiblePowerStateValues() []PowerState {
 type PredefinedAcceleratorProvisioningState string
 
 const (
+	PredefinedAcceleratorProvisioningStateCanceled  PredefinedAcceleratorProvisioningState = "Canceled"
 	PredefinedAcceleratorProvisioningStateCreating  PredefinedAcceleratorProvisioningState = "Creating"
 	PredefinedAcceleratorProvisioningStateFailed    PredefinedAcceleratorProvisioningState = "Failed"
 	PredefinedAcceleratorProvisioningStateSucceeded PredefinedAcceleratorProvisioningState = "Succeeded"
@@ -683,6 +922,7 @@ const (
 // PossiblePredefinedAcceleratorProvisioningStateValues returns the possible values for the PredefinedAcceleratorProvisioningState const type.
 func PossiblePredefinedAcceleratorProvisioningStateValues() []PredefinedAcceleratorProvisioningState {
 	return []PredefinedAcceleratorProvisioningState{
+		PredefinedAcceleratorProvisioningStateCanceled,
 		PredefinedAcceleratorProvisioningStateCreating,
 		PredefinedAcceleratorProvisioningStateFailed,
 		PredefinedAcceleratorProvisioningStateSucceeded,
@@ -884,6 +1124,7 @@ type SupportedRuntimeValue string
 const (
 	SupportedRuntimeValueJava11    SupportedRuntimeValue = "Java_11"
 	SupportedRuntimeValueJava17    SupportedRuntimeValue = "Java_17"
+	SupportedRuntimeValueJava21    SupportedRuntimeValue = "Java_21"
 	SupportedRuntimeValueJava8     SupportedRuntimeValue = "Java_8"
 	SupportedRuntimeValueNetCore31 SupportedRuntimeValue = "NetCore_31"
 )
@@ -893,6 +1134,7 @@ func PossibleSupportedRuntimeValueValues() []SupportedRuntimeValue {
 	return []SupportedRuntimeValue{
 		SupportedRuntimeValueJava11,
 		SupportedRuntimeValueJava17,
+		SupportedRuntimeValueJava21,
 		SupportedRuntimeValueJava8,
 		SupportedRuntimeValueNetCore31,
 	}
@@ -930,6 +1172,30 @@ func PossibleTrafficDirectionValues() []TrafficDirection {
 	}
 }
 
+// TriggeredBuildResultProvisioningState - The provisioning state of this build result
+type TriggeredBuildResultProvisioningState string
+
+const (
+	TriggeredBuildResultProvisioningStateBuilding  TriggeredBuildResultProvisioningState = "Building"
+	TriggeredBuildResultProvisioningStateCanceled  TriggeredBuildResultProvisioningState = "Canceled"
+	TriggeredBuildResultProvisioningStateDeleting  TriggeredBuildResultProvisioningState = "Deleting"
+	TriggeredBuildResultProvisioningStateFailed    TriggeredBuildResultProvisioningState = "Failed"
+	TriggeredBuildResultProvisioningStateQueuing   TriggeredBuildResultProvisioningState = "Queuing"
+	TriggeredBuildResultProvisioningStateSucceeded TriggeredBuildResultProvisioningState = "Succeeded"
+)
+
+// PossibleTriggeredBuildResultProvisioningStateValues returns the possible values for the TriggeredBuildResultProvisioningState const type.
+func PossibleTriggeredBuildResultProvisioningStateValues() []TriggeredBuildResultProvisioningState {
+	return []TriggeredBuildResultProvisioningState{
+		TriggeredBuildResultProvisioningStateBuilding,
+		TriggeredBuildResultProvisioningStateCanceled,
+		TriggeredBuildResultProvisioningStateDeleting,
+		TriggeredBuildResultProvisioningStateFailed,
+		TriggeredBuildResultProvisioningStateQueuing,
+		TriggeredBuildResultProvisioningStateSucceeded,
+	}
+}
+
 // Type - The type of the underlying resource to mount as a persistent disk.
 type Type string
 
@@ -941,5 +1207,31 @@ const (
 func PossibleTypeValues() []Type {
 	return []Type{
 		TypeAzureFileVolume,
+	}
+}
+
+// WeekDay - The day to run the maintenance job
+type WeekDay string
+
+const (
+	WeekDayFriday    WeekDay = "Friday"
+	WeekDayMonday    WeekDay = "Monday"
+	WeekDaySaturday  WeekDay = "Saturday"
+	WeekDaySunday    WeekDay = "Sunday"
+	WeekDayThursday  WeekDay = "Thursday"
+	WeekDayTuesday   WeekDay = "Tuesday"
+	WeekDayWednesday WeekDay = "Wednesday"
+)
+
+// PossibleWeekDayValues returns the possible values for the WeekDay const type.
+func PossibleWeekDayValues() []WeekDay {
+	return []WeekDay{
+		WeekDayFriday,
+		WeekDayMonday,
+		WeekDaySaturday,
+		WeekDaySunday,
+		WeekDayThursday,
+		WeekDayTuesday,
+		WeekDayWednesday,
 	}
 }

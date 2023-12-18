@@ -50,6 +50,12 @@ func (c *ClientFactory) NewAPIPortalsClient() *APIPortalsClient {
 	return subClient
 }
 
+// NewApmsClient creates a new instance of ApmsClient.
+func (c *ClientFactory) NewApmsClient() *ApmsClient {
+	subClient, _ := NewApmsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewApplicationAcceleratorsClient creates a new instance of ApplicationAcceleratorsClient.
 func (c *ClientFactory) NewApplicationAcceleratorsClient() *ApplicationAcceleratorsClient {
 	subClient, _ := NewApplicationAcceleratorsClient(c.subscriptionID, c.credential, c.options)
@@ -116,6 +122,12 @@ func (c *ClientFactory) NewConfigurationServicesClient() *ConfigurationServicesC
 	return subClient
 }
 
+// NewContainerRegistriesClient creates a new instance of ContainerRegistriesClient.
+func (c *ClientFactory) NewContainerRegistriesClient() *ContainerRegistriesClient {
+	subClient, _ := NewContainerRegistriesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewCustomDomainsClient creates a new instance of CustomDomainsClient.
 func (c *ClientFactory) NewCustomDomainsClient() *CustomDomainsClient {
 	subClient, _ := NewCustomDomainsClient(c.subscriptionID, c.credential, c.options)
@@ -137,6 +149,12 @@ func (c *ClientFactory) NewDeploymentsClient() *DeploymentsClient {
 // NewDevToolPortalsClient creates a new instance of DevToolPortalsClient.
 func (c *ClientFactory) NewDevToolPortalsClient() *DevToolPortalsClient {
 	subClient, _ := NewDevToolPortalsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEurekaServersClient creates a new instance of EurekaServersClient.
+func (c *ClientFactory) NewEurekaServersClient() *EurekaServersClient {
+	subClient, _ := NewEurekaServersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
