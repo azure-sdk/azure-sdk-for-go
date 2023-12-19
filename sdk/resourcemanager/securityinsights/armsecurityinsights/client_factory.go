@@ -67,6 +67,30 @@ func (c *ClientFactory) NewBookmarksClient() *BookmarksClient {
 	return subClient
 }
 
+// NewContentPackageClient creates a new instance of ContentPackageClient.
+func (c *ClientFactory) NewContentPackageClient() *ContentPackageClient {
+	subClient, _ := NewContentPackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentPackagesClient creates a new instance of ContentPackagesClient.
+func (c *ClientFactory) NewContentPackagesClient() *ContentPackagesClient {
+	subClient, _ := NewContentPackagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentTemplateClient creates a new instance of ContentTemplateClient.
+func (c *ClientFactory) NewContentTemplateClient() *ContentTemplateClient {
+	subClient, _ := NewContentTemplateClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentTemplatesClient creates a new instance of ContentTemplatesClient.
+func (c *ClientFactory) NewContentTemplatesClient() *ContentTemplatesClient {
+	subClient, _ := NewContentTemplatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewDataConnectorsClient creates a new instance of DataConnectorsClient.
 func (c *ClientFactory) NewDataConnectorsClient() *DataConnectorsClient {
 	subClient, _ := NewDataConnectorsClient(c.subscriptionID, c.credential, c.options)
@@ -91,15 +115,63 @@ func (c *ClientFactory) NewIncidentsClient() *IncidentsClient {
 	return subClient
 }
 
+// NewMetadataClient creates a new instance of MetadataClient.
+func (c *ClientFactory) NewMetadataClient() *MetadataClient {
+	subClient, _ := NewMetadataClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
 
+// NewProductPackageClient creates a new instance of ProductPackageClient.
+func (c *ClientFactory) NewProductPackageClient() *ProductPackageClient {
+	subClient, _ := NewProductPackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductPackagesClient creates a new instance of ProductPackagesClient.
+func (c *ClientFactory) NewProductPackagesClient() *ProductPackagesClient {
+	subClient, _ := NewProductPackagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductTemplateClient creates a new instance of ProductTemplateClient.
+func (c *ClientFactory) NewProductTemplateClient() *ProductTemplateClient {
+	subClient, _ := NewProductTemplateClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductTemplatesClient creates a new instance of ProductTemplatesClient.
+func (c *ClientFactory) NewProductTemplatesClient() *ProductTemplatesClient {
+	subClient, _ := NewProductTemplatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSecurityMLAnalyticsSettingsClient creates a new instance of SecurityMLAnalyticsSettingsClient.
+func (c *ClientFactory) NewSecurityMLAnalyticsSettingsClient() *SecurityMLAnalyticsSettingsClient {
+	subClient, _ := NewSecurityMLAnalyticsSettingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewSentinelOnboardingStatesClient creates a new instance of SentinelOnboardingStatesClient.
 func (c *ClientFactory) NewSentinelOnboardingStatesClient() *SentinelOnboardingStatesClient {
 	subClient, _ := NewSentinelOnboardingStatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSourceControlClient creates a new instance of SourceControlClient.
+func (c *ClientFactory) NewSourceControlClient() *SourceControlClient {
+	subClient, _ := NewSourceControlClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSourceControlsClient creates a new instance of SourceControlsClient.
+func (c *ClientFactory) NewSourceControlsClient() *SourceControlsClient {
+	subClient, _ := NewSourceControlsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

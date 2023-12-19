@@ -46,7 +46,7 @@ func NewThreatIntelligenceIndicatorsClient(subscriptionID string, credential azc
 
 // NewListPager - Get all threat intelligence indicators.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - ThreatIntelligenceIndicatorsClientListOptions contains the optional parameters for the ThreatIntelligenceIndicatorsClient.NewListPager
@@ -94,7 +94,7 @@ func (client *ThreatIntelligenceIndicatorsClient) listCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
