@@ -49,6 +49,12 @@ func (c *ClientFactory) NewBatchEndpointsClient() *BatchEndpointsClient {
 	return subClient
 }
 
+// NewCapacityReservationGroupsClient creates a new instance of CapacityReservationGroupsClient.
+func (c *ClientFactory) NewCapacityReservationGroupsClient() *CapacityReservationGroupsClient {
+	subClient, _ := NewCapacityReservationGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewCodeContainersClient creates a new instance of CodeContainersClient.
 func (c *ClientFactory) NewCodeContainersClient() *CodeContainersClient {
 	subClient, _ := NewCodeContainersClient(c.subscriptionID, c.credential, c.options)
@@ -109,9 +115,75 @@ func (c *ClientFactory) NewEnvironmentVersionsClient() *EnvironmentVersionsClien
 	return subClient
 }
 
+// NewFeaturesClient creates a new instance of FeaturesClient.
+func (c *ClientFactory) NewFeaturesClient() *FeaturesClient {
+	subClient, _ := NewFeaturesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFeaturesetContainersClient creates a new instance of FeaturesetContainersClient.
+func (c *ClientFactory) NewFeaturesetContainersClient() *FeaturesetContainersClient {
+	subClient, _ := NewFeaturesetContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFeaturesetVersionsClient creates a new instance of FeaturesetVersionsClient.
+func (c *ClientFactory) NewFeaturesetVersionsClient() *FeaturesetVersionsClient {
+	subClient, _ := NewFeaturesetVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFeaturestoreEntityContainersClient creates a new instance of FeaturestoreEntityContainersClient.
+func (c *ClientFactory) NewFeaturestoreEntityContainersClient() *FeaturestoreEntityContainersClient {
+	subClient, _ := NewFeaturestoreEntityContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFeaturestoreEntityVersionsClient creates a new instance of FeaturestoreEntityVersionsClient.
+func (c *ClientFactory) NewFeaturestoreEntityVersionsClient() *FeaturestoreEntityVersionsClient {
+	subClient, _ := NewFeaturestoreEntityVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewInferenceEndpointsClient creates a new instance of InferenceEndpointsClient.
+func (c *ClientFactory) NewInferenceEndpointsClient() *InferenceEndpointsClient {
+	subClient, _ := NewInferenceEndpointsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewInferenceGroupsClient creates a new instance of InferenceGroupsClient.
+func (c *ClientFactory) NewInferenceGroupsClient() *InferenceGroupsClient {
+	subClient, _ := NewInferenceGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewInferencePoolsClient creates a new instance of InferencePoolsClient.
+func (c *ClientFactory) NewInferencePoolsClient() *InferencePoolsClient {
+	subClient, _ := NewInferencePoolsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewJobsClient creates a new instance of JobsClient.
 func (c *ClientFactory) NewJobsClient() *JobsClient {
 	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewLabelingJobsClient creates a new instance of LabelingJobsClient.
+func (c *ClientFactory) NewLabelingJobsClient() *LabelingJobsClient {
+	subClient, _ := NewLabelingJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewManagedNetworkProvisionsClient creates a new instance of ManagedNetworkProvisionsClient.
+func (c *ClientFactory) NewManagedNetworkProvisionsClient() *ManagedNetworkProvisionsClient {
+	subClient, _ := NewManagedNetworkProvisionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewManagedNetworkSettingsRuleClient creates a new instance of ManagedNetworkSettingsRuleClient.
+func (c *ClientFactory) NewManagedNetworkSettingsRuleClient() *ManagedNetworkSettingsRuleClient {
+	subClient, _ := NewManagedNetworkSettingsRuleClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -163,9 +235,87 @@ func (c *ClientFactory) NewQuotasClient() *QuotasClient {
 	return subClient
 }
 
+// NewRegistriesClient creates a new instance of RegistriesClient.
+func (c *ClientFactory) NewRegistriesClient() *RegistriesClient {
+	subClient, _ := NewRegistriesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryCodeContainersClient creates a new instance of RegistryCodeContainersClient.
+func (c *ClientFactory) NewRegistryCodeContainersClient() *RegistryCodeContainersClient {
+	subClient, _ := NewRegistryCodeContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryCodeVersionsClient creates a new instance of RegistryCodeVersionsClient.
+func (c *ClientFactory) NewRegistryCodeVersionsClient() *RegistryCodeVersionsClient {
+	subClient, _ := NewRegistryCodeVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryComponentContainersClient creates a new instance of RegistryComponentContainersClient.
+func (c *ClientFactory) NewRegistryComponentContainersClient() *RegistryComponentContainersClient {
+	subClient, _ := NewRegistryComponentContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryComponentVersionsClient creates a new instance of RegistryComponentVersionsClient.
+func (c *ClientFactory) NewRegistryComponentVersionsClient() *RegistryComponentVersionsClient {
+	subClient, _ := NewRegistryComponentVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryDataContainersClient creates a new instance of RegistryDataContainersClient.
+func (c *ClientFactory) NewRegistryDataContainersClient() *RegistryDataContainersClient {
+	subClient, _ := NewRegistryDataContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryDataReferencesClient creates a new instance of RegistryDataReferencesClient.
+func (c *ClientFactory) NewRegistryDataReferencesClient() *RegistryDataReferencesClient {
+	subClient, _ := NewRegistryDataReferencesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryDataVersionsClient creates a new instance of RegistryDataVersionsClient.
+func (c *ClientFactory) NewRegistryDataVersionsClient() *RegistryDataVersionsClient {
+	subClient, _ := NewRegistryDataVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryEnvironmentContainersClient creates a new instance of RegistryEnvironmentContainersClient.
+func (c *ClientFactory) NewRegistryEnvironmentContainersClient() *RegistryEnvironmentContainersClient {
+	subClient, _ := NewRegistryEnvironmentContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryEnvironmentVersionsClient creates a new instance of RegistryEnvironmentVersionsClient.
+func (c *ClientFactory) NewRegistryEnvironmentVersionsClient() *RegistryEnvironmentVersionsClient {
+	subClient, _ := NewRegistryEnvironmentVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryModelContainersClient creates a new instance of RegistryModelContainersClient.
+func (c *ClientFactory) NewRegistryModelContainersClient() *RegistryModelContainersClient {
+	subClient, _ := NewRegistryModelContainersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRegistryModelVersionsClient creates a new instance of RegistryModelVersionsClient.
+func (c *ClientFactory) NewRegistryModelVersionsClient() *RegistryModelVersionsClient {
+	subClient, _ := NewRegistryModelVersionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewSchedulesClient creates a new instance of SchedulesClient.
 func (c *ClientFactory) NewSchedulesClient() *SchedulesClient {
 	subClient, _ := NewSchedulesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewServerlessEndpointsClient creates a new instance of ServerlessEndpointsClient.
+func (c *ClientFactory) NewServerlessEndpointsClient() *ServerlessEndpointsClient {
+	subClient, _ := NewServerlessEndpointsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
