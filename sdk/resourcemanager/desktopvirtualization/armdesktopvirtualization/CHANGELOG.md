@@ -1,5 +1,123 @@
 # Release History
 
+## 2.3.0-beta.1 (2023-12-20)
+### Features Added
+
+- New enum type `AppAttachPackageArchitectures` with values `AppAttachPackageArchitecturesALL`, `AppAttachPackageArchitecturesARM`, `AppAttachPackageArchitecturesARM64`, `AppAttachPackageArchitecturesNeutral`, `AppAttachPackageArchitecturesX64`, `AppAttachPackageArchitecturesX86`, `AppAttachPackageArchitecturesX86A64`
+- New enum type `DomainJoinType` with values `DomainJoinTypeActiveDirectory`, `DomainJoinTypeAzureActiveDirectory`
+- New enum type `FailHealthCheckOnStagingFailure` with values `FailHealthCheckOnStagingFailureDoNotFail`, `FailHealthCheckOnStagingFailureNeedsAssistance`, `FailHealthCheckOnStagingFailureUnhealthy`
+- New enum type `HostPoolUpdateAction` with values `HostPoolUpdateActionCancel`, `HostPoolUpdateActionPause`, `HostPoolUpdateActionResume`, `HostPoolUpdateActionRetry`, `HostPoolUpdateActionStart`
+- New enum type `ManagementType` with values `ManagementTypeAutomated`, `ManagementTypeStandard`
+- New enum type `OperationActionSHM` with values `OperationActionSHMCancel`, `OperationActionSHMPause`, `OperationActionSHMResume`, `OperationActionSHMRetry`, `OperationActionSHMStart`
+- New enum type `OperationTypeSHM` with values `OperationTypeSHMInitiateSessionHostUpdate`, `OperationTypeSHMValidateSessionHostUpdate`
+- New enum type `PackageTimestamped` with values `PackageTimestampedNotTimestamped`, `PackageTimestampedTimestamped`
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateFailed`, `ProvisioningStateProvisioning`, `ProvisioningStateSucceeded`
+- New enum type `ProvisioningStateSHC` with values `ProvisioningStateSHCCanceled`, `ProvisioningStateSHCFailed`, `ProvisioningStateSHCProvisioning`, `ProvisioningStateSHCSucceeded`
+- New enum type `Type` with values `TypeCustom`, `TypeMarketplace`
+- New enum type `VirtualMachineDiskType` with values `VirtualMachineDiskTypePremiumLRS`, `VirtualMachineDiskTypeStandardLRS`, `VirtualMachineDiskTypeStandardSSDLRS`
+- New enum type `VirtualMachineSecurityType` with values `VirtualMachineSecurityTypeConfidentialVM`, `VirtualMachineSecurityTypeStandard`, `VirtualMachineSecurityTypeTrustedLaunch`
+- New function `NewActiveSessionHostConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ActiveSessionHostConfigurationsClient, error)`
+- New function `*ActiveSessionHostConfigurationsClient.Get(context.Context, string, string, *ActiveSessionHostConfigurationsClientGetOptions) (ActiveSessionHostConfigurationsClientGetResponse, error)`
+- New function `*ActiveSessionHostConfigurationsClient.NewListByHostPoolPager(string, string, *ActiveSessionHostConfigurationsClientListByHostPoolOptions) *runtime.Pager[ActiveSessionHostConfigurationsClientListByHostPoolResponse]`
+- New function `NewAppAttachPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AppAttachPackageClient, error)`
+- New function `*AppAttachPackageClient.CreateOrUpdate(context.Context, string, string, AppAttachPackage, *AppAttachPackageClientCreateOrUpdateOptions) (AppAttachPackageClientCreateOrUpdateResponse, error)`
+- New function `*AppAttachPackageClient.Delete(context.Context, string, string, *AppAttachPackageClientDeleteOptions) (AppAttachPackageClientDeleteResponse, error)`
+- New function `*AppAttachPackageClient.Get(context.Context, string, string, *AppAttachPackageClientGetOptions) (AppAttachPackageClientGetResponse, error)`
+- New function `*AppAttachPackageClient.NewListByResourceGroupPager(string, *AppAttachPackageClientListByResourceGroupOptions) *runtime.Pager[AppAttachPackageClientListByResourceGroupResponse]`
+- New function `*AppAttachPackageClient.NewListBySubscriptionPager(*AppAttachPackageClientListBySubscriptionOptions) *runtime.Pager[AppAttachPackageClientListBySubscriptionResponse]`
+- New function `*AppAttachPackageClient.Update(context.Context, string, string, *AppAttachPackageClientUpdateOptions) (AppAttachPackageClientUpdateResponse, error)`
+- New function `NewAppAttachPackageInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AppAttachPackageInfoClient, error)`
+- New function `*AppAttachPackageInfoClient.NewImportPager(string, string, ImportPackageInfoRequest, *AppAttachPackageInfoClientImportOptions) *runtime.Pager[AppAttachPackageInfoClientImportResponse]`
+- New function `*ClientFactory.NewActiveSessionHostConfigurationsClient() *ActiveSessionHostConfigurationsClient`
+- New function `*ClientFactory.NewAppAttachPackageClient() *AppAttachPackageClient`
+- New function `*ClientFactory.NewAppAttachPackageInfoClient() *AppAttachPackageInfoClient`
+- New function `*ClientFactory.NewControlSessionHostUpdateClient() *ControlSessionHostUpdateClient`
+- New function `*ClientFactory.NewInitiateSessionHostUpdateClient() *InitiateSessionHostUpdateClient`
+- New function `*ClientFactory.NewSessionHostClient() *SessionHostClient`
+- New function `*ClientFactory.NewSessionHostConfigurationsClient() *SessionHostConfigurationsClient`
+- New function `*ClientFactory.NewSessionHostConfigurationsOperationStatusClient() *SessionHostConfigurationsOperationStatusClient`
+- New function `*ClientFactory.NewSessionHostManagementsClient() *SessionHostManagementsClient`
+- New function `*ClientFactory.NewSessionHostManagementsOperationStatusClient() *SessionHostManagementsOperationStatusClient`
+- New function `NewControlSessionHostUpdateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ControlSessionHostUpdateClient, error)`
+- New function `*ControlSessionHostUpdateClient.BeginPost(context.Context, string, string, HostPoolControlParameter, *ControlSessionHostUpdateClientBeginPostOptions) (*runtime.Poller[ControlSessionHostUpdateClientPostResponse], error)`
+- New function `NewInitiateSessionHostUpdateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*InitiateSessionHostUpdateClient, error)`
+- New function `*InitiateSessionHostUpdateClient.BeginPost(context.Context, string, string, *InitiateSessionHostUpdateClientBeginPostOptions) (*runtime.Poller[InitiateSessionHostUpdateClientPostResponse], error)`
+- New function `PossibleProvisioningStateValues() []ProvisioningState`
+- New function `NewSessionHostClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostClient, error)`
+- New function `*SessionHostClient.RetryProvisioning(context.Context, string, string, string, *SessionHostClientRetryProvisioningOptions) (SessionHostClientRetryProvisioningResponse, error)`
+- New function `NewSessionHostConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostConfigurationsClient, error)`
+- New function `*SessionHostConfigurationsClient.BeginCreateOrUpdate(context.Context, string, string, SessionHostConfiguration, *SessionHostConfigurationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SessionHostConfigurationsClientCreateOrUpdateResponse], error)`
+- New function `*SessionHostConfigurationsClient.Get(context.Context, string, string, *SessionHostConfigurationsClientGetOptions) (SessionHostConfigurationsClientGetResponse, error)`
+- New function `*SessionHostConfigurationsClient.NewListByHostPoolPager(string, string, *SessionHostConfigurationsClientListByHostPoolOptions) *runtime.Pager[SessionHostConfigurationsClientListByHostPoolResponse]`
+- New function `*SessionHostConfigurationsClient.BeginUpdate(context.Context, string, string, *SessionHostConfigurationsClientBeginUpdateOptions) (*runtime.Poller[SessionHostConfigurationsClientUpdateResponse], error)`
+- New function `NewSessionHostConfigurationsOperationStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostConfigurationsOperationStatusClient, error)`
+- New function `*SessionHostConfigurationsOperationStatusClient.Get(context.Context, string, string, string, *SessionHostConfigurationsOperationStatusClientGetOptions) (SessionHostConfigurationsOperationStatusClientGetResponse, error)`
+- New function `*SessionHostConfigurationsOperationStatusClient.NewListPager(string, string, *SessionHostConfigurationsOperationStatusClientListOptions) *runtime.Pager[SessionHostConfigurationsOperationStatusClientListResponse]`
+- New function `NewSessionHostManagementsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostManagementsClient, error)`
+- New function `*SessionHostManagementsClient.CreateOrUpdate(context.Context, string, string, SessionHostManagement, *SessionHostManagementsClientCreateOrUpdateOptions) (SessionHostManagementsClientCreateOrUpdateResponse, error)`
+- New function `*SessionHostManagementsClient.Get(context.Context, string, string, *SessionHostManagementsClientGetOptions) (SessionHostManagementsClientGetResponse, error)`
+- New function `*SessionHostManagementsClient.NewListByHostPoolPager(string, string, *SessionHostManagementsClientListByHostPoolOptions) *runtime.Pager[SessionHostManagementsClientListByHostPoolResponse]`
+- New function `*SessionHostManagementsClient.Update(context.Context, string, string, *SessionHostManagementsClientUpdateOptions) (SessionHostManagementsClientUpdateResponse, error)`
+- New function `NewSessionHostManagementsOperationStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostManagementsOperationStatusClient, error)`
+- New function `*SessionHostManagementsOperationStatusClient.Get(context.Context, string, string, string, *SessionHostManagementsOperationStatusClientGetOptions) (SessionHostManagementsOperationStatusClientGetResponse, error)`
+- New function `*SessionHostManagementsOperationStatusClient.NewListPager(string, string, *SessionHostManagementsOperationStatusClientListOptions) *runtime.Pager[SessionHostManagementsOperationStatusClientListResponse]`
+- New struct `ActiveDirectoryInfoPatchProperties`
+- New struct `ActiveDirectoryInfoProperties`
+- New struct `ActiveSessionHostConfiguration`
+- New struct `ActiveSessionHostConfigurationList`
+- New struct `ActiveSessionHostConfigurationProperties`
+- New struct `AppAttachPackage`
+- New struct `AppAttachPackageInfoProperties`
+- New struct `AppAttachPackageList`
+- New struct `AppAttachPackagePatch`
+- New struct `AppAttachPackagePatchProperties`
+- New struct `AppAttachPackageProperties`
+- New struct `AzureActiveDirectoryInfoProperties`
+- New struct `BootDiagnosticsInfoPatchProperties`
+- New struct `BootDiagnosticsInfoProperties`
+- New struct `CustomInfoPatchProperties`
+- New struct `CustomInfoProperties`
+- New struct `DiskInfoPatchProperties`
+- New struct `DiskInfoProperties`
+- New struct `DomainInfoPatchProperties`
+- New struct `DomainInfoProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `HostPoolControlParameter`
+- New struct `HostPoolUpdateConfigurationPatchProperties`
+- New struct `HostPoolUpdateConfigurationProperties`
+- New struct `ImageInfoPatchProperties`
+- New struct `ImageInfoProperties`
+- New struct `ImportPackageInfoRequest`
+- New struct `KeyVaultCredentialsPatchProperties`
+- New struct `KeyVaultCredentialsProperties`
+- New struct `MarketplaceInfoPatchProperties`
+- New struct `MarketplaceInfoProperties`
+- New struct `NetworkInfoProperties`
+- New struct `SecurityInfoPatchProperties`
+- New struct `SecurityInfoProperties`
+- New struct `SessionHostConfiguration`
+- New struct `SessionHostConfigurationList`
+- New struct `SessionHostConfigurationOperationStatus`
+- New struct `SessionHostConfigurationOperationStatusList`
+- New struct `SessionHostConfigurationPatch`
+- New struct `SessionHostConfigurationPatchProperties`
+- New struct `SessionHostConfigurationProperties`
+- New struct `SessionHostManagement`
+- New struct `SessionHostManagementList`
+- New struct `SessionHostManagementOperationProgress`
+- New struct `SessionHostManagementOperationStatus`
+- New struct `SessionHostManagementOperationStatusList`
+- New struct `SessionHostManagementOperationStatusProperties`
+- New struct `SessionHostManagementPatch`
+- New struct `SessionHostManagementPatchProperties`
+- New struct `SessionHostManagementProperties`
+- New struct `UpdateSessionHostsRequestBody`
+- New field `CertificateExpiry`, `CertificateName` in struct `ExpandMsixImageProperties`
+- New field `AppAttachPackageReferences`, `ManagementType` in struct `HostPoolProperties`
+- New field `LastSessionHostUpdateTime`, `SessionHostConfiguration` in struct `SessionHostProperties`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 
