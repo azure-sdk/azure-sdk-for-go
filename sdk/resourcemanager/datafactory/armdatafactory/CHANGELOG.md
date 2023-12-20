@@ -1,5 +1,26 @@
 # Release History
 
+## 5.0.0 (2023-12-20)
+### Breaking Changes
+
+- Type of `AzureFunctionActivityTypeProperties.Headers` has been changed from `any` to `map[string]*string`
+- Type of `WebActivityTypeProperties.Headers` has been changed from `any` to `map[string]*string`
+- Type of `WebHookActivityTypeProperties.Headers` has been changed from `any` to `map[string]*string`
+
+### Features Added
+
+- New field `Metadata` in struct `AzureBlobFSWriteSettings`
+- New field `Metadata` in struct `AzureBlobStorageWriteSettings`
+- New field `Metadata` in struct `AzureDataLakeStoreWriteSettings`
+- New field `Metadata` in struct `AzureFileStorageWriteSettings`
+- New field `Metadata` in struct `FileServerWriteSettings`
+- New field `Schema1` in struct `JSONDataset`
+- New field `Metadata` in struct `LakeHouseWriteSettings`
+- New field `Metadata` in struct `SftpWriteSettings`
+- New field `Metadata` in struct `StoreWriteSettings`
+- New field `HTTPRequestTimeout`, `TurnOffAsync` in struct `WebActivityTypeProperties`
+
+
 ## 4.0.0 (2023-12-22)
 ### Breaking Changes
 
