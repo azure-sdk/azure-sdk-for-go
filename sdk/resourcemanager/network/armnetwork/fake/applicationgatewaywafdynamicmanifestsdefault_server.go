@@ -25,7 +25,7 @@ import (
 type ApplicationGatewayWafDynamicManifestsDefaultServer struct {
 	// Get is the fake for method ApplicationGatewayWafDynamicManifestsDefaultClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, location string, options *armnetwork.ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (resp azfake.Responder[armnetwork.ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, locations string, options *armnetwork.ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (resp azfake.Responder[armnetwork.ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse], errResp azfake.ErrorResponder)
 }
 
 // NewApplicationGatewayWafDynamicManifestsDefaultServerTransport creates a new instance of ApplicationGatewayWafDynamicManifestsDefaultServerTransport with the provided implementation.
@@ -70,17 +70,17 @@ func (a *ApplicationGatewayWafDynamicManifestsDefaultServerTransport) dispatchGe
 	if a.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/applicationGatewayWafDynamicManifests/dafault`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/locations/(?P<locations>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/applicationGatewayWafDynamicManifests/dafault`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	locationsParam, err := url.PathUnescape(matches[regex.SubexpIndex("locations")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.Get(req.Context(), locationParam, nil)
+	respr, errRespr := a.srv.Get(req.Context(), locationsParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
