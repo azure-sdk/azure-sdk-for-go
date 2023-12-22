@@ -7972,6 +7972,9 @@ type SiteProperties struct {
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string
 
+	// To enable Backup and Restore operations over virtual network
+	VnetBackupRestoreEnabled *bool
+
 	// To enable accessing content over virtual network
 	VnetContentShareEnabled *bool
 

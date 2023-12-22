@@ -1,5 +1,11 @@
 # Release History
 
+## 2.4.0 (2023-12-22)
+### Features Added
+
+- New field `VnetBackupRestoreEnabled` in struct `SiteProperties`
+
+
 ## 2.3.0 (2023-11-30)
 ### Features Added
 
