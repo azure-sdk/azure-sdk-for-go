@@ -16,23 +16,30 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	subscriptionID          string
+	policyDefinitionName    string
+	policyDefinitionVersion string
+	policySetDefinitionName string
+	credential              azcore.TokenCredential
+	options                 *arm.ClientOptions
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - policyDefinitionName - The name of the policy definition.
+//   - policyDefinitionVersion - The policy definition version. The format is x.y.z where x is the major version number, y is
+//     the minor version number, and z is the patch number
+//   - policySetDefinitionName - The name of the policy set definition.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, policyDefinitionName string, policyDefinitionVersion string, policySetDefinitionName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, policyDefinitionName: policyDefinitionName, policyDefinitionVersion: policyDefinitionVersion, policySetDefinitionName: policySetDefinitionName, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
@@ -49,6 +56,12 @@ func (c *ClientFactory) NewDataPolicyManifestsClient() *DataPolicyManifestsClien
 	return subClient
 }
 
+// NewDefinitionVersionsClient creates a new instance of DefinitionVersionsClient.
+func (c *ClientFactory) NewDefinitionVersionsClient() *DefinitionVersionsClient {
+	subClient, _ := NewDefinitionVersionsClient(c.subscriptionID, c.policyDefinitionName, c.policyDefinitionVersion, c.credential, c.options)
+	return subClient
+}
+
 // NewDefinitionsClient creates a new instance of DefinitionsClient.
 func (c *ClientFactory) NewDefinitionsClient() *DefinitionsClient {
 	subClient, _ := NewDefinitionsClient(c.subscriptionID, c.credential, c.options)
@@ -58,6 +71,12 @@ func (c *ClientFactory) NewDefinitionsClient() *DefinitionsClient {
 // NewExemptionsClient creates a new instance of ExemptionsClient.
 func (c *ClientFactory) NewExemptionsClient() *ExemptionsClient {
 	subClient, _ := NewExemptionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSetDefinitionVersionsClient creates a new instance of SetDefinitionVersionsClient.
+func (c *ClientFactory) NewSetDefinitionVersionsClient() *SetDefinitionVersionsClient {
+	subClient, _ := NewSetDefinitionVersionsClient(c.subscriptionID, c.policySetDefinitionName, c.policyDefinitionVersion, c.credential, c.options)
 	return subClient
 }
 
