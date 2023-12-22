@@ -37,24 +37,6 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-// NewCertificateOrdersClient creates a new instance of CertificateOrdersClient.
-func (c *ClientFactory) NewCertificateOrdersClient() *CertificateOrdersClient {
-	subClient, _ := NewCertificateOrdersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewCertificateOrdersDiagnosticsClient creates a new instance of CertificateOrdersDiagnosticsClient.
-func (c *ClientFactory) NewCertificateOrdersDiagnosticsClient() *CertificateOrdersDiagnosticsClient {
-	subClient, _ := NewCertificateOrdersDiagnosticsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewCertificateRegistrationProviderClient creates a new instance of CertificateRegistrationProviderClient.
-func (c *ClientFactory) NewCertificateRegistrationProviderClient() *CertificateRegistrationProviderClient {
-	subClient, _ := NewCertificateRegistrationProviderClient(c.credential, c.options)
-	return subClient
-}
-
 // NewCertificatesClient creates a new instance of CertificatesClient.
 func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	subClient, _ := NewCertificatesClient(c.subscriptionID, c.credential, c.options)
@@ -82,18 +64,6 @@ func (c *ClientFactory) NewDeletedWebAppsClient() *DeletedWebAppsClient {
 // NewDiagnosticsClient creates a new instance of DiagnosticsClient.
 func (c *ClientFactory) NewDiagnosticsClient() *DiagnosticsClient {
 	subClient, _ := NewDiagnosticsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewDomainRegistrationProviderClient creates a new instance of DomainRegistrationProviderClient.
-func (c *ClientFactory) NewDomainRegistrationProviderClient() *DomainRegistrationProviderClient {
-	subClient, _ := NewDomainRegistrationProviderClient(c.credential, c.options)
-	return subClient
-}
-
-// NewDomainsClient creates a new instance of DomainsClient.
-func (c *ClientFactory) NewDomainsClient() *DomainsClient {
-	subClient, _ := NewDomainsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -148,12 +118,6 @@ func (c *ClientFactory) NewResourceHealthMetadataClient() *ResourceHealthMetadat
 // NewStaticSitesClient creates a new instance of StaticSitesClient.
 func (c *ClientFactory) NewStaticSitesClient() *StaticSitesClient {
 	subClient, _ := NewStaticSitesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewTopLevelDomainsClient creates a new instance of TopLevelDomainsClient.
-func (c *ClientFactory) NewTopLevelDomainsClient() *TopLevelDomainsClient {
-	subClient, _ := NewTopLevelDomainsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

@@ -19,16 +19,11 @@ import (
 
 // ServerFactory is a fake server for instances of the armappservice.ClientFactory type.
 type ServerFactory struct {
-	CertificateOrdersServer                            CertificateOrdersServer
-	CertificateOrdersDiagnosticsServer                 CertificateOrdersDiagnosticsServer
-	CertificateRegistrationProviderServer              CertificateRegistrationProviderServer
 	CertificatesServer                                 CertificatesServer
 	ContainerAppsServer                                ContainerAppsServer
 	ContainerAppsRevisionsServer                       ContainerAppsRevisionsServer
 	DeletedWebAppsServer                               DeletedWebAppsServer
 	DiagnosticsServer                                  DiagnosticsServer
-	DomainRegistrationProviderServer                   DomainRegistrationProviderServer
-	DomainsServer                                      DomainsServer
 	EnvironmentsServer                                 EnvironmentsServer
 	GetUsagesInLocationServer                          GetUsagesInLocationServer
 	GlobalServer                                       GlobalServer
@@ -38,7 +33,6 @@ type ServerFactory struct {
 	RecommendationsServer                              RecommendationsServer
 	ResourceHealthMetadataServer                       ResourceHealthMetadataServer
 	StaticSitesServer                                  StaticSitesServer
-	TopLevelDomainsServer                              TopLevelDomainsServer
 	WebAppsServer                                      WebAppsServer
 	WebSiteManagementServer                            WebSiteManagementServer
 	WorkflowRunActionRepetitionsServer                 WorkflowRunActionRepetitionsServer
@@ -66,16 +60,11 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                                  *ServerFactory
 	trMu                                                 sync.Mutex
-	trCertificateOrdersServer                            *CertificateOrdersServerTransport
-	trCertificateOrdersDiagnosticsServer                 *CertificateOrdersDiagnosticsServerTransport
-	trCertificateRegistrationProviderServer              *CertificateRegistrationProviderServerTransport
 	trCertificatesServer                                 *CertificatesServerTransport
 	trContainerAppsServer                                *ContainerAppsServerTransport
 	trContainerAppsRevisionsServer                       *ContainerAppsRevisionsServerTransport
 	trDeletedWebAppsServer                               *DeletedWebAppsServerTransport
 	trDiagnosticsServer                                  *DiagnosticsServerTransport
-	trDomainRegistrationProviderServer                   *DomainRegistrationProviderServerTransport
-	trDomainsServer                                      *DomainsServerTransport
 	trEnvironmentsServer                                 *EnvironmentsServerTransport
 	trGetUsagesInLocationServer                          *GetUsagesInLocationServerTransport
 	trGlobalServer                                       *GlobalServerTransport
@@ -85,7 +74,6 @@ type ServerFactoryTransport struct {
 	trRecommendationsServer                              *RecommendationsServerTransport
 	trResourceHealthMetadataServer                       *ResourceHealthMetadataServerTransport
 	trStaticSitesServer                                  *StaticSitesServerTransport
-	trTopLevelDomainsServer                              *TopLevelDomainsServerTransport
 	trWebAppsServer                                      *WebAppsServerTransport
 	trWebSiteManagementServer                            *WebSiteManagementServerTransport
 	trWorkflowRunActionRepetitionsServer                 *WorkflowRunActionRepetitionsServerTransport
@@ -112,21 +100,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "CertificateOrdersClient":
-		initServer(s, &s.trCertificateOrdersServer, func() *CertificateOrdersServerTransport {
-			return NewCertificateOrdersServerTransport(&s.srv.CertificateOrdersServer)
-		})
-		resp, err = s.trCertificateOrdersServer.Do(req)
-	case "CertificateOrdersDiagnosticsClient":
-		initServer(s, &s.trCertificateOrdersDiagnosticsServer, func() *CertificateOrdersDiagnosticsServerTransport {
-			return NewCertificateOrdersDiagnosticsServerTransport(&s.srv.CertificateOrdersDiagnosticsServer)
-		})
-		resp, err = s.trCertificateOrdersDiagnosticsServer.Do(req)
-	case "CertificateRegistrationProviderClient":
-		initServer(s, &s.trCertificateRegistrationProviderServer, func() *CertificateRegistrationProviderServerTransport {
-			return NewCertificateRegistrationProviderServerTransport(&s.srv.CertificateRegistrationProviderServer)
-		})
-		resp, err = s.trCertificateRegistrationProviderServer.Do(req)
 	case "CertificatesClient":
 		initServer(s, &s.trCertificatesServer, func() *CertificatesServerTransport { return NewCertificatesServerTransport(&s.srv.CertificatesServer) })
 		resp, err = s.trCertificatesServer.Do(req)
@@ -148,14 +121,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "DiagnosticsClient":
 		initServer(s, &s.trDiagnosticsServer, func() *DiagnosticsServerTransport { return NewDiagnosticsServerTransport(&s.srv.DiagnosticsServer) })
 		resp, err = s.trDiagnosticsServer.Do(req)
-	case "DomainRegistrationProviderClient":
-		initServer(s, &s.trDomainRegistrationProviderServer, func() *DomainRegistrationProviderServerTransport {
-			return NewDomainRegistrationProviderServerTransport(&s.srv.DomainRegistrationProviderServer)
-		})
-		resp, err = s.trDomainRegistrationProviderServer.Do(req)
-	case "DomainsClient":
-		initServer(s, &s.trDomainsServer, func() *DomainsServerTransport { return NewDomainsServerTransport(&s.srv.DomainsServer) })
-		resp, err = s.trDomainsServer.Do(req)
 	case "EnvironmentsClient":
 		initServer(s, &s.trEnvironmentsServer, func() *EnvironmentsServerTransport { return NewEnvironmentsServerTransport(&s.srv.EnvironmentsServer) })
 		resp, err = s.trEnvironmentsServer.Do(req)
@@ -191,11 +156,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "StaticSitesClient":
 		initServer(s, &s.trStaticSitesServer, func() *StaticSitesServerTransport { return NewStaticSitesServerTransport(&s.srv.StaticSitesServer) })
 		resp, err = s.trStaticSitesServer.Do(req)
-	case "TopLevelDomainsClient":
-		initServer(s, &s.trTopLevelDomainsServer, func() *TopLevelDomainsServerTransport {
-			return NewTopLevelDomainsServerTransport(&s.srv.TopLevelDomainsServer)
-		})
-		resp, err = s.trTopLevelDomainsServer.Do(req)
 	case "WebAppsClient":
 		initServer(s, &s.trWebAppsServer, func() *WebAppsServerTransport { return NewWebAppsServerTransport(&s.srv.WebAppsServer) })
 		resp, err = s.trWebAppsServer.Do(req)
