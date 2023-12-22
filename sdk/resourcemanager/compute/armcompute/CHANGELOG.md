@@ -1,5 +1,12 @@
 # Release History
 
+## 6.0.0 (2023-12-22)
+### Breaking Changes
+
+- Function `*AvailabilitySetsClient.NewListBySubscriptionPager` has been removed
+- Function `*CapacityReservationGroupsClient.NewListByResourceGroupPager` has been removed
+
+
 ## 5.4.0 (2023-12-22)
 ### Features Added
 

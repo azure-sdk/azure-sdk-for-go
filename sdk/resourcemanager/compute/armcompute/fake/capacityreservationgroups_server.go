@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -36,10 +36,6 @@ type CapacityReservationGroupsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, options *armcompute.CapacityReservationGroupsClientGetOptions) (resp azfake.Responder[armcompute.CapacityReservationGroupsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListByResourceGroupPager is the fake for method CapacityReservationGroupsClient.NewListByResourceGroupPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListByResourceGroupPager func(resourceGroupName string, options *armcompute.CapacityReservationGroupsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListByResourceGroupResponse])
-
 	// NewListBySubscriptionPager is the fake for method CapacityReservationGroupsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armcompute.CapacityReservationGroupsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListBySubscriptionResponse])
@@ -54,18 +50,16 @@ type CapacityReservationGroupsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewCapacityReservationGroupsServerTransport(srv *CapacityReservationGroupsServer) *CapacityReservationGroupsServerTransport {
 	return &CapacityReservationGroupsServerTransport{
-		srv:                         srv,
-		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListByResourceGroupResponse]](),
-		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListBySubscriptionResponse]](),
+		srv:                        srv,
+		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListBySubscriptionResponse]](),
 	}
 }
 
 // CapacityReservationGroupsServerTransport connects instances of armcompute.CapacityReservationGroupsClient to instances of CapacityReservationGroupsServer.
 // Don't use this type directly, use NewCapacityReservationGroupsServerTransport instead.
 type CapacityReservationGroupsServerTransport struct {
-	srv                         *CapacityReservationGroupsServer
-	newListByResourceGroupPager *tracker[azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListByResourceGroupResponse]]
-	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListBySubscriptionResponse]]
+	srv                        *CapacityReservationGroupsServer
+	newListBySubscriptionPager *tracker[azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListBySubscriptionResponse]]
 }
 
 // Do implements the policy.Transporter interface for CapacityReservationGroupsServerTransport.
@@ -86,8 +80,6 @@ func (c *CapacityReservationGroupsServerTransport) Do(req *http.Request) (*http.
 		resp, err = c.dispatchDelete(req)
 	case "CapacityReservationGroupsClient.Get":
 		resp, err = c.dispatchGet(req)
-	case "CapacityReservationGroupsClient.NewListByResourceGroupPager":
-		resp, err = c.dispatchNewListByResourceGroupPager(req)
 	case "CapacityReservationGroupsClient.NewListBySubscriptionPager":
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
 	case "CapacityReservationGroupsClient.Update":
@@ -214,55 +206,6 @@ func (c *CapacityReservationGroupsServerTransport) dispatchGet(req *http.Request
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CapacityReservationGroup, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (c *CapacityReservationGroupsServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
-	if c.srv.NewListByResourceGroupPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
-	}
-	newListByResourceGroupPager := c.newListByResourceGroupPager.get(req)
-	if newListByResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/capacityReservationGroups`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
-		if err != nil {
-			return nil, err
-		}
-		expandParam := getOptional(armcompute.ExpandTypesForGetCapacityReservationGroups(expandUnescaped))
-		var options *armcompute.CapacityReservationGroupsClientListByResourceGroupOptions
-		if expandParam != nil {
-			options = &armcompute.CapacityReservationGroupsClientListByResourceGroupOptions{
-				Expand: expandParam,
-			}
-		}
-		resp := c.srv.NewListByResourceGroupPager(resourceGroupNameParam, options)
-		newListByResourceGroupPager = &resp
-		c.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
-		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armcompute.CapacityReservationGroupsClientListByResourceGroupResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		c.newListByResourceGroupPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListByResourceGroupPager) {
-		c.newListByResourceGroupPager.remove(req)
 	}
 	return resp, nil
 }

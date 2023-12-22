@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -44,10 +44,6 @@ type AvailabilitySetsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListAvailableSizesPager func(resourceGroupName string, availabilitySetName string, options *armcompute.AvailabilitySetsClientListAvailableSizesOptions) (resp azfake.PagerResponder[armcompute.AvailabilitySetsClientListAvailableSizesResponse])
 
-	// NewListBySubscriptionPager is the fake for method AvailabilitySetsClient.NewListBySubscriptionPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListBySubscriptionPager func(options *armcompute.AvailabilitySetsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armcompute.AvailabilitySetsClientListBySubscriptionResponse])
-
 	// Update is the fake for method AvailabilitySetsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
 	Update func(ctx context.Context, resourceGroupName string, availabilitySetName string, parameters armcompute.AvailabilitySetUpdate, options *armcompute.AvailabilitySetsClientUpdateOptions) (resp azfake.Responder[armcompute.AvailabilitySetsClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -61,7 +57,6 @@ func NewAvailabilitySetsServerTransport(srv *AvailabilitySetsServer) *Availabili
 		srv:                        srv,
 		newListPager:               newTracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListResponse]](),
 		newListAvailableSizesPager: newTracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListAvailableSizesResponse]](),
-		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListBySubscriptionResponse]](),
 	}
 }
 
@@ -71,7 +66,6 @@ type AvailabilitySetsServerTransport struct {
 	srv                        *AvailabilitySetsServer
 	newListPager               *tracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListResponse]]
 	newListAvailableSizesPager *tracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListAvailableSizesResponse]]
-	newListBySubscriptionPager *tracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListBySubscriptionResponse]]
 }
 
 // Do implements the policy.Transporter interface for AvailabilitySetsServerTransport.
@@ -96,8 +90,6 @@ func (a *AvailabilitySetsServerTransport) Do(req *http.Request) (*http.Response,
 		resp, err = a.dispatchNewListPager(req)
 	case "AvailabilitySetsClient.NewListAvailableSizesPager":
 		resp, err = a.dispatchNewListAvailableSizesPager(req)
-	case "AvailabilitySetsClient.NewListBySubscriptionPager":
-		resp, err = a.dispatchNewListBySubscriptionPager(req)
 	case "AvailabilitySetsClient.Update":
 		resp, err = a.dispatchUpdate(req)
 	default:
@@ -285,51 +277,6 @@ func (a *AvailabilitySetsServerTransport) dispatchNewListAvailableSizesPager(req
 	}
 	if !server.PagerResponderMore(newListAvailableSizesPager) {
 		a.newListAvailableSizesPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (a *AvailabilitySetsServerTransport) dispatchNewListBySubscriptionPager(req *http.Request) (*http.Response, error) {
-	if a.srv.NewListBySubscriptionPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListBySubscriptionPager not implemented")}
-	}
-	newListBySubscriptionPager := a.newListBySubscriptionPager.get(req)
-	if newListBySubscriptionPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/availabilitySets`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
-		if err != nil {
-			return nil, err
-		}
-		expandParam := getOptional(expandUnescaped)
-		var options *armcompute.AvailabilitySetsClientListBySubscriptionOptions
-		if expandParam != nil {
-			options = &armcompute.AvailabilitySetsClientListBySubscriptionOptions{
-				Expand: expandParam,
-			}
-		}
-		resp := a.srv.NewListBySubscriptionPager(options)
-		newListBySubscriptionPager = &resp
-		a.newListBySubscriptionPager.add(req, newListBySubscriptionPager)
-		server.PagerResponderInjectNextLinks(newListBySubscriptionPager, req, func(page *armcompute.AvailabilitySetsClientListBySubscriptionResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListBySubscriptionPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		a.newListBySubscriptionPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListBySubscriptionPager) {
-		a.newListBySubscriptionPager.remove(req)
 	}
 	return resp, nil
 }

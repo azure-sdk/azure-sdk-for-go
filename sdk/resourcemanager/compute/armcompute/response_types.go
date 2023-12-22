@@ -43,12 +43,6 @@ type AvailabilitySetsClientListAvailableSizesResponse struct {
 	VirtualMachineSizeListResult
 }
 
-// AvailabilitySetsClientListBySubscriptionResponse contains the response from method AvailabilitySetsClient.NewListBySubscriptionPager.
-type AvailabilitySetsClientListBySubscriptionResponse struct {
-	// The List Availability Set operation response.
-	AvailabilitySetListResult
-}
-
 // AvailabilitySetsClientListResponse contains the response from method AvailabilitySetsClient.NewListPager.
 type AvailabilitySetsClientListResponse struct {
 	// The List Availability Set operation response.
@@ -85,12 +79,6 @@ type CapacityReservationGroupsClientGetResponse struct {
 	// a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity reservation
 	// cannot be added or moved to another capacity reservation group.
 	CapacityReservationGroup
-}
-
-// CapacityReservationGroupsClientListByResourceGroupResponse contains the response from method CapacityReservationGroupsClient.NewListByResourceGroupPager.
-type CapacityReservationGroupsClientListByResourceGroupResponse struct {
-	// The List capacity reservation group with resource group response.
-	CapacityReservationGroupListResult
 }
 
 // CapacityReservationGroupsClientListBySubscriptionResponse contains the response from method CapacityReservationGroupsClient.NewListBySubscriptionPager.
