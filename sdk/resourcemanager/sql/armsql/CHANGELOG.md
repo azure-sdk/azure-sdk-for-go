@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0-beta.5 (2023-12-25)
+### Breaking Changes
+
+- Type of `ServerProperties.MinimalTLSVersion` has been changed from `*MinimalTLSVersion` to `*string`
+- Enum `MinimalTLSVersion` has been removed
+
+
 ## 2.0.0-beta.4 (2023-12-22)
 ### Breaking Changes
 

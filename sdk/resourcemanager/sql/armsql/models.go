@@ -7222,8 +7222,8 @@ type ServerProperties struct {
 	// A CMK URI of the key to use for encryption.
 	KeyID *string
 
-	// Minimal TLS version. Allowed values: 'None', 1.0', '1.1', '1.2', '1.3'
-	MinimalTLSVersion *MinimalTLSVersion
+	// Minimal TLS version. Allowed values: 'None', '1.0', '1.1', '1.2'
+	MinimalTLSVersion *string
 
 	// The resource id of a user assigned identity to be used by default.
 	PrimaryUserAssignedIdentityID *string
