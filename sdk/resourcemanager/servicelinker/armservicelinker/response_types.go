@@ -8,6 +8,82 @@
 
 package armservicelinker
 
+// ConfigurationNamesClientListResponse contains the response from method ConfigurationNamesClient.NewListPager.
+type ConfigurationNamesClientListResponse struct {
+	// Configuration Name list which will be set based on different target resource, client type, auth type.
+	ConfigurationNameResult
+}
+
+// ConnectorClientCreateDryrunResponse contains the response from method ConnectorClient.BeginCreateDryrun.
+type ConnectorClientCreateDryrunResponse struct {
+	// a dryrun job resource
+	DryrunResource
+}
+
+// ConnectorClientCreateOrUpdateResponse contains the response from method ConnectorClient.BeginCreateOrUpdate.
+type ConnectorClientCreateOrUpdateResponse struct {
+	// Linker of source and target resource
+	LinkerResource
+}
+
+// ConnectorClientDeleteDryrunResponse contains the response from method ConnectorClient.DeleteDryrun.
+type ConnectorClientDeleteDryrunResponse struct {
+	// placeholder for future response values
+}
+
+// ConnectorClientDeleteResponse contains the response from method ConnectorClient.BeginDelete.
+type ConnectorClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ConnectorClientGenerateConfigurationsResponse contains the response from method ConnectorClient.GenerateConfigurations.
+type ConnectorClientGenerateConfigurationsResponse struct {
+	// Configurations for source resource, include appSettings, connectionString and serviceBindings
+	ConfigurationResult
+}
+
+// ConnectorClientGetDryrunResponse contains the response from method ConnectorClient.GetDryrun.
+type ConnectorClientGetDryrunResponse struct {
+	// a dryrun job resource
+	DryrunResource
+}
+
+// ConnectorClientGetResponse contains the response from method ConnectorClient.Get.
+type ConnectorClientGetResponse struct {
+	// Linker of source and target resource
+	LinkerResource
+}
+
+// ConnectorClientListDryrunResponse contains the response from method ConnectorClient.NewListDryrunPager.
+type ConnectorClientListDryrunResponse struct {
+	// The list of dryrun.
+	DryrunList
+}
+
+// ConnectorClientListResponse contains the response from method ConnectorClient.NewListPager.
+type ConnectorClientListResponse struct {
+	// The list of Linker.
+	ResourceList
+}
+
+// ConnectorClientUpdateDryrunResponse contains the response from method ConnectorClient.BeginUpdateDryrun.
+type ConnectorClientUpdateDryrunResponse struct {
+	// a dryrun job resource
+	DryrunResource
+}
+
+// ConnectorClientUpdateResponse contains the response from method ConnectorClient.BeginUpdate.
+type ConnectorClientUpdateResponse struct {
+	// Linker of source and target resource
+	LinkerResource
+}
+
+// ConnectorClientValidateResponse contains the response from method ConnectorClient.BeginValidate.
+type ConnectorClientValidateResponse struct {
+	// The validation operation result for a Linker.
+	ValidateOperationResult
+}
+
 // LinkerClientCreateOrUpdateResponse contains the response from method LinkerClient.BeginCreateOrUpdate.
 type LinkerClientCreateOrUpdateResponse struct {
 	// Linker of source and target resource
@@ -28,13 +104,13 @@ type LinkerClientGetResponse struct {
 // LinkerClientListConfigurationsResponse contains the response from method LinkerClient.ListConfigurations.
 type LinkerClientListConfigurationsResponse struct {
 	// Configurations for source resource, include appSettings, connectionString and serviceBindings
-	SourceConfigurationResult
+	ConfigurationResult
 }
 
 // LinkerClientListResponse contains the response from method LinkerClient.NewListPager.
 type LinkerClientListResponse struct {
 	// The list of Linker.
-	LinkerList
+	ResourceList
 }
 
 // LinkerClientUpdateResponse contains the response from method LinkerClient.BeginUpdate.
@@ -45,8 +121,43 @@ type LinkerClientUpdateResponse struct {
 
 // LinkerClientValidateResponse contains the response from method LinkerClient.BeginValidate.
 type LinkerClientValidateResponse struct {
-	// The validation operation result for a linker.
+	// The validation operation result for a Linker.
 	ValidateOperationResult
+}
+
+// LinkersClientCreateDryrunResponse contains the response from method LinkersClient.BeginCreateDryrun.
+type LinkersClientCreateDryrunResponse struct {
+	// a dryrun job resource
+	DryrunResource
+}
+
+// LinkersClientDeleteDryrunResponse contains the response from method LinkersClient.DeleteDryrun.
+type LinkersClientDeleteDryrunResponse struct {
+	// placeholder for future response values
+}
+
+// LinkersClientGenerateConfigurationsResponse contains the response from method LinkersClient.GenerateConfigurations.
+type LinkersClientGenerateConfigurationsResponse struct {
+	// Configurations for source resource, include appSettings, connectionString and serviceBindings
+	ConfigurationResult
+}
+
+// LinkersClientGetDryrunResponse contains the response from method LinkersClient.GetDryrun.
+type LinkersClientGetDryrunResponse struct {
+	// a dryrun job resource
+	DryrunResource
+}
+
+// LinkersClientListDryrunResponse contains the response from method LinkersClient.NewListDryrunPager.
+type LinkersClientListDryrunResponse struct {
+	// The list of dryrun.
+	DryrunList
+}
+
+// LinkersClientUpdateDryrunResponse contains the response from method LinkersClient.BeginUpdateDryrun.
+type LinkersClientUpdateDryrunResponse struct {
+	// a dryrun job resource
+	DryrunResource
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
