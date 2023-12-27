@@ -1,5 +1,12 @@
 # Release History
 
+## 3.1.0 (2023-12-27)
+### Features Added
+
+- New field `ResourceModifierReference` in struct `KubernetesClusterRestoreCriteria`
+- New field `ResourceModifierReference` in struct `KubernetesClusterVaultTierRestoreCriteria`
+
+
 ## 3.0.0 (2023-12-22)
 ### Breaking Changes
 

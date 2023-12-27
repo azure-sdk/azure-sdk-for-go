@@ -3950,6 +3950,7 @@ func (k KubernetesClusterRestoreCriteria) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "namespaceMappings", k.NamespaceMappings)
 	objectMap["objectType"] = "KubernetesClusterRestoreCriteria"
 	populate(objectMap, "persistentVolumeRestoreMode", k.PersistentVolumeRestoreMode)
+	populate(objectMap, "resourceModifierReference", k.ResourceModifierReference)
 	populate(objectMap, "restoreHookReferences", k.RestoreHookReferences)
 	return json.Marshal(objectMap)
 }
@@ -3993,6 +3994,9 @@ func (k *KubernetesClusterRestoreCriteria) UnmarshalJSON(data []byte) error {
 		case "persistentVolumeRestoreMode":
 			err = unpopulate(val, "PersistentVolumeRestoreMode", &k.PersistentVolumeRestoreMode)
 			delete(rawMsg, key)
+		case "resourceModifierReference":
+			err = unpopulate(val, "ResourceModifierReference", &k.ResourceModifierReference)
+			delete(rawMsg, key)
 		case "restoreHookReferences":
 			err = unpopulate(val, "RestoreHookReferences", &k.RestoreHookReferences)
 			delete(rawMsg, key)
@@ -4017,6 +4021,7 @@ func (k KubernetesClusterVaultTierRestoreCriteria) MarshalJSON() ([]byte, error)
 	populate(objectMap, "namespaceMappings", k.NamespaceMappings)
 	objectMap["objectType"] = "KubernetesClusterVaultTierRestoreCriteria"
 	populate(objectMap, "persistentVolumeRestoreMode", k.PersistentVolumeRestoreMode)
+	populate(objectMap, "resourceModifierReference", k.ResourceModifierReference)
 	populate(objectMap, "restoreHookReferences", k.RestoreHookReferences)
 	populate(objectMap, "stagingResourceGroupId", k.StagingResourceGroupID)
 	populate(objectMap, "stagingStorageAccountId", k.StagingStorageAccountID)
@@ -4061,6 +4066,9 @@ func (k *KubernetesClusterVaultTierRestoreCriteria) UnmarshalJSON(data []byte) e
 			delete(rawMsg, key)
 		case "persistentVolumeRestoreMode":
 			err = unpopulate(val, "PersistentVolumeRestoreMode", &k.PersistentVolumeRestoreMode)
+			delete(rawMsg, key)
+		case "resourceModifierReference":
+			err = unpopulate(val, "ResourceModifierReference", &k.ResourceModifierReference)
 			delete(rawMsg, key)
 		case "restoreHookReferences":
 			err = unpopulate(val, "RestoreHookReferences", &k.RestoreHookReferences)
