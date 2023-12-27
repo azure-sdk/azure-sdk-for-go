@@ -109,6 +109,18 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
+// NewQueriesClient creates a new instance of QueriesClient.
+func (c *ClientFactory) NewQueriesClient() *QueriesClient {
+	subClient, _ := NewQueriesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewQueryPacksClient creates a new instance of QueryPacksClient.
+func (c *ClientFactory) NewQueryPacksClient() *QueryPacksClient {
+	subClient, _ := NewQueryPacksClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewSavedSearchesClient creates a new instance of SavedSearchesClient.
 func (c *ClientFactory) NewSavedSearchesClient() *SavedSearchesClient {
 	subClient, _ := NewSavedSearchesClient(c.subscriptionID, c.credential, c.options)
