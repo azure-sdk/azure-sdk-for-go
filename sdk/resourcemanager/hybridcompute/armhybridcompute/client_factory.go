@@ -73,6 +73,12 @@ func (c *ClientFactory) NewMachineExtensionsClient() *MachineExtensionsClient {
 	return subClient
 }
 
+// NewMachineRunCommandsClient creates a new instance of MachineRunCommandsClient.
+func (c *ClientFactory) NewMachineRunCommandsClient() *MachineRunCommandsClient {
+	subClient, _ := NewMachineRunCommandsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewMachinesClient creates a new instance of MachinesClient.
 func (c *ClientFactory) NewMachinesClient() *MachinesClient {
 	subClient, _ := NewMachinesClient(c.subscriptionID, c.credential, c.options)
@@ -85,9 +91,21 @@ func (c *ClientFactory) NewManagementClient() *ManagementClient {
 	return subClient
 }
 
+// NewNetworkConfigurationsClient creates a new instance of NetworkConfigurationsClient.
+func (c *ClientFactory) NewNetworkConfigurationsClient() *NetworkConfigurationsClient {
+	subClient, _ := NewNetworkConfigurationsClient(c.credential, c.options)
+	return subClient
+}
+
 // NewNetworkProfileClient creates a new instance of NetworkProfileClient.
 func (c *ClientFactory) NewNetworkProfileClient() *NetworkProfileClient {
 	subClient, _ := NewNetworkProfileClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewNetworkSecurityPerimeterConfigurationsClient creates a new instance of NetworkSecurityPerimeterConfigurationsClient.
+func (c *ClientFactory) NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient {
+	subClient, _ := NewNetworkSecurityPerimeterConfigurationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
