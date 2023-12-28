@@ -45,7 +45,7 @@ func NewFetchCrossRegionRestoreJobsClient(subscriptionID string, credential azco
 
 // NewListPager - Fetches list of Cross Region Restore job belonging to the vault
 //
-// Generated from API version 2023-11-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - location - The name of the Azure region.
 //   - parameters - Request body for operation
@@ -94,7 +94,7 @@ func (client *FetchCrossRegionRestoreJobsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("api-version", "2023-12-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
