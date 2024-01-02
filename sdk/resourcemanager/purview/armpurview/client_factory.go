@@ -49,6 +49,24 @@ func (c *ClientFactory) NewDefaultAccountsClient() *DefaultAccountsClient {
 	return subClient
 }
 
+// NewFeaturesClient creates a new instance of FeaturesClient.
+func (c *ClientFactory) NewFeaturesClient() *FeaturesClient {
+	subClient, _ := NewFeaturesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewIngestionPrivateEndpointConnectionsClient creates a new instance of IngestionPrivateEndpointConnectionsClient.
+func (c *ClientFactory) NewIngestionPrivateEndpointConnectionsClient() *IngestionPrivateEndpointConnectionsClient {
+	subClient, _ := NewIngestionPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewKafkaConfigurationsClient creates a new instance of KafkaConfigurationsClient.
+func (c *ClientFactory) NewKafkaConfigurationsClient() *KafkaConfigurationsClient {
+	subClient, _ := NewKafkaConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
@@ -64,5 +82,11 @@ func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointCo
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient.
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
 	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewUsagesClient creates a new instance of UsagesClient.
+func (c *ClientFactory) NewUsagesClient() *UsagesClient {
+	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
