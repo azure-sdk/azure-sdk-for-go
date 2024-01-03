@@ -40,7 +40,7 @@ func NewOperationsDiscoveryClient(credential azcore.TokenCredential, options *ar
 // Get -
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - options - OperationsDiscoveryClientGetOptions contains the optional parameters for the OperationsDiscoveryClient.Get method.
 func (client *OperationsDiscoveryClient) Get(ctx context.Context, options *OperationsDiscoveryClientGetOptions) (OperationsDiscoveryClientGetResponse, error) {
 	var err error
@@ -72,7 +72,7 @@ func (client *OperationsDiscoveryClient) getCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

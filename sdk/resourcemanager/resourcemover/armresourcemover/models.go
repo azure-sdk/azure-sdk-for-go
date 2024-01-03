@@ -45,6 +45,9 @@ type AvailabilitySetResourceSettings struct {
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
 
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
+
 	// Gets or sets the target update domain.
 	UpdateDomain *int32
 }
@@ -55,6 +58,7 @@ func (a *AvailabilitySetResourceSettings) GetResourceSettings() *ResourceSetting
 		ResourceType:            a.ResourceType,
 		TargetResourceGroupName: a.TargetResourceGroupName,
 		TargetResourceName:      a.TargetResourceName,
+		TargetSubscriptionID:    a.TargetSubscriptionID,
 	}
 }
 
@@ -107,6 +111,9 @@ type DiskEncryptionSetResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type DiskEncryptionSetResourceSettings.
@@ -115,6 +122,7 @@ func (d *DiskEncryptionSetResourceSettings) GetResourceSettings() *ResourceSetti
 		ResourceType:            d.ResourceType,
 		TargetResourceGroupName: d.TargetResourceGroupName,
 		TargetResourceName:      d.TargetResourceName,
+		TargetSubscriptionID:    d.TargetSubscriptionID,
 	}
 }
 
@@ -179,6 +187,9 @@ type KeyVaultResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type KeyVaultResourceSettings.
@@ -187,6 +198,7 @@ func (k *KeyVaultResourceSettings) GetResourceSettings() *ResourceSettings {
 		ResourceType:            k.ResourceType,
 		TargetResourceGroupName: k.TargetResourceGroupName,
 		TargetResourceName:      k.TargetResourceName,
+		TargetSubscriptionID:    k.TargetSubscriptionID,
 	}
 }
 
@@ -256,6 +268,9 @@ type LoadBalancerResourceSettings struct {
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
 
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
+
 	// Gets or sets the csv list of zones common for all frontend IP configurations. Note this is given precedence only if frontend
 	// IP configurations settings are not present.
 	Zones *string
@@ -267,6 +282,7 @@ func (l *LoadBalancerResourceSettings) GetResourceSettings() *ResourceSettings {
 		ResourceType:            l.ResourceType,
 		TargetResourceGroupName: l.TargetResourceGroupName,
 		TargetResourceName:      l.TargetResourceName,
+		TargetSubscriptionID:    l.TargetSubscriptionID,
 	}
 }
 
@@ -521,6 +537,9 @@ type NetworkInterfaceResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type NetworkInterfaceResourceSettings.
@@ -529,6 +548,7 @@ func (n *NetworkInterfaceResourceSettings) GetResourceSettings() *ResourceSettin
 		ResourceType:            n.ResourceType,
 		TargetResourceGroupName: n.TargetResourceGroupName,
 		TargetResourceName:      n.TargetResourceName,
+		TargetSubscriptionID:    n.TargetSubscriptionID,
 	}
 }
 
@@ -548,6 +568,9 @@ type NetworkSecurityGroupResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type NetworkSecurityGroupResourceSettings.
@@ -556,6 +579,7 @@ func (n *NetworkSecurityGroupResourceSettings) GetResourceSettings() *ResourceSe
 		ResourceType:            n.ResourceType,
 		TargetResourceGroupName: n.TargetResourceGroupName,
 		TargetResourceName:      n.TargetResourceName,
+		TargetSubscriptionID:    n.TargetSubscriptionID,
 	}
 }
 
@@ -766,6 +790,9 @@ type PublicIPAddressResourceSettings struct {
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
 
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
+
 	// Gets or sets public IP zones.
 	Zones *string
 }
@@ -776,6 +803,7 @@ func (p *PublicIPAddressResourceSettings) GetResourceSettings() *ResourceSetting
 		ResourceType:            p.ResourceType,
 		TargetResourceGroupName: p.TargetResourceGroupName,
 		TargetResourceName:      p.TargetResourceName,
+		TargetSubscriptionID:    p.TargetSubscriptionID,
 	}
 }
 
@@ -801,6 +829,9 @@ type ResourceGroupResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type ResourceGroupResourceSettings.
@@ -809,6 +840,7 @@ func (r *ResourceGroupResourceSettings) GetResourceSettings() *ResourceSettings 
 		ResourceType:            r.ResourceType,
 		TargetResourceGroupName: r.TargetResourceGroupName,
 		TargetResourceName:      r.TargetResourceName,
+		TargetSubscriptionID:    r.TargetSubscriptionID,
 	}
 }
 
@@ -835,6 +867,9 @@ type ResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type ResourceSettings.
@@ -854,6 +889,9 @@ type SQLDatabaseResourceSettings struct {
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
 
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
+
 	// Defines the zone redundant resource setting.
 	ZoneRedundant *ZoneRedundant
 }
@@ -864,6 +902,7 @@ func (s *SQLDatabaseResourceSettings) GetResourceSettings() *ResourceSettings {
 		ResourceType:            s.ResourceType,
 		TargetResourceGroupName: s.TargetResourceGroupName,
 		TargetResourceName:      s.TargetResourceName,
+		TargetSubscriptionID:    s.TargetSubscriptionID,
 	}
 }
 
@@ -881,6 +920,9 @@ type SQLElasticPoolResourceSettings struct {
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
 
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
+
 	// Defines the zone redundant resource setting.
 	ZoneRedundant *ZoneRedundant
 }
@@ -891,6 +933,7 @@ func (s *SQLElasticPoolResourceSettings) GetResourceSettings() *ResourceSettings
 		ResourceType:            s.ResourceType,
 		TargetResourceGroupName: s.TargetResourceGroupName,
 		TargetResourceName:      s.TargetResourceName,
+		TargetSubscriptionID:    s.TargetSubscriptionID,
 	}
 }
 
@@ -904,6 +947,9 @@ type SQLServerResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type SQLServerResourceSettings.
@@ -912,6 +958,7 @@ func (s *SQLServerResourceSettings) GetResourceSettings() *ResourceSettings {
 		ResourceType:            s.ResourceType,
 		TargetResourceGroupName: s.TargetResourceGroupName,
 		TargetResourceName:      s.TargetResourceName,
+		TargetSubscriptionID:    s.TargetSubscriptionID,
 	}
 }
 
@@ -928,6 +975,9 @@ type SubnetReference struct {
 type SubnetResourceSettings struct {
 	// Gets or sets address prefix for the subnet.
 	AddressPrefix *string
+
+	// Gets or sets multiple address prefixes for the subnet.
+	AddressPrefixes []*string
 
 	// Gets or sets the Subnet name.
 	Name *string
@@ -1038,6 +1088,9 @@ type VirtualMachineResourceSettings struct {
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
 
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
+
 	// Gets or sets the target virtual machine size.
 	TargetVMSize *string
 
@@ -1051,6 +1104,7 @@ func (v *VirtualMachineResourceSettings) GetResourceSettings() *ResourceSettings
 		ResourceType:            v.ResourceType,
 		TargetResourceGroupName: v.TargetResourceGroupName,
 		TargetResourceName:      v.TargetResourceName,
+		TargetSubscriptionID:    v.TargetSubscriptionID,
 	}
 }
 
@@ -1079,6 +1133,9 @@ type VirtualNetworkResourceSettings struct {
 
 	// Gets or sets the target Resource name.
 	TargetResourceName *string
+
+	// Gets or sets the target subscription Id.
+	TargetSubscriptionID *string
 }
 
 // GetResourceSettings implements the ResourceSettingsClassification interface for type VirtualNetworkResourceSettings.
@@ -1087,5 +1144,6 @@ func (v *VirtualNetworkResourceSettings) GetResourceSettings() *ResourceSettings
 		ResourceType:            v.ResourceType,
 		TargetResourceGroupName: v.TargetResourceGroupName,
 		TargetResourceName:      v.TargetResourceName,
+		TargetSubscriptionID:    v.TargetSubscriptionID,
 	}
 }

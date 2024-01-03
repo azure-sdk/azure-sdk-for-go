@@ -1,5 +1,25 @@
 # Release History
 
+## 1.4.0 (2024-01-03)
+### Features Added
+
+- New field `TargetSubscriptionID` in struct `AvailabilitySetResourceSettings`
+- New field `TargetSubscriptionID` in struct `DiskEncryptionSetResourceSettings`
+- New field `TargetSubscriptionID` in struct `KeyVaultResourceSettings`
+- New field `TargetSubscriptionID` in struct `LoadBalancerResourceSettings`
+- New field `TargetSubscriptionID` in struct `NetworkInterfaceResourceSettings`
+- New field `TargetSubscriptionID` in struct `NetworkSecurityGroupResourceSettings`
+- New field `TargetSubscriptionID` in struct `PublicIPAddressResourceSettings`
+- New field `TargetSubscriptionID` in struct `ResourceGroupResourceSettings`
+- New field `TargetSubscriptionID` in struct `ResourceSettings`
+- New field `TargetSubscriptionID` in struct `SQLDatabaseResourceSettings`
+- New field `TargetSubscriptionID` in struct `SQLElasticPoolResourceSettings`
+- New field `TargetSubscriptionID` in struct `SQLServerResourceSettings`
+- New field `AddressPrefixes` in struct `SubnetResourceSettings`
+- New field `TargetSubscriptionID` in struct `VirtualMachineResourceSettings`
+- New field `TargetSubscriptionID` in struct `VirtualNetworkResourceSettings`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 

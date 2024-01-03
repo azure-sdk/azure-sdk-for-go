@@ -45,7 +45,7 @@ func NewUnresolvedDependenciesClient(subscriptionID string, credential azcore.To
 
 // NewGetPager - Gets a list of unresolved dependencies.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - UnresolvedDependenciesClientGetOptions contains the optional parameters for the UnresolvedDependenciesClient.NewGetPager
@@ -99,7 +99,7 @@ func (client *UnresolvedDependenciesClient) getCreateRequest(ctx context.Context
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

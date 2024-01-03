@@ -46,7 +46,7 @@ func NewMoveResourcesClient(subscriptionID string, credential azcore.TokenCreden
 // BeginCreate - Creates or updates a Move Resource in the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - moveResourceName - The Move Resource Name.
@@ -73,7 +73,7 @@ func (client *MoveResourcesClient) BeginCreate(ctx context.Context, resourceGrou
 // Create - Creates or updates a Move Resource in the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveResourcesClient) create(ctx context.Context, resourceGroupName string, moveCollectionName string, moveResourceName string, options *MoveResourcesClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveResourcesClient.BeginCreate"
@@ -119,7 +119,7 @@ func (client *MoveResourcesClient) createCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -134,7 +134,7 @@ func (client *MoveResourcesClient) createCreateRequest(ctx context.Context, reso
 // BeginDelete - Deletes a Move Resource from the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - moveResourceName - The Move Resource Name.
@@ -161,7 +161,7 @@ func (client *MoveResourcesClient) BeginDelete(ctx context.Context, resourceGrou
 // Delete - Deletes a Move Resource from the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveResourcesClient) deleteOperation(ctx context.Context, resourceGroupName string, moveCollectionName string, moveResourceName string, options *MoveResourcesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveResourcesClient.BeginDelete"
@@ -207,7 +207,7 @@ func (client *MoveResourcesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -216,7 +216,7 @@ func (client *MoveResourcesClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Gets the Move Resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - moveResourceName - The Move Resource Name.
@@ -267,7 +267,7 @@ func (client *MoveResourcesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *MoveResourcesClient) getHandleResponse(resp *http.Response) (MoveR
 
 // NewListPager - Lists the Move Resources in the move collection.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveResourcesClientListOptions contains the optional parameters for the MoveResourcesClient.NewListPager method.
@@ -331,7 +331,7 @@ func (client *MoveResourcesClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

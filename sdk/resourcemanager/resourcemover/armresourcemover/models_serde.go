@@ -85,6 +85,7 @@ func (a AvailabilitySetResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", a.Tags)
 	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", a.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", a.TargetSubscriptionID)
 	populate(objectMap, "updateDomain", a.UpdateDomain)
 	return json.Marshal(objectMap)
 }
@@ -112,6 +113,9 @@ func (a *AvailabilitySetResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &a.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &a.TargetSubscriptionID)
 			delete(rawMsg, key)
 		case "updateDomain":
 			err = unpopulate(val, "UpdateDomain", &a.UpdateDomain)
@@ -235,6 +239,7 @@ func (d DiskEncryptionSetResourceSettings) MarshalJSON() ([]byte, error) {
 	objectMap["resourceType"] = "Microsoft.Compute/diskEncryptionSets"
 	populate(objectMap, "targetResourceGroupName", d.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", d.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", d.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -255,6 +260,9 @@ func (d *DiskEncryptionSetResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &d.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &d.TargetSubscriptionID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -375,6 +383,7 @@ func (k KeyVaultResourceSettings) MarshalJSON() ([]byte, error) {
 	objectMap["resourceType"] = "Microsoft.KeyVault/vaults"
 	populate(objectMap, "targetResourceGroupName", k.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", k.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", k.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -395,6 +404,9 @@ func (k *KeyVaultResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &k.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &k.TargetSubscriptionID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -546,6 +558,7 @@ func (l LoadBalancerResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", l.Tags)
 	populate(objectMap, "targetResourceGroupName", l.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", l.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", l.TargetSubscriptionID)
 	populate(objectMap, "zones", l.Zones)
 	return json.Marshal(objectMap)
 }
@@ -579,6 +592,9 @@ func (l *LoadBalancerResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &l.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &l.TargetSubscriptionID)
 			delete(rawMsg, key)
 		case "zones":
 			err = unpopulate(val, "Zones", &l.Zones)
@@ -1235,6 +1251,7 @@ func (n NetworkInterfaceResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", n.Tags)
 	populate(objectMap, "targetResourceGroupName", n.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", n.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", n.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -1265,6 +1282,9 @@ func (n *NetworkInterfaceResourceSettings) UnmarshalJSON(data []byte) error {
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &n.TargetResourceName)
 			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &n.TargetSubscriptionID)
+			delete(rawMsg, key)
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", n, err)
@@ -1281,6 +1301,7 @@ func (n NetworkSecurityGroupResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", n.Tags)
 	populate(objectMap, "targetResourceGroupName", n.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", n.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", n.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -1307,6 +1328,9 @@ func (n *NetworkSecurityGroupResourceSettings) UnmarshalJSON(data []byte) error 
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &n.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &n.TargetSubscriptionID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1702,6 +1726,7 @@ func (p PublicIPAddressResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", p.Tags)
 	populate(objectMap, "targetResourceGroupName", p.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", p.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", p.TargetSubscriptionID)
 	populate(objectMap, "zones", p.Zones)
 	return json.Marshal(objectMap)
 }
@@ -1738,6 +1763,9 @@ func (p *PublicIPAddressResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &p.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &p.TargetSubscriptionID)
 			delete(rawMsg, key)
 		case "zones":
 			err = unpopulate(val, "Zones", &p.Zones)
@@ -1810,6 +1838,7 @@ func (r ResourceGroupResourceSettings) MarshalJSON() ([]byte, error) {
 	objectMap["resourceType"] = "resourceGroups"
 	populate(objectMap, "targetResourceGroupName", r.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", r.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", r.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -1830,6 +1859,9 @@ func (r *ResourceGroupResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &r.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &r.TargetSubscriptionID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1880,6 +1912,7 @@ func (r ResourceSettings) MarshalJSON() ([]byte, error) {
 	objectMap["resourceType"] = r.ResourceType
 	populate(objectMap, "targetResourceGroupName", r.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", r.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", r.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -1901,6 +1934,9 @@ func (r *ResourceSettings) UnmarshalJSON(data []byte) error {
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &r.TargetResourceName)
 			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &r.TargetSubscriptionID)
+			delete(rawMsg, key)
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", r, err)
@@ -1916,6 +1952,7 @@ func (s SQLDatabaseResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", s.Tags)
 	populate(objectMap, "targetResourceGroupName", s.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", s.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", s.TargetSubscriptionID)
 	populate(objectMap, "zoneRedundant", s.ZoneRedundant)
 	return json.Marshal(objectMap)
 }
@@ -1941,6 +1978,9 @@ func (s *SQLDatabaseResourceSettings) UnmarshalJSON(data []byte) error {
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &s.TargetResourceName)
 			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &s.TargetSubscriptionID)
+			delete(rawMsg, key)
 		case "zoneRedundant":
 			err = unpopulate(val, "ZoneRedundant", &s.ZoneRedundant)
 			delete(rawMsg, key)
@@ -1959,6 +1999,7 @@ func (s SQLElasticPoolResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", s.Tags)
 	populate(objectMap, "targetResourceGroupName", s.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", s.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", s.TargetSubscriptionID)
 	populate(objectMap, "zoneRedundant", s.ZoneRedundant)
 	return json.Marshal(objectMap)
 }
@@ -1984,6 +2025,9 @@ func (s *SQLElasticPoolResourceSettings) UnmarshalJSON(data []byte) error {
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &s.TargetResourceName)
 			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &s.TargetSubscriptionID)
+			delete(rawMsg, key)
 		case "zoneRedundant":
 			err = unpopulate(val, "ZoneRedundant", &s.ZoneRedundant)
 			delete(rawMsg, key)
@@ -2001,6 +2045,7 @@ func (s SQLServerResourceSettings) MarshalJSON() ([]byte, error) {
 	objectMap["resourceType"] = "Microsoft.Sql/servers"
 	populate(objectMap, "targetResourceGroupName", s.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", s.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", s.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -2021,6 +2066,9 @@ func (s *SQLServerResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &s.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &s.TargetSubscriptionID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2065,6 +2113,7 @@ func (s *SubnetReference) UnmarshalJSON(data []byte) error {
 func (s SubnetResourceSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "addressPrefix", s.AddressPrefix)
+	populate(objectMap, "addressPrefixes", s.AddressPrefixes)
 	populate(objectMap, "name", s.Name)
 	populate(objectMap, "networkSecurityGroup", s.NetworkSecurityGroup)
 	return json.Marshal(objectMap)
@@ -2081,6 +2130,9 @@ func (s *SubnetResourceSettings) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "addressPrefix":
 			err = unpopulate(val, "AddressPrefix", &s.AddressPrefix)
+			delete(rawMsg, key)
+		case "addressPrefixes":
+			err = unpopulate(val, "AddressPrefixes", &s.AddressPrefixes)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &s.Name)
@@ -2369,6 +2421,7 @@ func (v VirtualMachineResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "targetAvailabilityZone", v.TargetAvailabilityZone)
 	populate(objectMap, "targetResourceGroupName", v.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", v.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", v.TargetSubscriptionID)
 	populate(objectMap, "targetVmSize", v.TargetVMSize)
 	populate(objectMap, "userManagedIdentities", v.UserManagedIdentities)
 	return json.Marshal(objectMap)
@@ -2401,6 +2454,9 @@ func (v *VirtualMachineResourceSettings) UnmarshalJSON(data []byte) error {
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &v.TargetResourceName)
 			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &v.TargetSubscriptionID)
+			delete(rawMsg, key)
 		case "targetVmSize":
 			err = unpopulate(val, "TargetVMSize", &v.TargetVMSize)
 			delete(rawMsg, key)
@@ -2426,6 +2482,7 @@ func (v VirtualNetworkResourceSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "tags", v.Tags)
 	populate(objectMap, "targetResourceGroupName", v.TargetResourceGroupName)
 	populate(objectMap, "targetResourceName", v.TargetResourceName)
+	populate(objectMap, "targetSubscriptionId", v.TargetSubscriptionID)
 	return json.Marshal(objectMap)
 }
 
@@ -2461,6 +2518,9 @@ func (v *VirtualNetworkResourceSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "targetResourceName":
 			err = unpopulate(val, "TargetResourceName", &v.TargetResourceName)
+			delete(rawMsg, key)
+		case "targetSubscriptionId":
+			err = unpopulate(val, "TargetSubscriptionID", &v.TargetSubscriptionID)
 			delete(rawMsg, key)
 		}
 		if err != nil {

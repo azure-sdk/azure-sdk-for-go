@@ -10,7 +10,7 @@ package armresourcemover
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourcemover/armresourcemover"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.4.0"
 )
 
 // CreatedByType - The type of identity that created the resource.

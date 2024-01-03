@@ -48,7 +48,7 @@ func NewMoveCollectionsClient(subscriptionID string, credential azcore.TokenCred
 // with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - options - MoveCollectionsClientBeginBulkRemoveOptions contains the optional parameters for the MoveCollectionsClient.BeginBulkRemove
 //     method.
 func (client *MoveCollectionsClient) BeginBulkRemove(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginBulkRemoveOptions) (*runtime.Poller[MoveCollectionsClientBulkRemoveResponse], error) {
@@ -74,7 +74,7 @@ func (client *MoveCollectionsClient) BeginBulkRemove(ctx context.Context, resour
 // with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) bulkRemove(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginBulkRemoveOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginBulkRemove"
@@ -116,7 +116,7 @@ func (client *MoveCollectionsClient) bulkRemoveCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -134,7 +134,7 @@ func (client *MoveCollectionsClient) bulkRemoveCreateRequest(ctx context.Context
 // operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientBeginCommitOptions contains the optional parameters for the MoveCollectionsClient.BeginCommit
@@ -163,7 +163,7 @@ func (client *MoveCollectionsClient) BeginCommit(ctx context.Context, resourceGr
 // operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) commit(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginCommitOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginCommit"
@@ -205,7 +205,7 @@ func (client *MoveCollectionsClient) commitCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -220,7 +220,7 @@ func (client *MoveCollectionsClient) commitCreateRequest(ctx context.Context, re
 // Create - Creates or updates a move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientCreateOptions contains the optional parameters for the MoveCollectionsClient.Create method.
@@ -266,7 +266,7 @@ func (client *MoveCollectionsClient) createCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -290,7 +290,7 @@ func (client *MoveCollectionsClient) createHandleResponse(resp *http.Response) (
 // BeginDelete - Deletes a move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientBeginDeleteOptions contains the optional parameters for the MoveCollectionsClient.BeginDelete
@@ -316,7 +316,7 @@ func (client *MoveCollectionsClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Deletes a move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginDelete"
@@ -358,7 +358,7 @@ func (client *MoveCollectionsClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -370,7 +370,7 @@ func (client *MoveCollectionsClient) deleteCreateRequest(ctx context.Context, re
 // operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientBeginDiscardOptions contains the optional parameters for the MoveCollectionsClient.BeginDiscard
@@ -399,7 +399,7 @@ func (client *MoveCollectionsClient) BeginDiscard(ctx context.Context, resourceG
 // operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) discard(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginDiscardOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginDiscard"
@@ -441,7 +441,7 @@ func (client *MoveCollectionsClient) discardCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -456,7 +456,7 @@ func (client *MoveCollectionsClient) discardCreateRequest(ctx context.Context, r
 // Get - Gets the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientGetOptions contains the optional parameters for the MoveCollectionsClient.Get method.
@@ -502,7 +502,7 @@ func (client *MoveCollectionsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -523,7 +523,7 @@ func (client *MoveCollectionsClient) getHandleResponse(resp *http.Response) (Mov
 // operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientBeginInitiateMoveOptions contains the optional parameters for the MoveCollectionsClient.BeginInitiateMove
@@ -552,7 +552,7 @@ func (client *MoveCollectionsClient) BeginInitiateMove(ctx context.Context, reso
 // operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) initiateMove(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginInitiateMoveOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginInitiateMove"
@@ -594,7 +594,7 @@ func (client *MoveCollectionsClient) initiateMoveCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -608,7 +608,7 @@ func (client *MoveCollectionsClient) initiateMoveCreateRequest(ctx context.Conte
 
 // NewListMoveCollectionsByResourceGroupPager - Get all the Move Collections in the resource group.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - options - MoveCollectionsClientListMoveCollectionsByResourceGroupOptions contains the optional parameters for the MoveCollectionsClient.NewListMoveCollectionsByResourceGroupPager
 //     method.
@@ -651,7 +651,7 @@ func (client *MoveCollectionsClient) listMoveCollectionsByResourceGroupCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -668,7 +668,7 @@ func (client *MoveCollectionsClient) listMoveCollectionsByResourceGroupHandleRes
 
 // NewListMoveCollectionsBySubscriptionPager - Get all the Move Collections in the subscription.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - options - MoveCollectionsClientListMoveCollectionsBySubscriptionOptions contains the optional parameters for the MoveCollectionsClient.NewListMoveCollectionsBySubscriptionPager
 //     method.
 func (client *MoveCollectionsClient) NewListMoveCollectionsBySubscriptionPager(options *MoveCollectionsClientListMoveCollectionsBySubscriptionOptions) *runtime.Pager[MoveCollectionsClientListMoveCollectionsBySubscriptionResponse] {
@@ -706,7 +706,7 @@ func (client *MoveCollectionsClient) listMoveCollectionsBySubscriptionCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -724,7 +724,7 @@ func (client *MoveCollectionsClient) listMoveCollectionsBySubscriptionHandleResp
 // ListRequiredFor - List of the move resources for which an arm resource is required for.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - sourceID - The sourceId for which the api is invoked.
@@ -773,7 +773,7 @@ func (client *MoveCollectionsClient) listRequiredForCreateRequest(ctx context.Co
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("sourceId", sourceID)
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -794,7 +794,7 @@ func (client *MoveCollectionsClient) listRequiredForHandleResponse(resp *http.Re
 // client can call operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientBeginPrepareOptions contains the optional parameters for the MoveCollectionsClient.BeginPrepare
@@ -823,7 +823,7 @@ func (client *MoveCollectionsClient) BeginPrepare(ctx context.Context, resourceG
 // client can call operation with validateOnly property set to true.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) prepare(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginPrepareOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginPrepare"
@@ -865,7 +865,7 @@ func (client *MoveCollectionsClient) prepareCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -880,7 +880,7 @@ func (client *MoveCollectionsClient) prepareCreateRequest(ctx context.Context, r
 // BeginResolveDependencies - Computes, resolves and validate the dependencies of the moveResources in the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientBeginResolveDependenciesOptions contains the optional parameters for the MoveCollectionsClient.BeginResolveDependencies
@@ -906,7 +906,7 @@ func (client *MoveCollectionsClient) BeginResolveDependencies(ctx context.Contex
 // ResolveDependencies - Computes, resolves and validate the dependencies of the moveResources in the move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 func (client *MoveCollectionsClient) resolveDependencies(ctx context.Context, resourceGroupName string, moveCollectionName string, options *MoveCollectionsClientBeginResolveDependenciesOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MoveCollectionsClient.BeginResolveDependencies"
@@ -948,7 +948,7 @@ func (client *MoveCollectionsClient) resolveDependenciesCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -957,7 +957,7 @@ func (client *MoveCollectionsClient) resolveDependenciesCreateRequest(ctx contex
 // Update - Updates a move collection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The Resource Group Name.
 //   - moveCollectionName - The Move Collection Name.
 //   - options - MoveCollectionsClientUpdateOptions contains the optional parameters for the MoveCollectionsClient.Update method.
@@ -1003,7 +1003,7 @@ func (client *MoveCollectionsClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
