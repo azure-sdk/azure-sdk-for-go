@@ -74,3 +74,43 @@ func unmarshalBenefitUtilizationSummaryClassificationArray(rawMsg json.RawMessag
 	}
 	return fArray, nil
 }
+
+func unmarshalSettingClassification(rawMsg json.RawMessage) (SettingClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SettingClassification
+	switch m["kind"] {
+	case string(SettingsKindTaginheritance):
+		b = &TagInheritanceSetting{}
+	default:
+		b = &Setting{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalSettingClassificationArray(rawMsg json.RawMessage) ([]SettingClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]SettingClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalSettingClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}

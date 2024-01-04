@@ -40,7 +40,7 @@ func NewBenefitRecommendationsClient(credential azcore.TokenCredential, options 
 
 // NewListPager - List of recommendations for purchasing savings plan.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - billingScope - The scope associated with benefit recommendation operations. This includes '/subscriptions/{subscriptionId}/'
 //     for subscription scope,
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resource group scope, /providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
@@ -90,7 +90,7 @@ func (client *BenefitRecommendationsClient) listCreateRequest(ctx context.Contex
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
