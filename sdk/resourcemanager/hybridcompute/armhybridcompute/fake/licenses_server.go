@@ -50,7 +50,7 @@ type LicensesServer struct {
 
 	// BeginValidateLicense is the fake for method LicensesClient.BeginValidateLicense
 	// HTTP status codes to indicate success: http.StatusOK
-	BeginValidateLicense func(ctx context.Context, parameters armhybridcompute.License, options *armhybridcompute.LicensesClientBeginValidateLicenseOptions) (resp azfake.PollerResponder[armhybridcompute.LicensesClientValidateLicenseResponse], errResp azfake.ErrorResponder)
+	BeginValidateLicense func(ctx context.Context, parameters armhybridcompute.LicenseValidateModel, options *armhybridcompute.LicensesClientBeginValidateLicenseOptions) (resp azfake.PollerResponder[armhybridcompute.LicensesClientValidateLicenseResponse], errResp azfake.ErrorResponder)
 }
 
 // NewLicensesServerTransport creates a new instance of LicensesServerTransport with the provided implementation.
@@ -372,7 +372,7 @@ func (l *LicensesServerTransport) dispatchBeginValidateLicense(req *http.Request
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armhybridcompute.License](req)
+		body, err := server.UnmarshalRequestAsJSON[armhybridcompute.LicenseValidateModel](req)
 		if err != nil {
 			return nil, err
 		}
