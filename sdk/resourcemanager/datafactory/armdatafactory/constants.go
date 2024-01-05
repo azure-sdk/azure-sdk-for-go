@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v5.0.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -1324,6 +1324,22 @@ func PossibleSalesforceSinkWriteBehaviorValues() []SalesforceSinkWriteBehavior {
 	}
 }
 
+// SalesforceV2SinkWriteBehavior - The write behavior for the operation. Default is Insert.
+type SalesforceV2SinkWriteBehavior string
+
+const (
+	SalesforceV2SinkWriteBehaviorInsert SalesforceV2SinkWriteBehavior = "Insert"
+	SalesforceV2SinkWriteBehaviorUpsert SalesforceV2SinkWriteBehavior = "Upsert"
+)
+
+// PossibleSalesforceV2SinkWriteBehaviorValues returns the possible values for the SalesforceV2SinkWriteBehavior const type.
+func PossibleSalesforceV2SinkWriteBehaviorValues() []SalesforceV2SinkWriteBehavior {
+	return []SalesforceV2SinkWriteBehavior{
+		SalesforceV2SinkWriteBehaviorInsert,
+		SalesforceV2SinkWriteBehaviorUpsert,
+	}
+}
+
 // SapCloudForCustomerSinkWriteBehavior - The write behavior for the operation. Default is 'Insert'.
 type SapCloudForCustomerSinkWriteBehavior string
 
@@ -1809,6 +1825,30 @@ func PossibleWebAuthenticationTypeValues() []WebAuthenticationType {
 		WebAuthenticationTypeAnonymous,
 		WebAuthenticationTypeBasic,
 		WebAuthenticationTypeClientCertificate,
+	}
+}
+
+// WebConnectionAuthenticationType - Type of authentication used to connect to the WEB CONNECTION service.
+type WebConnectionAuthenticationType string
+
+const (
+	WebConnectionAuthenticationTypeAADServicePrincipal         WebConnectionAuthenticationType = "AadServicePrincipal"
+	WebConnectionAuthenticationTypeAnonymous                   WebConnectionAuthenticationType = "Anonymous"
+	WebConnectionAuthenticationTypeBasic                       WebConnectionAuthenticationType = "Basic"
+	WebConnectionAuthenticationTypeClientCertificate           WebConnectionAuthenticationType = "ClientCertificate"
+	WebConnectionAuthenticationTypeManagedServiceIdentity      WebConnectionAuthenticationType = "ManagedServiceIdentity"
+	WebConnectionAuthenticationTypeUserAssignedManagedIdentity WebConnectionAuthenticationType = "UserAssignedManagedIdentity"
+)
+
+// PossibleWebConnectionAuthenticationTypeValues returns the possible values for the WebConnectionAuthenticationType const type.
+func PossibleWebConnectionAuthenticationTypeValues() []WebConnectionAuthenticationType {
+	return []WebConnectionAuthenticationType{
+		WebConnectionAuthenticationTypeAADServicePrincipal,
+		WebConnectionAuthenticationTypeAnonymous,
+		WebConnectionAuthenticationTypeBasic,
+		WebConnectionAuthenticationTypeClientCertificate,
+		WebConnectionAuthenticationTypeManagedServiceIdentity,
+		WebConnectionAuthenticationTypeUserAssignedManagedIdentity,
 	}
 }
 
