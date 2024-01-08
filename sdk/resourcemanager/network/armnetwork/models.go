@@ -1686,6 +1686,9 @@ type ApplicationGatewaySKU struct {
 	// Capacity (instance count) of an application gateway.
 	Capacity *int32
 
+	// Family of an application gateway SKU.
+	Family *ApplicationGatewaySKUFamily
+
 	// Name of an application gateway SKU.
 	Name *ApplicationGatewaySKUName
 
@@ -2935,6 +2938,9 @@ type BastionHost struct {
 
 	// Resource tags.
 	Tags map[string]*string
+
+	// A list of availability zones denoting where the resource needs to come from.
+	Zones []*string
 
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string
