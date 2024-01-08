@@ -1,5 +1,41 @@
 # Release History
 
+## 0.10.0 (2024-01-08)
+### Breaking Changes
+
+- Type of `Identity.UserAssignedIdentities` has been changed from `map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` to `map[string]*UserAssignedIdentitiesProperties`
+- `ModuleProvisioningStateCancelled` from enum `ModuleProvisioningState` has been removed
+- Struct `ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` has been removed
+- Field `Value` of struct `DscConfigurationClientGetContentResponse` has been removed
+
+### Features Added
+
+- New value `ModuleProvisioningStateCanceled` added to enum type `ModuleProvisioningState`
+- New value `RunbookTypeEnumPowerShell72` added to enum type `RunbookTypeEnum`
+- New function `*ClientFactory.NewPowerShell72ModuleClient() *PowerShell72ModuleClient`
+- New function `*ClientFactory.NewPython3PackageClient() *Python3PackageClient`
+- New function `NewPowerShell72ModuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PowerShell72ModuleClient, error)`
+- New function `*PowerShell72ModuleClient.CreateOrUpdate(context.Context, string, string, string, ModuleCreateOrUpdateParameters, *PowerShell72ModuleClientCreateOrUpdateOptions) (PowerShell72ModuleClientCreateOrUpdateResponse, error)`
+- New function `*PowerShell72ModuleClient.Delete(context.Context, string, string, string, *PowerShell72ModuleClientDeleteOptions) (PowerShell72ModuleClientDeleteResponse, error)`
+- New function `*PowerShell72ModuleClient.Get(context.Context, string, string, string, *PowerShell72ModuleClientGetOptions) (PowerShell72ModuleClientGetResponse, error)`
+- New function `*PowerShell72ModuleClient.NewListByAutomationAccountPager(string, string, *PowerShell72ModuleClientListByAutomationAccountOptions) *runtime.Pager[PowerShell72ModuleClientListByAutomationAccountResponse]`
+- New function `*PowerShell72ModuleClient.Update(context.Context, string, string, string, ModuleUpdateParameters, *PowerShell72ModuleClientUpdateOptions) (PowerShell72ModuleClientUpdateResponse, error)`
+- New function `NewPython3PackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*Python3PackageClient, error)`
+- New function `*Python3PackageClient.CreateOrUpdate(context.Context, string, string, string, PythonPackageCreateParameters, *Python3PackageClientCreateOrUpdateOptions) (Python3PackageClientCreateOrUpdateResponse, error)`
+- New function `*Python3PackageClient.Delete(context.Context, string, string, string, *Python3PackageClientDeleteOptions) (Python3PackageClientDeleteResponse, error)`
+- New function `*Python3PackageClient.Get(context.Context, string, string, string, *Python3PackageClientGetOptions) (Python3PackageClientGetResponse, error)`
+- New function `*Python3PackageClient.NewListByAutomationAccountPager(string, string, *Python3PackageClientListByAutomationAccountOptions) *runtime.Pager[Python3PackageClientListByAutomationAccountResponse]`
+- New function `*Python3PackageClient.Update(context.Context, string, string, string, PythonPackageUpdateParameters, *Python3PackageClientUpdateOptions) (Python3PackageClientUpdateResponse, error)`
+- New struct `Dimension`
+- New struct `LogSpecification`
+- New struct `MetricSpecification`
+- New struct `OperationPropertiesFormat`
+- New struct `OperationPropertiesFormatServiceSpecification`
+- New struct `UserAssignedIdentitiesProperties`
+- New field `Origin`, `Properties` in struct `Operation`
+- New field `Description` in struct `OperationDisplay`
+
+
 ## 0.9.0 (2023-11-30)
 ### Features Added
 

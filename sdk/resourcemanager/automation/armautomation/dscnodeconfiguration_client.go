@@ -48,7 +48,7 @@ func NewDscNodeConfigurationClient(subscriptionID string, credential azcore.Toke
 // BeginCreateOrUpdate - Create the node configuration identified by node configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeConfigurationName - The Dsc node configuration name.
@@ -75,7 +75,7 @@ func (client *DscNodeConfigurationClient) BeginCreateOrUpdate(ctx context.Contex
 // CreateOrUpdate - Create the node configuration identified by node configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 func (client *DscNodeConfigurationClient) createOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, nodeConfigurationName string, parameters DscNodeConfigurationCreateOrUpdateParameters, options *DscNodeConfigurationClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DscNodeConfigurationClient.BeginCreateOrUpdate"
@@ -121,7 +121,7 @@ func (client *DscNodeConfigurationClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -133,7 +133,7 @@ func (client *DscNodeConfigurationClient) createOrUpdateCreateRequest(ctx contex
 // Delete - Delete the Dsc node configurations by node configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeConfigurationName - The Dsc node configuration name.
@@ -184,7 +184,7 @@ func (client *DscNodeConfigurationClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,7 +193,7 @@ func (client *DscNodeConfigurationClient) deleteCreateRequest(ctx context.Contex
 // Get - Retrieve the Dsc node configurations by node configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeConfigurationName - The Dsc node configuration name.
@@ -245,7 +245,7 @@ func (client *DscNodeConfigurationClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *DscNodeConfigurationClient) getHandleResponse(resp *http.Response)
 
 // NewListByAutomationAccountPager - Retrieve a list of dsc node configurations.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - DscNodeConfigurationClientListByAutomationAccountOptions contains the optional parameters for the DscNodeConfigurationClient.NewListByAutomationAccountPager
@@ -310,7 +310,7 @@ func (client *DscNodeConfigurationClient) listByAutomationAccountCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
