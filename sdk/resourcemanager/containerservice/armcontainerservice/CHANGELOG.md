@@ -1,5 +1,9 @@
 # Release History
 
+## 4.6.1 (2024-01-09)
+### Other Changes
+
+
 ## 4.7.0-beta.1 (2023-12-22)
 ### Features Added
 
