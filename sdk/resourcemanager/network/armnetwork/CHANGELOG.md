@@ -1,5 +1,30 @@
 # Release History
 
+## 6.0.0 (2024-01-09)
+### Breaking Changes
+
+- Type of `VirtualApplianceConnectionProperties.RoutingConfiguration` has been changed from `*RoutingConfiguration` to `*RoutingConfigurationNfv`
+- `ActionTypeJSChallenge` from enum `ActionType` has been removed
+- `BastionHostSKUNameDeveloper` from enum `BastionHostSKUName` has been removed
+- `FirewallPolicyIDPSSignatureDirectionFour`, `FirewallPolicyIDPSSignatureDirectionThree` from enum `FirewallPolicyIDPSSignatureDirection` has been removed
+- `VirtualNetworkGatewaySKUNameErGwScale` from enum `VirtualNetworkGatewaySKUName` has been removed
+- `VirtualNetworkGatewaySKUTierErGwScale` from enum `VirtualNetworkGatewaySKUTier` has been removed
+- `WebApplicationFirewallActionJSChallenge` from enum `WebApplicationFirewallAction` has been removed
+- Enum `FirewallPolicyIntrusionDetectionProfileType` has been removed
+- Function `*ManagementClient.BeginDeleteBastionShareableLinkByToken` has been removed
+- Struct `BastionShareableLinkTokenListRequest` has been removed
+- Struct `InternetIngressPublicIPsProperties` has been removed
+- Field `HostNames` of struct `ApplicationGatewayListenerPropertiesFormat` has been removed
+- Field `Profile` of struct `FirewallPolicyIntrusionDetection` has been removed
+- Field `InternetIngressPublicIPs` of struct `VirtualAppliancePropertiesFormat` has been removed
+
+### Features Added
+
+- New struct `PropagatedRouteTableNfv`
+- New struct `RoutingConfigurationNfv`
+- New struct `RoutingConfigurationNfvSubResource`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 

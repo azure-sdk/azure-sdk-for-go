@@ -44,11 +44,10 @@ func NewFirewallPolicyIdpsSignaturesClient(subscriptionID string, credential azc
 	return client, nil
 }
 
-// List - Retrieves the current status of IDPS signatures for the relevant policy. Maximal amount of returned signatures is
-// 1000.
+// List - Retrieves the current status of IDPS signatures for the relevant policy
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group.
 //   - firewallPolicyName - The name of the Firewall Policy.
 //   - options - FirewallPolicyIdpsSignaturesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesClient.List
@@ -95,7 +94,7 @@ func (client *FirewallPolicyIdpsSignaturesClient) listCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
