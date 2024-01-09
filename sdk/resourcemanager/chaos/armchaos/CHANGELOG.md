@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0 (2024-01-09)
+### Features Added
+
+- New field `Tags` in struct `ExperimentUpdate`
+
+
 ## 1.0.0 (2023-11-24)
 ### Breaking Changes
 
