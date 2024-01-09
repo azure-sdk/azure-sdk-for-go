@@ -19241,6 +19241,7 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "trafficManagerHostNames", s.TrafficManagerHostNames)
 	populate(objectMap, "usageState", s.UsageState)
 	populate(objectMap, "virtualNetworkSubnetId", s.VirtualNetworkSubnetID)
+	populate(objectMap, "vnetBackupRestoreEnabled", s.VnetBackupRestoreEnabled)
 	populate(objectMap, "vnetContentShareEnabled", s.VnetContentShareEnabled)
 	populate(objectMap, "vnetImagePullEnabled", s.VnetImagePullEnabled)
 	populate(objectMap, "vnetRouteAllEnabled", s.VnetRouteAllEnabled)
@@ -19391,6 +19392,9 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "virtualNetworkSubnetId":
 			err = unpopulate(val, "VirtualNetworkSubnetID", &s.VirtualNetworkSubnetID)
+			delete(rawMsg, key)
+		case "vnetBackupRestoreEnabled":
+			err = unpopulate(val, "VnetBackupRestoreEnabled", &s.VnetBackupRestoreEnabled)
 			delete(rawMsg, key)
 		case "vnetContentShareEnabled":
 			err = unpopulate(val, "VnetContentShareEnabled", &s.VnetContentShareEnabled)
