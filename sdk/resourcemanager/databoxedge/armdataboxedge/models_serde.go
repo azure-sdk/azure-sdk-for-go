@@ -1696,6 +1696,7 @@ func (d DeviceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "deviceType", d.DeviceType)
 	populate(objectMap, "edgeProfile", d.EdgeProfile)
 	populate(objectMap, "friendlyName", d.FriendlyName)
+	populate(objectMap, "kubernetesWorkloadProfile", d.KubernetesWorkloadProfile)
 	populate(objectMap, "modelDescription", d.ModelDescription)
 	populate(objectMap, "nodeCount", d.NodeCount)
 	populate(objectMap, "resourceMoveDetails", d.ResourceMoveDetails)
@@ -1749,6 +1750,9 @@ func (d *DeviceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "friendlyName":
 			err = unpopulate(val, "FriendlyName", &d.FriendlyName)
+			delete(rawMsg, key)
+		case "kubernetesWorkloadProfile":
+			err = unpopulate(val, "KubernetesWorkloadProfile", &d.KubernetesWorkloadProfile)
 			delete(rawMsg, key)
 		case "modelDescription":
 			err = unpopulate(val, "ModelDescription", &d.ModelDescription)
@@ -3155,6 +3159,7 @@ func (k *KubernetesRoleStorageClassInfo) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LoadBalancerConfig.
 func (l LoadBalancerConfig) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "ipRange", l.IPRange)
 	populate(objectMap, "type", l.Type)
 	populate(objectMap, "version", l.Version)
 	return json.Marshal(objectMap)
@@ -3169,6 +3174,9 @@ func (l *LoadBalancerConfig) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "ipRange":
+			err = unpopulate(val, "IPRange", &l.IPRange)
+			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &l.Type)
 			delete(rawMsg, key)
