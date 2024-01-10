@@ -10,7 +10,7 @@ package armsphere
 
 // CatalogsClientCountDevicesResponse contains the response from method CatalogsClient.CountDevices.
 type CatalogsClientCountDevicesResponse struct {
-	// Response to the action call for count devices in a catalog.
+	// Response to the action call for count devices in a catalog (preview API).
 	CountDeviceResponse
 }
 
@@ -127,7 +127,7 @@ type DeviceGroupsClientClaimDevicesResponse struct {
 
 // DeviceGroupsClientCountDevicesResponse contains the response from method DeviceGroupsClient.CountDevices.
 type DeviceGroupsClientCountDevicesResponse struct {
-	// Response to the action call for count devices in a catalog.
+	// Response to the action call for count devices in a catalog (preview API).
 	CountDeviceResponse
 }
 
@@ -226,7 +226,7 @@ type OperationsClientListResponse struct {
 
 // ProductsClientCountDevicesResponse contains the response from method ProductsClient.CountDevices.
 type ProductsClientCountDevicesResponse struct {
-	// Response to the action call for count devices in a catalog.
+	// Response to the action call for count devices in a catalog (preview API).
 	CountDeviceResponse
 }
 

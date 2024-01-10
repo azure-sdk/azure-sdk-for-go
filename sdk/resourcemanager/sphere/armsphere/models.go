@@ -118,7 +118,7 @@ type ClaimDevicesRequest struct {
 	DeviceIdentifiers []*string
 }
 
-// CountDeviceResponse - Response to the action call for count devices in a catalog.
+// CountDeviceResponse - Response to the action call for count devices in a catalog (preview API).
 type CountDeviceResponse struct {
 	// REQUIRED; Number of children resources in parent resource.
 	Value *int32
