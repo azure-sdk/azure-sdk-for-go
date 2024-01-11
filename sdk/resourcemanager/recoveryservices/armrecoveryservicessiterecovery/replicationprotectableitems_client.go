@@ -46,7 +46,7 @@ func NewReplicationProtectableItemsClient(subscriptionID string, credential azco
 // Get - The operation to get the details of a protectable item.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -108,7 +108,7 @@ func (client *ReplicationProtectableItemsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -125,7 +125,7 @@ func (client *ReplicationProtectableItemsClient) getHandleResponse(resp *http.Re
 
 // NewListByReplicationProtectionContainersPager - Lists the protectable items in a protection container.
 //
-// Generated from API version 2023-06-01
+// Generated from API version 2023-08-01
 //   - resourceName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - fabricName - Fabric name.
@@ -183,7 +183,7 @@ func (client *ReplicationProtectableItemsClient) listByReplicationProtectionCont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01")
+	reqQP.Set("api-version", "2023-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
