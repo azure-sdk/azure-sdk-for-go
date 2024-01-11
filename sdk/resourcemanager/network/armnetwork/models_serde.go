@@ -3895,6 +3895,7 @@ func (a *ApplicationGatewayRoutingRulePropertiesFormat) UnmarshalJSON(data []byt
 func (a ApplicationGatewaySKU) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "capacity", a.Capacity)
+	populate(objectMap, "family", a.Family)
 	populate(objectMap, "name", a.Name)
 	populate(objectMap, "tier", a.Tier)
 	return json.Marshal(objectMap)
@@ -3911,6 +3912,9 @@ func (a *ApplicationGatewaySKU) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "capacity":
 			err = unpopulate(val, "Capacity", &a.Capacity)
+			delete(rawMsg, key)
+		case "family":
+			err = unpopulate(val, "Family", &a.Family)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &a.Name)
@@ -7042,6 +7046,7 @@ func (b BastionHost) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sku", b.SKU)
 	populate(objectMap, "tags", b.Tags)
 	populate(objectMap, "type", b.Type)
+	populate(objectMap, "zones", b.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -7077,6 +7082,9 @@ func (b *BastionHost) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &b.Type)
+			delete(rawMsg, key)
+		case "zones":
+			err = unpopulate(val, "Zones", &b.Zones)
 			delete(rawMsg, key)
 		}
 		if err != nil {
