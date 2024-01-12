@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -37,8 +37,32 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-// NewManagementClient creates a new instance of ManagementClient.
-func (c *ClientFactory) NewManagementClient() *ManagementClient {
-	subClient, _ := NewManagementClient(c.subscriptionID, c.credential, c.options)
+// NewAddressesClient creates a new instance of AddressesClient.
+func (c *ClientFactory) NewAddressesClient() *AddressesClient {
+	subClient, _ := NewAddressesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewOperationsClient creates a new instance of OperationsClient.
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewOrderItemsClient creates a new instance of OrderItemsClient.
+func (c *ClientFactory) NewOrderItemsClient() *OrderItemsClient {
+	subClient, _ := NewOrderItemsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewOrdersClient creates a new instance of OrdersClient.
+func (c *ClientFactory) NewOrdersClient() *OrdersClient {
+	subClient, _ := NewOrdersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductsAndConfigurationsClient creates a new instance of ProductsAndConfigurationsClient.
+func (c *ClientFactory) NewProductsAndConfigurationsClient() *ProductsAndConfigurationsClient {
+	subClient, _ := NewProductsAndConfigurationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
