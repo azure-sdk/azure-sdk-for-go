@@ -1,5 +1,17 @@
 # Release History
 
+## 5.1.0-beta.1 (2024-01-12)
+### Features Added
+
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New enum type `NetworkWatcherResourceIdentityType` with values `NetworkWatcherResourceIdentityTypeNone`, `NetworkWatcherResourceIdentityTypeUserAssigned`
+- New struct `ManagedIdentityObjectForUserAssigned`
+- New struct `UserIdentityProperties`
+- New field `Zones` in struct `BastionHost`
+- New field `Identity` in struct `FlowLogProperties`
+- New field `Identity` in struct `FlowLogPropertiesFormat`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 

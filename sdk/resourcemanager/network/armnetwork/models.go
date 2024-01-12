@@ -2936,6 +2936,9 @@ type BastionHost struct {
 	// Resource tags.
 	Tags map[string]*string
 
+	// A list of availability zones denoting where the resource needs to come from.
+	Zones []*string
+
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string
 
@@ -6290,6 +6293,9 @@ type FlowLogProperties struct {
 	// Parameters that define the flow log format.
 	Format *FlowLogFormatParameters
 
+	// Identity of the workspace
+	Identity *ManagedIdentityObjectForUserAssigned
+
 	// Parameters that define the retention policy for flow log.
 	RetentionPolicy *RetentionPolicyParameters
 }
@@ -6310,6 +6316,9 @@ type FlowLogPropertiesFormat struct {
 
 	// Parameters that define the flow log format.
 	Format *FlowLogFormatParameters
+
+	// Identity of the workspace
+	Identity *ManagedIdentityObjectForUserAssigned
 
 	// Parameters that define the retention policy for flow log.
 	RetentionPolicy *RetentionPolicyParameters
@@ -8027,6 +8036,18 @@ type LogSpecification struct {
 
 	// The name of the specification.
 	Name *string
+}
+
+// ManagedIdentityObjectForUserAssigned - Identity for the resource.
+type ManagedIdentityObjectForUserAssigned struct {
+	// The type of identity used for the resource. The type 'UserAssigned' includes set of user assigned identities. The type
+	// 'None' will remove any identities from the flowlog.
+	Type *NetworkWatcherResourceIdentityType
+
+	// The list of user identities associated with resource. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserIdentityProperties
 }
 
 // ManagedRuleGroupOverride - Defines a managed rule group override setting.
@@ -11479,6 +11500,14 @@ type UsagesListResult struct {
 
 	// The list network resource usages.
 	Value []*Usage
+}
+
+type UserIdentityProperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }
 
 // VM - Describes a Virtual Machine.

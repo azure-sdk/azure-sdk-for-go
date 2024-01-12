@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.0.0"
+	moduleVersion = "v5.1.0-beta.1"
 )
 
 // Access - Access to be allowed or denied.
@@ -2511,6 +2511,23 @@ func PossibleNetworkOperationStatusValues() []NetworkOperationStatus {
 	}
 }
 
+// NetworkWatcherResourceIdentityType - The type of identity used for the resource. The type 'UserAssigned' includes set of
+// user assigned identities. The type 'None' will remove any identities from the flowlog.
+type NetworkWatcherResourceIdentityType string
+
+const (
+	NetworkWatcherResourceIdentityTypeNone         NetworkWatcherResourceIdentityType = "None"
+	NetworkWatcherResourceIdentityTypeUserAssigned NetworkWatcherResourceIdentityType = "UserAssigned"
+)
+
+// PossibleNetworkWatcherResourceIdentityTypeValues returns the possible values for the NetworkWatcherResourceIdentityType const type.
+func PossibleNetworkWatcherResourceIdentityTypeValues() []NetworkWatcherResourceIdentityType {
+	return []NetworkWatcherResourceIdentityType{
+		NetworkWatcherResourceIdentityTypeNone,
+		NetworkWatcherResourceIdentityTypeUserAssigned,
+	}
+}
+
 // NextHopType - Next hop type.
 type NextHopType string
 
@@ -3956,8 +3973,10 @@ func PossibleVirtualNetworkPeeringStateValues() []VirtualNetworkPeeringState {
 type VirtualNetworkPrivateEndpointNetworkPolicies string
 
 const (
-	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
-	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled  VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled                    VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled                     VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled VirtualNetworkPrivateEndpointNetworkPolicies = "NetworkSecurityGroupEnabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled           VirtualNetworkPrivateEndpointNetworkPolicies = "RouteTableEnabled"
 )
 
 // PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues returns the possible values for the VirtualNetworkPrivateEndpointNetworkPolicies const type.
@@ -3965,6 +3984,8 @@ func PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues() []VirtualNetwo
 	return []VirtualNetworkPrivateEndpointNetworkPolicies{
 		VirtualNetworkPrivateEndpointNetworkPoliciesDisabled,
 		VirtualNetworkPrivateEndpointNetworkPoliciesEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled,
 	}
 }
 
