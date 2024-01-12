@@ -538,6 +538,7 @@ func (f FhirServiceAuthenticationConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "audience", f.Audience)
 	populate(objectMap, "authority", f.Authority)
+	populate(objectMap, "smartIdentityProviders", f.SmartIdentityProviders)
 	populate(objectMap, "smartProxyEnabled", f.SmartProxyEnabled)
 	return json.Marshal(objectMap)
 }
@@ -556,6 +557,9 @@ func (f *FhirServiceAuthenticationConfiguration) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "authority":
 			err = unpopulate(val, "Authority", &f.Authority)
+			delete(rawMsg, key)
+		case "smartIdentityProviders":
+			err = unpopulate(val, "SmartIdentityProviders", &f.SmartIdentityProviders)
 			delete(rawMsg, key)
 		case "smartProxyEnabled":
 			err = unpopulate(val, "SmartProxyEnabled", &f.SmartProxyEnabled)
@@ -2795,6 +2799,72 @@ func (s *ServicesResourceIdentity) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SmartIdentityProviderApplication.
+func (s SmartIdentityProviderApplication) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "allowedDataActions", s.AllowedDataActions)
+	populate(objectMap, "audience", s.Audience)
+	populate(objectMap, "clientId", s.ClientID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SmartIdentityProviderApplication.
+func (s *SmartIdentityProviderApplication) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "allowedDataActions":
+			err = unpopulate(val, "AllowedDataActions", &s.AllowedDataActions)
+			delete(rawMsg, key)
+		case "audience":
+			err = unpopulate(val, "Audience", &s.Audience)
+			delete(rawMsg, key)
+		case "clientId":
+			err = unpopulate(val, "ClientID", &s.ClientID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SmartIdentityProviderConfiguration.
+func (s SmartIdentityProviderConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "applications", s.Applications)
+	populate(objectMap, "authority", s.Authority)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SmartIdentityProviderConfiguration.
+func (s *SmartIdentityProviderConfiguration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "applications":
+			err = unpopulate(val, "Applications", &s.Applications)
+			delete(rawMsg, key)
+		case "authority":
+			err = unpopulate(val, "Authority", &s.Authority)
 			delete(rawMsg, key)
 		}
 		if err != nil {
