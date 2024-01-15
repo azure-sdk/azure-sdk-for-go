@@ -200,6 +200,12 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
+// NewPowerShell72ModuleClient creates a new instance of PowerShell72ModuleClient.
+func (c *ClientFactory) NewPowerShell72ModuleClient() *PowerShell72ModuleClient {
+	subClient, _ := NewPowerShell72ModuleClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient.
 func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
 	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
@@ -215,6 +221,12 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 // NewPython2PackageClient creates a new instance of Python2PackageClient.
 func (c *ClientFactory) NewPython2PackageClient() *Python2PackageClient {
 	subClient, _ := NewPython2PackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewPython3PackageClient creates a new instance of Python3PackageClient.
+func (c *ClientFactory) NewPython3PackageClient() *Python3PackageClient {
+	subClient, _ := NewPython3PackageClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

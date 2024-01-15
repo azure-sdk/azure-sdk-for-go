@@ -20,65 +20,65 @@ import (
 	"strings"
 )
 
-// CertificateClient contains the methods for the Certificate group.
-// Don't use this type directly, use NewCertificateClient() instead.
-type CertificateClient struct {
+// PowerShell72ModuleClient contains the methods for the PowerShell72Module group.
+// Don't use this type directly, use NewPowerShell72ModuleClient() instead.
+type PowerShell72ModuleClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewCertificateClient creates a new instance of CertificateClient with the specified values.
+// NewPowerShell72ModuleClient creates a new instance of PowerShell72ModuleClient with the specified values.
 //   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
 //     forms part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewCertificateClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CertificateClient, error) {
+func NewPowerShell72ModuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PowerShell72ModuleClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &CertificateClient{
+	client := &PowerShell72ModuleClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create a certificate.
+// CreateOrUpdate - Create or Update the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - certificateName - The parameters supplied to the create or update certificate operation.
-//   - parameters - The parameters supplied to the create or update certificate operation.
-//   - options - CertificateClientCreateOrUpdateOptions contains the optional parameters for the CertificateClient.CreateOrUpdate
+//   - moduleName - The name of module.
+//   - parameters - The create or update parameters for module.
+//   - options - PowerShell72ModuleClientCreateOrUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.CreateOrUpdate
 //     method.
-func (client *CertificateClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters, options *CertificateClientCreateOrUpdateOptions) (CertificateClientCreateOrUpdateResponse, error) {
+func (client *PowerShell72ModuleClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientCreateOrUpdateOptions) (PowerShell72ModuleClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "CertificateClient.CreateOrUpdate"
+	const operationName = "PowerShell72ModuleClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
-		return CertificateClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificateClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificateClientCreateOrUpdateResponse{}, err
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CertificateClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters, options *CertificateClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}"
+func (client *PowerShell72ModuleClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -87,10 +87,10 @@ func (client *CertificateClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -110,46 +110,47 @@ func (client *CertificateClient) createOrUpdateCreateRequest(ctx context.Context
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *CertificateClient) createOrUpdateHandleResponse(resp *http.Response) (CertificateClientCreateOrUpdateResponse, error) {
-	result := CertificateClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificateClientCreateOrUpdateResponse{}, err
+func (client *PowerShell72ModuleClient) createOrUpdateHandleResponse(resp *http.Response) (PowerShell72ModuleClientCreateOrUpdateResponse, error) {
+	result := PowerShell72ModuleClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
+		return PowerShell72ModuleClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the certificate.
+// Delete - Delete the module by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - certificateName - The name of certificate.
-//   - options - CertificateClientDeleteOptions contains the optional parameters for the CertificateClient.Delete method.
-func (client *CertificateClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, options *CertificateClientDeleteOptions) (CertificateClientDeleteResponse, error) {
+//   - moduleName - The name of module.
+//   - options - PowerShell72ModuleClientDeleteOptions contains the optional parameters for the PowerShell72ModuleClient.Delete
+//     method.
+func (client *PowerShell72ModuleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientDeleteOptions) (PowerShell72ModuleClientDeleteResponse, error) {
 	var err error
-	const operationName = "CertificateClient.Delete"
+	const operationName = "PowerShell72ModuleClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
-		return CertificateClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificateClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificateClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
-	return CertificateClientDeleteResponse{}, nil
+	return PowerShell72ModuleClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, options *CertificateClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}"
+func (client *PowerShell72ModuleClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -158,10 +159,10 @@ func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -177,39 +178,39 @@ func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resour
 	return req, nil
 }
 
-// Get - Retrieve the certificate identified by certificate name.
+// Get - Retrieve the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - certificateName - The name of certificate.
-//   - options - CertificateClientGetOptions contains the optional parameters for the CertificateClient.Get method.
-func (client *CertificateClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, options *CertificateClientGetOptions) (CertificateClientGetResponse, error) {
+//   - moduleName - The name of module.
+//   - options - PowerShell72ModuleClientGetOptions contains the optional parameters for the PowerShell72ModuleClient.Get method.
+func (client *PowerShell72ModuleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientGetOptions) (PowerShell72ModuleClientGetResponse, error) {
 	var err error
-	const operationName = "CertificateClient.Get"
+	const operationName = "PowerShell72ModuleClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
-		return CertificateClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificateClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificateClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *CertificateClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, options *CertificateClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}"
+func (client *PowerShell72ModuleClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -218,10 +219,10 @@ func (client *CertificateClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -238,28 +239,28 @@ func (client *CertificateClient) getCreateRequest(ctx context.Context, resourceG
 }
 
 // getHandleResponse handles the Get response.
-func (client *CertificateClient) getHandleResponse(resp *http.Response) (CertificateClientGetResponse, error) {
-	result := CertificateClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificateClientGetResponse{}, err
+func (client *PowerShell72ModuleClient) getHandleResponse(resp *http.Response) (PowerShell72ModuleClientGetResponse, error) {
+	result := PowerShell72ModuleClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByAutomationAccountPager - Retrieve a list of certificates.
+// NewListByAutomationAccountPager - Retrieve a list of PowerShell72 modules.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - options - CertificateClientListByAutomationAccountOptions contains the optional parameters for the CertificateClient.NewListByAutomationAccountPager
+//   - options - PowerShell72ModuleClientListByAutomationAccountOptions contains the optional parameters for the PowerShell72ModuleClient.NewListByAutomationAccountPager
 //     method.
-func (client *CertificateClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *CertificateClientListByAutomationAccountOptions) *runtime.Pager[CertificateClientListByAutomationAccountResponse] {
-	return runtime.NewPager(runtime.PagingHandler[CertificateClientListByAutomationAccountResponse]{
-		More: func(page CertificateClientListByAutomationAccountResponse) bool {
+func (client *PowerShell72ModuleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *PowerShell72ModuleClientListByAutomationAccountOptions) *runtime.Pager[PowerShell72ModuleClientListByAutomationAccountResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PowerShell72ModuleClientListByAutomationAccountResponse]{
+		More: func(page PowerShell72ModuleClientListByAutomationAccountResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *CertificateClientListByAutomationAccountResponse) (CertificateClientListByAutomationAccountResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "CertificateClient.NewListByAutomationAccountPager")
+		Fetcher: func(ctx context.Context, page *PowerShell72ModuleClientListByAutomationAccountResponse) (PowerShell72ModuleClientListByAutomationAccountResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PowerShell72ModuleClient.NewListByAutomationAccountPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -268,7 +269,7 @@ func (client *CertificateClient) NewListByAutomationAccountPager(resourceGroupNa
 				return client.listByAutomationAccountCreateRequest(ctx, resourceGroupName, automationAccountName, options)
 			}, nil)
 			if err != nil {
-				return CertificateClientListByAutomationAccountResponse{}, err
+				return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 			}
 			return client.listByAutomationAccountHandleResponse(resp)
 		},
@@ -277,8 +278,8 @@ func (client *CertificateClient) NewListByAutomationAccountPager(resourceGroupNa
 }
 
 // listByAutomationAccountCreateRequest creates the ListByAutomationAccount request.
-func (client *CertificateClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *CertificateClientListByAutomationAccountOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates"
+func (client *PowerShell72ModuleClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *PowerShell72ModuleClientListByAutomationAccountOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -303,48 +304,49 @@ func (client *CertificateClient) listByAutomationAccountCreateRequest(ctx contex
 }
 
 // listByAutomationAccountHandleResponse handles the ListByAutomationAccount response.
-func (client *CertificateClient) listByAutomationAccountHandleResponse(resp *http.Response) (CertificateClientListByAutomationAccountResponse, error) {
-	result := CertificateClientListByAutomationAccountResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CertificateListResult); err != nil {
-		return CertificateClientListByAutomationAccountResponse{}, err
+func (client *PowerShell72ModuleClient) listByAutomationAccountHandleResponse(resp *http.Response) (PowerShell72ModuleClientListByAutomationAccountResponse, error) {
+	result := PowerShell72ModuleClientListByAutomationAccountResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ModuleListResult); err != nil {
+		return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Update a certificate.
+// Update - Update the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - certificateName - The parameters supplied to the update certificate operation.
-//   - parameters - The parameters supplied to the update certificate operation.
-//   - options - CertificateClientUpdateOptions contains the optional parameters for the CertificateClient.Update method.
-func (client *CertificateClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateUpdateParameters, options *CertificateClientUpdateOptions) (CertificateClientUpdateResponse, error) {
+//   - moduleName - The name of module.
+//   - parameters - The update parameters for module.
+//   - options - PowerShell72ModuleClientUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.Update
+//     method.
+func (client *PowerShell72ModuleClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *PowerShell72ModuleClientUpdateOptions) (PowerShell72ModuleClientUpdateResponse, error) {
 	var err error
-	const operationName = "CertificateClient.Update"
+	const operationName = "PowerShell72ModuleClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, parameters, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
-		return CertificateClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificateClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificateClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *CertificateClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateUpdateParameters, options *CertificateClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}"
+func (client *PowerShell72ModuleClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *PowerShell72ModuleClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -353,10 +355,10 @@ func (client *CertificateClient) updateCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if moduleName == "" {
+		return nil, errors.New("parameter moduleName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{moduleName}", url.PathEscape(moduleName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -376,10 +378,10 @@ func (client *CertificateClient) updateCreateRequest(ctx context.Context, resour
 }
 
 // updateHandleResponse handles the Update response.
-func (client *CertificateClient) updateHandleResponse(resp *http.Response) (CertificateClientUpdateResponse, error) {
-	result := CertificateClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificateClientUpdateResponse{}, err
+func (client *PowerShell72ModuleClient) updateHandleResponse(resp *http.Response) (PowerShell72ModuleClientUpdateResponse, error) {
+	result := PowerShell72ModuleClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	return result, nil
 }
