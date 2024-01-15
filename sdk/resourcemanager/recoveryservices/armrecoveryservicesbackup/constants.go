@@ -10,7 +10,7 @@ package armrecoveryservicesbackup
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup"
-	moduleVersion = "v3.1.0"
+	moduleVersion = "v4.0.0"
 )
 
 // AcquireStorageAccountLock - Whether storage account lock is to be acquired for this container or not.
@@ -571,6 +571,19 @@ func PossibleIAASVMPolicyTypeValues() []IAASVMPolicyType {
 	}
 }
 
+type IaasVMSnapshotConsistencyType string
+
+const (
+	IaasVMSnapshotConsistencyTypeOnlyCrashConsistent IaasVMSnapshotConsistencyType = "OnlyCrashConsistent"
+)
+
+// PossibleIaasVMSnapshotConsistencyTypeValues returns the possible values for the IaasVMSnapshotConsistencyType const type.
+func PossibleIaasVMSnapshotConsistencyTypeValues() []IaasVMSnapshotConsistencyType {
+	return []IaasVMSnapshotConsistencyType{
+		IaasVMSnapshotConsistencyTypeOnlyCrashConsistent,
+	}
+}
+
 type InfrastructureEncryptionState string
 
 const (
@@ -1127,9 +1140,12 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 type RecoveryMode string
 
 const (
-	RecoveryModeFileRecovery     RecoveryMode = "FileRecovery"
-	RecoveryModeInvalid          RecoveryMode = "Invalid"
-	RecoveryModeWorkloadRecovery RecoveryMode = "WorkloadRecovery"
+	RecoveryModeFileRecovery             RecoveryMode = "FileRecovery"
+	RecoveryModeInvalid                  RecoveryMode = "Invalid"
+	RecoveryModeRecoveryUsingSnapshot    RecoveryMode = "RecoveryUsingSnapshot"
+	RecoveryModeSnapshotAttach           RecoveryMode = "SnapshotAttach"
+	RecoveryModeSnapshotAttachAndRecover RecoveryMode = "SnapshotAttachAndRecover"
+	RecoveryModeWorkloadRecovery         RecoveryMode = "WorkloadRecovery"
 )
 
 // PossibleRecoveryModeValues returns the possible values for the RecoveryMode const type.
@@ -1137,6 +1153,9 @@ func PossibleRecoveryModeValues() []RecoveryMode {
 	return []RecoveryMode{
 		RecoveryModeFileRecovery,
 		RecoveryModeInvalid,
+		RecoveryModeRecoveryUsingSnapshot,
+		RecoveryModeSnapshotAttach,
+		RecoveryModeSnapshotAttachAndRecover,
 		RecoveryModeWorkloadRecovery,
 	}
 }
