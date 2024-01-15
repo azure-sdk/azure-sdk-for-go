@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v5.0.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -1324,6 +1324,22 @@ func PossibleSalesforceSinkWriteBehaviorValues() []SalesforceSinkWriteBehavior {
 	}
 }
 
+// SalesforceV2SinkWriteBehavior - The write behavior for the operation. Default is Insert.
+type SalesforceV2SinkWriteBehavior string
+
+const (
+	SalesforceV2SinkWriteBehaviorInsert SalesforceV2SinkWriteBehavior = "Insert"
+	SalesforceV2SinkWriteBehaviorUpsert SalesforceV2SinkWriteBehavior = "Upsert"
+)
+
+// PossibleSalesforceV2SinkWriteBehaviorValues returns the possible values for the SalesforceV2SinkWriteBehavior const type.
+func PossibleSalesforceV2SinkWriteBehaviorValues() []SalesforceV2SinkWriteBehavior {
+	return []SalesforceV2SinkWriteBehavior{
+		SalesforceV2SinkWriteBehaviorInsert,
+		SalesforceV2SinkWriteBehaviorUpsert,
+	}
+}
+
 // SapCloudForCustomerSinkWriteBehavior - The write behavior for the operation. Default is 'Insert'.
 type SapCloudForCustomerSinkWriteBehavior string
 
@@ -1499,6 +1515,24 @@ func PossibleSftpAuthenticationTypeValues() []SftpAuthenticationType {
 		SftpAuthenticationTypeBasic,
 		SftpAuthenticationTypeMultiFactor,
 		SftpAuthenticationTypeSSHPublicKey,
+	}
+}
+
+// SnowflakeAuthenticationType - The type used for authentication. Type: string.
+type SnowflakeAuthenticationType string
+
+const (
+	SnowflakeAuthenticationTypeAADServicePrincipal SnowflakeAuthenticationType = "AADServicePrincipal"
+	SnowflakeAuthenticationTypeBasic               SnowflakeAuthenticationType = "Basic"
+	SnowflakeAuthenticationTypeKeyPair             SnowflakeAuthenticationType = "KeyPair"
+)
+
+// PossibleSnowflakeAuthenticationTypeValues returns the possible values for the SnowflakeAuthenticationType const type.
+func PossibleSnowflakeAuthenticationTypeValues() []SnowflakeAuthenticationType {
+	return []SnowflakeAuthenticationType{
+		SnowflakeAuthenticationTypeAADServicePrincipal,
+		SnowflakeAuthenticationTypeBasic,
+		SnowflakeAuthenticationTypeKeyPair,
 	}
 }
 
