@@ -26,6 +26,15 @@ type CertificatePropertiesClassification interface {
 	GetCertificateProperties() *CertificateProperties
 }
 
+// ContainerRegistryCredentialsClassification provides polymorphic access to related types.
+// Call the interface's GetContainerRegistryCredentials() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ContainerRegistryBasicCredentials, *ContainerRegistryCredentials
+type ContainerRegistryCredentialsClassification interface {
+	// GetContainerRegistryCredentials returns the ContainerRegistryCredentials content of the underlying type.
+	GetContainerRegistryCredentials() *ContainerRegistryCredentials
+}
+
 // CustomPersistentDiskPropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetCustomPersistentDiskProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -33,6 +42,33 @@ type CertificatePropertiesClassification interface {
 type CustomPersistentDiskPropertiesClassification interface {
 	// GetCustomPersistentDiskProperties returns the CustomPersistentDiskProperties content of the underlying type.
 	GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties
+}
+
+// GatewayResponseCachePropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetGatewayResponseCacheProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *GatewayLocalResponseCachePerInstanceProperties, *GatewayLocalResponseCachePerRouteProperties, *GatewayResponseCacheProperties
+type GatewayResponseCachePropertiesClassification interface {
+	// GetGatewayResponseCacheProperties returns the GatewayResponseCacheProperties content of the underlying type.
+	GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties
+}
+
+// JobTriggerConfigClassification provides polymorphic access to related types.
+// Call the interface's GetJobTriggerConfig() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *JobTriggerConfig, *ManualJobTriggerConfig
+type JobTriggerConfigClassification interface {
+	// GetJobTriggerConfig returns the JobTriggerConfig content of the underlying type.
+	GetJobTriggerConfig() *JobTriggerConfig
+}
+
+// MaintenanceScheduleConfigurationClassification provides polymorphic access to related types.
+// Call the interface's GetMaintenanceScheduleConfiguration() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *MaintenanceScheduleConfiguration, *WeeklyMaintenanceScheduleConfiguration
+type MaintenanceScheduleConfigurationClassification interface {
+	// GetMaintenanceScheduleConfiguration returns the MaintenanceScheduleConfiguration content of the underlying type.
+	GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration
 }
 
 // ProbeActionClassification provides polymorphic access to related types.
@@ -56,7 +92,8 @@ type StoragePropertiesClassification interface {
 // UploadedUserSourceInfoClassification provides polymorphic access to related types.
 // Call the interface's GetUploadedUserSourceInfo() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *JarUploadedUserSourceInfo, *NetCoreZipUploadedUserSourceInfo, *SourceUploadedUserSourceInfo, *UploadedUserSourceInfo
+// - *JarUploadedUserSourceInfo, *NetCoreZipUploadedUserSourceInfo, *SourceUploadedUserSourceInfo, *UploadedUserSourceInfo,
+// - *WarUploadedUserSourceInfo
 type UploadedUserSourceInfoClassification interface {
 	UserSourceInfoClassification
 	// GetUploadedUserSourceInfo returns the UploadedUserSourceInfo content of the underlying type.
@@ -67,7 +104,7 @@ type UploadedUserSourceInfoClassification interface {
 // Call the interface's GetUserSourceInfo() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *BuildResultUserSourceInfo, *CustomContainerUserSourceInfo, *JarUploadedUserSourceInfo, *NetCoreZipUploadedUserSourceInfo,
-// - *SourceUploadedUserSourceInfo, *UploadedUserSourceInfo, *UserSourceInfo
+// - *SourceUploadedUserSourceInfo, *UploadedUserSourceInfo, *UserSourceInfo, *WarUploadedUserSourceInfo
 type UserSourceInfoClassification interface {
 	// GetUserSourceInfo returns the UserSourceInfo content of the underlying type.
 	GetUserSourceInfo() *UserSourceInfo

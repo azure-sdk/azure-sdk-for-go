@@ -44,6 +44,10 @@ type GatewaysServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	ListEnvSecrets func(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, options *armappplatform.GatewaysClientListEnvSecretsOptions) (resp azfake.Responder[armappplatform.GatewaysClientListEnvSecretsResponse], errResp azfake.ErrorResponder)
 
+	// BeginRestart is the fake for method GatewaysClient.BeginRestart
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginRestart func(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, options *armappplatform.GatewaysClientBeginRestartOptions) (resp azfake.PollerResponder[armappplatform.GatewaysClientRestartResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpdateCapacity is the fake for method GatewaysClient.BeginUpdateCapacity
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdateCapacity func(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, gatewayCapacityResource armappplatform.SKUObject, options *armappplatform.GatewaysClientBeginUpdateCapacityOptions) (resp azfake.PollerResponder[armappplatform.GatewaysClientUpdateCapacityResponse], errResp azfake.ErrorResponder)
@@ -62,6 +66,7 @@ func NewGatewaysServerTransport(srv *GatewaysServer) *GatewaysServerTransport {
 		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armappplatform.GatewaysClientCreateOrUpdateResponse]](),
 		beginDelete:         newTracker[azfake.PollerResponder[armappplatform.GatewaysClientDeleteResponse]](),
 		newListPager:        newTracker[azfake.PagerResponder[armappplatform.GatewaysClientListResponse]](),
+		beginRestart:        newTracker[azfake.PollerResponder[armappplatform.GatewaysClientRestartResponse]](),
 		beginUpdateCapacity: newTracker[azfake.PollerResponder[armappplatform.GatewaysClientUpdateCapacityResponse]](),
 	}
 }
@@ -73,6 +78,7 @@ type GatewaysServerTransport struct {
 	beginCreateOrUpdate *tracker[azfake.PollerResponder[armappplatform.GatewaysClientCreateOrUpdateResponse]]
 	beginDelete         *tracker[azfake.PollerResponder[armappplatform.GatewaysClientDeleteResponse]]
 	newListPager        *tracker[azfake.PagerResponder[armappplatform.GatewaysClientListResponse]]
+	beginRestart        *tracker[azfake.PollerResponder[armappplatform.GatewaysClientRestartResponse]]
 	beginUpdateCapacity *tracker[azfake.PollerResponder[armappplatform.GatewaysClientUpdateCapacityResponse]]
 }
 
@@ -98,6 +104,8 @@ func (g *GatewaysServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = g.dispatchNewListPager(req)
 	case "GatewaysClient.ListEnvSecrets":
 		resp, err = g.dispatchListEnvSecrets(req)
+	case "GatewaysClient.BeginRestart":
+		resp, err = g.dispatchBeginRestart(req)
 	case "GatewaysClient.BeginUpdateCapacity":
 		resp, err = g.dispatchBeginUpdateCapacity(req)
 	case "GatewaysClient.ValidateDomain":
@@ -325,6 +333,54 @@ func (g *GatewaysServerTransport) dispatchListEnvSecrets(req *http.Request) (*ht
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (g *GatewaysServerTransport) dispatchBeginRestart(req *http.Request) (*http.Response, error) {
+	if g.srv.BeginRestart == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginRestart not implemented")}
+	}
+	beginRestart := g.beginRestart.get(req)
+	if beginRestart == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/gateways/(?P<gatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restart`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		gatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := g.srv.BeginRestart(req.Context(), resourceGroupNameParam, serviceNameParam, gatewayNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginRestart = &respr
+		g.beginRestart.add(req, beginRestart)
+	}
+
+	resp, err := server.PollerResponderNext(beginRestart, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		g.beginRestart.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginRestart) {
+		g.beginRestart.remove(req)
+	}
+
 	return resp, nil
 }
 

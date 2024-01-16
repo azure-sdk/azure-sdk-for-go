@@ -20,69 +20,69 @@ import (
 	"strings"
 )
 
-// APIPortalsClient contains the methods for the APIPortals group.
-// Don't use this type directly, use NewAPIPortalsClient() instead.
-type APIPortalsClient struct {
+// JobsClient contains the methods for the Jobs group.
+// Don't use this type directly, use NewJobsClient() instead.
+type JobsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewAPIPortalsClient creates a new instance of APIPortalsClient with the specified values.
+// NewJobsClient creates a new instance of JobsClient with the specified values.
 //   - subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewAPIPortalsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIPortalsClient, error) {
+func NewJobsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &APIPortalsClient{
+	client := &JobsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create the default API portal or update the existing API portal.
+// BeginCreateOrUpdate - Create a new Job or update an exiting Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apiPortalName - The name of API portal.
-//   - apiPortalResource - The API portal for the create or update operation
-//   - options - APIPortalsClientBeginCreateOrUpdateOptions contains the optional parameters for the APIPortalsClient.BeginCreateOrUpdate
+//   - jobName - The name of the Job resource.
+//   - jobResource - Parameters for the create or update operation
+//   - options - JobsClientBeginCreateOrUpdateOptions contains the optional parameters for the JobsClient.BeginCreateOrUpdate
 //     method.
-func (client *APIPortalsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, apiPortalResource APIPortalResource, options *APIPortalsClientBeginCreateOrUpdateOptions) (*runtime.Poller[APIPortalsClientCreateOrUpdateResponse], error) {
+func (client *JobsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, jobName string, jobResource JobResource, options *JobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[JobsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, serviceName, apiPortalName, apiPortalResource, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, serviceName, jobName, jobResource, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[APIPortalsClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[JobsClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[APIPortalsClientCreateOrUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[JobsClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// CreateOrUpdate - Create the default API portal or update the existing API portal.
+// CreateOrUpdate - Create a new Job or update an exiting Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
-func (client *APIPortalsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, apiPortalResource APIPortalResource, options *APIPortalsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *JobsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, jobName string, jobResource JobResource, options *JobsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "APIPortalsClient.BeginCreateOrUpdate"
+	const operationName = "JobsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, apiPortalResource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, jobName, jobResource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -98,8 +98,8 @@ func (client *APIPortalsClient) createOrUpdate(ctx context.Context, resourceGrou
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *APIPortalsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, apiPortalResource APIPortalResource, options *APIPortalsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apiPortals/{apiPortalName}"
+func (client *JobsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, jobResource JobResource, options *JobsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -112,10 +112,10 @@ func (client *APIPortalsClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apiPortalName == "" {
-		return nil, errors.New("parameter apiPortalName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiPortalName}", url.PathEscape(apiPortalName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -124,49 +124,49 @@ func (client *APIPortalsClient) createOrUpdateCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2024-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, apiPortalResource); err != nil {
+	if err := runtime.MarshalAsJSON(req, jobResource); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
-// BeginDelete - Delete the default API portal.
+// BeginDelete - Operation to delete a Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apiPortalName - The name of API portal.
-//   - options - APIPortalsClientBeginDeleteOptions contains the optional parameters for the APIPortalsClient.BeginDelete method.
-func (client *APIPortalsClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, options *APIPortalsClientBeginDeleteOptions) (*runtime.Poller[APIPortalsClientDeleteResponse], error) {
+//   - jobName - The name of the Job resource.
+//   - options - JobsClientBeginDeleteOptions contains the optional parameters for the JobsClient.BeginDelete method.
+func (client *JobsClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientBeginDeleteOptions) (*runtime.Poller[JobsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, apiPortalName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, jobName, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[APIPortalsClientDeleteResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[JobsClientDeleteResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[APIPortalsClientDeleteResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[JobsClientDeleteResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// Delete - Delete the default API portal.
+// Delete - Operation to delete a Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
-func (client *APIPortalsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, options *APIPortalsClientBeginDeleteOptions) (*http.Response, error) {
+func (client *JobsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "APIPortalsClient.BeginDelete"
+	const operationName = "JobsClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +174,7 @@ func (client *APIPortalsClient) deleteOperation(ctx context.Context, resourceGro
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -182,8 +182,8 @@ func (client *APIPortalsClient) deleteOperation(ctx context.Context, resourceGro
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *APIPortalsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, options *APIPortalsClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apiPortals/{apiPortalName}"
+func (client *JobsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -196,10 +196,10 @@ func (client *APIPortalsClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apiPortalName == "" {
-		return nil, errors.New("parameter apiPortalName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiPortalName}", url.PathEscape(apiPortalName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -211,40 +211,40 @@ func (client *APIPortalsClient) deleteCreateRequest(ctx context.Context, resourc
 	return req, nil
 }
 
-// Get - Get the API portal and its properties.
+// Get - Get an Job and its properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apiPortalName - The name of API portal.
-//   - options - APIPortalsClientGetOptions contains the optional parameters for the APIPortalsClient.Get method.
-func (client *APIPortalsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, options *APIPortalsClientGetOptions) (APIPortalsClientGetResponse, error) {
+//   - jobName - The name of the Job resource.
+//   - options - JobsClientGetOptions contains the optional parameters for the JobsClient.Get method.
+func (client *JobsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientGetOptions) (JobsClientGetResponse, error) {
 	var err error
-	const operationName = "APIPortalsClient.Get"
+	const operationName = "JobsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
 	if err != nil {
-		return APIPortalsClientGetResponse{}, err
+		return JobsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return APIPortalsClientGetResponse{}, err
+		return JobsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return APIPortalsClientGetResponse{}, err
+		return JobsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *APIPortalsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, options *APIPortalsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apiPortals/{apiPortalName}"
+func (client *JobsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -257,10 +257,10 @@ func (client *APIPortalsClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apiPortalName == "" {
-		return nil, errors.New("parameter apiPortalName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiPortalName}", url.PathEscape(apiPortalName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -273,28 +273,28 @@ func (client *APIPortalsClient) getCreateRequest(ctx context.Context, resourceGr
 }
 
 // getHandleResponse handles the Get response.
-func (client *APIPortalsClient) getHandleResponse(resp *http.Response) (APIPortalsClientGetResponse, error) {
-	result := APIPortalsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.APIPortalResource); err != nil {
-		return APIPortalsClientGetResponse{}, err
+func (client *JobsClient) getHandleResponse(resp *http.Response) (JobsClientGetResponse, error) {
+	result := JobsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.JobResource); err != nil {
+		return JobsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Handles requests to list all resources in a Service.
+// NewListPager - Get the Azure Spring Apps Jobs in a given service
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - options - APIPortalsClientListOptions contains the optional parameters for the APIPortalsClient.NewListPager method.
-func (client *APIPortalsClient) NewListPager(resourceGroupName string, serviceName string, options *APIPortalsClientListOptions) *runtime.Pager[APIPortalsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[APIPortalsClientListResponse]{
-		More: func(page APIPortalsClientListResponse) bool {
+//   - options - JobsClientListOptions contains the optional parameters for the JobsClient.NewListPager method.
+func (client *JobsClient) NewListPager(resourceGroupName string, serviceName string, options *JobsClientListOptions) *runtime.Pager[JobsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[JobsClientListResponse]{
+		More: func(page JobsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *APIPortalsClientListResponse) (APIPortalsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "APIPortalsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *JobsClientListResponse) (JobsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "JobsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -303,7 +303,7 @@ func (client *APIPortalsClient) NewListPager(resourceGroupName string, serviceNa
 				return client.listCreateRequest(ctx, resourceGroupName, serviceName, options)
 			}, nil)
 			if err != nil {
-				return APIPortalsClientListResponse{}, err
+				return JobsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -312,8 +312,8 @@ func (client *APIPortalsClient) NewListPager(resourceGroupName string, serviceNa
 }
 
 // listCreateRequest creates the List request.
-func (client *APIPortalsClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *APIPortalsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apiPortals"
+func (client *JobsClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *JobsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -338,50 +338,69 @@ func (client *APIPortalsClient) listCreateRequest(ctx context.Context, resourceG
 }
 
 // listHandleResponse handles the List response.
-func (client *APIPortalsClient) listHandleResponse(resp *http.Response) (APIPortalsClientListResponse, error) {
-	result := APIPortalsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.APIPortalResourceCollection); err != nil {
-		return APIPortalsClientListResponse{}, err
+func (client *JobsClient) listHandleResponse(resp *http.Response) (JobsClientListResponse, error) {
+	result := JobsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.JobResourceCollection); err != nil {
+		return JobsClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// ValidateDomain - Check the domains are valid as well as not in use.
+// BeginStart - Start a Azure Spring Apps Job
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apiPortalName - The name of API portal.
-//   - validatePayload - Custom domain payload to be validated
-//   - options - APIPortalsClientValidateDomainOptions contains the optional parameters for the APIPortalsClient.ValidateDomain
-//     method.
-func (client *APIPortalsClient) ValidateDomain(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, validatePayload CustomDomainValidatePayload, options *APIPortalsClientValidateDomainOptions) (APIPortalsClientValidateDomainResponse, error) {
+//   - jobName - The name of the Job resource.
+//   - options - JobsClientBeginStartOptions contains the optional parameters for the JobsClient.BeginStart method.
+func (client *JobsClient) BeginStart(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientBeginStartOptions) (*runtime.Poller[JobsClientStartResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.start(ctx, resourceGroupName, serviceName, jobName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[JobsClientStartResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[JobsClientStartResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Start - Start a Azure Spring Apps Job
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-01-01-preview
+func (client *JobsClient) start(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientBeginStartOptions) (*http.Response, error) {
 	var err error
-	const operationName = "APIPortalsClient.ValidateDomain"
+	const operationName = "JobsClient.BeginStart"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.validateDomainCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, validatePayload, options)
+	req, err := client.startCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
 	if err != nil {
-		return APIPortalsClientValidateDomainResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return APIPortalsClientValidateDomainResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
-		return APIPortalsClientValidateDomainResponse{}, err
+		return nil, err
 	}
-	resp, err := client.validateDomainHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
-// validateDomainCreateRequest creates the ValidateDomain request.
-func (client *APIPortalsClient) validateDomainCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, validatePayload CustomDomainValidatePayload, options *APIPortalsClientValidateDomainOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apiPortals/{apiPortalName}/validateDomain"
+// startCreateRequest creates the Start request.
+func (client *JobsClient) startCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobsClientBeginStartOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}/start"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -394,10 +413,10 @@ func (client *APIPortalsClient) validateDomainCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apiPortalName == "" {
-		return nil, errors.New("parameter apiPortalName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiPortalName}", url.PathEscape(apiPortalName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -406,17 +425,11 @@ func (client *APIPortalsClient) validateDomainCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2024-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, validatePayload); err != nil {
-		return nil, err
+	if options != nil && options.Template != nil {
+		if err := runtime.MarshalAsJSON(req, *options.Template); err != nil {
+			return nil, err
+		}
+		return req, nil
 	}
 	return req, nil
-}
-
-// validateDomainHandleResponse handles the ValidateDomain response.
-func (client *APIPortalsClient) validateDomainHandleResponse(resp *http.Response) (APIPortalsClientValidateDomainResponse, error) {
-	result := APIPortalsClientValidateDomainResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CustomDomainValidateResult); err != nil {
-		return APIPortalsClientValidateDomainResponse{}, err
-	}
-	return result, nil
 }

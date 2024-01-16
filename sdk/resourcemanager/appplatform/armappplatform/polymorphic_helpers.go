@@ -58,6 +58,27 @@ func unmarshalCertificatePropertiesClassification(rawMsg json.RawMessage) (Certi
 	return b, nil
 }
 
+func unmarshalContainerRegistryCredentialsClassification(rawMsg json.RawMessage) (ContainerRegistryCredentialsClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ContainerRegistryCredentialsClassification
+	switch m["type"] {
+	case "BasicAuth":
+		b = &ContainerRegistryBasicCredentials{}
+	default:
+		b = &ContainerRegistryCredentials{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalCustomPersistentDiskPropertiesClassification(rawMsg json.RawMessage) (CustomPersistentDiskPropertiesClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
@@ -72,6 +93,71 @@ func unmarshalCustomPersistentDiskPropertiesClassification(rawMsg json.RawMessag
 		b = &AzureFileVolume{}
 	default:
 		b = &CustomPersistentDiskProperties{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalGatewayResponseCachePropertiesClassification(rawMsg json.RawMessage) (GatewayResponseCachePropertiesClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b GatewayResponseCachePropertiesClassification
+	switch m["responseCacheType"] {
+	case "LocalCachePerInstance":
+		b = &GatewayLocalResponseCachePerInstanceProperties{}
+	case "LocalCachePerRoute":
+		b = &GatewayLocalResponseCachePerRouteProperties{}
+	default:
+		b = &GatewayResponseCacheProperties{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalJobTriggerConfigClassification(rawMsg json.RawMessage) (JobTriggerConfigClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b JobTriggerConfigClassification
+	switch m["triggerType"] {
+	case "ManualJobTriggerConfig":
+		b = &ManualJobTriggerConfig{}
+	default:
+		b = &JobTriggerConfig{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMaintenanceScheduleConfigurationClassification(rawMsg json.RawMessage) (MaintenanceScheduleConfigurationClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MaintenanceScheduleConfigurationClassification
+	switch m["frequency"] {
+	case string(FrequencyWeekly):
+		b = &WeeklyMaintenanceScheduleConfiguration{}
+	default:
+		b = &MaintenanceScheduleConfiguration{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -147,6 +233,8 @@ func unmarshalUserSourceInfoClassification(rawMsg json.RawMessage) (UserSourceIn
 		b = &SourceUploadedUserSourceInfo{}
 	case "UploadedUserSourceInfo":
 		b = &UploadedUserSourceInfo{}
+	case "War":
+		b = &WarUploadedUserSourceInfo{}
 	default:
 		b = &UserSourceInfo{}
 	}
