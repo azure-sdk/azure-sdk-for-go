@@ -37,6 +37,24 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewActiveSessionHostConfigurationsClient creates a new instance of ActiveSessionHostConfigurationsClient.
+func (c *ClientFactory) NewActiveSessionHostConfigurationsClient() *ActiveSessionHostConfigurationsClient {
+	subClient, _ := NewActiveSessionHostConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAppAttachPackageClient creates a new instance of AppAttachPackageClient.
+func (c *ClientFactory) NewAppAttachPackageClient() *AppAttachPackageClient {
+	subClient, _ := NewAppAttachPackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewAppAttachPackageInfoClient creates a new instance of AppAttachPackageInfoClient.
+func (c *ClientFactory) NewAppAttachPackageInfoClient() *AppAttachPackageInfoClient {
+	subClient, _ := NewAppAttachPackageInfoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewApplicationGroupsClient creates a new instance of ApplicationGroupsClient.
 func (c *ClientFactory) NewApplicationGroupsClient() *ApplicationGroupsClient {
 	subClient, _ := NewApplicationGroupsClient(c.subscriptionID, c.credential, c.options)
@@ -49,6 +67,12 @@ func (c *ClientFactory) NewApplicationsClient() *ApplicationsClient {
 	return subClient
 }
 
+// NewControlSessionHostUpdateClient creates a new instance of ControlSessionHostUpdateClient.
+func (c *ClientFactory) NewControlSessionHostUpdateClient() *ControlSessionHostUpdateClient {
+	subClient, _ := NewControlSessionHostUpdateClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewDesktopsClient creates a new instance of DesktopsClient.
 func (c *ClientFactory) NewDesktopsClient() *DesktopsClient {
 	subClient, _ := NewDesktopsClient(c.subscriptionID, c.credential, c.options)
@@ -58,6 +82,12 @@ func (c *ClientFactory) NewDesktopsClient() *DesktopsClient {
 // NewHostPoolsClient creates a new instance of HostPoolsClient.
 func (c *ClientFactory) NewHostPoolsClient() *HostPoolsClient {
 	subClient, _ := NewHostPoolsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewInitiateSessionHostUpdateClient creates a new instance of InitiateSessionHostUpdateClient.
+func (c *ClientFactory) NewInitiateSessionHostUpdateClient() *InitiateSessionHostUpdateClient {
+	subClient, _ := NewInitiateSessionHostUpdateClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -106,6 +136,36 @@ func (c *ClientFactory) NewScalingPlanPooledSchedulesClient() *ScalingPlanPooled
 // NewScalingPlansClient creates a new instance of ScalingPlansClient.
 func (c *ClientFactory) NewScalingPlansClient() *ScalingPlansClient {
 	subClient, _ := NewScalingPlansClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSessionHostClient creates a new instance of SessionHostClient.
+func (c *ClientFactory) NewSessionHostClient() *SessionHostClient {
+	subClient, _ := NewSessionHostClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSessionHostConfigurationsClient creates a new instance of SessionHostConfigurationsClient.
+func (c *ClientFactory) NewSessionHostConfigurationsClient() *SessionHostConfigurationsClient {
+	subClient, _ := NewSessionHostConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSessionHostConfigurationsOperationStatusClient creates a new instance of SessionHostConfigurationsOperationStatusClient.
+func (c *ClientFactory) NewSessionHostConfigurationsOperationStatusClient() *SessionHostConfigurationsOperationStatusClient {
+	subClient, _ := NewSessionHostConfigurationsOperationStatusClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSessionHostManagementsClient creates a new instance of SessionHostManagementsClient.
+func (c *ClientFactory) NewSessionHostManagementsClient() *SessionHostManagementsClient {
+	subClient, _ := NewSessionHostManagementsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSessionHostManagementsOperationStatusClient creates a new instance of SessionHostManagementsOperationStatusClient.
+func (c *ClientFactory) NewSessionHostManagementsOperationStatusClient() *SessionHostManagementsOperationStatusClient {
+	subClient, _ := NewSessionHostManagementsOperationStatusClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
