@@ -46,7 +46,7 @@ func NewAssessmentsMetadataClient(subscriptionID string, credential azcore.Token
 // CreateInSubscription - Create metadata information on an assessment type in a specific subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
 //   - assessmentMetadata - AssessmentMetadata object
 //   - options - AssessmentsMetadataClientCreateInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.CreateInSubscription
@@ -89,7 +89,7 @@ func (client *AssessmentsMetadataClient) createInSubscriptionCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, assessmentMetadata); err != nil {
@@ -111,7 +111,7 @@ func (client *AssessmentsMetadataClient) createInSubscriptionHandleResponse(resp
 // of all the assessments of that type in that subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
 //   - options - AssessmentsMetadataClientDeleteInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.DeleteInSubscription
 //     method.
@@ -152,7 +152,7 @@ func (client *AssessmentsMetadataClient) deleteInSubscriptionCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -161,7 +161,7 @@ func (client *AssessmentsMetadataClient) deleteInSubscriptionCreateRequest(ctx c
 // Get - Get metadata information on an assessment type
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
 //   - options - AssessmentsMetadataClientGetOptions contains the optional parameters for the AssessmentsMetadataClient.Get method.
 func (client *AssessmentsMetadataClient) Get(ctx context.Context, assessmentMetadataName string, options *AssessmentsMetadataClientGetOptions) (AssessmentsMetadataClientGetResponse, error) {
@@ -198,7 +198,7 @@ func (client *AssessmentsMetadataClient) getCreateRequest(ctx context.Context, a
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -216,7 +216,7 @@ func (client *AssessmentsMetadataClient) getHandleResponse(resp *http.Response) 
 // GetInSubscription - Get metadata information on an assessment type in a specific subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
 //   - options - AssessmentsMetadataClientGetInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.GetInSubscription
 //     method.
@@ -258,7 +258,7 @@ func (client *AssessmentsMetadataClient) getInSubscriptionCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -275,7 +275,7 @@ func (client *AssessmentsMetadataClient) getInSubscriptionHandleResponse(resp *h
 
 // NewListPager - Get metadata information on all assessment types
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - options - AssessmentsMetadataClientListOptions contains the optional parameters for the AssessmentsMetadataClient.NewListPager
 //     method.
 func (client *AssessmentsMetadataClient) NewListPager(options *AssessmentsMetadataClientListOptions) *runtime.Pager[AssessmentsMetadataClientListResponse] {
@@ -309,7 +309,7 @@ func (client *AssessmentsMetadataClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -326,7 +326,7 @@ func (client *AssessmentsMetadataClient) listHandleResponse(resp *http.Response)
 
 // NewListBySubscriptionPager - Get metadata information on all assessment types in a specific subscription
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - options - AssessmentsMetadataClientListBySubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.NewListBySubscriptionPager
 //     method.
 func (client *AssessmentsMetadataClient) NewListBySubscriptionPager(options *AssessmentsMetadataClientListBySubscriptionOptions) *runtime.Pager[AssessmentsMetadataClientListBySubscriptionResponse] {
@@ -364,7 +364,7 @@ func (client *AssessmentsMetadataClient) listBySubscriptionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

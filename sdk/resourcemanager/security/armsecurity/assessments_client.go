@@ -44,7 +44,7 @@ func NewAssessmentsClient(credential azcore.TokenCredential, options *arm.Client
 // be predefined with the same name before inserting the assessment result
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - resourceID - The identifier of the resource.
 //   - assessmentName - The Assessment Key - Unique key for the assessment type
 //   - assessment - Calculated assessment on a pre-defined assessment metadata
@@ -85,7 +85,7 @@ func (client *AssessmentsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, assessment); err != nil {
@@ -107,7 +107,7 @@ func (client *AssessmentsClient) createOrUpdateHandleResponse(resp *http.Respons
 // with the same name before inserting the assessment result
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - resourceID - The identifier of the resource.
 //   - assessmentName - The Assessment Key - Unique key for the assessment type
 //   - options - AssessmentsClientDeleteOptions contains the optional parameters for the AssessmentsClient.Delete method.
@@ -145,7 +145,7 @@ func (client *AssessmentsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -154,7 +154,7 @@ func (client *AssessmentsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Get a security assessment on your scanned resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - resourceID - The identifier of the resource.
 //   - assessmentName - The Assessment Key - Unique key for the assessment type
 //   - options - AssessmentsClientGetOptions contains the optional parameters for the AssessmentsClient.Get method.
@@ -193,7 +193,7 @@ func (client *AssessmentsClient) getCreateRequest(ctx context.Context, resourceI
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
@@ -213,7 +213,7 @@ func (client *AssessmentsClient) getHandleResponse(resp *http.Response) (Assessm
 
 // NewListPager - Get security assessments on all your scanned resources inside a scope
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-04-01-preview
 //   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
 //     (/providers/Microsoft.Management/managementGroups/mgName).
 //   - options - AssessmentsClientListOptions contains the optional parameters for the AssessmentsClient.NewListPager method.
@@ -249,7 +249,7 @@ func (client *AssessmentsClient) listCreateRequest(ctx context.Context, scope st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
