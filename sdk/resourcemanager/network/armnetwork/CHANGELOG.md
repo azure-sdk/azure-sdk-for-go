@@ -1,5 +1,14 @@
 # Release History
 
+## 5.1.0 (2024-01-16)
+### Features Added
+
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New enum type `ApplicationGatewaySKUFamily` with values `ApplicationGatewaySKUFamilyGeneration1`, `ApplicationGatewaySKUFamilyGeneration2`
+- New field `Family` in struct `ApplicationGatewaySKU`
+- New field `Zones` in struct `BastionHost`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 
