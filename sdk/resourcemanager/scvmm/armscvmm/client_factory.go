@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -61,15 +61,27 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
-// NewVirtualMachineTemplatesClient creates a new instance of VirtualMachineTemplatesClient.
-func (c *ClientFactory) NewVirtualMachineTemplatesClient() *VirtualMachineTemplatesClient {
-	subClient, _ := NewVirtualMachineTemplatesClient(c.subscriptionID, c.credential, c.options)
+// NewVMInstanceGuestAgentsClient creates a new instance of VMInstanceGuestAgentsClient.
+func (c *ClientFactory) NewVMInstanceGuestAgentsClient() *VMInstanceGuestAgentsClient {
+	subClient, _ := NewVMInstanceGuestAgentsClient(c.credential, c.options)
 	return subClient
 }
 
-// NewVirtualMachinesClient creates a new instance of VirtualMachinesClient.
-func (c *ClientFactory) NewVirtualMachinesClient() *VirtualMachinesClient {
-	subClient, _ := NewVirtualMachinesClient(c.subscriptionID, c.credential, c.options)
+// NewVirtualMachineInstanceHybridIdentityMetadataClient creates a new instance of VirtualMachineInstanceHybridIdentityMetadataClient.
+func (c *ClientFactory) NewVirtualMachineInstanceHybridIdentityMetadataClient() *VirtualMachineInstanceHybridIdentityMetadataClient {
+	subClient, _ := NewVirtualMachineInstanceHybridIdentityMetadataClient(c.credential, c.options)
+	return subClient
+}
+
+// NewVirtualMachineInstancesClient creates a new instance of VirtualMachineInstancesClient.
+func (c *ClientFactory) NewVirtualMachineInstancesClient() *VirtualMachineInstancesClient {
+	subClient, _ := NewVirtualMachineInstancesClient(c.credential, c.options)
+	return subClient
+}
+
+// NewVirtualMachineTemplatesClient creates a new instance of VirtualMachineTemplatesClient.
+func (c *ClientFactory) NewVirtualMachineTemplatesClient() *VirtualMachineTemplatesClient {
+	subClient, _ := NewVirtualMachineTemplatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
