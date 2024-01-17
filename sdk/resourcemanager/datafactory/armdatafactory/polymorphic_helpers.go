@@ -231,12 +231,18 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &RestSink{}
 	case "SalesforceServiceCloudSink":
 		b = &SalesforceServiceCloudSink{}
+	case "SalesforceServiceCloudV2Sink":
+		b = &SalesforceServiceCloudV2Sink{}
 	case "SalesforceSink":
 		b = &SalesforceSink{}
+	case "SalesforceV2Sink":
+		b = &SalesforceV2Sink{}
 	case "SapCloudForCustomerSink":
 		b = &SapCloudForCustomerSink{}
 	case "SnowflakeSink":
 		b = &SnowflakeSink{}
+	case "SnowflakeV2Sink":
+		b = &SnowflakeV2Sink{}
 	case "SqlDWSink":
 		b = &SQLDWSink{}
 	case "SqlMISink":
@@ -245,6 +251,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &SQLServerSink{}
 	case "SqlSink":
 		b = &SQLSink{}
+	case "WarehouseSink":
+		b = &WarehouseSink{}
 	default:
 		b = &CopySink{}
 	}
@@ -406,8 +414,12 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &SalesforceMarketingCloudSource{}
 	case "SalesforceServiceCloudSource":
 		b = &SalesforceServiceCloudSource{}
+	case "SalesforceServiceCloudV2Source":
+		b = &SalesforceServiceCloudV2Source{}
 	case "SalesforceSource":
 		b = &SalesforceSource{}
+	case "SalesforceV2Source":
+		b = &SalesforceV2Source{}
 	case "SapBwSource":
 		b = &SapBwSource{}
 	case "SapCloudForCustomerSource":
@@ -430,6 +442,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &ShopifySource{}
 	case "SnowflakeSource":
 		b = &SnowflakeSource{}
+	case "SnowflakeV2Source":
+		b = &SnowflakeV2Source{}
 	case "SparkSource":
 		b = &SparkSource{}
 	case "SqlDWSource":
@@ -450,6 +464,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &TeradataSource{}
 	case "VerticaSource":
 		b = &VerticaSource{}
+	case "WarehouseSource":
+		b = &WarehouseSource{}
 	case "WebSource":
 		b = &WebSource{}
 	case "XeroSource":
@@ -700,6 +716,10 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &SalesforceObjectDataset{}
 	case "SalesforceServiceCloudObject":
 		b = &SalesforceServiceCloudObjectDataset{}
+	case "SalesforceServiceCloudV2Object":
+		b = &SalesforceServiceCloudV2ObjectDataset{}
+	case "SalesforceV2Object":
+		b = &SalesforceV2ObjectDataset{}
 	case "SapBwCube":
 		b = &SapBwCubeDataset{}
 	case "SapCloudForCustomerResource":
@@ -722,6 +742,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &ShopifyObjectDataset{}
 	case "SnowflakeTable":
 		b = &SnowflakeDataset{}
+	case "SnowflakeV2Table":
+		b = &SnowflakeV2Dataset{}
 	case "SparkObject":
 		b = &SparkObjectDataset{}
 	case "SqlServerTable":
@@ -734,6 +756,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &TeradataTableDataset{}
 	case "VerticaTable":
 		b = &VerticaTableDataset{}
+	case "WarehouseTable":
+		b = &WarehouseTableDataset{}
 	case "WebTable":
 		b = &WebTableDataset{}
 	case "XeroObject":
@@ -1180,6 +1204,10 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SalesforceMarketingCloudLinkedService{}
 	case "SalesforceServiceCloud":
 		b = &SalesforceServiceCloudLinkedService{}
+	case "SalesforceServiceCloudV2":
+		b = &SalesforceServiceCloudV2LinkedService{}
+	case "SalesforceV2":
+		b = &SalesforceV2LinkedService{}
 	case "SapBW":
 		b = &SapBWLinkedService{}
 	case "SapCloudForCustomer":
@@ -1206,6 +1234,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SmartsheetLinkedService{}
 	case "Snowflake":
 		b = &SnowflakeLinkedService{}
+	case "SnowflakeV2":
+		b = &SnowflakeV2LinkedService{}
 	case "Spark":
 		b = &SparkLinkedService{}
 	case "SqlServer":
@@ -1222,6 +1252,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &TwilioLinkedService{}
 	case "Vertica":
 		b = &VerticaLinkedService{}
+	case "Warehouse":
+		b = &WarehouseLinkedService{}
 	case "Web":
 		b = &WebLinkedService{}
 	case "Xero":
