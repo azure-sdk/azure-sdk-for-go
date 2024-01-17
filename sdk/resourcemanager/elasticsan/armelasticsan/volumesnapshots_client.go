@@ -350,10 +350,10 @@ func (client *VolumeSnapshotsClient) listByVolumeGroupCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -362,7 +362,7 @@ func (client *VolumeSnapshotsClient) listByVolumeGroupCreateRequest(ctx context.
 // listByVolumeGroupHandleResponse handles the ListByVolumeGroup response.
 func (client *VolumeSnapshotsClient) listByVolumeGroupHandleResponse(resp *http.Response) (VolumeSnapshotsClientListByVolumeGroupResponse, error) {
 	result := VolumeSnapshotsClientListByVolumeGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SnapshotList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.SnapshotListResult); err != nil {
 		return VolumeSnapshotsClientListByVolumeGroupResponse{}, err
 	}
 	return result, nil

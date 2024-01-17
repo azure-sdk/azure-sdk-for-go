@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
 	"net/http"
 	"net/url"
@@ -252,6 +253,9 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchNewListPager(req *ht
 		resp := p.srv.NewListPager(resourceGroupNameParam, elasticSanNameParam, nil)
 		newListPager = &resp
 		p.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armelasticsan.PrivateEndpointConnectionsClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {

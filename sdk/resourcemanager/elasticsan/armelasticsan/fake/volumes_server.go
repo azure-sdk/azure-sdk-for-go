@@ -173,6 +173,8 @@ func (v *VolumesServerTransport) dispatchBeginDelete(req *http.Request) (*http.R
 		if err != nil {
 			return nil, err
 		}
+		xMSDeleteSnapshotsParam := getOptional(armelasticsan.XMSDeleteSnapshots(getHeaderValue(req.Header, "x-ms-delete-snapshots")))
+		xMSForceDeleteParam := getOptional(armelasticsan.XMSForceDelete(getHeaderValue(req.Header, "x-ms-force-delete")))
 		elasticSanNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("elasticSanName")])
 		if err != nil {
 			return nil, err
@@ -185,8 +187,6 @@ func (v *VolumesServerTransport) dispatchBeginDelete(req *http.Request) (*http.R
 		if err != nil {
 			return nil, err
 		}
-		xMSDeleteSnapshotsParam := getOptional(armelasticsan.XMSDeleteSnapshots(getHeaderValue(req.Header, "x-ms-delete-snapshots")))
-		xMSForceDeleteParam := getOptional(armelasticsan.XMSForceDelete(getHeaderValue(req.Header, "x-ms-force-delete")))
 		var options *armelasticsan.VolumesClientBeginDeleteOptions
 		if xMSDeleteSnapshotsParam != nil || xMSForceDeleteParam != nil {
 			options = &armelasticsan.VolumesClientBeginDeleteOptions{

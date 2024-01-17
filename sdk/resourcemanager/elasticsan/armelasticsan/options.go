@@ -74,7 +74,7 @@ type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourcesClientListByElasticSanOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByElasticSan
+// PrivateLinkResourcesClientListByElasticSanOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByElasticSanPager
 // method.
 type PrivateLinkResourcesClientListByElasticSanOptions struct {
 	// placeholder for future optional parameters

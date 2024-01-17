@@ -259,6 +259,11 @@ func (v *VolumeSnapshotsServerTransport) dispatchNewListByVolumeGroupPager(req *
 		if err != nil {
 			return nil, err
 		}
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
 		elasticSanNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("elasticSanName")])
 		if err != nil {
 			return nil, err
@@ -267,11 +272,6 @@ func (v *VolumeSnapshotsServerTransport) dispatchNewListByVolumeGroupPager(req *
 		if err != nil {
 			return nil, err
 		}
-		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
-		if err != nil {
-			return nil, err
-		}
-		filterParam := getOptional(filterUnescaped)
 		var options *armelasticsan.VolumeSnapshotsClientListByVolumeGroupOptions
 		if filterParam != nil {
 			options = &armelasticsan.VolumeSnapshotsClientListByVolumeGroupOptions{

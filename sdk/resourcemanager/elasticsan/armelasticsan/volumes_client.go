@@ -363,7 +363,7 @@ func (client *VolumesClient) listByVolumeGroupCreateRequest(ctx context.Context,
 // listByVolumeGroupHandleResponse handles the ListByVolumeGroup response.
 func (client *VolumesClient) listByVolumeGroupHandleResponse(resp *http.Response) (VolumesClientListByVolumeGroupResponse, error) {
 	result := VolumesClientListByVolumeGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VolumeList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.VolumeListResult); err != nil {
 		return VolumesClientListByVolumeGroupResponse{}, err
 	}
 	return result, nil

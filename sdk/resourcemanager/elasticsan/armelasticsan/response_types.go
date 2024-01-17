@@ -27,14 +27,14 @@ type ElasticSansClientGetResponse struct {
 
 // ElasticSansClientListByResourceGroupResponse contains the response from method ElasticSansClient.NewListByResourceGroupPager.
 type ElasticSansClientListByResourceGroupResponse struct {
-	// List of Elastic Sans
-	List
+	// The response of a ElasticSan list operation.
+	ListResult
 }
 
 // ElasticSansClientListBySubscriptionResponse contains the response from method ElasticSansClient.NewListBySubscriptionPager.
 type ElasticSansClientListBySubscriptionResponse struct {
-	// List of Elastic Sans
-	List
+	// The response of a ElasticSan list operation.
+	ListResult
 }
 
 // ElasticSansClientUpdateResponse contains the response from method ElasticSansClient.BeginUpdate.
@@ -68,13 +68,13 @@ type PrivateEndpointConnectionsClientGetResponse struct {
 
 // PrivateEndpointConnectionsClientListResponse contains the response from method PrivateEndpointConnectionsClient.NewListPager.
 type PrivateEndpointConnectionsClientListResponse struct {
-	// List of private endpoint connections associated with SAN
+	// The response of a PrivateEndpointConnection list operation.
 	PrivateEndpointConnectionListResult
 }
 
-// PrivateLinkResourcesClientListByElasticSanResponse contains the response from method PrivateLinkResourcesClient.ListByElasticSan.
+// PrivateLinkResourcesClientListByElasticSanResponse contains the response from method PrivateLinkResourcesClient.NewListByElasticSanPager.
 type PrivateLinkResourcesClientListByElasticSanResponse struct {
-	// A list of private link resources
+	// The response of a PrivateLinkResource list operation.
 	PrivateLinkResourceListResult
 }
 
@@ -103,8 +103,8 @@ type VolumeGroupsClientGetResponse struct {
 
 // VolumeGroupsClientListByElasticSanResponse contains the response from method VolumeGroupsClient.NewListByElasticSanPager.
 type VolumeGroupsClientListByElasticSanResponse struct {
-	// List of Volume Groups
-	VolumeGroupList
+	// The response of a VolumeGroup list operation.
+	VolumeGroupListResult
 }
 
 // VolumeGroupsClientUpdateResponse contains the response from method VolumeGroupsClient.BeginUpdate.
@@ -132,8 +132,8 @@ type VolumeSnapshotsClientGetResponse struct {
 
 // VolumeSnapshotsClientListByVolumeGroupResponse contains the response from method VolumeSnapshotsClient.NewListByVolumeGroupPager.
 type VolumeSnapshotsClientListByVolumeGroupResponse struct {
-	// List of Snapshots
-	SnapshotList
+	// The response of a Snapshot list operation.
+	SnapshotListResult
 }
 
 // VolumesClientCreateResponse contains the response from method VolumesClient.BeginCreate.
@@ -155,8 +155,8 @@ type VolumesClientGetResponse struct {
 
 // VolumesClientListByVolumeGroupResponse contains the response from method VolumesClient.NewListByVolumeGroupPager.
 type VolumesClientListByVolumeGroupResponse struct {
-	// List of Volumes
-	VolumeList
+	// The response of a Volume list operation.
+	VolumeListResult
 }
 
 // VolumesClientUpdateResponse contains the response from method VolumesClient.BeginUpdate.

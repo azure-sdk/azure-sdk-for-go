@@ -312,7 +312,7 @@ func (client *VolumeGroupsClient) NewListByElasticSanPager(resourceGroupName str
 
 // listByElasticSanCreateRequest creates the ListByElasticSan request.
 func (client *VolumeGroupsClient) listByElasticSanCreateRequest(ctx context.Context, resourceGroupName string, elasticSanName string, options *VolumeGroupsClientListByElasticSanOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}/volumeGroups"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}/volumegroups"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -339,7 +339,7 @@ func (client *VolumeGroupsClient) listByElasticSanCreateRequest(ctx context.Cont
 // listByElasticSanHandleResponse handles the ListByElasticSan response.
 func (client *VolumeGroupsClient) listByElasticSanHandleResponse(resp *http.Response) (VolumeGroupsClientListByElasticSanResponse, error) {
 	result := VolumeGroupsClientListByElasticSanResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VolumeGroupList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.VolumeGroupListResult); err != nil {
 		return VolumeGroupsClientListByElasticSanResponse{}, err
 	}
 	return result, nil

@@ -317,7 +317,7 @@ func (client *ElasticSansClient) listByResourceGroupCreateRequest(ctx context.Co
 // listByResourceGroupHandleResponse handles the ListByResourceGroup response.
 func (client *ElasticSansClient) listByResourceGroupHandleResponse(resp *http.Response) (ElasticSansClientListByResourceGroupResponse, error) {
 	result := ElasticSansClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.List); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListResult); err != nil {
 		return ElasticSansClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
@@ -372,7 +372,7 @@ func (client *ElasticSansClient) listBySubscriptionCreateRequest(ctx context.Con
 // listBySubscriptionHandleResponse handles the ListBySubscription response.
 func (client *ElasticSansClient) listBySubscriptionHandleResponse(resp *http.Response) (ElasticSansClientListBySubscriptionResponse, error) {
 	result := ElasticSansClientListBySubscriptionResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.List); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListResult); err != nil {
 		return ElasticSansClientListBySubscriptionResponse{}, err
 	}
 	return result, nil

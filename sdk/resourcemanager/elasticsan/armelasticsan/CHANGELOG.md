@@ -1,5 +1,32 @@
 # Release History
 
+## 1.0.0 (2024-01-17)
+### Breaking Changes
+
+- Operation `*PrivateLinkResourcesClient.ListByElasticSan` has supported pagination, use `*PrivateLinkResourcesClient.NewListByElasticSanPager` instead.
+- Struct `List` has been removed
+- Struct `SnapshotList` has been removed
+- Struct `VolumeGroupList` has been removed
+- Struct `VolumeList` has been removed
+- Field `List` of struct `ElasticSansClientListByResourceGroupResponse` has been removed
+- Field `List` of struct `ElasticSansClientListBySubscriptionResponse` has been removed
+- Field `VolumeGroupList` of struct `VolumeGroupsClientListByElasticSanResponse` has been removed
+- Field `SnapshotList` of struct `VolumeSnapshotsClientListByVolumeGroupResponse` has been removed
+- Field `VolumeList` of struct `VolumesClientListByVolumeGroupResponse` has been removed
+
+### Features Added
+
+- New struct `ListResult`
+- New struct `SnapshotListResult`
+- New struct `VolumeGroupListResult`
+- New struct `VolumeListResult`
+- New anonymous field `ListResult` in struct `ElasticSansClientListByResourceGroupResponse`
+- New anonymous field `ListResult` in struct `ElasticSansClientListBySubscriptionResponse`
+- New anonymous field `VolumeGroupListResult` in struct `VolumeGroupsClientListByElasticSanResponse`
+- New anonymous field `SnapshotListResult` in struct `VolumeSnapshotsClientListByVolumeGroupResponse`
+- New anonymous field `VolumeListResult` in struct `VolumesClientListByVolumeGroupResponse`
+
+
 ## 0.5.0 (2023-11-24)
 ### Features Added
 

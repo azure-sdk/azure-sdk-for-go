@@ -105,12 +105,12 @@ type KeyVaultProperties struct {
 	LastKeyRotationTimestamp *time.Time
 }
 
-// List of Elastic Sans
-type List struct {
-	// An array of Elastic San objects.
+// ListResult - The response of a ElasticSan list operation.
+type ListResult struct {
+	// REQUIRED; The ElasticSan items on this page
 	Value []*ElasticSan
 
-	// READ-ONLY; URI to fetch the next section of the paginated response.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -199,12 +199,12 @@ type PrivateEndpointConnection struct {
 	Type *string
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connections associated with SAN
+// PrivateEndpointConnectionListResult - The response of a PrivateEndpointConnection list operation.
 type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
+	// REQUIRED; The PrivateEndpointConnection items on this page
 	Value []*PrivateEndpointConnection
 
-	// READ-ONLY; URI to fetch the next section of the paginated response.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -241,12 +241,12 @@ type PrivateLinkResource struct {
 	Type *string
 }
 
-// PrivateLinkResourceListResult - A list of private link resources
+// PrivateLinkResourceListResult - The response of a PrivateLinkResource list operation.
 type PrivateLinkResourceListResult struct {
-	// Array of private link resources
+	// REQUIRED; The PrivateLinkResource items on this page
 	Value []*PrivateLinkResource
 
-	// READ-ONLY; URI to fetch the next section of the paginated response.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -396,12 +396,12 @@ type SnapshotCreationData struct {
 	SourceID *string
 }
 
-// SnapshotList - List of Snapshots
-type SnapshotList struct {
-	// An array of Snapshot objects.
+// SnapshotListResult - The response of a Snapshot list operation.
+type SnapshotListResult struct {
+	// REQUIRED; The Snapshot items on this page
 	Value []*Snapshot
 
-	// READ-ONLY; URI to fetch the next section of the paginated response.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -529,12 +529,12 @@ type VolumeGroup struct {
 	Type *string
 }
 
-// VolumeGroupList - List of Volume Groups
-type VolumeGroupList struct {
-	// An array of Volume Groups objects.
+// VolumeGroupListResult - The response of a VolumeGroup list operation.
+type VolumeGroupListResult struct {
+	// REQUIRED; The VolumeGroup items on this page
 	Value []*VolumeGroup
 
-	// READ-ONLY; URI to fetch the next section of the paginated response.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -583,12 +583,12 @@ type VolumeGroupUpdateProperties struct {
 	ProtocolType *StorageTargetType
 }
 
-// VolumeList - List of Volumes
-type VolumeList struct {
-	// An array of Volume objects.
+// VolumeListResult - The response of a Volume list operation.
+type VolumeListResult struct {
+	// REQUIRED; The Volume items on this page
 	Value []*Volume
 
-	// READ-ONLY; URI to fetch the next section of the paginated response.
+	// The link to the next page of items
 	NextLink *string
 }
 

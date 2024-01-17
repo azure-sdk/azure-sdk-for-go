@@ -43,34 +43,34 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 	return client, nil
 }
 
-// ListByElasticSan - Gets the private link resources that need to be created for a elastic San.
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewListByElasticSanPager - Gets the private link resources that need to be created for a elastic San.
 //
 // Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - elasticSanName - The name of the ElasticSan.
-//   - options - PrivateLinkResourcesClientListByElasticSanOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByElasticSan
+//   - options - PrivateLinkResourcesClientListByElasticSanOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByElasticSanPager
 //     method.
-func (client *PrivateLinkResourcesClient) ListByElasticSan(ctx context.Context, resourceGroupName string, elasticSanName string, options *PrivateLinkResourcesClientListByElasticSanOptions) (PrivateLinkResourcesClientListByElasticSanResponse, error) {
-	var err error
-	const operationName = "PrivateLinkResourcesClient.ListByElasticSan"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.listByElasticSanCreateRequest(ctx, resourceGroupName, elasticSanName, options)
-	if err != nil {
-		return PrivateLinkResourcesClientListByElasticSanResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return PrivateLinkResourcesClientListByElasticSanResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return PrivateLinkResourcesClientListByElasticSanResponse{}, err
-	}
-	resp, err := client.listByElasticSanHandleResponse(httpResp)
-	return resp, err
+func (client *PrivateLinkResourcesClient) NewListByElasticSanPager(resourceGroupName string, elasticSanName string, options *PrivateLinkResourcesClientListByElasticSanOptions) *runtime.Pager[PrivateLinkResourcesClientListByElasticSanResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientListByElasticSanResponse]{
+		More: func(page PrivateLinkResourcesClientListByElasticSanResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *PrivateLinkResourcesClientListByElasticSanResponse) (PrivateLinkResourcesClientListByElasticSanResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PrivateLinkResourcesClient.NewListByElasticSanPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listByElasticSanCreateRequest(ctx, resourceGroupName, elasticSanName, options)
+			}, nil)
+			if err != nil {
+				return PrivateLinkResourcesClientListByElasticSanResponse{}, err
+			}
+			return client.listByElasticSanHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
 // listByElasticSanCreateRequest creates the ListByElasticSan request.

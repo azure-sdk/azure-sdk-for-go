@@ -9,12 +9,12 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
 	"net/http"
 	"net/url"
@@ -23,22 +23,26 @@ import (
 
 // PrivateLinkResourcesServer is a fake server for instances of the armelasticsan.PrivateLinkResourcesClient type.
 type PrivateLinkResourcesServer struct {
-	// ListByElasticSan is the fake for method PrivateLinkResourcesClient.ListByElasticSan
+	// NewListByElasticSanPager is the fake for method PrivateLinkResourcesClient.NewListByElasticSanPager
 	// HTTP status codes to indicate success: http.StatusOK
-	ListByElasticSan func(ctx context.Context, resourceGroupName string, elasticSanName string, options *armelasticsan.PrivateLinkResourcesClientListByElasticSanOptions) (resp azfake.Responder[armelasticsan.PrivateLinkResourcesClientListByElasticSanResponse], errResp azfake.ErrorResponder)
+	NewListByElasticSanPager func(resourceGroupName string, elasticSanName string, options *armelasticsan.PrivateLinkResourcesClientListByElasticSanOptions) (resp azfake.PagerResponder[armelasticsan.PrivateLinkResourcesClientListByElasticSanResponse])
 }
 
 // NewPrivateLinkResourcesServerTransport creates a new instance of PrivateLinkResourcesServerTransport with the provided implementation.
 // The returned PrivateLinkResourcesServerTransport instance is connected to an instance of armelasticsan.PrivateLinkResourcesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPrivateLinkResourcesServerTransport(srv *PrivateLinkResourcesServer) *PrivateLinkResourcesServerTransport {
-	return &PrivateLinkResourcesServerTransport{srv: srv}
+	return &PrivateLinkResourcesServerTransport{
+		srv:                      srv,
+		newListByElasticSanPager: newTracker[azfake.PagerResponder[armelasticsan.PrivateLinkResourcesClientListByElasticSanResponse]](),
+	}
 }
 
 // PrivateLinkResourcesServerTransport connects instances of armelasticsan.PrivateLinkResourcesClient to instances of PrivateLinkResourcesServer.
 // Don't use this type directly, use NewPrivateLinkResourcesServerTransport instead.
 type PrivateLinkResourcesServerTransport struct {
-	srv *PrivateLinkResourcesServer
+	srv                      *PrivateLinkResourcesServer
+	newListByElasticSanPager *tracker[azfake.PagerResponder[armelasticsan.PrivateLinkResourcesClientListByElasticSanResponse]]
 }
 
 // Do implements the policy.Transporter interface for PrivateLinkResourcesServerTransport.
@@ -53,8 +57,8 @@ func (p *PrivateLinkResourcesServerTransport) Do(req *http.Request) (*http.Respo
 	var err error
 
 	switch method {
-	case "PrivateLinkResourcesClient.ListByElasticSan":
-		resp, err = p.dispatchListByElasticSan(req)
+	case "PrivateLinkResourcesClient.NewListByElasticSanPager":
+		resp, err = p.dispatchNewListByElasticSanPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -66,35 +70,43 @@ func (p *PrivateLinkResourcesServerTransport) Do(req *http.Request) (*http.Respo
 	return resp, nil
 }
 
-func (p *PrivateLinkResourcesServerTransport) dispatchListByElasticSan(req *http.Request) (*http.Response, error) {
-	if p.srv.ListByElasticSan == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListByElasticSan not implemented")}
+func (p *PrivateLinkResourcesServerTransport) dispatchNewListByElasticSanPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListByElasticSanPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByElasticSanPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ElasticSan/elasticSans/(?P<elasticSanName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateLinkResources`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newListByElasticSanPager := p.newListByElasticSanPager.get(req)
+	if newListByElasticSanPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ElasticSan/elasticSans/(?P<elasticSanName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateLinkResources`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		elasticSanNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("elasticSanName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListByElasticSanPager(resourceGroupNameParam, elasticSanNameParam, nil)
+		newListByElasticSanPager = &resp
+		p.newListByElasticSanPager.add(req, newListByElasticSanPager)
+		server.PagerResponderInjectNextLinks(newListByElasticSanPager, req, func(page *armelasticsan.PrivateLinkResourcesClientListByElasticSanResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newListByElasticSanPager, req)
 	if err != nil {
 		return nil, err
 	}
-	elasticSanNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("elasticSanName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListByElasticSanPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	respr, errRespr := p.srv.ListByElasticSan(req.Context(), resourceGroupNameParam, elasticSanNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateLinkResourceListResult, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newListByElasticSanPager) {
+		p.newListByElasticSanPager.remove(req)
 	}
 	return resp, nil
 }
