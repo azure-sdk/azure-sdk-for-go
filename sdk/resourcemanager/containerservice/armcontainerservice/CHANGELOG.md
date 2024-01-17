@@ -1,5 +1,24 @@
 # Release History
 
+## 4.7.0-beta.2 (2024-01-17)
+### Breaking Changes
+
+- Struct `GuardrailsProfile` has been removed
+- Field `GuardrailsProfile` of struct `ManagedClusterProperties` has been removed
+
+### Features Added
+
+- New enum type `SafeguardsSupport` with values `SafeguardsSupportPreview`, `SafeguardsSupportStable`
+- New function `*ManagedClustersClient.GetSafeguardsVersions(context.Context, string, string, *ManagedClustersClientGetSafeguardsVersionsOptions) (ManagedClustersClientGetSafeguardsVersionsResponse, error)`
+- New function `*ManagedClustersClient.NewListSafeguardsVersionsPager(string, *ManagedClustersClientListSafeguardsVersionsOptions) *runtime.Pager[ManagedClustersClientListSafeguardsVersionsResponse]`
+- New struct `SafeguardsAvailableVersion`
+- New struct `SafeguardsAvailableVersionsList`
+- New struct `SafeguardsAvailableVersionsProperties`
+- New struct `SafeguardsProfile`
+- New field `EnableSecureBoot`, `EnableVTPM` in struct `AgentPoolSecurityProfile`
+- New field `SafeguardsProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.7.0-beta.1 (2023-12-22)
 ### Features Added
 

@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v4.7.0-beta.1"
+	moduleVersion = "v4.7.0-beta.2"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -379,7 +379,7 @@ func PossibleKubernetesSupportPlanValues() []KubernetesSupportPlan {
 	}
 }
 
-// Level - The guardrails level to be used. By default, Guardrails is enabled for all namespaces except those that AKS excludes
+// Level - The Safeguards level to be used. By default, Safeguards is enabled for all namespaces except those that AKS excludes
 // via systemExcludedNamespaces
 type Level string
 
@@ -890,6 +890,25 @@ func PossibleRestrictionLevelValues() []RestrictionLevel {
 	return []RestrictionLevel{
 		RestrictionLevelReadOnly,
 		RestrictionLevelUnrestricted,
+	}
+}
+
+// SafeguardsSupport - Whether the version is preview or stable.
+type SafeguardsSupport string
+
+const (
+	// SafeguardsSupportPreview - The version is preview. It is not recommended to use preview versions on critical production
+	// clusters. The preview version may not support all use-cases.
+	SafeguardsSupportPreview SafeguardsSupport = "Preview"
+	// SafeguardsSupportStable - The version is stable and can be used on critical production clusters.
+	SafeguardsSupportStable SafeguardsSupport = "Stable"
+)
+
+// PossibleSafeguardsSupportValues returns the possible values for the SafeguardsSupport const type.
+func PossibleSafeguardsSupportValues() []SafeguardsSupport {
+	return []SafeguardsSupport{
+		SafeguardsSupportPreview,
+		SafeguardsSupportStable,
 	}
 }
 

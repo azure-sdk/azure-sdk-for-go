@@ -193,6 +193,12 @@ type ManagedClustersClientGetResponse struct {
 	ManagedCluster
 }
 
+// ManagedClustersClientGetSafeguardsVersionsResponse contains the response from method ManagedClustersClient.GetSafeguardsVersions.
+type ManagedClustersClientGetSafeguardsVersionsResponse struct {
+	// Available Safeguards Version
+	SafeguardsAvailableVersion
+}
+
 // ManagedClustersClientGetUpgradeProfileResponse contains the response from method ManagedClustersClient.GetUpgradeProfile.
 type ManagedClustersClientGetUpgradeProfileResponse struct {
 	// The list of available upgrades for compute pools.
@@ -257,6 +263,12 @@ type ManagedClustersClientListOutboundNetworkDependenciesEndpointsResponse struc
 type ManagedClustersClientListResponse struct {
 	// The response from the List Managed Clusters operation.
 	ManagedClusterListResult
+}
+
+// ManagedClustersClientListSafeguardsVersionsResponse contains the response from method ManagedClustersClient.NewListSafeguardsVersionsPager.
+type ManagedClustersClientListSafeguardsVersionsResponse struct {
+	// Hold values properties, which is array of SafeguardsVersions
+	SafeguardsAvailableVersionsList
 }
 
 // ManagedClustersClientResetAADProfileResponse contains the response from method ManagedClustersClient.BeginResetAADProfile.
