@@ -1,5 +1,42 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-01-17)
+### Breaking Changes
+
+- Type alias `EmailChannelAuthMethod` type has been changed from `float32` to `int32`
+- Function `*ChannelsClient.Delete` parameter(s) have been changed from `(context.Context, string, string, string, *ChannelsClientDeleteOptions)` to `(context.Context, string, string, ChannelName, *ChannelsClientDeleteOptions)`
+- Function `*ChannelsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *ChannelsClientGetOptions)` to `(context.Context, string, string, ChannelName, *ChannelsClientGetOptions)`
+
+### Features Added
+
+- New value `PublicNetworkAccessSecuredByPerimeter` added to enum type `PublicNetworkAccess`
+- New enum type `AccessMode` with values `AccessModeAudit`, `AccessModeEnforced`, `AccessModeLearning`
+- New enum type `NspAccessRuleDirection` with values `NspAccessRuleDirectionInbound`, `NspAccessRuleDirectionOutbound`
+- New enum type `ProvisioningState` with values `ProvisioningStateAccepted`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New enum type `Severity` with values `SeverityError`, `SeverityWarning`
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.Get(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetOptions) (NetworkSecurityPerimeterConfigurationsClientGetResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.NewListPager(string, string, *NetworkSecurityPerimeterConfigurationsClientListOptions) *runtime.Pager[NetworkSecurityPerimeterConfigurationsClientListResponse]`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileResponse], error)`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `NetworkSecurityPerimeter`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationList`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `NspAccessRule`
+- New struct `NspAccessRuleProperties`
+- New struct `NspAccessRulePropertiesSubscriptionsItem`
+- New struct `Profile`
+- New struct `ProvisioningIssue`
+- New struct `ProvisioningIssueProperties`
+- New struct `ResourceAssociation`
+- New field `NetworkSecurityPerimeterConfigurations` in struct `BotProperties`
+- New field `ID`, `Name` in struct `ConnectionSettingProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

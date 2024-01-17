@@ -73,6 +73,12 @@ func (c *ClientFactory) NewHostSettingsClient() *HostSettingsClient {
 	return subClient
 }
 
+// NewNetworkSecurityPerimeterConfigurationsClient creates a new instance of NetworkSecurityPerimeterConfigurationsClient.
+func (c *ClientFactory) NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient {
+	subClient, _ := NewNetworkSecurityPerimeterConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewOperationResultsClient creates a new instance of OperationResultsClient.
 func (c *ClientFactory) NewOperationResultsClient() *OperationResultsClient {
 	subClient, _ := NewOperationResultsClient(c.subscriptionID, c.credential, c.options)

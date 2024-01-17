@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/botservice/armbotservice"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/botservice/armbotservice/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -30,11 +30,11 @@ type ChannelsServer struct {
 
 	// Delete is the fake for method ChannelsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, resourceName string, channelName string, options *armbotservice.ChannelsClientDeleteOptions) (resp azfake.Responder[armbotservice.ChannelsClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, resourceGroupName string, resourceName string, channelName armbotservice.ChannelName, options *armbotservice.ChannelsClientDeleteOptions) (resp azfake.Responder[armbotservice.ChannelsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ChannelsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, resourceName string, channelName string, options *armbotservice.ChannelsClientGetOptions) (resp azfake.Responder[armbotservice.ChannelsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, channelName armbotservice.ChannelName, options *armbotservice.ChannelsClientGetOptions) (resp azfake.Responder[armbotservice.ChannelsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByResourceGroupPager is the fake for method ChannelsClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -166,7 +166,13 @@ func (c *ChannelsServerTransport) dispatchDelete(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	channelNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("channelName")])
+	channelNameParam, err := parseWithCast(matches[regex.SubexpIndex("channelName")], func(v string) (armbotservice.ChannelName, error) {
+		p, unescapeErr := url.PathUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armbotservice.ChannelName(p), nil
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +209,13 @@ func (c *ChannelsServerTransport) dispatchGet(req *http.Request) (*http.Response
 	if err != nil {
 		return nil, err
 	}
-	channelNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("channelName")])
+	channelNameParam, err := parseWithCast(matches[regex.SubexpIndex("channelName")], func(v string) (armbotservice.ChannelName, error) {
+		p, unescapeErr := url.PathUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armbotservice.ChannelName(p), nil
+	})
 	if err != nil {
 		return nil, err
 	}
