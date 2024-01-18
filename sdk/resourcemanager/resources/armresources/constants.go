@@ -10,7 +10,7 @@ package armresources
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AliasPathAttributes - The attributes of the token that the alias path is referring to.
@@ -142,6 +142,24 @@ func PossibleChangeTypeValues() []ChangeType {
 		ChangeTypeModify,
 		ChangeTypeNoChange,
 		ChangeTypeUnsupported,
+	}
+}
+
+// DataBoundary - The data boundary definition.
+type DataBoundary string
+
+const (
+	DataBoundaryEU         DataBoundary = "EU"
+	DataBoundaryGlobal     DataBoundary = "Global"
+	DataBoundaryNotDefined DataBoundary = "NotDefined"
+)
+
+// PossibleDataBoundaryValues returns the possible values for the DataBoundary const type.
+func PossibleDataBoundaryValues() []DataBoundary {
+	return []DataBoundary{
+		DataBoundaryEU,
+		DataBoundaryGlobal,
+		DataBoundaryNotDefined,
 	}
 }
 
