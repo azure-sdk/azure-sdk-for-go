@@ -10,7 +10,7 @@ package armcontainerservicefleet
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -207,6 +207,30 @@ func PossibleOriginValues() []Origin {
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
+	}
+}
+
+// TargetType - The target type of a skip request.
+type TargetType string
+
+const (
+	// TargetTypeAfterStageWait - Skip the update of the after stage wait of a certain stage.
+	TargetTypeAfterStageWait TargetType = "AfterStageWait"
+	// TargetTypeGroup - Skip the update of a group.
+	TargetTypeGroup TargetType = "Group"
+	// TargetTypeMember - Skip the update of a member.
+	TargetTypeMember TargetType = "Member"
+	// TargetTypeStage - Skip the update of an entire stage including the after stage wait.
+	TargetTypeStage TargetType = "Stage"
+)
+
+// PossibleTargetTypeValues returns the possible values for the TargetType const type.
+func PossibleTargetTypeValues() []TargetType {
+	return []TargetType{
+		TargetTypeAfterStageWait,
+		TargetTypeGroup,
+		TargetTypeMember,
+		TargetTypeStage,
 	}
 }
 

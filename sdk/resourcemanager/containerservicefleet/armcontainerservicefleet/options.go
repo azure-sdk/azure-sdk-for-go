@@ -188,3 +188,9 @@ type UpdateRunsClientGetOptions struct {
 type UpdateRunsClientListByFleetOptions struct {
 	// placeholder for future optional parameters
 }
+
+// UpdateRunsClientSkipOptions contains the optional parameters for the UpdateRunsClient.Skip method.
+type UpdateRunsClientSkipOptions struct {
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
+}
