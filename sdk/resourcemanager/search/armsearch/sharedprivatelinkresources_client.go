@@ -29,7 +29,7 @@ type SharedPrivateLinkResourcesClient struct {
 
 // NewSharedPrivateLinkResourcesClient creates a new instance of SharedPrivateLinkResourcesClient with the specified values.
 //   - subscriptionID - The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource
-//     Manager API or the portal.
+//     Manager API, command line tools, or the portal.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewSharedPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SharedPrivateLinkResourcesClient, error) {
@@ -51,9 +51,9 @@ func NewSharedPrivateLinkResourcesClient(subscriptionID string, credential azcor
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
-//   - sharedPrivateLinkResourceName - The name of the shared private link resource managed by the Azure Cognitive Search service
-//     within the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
+//   - sharedPrivateLinkResourceName - The name of the shared private link resource managed by the search service within the specified
+//     resource group.
 //   - sharedPrivateLinkResource - The definition of the shared private link resource to create or update.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
@@ -145,9 +145,9 @@ func (client *SharedPrivateLinkResourcesClient) createOrUpdateCreateRequest(ctx 
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
-//   - sharedPrivateLinkResourceName - The name of the shared private link resource managed by the Azure Cognitive Search service
-//     within the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
+//   - sharedPrivateLinkResourceName - The name of the shared private link resource managed by the search service within the specified
+//     resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - SharedPrivateLinkResourcesClientBeginDeleteOptions contains the optional parameters for the SharedPrivateLinkResourcesClient.BeginDelete
@@ -234,9 +234,9 @@ func (client *SharedPrivateLinkResourcesClient) deleteCreateRequest(ctx context.
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
-//   - sharedPrivateLinkResourceName - The name of the shared private link resource managed by the Azure Cognitive Search service
-//     within the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
+//   - sharedPrivateLinkResourceName - The name of the shared private link resource managed by the search service within the specified
+//     resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - SharedPrivateLinkResourcesClientGetOptions contains the optional parameters for the SharedPrivateLinkResourcesClient.Get
@@ -310,7 +310,7 @@ func (client *SharedPrivateLinkResourcesClient) getHandleResponse(resp *http.Res
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - SharedPrivateLinkResourcesClientListByServiceOptions contains the optional parameters for the SharedPrivateLinkResourcesClient.NewListByServicePager

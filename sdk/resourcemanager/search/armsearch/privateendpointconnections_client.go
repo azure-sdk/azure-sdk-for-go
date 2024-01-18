@@ -29,7 +29,7 @@ type PrivateEndpointConnectionsClient struct {
 
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient with the specified values.
 //   - subscriptionID - The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource
-//     Manager API or the portal.
+//     Manager API, command line tools, or the portal.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error) {
@@ -50,9 +50,9 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
-//   - privateEndpointConnectionName - The name of the private endpoint connection to the Azure Cognitive Search service with
-//     the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
+//   - privateEndpointConnectionName - The name of the private endpoint connection to the search service with the specified resource
+//     group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
@@ -127,9 +127,9 @@ func (client *PrivateEndpointConnectionsClient) deleteHandleResponse(resp *http.
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
-//   - privateEndpointConnectionName - The name of the private endpoint connection to the Azure Cognitive Search service with
-//     the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
+//   - privateEndpointConnectionName - The name of the private endpoint connection to the search service with the specified resource
+//     group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
@@ -203,7 +203,7 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - PrivateEndpointConnectionsClientListByServiceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByServicePager
@@ -275,9 +275,9 @@ func (client *PrivateEndpointConnectionsClient) listByServiceHandleResponse(resp
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
-//   - privateEndpointConnectionName - The name of the private endpoint connection to the Azure Cognitive Search service with
-//     the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
+//   - privateEndpointConnectionName - The name of the private endpoint connection to the search service with the specified resource
+//     group.
 //   - privateEndpointConnection - The definition of the private endpoint connection to update.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.

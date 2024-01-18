@@ -29,7 +29,7 @@ type AdminKeysClient struct {
 
 // NewAdminKeysClient creates a new instance of AdminKeysClient with the specified values.
 //   - subscriptionID - The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource
-//     Manager API or the portal.
+//     Manager API, command line tools, or the portal.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAdminKeysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AdminKeysClient, error) {
@@ -44,13 +44,13 @@ func NewAdminKeysClient(subscriptionID string, credential azcore.TokenCredential
 	return client, nil
 }
 
-// Get - Gets the primary and secondary admin API keys for the specified Azure Cognitive Search service.
+// Get - Gets the primary and secondary admin API keys for the specified search service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - AdminKeysClientGetOptions contains the optional parameters for the AdminKeysClient.Get method.
@@ -120,7 +120,7 @@ func (client *AdminKeysClient) getHandleResponse(resp *http.Response) (AdminKeys
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - keyKind - Specifies which key to regenerate. Valid values include 'primary' and 'secondary'.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.

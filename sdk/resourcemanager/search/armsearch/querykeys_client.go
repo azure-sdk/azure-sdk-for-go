@@ -29,7 +29,7 @@ type QueryKeysClient struct {
 
 // NewQueryKeysClient creates a new instance of QueryKeysClient with the specified values.
 //   - subscriptionID - The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource
-//     Manager API or the portal.
+//     Manager API, command line tools, or the portal.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewQueryKeysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QueryKeysClient, error) {
@@ -50,7 +50,7 @@ func NewQueryKeysClient(subscriptionID string, credential azcore.TokenCredential
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - name - The name of the new query API key.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
@@ -126,7 +126,7 @@ func (client *QueryKeysClient) createHandleResponse(resp *http.Response) (QueryK
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - key - The query key to be deleted. Query keys are identified by value, not by name.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
@@ -185,12 +185,12 @@ func (client *QueryKeysClient) deleteCreateRequest(ctx context.Context, resource
 	return req, nil
 }
 
-// NewListBySearchServicePager - Returns the list of query API keys for the given Azure Cognitive Search service.
+// NewListBySearchServicePager - Returns the list of query API keys for the given search service.
 //
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - QueryKeysClientListBySearchServiceOptions contains the optional parameters for the QueryKeysClient.NewListBySearchServicePager

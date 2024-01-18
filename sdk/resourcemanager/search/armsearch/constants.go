@@ -10,10 +10,10 @@ package armsearch
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/search/armsearch"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.3.1"
 )
 
-// AADAuthFailureMode - Describes what response the data plane API of a Search service would send for requests that failed
+// AADAuthFailureMode - Describes what response the data plane API of a search service would send for requests that failed
 // authentication.
 type AADAuthFailureMode string
 
@@ -88,8 +88,8 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
-// PrivateLinkServiceConnectionProvisioningState - The provisioning state of the private link service connection. Can be Updating,
-// Deleting, Failed, Succeeded, or Incomplete
+// PrivateLinkServiceConnectionProvisioningState - The provisioning state of the private link service connection. Valid values
+// are Updating, Deleting, Failed, Succeeded, or Incomplete
 type PrivateLinkServiceConnectionProvisioningState string
 
 const (
@@ -125,8 +125,8 @@ func PossiblePrivateLinkServiceConnectionProvisioningStateValues() []PrivateLink
 	}
 }
 
-// PrivateLinkServiceConnectionStatus - Status of the the private link service connection. Can be Pending, Approved, Rejected,
-// or Disconnected.
+// PrivateLinkServiceConnectionStatus - Status of the the private link service connection. Valid values are Pending, Approved,
+// Rejected, or Disconnected.
 type PrivateLinkServiceConnectionStatus string
 
 const (
@@ -205,20 +205,20 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 type SKUName string
 
 const (
-	// SKUNameBasic - Paid tier dedicated service with up to 3 replicas.
+	// SKUNameBasic - Billable tier for a dedicated service having up to 3 replicas.
 	SKUNameBasic SKUName = "basic"
-	// SKUNameFree - Free tier, with no SLA guarantees and a subset of features offered to paid tiers.
+	// SKUNameFree - Free tier, with no SLA guarantees and a subset of the features offered on billable tiers.
 	SKUNameFree SKUName = "free"
-	// SKUNameStandard - Paid tier dedicated service with up to 12 partitions and 12 replicas.
+	// SKUNameStandard - Billable tier for a dedicated service having up to 12 partitions and 12 replicas.
 	SKUNameStandard SKUName = "standard"
 	// SKUNameStandard2 - Similar to 'standard', but with more capacity per search unit.
 	SKUNameStandard2 SKUName = "standard2"
 	// SKUNameStandard3 - The largest Standard offering with up to 12 partitions and 12 replicas (or up to 3 partitions with more
 	// indexes if you also set the hostingMode property to 'highDensity').
 	SKUNameStandard3 SKUName = "standard3"
-	// SKUNameStorageOptimizedL1 - Paid tier dedicated service that supports 1TB per partition, up to 12 partitions.
+	// SKUNameStorageOptimizedL1 - Billable tier for a dedicated service that supports 1TB per partition, up to 12 partitions.
 	SKUNameStorageOptimizedL1 SKUName = "storage_optimized_l1"
-	// SKUNameStorageOptimizedL2 - Paid tier dedicated service that supports 2TB per partition, up to 12 partitions.
+	// SKUNameStorageOptimizedL2 - Billable tier for a dedicated service that supports 2TB per partition, up to 12 partitions.
 	SKUNameStorageOptimizedL2 SKUName = "storage_optimized_l2"
 )
 
@@ -235,16 +235,16 @@ func PossibleSKUNameValues() []SKUName {
 	}
 }
 
-// SearchEncryptionComplianceStatus - Describes whether the search service is compliant or not with respect to having non
-// customer encrypted resources. If a service has more than one non customer encrypted resource and 'Enforcement' is
+// SearchEncryptionComplianceStatus - Describes whether the search service is compliant or not with respect to having non-customer-encrypted
+// resources. If a service has more than one non-customer-encrypted resource and 'Enforcement' is
 // 'enabled' then the service will be marked as 'nonCompliant'.
 type SearchEncryptionComplianceStatus string
 
 const (
-	// SearchEncryptionComplianceStatusCompliant - Indicates that the search service is compliant, either because number of non
-	// customer encrypted resources is zero or enforcement is disabled.
+	// SearchEncryptionComplianceStatusCompliant - Indicates that the search service is compliant, either because number of non-customer-encrypted
+	// resources is zero or enforcement is disabled.
 	SearchEncryptionComplianceStatusCompliant SearchEncryptionComplianceStatus = "Compliant"
-	// SearchEncryptionComplianceStatusNonCompliant - Indicates that the search service has more than 1 non customer encrypted
+	// SearchEncryptionComplianceStatusNonCompliant - Indicates that the search service has more than one non-customer-encrypted
 	// resources.
 	SearchEncryptionComplianceStatusNonCompliant SearchEncryptionComplianceStatus = "NonCompliant"
 )
@@ -257,13 +257,13 @@ func PossibleSearchEncryptionComplianceStatusValues() []SearchEncryptionComplian
 	}
 }
 
-// SearchEncryptionWithCmk - Describes how a search service should enforce having one or more non customer encrypted resources.
+// SearchEncryptionWithCmk - Describes how a search service should enforce having one or more non-customer-encrypted resources.
 type SearchEncryptionWithCmk string
 
 const (
-	// SearchEncryptionWithCmkDisabled - No enforcement will be made and the search service can have non customer encrypted resources.
+	// SearchEncryptionWithCmkDisabled - No enforcement will be made and the search service can have non-customer-encrypted resources.
 	SearchEncryptionWithCmkDisabled SearchEncryptionWithCmk = "Disabled"
-	// SearchEncryptionWithCmkEnabled - Search service will be marked as non-compliant if there are one or more non customer encrypted
+	// SearchEncryptionWithCmkEnabled - Search service will be marked as non-compliant if there are one or more non-customer-encrypted
 	// resources.
 	SearchEncryptionWithCmkEnabled SearchEncryptionWithCmk = "Enabled"
 	// SearchEncryptionWithCmkUnspecified - Enforcement policy is not explicitly specified, with the behavior being the same as
@@ -280,19 +280,19 @@ func PossibleSearchEncryptionWithCmkValues() []SearchEncryptionWithCmk {
 	}
 }
 
-// SearchSemanticSearch - Sets options that control the availability of semantic search. This configuration is only possible
-// for certain Azure Cognitive Search SKUs in certain locations.
+// SearchSemanticSearch - Sets options that control the availability of semantic ranking. This configuration is only possible
+// for certain search SKUs in certain locations.
 type SearchSemanticSearch string
 
 const (
-	// SearchSemanticSearchDisabled - Indicates that semantic search is disabled for the search service.
+	// SearchSemanticSearchDisabled - Indicates that semantic ranking is disabled for the search service.
 	SearchSemanticSearchDisabled SearchSemanticSearch = "disabled"
-	// SearchSemanticSearchFree - Enables semantic search on a search service and indicates that it is to be used within the limits
-	// of the free tier. This would cap the volume of semantic search requests and is offered at no extra charge. This is the
-	// default for newly provisioned search services.
+	// SearchSemanticSearchFree - Enables semantic ranking on a search service and indicates that it is to be used within the
+	// limits of the free tier. This would cap the volume of semantic ranking requests and is offered at no extra charge. This
+	// is the default for newly provisioned search services.
 	SearchSemanticSearchFree SearchSemanticSearch = "free"
-	// SearchSemanticSearchStandard - Enables semantic search on a search service as a billable feature, with higher throughput
-	// and volume of semantic search queries.
+	// SearchSemanticSearchStandard - Enables semantic ranking on a search service as a billable feature, with higher throughput
+	// and volume of semantic ranking requests.
 	SearchSemanticSearchStandard SearchSemanticSearch = "standard"
 )
 
@@ -311,9 +311,9 @@ func PossibleSearchSemanticSearchValues() []SearchSemanticSearch {
 // can occur when the underlying search units are not healthy. The search service
 // is most likely operational, but performance might be slow and some requests might be dropped. 'disabled': The search service
 // is disabled. In this state, the service will reject all API requests.
-// 'error': The search service is in an error state. If your service is in the degraded, disabled, or error states, it means
-// the Azure Cognitive Search team is actively investigating the underlying
-// issue. Dedicated services in these states are still chargeable based on the number of search units provisioned.
+// 'error': The search service is in an error state. If your service is in the degraded, disabled, or error states, Microsoft
+// is actively investigating the underlying issue. Dedicated services in these
+// states are still chargeable based on the number of search units provisioned.
 type SearchServiceStatus string
 
 const (
@@ -343,8 +343,8 @@ func PossibleSearchServiceStatusValues() []SearchServiceStatus {
 	}
 }
 
-// SharedPrivateLinkResourceProvisioningState - The provisioning state of the shared private link resource. Can be Updating,
-// Deleting, Failed, Succeeded or Incomplete.
+// SharedPrivateLinkResourceProvisioningState - The provisioning state of the shared private link resource. Valid values are
+// Updating, Deleting, Failed, Succeeded or Incomplete.
 type SharedPrivateLinkResourceProvisioningState string
 
 const (
@@ -366,7 +366,8 @@ func PossibleSharedPrivateLinkResourceProvisioningStateValues() []SharedPrivateL
 	}
 }
 
-// SharedPrivateLinkResourceStatus - Status of the shared private link resource. Can be Pending, Approved, Rejected or Disconnected.
+// SharedPrivateLinkResourceStatus - Status of the shared private link resource. Valid values are Pending, Approved, Rejected
+// or Disconnected.
 type SharedPrivateLinkResourceStatus string
 
 const (

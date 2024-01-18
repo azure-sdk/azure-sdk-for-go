@@ -29,7 +29,7 @@ type ServicesClient struct {
 
 // NewServicesClient creates a new instance of ServicesClient with the specified values.
 //   - subscriptionID - The unique identifier for a Microsoft Azure subscription. You can obtain this value from the Azure Resource
-//     Manager API or the portal.
+//     Manager API, command line tools, or the portal.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewServicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServicesClient, error) {
@@ -116,11 +116,11 @@ func (client *ServicesClient) checkNameAvailabilityHandleResponse(resp *http.Res
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service to create or update. Search service names must only
-//     contain lowercase letters, digits or dashes, cannot use dash as the first two or last one characters,
-//     cannot contain consecutive dashes, and must be between 2 and 60 characters in length. Search service names must be globally
-//     unique since they are part of the service URI (https://.search.windows.net).
-//     You cannot change the service name after the service is created.
+//   - searchServiceName - The name of the search service to create or update. Search service names must only contain lowercase
+//     letters, digits or dashes, cannot use dash as the first two or last one characters, cannot contain
+//     consecutive dashes, and must be between 2 and 60 characters in length. Search service names must be globally unique since
+//     they are part of the service URI (https://.search.windows.net). You cannot
+//     change the service name after the service is created.
 //   - service - The definition of the search service to create or update.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
@@ -207,7 +207,7 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - ServicesClientDeleteOptions contains the optional parameters for the ServicesClient.Delete method.
@@ -267,7 +267,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
+//   - searchServiceName - The name of the search service associated with the specified resource group.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - ServicesClientGetOptions contains the optional parameters for the ServicesClient.Get method.
@@ -463,7 +463,7 @@ func (client *ServicesClient) listBySubscriptionHandleResponse(resp *http.Respon
 // Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
-//   - searchServiceName - The name of the Azure Cognitive Search service to update.
+//   - searchServiceName - The name of the search service to update.
 //   - service - The definition of the search service to update.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
