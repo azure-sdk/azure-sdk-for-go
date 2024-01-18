@@ -15,10 +15,11 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // ReservationTransactionsServer is a fake server for instances of the armconsumption.ReservationTransactionsClient type.
@@ -96,14 +97,38 @@ func (r *ReservationTransactionsServerTransport) dispatchNewListPager(req *http.
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		useMarkupIfPartnerUnescaped, err := url.QueryUnescape(qp.Get("useMarkupIfPartner"))
+		if err != nil {
+			return nil, err
+		}
+		useMarkupIfPartnerParam, err := parseOptional(useMarkupIfPartnerUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		previewMarkupPercentageUnescaped, err := url.QueryUnescape(qp.Get("previewMarkupPercentage"))
+		if err != nil {
+			return nil, err
+		}
+		previewMarkupPercentageParam, err := parseOptional(previewMarkupPercentageUnescaped, func(v string) (float64, error) {
+			p, parseErr := strconv.ParseFloat(v, 64)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return p, nil
+		})
+		if err != nil {
+			return nil, err
+		}
 		billingAccountIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingAccountId")])
 		if err != nil {
 			return nil, err
 		}
 		var options *armconsumption.ReservationTransactionsClientListOptions
-		if filterParam != nil {
+		if filterParam != nil || useMarkupIfPartnerParam != nil || previewMarkupPercentageParam != nil {
 			options = &armconsumption.ReservationTransactionsClientListOptions{
-				Filter: filterParam,
+				Filter:                  filterParam,
+				UseMarkupIfPartner:      useMarkupIfPartnerParam,
+				PreviewMarkupPercentage: previewMarkupPercentageParam,
 			}
 		}
 		resp := r.srv.NewListPager(billingAccountIDParam, options)
