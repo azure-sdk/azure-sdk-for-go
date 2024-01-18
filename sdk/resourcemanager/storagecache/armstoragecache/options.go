@@ -38,9 +38,20 @@ type AmlFilesystemsClientCancelArchiveOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AmlFilesystemsClientCancelImportOptions contains the optional parameters for the AmlFilesystemsClient.CancelImport method.
+type AmlFilesystemsClientCancelImportOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AmlFilesystemsClientGetOptions contains the optional parameters for the AmlFilesystemsClient.Get method.
 type AmlFilesystemsClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// AmlFilesystemsClientImportOptions contains the optional parameters for the AmlFilesystemsClient.Import method.
+type AmlFilesystemsClientImportOptions struct {
+	// Information about the import operation
+	ImportInfo *AmlFilesystemImportInfo
 }
 
 // AmlFilesystemsClientListByResourceGroupOptions contains the optional parameters for the AmlFilesystemsClient.NewListByResourceGroupPager

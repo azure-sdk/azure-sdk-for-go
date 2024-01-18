@@ -10,7 +10,7 @@ package armstoragecache
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagecache/armstoragecache"
-	moduleVersion = "v3.3.0"
+	moduleVersion = "v3.4.0"
 )
 
 // AmlFilesystemHealthStateType - List of AML file system health states.
@@ -75,6 +75,27 @@ func PossibleAmlFilesystemProvisioningStateTypeValues() []AmlFilesystemProvision
 	}
 }
 
+// AmlFilesystemSquashMode - Squash mode of the AML file system. 'All': User and Group IDs on files will be squashed to the
+// provided values for all users on non-trusted systems. 'RootOnly': User and Group IDs on files will be
+// squashed to provided values for solely the root user on non-trusted systems. 'None': No squashing of User and Group IDs
+// is performed for any users on any systems.
+type AmlFilesystemSquashMode string
+
+const (
+	AmlFilesystemSquashModeAll      AmlFilesystemSquashMode = "All"
+	AmlFilesystemSquashModeNone     AmlFilesystemSquashMode = "None"
+	AmlFilesystemSquashModeRootOnly AmlFilesystemSquashMode = "RootOnly"
+)
+
+// PossibleAmlFilesystemSquashModeValues returns the possible values for the AmlFilesystemSquashMode const type.
+func PossibleAmlFilesystemSquashModeValues() []AmlFilesystemSquashMode {
+	return []AmlFilesystemSquashMode{
+		AmlFilesystemSquashModeAll,
+		AmlFilesystemSquashModeNone,
+		AmlFilesystemSquashModeRootOnly,
+	}
+}
+
 // ArchiveStatusType - The state of the archive operation
 type ArchiveStatusType string
 
@@ -120,6 +141,32 @@ func PossibleCacheIdentityTypeValues() []CacheIdentityType {
 		CacheIdentityTypeSystemAssigned,
 		CacheIdentityTypeSystemAssignedUserAssigned,
 		CacheIdentityTypeUserAssigned,
+	}
+}
+
+// ConflictResolutionMode - How the import job will handle conflicts. For example, if the import job is trying to bring in
+// a directory, but a file is at that path, how it handles it. Fail indicates that the import job should
+// stop immediately and not do anything with the conflict. Skip indicates that it should pass over the conflict. OverwriteIfDirty
+// causes the import job to delete and re-import the file or directory if it
+// is a conflicting type, is dirty, or was not previously imported. OverwriteAlways extends OverwriteIfDirty to include releasing
+// files that had been restored but were not dirty. Please reference
+// https://learn.microsoft.com/en-us/azure/azure-managed-lustre/ for a thorough explanation of these resolution modes.
+type ConflictResolutionMode string
+
+const (
+	ConflictResolutionModeFail             ConflictResolutionMode = "Fail"
+	ConflictResolutionModeOverwriteAlways  ConflictResolutionMode = "OverwriteAlways"
+	ConflictResolutionModeOverwriteIfDirty ConflictResolutionMode = "OverwriteIfDirty"
+	ConflictResolutionModeSkip             ConflictResolutionMode = "Skip"
+)
+
+// PossibleConflictResolutionModeValues returns the possible values for the ConflictResolutionMode const type.
+func PossibleConflictResolutionModeValues() []ConflictResolutionMode {
+	return []ConflictResolutionMode{
+		ConflictResolutionModeFail,
+		ConflictResolutionModeOverwriteAlways,
+		ConflictResolutionModeOverwriteIfDirty,
+		ConflictResolutionModeSkip,
 	}
 }
 
@@ -231,6 +278,32 @@ func PossibleHealthStateTypeValues() []HealthStateType {
 		HealthStateTypeUpgradeFailed,
 		HealthStateTypeUpgrading,
 		HealthStateTypeWaitingForKey,
+	}
+}
+
+// ImportStatusType - The state of the import operation. InProgress indicates the import is still running. Canceled indicates
+// it has been canceled by the user. Completed indicates import finished, successfully importing
+// all discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs either were
+// found to be conflicting and could not be imported or other errors were
+// encountered. Failed means the import was unable to complete due to a fatal error.
+type ImportStatusType string
+
+const (
+	ImportStatusTypeCanceled         ImportStatusType = "Canceled"
+	ImportStatusTypeCompleted        ImportStatusType = "Completed"
+	ImportStatusTypeCompletedPartial ImportStatusType = "CompletedPartial"
+	ImportStatusTypeFailed           ImportStatusType = "Failed"
+	ImportStatusTypeInProgress       ImportStatusType = "InProgress"
+)
+
+// PossibleImportStatusTypeValues returns the possible values for the ImportStatusType const type.
+func PossibleImportStatusTypeValues() []ImportStatusType {
+	return []ImportStatusType{
+		ImportStatusTypeCanceled,
+		ImportStatusTypeCompleted,
+		ImportStatusTypeCompletedPartial,
+		ImportStatusTypeFailed,
+		ImportStatusTypeInProgress,
 	}
 }
 

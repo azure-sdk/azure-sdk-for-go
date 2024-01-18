@@ -33,6 +33,10 @@ type AmlFilesystemsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	CancelArchive func(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *armstoragecache.AmlFilesystemsClientCancelArchiveOptions) (resp azfake.Responder[armstoragecache.AmlFilesystemsClientCancelArchiveResponse], errResp azfake.ErrorResponder)
 
+	// CancelImport is the fake for method AmlFilesystemsClient.CancelImport
+	// HTTP status codes to indicate success: http.StatusOK
+	CancelImport func(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *armstoragecache.AmlFilesystemsClientCancelImportOptions) (resp azfake.Responder[armstoragecache.AmlFilesystemsClientCancelImportResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method AmlFilesystemsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, amlFilesystemName string, amlFilesystem armstoragecache.AmlFilesystem, options *armstoragecache.AmlFilesystemsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armstoragecache.AmlFilesystemsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -44,6 +48,10 @@ type AmlFilesystemsServer struct {
 	// Get is the fake for method AmlFilesystemsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *armstoragecache.AmlFilesystemsClientGetOptions) (resp azfake.Responder[armstoragecache.AmlFilesystemsClientGetResponse], errResp azfake.ErrorResponder)
+
+	// Import is the fake for method AmlFilesystemsClient.Import
+	// HTTP status codes to indicate success: http.StatusOK
+	Import func(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *armstoragecache.AmlFilesystemsClientImportOptions) (resp azfake.Responder[armstoragecache.AmlFilesystemsClientImportResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method AmlFilesystemsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -99,12 +107,16 @@ func (a *AmlFilesystemsServerTransport) Do(req *http.Request) (*http.Response, e
 		resp, err = a.dispatchArchive(req)
 	case "AmlFilesystemsClient.CancelArchive":
 		resp, err = a.dispatchCancelArchive(req)
+	case "AmlFilesystemsClient.CancelImport":
+		resp, err = a.dispatchCancelImport(req)
 	case "AmlFilesystemsClient.BeginCreateOrUpdate":
 		resp, err = a.dispatchBeginCreateOrUpdate(req)
 	case "AmlFilesystemsClient.BeginDelete":
 		resp, err = a.dispatchBeginDelete(req)
 	case "AmlFilesystemsClient.Get":
 		resp, err = a.dispatchGet(req)
+	case "AmlFilesystemsClient.Import":
+		resp, err = a.dispatchImport(req)
 	case "AmlFilesystemsClient.NewListPager":
 		resp, err = a.dispatchNewListPager(req)
 	case "AmlFilesystemsClient.NewListByResourceGroupPager":
@@ -184,6 +196,39 @@ func (a *AmlFilesystemsServerTransport) dispatchCancelArchive(req *http.Request)
 		return nil, err
 	}
 	respr, errRespr := a.srv.CancelArchive(req.Context(), resourceGroupNameParam, amlFilesystemNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (a *AmlFilesystemsServerTransport) dispatchCancelImport(req *http.Request) (*http.Response, error) {
+	if a.srv.CancelImport == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CancelImport not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.StorageCache/amlFilesystems/(?P<amlFilesystemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/cancelImport`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	amlFilesystemNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("amlFilesystemName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := a.srv.CancelImport(req.Context(), resourceGroupNameParam, amlFilesystemNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -317,6 +362,49 @@ func (a *AmlFilesystemsServerTransport) dispatchGet(req *http.Request) (*http.Re
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AmlFilesystem, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (a *AmlFilesystemsServerTransport) dispatchImport(req *http.Request) (*http.Response, error) {
+	if a.srv.Import == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Import not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.StorageCache/amlFilesystems/(?P<amlFilesystemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/import`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armstoragecache.AmlFilesystemImportInfo](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	amlFilesystemNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("amlFilesystemName")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armstoragecache.AmlFilesystemsClientImportOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armstoragecache.AmlFilesystemsClientImportOptions{
+			ImportInfo: &body,
+		}
+	}
+	respr, errRespr := a.srv.Import(req.Context(), resourceGroupNameParam, amlFilesystemNameParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}

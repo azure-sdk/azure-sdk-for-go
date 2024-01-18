@@ -46,7 +46,7 @@ func NewAmlFilesystemsClient(subscriptionID string, credential azcore.TokenCrede
 // Archive - Archive data from the AML file system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
 //   - options - AmlFilesystemsClientArchiveOptions contains the optional parameters for the AmlFilesystemsClient.Archive method.
@@ -91,7 +91,7 @@ func (client *AmlFilesystemsClient) archiveCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ArchiveInfo != nil {
@@ -106,7 +106,7 @@ func (client *AmlFilesystemsClient) archiveCreateRequest(ctx context.Context, re
 // CancelArchive - Cancel archiving data from the AML file system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
 //   - options - AmlFilesystemsClientCancelArchiveOptions contains the optional parameters for the AmlFilesystemsClient.CancelArchive
@@ -152,7 +152,62 @@ func (client *AmlFilesystemsClient) cancelArchiveCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// CancelImport - Cancel importing data to the AML file system.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
+//   - options - AmlFilesystemsClientCancelImportOptions contains the optional parameters for the AmlFilesystemsClient.CancelImport
+//     method.
+func (client *AmlFilesystemsClient) CancelImport(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *AmlFilesystemsClientCancelImportOptions) (AmlFilesystemsClientCancelImportResponse, error) {
+	var err error
+	const operationName = "AmlFilesystemsClient.CancelImport"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.cancelImportCreateRequest(ctx, resourceGroupName, amlFilesystemName, options)
+	if err != nil {
+		return AmlFilesystemsClientCancelImportResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AmlFilesystemsClientCancelImportResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return AmlFilesystemsClientCancelImportResponse{}, err
+	}
+	return AmlFilesystemsClientCancelImportResponse{}, nil
+}
+
+// cancelImportCreateRequest creates the CancelImport request.
+func (client *AmlFilesystemsClient) cancelImportCreateRequest(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *AmlFilesystemsClientCancelImportOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageCache/amlFilesystems/{amlFilesystemName}/cancelImport"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if amlFilesystemName == "" {
+		return nil, errors.New("parameter amlFilesystemName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{amlFilesystemName}", url.PathEscape(amlFilesystemName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -161,7 +216,7 @@ func (client *AmlFilesystemsClient) cancelArchiveCreateRequest(ctx context.Conte
 // BeginCreateOrUpdate - Create or update an AML file system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
 //   - amlFilesystem - Object containing the user-selectable properties of the AML file system. If read-only properties are included,
@@ -189,7 +244,7 @@ func (client *AmlFilesystemsClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Create or update an AML file system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 func (client *AmlFilesystemsClient) createOrUpdate(ctx context.Context, resourceGroupName string, amlFilesystemName string, amlFilesystem AmlFilesystem, options *AmlFilesystemsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AmlFilesystemsClient.BeginCreateOrUpdate"
@@ -231,7 +286,7 @@ func (client *AmlFilesystemsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, amlFilesystem); err != nil {
@@ -243,7 +298,7 @@ func (client *AmlFilesystemsClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Schedules an AML file system for deletion.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
 //   - options - AmlFilesystemsClientBeginDeleteOptions contains the optional parameters for the AmlFilesystemsClient.BeginDelete
@@ -269,7 +324,7 @@ func (client *AmlFilesystemsClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Schedules an AML file system for deletion.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 func (client *AmlFilesystemsClient) deleteOperation(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *AmlFilesystemsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AmlFilesystemsClient.BeginDelete"
@@ -311,7 +366,7 @@ func (client *AmlFilesystemsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -320,7 +375,7 @@ func (client *AmlFilesystemsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Returns an AML file system.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
 //   - options - AmlFilesystemsClientGetOptions contains the optional parameters for the AmlFilesystemsClient.Get method.
@@ -366,7 +421,7 @@ func (client *AmlFilesystemsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -381,9 +436,69 @@ func (client *AmlFilesystemsClient) getHandleResponse(resp *http.Response) (AmlF
 	return result, nil
 }
 
+// Import - Import data from the AML file system. This operation cannot start when an archive operation is in progress.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
+//   - options - AmlFilesystemsClientImportOptions contains the optional parameters for the AmlFilesystemsClient.Import method.
+func (client *AmlFilesystemsClient) Import(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *AmlFilesystemsClientImportOptions) (AmlFilesystemsClientImportResponse, error) {
+	var err error
+	const operationName = "AmlFilesystemsClient.Import"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.importCreateRequest(ctx, resourceGroupName, amlFilesystemName, options)
+	if err != nil {
+		return AmlFilesystemsClientImportResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AmlFilesystemsClientImportResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return AmlFilesystemsClientImportResponse{}, err
+	}
+	return AmlFilesystemsClientImportResponse{}, nil
+}
+
+// importCreateRequest creates the Import request.
+func (client *AmlFilesystemsClient) importCreateRequest(ctx context.Context, resourceGroupName string, amlFilesystemName string, options *AmlFilesystemsClientImportOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageCache/amlFilesystems/{amlFilesystemName}/import"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if amlFilesystemName == "" {
+		return nil, errors.New("parameter amlFilesystemName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{amlFilesystemName}", url.PathEscape(amlFilesystemName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.ImportInfo != nil {
+		if err := runtime.MarshalAsJSON(req, *options.ImportInfo); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
+	return req, nil
+}
+
 // NewListPager - Returns all AML file systems the user has access to under a subscription.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - options - AmlFilesystemsClientListOptions contains the optional parameters for the AmlFilesystemsClient.NewListPager method.
 func (client *AmlFilesystemsClient) NewListPager(options *AmlFilesystemsClientListOptions) *runtime.Pager[AmlFilesystemsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AmlFilesystemsClientListResponse]{
@@ -420,7 +535,7 @@ func (client *AmlFilesystemsClient) listCreateRequest(ctx context.Context, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -437,7 +552,7 @@ func (client *AmlFilesystemsClient) listHandleResponse(resp *http.Response) (Aml
 
 // NewListByResourceGroupPager - Returns all AML file systems the user has access to under a resource group.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AmlFilesystemsClientListByResourceGroupOptions contains the optional parameters for the AmlFilesystemsClient.NewListByResourceGroupPager
 //     method.
@@ -480,7 +595,7 @@ func (client *AmlFilesystemsClient) listByResourceGroupCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -498,7 +613,7 @@ func (client *AmlFilesystemsClient) listByResourceGroupHandleResponse(resp *http
 // BeginUpdate - Update an AML file system instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - amlFilesystemName - Name for the AML file system. Allows alphanumerics, underscores, and hyphens. Start and end with alphanumeric.
 //   - amlFilesystem - Object containing the user-selectable properties of the AML file system. If read-only properties are included,
@@ -526,7 +641,7 @@ func (client *AmlFilesystemsClient) BeginUpdate(ctx context.Context, resourceGro
 // Update - Update an AML file system instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 func (client *AmlFilesystemsClient) update(ctx context.Context, resourceGroupName string, amlFilesystemName string, amlFilesystem AmlFilesystemUpdate, options *AmlFilesystemsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AmlFilesystemsClient.BeginUpdate"
@@ -568,7 +683,7 @@ func (client *AmlFilesystemsClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, amlFilesystem); err != nil {

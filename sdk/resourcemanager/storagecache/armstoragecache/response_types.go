@@ -18,6 +18,11 @@ type AmlFilesystemsClientCancelArchiveResponse struct {
 	// placeholder for future response values
 }
 
+// AmlFilesystemsClientCancelImportResponse contains the response from method AmlFilesystemsClient.CancelImport.
+type AmlFilesystemsClientCancelImportResponse struct {
+	// placeholder for future response values
+}
+
 // AmlFilesystemsClientCreateOrUpdateResponse contains the response from method AmlFilesystemsClient.BeginCreateOrUpdate.
 type AmlFilesystemsClientCreateOrUpdateResponse struct {
 	// An AML file system instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
@@ -33,6 +38,11 @@ type AmlFilesystemsClientDeleteResponse struct {
 type AmlFilesystemsClientGetResponse struct {
 	// An AML file system instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
 	AmlFilesystem
+}
+
+// AmlFilesystemsClientImportResponse contains the response from method AmlFilesystemsClient.Import.
+type AmlFilesystemsClientImportResponse struct {
+	// placeholder for future response values
 }
 
 // AmlFilesystemsClientListByResourceGroupResponse contains the response from method AmlFilesystemsClient.NewListByResourceGroupPager.

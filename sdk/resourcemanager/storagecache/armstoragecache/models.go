@@ -209,7 +209,8 @@ type AmlFilesystemHsmSettings struct {
 	// permission to create SAS tokens on the storage account.
 	LoggingContainer *string
 
-	// Only blobs in the non-logging container that start with this path/prefix get hydrated into the cluster namespace.
+	// Only blobs in the non-logging container that start with this path/prefix get imported into the cluster namespace. This
+	// is only used during initial creation of the AML file system.
 	ImportPrefix *string
 }
 
@@ -226,6 +227,67 @@ type AmlFilesystemIdentity struct {
 
 	// READ-ONLY; The tenant ID associated with the resource.
 	TenantID *string
+}
+
+// AmlFilesystemImport - Information about the AML file system import
+type AmlFilesystemImport struct {
+	// How the import job will handle conflicts. For example, if the import job is trying to bring in a directory, but a file
+	// is at that path, how it handles it. Fail indicates that the import job should
+	// stop immediately and not do anything with the conflict. Skip indicates that it should pass over the conflict. OverwriteIfDirty
+	// causes the import job to delete and re-import the file or directory if it
+	// is a conflicting type, is dirty, or was not previously imported. OverwriteAlways extends OverwriteIfDirty to include releasing
+	// files that had been restored but were not dirty. Please reference
+	// https://learn.microsoft.com/en-us/azure/azure-managed-lustre/ for a thorough explanation of these resolution modes.
+	ConflictResolutionMode *ConflictResolutionMode
+
+	// READ-ONLY; Lustre file system path to import into relative to the file system root. Specify '/' to import all data.
+	FilesystemPath *string
+
+	// READ-ONLY; The status of the import
+	Status *AmlFilesystemImportStatus
+}
+
+// AmlFilesystemImportInfo - Information required to execute the import operation
+type AmlFilesystemImportInfo struct {
+	// How the import job will handle conflicts. For example, if the import job is trying to bring in a directory, but a file
+	// is at that path, how it handles it. Fail indicates that the import job should
+	// stop immediately and not do anything with the conflict. Skip indicates that it should pass over the conflict. OverwriteIfDirty
+	// causes the import job to delete and re-import the file or directory if it
+	// is a conflicting type, is dirty, or was not previously imported. OverwriteAlways extends OverwriteIfDirty to include releasing
+	// files that had been restored but were not dirty. Please reference
+	// https://learn.microsoft.com/en-us/azure/azure-managed-lustre/ for a thorough explanation of these resolution modes.
+	ConflictResolutionMode *ConflictResolutionMode
+
+	// Lustre file system path to import into relative to the file system root. Specify '/' to import all data.
+	FilesystemPath *string
+}
+
+// AmlFilesystemImportStatus - The status of the import
+type AmlFilesystemImportStatus struct {
+	// READ-ONLY; A recent and frequently updated rate of total files, directories, and symlinks imported per second.
+	BlobsImportedPerSecond *int32
+
+	// READ-ONLY; A recent and frequently updated rate of blobs walked per second.
+	BlobsWalkedPerSecond *int32
+
+	// READ-ONLY; The state of the import operation. InProgress indicates the import is still running. Canceled indicates it has
+	// been canceled by the user. Completed indicates import finished, successfully importing
+	// all discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs either were
+	// found to be conflicting and could not be imported or other errors were
+	// encountered. Failed means the import was unable to complete due to a fatal error.
+	State *ImportStatusType
+
+	// READ-ONLY; The total blobs that have been imported since import began.
+	TotalBlobsImported *int32
+
+	// READ-ONLY; The total blob objects walked.
+	TotalBlobsWalked *int32
+
+	// READ-ONLY; Number of conflicts in the import job.
+	TotalConflicts *int32
+
+	// READ-ONLY; Number of errors in the import job.
+	TotalErrors *int32
 }
 
 // AmlFilesystemProperties - Properties of the AML file system.
@@ -245,6 +307,9 @@ type AmlFilesystemProperties struct {
 
 	// Hydration and archive settings and status
 	Hsm *AmlFilesystemPropertiesHsm
+
+	// Specifies root squash settings of the AML file system.
+	RootSquashSettings *AmlFilesystemRootSquashSettings
 
 	// READ-ONLY; Client information for the AML file system.
 	ClientInfo *AmlFilesystemClientInfo
@@ -266,6 +331,9 @@ type AmlFilesystemPropertiesHsm struct {
 
 	// READ-ONLY; Archive status
 	ArchiveStatus []*AmlFilesystemArchive
+
+	// READ-ONLY; Import status
+	ImportStatus []*AmlFilesystemImport
 }
 
 // AmlFilesystemPropertiesMaintenanceWindow - Start time of a 30-minute weekly maintenance window.
@@ -275,6 +343,27 @@ type AmlFilesystemPropertiesMaintenanceWindow struct {
 
 	// The time of day (in UTC) to start the maintenance window.
 	TimeOfDayUTC *string
+}
+
+// AmlFilesystemRootSquashSettings - AML file system squash settings.
+type AmlFilesystemRootSquashSettings struct {
+	// Squash mode of the AML file system. 'All': User and Group IDs on files will be squashed to the provided values for all
+	// users on non-trusted systems. 'RootOnly': User and Group IDs on files will be
+	// squashed to provided values for solely the root user on non-trusted systems. 'None': No squashing of User and Group IDs
+	// is performed for any users on any systems.
+	Mode *AmlFilesystemSquashMode
+
+	// Semicolon separated NID IP Address list(s) to be added to the TrustedSystems.
+	NoSquashNidLists *string
+
+	// Group ID to squash to.
+	SquashGID *int64
+
+	// User ID to squash to.
+	SquashUID *int64
+
+	// READ-ONLY; AML file system squash status.
+	Status *string
 }
 
 // AmlFilesystemSubnetInfo - Information required to validate the subnet that will be used in AML file system create
@@ -309,6 +398,9 @@ type AmlFilesystemUpdateProperties struct {
 
 	// Start time of a 30-minute weekly maintenance window.
 	MaintenanceWindow *AmlFilesystemUpdatePropertiesMaintenanceWindow
+
+	// Specifies root squash settings of the AML file system.
+	RootSquashSettings *AmlFilesystemRootSquashSettings
 }
 
 // AmlFilesystemUpdatePropertiesMaintenanceWindow - Start time of a 30-minute weekly maintenance window.

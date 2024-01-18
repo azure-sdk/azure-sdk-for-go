@@ -1,5 +1,22 @@
 # Release History
 
+## 3.4.0 (2024-01-18)
+### Features Added
+
+- New enum type `AmlFilesystemSquashMode` with values `AmlFilesystemSquashModeAll`, `AmlFilesystemSquashModeNone`, `AmlFilesystemSquashModeRootOnly`
+- New enum type `ConflictResolutionMode` with values `ConflictResolutionModeFail`, `ConflictResolutionModeOverwriteAlways`, `ConflictResolutionModeOverwriteIfDirty`, `ConflictResolutionModeSkip`
+- New enum type `ImportStatusType` with values `ImportStatusTypeCanceled`, `ImportStatusTypeCompleted`, `ImportStatusTypeCompletedPartial`, `ImportStatusTypeFailed`, `ImportStatusTypeInProgress`
+- New function `*AmlFilesystemsClient.CancelImport(context.Context, string, string, *AmlFilesystemsClientCancelImportOptions) (AmlFilesystemsClientCancelImportResponse, error)`
+- New function `*AmlFilesystemsClient.Import(context.Context, string, string, *AmlFilesystemsClientImportOptions) (AmlFilesystemsClientImportResponse, error)`
+- New struct `AmlFilesystemImport`
+- New struct `AmlFilesystemImportInfo`
+- New struct `AmlFilesystemImportStatus`
+- New struct `AmlFilesystemRootSquashSettings`
+- New field `RootSquashSettings` in struct `AmlFilesystemProperties`
+- New field `ImportStatus` in struct `AmlFilesystemPropertiesHsm`
+- New field `RootSquashSettings` in struct `AmlFilesystemUpdateProperties`
+
+
 ## 3.3.0 (2023-11-24)
 ### Features Added
 

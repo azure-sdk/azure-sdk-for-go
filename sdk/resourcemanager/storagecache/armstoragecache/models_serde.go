@@ -622,6 +622,123 @@ func (a *AmlFilesystemIdentity) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AmlFilesystemImport.
+func (a AmlFilesystemImport) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "conflictResolutionMode", a.ConflictResolutionMode)
+	populate(objectMap, "filesystemPath", a.FilesystemPath)
+	populate(objectMap, "status", a.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AmlFilesystemImport.
+func (a *AmlFilesystemImport) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "conflictResolutionMode":
+			err = unpopulate(val, "ConflictResolutionMode", &a.ConflictResolutionMode)
+			delete(rawMsg, key)
+		case "filesystemPath":
+			err = unpopulate(val, "FilesystemPath", &a.FilesystemPath)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &a.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AmlFilesystemImportInfo.
+func (a AmlFilesystemImportInfo) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "conflictResolutionMode", a.ConflictResolutionMode)
+	populate(objectMap, "filesystemPath", a.FilesystemPath)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AmlFilesystemImportInfo.
+func (a *AmlFilesystemImportInfo) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "conflictResolutionMode":
+			err = unpopulate(val, "ConflictResolutionMode", &a.ConflictResolutionMode)
+			delete(rawMsg, key)
+		case "filesystemPath":
+			err = unpopulate(val, "FilesystemPath", &a.FilesystemPath)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AmlFilesystemImportStatus.
+func (a AmlFilesystemImportStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "blobsImportedPerSecond", a.BlobsImportedPerSecond)
+	populate(objectMap, "blobsWalkedPerSecond", a.BlobsWalkedPerSecond)
+	populate(objectMap, "state", a.State)
+	populate(objectMap, "totalBlobsImported", a.TotalBlobsImported)
+	populate(objectMap, "totalBlobsWalked", a.TotalBlobsWalked)
+	populate(objectMap, "totalConflicts", a.TotalConflicts)
+	populate(objectMap, "totalErrors", a.TotalErrors)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AmlFilesystemImportStatus.
+func (a *AmlFilesystemImportStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "blobsImportedPerSecond":
+			err = unpopulate(val, "BlobsImportedPerSecond", &a.BlobsImportedPerSecond)
+			delete(rawMsg, key)
+		case "blobsWalkedPerSecond":
+			err = unpopulate(val, "BlobsWalkedPerSecond", &a.BlobsWalkedPerSecond)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &a.State)
+			delete(rawMsg, key)
+		case "totalBlobsImported":
+			err = unpopulate(val, "TotalBlobsImported", &a.TotalBlobsImported)
+			delete(rawMsg, key)
+		case "totalBlobsWalked":
+			err = unpopulate(val, "TotalBlobsWalked", &a.TotalBlobsWalked)
+			delete(rawMsg, key)
+		case "totalConflicts":
+			err = unpopulate(val, "TotalConflicts", &a.TotalConflicts)
+			delete(rawMsg, key)
+		case "totalErrors":
+			err = unpopulate(val, "TotalErrors", &a.TotalErrors)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AmlFilesystemProperties.
 func (a AmlFilesystemProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -632,6 +749,7 @@ func (a AmlFilesystemProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "hsm", a.Hsm)
 	populate(objectMap, "maintenanceWindow", a.MaintenanceWindow)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "rootSquashSettings", a.RootSquashSettings)
 	populate(objectMap, "storageCapacityTiB", a.StorageCapacityTiB)
 	populate(objectMap, "throughputProvisionedMBps", a.ThroughputProvisionedMBps)
 	return json.Marshal(objectMap)
@@ -667,6 +785,9 @@ func (a *AmlFilesystemProperties) UnmarshalJSON(data []byte) error {
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
 			delete(rawMsg, key)
+		case "rootSquashSettings":
+			err = unpopulate(val, "RootSquashSettings", &a.RootSquashSettings)
+			delete(rawMsg, key)
 		case "storageCapacityTiB":
 			err = unpopulate(val, "StorageCapacityTiB", &a.StorageCapacityTiB)
 			delete(rawMsg, key)
@@ -685,6 +806,7 @@ func (a *AmlFilesystemProperties) UnmarshalJSON(data []byte) error {
 func (a AmlFilesystemPropertiesHsm) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "archiveStatus", a.ArchiveStatus)
+	populate(objectMap, "importStatus", a.ImportStatus)
 	populate(objectMap, "settings", a.Settings)
 	return json.Marshal(objectMap)
 }
@@ -700,6 +822,9 @@ func (a *AmlFilesystemPropertiesHsm) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "archiveStatus":
 			err = unpopulate(val, "ArchiveStatus", &a.ArchiveStatus)
+			delete(rawMsg, key)
+		case "importStatus":
+			err = unpopulate(val, "ImportStatus", &a.ImportStatus)
 			delete(rawMsg, key)
 		case "settings":
 			err = unpopulate(val, "Settings", &a.Settings)
@@ -734,6 +859,49 @@ func (a *AmlFilesystemPropertiesMaintenanceWindow) UnmarshalJSON(data []byte) er
 			delete(rawMsg, key)
 		case "timeOfDayUTC":
 			err = unpopulate(val, "TimeOfDayUTC", &a.TimeOfDayUTC)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AmlFilesystemRootSquashSettings.
+func (a AmlFilesystemRootSquashSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "mode", a.Mode)
+	populate(objectMap, "noSquashNidLists", a.NoSquashNidLists)
+	populate(objectMap, "squashGID", a.SquashGID)
+	populate(objectMap, "squashUID", a.SquashUID)
+	populate(objectMap, "status", a.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AmlFilesystemRootSquashSettings.
+func (a *AmlFilesystemRootSquashSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "mode":
+			err = unpopulate(val, "Mode", &a.Mode)
+			delete(rawMsg, key)
+		case "noSquashNidLists":
+			err = unpopulate(val, "NoSquashNidLists", &a.NoSquashNidLists)
+			delete(rawMsg, key)
+		case "squashGID":
+			err = unpopulate(val, "SquashGID", &a.SquashGID)
+			delete(rawMsg, key)
+		case "squashUID":
+			err = unpopulate(val, "SquashUID", &a.SquashUID)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &a.Status)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -818,6 +986,7 @@ func (a AmlFilesystemUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "encryptionSettings", a.EncryptionSettings)
 	populate(objectMap, "maintenanceWindow", a.MaintenanceWindow)
+	populate(objectMap, "rootSquashSettings", a.RootSquashSettings)
 	return json.Marshal(objectMap)
 }
 
@@ -835,6 +1004,9 @@ func (a *AmlFilesystemUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maintenanceWindow":
 			err = unpopulate(val, "MaintenanceWindow", &a.MaintenanceWindow)
+			delete(rawMsg, key)
+		case "rootSquashSettings":
+			err = unpopulate(val, "RootSquashSettings", &a.RootSquashSettings)
 			delete(rawMsg, key)
 		}
 		if err != nil {
