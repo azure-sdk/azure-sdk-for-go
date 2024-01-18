@@ -43,6 +43,24 @@ func (c *ClientFactory) NewAccountsClient() *AccountsClient {
 	return subClient
 }
 
+// NewBillingInfoClient creates a new instance of BillingInfoClient.
+func (c *ClientFactory) NewBillingInfoClient() *BillingInfoClient {
+	subClient, _ := NewBillingInfoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewConnectedPartnerResourcesClient creates a new instance of ConnectedPartnerResourcesClient.
+func (c *ClientFactory) NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient {
+	subClient, _ := NewConnectedPartnerResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewMonitoredSubscriptionsClient creates a new instance of MonitoredSubscriptionsClient.
+func (c *ClientFactory) NewMonitoredSubscriptionsClient() *MonitoredSubscriptionsClient {
+	subClient, _ := NewMonitoredSubscriptionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewMonitorsClient creates a new instance of MonitorsClient.
 func (c *ClientFactory) NewMonitorsClient() *MonitorsClient {
 	subClient, _ := NewMonitorsClient(c.subscriptionID, c.credential, c.options)
