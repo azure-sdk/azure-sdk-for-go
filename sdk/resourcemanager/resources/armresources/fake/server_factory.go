@@ -26,6 +26,7 @@ type ServerFactory struct {
 	ProviderResourceTypesServer ProviderResourceTypesServer
 	ProvidersServer             ProvidersServer
 	ResourceGroupsServer        ResourceGroupsServer
+	ResourceManagementServer    ResourceManagementServer
 	TagsServer                  TagsServer
 }
 
@@ -50,6 +51,7 @@ type ServerFactoryTransport struct {
 	trProviderResourceTypesServer *ProviderResourceTypesServerTransport
 	trProvidersServer             *ProvidersServerTransport
 	trResourceGroupsServer        *ResourceGroupsServerTransport
+	trResourceManagementServer    *ResourceManagementServerTransport
 	trTagsServer                  *TagsServerTransport
 }
 
@@ -93,6 +95,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewResourceGroupsServerTransport(&s.srv.ResourceGroupsServer)
 		})
 		resp, err = s.trResourceGroupsServer.Do(req)
+	case "ResourceManagementClient":
+		initServer(s, &s.trResourceManagementServer, func() *ResourceManagementServerTransport {
+			return NewResourceManagementServerTransport(&s.srv.ResourceManagementServer)
+		})
+		resp, err = s.trResourceManagementServer.Do(req)
 	case "TagsClient":
 		initServer(s, &s.trTagsServer, func() *TagsServerTransport { return NewTagsServerTransport(&s.srv.TagsServer) })
 		resp, err = s.trTagsServer.Do(req)
