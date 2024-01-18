@@ -509,7 +509,25 @@ type ResourceGroupsClientUpdateResponse struct {
 	ResourceGroup
 }
 
-// TagsClientCreateOrUpdateAtScopeResponse contains the response from method TagsClient.CreateOrUpdateAtScope.
+// ResourceManagementClientGetDataBoundaryAtScopeResponse contains the response from method ResourceManagementClient.GetDataBoundaryAtScope.
+type ResourceManagementClientGetDataBoundaryAtScopeResponse struct {
+	// A data boundary definition.
+	DataBoundaryDefinition
+}
+
+// ResourceManagementClientGetTenantDataBoundaryResponse contains the response from method ResourceManagementClient.GetTenantDataBoundary.
+type ResourceManagementClientGetTenantDataBoundaryResponse struct {
+	// A data boundary definition.
+	DataBoundaryDefinition
+}
+
+// ResourceManagementClientPutDataBoundaryResponse contains the response from method ResourceManagementClient.PutDataBoundary.
+type ResourceManagementClientPutDataBoundaryResponse struct {
+	// A data boundary definition.
+	DataBoundaryDefinition
+}
+
+// TagsClientCreateOrUpdateAtScopeResponse contains the response from method TagsClient.BeginCreateOrUpdateAtScope.
 type TagsClientCreateOrUpdateAtScopeResponse struct {
 	// Wrapper resource for tags API requests and responses.
 	TagsResource
@@ -527,7 +545,7 @@ type TagsClientCreateOrUpdateValueResponse struct {
 	TagValue
 }
 
-// TagsClientDeleteAtScopeResponse contains the response from method TagsClient.DeleteAtScope.
+// TagsClientDeleteAtScopeResponse contains the response from method TagsClient.BeginDeleteAtScope.
 type TagsClientDeleteAtScopeResponse struct {
 	// placeholder for future response values
 }
@@ -554,7 +572,7 @@ type TagsClientListResponse struct {
 	TagsListResult
 }
 
-// TagsClientUpdateAtScopeResponse contains the response from method TagsClient.UpdateAtScope.
+// TagsClientUpdateAtScopeResponse contains the response from method TagsClient.BeginUpdateAtScope.
 type TagsClientUpdateAtScopeResponse struct {
 	// Wrapper resource for tags API requests and responses.
 	TagsResource

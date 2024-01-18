@@ -1,5 +1,28 @@
 # Release History
 
+## 2.0.0 (2024-01-18)
+### Breaking Changes
+
+- Type of `DeploymentProperties.Parameters` has been changed from `any` to `map[string]*DeploymentParameter`
+- Type of `DeploymentWhatIfProperties.Parameters` has been changed from `any` to `map[string]*DeploymentParameter`
+- Operation `*TagsClient.CreateOrUpdateAtScope` has been changed to LRO, use `*TagsClient.BeginCreateOrUpdateAtScope` instead.
+- Operation `*TagsClient.DeleteAtScope` has been changed to LRO, use `*TagsClient.BeginDeleteAtScope` instead.
+- Operation `*TagsClient.UpdateAtScope` has been changed to LRO, use `*TagsClient.BeginUpdateAtScope` instead.
+
+### Features Added
+
+- New enum type `DataBoundary` with values `DataBoundaryEU`, `DataBoundaryGlobal`, `DataBoundaryNotDefined`
+- New function `*ClientFactory.NewResourceManagementClient() *ResourceManagementClient`
+- New function `NewResourceManagementClient(azcore.TokenCredential, *arm.ClientOptions) (*ResourceManagementClient, error)`
+- New function `*ResourceManagementClient.GetDataBoundaryAtScope(context.Context, string, *ResourceManagementClientGetDataBoundaryAtScopeOptions) (ResourceManagementClientGetDataBoundaryAtScopeResponse, error)`
+- New function `*ResourceManagementClient.GetTenantDataBoundary(context.Context, *ResourceManagementClientGetTenantDataBoundaryOptions) (ResourceManagementClientGetTenantDataBoundaryResponse, error)`
+- New function `*ResourceManagementClient.PutDataBoundary(context.Context, any, *ResourceManagementClientPutDataBoundaryOptions) (ResourceManagementClientPutDataBoundaryResponse, error)`
+- New struct `DataBoundaryDefinition`
+- New struct `DeploymentParameter`
+- New struct `KeyVaultParameterReference`
+- New struct `KeyVaultReference`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
