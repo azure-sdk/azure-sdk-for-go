@@ -79,6 +79,12 @@ func (c *ClientFactory) NewResourceGroupsClient() *ResourceGroupsClient {
 	return subClient
 }
 
+// NewResourceManagementClient creates a new instance of ResourceManagementClient.
+func (c *ClientFactory) NewResourceManagementClient() *ResourceManagementClient {
+	subClient, _ := NewResourceManagementClient(c.credential, c.options)
+	return subClient
+}
+
 // NewTagsClient creates a new instance of TagsClient.
 func (c *ClientFactory) NewTagsClient() *TagsClient {
 	subClient, _ := NewTagsClient(c.subscriptionID, c.credential, c.options)
