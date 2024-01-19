@@ -48,7 +48,7 @@ func NewSubscriptionsClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Creates a topic subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2022-10-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -106,7 +106,7 @@ func (client *SubscriptionsClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -127,7 +127,7 @@ func (client *SubscriptionsClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Deletes a subscription from the specified topic.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2022-10-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -182,7 +182,7 @@ func (client *SubscriptionsClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *SubscriptionsClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Returns a subscription description for the specified topic.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2022-10-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -247,7 +247,7 @@ func (client *SubscriptionsClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +264,7 @@ func (client *SubscriptionsClient) getHandleResponse(resp *http.Response) (Subsc
 
 // NewListByTopicPager - List all the subscriptions under a specified topic.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2022-10-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -317,7 +317,7 @@ func (client *SubscriptionsClient) listByTopicCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
