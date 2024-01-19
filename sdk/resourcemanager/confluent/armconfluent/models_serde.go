@@ -15,6 +15,41 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type AccessCreateRoleBindingRequestModel.
+func (a AccessCreateRoleBindingRequestModel) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "crn_pattern", a.CrnPattern)
+	populate(objectMap, "principal", a.Principal)
+	populate(objectMap, "role_name", a.RoleName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AccessCreateRoleBindingRequestModel.
+func (a *AccessCreateRoleBindingRequestModel) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "crn_pattern":
+			err = unpopulate(val, "CrnPattern", &a.CrnPattern)
+			delete(rawMsg, key)
+		case "principal":
+			err = unpopulate(val, "Principal", &a.Principal)
+			delete(rawMsg, key)
+		case "role_name":
+			err = unpopulate(val, "RoleName", &a.RoleName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AccessInviteUserAccountModel.
 func (a AccessInviteUserAccountModel) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -271,6 +306,41 @@ func (a AccessListUsersSuccessResponse) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type AccessListUsersSuccessResponse.
 func (a *AccessListUsersSuccessResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "data":
+			err = unpopulate(val, "Data", &a.Data)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &a.Kind)
+			delete(rawMsg, key)
+		case "metadata":
+			err = unpopulate(val, "Metadata", &a.Metadata)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AccessRoleBindingNameListSuccessResponse.
+func (a AccessRoleBindingNameListSuccessResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "data", a.Data)
+	populate(objectMap, "kind", a.Kind)
+	populate(objectMap, "metadata", a.Metadata)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AccessRoleBindingNameListSuccessResponse.
+func (a *AccessRoleBindingNameListSuccessResponse) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", a, err)

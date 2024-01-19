@@ -46,7 +46,7 @@ func NewOrganizationClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreate - Create Organization resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - options - OrganizationClientBeginCreateOptions contains the optional parameters for the OrganizationClient.BeginCreate
@@ -72,7 +72,7 @@ func (client *OrganizationClient) BeginCreate(ctx context.Context, resourceGroup
 // Create - Create Organization resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 func (client *OrganizationClient) create(ctx context.Context, resourceGroupName string, organizationName string, options *OrganizationClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationClient.BeginCreate"
@@ -114,7 +114,7 @@ func (client *OrganizationClient) createCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -129,7 +129,7 @@ func (client *OrganizationClient) createCreateRequest(ctx context.Context, resou
 // BeginDelete - Delete Organization resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - options - OrganizationClientBeginDeleteOptions contains the optional parameters for the OrganizationClient.BeginDelete
@@ -155,7 +155,7 @@ func (client *OrganizationClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Delete Organization resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 func (client *OrganizationClient) deleteOperation(ctx context.Context, resourceGroupName string, organizationName string, options *OrganizationClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationClient.BeginDelete"
@@ -197,7 +197,7 @@ func (client *OrganizationClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -206,7 +206,7 @@ func (client *OrganizationClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get the properties of a specific Organization resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - options - OrganizationClientGetOptions contains the optional parameters for the OrganizationClient.Get method.
@@ -252,7 +252,7 @@ func (client *OrganizationClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -269,7 +269,7 @@ func (client *OrganizationClient) getHandleResponse(resp *http.Response) (Organi
 
 // NewListByResourceGroupPager - List all Organizations under the specified resource group.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - OrganizationClientListByResourceGroupOptions contains the optional parameters for the OrganizationClient.NewListByResourceGroupPager
 //     method.
@@ -312,7 +312,7 @@ func (client *OrganizationClient) listByResourceGroupCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,7 +329,7 @@ func (client *OrganizationClient) listByResourceGroupHandleResponse(resp *http.R
 
 // NewListBySubscriptionPager - List all organizations under the specified subscription.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - options - OrganizationClientListBySubscriptionOptions contains the optional parameters for the OrganizationClient.NewListBySubscriptionPager
 //     method.
 func (client *OrganizationClient) NewListBySubscriptionPager(options *OrganizationClientListBySubscriptionOptions) *runtime.Pager[OrganizationClientListBySubscriptionResponse] {
@@ -367,7 +367,7 @@ func (client *OrganizationClient) listBySubscriptionCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -385,7 +385,7 @@ func (client *OrganizationClient) listBySubscriptionHandleResponse(resp *http.Re
 // Update - Update Organization resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - options - OrganizationClientUpdateOptions contains the optional parameters for the OrganizationClient.Update method.
@@ -431,7 +431,7 @@ func (client *OrganizationClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {

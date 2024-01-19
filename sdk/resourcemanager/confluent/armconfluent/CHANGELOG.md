@@ -1,5 +1,15 @@
 # Release History
 
+## 1.3.0 (2024-01-19)
+### Features Added
+
+- New function `*AccessClient.CreateRoleBinding(context.Context, string, string, AccessCreateRoleBindingRequestModel, *AccessClientCreateRoleBindingOptions) (AccessClientCreateRoleBindingResponse, error)`
+- New function `*AccessClient.DeleteRoleBinding(context.Context, string, string, *AccessClientDeleteRoleBindingOptions) (AccessClientDeleteRoleBindingResponse, error)`
+- New function `*AccessClient.ListRoleBindingNameList(context.Context, string, string, ListAccessRequestModel, *AccessClientListRoleBindingNameListOptions) (AccessClientListRoleBindingNameListResponse, error)`
+- New struct `AccessCreateRoleBindingRequestModel`
+- New struct `AccessRoleBindingNameListSuccessResponse`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

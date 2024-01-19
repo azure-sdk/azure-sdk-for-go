@@ -8,6 +8,16 @@
 
 package armconfluent
 
+// AccessClientCreateRoleBindingOptions contains the optional parameters for the AccessClient.CreateRoleBinding method.
+type AccessClientCreateRoleBindingOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AccessClientDeleteRoleBindingOptions contains the optional parameters for the AccessClient.DeleteRoleBinding method.
+type AccessClientDeleteRoleBindingOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AccessClientInviteUserOptions contains the optional parameters for the AccessClient.InviteUser method.
 type AccessClientInviteUserOptions struct {
 	// placeholder for future optional parameters
@@ -25,6 +35,12 @@ type AccessClientListEnvironmentsOptions struct {
 
 // AccessClientListInvitationsOptions contains the optional parameters for the AccessClient.ListInvitations method.
 type AccessClientListInvitationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AccessClientListRoleBindingNameListOptions contains the optional parameters for the AccessClient.ListRoleBindingNameList
+// method.
+type AccessClientListRoleBindingNameListOptions struct {
 	// placeholder for future optional parameters
 }
 

@@ -17,6 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
+	roleBindingID  string
 	credential     azcore.TokenCredential
 	options        *arm.ClientOptions
 }
@@ -24,22 +25,23 @@ type ClientFactory struct {
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - roleBindingID - Confluent Role binding id
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, roleBindingID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, roleBindingID: roleBindingID, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
 
 // NewAccessClient creates a new instance of AccessClient.
 func (c *ClientFactory) NewAccessClient() *AccessClient {
-	subClient, _ := NewAccessClient(c.subscriptionID, c.credential, c.options)
+	subClient, _ := NewAccessClient(c.subscriptionID, c.roleBindingID, c.credential, c.options)
 	return subClient
 }
 

@@ -10,6 +10,18 @@ package armconfluent
 
 import "time"
 
+// AccessCreateRoleBindingRequestModel - Create role binding request model
+type AccessCreateRoleBindingRequestModel struct {
+	// A CRN that specifies the scope and resource patterns necessary for the role to bind
+	CrnPattern *string
+
+	// The principal User or Group to bind the role to
+	Principal *string
+
+	// The name of the role to bind to the principal
+	RoleName *string
+}
+
 // AccessInviteUserAccountModel - Invite User Account model
 type AccessInviteUserAccountModel struct {
 	// Email of the logged in user
@@ -34,9 +46,9 @@ type AccessInvitedUserDetails struct {
 	InvitedEmail *string
 }
 
-// AccessListClusterSuccessResponse - List cluster success response
+// AccessListClusterSuccessResponse - Details of the clusters returned on successful response
 type AccessListClusterSuccessResponse struct {
-	// Data of the environments list
+	// List of clusters
 	Data []*ClusterRecord
 
 	// Type of response
@@ -46,15 +58,15 @@ type AccessListClusterSuccessResponse struct {
 	Metadata *ListMetadata
 }
 
-// AccessListEnvironmentsSuccessResponse - List environments success response
+// AccessListEnvironmentsSuccessResponse - Details of the environments returned on successful response
 type AccessListEnvironmentsSuccessResponse struct {
-	// Data of the environments list
+	// Environment list data
 	Data []*EnvironmentRecord
 
 	// Type of response
 	Kind *string
 
-	// Metadata of the list
+	// Metadata of the environment list
 	Metadata *ListMetadata
 }
 
@@ -70,9 +82,9 @@ type AccessListInvitationsSuccessResponse struct {
 	Metadata *ListMetadata
 }
 
-// AccessListRoleBindingsSuccessResponse - List cluster success response
+// AccessListRoleBindingsSuccessResponse - Details of the role bindings returned on successful response
 type AccessListRoleBindingsSuccessResponse struct {
-	// Data of the environments list
+	// List of role binding
 	Data []*RoleBindingRecord
 
 	// Type of response
@@ -98,6 +110,18 @@ type AccessListServiceAccountsSuccessResponse struct {
 type AccessListUsersSuccessResponse struct {
 	// Data of the users list
 	Data []*UserRecord
+
+	// Type of response
+	Kind *string
+
+	// Metadata of the list
+	Metadata *ListMetadata
+}
+
+// AccessRoleBindingNameListSuccessResponse - Details of the role binding names returned on successful response
+type AccessRoleBindingNameListSuccessResponse struct {
+	// List of role binding names
+	Data []*string
 
 	// Type of response
 	Kind *string
@@ -208,15 +232,15 @@ type ClusterNetworkEntity struct {
 	ResourceName *string
 }
 
-// ClusterRecord - Record of the environment
+// ClusterRecord - Details of cluster record
 type ClusterRecord struct {
 	// Display name of the user
 	DisplayName *string
 
-	// Id of the environment
+	// Id of the cluster
 	ID *string
 
-	// Type of environment
+	// Type of cluster
 	Kind *string
 
 	// Metadata of the record
@@ -517,12 +541,12 @@ type ResourceProviderDefaultErrorResponse struct {
 	Error *ErrorResponseBody
 }
 
-// RoleBindingRecord - Record of the environment
+// RoleBindingRecord - Details on principal, role name and crn pattern of a role binding
 type RoleBindingRecord struct {
 	// A CRN that specifies the scope and resource patterns necessary for the role to bind
 	CrnPattern *string
 
-	// Id of the role
+	// Id of the role binding
 	ID *string
 
 	// The type of the resource.

@@ -8,6 +8,17 @@
 
 package armconfluent
 
+// AccessClientCreateRoleBindingResponse contains the response from method AccessClient.CreateRoleBinding.
+type AccessClientCreateRoleBindingResponse struct {
+	// Details on principal, role name and crn pattern of a role binding
+	RoleBindingRecord
+}
+
+// AccessClientDeleteRoleBindingResponse contains the response from method AccessClient.DeleteRoleBinding.
+type AccessClientDeleteRoleBindingResponse struct {
+	// placeholder for future response values
+}
+
 // AccessClientInviteUserResponse contains the response from method AccessClient.InviteUser.
 type AccessClientInviteUserResponse struct {
 	// Record of the invitation
@@ -16,13 +27,13 @@ type AccessClientInviteUserResponse struct {
 
 // AccessClientListClustersResponse contains the response from method AccessClient.ListClusters.
 type AccessClientListClustersResponse struct {
-	// List cluster success response
+	// Details of the clusters returned on successful response
 	AccessListClusterSuccessResponse
 }
 
 // AccessClientListEnvironmentsResponse contains the response from method AccessClient.ListEnvironments.
 type AccessClientListEnvironmentsResponse struct {
-	// List environments success response
+	// Details of the environments returned on successful response
 	AccessListEnvironmentsSuccessResponse
 }
 
@@ -32,9 +43,15 @@ type AccessClientListInvitationsResponse struct {
 	AccessListInvitationsSuccessResponse
 }
 
+// AccessClientListRoleBindingNameListResponse contains the response from method AccessClient.ListRoleBindingNameList.
+type AccessClientListRoleBindingNameListResponse struct {
+	// Details of the role binding names returned on successful response
+	AccessRoleBindingNameListSuccessResponse
+}
+
 // AccessClientListRoleBindingsResponse contains the response from method AccessClient.ListRoleBindings.
 type AccessClientListRoleBindingsResponse struct {
-	// List cluster success response
+	// Details of the role bindings returned on successful response
 	AccessListRoleBindingsSuccessResponse
 }
 

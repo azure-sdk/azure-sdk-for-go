@@ -46,7 +46,7 @@ func NewValidationsClient(subscriptionID string, credential azcore.TokenCredenti
 // ValidateOrganization - Organization Validate proxy resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - Organization resource model
@@ -94,7 +94,7 @@ func (client *ValidationsClient) validateOrganizationCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -115,7 +115,7 @@ func (client *ValidationsClient) validateOrganizationHandleResponse(resp *http.R
 // ValidateOrganizationV2 - Organization Validate proxy resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-22
+// Generated from API version 2024-01-19
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - Organization resource model
@@ -163,7 +163,7 @@ func (client *ValidationsClient) validateOrganizationV2CreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-22")
+	reqQP.Set("api-version", "2024-01-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
