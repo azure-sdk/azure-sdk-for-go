@@ -10,6 +10,28 @@ package armcontainerservicefleet
 
 import "time"
 
+// APIServerAccessProfile - Access profile for the Fleet hub API server.
+type APIServerAccessProfile struct {
+	// Whether to create the Fleet hub as a private cluster or not.
+	EnablePrivateCluster *bool
+
+	// Whether to enable apiserver vnet integration for the Fleet hub or not.
+	EnableVnetIntegration *bool
+
+	// The subnet to be used when apiserver vnet integration is enabled. It is required when creating a new Fleet with BYO vnet.
+	SubnetID *string
+}
+
+// AgentProfile - Agent profile for the Fleet hub.
+type AgentProfile struct {
+	// The ID of the subnet which the Fleet hub node will join on startup. If this is not specified, a vnet and subnet will be
+	// generated and used.
+	SubnetID *string
+
+	// The virtual machine size of the Fleet hub.
+	VMSize *string
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -83,6 +105,27 @@ type FleetCredentialResult struct {
 type FleetCredentialResults struct {
 	// READ-ONLY; Array of base64-encoded Kubernetes configuration files.
 	Kubeconfigs []*FleetCredentialResult
+}
+
+// FleetHubProfile - The FleetHubProfile configures the fleet hub.
+type FleetHubProfile struct {
+	// The access profile for the Fleet hub API server.
+	APIServerAccessProfile *APIServerAccessProfile
+
+	// The agent profile for the Fleet hub.
+	AgentProfile *AgentProfile
+
+	// DNS prefix used to create the FQDN for the Fleet hub.
+	DNSPrefix *string
+
+	// READ-ONLY; The FQDN of the Fleet hub.
+	Fqdn *string
+
+	// READ-ONLY; The Kubernetes version of the Fleet hub.
+	KubernetesVersion *string
+
+	// READ-ONLY; The Azure Portal FQDN of the Fleet hub.
+	PortalFqdn *string
 }
 
 // FleetListResult - The response of a Fleet list operation.
@@ -163,6 +206,9 @@ type FleetPatch struct {
 
 // FleetProperties - Fleet properties.
 type FleetProperties struct {
+	// The FleetHubProfile configures the Fleet's hub.
+	HubProfile *FleetHubProfile
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *FleetProvisioningState
 }
@@ -221,6 +267,7 @@ type ManagedClusterUpdate struct {
 // ManagedClusterUpgradeSpec - The upgrade to apply to a ManagedCluster.
 type ManagedClusterUpgradeSpec struct {
 	// REQUIRED; The upgrade type. Full requires the KubernetesVersion property to be set. NodeImageOnly requires the KubernetesVersion
+	// property not to be set. ControlPlaneOnly requires the AgentPool KubernetesVersion
 	// property not to be set.
 	Type *ManagedClusterUpgradeType
 
@@ -331,6 +378,22 @@ type OperationListResult struct {
 
 	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// SkipProperties - The properties of a skip operation containing multiple skip requests.
+type SkipProperties struct {
+	// REQUIRED; The targets to skip.
+	Targets []*SkipTarget
+}
+
+// SkipTarget - The definition of a single skip request.
+type SkipTarget struct {
+	// REQUIRED; The skip target's name. To skip a member/group/stage, use the member/group/stage's name; Tp skip an after stage
+	// wait, use the parent stage's name.
+	Name *string
+
+	// REQUIRED; The skip target type.
+	Type *TargetType
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
