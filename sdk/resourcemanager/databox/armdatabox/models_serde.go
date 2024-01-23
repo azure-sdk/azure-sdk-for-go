@@ -1736,6 +1736,87 @@ func (d *Details) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DeviceCapabilityDetails.
+func (d DeviceCapabilityDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "hardwareEncryption", d.HardwareEncryption)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DeviceCapabilityDetails.
+func (d *DeviceCapabilityDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "hardwareEncryption":
+			err = unpopulate(val, "HardwareEncryption", &d.HardwareEncryption)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DeviceCapabilityRequest.
+func (d DeviceCapabilityRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "skuName", d.SKUName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DeviceCapabilityRequest.
+func (d *DeviceCapabilityRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "skuName":
+			err = unpopulate(val, "SKUName", &d.SKUName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DeviceCapabilityResponse.
+func (d DeviceCapabilityResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "deviceCapabilityDetails", d.DeviceCapabilityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DeviceCapabilityResponse.
+func (d *DeviceCapabilityResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "deviceCapabilityDetails":
+			err = unpopulate(val, "DeviceCapabilityDetails", &d.DeviceCapabilityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DeviceErasureDetails.
 func (d DeviceErasureDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2830,6 +2911,49 @@ func (i *ImportDiskDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type JobDelayDetails.
+func (j JobDelayDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "description", j.Description)
+	populate(objectMap, "errorCode", j.ErrorCode)
+	populateDateTimeRFC3339(objectMap, "resolutionTime", j.ResolutionTime)
+	populateDateTimeRFC3339(objectMap, "startTime", j.StartTime)
+	populate(objectMap, "status", j.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type JobDelayDetails.
+func (j *JobDelayDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", j, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "description":
+			err = unpopulate(val, "Description", &j.Description)
+			delete(rawMsg, key)
+		case "errorCode":
+			err = unpopulate(val, "ErrorCode", &j.ErrorCode)
+			delete(rawMsg, key)
+		case "resolutionTime":
+			err = unpopulateDateTimeRFC3339(val, "ResolutionTime", &j.ResolutionTime)
+			delete(rawMsg, key)
+		case "startTime":
+			err = unpopulateDateTimeRFC3339(val, "StartTime", &j.StartTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &j.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", j, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type JobDeliveryInfo.
 func (j JobDeliveryInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2971,7 +3095,9 @@ func (j *JobDetails) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type JobProperties.
 func (j JobProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "allDevicesLost", j.AllDevicesLost)
 	populate(objectMap, "cancellationReason", j.CancellationReason)
+	populate(objectMap, "delayedStage", j.DelayedStage)
 	populate(objectMap, "deliveryInfo", j.DeliveryInfo)
 	populate(objectMap, "deliveryType", j.DeliveryType)
 	populate(objectMap, "details", j.Details)
@@ -2998,8 +3124,14 @@ func (j *JobProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "allDevicesLost":
+			err = unpopulate(val, "AllDevicesLost", &j.AllDevicesLost)
+			delete(rawMsg, key)
 		case "cancellationReason":
 			err = unpopulate(val, "CancellationReason", &j.CancellationReason)
+			delete(rawMsg, key)
+		case "delayedStage":
+			err = unpopulate(val, "DelayedStage", &j.DelayedStage)
 			delete(rawMsg, key)
 		case "deliveryInfo":
 			err = unpopulate(val, "DeliveryInfo", &j.DeliveryInfo)
@@ -3218,6 +3350,7 @@ func (j *JobSecrets) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type JobStages.
 func (j JobStages) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "delayInformation", j.DelayInformation)
 	populate(objectMap, "displayName", j.DisplayName)
 	populateAny(objectMap, "jobStageDetails", j.JobStageDetails)
 	populate(objectMap, "stageName", j.StageName)
@@ -3235,6 +3368,9 @@ func (j *JobStages) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "delayInformation":
+			err = unpopulate(val, "DelayInformation", &j.DelayInformation)
+			delete(rawMsg, key)
 		case "displayName":
 			err = unpopulate(val, "DisplayName", &j.DisplayName)
 			delete(rawMsg, key)
@@ -3791,6 +3927,7 @@ func (p *PreferencesValidationResponseProperties) UnmarshalJSON(data []byte) err
 func (r RegionConfigurationRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "datacenterAddressRequest", r.DatacenterAddressRequest)
+	populate(objectMap, "deviceCapabilityRequest", r.DeviceCapabilityRequest)
 	populate(objectMap, "scheduleAvailabilityRequest", r.ScheduleAvailabilityRequest)
 	populate(objectMap, "transportAvailabilityRequest", r.TransportAvailabilityRequest)
 	return json.Marshal(objectMap)
@@ -3807,6 +3944,9 @@ func (r *RegionConfigurationRequest) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "datacenterAddressRequest":
 			err = unpopulate(val, "DatacenterAddressRequest", &r.DatacenterAddressRequest)
+			delete(rawMsg, key)
+		case "deviceCapabilityRequest":
+			err = unpopulate(val, "DeviceCapabilityRequest", &r.DeviceCapabilityRequest)
 			delete(rawMsg, key)
 		case "scheduleAvailabilityRequest":
 			r.ScheduleAvailabilityRequest, err = unmarshalCommonScheduleAvailabilityRequestClassification(val)
@@ -3826,6 +3966,7 @@ func (r *RegionConfigurationRequest) UnmarshalJSON(data []byte) error {
 func (r RegionConfigurationResponse) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "datacenterAddressResponse", r.DatacenterAddressResponse)
+	populate(objectMap, "deviceCapabilityResponse", r.DeviceCapabilityResponse)
 	populate(objectMap, "scheduleAvailabilityResponse", r.ScheduleAvailabilityResponse)
 	populate(objectMap, "transportAvailabilityResponse", r.TransportAvailabilityResponse)
 	return json.Marshal(objectMap)
@@ -3842,6 +3983,9 @@ func (r *RegionConfigurationResponse) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "datacenterAddressResponse":
 			r.DatacenterAddressResponse, err = unmarshalDatacenterAddressResponseClassification(val)
+			delete(rawMsg, key)
+		case "deviceCapabilityResponse":
+			err = unpopulate(val, "DeviceCapabilityResponse", &r.DeviceCapabilityResponse)
 			delete(rawMsg, key)
 		case "scheduleAvailabilityResponse":
 			err = unpopulate(val, "ScheduleAvailabilityResponse", &r.ScheduleAvailabilityResponse)

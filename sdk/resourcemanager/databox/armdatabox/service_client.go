@@ -46,7 +46,7 @@ func NewServiceClient(subscriptionID string, credential azcore.TokenCredential, 
 // NewListAvailableSKUsByResourceGroupPager - This method provides the list of available skus for the given subscription,
 // resource group and location.
 //
-// Generated from API version 2022-12-01
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The Resource Group Name
 //   - location - The location of the resource
 //   - availableSKURequest - Filters for showing the available skus.
@@ -95,7 +95,7 @@ func (client *ServiceClient) listAvailableSKUsByResourceGroupCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, availableSKURequest); err != nil {
@@ -116,7 +116,7 @@ func (client *ServiceClient) listAvailableSKUsByResourceGroupHandleResponse(resp
 // RegionConfiguration - This API provides configuration details specific to given region/location at Subscription level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01
+// Generated from API version 2024-02-01-preview
 //   - location - The location of the resource
 //   - regionConfigurationRequest - Request body to get the configuration for the region.
 //   - options - ServiceClientRegionConfigurationOptions contains the optional parameters for the ServiceClient.RegionConfiguration
@@ -159,7 +159,7 @@ func (client *ServiceClient) regionConfigurationCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, regionConfigurationRequest); err != nil {
@@ -181,7 +181,7 @@ func (client *ServiceClient) regionConfigurationHandleResponse(resp *http.Respon
 // group level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The Resource Group Name
 //   - location - The location of the resource
 //   - regionConfigurationRequest - Request body to get the configuration for the region at resource group level.
@@ -229,7 +229,7 @@ func (client *ServiceClient) regionConfigurationByResourceGroupCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, regionConfigurationRequest); err != nil {
@@ -251,7 +251,7 @@ func (client *ServiceClient) regionConfigurationByResourceGroupHandleResponse(re
 // address and provide alternate addresses if any.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01
+// Generated from API version 2024-02-01-preview
 //   - location - The location of the resource
 //   - validateAddress - Shipping address of the customer.
 //   - options - ServiceClientValidateAddressOptions contains the optional parameters for the ServiceClient.ValidateAddress method.
@@ -293,7 +293,7 @@ func (client *ServiceClient) validateAddressCreateRequest(ctx context.Context, l
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, validateAddress); err != nil {
@@ -314,7 +314,7 @@ func (client *ServiceClient) validateAddressHandleResponse(resp *http.Response) 
 // ValidateInputs - This method does all necessary pre-job creation validation under subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01
+// Generated from API version 2024-02-01-preview
 //   - location - The location of the resource
 //   - validationRequest - Inputs of the customer.
 //   - options - ServiceClientValidateInputsOptions contains the optional parameters for the ServiceClient.ValidateInputs method.
@@ -356,7 +356,7 @@ func (client *ServiceClient) validateInputsCreateRequest(ctx context.Context, lo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, validationRequest); err != nil {
@@ -377,7 +377,7 @@ func (client *ServiceClient) validateInputsHandleResponse(resp *http.Response) (
 // ValidateInputsByResourceGroup - This method does all necessary pre-job creation validation under resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The Resource Group Name
 //   - location - The location of the resource
 //   - validationRequest - Inputs of the customer.
@@ -425,7 +425,7 @@ func (client *ServiceClient) validateInputsByResourceGroupCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, validationRequest); err != nil {

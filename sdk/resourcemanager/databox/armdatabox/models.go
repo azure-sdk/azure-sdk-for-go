@@ -871,6 +871,24 @@ type Details struct {
 	Message *string
 }
 
+// DeviceCapabilityDetails - Device capability details for a given sku for a given region.
+type DeviceCapabilityDetails struct {
+	// READ-ONLY; Hardware encryption support for a given sku for a given region.
+	HardwareEncryption *HardwareEncryption
+}
+
+// DeviceCapabilityRequest - Request body to get the device capabilities for given sku.
+type DeviceCapabilityRequest struct {
+	// Type of the device.
+	SKUName *SKUName
+}
+
+// DeviceCapabilityResponse - Device capabilities for given sku in a region
+type DeviceCapabilityResponse struct {
+	// READ-ONLY; List of device capabilities available for a given region and a given sku
+	DeviceCapabilityDetails []*DeviceCapabilityDetails
+}
+
 // DeviceErasureDetails - Device erasure details with erasure completion status and erasureordestructionlog sas key
 type DeviceErasureDetails struct {
 	// READ-ONLY; Holds the device erasure completion status
@@ -1493,6 +1511,24 @@ type ImportDiskDetails struct {
 	BackupManifestCloudPath *string
 }
 
+// JobDelayDetails - Job Delay Notification details
+type JobDelayDetails struct {
+	// READ-ONLY; Description of the delay.
+	Description *string
+
+	// READ-ONLY; Delay Error code
+	ErrorCode *PortalDelayErrorCode
+
+	// READ-ONLY; Timestamp when the delay notification was resolved.
+	ResolutionTime *time.Time
+
+	// READ-ONLY; Timestamp when the delay notification was created.
+	StartTime *time.Time
+
+	// READ-ONLY; Status of notification
+	Status *DelayNotificationStatus
+}
+
 // JobDeliveryInfo - Additional delivery info.
 type JobDeliveryInfo struct {
 	// Scheduled date time.
@@ -1612,8 +1648,14 @@ type JobProperties struct {
 	// Details of a job run. This field will only be sent for expand details filter.
 	Details CommonJobDetailsClassification
 
+	// READ-ONLY; Flag to indicate if all devices associated with the job are lost.
+	AllDevicesLost *bool
+
 	// READ-ONLY; Reason for cancellation.
 	CancellationReason *string
+
+	// READ-ONLY; Name of the stage where delay might be present.
+	DelayedStage *StageName
 
 	// READ-ONLY; Top level error for the job.
 	Error *CloudError
@@ -1727,6 +1769,9 @@ func (j *JobSecrets) GetCommonJobSecrets() *CommonJobSecrets {
 
 // JobStages - Job stages.
 type JobStages struct {
+	// READ-ONLY; Delay information for the job stages.
+	DelayInformation []*JobDelayDetails
+
 	// READ-ONLY; Display name of the job stage.
 	DisplayName *string
 
@@ -1959,6 +2004,9 @@ type RegionConfigurationRequest struct {
 	// Request body to get the datacenter address for given sku.
 	DatacenterAddressRequest *DatacenterAddressRequest
 
+	// Request body to get the device capabilities for a given sku.
+	DeviceCapabilityRequest *DeviceCapabilityRequest
+
 	// Request body to get the availability for scheduling orders.
 	ScheduleAvailabilityRequest CommonScheduleAvailabilityRequestClassification
 
@@ -1970,6 +2018,9 @@ type RegionConfigurationRequest struct {
 type RegionConfigurationResponse struct {
 	// READ-ONLY; Datacenter address for given sku in a region.
 	DatacenterAddressResponse DatacenterAddressResponseClassification
+
+	// READ-ONLY; Device capabilities available for a given sku in a region.
+	DeviceCapabilityResponse *DeviceCapabilityResponse
 
 	// READ-ONLY; Schedule availability for given sku in a region.
 	ScheduleAvailabilityResponse *ScheduleAvailabilityResponse
