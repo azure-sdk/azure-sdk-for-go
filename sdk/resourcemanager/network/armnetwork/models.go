@@ -933,6 +933,11 @@ type ApplicationGatewayHeaderConfiguration struct {
 
 	// Header value of the header configuration.
 	HeaderValue *string
+
+	// An optional field under "Rewrite Action". It lets you capture and modify the value(s) of a specific header when multiple
+	// headers with the same name exist. Currently supported for Set-Cookie Response
+	// header only. For more details, visit https://aka.ms/appgwheadercrud
+	HeaderValueMatcher *HeaderValueMatcher
 }
 
 // ApplicationGatewayIPConfiguration - IP configuration of an application gateway. Currently 1 public and 1 private IP configuration
@@ -2935,6 +2940,9 @@ type BastionHost struct {
 
 	// Resource tags.
 	Tags map[string]*string
+
+	// A list of availability zones denoting where the resource needs to come from.
+	Zones []*string
 
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string
@@ -6557,6 +6565,20 @@ type HTTPHeader struct {
 
 	// The value in HTTP header.
 	Value *string
+}
+
+// HeaderValueMatcher - An optional field under "Rewrite Action". It lets you capture and modify the value(s) of a specific
+// header when multiple headers with the same name exist. Currently supported for Set-Cookie Response
+// header only. For more details, visit https://aka.ms/appgwheadercrud
+type HeaderValueMatcher struct {
+	// Setting this parameter to truth value with force the pattern to do a case in-sensitive comparison.
+	IgnoreCase *bool
+
+	// Setting this value as truth will force to check the negation of the condition given by the user in the pattern field.
+	Negate *bool
+
+	// The pattern, either fixed string or regular expression, that evaluates if a header value should be selected for rewrite.
+	Pattern *string
 }
 
 // HopLink - Hop link.

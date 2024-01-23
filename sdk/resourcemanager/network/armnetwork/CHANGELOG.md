@@ -1,5 +1,14 @@
 # Release History
 
+## 5.1.0 (2024-01-23)
+### Features Added
+
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New struct `HeaderValueMatcher`
+- New field `HeaderValueMatcher` in struct `ApplicationGatewayHeaderConfiguration`
+- New field `Zones` in struct `BastionHost`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 

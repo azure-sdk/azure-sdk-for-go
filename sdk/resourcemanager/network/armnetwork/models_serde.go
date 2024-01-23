@@ -2190,6 +2190,7 @@ func (a ApplicationGatewayHeaderConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "headerName", a.HeaderName)
 	populate(objectMap, "headerValue", a.HeaderValue)
+	populate(objectMap, "headerValueMatcher", a.HeaderValueMatcher)
 	return json.Marshal(objectMap)
 }
 
@@ -2207,6 +2208,9 @@ func (a *ApplicationGatewayHeaderConfiguration) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "headerValue":
 			err = unpopulate(val, "HeaderValue", &a.HeaderValue)
+			delete(rawMsg, key)
+		case "headerValueMatcher":
+			err = unpopulate(val, "HeaderValueMatcher", &a.HeaderValueMatcher)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -7042,6 +7046,7 @@ func (b BastionHost) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sku", b.SKU)
 	populate(objectMap, "tags", b.Tags)
 	populate(objectMap, "type", b.Type)
+	populate(objectMap, "zones", b.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -7077,6 +7082,9 @@ func (b *BastionHost) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &b.Type)
+			delete(rawMsg, key)
+		case "zones":
+			err = unpopulate(val, "Zones", &b.Zones)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -16200,6 +16208,41 @@ func (h *HTTPHeader) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "value":
 			err = unpopulate(val, "Value", &h.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", h, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type HeaderValueMatcher.
+func (h HeaderValueMatcher) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "ignoreCase", h.IgnoreCase)
+	populate(objectMap, "negate", h.Negate)
+	populate(objectMap, "pattern", h.Pattern)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type HeaderValueMatcher.
+func (h *HeaderValueMatcher) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", h, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "ignoreCase":
+			err = unpopulate(val, "IgnoreCase", &h.IgnoreCase)
+			delete(rawMsg, key)
+		case "negate":
+			err = unpopulate(val, "Negate", &h.Negate)
+			delete(rawMsg, key)
+		case "pattern":
+			err = unpopulate(val, "Pattern", &h.Pattern)
 			delete(rawMsg, key)
 		}
 		if err != nil {
