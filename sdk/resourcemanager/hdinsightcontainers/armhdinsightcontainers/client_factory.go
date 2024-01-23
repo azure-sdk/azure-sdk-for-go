@@ -49,9 +49,21 @@ func (c *ClientFactory) NewAvailableClusterVersionsClient() *AvailableClusterVer
 	return subClient
 }
 
+// NewClusterAvailableUpgradesClient creates a new instance of ClusterAvailableUpgradesClient.
+func (c *ClientFactory) NewClusterAvailableUpgradesClient() *ClusterAvailableUpgradesClient {
+	subClient, _ := NewClusterAvailableUpgradesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewClusterJobsClient creates a new instance of ClusterJobsClient.
 func (c *ClientFactory) NewClusterJobsClient() *ClusterJobsClient {
 	subClient, _ := NewClusterJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewClusterPoolAvailableUpgradesClient creates a new instance of ClusterPoolAvailableUpgradesClient.
+func (c *ClientFactory) NewClusterPoolAvailableUpgradesClient() *ClusterPoolAvailableUpgradesClient {
+	subClient, _ := NewClusterPoolAvailableUpgradesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
