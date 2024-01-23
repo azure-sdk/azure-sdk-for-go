@@ -67,6 +67,12 @@ func (c *ClientFactory) NewDeploymentsClient() *DeploymentsClient {
 	return subClient
 }
 
+// NewEncryptionScopesClient creates a new instance of EncryptionScopesClient.
+func (c *ClientFactory) NewEncryptionScopesClient() *EncryptionScopesClient {
+	subClient, _ := NewEncryptionScopesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewManagementClient creates a new instance of ManagementClient.
 func (c *ClientFactory) NewManagementClient() *ManagementClient {
 	subClient, _ := NewManagementClient(c.subscriptionID, c.credential, c.options)
@@ -94,6 +100,30 @@ func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointCo
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient.
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
 	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRaiBlocklistItemsClient creates a new instance of RaiBlocklistItemsClient.
+func (c *ClientFactory) NewRaiBlocklistItemsClient() *RaiBlocklistItemsClient {
+	subClient, _ := NewRaiBlocklistItemsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRaiBlocklistsClient creates a new instance of RaiBlocklistsClient.
+func (c *ClientFactory) NewRaiBlocklistsClient() *RaiBlocklistsClient {
+	subClient, _ := NewRaiBlocklistsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRaiContentFiltersClient creates a new instance of RaiContentFiltersClient.
+func (c *ClientFactory) NewRaiContentFiltersClient() *RaiContentFiltersClient {
+	subClient, _ := NewRaiContentFiltersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewRaiPoliciesClient creates a new instance of RaiPoliciesClient.
+func (c *ClientFactory) NewRaiPoliciesClient() *RaiPoliciesClient {
+	subClient, _ := NewRaiPoliciesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

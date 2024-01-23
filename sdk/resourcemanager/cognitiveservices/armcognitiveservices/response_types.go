@@ -200,6 +200,41 @@ type DeploymentsClientListResponse struct {
 	DeploymentListResult
 }
 
+// DeploymentsClientListSKUsResponse contains the response from method DeploymentsClient.NewListSKUsPager.
+type DeploymentsClientListSKUsResponse struct {
+	// The list of cognitive services accounts operation response.
+	DeploymentSKUListResult
+}
+
+// DeploymentsClientUpdateResponse contains the response from method DeploymentsClient.BeginUpdate.
+type DeploymentsClientUpdateResponse struct {
+	// Cognitive Services account deployment.
+	Deployment
+}
+
+// EncryptionScopesClientCreateOrUpdateResponse contains the response from method EncryptionScopesClient.CreateOrUpdate.
+type EncryptionScopesClientCreateOrUpdateResponse struct {
+	// Cognitive Services EncryptionScope
+	EncryptionScope
+}
+
+// EncryptionScopesClientDeleteResponse contains the response from method EncryptionScopesClient.BeginDelete.
+type EncryptionScopesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// EncryptionScopesClientGetResponse contains the response from method EncryptionScopesClient.Get.
+type EncryptionScopesClientGetResponse struct {
+	// Cognitive Services EncryptionScope
+	EncryptionScope
+}
+
+// EncryptionScopesClientListResponse contains the response from method EncryptionScopesClient.NewListPager.
+type EncryptionScopesClientListResponse struct {
+	// The list of cognitive services EncryptionScopes.
+	EncryptionScopeListResult
+}
+
 // ManagementClientCheckDomainAvailabilityResponse contains the response from method ManagementClient.CheckDomainAvailability.
 type ManagementClientCheckDomainAvailabilityResponse struct {
 	// Domain availability.
@@ -251,6 +286,81 @@ type PrivateEndpointConnectionsClientListResponse struct {
 type PrivateLinkResourcesClientListResponse struct {
 	// A list of private link resources
 	PrivateLinkResourceListResult
+}
+
+// RaiBlocklistItemsClientCreateOrUpdateResponse contains the response from method RaiBlocklistItemsClient.CreateOrUpdate.
+type RaiBlocklistItemsClientCreateOrUpdateResponse struct {
+	// Cognitive Services RaiBlocklist Item.
+	RaiBlocklistItem
+}
+
+// RaiBlocklistItemsClientDeleteResponse contains the response from method RaiBlocklistItemsClient.BeginDelete.
+type RaiBlocklistItemsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RaiBlocklistItemsClientGetResponse contains the response from method RaiBlocklistItemsClient.Get.
+type RaiBlocklistItemsClientGetResponse struct {
+	// Cognitive Services RaiBlocklist Item.
+	RaiBlocklistItem
+}
+
+// RaiBlocklistItemsClientListResponse contains the response from method RaiBlocklistItemsClient.NewListPager.
+type RaiBlocklistItemsClientListResponse struct {
+	// The list of cognitive services RAI Blocklist Items.
+	RaiBlockListItemsResult
+}
+
+// RaiBlocklistsClientCreateOrUpdateResponse contains the response from method RaiBlocklistsClient.CreateOrUpdate.
+type RaiBlocklistsClientCreateOrUpdateResponse struct {
+	// Cognitive Services RaiBlocklist.
+	RaiBlocklist
+}
+
+// RaiBlocklistsClientDeleteResponse contains the response from method RaiBlocklistsClient.BeginDelete.
+type RaiBlocklistsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RaiBlocklistsClientGetResponse contains the response from method RaiBlocklistsClient.Get.
+type RaiBlocklistsClientGetResponse struct {
+	// Cognitive Services RaiBlocklist.
+	RaiBlocklist
+}
+
+// RaiBlocklistsClientListResponse contains the response from method RaiBlocklistsClient.NewListPager.
+type RaiBlocklistsClientListResponse struct {
+	// The list of cognitive services RAI Blocklists.
+	RaiBlockListResult
+}
+
+// RaiContentFiltersClientListResponse contains the response from method RaiContentFiltersClient.NewListPager.
+type RaiContentFiltersClientListResponse struct {
+	// The list of Content Filters.
+	RaiContentFilterListResult
+}
+
+// RaiPoliciesClientCreateOrUpdateResponse contains the response from method RaiPoliciesClient.CreateOrUpdate.
+type RaiPoliciesClientCreateOrUpdateResponse struct {
+	// Cognitive Services RaiPolicy.
+	RaiPolicy
+}
+
+// RaiPoliciesClientDeleteResponse contains the response from method RaiPoliciesClient.BeginDelete.
+type RaiPoliciesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RaiPoliciesClientGetResponse contains the response from method RaiPoliciesClient.Get.
+type RaiPoliciesClientGetResponse struct {
+	// Cognitive Services RaiPolicy.
+	RaiPolicy
+}
+
+// RaiPoliciesClientListResponse contains the response from method RaiPoliciesClient.NewListPager.
+type RaiPoliciesClientListResponse struct {
+	// The list of cognitive services RaiPolicies.
+	RaiPolicyListResult
 }
 
 // ResourceSKUsClientListResponse contains the response from method ResourceSKUsClient.NewListPager.

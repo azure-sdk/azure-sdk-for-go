@@ -10,7 +10,7 @@ package armcognitiveservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices"
-	moduleVersion = "v1.6.0"
+	moduleVersion = "v1.7.0-beta.1"
 )
 
 // AbusePenaltyAction - The action of AbusePenalty.
@@ -40,6 +40,40 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AllowedContentLevel - Level at which content is filtered.
+type AllowedContentLevel string
+
+const (
+	AllowedContentLevelHigh   AllowedContentLevel = "High"
+	AllowedContentLevelLow    AllowedContentLevel = "Low"
+	AllowedContentLevelMedium AllowedContentLevel = "Medium"
+)
+
+// PossibleAllowedContentLevelValues returns the possible values for the AllowedContentLevel const type.
+func PossibleAllowedContentLevelValues() []AllowedContentLevel {
+	return []AllowedContentLevel{
+		AllowedContentLevelHigh,
+		AllowedContentLevelLow,
+		AllowedContentLevelMedium,
+	}
+}
+
+// ByPassSelection - Setting for trusted services.
+type ByPassSelection string
+
+const (
+	ByPassSelectionAzureServices ByPassSelection = "AzureServices"
+	ByPassSelectionNone          ByPassSelection = "None"
+)
+
+// PossibleByPassSelectionValues returns the possible values for the ByPassSelection const type.
+func PossibleByPassSelectionValues() []ByPassSelection {
+	return []ByPassSelection{
+		ByPassSelectionAzureServices,
+		ByPassSelectionNone,
 	}
 }
 
@@ -148,6 +182,48 @@ func PossibleDeploymentScaleTypeValues() []DeploymentScaleType {
 	return []DeploymentScaleType{
 		DeploymentScaleTypeManual,
 		DeploymentScaleTypeStandard,
+	}
+}
+
+// EncryptionScopeProvisioningState - Gets the status of the resource at the time the operation was called.
+type EncryptionScopeProvisioningState string
+
+const (
+	EncryptionScopeProvisioningStateAccepted  EncryptionScopeProvisioningState = "Accepted"
+	EncryptionScopeProvisioningStateCanceled  EncryptionScopeProvisioningState = "Canceled"
+	EncryptionScopeProvisioningStateCreating  EncryptionScopeProvisioningState = "Creating"
+	EncryptionScopeProvisioningStateDeleting  EncryptionScopeProvisioningState = "Deleting"
+	EncryptionScopeProvisioningStateFailed    EncryptionScopeProvisioningState = "Failed"
+	EncryptionScopeProvisioningStateMoving    EncryptionScopeProvisioningState = "Moving"
+	EncryptionScopeProvisioningStateSucceeded EncryptionScopeProvisioningState = "Succeeded"
+)
+
+// PossibleEncryptionScopeProvisioningStateValues returns the possible values for the EncryptionScopeProvisioningState const type.
+func PossibleEncryptionScopeProvisioningStateValues() []EncryptionScopeProvisioningState {
+	return []EncryptionScopeProvisioningState{
+		EncryptionScopeProvisioningStateAccepted,
+		EncryptionScopeProvisioningStateCanceled,
+		EncryptionScopeProvisioningStateCreating,
+		EncryptionScopeProvisioningStateDeleting,
+		EncryptionScopeProvisioningStateFailed,
+		EncryptionScopeProvisioningStateMoving,
+		EncryptionScopeProvisioningStateSucceeded,
+	}
+}
+
+// EncryptionScopeState - The encryptionScope state.
+type EncryptionScopeState string
+
+const (
+	EncryptionScopeStateDisabled EncryptionScopeState = "Disabled"
+	EncryptionScopeStateEnabled  EncryptionScopeState = "Enabled"
+)
+
+// PossibleEncryptionScopeStateValues returns the possible values for the EncryptionScopeState const type.
+func PossibleEncryptionScopeStateValues() []EncryptionScopeState {
+	return []EncryptionScopeState{
+		EncryptionScopeStateDisabled,
+		EncryptionScopeStateEnabled,
 	}
 }
 
@@ -352,6 +428,72 @@ func PossibleQuotaUsageStatusValues() []QuotaUsageStatus {
 		QuotaUsageStatusInOverage,
 		QuotaUsageStatusIncluded,
 		QuotaUsageStatusUnknown,
+	}
+}
+
+// RaiContentFilterType - Content Filter type.
+type RaiContentFilterType string
+
+const (
+	RaiContentFilterTypeMultiLevel RaiContentFilterType = "MultiLevel"
+	RaiContentFilterTypeSwitch     RaiContentFilterType = "Switch"
+)
+
+// PossibleRaiContentFilterTypeValues returns the possible values for the RaiContentFilterType const type.
+func PossibleRaiContentFilterTypeValues() []RaiContentFilterType {
+	return []RaiContentFilterType{
+		RaiContentFilterTypeMultiLevel,
+		RaiContentFilterTypeSwitch,
+	}
+}
+
+// RaiPolicyContentSource - Content source to apply the Content Filters.
+type RaiPolicyContentSource string
+
+const (
+	RaiPolicyContentSourceCompletion RaiPolicyContentSource = "Completion"
+	RaiPolicyContentSourcePrompt     RaiPolicyContentSource = "Prompt"
+)
+
+// PossibleRaiPolicyContentSourceValues returns the possible values for the RaiPolicyContentSource const type.
+func PossibleRaiPolicyContentSourceValues() []RaiPolicyContentSource {
+	return []RaiPolicyContentSource{
+		RaiPolicyContentSourceCompletion,
+		RaiPolicyContentSourcePrompt,
+	}
+}
+
+// RaiPolicyMode - Content Filters mode.
+type RaiPolicyMode string
+
+const (
+	RaiPolicyModeBlocking RaiPolicyMode = "Blocking"
+	RaiPolicyModeDefault  RaiPolicyMode = "Default"
+	RaiPolicyModeDeferred RaiPolicyMode = "Deferred"
+)
+
+// PossibleRaiPolicyModeValues returns the possible values for the RaiPolicyMode const type.
+func PossibleRaiPolicyModeValues() []RaiPolicyMode {
+	return []RaiPolicyMode{
+		RaiPolicyModeBlocking,
+		RaiPolicyModeDefault,
+		RaiPolicyModeDeferred,
+	}
+}
+
+// RaiPolicyType - Content Filters policy type.
+type RaiPolicyType string
+
+const (
+	RaiPolicyTypeSystemManaged RaiPolicyType = "SystemManaged"
+	RaiPolicyTypeUserManaged   RaiPolicyType = "UserManaged"
+)
+
+// PossibleRaiPolicyTypeValues returns the possible values for the RaiPolicyType const type.
+func PossibleRaiPolicyTypeValues() []RaiPolicyType {
+	return []RaiPolicyType{
+		RaiPolicyTypeSystemManaged,
+		RaiPolicyTypeUserManaged,
 	}
 }
 

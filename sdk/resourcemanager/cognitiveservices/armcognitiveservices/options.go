@@ -189,6 +189,12 @@ type DeploymentsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// DeploymentsClientBeginUpdateOptions contains the optional parameters for the DeploymentsClient.BeginUpdate method.
+type DeploymentsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // DeploymentsClientGetOptions contains the optional parameters for the DeploymentsClient.Get method.
 type DeploymentsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -196,6 +202,33 @@ type DeploymentsClientGetOptions struct {
 
 // DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.NewListPager method.
 type DeploymentsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeploymentsClientListSKUsOptions contains the optional parameters for the DeploymentsClient.NewListSKUsPager method.
+type DeploymentsClientListSKUsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EncryptionScopesClientBeginDeleteOptions contains the optional parameters for the EncryptionScopesClient.BeginDelete method.
+type EncryptionScopesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EncryptionScopesClientCreateOrUpdateOptions contains the optional parameters for the EncryptionScopesClient.CreateOrUpdate
+// method.
+type EncryptionScopesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EncryptionScopesClientGetOptions contains the optional parameters for the EncryptionScopesClient.Get method.
+type EncryptionScopesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EncryptionScopesClientListOptions contains the optional parameters for the EncryptionScopesClient.NewListPager method.
+type EncryptionScopesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -249,6 +282,76 @@ type PrivateEndpointConnectionsClientListOptions struct {
 
 // PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.List method.
 type PrivateLinkResourcesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiBlocklistItemsClientBeginDeleteOptions contains the optional parameters for the RaiBlocklistItemsClient.BeginDelete
+// method.
+type RaiBlocklistItemsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RaiBlocklistItemsClientCreateOrUpdateOptions contains the optional parameters for the RaiBlocklistItemsClient.CreateOrUpdate
+// method.
+type RaiBlocklistItemsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiBlocklistItemsClientGetOptions contains the optional parameters for the RaiBlocklistItemsClient.Get method.
+type RaiBlocklistItemsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiBlocklistItemsClientListOptions contains the optional parameters for the RaiBlocklistItemsClient.NewListPager method.
+type RaiBlocklistItemsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiBlocklistsClientBeginDeleteOptions contains the optional parameters for the RaiBlocklistsClient.BeginDelete method.
+type RaiBlocklistsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RaiBlocklistsClientCreateOrUpdateOptions contains the optional parameters for the RaiBlocklistsClient.CreateOrUpdate method.
+type RaiBlocklistsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiBlocklistsClientGetOptions contains the optional parameters for the RaiBlocklistsClient.Get method.
+type RaiBlocklistsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiBlocklistsClientListOptions contains the optional parameters for the RaiBlocklistsClient.NewListPager method.
+type RaiBlocklistsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiContentFiltersClientListOptions contains the optional parameters for the RaiContentFiltersClient.NewListPager method.
+type RaiContentFiltersClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiPoliciesClientBeginDeleteOptions contains the optional parameters for the RaiPoliciesClient.BeginDelete method.
+type RaiPoliciesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RaiPoliciesClientCreateOrUpdateOptions contains the optional parameters for the RaiPoliciesClient.CreateOrUpdate method.
+type RaiPoliciesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiPoliciesClientGetOptions contains the optional parameters for the RaiPoliciesClient.Get method.
+type RaiPoliciesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RaiPoliciesClientListOptions contains the optional parameters for the RaiPoliciesClient.NewListPager method.
+type RaiPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
