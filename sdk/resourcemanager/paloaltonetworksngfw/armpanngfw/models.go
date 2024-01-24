@@ -288,11 +288,17 @@ type FirewallDeploymentProperties struct {
 	// Panorama Managed: Default is False. Default will be CloudSec managed
 	IsPanoramaManaged *BooleanEnum
 
+	// Strata Cloud Managed: Default is False. Default will be CloudSec managed
+	IsStrataCloudManaged *BooleanEnum
+
 	// panEtag info
 	PanEtag *string
 
 	// Panorama Configuration
 	PanoramaConfig *PanoramaConfig
+
+	// Strata Cloud Manager Configuration, only applicable if Strata Cloud Manager is selected.
+	StrataCloudManagerConfig *StrataCloudManagerConfig
 
 	// READ-ONLY; Provisioning state of the resource.
 	ProvisioningState *ProvisioningState
@@ -360,6 +366,9 @@ type FirewallResourceUpdateProperties struct {
 	// Panorama Managed: Default is False. Default will be CloudSec managed
 	IsPanoramaManaged *BooleanEnum
 
+	// Strata Cloud Managed: Default is False. Default will be CloudSec managed
+	IsStrataCloudManaged *BooleanEnum
+
 	// Marketplace details
 	MarketplaceDetails *MarketplaceDetails
 
@@ -374,10 +383,16 @@ type FirewallResourceUpdateProperties struct {
 
 	// Billing plan information.
 	PlanData *PlanData
+
+	// Strata Cloud Manager Configuration, only applicable if Strata Cloud Manager is selected.
+	StrataCloudManagerConfig *StrataCloudManagerConfig
 }
 
 // FirewallStatusProperty - Firewall Status
 type FirewallStatusProperty struct {
+	// This field is only present if Strata Cloud Manager is managing the policy for this firewall
+	StrataCloudManagerInfo *StrataCloudManagerInfo
+
 	// READ-ONLY; Detail description of current health of the Firewall
 	HealthReason *string
 
@@ -386,6 +401,9 @@ type FirewallStatusProperty struct {
 
 	// READ-ONLY; Panorama Managed: Default is False. Default will be CloudSec managed
 	IsPanoramaManaged *BooleanEnum
+
+	// READ-ONLY; Strata Cloud Manager
+	IsStrataCloudManaged *BooleanEnum
 
 	// READ-ONLY; Panorama Status
 	PanoramaStatus *PanoramaStatus
@@ -814,6 +832,9 @@ type NetworkProfile struct {
 
 	// Egress nat IP to use
 	EgressNatIP []*IPAddress
+
+	// Array of ipv4 destination address for which source NAT is to be performed
+	PrivateSourceNatRulesDestination []*string
 
 	// Non-RFC 1918 address
 	TrustedRanges []*string
@@ -1298,6 +1319,21 @@ type StorageAccount struct {
 	SubscriptionID *string
 }
 
+// StrataCloudManagerConfig - This field is only present if Strata Cloud Manager is managing the policy for this firewall
+type StrataCloudManagerConfig struct {
+	// REQUIRED; Strata Cloud Manager name which is intended to manage the policy for this firewall.
+	CloudManagerName *string
+}
+
+// StrataCloudManagerInfo - Strata Cloud Manager Info
+type StrataCloudManagerInfo struct {
+	// Strata Cloud Manager folder in which this firewall has been placed
+	FolderName *string
+
+	// URL for Strata Cloud Manager
+	HubURL *string
+}
+
 // SupportInfo - Support information for the resource
 type SupportInfo struct {
 	// Support account associated with given resource
@@ -1335,6 +1371,54 @@ type SupportInfo struct {
 
 	// user registered in Customer Support Portal
 	UserRegistered *BooleanEnum
+}
+
+// SupportInfoModel - Support information for the service
+type SupportInfoModel struct {
+	// Support account associated with given resource
+	AccountID *string
+
+	// account registered in Customer Support Portal
+	AccountRegistrationStatus *RegistrationStatus
+
+	// credits purchased, unit per hour
+	Credits *int32
+
+	// date in format yyyy-mm-dd
+	EndDateForCredits *string
+
+	// Product usage is in free trial period
+	FreeTrial *EnableStatus
+
+	// Free trial credit remaining
+	FreeTrialCreditLeft *int32
+
+	// Free trial days remaining
+	FreeTrialDaysLeft *int32
+
+	// URL for paloaltonetworks live community
+	HelpURL *string
+
+	// URL for Strata Cloud Manager
+	HubURL *string
+
+	// monthly credit is computed as credits * days in calendar month
+	MonthlyCreditLeft *int32
+
+	// product SKU associated with given resource
+	ProductSKU *string
+
+	// product Serial associated with given resource
+	ProductSerial *string
+
+	// URL for registering product in paloaltonetworks Customer Service Portal
+	RegisterURL *string
+
+	// date in format yyyy-mm-dd
+	StartDateForCredits *string
+
+	// URL for paloaltonetworks Customer Service Portal
+	SupportURL *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

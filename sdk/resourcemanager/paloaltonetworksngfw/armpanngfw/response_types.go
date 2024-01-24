@@ -388,6 +388,12 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PaloAltoNetworksCloudngfwClientListSupportInfoResponse contains the response from method PaloAltoNetworksCloudngfwClient.ListSupportInfo.
+type PaloAltoNetworksCloudngfwClientListSupportInfoResponse struct {
+	// Support information for the service
+	SupportInfoModel
+}
+
 // PostRulesClientCreateOrUpdateResponse contains the response from method PostRulesClient.BeginCreateOrUpdate.
 type PostRulesClientCreateOrUpdateResponse struct {
 	// PostRulestack rule list

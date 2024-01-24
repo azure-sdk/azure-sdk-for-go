@@ -407,6 +407,12 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PaloAltoNetworksCloudngfwClientListSupportInfoOptions contains the optional parameters for the PaloAltoNetworksCloudngfwClient.ListSupportInfo
+// method.
+type PaloAltoNetworksCloudngfwClientListSupportInfoOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PostRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the PostRulesClient.BeginCreateOrUpdate
 // method.
 type PostRulesClientBeginCreateOrUpdateOptions struct {

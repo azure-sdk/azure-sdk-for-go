@@ -1,5 +1,22 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-01-24)
+### Features Added
+
+- New enum type `EnableStatus` with values `EnableStatusDisabled`, `EnableStatusEnabled`
+- New enum type `RegistrationStatus` with values `RegistrationStatusNotRegistered`, `RegistrationStatusRegistered`
+- New function `*ClientFactory.NewPaloAltoNetworksCloudngfwClient() *PaloAltoNetworksCloudngfwClient`
+- New function `NewPaloAltoNetworksCloudngfwClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PaloAltoNetworksCloudngfwClient, error)`
+- New function `*PaloAltoNetworksCloudngfwClient.ListSupportInfo(context.Context, *PaloAltoNetworksCloudngfwClientListSupportInfoOptions) (PaloAltoNetworksCloudngfwClientListSupportInfoResponse, error)`
+- New struct `StrataCloudManagerConfig`
+- New struct `StrataCloudManagerInfo`
+- New struct `SupportInfoModel`
+- New field `IsStrataCloudManaged`, `StrataCloudManagerConfig` in struct `FirewallDeploymentProperties`
+- New field `IsStrataCloudManaged`, `StrataCloudManagerConfig` in struct `FirewallResourceUpdateProperties`
+- New field `IsStrataCloudManaged`, `StrataCloudManagerInfo` in struct `FirewallStatusProperty`
+- New field `PrivateSourceNatRulesDestination` in struct `NetworkProfile`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 

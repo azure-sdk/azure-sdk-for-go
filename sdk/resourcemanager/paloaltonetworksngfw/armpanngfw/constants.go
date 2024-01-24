@@ -10,7 +10,7 @@ package armpanngfw
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/paloaltonetworksngfw/armpanngfw"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 type ActionEnum string
@@ -177,6 +177,22 @@ func PossibleEgressNatValues() []EgressNat {
 	return []EgressNat{
 		EgressNatDISABLED,
 		EgressNatENABLED,
+	}
+}
+
+// EnableStatus - Enable status
+type EnableStatus string
+
+const (
+	EnableStatusDisabled EnableStatus = "Disabled"
+	EnableStatusEnabled  EnableStatus = "Enabled"
+)
+
+// PossibleEnableStatusValues returns the possible values for the EnableStatus const type.
+func PossibleEnableStatusValues() []EnableStatus {
+	return []EnableStatus{
+		EnableStatusDisabled,
+		EnableStatusEnabled,
 	}
 }
 
@@ -396,6 +412,22 @@ func PossibleReadOnlyProvisioningStateValues() []ReadOnlyProvisioningState {
 		ReadOnlyProvisioningStateDeleted,
 		ReadOnlyProvisioningStateFailed,
 		ReadOnlyProvisioningStateSucceeded,
+	}
+}
+
+// RegistrationStatus - Registration status
+type RegistrationStatus string
+
+const (
+	RegistrationStatusNotRegistered RegistrationStatus = "Not Registered"
+	RegistrationStatusRegistered    RegistrationStatus = "Registered"
+)
+
+// PossibleRegistrationStatusValues returns the possible values for the RegistrationStatus const type.
+func PossibleRegistrationStatusValues() []RegistrationStatus {
+	return []RegistrationStatus{
+		RegistrationStatusNotRegistered,
+		RegistrationStatusRegistered,
 	}
 }
 
