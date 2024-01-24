@@ -1,5 +1,29 @@
 # Release History
 
+## 5.1.0 (2024-01-24)
+### Features Added
+
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New function `*ClientFactory.NewFirewallPolicyDeploymentsClient() *FirewallPolicyDeploymentsClient`
+- New function `*ClientFactory.NewFirewallPolicyDraftsClient() *FirewallPolicyDraftsClient`
+- New function `*ClientFactory.NewFirewallPolicyRuleCollectionGroupDraftsClient() *FirewallPolicyRuleCollectionGroupDraftsClient`
+- New function `NewFirewallPolicyDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPolicyDeploymentsClient, error)`
+- New function `*FirewallPolicyDeploymentsClient.BeginDeploy(context.Context, string, string, *FirewallPolicyDeploymentsClientBeginDeployOptions) (*runtime.Poller[FirewallPolicyDeploymentsClientDeployResponse], error)`
+- New function `NewFirewallPolicyDraftsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPolicyDraftsClient, error)`
+- New function `*FirewallPolicyDraftsClient.CreateOrUpdate(context.Context, string, string, FirewallPolicyDraft, *FirewallPolicyDraftsClientCreateOrUpdateOptions) (FirewallPolicyDraftsClientCreateOrUpdateResponse, error)`
+- New function `*FirewallPolicyDraftsClient.Delete(context.Context, string, string, *FirewallPolicyDraftsClientDeleteOptions) (FirewallPolicyDraftsClientDeleteResponse, error)`
+- New function `*FirewallPolicyDraftsClient.Get(context.Context, string, string, *FirewallPolicyDraftsClientGetOptions) (FirewallPolicyDraftsClientGetResponse, error)`
+- New function `NewFirewallPolicyRuleCollectionGroupDraftsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPolicyRuleCollectionGroupDraftsClient, error)`
+- New function `*FirewallPolicyRuleCollectionGroupDraftsClient.CreateOrUpdate(context.Context, string, string, string, FirewallPolicyRuleCollectionGroupDraft, *FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateOptions) (FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupDraftsClient.Delete(context.Context, string, string, string, *FirewallPolicyRuleCollectionGroupDraftsClientDeleteOptions) (FirewallPolicyRuleCollectionGroupDraftsClientDeleteResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupDraftsClient.Get(context.Context, string, string, string, *FirewallPolicyRuleCollectionGroupDraftsClientGetOptions) (FirewallPolicyRuleCollectionGroupDraftsClientGetResponse, error)`
+- New struct `FirewallPolicyDraft`
+- New struct `FirewallPolicyDraftProperties`
+- New struct `FirewallPolicyRuleCollectionGroupDraft`
+- New struct `FirewallPolicyRuleCollectionGroupDraftProperties`
+- New field `Zones` in struct `BastionHost`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 
