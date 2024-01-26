@@ -1,5 +1,9 @@
 # Release History
 
+## 4.7.1 (2024-01-26)
+### Other Changes
+
+
 ## 4.7.0 (2024-01-26)
 ### Features Added
 
