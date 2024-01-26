@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v3"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -52,11 +52,11 @@ type WebAppsServer struct {
 
 	// BeginApproveOrRejectPrivateEndpointConnection is the fake for method WebAppsClient.BeginApproveOrRejectPrivateEndpointConnection
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginApproveOrRejectPrivateEndpointConnection func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper armappservice.PrivateLinkConnectionApprovalRequestResource, options *armappservice.WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (resp azfake.PollerResponder[armappservice.WebAppsClientApproveOrRejectPrivateEndpointConnectionResponse], errResp azfake.ErrorResponder)
+	BeginApproveOrRejectPrivateEndpointConnection func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper armappservice.RemotePrivateEndpointConnectionARMResource, options *armappservice.WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (resp azfake.PollerResponder[armappservice.WebAppsClientApproveOrRejectPrivateEndpointConnectionResponse], errResp azfake.ErrorResponder)
 
 	// BeginApproveOrRejectPrivateEndpointConnectionSlot is the fake for method WebAppsClient.BeginApproveOrRejectPrivateEndpointConnectionSlot
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginApproveOrRejectPrivateEndpointConnectionSlot func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper armappservice.PrivateLinkConnectionApprovalRequestResource, options *armappservice.WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (resp azfake.PollerResponder[armappservice.WebAppsClientApproveOrRejectPrivateEndpointConnectionSlotResponse], errResp azfake.ErrorResponder)
+	BeginApproveOrRejectPrivateEndpointConnectionSlot func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, slot string, privateEndpointWrapper armappservice.RemotePrivateEndpointConnectionARMResource, options *armappservice.WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions) (resp azfake.PollerResponder[armappservice.WebAppsClientApproveOrRejectPrivateEndpointConnectionSlotResponse], errResp azfake.ErrorResponder)
 
 	// Backup is the fake for method WebAppsClient.Backup
 	// HTTP status codes to indicate success: http.StatusOK
@@ -184,11 +184,11 @@ type WebAppsServer struct {
 
 	// CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck is the fake for method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
 
 	// CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot is the fake for method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
 
 	// CreateOrUpdateVnetConnection is the fake for method WebAppsClient.CreateOrUpdateVnetConnection
 	// HTTP status codes to indicate success: http.StatusOK
@@ -1632,11 +1632,11 @@ type WebAppsServer struct {
 
 	// UpdateSwiftVirtualNetworkConnectionWithCheck is the fake for method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheck
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
+	UpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
 
 	// UpdateSwiftVirtualNetworkConnectionWithCheckSlot is the fake for method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheckSlot
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
+	UpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
 
 	// UpdateVnetConnection is the fake for method WebAppsClient.UpdateVnetConnection
 	// HTTP status codes to indicate success: http.StatusOK
@@ -2983,7 +2983,7 @@ func (w *WebAppsServerTransport) dispatchBeginApproveOrRejectPrivateEndpointConn
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armappservice.PrivateLinkConnectionApprovalRequestResource](req)
+		body, err := server.UnmarshalRequestAsJSON[armappservice.RemotePrivateEndpointConnectionARMResource](req)
 		if err != nil {
 			return nil, err
 		}
@@ -3035,7 +3035,7 @@ func (w *WebAppsServerTransport) dispatchBeginApproveOrRejectPrivateEndpointConn
 		if matches == nil || len(matches) < 5 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armappservice.PrivateLinkConnectionApprovalRequestResource](req)
+		body, err := server.UnmarshalRequestAsJSON[armappservice.RemotePrivateEndpointConnectionARMResource](req)
 		if err != nil {
 			return nil, err
 		}
@@ -4506,7 +4506,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -4526,7 +4526,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -4543,7 +4543,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -4567,7 +4567,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -10770,7 +10770,7 @@ func (w *WebAppsServerTransport) dispatchGetSwiftVirtualNetworkConnection(req *h
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -10807,7 +10807,7 @@ func (w *WebAppsServerTransport) dispatchGetSwiftVirtualNetworkConnectionSlot(re
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -19434,7 +19434,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -19454,7 +19454,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -19471,7 +19471,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -19495,7 +19495,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}

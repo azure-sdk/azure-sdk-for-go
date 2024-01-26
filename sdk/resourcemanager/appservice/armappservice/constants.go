@@ -10,7 +10,7 @@ package armappservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice"
-	moduleVersion = "v2.3.0"
+	moduleVersion = "v3.0.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -1516,6 +1516,22 @@ func PossiblePublishingProfileFormatValues() []PublishingProfileFormat {
 		PublishingProfileFormatFileZilla3,
 		PublishingProfileFormatFtp,
 		PublishingProfileFormatWebDeploy,
+	}
+}
+
+// PurgedUnusedVirtualNetworkSuccessResponse - Response content upon successful deletion of an unused virtual network.
+type PurgedUnusedVirtualNetworkSuccessResponse string
+
+const (
+	PurgedUnusedVirtualNetworkSuccessResponseNoUnusedVirtualNetworkIntegration     PurgedUnusedVirtualNetworkSuccessResponse = "No unused virtual network integration."
+	PurgedUnusedVirtualNetworkSuccessResponsePurgedUnusedVirtualNetworkIntegration PurgedUnusedVirtualNetworkSuccessResponse = "Purged unused virtual network integration."
+)
+
+// PossiblePurgedUnusedVirtualNetworkSuccessResponseValues returns the possible values for the PurgedUnusedVirtualNetworkSuccessResponse const type.
+func PossiblePurgedUnusedVirtualNetworkSuccessResponseValues() []PurgedUnusedVirtualNetworkSuccessResponse {
+	return []PurgedUnusedVirtualNetworkSuccessResponse{
+		PurgedUnusedVirtualNetworkSuccessResponseNoUnusedVirtualNetworkIntegration,
+		PurgedUnusedVirtualNetworkSuccessResponsePurgedUnusedVirtualNetworkIntegration,
 	}
 }
 

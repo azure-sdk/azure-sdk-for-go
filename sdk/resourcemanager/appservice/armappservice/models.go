@@ -7972,6 +7972,9 @@ type SiteProperties struct {
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string
 
+	// To enable Backup and Restore operations over virtual network
+	VnetBackupRestoreEnabled *bool
+
 	// To enable accessing content over virtual network
 	VnetContentShareEnabled *bool
 
@@ -9343,14 +9346,40 @@ type SupportTopic struct {
 	PesID *string
 }
 
-// SwiftVirtualNetwork - Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network
-// integration.
+// SwiftVirtualNetwork - Swift Virtual Network Contract
 type SwiftVirtualNetwork struct {
+	// Resources (sites and serverfarms) allocated to this subnet
+	ResourceAllocation *SwiftVirtualNetworkResourceAllocation
+
+	// IP allocation for a Swift Subnet
+	SubnetIPAllocation *SwiftVirtualNetworkSubnetIPAllocation
+
+	// The Virtual Network subnet's Azure resource ID
+	SubnetResourceID *string
+
+	// Boolean flag indicating whether Swift integration is supported
+	SwiftSupported *bool
+
+	// Swift Connection allocation for an App Service Plan
+	VnetConnectionAllocation *SwiftVirtualNetworkVnetConnectionAllocation
+}
+
+// SwiftVirtualNetworkCollection - Collection of Swift Virtual Networks
+type SwiftVirtualNetworkCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*SwiftVirtualNetwork
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// SwiftVirtualNetworkProxy - Swift Virtual Network Contract (Proxy resource)
+type SwiftVirtualNetworkProxy struct {
 	// Kind of resource.
 	Kind *string
 
-	// SwiftVirtualNetwork resource specific properties
-	Properties *SwiftVirtualNetworkProperties
+	// Swift Virtual Network Contract
+	Properties *SwiftVirtualNetwork
 
 	// READ-ONLY; Resource Id.
 	ID *string
@@ -9362,14 +9391,31 @@ type SwiftVirtualNetwork struct {
 	Type *string
 }
 
-// SwiftVirtualNetworkProperties - SwiftVirtualNetwork resource specific properties
-type SwiftVirtualNetworkProperties struct {
-	// The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation
-	// to Microsoft.Web/serverFarms defined first.
-	SubnetResourceID *string
+// SwiftVirtualNetworkResourceAllocation - Resources (sites and serverfarms) allocated to this subnet
+type SwiftVirtualNetworkResourceAllocation struct {
+	// The list of all ServerFarms' Azure resource ID that are using the VNET
+	ConnectedServerFarmsID []*string
 
-	// A flag that specifies if the scale unit this Web App is on supports Swift integration.
-	SwiftSupported *bool
+	// The list of all Sites' Azure resource ID that are using the VNET
+	ConnectedSitesID []*string
+}
+
+// SwiftVirtualNetworkSubnetIPAllocation - IP allocation for a Swift Subnet
+type SwiftVirtualNetworkSubnetIPAllocation struct {
+	// The number of IP addresses available in the Swift subnet address space
+	SubnetIPAddressesAvailable *int32
+
+	// The number of IP addresses that have already been used in the Swift subnet address space
+	SubnetIPAddressesUsed *int32
+}
+
+// SwiftVirtualNetworkVnetConnectionAllocation - Swift Connection allocation for an App Service Plan
+type SwiftVirtualNetworkVnetConnectionAllocation struct {
+	// The maximum number of Swift Connections available for an App Service Plan
+	VnetConnectionsMax *int32
+
+	// The number of Swift Connections used for an App Service Plan
+	VnetConnectionsUsed *int32
 }
 
 // Template - Container App versioned application definition. Defines the desired state of an immutable revision. Any changes
@@ -9854,6 +9900,12 @@ type VirtualIPMapping struct {
 
 	// Virtual IP address.
 	VirtualIP *string
+}
+
+// VirtualNetworkIntegrationRequest - Virtual Network Integration request content.
+type VirtualNetworkIntegrationRequest struct {
+	// REQUIRED; The Azure Resource ID of the subnet
+	SubnetResourceID *string
 }
 
 // VirtualNetworkProfile - Specification for using a Virtual Network.

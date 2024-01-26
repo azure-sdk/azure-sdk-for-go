@@ -19241,6 +19241,7 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "trafficManagerHostNames", s.TrafficManagerHostNames)
 	populate(objectMap, "usageState", s.UsageState)
 	populate(objectMap, "virtualNetworkSubnetId", s.VirtualNetworkSubnetID)
+	populate(objectMap, "vnetBackupRestoreEnabled", s.VnetBackupRestoreEnabled)
 	populate(objectMap, "vnetContentShareEnabled", s.VnetContentShareEnabled)
 	populate(objectMap, "vnetImagePullEnabled", s.VnetImagePullEnabled)
 	populate(objectMap, "vnetRouteAllEnabled", s.VnetRouteAllEnabled)
@@ -19391,6 +19392,9 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "virtualNetworkSubnetId":
 			err = unpopulate(val, "VirtualNetworkSubnetID", &s.VirtualNetworkSubnetID)
+			delete(rawMsg, key)
+		case "vnetBackupRestoreEnabled":
+			err = unpopulate(val, "VnetBackupRestoreEnabled", &s.VnetBackupRestoreEnabled)
 			delete(rawMsg, key)
 		case "vnetContentShareEnabled":
 			err = unpopulate(val, "VnetContentShareEnabled", &s.VnetContentShareEnabled)
@@ -22674,6 +22678,80 @@ func (s *SupportTopic) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetwork.
 func (s SwiftVirtualNetwork) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "resourceAllocation", s.ResourceAllocation)
+	populate(objectMap, "subnetIpAllocation", s.SubnetIPAllocation)
+	populate(objectMap, "subnetResourceId", s.SubnetResourceID)
+	populate(objectMap, "swiftSupported", s.SwiftSupported)
+	populate(objectMap, "vnetConnectionAllocation", s.VnetConnectionAllocation)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetwork.
+func (s *SwiftVirtualNetwork) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "resourceAllocation":
+			err = unpopulate(val, "ResourceAllocation", &s.ResourceAllocation)
+			delete(rawMsg, key)
+		case "subnetIpAllocation":
+			err = unpopulate(val, "SubnetIPAllocation", &s.SubnetIPAllocation)
+			delete(rawMsg, key)
+		case "subnetResourceId":
+			err = unpopulate(val, "SubnetResourceID", &s.SubnetResourceID)
+			delete(rawMsg, key)
+		case "swiftSupported":
+			err = unpopulate(val, "SwiftSupported", &s.SwiftSupported)
+			delete(rawMsg, key)
+		case "vnetConnectionAllocation":
+			err = unpopulate(val, "VnetConnectionAllocation", &s.VnetConnectionAllocation)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetworkCollection.
+func (s SwiftVirtualNetworkCollection) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", s.NextLink)
+	populate(objectMap, "value", s.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetworkCollection.
+func (s *SwiftVirtualNetworkCollection) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &s.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &s.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetworkProxy.
+func (s SwiftVirtualNetworkProxy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", s.ID)
 	populate(objectMap, "kind", s.Kind)
 	populate(objectMap, "name", s.Name)
@@ -22682,8 +22760,8 @@ func (s SwiftVirtualNetwork) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetwork.
-func (s *SwiftVirtualNetwork) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetworkProxy.
+func (s *SwiftVirtualNetworkProxy) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", s, err)
@@ -22714,16 +22792,16 @@ func (s *SwiftVirtualNetwork) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetworkProperties.
-func (s SwiftVirtualNetworkProperties) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetworkResourceAllocation.
+func (s SwiftVirtualNetworkResourceAllocation) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "subnetResourceId", s.SubnetResourceID)
-	populate(objectMap, "swiftSupported", s.SwiftSupported)
+	populate(objectMap, "connectedServerFarmsId", s.ConnectedServerFarmsID)
+	populate(objectMap, "connectedSitesId", s.ConnectedSitesID)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetworkProperties.
-func (s *SwiftVirtualNetworkProperties) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetworkResourceAllocation.
+func (s *SwiftVirtualNetworkResourceAllocation) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", s, err)
@@ -22731,11 +22809,73 @@ func (s *SwiftVirtualNetworkProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "subnetResourceId":
-			err = unpopulate(val, "SubnetResourceID", &s.SubnetResourceID)
+		case "connectedServerFarmsId":
+			err = unpopulate(val, "ConnectedServerFarmsID", &s.ConnectedServerFarmsID)
 			delete(rawMsg, key)
-		case "swiftSupported":
-			err = unpopulate(val, "SwiftSupported", &s.SwiftSupported)
+		case "connectedSitesId":
+			err = unpopulate(val, "ConnectedSitesID", &s.ConnectedSitesID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetworkSubnetIPAllocation.
+func (s SwiftVirtualNetworkSubnetIPAllocation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "subnetIpAddressesAvailable", s.SubnetIPAddressesAvailable)
+	populate(objectMap, "subnetIpAddressesUsed", s.SubnetIPAddressesUsed)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetworkSubnetIPAllocation.
+func (s *SwiftVirtualNetworkSubnetIPAllocation) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "subnetIpAddressesAvailable":
+			err = unpopulate(val, "SubnetIPAddressesAvailable", &s.SubnetIPAddressesAvailable)
+			delete(rawMsg, key)
+		case "subnetIpAddressesUsed":
+			err = unpopulate(val, "SubnetIPAddressesUsed", &s.SubnetIPAddressesUsed)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SwiftVirtualNetworkVnetConnectionAllocation.
+func (s SwiftVirtualNetworkVnetConnectionAllocation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "vnetConnectionsMax", s.VnetConnectionsMax)
+	populate(objectMap, "vnetConnectionsUsed", s.VnetConnectionsUsed)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SwiftVirtualNetworkVnetConnectionAllocation.
+func (s *SwiftVirtualNetworkVnetConnectionAllocation) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "vnetConnectionsMax":
+			err = unpopulate(val, "VnetConnectionsMax", &s.VnetConnectionsMax)
+			delete(rawMsg, key)
+		case "vnetConnectionsUsed":
+			err = unpopulate(val, "VnetConnectionsUsed", &s.VnetConnectionsUsed)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -23965,6 +24105,33 @@ func (v *VirtualIPMapping) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "virtualIP":
 			err = unpopulate(val, "VirtualIP", &v.VirtualIP)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type VirtualNetworkIntegrationRequest.
+func (v VirtualNetworkIntegrationRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "subnetResourceId", v.SubnetResourceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualNetworkIntegrationRequest.
+func (v *VirtualNetworkIntegrationRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "subnetResourceId":
+			err = unpopulate(val, "SubnetResourceID", &v.SubnetResourceID)
 			delete(rawMsg, key)
 		}
 		if err != nil {

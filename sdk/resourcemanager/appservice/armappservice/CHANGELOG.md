@@ -1,5 +1,48 @@
 # Release History
 
+## 3.0.0 (2024-01-26)
+### Breaking Changes
+
+- Function `*EnvironmentsClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *EnvironmentsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *EnvironmentsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*WebAppsClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*WebAppsClient.BeginApproveOrRejectPrivateEndpointConnectionSlot` parameter(s) have been changed from `(context.Context, string, string, string, string, PrivateLinkConnectionApprovalRequestResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions)` to `(context.Context, string, string, string, string, RemotePrivateEndpointConnectionARMResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions)`
+- Function `*WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck` parameter(s) have been changed from `(context.Context, string, string, SwiftVirtualNetwork, *WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckOptions)` to `(context.Context, string, string, SwiftVirtualNetworkProxy, *WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckOptions)`
+- Function `*WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot` parameter(s) have been changed from `(context.Context, string, string, string, SwiftVirtualNetwork, *WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions)` to `(context.Context, string, string, string, SwiftVirtualNetworkProxy, *WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions)`
+- Function `*WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheck` parameter(s) have been changed from `(context.Context, string, string, SwiftVirtualNetwork, *WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckOptions)` to `(context.Context, string, string, SwiftVirtualNetworkProxy, *WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckOptions)`
+- Function `*WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheckSlot` parameter(s) have been changed from `(context.Context, string, string, string, SwiftVirtualNetwork, *WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions)` to `(context.Context, string, string, string, SwiftVirtualNetworkProxy, *WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions)`
+- Struct `SwiftVirtualNetworkProperties` has been removed
+- Field `ID`, `Kind`, `Name`, `Properties`, `Type` of struct `SwiftVirtualNetwork` has been removed
+- Field `SwiftVirtualNetwork` of struct `WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse` has been removed
+- Field `SwiftVirtualNetwork` of struct `WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse` has been removed
+- Field `SwiftVirtualNetwork` of struct `WebAppsClientGetSwiftVirtualNetworkConnectionResponse` has been removed
+- Field `SwiftVirtualNetwork` of struct `WebAppsClientGetSwiftVirtualNetworkConnectionSlotResponse` has been removed
+- Field `SwiftVirtualNetwork` of struct `WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse` has been removed
+- Field `SwiftVirtualNetwork` of struct `WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse` has been removed
+
+### Features Added
+
+- New enum type `PurgedUnusedVirtualNetworkSuccessResponse` with values `PurgedUnusedVirtualNetworkSuccessResponseNoUnusedVirtualNetworkIntegration`, `PurgedUnusedVirtualNetworkSuccessResponsePurgedUnusedVirtualNetworkIntegration`
+- New function `*PlansClient.GetVirtualNetworkIntegration(context.Context, string, string, string, *PlansClientGetVirtualNetworkIntegrationOptions) (PlansClientGetVirtualNetworkIntegrationResponse, error)`
+- New function `*PlansClient.NewGetVirtualNetworkIntegrationsPager(string, string, *PlansClientGetVirtualNetworkIntegrationsOptions) *runtime.Pager[PlansClientGetVirtualNetworkIntegrationsResponse]`
+- New function `*WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations(context.Context, string, VirtualNetworkIntegrationRequest, *WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions) (WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse, error)`
+- New function `*WebSiteManagementClient.VirtualNetworkIntegrations(context.Context, string, VirtualNetworkIntegrationRequest, *WebSiteManagementClientVirtualNetworkIntegrationsOptions) (WebSiteManagementClientVirtualNetworkIntegrationsResponse, error)`
+- New struct `SwiftVirtualNetworkCollection`
+- New struct `SwiftVirtualNetworkProxy`
+- New struct `SwiftVirtualNetworkResourceAllocation`
+- New struct `SwiftVirtualNetworkSubnetIPAllocation`
+- New struct `SwiftVirtualNetworkVnetConnectionAllocation`
+- New struct `VirtualNetworkIntegrationRequest`
+- New field `VnetBackupRestoreEnabled` in struct `SiteProperties`
+- New field `ResourceAllocation`, `SubnetIPAllocation`, `SubnetResourceID`, `SwiftSupported`, `VnetConnectionAllocation` in struct `SwiftVirtualNetwork`
+- New anonymous field `SwiftVirtualNetworkProxy` in struct `WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse`
+- New anonymous field `SwiftVirtualNetworkProxy` in struct `WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse`
+- New anonymous field `SwiftVirtualNetworkProxy` in struct `WebAppsClientGetSwiftVirtualNetworkConnectionResponse`
+- New anonymous field `SwiftVirtualNetworkProxy` in struct `WebAppsClientGetSwiftVirtualNetworkConnectionSlotResponse`
+- New anonymous field `SwiftVirtualNetworkProxy` in struct `WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse`
+- New anonymous field `SwiftVirtualNetworkProxy` in struct `WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse`
+
+
 ## 2.3.0 (2023-11-30)
 ### Features Added
 
