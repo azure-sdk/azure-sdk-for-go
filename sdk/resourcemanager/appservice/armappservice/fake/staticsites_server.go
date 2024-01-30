@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -27,7 +27,7 @@ import (
 type StaticSitesServer struct {
 	// BeginApproveOrRejectPrivateEndpointConnection is the fake for method StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginApproveOrRejectPrivateEndpointConnection func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper armappservice.PrivateLinkConnectionApprovalRequestResource, options *armappservice.StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse], errResp azfake.ErrorResponder)
+	BeginApproveOrRejectPrivateEndpointConnection func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper armappservice.RemotePrivateEndpointConnectionARMResource, options *armappservice.StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse], errResp azfake.ErrorResponder)
 
 	// CreateOrUpdateBasicAuth is the fake for method StaticSitesClient.CreateOrUpdateBasicAuth
 	// HTTP status codes to indicate success: http.StatusOK
@@ -277,6 +277,14 @@ type StaticSitesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	PreviewWorkflow func(ctx context.Context, location string, staticSitesWorkflowPreviewRequest armappservice.StaticSitesWorkflowPreviewRequest, options *armappservice.StaticSitesClientPreviewWorkflowOptions) (resp azfake.Responder[armappservice.StaticSitesClientPreviewWorkflowResponse], errResp azfake.ErrorResponder)
 
+	// BeginPurgeStaticSite is the fake for method StaticSitesClient.BeginPurgeStaticSite
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginPurgeStaticSite func(ctx context.Context, resourceGroupName string, name string, options *armappservice.StaticSitesClientBeginPurgeStaticSiteOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientPurgeStaticSiteResponse], errResp azfake.ErrorResponder)
+
+	// BeginPurgeStaticSiteBuild is the fake for method StaticSitesClient.BeginPurgeStaticSiteBuild
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginPurgeStaticSiteBuild func(ctx context.Context, resourceGroupName string, name string, environmentName string, options *armappservice.StaticSitesClientBeginPurgeStaticSiteBuildOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientPurgeStaticSiteBuildResponse], errResp azfake.ErrorResponder)
+
 	// BeginRegisterUserProvidedFunctionAppWithStaticSite is the fake for method StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSite
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginRegisterUserProvidedFunctionAppWithStaticSite func(ctx context.Context, resourceGroupName string, name string, functionAppName string, staticSiteUserProvidedFunctionEnvelope armappservice.StaticSiteUserProvidedFunctionAppARMResource, options *armappservice.StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteResponse], errResp azfake.ErrorResponder)
@@ -361,6 +369,8 @@ func NewStaticSitesServerTransport(srv *StaticSitesServer) *StaticSitesServerTra
 		newListStaticSiteCustomDomainsPager:                     newTracker[azfake.PagerResponder[armappservice.StaticSitesClientListStaticSiteCustomDomainsResponse]](),
 		newListStaticSiteFunctionsPager:                         newTracker[azfake.PagerResponder[armappservice.StaticSitesClientListStaticSiteFunctionsResponse]](),
 		newListStaticSiteUsersPager:                             newTracker[azfake.PagerResponder[armappservice.StaticSitesClientListStaticSiteUsersResponse]](),
+		beginPurgeStaticSite:                                    newTracker[azfake.PollerResponder[armappservice.StaticSitesClientPurgeStaticSiteResponse]](),
+		beginPurgeStaticSiteBuild:                               newTracker[azfake.PollerResponder[armappservice.StaticSitesClientPurgeStaticSiteBuildResponse]](),
 		beginRegisterUserProvidedFunctionAppWithStaticSite:      newTracker[azfake.PollerResponder[armappservice.StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteResponse]](),
 		beginRegisterUserProvidedFunctionAppWithStaticSiteBuild: newTracker[azfake.PollerResponder[armappservice.StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteBuildResponse]](),
 		beginValidateBackend:                                    newTracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateBackendResponse]](),
@@ -402,6 +412,8 @@ type StaticSitesServerTransport struct {
 	newListStaticSiteCustomDomainsPager                     *tracker[azfake.PagerResponder[armappservice.StaticSitesClientListStaticSiteCustomDomainsResponse]]
 	newListStaticSiteFunctionsPager                         *tracker[azfake.PagerResponder[armappservice.StaticSitesClientListStaticSiteFunctionsResponse]]
 	newListStaticSiteUsersPager                             *tracker[azfake.PagerResponder[armappservice.StaticSitesClientListStaticSiteUsersResponse]]
+	beginPurgeStaticSite                                    *tracker[azfake.PollerResponder[armappservice.StaticSitesClientPurgeStaticSiteResponse]]
+	beginPurgeStaticSiteBuild                               *tracker[azfake.PollerResponder[armappservice.StaticSitesClientPurgeStaticSiteBuildResponse]]
 	beginRegisterUserProvidedFunctionAppWithStaticSite      *tracker[azfake.PollerResponder[armappservice.StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteResponse]]
 	beginRegisterUserProvidedFunctionAppWithStaticSiteBuild *tracker[azfake.PollerResponder[armappservice.StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteBuildResponse]]
 	beginValidateBackend                                    *tracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateBackendResponse]]
@@ -547,6 +559,10 @@ func (s *StaticSitesServerTransport) Do(req *http.Request) (*http.Response, erro
 		resp, err = s.dispatchNewListStaticSiteUsersPager(req)
 	case "StaticSitesClient.PreviewWorkflow":
 		resp, err = s.dispatchPreviewWorkflow(req)
+	case "StaticSitesClient.BeginPurgeStaticSite":
+		resp, err = s.dispatchBeginPurgeStaticSite(req)
+	case "StaticSitesClient.BeginPurgeStaticSiteBuild":
+		resp, err = s.dispatchBeginPurgeStaticSiteBuild(req)
 	case "StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSite":
 		resp, err = s.dispatchBeginRegisterUserProvidedFunctionAppWithStaticSite(req)
 	case "StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild":
@@ -594,7 +610,7 @@ func (s *StaticSitesServerTransport) dispatchBeginApproveOrRejectPrivateEndpoint
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armappservice.PrivateLinkConnectionApprovalRequestResource](req)
+		body, err := server.UnmarshalRequestAsJSON[armappservice.RemotePrivateEndpointConnectionARMResource](req)
 		if err != nil {
 			return nil, err
 		}
@@ -3174,6 +3190,98 @@ func (s *StaticSitesServerTransport) dispatchPreviewWorkflow(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (s *StaticSitesServerTransport) dispatchBeginPurgeStaticSite(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginPurgeStaticSite == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginPurgeStaticSite not implemented")}
+	}
+	beginPurgeStaticSite := s.beginPurgeStaticSite.get(req)
+	if beginPurgeStaticSite == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/staticSites/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/purge`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginPurgeStaticSite(req.Context(), resourceGroupNameParam, nameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginPurgeStaticSite = &respr
+		s.beginPurgeStaticSite.add(req, beginPurgeStaticSite)
+	}
+
+	resp, err := server.PollerResponderNext(beginPurgeStaticSite, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginPurgeStaticSite.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginPurgeStaticSite) {
+		s.beginPurgeStaticSite.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (s *StaticSitesServerTransport) dispatchBeginPurgeStaticSiteBuild(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginPurgeStaticSiteBuild == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginPurgeStaticSiteBuild not implemented")}
+	}
+	beginPurgeStaticSiteBuild := s.beginPurgeStaticSiteBuild.get(req)
+	if beginPurgeStaticSiteBuild == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/staticSites/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/builds/(?P<environmentName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/purge`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+		if err != nil {
+			return nil, err
+		}
+		environmentNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("environmentName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginPurgeStaticSiteBuild(req.Context(), resourceGroupNameParam, nameParam, environmentNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginPurgeStaticSiteBuild = &respr
+		s.beginPurgeStaticSiteBuild.add(req, beginPurgeStaticSiteBuild)
+	}
+
+	resp, err := server.PollerResponderNext(beginPurgeStaticSiteBuild, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginPurgeStaticSiteBuild.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginPurgeStaticSiteBuild) {
+		s.beginPurgeStaticSiteBuild.remove(req)
+	}
+
 	return resp, nil
 }
 

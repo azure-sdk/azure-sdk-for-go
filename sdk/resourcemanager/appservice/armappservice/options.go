@@ -1332,6 +1332,20 @@ type StaticSitesClientBeginLinkBackendToBuildOptions struct {
 	ResumeToken string
 }
 
+// StaticSitesClientBeginPurgeStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.BeginPurgeStaticSiteBuild
+// method.
+type StaticSitesClientBeginPurgeStaticSiteBuildOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StaticSitesClientBeginPurgeStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginPurgeStaticSite
+// method.
+type StaticSitesClientBeginPurgeStaticSiteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions contains the optional parameters for the
 // StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild method.
 type StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions struct {

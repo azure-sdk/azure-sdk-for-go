@@ -54,7 +54,7 @@ func NewStaticSitesClient(subscriptionID string, credential azcore.TokenCredenti
 //   - privateEndpointWrapper - Request body.
 //   - options - StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions contains the optional parameters for the
 //     StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection method.
-func (client *StaticSitesClient) BeginApproveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*runtime.Poller[StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse], error) {
+func (client *StaticSitesClient) BeginApproveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*runtime.Poller[StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.approveOrRejectPrivateEndpointConnection(ctx, resourceGroupName, name, privateEndpointConnectionName, privateEndpointWrapper, options)
 		if err != nil {
@@ -75,7 +75,7 @@ func (client *StaticSitesClient) BeginApproveOrRejectPrivateEndpointConnection(c
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-01-01
-func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*http.Response, error) {
+func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*http.Response, error) {
 	var err error
 	const operationName = "StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -97,7 +97,7 @@ func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnection(ctx co
 }
 
 // approveOrRejectPrivateEndpointConnectionCreateRequest creates the ApproveOrRejectPrivateEndpointConnection request.
-func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnectionCreateRequest(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*policy.Request, error) {
+func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnectionCreateRequest(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper RemotePrivateEndpointConnectionARMResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -4510,6 +4510,163 @@ func (client *StaticSitesClient) previewWorkflowHandleResponse(resp *http.Respon
 		return StaticSitesClientPreviewWorkflowResponse{}, err
 	}
 	return result, nil
+}
+
+// BeginPurgeStaticSite - Description for Purges a static site.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site to purge.
+//   - options - StaticSitesClientBeginPurgeStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginPurgeStaticSite
+//     method.
+func (client *StaticSitesClient) BeginPurgeStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginPurgeStaticSiteOptions) (*runtime.Poller[StaticSitesClientPurgeStaticSiteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.purgeStaticSite(ctx, resourceGroupName, name, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[StaticSitesClientPurgeStaticSiteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[StaticSitesClientPurgeStaticSiteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// PurgeStaticSite - Description for Purges a static site.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01
+func (client *StaticSitesClient) purgeStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginPurgeStaticSiteOptions) (*http.Response, error) {
+	var err error
+	const operationName = "StaticSitesClient.BeginPurgeStaticSite"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.purgeStaticSiteCreateRequest(ctx, resourceGroupName, name, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// purgeStaticSiteCreateRequest creates the PurgeStaticSite request.
+func (client *StaticSitesClient) purgeStaticSiteCreateRequest(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginPurgeStaticSiteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/purge"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-01-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// BeginPurgeStaticSiteBuild - Description for Purges a static site build.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site to purge.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientBeginPurgeStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.BeginPurgeStaticSiteBuild
+//     method.
+func (client *StaticSitesClient) BeginPurgeStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientBeginPurgeStaticSiteBuildOptions) (*runtime.Poller[StaticSitesClientPurgeStaticSiteBuildResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.purgeStaticSiteBuild(ctx, resourceGroupName, name, environmentName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[StaticSitesClientPurgeStaticSiteBuildResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[StaticSitesClientPurgeStaticSiteBuildResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// PurgeStaticSiteBuild - Description for Purges a static site build.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01
+func (client *StaticSitesClient) purgeStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientBeginPurgeStaticSiteBuildOptions) (*http.Response, error) {
+	var err error
+	const operationName = "StaticSitesClient.BeginPurgeStaticSiteBuild"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.purgeStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// purgeStaticSiteBuildCreateRequest creates the PurgeStaticSiteBuild request.
+func (client *StaticSitesClient) purgeStaticSiteBuildCreateRequest(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientBeginPurgeStaticSiteBuildOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/builds/{environmentName}/purge"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	if environmentName == "" {
+		return nil, errors.New("parameter environmentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-01-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
 }
 
 // BeginRegisterUserProvidedFunctionAppWithStaticSite - Description for Register a user provided function app with a static

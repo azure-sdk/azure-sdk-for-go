@@ -1525,6 +1525,16 @@ type StaticSitesClientPreviewWorkflowResponse struct {
 	StaticSitesWorkflowPreview
 }
 
+// StaticSitesClientPurgeStaticSiteBuildResponse contains the response from method StaticSitesClient.BeginPurgeStaticSiteBuild.
+type StaticSitesClientPurgeStaticSiteBuildResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientPurgeStaticSiteResponse contains the response from method StaticSitesClient.BeginPurgeStaticSite.
+type StaticSitesClientPurgeStaticSiteResponse struct {
+	// placeholder for future response values
+}
+
 // StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteBuildResponse contains the response from method StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild.
 type StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteBuildResponse struct {
 	// Static Site User Provided Function App ARM resource.

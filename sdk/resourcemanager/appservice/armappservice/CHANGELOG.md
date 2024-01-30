@@ -1,5 +1,19 @@
 # Release History
 
+## 3.0.0 (2024-01-30)
+### Breaking Changes
+
+- Function `*EnvironmentsClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *EnvironmentsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *EnvironmentsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*WebAppsClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*WebAppsClient.BeginApproveOrRejectPrivateEndpointConnectionSlot` parameter(s) have been changed from `(context.Context, string, string, string, string, PrivateLinkConnectionApprovalRequestResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions)` to `(context.Context, string, string, string, string, RemotePrivateEndpointConnectionARMResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions)`
+
+### Features Added
+
+- New function `*StaticSitesClient.BeginPurgeStaticSite(context.Context, string, string, *StaticSitesClientBeginPurgeStaticSiteOptions) (*runtime.Poller[StaticSitesClientPurgeStaticSiteResponse], error)`
+- New function `*StaticSitesClient.BeginPurgeStaticSiteBuild(context.Context, string, string, string, *StaticSitesClientBeginPurgeStaticSiteBuildOptions) (*runtime.Poller[StaticSitesClientPurgeStaticSiteBuildResponse], error)`
+
+
 ## 2.3.0 (2023-11-30)
 ### Features Added
 
