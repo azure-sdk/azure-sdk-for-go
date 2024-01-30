@@ -1,5 +1,18 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-01-30)
+### Features Added
+
+- New enum type `TargetType` with values `TargetTypeAfterStageWait`, `TargetTypeGroup`, `TargetTypeMember`, `TargetTypeStage`
+- New function `*UpdateRunsClient.Skip(context.Context, string, string, string, SkipProperties, *UpdateRunsClientSkipOptions) (UpdateRunsClientSkipResponse, error)`
+- New struct `APIServerAccessProfile`
+- New struct `AgentProfile`
+- New struct `FleetHubProfile`
+- New struct `SkipProperties`
+- New struct `SkipTarget`
+- New field `HubProfile` in struct `FleetProperties`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
