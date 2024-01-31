@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v4.7.0"
+	moduleVersion = "v4.7.1"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -609,8 +609,7 @@ func PossibleOSTypeValues() []OSType {
 	}
 }
 
-// OutboundType - This can only be set at cluster creation time and cannot be changed later. For more information see egress
-// outbound type [https://docs.microsoft.com/azure/aks/egress-outboundtype].
+// OutboundType - For more information see egress outbound type [https://docs.microsoft.com/azure/aks/egress-outboundtype].
 type OutboundType string
 
 const (

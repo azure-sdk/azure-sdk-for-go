@@ -1777,8 +1777,7 @@ type NetworkProfile struct {
 	// Network policy used for building the Kubernetes network.
 	NetworkPolicy *NetworkPolicy
 
-	// This can only be set at cluster creation time and cannot be changed later. For more information see egress outbound type
-	// [https://docs.microsoft.com/azure/aks/egress-outboundtype].
+	// For more information see egress outbound type [https://docs.microsoft.com/azure/aks/egress-outboundtype].
 	OutboundType *OutboundType
 
 	// A CIDR notation IP range from which to assign pod IPs when kubenet is used.
