@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -35,6 +35,12 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 		subscriptionID: subscriptionID, credential: credential,
 		options: options.Clone(),
 	}, nil
+}
+
+// NewAdvancedThreatProtectionSettingsClient creates a new instance of AdvancedThreatProtectionSettingsClient.
+func (c *ClientFactory) NewAdvancedThreatProtectionSettingsClient() *AdvancedThreatProtectionSettingsClient {
+	subClient, _ := NewAdvancedThreatProtectionSettingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
 }
 
 // NewAzureADAdministratorsClient creates a new instance of AzureADAdministratorsClient.
@@ -103,9 +109,45 @@ func (c *ClientFactory) NewLocationBasedCapabilitiesClient() *LocationBasedCapab
 	return subClient
 }
 
+// NewLocationBasedCapabilitySetClient creates a new instance of LocationBasedCapabilitySetClient.
+func (c *ClientFactory) NewLocationBasedCapabilitySetClient() *LocationBasedCapabilitySetClient {
+	subClient, _ := NewLocationBasedCapabilitySetClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewLogFilesClient creates a new instance of LogFilesClient.
 func (c *ClientFactory) NewLogFilesClient() *LogFilesClient {
 	subClient, _ := NewLogFilesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewLongRunningBackupClient creates a new instance of LongRunningBackupClient.
+func (c *ClientFactory) NewLongRunningBackupClient() *LongRunningBackupClient {
+	subClient, _ := NewLongRunningBackupClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewLongRunningBackupsClient creates a new instance of LongRunningBackupsClient.
+func (c *ClientFactory) NewLongRunningBackupsClient() *LongRunningBackupsClient {
+	subClient, _ := NewLongRunningBackupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewMaintenancesClient creates a new instance of MaintenancesClient.
+func (c *ClientFactory) NewMaintenancesClient() *MaintenancesClient {
+	subClient, _ := NewMaintenancesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewOperationProgressClient creates a new instance of OperationProgressClient.
+func (c *ClientFactory) NewOperationProgressClient() *OperationProgressClient {
+	subClient, _ := NewOperationProgressClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewOperationResultsClient creates a new instance of OperationResultsClient.
+func (c *ClientFactory) NewOperationResultsClient() *OperationResultsClient {
+	subClient, _ := NewOperationResultsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -124,5 +166,11 @@ func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 // NewServersClient creates a new instance of ServersClient.
 func (c *ClientFactory) NewServersClient() *ServersClient {
 	subClient, _ := NewServersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewServersMigrationClient creates a new instance of ServersMigrationClient.
+func (c *ClientFactory) NewServersMigrationClient() *ServersMigrationClient {
+	subClient, _ := NewServersMigrationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
