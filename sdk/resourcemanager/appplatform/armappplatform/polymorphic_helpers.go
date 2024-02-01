@@ -100,6 +100,50 @@ func unmarshalCustomPersistentDiskPropertiesClassification(rawMsg json.RawMessag
 	return b, nil
 }
 
+func unmarshalGatewayResponseCachePropertiesClassification(rawMsg json.RawMessage) (GatewayResponseCachePropertiesClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b GatewayResponseCachePropertiesClassification
+	switch m["responseCacheType"] {
+	case "LocalCachePerInstance":
+		b = &GatewayLocalResponseCachePerInstanceProperties{}
+	case "LocalCachePerRoute":
+		b = &GatewayLocalResponseCachePerRouteProperties{}
+	default:
+		b = &GatewayResponseCacheProperties{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMaintenanceScheduleConfigurationClassification(rawMsg json.RawMessage) (MaintenanceScheduleConfigurationClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MaintenanceScheduleConfigurationClassification
+	switch m["frequency"] {
+	case string(FrequencyWeekly):
+		b = &WeeklyMaintenanceScheduleConfiguration{}
+	default:
+		b = &MaintenanceScheduleConfiguration{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalProbeActionClassification(rawMsg json.RawMessage) (ProbeActionClassification, error) {
 	if rawMsg == nil {
 		return nil, nil

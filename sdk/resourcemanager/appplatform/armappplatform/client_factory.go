@@ -152,6 +152,12 @@ func (c *ClientFactory) NewDevToolPortalsClient() *DevToolPortalsClient {
 	return subClient
 }
 
+// NewEurekaServersClient creates a new instance of EurekaServersClient.
+func (c *ClientFactory) NewEurekaServersClient() *EurekaServersClient {
+	subClient, _ := NewEurekaServersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewGatewayCustomDomainsClient creates a new instance of GatewayCustomDomainsClient.
 func (c *ClientFactory) NewGatewayCustomDomainsClient() *GatewayCustomDomainsClient {
 	subClient, _ := NewGatewayCustomDomainsClient(c.subscriptionID, c.credential, c.options)
