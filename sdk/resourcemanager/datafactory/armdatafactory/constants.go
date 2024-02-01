@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v5.0.0"
+	moduleVersion = "v6.0.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -433,6 +433,26 @@ const (
 func PossibleExpressionTypeValues() []ExpressionType {
 	return []ExpressionType{
 		ExpressionTypeExpression,
+	}
+}
+
+// ExpressionV2Type - Type of expressions supported by the system. Type: string.
+type ExpressionV2Type string
+
+const (
+	ExpressionV2TypeBinary   ExpressionV2Type = "Binary"
+	ExpressionV2TypeConstant ExpressionV2Type = "Constant"
+	ExpressionV2TypeField    ExpressionV2Type = "Field"
+	ExpressionV2TypeUnary    ExpressionV2Type = "Unary"
+)
+
+// PossibleExpressionV2TypeValues returns the possible values for the ExpressionV2Type const type.
+func PossibleExpressionV2TypeValues() []ExpressionV2Type {
+	return []ExpressionV2Type{
+		ExpressionV2TypeBinary,
+		ExpressionV2TypeConstant,
+		ExpressionV2TypeField,
+		ExpressionV2TypeUnary,
 	}
 }
 
@@ -1500,6 +1520,22 @@ func PossibleServiceNowAuthenticationTypeValues() []ServiceNowAuthenticationType
 	}
 }
 
+// ServiceNowV2AuthenticationType - The authentication type to use.
+type ServiceNowV2AuthenticationType string
+
+const (
+	ServiceNowV2AuthenticationTypeBasic  ServiceNowV2AuthenticationType = "Basic"
+	ServiceNowV2AuthenticationTypeOAuth2 ServiceNowV2AuthenticationType = "OAuth2"
+)
+
+// PossibleServiceNowV2AuthenticationTypeValues returns the possible values for the ServiceNowV2AuthenticationType const type.
+func PossibleServiceNowV2AuthenticationTypeValues() []ServiceNowV2AuthenticationType {
+	return []ServiceNowV2AuthenticationType{
+		ServiceNowV2AuthenticationTypeBasic,
+		ServiceNowV2AuthenticationTypeOAuth2,
+	}
+}
+
 // SftpAuthenticationType - The authentication type to be used to connect to the FTP server.
 type SftpAuthenticationType string
 
@@ -1515,6 +1551,24 @@ func PossibleSftpAuthenticationTypeValues() []SftpAuthenticationType {
 		SftpAuthenticationTypeBasic,
 		SftpAuthenticationTypeMultiFactor,
 		SftpAuthenticationTypeSSHPublicKey,
+	}
+}
+
+// SnowflakeAuthenticationType - The type used for authentication. Type: string.
+type SnowflakeAuthenticationType string
+
+const (
+	SnowflakeAuthenticationTypeAADServicePrincipal SnowflakeAuthenticationType = "AADServicePrincipal"
+	SnowflakeAuthenticationTypeBasic               SnowflakeAuthenticationType = "Basic"
+	SnowflakeAuthenticationTypeKeyPair             SnowflakeAuthenticationType = "KeyPair"
+)
+
+// PossibleSnowflakeAuthenticationTypeValues returns the possible values for the SnowflakeAuthenticationType const type.
+func PossibleSnowflakeAuthenticationTypeValues() []SnowflakeAuthenticationType {
+	return []SnowflakeAuthenticationType{
+		SnowflakeAuthenticationTypeAADServicePrincipal,
+		SnowflakeAuthenticationTypeBasic,
+		SnowflakeAuthenticationTypeKeyPair,
 	}
 }
 

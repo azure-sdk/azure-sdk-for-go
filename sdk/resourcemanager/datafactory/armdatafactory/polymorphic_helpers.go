@@ -241,6 +241,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &SapCloudForCustomerSink{}
 	case "SnowflakeSink":
 		b = &SnowflakeSink{}
+	case "SnowflakeV2Sink":
+		b = &SnowflakeV2Sink{}
 	case "SqlDWSink":
 		b = &SQLDWSink{}
 	case "SqlMISink":
@@ -434,12 +436,16 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &SapTableSource{}
 	case "ServiceNowSource":
 		b = &ServiceNowSource{}
+	case "ServiceNowV2Source":
+		b = &ServiceNowV2Source{}
 	case "SharePointOnlineListSource":
 		b = &SharePointOnlineListSource{}
 	case "ShopifySource":
 		b = &ShopifySource{}
 	case "SnowflakeSource":
 		b = &SnowflakeSource{}
+	case "SnowflakeV2Source":
+		b = &SnowflakeV2Source{}
 	case "SparkSource":
 		b = &SparkSource{}
 	case "SqlDWSource":
@@ -732,12 +738,16 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &SapTableResourceDataset{}
 	case "ServiceNowObject":
 		b = &ServiceNowObjectDataset{}
+	case "ServiceNowV2Object":
+		b = &ServiceNowV2ObjectDataset{}
 	case "SharePointOnlineListResource":
 		b = &SharePointOnlineListResourceDataset{}
 	case "ShopifyObject":
 		b = &ShopifyObjectDataset{}
 	case "SnowflakeTable":
 		b = &SnowflakeDataset{}
+	case "SnowflakeV2Table":
+		b = &SnowflakeV2Dataset{}
 	case "SparkObject":
 		b = &SparkObjectDataset{}
 	case "SqlServerTable":
@@ -1218,6 +1228,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SapTableLinkedService{}
 	case "ServiceNow":
 		b = &ServiceNowLinkedService{}
+	case "ServiceNowV2":
+		b = &ServiceNowV2LinkedService{}
 	case "Sftp":
 		b = &SftpServerLinkedService{}
 	case "SharePointOnlineList":
@@ -1228,6 +1240,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SmartsheetLinkedService{}
 	case "Snowflake":
 		b = &SnowflakeLinkedService{}
+	case "SnowflakeV2":
+		b = &SnowflakeV2LinkedService{}
 	case "Spark":
 		b = &SparkLinkedService{}
 	case "SqlServer":
