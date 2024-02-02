@@ -3636,6 +3636,7 @@ func (d DatabaseAccountCreateUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableMaterializedViews", d.EnableMaterializedViews)
 	populate(objectMap, "enableMultipleWriteLocations", d.EnableMultipleWriteLocations)
 	populate(objectMap, "enablePartitionMerge", d.EnablePartitionMerge)
+	populate(objectMap, "enablePerRegionPerPartitionAutoscale", d.EnablePerRegionPerPartitionAutoscale)
 	populate(objectMap, "enablePriorityBasedExecution", d.EnablePriorityBasedExecution)
 	populate(objectMap, "ipRules", d.IPRules)
 	populate(objectMap, "isVirtualNetworkFilterEnabled", d.IsVirtualNetworkFilterEnabled)
@@ -3732,6 +3733,9 @@ func (d *DatabaseAccountCreateUpdateProperties) UnmarshalJSON(data []byte) error
 		case "enablePartitionMerge":
 			err = unpopulate(val, "EnablePartitionMerge", &d.EnablePartitionMerge)
 			delete(rawMsg, key)
+		case "enablePerRegionPerPartitionAutoscale":
+			err = unpopulate(val, "EnablePerRegionPerPartitionAutoscale", &d.EnablePerRegionPerPartitionAutoscale)
+			delete(rawMsg, key)
 		case "enablePriorityBasedExecution":
 			err = unpopulate(val, "EnablePriorityBasedExecution", &d.EnablePriorityBasedExecution)
 			delete(rawMsg, key)
@@ -3804,6 +3808,7 @@ func (d DatabaseAccountGetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableMaterializedViews", d.EnableMaterializedViews)
 	populate(objectMap, "enableMultipleWriteLocations", d.EnableMultipleWriteLocations)
 	populate(objectMap, "enablePartitionMerge", d.EnablePartitionMerge)
+	populate(objectMap, "enablePerRegionPerPartitionAutoscale", d.EnablePerRegionPerPartitionAutoscale)
 	populate(objectMap, "enablePriorityBasedExecution", d.EnablePriorityBasedExecution)
 	populate(objectMap, "failoverPolicies", d.FailoverPolicies)
 	populate(objectMap, "ipRules", d.IPRules)
@@ -3908,6 +3913,9 @@ func (d *DatabaseAccountGetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enablePartitionMerge":
 			err = unpopulate(val, "EnablePartitionMerge", &d.EnablePartitionMerge)
+			delete(rawMsg, key)
+		case "enablePerRegionPerPartitionAutoscale":
+			err = unpopulate(val, "EnablePerRegionPerPartitionAutoscale", &d.EnablePerRegionPerPartitionAutoscale)
 			delete(rawMsg, key)
 		case "enablePriorityBasedExecution":
 			err = unpopulate(val, "EnablePriorityBasedExecution", &d.EnablePriorityBasedExecution)
@@ -4257,6 +4265,7 @@ func (d DatabaseAccountUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableMaterializedViews", d.EnableMaterializedViews)
 	populate(objectMap, "enableMultipleWriteLocations", d.EnableMultipleWriteLocations)
 	populate(objectMap, "enablePartitionMerge", d.EnablePartitionMerge)
+	populate(objectMap, "enablePerRegionPerPartitionAutoscale", d.EnablePerRegionPerPartitionAutoscale)
 	populate(objectMap, "enablePriorityBasedExecution", d.EnablePriorityBasedExecution)
 	populate(objectMap, "ipRules", d.IPRules)
 	populate(objectMap, "isVirtualNetworkFilterEnabled", d.IsVirtualNetworkFilterEnabled)
@@ -4345,6 +4354,9 @@ func (d *DatabaseAccountUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enablePartitionMerge":
 			err = unpopulate(val, "EnablePartitionMerge", &d.EnablePartitionMerge)
+			delete(rawMsg, key)
+		case "enablePerRegionPerPartitionAutoscale":
+			err = unpopulate(val, "EnablePerRegionPerPartitionAutoscale", &d.EnablePerRegionPerPartitionAutoscale)
 			delete(rawMsg, key)
 		case "enablePriorityBasedExecution":
 			err = unpopulate(val, "EnablePriorityBasedExecution", &d.EnablePriorityBasedExecution)
@@ -9933,6 +9945,7 @@ func (r ResourceRestoreParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	return json.Marshal(objectMap)
 }
 
@@ -9950,6 +9963,9 @@ func (r *ResourceRestoreParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -11557,6 +11573,7 @@ func (r RestoreParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "restoreMode", r.RestoreMode)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	populate(objectMap, "sourceBackupLocation", r.SourceBackupLocation)
 	populate(objectMap, "tablesToRestore", r.TablesToRestore)
 	return json.Marshal(objectMap)
@@ -11586,6 +11603,9 @@ func (r *RestoreParameters) UnmarshalJSON(data []byte) error {
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
 			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
+			delete(rawMsg, key)
 		case "sourceBackupLocation":
 			err = unpopulate(val, "SourceBackupLocation", &r.SourceBackupLocation)
 			delete(rawMsg, key)
@@ -11605,6 +11625,7 @@ func (r RestoreParametersBase) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	return json.Marshal(objectMap)
 }
 
@@ -11622,6 +11643,9 @@ func (r *RestoreParametersBase) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
