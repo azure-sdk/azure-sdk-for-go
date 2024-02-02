@@ -1,5 +1,30 @@
 # Release History
 
+## 3.0.0 (2024-02-02)
+### Breaking Changes
+
+- Function `*EnvironmentsClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *EnvironmentsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *EnvironmentsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*WebAppsClient.BeginApproveOrRejectPrivateEndpointConnection` parameter(s) have been changed from `(context.Context, string, string, string, PrivateLinkConnectionApprovalRequestResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)` to `(context.Context, string, string, string, RemotePrivateEndpointConnectionARMResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionOptions)`
+- Function `*WebAppsClient.BeginApproveOrRejectPrivateEndpointConnectionSlot` parameter(s) have been changed from `(context.Context, string, string, string, string, PrivateLinkConnectionApprovalRequestResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions)` to `(context.Context, string, string, string, string, RemotePrivateEndpointConnectionARMResource, *WebAppsClientBeginApproveOrRejectPrivateEndpointConnectionSlotOptions)`
+
+### Features Added
+
+- New value `StorageTypeBlobContainer` added to enum type `StorageType`
+- New enum type `AuthenticationType` with values `AuthenticationTypeStorageAccountConnectionString`, `AuthenticationTypeSystemAssignedIdentity`, `AuthenticationTypeUserAssignedIdentity`
+- New enum type `RuntimeName` with values `RuntimeNameCustom`, `RuntimeNameDotnetIsolated`, `RuntimeNameJava`, `RuntimeNameNode`, `RuntimeNamePowershell`, `RuntimeNamePython`
+- New struct `FunctionAppConfig`
+- New struct `FunctionsAlwaysReadyConfig`
+- New struct `FunctionsDeployment`
+- New struct `FunctionsDeploymentStorage`
+- New struct `FunctionsDeploymentStorageAuthentication`
+- New struct `FunctionsRuntime`
+- New struct `FunctionsScaleAndConcurrency`
+- New struct `FunctionsScaleAndConcurrencyTriggers`
+- New struct `FunctionsScaleAndConcurrencyTriggersHTTP`
+- New field `FunctionAppConfig`, `VnetBackupRestoreEnabled` in struct `SiteProperties`
+
+
 ## 2.3.0 (2023-11-30)
 ### Features Added
 

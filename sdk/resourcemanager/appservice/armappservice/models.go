@@ -477,10 +477,12 @@ type ApplicationStackResource struct {
 }
 
 type ArcConfiguration struct {
-	ArtifactStorageAccessMode    *string
-	ArtifactStorageClassName     *string
-	ArtifactStorageMountPath     *string
-	ArtifactStorageNodeName      *string
+	ArtifactStorageAccessMode *string
+	ArtifactStorageClassName  *string
+	ArtifactStorageMountPath  *string
+	ArtifactStorageNodeName   *string
+
+	// Property to select Azure Storage type. Available options: blobContainer.
 	ArtifactsStorageType         *StorageType
 	FrontEndServiceConfiguration *FrontEndConfiguration
 	KubeConfig                   *string
@@ -3434,6 +3436,18 @@ type FrontEndConfiguration struct {
 	Kind *FrontEndServiceType
 }
 
+// FunctionAppConfig - Function app configuration.
+type FunctionAppConfig struct {
+	// Function app deployment configuration.
+	Deployment *FunctionsDeployment
+
+	// Function app runtime settings.
+	Runtime *FunctionsRuntime
+
+	// Function app scale and concurrency settings.
+	ScaleAndConcurrency *FunctionsScaleAndConcurrency
+}
+
 // FunctionAppMajorVersion - Function App stack major version.
 type FunctionAppMajorVersion struct {
 	// READ-ONLY; Function App stack major version (display only).
@@ -3633,6 +3647,87 @@ type FunctionSecrets struct {
 
 	// Trigger URL.
 	TriggerURL *string
+}
+
+// FunctionsAlwaysReadyConfig - Sets the number of 'Always Ready' instances for a function group or a specific function.
+type FunctionsAlwaysReadyConfig struct {
+	// Sets the number of 'Always Ready' instances for a given function group or a specific function. For additional information
+	// see https://aka.ms/flexconsumption/alwaysready.
+	InstanceCount *float32
+
+	// Either a function group or a function name is required. For additional information see https://aka.ms/flexconsumption/alwaysready.
+	Name *string
+}
+
+// FunctionsDeployment - Configuration section for the function app deployment.
+type FunctionsDeployment struct {
+	// Storage for deployed package used by the function app.
+	Storage *FunctionsDeploymentStorage
+}
+
+// FunctionsDeploymentStorage - Storage for deployed package used by the function app.
+type FunctionsDeploymentStorage struct {
+	// Authentication method to access the storage account for deployment.
+	Authentication *FunctionsDeploymentStorageAuthentication
+
+	// Property to select Azure Storage type. Available options: blobContainer.
+	Type *StorageType
+
+	// Property to set the URL for the selected Azure Storage type. Example: For blobContainer, the value could be https://.blob.core.windows.net/.
+	Value *string
+}
+
+// FunctionsDeploymentStorageAuthentication - Authentication method to access the storage account for deployment.
+type FunctionsDeploymentStorageAuthentication struct {
+	// Use this property for StorageAccountConnectionString. Set the name of the app setting that has the storage account connection
+	// string. Do not set a value for this property when using other
+	// authentication type.
+	StorageAccountConnectionStringName *string
+
+	// Property to select authentication type to access the selected storage account. Available options: SystemAssignedIdentity,
+	// UserAssignedIdentity, StorageAccountConnectionString.
+	Type *AuthenticationType
+
+	// Use this property for UserAssignedIdentity. Set the resource ID of the identity. Do not set a value for this property when
+	// using other authentication type.
+	UserAssignedIdentityResourceID *string
+}
+
+// FunctionsRuntime - Function app runtime name and version.
+type FunctionsRuntime struct {
+	// Function app runtime name. Available options: dotnet-isolated, node, java, powershell, python, custom
+	Name *RuntimeName
+
+	// Function app runtime version. Example: 8 (for dotnet-isolated)
+	Version *string
+}
+
+// FunctionsScaleAndConcurrency - Scale and concurrency settings for the function app.
+type FunctionsScaleAndConcurrency struct {
+	// 'Always Ready' configuration for the function app.
+	AlwaysReady []*FunctionsAlwaysReadyConfig
+
+	// Set the amount of memory allocated to each instance of the function app in MB. CPU and network bandwidth are allocated
+	// proportionally.
+	InstanceMemoryMB *float32
+
+	// The maximum number of instances for the function app.
+	MaximumInstanceCount *float32
+
+	// Scale and concurrency settings for the function app triggers.
+	Triggers *FunctionsScaleAndConcurrencyTriggers
+}
+
+// FunctionsScaleAndConcurrencyTriggers - Scale and concurrency settings for the function app triggers.
+type FunctionsScaleAndConcurrencyTriggers struct {
+	// Scale and concurrency settings for the HTTP trigger.
+	HTTP *FunctionsScaleAndConcurrencyTriggersHTTP
+}
+
+// FunctionsScaleAndConcurrencyTriggersHTTP - Scale and concurrency settings for the HTTP trigger.
+type FunctionsScaleAndConcurrencyTriggersHTTP struct {
+	// The maximum number of concurrent HTTP trigger invocations per instance.
+	PerInstanceConcurrency *float32
 }
 
 // GeoRegion - Geographical region.
@@ -7916,6 +8011,9 @@ type SiteProperties struct {
 	// true if the app is enabled; otherwise, false. Setting this value to false disables the app (takes the app offline).
 	Enabled *bool
 
+	// Configuration specific of the Azure Function app.
+	FunctionAppConfig *FunctionAppConfig
+
 	// HttpsOnly: configures a web site to accept only https requests. Issues redirect for http requests
 	HTTPSOnly *bool
 
@@ -7971,6 +8069,9 @@ type SiteProperties struct {
 	// the form
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string
+
+	// To enable Backup and Restore operations over virtual network
+	VnetBackupRestoreEnabled *bool
 
 	// To enable accessing content over virtual network
 	VnetContentShareEnabled *bool
