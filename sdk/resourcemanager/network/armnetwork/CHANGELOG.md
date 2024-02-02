@@ -1,5 +1,16 @@
 # Release History
 
+## 5.1.0 (2024-02-02)
+### Features Added
+
+- New value `OwaspCrsExclusionEntryMatchVariableRemoteAddr`, `OwaspCrsExclusionEntryMatchVariableRequestHeader`, `OwaspCrsExclusionEntryMatchVariableRequestURI` added to enum type `OwaspCrsExclusionEntryMatchVariable`
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New enum type `OwaspCrsExclusionEntryExclude` with values `OwaspCrsExclusionEntryExcludeMatchVariable`, `OwaspCrsExclusionEntryExcludeRequest`
+- New enum type `OwaspCrsExclusionEntryValueMatchOperator` with values `OwaspCrsExclusionEntryValueMatchOperatorContains`, `OwaspCrsExclusionEntryValueMatchOperatorEndsWith`, `OwaspCrsExclusionEntryValueMatchOperatorEquals`, `OwaspCrsExclusionEntryValueMatchOperatorStartsWith`
+- New field `Zones` in struct `BastionHost`
+- New field `Exclude`, `ValueMatchOperator`, `Values` in struct `OwaspCrsExclusionEntry`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 

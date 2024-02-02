@@ -2936,6 +2936,9 @@ type BastionHost struct {
 	// Resource tags.
 	Tags map[string]*string
 
+	// A list of availability zones denoting where the resource needs to come from.
+	Zones []*string
+
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string
 
@@ -8664,21 +8667,30 @@ type OutboundRulePropertiesFormat struct {
 	ProvisioningState *ProvisioningState
 }
 
-// OwaspCrsExclusionEntry - Allow to exclude some variable satisfy the condition for the WAF check.
+// OwaspCrsExclusionEntry - Allows exclusion of a variable or the whole request from WAF check when the exclusion condition
+// is satisfied.
 type OwaspCrsExclusionEntry struct {
-	// REQUIRED; The variable to be excluded.
+	// REQUIRED; The variable on which we evaluate the exclusion condition
 	MatchVariable *OwaspCrsExclusionEntryMatchVariable
 
-	// REQUIRED; When matchVariable is a collection, operator used to specify which elements in the collection this exclusion
-	// applies to.
-	Selector *string
-
-	// REQUIRED; When matchVariable is a collection, operate on the selector to specify which elements in the collection this
-	// exclusion applies to.
-	SelectorMatchOperator *OwaspCrsExclusionEntrySelectorMatchOperator
+	// Exclusion type that determines if only a variable is to be excluded or the whole request
+	Exclude *OwaspCrsExclusionEntryExclude
 
 	// The managed rule sets that are associated with the exclusion.
 	ExclusionManagedRuleSets []*ExclusionManagedRuleSet
+
+	// When matchVariable is a collection, operator used to specify which elements in the collection this exclusion applies to.
+	Selector *string
+
+	// When matchVariable is a collection, operate on the selector to specify which elements in the collection this exclusion
+	// applies to.
+	SelectorMatchOperator *OwaspCrsExclusionEntrySelectorMatchOperator
+
+	// Operates on the allowed values for request exclusion
+	ValueMatchOperator *OwaspCrsExclusionEntryValueMatchOperator
+
+	// Allowed values for request exclusion
+	Values []*string
 }
 
 // P2SConnectionConfiguration Resource.

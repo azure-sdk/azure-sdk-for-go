@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.0.0"
+	moduleVersion = "v5.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -2605,33 +2605,55 @@ func PossibleOutputTypeValues() []OutputType {
 	}
 }
 
-// OwaspCrsExclusionEntryMatchVariable - The variable to be excluded.
+// OwaspCrsExclusionEntryExclude - Exclusion type that determines if only a variable is to be excluded or the whole request
+type OwaspCrsExclusionEntryExclude string
+
+const (
+	OwaspCrsExclusionEntryExcludeMatchVariable OwaspCrsExclusionEntryExclude = "MatchVariable"
+	OwaspCrsExclusionEntryExcludeRequest       OwaspCrsExclusionEntryExclude = "Request"
+)
+
+// PossibleOwaspCrsExclusionEntryExcludeValues returns the possible values for the OwaspCrsExclusionEntryExclude const type.
+func PossibleOwaspCrsExclusionEntryExcludeValues() []OwaspCrsExclusionEntryExclude {
+	return []OwaspCrsExclusionEntryExclude{
+		OwaspCrsExclusionEntryExcludeMatchVariable,
+		OwaspCrsExclusionEntryExcludeRequest,
+	}
+}
+
+// OwaspCrsExclusionEntryMatchVariable - The variable on which we evaluate the exclusion condition
 type OwaspCrsExclusionEntryMatchVariable string
 
 const (
+	OwaspCrsExclusionEntryMatchVariableRemoteAddr          OwaspCrsExclusionEntryMatchVariable = "RemoteAddr"
 	OwaspCrsExclusionEntryMatchVariableRequestArgKeys      OwaspCrsExclusionEntryMatchVariable = "RequestArgKeys"
 	OwaspCrsExclusionEntryMatchVariableRequestArgNames     OwaspCrsExclusionEntryMatchVariable = "RequestArgNames"
 	OwaspCrsExclusionEntryMatchVariableRequestArgValues    OwaspCrsExclusionEntryMatchVariable = "RequestArgValues"
 	OwaspCrsExclusionEntryMatchVariableRequestCookieKeys   OwaspCrsExclusionEntryMatchVariable = "RequestCookieKeys"
 	OwaspCrsExclusionEntryMatchVariableRequestCookieNames  OwaspCrsExclusionEntryMatchVariable = "RequestCookieNames"
 	OwaspCrsExclusionEntryMatchVariableRequestCookieValues OwaspCrsExclusionEntryMatchVariable = "RequestCookieValues"
+	OwaspCrsExclusionEntryMatchVariableRequestHeader       OwaspCrsExclusionEntryMatchVariable = "RequestHeader"
 	OwaspCrsExclusionEntryMatchVariableRequestHeaderKeys   OwaspCrsExclusionEntryMatchVariable = "RequestHeaderKeys"
 	OwaspCrsExclusionEntryMatchVariableRequestHeaderNames  OwaspCrsExclusionEntryMatchVariable = "RequestHeaderNames"
 	OwaspCrsExclusionEntryMatchVariableRequestHeaderValues OwaspCrsExclusionEntryMatchVariable = "RequestHeaderValues"
+	OwaspCrsExclusionEntryMatchVariableRequestURI          OwaspCrsExclusionEntryMatchVariable = "RequestURI"
 )
 
 // PossibleOwaspCrsExclusionEntryMatchVariableValues returns the possible values for the OwaspCrsExclusionEntryMatchVariable const type.
 func PossibleOwaspCrsExclusionEntryMatchVariableValues() []OwaspCrsExclusionEntryMatchVariable {
 	return []OwaspCrsExclusionEntryMatchVariable{
+		OwaspCrsExclusionEntryMatchVariableRemoteAddr,
 		OwaspCrsExclusionEntryMatchVariableRequestArgKeys,
 		OwaspCrsExclusionEntryMatchVariableRequestArgNames,
 		OwaspCrsExclusionEntryMatchVariableRequestArgValues,
 		OwaspCrsExclusionEntryMatchVariableRequestCookieKeys,
 		OwaspCrsExclusionEntryMatchVariableRequestCookieNames,
 		OwaspCrsExclusionEntryMatchVariableRequestCookieValues,
+		OwaspCrsExclusionEntryMatchVariableRequestHeader,
 		OwaspCrsExclusionEntryMatchVariableRequestHeaderKeys,
 		OwaspCrsExclusionEntryMatchVariableRequestHeaderNames,
 		OwaspCrsExclusionEntryMatchVariableRequestHeaderValues,
+		OwaspCrsExclusionEntryMatchVariableRequestURI,
 	}
 }
 
@@ -2655,6 +2677,26 @@ func PossibleOwaspCrsExclusionEntrySelectorMatchOperatorValues() []OwaspCrsExclu
 		OwaspCrsExclusionEntrySelectorMatchOperatorEquals,
 		OwaspCrsExclusionEntrySelectorMatchOperatorEqualsAny,
 		OwaspCrsExclusionEntrySelectorMatchOperatorStartsWith,
+	}
+}
+
+// OwaspCrsExclusionEntryValueMatchOperator - Operates on the allowed values for request exclusion
+type OwaspCrsExclusionEntryValueMatchOperator string
+
+const (
+	OwaspCrsExclusionEntryValueMatchOperatorContains   OwaspCrsExclusionEntryValueMatchOperator = "Contains"
+	OwaspCrsExclusionEntryValueMatchOperatorEndsWith   OwaspCrsExclusionEntryValueMatchOperator = "EndsWith"
+	OwaspCrsExclusionEntryValueMatchOperatorEquals     OwaspCrsExclusionEntryValueMatchOperator = "Equals"
+	OwaspCrsExclusionEntryValueMatchOperatorStartsWith OwaspCrsExclusionEntryValueMatchOperator = "StartsWith"
+)
+
+// PossibleOwaspCrsExclusionEntryValueMatchOperatorValues returns the possible values for the OwaspCrsExclusionEntryValueMatchOperator const type.
+func PossibleOwaspCrsExclusionEntryValueMatchOperatorValues() []OwaspCrsExclusionEntryValueMatchOperator {
+	return []OwaspCrsExclusionEntryValueMatchOperator{
+		OwaspCrsExclusionEntryValueMatchOperatorContains,
+		OwaspCrsExclusionEntryValueMatchOperatorEndsWith,
+		OwaspCrsExclusionEntryValueMatchOperatorEquals,
+		OwaspCrsExclusionEntryValueMatchOperatorStartsWith,
 	}
 }
 
@@ -3956,8 +3998,10 @@ func PossibleVirtualNetworkPeeringStateValues() []VirtualNetworkPeeringState {
 type VirtualNetworkPrivateEndpointNetworkPolicies string
 
 const (
-	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
-	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled  VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled                    VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled                     VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled VirtualNetworkPrivateEndpointNetworkPolicies = "NetworkSecurityGroupEnabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled           VirtualNetworkPrivateEndpointNetworkPolicies = "RouteTableEnabled"
 )
 
 // PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues returns the possible values for the VirtualNetworkPrivateEndpointNetworkPolicies const type.
@@ -3965,6 +4009,8 @@ func PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues() []VirtualNetwo
 	return []VirtualNetworkPrivateEndpointNetworkPolicies{
 		VirtualNetworkPrivateEndpointNetworkPoliciesDisabled,
 		VirtualNetworkPrivateEndpointNetworkPoliciesEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled,
 	}
 }
 

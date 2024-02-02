@@ -7042,6 +7042,7 @@ func (b BastionHost) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sku", b.SKU)
 	populate(objectMap, "tags", b.Tags)
 	populate(objectMap, "type", b.Type)
+	populate(objectMap, "zones", b.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -7077,6 +7078,9 @@ func (b *BastionHost) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &b.Type)
+			delete(rawMsg, key)
+		case "zones":
+			err = unpopulate(val, "Zones", &b.Zones)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -21549,10 +21553,13 @@ func (o *OutboundRulePropertiesFormat) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type OwaspCrsExclusionEntry.
 func (o OwaspCrsExclusionEntry) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "exclude", o.Exclude)
 	populate(objectMap, "exclusionManagedRuleSets", o.ExclusionManagedRuleSets)
 	populate(objectMap, "matchVariable", o.MatchVariable)
 	populate(objectMap, "selector", o.Selector)
 	populate(objectMap, "selectorMatchOperator", o.SelectorMatchOperator)
+	populate(objectMap, "valueMatchOperator ", o.ValueMatchOperator)
+	populate(objectMap, "values", o.Values)
 	return json.Marshal(objectMap)
 }
 
@@ -21565,6 +21572,9 @@ func (o *OwaspCrsExclusionEntry) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "exclude":
+			err = unpopulate(val, "Exclude", &o.Exclude)
+			delete(rawMsg, key)
 		case "exclusionManagedRuleSets":
 			err = unpopulate(val, "ExclusionManagedRuleSets", &o.ExclusionManagedRuleSets)
 			delete(rawMsg, key)
@@ -21576,6 +21586,12 @@ func (o *OwaspCrsExclusionEntry) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "selectorMatchOperator":
 			err = unpopulate(val, "SelectorMatchOperator", &o.SelectorMatchOperator)
+			delete(rawMsg, key)
+		case "valueMatchOperator ":
+			err = unpopulate(val, "ValueMatchOperator", &o.ValueMatchOperator)
+			delete(rawMsg, key)
+		case "values":
+			err = unpopulate(val, "Values", &o.Values)
 			delete(rawMsg, key)
 		}
 		if err != nil {
