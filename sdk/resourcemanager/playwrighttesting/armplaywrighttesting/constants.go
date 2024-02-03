@@ -10,7 +10,7 @@ package armplaywrighttesting
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/playwrighttesting/armplaywrighttesting"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v1.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,6 +24,22 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// CheckNameAvailabilityReason - The reason why the given name is not available.
+type CheckNameAvailabilityReason string
+
+const (
+	CheckNameAvailabilityReasonAlreadyExists CheckNameAvailabilityReason = "AlreadyExists"
+	CheckNameAvailabilityReasonInvalid       CheckNameAvailabilityReason = "Invalid"
+)
+
+// PossibleCheckNameAvailabilityReasonValues returns the possible values for the CheckNameAvailabilityReason const type.
+func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
+	return []CheckNameAvailabilityReason{
+		CheckNameAvailabilityReasonAlreadyExists,
+		CheckNameAvailabilityReasonInvalid,
 	}
 }
 
@@ -73,6 +89,10 @@ const (
 	FreeTrialStateActive FreeTrialState = "Active"
 	// FreeTrialStateExpired - The free-trial is Expired.
 	FreeTrialStateExpired FreeTrialState = "Expired"
+	// FreeTrialStateNotEligible - The free-trial is Not Eligible.
+	FreeTrialStateNotEligible FreeTrialState = "NotEligible"
+	// FreeTrialStateNotRegistered - The free-trial is Not Registered.
+	FreeTrialStateNotRegistered FreeTrialState = "NotRegistered"
 )
 
 // PossibleFreeTrialStateValues returns the possible values for the FreeTrialState const type.
@@ -80,6 +100,8 @@ func PossibleFreeTrialStateValues() []FreeTrialState {
 	return []FreeTrialState{
 		FreeTrialStateActive,
 		FreeTrialStateExpired,
+		FreeTrialStateNotEligible,
+		FreeTrialStateNotRegistered,
 	}
 }
 
@@ -106,11 +128,13 @@ func PossibleOriginValues() []Origin {
 type ProvisioningState string
 
 const (
-	// ProvisioningStateAccepted - Change accepted for processing
+	// ProvisioningStateAccepted - Change accepted for processing..
 	ProvisioningStateAccepted ProvisioningState = "Accepted"
 	// ProvisioningStateCanceled - Resource creation was canceled.
 	ProvisioningStateCanceled ProvisioningState = "Canceled"
-	// ProvisioningStateDeleting - Deletion in progress
+	// ProvisioningStateCreating - Creation in progress..
+	ProvisioningStateCreating ProvisioningState = "Creating"
+	// ProvisioningStateDeleting - Deletion in progress..
 	ProvisioningStateDeleting ProvisioningState = "Deleting"
 	// ProvisioningStateFailed - Resource creation failed.
 	ProvisioningStateFailed ProvisioningState = "Failed"
@@ -123,6 +147,7 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
 		ProvisioningStateAccepted,
 		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
 		ProvisioningStateSucceeded,
