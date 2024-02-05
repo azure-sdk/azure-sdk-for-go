@@ -158,29 +158,3 @@ type PrivateLinkResourcesClientGetOptions struct {
 type PrivateLinkResourcesClientListByConfigurationStoreOptions struct {
 	// placeholder for future optional parameters
 }
-
-// ReplicasClientBeginCreateOptions contains the optional parameters for the ReplicasClient.BeginCreate method.
-type ReplicasClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ReplicasClientBeginDeleteOptions contains the optional parameters for the ReplicasClient.BeginDelete method.
-type ReplicasClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ReplicasClientGetOptions contains the optional parameters for the ReplicasClient.Get method.
-type ReplicasClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ReplicasClientListByConfigurationStoreOptions contains the optional parameters for the ReplicasClient.NewListByConfigurationStorePager
-// method.
-type ReplicasClientListByConfigurationStoreOptions struct {
-	// A skip token is used to continue retrieving items after an operation returns a partial result. If a previous response contains
-	// a nextLink element, the value of the nextLink element will include a
-	// skipToken parameter that specifies a starting point to use for subsequent calls.
-	SkipToken *string
-}

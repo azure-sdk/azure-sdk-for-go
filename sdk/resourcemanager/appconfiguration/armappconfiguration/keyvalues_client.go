@@ -46,7 +46,7 @@ func NewKeyValuesClient(subscriptionID string, credential azcore.TokenCredential
 // CreateOrUpdate - Creates a key-value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2022-05-01
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - keyValueName - Identifier of key and label combination. Key and label are joined by $ character. Label is optional.
@@ -98,7 +98,7 @@ func (client *KeyValuesClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.KeyValueParameters != nil {
@@ -122,7 +122,7 @@ func (client *KeyValuesClient) createOrUpdateHandleResponse(resp *http.Response)
 // BeginDelete - Deletes a key-value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2022-05-01
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - keyValueName - Identifier of key and label combination. Key and label are joined by $ character. Label is optional.
@@ -147,7 +147,7 @@ func (client *KeyValuesClient) BeginDelete(ctx context.Context, resourceGroupNam
 // Delete - Deletes a key-value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2022-05-01
 func (client *KeyValuesClient) deleteOperation(ctx context.Context, resourceGroupName string, configStoreName string, keyValueName string, options *KeyValuesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "KeyValuesClient.BeginDelete"
@@ -193,7 +193,7 @@ func (client *KeyValuesClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -202,7 +202,7 @@ func (client *KeyValuesClient) deleteCreateRequest(ctx context.Context, resource
 // Get - Gets the properties of the specified key-value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2022-05-01
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - keyValueName - Identifier of key and label combination. Key and label are joined by $ character. Label is optional.
@@ -253,7 +253,7 @@ func (client *KeyValuesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

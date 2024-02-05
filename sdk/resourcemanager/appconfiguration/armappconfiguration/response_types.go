@@ -144,26 +144,3 @@ type PrivateLinkResourcesClientListByConfigurationStoreResponse struct {
 	// A list of private link resources.
 	PrivateLinkResourceListResult
 }
-
-// ReplicasClientCreateResponse contains the response from method ReplicasClient.BeginCreate.
-type ReplicasClientCreateResponse struct {
-	// The replica resource.
-	Replica
-}
-
-// ReplicasClientDeleteResponse contains the response from method ReplicasClient.BeginDelete.
-type ReplicasClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ReplicasClientGetResponse contains the response from method ReplicasClient.Get.
-type ReplicasClientGetResponse struct {
-	// The replica resource.
-	Replica
-}
-
-// ReplicasClientListByConfigurationStoreResponse contains the response from method ReplicasClient.NewListByConfigurationStorePager.
-type ReplicasClientListByConfigurationStoreResponse struct {
-	// The result of a request to list replicas.
-	ReplicaListResult
-}

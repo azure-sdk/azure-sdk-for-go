@@ -1,5 +1,20 @@
 # Release History
 
+## 3.0.0 (2024-02-05)
+### Breaking Changes
+
+- Enum `ReplicaProvisioningState` has been removed
+- Function `*ClientFactory.NewReplicasClient` has been removed
+- Function `NewReplicasClient` has been removed
+- Function `*ReplicasClient.BeginCreate` has been removed
+- Function `*ReplicasClient.BeginDelete` has been removed
+- Function `*ReplicasClient.Get` has been removed
+- Function `*ReplicasClient.NewListByConfigurationStorePager` has been removed
+- Struct `Replica` has been removed
+- Struct `ReplicaListResult` has been removed
+- Struct `ReplicaProperties` has been removed
+
+
 ## 2.1.0 (2023-11-24)
 ### Features Added
 

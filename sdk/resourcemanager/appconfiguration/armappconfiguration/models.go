@@ -514,45 +514,6 @@ type RegenerateKeyParameters struct {
 	ID *string
 }
 
-// Replica - The replica resource.
-type Replica struct {
-	// The location of the replica.
-	Location *string
-
-	// READ-ONLY; The resource ID.
-	ID *string
-
-	// READ-ONLY; The name of the replica.
-	Name *string
-
-	// READ-ONLY; All replica properties.
-	Properties *ReplicaProperties
-
-	// READ-ONLY; Resource system metadata.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource.
-	Type *string
-}
-
-// ReplicaListResult - The result of a request to list replicas.
-type ReplicaListResult struct {
-	// The URI that can be used to request the next set of paged results.
-	NextLink *string
-
-	// The collection value.
-	Value []*Replica
-}
-
-// ReplicaProperties - All replica properties.
-type ReplicaProperties struct {
-	// READ-ONLY; The URI of the replica where the replica API will be available.
-	Endpoint *string
-
-	// READ-ONLY; The provisioning state of the replica.
-	ProvisioningState *ReplicaProvisioningState
-}
-
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
