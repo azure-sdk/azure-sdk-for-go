@@ -10,7 +10,7 @@ package armredisenterprise
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redisenterprise/armredisenterprise"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessKeyType - Which access key to regenerate.
@@ -75,6 +75,22 @@ func PossibleClusteringPolicyValues() []ClusteringPolicy {
 	}
 }
 
+// CmkIdentityType - Only userAssignedIdentity is supported in this API version; other types may be supported in the future
+type CmkIdentityType string
+
+const (
+	CmkIdentityTypeSystemAssignedIdentity CmkIdentityType = "systemAssignedIdentity"
+	CmkIdentityTypeUserAssignedIdentity   CmkIdentityType = "userAssignedIdentity"
+)
+
+// PossibleCmkIdentityTypeValues returns the possible values for the CmkIdentityType const type.
+func PossibleCmkIdentityTypeValues() []CmkIdentityType {
+	return []CmkIdentityType{
+		CmkIdentityTypeSystemAssignedIdentity,
+		CmkIdentityTypeUserAssignedIdentity,
+	}
+}
+
 // EvictionPolicy - Redis eviction policy - default is VolatileLRU
 type EvictionPolicy string
 
@@ -122,6 +138,26 @@ func PossibleLinkStateValues() []LinkState {
 		LinkStateLinking,
 		LinkStateUnlinkFailed,
 		LinkStateUnlinking,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned, UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
 	}
 }
 
@@ -254,6 +290,8 @@ const (
 	ResourceStateEnableFailed  ResourceState = "EnableFailed"
 	ResourceStateEnabling      ResourceState = "Enabling"
 	ResourceStateRunning       ResourceState = "Running"
+	ResourceStateScaling       ResourceState = "Scaling"
+	ResourceStateScalingFailed ResourceState = "ScalingFailed"
 	ResourceStateUpdateFailed  ResourceState = "UpdateFailed"
 	ResourceStateUpdating      ResourceState = "Updating"
 )
@@ -271,6 +309,8 @@ func PossibleResourceStateValues() []ResourceState {
 		ResourceStateEnableFailed,
 		ResourceStateEnabling,
 		ResourceStateRunning,
+		ResourceStateScaling,
+		ResourceStateScalingFailed,
 		ResourceStateUpdateFailed,
 		ResourceStateUpdating,
 	}
@@ -283,6 +323,7 @@ const (
 	SKUNameEnterpriseE10        SKUName = "Enterprise_E10"
 	SKUNameEnterpriseE100       SKUName = "Enterprise_E100"
 	SKUNameEnterpriseE20        SKUName = "Enterprise_E20"
+	SKUNameEnterpriseE5         SKUName = "Enterprise_E5"
 	SKUNameEnterpriseE50        SKUName = "Enterprise_E50"
 	SKUNameEnterpriseFlashF1500 SKUName = "EnterpriseFlash_F1500"
 	SKUNameEnterpriseFlashF300  SKUName = "EnterpriseFlash_F300"
@@ -295,6 +336,7 @@ func PossibleSKUNameValues() []SKUName {
 		SKUNameEnterpriseE10,
 		SKUNameEnterpriseE100,
 		SKUNameEnterpriseE20,
+		SKUNameEnterpriseE5,
 		SKUNameEnterpriseE50,
 		SKUNameEnterpriseFlashF1500,
 		SKUNameEnterpriseFlashF300,
