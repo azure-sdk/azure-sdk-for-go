@@ -288,6 +288,12 @@ type PrivateEndpointConnectionsClientListResponse struct {
 	PrivateEndpointConnectionListResult
 }
 
+// RegistriesClientCheckCacheRuleArtifactSyncEstimateResponse contains the response from method RegistriesClient.CheckCacheRuleArtifactSyncEstimate.
+type RegistriesClientCheckCacheRuleArtifactSyncEstimateResponse struct {
+	// The result of a request to check the cache rule artifact sync estimate
+	CacheRuleArtifactSyncEstimateResult
+}
+
 // RegistriesClientCheckNameAvailabilityResponse contains the response from method RegistriesClient.CheckNameAvailability.
 type RegistriesClientCheckNameAvailabilityResponse struct {
 	// The result of a request to check the availability of a container registry name.

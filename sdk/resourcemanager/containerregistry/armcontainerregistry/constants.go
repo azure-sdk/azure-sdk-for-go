@@ -10,7 +10,7 @@ package armcontainerregistry
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerregistry/armcontainerregistry"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // Action - The action of IP ACL rule.
@@ -78,6 +78,36 @@ func PossibleArchitectureValues() []Architecture {
 		ArchitectureArm64,
 		ArchitectureThreeHundredEightySix,
 		ArchitectureX86,
+	}
+}
+
+// ArtifactSyncScopeFilterType - The language type of the scope filter.
+type ArtifactSyncScopeFilterType string
+
+const (
+	ArtifactSyncScopeFilterTypeKQL ArtifactSyncScopeFilterType = "KQL"
+)
+
+// PossibleArtifactSyncScopeFilterTypeValues returns the possible values for the ArtifactSyncScopeFilterType const type.
+func PossibleArtifactSyncScopeFilterTypeValues() []ArtifactSyncScopeFilterType {
+	return []ArtifactSyncScopeFilterType{
+		ArtifactSyncScopeFilterTypeKQL,
+	}
+}
+
+// ArtifactSyncStatus - The status of artifact sync.
+type ArtifactSyncStatus string
+
+const (
+	ArtifactSyncStatusActive   ArtifactSyncStatus = "Active"
+	ArtifactSyncStatusInactive ArtifactSyncStatus = "Inactive"
+)
+
+// PossibleArtifactSyncStatusValues returns the possible values for the ArtifactSyncStatus const type.
+func PossibleArtifactSyncStatusValues() []ArtifactSyncStatus {
+	return []ArtifactSyncStatus{
+		ArtifactSyncStatusActive,
+		ArtifactSyncStatusInactive,
 	}
 }
 
@@ -438,7 +468,7 @@ func PossiblePackageSourceTypeValues() []PackageSourceType {
 	}
 }
 
-// PasswordName - The password name.
+// PasswordName - Specifies name of the password which should be regenerated -- password or password2.
 type PasswordName string
 
 const (
@@ -825,7 +855,7 @@ func PossibleTokenCertificateNameValues() []TokenCertificateName {
 	}
 }
 
-// TokenPasswordName - The password name "password1" or "password2"
+// TokenPasswordName - Specifies name of the password which should be regenerated if any -- password1 or password2.
 type TokenPasswordName string
 
 const (

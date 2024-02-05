@@ -321,6 +321,12 @@ type RegistriesClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// RegistriesClientCheckCacheRuleArtifactSyncEstimateOptions contains the optional parameters for the RegistriesClient.CheckCacheRuleArtifactSyncEstimate
+// method.
+type RegistriesClientCheckCacheRuleArtifactSyncEstimateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // RegistriesClientCheckNameAvailabilityOptions contains the optional parameters for the RegistriesClient.CheckNameAvailability
 // method.
 type RegistriesClientCheckNameAvailabilityOptions struct {

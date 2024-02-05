@@ -24,6 +24,10 @@ import (
 
 // RegistriesServer is a fake server for instances of the armcontainerregistry.RegistriesClient type.
 type RegistriesServer struct {
+	// CheckCacheRuleArtifactSyncEstimate is the fake for method RegistriesClient.CheckCacheRuleArtifactSyncEstimate
+	// HTTP status codes to indicate success: http.StatusOK
+	CheckCacheRuleArtifactSyncEstimate func(ctx context.Context, resourceGroupName string, registryName string, cacheRuleCreateParameters armcontainerregistry.CacheRule, options *armcontainerregistry.RegistriesClientCheckCacheRuleArtifactSyncEstimateOptions) (resp azfake.Responder[armcontainerregistry.RegistriesClientCheckCacheRuleArtifactSyncEstimateResponse], errResp azfake.ErrorResponder)
+
 	// CheckNameAvailability is the fake for method RegistriesClient.CheckNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
 	CheckNameAvailability func(ctx context.Context, registryNameCheckRequest armcontainerregistry.RegistryNameCheckRequest, options *armcontainerregistry.RegistriesClientCheckNameAvailabilityOptions) (resp azfake.Responder[armcontainerregistry.RegistriesClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
@@ -134,6 +138,8 @@ func (r *RegistriesServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
+	case "RegistriesClient.CheckCacheRuleArtifactSyncEstimate":
+		resp, err = r.dispatchCheckCacheRuleArtifactSyncEstimate(req)
 	case "RegistriesClient.CheckNameAvailability":
 		resp, err = r.dispatchCheckNameAvailability(req)
 	case "RegistriesClient.BeginCreate":
@@ -174,6 +180,43 @@ func (r *RegistriesServerTransport) Do(req *http.Request) (*http.Response, error
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (r *RegistriesServerTransport) dispatchCheckCacheRuleArtifactSyncEstimate(req *http.Request) (*http.Response, error) {
+	if r.srv.CheckCacheRuleArtifactSyncEstimate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CheckCacheRuleArtifactSyncEstimate not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ContainerRegistry/registries/(?P<registryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/checkCacheRuleArtifactSyncEstimate`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armcontainerregistry.CacheRule](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	registryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("registryName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := r.srv.CheckCacheRuleArtifactSyncEstimate(req.Context(), resourceGroupNameParam, registryNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CacheRuleArtifactSyncEstimateResult, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

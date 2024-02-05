@@ -1,5 +1,19 @@
 # Release History
 
+## 1.3.0-beta.2 (2024-02-05)
+### Features Added
+
+- New enum type `ArtifactSyncScopeFilterType` with values `ArtifactSyncScopeFilterTypeKQL`
+- New enum type `ArtifactSyncStatus` with values `ArtifactSyncStatusActive`, `ArtifactSyncStatusInactive`
+- New function `*RegistriesClient.CheckCacheRuleArtifactSyncEstimate(context.Context, string, string, CacheRule, *RegistriesClientCheckCacheRuleArtifactSyncEstimateOptions) (RegistriesClientCheckCacheRuleArtifactSyncEstimateResponse, error)`
+- New struct `ArtifactSyncEstimateResult`
+- New struct `ArtifactSyncScopeFilterProperties`
+- New struct `CacheRuleArtifactSyncEstimateResult`
+- New field `ArtifactSyncScopeFilterProperties`, `ArtifactSyncStatus` in struct `CacheRuleProperties`
+- New field `ArtifactSyncScopeFilterProperties`, `ArtifactSyncStatus` in struct `CacheRuleUpdateProperties`
+- New field `CacheRuleResourceID` in struct `ImportSource`
+
+
 ## 1.3.0-beta.1 (2023-11-24)
 ### Features Added
 

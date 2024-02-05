@@ -648,6 +648,64 @@ func (a *Argument) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ArtifactSyncEstimateResult.
+func (a ArtifactSyncEstimateResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "name", a.Name)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArtifactSyncEstimateResult.
+func (a *ArtifactSyncEstimateResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "name":
+			err = unpopulate(val, "Name", &a.Name)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ArtifactSyncScopeFilterProperties.
+func (a ArtifactSyncScopeFilterProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "query", a.Query)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArtifactSyncScopeFilterProperties.
+func (a *ArtifactSyncScopeFilterProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "query":
+			err = unpopulate(val, "Query", &a.Query)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AuthCredential.
 func (a AuthCredential) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -972,9 +1030,50 @@ func (c *CacheRule) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CacheRuleArtifactSyncEstimateResult.
+func (c CacheRuleArtifactSyncEstimateResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "filteredCount", c.FilteredCount)
+	populate(objectMap, "name", c.Name)
+	populate(objectMap, "results", c.Results)
+	populate(objectMap, "totalCount", c.TotalCount)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CacheRuleArtifactSyncEstimateResult.
+func (c *CacheRuleArtifactSyncEstimateResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "filteredCount":
+			err = unpopulate(val, "FilteredCount", &c.FilteredCount)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &c.Name)
+			delete(rawMsg, key)
+		case "results":
+			err = unpopulate(val, "Results", &c.Results)
+			delete(rawMsg, key)
+		case "totalCount":
+			err = unpopulate(val, "TotalCount", &c.TotalCount)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CacheRuleProperties.
 func (c CacheRuleProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "artifactSyncScopeFilterProperties", c.ArtifactSyncScopeFilterProperties)
+	populate(objectMap, "artifactSyncStatus", c.ArtifactSyncStatus)
 	populateDateTimeRFC3339(objectMap, "creationDate", c.CreationDate)
 	populate(objectMap, "credentialSetResourceId", c.CredentialSetResourceID)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
@@ -992,6 +1091,12 @@ func (c *CacheRuleProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "artifactSyncScopeFilterProperties":
+			err = unpopulate(val, "ArtifactSyncScopeFilterProperties", &c.ArtifactSyncScopeFilterProperties)
+			delete(rawMsg, key)
+		case "artifactSyncStatus":
+			err = unpopulate(val, "ArtifactSyncStatus", &c.ArtifactSyncStatus)
+			delete(rawMsg, key)
 		case "creationDate":
 			err = unpopulateDateTimeRFC3339(val, "CreationDate", &c.CreationDate)
 			delete(rawMsg, key)
@@ -1045,6 +1150,8 @@ func (c *CacheRuleUpdateParameters) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CacheRuleUpdateProperties.
 func (c CacheRuleUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "artifactSyncScopeFilterProperties", c.ArtifactSyncScopeFilterProperties)
+	populate(objectMap, "artifactSyncStatus", c.ArtifactSyncStatus)
 	populate(objectMap, "credentialSetResourceId", c.CredentialSetResourceID)
 	return json.Marshal(objectMap)
 }
@@ -1058,6 +1165,12 @@ func (c *CacheRuleUpdateProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "artifactSyncScopeFilterProperties":
+			err = unpopulate(val, "ArtifactSyncScopeFilterProperties", &c.ArtifactSyncScopeFilterProperties)
+			delete(rawMsg, key)
+		case "artifactSyncStatus":
+			err = unpopulate(val, "ArtifactSyncStatus", &c.ArtifactSyncStatus)
+			delete(rawMsg, key)
 		case "credentialSetResourceId":
 			err = unpopulate(val, "CredentialSetResourceID", &c.CredentialSetResourceID)
 			delete(rawMsg, key)
@@ -3009,6 +3122,7 @@ func (i *ImportPipelineSourceProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ImportSource.
 func (i ImportSource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "cacheRuleResourceId", i.CacheRuleResourceID)
 	populate(objectMap, "credentials", i.Credentials)
 	populate(objectMap, "registryUri", i.RegistryURI)
 	populate(objectMap, "resourceId", i.ResourceID)
@@ -3025,6 +3139,9 @@ func (i *ImportSource) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "cacheRuleResourceId":
+			err = unpopulate(val, "CacheRuleResourceID", &i.CacheRuleResourceID)
+			delete(rawMsg, key)
 		case "credentials":
 			err = unpopulate(val, "Credentials", &i.Credentials)
 			delete(rawMsg, key)

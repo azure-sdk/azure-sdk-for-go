@@ -102,7 +102,7 @@ type AgentProperties struct {
 
 // Archive - An object that represents a archive for a container registry.
 type Archive struct {
-	// The properties of the archive.
+	// The properties of a archive.
 	Properties *ArchiveProperties
 
 	// READ-ONLY; The resource ID.
@@ -139,7 +139,7 @@ type ArchivePackageSourceProperties struct {
 
 // ArchiveProperties - The properties of a archive.
 type ArchiveProperties struct {
-	// The package source of the archive.
+	// The properties of the archive package source.
 	PackageSource *ArchivePackageSourceProperties
 
 	// The published version of the archive.
@@ -155,7 +155,7 @@ type ArchiveProperties struct {
 
 // ArchiveUpdateParameters - The parameters for updating a archive.
 type ArchiveUpdateParameters struct {
-	// The properties of the connected registry update parameters.
+	// The properties of a archive.
 	Properties *ArchiveUpdateProperties
 }
 
@@ -167,7 +167,7 @@ type ArchiveUpdateProperties struct {
 
 // ArchiveVersion - An object that represents an export pipeline for a container registry.
 type ArchiveVersion struct {
-	// The properties of the archive.
+	// The properties of an export pipeline.
 	Properties *ArchiveVersionProperties
 
 	// READ-ONLY; The resource ID.
@@ -214,8 +214,26 @@ type Argument struct {
 	IsSecret *bool
 }
 
+// ArtifactSyncEstimateResult - The result of processing the artifact sync query.
+type ArtifactSyncEstimateResult struct {
+	// The name of a result item.
+	Name *string
+}
+
+// ArtifactSyncScopeFilterProperties - The scope filter properties of artifact sync.
+type ArtifactSyncScopeFilterProperties struct {
+	// The query to process with the source repository contents.
+	Query *string
+
+	// The language type of the scope filter.
+	Type *ArtifactSyncScopeFilterType
+}
+
 // AuthCredential - Authentication credential stored for an upstream.
 type AuthCredential struct {
+	// The health of the auth credential.
+	CredentialHealth *CredentialHealth
+
 	// The name of the credential.
 	Name *CredentialName
 
@@ -224,9 +242,6 @@ type AuthCredential struct {
 
 	// KeyVault Secret URI for accessing the username.
 	UsernameSecretIdentifier *string
-
-	// READ-ONLY; This provides data pertaining to the health of the auth credential.
-	CredentialHealth *CredentialHealth
 }
 
 // AuthInfo - The authorization properties for accessing the source code repository.
@@ -327,7 +342,7 @@ type BaseImageTriggerUpdateParameters struct {
 
 // CacheRule - An object that represents a cache rule for a container registry.
 type CacheRule struct {
-	// The properties of the cache rule.
+	// The properties of a cache rule.
 	Properties *CacheRuleProperties
 
 	// READ-ONLY; The resource ID.
@@ -343,8 +358,29 @@ type CacheRule struct {
 	Type *string
 }
 
+// CacheRuleArtifactSyncEstimateResult - The result of a request to check the cache rule artifact sync estimate
+type CacheRuleArtifactSyncEstimateResult struct {
+	// The filtered count of results after processing the query.
+	FilteredCount *int32
+
+	// The name of the repository.
+	Name *string
+
+	// A sample of results processed by the query.
+	Results []*ArtifactSyncEstimateResult
+
+	// The total count of results belonging to the repository.
+	TotalCount *int32
+}
+
 // CacheRuleProperties - The properties of a cache rule.
 type CacheRuleProperties struct {
+	// The scope filter properties of artifact sync.
+	ArtifactSyncScopeFilterProperties *ArtifactSyncScopeFilterProperties
+
+	// The status of artifact sync.
+	ArtifactSyncStatus *ArtifactSyncStatus
+
 	// The ARM resource ID of the credential store which is associated with the cache rule.
 	CredentialSetResourceID *string
 
@@ -363,12 +399,18 @@ type CacheRuleProperties struct {
 
 // CacheRuleUpdateParameters - The parameters for updating a cache rule.
 type CacheRuleUpdateParameters struct {
-	// The properties of the cache rule update parameters.
+	// The parameters for updating cache rule properties.
 	Properties *CacheRuleUpdateProperties
 }
 
 // CacheRuleUpdateProperties - The parameters for updating cache rule properties.
 type CacheRuleUpdateProperties struct {
+	// The scope filter properties of artifact sync.
+	ArtifactSyncScopeFilterProperties *ArtifactSyncScopeFilterProperties
+
+	// The status of artifact sync.
+	ArtifactSyncStatus *ArtifactSyncStatus
+
 	// The ARM resource ID of the credential store which is associated with the Cache rule.
 	CredentialSetResourceID *string
 }
@@ -393,7 +435,7 @@ type CallbackConfig struct {
 
 // ConnectedRegistry - An object that represents a connected registry for a container registry.
 type ConnectedRegistry struct {
-	// The properties of the connected registry.
+	// The properties of a connected registry.
 	Properties *ConnectedRegistryProperties
 
 	// READ-ONLY; The resource ID.
@@ -424,7 +466,7 @@ type ConnectedRegistryProperties struct {
 	// REQUIRED; The mode of the connected registry resource that indicates the permissions of the registry.
 	Mode *ConnectedRegistryMode
 
-	// REQUIRED; The parent of the connected registry.
+	// REQUIRED; The properties of the connected registry parent.
 	Parent *ParentProperties
 
 	// The list of the ACR token resource IDs used to authenticate clients to the connected registry.
@@ -460,7 +502,7 @@ type ConnectedRegistryProperties struct {
 
 // ConnectedRegistryUpdateParameters - The parameters for updating a connected registry.
 type ConnectedRegistryUpdateParameters struct {
-	// The properties of the connected registry update parameters.
+	// The parameters for updating token properties.
 	Properties *ConnectedRegistryUpdateProperties
 }
 
@@ -475,7 +517,7 @@ type ConnectedRegistryUpdateProperties struct {
 	// The list of notifications subscription information for the connected registry.
 	NotificationsList []*string
 
-	// The sync properties of the connected registry with its parent.
+	// The parameters for updating the sync properties of the connected registry with its parent.
 	SyncProperties *SyncUpdateProperties
 }
 
@@ -493,10 +535,10 @@ type CredentialHealth struct {
 
 // CredentialSet - An object that represents a credential set resource for a container registry.
 type CredentialSet struct {
-	// Identities associated with the resource. This is used to access the KeyVault secrets.
+	// Managed identity for the resource.
 	Identity *IdentityProperties
 
-	// The properties of the credential set.
+	// The properties of a credential set resource.
 	Properties *CredentialSetProperties
 
 	// READ-ONLY; The resource ID.
@@ -539,10 +581,10 @@ type CredentialSetProperties struct {
 
 // CredentialSetUpdateParameters - The parameters for updating a credential set
 type CredentialSetUpdateParameters struct {
-	// Identities associated with the resource. This is used to access the KeyVault secrets.
+	// Managed identity for the resource.
 	Identity *IdentityProperties
 
-	// The properties of the credential set update parameters
+	// The parameters for updating credential set properties.
 	Properties *CredentialSetUpdateProperties
 }
 
@@ -836,7 +878,6 @@ func (e *EncodedTaskStepUpdateParameters) GetTaskStepUpdateParameters() *TaskSte
 }
 
 type EncryptionProperty struct {
-	// Key vault properties.
 	KeyVaultProperties *KeyVaultProperties
 
 	// Indicates whether or not the encryption is enabled for container registry.
@@ -933,13 +974,13 @@ type EventResponseMessage struct {
 
 // ExportPipeline - An object that represents an export pipeline for a container registry.
 type ExportPipeline struct {
-	// The identity of the export pipeline.
+	// Managed identity for the resource.
 	Identity *IdentityProperties
 
 	// The location of the export pipeline.
 	Location *string
 
-	// The properties of the export pipeline.
+	// The properties of an export pipeline.
 	Properties *ExportPipelineProperties
 
 	// READ-ONLY; The resource ID.
@@ -967,7 +1008,7 @@ type ExportPipelineListResult struct {
 
 // ExportPipelineProperties - The properties of an export pipeline.
 type ExportPipelineProperties struct {
-	// REQUIRED; The target properties of the export pipeline.
+	// REQUIRED; The properties of the export pipeline target.
 	Target *ExportPipelineTargetProperties
 
 	// The list of all options configured for the pipeline.
@@ -1187,7 +1228,7 @@ type ImageUpdateTrigger struct {
 }
 
 type ImportImageParameters struct {
-	// REQUIRED; The source of the image.
+	// REQUIRED
 	Source *ImportSource
 
 	// When Force, any existing target tags will be overwritten. When NoForce, any existing target tags will fail the operation
@@ -1204,13 +1245,13 @@ type ImportImageParameters struct {
 
 // ImportPipeline - An object that represents an import pipeline for a container registry.
 type ImportPipeline struct {
-	// The identity of the import pipeline.
+	// Managed identity for the resource.
 	Identity *IdentityProperties
 
 	// The location of the import pipeline.
 	Location *string
 
-	// The properties of the import pipeline.
+	// The properties of an import pipeline.
 	Properties *ImportPipelineProperties
 
 	// READ-ONLY; The resource ID.
@@ -1238,13 +1279,11 @@ type ImportPipelineListResult struct {
 
 // ImportPipelineProperties - The properties of an import pipeline.
 type ImportPipelineProperties struct {
-	// REQUIRED; The source properties of the import pipeline.
+	// REQUIRED; The properties of the import pipeline source.
 	Source *ImportPipelineSourceProperties
 
 	// The list of all options configured for the pipeline.
 	Options []*PipelineOptions
-
-	// The properties that describe the trigger of the import pipeline.
 	Trigger *PipelineTriggerProperties
 
 	// READ-ONLY; The provisioning state of the pipeline at the time the operation was called.
@@ -1271,8 +1310,9 @@ type ImportSource struct {
 	// manifest digest ('hello-world@sha256:abc123').
 	SourceImage *string
 
-	// Credentials used when importing from a registry uri.
-	Credentials *ImportSourceCredentials
+	// The resource identifier of the source Cache Rule.
+	CacheRuleResourceID *string
+	Credentials         *ImportSourceCredentials
 
 	// The address of the source registry (e.g. 'mcr.microsoft.com').
 	RegistryURI *string
@@ -1335,7 +1375,7 @@ type NetworkRuleSet struct {
 
 // OperationDefinition - The definition of a container registry operation.
 type OperationDefinition struct {
-	// The display information for the container registry operation.
+	// The display information for a container registry operation.
 	Display *OperationDisplayDefinition
 
 	// This property indicates if the operation is an action or a data action ref: https://docs.microsoft.com/en-us/azure/role-based-access-control/role-definitions#management-and-data-operations
@@ -1347,7 +1387,7 @@ type OperationDefinition struct {
 	// The origin information of the container registry operation.
 	Origin *string
 
-	// The properties information for the container registry operation.
+	// The definition of Azure Monitoring properties.
 	Properties *OperationPropertiesDefinition
 }
 
@@ -1411,7 +1451,7 @@ type OperationMetricSpecificationDefinition struct {
 
 // OperationPropertiesDefinition - The definition of Azure Monitoring properties.
 type OperationPropertiesDefinition struct {
-	// The definition of Azure Monitoring service.
+	// The definition of Azure Monitoring list.
 	ServiceSpecification *OperationServiceSpecificationDefinition
 }
 
@@ -1486,13 +1526,13 @@ type PipelineRunProperties struct {
 	// How the pipeline run should be forced to recreate even if the pipeline run configuration has not changed.
 	ForceUpdateTag *string
 
-	// The request parameters for a pipeline run.
+	// The request properties provided for a pipeline run.
 	Request *PipelineRunRequest
 
 	// READ-ONLY; The provisioning state of a pipeline run.
 	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; The response of a pipeline run.
+	// READ-ONLY; The response properties returned for a pipeline run.
 	Response *PipelineRunResponse
 }
 
@@ -1508,12 +1548,8 @@ type PipelineRunRequest struct {
 
 	// The resource ID of the pipeline to run.
 	PipelineResourceID *string
-
-	// The source properties of the pipeline run.
-	Source *PipelineRunSourceProperties
-
-	// The target properties of the pipeline run.
-	Target *PipelineRunTargetProperties
+	Source             *PipelineRunSourceProperties
+	Target             *PipelineRunTargetProperties
 }
 
 // PipelineRunResponse - The response properties returned for a pipeline run.
@@ -1529,11 +1565,9 @@ type PipelineRunResponse struct {
 
 	// The detailed error message for the pipeline run in the case of failure.
 	PipelineRunErrorMessage *string
+	Progress                *ProgressProperties
 
-	// The current progress of the copy operation.
-	Progress *ProgressProperties
-
-	// The source of the pipeline run.
+	// The properties of the import pipeline source.
 	Source *ImportPipelineSourceProperties
 
 	// The time the pipeline run started.
@@ -1542,10 +1576,8 @@ type PipelineRunResponse struct {
 	// The current status of the pipeline run.
 	Status *string
 
-	// The target of the pipeline run.
-	Target *ExportPipelineTargetProperties
-
-	// The trigger that caused the pipeline run.
+	// The properties of the export pipeline target.
+	Target  *ExportPipelineTargetProperties
 	Trigger *PipelineTriggerDescriptor
 }
 
@@ -1576,12 +1608,10 @@ type PipelineSourceTriggerProperties struct {
 }
 
 type PipelineTriggerDescriptor struct {
-	// The source trigger that caused the pipeline run.
 	SourceTrigger *PipelineSourceTriggerDescriptor
 }
 
 type PipelineTriggerProperties struct {
-	// The source trigger properties of the pipeline.
 	SourceTrigger *PipelineSourceTriggerProperties
 }
 
@@ -1623,7 +1653,7 @@ type Policies struct {
 	// The retention policy for a container registry.
 	RetentionPolicy *RetentionPolicy
 
-	// The soft delete policy for a container registry.
+	// The soft delete policy for a container registry
 	SoftDeletePolicy *SoftDeletePolicy
 
 	// The content trust policy for a container registry.
@@ -1666,10 +1696,10 @@ type PrivateEndpointConnectionListResult struct {
 
 // PrivateEndpointConnectionProperties - The properties of a private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
-	// The resource of private endpoint.
+	// The Private Endpoint resource.
 	PrivateEndpoint *PrivateEndpoint
 
-	// A collection of information about the state of the connection between service consumer and provider.
+	// The state of a private link service connection.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
 	// READ-ONLY; The provisioning state of private endpoint connection resource.
@@ -1684,7 +1714,7 @@ type PrivateLinkResource struct {
 	// The name of the resource.
 	Name *string
 
-	// A resource that supports private link capabilities.
+	// The properties of a private link resource.
 	Properties *PrivateLinkResourceProperties
 
 	// READ-ONLY; The resource type is private link resource.
@@ -1747,13 +1777,13 @@ type Registry struct {
 	// REQUIRED; The location of the resource. This cannot be changed after the resource is created.
 	Location *string
 
-	// REQUIRED; The SKU of the container registry.
+	// REQUIRED; The SKU of a container registry.
 	SKU *SKU
 
-	// The identity of the container registry.
+	// Managed identity for the resource.
 	Identity *IdentityProperties
 
-	// The properties of the container registry.
+	// The properties of a container registry.
 	Properties *RegistryProperties
 
 	// The tags of the resource.
@@ -1832,9 +1862,7 @@ type RegistryProperties struct {
 
 	// Enable a single data endpoint per region for serving data.
 	DataEndpointEnabled *bool
-
-	// The encryption settings of container registry.
-	Encryption *EncryptionProperty
+	Encryption          *EncryptionProperty
 
 	// Determines whether registry artifacts are indexed for metadata search.
 	MetadataSearch *MetadataSearch
@@ -1869,7 +1897,7 @@ type RegistryProperties struct {
 	// READ-ONLY; The provisioning state of the container registry at the time the operation was called.
 	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; The status of the container registry at the time the operation was called.
+	// READ-ONLY; The status of an Azure resource at the time the operation was called.
 	Status *Status
 }
 
@@ -1883,9 +1911,7 @@ type RegistryPropertiesUpdateParameters struct {
 
 	// Enable a single data endpoint per region for serving data.
 	DataEndpointEnabled *bool
-
-	// The encryption settings of container registry.
-	Encryption *EncryptionProperty
+	Encryption          *EncryptionProperty
 
 	// Determines whether registry artifacts are indexed for metadata search.
 	MetadataSearch *MetadataSearch
@@ -1905,13 +1931,13 @@ type RegistryPropertiesUpdateParameters struct {
 
 // RegistryUpdateParameters - The parameters for updating a container registry.
 type RegistryUpdateParameters struct {
-	// The identity of the container registry.
+	// Managed identity for the resource.
 	Identity *IdentityProperties
 
-	// The properties that the container registry will be updated with.
+	// The parameters for updating the properties of a container registry.
 	Properties *RegistryPropertiesUpdateParameters
 
-	// The SKU of the container registry.
+	// The SKU of a container registry.
 	SKU *SKU
 
 	// The tags for the container registry.
@@ -1944,7 +1970,7 @@ type Replication struct {
 	// REQUIRED; The location of the resource. This cannot be changed after the resource is created.
 	Location *string
 
-	// The properties of the replication.
+	// The properties of a replication.
 	Properties *ReplicationProperties
 
 	// The tags of the resource.
@@ -1986,13 +2012,12 @@ type ReplicationProperties struct {
 	// READ-ONLY; The provisioning state of the replication at the time the operation was called.
 	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; The status of the replication at the time the operation was called.
+	// READ-ONLY; The status of an Azure resource at the time the operation was called.
 	Status *Status
 }
 
 // ReplicationUpdateParameters - The parameters for updating a replication.
 type ReplicationUpdateParameters struct {
-	// The parameters for updating a replication's properties
 	Properties *ReplicationUpdateParametersProperties
 
 	// The tags for the replication.
@@ -2208,7 +2233,7 @@ type SKU struct {
 
 // ScopeMap - An object that represents a scope map for a container registry.
 type ScopeMap struct {
-	// The properties of the scope map.
+	// The properties of a scope map.
 	Properties *ScopeMapProperties
 
 	// READ-ONLY; The resource ID.
@@ -2512,7 +2537,7 @@ type TLSCertificateProperties struct {
 
 // TLSProperties - The TLS properties of the connected registry login server.
 type TLSProperties struct {
-	// READ-ONLY; The certificate used to configure HTTPS for the login server.
+	// READ-ONLY; The TLS certificate properties of the connected registry login server.
 	Certificate *TLSCertificateProperties
 
 	// READ-ONLY; Indicates whether HTTPS is enabled for the login server.
@@ -2838,7 +2863,7 @@ type TimerTriggerUpdateParameters struct {
 
 // Token - An object that represents a token for a container registry.
 type Token struct {
-	// The properties of the token.
+	// The properties of a token.
 	Properties *TokenProperties
 
 	// READ-ONLY; The resource ID.
@@ -2869,8 +2894,11 @@ type TokenCertificate struct {
 
 // TokenCredentialsProperties - The properties of the credentials that can be used for authenticating the token.
 type TokenCredentialsProperties struct {
+	// The list of certificates configured with the token.
 	Certificates []*TokenCertificate
-	Passwords    []*TokenPassword
+
+	// The list of passwords generated for the token.
+	Passwords []*TokenPassword
 }
 
 // TokenListResult - The result of a request to list tokens for a container registry.
@@ -2899,7 +2927,7 @@ type TokenPassword struct {
 
 // TokenProperties - The properties of a token.
 type TokenProperties struct {
-	// The credentials that can be used for authenticating the token.
+	// The properties of the credentials that can be used for authenticating the token.
 	Credentials *TokenCredentialsProperties
 
 	// The resource ID of the scope map to which the token will be associated with.
@@ -2917,13 +2945,13 @@ type TokenProperties struct {
 
 // TokenUpdateParameters - The parameters for updating a token.
 type TokenUpdateParameters struct {
-	// The properties of the token update parameters.
+	// The parameters for updating token properties.
 	Properties *TokenUpdateProperties
 }
 
 // TokenUpdateProperties - The parameters for updating token properties.
 type TokenUpdateProperties struct {
-	// The credentials that can be used for authenticating the token.
+	// The properties of the credentials that can be used for authenticating the token.
 	Credentials *TokenCredentialsProperties
 
 	// The resource ID of the scope map to which the token will be associated with.
@@ -2979,7 +3007,7 @@ type Webhook struct {
 	// REQUIRED; The location of the resource. This cannot be changed after the resource is created.
 	Location *string
 
-	// The properties of the webhook.
+	// The properties of a webhook.
 	Properties *WebhookProperties
 
 	// The tags of the resource.
@@ -3003,7 +3031,7 @@ type WebhookCreateParameters struct {
 	// REQUIRED; The location of the webhook. This cannot be changed after the resource is created.
 	Location *string
 
-	// The properties that the webhook will be created with.
+	// The parameters for creating the properties of a webhook.
 	Properties *WebhookPropertiesCreateParameters
 
 	// The tags for the webhook.
@@ -3079,7 +3107,7 @@ type WebhookPropertiesUpdateParameters struct {
 
 // WebhookUpdateParameters - The parameters for updating a webhook.
 type WebhookUpdateParameters struct {
-	// The properties that the webhook will be updated with.
+	// The parameters for updating the properties of a webhook.
 	Properties *WebhookPropertiesUpdateParameters
 
 	// The tags for the webhook.
