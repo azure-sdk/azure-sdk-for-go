@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.5.0"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -117,8 +117,12 @@ func PossibleAvailabilitySetSKUTypesValues() []AvailabilitySetSKUTypes {
 	}
 }
 
-// CachingTypes - Specifies the caching requirements. Possible values are: None, ReadOnly, ReadWrite. The default values are:
-// None for Standard storage. ReadOnly for Premium storage
+// CachingTypes - Specifies the caching requirements.
+// Possible values are:
+// None
+// ReadOnly
+// ReadWrite
+// Default: None for Standard storage. ReadOnly for Premium storage
 type CachingTypes string
 
 const (
@@ -214,7 +218,6 @@ const (
 	ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk ConfidentialVMEncryptionType = "EncryptedVMGuestStateOnlyWithPmk"
 	ConfidentialVMEncryptionTypeEncryptedWithCmk                 ConfidentialVMEncryptionType = "EncryptedWithCmk"
 	ConfidentialVMEncryptionTypeEncryptedWithPmk                 ConfidentialVMEncryptionType = "EncryptedWithPmk"
-	ConfidentialVMEncryptionTypeNonPersistedTPM                  ConfidentialVMEncryptionType = "NonPersistedTPM"
 )
 
 // PossibleConfidentialVMEncryptionTypeValues returns the possible values for the ConfidentialVMEncryptionType const type.
@@ -223,7 +226,6 @@ func PossibleConfidentialVMEncryptionTypeValues() []ConfidentialVMEncryptionType
 		ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk,
 		ConfidentialVMEncryptionTypeEncryptedWithCmk,
 		ConfidentialVMEncryptionTypeEncryptedWithPmk,
-		ConfidentialVMEncryptionTypeNonPersistedTPM,
 	}
 }
 
@@ -284,7 +286,12 @@ func PossibleDataAccessAuthModeValues() []DataAccessAuthMode {
 }
 
 // DedicatedHostLicenseTypes - Specifies the software license type that will be applied to the VMs deployed on the dedicated
-// host. Possible values are: None, WindowsServerHybrid, WindowsServerPerpetual. The default value is: None.
+// host.
+// Possible values are:
+// None
+// WindowsServerHybrid
+// WindowsServerPerpetual
+// Default: None
 type DedicatedHostLicenseTypes string
 
 const (
@@ -357,9 +364,8 @@ func PossibleDiffDiskPlacementValues() []DiffDiskPlacement {
 // is only supported for virtual machines whose operating system disk and VM sku supports Generation 2
 // (https://docs.microsoft.com/en-us/azure/virtual-machines/generation-2), please check the HyperVGenerations capability returned
 // as part of VM sku capabilities in the response of Microsoft.Compute SKUs
-// api for the region contains V2 (https://docs.microsoft.com/rest/api/compute/resourceskus/list). For more information about
-// Disk Controller Types supported please refer to
-// https://aka.ms/azure-diskcontrollertypes.
+// api for the region contains V2 (https://docs.microsoft.com/rest/api/compute/resourceskus/list) .
+// For more information about Disk Controller Types supported please refer to https://aka.ms/azure-diskcontrollertypes.
 type DiskControllerTypes string
 
 const (
@@ -383,8 +389,6 @@ const (
 	DiskCreateOptionAttach DiskCreateOption = "Attach"
 	// DiskCreateOptionCopy - Create a new disk or snapshot by copying from a disk or snapshot specified by the given sourceResourceId.
 	DiskCreateOptionCopy DiskCreateOption = "Copy"
-	// DiskCreateOptionCopyFromSanSnapshot - Create a new disk by exporting from elastic san volume snapshot
-	DiskCreateOptionCopyFromSanSnapshot DiskCreateOption = "CopyFromSanSnapshot"
 	// DiskCreateOptionCopyStart - Create a new disk by using a deep copy process, where the resource creation is considered complete
 	// only after all data has been copied from the source.
 	DiskCreateOptionCopyStart DiskCreateOption = "CopyStart"
@@ -413,7 +417,6 @@ func PossibleDiskCreateOptionValues() []DiskCreateOption {
 	return []DiskCreateOption{
 		DiskCreateOptionAttach,
 		DiskCreateOptionCopy,
-		DiskCreateOptionCopyFromSanSnapshot,
 		DiskCreateOptionCopyStart,
 		DiskCreateOptionEmpty,
 		DiskCreateOptionFromImage,
@@ -425,11 +428,12 @@ func PossibleDiskCreateOptionValues() []DiskCreateOption {
 	}
 }
 
-// DiskCreateOptionTypes - Specifies how the virtual machine should be created. Possible values are: Attach. This value is
-// used when you are using a specialized disk to create the virtual machine. FromImage. This value is used
-// when you are using an image to create the virtual machine. If you are using a platform image, you also use the imageReference
-// element described above. If you are using a marketplace image, you also
-// use the plan element previously described.
+// DiskCreateOptionTypes - Specifies how the virtual machine should be created.
+// Possible values are:
+// Attach \u2013 This value is used when you are using a specialized disk to create the virtual machine.
+// FromImage \u2013 This value is used when you are using an image to create the virtual machine. If you are using a platform
+// image, you also use the imageReference element described above. If you are
+// using a marketplace image, you also use the plan element previously described.
 type DiskCreateOptionTypes string
 
 const (
@@ -447,10 +451,11 @@ func PossibleDiskCreateOptionTypesValues() []DiskCreateOptionTypes {
 	}
 }
 
-// DiskDeleteOptionTypes - Specifies the behavior of the managed disk when the VM gets deleted, for example whether the managed
-// disk is deleted or detached. Supported values are: Delete. If this value is used, the managed disk
-// is deleted when VM gets deleted. Detach. If this value is used, the managed disk is retained after VM gets deleted. Minimum
-// api-version: 2021-03-01.
+// DiskDeleteOptionTypes - Specifies the behavior of the managed disk when the VM gets deleted i.e whether the managed disk
+// is deleted or detached. Supported values:
+// Delete If this value is used, the managed disk is deleted when VM gets deleted.
+// Detach If this value is used, the managed disk is retained after VM gets deleted.
+// Minimum api-version: 2021-03-01
 type DiskDeleteOptionTypes string
 
 const (
@@ -467,13 +472,13 @@ func PossibleDiskDeleteOptionTypesValues() []DiskDeleteOptionTypes {
 }
 
 // DiskDetachOptionTypes - Specifies the detach behavior to be used while detaching a disk or which is already in the process
-// of detachment from the virtual machine. Supported values are: ForceDetach. detachOption: ForceDetach
-// is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an
-// unexpected failure from the virtual machine and the disk is still not released
-// then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-// when using this detach behavior. This feature is still in preview mode and
-// is not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-// detachOption: 'ForceDetach'.
+// of detachment from the virtual machine. Supported values: ForceDetach.
+// detachOption: ForceDetach is applicable only for managed data disks. If a previous detachment attempt of the data disk
+// did not complete due to an unexpected failure from the virtual machine and the
+// disk is still not released then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes
+// might not have been flushed when using this detach behavior.
+// This feature is still in preview mode and is not supported for VirtualMachineScaleSet. To force-detach a data disk update
+// toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 type DiskDetachOptionTypes string
 
 const (
@@ -543,9 +548,6 @@ const (
 	// DiskSecurityTypesConfidentialVMDiskEncryptedWithPlatformKey - Indicates Confidential VM disk with both OS disk and VM guest
 	// state encrypted with a platform managed key
 	DiskSecurityTypesConfidentialVMDiskEncryptedWithPlatformKey DiskSecurityTypes = "ConfidentialVM_DiskEncryptedWithPlatformKey"
-	// DiskSecurityTypesConfidentialVMNonPersistedTPM - Indicates Confidential VM disk with a ephemeral vTPM. vTPM state is not
-	// persisted across VM reboots.
-	DiskSecurityTypesConfidentialVMNonPersistedTPM DiskSecurityTypes = "ConfidentialVM_NonPersistedTPM"
 	// DiskSecurityTypesConfidentialVMVmguestStateOnlyEncryptedWithPlatformKey - Indicates Confidential VM disk with only VM guest
 	// state encrypted
 	DiskSecurityTypesConfidentialVMVmguestStateOnlyEncryptedWithPlatformKey DiskSecurityTypes = "ConfidentialVM_VMGuestStateOnlyEncryptedWithPlatformKey"
@@ -559,7 +561,6 @@ func PossibleDiskSecurityTypesValues() []DiskSecurityTypes {
 	return []DiskSecurityTypes{
 		DiskSecurityTypesConfidentialVMDiskEncryptedWithCustomerKey,
 		DiskSecurityTypesConfidentialVMDiskEncryptedWithPlatformKey,
-		DiskSecurityTypesConfidentialVMNonPersistedTPM,
 		DiskSecurityTypesConfidentialVMVmguestStateOnlyEncryptedWithPlatformKey,
 		DiskSecurityTypesTrustedLaunch,
 	}
@@ -641,48 +642,6 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 	}
 }
 
-// DomainNameLabelScopeTypes - The Domain name label scope.The concatenation of the hashed domain name label that generated
-// according to the policy from domain name label scope and vm index will be the domain name labels of the
-// PublicIPAddress resources that will be created
-type DomainNameLabelScopeTypes string
-
-const (
-	DomainNameLabelScopeTypesNoReuse            DomainNameLabelScopeTypes = "NoReuse"
-	DomainNameLabelScopeTypesResourceGroupReuse DomainNameLabelScopeTypes = "ResourceGroupReuse"
-	DomainNameLabelScopeTypesSubscriptionReuse  DomainNameLabelScopeTypes = "SubscriptionReuse"
-	DomainNameLabelScopeTypesTenantReuse        DomainNameLabelScopeTypes = "TenantReuse"
-)
-
-// PossibleDomainNameLabelScopeTypesValues returns the possible values for the DomainNameLabelScopeTypes const type.
-func PossibleDomainNameLabelScopeTypesValues() []DomainNameLabelScopeTypes {
-	return []DomainNameLabelScopeTypes{
-		DomainNameLabelScopeTypesNoReuse,
-		DomainNameLabelScopeTypesResourceGroupReuse,
-		DomainNameLabelScopeTypesSubscriptionReuse,
-		DomainNameLabelScopeTypesTenantReuse,
-	}
-}
-
-// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
-type EdgeZoneStorageAccountType string
-
-const (
-	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
-	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
-	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
-	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
-)
-
-// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
-func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
-	return []EdgeZoneStorageAccountType{
-		EdgeZoneStorageAccountTypePremiumLRS,
-		EdgeZoneStorageAccountTypeStandardLRS,
-		EdgeZoneStorageAccountTypeStandardSSDLRS,
-		EdgeZoneStorageAccountTypeStandardZRS,
-	}
-}
-
 // EncryptionType - The type of key used to encrypt the data of the disk.
 type EncryptionType string
 
@@ -733,19 +692,6 @@ func PossibleExecutionStateValues() []ExecutionState {
 	}
 }
 
-type ExpandTypeForListVMs string
-
-const (
-	ExpandTypeForListVMsInstanceView ExpandTypeForListVMs = "instanceView"
-)
-
-// PossibleExpandTypeForListVMsValues returns the possible values for the ExpandTypeForListVMs const type.
-func PossibleExpandTypeForListVMsValues() []ExpandTypeForListVMs {
-	return []ExpandTypeForListVMs{
-		ExpandTypeForListVMsInstanceView,
-	}
-}
-
 type ExpandTypesForGetCapacityReservationGroups string
 
 const (
@@ -774,19 +720,6 @@ func PossibleExpandTypesForGetVMScaleSetsValues() []ExpandTypesForGetVMScaleSets
 	}
 }
 
-type ExpandTypesForListVMs string
-
-const (
-	ExpandTypesForListVMsInstanceView ExpandTypesForListVMs = "instanceView"
-)
-
-// PossibleExpandTypesForListVMsValues returns the possible values for the ExpandTypesForListVMs const type.
-func PossibleExpandTypesForListVMsValues() []ExpandTypesForListVMs {
-	return []ExpandTypesForListVMs{
-		ExpandTypesForListVMsInstanceView,
-	}
-}
-
 // ExtendedLocationType - The type of the extended location.
 type ExtendedLocationType string
 
@@ -812,24 +745,6 @@ const (
 func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	return []ExtendedLocationTypes{
 		ExtendedLocationTypesEdgeZone,
-	}
-}
-
-// FileFormat - Used to specify the file format when making request for SAS on a VHDX file format snapshot
-type FileFormat string
-
-const (
-	// FileFormatVHD - A VHD file is a disk image file in the Virtual Hard Disk file format.
-	FileFormatVHD FileFormat = "VHD"
-	// FileFormatVHDX - A VHDX file is a disk image file in the Virtual Hard Disk v2 file format.
-	FileFormatVHDX FileFormat = "VHDX"
-)
-
-// PossibleFileFormatValues returns the possible values for the FileFormat const type.
-func PossibleFileFormatValues() []FileFormat {
-	return []FileFormat{
-		FileFormatVHD,
-		FileFormatVHDX,
 	}
 }
 
@@ -905,8 +820,11 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
-// are: Private, Groups, Community.
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
+// Possible values are:
+// Private
+// Groups
+// Community
 type GallerySharingPermissionTypes string
 
 const (
@@ -1158,24 +1076,6 @@ func PossibleMaintenanceOperationResultCodeTypesValues() []MaintenanceOperationR
 	}
 }
 
-// Mode - Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or
-// monitor but not enforce access control over requests to host endpoints in Audit mode,
-// while in Enforce mode it will enforce access control. The default value is Enforce mode.
-type Mode string
-
-const (
-	ModeAudit   Mode = "Audit"
-	ModeEnforce Mode = "Enforce"
-)
-
-// PossibleModeValues returns the possible values for the Mode const type.
-func PossibleModeValues() []Mode {
-	return []Mode{
-		ModeAudit,
-		ModeEnforce,
-	}
-}
-
 // NetworkAPIVersion - specifies the Microsoft.Network API version used when creating networking resources in the Network
 // Interface Configurations
 type NetworkAPIVersion string
@@ -1209,46 +1109,6 @@ func PossibleNetworkAccessPolicyValues() []NetworkAccessPolicy {
 		NetworkAccessPolicyAllowAll,
 		NetworkAccessPolicyAllowPrivate,
 		NetworkAccessPolicyDenyAll,
-	}
-}
-
-// NetworkInterfaceAuxiliaryMode - Specifies whether the Auxiliary mode is enabled for the Network Interface resource.
-type NetworkInterfaceAuxiliaryMode string
-
-const (
-	NetworkInterfaceAuxiliaryModeAcceleratedConnections NetworkInterfaceAuxiliaryMode = "AcceleratedConnections"
-	NetworkInterfaceAuxiliaryModeFloating               NetworkInterfaceAuxiliaryMode = "Floating"
-	NetworkInterfaceAuxiliaryModeNone                   NetworkInterfaceAuxiliaryMode = "None"
-)
-
-// PossibleNetworkInterfaceAuxiliaryModeValues returns the possible values for the NetworkInterfaceAuxiliaryMode const type.
-func PossibleNetworkInterfaceAuxiliaryModeValues() []NetworkInterfaceAuxiliaryMode {
-	return []NetworkInterfaceAuxiliaryMode{
-		NetworkInterfaceAuxiliaryModeAcceleratedConnections,
-		NetworkInterfaceAuxiliaryModeFloating,
-		NetworkInterfaceAuxiliaryModeNone,
-	}
-}
-
-// NetworkInterfaceAuxiliarySKU - Specifies whether the Auxiliary sku is enabled for the Network Interface resource.
-type NetworkInterfaceAuxiliarySKU string
-
-const (
-	NetworkInterfaceAuxiliarySKUA1   NetworkInterfaceAuxiliarySKU = "A1"
-	NetworkInterfaceAuxiliarySKUA2   NetworkInterfaceAuxiliarySKU = "A2"
-	NetworkInterfaceAuxiliarySKUA4   NetworkInterfaceAuxiliarySKU = "A4"
-	NetworkInterfaceAuxiliarySKUA8   NetworkInterfaceAuxiliarySKU = "A8"
-	NetworkInterfaceAuxiliarySKUNone NetworkInterfaceAuxiliarySKU = "None"
-)
-
-// PossibleNetworkInterfaceAuxiliarySKUValues returns the possible values for the NetworkInterfaceAuxiliarySKU const type.
-func PossibleNetworkInterfaceAuxiliarySKUValues() []NetworkInterfaceAuxiliarySKU {
-	return []NetworkInterfaceAuxiliarySKU{
-		NetworkInterfaceAuxiliarySKUA1,
-		NetworkInterfaceAuxiliarySKUA2,
-		NetworkInterfaceAuxiliarySKUA4,
-		NetworkInterfaceAuxiliarySKUA8,
-		NetworkInterfaceAuxiliarySKUNone,
 	}
 }
 
@@ -1286,7 +1146,9 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 }
 
 // OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are: Windows, Linux.
+// Possible values are:
+// Windows
+// Linux
 type OperatingSystemTypes string
 
 const (
@@ -1488,7 +1350,10 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProtocolTypes - Specifies the protocol of WinRM listener. Possible values are: http, https.
+// ProtocolTypes - Specifies the protocol of WinRM listener.
+// Possible values are:
+// http
+// https
 type ProtocolTypes string
 
 const (
@@ -1504,25 +1369,10 @@ func PossibleProtocolTypesValues() []ProtocolTypes {
 	}
 }
 
-// ProvisionedBandwidthCopyOption - If this field is set on a snapshot and createOption is CopyStart, the snapshot will be
-// copied at a quicker speed.
-type ProvisionedBandwidthCopyOption string
-
-const (
-	ProvisionedBandwidthCopyOptionEnhanced ProvisionedBandwidthCopyOption = "Enhanced"
-	ProvisionedBandwidthCopyOptionNone     ProvisionedBandwidthCopyOption = "None"
-)
-
-// PossibleProvisionedBandwidthCopyOptionValues returns the possible values for the ProvisionedBandwidthCopyOption const type.
-func PossibleProvisionedBandwidthCopyOptionValues() []ProvisionedBandwidthCopyOption {
-	return []ProvisionedBandwidthCopyOption{
-		ProvisionedBandwidthCopyOptionEnhanced,
-		ProvisionedBandwidthCopyOptionNone,
-	}
-}
-
-// ProximityPlacementGroupType - Specifies the type of the proximity placement group. Possible values are: Standard : Co-locate
-// resources within an Azure region or Availability Zone. Ultra : For future use.
+// ProximityPlacementGroupType - Specifies the type of the proximity placement group.
+// Possible values are:
+// Standard : Co-locate resources within an Azure region or Availability Zone.
+// Ultra : For future use.
 type ProximityPlacementGroupType string
 
 const (
@@ -1667,14 +1517,12 @@ type ReplicationStatusTypes string
 
 const (
 	ReplicationStatusTypesReplicationStatus ReplicationStatusTypes = "ReplicationStatus"
-	ReplicationStatusTypesUefiSettings      ReplicationStatusTypes = "UefiSettings"
 )
 
 // PossibleReplicationStatusTypesValues returns the possible values for the ReplicationStatusTypes const type.
 func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
-		ReplicationStatusTypesUefiSettings,
 	}
 }
 
@@ -1763,30 +1611,6 @@ func PossibleRestorePointCollectionExpandOptionsValues() []RestorePointCollectio
 	}
 }
 
-// RestorePointEncryptionType - The type of key used to encrypt the data of the disk restore point.
-type RestorePointEncryptionType string
-
-const (
-	// RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey - Disk Restore Point is encrypted at rest with Customer managed
-	// key that can be changed and revoked by a customer.
-	RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey RestorePointEncryptionType = "EncryptionAtRestWithCustomerKey"
-	// RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys - Disk Restore Point is encrypted at rest with 2
-	// layers of encryption. One of the keys is Customer managed and the other key is Platform managed.
-	RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys RestorePointEncryptionType = "EncryptionAtRestWithPlatformAndCustomerKeys"
-	// RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey - Disk Restore Point is encrypted at rest with Platform managed
-	// key.
-	RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey RestorePointEncryptionType = "EncryptionAtRestWithPlatformKey"
-)
-
-// PossibleRestorePointEncryptionTypeValues returns the possible values for the RestorePointEncryptionType const type.
-func PossibleRestorePointEncryptionTypeValues() []RestorePointEncryptionType {
-	return []RestorePointEncryptionType{
-		RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey,
-		RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys,
-		RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey,
-	}
-}
-
 type RestorePointExpandOptions string
 
 const (
@@ -1836,32 +1660,14 @@ func PossibleRollingUpgradeStatusCodeValues() []RollingUpgradeStatusCode {
 	}
 }
 
-// SSHEncryptionTypes - The encryption type of the SSH keys to be generated. See SshEncryptionTypes for possible set of values.
-// If not provided, will default to RSA
-type SSHEncryptionTypes string
-
-const (
-	SSHEncryptionTypesEd25519 SSHEncryptionTypes = "Ed25519"
-	SSHEncryptionTypesRSA     SSHEncryptionTypes = "RSA"
-)
-
-// PossibleSSHEncryptionTypesValues returns the possible values for the SSHEncryptionTypes const type.
-func PossibleSSHEncryptionTypesValues() []SSHEncryptionTypes {
-	return []SSHEncryptionTypes{
-		SSHEncryptionTypesEd25519,
-		SSHEncryptionTypesRSA,
-	}
-}
-
-// SecurityEncryptionTypes - Specifies the EncryptionType of the managed disk. It is set to DiskWithVMGuestState for encryption
-// of the managed disk along with VMGuestState blob, VMGuestStateOnly for encryption of just the
-// VMGuestState blob, and NonPersistedTPM for not persisting firmware state in the VMGuestState blob.. Note: It can be set
-// for only Confidential VMs.
+// SecurityEncryptionTypes - Specifies the EncryptionType of the managed disk.
+// It is set to DiskWithVMGuestState for encryption of the managed disk along with VMGuestState blob, and VMGuestStateOnly
+// for encryption of just the VMGuestState blob.
+// NOTE: It can be set for only Confidential VMs.
 type SecurityEncryptionTypes string
 
 const (
 	SecurityEncryptionTypesDiskWithVMGuestState SecurityEncryptionTypes = "DiskWithVMGuestState"
-	SecurityEncryptionTypesNonPersistedTPM      SecurityEncryptionTypes = "NonPersistedTPM"
 	SecurityEncryptionTypesVMGuestStateOnly     SecurityEncryptionTypes = "VMGuestStateOnly"
 )
 
@@ -1869,14 +1675,12 @@ const (
 func PossibleSecurityEncryptionTypesValues() []SecurityEncryptionTypes {
 	return []SecurityEncryptionTypes{
 		SecurityEncryptionTypesDiskWithVMGuestState,
-		SecurityEncryptionTypesNonPersistedTPM,
 		SecurityEncryptionTypesVMGuestStateOnly,
 	}
 }
 
 // SecurityTypes - Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings.
-// The default behavior is: UefiSettings will not be enabled unless this property is
-// set.
+// Default: UefiSettings will not be enabled unless this property is set.
 type SecurityTypes string
 
 const (
@@ -1953,8 +1757,10 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
-// AADTenants.
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
+// Possible values are:
+// Subscriptions
+// AADTenants
 type SharingProfileGroupTypes string
 
 const (
@@ -1990,8 +1796,11 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
-// values are: Add, Remove, Reset.
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
+// Possible values are:
+// Add
+// Remove
+// Reset
 type SharingUpdateOperationTypes string
 
 const (
@@ -2054,9 +1863,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -2064,6 +1874,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }
@@ -2097,40 +1908,6 @@ func PossibleStorageAccountTypesValues() []StorageAccountTypes {
 		StorageAccountTypesStandardSSDLRS,
 		StorageAccountTypesStandardSSDZRS,
 		StorageAccountTypesUltraSSDLRS,
-	}
-}
-
-// UefiKeyType - The type of key signature.
-type UefiKeyType string
-
-const (
-	UefiKeyTypeSHA256 UefiKeyType = "sha256"
-	UefiKeyTypeX509   UefiKeyType = "x509"
-)
-
-// PossibleUefiKeyTypeValues returns the possible values for the UefiKeyType const type.
-func PossibleUefiKeyTypeValues() []UefiKeyType {
-	return []UefiKeyType{
-		UefiKeyTypeSHA256,
-		UefiKeyTypeX509,
-	}
-}
-
-// UefiSignatureTemplateName - The name of the signature template that contains default UEFI keys.
-type UefiSignatureTemplateName string
-
-const (
-	UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate UefiSignatureTemplateName = "MicrosoftUefiCertificateAuthorityTemplate"
-	UefiSignatureTemplateNameMicrosoftWindowsTemplate                  UefiSignatureTemplateName = "MicrosoftWindowsTemplate"
-	UefiSignatureTemplateNameNoSignatureTemplate                       UefiSignatureTemplateName = "NoSignatureTemplate"
-)
-
-// PossibleUefiSignatureTemplateNameValues returns the possible values for the UefiSignatureTemplateName const type.
-func PossibleUefiSignatureTemplateNameValues() []UefiSignatureTemplateName {
-	return []UefiSignatureTemplateName{
-		UefiSignatureTemplateNameMicrosoftUefiCertificateAuthorityTemplate,
-		UefiSignatureTemplateNameMicrosoftWindowsTemplate,
-		UefiSignatureTemplateNameNoSignatureTemplate,
 	}
 }
 
@@ -2333,8 +2110,8 @@ func PossibleVirtualMachineEvictionPolicyTypesValues() []VirtualMachineEvictionP
 }
 
 // VirtualMachinePriorityTypes - Specifies the priority for a standalone virtual machine or the virtual machines in the scale
-// set. 'Low' enum will be deprecated in the future, please use 'Spot' as the enum to deploy Azure Spot
-// VM/VMSS.
+// set.
+// 'Low' enum will be deprecated in the future, please use 'Spot' as the enum to deploy Azure Spot VM/VMSS.
 type VirtualMachinePriorityTypes string
 
 const (
@@ -2385,14 +2162,15 @@ func PossibleVirtualMachineScaleSetScaleInRulesValues() []VirtualMachineScaleSet
 	}
 }
 
-// VirtualMachineSizeTypes - Specifies the size of the virtual machine. The enum data type is currently deprecated and will
-// be removed by December 23rd 2023. The recommended way to get the list of available sizes is using these
-// APIs: List all available virtual machine sizes in an availability set [https://docs.microsoft.com/rest/api/compute/availabilitysets/listavailablesizes],
-// List all available virtual machine sizes in a
-// region [https://docs.microsoft.com/rest/api/compute/resourceskus/list], List all available virtual machine sizes for resizing
-// [https://docs.microsoft.com/rest/api/compute/virtualmachines/listavailablesizes]. For more information about virtual machine
-// sizes, see Sizes for virtual machines
-// [https://docs.microsoft.com/azure/virtual-machines/sizes]. The available VM sizes depend on region and availability set.
+// VirtualMachineSizeTypes - Specifies the size of the virtual machine.
+// The enum data type is currently deprecated and will be removed by December 23rd 2023.
+// Recommended way to get the list of available sizes is using these APIs:
+// List all available virtual machine sizes in an availability set [https://docs.microsoft.com/rest/api/compute/availabilitysets/listavailablesizes]
+// List all available virtual machine sizes in a region [https://docs.microsoft.com/rest/api/compute/resourceskus/list]
+// List all available virtual machine sizes for resizing [https://docs.microsoft.com/rest/api/compute/virtualmachines/listavailablesizes].
+// For more information about virtual machine sizes, see Sizes for
+// virtual machines [https://docs.microsoft.com/azure/virtual-machines/sizes].
+// The available VM sizes depend on region and availability set.
 type VirtualMachineSizeTypes string
 
 const (

@@ -14,9 +14,9 @@ import "io"
 type AvailabilitySetsClientCreateOrUpdateResponse struct {
 	// Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified
 	// in the same availability set are allocated to different nodes to maximize availability. For more information about availability
-	// sets, see [Availability sets overview](https://docs.microsoft.com/azure/virtual-machines/availability-set-overview). For
-	// more information on Azure planned maintenance, see [Maintenance and updates for Virtual Machines in Azure](https://docs.microsoft.com/azure/virtual-machines/maintenance-and-updates).
-	// Currently, a VM can only be added to an availability set at creation time. An existing VM cannot be added to an availability
+	// sets, see [Availability sets overview](https://docs.microsoft.com/azure/virtual-machines/availability-set-overview). <br><br>
+	// For more information on Azure planned maintenance, see [Maintenance and updates for Virtual Machines in Azure](https://docs.microsoft.com/azure/virtual-machines/maintenance-and-updates)
+	// <br><br> Currently, a VM can only be added to availability set at creation time. An existing VM cannot be added to an availability
 	// set.
 	AvailabilitySet
 }
@@ -30,9 +30,9 @@ type AvailabilitySetsClientDeleteResponse struct {
 type AvailabilitySetsClientGetResponse struct {
 	// Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified
 	// in the same availability set are allocated to different nodes to maximize availability. For more information about availability
-	// sets, see [Availability sets overview](https://docs.microsoft.com/azure/virtual-machines/availability-set-overview). For
-	// more information on Azure planned maintenance, see [Maintenance and updates for Virtual Machines in Azure](https://docs.microsoft.com/azure/virtual-machines/maintenance-and-updates).
-	// Currently, a VM can only be added to an availability set at creation time. An existing VM cannot be added to an availability
+	// sets, see [Availability sets overview](https://docs.microsoft.com/azure/virtual-machines/availability-set-overview). <br><br>
+	// For more information on Azure planned maintenance, see [Maintenance and updates for Virtual Machines in Azure](https://docs.microsoft.com/azure/virtual-machines/maintenance-and-updates)
+	// <br><br> Currently, a VM can only be added to availability set at creation time. An existing VM cannot be added to an availability
 	// set.
 	AvailabilitySet
 }
@@ -59,18 +59,18 @@ type AvailabilitySetsClientListResponse struct {
 type AvailabilitySetsClientUpdateResponse struct {
 	// Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified
 	// in the same availability set are allocated to different nodes to maximize availability. For more information about availability
-	// sets, see [Availability sets overview](https://docs.microsoft.com/azure/virtual-machines/availability-set-overview). For
-	// more information on Azure planned maintenance, see [Maintenance and updates for Virtual Machines in Azure](https://docs.microsoft.com/azure/virtual-machines/maintenance-and-updates).
-	// Currently, a VM can only be added to an availability set at creation time. An existing VM cannot be added to an availability
+	// sets, see [Availability sets overview](https://docs.microsoft.com/azure/virtual-machines/availability-set-overview). <br><br>
+	// For more information on Azure planned maintenance, see [Maintenance and updates for Virtual Machines in Azure](https://docs.microsoft.com/azure/virtual-machines/maintenance-and-updates)
+	// <br><br> Currently, a VM can only be added to availability set at creation time. An existing VM cannot be added to an availability
 	// set.
 	AvailabilitySet
 }
 
 // CapacityReservationGroupsClientCreateOrUpdateResponse contains the response from method CapacityReservationGroupsClient.CreateOrUpdate.
 type CapacityReservationGroupsClientCreateOrUpdateResponse struct {
-	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. Currently,
-	// a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity reservation
-	// cannot be added or moved to another capacity reservation group.
+	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. <br><br>
+	// Currently, a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity
+	// reservation cannot be added or moved to another capacity reservation group.
 	CapacityReservationGroup
 }
 
@@ -81,9 +81,9 @@ type CapacityReservationGroupsClientDeleteResponse struct {
 
 // CapacityReservationGroupsClientGetResponse contains the response from method CapacityReservationGroupsClient.Get.
 type CapacityReservationGroupsClientGetResponse struct {
-	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. Currently,
-	// a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity reservation
-	// cannot be added or moved to another capacity reservation group.
+	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. <br><br>
+	// Currently, a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity
+	// reservation cannot be added or moved to another capacity reservation group.
 	CapacityReservationGroup
 }
 
@@ -101,9 +101,9 @@ type CapacityReservationGroupsClientListBySubscriptionResponse struct {
 
 // CapacityReservationGroupsClientUpdateResponse contains the response from method CapacityReservationGroupsClient.Update.
 type CapacityReservationGroupsClientUpdateResponse struct {
-	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. Currently,
-	// a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity reservation
-	// cannot be added or moved to another capacity reservation group.
+	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. <br><br>
+	// Currently, a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity
+	// reservation cannot be added or moved to another capacity reservation group.
 	CapacityReservationGroup
 }
 
@@ -336,9 +336,9 @@ type CommunityGalleryImagesClientListResponse struct {
 
 // DedicatedHostGroupsClientCreateOrUpdateResponse contains the response from method DedicatedHostGroupsClient.CreateOrUpdate.
 type DedicatedHostGroupsClientCreateOrUpdateResponse struct {
-	// Specifies information about the dedicated host group that the dedicated hosts should be assigned to. Currently, a dedicated
-	// host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added to another
-	// dedicated host group.
+	// Specifies information about the dedicated host group that the dedicated hosts should be assigned to. <br><br> Currently,
+	// a dedicated host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added
+	// to another dedicated host group.
 	DedicatedHostGroup
 }
 
@@ -349,9 +349,9 @@ type DedicatedHostGroupsClientDeleteResponse struct {
 
 // DedicatedHostGroupsClientGetResponse contains the response from method DedicatedHostGroupsClient.Get.
 type DedicatedHostGroupsClientGetResponse struct {
-	// Specifies information about the dedicated host group that the dedicated hosts should be assigned to. Currently, a dedicated
-	// host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added to another
-	// dedicated host group.
+	// Specifies information about the dedicated host group that the dedicated hosts should be assigned to. <br><br> Currently,
+	// a dedicated host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added
+	// to another dedicated host group.
 	DedicatedHostGroup
 }
 
@@ -369,9 +369,9 @@ type DedicatedHostGroupsClientListBySubscriptionResponse struct {
 
 // DedicatedHostGroupsClientUpdateResponse contains the response from method DedicatedHostGroupsClient.Update.
 type DedicatedHostGroupsClientUpdateResponse struct {
-	// Specifies information about the dedicated host group that the dedicated hosts should be assigned to. Currently, a dedicated
-	// host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added to another
-	// dedicated host group.
+	// Specifies information about the dedicated host group that the dedicated hosts should be assigned to. <br><br> Currently,
+	// a dedicated host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added
+	// to another dedicated host group.
 	DedicatedHostGroup
 }
 
@@ -392,21 +392,10 @@ type DedicatedHostsClientGetResponse struct {
 	DedicatedHost
 }
 
-// DedicatedHostsClientListAvailableSizesResponse contains the response from method DedicatedHostsClient.NewListAvailableSizesPager.
-type DedicatedHostsClientListAvailableSizesResponse struct {
-	// The List Dedicated Host sizes operation response.
-	DedicatedHostSizeListResult
-}
-
 // DedicatedHostsClientListByHostGroupResponse contains the response from method DedicatedHostsClient.NewListByHostGroupPager.
 type DedicatedHostsClientListByHostGroupResponse struct {
 	// The list dedicated host operation response.
 	DedicatedHostListResult
-}
-
-// DedicatedHostsClientRedeployResponse contains the response from method DedicatedHostsClient.BeginRedeploy.
-type DedicatedHostsClientRedeployResponse struct {
-	// placeholder for future response values
 }
 
 // DedicatedHostsClientRestartResponse contains the response from method DedicatedHostsClient.BeginRestart.
@@ -1291,17 +1280,6 @@ type VirtualMachineScaleSetVMRunCommandsClientUpdateResponse struct {
 	VirtualMachineRunCommand
 }
 
-// VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade.
-type VirtualMachineScaleSetVMsClientApproveRollingUpgradeResponse struct {
-	// placeholder for future response values
-}
-
-// VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks.
-type VirtualMachineScaleSetVMsClientAttachDetachDataDisksResponse struct {
-	// Specifies the storage settings for the virtual machine disks.
-	StorageProfile
-}
-
 // VirtualMachineScaleSetVMsClientDeallocateResponse contains the response from method VirtualMachineScaleSetVMsClient.BeginDeallocate.
 type VirtualMachineScaleSetVMsClientDeallocateResponse struct {
 	// placeholder for future response values
@@ -1385,11 +1363,6 @@ type VirtualMachineScaleSetVMsClientStartResponse struct {
 type VirtualMachineScaleSetVMsClientUpdateResponse struct {
 	// Describes a virtual machine scale set virtual machine.
 	VirtualMachineScaleSetVM
-}
-
-// VirtualMachineScaleSetsClientApproveRollingUpgradeResponse contains the response from method VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade.
-type VirtualMachineScaleSetsClientApproveRollingUpgradeResponse struct {
-	// placeholder for future response values
 }
 
 // VirtualMachineScaleSetsClientConvertToSinglePlacementGroupResponse contains the response from method VirtualMachineScaleSetsClient.ConvertToSinglePlacementGroup.
@@ -1477,11 +1450,6 @@ type VirtualMachineScaleSetsClientPowerOffResponse struct {
 	// placeholder for future response values
 }
 
-// VirtualMachineScaleSetsClientReapplyResponse contains the response from method VirtualMachineScaleSetsClient.BeginReapply.
-type VirtualMachineScaleSetsClientReapplyResponse struct {
-	// placeholder for future response values
-}
-
 // VirtualMachineScaleSetsClientRedeployResponse contains the response from method VirtualMachineScaleSetsClient.BeginRedeploy.
 type VirtualMachineScaleSetsClientRedeployResponse struct {
 	// placeholder for future response values
@@ -1533,12 +1501,6 @@ type VirtualMachineSizesClientListResponse struct {
 type VirtualMachinesClientAssessPatchesResponse struct {
 	// Describes the properties of an AssessPatches result.
 	VirtualMachineAssessPatchesResult
-}
-
-// VirtualMachinesClientAttachDetachDataDisksResponse contains the response from method VirtualMachinesClient.BeginAttachDetachDataDisks.
-type VirtualMachinesClientAttachDetachDataDisksResponse struct {
-	// Specifies the storage settings for the virtual machine disks.
-	StorageProfile
 }
 
 // VirtualMachinesClientCaptureResponse contains the response from method VirtualMachinesClient.BeginCapture.

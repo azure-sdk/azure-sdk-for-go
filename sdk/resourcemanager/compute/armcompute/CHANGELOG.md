@@ -1,5 +1,118 @@
 # Release History
 
+## 6.0.0 (2024-02-05)
+### Breaking Changes
+
+- Type of `CommunityGalleryImageProperties.Identifier` has been changed from `*CommunityGalleryImageIdentifier` to `*GalleryImageIdentifier`
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*EdgeZoneStorageAccountType` to `*StorageAccountType`
+- Type of `RestorePointSourceVMDataDisk.DiskRestorePoint` has been changed from `*DiskRestorePointAttributes` to `*APIEntityReference`
+- Type of `RestorePointSourceVMOSDisk.DiskRestorePoint` has been changed from `*DiskRestorePointAttributes` to `*APIEntityReference`
+- `ConfidentialVMEncryptionTypeNonPersistedTPM` from enum `ConfidentialVMEncryptionType` has been removed
+- `DiskCreateOptionCopyFromSanSnapshot` from enum `DiskCreateOption` has been removed
+- `DiskSecurityTypesConfidentialVMNonPersistedTPM` from enum `DiskSecurityTypes` has been removed
+- `ReplicationStatusTypesUefiSettings` from enum `ReplicationStatusTypes` has been removed
+- `SecurityEncryptionTypesNonPersistedTPM` from enum `SecurityEncryptionTypes` has been removed
+- Enum `DomainNameLabelScopeTypes` has been removed
+- Enum `EdgeZoneStorageAccountType` has been removed
+- Enum `ExpandTypeForListVMs` has been removed
+- Enum `ExpandTypesForListVMs` has been removed
+- Enum `FileFormat` has been removed
+- Enum `Mode` has been removed
+- Enum `NetworkInterfaceAuxiliaryMode` has been removed
+- Enum `NetworkInterfaceAuxiliarySKU` has been removed
+- Enum `ProvisionedBandwidthCopyOption` has been removed
+- Enum `RestorePointEncryptionType` has been removed
+- Enum `SSHEncryptionTypes` has been removed
+- Enum `UefiKeyType` has been removed
+- Enum `UefiSignatureTemplateName` has been removed
+- Function `*DedicatedHostsClient.NewListAvailableSizesPager` has been removed
+- Function `*DedicatedHostsClient.BeginRedeploy` has been removed
+- Function `*VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade` has been removed
+- Function `*VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks` has been removed
+- Function `*VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade` has been removed
+- Function `*VirtualMachineScaleSetsClient.BeginReapply` has been removed
+- Function `*VirtualMachinesClient.BeginAttachDetachDataDisks` has been removed
+- Struct `AttachDetachDataDisksRequest` has been removed
+- Struct `CommunityGalleryImageIdentifier` has been removed
+- Struct `CommunityGalleryMetadata` has been removed
+- Struct `CommunityGalleryProperties` has been removed
+- Struct `DataDisksToAttach` has been removed
+- Struct `DataDisksToDetach` has been removed
+- Struct `DedicatedHostSizeListResult` has been removed
+- Struct `DiskRestorePointAttributes` has been removed
+- Struct `EncryptionIdentity` has been removed
+- Struct `GalleryImageVersionUefiSettings` has been removed
+- Struct `ImageVersionSecurityProfile` has been removed
+- Struct `ProxyAgentSettings` has been removed
+- Struct `ResiliencyPolicy` has been removed
+- Struct `ResilientVMCreationPolicy` has been removed
+- Struct `ResilientVMDeletionPolicy` has been removed
+- Struct `ResourceSharingProfile` has been removed
+- Struct `RestorePointEncryption` has been removed
+- Struct `RunCommandManagedIdentity` has been removed
+- Struct `SSHGenerateKeyPairInputParameters` has been removed
+- Struct `SecurityPostureReference` has been removed
+- Struct `SharedGalleryProperties` has been removed
+- Struct `UefiKey` has been removed
+- Struct `UefiKeySignatures` has been removed
+- Field `OSRollingUpgradeDeferral` of struct `AutomaticOSUpgradePolicy` has been removed
+- Field `SharedSubscriptionIDs` of struct `CapacityReservationGroupInstanceView` has been removed
+- Field `SharingProfile` of struct `CapacityReservationGroupProperties` has been removed
+- Field `Properties` of struct `CommunityGallery` has been removed
+- Field `ArtifactTags`, `Disclaimer` of struct `CommunityGalleryImageProperties` has been removed
+- Field `ArtifactTags`, `Disclaimer` of struct `CommunityGalleryImageVersionProperties` has been removed
+- Field `ElasticSanResourceID`, `ProvisionedBandwidthCopySpeed` of struct `CreationData` has been removed
+- Field `SKU` of struct `DedicatedHostUpdate` has been removed
+- Field `LastOwnershipUpdateTime` of struct `DiskProperties` has been removed
+- Field `SecurityProfile` of struct `GalleryImageVersionProperties` has been removed
+- Field `FileFormat` of struct `GrantAccessData` has been removed
+- Field `BypassPlatformSafetyChecksOnUserSchedule` of struct `LinuxVMGuestPatchAutomaticByPlatformSettings` has been removed
+- Field `HyperVGeneration` of struct `RestorePointSourceMetadata` has been removed
+- Field `WriteAcceleratorEnabled` of struct `RestorePointSourceVMDataDisk` has been removed
+- Field `WriteAcceleratorEnabled` of struct `RestorePointSourceVMOSDisk` has been removed
+- Field `DiskControllerType` of struct `RestorePointSourceVMStorageProfile` has been removed
+- Field `Parameters` of struct `SSHPublicKeysClientGenerateKeyPairOptions` has been removed
+- Field `EncryptionIdentity`, `ProxyAgentSettings` of struct `SecurityProfile` has been removed
+- Field `Properties` of struct `SharedGallery` has been removed
+- Field `ArtifactTags` of struct `SharedGalleryImageProperties` has been removed
+- Field `ArtifactTags` of struct `SharedGalleryImageVersionProperties` has been removed
+- Field `Etag`, `ManagedBy` of struct `VirtualMachine` has been removed
+- Field `ProvisionAfterExtensions` of struct `VirtualMachineExtensionProperties` has been removed
+- Field `IsVMInStandbyPool` of struct `VirtualMachineInstanceView` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineNetworkInterfaceConfigurationProperties` has been removed
+- Field `DomainNameLabelScope` of struct `VirtualMachinePublicIPAddressDNSSettingsConfiguration` has been removed
+- Field `ErrorBlobManagedIdentity`, `OutputBlobManagedIdentity`, `TreatFailureAsDeploymentFailure` of struct `VirtualMachineRunCommandProperties` has been removed
+- Field `ScriptURIManagedIdentity` of struct `VirtualMachineRunCommandScriptSource` has been removed
+- Field `Etag` of struct `VirtualMachineScaleSet` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineScaleSetNetworkConfigurationProperties` has been removed
+- Field `ResiliencyPolicy` of struct `VirtualMachineScaleSetProperties` has been removed
+- Field `DomainNameLabelScope` of struct `VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings` has been removed
+- Field `AuxiliaryMode`, `AuxiliarySKU` of struct `VirtualMachineScaleSetUpdateNetworkConfigurationProperties` has been removed
+- Field `PriorityMixPolicy`, `ResiliencyPolicy`, `SpotRestorePolicy` of struct `VirtualMachineScaleSetUpdateProperties` has been removed
+- Field `Etag` of struct `VirtualMachineScaleSetVM` has been removed
+- Field `Location` of struct `VirtualMachineScaleSetVMExtension` has been removed
+- Field `ComputerName`, `HyperVGeneration`, `OSName`, `OSVersion` of struct `VirtualMachineScaleSetVMInstanceView` has been removed
+- Field `SecurityPostureReference`, `TimeCreated` of struct `VirtualMachineScaleSetVMProfile` has been removed
+- Field `TimeCreated` of struct `VirtualMachineScaleSetVMProperties` has been removed
+- Field `IfMatch`, `IfNoneMatch` of struct `VirtualMachineScaleSetVMsClientBeginUpdateOptions` has been removed
+- Field `IfMatch`, `IfNoneMatch` of struct `VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions` has been removed
+- Field `Hibernate` of struct `VirtualMachineScaleSetsClientBeginDeallocateOptions` has been removed
+- Field `IfMatch`, `IfNoneMatch` of struct `VirtualMachineScaleSetsClientBeginUpdateOptions` has been removed
+- Field `IfMatch`, `IfNoneMatch` of struct `VirtualMachinesClientBeginCreateOrUpdateOptions` has been removed
+- Field `IfMatch`, `IfNoneMatch` of struct `VirtualMachinesClientBeginUpdateOptions` has been removed
+- Field `Expand` of struct `VirtualMachinesClientListAllOptions` has been removed
+- Field `Expand` of struct `VirtualMachinesClientListOptions` has been removed
+- Field `BypassPlatformSafetyChecksOnUserSchedule` of struct `WindowsVMGuestPatchAutomaticByPlatformSettings` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New field `ID` in struct `VirtualMachineScaleSetIPConfiguration`
+- New field `ID` in struct `VirtualMachineScaleSetNetworkConfiguration`
+- New field `ID` in struct `VirtualMachineScaleSetUpdateIPConfiguration`
+- New field `ID` in struct `VirtualMachineScaleSetUpdateNetworkConfiguration`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 

@@ -400,12 +400,6 @@ type DedicatedHostsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// DedicatedHostsClientBeginRedeployOptions contains the optional parameters for the DedicatedHostsClient.BeginRedeploy method.
-type DedicatedHostsClientBeginRedeployOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // DedicatedHostsClientBeginRestartOptions contains the optional parameters for the DedicatedHostsClient.BeginRestart method.
 type DedicatedHostsClientBeginRestartOptions struct {
 	// Resumes the LRO from the provided token.
@@ -423,12 +417,6 @@ type DedicatedHostsClientGetOptions struct {
 	// The expand expression to apply on the operation. 'InstanceView' will retrieve the list of instance views of the dedicated
 	// host. 'UserData' is not supported for dedicated host.
 	Expand *InstanceViewTypes
-}
-
-// DedicatedHostsClientListAvailableSizesOptions contains the optional parameters for the DedicatedHostsClient.NewListAvailableSizesPager
-// method.
-type DedicatedHostsClientListAvailableSizesOptions struct {
-	// placeholder for future optional parameters
 }
 
 // DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
@@ -962,8 +950,7 @@ type SSHPublicKeysClientDeleteOptions struct {
 // SSHPublicKeysClientGenerateKeyPairOptions contains the optional parameters for the SSHPublicKeysClient.GenerateKeyPair
 // method.
 type SSHPublicKeysClientGenerateKeyPairOptions struct {
-	// Parameters supplied to generate the SSH public key.
-	Parameters *SSHGenerateKeyPairInputParameters
+	// placeholder for future optional parameters
 }
 
 // SSHPublicKeysClientGetOptions contains the optional parameters for the SSHPublicKeysClient.Get method.
@@ -1382,20 +1369,6 @@ type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	Expand *string
 }
 
-// VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginApproveRollingUpgrade
-// method.
-type VirtualMachineScaleSetVMsClientBeginApproveRollingUpgradeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginAttachDetachDataDisks
-// method.
-type VirtualMachineScaleSetVMsClientBeginAttachDetachDataDisksOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // VirtualMachineScaleSetVMsClientBeginDeallocateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginDeallocate
 // method.
 type VirtualMachineScaleSetVMsClientBeginDeallocateOptions struct {
@@ -1479,14 +1452,6 @@ type VirtualMachineScaleSetVMsClientBeginStartOptions struct {
 // VirtualMachineScaleSetVMsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.BeginUpdate
 // method.
 type VirtualMachineScaleSetVMsClientBeginUpdateOptions struct {
-	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-
-	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
-	// in error from server as they are not supported.
-	IfNoneMatch *string
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1523,8 +1488,8 @@ type VirtualMachineScaleSetVMsClientListOptions struct {
 // VirtualMachineScaleSetVMsClientRetrieveBootDiagnosticsDataOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.RetrieveBootDiagnosticsData
 // method.
 type VirtualMachineScaleSetVMsClientRetrieveBootDiagnosticsDataOptions struct {
-	// Expiration duration in minutes for the SAS URIs with a value between 1 to 1440 minutes. Note: If not specified, SAS URIs
-	// will be generated with a default expiration duration of 120 minutes.
+	// Expiration duration in minutes for the SAS URIs with a value between 1 to 1440 minutes.
+	// NOTE: If not specified, SAS URIs will be generated with a default expiration duration of 120 minutes.
 	SasURIExpirationTimeInMinutes *int32
 }
 
@@ -1534,27 +1499,9 @@ type VirtualMachineScaleSetVMsClientSimulateEvictionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginApproveRollingUpgrade
-// method.
-type VirtualMachineScaleSetsClientBeginApproveRollingUpgradeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-
-	// A list of virtual machine instance IDs from the VM scale set.
-	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
-}
-
 // VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginCreateOrUpdate
 // method.
 type VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions struct {
-	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-
-	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
-	// in error from server as they are not supported.
-	IfNoneMatch *string
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1562,10 +1509,6 @@ type VirtualMachineScaleSetsClientBeginCreateOrUpdateOptions struct {
 // VirtualMachineScaleSetsClientBeginDeallocateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginDeallocate
 // method.
 type VirtualMachineScaleSetsClientBeginDeallocateOptions struct {
-	// Optional parameter to hibernate a virtual machine from the VM scale set. (This feature is available for VMSS with Flexible
-	// OrchestrationMode only)
-	Hibernate *bool
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 
@@ -1615,13 +1558,6 @@ type VirtualMachineScaleSetsClientBeginPowerOffOptions struct {
 
 	// A list of virtual machine instance IDs from the VM scale set.
 	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
-}
-
-// VirtualMachineScaleSetsClientBeginReapplyOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginReapply
-// method.
-type VirtualMachineScaleSetsClientBeginReapplyOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
 }
 
 // VirtualMachineScaleSetsClientBeginRedeployOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginRedeploy
@@ -1691,14 +1627,6 @@ type VirtualMachineScaleSetsClientBeginUpdateInstancesOptions struct {
 // VirtualMachineScaleSetsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginUpdate
 // method.
 type VirtualMachineScaleSetsClientBeginUpdateOptions struct {
-	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-
-	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
-	// in error from server as they are not supported.
-	IfNoneMatch *string
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1774,13 +1702,6 @@ type VirtualMachinesClientBeginAssessPatchesOptions struct {
 	ResumeToken string
 }
 
-// VirtualMachinesClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachinesClient.BeginAttachDetachDataDisks
-// method.
-type VirtualMachinesClientBeginAttachDetachDataDisksOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // VirtualMachinesClientBeginCaptureOptions contains the optional parameters for the VirtualMachinesClient.BeginCapture method.
 type VirtualMachinesClientBeginCaptureOptions struct {
 	// Resumes the LRO from the provided token.
@@ -1797,14 +1718,6 @@ type VirtualMachinesClientBeginConvertToManagedDisksOptions struct {
 // VirtualMachinesClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginCreateOrUpdate
 // method.
 type VirtualMachinesClientBeginCreateOrUpdateOptions struct {
-	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-
-	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
-	// in error from server as they are not supported.
-	IfNoneMatch *string
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1896,14 +1809,6 @@ type VirtualMachinesClientBeginStartOptions struct {
 
 // VirtualMachinesClientBeginUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginUpdate method.
 type VirtualMachinesClientBeginUpdateOptions struct {
-	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-
-	// Set to '*' to allow a new record set to be created, but to prevent updating an existing record set. Other values will result
-	// in error from server as they are not supported.
-	IfNoneMatch *string
-
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1929,10 +1834,6 @@ type VirtualMachinesClientInstanceViewOptions struct {
 
 // VirtualMachinesClientListAllOptions contains the optional parameters for the VirtualMachinesClient.NewListAllPager method.
 type VirtualMachinesClientListAllOptions struct {
-	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
-	// can only be specified if a valid $filter option is specified
-	Expand *ExpandTypesForListVMs
-
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -1955,10 +1856,6 @@ type VirtualMachinesClientListByLocationOptions struct {
 
 // VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.NewListPager method.
 type VirtualMachinesClientListOptions struct {
-	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
-	// can only be specified if a valid $filter option is specified
-	Expand *ExpandTypeForListVMs
-
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -1967,8 +1864,8 @@ type VirtualMachinesClientListOptions struct {
 // VirtualMachinesClientRetrieveBootDiagnosticsDataOptions contains the optional parameters for the VirtualMachinesClient.RetrieveBootDiagnosticsData
 // method.
 type VirtualMachinesClientRetrieveBootDiagnosticsDataOptions struct {
-	// Expiration duration in minutes for the SAS URIs with a value between 1 to 1440 minutes. Note: If not specified, SAS URIs
-	// will be generated with a default expiration duration of 120 minutes.
+	// Expiration duration in minutes for the SAS URIs with a value between 1 to 1440 minutes.
+	// NOTE: If not specified, SAS URIs will be generated with a default expiration duration of 120 minutes.
 	SasURIExpirationTimeInMinutes *int32
 }
 
