@@ -1,4 +1,4 @@
-module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hdinsightcontainers/armhdinsightcontainers
+module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurelargeinstance/armazurelargeinstance
 
 go 1.18
 
