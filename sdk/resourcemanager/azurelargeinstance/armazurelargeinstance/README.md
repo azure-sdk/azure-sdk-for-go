@@ -1,10 +1,10 @@
-# Azure Hdinsight Containers Module for Go
+# Azure Azurelargeinstance Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hdinsightcontainers/armhdinsightcontainers)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hdinsightcontainers/armhdinsightcontainers)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurelargeinstance/armazurelargeinstance)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurelargeinstance/armazurelargeinstance)
 
-The `armhdinsightcontainers` module provides operations for working with Azure Hdinsight Containers.
+The `armazurelargeinstance` module provides operations for working with Azure Azurelargeinstance.
 
-[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/hdinsightcontainers/armhdinsightcontainers)
+[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/azurelargeinstance/armazurelargeinstance)
 
 # Getting started
 
@@ -17,15 +17,15 @@ The `armhdinsightcontainers` module provides operations for working with Azure H
 
 This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for versioning and dependency management.
 
-Install the Azure Hdinsight Containers module:
+Install the Azure Azurelargeinstance module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hdinsightcontainers/armhdinsightcontainers
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurelargeinstance/armazurelargeinstance
 ```
 
 ## Authorization
 
-When creating a client, you will need to provide a credential for authenticating with Azure Hdinsight Containers.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
+When creating a client, you will need to provide a credential for authenticating with Azure Azurelargeinstance.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
 
 ```go
 cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -35,10 +35,10 @@ For more information on authentication, please see the documentation for `aziden
 
 ## Client Factory
 
-Azure Hdinsight Containers module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
+Azure Azurelargeinstance module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
 
 ```go
-clientFactory, err := armhdinsightcontainers.NewClientFactory(<subscription ID>, cred, nil)
+clientFactory, err := armazurelargeinstance.NewClientFactory(<subscription ID>, cred, nil)
 ```
 
 You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
@@ -49,7 +49,7 @@ options := arm.ClientOptions {
         Cloud: cloud.AzureChina,
     },
 }
-clientFactory, err := armhdinsightcontainers.NewClientFactory(<subscription ID>, cred, &options)
+clientFactory, err := armazurelargeinstance.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
 ## Clients
@@ -57,7 +57,7 @@ clientFactory, err := armhdinsightcontainers.NewClientFactory(<subscription ID>,
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewAvailableClusterPoolVersionsClient()
+client := clientFactory.NewAzureLargeStorageInstanceClient()
 ```
 
 ## Fakes
@@ -70,7 +70,7 @@ Please see https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/samples/fakes
 ## Provide Feedback
 
 If you encounter bugs or have suggestions, please
-[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Hdinsight Containers` label.
+[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Azurelargeinstance` label.
 
 # Contributing
 
