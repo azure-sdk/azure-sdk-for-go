@@ -23,6 +23,7 @@ type ServerFactory struct {
 	PrivateStoreServer                PrivateStoreServer
 	PrivateStoreCollectionServer      PrivateStoreCollectionServer
 	PrivateStoreCollectionOfferServer PrivateStoreCollectionOfferServer
+	RPServiceServer                   RPServiceServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -43,6 +44,7 @@ type ServerFactoryTransport struct {
 	trPrivateStoreServer                *PrivateStoreServerTransport
 	trPrivateStoreCollectionServer      *PrivateStoreCollectionServerTransport
 	trPrivateStoreCollectionOfferServer *PrivateStoreCollectionOfferServerTransport
+	trRPServiceServer                   *RPServiceServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -74,6 +76,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateStoreCollectionOfferServerTransport(&s.srv.PrivateStoreCollectionOfferServer)
 		})
 		resp, err = s.trPrivateStoreCollectionOfferServer.Do(req)
+	case "RPServiceClient":
+		initServer(s, &s.trRPServiceServer, func() *RPServiceServerTransport { return NewRPServiceServerTransport(&s.srv.RPServiceServer) })
+		resp, err = s.trRPServiceServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

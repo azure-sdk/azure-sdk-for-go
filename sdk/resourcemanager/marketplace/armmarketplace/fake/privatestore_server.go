@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/marketplace/armmarketplace"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/marketplace/armmarketplace/v2"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -32,6 +32,10 @@ type PrivateStoreServer struct {
 	// AdminRequestApprovalsList is the fake for method PrivateStoreClient.AdminRequestApprovalsList
 	// HTTP status codes to indicate success: http.StatusOK
 	AdminRequestApprovalsList func(ctx context.Context, privateStoreID string, options *armmarketplace.PrivateStoreClientAdminRequestApprovalsListOptions) (resp azfake.Responder[armmarketplace.PrivateStoreClientAdminRequestApprovalsListResponse], errResp azfake.ErrorResponder)
+
+	// AnyExistingOffersInTheCollections is the fake for method PrivateStoreClient.AnyExistingOffersInTheCollections
+	// HTTP status codes to indicate success: http.StatusOK
+	AnyExistingOffersInTheCollections func(ctx context.Context, privateStoreID string, options *armmarketplace.PrivateStoreClientAnyExistingOffersInTheCollectionsOptions) (resp azfake.Responder[armmarketplace.PrivateStoreClientAnyExistingOffersInTheCollectionsResponse], errResp azfake.ErrorResponder)
 
 	// BillingAccounts is the fake for method PrivateStoreClient.BillingAccounts
 	// HTTP status codes to indicate success: http.StatusOK
@@ -109,6 +113,10 @@ type PrivateStoreServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	QueryRequestApproval func(ctx context.Context, privateStoreID string, requestApprovalID string, options *armmarketplace.PrivateStoreClientQueryRequestApprovalOptions) (resp azfake.Responder[armmarketplace.PrivateStoreClientQueryRequestApprovalResponse], errResp azfake.ErrorResponder)
 
+	// QueryUserOffers is the fake for method PrivateStoreClient.QueryUserOffers
+	// HTTP status codes to indicate success: http.StatusOK
+	QueryUserOffers func(ctx context.Context, privateStoreID string, options *armmarketplace.PrivateStoreClientQueryUserOffersOptions) (resp azfake.Responder[armmarketplace.PrivateStoreClientQueryUserOffersResponse], errResp azfake.ErrorResponder)
+
 	// UpdateAdminRequestApproval is the fake for method PrivateStoreClient.UpdateAdminRequestApproval
 	// HTTP status codes to indicate success: http.StatusOK
 	UpdateAdminRequestApproval func(ctx context.Context, privateStoreID string, adminRequestApprovalID string, options *armmarketplace.PrivateStoreClientUpdateAdminRequestApprovalOptions) (resp azfake.Responder[armmarketplace.PrivateStoreClientUpdateAdminRequestApprovalResponse], errResp azfake.ErrorResponder)
@@ -151,6 +159,8 @@ func (p *PrivateStoreServerTransport) Do(req *http.Request) (*http.Response, err
 		resp, err = p.dispatchAcknowledgeOfferNotification(req)
 	case "PrivateStoreClient.AdminRequestApprovalsList":
 		resp, err = p.dispatchAdminRequestApprovalsList(req)
+	case "PrivateStoreClient.AnyExistingOffersInTheCollections":
+		resp, err = p.dispatchAnyExistingOffersInTheCollections(req)
 	case "PrivateStoreClient.BillingAccounts":
 		resp, err = p.dispatchBillingAccounts(req)
 	case "PrivateStoreClient.BulkCollectionsAction":
@@ -189,6 +199,8 @@ func (p *PrivateStoreServerTransport) Do(req *http.Request) (*http.Response, err
 		resp, err = p.dispatchQueryOffers(req)
 	case "PrivateStoreClient.QueryRequestApproval":
 		resp, err = p.dispatchQueryRequestApproval(req)
+	case "PrivateStoreClient.QueryUserOffers":
+		resp, err = p.dispatchQueryUserOffers(req)
 	case "PrivateStoreClient.UpdateAdminRequestApproval":
 		resp, err = p.dispatchUpdateAdminRequestApproval(req)
 	case "PrivateStoreClient.WithdrawPlan":
@@ -270,6 +282,35 @@ func (p *PrivateStoreServerTransport) dispatchAdminRequestApprovalsList(req *htt
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AdminRequestApprovalsList, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PrivateStoreServerTransport) dispatchAnyExistingOffersInTheCollections(req *http.Request) (*http.Response, error) {
+	if p.srv.AnyExistingOffersInTheCollections == nil {
+		return nil, &nonRetriableError{errors.New("fake for method AnyExistingOffersInTheCollections not implemented")}
+	}
+	const regexStr = `/providers/Microsoft\.Marketplace/privateStores/(?P<privateStoreId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/anyExistingOffersInTheCollections`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	privateStoreIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("privateStoreId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.AnyExistingOffersInTheCollections(req.Context(), privateStoreIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AnyExistingOffersInTheCollectionsResponse, req)
 	if err != nil {
 		return nil, err
 	}
@@ -929,6 +970,45 @@ func (p *PrivateStoreServerTransport) dispatchQueryRequestApproval(req *http.Req
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).QueryRequestApproval, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PrivateStoreServerTransport) dispatchQueryUserOffers(req *http.Request) (*http.Response, error) {
+	if p.srv.QueryUserOffers == nil {
+		return nil, &nonRetriableError{errors.New("fake for method QueryUserOffers not implemented")}
+	}
+	const regexStr = `/providers/Microsoft\.Marketplace/privateStores/(?P<privateStoreId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/queryUserOffers`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armmarketplace.QueryUserOffersProperties](req)
+	if err != nil {
+		return nil, err
+	}
+	privateStoreIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("privateStoreId")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armmarketplace.PrivateStoreClientQueryUserOffersOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armmarketplace.PrivateStoreClientQueryUserOffersOptions{
+			Payload: &body,
+		}
+	}
+	respr, errRespr := p.srv.QueryUserOffers(req.Context(), privateStoreIDParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).QueryOffers, req)
 	if err != nil {
 		return nil, err
 	}

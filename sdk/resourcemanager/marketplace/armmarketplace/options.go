@@ -25,6 +25,12 @@ type PrivateStoreClientAdminRequestApprovalsListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PrivateStoreClientAnyExistingOffersInTheCollectionsOptions contains the optional parameters for the PrivateStoreClient.AnyExistingOffersInTheCollections
+// method.
+type PrivateStoreClientAnyExistingOffersInTheCollectionsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PrivateStoreClientBillingAccountsOptions contains the optional parameters for the PrivateStoreClient.BillingAccounts method.
 type PrivateStoreClientBillingAccountsOptions struct {
 	// placeholder for future optional parameters
@@ -135,6 +141,11 @@ type PrivateStoreClientQueryRequestApprovalOptions struct {
 	Payload *QueryRequestApprovalProperties
 }
 
+// PrivateStoreClientQueryUserOffersOptions contains the optional parameters for the PrivateStoreClient.QueryUserOffers method.
+type PrivateStoreClientQueryUserOffersOptions struct {
+	Payload *QueryUserOffersProperties
+}
+
 // PrivateStoreClientUpdateAdminRequestApprovalOptions contains the optional parameters for the PrivateStoreClient.UpdateAdminRequestApproval
 // method.
 type PrivateStoreClientUpdateAdminRequestApprovalOptions struct {
@@ -146,6 +157,12 @@ type PrivateStoreClientWithdrawPlanOptions struct {
 	Payload *WithdrawProperties
 }
 
+// PrivateStoreCollectionClientApproveAllItemsOptions contains the optional parameters for the PrivateStoreCollectionClient.ApproveAllItems
+// method.
+type PrivateStoreCollectionClientApproveAllItemsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PrivateStoreCollectionClientCreateOrUpdateOptions contains the optional parameters for the PrivateStoreCollectionClient.CreateOrUpdate
 // method.
 type PrivateStoreCollectionClientCreateOrUpdateOptions struct {
@@ -155,6 +172,12 @@ type PrivateStoreCollectionClientCreateOrUpdateOptions struct {
 // PrivateStoreCollectionClientDeleteOptions contains the optional parameters for the PrivateStoreCollectionClient.Delete
 // method.
 type PrivateStoreCollectionClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateStoreCollectionClientDisableApproveAllItemsOptions contains the optional parameters for the PrivateStoreCollectionClient.DisableApproveAllItems
+// method.
+type PrivateStoreCollectionClientDisableApproveAllItemsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -197,6 +220,12 @@ type PrivateStoreCollectionOfferClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PrivateStoreCollectionOfferClientListByContextsOptions contains the optional parameters for the PrivateStoreCollectionOfferClient.NewListByContextsPager
+// method.
+type PrivateStoreCollectionOfferClientListByContextsOptions struct {
+	Payload *CollectionOffersByAllContextsPayload
+}
+
 // PrivateStoreCollectionOfferClientListOptions contains the optional parameters for the PrivateStoreCollectionOfferClient.NewListPager
 // method.
 type PrivateStoreCollectionOfferClientListOptions struct {
@@ -207,4 +236,25 @@ type PrivateStoreCollectionOfferClientListOptions struct {
 // method.
 type PrivateStoreCollectionOfferClientPostOptions struct {
 	Payload *Operation
+}
+
+// PrivateStoreCollectionOfferClientUpsertOfferWithMultiContextOptions contains the optional parameters for the PrivateStoreCollectionOfferClient.UpsertOfferWithMultiContext
+// method.
+type PrivateStoreCollectionOfferClientUpsertOfferWithMultiContextOptions struct {
+	Payload *MultiContextAndPlansPayload
+}
+
+// RPServiceClientQueryRulesOptions contains the optional parameters for the RPServiceClient.QueryRules method.
+type RPServiceClientQueryRulesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RPServiceClientQueryUserRulesOptions contains the optional parameters for the RPServiceClient.QueryUserRules method.
+type RPServiceClientQueryUserRulesOptions struct {
+	Payload *QueryUserRulesProperties
+}
+
+// RPServiceClientSetCollectionRulesOptions contains the optional parameters for the RPServiceClient.SetCollectionRules method.
+type RPServiceClientSetCollectionRulesOptions struct {
+	Payload *SetRulesRequest
 }

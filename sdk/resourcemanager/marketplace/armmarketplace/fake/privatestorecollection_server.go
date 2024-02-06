@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/marketplace/armmarketplace"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/marketplace/armmarketplace/v2"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -24,6 +24,10 @@ import (
 
 // PrivateStoreCollectionServer is a fake server for instances of the armmarketplace.PrivateStoreCollectionClient type.
 type PrivateStoreCollectionServer struct {
+	// ApproveAllItems is the fake for method PrivateStoreCollectionClient.ApproveAllItems
+	// HTTP status codes to indicate success: http.StatusOK
+	ApproveAllItems func(ctx context.Context, privateStoreID string, collectionID string, options *armmarketplace.PrivateStoreCollectionClientApproveAllItemsOptions) (resp azfake.Responder[armmarketplace.PrivateStoreCollectionClientApproveAllItemsResponse], errResp azfake.ErrorResponder)
+
 	// CreateOrUpdate is the fake for method PrivateStoreCollectionClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK
 	CreateOrUpdate func(ctx context.Context, privateStoreID string, collectionID string, options *armmarketplace.PrivateStoreCollectionClientCreateOrUpdateOptions) (resp azfake.Responder[armmarketplace.PrivateStoreCollectionClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -31,6 +35,10 @@ type PrivateStoreCollectionServer struct {
 	// Delete is the fake for method PrivateStoreCollectionClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	Delete func(ctx context.Context, privateStoreID string, collectionID string, options *armmarketplace.PrivateStoreCollectionClientDeleteOptions) (resp azfake.Responder[armmarketplace.PrivateStoreCollectionClientDeleteResponse], errResp azfake.ErrorResponder)
+
+	// DisableApproveAllItems is the fake for method PrivateStoreCollectionClient.DisableApproveAllItems
+	// HTTP status codes to indicate success: http.StatusOK
+	DisableApproveAllItems func(ctx context.Context, privateStoreID string, collectionID string, options *armmarketplace.PrivateStoreCollectionClientDisableApproveAllItemsOptions) (resp azfake.Responder[armmarketplace.PrivateStoreCollectionClientDisableApproveAllItemsResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method PrivateStoreCollectionClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -74,10 +82,14 @@ func (p *PrivateStoreCollectionServerTransport) Do(req *http.Request) (*http.Res
 	var err error
 
 	switch method {
+	case "PrivateStoreCollectionClient.ApproveAllItems":
+		resp, err = p.dispatchApproveAllItems(req)
 	case "PrivateStoreCollectionClient.CreateOrUpdate":
 		resp, err = p.dispatchCreateOrUpdate(req)
 	case "PrivateStoreCollectionClient.Delete":
 		resp, err = p.dispatchDelete(req)
+	case "PrivateStoreCollectionClient.DisableApproveAllItems":
+		resp, err = p.dispatchDisableApproveAllItems(req)
 	case "PrivateStoreCollectionClient.Get":
 		resp, err = p.dispatchGet(req)
 	case "PrivateStoreCollectionClient.List":
@@ -94,6 +106,39 @@ func (p *PrivateStoreCollectionServerTransport) Do(req *http.Request) (*http.Res
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (p *PrivateStoreCollectionServerTransport) dispatchApproveAllItems(req *http.Request) (*http.Response, error) {
+	if p.srv.ApproveAllItems == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ApproveAllItems not implemented")}
+	}
+	const regexStr = `/providers/Microsoft\.Marketplace/privateStores/(?P<privateStoreId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/collections/(?P<collectionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/approveAllItems`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	privateStoreIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("privateStoreId")])
+	if err != nil {
+		return nil, err
+	}
+	collectionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("collectionId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.ApproveAllItems(req.Context(), privateStoreIDParam, collectionIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Collection, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
@@ -167,6 +212,39 @@ func (p *PrivateStoreCollectionServerTransport) dispatchDelete(req *http.Request
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PrivateStoreCollectionServerTransport) dispatchDisableApproveAllItems(req *http.Request) (*http.Response, error) {
+	if p.srv.DisableApproveAllItems == nil {
+		return nil, &nonRetriableError{errors.New("fake for method DisableApproveAllItems not implemented")}
+	}
+	const regexStr = `/providers/Microsoft\.Marketplace/privateStores/(?P<privateStoreId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/collections/(?P<collectionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/disableApproveAllItems`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	privateStoreIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("privateStoreId")])
+	if err != nil {
+		return nil, err
+	}
+	collectionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("collectionId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.DisableApproveAllItems(req.Context(), privateStoreIDParam, collectionIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Collection, req)
 	if err != nil {
 		return nil, err
 	}

@@ -58,3 +58,9 @@ func (c *ClientFactory) NewPrivateStoreCollectionOfferClient() *PrivateStoreColl
 	subClient, _ := NewPrivateStoreCollectionOfferClient(c.credential, c.options)
 	return subClient
 }
+
+// NewRPServiceClient creates a new instance of RPServiceClient.
+func (c *ClientFactory) NewRPServiceClient() *RPServiceClient {
+	subClient, _ := NewRPServiceClient(c.credential, c.options)
+	return subClient
+}
