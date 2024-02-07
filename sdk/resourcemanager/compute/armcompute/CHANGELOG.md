@@ -1,5 +1,12 @@
 # Release History
 
+## 5.6.0 (2024-02-07)
+### Features Added
+
+- New enum type `ResourceIDOptionsForGetCapacityReservationGroups` with values `ResourceIDOptionsForGetCapacityReservationGroupsAll`, `ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription`, `ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription`
+- New field `ResourceIDsOnly` in struct `CapacityReservationGroupsClientListBySubscriptionOptions`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 

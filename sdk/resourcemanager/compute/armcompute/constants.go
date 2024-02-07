@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.5.0"
+	moduleVersion = "v5.6.0"
 )
 
 type AccessLevel string
@@ -1675,6 +1675,23 @@ func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
 		ReplicationStatusTypesUefiSettings,
+	}
+}
+
+type ResourceIDOptionsForGetCapacityReservationGroups string
+
+const (
+	ResourceIDOptionsForGetCapacityReservationGroupsAll                    ResourceIDOptionsForGetCapacityReservationGroups = "All"
+	ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription  ResourceIDOptionsForGetCapacityReservationGroups = "CreatedInSubscription"
+	ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription ResourceIDOptionsForGetCapacityReservationGroups = "SharedWithSubscription"
+)
+
+// PossibleResourceIDOptionsForGetCapacityReservationGroupsValues returns the possible values for the ResourceIDOptionsForGetCapacityReservationGroups const type.
+func PossibleResourceIDOptionsForGetCapacityReservationGroupsValues() []ResourceIDOptionsForGetCapacityReservationGroups {
+	return []ResourceIDOptionsForGetCapacityReservationGroups{
+		ResourceIDOptionsForGetCapacityReservationGroupsAll,
+		ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription,
+		ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription,
 	}
 }
 
