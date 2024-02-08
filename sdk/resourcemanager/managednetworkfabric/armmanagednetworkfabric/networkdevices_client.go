@@ -538,6 +538,87 @@ func (client *NetworkDevicesClient) refreshConfigurationCreateRequest(ctx contex
 	return req, nil
 }
 
+// BeginRunRoCommand - Run the RO Command on the Network Device.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-06-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - networkDeviceName - Name of the Network Device.
+//   - body - Request the command.
+//   - options - NetworkDevicesClientBeginRunRoCommandOptions contains the optional parameters for the NetworkDevicesClient.BeginRunRoCommand
+//     method.
+func (client *NetworkDevicesClient) BeginRunRoCommand(ctx context.Context, resourceGroupName string, networkDeviceName string, body DeviceRoCommand, options *NetworkDevicesClientBeginRunRoCommandOptions) (*runtime.Poller[NetworkDevicesClientRunRoCommandResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.runRoCommand(ctx, resourceGroupName, networkDeviceName, body, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[NetworkDevicesClientRunRoCommandResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[NetworkDevicesClientRunRoCommandResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// RunRoCommand - Run the RO Command on the Network Device.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-06-15
+func (client *NetworkDevicesClient) runRoCommand(ctx context.Context, resourceGroupName string, networkDeviceName string, body DeviceRoCommand, options *NetworkDevicesClientBeginRunRoCommandOptions) (*http.Response, error) {
+	var err error
+	const operationName = "NetworkDevicesClient.BeginRunRoCommand"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.runRoCommandCreateRequest(ctx, resourceGroupName, networkDeviceName, body, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// runRoCommandCreateRequest creates the RunRoCommand request.
+func (client *NetworkDevicesClient) runRoCommandCreateRequest(ctx context.Context, resourceGroupName string, networkDeviceName string, body DeviceRoCommand, options *NetworkDevicesClientBeginRunRoCommandOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/networkDevices/{networkDeviceName}/runRoCommand"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if networkDeviceName == "" {
+		return nil, errors.New("parameter networkDeviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{networkDeviceName}", url.PathEscape(networkDeviceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-06-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginUpdate - Update certain properties of the Network Device resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //

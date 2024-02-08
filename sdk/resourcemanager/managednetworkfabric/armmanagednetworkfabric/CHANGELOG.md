@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0 (2024-02-08)
+### Breaking Changes
+
+- Function `*NetworkFabricsClient.BeginUpgrade` parameter(s) have been changed from `(context.Context, string, string, UpdateVersion, *NetworkFabricsClientBeginUpgradeOptions)` to `(context.Context, string, string, UpgradeNetworkFabricProperties, *NetworkFabricsClientBeginUpgradeOptions)`
+
+### Features Added
+
+- New value `ConfigurationStatePendingCommit`, `ConfigurationStateProvisioning` added to enum type `ConfigurationState`
+- New enum type `NetworkFabricUpgradeAction` with values `NetworkFabricUpgradeActionComplete`, `NetworkFabricUpgradeActionStart`
+- New function `*NetworkDevicesClient.BeginRunRoCommand(context.Context, string, string, DeviceRoCommand, *NetworkDevicesClientBeginRunRoCommandOptions) (*runtime.Poller[NetworkDevicesClientRunRoCommandResponse], error)`
+- New struct `CommonPostActionResponseForDeviceROCommands`
+- New struct `DeviceRoCommand`
+- New struct `UpgradeNetworkFabricProperties`
+- New field `DefaultAction` in struct `AccessControlListPatchProperties`
+- New field `DefaultAction` in struct `AccessControlListProperties`
+- New field `NetworkToNetworkInterconnectID` in struct `ExternalNetworkPatchProperties`
+- New field `DefaultAction` in struct `RoutePolicyPatchableProperties`
+- New field `DefaultAction` in struct `RoutePolicyProperties`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 

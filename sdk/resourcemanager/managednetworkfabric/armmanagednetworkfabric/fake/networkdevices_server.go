@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managednetworkfabric/armmanagednetworkfabric"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managednetworkfabric/armmanagednetworkfabric/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -52,6 +52,10 @@ type NetworkDevicesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginRefreshConfiguration func(ctx context.Context, resourceGroupName string, networkDeviceName string, options *armmanagednetworkfabric.NetworkDevicesClientBeginRefreshConfigurationOptions) (resp azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRefreshConfigurationResponse], errResp azfake.ErrorResponder)
 
+	// BeginRunRoCommand is the fake for method NetworkDevicesClient.BeginRunRoCommand
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginRunRoCommand func(ctx context.Context, resourceGroupName string, networkDeviceName string, body armmanagednetworkfabric.DeviceRoCommand, options *armmanagednetworkfabric.NetworkDevicesClientBeginRunRoCommandOptions) (resp azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRunRoCommandResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpdate is the fake for method NetworkDevicesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, networkDeviceName string, body armmanagednetworkfabric.NetworkDevicePatchParameters, options *armmanagednetworkfabric.NetworkDevicesClientBeginUpdateOptions) (resp azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -77,6 +81,7 @@ func NewNetworkDevicesServerTransport(srv *NetworkDevicesServer) *NetworkDevices
 		newListBySubscriptionPager:     newTracker[azfake.PagerResponder[armmanagednetworkfabric.NetworkDevicesClientListBySubscriptionResponse]](),
 		beginReboot:                    newTracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRebootResponse]](),
 		beginRefreshConfiguration:      newTracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRefreshConfigurationResponse]](),
+		beginRunRoCommand:              newTracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRunRoCommandResponse]](),
 		beginUpdate:                    newTracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpdateResponse]](),
 		beginUpdateAdministrativeState: newTracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpdateAdministrativeStateResponse]](),
 		beginUpgrade:                   newTracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpgradeResponse]](),
@@ -93,6 +98,7 @@ type NetworkDevicesServerTransport struct {
 	newListBySubscriptionPager     *tracker[azfake.PagerResponder[armmanagednetworkfabric.NetworkDevicesClientListBySubscriptionResponse]]
 	beginReboot                    *tracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRebootResponse]]
 	beginRefreshConfiguration      *tracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRefreshConfigurationResponse]]
+	beginRunRoCommand              *tracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientRunRoCommandResponse]]
 	beginUpdate                    *tracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpdateResponse]]
 	beginUpdateAdministrativeState *tracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpdateAdministrativeStateResponse]]
 	beginUpgrade                   *tracker[azfake.PollerResponder[armmanagednetworkfabric.NetworkDevicesClientUpgradeResponse]]
@@ -124,6 +130,8 @@ func (n *NetworkDevicesServerTransport) Do(req *http.Request) (*http.Response, e
 		resp, err = n.dispatchBeginReboot(req)
 	case "NetworkDevicesClient.BeginRefreshConfiguration":
 		resp, err = n.dispatchBeginRefreshConfiguration(req)
+	case "NetworkDevicesClient.BeginRunRoCommand":
+		resp, err = n.dispatchBeginRunRoCommand(req)
 	case "NetworkDevicesClient.BeginUpdate":
 		resp, err = n.dispatchBeginUpdate(req)
 	case "NetworkDevicesClient.BeginUpdateAdministrativeState":
@@ -423,6 +431,54 @@ func (n *NetworkDevicesServerTransport) dispatchBeginRefreshConfiguration(req *h
 	}
 	if !server.PollerResponderMore(beginRefreshConfiguration) {
 		n.beginRefreshConfiguration.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (n *NetworkDevicesServerTransport) dispatchBeginRunRoCommand(req *http.Request) (*http.Response, error) {
+	if n.srv.BeginRunRoCommand == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginRunRoCommand not implemented")}
+	}
+	beginRunRoCommand := n.beginRunRoCommand.get(req)
+	if beginRunRoCommand == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ManagedNetworkFabric/networkDevices/(?P<networkDeviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/runRoCommand`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armmanagednetworkfabric.DeviceRoCommand](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		networkDeviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkDeviceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := n.srv.BeginRunRoCommand(req.Context(), resourceGroupNameParam, networkDeviceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginRunRoCommand = &respr
+		n.beginRunRoCommand.add(req, beginRunRoCommand)
+	}
+
+	resp, err := server.PollerResponderNext(beginRunRoCommand, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		n.beginRunRoCommand.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginRunRoCommand) {
+		n.beginRunRoCommand.remove(req)
 	}
 
 	return resp, nil

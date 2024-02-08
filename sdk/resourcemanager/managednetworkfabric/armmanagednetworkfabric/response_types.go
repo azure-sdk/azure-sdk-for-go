@@ -518,6 +518,12 @@ type NetworkDevicesClientRefreshConfigurationResponse struct {
 	CommonPostActionResponseForStateUpdate
 }
 
+// NetworkDevicesClientRunRoCommandResponse contains the response from method NetworkDevicesClient.BeginRunRoCommand.
+type NetworkDevicesClientRunRoCommandResponse struct {
+	// Common response for device Ro Commands.
+	CommonPostActionResponseForDeviceROCommands
+}
+
 // NetworkDevicesClientUpdateAdministrativeStateResponse contains the response from method NetworkDevicesClient.BeginUpdateAdministrativeState.
 type NetworkDevicesClientUpdateAdministrativeStateResponse struct {
 	// Common response for the state updates.

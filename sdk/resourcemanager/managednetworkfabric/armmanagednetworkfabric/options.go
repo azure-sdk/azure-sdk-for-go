@@ -530,6 +530,13 @@ type NetworkDevicesClientBeginRefreshConfigurationOptions struct {
 	ResumeToken string
 }
 
+// NetworkDevicesClientBeginRunRoCommandOptions contains the optional parameters for the NetworkDevicesClient.BeginRunRoCommand
+// method.
+type NetworkDevicesClientBeginRunRoCommandOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // NetworkDevicesClientBeginUpdateAdministrativeStateOptions contains the optional parameters for the NetworkDevicesClient.BeginUpdateAdministrativeState
 // method.
 type NetworkDevicesClientBeginUpdateAdministrativeStateOptions struct {
