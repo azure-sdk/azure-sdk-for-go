@@ -43,6 +43,12 @@ func (c *ClientFactory) NewActionsClient() *ActionsClient {
 	return subClient
 }
 
+// NewAlertRuleClient creates a new instance of AlertRuleClient.
+func (c *ClientFactory) NewAlertRuleClient() *AlertRuleClient {
+	subClient, _ := NewAlertRuleClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewAlertRuleTemplatesClient creates a new instance of AlertRuleTemplatesClient.
 func (c *ClientFactory) NewAlertRuleTemplatesClient() *AlertRuleTemplatesClient {
 	subClient, _ := NewAlertRuleTemplatesClient(c.subscriptionID, c.credential, c.options)
@@ -61,15 +67,165 @@ func (c *ClientFactory) NewAutomationRulesClient() *AutomationRulesClient {
 	return subClient
 }
 
+// NewBillingStatisticsClient creates a new instance of BillingStatisticsClient.
+func (c *ClientFactory) NewBillingStatisticsClient() *BillingStatisticsClient {
+	subClient, _ := NewBillingStatisticsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewBookmarkClient creates a new instance of BookmarkClient.
+func (c *ClientFactory) NewBookmarkClient() *BookmarkClient {
+	subClient, _ := NewBookmarkClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewBookmarkRelationsClient creates a new instance of BookmarkRelationsClient.
+func (c *ClientFactory) NewBookmarkRelationsClient() *BookmarkRelationsClient {
+	subClient, _ := NewBookmarkRelationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewBookmarksClient creates a new instance of BookmarksClient.
 func (c *ClientFactory) NewBookmarksClient() *BookmarksClient {
 	subClient, _ := NewBookmarksClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
+// NewClient creates a new instance of Client.
+func (c *ClientFactory) NewClient() *Client {
+	subClient, _ := NewClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentPackageClient creates a new instance of ContentPackageClient.
+func (c *ClientFactory) NewContentPackageClient() *ContentPackageClient {
+	subClient, _ := NewContentPackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentPackagesClient creates a new instance of ContentPackagesClient.
+func (c *ClientFactory) NewContentPackagesClient() *ContentPackagesClient {
+	subClient, _ := NewContentPackagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentTemplateClient creates a new instance of ContentTemplateClient.
+func (c *ClientFactory) NewContentTemplateClient() *ContentTemplateClient {
+	subClient, _ := NewContentTemplateClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewContentTemplatesClient creates a new instance of ContentTemplatesClient.
+func (c *ClientFactory) NewContentTemplatesClient() *ContentTemplatesClient {
+	subClient, _ := NewContentTemplatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDataConnectorDefinitionsClient creates a new instance of DataConnectorDefinitionsClient.
+func (c *ClientFactory) NewDataConnectorDefinitionsClient() *DataConnectorDefinitionsClient {
+	subClient, _ := NewDataConnectorDefinitionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDataConnectorsCheckRequirementsClient creates a new instance of DataConnectorsCheckRequirementsClient.
+func (c *ClientFactory) NewDataConnectorsCheckRequirementsClient() *DataConnectorsCheckRequirementsClient {
+	subClient, _ := NewDataConnectorsCheckRequirementsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewDataConnectorsClient creates a new instance of DataConnectorsClient.
 func (c *ClientFactory) NewDataConnectorsClient() *DataConnectorsClient {
 	subClient, _ := NewDataConnectorsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDomainWhoisClient creates a new instance of DomainWhoisClient.
+func (c *ClientFactory) NewDomainWhoisClient() *DomainWhoisClient {
+	subClient, _ := NewDomainWhoisClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEntitiesClient creates a new instance of EntitiesClient.
+func (c *ClientFactory) NewEntitiesClient() *EntitiesClient {
+	subClient, _ := NewEntitiesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEntitiesGetTimelineClient creates a new instance of EntitiesGetTimelineClient.
+func (c *ClientFactory) NewEntitiesGetTimelineClient() *EntitiesGetTimelineClient {
+	subClient, _ := NewEntitiesGetTimelineClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEntitiesRelationsClient creates a new instance of EntitiesRelationsClient.
+func (c *ClientFactory) NewEntitiesRelationsClient() *EntitiesRelationsClient {
+	subClient, _ := NewEntitiesRelationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEntityQueriesClient creates a new instance of EntityQueriesClient.
+func (c *ClientFactory) NewEntityQueriesClient() *EntityQueriesClient {
+	subClient, _ := NewEntityQueriesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEntityQueryTemplatesClient creates a new instance of EntityQueryTemplatesClient.
+func (c *ClientFactory) NewEntityQueryTemplatesClient() *EntityQueryTemplatesClient {
+	subClient, _ := NewEntityQueryTemplatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewEntityRelationsClient creates a new instance of EntityRelationsClient.
+func (c *ClientFactory) NewEntityRelationsClient() *EntityRelationsClient {
+	subClient, _ := NewEntityRelationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFileImportsClient creates a new instance of FileImportsClient.
+func (c *ClientFactory) NewFileImportsClient() *FileImportsClient {
+	subClient, _ := NewFileImportsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGetClient creates a new instance of GetClient.
+func (c *ClientFactory) NewGetClient() *GetClient {
+	subClient, _ := NewGetClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGetRecommendationsClient creates a new instance of GetRecommendationsClient.
+func (c *ClientFactory) NewGetRecommendationsClient() *GetRecommendationsClient {
+	subClient, _ := NewGetRecommendationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGetTriggeredAnalyticsRuleRunsClient creates a new instance of GetTriggeredAnalyticsRuleRunsClient.
+func (c *ClientFactory) NewGetTriggeredAnalyticsRuleRunsClient() *GetTriggeredAnalyticsRuleRunsClient {
+	subClient, _ := NewGetTriggeredAnalyticsRuleRunsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewHuntCommentsClient creates a new instance of HuntCommentsClient.
+func (c *ClientFactory) NewHuntCommentsClient() *HuntCommentsClient {
+	subClient, _ := NewHuntCommentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewHuntRelationsClient creates a new instance of HuntRelationsClient.
+func (c *ClientFactory) NewHuntRelationsClient() *HuntRelationsClient {
+	subClient, _ := NewHuntRelationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewHuntsClient creates a new instance of HuntsClient.
+func (c *ClientFactory) NewHuntsClient() *HuntsClient {
+	subClient, _ := NewHuntsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewIPGeodataClient creates a new instance of IPGeodataClient.
+func (c *ClientFactory) NewIPGeodataClient() *IPGeodataClient {
+	subClient, _ := NewIPGeodataClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -85,9 +241,27 @@ func (c *ClientFactory) NewIncidentRelationsClient() *IncidentRelationsClient {
 	return subClient
 }
 
+// NewIncidentTasksClient creates a new instance of IncidentTasksClient.
+func (c *ClientFactory) NewIncidentTasksClient() *IncidentTasksClient {
+	subClient, _ := NewIncidentTasksClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewIncidentsClient creates a new instance of IncidentsClient.
 func (c *ClientFactory) NewIncidentsClient() *IncidentsClient {
 	subClient, _ := NewIncidentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewMetadataClient creates a new instance of MetadataClient.
+func (c *ClientFactory) NewMetadataClient() *MetadataClient {
+	subClient, _ := NewMetadataClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewOfficeConsentsClient creates a new instance of OfficeConsentsClient.
+func (c *ClientFactory) NewOfficeConsentsClient() *OfficeConsentsClient {
+	subClient, _ := NewOfficeConsentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -97,9 +271,57 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
+// NewProductPackageClient creates a new instance of ProductPackageClient.
+func (c *ClientFactory) NewProductPackageClient() *ProductPackageClient {
+	subClient, _ := NewProductPackageClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductPackagesClient creates a new instance of ProductPackagesClient.
+func (c *ClientFactory) NewProductPackagesClient() *ProductPackagesClient {
+	subClient, _ := NewProductPackagesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductSettingsClient creates a new instance of ProductSettingsClient.
+func (c *ClientFactory) NewProductSettingsClient() *ProductSettingsClient {
+	subClient, _ := NewProductSettingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductTemplateClient creates a new instance of ProductTemplateClient.
+func (c *ClientFactory) NewProductTemplateClient() *ProductTemplateClient {
+	subClient, _ := NewProductTemplateClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewProductTemplatesClient creates a new instance of ProductTemplatesClient.
+func (c *ClientFactory) NewProductTemplatesClient() *ProductTemplatesClient {
+	subClient, _ := NewProductTemplatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSecurityMLAnalyticsSettingsClient creates a new instance of SecurityMLAnalyticsSettingsClient.
+func (c *ClientFactory) NewSecurityMLAnalyticsSettingsClient() *SecurityMLAnalyticsSettingsClient {
+	subClient, _ := NewSecurityMLAnalyticsSettingsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewSentinelOnboardingStatesClient creates a new instance of SentinelOnboardingStatesClient.
 func (c *ClientFactory) NewSentinelOnboardingStatesClient() *SentinelOnboardingStatesClient {
 	subClient, _ := NewSentinelOnboardingStatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSourceControlClient creates a new instance of SourceControlClient.
+func (c *ClientFactory) NewSourceControlClient() *SourceControlClient {
+	subClient, _ := NewSourceControlClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSourceControlsClient creates a new instance of SourceControlsClient.
+func (c *ClientFactory) NewSourceControlsClient() *SourceControlsClient {
+	subClient, _ := NewSourceControlsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -121,6 +343,18 @@ func (c *ClientFactory) NewThreatIntelligenceIndicatorsClient() *ThreatIntellige
 	return subClient
 }
 
+// NewTriggeredAnalyticsRuleRunClient creates a new instance of TriggeredAnalyticsRuleRunClient.
+func (c *ClientFactory) NewTriggeredAnalyticsRuleRunClient() *TriggeredAnalyticsRuleRunClient {
+	subClient, _ := NewTriggeredAnalyticsRuleRunClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewUpdateClient creates a new instance of UpdateClient.
+func (c *ClientFactory) NewUpdateClient() *UpdateClient {
+	subClient, _ := NewUpdateClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewWatchlistItemsClient creates a new instance of WatchlistItemsClient.
 func (c *ClientFactory) NewWatchlistItemsClient() *WatchlistItemsClient {
 	subClient, _ := NewWatchlistItemsClient(c.subscriptionID, c.credential, c.options)
@@ -130,5 +364,35 @@ func (c *ClientFactory) NewWatchlistItemsClient() *WatchlistItemsClient {
 // NewWatchlistsClient creates a new instance of WatchlistsClient.
 func (c *ClientFactory) NewWatchlistsClient() *WatchlistsClient {
 	subClient, _ := NewWatchlistsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceManagerAssignmentJobsClient creates a new instance of WorkspaceManagerAssignmentJobsClient.
+func (c *ClientFactory) NewWorkspaceManagerAssignmentJobsClient() *WorkspaceManagerAssignmentJobsClient {
+	subClient, _ := NewWorkspaceManagerAssignmentJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceManagerAssignmentsClient creates a new instance of WorkspaceManagerAssignmentsClient.
+func (c *ClientFactory) NewWorkspaceManagerAssignmentsClient() *WorkspaceManagerAssignmentsClient {
+	subClient, _ := NewWorkspaceManagerAssignmentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceManagerConfigurationsClient creates a new instance of WorkspaceManagerConfigurationsClient.
+func (c *ClientFactory) NewWorkspaceManagerConfigurationsClient() *WorkspaceManagerConfigurationsClient {
+	subClient, _ := NewWorkspaceManagerConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceManagerGroupsClient creates a new instance of WorkspaceManagerGroupsClient.
+func (c *ClientFactory) NewWorkspaceManagerGroupsClient() *WorkspaceManagerGroupsClient {
+	subClient, _ := NewWorkspaceManagerGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkspaceManagerMembersClient creates a new instance of WorkspaceManagerMembersClient.
+func (c *ClientFactory) NewWorkspaceManagerMembersClient() *WorkspaceManagerMembersClient {
+	subClient, _ := NewWorkspaceManagerMembersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
