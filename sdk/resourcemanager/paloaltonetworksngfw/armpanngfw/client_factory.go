@@ -97,6 +97,12 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
+// NewPaloAltoNetworksCloudngfwClient creates a new instance of PaloAltoNetworksCloudngfwClient.
+func (c *ClientFactory) NewPaloAltoNetworksCloudngfwClient() *PaloAltoNetworksCloudngfwClient {
+	subClient, _ := NewPaloAltoNetworksCloudngfwClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewPostRulesClient creates a new instance of PostRulesClient.
 func (c *ClientFactory) NewPostRulesClient() *PostRulesClient {
 	subClient, _ := NewPostRulesClient(c.credential, c.options)
