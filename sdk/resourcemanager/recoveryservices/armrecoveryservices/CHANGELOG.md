@@ -1,5 +1,19 @@
 # Release History
 
+## 2.0.0 (2024-02-09)
+### Breaking Changes
+
+- Operation `*VaultsClient.Delete` has been changed to LRO, use `*VaultsClient.BeginDelete` instead.
+
+### Features Added
+
+- New value `StandardTierStorageRedundancyInvalid` added to enum type `StandardTierStorageRedundancy`
+- New enum type `EnhancedSecurityState` with values `EnhancedSecurityStateAlwaysON`, `EnhancedSecurityStateDisabled`, `EnhancedSecurityStateEnabled`, `EnhancedSecurityStateInvalid`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New field `EnhancedSecurityState` in struct `SoftDeleteSettings`
+
+
 ## 1.6.0 (2023-11-30)
 ### Features Added
 

@@ -187,6 +187,31 @@ type ErrorAdditionalInfo struct {
 	Type *string
 }
 
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
+}
+
 // IdentityData - Identity for the resource.
 type IdentityData struct {
 	// REQUIRED; The type of managed identity used. The type 'SystemAssigned, UserAssigned' includes both an implicitly created
@@ -684,6 +709,8 @@ type SecuritySettings struct {
 
 // SoftDeleteSettings - Soft delete Settings of vault
 type SoftDeleteSettings struct {
+	EnhancedSecurityState *EnhancedSecurityState
+
 	// Soft delete retention period in days
 	SoftDeleteRetentionPeriodInDays *int32
 	SoftDeleteState                 *SoftDeleteState
@@ -940,10 +967,10 @@ type VaultPropertiesMoveDetails struct {
 
 // VaultPropertiesRedundancySettings - The redundancy Settings of a Vault
 type VaultPropertiesRedundancySettings struct {
-	// READ-ONLY; Flag to show if Cross Region Restore is enabled on the Vault or not
+	// Flag to show if Cross Region Restore is enabled on the Vault or not
 	CrossRegionRestore *CrossRegionRestore
 
-	// READ-ONLY; The storage redundancy setting of a vault
+	// The storage redundancy setting of a vault
 	StandardTierStorageRedundancy *StandardTierStorageRedundancy
 }
 
