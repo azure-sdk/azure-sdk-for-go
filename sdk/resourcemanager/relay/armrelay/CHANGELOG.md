@@ -1,5 +1,11 @@
 # Release History
 
+## 1.3.0 (2024-02-09)
+### Features Added
+
+- New field `PublicNetworkAccess`, `TrustedServiceAccessEnabled` in struct `NetworkRuleSetProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
