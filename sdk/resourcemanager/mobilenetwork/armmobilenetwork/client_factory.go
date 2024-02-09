@@ -55,6 +55,12 @@ func (c *ClientFactory) NewDiagnosticsPackagesClient() *DiagnosticsPackagesClien
 	return subClient
 }
 
+// NewExtendedUeInformationClient creates a new instance of ExtendedUeInformationClient.
+func (c *ClientFactory) NewExtendedUeInformationClient() *ExtendedUeInformationClient {
+	subClient, _ := NewExtendedUeInformationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewMobileNetworksClient creates a new instance of MobileNetworksClient.
 func (c *ClientFactory) NewMobileNetworksClient() *MobileNetworksClient {
 	subClient, _ := NewMobileNetworksClient(c.subscriptionID, c.credential, c.options)
@@ -124,5 +130,11 @@ func (c *ClientFactory) NewSitesClient() *SitesClient {
 // NewSlicesClient creates a new instance of SlicesClient.
 func (c *ClientFactory) NewSlicesClient() *SlicesClient {
 	subClient, _ := NewSlicesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewUeInformationClient creates a new instance of UeInformationClient.
+func (c *ClientFactory) NewUeInformationClient() *UeInformationClient {
+	subClient, _ := NewUeInformationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
