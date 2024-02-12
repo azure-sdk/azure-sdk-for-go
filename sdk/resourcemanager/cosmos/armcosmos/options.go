@@ -345,6 +345,11 @@ type DataTransferJobsClientCancelOptions struct {
 	// placeholder for future optional parameters
 }
 
+// DataTransferJobsClientCompleteOptions contains the optional parameters for the DataTransferJobsClient.Complete method.
+type DataTransferJobsClientCompleteOptions struct {
+	// placeholder for future optional parameters
+}
+
 // DataTransferJobsClientCreateOptions contains the optional parameters for the DataTransferJobsClient.Create method.
 type DataTransferJobsClientCreateOptions struct {
 	// placeholder for future optional parameters
