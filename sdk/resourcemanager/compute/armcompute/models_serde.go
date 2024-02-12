@@ -2610,8 +2610,12 @@ func (d *DataDiskImageEncryption) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type DataDisksToAttach.
 func (d DataDisksToAttach) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "caching", d.Caching)
+	populate(objectMap, "deleteOption", d.DeleteOption)
+	populate(objectMap, "diskEncryptionSet", d.DiskEncryptionSet)
 	populate(objectMap, "diskId", d.DiskID)
 	populate(objectMap, "lun", d.Lun)
+	populate(objectMap, "writeAcceleratorEnabled", d.WriteAcceleratorEnabled)
 	return json.Marshal(objectMap)
 }
 
@@ -2624,11 +2628,23 @@ func (d *DataDisksToAttach) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "caching":
+			err = unpopulate(val, "Caching", &d.Caching)
+			delete(rawMsg, key)
+		case "deleteOption":
+			err = unpopulate(val, "DeleteOption", &d.DeleteOption)
+			delete(rawMsg, key)
+		case "diskEncryptionSet":
+			err = unpopulate(val, "DiskEncryptionSet", &d.DiskEncryptionSet)
+			delete(rawMsg, key)
 		case "diskId":
 			err = unpopulate(val, "DiskID", &d.DiskID)
 			delete(rawMsg, key)
 		case "lun":
 			err = unpopulate(val, "Lun", &d.Lun)
+			delete(rawMsg, key)
+		case "writeAcceleratorEnabled":
+			err = unpopulate(val, "WriteAcceleratorEnabled", &d.WriteAcceleratorEnabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {

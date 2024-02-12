@@ -1,5 +1,11 @@
 # Release History
 
+## 5.6.0 (2024-02-12)
+### Features Added
+
+- New field `Caching`, `DeleteOption`, `DiskEncryptionSet`, `WriteAcceleratorEnabled` in struct `DataDisksToAttach`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
