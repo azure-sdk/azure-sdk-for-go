@@ -1,6 +1,6 @@
 # Azure Database for PostgreSQL Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql/v2)
 
 The `armpostgresql` module provides operations for working with Azure Database for PostgreSQL.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Database for PostgreSQL module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armpostgresql.NewClientFactory(<subscription ID>, cred, &o
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewServersClient()
+client := clientFactory.NewAdministratorsClient()
 ```
 
 ## Fakes

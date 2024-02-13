@@ -23,7 +23,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -37,9 +37,27 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewAdministratorsClient creates a new instance of AdministratorsClient.
+func (c *ClientFactory) NewAdministratorsClient() *AdministratorsClient {
+	subClient, _ := NewAdministratorsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewBackupsClient creates a new instance of BackupsClient.
+func (c *ClientFactory) NewBackupsClient() *BackupsClient {
+	subClient, _ := NewBackupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewCheckNameAvailabilityClient creates a new instance of CheckNameAvailabilityClient.
 func (c *ClientFactory) NewCheckNameAvailabilityClient() *CheckNameAvailabilityClient {
 	subClient, _ := NewCheckNameAvailabilityClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewCheckNameAvailabilityWithLocationClient creates a new instance of CheckNameAvailabilityWithLocationClient.
+func (c *ClientFactory) NewCheckNameAvailabilityWithLocationClient() *CheckNameAvailabilityWithLocationClient {
+	subClient, _ := NewCheckNameAvailabilityWithLocationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -61,9 +79,21 @@ func (c *ClientFactory) NewFirewallRulesClient() *FirewallRulesClient {
 	return subClient
 }
 
-// NewLocationBasedPerformanceTierClient creates a new instance of LocationBasedPerformanceTierClient.
-func (c *ClientFactory) NewLocationBasedPerformanceTierClient() *LocationBasedPerformanceTierClient {
-	subClient, _ := NewLocationBasedPerformanceTierClient(c.subscriptionID, c.credential, c.options)
+// NewFlexibleServerClient creates a new instance of FlexibleServerClient.
+func (c *ClientFactory) NewFlexibleServerClient() *FlexibleServerClient {
+	subClient, _ := NewFlexibleServerClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGetPrivateDNSZoneSuffixClient creates a new instance of GetPrivateDNSZoneSuffixClient.
+func (c *ClientFactory) NewGetPrivateDNSZoneSuffixClient() *GetPrivateDNSZoneSuffixClient {
+	subClient, _ := NewGetPrivateDNSZoneSuffixClient(c.credential, c.options)
+	return subClient
+}
+
+// NewLocationBasedCapabilitiesClient creates a new instance of LocationBasedCapabilitiesClient.
+func (c *ClientFactory) NewLocationBasedCapabilitiesClient() *LocationBasedCapabilitiesClient {
+	subClient, _ := NewLocationBasedCapabilitiesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -73,9 +103,33 @@ func (c *ClientFactory) NewLogFilesClient() *LogFilesClient {
 	return subClient
 }
 
+// NewLtrBackupOperationsClient creates a new instance of LtrBackupOperationsClient.
+func (c *ClientFactory) NewLtrBackupOperationsClient() *LtrBackupOperationsClient {
+	subClient, _ := NewLtrBackupOperationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewManagementClient creates a new instance of ManagementClient.
+func (c *ClientFactory) NewManagementClient() *ManagementClient {
+	subClient, _ := NewManagementClient(c.credential, c.options)
+	return subClient
+}
+
+// NewMigrationsClient creates a new instance of MigrationsClient.
+func (c *ClientFactory) NewMigrationsClient() *MigrationsClient {
+	subClient, _ := NewMigrationsClient(c.credential, c.options)
+	return subClient
+}
+
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewPrivateEndpointConnectionClient creates a new instance of PrivateEndpointConnectionClient.
+func (c *ClientFactory) NewPrivateEndpointConnectionClient() *PrivateEndpointConnectionClient {
+	subClient, _ := NewPrivateEndpointConnectionClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -91,9 +145,9 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 	return subClient
 }
 
-// NewRecoverableServersClient creates a new instance of RecoverableServersClient.
-func (c *ClientFactory) NewRecoverableServersClient() *RecoverableServersClient {
-	subClient, _ := NewRecoverableServersClient(c.subscriptionID, c.credential, c.options)
+// NewQuotaUsagesClient creates a new instance of QuotaUsagesClient.
+func (c *ClientFactory) NewQuotaUsagesClient() *QuotaUsagesClient {
+	subClient, _ := NewQuotaUsagesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -103,33 +157,15 @@ func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	return subClient
 }
 
-// NewServerAdministratorsClient creates a new instance of ServerAdministratorsClient.
-func (c *ClientFactory) NewServerAdministratorsClient() *ServerAdministratorsClient {
-	subClient, _ := NewServerAdministratorsClient(c.subscriptionID, c.credential, c.options)
+// NewServerCapabilitiesClient creates a new instance of ServerCapabilitiesClient.
+func (c *ClientFactory) NewServerCapabilitiesClient() *ServerCapabilitiesClient {
+	subClient, _ := NewServerCapabilitiesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-// NewServerBasedPerformanceTierClient creates a new instance of ServerBasedPerformanceTierClient.
-func (c *ClientFactory) NewServerBasedPerformanceTierClient() *ServerBasedPerformanceTierClient {
-	subClient, _ := NewServerBasedPerformanceTierClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewServerKeysClient creates a new instance of ServerKeysClient.
-func (c *ClientFactory) NewServerKeysClient() *ServerKeysClient {
-	subClient, _ := NewServerKeysClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewServerParametersClient creates a new instance of ServerParametersClient.
-func (c *ClientFactory) NewServerParametersClient() *ServerParametersClient {
-	subClient, _ := NewServerParametersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewServerSecurityAlertPoliciesClient creates a new instance of ServerSecurityAlertPoliciesClient.
-func (c *ClientFactory) NewServerSecurityAlertPoliciesClient() *ServerSecurityAlertPoliciesClient {
-	subClient, _ := NewServerSecurityAlertPoliciesClient(c.subscriptionID, c.credential, c.options)
+// NewServerThreatProtectionSettingsClient creates a new instance of ServerThreatProtectionSettingsClient.
+func (c *ClientFactory) NewServerThreatProtectionSettingsClient() *ServerThreatProtectionSettingsClient {
+	subClient, _ := NewServerThreatProtectionSettingsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -139,8 +175,14 @@ func (c *ClientFactory) NewServersClient() *ServersClient {
 	return subClient
 }
 
-// NewVirtualNetworkRulesClient creates a new instance of VirtualNetworkRulesClient.
-func (c *ClientFactory) NewVirtualNetworkRulesClient() *VirtualNetworkRulesClient {
-	subClient, _ := NewVirtualNetworkRulesClient(c.subscriptionID, c.credential, c.options)
+// NewVirtualEndpointsClient creates a new instance of VirtualEndpointsClient.
+func (c *ClientFactory) NewVirtualEndpointsClient() *VirtualEndpointsClient {
+	subClient, _ := NewVirtualEndpointsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewVirtualNetworkSubnetUsageClient creates a new instance of VirtualNetworkSubnetUsageClient.
+func (c *ClientFactory) NewVirtualNetworkSubnetUsageClient() *VirtualNetworkSubnetUsageClient {
+	subClient, _ := NewVirtualNetworkSubnetUsageClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
