@@ -1,5 +1,14 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-02-13)
+### Features Added
+
+- New struct `APIServerAccessProfile`
+- New struct `AgentProfile`
+- New struct `FleetHubProfile`
+- New field `HubProfile` in struct `FleetProperties`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
