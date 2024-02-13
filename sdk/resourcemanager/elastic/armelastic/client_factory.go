@@ -32,7 +32,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -55,6 +55,18 @@ func (c *ClientFactory) NewAllTrafficFiltersClient() *AllTrafficFiltersClient {
 // NewAssociateTrafficFilterClient creates a new instance of AssociateTrafficFilterClient.
 func (c *ClientFactory) NewAssociateTrafficFilterClient() *AssociateTrafficFilterClient {
 	subClient, _ := NewAssociateTrafficFilterClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewBillingInfoClient creates a new instance of BillingInfoClient.
+func (c *ClientFactory) NewBillingInfoClient() *BillingInfoClient {
+	subClient, _ := NewBillingInfoClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewConnectedPartnerResourcesClient creates a new instance of ConnectedPartnerResourcesClient.
+func (c *ClientFactory) NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient {
+	subClient, _ := NewConnectedPartnerResourcesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -115,6 +127,12 @@ func (c *ClientFactory) NewMonitoredResourcesClient() *MonitoredResourcesClient 
 // NewMonitorsClient creates a new instance of MonitorsClient.
 func (c *ClientFactory) NewMonitorsClient() *MonitorsClient {
 	subClient, _ := NewMonitorsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewOpenAIClient creates a new instance of OpenAIClient.
+func (c *ClientFactory) NewOpenAIClient() *OpenAIClient {
+	subClient, _ := NewOpenAIClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
