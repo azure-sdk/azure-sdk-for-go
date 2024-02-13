@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,9 +24,9 @@ import (
 
 // DatabasesServer is a fake server for instances of the armpostgresql.DatabasesClient type.
 type DatabasesServer struct {
-	// BeginCreateOrUpdate is the fake for method DatabasesClient.BeginCreateOrUpdate
+	// BeginCreate is the fake for method DatabasesClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters armpostgresql.Database, options *armpostgresql.DatabasesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armpostgresql.DatabasesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters armpostgresql.Database, options *armpostgresql.DatabasesClientBeginCreateOptions) (resp azfake.PollerResponder[armpostgresql.DatabasesClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method DatabasesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -46,7 +47,7 @@ type DatabasesServer struct {
 func NewDatabasesServerTransport(srv *DatabasesServer) *DatabasesServerTransport {
 	return &DatabasesServerTransport{
 		srv:                  srv,
-		beginCreateOrUpdate:  newTracker[azfake.PollerResponder[armpostgresql.DatabasesClientCreateOrUpdateResponse]](),
+		beginCreate:          newTracker[azfake.PollerResponder[armpostgresql.DatabasesClientCreateResponse]](),
 		beginDelete:          newTracker[azfake.PollerResponder[armpostgresql.DatabasesClientDeleteResponse]](),
 		newListByServerPager: newTracker[azfake.PagerResponder[armpostgresql.DatabasesClientListByServerResponse]](),
 	}
@@ -56,7 +57,7 @@ func NewDatabasesServerTransport(srv *DatabasesServer) *DatabasesServerTransport
 // Don't use this type directly, use NewDatabasesServerTransport instead.
 type DatabasesServerTransport struct {
 	srv                  *DatabasesServer
-	beginCreateOrUpdate  *tracker[azfake.PollerResponder[armpostgresql.DatabasesClientCreateOrUpdateResponse]]
+	beginCreate          *tracker[azfake.PollerResponder[armpostgresql.DatabasesClientCreateResponse]]
 	beginDelete          *tracker[azfake.PollerResponder[armpostgresql.DatabasesClientDeleteResponse]]
 	newListByServerPager *tracker[azfake.PagerResponder[armpostgresql.DatabasesClientListByServerResponse]]
 }
@@ -73,8 +74,8 @@ func (d *DatabasesServerTransport) Do(req *http.Request) (*http.Response, error)
 	var err error
 
 	switch method {
-	case "DatabasesClient.BeginCreateOrUpdate":
-		resp, err = d.dispatchBeginCreateOrUpdate(req)
+	case "DatabasesClient.BeginCreate":
+		resp, err = d.dispatchBeginCreate(req)
 	case "DatabasesClient.BeginDelete":
 		resp, err = d.dispatchBeginDelete(req)
 	case "DatabasesClient.Get":
@@ -92,13 +93,13 @@ func (d *DatabasesServerTransport) Do(req *http.Request) (*http.Response, error)
 	return resp, nil
 }
 
-func (d *DatabasesServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if d.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
+func (d *DatabasesServerTransport) dispatchBeginCreate(req *http.Request) (*http.Response, error) {
+	if d.srv.BeginCreate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCreate not implemented")}
 	}
-	beginCreateOrUpdate := d.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	beginCreate := d.beginCreate.get(req)
+	if beginCreate == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/flexibleServers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 4 {
@@ -120,25 +121,25 @@ func (d *DatabasesServerTransport) dispatchBeginCreateOrUpdate(req *http.Request
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := d.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, serverNameParam, databaseNameParam, body, nil)
+		respr, errRespr := d.srv.BeginCreate(req.Context(), resourceGroupNameParam, serverNameParam, databaseNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
-		beginCreateOrUpdate = &respr
-		d.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
+		beginCreate = &respr
+		d.beginCreate.add(req, beginCreate)
 	}
 
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
+	resp, err := server.PollerResponderNext(beginCreate, req)
 	if err != nil {
 		return nil, err
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
-		d.beginCreateOrUpdate.remove(req)
+		d.beginCreate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
 	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		d.beginCreateOrUpdate.remove(req)
+	if !server.PollerResponderMore(beginCreate) {
+		d.beginCreate.remove(req)
 	}
 
 	return resp, nil
@@ -150,7 +151,7 @@ func (d *DatabasesServerTransport) dispatchBeginDelete(req *http.Request) (*http
 	}
 	beginDelete := d.beginDelete.get(req)
 	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/flexibleServers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 4 {
@@ -196,7 +197,7 @@ func (d *DatabasesServerTransport) dispatchGet(req *http.Request) (*http.Respons
 	if d.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/flexibleServers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -235,7 +236,7 @@ func (d *DatabasesServerTransport) dispatchNewListByServerPager(req *http.Reques
 	}
 	newListByServerPager := d.newListByServerPager.get(req)
 	if newListByServerPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/flexibleServers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 3 {
@@ -252,6 +253,9 @@ func (d *DatabasesServerTransport) dispatchNewListByServerPager(req *http.Reques
 		resp := d.srv.NewListByServerPager(resourceGroupNameParam, serverNameParam, nil)
 		newListByServerPager = &resp
 		d.newListByServerPager.add(req, newListByServerPager)
+		server.PagerResponderInjectNextLinks(newListByServerPager, req, func(page *armpostgresql.DatabasesClientListByServerResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListByServerPager, req)
 	if err != nil {

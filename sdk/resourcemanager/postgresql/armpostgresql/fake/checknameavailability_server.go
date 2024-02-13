@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql/v2"
 	"net/http"
 	"regexp"
 )
@@ -24,7 +24,7 @@ import (
 type CheckNameAvailabilityServer struct {
 	// Execute is the fake for method CheckNameAvailabilityClient.Execute
 	// HTTP status codes to indicate success: http.StatusOK
-	Execute func(ctx context.Context, nameAvailabilityRequest armpostgresql.NameAvailabilityRequest, options *armpostgresql.CheckNameAvailabilityClientExecuteOptions) (resp azfake.Responder[armpostgresql.CheckNameAvailabilityClientExecuteResponse], errResp azfake.ErrorResponder)
+	Execute func(ctx context.Context, nameAvailabilityRequest armpostgresql.CheckNameAvailabilityRequest, options *armpostgresql.CheckNameAvailabilityClientExecuteOptions) (resp azfake.Responder[armpostgresql.CheckNameAvailabilityClientExecuteResponse], errResp azfake.ErrorResponder)
 }
 
 // NewCheckNameAvailabilityServerTransport creates a new instance of CheckNameAvailabilityServerTransport with the provided implementation.
@@ -75,7 +75,7 @@ func (c *CheckNameAvailabilityServerTransport) dispatchExecute(req *http.Request
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armpostgresql.NameAvailabilityRequest](req)
+	body, err := server.UnmarshalRequestAsJSON[armpostgresql.CheckNameAvailabilityRequest](req)
 	if err != nil {
 		return nil, err
 	}
