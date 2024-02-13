@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0-beta.4 (2024-02-13)
+### Features Added
+
+- New function `*DataTransferJobsClient.Complete(context.Context, string, string, string, *DataTransferJobsClientCompleteOptions) (DataTransferJobsClientCompleteResponse, error)`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountGetProperties`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountUpdateProperties`
+- New field `RestoreWithTTLDisabled` in struct `ResourceRestoreParameters`
+- New field `RestoreWithTTLDisabled` in struct `RestoreParameters`
+- New field `RestoreWithTTLDisabled` in struct `RestoreParametersBase`
+
+
 ## 3.0.0-beta.3 (2024-01-26)
 ### Breaking Changes
 
