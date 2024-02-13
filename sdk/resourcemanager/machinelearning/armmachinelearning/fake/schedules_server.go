@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v4"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -39,6 +39,10 @@ type SchedulesServer struct {
 	// NewListPager is the fake for method SchedulesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, workspaceName string, options *armmachinelearning.SchedulesClientListOptions) (resp azfake.PagerResponder[armmachinelearning.SchedulesClientListResponse])
+
+	// Trigger is the fake for method SchedulesClient.Trigger
+	// HTTP status codes to indicate success: http.StatusOK
+	Trigger func(ctx context.Context, resourceGroupName string, workspaceName string, name string, body armmachinelearning.TriggerOnceRequest, options *armmachinelearning.SchedulesClientTriggerOptions) (resp azfake.Responder[armmachinelearning.SchedulesClientTriggerResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSchedulesServerTransport creates a new instance of SchedulesServerTransport with the provided implementation.
@@ -82,6 +86,8 @@ func (s *SchedulesServerTransport) Do(req *http.Request) (*http.Response, error)
 		resp, err = s.dispatchGet(req)
 	case "SchedulesClient.NewListPager":
 		resp, err = s.dispatchNewListPager(req)
+	case "SchedulesClient.Trigger":
+		resp, err = s.dispatchTrigger(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -285,6 +291,47 @@ func (s *SchedulesServerTransport) dispatchNewListPager(req *http.Request) (*htt
 	}
 	if !server.PagerResponderMore(newListPager) {
 		s.newListPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (s *SchedulesServerTransport) dispatchTrigger(req *http.Request) (*http.Response, error) {
+	if s.srv.Trigger == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Trigger not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MachineLearningServices/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/schedules/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/trigger`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armmachinelearning.TriggerOnceRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.Trigger(req.Context(), resourceGroupNameParam, workspaceNameParam, nameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).TriggerRunSubmissionDto, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
