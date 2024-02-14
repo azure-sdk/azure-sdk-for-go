@@ -1802,6 +1802,7 @@ func (s *SecuritySettings) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SoftDeleteSettings.
 func (s SoftDeleteSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "enhancedSecurityState", s.EnhancedSecurityState)
 	populate(objectMap, "softDeleteRetentionPeriodInDays", s.SoftDeleteRetentionPeriodInDays)
 	populate(objectMap, "softDeleteState", s.SoftDeleteState)
 	return json.Marshal(objectMap)
@@ -1816,6 +1817,9 @@ func (s *SoftDeleteSettings) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "enhancedSecurityState":
+			err = unpopulate(val, "EnhancedSecurityState", &s.EnhancedSecurityState)
+			delete(rawMsg, key)
 		case "softDeleteRetentionPeriodInDays":
 			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &s.SoftDeleteRetentionPeriodInDays)
 			delete(rawMsg, key)
