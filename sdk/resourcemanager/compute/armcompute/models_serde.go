@@ -9037,6 +9037,41 @@ func (p *PirSharedGalleryResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type Placement.
+func (p Placement) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "excludeZones", p.ExcludeZones)
+	populate(objectMap, "includeZones", p.IncludeZones)
+	populate(objectMap, "zonePlacementPolicy", p.ZonePlacementPolicy)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type Placement.
+func (p *Placement) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "excludeZones":
+			err = unpopulate(val, "ExcludeZones", &p.ExcludeZones)
+			delete(rawMsg, key)
+		case "includeZones":
+			err = unpopulate(val, "IncludeZones", &p.IncludeZones)
+			delete(rawMsg, key)
+		case "zonePlacementPolicy":
+			err = unpopulate(val, "ZonePlacementPolicy", &p.ZonePlacementPolicy)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Plan.
 func (p Plan) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -14718,6 +14753,7 @@ func (v VirtualMachine) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "managedBy", v.ManagedBy)
 	populate(objectMap, "name", v.Name)
+	populate(objectMap, "placement", v.Placement)
 	populate(objectMap, "plan", v.Plan)
 	populate(objectMap, "properties", v.Properties)
 	populate(objectMap, "resources", v.Resources)
@@ -14756,6 +14792,9 @@ func (v *VirtualMachine) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
+			delete(rawMsg, key)
+		case "placement":
+			err = unpopulate(val, "Placement", &v.Placement)
 			delete(rawMsg, key)
 		case "plan":
 			err = unpopulate(val, "Plan", &v.Plan)

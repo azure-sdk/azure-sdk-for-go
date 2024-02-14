@@ -368,7 +368,7 @@ type CapacityReservationGroupInstanceView struct {
 	// READ-ONLY; List of instance view of the capacity reservations under the capacity reservation group.
 	CapacityReservations []*CapacityReservationInstanceViewWithName
 
-	// READ-ONLY; List of the subscriptions that the capacity reservation group is shared with. Note: Minimum api-version: 2023-09-01.
+	// READ-ONLY; List of the subscriptions that the capacity reservation group is shared with. Note: Minimum api-version: 2024-03-01.
 	// Please refer to https://aka.ms/computereservationsharing for more details.
 	SharedSubscriptionIDs []*SubResourceReadOnly
 }
@@ -388,7 +388,7 @@ type CapacityReservationGroupProperties struct {
 	// Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in
 	// mind the capacity reservation group resource generally can be shared across
 	// subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between
-	// the AAD tenants. Note: Minimum api-version: 2023-09-01. Please refer to
+	// the AAD tenants. Note: Minimum api-version: 2024-03-01. Please refer to
 	// https://aka.ms/computereservationsharing for more details.
 	SharingProfile *ResourceSharingProfile
 
@@ -3867,6 +3867,27 @@ type PirSharedGalleryResource struct {
 	Name *string
 }
 
+// Placement - Describes the user-defined constraints for resource hardware placement.
+type Placement struct {
+	// This property supplements the 'zonePlacementPolicy' property.
+	// If 'zonePlacementPolicy' is set to 'any', availability zone selected by the system must not be present in the list of availability
+	// zones passed with 'excludeZones'. If 'excludeZones' is not provided,
+	// all availability zones in region will be considered for selection.
+	ExcludeZones []*string
+
+	// This property supplements the 'zonePlacementPolicy' property.
+	// If 'zonePlacementPolicy' is set to 'any', availability zone selected by the system must be present in the list of availability
+	// zones passed with 'includeZones'. If 'includeZones' is not provided, all
+	// availability zones in region will be considered for selection.
+	IncludeZones []*string
+
+	// Specifies the policy for resource's placement in availability zone.
+	// Supported policies: {'Any'}
+	// Policy wise behavior:
+	// 'Any' - An availability zone will be automatically picked by system as part of resource creation.
+	ZonePlacementPolicy *ZonePlacementPolicyType
+}
+
 // Plan - Specifies information about the marketplace image used to create the virtual machine. This element is only used
 // for marketplace images. Before you can use a marketplace image from an API, you must
 // enable the image for programmatic use. In the Azure portal, find the marketplace image that you want to use and then click
@@ -4070,7 +4091,7 @@ type ProximityPlacementGroupUpdate struct {
 	Tags map[string]*string
 }
 
-// ProxyAgentSettings - Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2023-09-01.
+// ProxyAgentSettings - Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2024-03-01.
 type ProxyAgentSettings struct {
 	// Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set.
 	Enabled *bool
@@ -4427,7 +4448,7 @@ type ResourceSKUsResult struct {
 
 type ResourceSharingProfile struct {
 	// Specifies an array of subscription resource IDs that capacity reservation group is shared with. Note: Minimum api-version:
-	// 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more
+	// 2024-03-01. Please refer to https://aka.ms/computereservationsharing for more
 	// details.
 	SubscriptionIDs []*SubResource
 }
@@ -5146,7 +5167,7 @@ type SecurityProfile struct {
 	// Specifies the Managed Identity used by ADE to get access token for keyvault operations.
 	EncryptionIdentity *EncryptionIdentity
 
-	// Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2023-09-01.
+	// Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2024-03-01.
 	ProxyAgentSettings *ProxyAgentSettings
 
 	// Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings. The
@@ -6057,6 +6078,10 @@ type VirtualMachine struct {
 
 	// The identity of the virtual machine, if configured.
 	Identity *VirtualMachineIdentity
+
+	// Placement section specifies the user-defined constraints for virtual machine hardware placement.
+	// Minimum api-version: 2024-03-01.
+	Placement *Placement
 
 	// Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace
 	// images. Before you can use a marketplace image from an API, you must
@@ -8277,8 +8302,8 @@ type VirtualMachineScaleSetVMProfile struct {
 	UserData *string
 
 	// READ-ONLY; Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. Minimum API version
-	// for this property is 2023-09-01. This value will be added to VMSS Flex VM tags when
-	// creating/updating the VMSS VM Profile with minimum api-version 2023-09-01.
+	// for this property is 2024-03-01. This value will be added to VMSS Flex VM tags when
+	// creating/updating the VMSS VM Profile with minimum api-version 2024-03-01.
 	TimeCreated *time.Time
 }
 

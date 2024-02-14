@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.5.0"
+	moduleVersion = "v5.6.0"
 )
 
 type AccessLevel string
@@ -2800,5 +2800,22 @@ func PossibleWindowsVMGuestPatchModeValues() []WindowsVMGuestPatchMode {
 		WindowsVMGuestPatchModeAutomaticByOS,
 		WindowsVMGuestPatchModeAutomaticByPlatform,
 		WindowsVMGuestPatchModeManual,
+	}
+}
+
+// ZonePlacementPolicyType - Specifies the policy for resource's placement in availability zone.
+// Supported policies: {'Any'}
+// Policy wise behavior:
+// 'Any' - An availability zone will be automatically picked by system as part of resource creation.
+type ZonePlacementPolicyType string
+
+const (
+	ZonePlacementPolicyTypeAny ZonePlacementPolicyType = "Any"
+)
+
+// PossibleZonePlacementPolicyTypeValues returns the possible values for the ZonePlacementPolicyType const type.
+func PossibleZonePlacementPolicyTypeValues() []ZonePlacementPolicyType {
+	return []ZonePlacementPolicyType{
+		ZonePlacementPolicyTypeAny,
 	}
 }
