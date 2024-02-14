@@ -1,5 +1,22 @@
 # Release History
 
+## 6.0.0 (2024-02-14)
+### Breaking Changes
+
+- Field `Mode` of struct `ProxyAgentSettings` has been removed
+
+### Features Added
+
+- New value `ModeDisabled` added to enum type `Mode`
+- New struct `FilterDefinition`
+- New struct `ProxyAgentSettingsImds`
+- New struct `ProxyAgentSettingsImdsAccessControlProfile`
+- New struct `ProxyAgentSettingsWireserver`
+- New struct `ProxyAgentSettingsWireserverAccessControlProfile`
+- New struct `RuleDefinition`
+- New field `Imds`, `Wireserver` in struct `ProxyAgentSettings`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
