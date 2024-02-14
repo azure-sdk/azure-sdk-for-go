@@ -1,5 +1,12 @@
 # Release History
 
+## 4.1.0 (2024-02-14)
+### Features Added
+
+- New enum type `IaasVMSnapshotConsistencyType` with values `IaasVMSnapshotConsistencyTypeOnlyCrashConsistent`
+- New field `SnapshotConsistencyType` in struct `AzureIaaSVMProtectionPolicy`
+
+
 ## 4.0.0 (2023-12-08)
 ### Breaking Changes
 
