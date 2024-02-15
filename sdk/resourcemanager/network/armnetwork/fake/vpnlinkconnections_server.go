@@ -32,9 +32,17 @@ type VPNLinkConnectionsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByVPNConnectionPager func(resourceGroupName string, gatewayName string, connectionName string, options *armnetwork.VPNLinkConnectionsClientListByVPNConnectionOptions) (resp azfake.PagerResponder[armnetwork.VPNLinkConnectionsClientListByVPNConnectionResponse])
 
+	// BeginPutSharedKey is the fake for method VPNLinkConnectionsClient.BeginPutSharedKey
+	// HTTP status codes to indicate success: http.StatusOK
+	BeginPutSharedKey func(ctx context.Context, resourceGroupName string, gatewayName string, connectionName string, linkConnectionName string, sharedKeyName string, parameters armnetwork.SharedKeyProperties, options *armnetwork.VPNLinkConnectionsClientBeginPutSharedKeyOptions) (resp azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientPutSharedKeyResponse], errResp azfake.ErrorResponder)
+
 	// BeginResetConnection is the fake for method VPNLinkConnectionsClient.BeginResetConnection
 	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginResetConnection func(ctx context.Context, resourceGroupName string, gatewayName string, connectionName string, linkConnectionName string, options *armnetwork.VPNLinkConnectionsClientBeginResetConnectionOptions) (resp azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientResetConnectionResponse], errResp azfake.ErrorResponder)
+
+	// SharedKeyGet is the fake for method VPNLinkConnectionsClient.SharedKeyGet
+	// HTTP status codes to indicate success: http.StatusOK
+	SharedKeyGet func(ctx context.Context, resourceGroupName string, gatewayName string, connectionName string, linkConnectionName string, sharedKeyName string, options *armnetwork.VPNLinkConnectionsClientSharedKeyGetOptions) (resp azfake.Responder[armnetwork.VPNLinkConnectionsClientSharedKeyGetResponse], errResp azfake.ErrorResponder)
 }
 
 // NewVPNLinkConnectionsServerTransport creates a new instance of VPNLinkConnectionsServerTransport with the provided implementation.
@@ -45,6 +53,7 @@ func NewVPNLinkConnectionsServerTransport(srv *VPNLinkConnectionsServer) *VPNLin
 		srv:                         srv,
 		beginGetIkeSas:              newTracker[azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientGetIkeSasResponse]](),
 		newListByVPNConnectionPager: newTracker[azfake.PagerResponder[armnetwork.VPNLinkConnectionsClientListByVPNConnectionResponse]](),
+		beginPutSharedKey:           newTracker[azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientPutSharedKeyResponse]](),
 		beginResetConnection:        newTracker[azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientResetConnectionResponse]](),
 	}
 }
@@ -55,6 +64,7 @@ type VPNLinkConnectionsServerTransport struct {
 	srv                         *VPNLinkConnectionsServer
 	beginGetIkeSas              *tracker[azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientGetIkeSasResponse]]
 	newListByVPNConnectionPager *tracker[azfake.PagerResponder[armnetwork.VPNLinkConnectionsClientListByVPNConnectionResponse]]
+	beginPutSharedKey           *tracker[azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientPutSharedKeyResponse]]
 	beginResetConnection        *tracker[azfake.PollerResponder[armnetwork.VPNLinkConnectionsClientResetConnectionResponse]]
 }
 
@@ -74,8 +84,12 @@ func (v *VPNLinkConnectionsServerTransport) Do(req *http.Request) (*http.Respons
 		resp, err = v.dispatchBeginGetIkeSas(req)
 	case "VPNLinkConnectionsClient.NewListByVPNConnectionPager":
 		resp, err = v.dispatchNewListByVPNConnectionPager(req)
+	case "VPNLinkConnectionsClient.BeginPutSharedKey":
+		resp, err = v.dispatchBeginPutSharedKey(req)
 	case "VPNLinkConnectionsClient.BeginResetConnection":
 		resp, err = v.dispatchBeginResetConnection(req)
+	case "VPNLinkConnectionsClient.SharedKeyGet":
+		resp, err = v.dispatchSharedKeyGet(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -184,6 +198,66 @@ func (v *VPNLinkConnectionsServerTransport) dispatchNewListByVPNConnectionPager(
 	return resp, nil
 }
 
+func (v *VPNLinkConnectionsServerTransport) dispatchBeginPutSharedKey(req *http.Request) (*http.Response, error) {
+	if v.srv.BeginPutSharedKey == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginPutSharedKey not implemented")}
+	}
+	beginPutSharedKey := v.beginPutSharedKey.get(req)
+	if beginPutSharedKey == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/vpnGateways/(?P<gatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/vpnConnections/(?P<connectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/vpnLinkConnections/(?P<linkConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedKey/(?P<sharedKeyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 6 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.SharedKeyProperties](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		gatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayName")])
+		if err != nil {
+			return nil, err
+		}
+		connectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("connectionName")])
+		if err != nil {
+			return nil, err
+		}
+		linkConnectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("linkConnectionName")])
+		if err != nil {
+			return nil, err
+		}
+		sharedKeyNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedKeyName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := v.srv.BeginPutSharedKey(req.Context(), resourceGroupNameParam, gatewayNameParam, connectionNameParam, linkConnectionNameParam, sharedKeyNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginPutSharedKey = &respr
+		v.beginPutSharedKey.add(req, beginPutSharedKey)
+	}
+
+	resp, err := server.PollerResponderNext(beginPutSharedKey, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		v.beginPutSharedKey.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginPutSharedKey) {
+		v.beginPutSharedKey.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (v *VPNLinkConnectionsServerTransport) dispatchBeginResetConnection(req *http.Request) (*http.Response, error) {
 	if v.srv.BeginResetConnection == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginResetConnection not implemented")}
@@ -233,5 +307,50 @@ func (v *VPNLinkConnectionsServerTransport) dispatchBeginResetConnection(req *ht
 		v.beginResetConnection.remove(req)
 	}
 
+	return resp, nil
+}
+
+func (v *VPNLinkConnectionsServerTransport) dispatchSharedKeyGet(req *http.Request) (*http.Response, error) {
+	if v.srv.SharedKeyGet == nil {
+		return nil, &nonRetriableError{errors.New("fake for method SharedKeyGet not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/vpnGateways/(?P<gatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/vpnConnections/(?P<connectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/vpnLinkConnections/(?P<linkConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedKey/(?P<sharedKeyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 6 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	gatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayName")])
+	if err != nil {
+		return nil, err
+	}
+	connectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("connectionName")])
+	if err != nil {
+		return nil, err
+	}
+	linkConnectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("linkConnectionName")])
+	if err != nil {
+		return nil, err
+	}
+	sharedKeyNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sharedKeyName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := v.srv.SharedKeyGet(req.Context(), resourceGroupNameParam, gatewayNameParam, connectionNameParam, linkConnectionNameParam, sharedKeyNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedKey, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }

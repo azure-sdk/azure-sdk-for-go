@@ -278,6 +278,18 @@ func (c *ClientFactory) NewFirewallPoliciesClient() *FirewallPoliciesClient {
 	return subClient
 }
 
+// NewFirewallPolicyDeploymentsClient creates a new instance of FirewallPolicyDeploymentsClient.
+func (c *ClientFactory) NewFirewallPolicyDeploymentsClient() *FirewallPolicyDeploymentsClient {
+	subClient, _ := NewFirewallPolicyDeploymentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFirewallPolicyDraftsClient creates a new instance of FirewallPolicyDraftsClient.
+func (c *ClientFactory) NewFirewallPolicyDraftsClient() *FirewallPolicyDraftsClient {
+	subClient, _ := NewFirewallPolicyDraftsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewFirewallPolicyIdpsSignaturesClient creates a new instance of FirewallPolicyIdpsSignaturesClient.
 func (c *ClientFactory) NewFirewallPolicyIdpsSignaturesClient() *FirewallPolicyIdpsSignaturesClient {
 	subClient, _ := NewFirewallPolicyIdpsSignaturesClient(c.subscriptionID, c.credential, c.options)
@@ -293,6 +305,12 @@ func (c *ClientFactory) NewFirewallPolicyIdpsSignaturesFilterValuesClient() *Fir
 // NewFirewallPolicyIdpsSignaturesOverridesClient creates a new instance of FirewallPolicyIdpsSignaturesOverridesClient.
 func (c *ClientFactory) NewFirewallPolicyIdpsSignaturesOverridesClient() *FirewallPolicyIdpsSignaturesOverridesClient {
 	subClient, _ := NewFirewallPolicyIdpsSignaturesOverridesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewFirewallPolicyRuleCollectionGroupDraftsClient creates a new instance of FirewallPolicyRuleCollectionGroupDraftsClient.
+func (c *ClientFactory) NewFirewallPolicyRuleCollectionGroupDraftsClient() *FirewallPolicyRuleCollectionGroupDraftsClient {
+	subClient, _ := NewFirewallPolicyRuleCollectionGroupDraftsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -371,6 +389,12 @@ func (c *ClientFactory) NewInterfaceTapConfigurationsClient() *InterfaceTapConfi
 // NewInterfacesClient creates a new instance of InterfacesClient.
 func (c *ClientFactory) NewInterfacesClient() *InterfacesClient {
 	subClient, _ := NewInterfacesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewListClient creates a new instance of ListClient.
+func (c *ClientFactory) NewListClient() *ListClient {
+	subClient, _ := NewListClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

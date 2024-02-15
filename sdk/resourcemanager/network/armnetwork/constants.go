@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.0.0"
+	moduleVersion = "v5.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -1316,6 +1316,7 @@ func PossibleEffectiveSecurityRuleProtocolValues() []EffectiveSecurityRuleProtoc
 type EndpointType string
 
 const (
+	EndpointTypeAzureArcNetwork     EndpointType = "AzureArcNetwork"
 	EndpointTypeAzureArcVM          EndpointType = "AzureArcVM"
 	EndpointTypeAzureSubnet         EndpointType = "AzureSubnet"
 	EndpointTypeAzureVM             EndpointType = "AzureVM"
@@ -1329,6 +1330,7 @@ const (
 // PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
 func PossibleEndpointTypeValues() []EndpointType {
 	return []EndpointType{
+		EndpointTypeAzureArcNetwork,
 		EndpointTypeAzureArcVM,
 		EndpointTypeAzureSubnet,
 		EndpointTypeAzureVM,
@@ -3956,8 +3958,10 @@ func PossibleVirtualNetworkPeeringStateValues() []VirtualNetworkPeeringState {
 type VirtualNetworkPrivateEndpointNetworkPolicies string
 
 const (
-	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
-	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled  VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled                    VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled                     VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled VirtualNetworkPrivateEndpointNetworkPolicies = "NetworkSecurityGroupEnabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled           VirtualNetworkPrivateEndpointNetworkPolicies = "RouteTableEnabled"
 )
 
 // PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues returns the possible values for the VirtualNetworkPrivateEndpointNetworkPolicies const type.
@@ -3965,6 +3969,8 @@ func PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues() []VirtualNetwo
 	return []VirtualNetworkPrivateEndpointNetworkPolicies{
 		VirtualNetworkPrivateEndpointNetworkPoliciesDisabled,
 		VirtualNetworkPrivateEndpointNetworkPoliciesEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled,
 	}
 }
 

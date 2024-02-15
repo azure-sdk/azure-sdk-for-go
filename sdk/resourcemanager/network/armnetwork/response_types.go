@@ -1014,6 +1014,28 @@ type FirewallPoliciesClientUpdateTagsResponse struct {
 	FirewallPolicy
 }
 
+// FirewallPolicyDeploymentsClientDeployResponse contains the response from method FirewallPolicyDeploymentsClient.BeginDeploy.
+type FirewallPolicyDeploymentsClientDeployResponse struct {
+	// placeholder for future response values
+}
+
+// FirewallPolicyDraftsClientCreateOrUpdateResponse contains the response from method FirewallPolicyDraftsClient.CreateOrUpdate.
+type FirewallPolicyDraftsClientCreateOrUpdateResponse struct {
+	// FirewallPolicy Resource.
+	FirewallPolicyDraft
+}
+
+// FirewallPolicyDraftsClientDeleteResponse contains the response from method FirewallPolicyDraftsClient.Delete.
+type FirewallPolicyDraftsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FirewallPolicyDraftsClientGetResponse contains the response from method FirewallPolicyDraftsClient.Get.
+type FirewallPolicyDraftsClientGetResponse struct {
+	// FirewallPolicy Resource.
+	FirewallPolicyDraft
+}
+
 // FirewallPolicyIdpsSignaturesClientListResponse contains the response from method FirewallPolicyIdpsSignaturesClient.List.
 type FirewallPolicyIdpsSignaturesClientListResponse struct {
 	// Query result
@@ -1048,6 +1070,23 @@ type FirewallPolicyIdpsSignaturesOverridesClientPatchResponse struct {
 type FirewallPolicyIdpsSignaturesOverridesClientPutResponse struct {
 	// Contains all specific policy signatures overrides for the IDPS
 	SignaturesOverrides
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateResponse contains the response from method FirewallPolicyRuleCollectionGroupDraftsClient.CreateOrUpdate.
+type FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateResponse struct {
+	// Rule Collection Group resource.
+	FirewallPolicyRuleCollectionGroupDraft
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientDeleteResponse contains the response from method FirewallPolicyRuleCollectionGroupDraftsClient.Delete.
+type FirewallPolicyRuleCollectionGroupDraftsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientGetResponse contains the response from method FirewallPolicyRuleCollectionGroupDraftsClient.Get.
+type FirewallPolicyRuleCollectionGroupDraftsClientGetResponse struct {
+	// Rule Collection Group resource.
+	FirewallPolicyRuleCollectionGroupDraft
 }
 
 // FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdate.
@@ -1407,6 +1446,13 @@ type InterfacesClientListVirtualMachineScaleSetVMNetworkInterfacesResponse struc
 type InterfacesClientUpdateTagsResponse struct {
 	// A network interface in a resource group.
 	Interface
+}
+
+// ListClientVPNLinkConnectionsSharedKeyResponse contains the response from method ListClient.VPNLinkConnectionsSharedKey.
+type ListClientVPNLinkConnectionsSharedKeyResponse struct {
+	// Result of the request to list VpnLink connection shared keys. It contains a list of VpnLink connection shared keys and
+	// a URL nextLink to get the next set of results.
+	ListVPNLinkConnectionsSharedKeyResult
 }
 
 // LoadBalancerBackendAddressPoolsClientCreateOrUpdateResponse contains the response from method LoadBalancerBackendAddressPoolsClient.BeginCreateOrUpdate.
@@ -2772,9 +2818,21 @@ type VPNLinkConnectionsClientListByVPNConnectionResponse struct {
 	ListVPNSiteLinkConnectionsResult
 }
 
+// VPNLinkConnectionsClientPutSharedKeyResponse contains the response from method VPNLinkConnectionsClient.BeginPutSharedKey.
+type VPNLinkConnectionsClientPutSharedKeyResponse struct {
+	// VpnLink connection shared key Resource.
+	SharedKey
+}
+
 // VPNLinkConnectionsClientResetConnectionResponse contains the response from method VPNLinkConnectionsClient.BeginResetConnection.
 type VPNLinkConnectionsClientResetConnectionResponse struct {
 	// placeholder for future response values
+}
+
+// VPNLinkConnectionsClientSharedKeyGetResponse contains the response from method VPNLinkConnectionsClient.SharedKeyGet.
+type VPNLinkConnectionsClientSharedKeyGetResponse struct {
+	// VpnLink connection shared key Resource.
+	SharedKey
 }
 
 // VPNServerConfigurationsAssociatedWithVirtualWanClientListResponse contains the response from method VPNServerConfigurationsAssociatedWithVirtualWanClient.BeginList.
@@ -2981,6 +3039,11 @@ type VirtualAppliancesClientListByResourceGroupResponse struct {
 type VirtualAppliancesClientListResponse struct {
 	// Response for ListNetworkVirtualAppliances API service call.
 	VirtualApplianceListResult
+}
+
+// VirtualAppliancesClientRestartResponse contains the response from method VirtualAppliancesClient.Restart.
+type VirtualAppliancesClientRestartResponse struct {
+	// placeholder for future response values
 }
 
 // VirtualAppliancesClientUpdateTagsResponse contains the response from method VirtualAppliancesClient.UpdateTags.
