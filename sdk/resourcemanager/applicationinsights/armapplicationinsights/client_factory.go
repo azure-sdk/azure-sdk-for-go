@@ -73,6 +73,12 @@ func (c *ClientFactory) NewComponentFeatureCapabilitiesClient() *ComponentFeatur
 	return subClient
 }
 
+// NewComponentLinkedStorageAccountsClient creates a new instance of ComponentLinkedStorageAccountsClient.
+func (c *ClientFactory) NewComponentLinkedStorageAccountsClient() *ComponentLinkedStorageAccountsClient {
+	subClient, _ := NewComponentLinkedStorageAccountsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 // NewComponentQuotaStatusClient creates a new instance of ComponentQuotaStatusClient.
 func (c *ClientFactory) NewComponentQuotaStatusClient() *ComponentQuotaStatusClient {
 	subClient, _ := NewComponentQuotaStatusClient(c.subscriptionID, c.credential, c.options)
@@ -82,6 +88,12 @@ func (c *ClientFactory) NewComponentQuotaStatusClient() *ComponentQuotaStatusCli
 // NewComponentsClient creates a new instance of ComponentsClient.
 func (c *ClientFactory) NewComponentsClient() *ComponentsClient {
 	subClient, _ := NewComponentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewDeletedWorkbooksClient creates a new instance of DeletedWorkbooksClient.
+func (c *ClientFactory) NewDeletedWorkbooksClient() *DeletedWorkbooksClient {
+	subClient, _ := NewDeletedWorkbooksClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -97,9 +109,15 @@ func (c *ClientFactory) NewFavoritesClient() *FavoritesClient {
 	return subClient
 }
 
-// NewMyWorkbooksClient creates a new instance of MyWorkbooksClient.
-func (c *ClientFactory) NewMyWorkbooksClient() *MyWorkbooksClient {
-	subClient, _ := NewMyWorkbooksClient(c.subscriptionID, c.credential, c.options)
+// NewLiveTokenClient creates a new instance of LiveTokenClient.
+func (c *ClientFactory) NewLiveTokenClient() *LiveTokenClient {
+	subClient, _ := NewLiveTokenClient(c.credential, c.options)
+	return subClient
+}
+
+// NewOperationsClient creates a new instance of OperationsClient.
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
 
@@ -124,6 +142,12 @@ func (c *ClientFactory) NewWebTestsClient() *WebTestsClient {
 // NewWorkItemConfigurationsClient creates a new instance of WorkItemConfigurationsClient.
 func (c *ClientFactory) NewWorkItemConfigurationsClient() *WorkItemConfigurationsClient {
 	subClient, _ := NewWorkItemConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewWorkbookTemplatesClient creates a new instance of WorkbookTemplatesClient.
+func (c *ClientFactory) NewWorkbookTemplatesClient() *WorkbookTemplatesClient {
+	subClient, _ := NewWorkbookTemplatesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
