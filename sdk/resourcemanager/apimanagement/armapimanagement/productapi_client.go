@@ -29,7 +29,7 @@ type ProductAPIClient struct {
 }
 
 // NewProductAPIClient creates a new instance of ProductAPIClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProductAPIClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductAPIClient, error) {
@@ -46,7 +46,7 @@ func NewProductAPIClient(subscriptionID string, credential azcore.TokenCredentia
 
 // CheckEntityExists - Checks that API entity specified by identifier is associated with the Product entity.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -103,7 +103,7 @@ func (client *ProductAPIClient) checkEntityExistsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -112,7 +112,7 @@ func (client *ProductAPIClient) checkEntityExistsCreateRequest(ctx context.Conte
 // CreateOrUpdate - Adds an API to the specified product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -170,7 +170,7 @@ func (client *ProductAPIClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *ProductAPIClient) createOrUpdateHandleResponse(resp *http.Response
 // Delete - Deletes the specified API from the specified product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -244,7 +244,7 @@ func (client *ProductAPIClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -252,7 +252,7 @@ func (client *ProductAPIClient) deleteCreateRequest(ctx context.Context, resourc
 
 // NewListByProductPager - Lists a collection of the APIs associated with a product.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
@@ -314,7 +314,7 @@ func (client *ProductAPIClient) listByProductCreateRequest(ctx context.Context, 
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

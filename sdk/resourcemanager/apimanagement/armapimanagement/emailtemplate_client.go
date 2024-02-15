@@ -29,7 +29,7 @@ type EmailTemplateClient struct {
 }
 
 // NewEmailTemplateClient creates a new instance of EmailTemplateClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewEmailTemplateClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EmailTemplateClient, error) {
@@ -47,7 +47,7 @@ func NewEmailTemplateClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Updates an Email Template.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - templateName - Email Template Name Identifier.
@@ -100,7 +100,7 @@ func (client *EmailTemplateClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -124,7 +124,7 @@ func (client *EmailTemplateClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Reset the Email Template to default template provided by the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - templateName - Email Template Name Identifier.
@@ -176,7 +176,7 @@ func (client *EmailTemplateClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -186,7 +186,7 @@ func (client *EmailTemplateClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Gets the details of the email template specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - templateName - Email Template Name Identifier.
@@ -237,7 +237,7 @@ func (client *EmailTemplateClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -257,7 +257,7 @@ func (client *EmailTemplateClient) getHandleResponse(resp *http.Response) (Email
 
 // GetEntityTag - Gets the entity state (Etag) version of the email template specified by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - templateName - Email Template Name Identifier.
@@ -309,7 +309,7 @@ func (client *EmailTemplateClient) getEntityTagCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -326,7 +326,7 @@ func (client *EmailTemplateClient) getEntityTagHandleResponse(resp *http.Respons
 
 // NewListByServicePager - Gets all email templates
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - EmailTemplateClientListByServiceOptions contains the optional parameters for the EmailTemplateClient.NewListByServicePager
@@ -383,7 +383,7 @@ func (client *EmailTemplateClient) listByServiceCreateRequest(ctx context.Contex
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -401,7 +401,7 @@ func (client *EmailTemplateClient) listByServiceHandleResponse(resp *http.Respon
 // Update - Updates API Management email template
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - templateName - Email Template Name Identifier.
@@ -455,7 +455,7 @@ func (client *EmailTemplateClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

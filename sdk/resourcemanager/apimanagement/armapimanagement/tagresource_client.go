@@ -29,7 +29,7 @@ type TagResourceClient struct {
 }
 
 // NewTagResourceClient creates a new instance of TagResourceClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTagResourceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TagResourceClient, error) {
@@ -46,7 +46,7 @@ func NewTagResourceClient(subscriptionID string, credential azcore.TokenCredenti
 
 // NewListByServicePager - Lists a collection of resources associated with tags.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - TagResourceClientListByServiceOptions contains the optional parameters for the TagResourceClient.NewListByServicePager
@@ -103,7 +103,7 @@ func (client *TagResourceClient) listByServiceCreateRequest(ctx context.Context,
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

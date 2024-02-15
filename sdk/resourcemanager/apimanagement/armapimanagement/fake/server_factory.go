@@ -36,6 +36,7 @@ type ServerFactory struct {
 	APIVersionSetServer                        APIVersionSetServer
 	APIWikiServer                              APIWikiServer
 	APIWikisServer                             APIWikisServer
+	AllPoliciesServer                          AllPoliciesServer
 	AuthorizationAccessPolicyServer            AuthorizationAccessPolicyServer
 	AuthorizationServer                        AuthorizationServer
 	AuthorizationLoginLinksServer              AuthorizationLoginLinksServer
@@ -76,13 +77,17 @@ type ServerFactory struct {
 	PolicyServer                               PolicyServer
 	PolicyDescriptionServer                    PolicyDescriptionServer
 	PolicyFragmentServer                       PolicyFragmentServer
+	PolicyRestrictionServer                    PolicyRestrictionServer
+	PolicyRestrictionValidationsServer         PolicyRestrictionValidationsServer
 	PortalConfigServer                         PortalConfigServer
 	PortalRevisionServer                       PortalRevisionServer
 	PortalSettingsServer                       PortalSettingsServer
 	PrivateEndpointConnectionServer            PrivateEndpointConnectionServer
 	ProductAPIServer                           ProductAPIServer
+	ProductAPILinkServer                       ProductAPILinkServer
 	ProductServer                              ProductServer
 	ProductGroupServer                         ProductGroupServer
+	ProductGroupLinkServer                     ProductGroupLinkServer
 	ProductPolicyServer                        ProductPolicyServer
 	ProductSubscriptionsServer                 ProductSubscriptionsServer
 	ProductWikiServer                          ProductWikiServer
@@ -97,7 +102,10 @@ type ServerFactory struct {
 	SignInSettingsServer                       SignInSettingsServer
 	SignUpSettingsServer                       SignUpSettingsServer
 	SubscriptionServer                         SubscriptionServer
+	TagAPILinkServer                           TagAPILinkServer
 	TagServer                                  TagServer
+	TagOperationLinkServer                     TagOperationLinkServer
+	TagProductLinkServer                       TagProductLinkServer
 	TagResourceServer                          TagResourceServer
 	TenantAccessServer                         TenantAccessServer
 	TenantAccessGitServer                      TenantAccessGitServer
@@ -108,6 +116,34 @@ type ServerFactory struct {
 	UserGroupServer                            UserGroupServer
 	UserIdentitiesServer                       UserIdentitiesServer
 	UserSubscriptionServer                     UserSubscriptionServer
+	WorkspaceAPIServer                         WorkspaceAPIServer
+	WorkspaceAPIExportServer                   WorkspaceAPIExportServer
+	WorkspaceAPIOperationServer                WorkspaceAPIOperationServer
+	WorkspaceAPIOperationPolicyServer          WorkspaceAPIOperationPolicyServer
+	WorkspaceAPIPolicyServer                   WorkspaceAPIPolicyServer
+	WorkspaceAPIReleaseServer                  WorkspaceAPIReleaseServer
+	WorkspaceAPIRevisionServer                 WorkspaceAPIRevisionServer
+	WorkspaceAPISchemaServer                   WorkspaceAPISchemaServer
+	WorkspaceAPIVersionSetServer               WorkspaceAPIVersionSetServer
+	WorkspaceServer                            WorkspaceServer
+	WorkspaceGlobalSchemaServer                WorkspaceGlobalSchemaServer
+	WorkspaceGroupServer                       WorkspaceGroupServer
+	WorkspaceGroupUserServer                   WorkspaceGroupUserServer
+	WorkspaceNamedValueServer                  WorkspaceNamedValueServer
+	WorkspaceNotificationServer                WorkspaceNotificationServer
+	WorkspaceNotificationRecipientEmailServer  WorkspaceNotificationRecipientEmailServer
+	WorkspaceNotificationRecipientUserServer   WorkspaceNotificationRecipientUserServer
+	WorkspacePolicyServer                      WorkspacePolicyServer
+	WorkspacePolicyFragmentServer              WorkspacePolicyFragmentServer
+	WorkspaceProductAPILinkServer              WorkspaceProductAPILinkServer
+	WorkspaceProductServer                     WorkspaceProductServer
+	WorkspaceProductGroupLinkServer            WorkspaceProductGroupLinkServer
+	WorkspaceProductPolicyServer               WorkspaceProductPolicyServer
+	WorkspaceSubscriptionServer                WorkspaceSubscriptionServer
+	WorkspaceTagAPILinkServer                  WorkspaceTagAPILinkServer
+	WorkspaceTagServer                         WorkspaceTagServer
+	WorkspaceTagOperationLinkServer            WorkspaceTagOperationLinkServer
+	WorkspaceTagProductLinkServer              WorkspaceTagProductLinkServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -141,6 +177,7 @@ type ServerFactoryTransport struct {
 	trAPIVersionSetServer                        *APIVersionSetServerTransport
 	trAPIWikiServer                              *APIWikiServerTransport
 	trAPIWikisServer                             *APIWikisServerTransport
+	trAllPoliciesServer                          *AllPoliciesServerTransport
 	trAuthorizationAccessPolicyServer            *AuthorizationAccessPolicyServerTransport
 	trAuthorizationServer                        *AuthorizationServerTransport
 	trAuthorizationLoginLinksServer              *AuthorizationLoginLinksServerTransport
@@ -181,13 +218,17 @@ type ServerFactoryTransport struct {
 	trPolicyServer                               *PolicyServerTransport
 	trPolicyDescriptionServer                    *PolicyDescriptionServerTransport
 	trPolicyFragmentServer                       *PolicyFragmentServerTransport
+	trPolicyRestrictionServer                    *PolicyRestrictionServerTransport
+	trPolicyRestrictionValidationsServer         *PolicyRestrictionValidationsServerTransport
 	trPortalConfigServer                         *PortalConfigServerTransport
 	trPortalRevisionServer                       *PortalRevisionServerTransport
 	trPortalSettingsServer                       *PortalSettingsServerTransport
 	trPrivateEndpointConnectionServer            *PrivateEndpointConnectionServerTransport
 	trProductAPIServer                           *ProductAPIServerTransport
+	trProductAPILinkServer                       *ProductAPILinkServerTransport
 	trProductServer                              *ProductServerTransport
 	trProductGroupServer                         *ProductGroupServerTransport
+	trProductGroupLinkServer                     *ProductGroupLinkServerTransport
 	trProductPolicyServer                        *ProductPolicyServerTransport
 	trProductSubscriptionsServer                 *ProductSubscriptionsServerTransport
 	trProductWikiServer                          *ProductWikiServerTransport
@@ -202,7 +243,10 @@ type ServerFactoryTransport struct {
 	trSignInSettingsServer                       *SignInSettingsServerTransport
 	trSignUpSettingsServer                       *SignUpSettingsServerTransport
 	trSubscriptionServer                         *SubscriptionServerTransport
+	trTagAPILinkServer                           *TagAPILinkServerTransport
 	trTagServer                                  *TagServerTransport
+	trTagOperationLinkServer                     *TagOperationLinkServerTransport
+	trTagProductLinkServer                       *TagProductLinkServerTransport
 	trTagResourceServer                          *TagResourceServerTransport
 	trTenantAccessServer                         *TenantAccessServerTransport
 	trTenantAccessGitServer                      *TenantAccessGitServerTransport
@@ -213,6 +257,34 @@ type ServerFactoryTransport struct {
 	trUserGroupServer                            *UserGroupServerTransport
 	trUserIdentitiesServer                       *UserIdentitiesServerTransport
 	trUserSubscriptionServer                     *UserSubscriptionServerTransport
+	trWorkspaceAPIServer                         *WorkspaceAPIServerTransport
+	trWorkspaceAPIExportServer                   *WorkspaceAPIExportServerTransport
+	trWorkspaceAPIOperationServer                *WorkspaceAPIOperationServerTransport
+	trWorkspaceAPIOperationPolicyServer          *WorkspaceAPIOperationPolicyServerTransport
+	trWorkspaceAPIPolicyServer                   *WorkspaceAPIPolicyServerTransport
+	trWorkspaceAPIReleaseServer                  *WorkspaceAPIReleaseServerTransport
+	trWorkspaceAPIRevisionServer                 *WorkspaceAPIRevisionServerTransport
+	trWorkspaceAPISchemaServer                   *WorkspaceAPISchemaServerTransport
+	trWorkspaceAPIVersionSetServer               *WorkspaceAPIVersionSetServerTransport
+	trWorkspaceServer                            *WorkspaceServerTransport
+	trWorkspaceGlobalSchemaServer                *WorkspaceGlobalSchemaServerTransport
+	trWorkspaceGroupServer                       *WorkspaceGroupServerTransport
+	trWorkspaceGroupUserServer                   *WorkspaceGroupUserServerTransport
+	trWorkspaceNamedValueServer                  *WorkspaceNamedValueServerTransport
+	trWorkspaceNotificationServer                *WorkspaceNotificationServerTransport
+	trWorkspaceNotificationRecipientEmailServer  *WorkspaceNotificationRecipientEmailServerTransport
+	trWorkspaceNotificationRecipientUserServer   *WorkspaceNotificationRecipientUserServerTransport
+	trWorkspacePolicyServer                      *WorkspacePolicyServerTransport
+	trWorkspacePolicyFragmentServer              *WorkspacePolicyFragmentServerTransport
+	trWorkspaceProductAPILinkServer              *WorkspaceProductAPILinkServerTransport
+	trWorkspaceProductServer                     *WorkspaceProductServerTransport
+	trWorkspaceProductGroupLinkServer            *WorkspaceProductGroupLinkServerTransport
+	trWorkspaceProductPolicyServer               *WorkspaceProductPolicyServerTransport
+	trWorkspaceSubscriptionServer                *WorkspaceSubscriptionServerTransport
+	trWorkspaceTagAPILinkServer                  *WorkspaceTagAPILinkServerTransport
+	trWorkspaceTagServer                         *WorkspaceTagServerTransport
+	trWorkspaceTagOperationLinkServer            *WorkspaceTagOperationLinkServerTransport
+	trWorkspaceTagProductLinkServer              *WorkspaceTagProductLinkServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -291,6 +363,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "APIWikisClient":
 		initServer(s, &s.trAPIWikisServer, func() *APIWikisServerTransport { return NewAPIWikisServerTransport(&s.srv.APIWikisServer) })
 		resp, err = s.trAPIWikisServer.Do(req)
+	case "AllPoliciesClient":
+		initServer(s, &s.trAllPoliciesServer, func() *AllPoliciesServerTransport { return NewAllPoliciesServerTransport(&s.srv.AllPoliciesServer) })
+		resp, err = s.trAllPoliciesServer.Do(req)
 	case "AuthorizationAccessPolicyClient":
 		initServer(s, &s.trAuthorizationAccessPolicyServer, func() *AuthorizationAccessPolicyServerTransport {
 			return NewAuthorizationAccessPolicyServerTransport(&s.srv.AuthorizationAccessPolicyServer)
@@ -453,6 +528,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPolicyFragmentServerTransport(&s.srv.PolicyFragmentServer)
 		})
 		resp, err = s.trPolicyFragmentServer.Do(req)
+	case "PolicyRestrictionClient":
+		initServer(s, &s.trPolicyRestrictionServer, func() *PolicyRestrictionServerTransport {
+			return NewPolicyRestrictionServerTransport(&s.srv.PolicyRestrictionServer)
+		})
+		resp, err = s.trPolicyRestrictionServer.Do(req)
+	case "PolicyRestrictionValidationsClient":
+		initServer(s, &s.trPolicyRestrictionValidationsServer, func() *PolicyRestrictionValidationsServerTransport {
+			return NewPolicyRestrictionValidationsServerTransport(&s.srv.PolicyRestrictionValidationsServer)
+		})
+		resp, err = s.trPolicyRestrictionValidationsServer.Do(req)
 	case "PortalConfigClient":
 		initServer(s, &s.trPortalConfigServer, func() *PortalConfigServerTransport { return NewPortalConfigServerTransport(&s.srv.PortalConfigServer) })
 		resp, err = s.trPortalConfigServer.Do(req)
@@ -474,12 +559,22 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ProductAPIClient":
 		initServer(s, &s.trProductAPIServer, func() *ProductAPIServerTransport { return NewProductAPIServerTransport(&s.srv.ProductAPIServer) })
 		resp, err = s.trProductAPIServer.Do(req)
+	case "ProductAPILinkClient":
+		initServer(s, &s.trProductAPILinkServer, func() *ProductAPILinkServerTransport {
+			return NewProductAPILinkServerTransport(&s.srv.ProductAPILinkServer)
+		})
+		resp, err = s.trProductAPILinkServer.Do(req)
 	case "ProductClient":
 		initServer(s, &s.trProductServer, func() *ProductServerTransport { return NewProductServerTransport(&s.srv.ProductServer) })
 		resp, err = s.trProductServer.Do(req)
 	case "ProductGroupClient":
 		initServer(s, &s.trProductGroupServer, func() *ProductGroupServerTransport { return NewProductGroupServerTransport(&s.srv.ProductGroupServer) })
 		resp, err = s.trProductGroupServer.Do(req)
+	case "ProductGroupLinkClient":
+		initServer(s, &s.trProductGroupLinkServer, func() *ProductGroupLinkServerTransport {
+			return NewProductGroupLinkServerTransport(&s.srv.ProductGroupLinkServer)
+		})
+		resp, err = s.trProductGroupLinkServer.Do(req)
 	case "ProductPolicyClient":
 		initServer(s, &s.trProductPolicyServer, func() *ProductPolicyServerTransport {
 			return NewProductPolicyServerTransport(&s.srv.ProductPolicyServer)
@@ -534,9 +629,22 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "SubscriptionClient":
 		initServer(s, &s.trSubscriptionServer, func() *SubscriptionServerTransport { return NewSubscriptionServerTransport(&s.srv.SubscriptionServer) })
 		resp, err = s.trSubscriptionServer.Do(req)
+	case "TagAPILinkClient":
+		initServer(s, &s.trTagAPILinkServer, func() *TagAPILinkServerTransport { return NewTagAPILinkServerTransport(&s.srv.TagAPILinkServer) })
+		resp, err = s.trTagAPILinkServer.Do(req)
 	case "TagClient":
 		initServer(s, &s.trTagServer, func() *TagServerTransport { return NewTagServerTransport(&s.srv.TagServer) })
 		resp, err = s.trTagServer.Do(req)
+	case "TagOperationLinkClient":
+		initServer(s, &s.trTagOperationLinkServer, func() *TagOperationLinkServerTransport {
+			return NewTagOperationLinkServerTransport(&s.srv.TagOperationLinkServer)
+		})
+		resp, err = s.trTagOperationLinkServer.Do(req)
+	case "TagProductLinkClient":
+		initServer(s, &s.trTagProductLinkServer, func() *TagProductLinkServerTransport {
+			return NewTagProductLinkServerTransport(&s.srv.TagProductLinkServer)
+		})
+		resp, err = s.trTagProductLinkServer.Do(req)
 	case "TagResourceClient":
 		initServer(s, &s.trTagResourceServer, func() *TagResourceServerTransport { return NewTagResourceServerTransport(&s.srv.TagResourceServer) })
 		resp, err = s.trTagResourceServer.Do(req)
@@ -579,6 +687,140 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewUserSubscriptionServerTransport(&s.srv.UserSubscriptionServer)
 		})
 		resp, err = s.trUserSubscriptionServer.Do(req)
+	case "WorkspaceAPIClient":
+		initServer(s, &s.trWorkspaceAPIServer, func() *WorkspaceAPIServerTransport { return NewWorkspaceAPIServerTransport(&s.srv.WorkspaceAPIServer) })
+		resp, err = s.trWorkspaceAPIServer.Do(req)
+	case "WorkspaceAPIExportClient":
+		initServer(s, &s.trWorkspaceAPIExportServer, func() *WorkspaceAPIExportServerTransport {
+			return NewWorkspaceAPIExportServerTransport(&s.srv.WorkspaceAPIExportServer)
+		})
+		resp, err = s.trWorkspaceAPIExportServer.Do(req)
+	case "WorkspaceAPIOperationClient":
+		initServer(s, &s.trWorkspaceAPIOperationServer, func() *WorkspaceAPIOperationServerTransport {
+			return NewWorkspaceAPIOperationServerTransport(&s.srv.WorkspaceAPIOperationServer)
+		})
+		resp, err = s.trWorkspaceAPIOperationServer.Do(req)
+	case "WorkspaceAPIOperationPolicyClient":
+		initServer(s, &s.trWorkspaceAPIOperationPolicyServer, func() *WorkspaceAPIOperationPolicyServerTransport {
+			return NewWorkspaceAPIOperationPolicyServerTransport(&s.srv.WorkspaceAPIOperationPolicyServer)
+		})
+		resp, err = s.trWorkspaceAPIOperationPolicyServer.Do(req)
+	case "WorkspaceAPIPolicyClient":
+		initServer(s, &s.trWorkspaceAPIPolicyServer, func() *WorkspaceAPIPolicyServerTransport {
+			return NewWorkspaceAPIPolicyServerTransport(&s.srv.WorkspaceAPIPolicyServer)
+		})
+		resp, err = s.trWorkspaceAPIPolicyServer.Do(req)
+	case "WorkspaceAPIReleaseClient":
+		initServer(s, &s.trWorkspaceAPIReleaseServer, func() *WorkspaceAPIReleaseServerTransport {
+			return NewWorkspaceAPIReleaseServerTransport(&s.srv.WorkspaceAPIReleaseServer)
+		})
+		resp, err = s.trWorkspaceAPIReleaseServer.Do(req)
+	case "WorkspaceAPIRevisionClient":
+		initServer(s, &s.trWorkspaceAPIRevisionServer, func() *WorkspaceAPIRevisionServerTransport {
+			return NewWorkspaceAPIRevisionServerTransport(&s.srv.WorkspaceAPIRevisionServer)
+		})
+		resp, err = s.trWorkspaceAPIRevisionServer.Do(req)
+	case "WorkspaceAPISchemaClient":
+		initServer(s, &s.trWorkspaceAPISchemaServer, func() *WorkspaceAPISchemaServerTransport {
+			return NewWorkspaceAPISchemaServerTransport(&s.srv.WorkspaceAPISchemaServer)
+		})
+		resp, err = s.trWorkspaceAPISchemaServer.Do(req)
+	case "WorkspaceAPIVersionSetClient":
+		initServer(s, &s.trWorkspaceAPIVersionSetServer, func() *WorkspaceAPIVersionSetServerTransport {
+			return NewWorkspaceAPIVersionSetServerTransport(&s.srv.WorkspaceAPIVersionSetServer)
+		})
+		resp, err = s.trWorkspaceAPIVersionSetServer.Do(req)
+	case "WorkspaceClient":
+		initServer(s, &s.trWorkspaceServer, func() *WorkspaceServerTransport { return NewWorkspaceServerTransport(&s.srv.WorkspaceServer) })
+		resp, err = s.trWorkspaceServer.Do(req)
+	case "WorkspaceGlobalSchemaClient":
+		initServer(s, &s.trWorkspaceGlobalSchemaServer, func() *WorkspaceGlobalSchemaServerTransport {
+			return NewWorkspaceGlobalSchemaServerTransport(&s.srv.WorkspaceGlobalSchemaServer)
+		})
+		resp, err = s.trWorkspaceGlobalSchemaServer.Do(req)
+	case "WorkspaceGroupClient":
+		initServer(s, &s.trWorkspaceGroupServer, func() *WorkspaceGroupServerTransport {
+			return NewWorkspaceGroupServerTransport(&s.srv.WorkspaceGroupServer)
+		})
+		resp, err = s.trWorkspaceGroupServer.Do(req)
+	case "WorkspaceGroupUserClient":
+		initServer(s, &s.trWorkspaceGroupUserServer, func() *WorkspaceGroupUserServerTransport {
+			return NewWorkspaceGroupUserServerTransport(&s.srv.WorkspaceGroupUserServer)
+		})
+		resp, err = s.trWorkspaceGroupUserServer.Do(req)
+	case "WorkspaceNamedValueClient":
+		initServer(s, &s.trWorkspaceNamedValueServer, func() *WorkspaceNamedValueServerTransport {
+			return NewWorkspaceNamedValueServerTransport(&s.srv.WorkspaceNamedValueServer)
+		})
+		resp, err = s.trWorkspaceNamedValueServer.Do(req)
+	case "WorkspaceNotificationClient":
+		initServer(s, &s.trWorkspaceNotificationServer, func() *WorkspaceNotificationServerTransport {
+			return NewWorkspaceNotificationServerTransport(&s.srv.WorkspaceNotificationServer)
+		})
+		resp, err = s.trWorkspaceNotificationServer.Do(req)
+	case "WorkspaceNotificationRecipientEmailClient":
+		initServer(s, &s.trWorkspaceNotificationRecipientEmailServer, func() *WorkspaceNotificationRecipientEmailServerTransport {
+			return NewWorkspaceNotificationRecipientEmailServerTransport(&s.srv.WorkspaceNotificationRecipientEmailServer)
+		})
+		resp, err = s.trWorkspaceNotificationRecipientEmailServer.Do(req)
+	case "WorkspaceNotificationRecipientUserClient":
+		initServer(s, &s.trWorkspaceNotificationRecipientUserServer, func() *WorkspaceNotificationRecipientUserServerTransport {
+			return NewWorkspaceNotificationRecipientUserServerTransport(&s.srv.WorkspaceNotificationRecipientUserServer)
+		})
+		resp, err = s.trWorkspaceNotificationRecipientUserServer.Do(req)
+	case "WorkspacePolicyClient":
+		initServer(s, &s.trWorkspacePolicyServer, func() *WorkspacePolicyServerTransport {
+			return NewWorkspacePolicyServerTransport(&s.srv.WorkspacePolicyServer)
+		})
+		resp, err = s.trWorkspacePolicyServer.Do(req)
+	case "WorkspacePolicyFragmentClient":
+		initServer(s, &s.trWorkspacePolicyFragmentServer, func() *WorkspacePolicyFragmentServerTransport {
+			return NewWorkspacePolicyFragmentServerTransport(&s.srv.WorkspacePolicyFragmentServer)
+		})
+		resp, err = s.trWorkspacePolicyFragmentServer.Do(req)
+	case "WorkspaceProductAPILinkClient":
+		initServer(s, &s.trWorkspaceProductAPILinkServer, func() *WorkspaceProductAPILinkServerTransport {
+			return NewWorkspaceProductAPILinkServerTransport(&s.srv.WorkspaceProductAPILinkServer)
+		})
+		resp, err = s.trWorkspaceProductAPILinkServer.Do(req)
+	case "WorkspaceProductClient":
+		initServer(s, &s.trWorkspaceProductServer, func() *WorkspaceProductServerTransport {
+			return NewWorkspaceProductServerTransport(&s.srv.WorkspaceProductServer)
+		})
+		resp, err = s.trWorkspaceProductServer.Do(req)
+	case "WorkspaceProductGroupLinkClient":
+		initServer(s, &s.trWorkspaceProductGroupLinkServer, func() *WorkspaceProductGroupLinkServerTransport {
+			return NewWorkspaceProductGroupLinkServerTransport(&s.srv.WorkspaceProductGroupLinkServer)
+		})
+		resp, err = s.trWorkspaceProductGroupLinkServer.Do(req)
+	case "WorkspaceProductPolicyClient":
+		initServer(s, &s.trWorkspaceProductPolicyServer, func() *WorkspaceProductPolicyServerTransport {
+			return NewWorkspaceProductPolicyServerTransport(&s.srv.WorkspaceProductPolicyServer)
+		})
+		resp, err = s.trWorkspaceProductPolicyServer.Do(req)
+	case "WorkspaceSubscriptionClient":
+		initServer(s, &s.trWorkspaceSubscriptionServer, func() *WorkspaceSubscriptionServerTransport {
+			return NewWorkspaceSubscriptionServerTransport(&s.srv.WorkspaceSubscriptionServer)
+		})
+		resp, err = s.trWorkspaceSubscriptionServer.Do(req)
+	case "WorkspaceTagAPILinkClient":
+		initServer(s, &s.trWorkspaceTagAPILinkServer, func() *WorkspaceTagAPILinkServerTransport {
+			return NewWorkspaceTagAPILinkServerTransport(&s.srv.WorkspaceTagAPILinkServer)
+		})
+		resp, err = s.trWorkspaceTagAPILinkServer.Do(req)
+	case "WorkspaceTagClient":
+		initServer(s, &s.trWorkspaceTagServer, func() *WorkspaceTagServerTransport { return NewWorkspaceTagServerTransport(&s.srv.WorkspaceTagServer) })
+		resp, err = s.trWorkspaceTagServer.Do(req)
+	case "WorkspaceTagOperationLinkClient":
+		initServer(s, &s.trWorkspaceTagOperationLinkServer, func() *WorkspaceTagOperationLinkServerTransport {
+			return NewWorkspaceTagOperationLinkServerTransport(&s.srv.WorkspaceTagOperationLinkServer)
+		})
+		resp, err = s.trWorkspaceTagOperationLinkServer.Do(req)
+	case "WorkspaceTagProductLinkClient":
+		initServer(s, &s.trWorkspaceTagProductLinkServer, func() *WorkspaceTagProductLinkServerTransport {
+			return NewWorkspaceTagProductLinkServerTransport(&s.srv.WorkspaceTagProductLinkServer)
+		})
+		resp, err = s.trWorkspaceTagProductLinkServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

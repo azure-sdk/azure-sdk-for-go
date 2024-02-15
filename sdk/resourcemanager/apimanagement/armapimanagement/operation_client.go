@@ -29,7 +29,7 @@ type OperationClient struct {
 }
 
 // NewOperationClient creates a new instance of OperationClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewOperationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationClient, error) {
@@ -46,7 +46,7 @@ func NewOperationClient(subscriptionID string, credential azcore.TokenCredential
 
 // NewListByTagsPager - Lists a collection of operations associated with tags.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -112,7 +112,7 @@ func (client *OperationClient) listByTagsCreateRequest(ctx context.Context, reso
 	if options != nil && options.IncludeNotTaggedOperations != nil {
 		reqQP.Set("includeNotTaggedOperations", strconv.FormatBool(*options.IncludeNotTaggedOperations))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
