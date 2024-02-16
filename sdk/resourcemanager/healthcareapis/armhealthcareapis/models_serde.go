@@ -252,6 +252,7 @@ func (d DicomServiceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", d.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", d.PublicNetworkAccess)
 	populate(objectMap, "serviceUrl", d.ServiceURL)
+	populate(objectMap, "storageConfiguration", d.StorageConfiguration)
 	return json.Marshal(objectMap)
 }
 
@@ -287,6 +288,9 @@ func (d *DicomServiceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "serviceUrl":
 			err = unpopulate(val, "ServiceURL", &d.ServiceURL)
+			delete(rawMsg, key)
+		case "storageConfiguration":
+			err = unpopulate(val, "StorageConfiguration", &d.StorageConfiguration)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2795,6 +2799,37 @@ func (s *ServicesResourceIdentity) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type StorageConfiguration.
+func (s StorageConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "fileSystemName", s.FileSystemName)
+	populate(objectMap, "storageResourceId", s.StorageResourceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StorageConfiguration.
+func (s *StorageConfiguration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "fileSystemName":
+			err = unpopulate(val, "FileSystemName", &s.FileSystemName)
+			delete(rawMsg, key)
+		case "storageResourceId":
+			err = unpopulate(val, "StorageResourceID", &s.StorageResourceID)
 			delete(rawMsg, key)
 		}
 		if err != nil {

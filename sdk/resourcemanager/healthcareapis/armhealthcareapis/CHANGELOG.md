@@ -1,5 +1,12 @@
 # Release History
 
+## 2.1.0 (2024-02-16)
+### Features Added
+
+- New struct `StorageConfiguration`
+- New field `StorageConfiguration` in struct `DicomServiceProperties`
+
+
 ## 2.0.0 (2023-12-22)
 ### Breaking Changes
 

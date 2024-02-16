@@ -108,6 +108,9 @@ type DicomServiceProperties struct {
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess
 
+	// The configuration of external storage account
+	StorageConfiguration *StorageConfiguration
+
 	// READ-ONLY; DICOM Service event support status.
 	EventState *ServiceEventState
 
@@ -1040,6 +1043,15 @@ type ServicesResourceIdentity struct {
 
 	// READ-ONLY; The tenant ID of the resource.
 	TenantID *string
+}
+
+// StorageConfiguration - The configuration of external storage
+type StorageConfiguration struct {
+	// The filesystem name of external storage account.
+	FileSystemName *string
+
+	// The resource id of external storage account.
+	StorageResourceID *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
