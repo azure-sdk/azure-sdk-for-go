@@ -1,5 +1,14 @@
 # Release History
 
+## 2.0.0-beta.5 (2024-02-17)
+### Breaking Changes
+
+- Type of `LongTermRetentionPolicy.Properties` has been changed from `*LongTermRetentionPolicyProperties` to `*BaseLongTermRetentionPolicyProperties`
+- Type of `ServerProperties.MinimalTLSVersion` has been changed from `*MinimalTLSVersion` to `*string`
+- Enum `MinimalTLSVersion` has been removed
+- Struct `LongTermRetentionPolicyProperties` has been removed
+
+
 ## 2.0.0-beta.4 (2023-12-22)
 ### Breaking Changes
 
