@@ -1,5 +1,15 @@
 # Release History
 
+## 1.7.0 (2024-02-20)
+### Features Added
+
+- New value `StandardTierStorageRedundancyInvalid` added to enum type `StandardTierStorageRedundancy`
+- New enum type `BCDRSecurityLevel` with values `BCDRSecurityLevelExcellent`, `BCDRSecurityLevelFair`, `BCDRSecurityLevelGood`, `BCDRSecurityLevelNotSupported`, `BCDRSecurityLevelPoor`
+- New enum type `EnhancedSecurityState` with values `EnhancedSecurityStateAlwaysON`, `EnhancedSecurityStateDisabled`, `EnhancedSecurityStateEnabled`, `EnhancedSecurityStateInvalid`
+- New field `EnhancedSecurityState` in struct `SoftDeleteSettings`
+- New field `BcdrSecurityLevel` in struct `VaultProperties`
+
+
 ## 1.6.0 (2023-11-30)
 ### Features Added
 

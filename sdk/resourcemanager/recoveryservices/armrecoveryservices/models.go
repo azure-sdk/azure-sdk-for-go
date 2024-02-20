@@ -684,6 +684,8 @@ type SecuritySettings struct {
 
 // SoftDeleteSettings - Soft delete Settings of vault
 type SoftDeleteSettings struct {
+	EnhancedSecurityState *EnhancedSecurityState
+
 	// Soft delete retention period in days
 	SoftDeleteRetentionPeriodInDays *int32
 	SoftDeleteState                 *SoftDeleteState
@@ -889,6 +891,9 @@ type VaultProperties struct {
 	// READ-ONLY; Backup storage version
 	BackupStorageVersion *BackupStorageVersion
 
+	// READ-ONLY; Security Level of Backup Vault
+	BcdrSecurityLevel *BCDRSecurityLevel
+
 	// READ-ONLY; The State of the Resource after the move operation
 	MoveState *ResourceMoveState
 
@@ -940,10 +945,10 @@ type VaultPropertiesMoveDetails struct {
 
 // VaultPropertiesRedundancySettings - The redundancy Settings of a Vault
 type VaultPropertiesRedundancySettings struct {
-	// READ-ONLY; Flag to show if Cross Region Restore is enabled on the Vault or not
+	// Flag to show if Cross Region Restore is enabled on the Vault or not
 	CrossRegionRestore *CrossRegionRestore
 
-	// READ-ONLY; The storage redundancy setting of a vault
+	// The storage redundancy setting of a vault
 	StandardTierStorageRedundancy *StandardTierStorageRedundancy
 }
 

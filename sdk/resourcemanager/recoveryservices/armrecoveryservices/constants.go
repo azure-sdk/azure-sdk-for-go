@@ -10,7 +10,7 @@ package armrecoveryservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservices"
-	moduleVersion = "v1.6.0"
+	moduleVersion = "v1.7.0"
 )
 
 type AlertsState string
@@ -47,6 +47,28 @@ func PossibleAuthTypeValues() []AuthType {
 		AuthTypeAccessControlService,
 		AuthTypeAzureActiveDirectory,
 		AuthTypeInvalid,
+	}
+}
+
+// BCDRSecurityLevel - Security Level of Backup Vault
+type BCDRSecurityLevel string
+
+const (
+	BCDRSecurityLevelExcellent    BCDRSecurityLevel = "Excellent"
+	BCDRSecurityLevelFair         BCDRSecurityLevel = "Fair"
+	BCDRSecurityLevelGood         BCDRSecurityLevel = "Good"
+	BCDRSecurityLevelNotSupported BCDRSecurityLevel = "NotSupported"
+	BCDRSecurityLevelPoor         BCDRSecurityLevel = "Poor"
+)
+
+// PossibleBCDRSecurityLevelValues returns the possible values for the BCDRSecurityLevel const type.
+func PossibleBCDRSecurityLevelValues() []BCDRSecurityLevel {
+	return []BCDRSecurityLevel{
+		BCDRSecurityLevelExcellent,
+		BCDRSecurityLevelFair,
+		BCDRSecurityLevelGood,
+		BCDRSecurityLevelNotSupported,
+		BCDRSecurityLevelPoor,
 	}
 }
 
@@ -118,6 +140,25 @@ func PossibleCrossSubscriptionRestoreStateValues() []CrossSubscriptionRestoreSta
 		CrossSubscriptionRestoreStateDisabled,
 		CrossSubscriptionRestoreStateEnabled,
 		CrossSubscriptionRestoreStatePermanentlyDisabled,
+	}
+}
+
+type EnhancedSecurityState string
+
+const (
+	EnhancedSecurityStateAlwaysON EnhancedSecurityState = "AlwaysON"
+	EnhancedSecurityStateDisabled EnhancedSecurityState = "Disabled"
+	EnhancedSecurityStateEnabled  EnhancedSecurityState = "Enabled"
+	EnhancedSecurityStateInvalid  EnhancedSecurityState = "Invalid"
+)
+
+// PossibleEnhancedSecurityStateValues returns the possible values for the EnhancedSecurityState const type.
+func PossibleEnhancedSecurityStateValues() []EnhancedSecurityState {
+	return []EnhancedSecurityState{
+		EnhancedSecurityStateAlwaysON,
+		EnhancedSecurityStateDisabled,
+		EnhancedSecurityStateEnabled,
+		EnhancedSecurityStateInvalid,
 	}
 }
 
@@ -344,6 +385,7 @@ type StandardTierStorageRedundancy string
 
 const (
 	StandardTierStorageRedundancyGeoRedundant     StandardTierStorageRedundancy = "GeoRedundant"
+	StandardTierStorageRedundancyInvalid          StandardTierStorageRedundancy = "Invalid"
 	StandardTierStorageRedundancyLocallyRedundant StandardTierStorageRedundancy = "LocallyRedundant"
 	StandardTierStorageRedundancyZoneRedundant    StandardTierStorageRedundancy = "ZoneRedundant"
 )
@@ -352,6 +394,7 @@ const (
 func PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy {
 	return []StandardTierStorageRedundancy{
 		StandardTierStorageRedundancyGeoRedundant,
+		StandardTierStorageRedundancyInvalid,
 		StandardTierStorageRedundancyLocallyRedundant,
 		StandardTierStorageRedundancyZoneRedundant,
 	}
