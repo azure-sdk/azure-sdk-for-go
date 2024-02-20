@@ -102,6 +102,25 @@ type KeyValuesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.BeginReconcile
+// method.
+type NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.Get
+// method.
+type NetworkSecurityPerimeterConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByConfigurationStoreOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.NewListByConfigurationStorePager
+// method.
+type NetworkSecurityPerimeterConfigurationsClientListByConfigurationStoreOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientCheckNameAvailabilityOptions contains the optional parameters for the OperationsClient.CheckNameAvailability
 // method.
 type OperationsClientCheckNameAvailabilityOptions struct {
@@ -183,4 +202,15 @@ type ReplicasClientListByConfigurationStoreOptions struct {
 	// a nextLink element, the value of the nextLink element will include a
 	// skipToken parameter that specifies a starting point to use for subsequent calls.
 	SkipToken *string
+}
+
+// SnapshotsClientBeginCreateOptions contains the optional parameters for the SnapshotsClient.BeginCreate method.
+type SnapshotsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SnapshotsClientGetOptions contains the optional parameters for the SnapshotsClient.Get method.
+type SnapshotsClientGetOptions struct {
+	// placeholder for future optional parameters
 }

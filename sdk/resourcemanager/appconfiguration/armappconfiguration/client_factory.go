@@ -16,23 +16,25 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	subscriptionID       string
+	nspConfigurationName string
+	credential           azcore.TokenCredential
+	options              *arm.ClientOptions
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The Microsoft Azure subscription ID.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - nspConfigurationName - The name of the network security perimeter configuration. Takes the format {perimeterGuid}.{associationName}.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, nspConfigurationName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, nspConfigurationName: nspConfigurationName, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
@@ -46,6 +48,12 @@ func (c *ClientFactory) NewConfigurationStoresClient() *ConfigurationStoresClien
 // NewKeyValuesClient creates a new instance of KeyValuesClient.
 func (c *ClientFactory) NewKeyValuesClient() *KeyValuesClient {
 	subClient, _ := NewKeyValuesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewNetworkSecurityPerimeterConfigurationsClient creates a new instance of NetworkSecurityPerimeterConfigurationsClient.
+func (c *ClientFactory) NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient {
+	subClient, _ := NewNetworkSecurityPerimeterConfigurationsClient(c.subscriptionID, c.nspConfigurationName, c.credential, c.options)
 	return subClient
 }
 
@@ -70,5 +78,11 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 // NewReplicasClient creates a new instance of ReplicasClient.
 func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	subClient, _ := NewReplicasClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewSnapshotsClient creates a new instance of SnapshotsClient.
+func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
+	subClient, _ := NewSnapshotsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

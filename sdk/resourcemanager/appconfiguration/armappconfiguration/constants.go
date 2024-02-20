@@ -10,8 +10,24 @@ package armappconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0-beta.1"
 )
+
+// AccessRuleDirection - The direction of the access rule
+type AccessRuleDirection string
+
+const (
+	AccessRuleDirectionInbound  AccessRuleDirection = "Inbound"
+	AccessRuleDirectionOutbound AccessRuleDirection = "Outbound"
+)
+
+// PossibleAccessRuleDirectionValues returns the possible values for the AccessRuleDirection const type.
+func PossibleAccessRuleDirectionValues() []AccessRuleDirection {
+	return []AccessRuleDirection{
+		AccessRuleDirectionInbound,
+		AccessRuleDirectionOutbound,
+	}
+}
 
 // ActionsRequired - Any action that is required beyond basic workflow (approve/ reject/ disconnect)
 type ActionsRequired string
@@ -26,6 +42,45 @@ func PossibleActionsRequiredValues() []ActionsRequired {
 	return []ActionsRequired{
 		ActionsRequiredNone,
 		ActionsRequiredRecreate,
+	}
+}
+
+// AuthenticationMode - The data plane proxy authentication mode. This property manages the authentication mode of request
+// to the data plane resources.
+type AuthenticationMode string
+
+const (
+	// AuthenticationModeLocal - The local authentication mode. Users are not required to have data plane permissions if local
+	// authentication is not disabled.
+	AuthenticationModeLocal AuthenticationMode = "Local"
+	// AuthenticationModePassThrough - The pass-through authentication mode. User identity will be passed through from ARM, requiring
+	// user to have data plane action permissions (Available via App Configuration Data Owner/ App Configuration Data Reader).
+	AuthenticationModePassThrough AuthenticationMode = "Pass-through"
+)
+
+// PossibleAuthenticationModeValues returns the possible values for the AuthenticationMode const type.
+func PossibleAuthenticationModeValues() []AuthenticationMode {
+	return []AuthenticationMode{
+		AuthenticationModeLocal,
+		AuthenticationModePassThrough,
+	}
+}
+
+// CompositionType - The composition type describes how the key-values within the snapshot are composed. The 'key' composition
+// type ensures there are no two key-values containing the same key. The 'key_label' composition
+// type ensures there are no two key-values containing the same key and label.
+type CompositionType string
+
+const (
+	CompositionTypeKey      CompositionType = "Key"
+	CompositionTypeKeyLabel CompositionType = "Key_Label"
+)
+
+// PossibleCompositionTypeValues returns the possible values for the CompositionType const type.
+func PossibleCompositionTypeValues() []CompositionType {
+	return []CompositionType{
+		CompositionTypeKey,
+		CompositionTypeKeyLabel,
 	}
 }
 
@@ -121,6 +176,103 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
+// NSPProvisioningIssueSeverity - The severity of the provisioning issue
+type NSPProvisioningIssueSeverity string
+
+const (
+	NSPProvisioningIssueSeverityError   NSPProvisioningIssueSeverity = "Error"
+	NSPProvisioningIssueSeverityWarning NSPProvisioningIssueSeverity = "Warning"
+)
+
+// PossibleNSPProvisioningIssueSeverityValues returns the possible values for the NSPProvisioningIssueSeverity const type.
+func PossibleNSPProvisioningIssueSeverityValues() []NSPProvisioningIssueSeverity {
+	return []NSPProvisioningIssueSeverity{
+		NSPProvisioningIssueSeverityError,
+		NSPProvisioningIssueSeverityWarning,
+	}
+}
+
+// NSPProvisioningIssueType - The type of provisioning issue
+type NSPProvisioningIssueType string
+
+const (
+	NSPProvisioningIssueTypeConfigurationPropagationFailure NSPProvisioningIssueType = "ConfigurationPropagationFailure"
+	NSPProvisioningIssueTypeMissingIdentityConfiguration    NSPProvisioningIssueType = "MissingIdentityConfiguration"
+	NSPProvisioningIssueTypeMissingPerimeterConfiguration   NSPProvisioningIssueType = "MissingPerimeterConfiguration"
+	NSPProvisioningIssueTypeOther                           NSPProvisioningIssueType = "Other"
+)
+
+// PossibleNSPProvisioningIssueTypeValues returns the possible values for the NSPProvisioningIssueType const type.
+func PossibleNSPProvisioningIssueTypeValues() []NSPProvisioningIssueType {
+	return []NSPProvisioningIssueType{
+		NSPProvisioningIssueTypeConfigurationPropagationFailure,
+		NSPProvisioningIssueTypeMissingIdentityConfiguration,
+		NSPProvisioningIssueTypeMissingPerimeterConfiguration,
+		NSPProvisioningIssueTypeOther,
+	}
+}
+
+// NSPProvisioningState - The provisioning status of the network security perimeter configuration.
+type NSPProvisioningState string
+
+const (
+	NSPProvisioningStateAccepted  NSPProvisioningState = "Accepted"
+	NSPProvisioningStateCanceled  NSPProvisioningState = "Canceled"
+	NSPProvisioningStateCreating  NSPProvisioningState = "Creating"
+	NSPProvisioningStateDeleting  NSPProvisioningState = "Deleting"
+	NSPProvisioningStateFailed    NSPProvisioningState = "Failed"
+	NSPProvisioningStateSucceeded NSPProvisioningState = "Succeeded"
+	NSPProvisioningStateUpdating  NSPProvisioningState = "Updating"
+)
+
+// PossibleNSPProvisioningStateValues returns the possible values for the NSPProvisioningState const type.
+func PossibleNSPProvisioningStateValues() []NSPProvisioningState {
+	return []NSPProvisioningState{
+		NSPProvisioningStateAccepted,
+		NSPProvisioningStateCanceled,
+		NSPProvisioningStateCreating,
+		NSPProvisioningStateDeleting,
+		NSPProvisioningStateFailed,
+		NSPProvisioningStateSucceeded,
+		NSPProvisioningStateUpdating,
+	}
+}
+
+// NSPResourceAssociationAccessMode - The access mode of the Resource Association
+type NSPResourceAssociationAccessMode string
+
+const (
+	NSPResourceAssociationAccessModeEnforced NSPResourceAssociationAccessMode = "Enforced"
+	NSPResourceAssociationAccessModeLearning NSPResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleNSPResourceAssociationAccessModeValues returns the possible values for the NSPResourceAssociationAccessMode const type.
+func PossibleNSPResourceAssociationAccessModeValues() []NSPResourceAssociationAccessMode {
+	return []NSPResourceAssociationAccessMode{
+		NSPResourceAssociationAccessModeEnforced,
+		NSPResourceAssociationAccessModeLearning,
+	}
+}
+
+// PrivateLinkDelegation - The data plane proxy private link delegation. This property manages if a request from delegated
+// ARM private link is allowed when the data plane resource requires private link.
+type PrivateLinkDelegation string
+
+const (
+	// PrivateLinkDelegationDisabled - Request is denied if the resource requires private link.
+	PrivateLinkDelegationDisabled PrivateLinkDelegation = "Disabled"
+	// PrivateLinkDelegationEnabled - ARM private endpoint is required if the resource requires private link.
+	PrivateLinkDelegationEnabled PrivateLinkDelegation = "Enabled"
+)
+
+// PossiblePrivateLinkDelegationValues returns the possible values for the PrivateLinkDelegation const type.
+func PossiblePrivateLinkDelegationValues() []PrivateLinkDelegation {
+	return []PrivateLinkDelegation{
+		PrivateLinkDelegationDisabled,
+		PrivateLinkDelegationEnabled,
+	}
+}
+
 // ProvisioningState - The provisioning state of the configuration store.
 type ProvisioningState string
 
@@ -145,12 +297,13 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// PublicNetworkAccess - Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+// PublicNetworkAccess - Property to specify whether the data plane will accept traffic from the public internet.
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -158,6 +311,7 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 
@@ -180,5 +334,25 @@ func PossibleReplicaProvisioningStateValues() []ReplicaProvisioningState {
 		ReplicaProvisioningStateDeleting,
 		ReplicaProvisioningStateFailed,
 		ReplicaProvisioningStateSucceeded,
+	}
+}
+
+// SnapshotStatus - The current status of the snapshot.
+type SnapshotStatus string
+
+const (
+	SnapshotStatusArchived     SnapshotStatus = "Archived"
+	SnapshotStatusFailed       SnapshotStatus = "Failed"
+	SnapshotStatusProvisioning SnapshotStatus = "Provisioning"
+	SnapshotStatusReady        SnapshotStatus = "Ready"
+)
+
+// PossibleSnapshotStatusValues returns the possible values for the SnapshotStatus const type.
+func PossibleSnapshotStatusValues() []SnapshotStatus {
+	return []SnapshotStatus{
+		SnapshotStatusArchived,
+		SnapshotStatusFailed,
+		SnapshotStatusProvisioning,
+		SnapshotStatusReady,
 	}
 }

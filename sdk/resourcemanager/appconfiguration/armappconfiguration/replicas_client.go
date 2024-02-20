@@ -28,7 +28,7 @@ type ReplicasClient struct {
 }
 
 // NewReplicasClient creates a new instance of ReplicasClient with the specified values.
-//   - subscriptionID - The Microsoft Azure subscription ID.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReplicasClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicasClient, error) {
@@ -46,8 +46,8 @@ func NewReplicasClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreate - Creates a replica with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
-//   - resourceGroupName - The name of the resource group to which the container registry belongs.
+// Generated from API version 2023-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configStoreName - The name of the configuration store.
 //   - replicaName - The name of the replica.
 //   - replicaCreationParameters - The parameters for creating a replica.
@@ -73,7 +73,7 @@ func (client *ReplicasClient) BeginCreate(ctx context.Context, resourceGroupName
 // Create - Creates a replica with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2023-10-01-preview
 func (client *ReplicasClient) create(ctx context.Context, resourceGroupName string, configStoreName string, replicaName string, replicaCreationParameters Replica, options *ReplicasClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ReplicasClient.BeginCreate"
@@ -119,7 +119,7 @@ func (client *ReplicasClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, replicaCreationParameters); err != nil {
@@ -131,8 +131,8 @@ func (client *ReplicasClient) createCreateRequest(ctx context.Context, resourceG
 // BeginDelete - Deletes a replica.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
-//   - resourceGroupName - The name of the resource group to which the container registry belongs.
+// Generated from API version 2023-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configStoreName - The name of the configuration store.
 //   - replicaName - The name of the replica.
 //   - options - ReplicasClientBeginDeleteOptions contains the optional parameters for the ReplicasClient.BeginDelete method.
@@ -157,7 +157,7 @@ func (client *ReplicasClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Deletes a replica.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2023-10-01-preview
 func (client *ReplicasClient) deleteOperation(ctx context.Context, resourceGroupName string, configStoreName string, replicaName string, options *ReplicasClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ReplicasClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *ReplicasClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,8 +212,8 @@ func (client *ReplicasClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Gets the properties of the specified replica.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
-//   - resourceGroupName - The name of the resource group to which the container registry belongs.
+// Generated from API version 2023-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configStoreName - The name of the configuration store.
 //   - replicaName - The name of the replica.
 //   - options - ReplicasClientGetOptions contains the optional parameters for the ReplicasClient.Get method.
@@ -263,7 +263,7 @@ func (client *ReplicasClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,8 +280,8 @@ func (client *ReplicasClient) getHandleResponse(resp *http.Response) (ReplicasCl
 
 // NewListByConfigurationStorePager - Lists the replicas for a given configuration store.
 //
-// Generated from API version 2023-03-01
-//   - resourceGroupName - The name of the resource group to which the container registry belongs.
+// Generated from API version 2023-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configStoreName - The name of the configuration store.
 //   - options - ReplicasClientListByConfigurationStoreOptions contains the optional parameters for the ReplicasClient.NewListByConfigurationStorePager
 //     method.
@@ -328,7 +328,7 @@ func (client *ReplicasClient) listByConfigurationStoreCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2023-10-01-preview")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
