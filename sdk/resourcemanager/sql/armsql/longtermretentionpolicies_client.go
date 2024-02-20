@@ -43,7 +43,7 @@ func NewLongTermRetentionPoliciesClient(subscriptionID string, credential azcore
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Set or update a database's long term retention policy.
+// BeginCreateOrUpdate - Sets a database's long term retention policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
@@ -72,7 +72,7 @@ func (client *LongTermRetentionPoliciesClient) BeginCreateOrUpdate(ctx context.C
 	}
 }
 
-// CreateOrUpdate - Set or update a database's long term retention policy.
+// CreateOrUpdate - Sets a database's long term retention policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-05-01-preview
