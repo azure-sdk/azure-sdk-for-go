@@ -16,28 +16,72 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	credential azcore.TokenCredential
-	options    *arm.ClientOptions
+	subscriptionID string
+	credential     azcore.TokenCredential
+	options        *arm.ClientOptions
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		credential: credential,
-		options:    options.Clone(),
+		subscriptionID: subscriptionID, credential: credential,
+		options: options.Clone(),
 	}, nil
 }
 
 // NewClient creates a new instance of Client.
 func (c *ClientFactory) NewClient() *Client {
 	subClient, _ := NewClient(c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotaEnforcementClient creates a new instance of GroupQuotaEnforcementClient.
+func (c *ClientFactory) NewGroupQuotaEnforcementClient() *GroupQuotaEnforcementClient {
+	subClient, _ := NewGroupQuotaEnforcementClient(c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotaLimitsClient creates a new instance of GroupQuotaLimitsClient.
+func (c *ClientFactory) NewGroupQuotaLimitsClient() *GroupQuotaLimitsClient {
+	subClient, _ := NewGroupQuotaLimitsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotaLimitsRequestsClient creates a new instance of GroupQuotaLimitsRequestsClient.
+func (c *ClientFactory) NewGroupQuotaLimitsRequestsClient() *GroupQuotaLimitsRequestsClient {
+	subClient, _ := NewGroupQuotaLimitsRequestsClient(c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotaSubscriptionQuotaAllocationClient creates a new instance of GroupQuotaSubscriptionQuotaAllocationClient.
+func (c *ClientFactory) NewGroupQuotaSubscriptionQuotaAllocationClient() *GroupQuotaSubscriptionQuotaAllocationClient {
+	subClient, _ := NewGroupQuotaSubscriptionQuotaAllocationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotaSubscriptionQuotaAllocationRequestsClient creates a new instance of GroupQuotaSubscriptionQuotaAllocationRequestsClient.
+func (c *ClientFactory) NewGroupQuotaSubscriptionQuotaAllocationRequestsClient() *GroupQuotaSubscriptionQuotaAllocationRequestsClient {
+	subClient, _ := NewGroupQuotaSubscriptionQuotaAllocationRequestsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotaSubscriptionsClient creates a new instance of GroupQuotaSubscriptionsClient.
+func (c *ClientFactory) NewGroupQuotaSubscriptionsClient() *GroupQuotaSubscriptionsClient {
+	subClient, _ := NewGroupQuotaSubscriptionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+// NewGroupQuotasClient creates a new instance of GroupQuotasClient.
+func (c *ClientFactory) NewGroupQuotasClient() *GroupQuotasClient {
+	subClient, _ := NewGroupQuotasClient(c.credential, c.options)
 	return subClient
 }
 
@@ -50,6 +94,12 @@ func (c *ClientFactory) NewOperationClient() *OperationClient {
 // NewRequestStatusClient creates a new instance of RequestStatusClient.
 func (c *ClientFactory) NewRequestStatusClient() *RequestStatusClient {
 	subClient, _ := NewRequestStatusClient(c.credential, c.options)
+	return subClient
+}
+
+// NewSubscriptionRequestsClient creates a new instance of SubscriptionRequestsClient.
+func (c *ClientFactory) NewSubscriptionRequestsClient() *SubscriptionRequestsClient {
+	subClient, _ := NewSubscriptionRequestsClient(c.credential, c.options)
 	return subClient
 }
 

@@ -46,20 +46,20 @@ func NewRequestStatusClient(credential azcore.TokenCredential, options *arm.Clie
 // operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-//   - id - Quota request ID.
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
 //     URI in the GET operation for the specific resource.
+//   - id - Quota request ID.
 //   - options - RequestStatusClientGetOptions contains the optional parameters for the RequestStatusClient.Get method.
-func (client *RequestStatusClient) Get(ctx context.Context, id string, scope string, options *RequestStatusClientGetOptions) (RequestStatusClientGetResponse, error) {
+func (client *RequestStatusClient) Get(ctx context.Context, scope string, id string, options *RequestStatusClientGetOptions) (RequestStatusClientGetResponse, error) {
 	var err error
 	const operationName = "RequestStatusClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, id, scope, options)
+	req, err := client.getCreateRequest(ctx, scope, id, options)
 	if err != nil {
 		return RequestStatusClientGetResponse{}, err
 	}
@@ -76,19 +76,19 @@ func (client *RequestStatusClient) Get(ctx context.Context, id string, scope str
 }
 
 // getCreateRequest creates the Get request.
-func (client *RequestStatusClient) getCreateRequest(ctx context.Context, id string, scope string, options *RequestStatusClientGetOptions) (*policy.Request, error) {
+func (client *RequestStatusClient) getCreateRequest(ctx context.Context, scope string, id string, options *RequestStatusClientGetOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Quota/quotaRequests/{id}"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if id == "" {
 		return nil, errors.New("parameter id cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{id}", url.PathEscape(id))
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -106,7 +106,7 @@ func (client *RequestStatusClient) getHandleResponse(resp *http.Response) (Reque
 // NewListPager - For the specified scope, get the current quota requests for a one year period ending at the time is made.
 // Use the oData filter to select quota requests.
 //
-// Generated from API version 2023-02-01
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
@@ -144,7 +144,7 @@ func (client *RequestStatusClient) listCreateRequest(ctx context.Context, scope 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

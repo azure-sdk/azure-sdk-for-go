@@ -26,11 +26,11 @@ import (
 type Server struct {
 	// BeginCreateOrUpdate is the fake for method Client.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceName string, scope string, createQuotaRequest armquota.CurrentQuotaLimitBase, options *armquota.ClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armquota.ClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, scope string, resourceName string, createQuotaRequest armquota.CurrentQuotaLimitBase, options *armquota.ClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armquota.ClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method Client.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, scope string, options *armquota.ClientGetOptions) (resp azfake.Responder[armquota.ClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, scope string, resourceName string, options *armquota.ClientGetOptions) (resp azfake.Responder[armquota.ClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method Client.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -38,7 +38,7 @@ type Server struct {
 
 	// BeginUpdate is the fake for method Client.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceName string, scope string, createQuotaRequest armquota.CurrentQuotaLimitBase, options *armquota.ClientBeginUpdateOptions) (resp azfake.PollerResponder[armquota.ClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, scope string, resourceName string, createQuotaRequest armquota.CurrentQuotaLimitBase, options *armquota.ClientBeginUpdateOptions) (resp azfake.PollerResponder[armquota.ClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewServerTransport creates a new instance of ServerTransport with the provided implementation.
@@ -109,15 +109,15 @@ func (s *ServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), resourceNameParam, scopeParam, body, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), scopeParam, resourceNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -151,15 +151,15 @@ func (s *ServerTransport) dispatchGet(req *http.Request) (*http.Response, error)
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-	if err != nil {
-		return nil, err
-	}
 	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.Get(req.Context(), resourceNameParam, scopeParam, nil)
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.Get(req.Context(), scopeParam, resourceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -230,15 +230,15 @@ func (s *ServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceNameParam, scopeParam, body, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginUpdate(req.Context(), scopeParam, resourceNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

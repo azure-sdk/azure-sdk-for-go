@@ -43,22 +43,22 @@ func NewUsagesClient(credential azcore.TokenCredential, options *arm.ClientOptio
 // Get - Get the current usage of a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-//   - resourceName - Resource name for a given resource provider. For example:
-//   - SKU name for Microsoft.Compute
-//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
 //     URI in the GET operation for the specific resource.
+//   - resourceName - Resource name for a given resource provider. For example:
+//   - SKU name for Microsoft.Compute
+//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
 //   - options - UsagesClientGetOptions contains the optional parameters for the UsagesClient.Get method.
-func (client *UsagesClient) Get(ctx context.Context, resourceName string, scope string, options *UsagesClientGetOptions) (UsagesClientGetResponse, error) {
+func (client *UsagesClient) Get(ctx context.Context, scope string, resourceName string, options *UsagesClientGetOptions) (UsagesClientGetResponse, error) {
 	var err error
 	const operationName = "UsagesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceName, scope, options)
+	req, err := client.getCreateRequest(ctx, scope, resourceName, options)
 	if err != nil {
 		return UsagesClientGetResponse{}, err
 	}
@@ -75,19 +75,19 @@ func (client *UsagesClient) Get(ctx context.Context, resourceName string, scope 
 }
 
 // getCreateRequest creates the Get request.
-func (client *UsagesClient) getCreateRequest(ctx context.Context, resourceName string, scope string, options *UsagesClientGetOptions) (*policy.Request, error) {
+func (client *UsagesClient) getCreateRequest(ctx context.Context, scope string, resourceName string, options *UsagesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Quota/usages/{resourceName}"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if resourceName == "" {
 		return nil, errors.New("parameter resourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,7 +107,7 @@ func (client *UsagesClient) getHandleResponse(resp *http.Response) (UsagesClient
 
 // NewListPager - Get a list of current usage for all resources for the scope specified.
 //
-// Generated from API version 2023-02-01
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
@@ -145,7 +145,7 @@ func (client *UsagesClient) listCreateRequest(ctx context.Context, scope string,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -26,7 +26,7 @@ import (
 type UsagesServer struct {
 	// Get is the fake for method UsagesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, scope string, options *armquota.UsagesClientGetOptions) (resp azfake.Responder[armquota.UsagesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, scope string, resourceName string, options *armquota.UsagesClientGetOptions) (resp azfake.Responder[armquota.UsagesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method UsagesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -87,15 +87,15 @@ func (u *UsagesServerTransport) dispatchGet(req *http.Request) (*http.Response, 
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-	if err != nil {
-		return nil, err
-	}
 	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := u.srv.Get(req.Context(), resourceNameParam, scopeParam, nil)
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := u.srv.Get(req.Context(), scopeParam, resourceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
