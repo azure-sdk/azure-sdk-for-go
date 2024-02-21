@@ -241,6 +241,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &SapCloudForCustomerSink{}
 	case "SnowflakeSink":
 		b = &SnowflakeSink{}
+	case "SnowflakeV2Sink":
+		b = &SnowflakeV2Sink{}
 	case "SqlDWSink":
 		b = &SQLDWSink{}
 	case "SqlMISink":
@@ -338,6 +340,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &GoogleAdWordsSource{}
 	case "GoogleBigQuerySource":
 		b = &GoogleBigQuerySource{}
+	case "GoogleBigQueryV2Source":
+		b = &GoogleBigQueryV2Source{}
 	case "GreenplumSource":
 		b = &GreenplumSource{}
 	case "HBaseSource":
@@ -440,6 +444,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &ShopifySource{}
 	case "SnowflakeSource":
 		b = &SnowflakeSource{}
+	case "SnowflakeV2Source":
+		b = &SnowflakeV2Source{}
 	case "SparkSource":
 		b = &SparkSource{}
 	case "SqlDWSource":
@@ -638,6 +644,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &GoogleAdWordsObjectDataset{}
 	case "GoogleBigQueryObject":
 		b = &GoogleBigQueryObjectDataset{}
+	case "GoogleBigQueryV2Object":
+		b = &GoogleBigQueryV2ObjectDataset{}
 	case "GreenplumTable":
 		b = &GreenplumTableDataset{}
 	case "HBaseObject":
@@ -738,6 +746,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &ShopifyObjectDataset{}
 	case "SnowflakeTable":
 		b = &SnowflakeDataset{}
+	case "SnowflakeV2Table":
+		b = &SnowflakeV2Dataset{}
 	case "SparkObject":
 		b = &SparkObjectDataset{}
 	case "SqlServerTable":
@@ -1118,6 +1128,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &GoogleAdWordsLinkedService{}
 	case "GoogleBigQuery":
 		b = &GoogleBigQueryLinkedService{}
+	case "GoogleBigQueryV2":
+		b = &GoogleBigQueryV2LinkedService{}
 	case "GoogleCloudStorage":
 		b = &GoogleCloudStorageLinkedService{}
 	case "GoogleSheets":
@@ -1228,6 +1240,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SmartsheetLinkedService{}
 	case "Snowflake":
 		b = &SnowflakeLinkedService{}
+	case "SnowflakeV2":
+		b = &SnowflakeV2LinkedService{}
 	case "Spark":
 		b = &SparkLinkedService{}
 	case "SqlServer":
