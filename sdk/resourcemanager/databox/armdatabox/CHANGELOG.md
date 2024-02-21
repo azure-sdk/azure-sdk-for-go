@@ -1,5 +1,24 @@
 # Release History
 
+## 2.2.0-beta.1 (2024-02-21)
+### Features Added
+
+- New value `DataCenterCodeAMS25`, `DataCenterCodeBL24`, `DataCenterCodeCPQ21`, `DataCenterCodeDSM11`, `DataCenterCodeDXB23`, `DataCenterCodeIDC5`, `DataCenterCodeNTG20`, `DataCenterCodeOSA23`, `DataCenterCodeTYO23` added to enum type `DataCenterCode`
+- New enum type `DelayNotificationStatus` with values `DelayNotificationStatusActive`, `DelayNotificationStatusResolved`
+- New enum type `ModelNames` with values `ModelNamesDataBox`, `ModelNamesDataBoxCustomerDisk`, `ModelNamesDataBoxDisk`, `ModelNamesDataBoxHeavy`, `ModelNamesDataBoxV2X100`, `ModelNamesDataBoxV2X500`
+- New enum type `PortalDelayErrorCode` with values `PortalDelayErrorCodeActiveOrderLimitBreachedDelay`, `PortalDelayErrorCodeInternalIssueDelay`
+- New struct `DeviceCapabilityDetails`
+- New struct `DeviceCapabilityRequest`
+- New struct `DeviceCapabilityResponse`
+- New struct `JobDelayDetails`
+- New field `AllDevicesLost`, `DelayedStage` in struct `JobProperties`
+- New field `DelayInformation` in struct `JobStages`
+- New field `DeviceCapabilityRequest` in struct `RegionConfigurationRequest`
+- New field `DeviceCapabilityResponse` in struct `RegionConfigurationResponse`
+- New field `Model` in struct `SKU`
+- New field `IndividualSKUUsable` in struct `SKUCapacity`
+
+
 ## 2.1.0 (2023-11-24)
 ### Features Added
 
