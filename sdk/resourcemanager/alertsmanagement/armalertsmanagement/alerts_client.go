@@ -24,22 +24,19 @@ import (
 // AlertsClient contains the methods for the Alerts group.
 // Don't use this type directly, use NewAlertsClient() instead.
 type AlertsClient struct {
-	internal       *arm.Client
-	subscriptionID string
+	internal *arm.Client
 }
 
 // NewAlertsClient creates a new instance of AlertsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewAlertsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AlertsClient, error) {
+func NewAlertsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*AlertsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &AlertsClient{
-		subscriptionID: subscriptionID,
-		internal:       cl,
+		internal: cl,
 	}
 	return client, nil
 }
@@ -47,17 +44,18 @@ func NewAlertsClient(subscriptionID string, credential azcore.TokenCredential, o
 // ChangeState - Change the state of an alert.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-05-05-preview
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
 //   - alertID - Unique ID of an alert instance.
 //   - newState - New state of the alert.
 //   - options - AlertsClientChangeStateOptions contains the optional parameters for the AlertsClient.ChangeState method.
-func (client *AlertsClient) ChangeState(ctx context.Context, alertID string, newState AlertState, options *AlertsClientChangeStateOptions) (AlertsClientChangeStateResponse, error) {
+func (client *AlertsClient) ChangeState(ctx context.Context, scope string, alertID string, newState AlertState, options *AlertsClientChangeStateOptions) (AlertsClientChangeStateResponse, error) {
 	var err error
 	const operationName = "AlertsClient.ChangeState"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.changeStateCreateRequest(ctx, alertID, newState, options)
+	req, err := client.changeStateCreateRequest(ctx, scope, alertID, newState, options)
 	if err != nil {
 		return AlertsClientChangeStateResponse{}, err
 	}
@@ -74,12 +72,9 @@ func (client *AlertsClient) ChangeState(ctx context.Context, alertID string, new
 }
 
 // changeStateCreateRequest creates the ChangeState request.
-func (client *AlertsClient) changeStateCreateRequest(ctx context.Context, alertID string, newState AlertState, options *AlertsClientChangeStateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/alerts/{alertId}/changestate"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+func (client *AlertsClient) changeStateCreateRequest(ctx context.Context, scope string, alertID string, newState AlertState, options *AlertsClientChangeStateOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alerts/{alertId}/changestate"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if alertID == "" {
 		return nil, errors.New("parameter alertID cannot be empty")
 	}
@@ -89,7 +84,7 @@ func (client *AlertsClient) changeStateCreateRequest(ctx context.Context, alertI
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-05-05-preview")
+	reqQP.Set("api-version", "2024-01-01-preview")
 	reqQP.Set("newState", string(newState))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -115,9 +110,10 @@ func (client *AlertsClient) changeStateHandleResponse(resp *http.Response) (Aler
 // time range). The results can then be sorted on the basis specific fields, with the default being
 // lastModifiedDateTime.
 //
-// Generated from API version 2019-05-05-preview
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
 //   - options - AlertsClientGetAllOptions contains the optional parameters for the AlertsClient.NewGetAllPager method.
-func (client *AlertsClient) NewGetAllPager(options *AlertsClientGetAllOptions) *runtime.Pager[AlertsClientGetAllResponse] {
+func (client *AlertsClient) NewGetAllPager(scope string, options *AlertsClientGetAllOptions) *runtime.Pager[AlertsClientGetAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertsClientGetAllResponse]{
 		More: func(page AlertsClientGetAllResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -129,7 +125,7 @@ func (client *AlertsClient) NewGetAllPager(options *AlertsClientGetAllOptions) *
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.getAllCreateRequest(ctx, options)
+				return client.getAllCreateRequest(ctx, scope, options)
 			}, nil)
 			if err != nil {
 				return AlertsClientGetAllResponse{}, err
@@ -141,43 +137,23 @@ func (client *AlertsClient) NewGetAllPager(options *AlertsClientGetAllOptions) *
 }
 
 // getAllCreateRequest creates the GetAll request.
-func (client *AlertsClient) getAllCreateRequest(ctx context.Context, options *AlertsClientGetAllOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/alerts"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+func (client *AlertsClient) getAllCreateRequest(ctx context.Context, scope string, options *AlertsClientGetAllOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alerts"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.TargetResource != nil {
-		reqQP.Set("targetResource", *options.TargetResource)
-	}
-	if options != nil && options.TargetResourceType != nil {
-		reqQP.Set("targetResourceType", *options.TargetResourceType)
-	}
-	if options != nil && options.TargetResourceGroup != nil {
-		reqQP.Set("targetResourceGroup", *options.TargetResourceGroup)
-	}
-	if options != nil && options.MonitorService != nil {
-		reqQP.Set("monitorService", string(*options.MonitorService))
-	}
-	if options != nil && options.MonitorCondition != nil {
-		reqQP.Set("monitorCondition", string(*options.MonitorCondition))
-	}
-	if options != nil && options.Severity != nil {
-		reqQP.Set("severity", string(*options.Severity))
+	if options != nil && options.AlertRule != nil {
+		reqQP.Set("alertRule", *options.AlertRule)
 	}
 	if options != nil && options.AlertState != nil {
 		reqQP.Set("alertState", string(*options.AlertState))
 	}
-	if options != nil && options.AlertRule != nil {
-		reqQP.Set("alertRule", *options.AlertRule)
-	}
-	if options != nil && options.SmartGroupID != nil {
-		reqQP.Set("smartGroupId", *options.SmartGroupID)
+	reqQP.Set("api-version", "2024-01-01-preview")
+	if options != nil && options.CustomTimeRange != nil {
+		reqQP.Set("customTimeRange", *options.CustomTimeRange)
 	}
 	if options != nil && options.IncludeContext != nil {
 		reqQP.Set("includeContext", strconv.FormatBool(*options.IncludeContext))
@@ -185,8 +161,23 @@ func (client *AlertsClient) getAllCreateRequest(ctx context.Context, options *Al
 	if options != nil && options.IncludeEgressConfig != nil {
 		reqQP.Set("includeEgressConfig", strconv.FormatBool(*options.IncludeEgressConfig))
 	}
+	if options != nil && options.MonitorCondition != nil {
+		reqQP.Set("monitorCondition", string(*options.MonitorCondition))
+	}
+	if options != nil && options.MonitorService != nil {
+		reqQP.Set("monitorService", string(*options.MonitorService))
+	}
 	if options != nil && options.PageCount != nil {
 		reqQP.Set("pageCount", strconv.FormatInt(*options.PageCount, 10))
+	}
+	if options != nil && options.Select != nil {
+		reqQP.Set("select", *options.Select)
+	}
+	if options != nil && options.Severity != nil {
+		reqQP.Set("severity", string(*options.Severity))
+	}
+	if options != nil && options.SmartGroupID != nil {
+		reqQP.Set("smartGroupId", *options.SmartGroupID)
 	}
 	if options != nil && options.SortBy != nil {
 		reqQP.Set("sortBy", string(*options.SortBy))
@@ -194,16 +185,18 @@ func (client *AlertsClient) getAllCreateRequest(ctx context.Context, options *Al
 	if options != nil && options.SortOrder != nil {
 		reqQP.Set("sortOrder", string(*options.SortOrder))
 	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("select", *options.Select)
+	if options != nil && options.TargetResource != nil {
+		reqQP.Set("targetResource", *options.TargetResource)
+	}
+	if options != nil && options.TargetResourceGroup != nil {
+		reqQP.Set("targetResourceGroup", *options.TargetResourceGroup)
+	}
+	if options != nil && options.TargetResourceType != nil {
+		reqQP.Set("targetResourceType", *options.TargetResourceType)
 	}
 	if options != nil && options.TimeRange != nil {
 		reqQP.Set("timeRange", string(*options.TimeRange))
 	}
-	if options != nil && options.CustomTimeRange != nil {
-		reqQP.Set("customTimeRange", *options.CustomTimeRange)
-	}
-	reqQP.Set("api-version", "2019-05-05-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -221,16 +214,17 @@ func (client *AlertsClient) getAllHandleResponse(resp *http.Response) (AlertsCli
 // GetByID - Get information related to a specific alert
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-05-05-preview
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
 //   - alertID - Unique ID of an alert instance.
 //   - options - AlertsClientGetByIDOptions contains the optional parameters for the AlertsClient.GetByID method.
-func (client *AlertsClient) GetByID(ctx context.Context, alertID string, options *AlertsClientGetByIDOptions) (AlertsClientGetByIDResponse, error) {
+func (client *AlertsClient) GetByID(ctx context.Context, scope string, alertID string, options *AlertsClientGetByIDOptions) (AlertsClientGetByIDResponse, error) {
 	var err error
 	const operationName = "AlertsClient.GetByID"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getByIDCreateRequest(ctx, alertID, options)
+	req, err := client.getByIDCreateRequest(ctx, scope, alertID, options)
 	if err != nil {
 		return AlertsClientGetByIDResponse{}, err
 	}
@@ -247,12 +241,9 @@ func (client *AlertsClient) GetByID(ctx context.Context, alertID string, options
 }
 
 // getByIDCreateRequest creates the GetByID request.
-func (client *AlertsClient) getByIDCreateRequest(ctx context.Context, alertID string, options *AlertsClientGetByIDOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/alerts/{alertId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+func (client *AlertsClient) getByIDCreateRequest(ctx context.Context, scope string, alertID string, options *AlertsClientGetByIDOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alerts/{alertId}"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if alertID == "" {
 		return nil, errors.New("parameter alertID cannot be empty")
 	}
@@ -262,7 +253,7 @@ func (client *AlertsClient) getByIDCreateRequest(ctx context.Context, alertID st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-05-05-preview")
+	reqQP.Set("api-version", "2024-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,20 +268,78 @@ func (client *AlertsClient) getByIDHandleResponse(resp *http.Response) (AlertsCl
 	return result, nil
 }
 
+// GetEnrichments - Get the enrichments of an alert.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
+//   - alertID - Unique ID of an alert instance.
+//   - options - AlertsClientGetEnrichmentsOptions contains the optional parameters for the AlertsClient.GetEnrichments method.
+func (client *AlertsClient) GetEnrichments(ctx context.Context, scope string, alertID string, options *AlertsClientGetEnrichmentsOptions) (AlertsClientGetEnrichmentsResponse, error) {
+	var err error
+	const operationName = "AlertsClient.GetEnrichments"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getEnrichmentsCreateRequest(ctx, scope, alertID, options)
+	if err != nil {
+		return AlertsClientGetEnrichmentsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AlertsClientGetEnrichmentsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return AlertsClientGetEnrichmentsResponse{}, err
+	}
+	resp, err := client.getEnrichmentsHandleResponse(httpResp)
+	return resp, err
+}
+
+// getEnrichmentsCreateRequest creates the GetEnrichments request.
+func (client *AlertsClient) getEnrichmentsCreateRequest(ctx context.Context, scope string, alertID string, options *AlertsClientGetEnrichmentsOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alerts/{alertId}/enrichments/default"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	if alertID == "" {
+		return nil, errors.New("parameter alertID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{alertId}", url.PathEscape(alertID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-01-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getEnrichmentsHandleResponse handles the GetEnrichments response.
+func (client *AlertsClient) getEnrichmentsHandleResponse(resp *http.Response) (AlertsClientGetEnrichmentsResponse, error) {
+	result := AlertsClientGetEnrichmentsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AlertEnrichmentResponse); err != nil {
+		return AlertsClientGetEnrichmentsResponse{}, err
+	}
+	return result, nil
+}
+
 // GetHistory - Get the history of an alert, which captures any monitor condition changes (Fired/Resolved) and alert state
 // changes (New/Acknowledged/Closed).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-05-05-preview
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
 //   - alertID - Unique ID of an alert instance.
 //   - options - AlertsClientGetHistoryOptions contains the optional parameters for the AlertsClient.GetHistory method.
-func (client *AlertsClient) GetHistory(ctx context.Context, alertID string, options *AlertsClientGetHistoryOptions) (AlertsClientGetHistoryResponse, error) {
+func (client *AlertsClient) GetHistory(ctx context.Context, scope string, alertID string, options *AlertsClientGetHistoryOptions) (AlertsClientGetHistoryResponse, error) {
 	var err error
 	const operationName = "AlertsClient.GetHistory"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getHistoryCreateRequest(ctx, alertID, options)
+	req, err := client.getHistoryCreateRequest(ctx, scope, alertID, options)
 	if err != nil {
 		return AlertsClientGetHistoryResponse{}, err
 	}
@@ -307,12 +356,9 @@ func (client *AlertsClient) GetHistory(ctx context.Context, alertID string, opti
 }
 
 // getHistoryCreateRequest creates the GetHistory request.
-func (client *AlertsClient) getHistoryCreateRequest(ctx context.Context, alertID string, options *AlertsClientGetHistoryOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/alerts/{alertId}/history"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+func (client *AlertsClient) getHistoryCreateRequest(ctx context.Context, scope string, alertID string, options *AlertsClientGetHistoryOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alerts/{alertId}/history"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if alertID == "" {
 		return nil, errors.New("parameter alertID cannot be empty")
 	}
@@ -322,7 +368,7 @@ func (client *AlertsClient) getHistoryCreateRequest(ctx context.Context, alertID
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-05-05-preview")
+	reqQP.Set("api-version", "2024-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -341,17 +387,18 @@ func (client *AlertsClient) getHistoryHandleResponse(resp *http.Response) (Alert
 // count of alerts for each severity).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-05-05-preview
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
 //   - groupby - This parameter allows the result set to be grouped by input fields (Maximum 2 comma separated fields supported).
 //     For example, groupby=severity or groupby=severity,alertstate.
 //   - options - AlertsClientGetSummaryOptions contains the optional parameters for the AlertsClient.GetSummary method.
-func (client *AlertsClient) GetSummary(ctx context.Context, groupby AlertsSummaryGroupByFields, options *AlertsClientGetSummaryOptions) (AlertsClientGetSummaryResponse, error) {
+func (client *AlertsClient) GetSummary(ctx context.Context, scope string, groupby AlertsSummaryGroupByFields, options *AlertsClientGetSummaryOptions) (AlertsClientGetSummaryResponse, error) {
 	var err error
 	const operationName = "AlertsClient.GetSummary"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getSummaryCreateRequest(ctx, groupby, options)
+	req, err := client.getSummaryCreateRequest(ctx, scope, groupby, options)
 	if err != nil {
 		return AlertsClientGetSummaryResponse{}, err
 	}
@@ -368,52 +415,49 @@ func (client *AlertsClient) GetSummary(ctx context.Context, groupby AlertsSummar
 }
 
 // getSummaryCreateRequest creates the GetSummary request.
-func (client *AlertsClient) getSummaryCreateRequest(ctx context.Context, groupby AlertsSummaryGroupByFields, options *AlertsClientGetSummaryOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/alertsSummary"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+func (client *AlertsClient) getSummaryCreateRequest(ctx context.Context, scope string, groupby AlertsSummaryGroupByFields, options *AlertsClientGetSummaryOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alertsSummary"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("groupby", string(groupby))
-	if options != nil && options.IncludeSmartGroupsCount != nil {
-		reqQP.Set("includeSmartGroupsCount", strconv.FormatBool(*options.IncludeSmartGroupsCount))
-	}
-	if options != nil && options.TargetResource != nil {
-		reqQP.Set("targetResource", *options.TargetResource)
-	}
-	if options != nil && options.TargetResourceType != nil {
-		reqQP.Set("targetResourceType", *options.TargetResourceType)
-	}
-	if options != nil && options.TargetResourceGroup != nil {
-		reqQP.Set("targetResourceGroup", *options.TargetResourceGroup)
-	}
-	if options != nil && options.MonitorService != nil {
-		reqQP.Set("monitorService", string(*options.MonitorService))
-	}
-	if options != nil && options.MonitorCondition != nil {
-		reqQP.Set("monitorCondition", string(*options.MonitorCondition))
-	}
-	if options != nil && options.Severity != nil {
-		reqQP.Set("severity", string(*options.Severity))
+	if options != nil && options.AlertRule != nil {
+		reqQP.Set("alertRule", *options.AlertRule)
 	}
 	if options != nil && options.AlertState != nil {
 		reqQP.Set("alertState", string(*options.AlertState))
 	}
-	if options != nil && options.AlertRule != nil {
-		reqQP.Set("alertRule", *options.AlertRule)
+	reqQP.Set("api-version", "2024-01-01-preview")
+	if options != nil && options.CustomTimeRange != nil {
+		reqQP.Set("customTimeRange", *options.CustomTimeRange)
+	}
+	reqQP.Set("groupby", string(groupby))
+	if options != nil && options.IncludeSmartGroupsCount != nil {
+		reqQP.Set("includeSmartGroupsCount", strconv.FormatBool(*options.IncludeSmartGroupsCount))
+	}
+	if options != nil && options.MonitorCondition != nil {
+		reqQP.Set("monitorCondition", string(*options.MonitorCondition))
+	}
+	if options != nil && options.MonitorService != nil {
+		reqQP.Set("monitorService", string(*options.MonitorService))
+	}
+	if options != nil && options.Severity != nil {
+		reqQP.Set("severity", string(*options.Severity))
+	}
+	if options != nil && options.TargetResource != nil {
+		reqQP.Set("targetResource", *options.TargetResource)
+	}
+	if options != nil && options.TargetResourceGroup != nil {
+		reqQP.Set("targetResourceGroup", *options.TargetResourceGroup)
+	}
+	if options != nil && options.TargetResourceType != nil {
+		reqQP.Set("targetResourceType", *options.TargetResourceType)
 	}
 	if options != nil && options.TimeRange != nil {
 		reqQP.Set("timeRange", string(*options.TimeRange))
 	}
-	if options != nil && options.CustomTimeRange != nil {
-		reqQP.Set("customTimeRange", *options.CustomTimeRange)
-	}
-	reqQP.Set("api-version", "2019-05-05-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -428,10 +472,69 @@ func (client *AlertsClient) getSummaryHandleResponse(resp *http.Response) (Alert
 	return result, nil
 }
 
+// NewListEnrichmentsPager - List the enrichments of an alert. It returns a collection of one object named default.
+//
+// Generated from API version 2024-01-01-preview
+//   - scope - scope here is resourceId for which alert is created.
+//   - alertID - Unique ID of an alert instance.
+//   - options - AlertsClientListEnrichmentsOptions contains the optional parameters for the AlertsClient.NewListEnrichmentsPager
+//     method.
+func (client *AlertsClient) NewListEnrichmentsPager(scope string, alertID string, options *AlertsClientListEnrichmentsOptions) *runtime.Pager[AlertsClientListEnrichmentsResponse] {
+	return runtime.NewPager(runtime.PagingHandler[AlertsClientListEnrichmentsResponse]{
+		More: func(page AlertsClientListEnrichmentsResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *AlertsClientListEnrichmentsResponse) (AlertsClientListEnrichmentsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AlertsClient.NewListEnrichmentsPager")
+			req, err := client.listEnrichmentsCreateRequest(ctx, scope, alertID, options)
+			if err != nil {
+				return AlertsClientListEnrichmentsResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return AlertsClientListEnrichmentsResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return AlertsClientListEnrichmentsResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listEnrichmentsHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listEnrichmentsCreateRequest creates the ListEnrichments request.
+func (client *AlertsClient) listEnrichmentsCreateRequest(ctx context.Context, scope string, alertID string, options *AlertsClientListEnrichmentsOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.AlertsManagement/alerts/{alertId}/enrichments"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	if alertID == "" {
+		return nil, errors.New("parameter alertID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{alertId}", url.PathEscape(alertID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-01-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listEnrichmentsHandleResponse handles the ListEnrichments response.
+func (client *AlertsClient) listEnrichmentsHandleResponse(resp *http.Response) (AlertsClientListEnrichmentsResponse, error) {
+	result := AlertsClientListEnrichmentsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AlertEnrichmentsList); err != nil {
+		return AlertsClientListEnrichmentsResponse{}, err
+	}
+	return result, nil
+}
+
 // MetaData - List alerts meta data information based on value of identifier parameter.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-05-05-preview
+// Generated from API version 2024-01-01-preview
 //   - identifier - Identification of the information to be retrieved by API call.
 //   - options - AlertsClientMetaDataOptions contains the optional parameters for the AlertsClient.MetaData method.
 func (client *AlertsClient) MetaData(ctx context.Context, identifier Identifier, options *AlertsClientMetaDataOptions) (AlertsClientMetaDataResponse, error) {
@@ -464,7 +567,7 @@ func (client *AlertsClient) metaDataCreateRequest(ctx context.Context, identifie
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-05-05-preview")
+	reqQP.Set("api-version", "2024-01-01-preview")
 	reqQP.Set("identifier", string(identifier))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}

@@ -42,10 +42,22 @@ type AlertProcessingRulesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AlertRuleRecommendationsClientListByResourceOptions contains the optional parameters for the AlertRuleRecommendationsClient.NewListByResourcePager
+// method.
+type AlertRuleRecommendationsClientListByResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AlertRuleRecommendationsClientListByTargetTypeOptions contains the optional parameters for the AlertRuleRecommendationsClient.NewListByTargetTypePager
+// method.
+type AlertRuleRecommendationsClientListByTargetTypeOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AlertsClientChangeStateOptions contains the optional parameters for the AlertsClient.ChangeState method.
 type AlertsClientChangeStateOptions struct {
 	// reason of change alert state
-	Comment *string
+	Comment *Comments
 }
 
 // AlertsClientGetAllOptions contains the optional parameters for the AlertsClient.NewGetAllPager method.
@@ -112,6 +124,11 @@ type AlertsClientGetByIDOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AlertsClientGetEnrichmentsOptions contains the optional parameters for the AlertsClient.GetEnrichments method.
+type AlertsClientGetEnrichmentsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AlertsClientGetHistoryOptions contains the optional parameters for the AlertsClient.GetHistory method.
 type AlertsClientGetHistoryOptions struct {
 	// placeholder for future optional parameters
@@ -155,6 +172,11 @@ type AlertsClientGetSummaryOptions struct {
 	TimeRange *TimeRange
 }
 
+// AlertsClientListEnrichmentsOptions contains the optional parameters for the AlertsClient.NewListEnrichmentsPager method.
+type AlertsClientListEnrichmentsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AlertsClientMetaDataOptions contains the optional parameters for the AlertsClient.MetaData method.
 type AlertsClientMetaDataOptions struct {
 	// placeholder for future optional parameters
@@ -162,6 +184,39 @@ type AlertsClientMetaDataOptions struct {
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientCreateOrUpdateOptions contains the optional parameters for the PrometheusRuleGroupsClient.CreateOrUpdate
+// method.
+type PrometheusRuleGroupsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientDeleteOptions contains the optional parameters for the PrometheusRuleGroupsClient.Delete method.
+type PrometheusRuleGroupsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientGetOptions contains the optional parameters for the PrometheusRuleGroupsClient.Get method.
+type PrometheusRuleGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientListByResourceGroupOptions contains the optional parameters for the PrometheusRuleGroupsClient.NewListByResourceGroupPager
+// method.
+type PrometheusRuleGroupsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientListBySubscriptionOptions contains the optional parameters for the PrometheusRuleGroupsClient.NewListBySubscriptionPager
+// method.
+type PrometheusRuleGroupsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientUpdateOptions contains the optional parameters for the PrometheusRuleGroupsClient.Update method.
+type PrometheusRuleGroupsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 

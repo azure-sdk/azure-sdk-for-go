@@ -56,6 +56,63 @@ type Alert struct {
 	Type *string
 }
 
+// AlertEnrichmentItem - Alert enrichment item.
+type AlertEnrichmentItem struct {
+	// REQUIRED; The enrichment description.
+	Description *string
+
+	// REQUIRED; The status of the evaluation of the enrichment.
+	Status *Status
+
+	// REQUIRED; The enrichment title.
+	Title *string
+
+	// REQUIRED; The enrichment type.
+	Type *Type
+
+	// The error message. Will be present only if the status is 'Failed'.
+	ErrorMessage *string
+}
+
+// GetAlertEnrichmentItem implements the AlertEnrichmentItemClassification interface for type AlertEnrichmentItem.
+func (a *AlertEnrichmentItem) GetAlertEnrichmentItem() *AlertEnrichmentItem { return a }
+
+// AlertEnrichmentProperties - Properties of the alert enrichment item.
+type AlertEnrichmentProperties struct {
+	// Enrichment details
+	Enrichments []AlertEnrichmentItemClassification
+
+	// READ-ONLY; Unique Id (GUID) of the alert for which the enrichments are being retrieved.
+	AlertID *string
+}
+
+// AlertEnrichmentResponse - The alert's enrichments.
+type AlertEnrichmentResponse struct {
+	// Properties of the alert enrichment item.
+	Properties *AlertEnrichmentProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AlertEnrichmentsList - List the alert's enrichments.
+type AlertEnrichmentsList struct {
+	// Request URL that can be used to query next page.
+	NextLink *string
+
+	// List the alert's enrichments
+	Value []*AlertEnrichmentResponse
+}
+
 // AlertModification - Alert Modification details
 type AlertModification struct {
 	// Properties of the alert modification item.
@@ -171,6 +228,48 @@ type AlertProperties struct {
 	EgressConfig any
 }
 
+// AlertRuleRecommendationProperties - Describes the format of Alert Rule Recommendations response.
+type AlertRuleRecommendationProperties struct {
+	// REQUIRED; The recommendation alert rule type.
+	AlertRuleType *string
+
+	// REQUIRED; A dictionary that provides the display information for an alert rule recommendation.
+	DisplayInformation map[string]*string
+
+	// REQUIRED; A complete ARM template to deploy the alert rules.
+	RuleArmTemplate *RuleArmTemplate
+
+	// The recommendation alert rule category.
+	Category *string
+}
+
+// AlertRuleRecommendationResource - A single alert rule recommendation resource.
+type AlertRuleRecommendationResource struct {
+	// REQUIRED; recommendation properties.
+	Properties *AlertRuleRecommendationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AlertRuleRecommendationsListResponse - List of alert rule recommendations.
+type AlertRuleRecommendationsListResponse struct {
+	// REQUIRED; the values for the alert rule recommendations.
+	Value []*AlertRuleRecommendationResource
+
+	// URL to fetch the next set of recommendations.
+	NextLink *string
+}
+
 // AlertsList - List the alerts.
 type AlertsList struct {
 	// URL to fetch the next set of alerts.
@@ -240,6 +339,11 @@ type AlertsSummaryGroupItem struct {
 	Values []*AlertsSummaryGroupItem
 }
 
+// Comments - Change alert state reason
+type Comments struct {
+	Comments *string
+}
+
 // Condition to trigger an alert processing rule.
 type Condition struct {
 	// Field for a given condition.
@@ -250,6 +354,50 @@ type Condition struct {
 
 	// List of values to match for a given condition.
 	Values []*string
+}
+
+// CorrelateAlerts - Add logic for alerts correlation.
+type CorrelateAlerts struct {
+	// REQUIRED; Action that should be applied.
+	ActionType *ActionType
+
+	// REQUIRED; The list of conditions for the alerts correlations.
+	CorrelateBy []*CorrelateBy
+
+	// REQUIRED; The required duration (in ISO8601 format) for the alerts correlation.
+	CorrelationInterval *string
+
+	// REQUIRED; The priority of this correlation.
+	Priority *int32
+
+	// Indicates how to handle child alerts notifications.
+	NotificationsForCorrelatedAlerts *NotificationsForCorrelatedAlerts
+}
+
+// GetAction implements the ActionClassification interface for type CorrelateAlerts.
+func (c *CorrelateAlerts) GetAction() *Action {
+	return &Action{
+		ActionType: c.ActionType,
+	}
+}
+
+// CorrelateBy - The logic for the correlation.
+type CorrelateBy struct {
+	// The JPath of the property that the alerts should be correlated by.
+	Field *string
+}
+
+// CorrelationDetails - Correlation details
+type CorrelationDetails struct {
+	// READ-ONLY; The alert processing rule that was used to correlate this alert. This is an optional field, it will be presented
+	// only for a parent alert.
+	AlertProcessingRule *string
+
+	// READ-ONLY; The alert's correlation date time in ISO-8601 format.
+	CorrelationDateTime *time.Time
+
+	// READ-ONLY; Unique Id (GUID) of the alert that this alert was correlated to.
+	ParentAlertID *string
 }
 
 // DailyRecurrence - Daily recurrence object.
@@ -273,20 +421,79 @@ func (d *DailyRecurrence) GetRecurrence() *Recurrence {
 	}
 }
 
-// ErrorResponse - An error response from the service.
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorDetailAutoGenerated - The error detail.
+type ErrorDetailAutoGenerated struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetailAutoGenerated
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// Details of error response.
-	Error *ErrorResponseBody
+	// The error object.
+	Error *ErrorDetail
 }
 
 // ErrorResponseAutoGenerated - An error response from the service.
 type ErrorResponseAutoGenerated struct {
 	// Details of error response.
+	Error *ErrorResponseBody
+}
+
+// ErrorResponseAutoGenerated2 - Common error response for all Azure Resource Manager APIs to return error details for failed
+// operations. (This also follows the OData error response format.).
+type ErrorResponseAutoGenerated2 struct {
+	// The error object.
+	Error *ErrorDetailAutoGenerated
+}
+
+// ErrorResponseAutoGenerated3 - An error response from the service.
+type ErrorResponseAutoGenerated3 struct {
+	// Details of error response.
 	Error *ErrorResponseBodyAutoGenerated
 }
 
-// ErrorResponseAutoGenerated2 - An error response from the service.
-type ErrorResponseAutoGenerated2 struct {
+// ErrorResponseAutoGenerated4 - An error response from the service.
+type ErrorResponseAutoGenerated4 struct {
 	// Details of error response.
 	Error *ErrorResponseBodyAutoGenerated2
 }
@@ -341,6 +548,9 @@ type Essentials struct {
 	// Action status
 	ActionStatus *ActionStatus
 
+	// Correlation details
+	CorrelationDetails *CorrelationDetails
+
 	// Alert description.
 	Description *string
 
@@ -362,6 +572,12 @@ type Essentials struct {
 
 	// READ-ONLY; Alert object state, which can be modified by the user.
 	AlertState *AlertState
+
+	// READ-ONLY; Will be presented with the value true only if there are enrichments.
+	HasEnrichments *bool
+
+	// READ-ONLY; True if the alert is stateful, and false if it isn't.
+	IsStatefulAlert *bool
 
 	// READ-ONLY; Last modification time(ISO-8601 format) of alert instance.
 	LastModifiedDateTime *time.Time
@@ -519,6 +735,311 @@ type PatchProperties struct {
 	Enabled *bool
 }
 
+// PrometheusEnrichmentItem - Prometheus enrichment object.
+type PrometheusEnrichmentItem struct {
+	// REQUIRED; An array of the azure monitor workspace resource ids.
+	Datasources []*string
+
+	// REQUIRED; The enrichment description.
+	Description *string
+
+	// REQUIRED; Partial link to the Grafana explore API.
+	GrafanaExplorePath *string
+
+	// REQUIRED; Link to Prometheus query API (Url format).
+	LinkToAPI *string
+
+	// REQUIRED; The Prometheus expression query.
+	Query *string
+
+	// REQUIRED; The status of the evaluation of the enrichment.
+	Status *Status
+
+	// REQUIRED; The enrichment title.
+	Title *string
+
+	// REQUIRED; The enrichment type.
+	Type *Type
+
+	// The error message. Will be present only if the status is 'Failed'.
+	ErrorMessage *string
+}
+
+// GetAlertEnrichmentItem implements the AlertEnrichmentItemClassification interface for type PrometheusEnrichmentItem.
+func (p *PrometheusEnrichmentItem) GetAlertEnrichmentItem() *AlertEnrichmentItem {
+	return &AlertEnrichmentItem{
+		Description:  p.Description,
+		ErrorMessage: p.ErrorMessage,
+		Status:       p.Status,
+		Title:        p.Title,
+		Type:         p.Type,
+	}
+}
+
+// GetPrometheusEnrichmentItem implements the PrometheusEnrichmentItemClassification interface for type PrometheusEnrichmentItem.
+func (p *PrometheusEnrichmentItem) GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem { return p }
+
+// PrometheusInstantQuery - Prometheus instant query enrichment object.
+type PrometheusInstantQuery struct {
+	// REQUIRED; An array of the azure monitor workspace resource ids.
+	Datasources []*string
+
+	// REQUIRED; The enrichment description.
+	Description *string
+
+	// REQUIRED; Partial link to the Grafana explore API.
+	GrafanaExplorePath *string
+
+	// REQUIRED; Link to Prometheus query API (Url format).
+	LinkToAPI *string
+
+	// REQUIRED; The Prometheus expression query.
+	Query *string
+
+	// REQUIRED; The status of the evaluation of the enrichment.
+	Status *Status
+
+	// REQUIRED; The date and the time of the evaluation.
+	Time *string
+
+	// REQUIRED; The enrichment title.
+	Title *string
+
+	// REQUIRED; The enrichment type.
+	Type *Type
+
+	// The error message. Will be present only if the status is 'Failed'.
+	ErrorMessage *string
+}
+
+// GetAlertEnrichmentItem implements the AlertEnrichmentItemClassification interface for type PrometheusInstantQuery.
+func (p *PrometheusInstantQuery) GetAlertEnrichmentItem() *AlertEnrichmentItem {
+	return &AlertEnrichmentItem{
+		Description:  p.Description,
+		ErrorMessage: p.ErrorMessage,
+		Status:       p.Status,
+		Title:        p.Title,
+		Type:         p.Type,
+	}
+}
+
+// GetPrometheusEnrichmentItem implements the PrometheusEnrichmentItemClassification interface for type PrometheusInstantQuery.
+func (p *PrometheusInstantQuery) GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem {
+	return &PrometheusEnrichmentItem{
+		Datasources:        p.Datasources,
+		Description:        p.Description,
+		ErrorMessage:       p.ErrorMessage,
+		GrafanaExplorePath: p.GrafanaExplorePath,
+		LinkToAPI:          p.LinkToAPI,
+		Query:              p.Query,
+		Status:             p.Status,
+		Title:              p.Title,
+		Type:               p.Type,
+	}
+}
+
+// PrometheusRangeQuery - Prometheus instant query enrichment object.
+type PrometheusRangeQuery struct {
+	// REQUIRED; An array of the azure monitor workspace resource ids.
+	Datasources []*string
+
+	// REQUIRED; The enrichment description.
+	Description *string
+
+	// REQUIRED; The end evaluation date and time in ISO8601 format.
+	End *time.Time
+
+	// REQUIRED; Partial link to the Grafana explore API.
+	GrafanaExplorePath *string
+
+	// REQUIRED; Link to Prometheus query API (Url format).
+	LinkToAPI *string
+
+	// REQUIRED; The Prometheus expression query.
+	Query *string
+
+	// REQUIRED; The start evaluation date and time in ISO8601 format.
+	Start *time.Time
+
+	// REQUIRED; The status of the evaluation of the enrichment.
+	Status *Status
+
+	// REQUIRED; Query resolution step width in ISO8601 format.
+	Step *string
+
+	// REQUIRED; The enrichment title.
+	Title *string
+
+	// REQUIRED; The enrichment type.
+	Type *Type
+
+	// The error message. Will be present only if the status is 'Failed'.
+	ErrorMessage *string
+}
+
+// GetAlertEnrichmentItem implements the AlertEnrichmentItemClassification interface for type PrometheusRangeQuery.
+func (p *PrometheusRangeQuery) GetAlertEnrichmentItem() *AlertEnrichmentItem {
+	return &AlertEnrichmentItem{
+		Description:  p.Description,
+		ErrorMessage: p.ErrorMessage,
+		Status:       p.Status,
+		Title:        p.Title,
+		Type:         p.Type,
+	}
+}
+
+// GetPrometheusEnrichmentItem implements the PrometheusEnrichmentItemClassification interface for type PrometheusRangeQuery.
+func (p *PrometheusRangeQuery) GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem {
+	return &PrometheusEnrichmentItem{
+		Datasources:        p.Datasources,
+		Description:        p.Description,
+		ErrorMessage:       p.ErrorMessage,
+		GrafanaExplorePath: p.GrafanaExplorePath,
+		LinkToAPI:          p.LinkToAPI,
+		Query:              p.Query,
+		Status:             p.Status,
+		Title:              p.Title,
+		Type:               p.Type,
+	}
+}
+
+// PrometheusRule - An Azure Prometheus alerting or recording rule.
+type PrometheusRule struct {
+	// REQUIRED; The PromQL expression to evaluate. https://prometheus.io/docs/prometheus/latest/querying/basics/. Evaluated periodically
+	// as given by 'interval', and the result recorded as a new set of time series
+	// with the metric name as given by 'record'.
+	Expression *string
+
+	// Actions that are performed when the alert rule becomes active, and when an alert condition is resolved.
+	Actions []*PrometheusRuleGroupAction
+
+	// Alert rule name.
+	Alert *string
+
+	// The annotations clause specifies a set of informational labels that can be used to store longer additional information
+	// such as alert descriptions or runbook links. The annotation values can be
+	// templated.
+	Annotations map[string]*string
+
+	// Enable/disable rule.
+	Enabled *bool
+
+	// The amount of time alert must be active before firing.
+	For *string
+
+	// Labels to add or overwrite before storing the result.
+	Labels map[string]*string
+
+	// Recorded metrics name.
+	Record *string
+
+	// Defines the configuration for resolving fired alerts. Only relevant for alerts.
+	ResolveConfiguration *PrometheusRuleResolveConfiguration
+
+	// The severity of the alerts fired by the rule. Must be between 0 and 4.
+	Severity *int32
+}
+
+// PrometheusRuleGroupAction - An alert action. Only relevant for alerts.
+type PrometheusRuleGroupAction struct {
+	// The resource id of the action group to use.
+	ActionGroupID *string
+
+	// The properties of an action group object.
+	ActionProperties map[string]*string
+}
+
+// PrometheusRuleGroupProperties - An Azure Prometheus rule group.
+type PrometheusRuleGroupProperties struct {
+	// REQUIRED; Defines the rules in the Prometheus rule group.
+	Rules []*PrometheusRule
+
+	// REQUIRED; Target Azure Monitor workspaces resource ids. This api-version is currently limited to creating with one scope.
+	// This may change in future.
+	Scopes []*string
+
+	// Apply rule to data from a specific cluster.
+	ClusterName *string
+
+	// Rule group description.
+	Description *string
+
+	// Enable/disable rule group.
+	Enabled *bool
+
+	// The interval in which to run the Prometheus rule group represented in ISO 8601 duration format. Should be between 1 and
+	// 15 minutes
+	Interval *string
+}
+
+// PrometheusRuleGroupResource - The Prometheus rule group resource.
+type PrometheusRuleGroupResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The Prometheus rule group properties of the resource.
+	Properties *PrometheusRuleGroupProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrometheusRuleGroupResourceCollection - Represents a collection of alert rule resources.
+type PrometheusRuleGroupResourceCollection struct {
+	// the values for the alert rule resources.
+	Value []*PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupResourcePatchParameters - The Prometheus rule group resource for patch operations.
+type PrometheusRuleGroupResourcePatchParameters struct {
+	Properties *PrometheusRuleGroupResourcePatchParametersProperties
+
+	// Resource tags
+	Tags map[string]*string
+}
+
+type PrometheusRuleGroupResourcePatchParametersProperties struct {
+	// the flag that indicates whether the Prometheus rule group is enabled.
+	Enabled *bool
+}
+
+// PrometheusRuleResolveConfiguration - Specifies the Prometheus alert rule configuration.
+type PrometheusRuleResolveConfiguration struct {
+	// Enable alert auto-resolution.
+	AutoResolved *bool
+
+	// Alert auto-resolution timeout.
+	TimeToResolve *string
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // Recurrence object.
 type Recurrence struct {
 	// REQUIRED; Specifies when the recurrence should be applied.
@@ -547,8 +1068,23 @@ func (r *RemoveAllActionGroups) GetAction() *Action {
 	}
 }
 
-// Resource - An azure resource object
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ResourceAutoGenerated - An azure resource object
+type ResourceAutoGenerated struct {
 	// READ-ONLY; Azure resource Id
 	ID *string
 
@@ -557,6 +1093,39 @@ type Resource struct {
 
 	// READ-ONLY; Azure resource type
 	Type *string
+}
+
+// ResourceAutoGenerated2 - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated2 struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RuleArmTemplate - A complete ARM template to deploy the alert rules.
+type RuleArmTemplate struct {
+	// REQUIRED; A 4 number format for the version number of this template file. For example, 1.0.0.0
+	ContentVersion *string
+
+	// REQUIRED; Input parameter definitions
+	Parameters any
+
+	// REQUIRED; Alert rule resource definitions
+	Resources []any
+
+	// REQUIRED; JSON schema reference
+	Schema *string
+
+	// REQUIRED; Variable definitions
+	Variables any
 }
 
 // Schedule - Scheduling configuration for a given alert processing rule.
@@ -722,6 +1291,28 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // WeeklyRecurrence - Weekly recurrence object.

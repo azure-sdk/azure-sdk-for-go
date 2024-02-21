@@ -46,7 +46,7 @@ func NewAlertProcessingRulesClient(subscriptionID string, credential azcore.Toke
 // CreateOrUpdate - Create or update an alert processing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-08
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - Resource group name where the resource is created.
 //   - alertProcessingRuleName - The name of the alert processing rule that needs to be created/updated.
 //   - alertProcessingRule - Alert processing rule to be created/updated.
@@ -94,7 +94,7 @@ func (client *AlertProcessingRulesClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-08")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, alertProcessingRule); err != nil {
@@ -118,7 +118,7 @@ func (client *AlertProcessingRulesClient) createOrUpdateHandleResponse(resp *htt
 // Delete - Delete an alert processing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-08
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - Resource group name where the resource is created.
 //   - alertProcessingRuleName - The name of the alert processing rule that needs to be deleted.
 //   - options - AlertProcessingRulesClientDeleteOptions contains the optional parameters for the AlertProcessingRulesClient.Delete
@@ -165,7 +165,7 @@ func (client *AlertProcessingRulesClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-08")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,7 +183,7 @@ func (client *AlertProcessingRulesClient) deleteHandleResponse(resp *http.Respon
 // GetByName - Get an alert processing rule by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-08
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - Resource group name where the resource is created.
 //   - alertProcessingRuleName - The name of the alert processing rule that needs to be fetched.
 //   - options - AlertProcessingRulesClientGetByNameOptions contains the optional parameters for the AlertProcessingRulesClient.GetByName
@@ -230,7 +230,7 @@ func (client *AlertProcessingRulesClient) getByNameCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-08")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +250,7 @@ func (client *AlertProcessingRulesClient) getByNameHandleResponse(resp *http.Res
 
 // NewListByResourceGroupPager - List all alert processing rules in a resource group.
 //
-// Generated from API version 2021-08-08
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - Resource group name where the resource is created.
 //   - options - AlertProcessingRulesClientListByResourceGroupOptions contains the optional parameters for the AlertProcessingRulesClient.NewListByResourceGroupPager
 //     method.
@@ -293,7 +293,7 @@ func (client *AlertProcessingRulesClient) listByResourceGroupCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-08")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -313,7 +313,7 @@ func (client *AlertProcessingRulesClient) listByResourceGroupHandleResponse(resp
 
 // NewListBySubscriptionPager - List all alert processing rules in a subscription.
 //
-// Generated from API version 2021-08-08
+// Generated from API version 2023-05-01-preview
 //   - options - AlertProcessingRulesClientListBySubscriptionOptions contains the optional parameters for the AlertProcessingRulesClient.NewListBySubscriptionPager
 //     method.
 func (client *AlertProcessingRulesClient) NewListBySubscriptionPager(options *AlertProcessingRulesClientListBySubscriptionOptions) *runtime.Pager[AlertProcessingRulesClientListBySubscriptionResponse] {
@@ -351,7 +351,7 @@ func (client *AlertProcessingRulesClient) listBySubscriptionCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-08")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -372,7 +372,7 @@ func (client *AlertProcessingRulesClient) listBySubscriptionHandleResponse(resp 
 // Update - Enable, disable, or update tags for an alert processing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-08
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - Resource group name where the resource is created.
 //   - alertProcessingRuleName - The name that needs to be updated.
 //   - alertProcessingRulePatch - Parameters supplied to the operation.
@@ -420,7 +420,7 @@ func (client *AlertProcessingRulesClient) updateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-08")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, alertProcessingRulePatch); err != nil {

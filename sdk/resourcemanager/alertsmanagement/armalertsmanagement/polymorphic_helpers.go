@@ -11,7 +11,7 @@ package armalertsmanagement
 import "encoding/json"
 
 func unmarshalActionClassification(rawMsg json.RawMessage) (ActionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -22,6 +22,8 @@ func unmarshalActionClassification(rawMsg json.RawMessage) (ActionClassification
 	switch m["actionType"] {
 	case string(ActionTypeAddActionGroups):
 		b = &AddActionGroups{}
+	case string(ActionTypeCorrelateAlerts):
+		b = &CorrelateAlerts{}
 	case string(ActionTypeRemoveAllActionGroups):
 		b = &RemoveAllActionGroups{}
 	default:
@@ -34,7 +36,7 @@ func unmarshalActionClassification(rawMsg json.RawMessage) (ActionClassification
 }
 
 func unmarshalActionClassificationArray(rawMsg json.RawMessage) ([]ActionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -52,8 +54,52 @@ func unmarshalActionClassificationArray(rawMsg json.RawMessage) ([]ActionClassif
 	return fArray, nil
 }
 
+func unmarshalAlertEnrichmentItemClassification(rawMsg json.RawMessage) (AlertEnrichmentItemClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b AlertEnrichmentItemClassification
+	switch m["type"] {
+	case "PrometheusEnrichmentItem":
+		b = &PrometheusEnrichmentItem{}
+	case string(TypePrometheusInstantQuery):
+		b = &PrometheusInstantQuery{}
+	case string(TypePrometheusRangeQuery):
+		b = &PrometheusRangeQuery{}
+	default:
+		b = &AlertEnrichmentItem{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalAlertEnrichmentItemClassificationArray(rawMsg json.RawMessage) ([]AlertEnrichmentItemClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]AlertEnrichmentItemClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalAlertEnrichmentItemClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
 func unmarshalAlertsMetaDataPropertiesClassification(rawMsg json.RawMessage) (AlertsMetaDataPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -74,7 +120,7 @@ func unmarshalAlertsMetaDataPropertiesClassification(rawMsg json.RawMessage) (Al
 }
 
 func unmarshalRecurrenceClassification(rawMsg json.RawMessage) (RecurrenceClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -99,7 +145,7 @@ func unmarshalRecurrenceClassification(rawMsg json.RawMessage) (RecurrenceClassi
 }
 
 func unmarshalRecurrenceClassificationArray(rawMsg json.RawMessage) ([]RecurrenceClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage

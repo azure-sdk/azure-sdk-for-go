@@ -59,6 +59,18 @@ type AlertProcessingRulesClientUpdateResponse struct {
 	XMSRequestID *string
 }
 
+// AlertRuleRecommendationsClientListByResourceResponse contains the response from method AlertRuleRecommendationsClient.NewListByResourcePager.
+type AlertRuleRecommendationsClientListByResourceResponse struct {
+	// List of alert rule recommendations.
+	AlertRuleRecommendationsListResponse
+}
+
+// AlertRuleRecommendationsClientListByTargetTypeResponse contains the response from method AlertRuleRecommendationsClient.NewListByTargetTypePager.
+type AlertRuleRecommendationsClientListByTargetTypeResponse struct {
+	// List of alert rule recommendations.
+	AlertRuleRecommendationsListResponse
+}
+
 // AlertsClientChangeStateResponse contains the response from method AlertsClient.ChangeState.
 type AlertsClientChangeStateResponse struct {
 	// An alert created in alert management service.
@@ -77,6 +89,12 @@ type AlertsClientGetByIDResponse struct {
 	Alert
 }
 
+// AlertsClientGetEnrichmentsResponse contains the response from method AlertsClient.GetEnrichments.
+type AlertsClientGetEnrichmentsResponse struct {
+	// The alert's enrichments.
+	AlertEnrichmentResponse
+}
+
 // AlertsClientGetHistoryResponse contains the response from method AlertsClient.GetHistory.
 type AlertsClientGetHistoryResponse struct {
 	// Alert Modification details
@@ -89,6 +107,12 @@ type AlertsClientGetSummaryResponse struct {
 	AlertsSummary
 }
 
+// AlertsClientListEnrichmentsResponse contains the response from method AlertsClient.NewListEnrichmentsPager.
+type AlertsClientListEnrichmentsResponse struct {
+	// List the alert's enrichments.
+	AlertEnrichmentsList
+}
+
 // AlertsClientMetaDataResponse contains the response from method AlertsClient.MetaData.
 type AlertsClientMetaDataResponse struct {
 	// alert meta data information.
@@ -99,6 +123,41 @@ type AlertsClientMetaDataResponse struct {
 type OperationsClientListResponse struct {
 	// Lists the operations available in the AlertsManagement RP.
 	OperationsList
+}
+
+// PrometheusRuleGroupsClientCreateOrUpdateResponse contains the response from method PrometheusRuleGroupsClient.CreateOrUpdate.
+type PrometheusRuleGroupsClientCreateOrUpdateResponse struct {
+	// The Prometheus rule group resource.
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientDeleteResponse contains the response from method PrometheusRuleGroupsClient.Delete.
+type PrometheusRuleGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrometheusRuleGroupsClientGetResponse contains the response from method PrometheusRuleGroupsClient.Get.
+type PrometheusRuleGroupsClientGetResponse struct {
+	// The Prometheus rule group resource.
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientListByResourceGroupResponse contains the response from method PrometheusRuleGroupsClient.NewListByResourceGroupPager.
+type PrometheusRuleGroupsClientListByResourceGroupResponse struct {
+	// Represents a collection of alert rule resources.
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientListBySubscriptionResponse contains the response from method PrometheusRuleGroupsClient.NewListBySubscriptionPager.
+type PrometheusRuleGroupsClientListBySubscriptionResponse struct {
+	// Represents a collection of alert rule resources.
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientUpdateResponse contains the response from method PrometheusRuleGroupsClient.Update.
+type PrometheusRuleGroupsClientUpdateResponse struct {
+	// The Prometheus rule group resource.
+	PrometheusRuleGroupResource
 }
 
 // SmartGroupsClientChangeStateResponse contains the response from method SmartGroupsClient.ChangeState.
