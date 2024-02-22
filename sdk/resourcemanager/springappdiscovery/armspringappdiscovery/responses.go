@@ -26,6 +26,17 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// SpringbootappsClientCreateOrUpdateResponse contains the response from method SpringbootappsClient.BeginCreateOrUpdate.
+type SpringbootappsClientCreateOrUpdateResponse struct {
+	// The springbootapps envelope resource definition.
+	SpringbootappsModel
+}
+
+// SpringbootappsClientDeleteResponse contains the response from method SpringbootappsClient.BeginDelete.
+type SpringbootappsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // SpringbootappsClientGetResponse contains the response from method SpringbootappsClient.Get.
 type SpringbootappsClientGetResponse struct {
 	// The springbootapps envelope resource definition.
@@ -44,7 +55,7 @@ type SpringbootappsClientListBySubscriptionResponse struct {
 	SpringbootappsListResult
 }
 
-// SpringbootappsClientUpdateResponse contains the response from method SpringbootappsClient.BeginUpdate.
+// SpringbootappsClientUpdateResponse contains the response from method SpringbootappsClient.Update.
 type SpringbootappsClientUpdateResponse struct {
 	// The springbootapps envelope resource definition.
 	SpringbootappsModel
@@ -79,7 +90,7 @@ type SpringbootserversClientListBySubscriptionResponse struct {
 	SpringbootserversListResult
 }
 
-// SpringbootserversClientUpdateResponse contains the response from method SpringbootserversClient.BeginUpdate.
+// SpringbootserversClientUpdateResponse contains the response from method SpringbootserversClient.Update.
 type SpringbootserversClientUpdateResponse struct {
 	// The springbootservers envelope resource definition.
 	SpringbootserversModel

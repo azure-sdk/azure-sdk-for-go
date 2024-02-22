@@ -43,6 +43,174 @@ func NewSpringbootappsClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
+// BeginCreateOrUpdate - Create a springbootapps resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - siteName - The springbootsites name.
+//   - springbootappsName - The springbootapps name.
+//   - springbootapps - Create a springbootapps payload.
+//   - options - SpringbootappsClientBeginCreateOrUpdateOptions contains the optional parameters for the SpringbootappsClient.BeginCreateOrUpdate
+//     method.
+func (client *SpringbootappsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsModel, options *SpringbootappsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SpringbootappsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, siteName, springbootappsName, springbootapps, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SpringbootappsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SpringbootappsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// CreateOrUpdate - Create a springbootapps resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01-preview
+func (client *SpringbootappsClient) createOrUpdate(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsModel, options *SpringbootappsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	var err error
+	const operationName = "SpringbootappsClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, siteName, springbootappsName, springbootapps, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// createOrUpdateCreateRequest creates the CreateOrUpdate request.
+func (client *SpringbootappsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsModel, options *SpringbootappsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OffAzureSpringBoot/springbootsites/{siteName}/springbootapps/{springbootappsName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if siteName == "" {
+		return nil, errors.New("parameter siteName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{siteName}", url.PathEscape(siteName))
+	if springbootappsName == "" {
+		return nil, errors.New("parameter springbootappsName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{springbootappsName}", url.PathEscape(springbootappsName))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-01-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, springbootapps); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// BeginDelete - Delete a springbootapps resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - siteName - The springbootsites name.
+//   - springbootappsName - The springbootapps name.
+//   - options - SpringbootappsClientBeginDeleteOptions contains the optional parameters for the SpringbootappsClient.BeginDelete
+//     method.
+func (client *SpringbootappsClient) BeginDelete(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, options *SpringbootappsClientBeginDeleteOptions) (*runtime.Poller[SpringbootappsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, siteName, springbootappsName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SpringbootappsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SpringbootappsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Delete - Delete a springbootapps resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-01-01-preview
+func (client *SpringbootappsClient) deleteOperation(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, options *SpringbootappsClientBeginDeleteOptions) (*http.Response, error) {
+	var err error
+	const operationName = "SpringbootappsClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, siteName, springbootappsName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// deleteCreateRequest creates the Delete request.
+func (client *SpringbootappsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, options *SpringbootappsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OffAzureSpringBoot/springbootsites/{siteName}/springbootapps/{springbootappsName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if siteName == "" {
+		return nil, errors.New("parameter siteName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{siteName}", url.PathEscape(siteName))
+	if springbootappsName == "" {
+		return nil, errors.New("parameter springbootappsName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{springbootappsName}", url.PathEscape(springbootappsName))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-01-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // Get - Get a springbootapps resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
@@ -237,7 +405,7 @@ func (client *SpringbootappsClient) listBySubscriptionHandleResponse(resp *http.
 	return result, nil
 }
 
-// BeginUpdate - Update a springbootapps resource.
+// Update - Update a springbootapps resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-01-01-preview
@@ -245,53 +413,31 @@ func (client *SpringbootappsClient) listBySubscriptionHandleResponse(resp *http.
 //   - siteName - The springbootsites name.
 //   - springbootappsName - The springbootapps name.
 //   - springbootapps - Update a springbootapps payload.
-//   - options - SpringbootappsClientBeginUpdateOptions contains the optional parameters for the SpringbootappsClient.BeginUpdate
-//     method.
-func (client *SpringbootappsClient) BeginUpdate(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsPatch, options *SpringbootappsClientBeginUpdateOptions) (*runtime.Poller[SpringbootappsClientUpdateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, siteName, springbootappsName, springbootapps, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SpringbootappsClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SpringbootappsClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
-// Update - Update a springbootapps resource.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-01-01-preview
-func (client *SpringbootappsClient) update(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsPatch, options *SpringbootappsClientBeginUpdateOptions) (*http.Response, error) {
+//   - options - SpringbootappsClientUpdateOptions contains the optional parameters for the SpringbootappsClient.Update method.
+func (client *SpringbootappsClient) Update(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsPatch, options *SpringbootappsClientUpdateOptions) (SpringbootappsClientUpdateResponse, error) {
 	var err error
-	const operationName = "SpringbootappsClient.BeginUpdate"
+	const operationName = "SpringbootappsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, siteName, springbootappsName, springbootapps, options)
 	if err != nil {
-		return nil, err
+		return SpringbootappsClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return SpringbootappsClientUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return SpringbootappsClientUpdateResponse{}, err
 	}
-	return httpResp, nil
+	resp, err := client.updateHandleResponse(httpResp)
+	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *SpringbootappsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsPatch, options *SpringbootappsClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *SpringbootappsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsPatch, options *SpringbootappsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OffAzureSpringBoot/springbootsites/{siteName}/springbootapps/{springbootappsName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -321,4 +467,13 @@ func (client *SpringbootappsClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	return req, nil
+}
+
+// updateHandleResponse handles the Update response.
+func (client *SpringbootappsClient) updateHandleResponse(resp *http.Response) (SpringbootappsClientUpdateResponse, error) {
+	result := SpringbootappsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SpringbootappsModel); err != nil {
+		return SpringbootappsClientUpdateResponse{}, err
+	}
+	return result, nil
 }
