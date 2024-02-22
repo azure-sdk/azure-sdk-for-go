@@ -1,5 +1,16 @@
 # Release History
 
+## 4.8.0 (2024-02-22)
+### Features Added
+
+- New struct `AgentPoolWindowsProfile`
+- New struct `ManagedClusterIngressProfile`
+- New struct `ManagedClusterIngressProfileWebAppRouting`
+- New field `WindowsProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `WindowsProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `IngressProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.7.0 (2024-01-26)
 ### Features Added
 
