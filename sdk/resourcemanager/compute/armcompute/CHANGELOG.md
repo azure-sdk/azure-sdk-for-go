@@ -1,5 +1,11 @@
 # Release History
 
+## 5.6.0 (2024-02-22)
+### Features Added
+
+- New value `DiffDiskPlacementNvmeDisk` added to enum type `DiffDiskPlacement`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
