@@ -940,6 +940,18 @@ type PlansClientGetServerFarmSKUsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PlansClientGetVirtualNetworkIntegrationOptions contains the optional parameters for the PlansClient.GetVirtualNetworkIntegration
+// method.
+type PlansClientGetVirtualNetworkIntegrationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PlansClientGetVirtualNetworkIntegrationsOptions contains the optional parameters for the PlansClient.NewGetVirtualNetworkIntegrationsPager
+// method.
+type PlansClientGetVirtualNetworkIntegrationsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PlansClientGetVnetFromServerFarmOptions contains the optional parameters for the PlansClient.GetVnetFromServerFarm method.
 type PlansClientGetVnetFromServerFarmOptions struct {
 	// placeholder for future optional parameters
@@ -4247,6 +4259,12 @@ type WebSiteManagementClientMoveOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions contains the optional parameters for the WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations
+// method.
+type WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WebSiteManagementClientUpdatePublishingUserOptions contains the optional parameters for the WebSiteManagementClient.UpdatePublishingUser
 // method.
 type WebSiteManagementClientUpdatePublishingUserOptions struct {
@@ -4273,6 +4291,12 @@ type WebSiteManagementClientValidateOptions struct {
 // WebSiteManagementClientVerifyHostingEnvironmentVnetOptions contains the optional parameters for the WebSiteManagementClient.VerifyHostingEnvironmentVnet
 // method.
 type WebSiteManagementClientVerifyHostingEnvironmentVnetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebSiteManagementClientVirtualNetworkIntegrationsOptions contains the optional parameters for the WebSiteManagementClient.VirtualNetworkIntegrations
+// method.
+type WebSiteManagementClientVirtualNetworkIntegrationsOptions struct {
 	// placeholder for future optional parameters
 }
 
