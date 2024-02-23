@@ -1,5 +1,25 @@
 # Release History
 
+## 4.0.0 (2024-02-23)
+### Breaking Changes
+
+- Type of `ResourceProviderDefaultErrorResponse.Error` has been changed from `*ErrorResponseBody` to `*ErrorDetail`
+- Struct `ErrorResponseBody` has been removed
+
+### Features Added
+
+- New function `*ConfigurationsClient.Analysis(context.Context, string, string, string, *ConfigurationsClientAnalysisOptions) (ConfigurationsClientAnalysisResponse, error)`
+- New struct `AnalysisCreate`
+- New struct `AnalysisCreateConfig`
+- New struct `AnalysisError`
+- New struct `AnalysisResult`
+- New struct `AnalysisResultData`
+- New struct `CertificateErrorResponseBody`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New field `CertificateError`, `KeyVaultSecretCreated`, `KeyVaultSecretVersion`, `SHA1Thumbprint` in struct `CertificateProperties`
+
+
 ## 3.0.0 (2023-11-24)
 ### Breaking Changes
 
