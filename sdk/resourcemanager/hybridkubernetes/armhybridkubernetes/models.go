@@ -10,6 +10,48 @@ package armhybridkubernetes
 
 import "time"
 
+// AADProfile - AAD Profile specifies attributes for Azure Active Directory integration.
+type AADProfile struct {
+	// The list of AAD group object IDs that will have admin role of the cluster.
+	AdminGroupObjectIDs []*string
+
+	// Whether to enable Azure RBAC for Kubernetes authorization.
+	EnableAzureRBAC *bool
+
+	// The AAD tenant ID to use for authentication. If not specified, will use the tenant of the deployment subscription.
+	TenantID *string
+}
+
+// AgentError - Agent Errors if any during agent or system component upgrade.
+type AgentError struct {
+	// READ-ONLY; Agent component where error message occured.
+	Component *string
+
+	// READ-ONLY; Agent error message.
+	Message *string
+
+	// READ-ONLY; Severity of the error message.
+	Severity *string
+
+	// READ-ONLY; The timestamp of error occured (UTC).
+	Time *time.Time
+}
+
+// ArcAgentProfile - Defines the Arc Agent properties for the clusters.
+type ArcAgentProfile struct {
+	// Indicates whether the Arc agents on the be upgraded automatically to the latest version. Defaults to Enabled.
+	AgentAutoUpgrade *AutoUpgradeOptions
+
+	// List of system extensions can be installed on the cluster resource.
+	AgentErrors []*AgentError
+
+	// Version of the Arc agents to be installed on the cluster resource
+	DesiredAgentVersion *string
+
+	// List of system extensions can be installed on the cluster resource.
+	SystemComponents []*SystemComponent
+}
+
 // ConnectedCluster - Represents a connected cluster.
 type ConnectedCluster struct {
 	// REQUIRED; The identity of the connected cluster.
@@ -20,6 +62,9 @@ type ConnectedCluster struct {
 
 	// REQUIRED; Describes the connected cluster resource properties.
 	Properties *ConnectedClusterProperties
+
+	// The kind of connected cluster.
+	Kind *ConnectedClusterKind
 
 	// Resource tags.
 	Tags map[string]*string
@@ -63,10 +108,22 @@ type ConnectedClusterList struct {
 // ConnectedClusterPatch - Object containing updates for patch operations.
 type ConnectedClusterPatch struct {
 	// Describes the connected cluster resource properties that can be updated during PATCH operation.
-	Properties any
+	Properties *ConnectedClusterPatchProperties
 
 	// Resource tags.
 	Tags map[string]*string
+}
+
+// ConnectedClusterPatchProperties - Properties which can be patched on the connected cluster resource.
+type ConnectedClusterPatchProperties struct {
+	// Indicates whether Azure Hybrid Benefit is opted in
+	AzureHybridBenefit *AzureHybridBenefit
+
+	// Represents the distribution of the connected cluster
+	Distribution *string
+
+	// Represents the Kubernetes distribution version on this connected cluster.
+	DistributionVersion *string
 }
 
 // ConnectedClusterProperties - Properties of the connected cluster.
@@ -74,11 +131,29 @@ type ConnectedClusterProperties struct {
 	// REQUIRED; Base64 encoded public certificate used by the agent to do the initial handshake to the backend services in Azure.
 	AgentPublicKeyCertificate *string
 
+	// AAD profile for the connected cluster.
+	AADProfile *AADProfile
+
+	// Arc agentry configuration for the provisioned cluster.
+	ArcAgentProfile *ArcAgentProfile
+
+	// Indicates whether Azure Hybrid Benefit is opted in
+	AzureHybridBenefit *AzureHybridBenefit
+
 	// The Kubernetes distribution running on this connected cluster.
 	Distribution *string
 
+	// The Kubernetes distribution version on this connected cluster.
+	DistributionVersion *string
+
 	// The infrastructure on which the Kubernetes cluster represented by this connected cluster is running on.
 	Infrastructure *string
+
+	// The resource id of the private link scope this connected cluster is assigned to, if any.
+	PrivateLinkScopeResourceID *string
+
+	// Property which describes the state of private link on a connected cluster resource.
+	PrivateLinkState *PrivateLinkState
 
 	// Provisioning state of the connected cluster resource.
 	ProvisioningState *ProvisioningState
@@ -97,6 +172,9 @@ type ConnectedClusterProperties struct {
 
 	// READ-ONLY; Expiration time of the managed identity certificate
 	ManagedIdentityCertificateExpirationTime *time.Time
+
+	// READ-ONLY; More properties related to the Connected Cluster
+	MiscellaneousProperties map[string]*string
 
 	// READ-ONLY; Connected cluster offering
 	Offering *string
@@ -226,6 +304,21 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// SystemComponent - System Extension and its desired versions to be installed on the cluster resource.
+type SystemComponent struct {
+	// Major Version of the system extension to be installed on the cluster resource.
+	MajorVersion *int32
+
+	// Type of the system extension
+	Type *string
+
+	// Version of the system extension to be installed on the cluster resource.
+	UserSpecifiedVersion *string
+
+	// READ-ONLY; Version of the system extension is currently installed on the cluster resource.
+	CurrentVersion *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
