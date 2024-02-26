@@ -1,5 +1,86 @@
 # Release History
 
+## 2.3.0 (2024-02-26)
+### Features Added
+
+- New enum type `ClusterRecoveryPointType` with values `ClusterRecoveryPointTypeApplicationConsistent`, `ClusterRecoveryPointTypeCrashConsistent`, `ClusterRecoveryPointTypeNotSpecified`
+- New function `*A2AApplyClusterRecoveryPointInput.GetApplyClusterRecoveryPointProviderSpecificInput() *ApplyClusterRecoveryPointProviderSpecificInput`
+- New function `*A2AClusterRecoveryPointDetails.GetClusterProviderSpecificRecoveryPointDetails() *ClusterProviderSpecificRecoveryPointDetails`
+- New function `*A2AClusterTestFailoverInput.GetClusterTestFailoverProviderSpecificInput() *ClusterTestFailoverProviderSpecificInput`
+- New function `*A2AClusterUnplannedFailoverInput.GetClusterUnplannedFailoverProviderSpecificInput() *ClusterUnplannedFailoverProviderSpecificInput`
+- New function `*A2AReplicationProtectionClusterDetails.GetReplicationClusterProviderSpecificSettings() *ReplicationClusterProviderSpecificSettings`
+- New function `*A2ASharedDiskReplicationDetails.GetSharedDiskReplicationProviderSpecificSettings() *SharedDiskReplicationProviderSpecificSettings`
+- New function `*A2ASwitchClusterProtectionInput.GetSwitchClusterProtectionProviderSpecificInput() *SwitchClusterProtectionProviderSpecificInput`
+- New function `*ApplyClusterRecoveryPointProviderSpecificInput.GetApplyClusterRecoveryPointProviderSpecificInput() *ApplyClusterRecoveryPointProviderSpecificInput`
+- New function `*ClientFactory.NewClusterRecoveryPointClient() *ClusterRecoveryPointClient`
+- New function `*ClientFactory.NewClusterRecoveryPointsClient() *ClusterRecoveryPointsClient`
+- New function `*ClientFactory.NewReplicationProtectionClustersClient() *ReplicationProtectionClustersClient`
+- New function `*ClusterFailoverJobDetails.GetJobDetails() *JobDetails`
+- New function `*ClusterProviderSpecificRecoveryPointDetails.GetClusterProviderSpecificRecoveryPointDetails() *ClusterProviderSpecificRecoveryPointDetails`
+- New function `NewClusterRecoveryPointClient(string, string, string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*ClusterRecoveryPointClient, error)`
+- New function `*ClusterRecoveryPointClient.Get(context.Context, string, string, *ClusterRecoveryPointClientGetOptions) (ClusterRecoveryPointClientGetResponse, error)`
+- New function `NewClusterRecoveryPointsClient(string, string, string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*ClusterRecoveryPointsClient, error)`
+- New function `*ClusterRecoveryPointsClient.NewListByReplicationProtectionClusterPager(string, *ClusterRecoveryPointsClientListByReplicationProtectionClusterOptions) *runtime.Pager[ClusterRecoveryPointsClientListByReplicationProtectionClusterResponse]`
+- New function `*ClusterSwitchProtectionJobDetails.GetJobDetails() *JobDetails`
+- New function `*ClusterTestFailoverJobDetails.GetJobDetails() *JobDetails`
+- New function `*ClusterTestFailoverProviderSpecificInput.GetClusterTestFailoverProviderSpecificInput() *ClusterTestFailoverProviderSpecificInput`
+- New function `*ClusterUnplannedFailoverProviderSpecificInput.GetClusterUnplannedFailoverProviderSpecificInput() *ClusterUnplannedFailoverProviderSpecificInput`
+- New function `*ReplicationClusterProviderSpecificSettings.GetReplicationClusterProviderSpecificSettings() *ReplicationClusterProviderSpecificSettings`
+- New function `NewReplicationProtectionClustersClient(string, string, string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*ReplicationProtectionClustersClient, error)`
+- New function `*ReplicationProtectionClustersClient.BeginApplyRecoveryPoint(context.Context, string, ApplyClusterRecoveryPointInput, *ReplicationProtectionClustersClientBeginApplyRecoveryPointOptions) (*runtime.Poller[ReplicationProtectionClustersClientApplyRecoveryPointResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginCreate(context.Context, string, string, ReplicationProtectionCluster, *ReplicationProtectionClustersClientBeginCreateOptions) (*runtime.Poller[ReplicationProtectionClustersClientCreateResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginFailoverCommit(context.Context, string, *ReplicationProtectionClustersClientBeginFailoverCommitOptions) (*runtime.Poller[ReplicationProtectionClustersClientFailoverCommitResponse], error)`
+- New function `*ReplicationProtectionClustersClient.Get(context.Context, string, *ReplicationProtectionClustersClientGetOptions) (ReplicationProtectionClustersClientGetResponse, error)`
+- New function `*ReplicationProtectionClustersClient.GetOperationResults(context.Context, string, string, *ReplicationProtectionClustersClientGetOperationResultsOptions) (ReplicationProtectionClustersClientGetOperationResultsResponse, error)`
+- New function `*ReplicationProtectionClustersClient.NewListByReplicationProtectionContainersPager(string, *ReplicationProtectionClustersClientListByReplicationProtectionContainersOptions) *runtime.Pager[ReplicationProtectionClustersClientListByReplicationProtectionContainersResponse]`
+- New function `*ReplicationProtectionClustersClient.NewListPager(string, *ReplicationProtectionClustersClientListOptions) *runtime.Pager[ReplicationProtectionClustersClientListResponse]`
+- New function `*ReplicationProtectionClustersClient.BeginPurge(context.Context, string, string, *ReplicationProtectionClustersClientBeginPurgeOptions) (*runtime.Poller[ReplicationProtectionClustersClientPurgeResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginRepairReplication(context.Context, string, *ReplicationProtectionClustersClientBeginRepairReplicationOptions) (*runtime.Poller[ReplicationProtectionClustersClientRepairReplicationResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginTestFailover(context.Context, string, ClusterTestFailoverInput, *ReplicationProtectionClustersClientBeginTestFailoverOptions) (*runtime.Poller[ReplicationProtectionClustersClientTestFailoverResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginTestFailoverCleanup(context.Context, string, ClusterTestFailoverCleanupInput, *ReplicationProtectionClustersClientBeginTestFailoverCleanupOptions) (*runtime.Poller[ReplicationProtectionClustersClientTestFailoverCleanupResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginUnplannedFailover(context.Context, string, ClusterUnplannedFailoverInput, *ReplicationProtectionClustersClientBeginUnplannedFailoverOptions) (*runtime.Poller[ReplicationProtectionClustersClientUnplannedFailoverResponse], error)`
+- New function `*ReplicationProtectionContainersClient.BeginSwitchClusterProtection(context.Context, string, SwitchClusterProtectionInput, *ReplicationProtectionContainersClientBeginSwitchClusterProtectionOptions) (*runtime.Poller[ReplicationProtectionContainersClientSwitchClusterProtectionResponse], error)`
+- New function `*SharedDiskReplicationProviderSpecificSettings.GetSharedDiskReplicationProviderSpecificSettings() *SharedDiskReplicationProviderSpecificSettings`
+- New function `*SwitchClusterProtectionProviderSpecificInput.GetSwitchClusterProtectionProviderSpecificInput() *SwitchClusterProtectionProviderSpecificInput`
+- New struct `A2AApplyClusterRecoveryPointInput`
+- New struct `A2AClusterRecoveryPointDetails`
+- New struct `A2AClusterTestFailoverInput`
+- New struct `A2AClusterUnplannedFailoverInput`
+- New struct `A2AProtectedItemDetail`
+- New struct `A2AReplicationProtectionClusterDetails`
+- New struct `A2ASharedDiskIRErrorDetails`
+- New struct `A2ASharedDiskReplicationDetails`
+- New struct `A2ASwitchClusterProtectionInput`
+- New struct `ApplyClusterRecoveryPointInput`
+- New struct `ApplyClusterRecoveryPointInputProperties`
+- New struct `ClusterFailoverJobDetails`
+- New struct `ClusterRecoveryPoint`
+- New struct `ClusterRecoveryPointCollection`
+- New struct `ClusterRecoveryPointProperties`
+- New struct `ClusterSwitchProtectionJobDetails`
+- New struct `ClusterTestFailoverCleanupInput`
+- New struct `ClusterTestFailoverCleanupInputProperties`
+- New struct `ClusterTestFailoverInput`
+- New struct `ClusterTestFailoverInputProperties`
+- New struct `ClusterTestFailoverJobDetails`
+- New struct `ClusterUnplannedFailoverInput`
+- New struct `ClusterUnplannedFailoverInputProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `RegisteredClusterNodes`
+- New struct `ReplicationProtectionCluster`
+- New struct `ReplicationProtectionClusterCollection`
+- New struct `ReplicationProtectionClusterProperties`
+- New struct `ServiceDefaultError`
+- New struct `ServiceDefaultErrorError`
+- New struct `SharedDiskReplicationItemProperties`
+- New struct `SwitchClusterProtectionInput`
+- New struct `SwitchClusterProtectionInputProperties`
+- New field `ProtectionClusterID` in struct `A2AEnableProtectionInput`
+- New field `IsClusterInfraReady`, `ProtectionClusterID` in struct `A2AReplicationDetails`
+
+
 ## 2.2.0 (2023-11-30)
 ### Features Added
 

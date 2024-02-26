@@ -29,6 +29,20 @@ func (a *A2AAddDisksInput) GetAddDisksProviderSpecificInput() *AddDisksProviderS
 	}
 }
 
+// A2AApplyClusterRecoveryPointInput - A2A provider specific input for apply cluster recovery point.
+type A2AApplyClusterRecoveryPointInput struct {
+	// REQUIRED; The class type.
+	InstanceType *string
+}
+
+// GetApplyClusterRecoveryPointProviderSpecificInput implements the ApplyClusterRecoveryPointProviderSpecificInputClassification
+// interface for type A2AApplyClusterRecoveryPointInput.
+func (a *A2AApplyClusterRecoveryPointInput) GetApplyClusterRecoveryPointProviderSpecificInput() *ApplyClusterRecoveryPointProviderSpecificInput {
+	return &ApplyClusterRecoveryPointProviderSpecificInput{
+		InstanceType: a.InstanceType,
+	}
+}
+
 // A2AApplyRecoveryPointInput - ApplyRecoveryPoint input specific to A2A provider.
 type A2AApplyRecoveryPointInput struct {
 	// REQUIRED; The class type.
@@ -39,6 +53,66 @@ type A2AApplyRecoveryPointInput struct {
 // for type A2AApplyRecoveryPointInput.
 func (a *A2AApplyRecoveryPointInput) GetApplyRecoveryPointProviderSpecificInput() *ApplyRecoveryPointProviderSpecificInput {
 	return &ApplyRecoveryPointProviderSpecificInput{
+		InstanceType: a.InstanceType,
+	}
+}
+
+// A2AClusterRecoveryPointDetails - A2A provider specific cluster recovery point details.
+type A2AClusterRecoveryPointDetails struct {
+	// The list of nodes representing the cluster.
+	Nodes []*string
+
+	// A value indicating whether the recovery point is multi VM consistent.
+	RecoveryPointSyncType *RecoveryPointSyncType
+
+	// READ-ONLY; Gets the provider type.
+	InstanceType *string
+}
+
+// GetClusterProviderSpecificRecoveryPointDetails implements the ClusterProviderSpecificRecoveryPointDetailsClassification
+// interface for type A2AClusterRecoveryPointDetails.
+func (a *A2AClusterRecoveryPointDetails) GetClusterProviderSpecificRecoveryPointDetails() *ClusterProviderSpecificRecoveryPointDetails {
+	return &ClusterProviderSpecificRecoveryPointDetails{
+		InstanceType: a.InstanceType,
+	}
+}
+
+// A2AClusterTestFailoverInput - A2A provider specific input for test cluster failover.
+type A2AClusterTestFailoverInput struct {
+	// REQUIRED; The class type.
+	InstanceType *string
+
+	// The cluster recovery point id to be passed to failover to a particular recovery point.
+	ClusterRecoveryPointID *string
+
+	// The list of individual node recovery points.
+	IndividualNodeRecoveryPoints []*string
+}
+
+// GetClusterTestFailoverProviderSpecificInput implements the ClusterTestFailoverProviderSpecificInputClassification interface
+// for type A2AClusterTestFailoverInput.
+func (a *A2AClusterTestFailoverInput) GetClusterTestFailoverProviderSpecificInput() *ClusterTestFailoverProviderSpecificInput {
+	return &ClusterTestFailoverProviderSpecificInput{
+		InstanceType: a.InstanceType,
+	}
+}
+
+// A2AClusterUnplannedFailoverInput - A2A provider specific input for unplanned cluster failover.
+type A2AClusterUnplannedFailoverInput struct {
+	// REQUIRED; The class type.
+	InstanceType *string
+
+	// The cluster recovery point id to be passed to failover to a particular recovery point.
+	ClusterRecoveryPointID *string
+
+	// The list of individual node recovery points.
+	IndividualNodeRecoveryPoints []*string
+}
+
+// GetClusterUnplannedFailoverProviderSpecificInput implements the ClusterUnplannedFailoverProviderSpecificInputClassification
+// interface for type A2AClusterUnplannedFailoverInput.
+func (a *A2AClusterUnplannedFailoverInput) GetClusterUnplannedFailoverProviderSpecificInput() *ClusterUnplannedFailoverProviderSpecificInput {
+	return &ClusterUnplannedFailoverProviderSpecificInput{
 		InstanceType: a.InstanceType,
 	}
 }
@@ -271,6 +345,9 @@ type A2AEnableProtectionInput struct {
 
 	// The multi vm group name.
 	MultiVMGroupName *string
+
+	// The replication protection cluster Id.
+	ProtectionClusterID *string
 
 	// The recovery availability set Id.
 	RecoveryAvailabilitySetID *string
@@ -527,6 +604,39 @@ type A2AProtectedDiskDetails struct {
 	TfoDiskName *string
 }
 
+// A2AProtectedItemDetail - A2A specific switch cluster protection input.
+type A2AProtectedItemDetail struct {
+	// The recovery disk encryption information.
+	DiskEncryptionInfo *DiskEncryptionInfo
+
+	// The recovery availability set.
+	RecoveryAvailabilitySetID *string
+
+	// The recovery availability zone.
+	RecoveryAvailabilityZone *string
+
+	// The boot diagnostic storage account.
+	RecoveryBootDiagStorageAccountID *string
+
+	// The recovery capacity reservation group Id.
+	RecoveryCapacityReservationGroupID *string
+
+	// The recovery proximity placement group Id.
+	RecoveryProximityPlacementGroupID *string
+
+	// The recovery resource group Id.
+	RecoveryResourceGroupID *string
+
+	// The virtual machine scale set id.
+	RecoveryVirtualMachineScaleSetID *string
+
+	// The Replication Protected item name.
+	ReplicationProtectedItemName *string
+
+	// The list of vm managed disk details.
+	VMManagedDisks []*A2AVMManagedDiskInputDetails
+}
+
 // A2AProtectedManagedDiskDetails - A2A protected managed disk details.
 type A2AProtectedManagedDiskDetails struct {
 	// The disk level operations list.
@@ -741,6 +851,9 @@ type A2AReplicationDetails struct {
 	// The initial recovery extended location.
 	InitialRecoveryExtendedLocation *ExtendedLocation
 
+	// A value indicating if the cluster infra is ready or not.
+	IsClusterInfraReady *bool
+
 	// A value indicating whether agent certificate update is required.
 	IsReplicationAgentCertificateUpdateRequired *bool
 
@@ -793,6 +906,9 @@ type A2AReplicationDetails struct {
 
 	// The list of protected managed disks.
 	ProtectedManagedDisks []*A2AProtectedManagedDiskDetails
+
+	// The replication protection cluster Id.
+	ProtectionClusterID *string
 
 	// The recovery availability set.
 	RecoveryAvailabilitySet *string
@@ -976,6 +1092,82 @@ func (a *A2AReplicationIntentDetails) GetReplicationProtectionIntentProviderSpec
 	}
 }
 
+// A2AReplicationProtectionClusterDetails - A2A provider specific settings.
+type A2AReplicationProtectionClusterDetails struct {
+	// REQUIRED; Gets the Instance type.
+	InstanceType *string
+
+	// The cluster management Id.
+	ClusterManagementID *string
+
+	// The recovery point Id to which the cluster was failed over.
+	FailoverRecoveryPointID *string
+
+	// The initial primary extended location.
+	InitialPrimaryExtendedLocation *ExtendedLocation
+
+	// The initial primary fabric location.
+	InitialPrimaryFabricLocation *string
+
+	// The initial primary availability zone.
+	InitialPrimaryZone *string
+
+	// The initial recovery extended location.
+	InitialRecoveryExtendedLocation *ExtendedLocation
+
+	// The initial recovery fabric location.
+	InitialRecoveryFabricLocation *string
+
+	// The initial recovery availability zone.
+	InitialRecoveryZone *string
+
+	// The time (in UTC) when the last RPO value was calculated by Protection Service.
+	LastRpoCalculatedTime *time.Time
+
+	// An id that survives actions like switch protection which change the backing PE/CPE objects internally.The lifecycle id
+	// gets carried forward to have a link/continuity in being able to have an Id that
+	// denotes the "same" protected cluster even though other internal Ids/ARM Id might be changing.
+	LifecycleID *string
+
+	// Whether Multi VM group is auto created or specified by user.
+	MultiVMGroupCreateOption *MultiVMGroupCreateOption
+
+	// The multi vm group Id.
+	MultiVMGroupID *string
+
+	// The multi vm group name.
+	MultiVMGroupName *string
+
+	// The primary availability zone.
+	PrimaryAvailabilityZone *string
+
+	// The primary Extended Location.
+	PrimaryExtendedLocation *ExtendedLocation
+
+	// Primary fabric location.
+	PrimaryFabricLocation *string
+
+	// The recovery availability zone.
+	RecoveryAvailabilityZone *string
+
+	// The recovery Extended Location.
+	RecoveryExtendedLocation *ExtendedLocation
+
+	// The recovery fabric location.
+	RecoveryFabricLocation *string
+
+	// The last RPO value in seconds.
+	RpoInSeconds *int64
+}
+
+// GetReplicationClusterProviderSpecificSettings implements the ReplicationClusterProviderSpecificSettingsClassification interface
+// for type A2AReplicationProtectionClusterDetails.
+func (a *A2AReplicationProtectionClusterDetails) GetReplicationClusterProviderSpecificSettings() *ReplicationClusterProviderSpecificSettings {
+	return &ReplicationClusterProviderSpecificSettings{
+		InstanceType: a.InstanceType,
+	}
+}
+
 // A2AReprotectInput - Azure specific reprotect input.
 type A2AReprotectInput struct {
 	// REQUIRED; The class type.
@@ -1004,6 +1196,92 @@ type A2AReprotectInput struct {
 // for type A2AReprotectInput.
 func (a *A2AReprotectInput) GetReverseReplicationProviderSpecificInput() *ReverseReplicationProviderSpecificInput {
 	return &ReverseReplicationProviderSpecificInput{
+		InstanceType: a.InstanceType,
+	}
+}
+
+// A2ASharedDiskIRErrorDetails - Extended location of the resource.
+type A2ASharedDiskIRErrorDetails struct {
+	// READ-ONLY; The error code.
+	ErrorCode *string
+
+	// READ-ONLY; The error code enum.
+	ErrorCodeEnum *string
+
+	// READ-ONLY; The error message.
+	ErrorMessage *string
+
+	// READ-ONLY; The possible causes.
+	PossibleCauses *string
+
+	// READ-ONLY; The recommended action.
+	RecommendedAction *string
+}
+
+// A2ASharedDiskReplicationDetails - A2A provider specific settings.
+type A2ASharedDiskReplicationDetails struct {
+	// REQUIRED; Gets the Instance type.
+	InstanceType *string
+
+	// The recovery point id to which the Virtual node was failed over.
+	FailoverRecoveryPointID *string
+
+	// The time (in UTC) when the last RPO value was calculated by Protection Service.
+	LastRpoCalculatedTime *time.Time
+
+	// The management Id.
+	ManagementID *string
+
+	// The type of the monitoring job. The progress is contained in MonitoringPercentageCompletion property.
+	MonitoringJobType *string
+
+	// The percentage of the monitoring job. The type of the monitoring job is defined by MonitoringJobType property.
+	MonitoringPercentageCompletion *int32
+
+	// Primary fabric location.
+	PrimaryFabricLocation *string
+
+	// The list of protected managed disks.
+	ProtectedManagedDisks []*A2AProtectedManagedDiskDetails
+
+	// The recovery fabric location.
+	RecoveryFabricLocation *string
+
+	// The last RPO value in seconds.
+	RpoInSeconds *int64
+
+	// The IR Errors.
+	SharedDiskIRErrors []*A2ASharedDiskIRErrorDetails
+
+	// The list of unprotected disks.
+	UnprotectedDisks []*A2AUnprotectedDiskDetails
+}
+
+// GetSharedDiskReplicationProviderSpecificSettings implements the SharedDiskReplicationProviderSpecificSettingsClassification
+// interface for type A2ASharedDiskReplicationDetails.
+func (a *A2ASharedDiskReplicationDetails) GetSharedDiskReplicationProviderSpecificSettings() *SharedDiskReplicationProviderSpecificSettings {
+	return &SharedDiskReplicationProviderSpecificSettings{
+		InstanceType: a.InstanceType,
+	}
+}
+
+// A2ASwitchClusterProtectionInput - A2A specific switch cluster protection input.
+type A2ASwitchClusterProtectionInput struct {
+	// REQUIRED; Gets the Instance type.
+	InstanceType *string
+
+	// The Policy Id.
+	PolicyID             *string
+	ProtectedItemsDetail []*A2AProtectedItemDetail
+
+	// The recovery container Id.
+	RecoveryContainerID *string
+}
+
+// GetSwitchClusterProtectionProviderSpecificInput implements the SwitchClusterProtectionProviderSpecificInputClassification
+// interface for type A2ASwitchClusterProtectionInput.
+func (a *A2ASwitchClusterProtectionInput) GetSwitchClusterProtectionProviderSpecificInput() *SwitchClusterProtectionProviderSpecificInput {
+	return &SwitchClusterProtectionProviderSpecificInput{
 		InstanceType: a.InstanceType,
 	}
 }
@@ -1493,6 +1771,36 @@ type ApplianceSpecificDetails struct {
 // GetApplianceSpecificDetails implements the ApplianceSpecificDetailsClassification interface for type ApplianceSpecificDetails.
 func (a *ApplianceSpecificDetails) GetApplianceSpecificDetails() *ApplianceSpecificDetails { return a }
 
+// ApplyClusterRecoveryPointInput - Input definition for apply cluster recovery point.
+type ApplyClusterRecoveryPointInput struct {
+	// REQUIRED; The properties to apply cluster recovery point input.
+	Properties *ApplyClusterRecoveryPointInputProperties
+}
+
+// ApplyClusterRecoveryPointInputProperties - Input definition for apply cluster recovery point properties.
+type ApplyClusterRecoveryPointInputProperties struct {
+	// REQUIRED; The provider specific input for applying cluster recovery point.
+	ProviderSpecificDetails ApplyClusterRecoveryPointProviderSpecificInputClassification
+
+	// The cluster recovery point id to be passed to failover to a particular recovery point.
+	ClusterRecoveryPointID *string
+
+	// The list of individual node recovery points.
+	IndividualNodeRecoveryPoints []*string
+}
+
+// ApplyClusterRecoveryPointProviderSpecificInput - Provider specific input for apply cluster recovery point.
+type ApplyClusterRecoveryPointProviderSpecificInput struct {
+	// REQUIRED; The class type.
+	InstanceType *string
+}
+
+// GetApplyClusterRecoveryPointProviderSpecificInput implements the ApplyClusterRecoveryPointProviderSpecificInputClassification
+// interface for type ApplyClusterRecoveryPointProviderSpecificInput.
+func (a *ApplyClusterRecoveryPointProviderSpecificInput) GetApplyClusterRecoveryPointProviderSpecificInput() *ApplyClusterRecoveryPointProviderSpecificInput {
+	return a
+}
+
 // ApplyRecoveryPointInput - Input to apply recovery point.
 type ApplyRecoveryPointInput struct {
 	// REQUIRED; The input properties to apply recovery point.
@@ -1717,6 +2025,207 @@ type AzureVMDiskDetails struct {
 
 	// VHD type.
 	VhdType *string
+}
+
+// ClusterFailoverJobDetails - This class represents the details for a failover job of cluster.
+type ClusterFailoverJobDetails struct {
+	// REQUIRED; Gets the type of job details (see JobDetailsTypes enum for possible values).
+	InstanceType *string
+
+	// The affected object properties like source server, source cloud, target server, target cloud etc. based on the workflow
+	// object details.
+	AffectedObjectDetails map[string]*string
+
+	// The test VM details.
+	ProtectedItemDetails []*FailoverReplicationProtectedItemDetails
+}
+
+// GetJobDetails implements the JobDetailsClassification interface for type ClusterFailoverJobDetails.
+func (c *ClusterFailoverJobDetails) GetJobDetails() *JobDetails {
+	return &JobDetails{
+		AffectedObjectDetails: c.AffectedObjectDetails,
+		InstanceType:          c.InstanceType,
+	}
+}
+
+// ClusterProviderSpecificRecoveryPointDetails - Replication provider specific cluster recovery point details.
+type ClusterProviderSpecificRecoveryPointDetails struct {
+	// READ-ONLY; Gets the provider type.
+	InstanceType *string
+}
+
+// GetClusterProviderSpecificRecoveryPointDetails implements the ClusterProviderSpecificRecoveryPointDetailsClassification
+// interface for type ClusterProviderSpecificRecoveryPointDetails.
+func (c *ClusterProviderSpecificRecoveryPointDetails) GetClusterProviderSpecificRecoveryPointDetails() *ClusterProviderSpecificRecoveryPointDetails {
+	return c
+}
+
+// ClusterRecoveryPoint - Recovery point.
+type ClusterRecoveryPoint struct {
+	// The recovery point Id.
+	ID *string
+
+	// The name of the recovery point.
+	Name *string
+
+	// The recovery point properties.
+	Properties *ClusterRecoveryPointProperties
+
+	// The resource type.
+	Type *string
+}
+
+// ClusterRecoveryPointCollection - Collection of cluster recovery point details.
+type ClusterRecoveryPointCollection struct {
+	// The value of next link.
+	NextLink *string
+
+	// The cluster recovery point details.
+	Value []*ClusterRecoveryPoint
+}
+
+// ClusterRecoveryPointProperties - Cluster recovery point properties.
+type ClusterRecoveryPointProperties struct {
+	// The provider specific details for the recovery point.
+	ProviderSpecificDetails ClusterProviderSpecificRecoveryPointDetailsClassification
+
+	// The recovery point time.
+	RecoveryPointTime *time.Time
+
+	// The recovery point type.
+	RecoveryPointType *ClusterRecoveryPointType
+}
+
+// ClusterSwitchProtectionJobDetails - This class represents details for switch cluster protection job.
+type ClusterSwitchProtectionJobDetails struct {
+	// REQUIRED; Gets the type of job details (see JobDetailsTypes enum for possible values).
+	InstanceType *string
+
+	// The affected object properties like source server, source cloud, target server, target cloud etc. based on the workflow
+	// object details.
+	AffectedObjectDetails map[string]*string
+
+	// ARM Id of the new replication protection cluster.
+	NewReplicationProtectionClusterID *string
+}
+
+// GetJobDetails implements the JobDetailsClassification interface for type ClusterSwitchProtectionJobDetails.
+func (c *ClusterSwitchProtectionJobDetails) GetJobDetails() *JobDetails {
+	return &JobDetails{
+		AffectedObjectDetails: c.AffectedObjectDetails,
+		InstanceType:          c.InstanceType,
+	}
+}
+
+// ClusterTestFailoverCleanupInput - Input definition for test failover cleanup for cluster.
+type ClusterTestFailoverCleanupInput struct {
+	// REQUIRED; Test failover cleanup input properties.
+	Properties *ClusterTestFailoverCleanupInputProperties
+}
+
+// ClusterTestFailoverCleanupInputProperties - Input definition for test failover cleanup input properties.
+type ClusterTestFailoverCleanupInputProperties struct {
+	// Test failover cleanup comments.
+	Comments *string
+}
+
+// ClusterTestFailoverInput - Input definition for test cluster failover.
+type ClusterTestFailoverInput struct {
+	// REQUIRED; Test failover input properties.
+	Properties *ClusterTestFailoverInputProperties
+}
+
+// ClusterTestFailoverInputProperties - Input definition for test failover input properties.
+type ClusterTestFailoverInputProperties struct {
+	// Failover direction.
+	FailoverDirection *string
+
+	// The id of the network to be used for test failover.
+	NetworkID *string
+
+	// Network type to be used for test failover.
+	NetworkType *string
+
+	// Provider specific settings.
+	ProviderSpecificDetails ClusterTestFailoverProviderSpecificInputClassification
+}
+
+// ClusterTestFailoverJobDetails - This class represents the details for a test failover job of cluster.
+type ClusterTestFailoverJobDetails struct {
+	// REQUIRED; Gets the type of job details (see JobDetailsTypes enum for possible values).
+	InstanceType *string
+
+	// The affected object properties like source server, source cloud, target server, target cloud etc. based on the workflow
+	// object details.
+	AffectedObjectDetails map[string]*string
+
+	// The test failover comments.
+	Comments *string
+
+	// The test network friendly name.
+	NetworkFriendlyName *string
+
+	// The test network name.
+	NetworkName *string
+
+	// The test network type (see TestFailoverInput enum for possible values).
+	NetworkType *string
+
+	// The test VM details.
+	ProtectedItemDetails []*FailoverReplicationProtectedItemDetails
+
+	// The test failover status.
+	TestFailoverStatus *string
+}
+
+// GetJobDetails implements the JobDetailsClassification interface for type ClusterTestFailoverJobDetails.
+func (c *ClusterTestFailoverJobDetails) GetJobDetails() *JobDetails {
+	return &JobDetails{
+		AffectedObjectDetails: c.AffectedObjectDetails,
+		InstanceType:          c.InstanceType,
+	}
+}
+
+// ClusterTestFailoverProviderSpecificInput - Provider specific test cluster failover input.
+type ClusterTestFailoverProviderSpecificInput struct {
+	// REQUIRED; The class type.
+	InstanceType *string
+}
+
+// GetClusterTestFailoverProviderSpecificInput implements the ClusterTestFailoverProviderSpecificInputClassification interface
+// for type ClusterTestFailoverProviderSpecificInput.
+func (c *ClusterTestFailoverProviderSpecificInput) GetClusterTestFailoverProviderSpecificInput() *ClusterTestFailoverProviderSpecificInput {
+	return c
+}
+
+// ClusterUnplannedFailoverInput - Input definition for unplanned cluster failover.
+type ClusterUnplannedFailoverInput struct {
+	// REQUIRED; Unplanned failover input properties.
+	Properties *ClusterUnplannedFailoverInputProperties
+}
+
+// ClusterUnplannedFailoverInputProperties - Input definition for unplanned failover input properties.
+type ClusterUnplannedFailoverInputProperties struct {
+	// Failover direction.
+	FailoverDirection *string
+
+	// Provider specific settings.
+	ProviderSpecificDetails ClusterUnplannedFailoverProviderSpecificInputClassification
+
+	// Source site operations status.
+	SourceSiteOperations *string
+}
+
+// ClusterUnplannedFailoverProviderSpecificInput - Provider specific unplanned cluster failover input.
+type ClusterUnplannedFailoverProviderSpecificInput struct {
+	// REQUIRED; The class type.
+	InstanceType *string
+}
+
+// GetClusterUnplannedFailoverProviderSpecificInput implements the ClusterUnplannedFailoverProviderSpecificInputClassification
+// interface for type ClusterUnplannedFailoverProviderSpecificInput.
+func (c *ClusterUnplannedFailoverProviderSpecificInput) GetClusterUnplannedFailoverProviderSpecificInput() *ClusterUnplannedFailoverProviderSpecificInput {
+	return c
 }
 
 // ComputeSizeErrorDetails - Represents the error used to indicate why the target compute size is not applicable.
@@ -2165,6 +2674,40 @@ type EncryptionDetails struct {
 
 	// The key encryption key state for the Vmm.
 	KekState *string
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
 }
 
 // Event - Implements the Event class.
@@ -8670,6 +9213,21 @@ func (r *RecoveryVirtualNetworkCustomDetails) GetRecoveryVirtualNetworkCustomDet
 	return r
 }
 
+// RegisteredClusterNodes - Extended location of the resource.
+type RegisteredClusterNodes struct {
+	// The BIOS ID.
+	BiosID *string
+
+	// The cluster node name.
+	ClusterNodeFqdn *string
+
+	// A value indicating whether this represents virtual entity hosting all the shared disks.
+	IsSharedDiskVirtualNode *bool
+
+	// The machine ID.
+	MachineID *string
+}
+
 // RemoveDisksInput - Input for remove disk(s) operation.
 type RemoveDisksInput struct {
 	// Remove disk input properties.
@@ -8759,6 +9317,18 @@ type ReplicationAppliance struct {
 type ReplicationApplianceProperties struct {
 	// Provider specific settings.
 	ProviderSpecificDetails ApplianceSpecificDetailsClassification
+}
+
+// ReplicationClusterProviderSpecificSettings - Replication cluster provider specific settings.
+type ReplicationClusterProviderSpecificSettings struct {
+	// REQUIRED; Gets the Instance type.
+	InstanceType *string
+}
+
+// GetReplicationClusterProviderSpecificSettings implements the ReplicationClusterProviderSpecificSettingsClassification interface
+// for type ReplicationClusterProviderSpecificSettings.
+func (r *ReplicationClusterProviderSpecificSettings) GetReplicationClusterProviderSpecificSettings() *ReplicationClusterProviderSpecificSettings {
+	return r
 }
 
 // ReplicationEligibilityResults - Replication eligibility results response model.
@@ -8942,6 +9512,125 @@ type ReplicationProtectedItemProperties struct {
 
 	// The Test failover state description.
 	TestFailoverStateDescription *string
+}
+
+// ReplicationProtectionCluster - Replication protection Cluster.
+type ReplicationProtectionCluster struct {
+	// The custom data.
+	Properties *ReplicationProtectionClusterProperties
+
+	// READ-ONLY; The Id.
+	ID *string
+
+	// READ-ONLY; The name.
+	Name *string
+
+	// READ-ONLY; The Type of the object.
+	Type *string
+}
+
+// ReplicationProtectionClusterCollection - Replication protected item collection.
+type ReplicationProtectionClusterCollection struct {
+	// The value of next link.
+	NextLink *string
+
+	// The Replication protection cluster details.
+	Value []*ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClusterProperties - Replication protection cluster custom data details.
+type ReplicationProtectionClusterProperties struct {
+	// The Current active location of the Protection cluster.
+	ActiveLocation *string
+
+	// The Agent cluster Id.
+	AgentClusterID *string
+
+	// The allowed operations on the Replication protection cluster.
+	AllowedOperations []*string
+
+	// A value indicating whether all nodes of the cluster are registered or not.
+	AreAllClusterNodesRegistered *bool
+
+	// The cluster FQDN.
+	ClusterFqdn *string
+
+	// The List of cluster Node FQDNs.
+	ClusterNodeFqdns []*string
+
+	// The List of Protected Item Id's.
+	ClusterProtectedItemIDs []*string
+
+	// The registered node details.
+	ClusterRegisteredNodes []*RegisteredClusterNodes
+
+	// The current scenario.
+	CurrentScenario *CurrentScenarioDetails
+
+	// List of health errors.
+	HealthErrors []*HealthError
+
+	// The last successful failover time.
+	LastSuccessfulFailoverTime *time.Time
+
+	// The last successful test failover time.
+	LastSuccessfulTestFailoverTime *time.Time
+
+	// The name of Policy governing this PE.
+	PolicyFriendlyName *string
+
+	// The Policy Id.
+	PolicyID *string
+
+	// The friendly name of the primary fabric.
+	PrimaryFabricFriendlyName *string
+
+	// The fabric provider of the primary fabric.
+	PrimaryFabricProvider *string
+
+	// The name of primary protection container friendly name.
+	PrimaryProtectionContainerFriendlyName *string
+
+	// The type of protection cluster type.
+	ProtectionClusterType *string
+
+	// The protection status.
+	ProtectionState *string
+
+	// The protection state description.
+	ProtectionStateDescription *string
+
+	// The Replication cluster provider custom settings.
+	ProviderSpecificDetails ReplicationClusterProviderSpecificSettingsClassification
+
+	// The recovery container Id.
+	RecoveryContainerID *string
+
+	// The friendly name of recovery fabric.
+	RecoveryFabricFriendlyName *string
+
+	// The Arm Id of recovery fabric.
+	RecoveryFabricID *string
+
+	// The name of recovery container friendly name.
+	RecoveryProtectionContainerFriendlyName *string
+
+	// The consolidated protection health for the VM taking any issues with SRS as well as all the replication units associated
+	// with the VM's replication group into account. This is a string representation
+	// of the ProtectionHealth enumeration.
+	ReplicationHealth *string
+
+	// The shared disk properties.
+	SharedDiskProperties *SharedDiskReplicationItemProperties
+
+	// The Test failover state.
+	TestFailoverState *string
+
+	// The Test failover state description.
+	TestFailoverStateDescription *string
+
+	// READ-ONLY; The provisioning state of the cluster.
+	ProvisioningState *string
 }
 
 // ReplicationProtectionIntent - Replication protection intent.
@@ -9298,6 +9987,30 @@ func (s *ScriptActionTaskDetails) GetTaskTypeDetails() *TaskTypeDetails {
 	}
 }
 
+// ServiceDefaultError - The resource management error response.
+type ServiceDefaultError struct {
+	// ASR error model.
+	Error *ServiceDefaultErrorError
+}
+
+// ServiceDefaultErrorError - ASR error model.
+type ServiceDefaultErrorError struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ServiceDefaultError
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
 // ServiceError - ASR error model.
 type ServiceError struct {
 	// Activity Id.
@@ -9314,6 +10027,47 @@ type ServiceError struct {
 
 	// Recommended action to resolve error.
 	RecommendedAction *string
+}
+
+// SharedDiskReplicationItemProperties - Shared Disk Replication item custom data details.
+type SharedDiskReplicationItemProperties struct {
+	// The Current active location of the PE.
+	ActiveLocation *string
+
+	// The allowed operations on the Replication protected item.
+	AllowedOperations []*string
+
+	// The current scenario.
+	CurrentScenario *CurrentScenarioDetails
+
+	// List of health errors.
+	HealthErrors []*HealthError
+
+	// The protection state of shared disk.
+	ProtectionState *string
+
+	// The consolidated protection health for the VM taking any issues with SRS as well as all the replication units associated
+	// with the VM's replication group into account. This is a string representation
+	// of the ProtectionHealth enumeration.
+	ReplicationHealth *string
+
+	// The Replication provider custom settings.
+	SharedDiskProviderSpecificDetails SharedDiskReplicationProviderSpecificSettingsClassification
+
+	// The tfo state of shared disk.
+	TestFailoverState *string
+}
+
+// SharedDiskReplicationProviderSpecificSettings - Replication provider specific settings.
+type SharedDiskReplicationProviderSpecificSettings struct {
+	// REQUIRED; Gets the Instance type.
+	InstanceType *string
+}
+
+// GetSharedDiskReplicationProviderSpecificSettings implements the SharedDiskReplicationProviderSpecificSettingsClassification
+// interface for type SharedDiskReplicationProviderSpecificSettings.
+func (s *SharedDiskReplicationProviderSpecificSettings) GetSharedDiskReplicationProviderSpecificSettings() *SharedDiskReplicationProviderSpecificSettings {
+	return s
 }
 
 // StorageAccountCustomDetails - Storage account custom input.
@@ -9460,6 +10214,33 @@ type SupportedOperatingSystems struct {
 
 	// READ-ONLY; Resource Type
 	Type *string
+}
+
+// SwitchClusterProtectionInput - Switch cluster protection input.
+type SwitchClusterProtectionInput struct {
+	// Switch cluster protection properties.
+	Properties *SwitchClusterProtectionInputProperties
+}
+
+// SwitchClusterProtectionInputProperties - Switch cluster protection input properties.
+type SwitchClusterProtectionInputProperties struct {
+	// Provider specific switch protection input.
+	ProviderSpecificDetails SwitchClusterProtectionProviderSpecificInputClassification
+
+	// The unique replication protection cluster name.
+	ReplicationProtectionClusterName *string
+}
+
+// SwitchClusterProtectionProviderSpecificInput - Provider specific switch cluster protection input.
+type SwitchClusterProtectionProviderSpecificInput struct {
+	// REQUIRED; Gets the Instance type.
+	InstanceType *string
+}
+
+// GetSwitchClusterProtectionProviderSpecificInput implements the SwitchClusterProtectionProviderSpecificInputClassification
+// interface for type SwitchClusterProtectionProviderSpecificInput.
+func (s *SwitchClusterProtectionProviderSpecificInput) GetSwitchClusterProtectionProviderSpecificInput() *SwitchClusterProtectionProviderSpecificInput {
+	return s
 }
 
 // SwitchProtectionInput - Switch protection input.

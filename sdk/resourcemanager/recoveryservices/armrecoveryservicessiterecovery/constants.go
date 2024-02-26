@@ -10,7 +10,7 @@ package armrecoveryservicessiterecovery
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicessiterecovery"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 // A2ARecoveryAvailabilityType - The recovery availability type of the virtual machine.
@@ -189,6 +189,24 @@ func PossibleChurnOptionSelectedValues() []ChurnOptionSelected {
 	return []ChurnOptionSelected{
 		ChurnOptionSelectedHigh,
 		ChurnOptionSelectedNormal,
+	}
+}
+
+// ClusterRecoveryPointType - The recovery point type.
+type ClusterRecoveryPointType string
+
+const (
+	ClusterRecoveryPointTypeApplicationConsistent ClusterRecoveryPointType = "ApplicationConsistent"
+	ClusterRecoveryPointTypeCrashConsistent       ClusterRecoveryPointType = "CrashConsistent"
+	ClusterRecoveryPointTypeNotSpecified          ClusterRecoveryPointType = "NotSpecified"
+)
+
+// PossibleClusterRecoveryPointTypeValues returns the possible values for the ClusterRecoveryPointType const type.
+func PossibleClusterRecoveryPointTypeValues() []ClusterRecoveryPointType {
+	return []ClusterRecoveryPointType{
+		ClusterRecoveryPointTypeApplicationConsistent,
+		ClusterRecoveryPointTypeCrashConsistent,
+		ClusterRecoveryPointTypeNotSpecified,
 	}
 }
 

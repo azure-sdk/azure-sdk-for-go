@@ -11,7 +11,7 @@ package armrecoveryservicessiterecovery
 import "encoding/json"
 
 func unmarshalAddDisksProviderSpecificInputClassification(rawMsg json.RawMessage) (AddDisksProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -32,7 +32,7 @@ func unmarshalAddDisksProviderSpecificInputClassification(rawMsg json.RawMessage
 }
 
 func unmarshalApplianceSpecificDetailsClassification(rawMsg json.RawMessage) (ApplianceSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -52,8 +52,29 @@ func unmarshalApplianceSpecificDetailsClassification(rawMsg json.RawMessage) (Ap
 	return b, nil
 }
 
+func unmarshalApplyClusterRecoveryPointProviderSpecificInputClassification(rawMsg json.RawMessage) (ApplyClusterRecoveryPointProviderSpecificInputClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ApplyClusterRecoveryPointProviderSpecificInputClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AApplyClusterRecoveryPointInput{}
+	default:
+		b = &ApplyClusterRecoveryPointProviderSpecificInput{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalApplyRecoveryPointProviderSpecificInputClassification(rawMsg json.RawMessage) (ApplyRecoveryPointProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -81,8 +102,71 @@ func unmarshalApplyRecoveryPointProviderSpecificInputClassification(rawMsg json.
 	return b, nil
 }
 
+func unmarshalClusterProviderSpecificRecoveryPointDetailsClassification(rawMsg json.RawMessage) (ClusterProviderSpecificRecoveryPointDetailsClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ClusterProviderSpecificRecoveryPointDetailsClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AClusterRecoveryPointDetails{}
+	default:
+		b = &ClusterProviderSpecificRecoveryPointDetails{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalClusterTestFailoverProviderSpecificInputClassification(rawMsg json.RawMessage) (ClusterTestFailoverProviderSpecificInputClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ClusterTestFailoverProviderSpecificInputClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AClusterTestFailoverInput{}
+	default:
+		b = &ClusterTestFailoverProviderSpecificInput{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalClusterUnplannedFailoverProviderSpecificInputClassification(rawMsg json.RawMessage) (ClusterUnplannedFailoverProviderSpecificInputClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ClusterUnplannedFailoverProviderSpecificInputClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AClusterUnplannedFailoverInput{}
+	default:
+		b = &ClusterUnplannedFailoverProviderSpecificInput{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalConfigurationSettingsClassification(rawMsg json.RawMessage) (ConfigurationSettingsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -109,7 +193,7 @@ func unmarshalConfigurationSettingsClassification(rawMsg json.RawMessage) (Confi
 }
 
 func unmarshalCreateProtectionIntentProviderSpecificDetailsClassification(rawMsg json.RawMessage) (CreateProtectionIntentProviderSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -130,7 +214,7 @@ func unmarshalCreateProtectionIntentProviderSpecificDetailsClassification(rawMsg
 }
 
 func unmarshalDisableProtectionProviderSpecificInputClassification(rawMsg json.RawMessage) (DisableProtectionProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -151,7 +235,7 @@ func unmarshalDisableProtectionProviderSpecificInputClassification(rawMsg json.R
 }
 
 func unmarshalEnableMigrationProviderSpecificInputClassification(rawMsg json.RawMessage) (EnableMigrationProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -172,7 +256,7 @@ func unmarshalEnableMigrationProviderSpecificInputClassification(rawMsg json.Raw
 }
 
 func unmarshalEnableProtectionProviderSpecificInputClassification(rawMsg json.RawMessage) (EnableProtectionProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -203,7 +287,7 @@ func unmarshalEnableProtectionProviderSpecificInputClassification(rawMsg json.Ra
 }
 
 func unmarshalEventProviderSpecificDetailsClassification(rawMsg json.RawMessage) (EventProviderSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -240,7 +324,7 @@ func unmarshalEventProviderSpecificDetailsClassification(rawMsg json.RawMessage)
 }
 
 func unmarshalEventSpecificDetailsClassification(rawMsg json.RawMessage) (EventSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -261,7 +345,7 @@ func unmarshalEventSpecificDetailsClassification(rawMsg json.RawMessage) (EventS
 }
 
 func unmarshalFabricSpecificCreateNetworkMappingInputClassification(rawMsg json.RawMessage) (FabricSpecificCreateNetworkMappingInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -286,7 +370,7 @@ func unmarshalFabricSpecificCreateNetworkMappingInputClassification(rawMsg json.
 }
 
 func unmarshalFabricSpecificCreationInputClassification(rawMsg json.RawMessage) (FabricSpecificCreationInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -311,7 +395,7 @@ func unmarshalFabricSpecificCreationInputClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalFabricSpecificDetailsClassification(rawMsg json.RawMessage) (FabricSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -342,7 +426,7 @@ func unmarshalFabricSpecificDetailsClassification(rawMsg json.RawMessage) (Fabri
 }
 
 func unmarshalFabricSpecificUpdateNetworkMappingInputClassification(rawMsg json.RawMessage) (FabricSpecificUpdateNetworkMappingInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -367,7 +451,7 @@ func unmarshalFabricSpecificUpdateNetworkMappingInputClassification(rawMsg json.
 }
 
 func unmarshalGroupTaskDetailsClassification(rawMsg json.RawMessage) (GroupTaskDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -392,7 +476,7 @@ func unmarshalGroupTaskDetailsClassification(rawMsg json.RawMessage) (GroupTaskD
 }
 
 func unmarshalJobDetailsClassification(rawMsg json.RawMessage) (JobDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -403,6 +487,12 @@ func unmarshalJobDetailsClassification(rawMsg json.RawMessage) (JobDetailsClassi
 	switch m["instanceType"] {
 	case "AsrJobDetails":
 		b = &AsrJobDetails{}
+	case "ClusterFailoverJobDetails":
+		b = &ClusterFailoverJobDetails{}
+	case "ClusterSwitchProtectionJobDetails":
+		b = &ClusterSwitchProtectionJobDetails{}
+	case "ClusterTestFailoverJobDetails":
+		b = &ClusterTestFailoverJobDetails{}
 	case "ExportJobDetails":
 		b = &ExportJobDetails{}
 	case "FailoverJobDetails":
@@ -421,7 +511,7 @@ func unmarshalJobDetailsClassification(rawMsg json.RawMessage) (JobDetailsClassi
 }
 
 func unmarshalMigrateProviderSpecificInputClassification(rawMsg json.RawMessage) (MigrateProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -442,7 +532,7 @@ func unmarshalMigrateProviderSpecificInputClassification(rawMsg json.RawMessage)
 }
 
 func unmarshalMigrationProviderSpecificSettingsClassification(rawMsg json.RawMessage) (MigrationProviderSpecificSettingsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -463,7 +553,7 @@ func unmarshalMigrationProviderSpecificSettingsClassification(rawMsg json.RawMes
 }
 
 func unmarshalNetworkMappingFabricSpecificSettingsClassification(rawMsg json.RawMessage) (NetworkMappingFabricSpecificSettingsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -488,7 +578,7 @@ func unmarshalNetworkMappingFabricSpecificSettingsClassification(rawMsg json.Raw
 }
 
 func unmarshalPlannedFailoverProviderSpecificFailoverInputClassification(rawMsg json.RawMessage) (PlannedFailoverProviderSpecificFailoverInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -513,7 +603,7 @@ func unmarshalPlannedFailoverProviderSpecificFailoverInputClassification(rawMsg 
 }
 
 func unmarshalPolicyProviderSpecificDetailsClassification(rawMsg json.RawMessage) (PolicyProviderSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -554,7 +644,7 @@ func unmarshalPolicyProviderSpecificDetailsClassification(rawMsg json.RawMessage
 }
 
 func unmarshalPolicyProviderSpecificInputClassification(rawMsg json.RawMessage) (PolicyProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -593,7 +683,7 @@ func unmarshalPolicyProviderSpecificInputClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalProtectionContainerMappingProviderSpecificDetailsClassification(rawMsg json.RawMessage) (ProtectionContainerMappingProviderSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -618,7 +708,7 @@ func unmarshalProtectionContainerMappingProviderSpecificDetailsClassification(ra
 }
 
 func unmarshalProtectionProfileCustomDetailsClassification(rawMsg json.RawMessage) (ProtectionProfileCustomDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -641,7 +731,7 @@ func unmarshalProtectionProfileCustomDetailsClassification(rawMsg json.RawMessag
 }
 
 func unmarshalProviderSpecificRecoveryPointDetailsClassification(rawMsg json.RawMessage) (ProviderSpecificRecoveryPointDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -666,7 +756,7 @@ func unmarshalProviderSpecificRecoveryPointDetailsClassification(rawMsg json.Raw
 }
 
 func unmarshalRecoveryAvailabilitySetCustomDetailsClassification(rawMsg json.RawMessage) (RecoveryAvailabilitySetCustomDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -687,7 +777,7 @@ func unmarshalRecoveryAvailabilitySetCustomDetailsClassification(rawMsg json.Raw
 }
 
 func unmarshalRecoveryPlanActionDetailsClassification(rawMsg json.RawMessage) (RecoveryPlanActionDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -712,7 +802,7 @@ func unmarshalRecoveryPlanActionDetailsClassification(rawMsg json.RawMessage) (R
 }
 
 func unmarshalRecoveryPlanProviderSpecificDetailsClassification(rawMsg json.RawMessage) (RecoveryPlanProviderSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -733,7 +823,7 @@ func unmarshalRecoveryPlanProviderSpecificDetailsClassification(rawMsg json.RawM
 }
 
 func unmarshalRecoveryPlanProviderSpecificDetailsClassificationArray(rawMsg json.RawMessage) ([]RecoveryPlanProviderSpecificDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -752,7 +842,7 @@ func unmarshalRecoveryPlanProviderSpecificDetailsClassificationArray(rawMsg json
 }
 
 func unmarshalRecoveryPlanProviderSpecificFailoverInputClassification(rawMsg json.RawMessage) (RecoveryPlanProviderSpecificFailoverInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -785,7 +875,7 @@ func unmarshalRecoveryPlanProviderSpecificFailoverInputClassification(rawMsg jso
 }
 
 func unmarshalRecoveryPlanProviderSpecificFailoverInputClassificationArray(rawMsg json.RawMessage) ([]RecoveryPlanProviderSpecificFailoverInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -804,7 +894,7 @@ func unmarshalRecoveryPlanProviderSpecificFailoverInputClassificationArray(rawMs
 }
 
 func unmarshalRecoveryPlanProviderSpecificInputClassification(rawMsg json.RawMessage) (RecoveryPlanProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -825,7 +915,7 @@ func unmarshalRecoveryPlanProviderSpecificInputClassification(rawMsg json.RawMes
 }
 
 func unmarshalRecoveryPlanProviderSpecificInputClassificationArray(rawMsg json.RawMessage) ([]RecoveryPlanProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -844,7 +934,7 @@ func unmarshalRecoveryPlanProviderSpecificInputClassificationArray(rawMsg json.R
 }
 
 func unmarshalRecoveryProximityPlacementGroupCustomDetailsClassification(rawMsg json.RawMessage) (RecoveryProximityPlacementGroupCustomDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -865,7 +955,7 @@ func unmarshalRecoveryProximityPlacementGroupCustomDetailsClassification(rawMsg 
 }
 
 func unmarshalRecoveryResourceGroupCustomDetailsClassification(rawMsg json.RawMessage) (RecoveryResourceGroupCustomDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -886,7 +976,7 @@ func unmarshalRecoveryResourceGroupCustomDetailsClassification(rawMsg json.RawMe
 }
 
 func unmarshalRecoveryVirtualNetworkCustomDetailsClassification(rawMsg json.RawMessage) (RecoveryVirtualNetworkCustomDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -909,7 +999,7 @@ func unmarshalRecoveryVirtualNetworkCustomDetailsClassification(rawMsg json.RawM
 }
 
 func unmarshalRemoveDisksProviderSpecificInputClassification(rawMsg json.RawMessage) (RemoveDisksProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -929,8 +1019,29 @@ func unmarshalRemoveDisksProviderSpecificInputClassification(rawMsg json.RawMess
 	return b, nil
 }
 
+func unmarshalReplicationClusterProviderSpecificSettingsClassification(rawMsg json.RawMessage) (ReplicationClusterProviderSpecificSettingsClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ReplicationClusterProviderSpecificSettingsClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AReplicationProtectionClusterDetails{}
+	default:
+		b = &ReplicationClusterProviderSpecificSettings{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalReplicationProtectionIntentProviderSpecificSettingsClassification(rawMsg json.RawMessage) (ReplicationProtectionIntentProviderSpecificSettingsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -951,7 +1062,7 @@ func unmarshalReplicationProtectionIntentProviderSpecificSettingsClassification(
 }
 
 func unmarshalReplicationProviderSpecificContainerCreationInputClassification(rawMsg json.RawMessage) (ReplicationProviderSpecificContainerCreationInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -976,7 +1087,7 @@ func unmarshalReplicationProviderSpecificContainerCreationInputClassification(ra
 }
 
 func unmarshalReplicationProviderSpecificContainerCreationInputClassificationArray(rawMsg json.RawMessage) ([]ReplicationProviderSpecificContainerCreationInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -995,7 +1106,7 @@ func unmarshalReplicationProviderSpecificContainerCreationInputClassificationArr
 }
 
 func unmarshalReplicationProviderSpecificContainerMappingInputClassification(rawMsg json.RawMessage) (ReplicationProviderSpecificContainerMappingInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1018,7 +1129,7 @@ func unmarshalReplicationProviderSpecificContainerMappingInputClassification(raw
 }
 
 func unmarshalReplicationProviderSpecificSettingsClassification(rawMsg json.RawMessage) (ReplicationProviderSpecificSettingsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1057,7 +1168,7 @@ func unmarshalReplicationProviderSpecificSettingsClassification(rawMsg json.RawM
 }
 
 func unmarshalReplicationProviderSpecificUpdateContainerMappingInputClassification(rawMsg json.RawMessage) (ReplicationProviderSpecificUpdateContainerMappingInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1080,7 +1191,7 @@ func unmarshalReplicationProviderSpecificUpdateContainerMappingInputClassificati
 }
 
 func unmarshalResumeReplicationProviderSpecificInputClassification(rawMsg json.RawMessage) (ResumeReplicationProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1101,7 +1212,7 @@ func unmarshalResumeReplicationProviderSpecificInputClassification(rawMsg json.R
 }
 
 func unmarshalResyncProviderSpecificInputClassification(rawMsg json.RawMessage) (ResyncProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1122,7 +1233,7 @@ func unmarshalResyncProviderSpecificInputClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalReverseReplicationProviderSpecificInputClassification(rawMsg json.RawMessage) (ReverseReplicationProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1152,8 +1263,29 @@ func unmarshalReverseReplicationProviderSpecificInputClassification(rawMsg json.
 	return b, nil
 }
 
+func unmarshalSharedDiskReplicationProviderSpecificSettingsClassification(rawMsg json.RawMessage) (SharedDiskReplicationProviderSpecificSettingsClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SharedDiskReplicationProviderSpecificSettingsClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2ASharedDiskReplicationDetails{}
+	default:
+		b = &SharedDiskReplicationProviderSpecificSettings{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalStorageAccountCustomDetailsClassification(rawMsg json.RawMessage) (StorageAccountCustomDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1173,8 +1305,29 @@ func unmarshalStorageAccountCustomDetailsClassification(rawMsg json.RawMessage) 
 	return b, nil
 }
 
+func unmarshalSwitchClusterProtectionProviderSpecificInputClassification(rawMsg json.RawMessage) (SwitchClusterProtectionProviderSpecificInputClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SwitchClusterProtectionProviderSpecificInputClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2ASwitchClusterProtectionInput{}
+	default:
+		b = &SwitchClusterProtectionProviderSpecificInput{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalSwitchProtectionProviderSpecificInputClassification(rawMsg json.RawMessage) (SwitchProtectionProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1195,7 +1348,7 @@ func unmarshalSwitchProtectionProviderSpecificInputClassification(rawMsg json.Ra
 }
 
 func unmarshalSwitchProviderSpecificInputClassification(rawMsg json.RawMessage) (SwitchProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1216,7 +1369,7 @@ func unmarshalSwitchProviderSpecificInputClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalTaskTypeDetailsClassification(rawMsg json.RawMessage) (TaskTypeDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1251,7 +1404,7 @@ func unmarshalTaskTypeDetailsClassification(rawMsg json.RawMessage) (TaskTypeDet
 }
 
 func unmarshalTestFailoverProviderSpecificInputClassification(rawMsg json.RawMessage) (TestFailoverProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1280,7 +1433,7 @@ func unmarshalTestFailoverProviderSpecificInputClassification(rawMsg json.RawMes
 }
 
 func unmarshalTestMigrateProviderSpecificInputClassification(rawMsg json.RawMessage) (TestMigrateProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1301,7 +1454,7 @@ func unmarshalTestMigrateProviderSpecificInputClassification(rawMsg json.RawMess
 }
 
 func unmarshalUnplannedFailoverProviderSpecificInputClassification(rawMsg json.RawMessage) (UnplannedFailoverProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1330,7 +1483,7 @@ func unmarshalUnplannedFailoverProviderSpecificInputClassification(rawMsg json.R
 }
 
 func unmarshalUpdateApplianceForReplicationProtectedItemProviderSpecificInputClassification(rawMsg json.RawMessage) (UpdateApplianceForReplicationProtectedItemProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1351,7 +1504,7 @@ func unmarshalUpdateApplianceForReplicationProtectedItemProviderSpecificInputCla
 }
 
 func unmarshalUpdateMigrationItemProviderSpecificInputClassification(rawMsg json.RawMessage) (UpdateMigrationItemProviderSpecificInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -1372,7 +1525,7 @@ func unmarshalUpdateMigrationItemProviderSpecificInputClassification(rawMsg json
 }
 
 func unmarshalUpdateReplicationProtectedItemProviderInputClassification(rawMsg json.RawMessage) (UpdateReplicationProtectedItemProviderInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
