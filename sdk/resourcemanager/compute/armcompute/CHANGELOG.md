@@ -1,5 +1,15 @@
 # Release History
 
+## 5.6.0 (2024-02-26)
+### Features Added
+
+- New enum type `ResourceIDOptionsForGetCapacityReservationGroups` with values `ResourceIDOptionsForGetCapacityReservationGroupsAll`, `ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription`, `ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription`
+- New enum type `ZonePlacementPolicyType` with values `ZonePlacementPolicyTypeAny`
+- New struct `Placement`
+- New field `ResourceIDsOnly` in struct `CapacityReservationGroupsClientListBySubscriptionOptions`
+- New field `Placement` in struct `VirtualMachine`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 

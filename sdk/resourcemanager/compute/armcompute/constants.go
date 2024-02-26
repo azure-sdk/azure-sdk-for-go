@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.5.0"
+	moduleVersion = "v5.6.0"
 )
 
 type AccessLevel string
@@ -1678,6 +1678,23 @@ func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	}
 }
 
+type ResourceIDOptionsForGetCapacityReservationGroups string
+
+const (
+	ResourceIDOptionsForGetCapacityReservationGroupsAll                    ResourceIDOptionsForGetCapacityReservationGroups = "All"
+	ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription  ResourceIDOptionsForGetCapacityReservationGroups = "CreatedInSubscription"
+	ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription ResourceIDOptionsForGetCapacityReservationGroups = "SharedWithSubscription"
+)
+
+// PossibleResourceIDOptionsForGetCapacityReservationGroupsValues returns the possible values for the ResourceIDOptionsForGetCapacityReservationGroups const type.
+func PossibleResourceIDOptionsForGetCapacityReservationGroupsValues() []ResourceIDOptionsForGetCapacityReservationGroups {
+	return []ResourceIDOptionsForGetCapacityReservationGroups{
+		ResourceIDOptionsForGetCapacityReservationGroupsAll,
+		ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription,
+		ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription,
+	}
+}
+
 // ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
 // includes both an implicitly created identity and a set of user assigned identities. The type 'None'
 // will remove any identities from the virtual machine scale set.
@@ -2800,5 +2817,21 @@ func PossibleWindowsVMGuestPatchModeValues() []WindowsVMGuestPatchMode {
 		WindowsVMGuestPatchModeAutomaticByOS,
 		WindowsVMGuestPatchModeAutomaticByPlatform,
 		WindowsVMGuestPatchModeManual,
+	}
+}
+
+// ZonePlacementPolicyType - Specifies the policy for resource's placement in availability zone.
+// Possible values are:
+// Any - An availability zone will be automatically picked by system as part of resource creation.
+type ZonePlacementPolicyType string
+
+const (
+	ZonePlacementPolicyTypeAny ZonePlacementPolicyType = "Any"
+)
+
+// PossibleZonePlacementPolicyTypeValues returns the possible values for the ZonePlacementPolicyType const type.
+func PossibleZonePlacementPolicyTypeValues() []ZonePlacementPolicyType {
+	return []ZonePlacementPolicyType{
+		ZonePlacementPolicyTypeAny,
 	}
 }
