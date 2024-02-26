@@ -338,11 +338,20 @@ type AppResourceProperties struct {
 	// Indicates whether the App exposes public endpoint
 	Public *bool
 
+	// Collection of auth secrets
+	Secrets []*Secret
+
 	// Temporary disk settings
 	TemporaryDisk *TemporaryDisk
 
+	// State of test endpoint auth.
+	TestEndpointAuthState *TestEndpointAuthState
+
 	// Additional App settings in vnet injection instance
 	VnetAddons *AppVNetAddons
+
+	// The workload profile used for this app. Supported for Consumption + Dedicated plan.
+	WorkloadProfileName *string
 
 	// READ-ONLY; Fully qualified dns Name.
 	Fqdn *string
@@ -958,6 +967,9 @@ type BuildpackBindingResourceCollection struct {
 type BuildpackProperties struct {
 	// Id of the buildpack
 	ID *string
+
+	// READ-ONLY; Version of the buildpack
+	Version *string
 }
 
 // BuildpacksGroupProperties - Buildpack group properties of the Builder
@@ -1037,6 +1049,15 @@ type CertificateResourceCollection struct {
 
 // ClusterResourceProperties - Service properties payload
 type ClusterResourceProperties struct {
+	// The name of the resource group that contains the infrastructure resources
+	InfraResourceGroup *string
+
+	// Additional Service settings for planned maintenance
+	MaintenanceScheduleConfiguration MaintenanceScheduleConfigurationClassification
+
+	// The resource Id of the Managed Environment that the Spring Apps instance builds on
+	ManagedEnvironmentID *string
+
 	// Purchasing 3rd party product of the Service resource.
 	MarketplaceResource *MarketplaceResource
 
@@ -1100,6 +1121,9 @@ type ConfigServerGitProperty struct {
 type ConfigServerProperties struct {
 	// Settings of config server.
 	ConfigServer *ConfigServerSettings
+
+	// Enabled state of the config server. This is only used in Consumption tier.
+	EnabledState *ConfigServerEnabledState
 
 	// Error when apply config server settings.
 	Error *Error
@@ -1281,6 +1305,9 @@ type ConfigurationServiceResourceRequests struct {
 type ConfigurationServiceSettings struct {
 	// Property of git environment.
 	GitProperty *ConfigurationServiceGitProperty
+
+	// How often (in seconds) to check repository updates. Minimum value is 0.
+	RefreshIntervalInSeconds *int32
 }
 
 // ConfigurationServiceSettingsValidateResult - Validation result for configuration service settings
@@ -1552,6 +1579,18 @@ type CustomPersistentDiskResource struct {
 	CustomPersistentDiskProperties CustomPersistentDiskPropertiesClassification
 }
 
+// CustomScaleRule - Azure Spring Apps App Instance Custom scaling rule.
+type CustomScaleRule struct {
+	// Authentication secrets for the custom scale rule.
+	Auth []*ScaleRuleAuth
+
+	// Metadata properties to describe custom scale rule.
+	Metadata map[string]*string
+
+	// Type of the custom scale rule eg: azure-servicebus, redis etc.
+	Type *string
+}
+
 // CustomizedAcceleratorProperties - Customized accelerator properties payload
 type CustomizedAcceleratorProperties struct {
 	// REQUIRED
@@ -1711,6 +1750,9 @@ type DeploymentSettings struct {
 	// later.
 	ResourceRequests *ResourceRequests
 
+	// Scaling properties for the Azure Spring Apps App Instance.
+	Scale *Scale
+
 	// StartupProbe indicates that the App Instance has successfully initialized. If specified, no other probes are executed until
 	// this completes successfully. If this probe fails, the Pod will be restarted,
 	// just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a App Instance's
@@ -1863,6 +1905,46 @@ type Error struct {
 	Message *string
 }
 
+// EurekaServerProperties - Eureka server properties payload
+type EurekaServerProperties struct {
+	// Enabled state of the eureka server. This is only used in Consumption tier.
+	EnabledState *EurekaServerEnabledState
+
+	// Error when applying eureka server settings.
+	Error *Error
+
+	// READ-ONLY; State of the eureka server.
+	ProvisioningState *EurekaServerState
+}
+
+// EurekaServerResource - Eureka server resource
+type EurekaServerResource struct {
+	// Properties of the eureka server resource
+	Properties *EurekaServerProperties
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// EurekaServerResourceCollection - Object that includes an array of Eureka server resources and a possible link for next
+// set
+type EurekaServerResourceCollection struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of Eureka server resources
+	Value []*EurekaServerResource
+}
+
 // ExecAction describes a "run in container" action.
 type ExecAction struct {
 	// REQUIRED; The type of the action to take to perform the health check.
@@ -2001,6 +2083,44 @@ type GatewayInstance struct {
 	Status *string
 }
 
+// GatewayLocalResponseCachePerInstanceProperties - Spring Cloud Gateway local response cache per instance properties.
+type GatewayLocalResponseCachePerInstanceProperties struct {
+	// REQUIRED; The type of the response cache.
+	ResponseCacheType *string
+
+	// Maximum size of cache (10MB, 900KB, 1GB…) to determine if the cache needs to evict some entries
+	Size *string
+
+	// Time before a cached entry is expired (300s, 5m, 1h…)
+	TimeToLive *string
+}
+
+// GetGatewayResponseCacheProperties implements the GatewayResponseCachePropertiesClassification interface for type GatewayLocalResponseCachePerInstanceProperties.
+func (g *GatewayLocalResponseCachePerInstanceProperties) GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties {
+	return &GatewayResponseCacheProperties{
+		ResponseCacheType: g.ResponseCacheType,
+	}
+}
+
+// GatewayLocalResponseCachePerRouteProperties - Spring Cloud Gateway local response cache per route properties.
+type GatewayLocalResponseCachePerRouteProperties struct {
+	// REQUIRED; The type of the response cache.
+	ResponseCacheType *string
+
+	// Maximum size of cache (10MB, 900KB, 1GB…) to determine if the cache needs to evict some entries.
+	Size *string
+
+	// Time before a cached entry is expired (300s, 5m, 1h…)
+	TimeToLive *string
+}
+
+// GetGatewayResponseCacheProperties implements the GatewayResponseCachePropertiesClassification interface for type GatewayLocalResponseCachePerRouteProperties.
+func (g *GatewayLocalResponseCachePerRouteProperties) GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties {
+	return &GatewayResponseCacheProperties{
+		ResponseCacheType: g.ResponseCacheType,
+	}
+}
+
 // GatewayOperatorProperties - Properties of the Spring Cloud Gateway Operator.
 type GatewayOperatorProperties struct {
 	// READ-ONLY; Collection of instances belong to Spring Cloud Gateway operator.
@@ -2027,6 +2147,12 @@ type GatewayProperties struct {
 	// API metadata property for Spring Cloud Gateway
 	APIMetadataProperties *GatewayAPIMetadataProperties
 
+	// Collection of addons for Spring Cloud Gateway
+	AddonConfigs map[string]any
+
+	// Collection of APM type used in Spring Cloud Gateway
+	ApmTypes []*ApmType
+
 	// Collection of ApmReferences in service level
 	Apms []*ApmReference
 
@@ -2047,6 +2173,9 @@ type GatewayProperties struct {
 
 	// The requested resource quantity for required CPU and Memory.
 	ResourceRequests *GatewayResourceRequests
+
+	// The properties to configure different types of response cache for Spring Cloud Gateway.
+	ResponseCacheProperties GatewayResponseCachePropertiesClassification
 
 	// Single sign-on related configuration
 	SsoProperties *SsoProperties
@@ -2119,6 +2248,17 @@ type GatewayResourceRequests struct {
 
 	// Memory allocated to each Spring Cloud Gateway instance.
 	Memory *string
+}
+
+// GatewayResponseCacheProperties - Spring Cloud Gateway response cache properties.
+type GatewayResponseCacheProperties struct {
+	// REQUIRED; The type of the response cache.
+	ResponseCacheType *string
+}
+
+// GetGatewayResponseCacheProperties implements the GatewayResponseCachePropertiesClassification interface for type GatewayResponseCacheProperties.
+func (g *GatewayResponseCacheProperties) GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties {
+	return g
 }
 
 // GatewayRouteConfigOpenAPIProperties - OpenAPI properties of Spring Cloud Gateway route config.
@@ -2246,6 +2386,15 @@ func (h *HTTPGetAction) GetProbeAction() *ProbeAction {
 	return &ProbeAction{
 		Type: h.Type,
 	}
+}
+
+// HTTPScaleRule - Azure Spring Apps App Instance Http scaling rule.
+type HTTPScaleRule struct {
+	// Authentication secrets for the custom scale rule.
+	Auth []*ScaleRuleAuth
+
+	// Metadata properties to describe http scale rule.
+	Metadata map[string]*string
 }
 
 // ImageRegistryCredential - Credential of the image registry
@@ -2410,6 +2559,17 @@ type LogSpecification struct {
 
 	// Name of the log
 	Name *string
+}
+
+// MaintenanceScheduleConfiguration - Configuration for the planned maintenance
+type MaintenanceScheduleConfiguration struct {
+	// REQUIRED; The frequency to run the maintenance job
+	Frequency *Frequency
+}
+
+// GetMaintenanceScheduleConfiguration implements the MaintenanceScheduleConfigurationClassification interface for type MaintenanceScheduleConfiguration.
+func (m *MaintenanceScheduleConfiguration) GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration {
+	return m
 }
 
 // ManagedIdentityProperties - Managed identity properties retrieved from ARM request headers.
@@ -2772,6 +2932,18 @@ type ProxyResource struct {
 	Type *string
 }
 
+// QueueScaleRule - Azure Spring Apps App Instance Azure Queue based scaling rule.
+type QueueScaleRule struct {
+	// Authentication secrets for the queue scale rule.
+	Auth []*ScaleRuleAuth
+
+	// Queue length.
+	QueueLength *int32
+
+	// Queue name.
+	QueueName *string
+}
+
 // RegenerateTestKeyRequestPayload - Regenerate test key request payload
 type RegenerateTestKeyRequestPayload struct {
 	// REQUIRED; Type of the test key
@@ -2964,6 +3136,54 @@ type SKUCapacity struct {
 type SKUObject struct {
 	// Sku of the Spring Cloud Gateway resource
 	SKU *SKU
+}
+
+// Scale - Azure Spring Apps scaling configurations.
+type Scale struct {
+	// Optional. Maximum number of container replicas. Defaults to 10 if not set.
+	MaxReplicas *int32
+
+	// Optional. Minimum number of container replicas.
+	MinReplicas *int32
+
+	// Scaling rules.
+	Rules []*ScaleRule
+}
+
+// ScaleRule - Azure Spring Apps App Instance scaling rule.
+type ScaleRule struct {
+	// Azure Queue based scaling.
+	AzureQueue *QueueScaleRule
+
+	// Custom scale rule.
+	Custom *CustomScaleRule
+
+	// HTTP requests based scaling.
+	HTTP *HTTPScaleRule
+
+	// Scale Rule Name
+	Name *string
+
+	// Tcp requests based scaling.
+	TCP *TCPScaleRule
+}
+
+// ScaleRuleAuth - Auth Secrets for Azure Spring Apps App Instance Scale Rule
+type ScaleRuleAuth struct {
+	// Name of the Azure Spring Apps App Instance secret from which to pull the auth params.
+	SecretRef *string
+
+	// Trigger Parameter that uses the secret
+	TriggerParameter *string
+}
+
+// Secret definition.
+type Secret struct {
+	// Secret Name.
+	Name *string
+
+	// Secret Value.
+	Value *string
 }
 
 // ServiceRegistryInstance - Collection of instances belong to the Service Registry
@@ -3234,6 +3454,9 @@ type SupportedBuildpackResource struct {
 type SupportedBuildpackResourceProperties struct {
 	// The id of supported buildpack
 	BuildpackID *string
+
+	// The version of supported buildpack
+	Version *string
 }
 
 // SupportedBuildpacksCollection - Object that includes an array of supported buildpacks resources and a possible link for
@@ -3334,6 +3557,15 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *LastModifiedByType
+}
+
+// TCPScaleRule - Azure Spring Apps App Instance Tcp scaling rule.
+type TCPScaleRule struct {
+	// Authentication secrets for the tcp scale rule.
+	Auth []*ScaleRuleAuth
+
+	// Metadata properties to describe tcp scale rule.
+	Metadata map[string]*string
 }
 
 // TCPSocketAction describes an action based on opening a socket
@@ -3506,5 +3738,27 @@ func (w *WarUploadedUserSourceInfo) GetUserSourceInfo() *UserSourceInfo {
 	return &UserSourceInfo{
 		Type:    w.Type,
 		Version: w.Version,
+	}
+}
+
+// WeeklyMaintenanceScheduleConfiguration - Weekly planned maintenance
+type WeeklyMaintenanceScheduleConfiguration struct {
+	// REQUIRED; The day to run the maintenance job
+	Day *WeekDay
+
+	// REQUIRED; The frequency to run the maintenance job
+	Frequency *Frequency
+
+	// REQUIRED; The hour to run the maintenance job
+	Hour *int32
+
+	// READ-ONLY; The duration time to run the maintenance job, specified in ISO8601 format, e.g. PT8H
+	Duration *string
+}
+
+// GetMaintenanceScheduleConfiguration implements the MaintenanceScheduleConfigurationClassification interface for type WeeklyMaintenanceScheduleConfiguration.
+func (w *WeeklyMaintenanceScheduleConfiguration) GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration {
+	return &MaintenanceScheduleConfiguration{
+		Frequency: w.Frequency,
 	}
 }

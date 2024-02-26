@@ -1,5 +1,54 @@
 # Release History
 
+## 2.1.0-beta.1 (2024-02-26)
+### Features Added
+
+- New value `BindingTypeCACertificates` added to enum type `BindingType`
+- New value `SupportedRuntimeValueJava21` added to enum type `SupportedRuntimeValue`
+- New enum type `ApmType` with values `ApmTypeAppDynamics`, `ApmTypeApplicationInsights`, `ApmTypeDynatrace`, `ApmTypeElasticAPM`, `ApmTypeNewRelic`
+- New enum type `ConfigServerEnabledState` with values `ConfigServerEnabledStateDisabled`, `ConfigServerEnabledStateEnabled`
+- New enum type `EurekaServerEnabledState` with values `EurekaServerEnabledStateDisabled`, `EurekaServerEnabledStateEnabled`
+- New enum type `EurekaServerState` with values `EurekaServerStateCanceled`, `EurekaServerStateFailed`, `EurekaServerStateSucceeded`, `EurekaServerStateUpdating`
+- New enum type `Frequency` with values `FrequencyWeekly`
+- New enum type `TestEndpointAuthState` with values `TestEndpointAuthStateDisabled`, `TestEndpointAuthStateEnabled`
+- New enum type `WeekDay` with values `WeekDayFriday`, `WeekDayMonday`, `WeekDaySaturday`, `WeekDaySunday`, `WeekDayThursday`, `WeekDayTuesday`, `WeekDayWednesday`
+- New function `*ClientFactory.NewEurekaServersClient() *EurekaServersClient`
+- New function `NewEurekaServersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EurekaServersClient, error)`
+- New function `*EurekaServersClient.Get(context.Context, string, string, *EurekaServersClientGetOptions) (EurekaServersClientGetResponse, error)`
+- New function `*EurekaServersClient.List(context.Context, string, string, *EurekaServersClientListOptions) (EurekaServersClientListResponse, error)`
+- New function `*EurekaServersClient.BeginUpdatePatch(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePatchOptions) (*runtime.Poller[EurekaServersClientUpdatePatchResponse], error)`
+- New function `*EurekaServersClient.BeginUpdatePut(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePutOptions) (*runtime.Poller[EurekaServersClientUpdatePutResponse], error)`
+- New function `*GatewayLocalResponseCachePerInstanceProperties.GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties`
+- New function `*GatewayLocalResponseCachePerRouteProperties.GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties`
+- New function `*GatewayResponseCacheProperties.GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties`
+- New function `*GatewaysClient.BeginUpdateCapacity(context.Context, string, string, string, SKUObject, *GatewaysClientBeginUpdateCapacityOptions) (*runtime.Poller[GatewaysClientUpdateCapacityResponse], error)`
+- New function `*MaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
+- New function `*WeeklyMaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
+- New struct `CustomScaleRule`
+- New struct `EurekaServerProperties`
+- New struct `EurekaServerResource`
+- New struct `EurekaServerResourceCollection`
+- New struct `GatewayLocalResponseCachePerInstanceProperties`
+- New struct `GatewayLocalResponseCachePerRouteProperties`
+- New struct `HTTPScaleRule`
+- New struct `QueueScaleRule`
+- New struct `Scale`
+- New struct `ScaleRule`
+- New struct `ScaleRuleAuth`
+- New struct `Secret`
+- New struct `TCPScaleRule`
+- New struct `WeeklyMaintenanceScheduleConfiguration`
+- New field `Secrets`, `TestEndpointAuthState`, `WorkloadProfileName` in struct `AppResourceProperties`
+- New field `Version` in struct `BuildpackProperties`
+- New field `InfraResourceGroup`, `MaintenanceScheduleConfiguration`, `ManagedEnvironmentID` in struct `ClusterResourceProperties`
+- New field `EnabledState` in struct `ConfigServerProperties`
+- New field `RefreshIntervalInSeconds` in struct `ConfigurationServiceSettings`
+- New field `Scale` in struct `DeploymentSettings`
+- New field `Expand` in struct `DeploymentsClientListOptions`
+- New field `AddonConfigs`, `ApmTypes`, `ResponseCacheProperties` in struct `GatewayProperties`
+- New field `Version` in struct `SupportedBuildpackResourceProperties`
+
+
 ## 2.0.0 (2024-01-26)
 ### Breaking Changes
 
