@@ -1,5 +1,42 @@
 # Release History
 
+## 5.1.0 (2024-02-26)
+### Features Added
+
+- New value `EndpointTypeAzureArcNetwork` added to enum type `EndpointType`
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New function `*ClientFactory.NewFirewallPolicyDeploymentsClient() *FirewallPolicyDeploymentsClient`
+- New function `*ClientFactory.NewFirewallPolicyDraftsClient() *FirewallPolicyDraftsClient`
+- New function `*ClientFactory.NewFirewallPolicyRuleCollectionGroupDraftsClient() *FirewallPolicyRuleCollectionGroupDraftsClient`
+- New function `NewFirewallPolicyDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPolicyDeploymentsClient, error)`
+- New function `*FirewallPolicyDeploymentsClient.BeginDeploy(context.Context, string, string, *FirewallPolicyDeploymentsClientBeginDeployOptions) (*runtime.Poller[FirewallPolicyDeploymentsClientDeployResponse], error)`
+- New function `NewFirewallPolicyDraftsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPolicyDraftsClient, error)`
+- New function `*FirewallPolicyDraftsClient.CreateOrUpdate(context.Context, string, string, FirewallPolicyDraft, *FirewallPolicyDraftsClientCreateOrUpdateOptions) (FirewallPolicyDraftsClientCreateOrUpdateResponse, error)`
+- New function `*FirewallPolicyDraftsClient.Delete(context.Context, string, string, *FirewallPolicyDraftsClientDeleteOptions) (FirewallPolicyDraftsClientDeleteResponse, error)`
+- New function `*FirewallPolicyDraftsClient.Get(context.Context, string, string, *FirewallPolicyDraftsClientGetOptions) (FirewallPolicyDraftsClientGetResponse, error)`
+- New function `NewFirewallPolicyRuleCollectionGroupDraftsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FirewallPolicyRuleCollectionGroupDraftsClient, error)`
+- New function `*FirewallPolicyRuleCollectionGroupDraftsClient.CreateOrUpdate(context.Context, string, string, string, FirewallPolicyRuleCollectionGroupDraft, *FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateOptions) (FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupDraftsClient.Delete(context.Context, string, string, string, *FirewallPolicyRuleCollectionGroupDraftsClientDeleteOptions) (FirewallPolicyRuleCollectionGroupDraftsClientDeleteResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupDraftsClient.Get(context.Context, string, string, string, *FirewallPolicyRuleCollectionGroupDraftsClientGetOptions) (FirewallPolicyRuleCollectionGroupDraftsClientGetResponse, error)`
+- New function `*VirtualAppliancesClient.Restart(context.Context, string, string, *VirtualAppliancesClientRestartOptions) (VirtualAppliancesClientRestartResponse, error)`
+- New struct `ConnectionMonitorEndpointLocationDetails`
+- New struct `FirewallPolicyDraft`
+- New struct `FirewallPolicyDraftProperties`
+- New struct `FirewallPolicyRuleCollectionGroupDraft`
+- New struct `FirewallPolicyRuleCollectionGroupDraftProperties`
+- New struct `HeaderValueMatcher`
+- New struct `PacketCaptureSettings`
+- New struct `VirtualApplianceInstanceIDs`
+- New field `HeaderValueMatcher` in struct `ApplicationGatewayHeaderConfiguration`
+- New field `Zones` in struct `BastionHost`
+- New field `LocationDetails`, `SubscriptionID` in struct `ConnectionMonitorEndpoint`
+- New field `EnableDirectPortRateLimit` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `CaptureSettings`, `ContinuousCapture` in struct `PacketCaptureParameters`
+- New field `CaptureSettings`, `ContinuousCapture` in struct `PacketCaptureResultProperties`
+- New field `LocalPath` in struct `PacketCaptureStorageLocation`
+- New field `EnableOnlyIPv6Peering`, `LocalAddressSpace`, `LocalSubnetNames`, `LocalVirtualNetworkAddressSpace`, `PeerCompleteVnets`, `RemoteSubnetNames` in struct `VirtualNetworkPeeringPropertiesFormat`
+
+
 ## 5.0.0 (2023-12-22)
 ### Breaking Changes
 
