@@ -150,6 +150,13 @@ type AgentPoolUpgradeSettings struct {
 	NodeSoakDurationInMinutes *int32
 }
 
+// AgentPoolWindowsProfile - The Windows agent pool's specific profile.
+type AgentPoolWindowsProfile struct {
+	// The default value is false. Outbound NAT can only be disabled if the cluster outboundType is NAT Gateway and the Windows
+	// agent pool does not have node public IP enabled.
+	DisableOutboundNat *bool
+}
+
 // AzureKeyVaultKms - Azure Key Vault key management service settings for the security profile.
 type AzureKeyVaultKms struct {
 	// Whether to enable Azure Key Vault key management service. The default is false.
@@ -422,6 +429,9 @@ type KubernetesPatchVersion struct {
 type KubernetesVersion struct {
 	// Capabilities on this Kubernetes version.
 	Capabilities *KubernetesVersionCapabilities
+
+	// Whether this version is default.
+	IsDefault *bool
 
 	// Whether this version is in preview mode.
 	IsPreview *bool
@@ -816,6 +826,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}
 	VnetSubnetID *string
 
+	// The Windows agent pool's specific profile.
+	WindowsProfile *AgentPoolWindowsProfile
+
 	// Determines the type of workload a node can run.
 	WorkloadRuntime *WorkloadRuntime
 
@@ -978,6 +991,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}
 	VnetSubnetID *string
 
+	// The Windows agent pool's specific profile.
+	WindowsProfile *AgentPoolWindowsProfile
+
 	// Determines the type of workload a node can run.
 	WorkloadRuntime *WorkloadRuntime
 
@@ -1038,6 +1054,14 @@ type ManagedClusterAzureMonitorProfileMetrics struct {
 	KubeStateMetrics *ManagedClusterAzureMonitorProfileKubeStateMetrics
 }
 
+// ManagedClusterCostAnalysis - The cost analysis configuration for the cluster
+type ManagedClusterCostAnalysis struct {
+	// The Managed Cluster sku.tier must be set to 'Standard' or 'Premium' to enable this feature. Enabling this will add Kubernetes
+	// Namespace and Deployment details to the Cost Analysis views in the Azure
+	// portal. If not specified, the default is false. For more information see aka.ms/aks/docs/cost-analysis.
+	Enabled *bool
+}
+
 // ManagedClusterHTTPProxyConfig - Cluster HTTP proxy configuration.
 type ManagedClusterHTTPProxyConfig struct {
 	// The HTTP proxy server endpoint to use.
@@ -1071,6 +1095,31 @@ type ManagedClusterIdentity struct {
 
 	// READ-ONLY; The tenant id of the system assigned identity which is used by master components.
 	TenantID *string
+}
+
+// ManagedClusterIngressProfile - Ingress profile for the container service cluster.
+type ManagedClusterIngressProfile struct {
+	// App Routing settings for the ingress profile. You can find an overview and onboarding guide for this feature at
+	// https://learn.microsoft.com/en-us/azure/aks/app-routing?tabs=default%2Cdeploy-app-default.
+	WebAppRouting *ManagedClusterIngressProfileWebAppRouting
+}
+
+// ManagedClusterIngressProfileWebAppRouting - Application Routing add-on settings for the ingress profile.
+type ManagedClusterIngressProfileWebAppRouting struct {
+	// Resource IDs of the DNS zones to be associated with the Application Routing add-on. Used only when Application Routing
+	// add-on is enabled. Public and private DNS zones can be in different resource
+	// groups, but all public DNS zones must be in the same resource group and all private DNS zones must be in the same resource
+	// group.
+	DNSZoneResourceIDs []*string
+
+	// Whether to enable the Application Routing add-on.
+	Enabled *bool
+
+	// READ-ONLY; Managed identity of the Application Routing add-on. This is the identity that should be granted permissions,
+	// for example, to manage the associated Azure DNS resource and get certificates from Azure
+	// Key Vault. See this overview of the add-on [https://learn.microsoft.com/en-us/azure/aks/web-app-routing?tabs=with-osm]
+	// for more instructions.
+	Identity *UserAssignedIdentity
 }
 
 // ManagedClusterListResult - The response from the List Managed Clusters operation.
@@ -1140,6 +1189,12 @@ type ManagedClusterManagedOutboundIPProfile struct {
 	// The desired number of outbound IPs created/managed by Azure. Allowed values must be in the range of 1 to 16 (inclusive).
 	// The default value is 1.
 	Count *int32
+}
+
+// ManagedClusterMetricsProfile - The metrics profile for the ManagedCluster.
+type ManagedClusterMetricsProfile struct {
+	// The cost analysis configuration for the cluster
+	CostAnalysis *ManagedClusterCostAnalysis
 }
 
 // ManagedClusterNATGatewayProfile - Profile of the managed cluster NAT gateway.
@@ -1317,6 +1372,9 @@ type ManagedClusterProperties struct {
 	// Identities associated with the cluster.
 	IdentityProfile map[string]*UserAssignedIdentity
 
+	// Ingress profile for the managed cluster.
+	IngressProfile *ManagedClusterIngressProfile
+
 	// Both patch version (e.g. 1.20.13) and (e.g. 1.20) are supported. When is specified, the latest supported GA patch version
 	// is chosen automatically. Updating the cluster with the same once it has been
 	// created (e.g. 1.14.x -> 1.14) will not trigger an upgrade, even if a newer patch version is available. When you upgrade
@@ -1328,6 +1386,9 @@ type ManagedClusterProperties struct {
 
 	// The profile for Linux VMs in the Managed Cluster.
 	LinuxProfile *LinuxProfile
+
+	// Optional cluster metrics configuration.
+	MetricsProfile *ManagedClusterMetricsProfile
 
 	// The network configuration profile.
 	NetworkProfile *NetworkProfile
