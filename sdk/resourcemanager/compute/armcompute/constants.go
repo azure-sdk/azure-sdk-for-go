@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.5.0"
+	moduleVersion = "v5.6.0"
 )
 
 type AccessLevel string
@@ -425,25 +425,31 @@ func PossibleDiskCreateOptionValues() []DiskCreateOption {
 	}
 }
 
-// DiskCreateOptionTypes - Specifies how the virtual machine should be created. Possible values are: Attach. This value is
-// used when you are using a specialized disk to create the virtual machine. FromImage. This value is used
-// when you are using an image to create the virtual machine. If you are using a platform image, you also use the imageReference
-// element described above. If you are using a marketplace image, you also
-// use the plan element previously described.
+// DiskCreateOptionTypes - Specifies how the virtual machine disk should be created. Possible values are Attach: This value
+// is used when you are using a specialized disk to create the virtual machine. FromImage: This value is
+// used when you are using an image to create the virtual machine. If you are using a platform image, you should also use
+// the imageReference element described above. If you are using a marketplace image,
+// you should also use the plan element previously described. Empty: This value is used when creating an empty data disk.
+// Copy: This value is used to create a data disk from a snapshot or another disk.
+// Restore: This value is used to create a data disk from a disk restore point.
 type DiskCreateOptionTypes string
 
 const (
 	DiskCreateOptionTypesAttach    DiskCreateOptionTypes = "Attach"
+	DiskCreateOptionTypesCopy      DiskCreateOptionTypes = "Copy"
 	DiskCreateOptionTypesEmpty     DiskCreateOptionTypes = "Empty"
 	DiskCreateOptionTypesFromImage DiskCreateOptionTypes = "FromImage"
+	DiskCreateOptionTypesRestore   DiskCreateOptionTypes = "Restore"
 )
 
 // PossibleDiskCreateOptionTypesValues returns the possible values for the DiskCreateOptionTypes const type.
 func PossibleDiskCreateOptionTypesValues() []DiskCreateOptionTypes {
 	return []DiskCreateOptionTypes{
 		DiskCreateOptionTypesAttach,
+		DiskCreateOptionTypesCopy,
 		DiskCreateOptionTypesEmpty,
 		DiskCreateOptionTypesFromImage,
+		DiskCreateOptionTypesRestore,
 	}
 }
 
@@ -1678,6 +1684,23 @@ func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	}
 }
 
+type ResourceIDOptionsForGetCapacityReservationGroups string
+
+const (
+	ResourceIDOptionsForGetCapacityReservationGroupsAll                    ResourceIDOptionsForGetCapacityReservationGroups = "All"
+	ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription  ResourceIDOptionsForGetCapacityReservationGroups = "CreatedInSubscription"
+	ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription ResourceIDOptionsForGetCapacityReservationGroups = "SharedWithSubscription"
+)
+
+// PossibleResourceIDOptionsForGetCapacityReservationGroupsValues returns the possible values for the ResourceIDOptionsForGetCapacityReservationGroups const type.
+func PossibleResourceIDOptionsForGetCapacityReservationGroupsValues() []ResourceIDOptionsForGetCapacityReservationGroups {
+	return []ResourceIDOptionsForGetCapacityReservationGroups{
+		ResourceIDOptionsForGetCapacityReservationGroupsAll,
+		ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription,
+		ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription,
+	}
+}
+
 // ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
 // includes both an implicitly created identity and a set of user assigned identities. The type 'None'
 // will remove any identities from the virtual machine scale set.
@@ -2800,5 +2823,21 @@ func PossibleWindowsVMGuestPatchModeValues() []WindowsVMGuestPatchMode {
 		WindowsVMGuestPatchModeAutomaticByOS,
 		WindowsVMGuestPatchModeAutomaticByPlatform,
 		WindowsVMGuestPatchModeManual,
+	}
+}
+
+// ZonePlacementPolicyType - Specifies the policy for resource's placement in availability zone.
+// Possible values are:
+// Any - An availability zone will be automatically picked by system as part of resource creation.
+type ZonePlacementPolicyType string
+
+const (
+	ZonePlacementPolicyTypeAny ZonePlacementPolicyType = "Any"
+)
+
+// PossibleZonePlacementPolicyTypeValues returns the possible values for the ZonePlacementPolicyType const type.
+func PossibleZonePlacementPolicyTypeValues() []ZonePlacementPolicyType {
+	return []ZonePlacementPolicyType{
+		ZonePlacementPolicyTypeAny,
 	}
 }
