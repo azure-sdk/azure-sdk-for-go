@@ -1710,6 +1710,9 @@ type KubernetesClusterRestoreCriteria struct {
 	// Gets or sets the PV (Persistent Volume) Restore Mode property. This property sets whether volumes needs to be restored.
 	PersistentVolumeRestoreMode *PersistentVolumeRestoreMode
 
+	// Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore.
+	ResourceModifierReference *NamespacedNameResource
+
 	// Gets or sets the restore hook references. This property sets the hook reference to be executed during restore.
 	RestoreHookReferences []*NamespacedNameResource
 }
@@ -1757,6 +1760,9 @@ type KubernetesClusterVaultTierRestoreCriteria struct {
 	// Gets or sets the PV (Persistent Volume) Restore Mode property. This property sets whether volumes needs to be restored
 	// from vault.
 	PersistentVolumeRestoreMode *PersistentVolumeRestoreMode
+
+	// Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore.
+	ResourceModifierReference *NamespacedNameResource
 
 	// Gets or sets the restore hook references. This property sets the hook reference to be executed during restore from vault.
 	RestoreHookReferences []*NamespacedNameResource
