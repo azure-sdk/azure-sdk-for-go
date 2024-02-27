@@ -933,6 +933,11 @@ type ApplicationGatewayHeaderConfiguration struct {
 
 	// Header value of the header configuration.
 	HeaderValue *string
+
+	// An optional field under "Rewrite Action". It lets you capture and modify the value(s) of a specific header when multiple
+	// headers with the same name exist. Currently supported for Set-Cookie Response
+	// header only. For more details, visit https://aka.ms/appgwheadercrud
+	HeaderValueMatcher *HeaderValueMatcher
 }
 
 // ApplicationGatewayIPConfiguration - IP configuration of an application gateway. Currently 1 public and 1 private IP configuration
@@ -2936,6 +2941,9 @@ type BastionHost struct {
 	// Resource tags.
 	Tags map[string]*string
 
+	// A list of availability zones denoting where the resource needs to come from.
+	Zones []*string
+
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string
 
@@ -3335,20 +3343,30 @@ type ConnectionMonitorEndpoint struct {
 	// REQUIRED; The name of the connection monitor endpoint.
 	Name *string
 
-	// Address of the connection monitor endpoint (IP or domain name).
+	// Address of the connection monitor endpoint. Supported for AzureVM, ExternalAddress, ArcMachine, MMAWorkspaceMachine endpoint
+	// type.
 	Address *string
 
 	// Test coverage for the endpoint.
 	CoverageLevel *CoverageLevel
 
-	// Filter for sub-items within the endpoint.
+	// Filter field is getting deprecated and should not be used. Instead use Include/Exclude scope fields for it.
 	Filter *ConnectionMonitorEndpointFilter
 
-	// Resource ID of the connection monitor endpoint.
+	// Location details is optional and only being used for 'AzureArcNetwork' type endpoints, which contains region details.
+	LocationDetails *ConnectionMonitorEndpointLocationDetails
+
+	// Resource ID of the connection monitor endpoint are supported for AzureVM, AzureVMSS, AzureVNet, AzureSubnet, MMAWorkspaceMachine,
+	// MMAWorkspaceNetwork, AzureArcVM endpoint type.
 	ResourceID *string
 
-	// Endpoint scope.
+	// Endpoint scope defines which target resource to monitor in case of compound resource endpoints like VMSS, AzureSubnet,
+	// AzureVNet, MMAWorkspaceNetwork, AzureArcNetwork.
 	Scope *ConnectionMonitorEndpointScope
+
+	// Subscription ID for connection monitor endpoint. It's an optional parameter which is being used for 'AzureArcNetwork' type
+	// endpoint.
+	SubscriptionID *string
 
 	// The endpoint type.
 	Type *EndpointType
@@ -3370,6 +3388,13 @@ type ConnectionMonitorEndpointFilterItem struct {
 
 	// The type of item included in the filter. Currently only 'AgentAddress' is supported.
 	Type *ConnectionMonitorEndpointFilterItemType
+}
+
+// ConnectionMonitorEndpointLocationDetails - Connection monitor endpoint location details only being used for 'AzureArcNetwork'
+// type endpoints, which contains the region details.
+type ConnectionMonitorEndpointLocationDetails struct {
+	// Region for connection monitor endpoint.
+	Region *string
 }
 
 // ConnectionMonitorEndpointScope - Describes the connection monitor endpoint scope.
@@ -5015,6 +5040,9 @@ type ExpressRouteCircuitPropertiesFormat struct {
 	// The CircuitProvisioningState state of the resource.
 	CircuitProvisioningState *string
 
+	// Flag denoting rate-limiting status of the ExpressRoute direct-port circuit.
+	EnableDirectPortRateLimit *bool
+
 	// The reference to the ExpressRoutePort resource when the circuit is provisioned on an ExpressRoutePort resource.
 	ExpressRoutePort *SubResource
 
@@ -5877,6 +5905,56 @@ type FirewallPolicyCertificateAuthority struct {
 	Name *string
 }
 
+// FirewallPolicyDraft - FirewallPolicy Resource.
+type FirewallPolicyDraft struct {
+	// Resource ID.
+	ID *string
+
+	// Resource location.
+	Location *string
+
+	// Properties of the firewall policy.
+	Properties *FirewallPolicyDraftProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+type FirewallPolicyDraftProperties struct {
+	// The parent firewall policy from which rules are inherited.
+	BasePolicy *SubResource
+
+	// DNS Proxy Settings definition.
+	DNSSettings *DNSSettings
+
+	// Explicit Proxy Settings definition.
+	ExplicitProxy *ExplicitProxySettings
+
+	// Insights on Firewall Policy.
+	Insights *FirewallPolicyInsights
+
+	// The configuration for Intrusion detection.
+	IntrusionDetection *FirewallPolicyIntrusionDetection
+
+	// SQL Settings definition.
+	SQL *FirewallPolicySQL
+
+	// The private IP addresses/IP ranges to which traffic will not be SNAT.
+	Snat *FirewallPolicySNAT
+
+	// The operation mode for Threat Intelligence.
+	ThreatIntelMode *AzureFirewallThreatIntelMode
+
+	// ThreatIntel Whitelist for Firewall Policy.
+	ThreatIntelWhitelist *FirewallPolicyThreatIntelWhitelist
+}
+
 // FirewallPolicyFilterRuleCollection - Firewall Policy Filter Rule Collection.
 type FirewallPolicyFilterRuleCollection struct {
 	// REQUIRED; The type of the rule collection.
@@ -6165,6 +6243,33 @@ type FirewallPolicyRuleCollectionGroup struct {
 	Type *string
 }
 
+// FirewallPolicyRuleCollectionGroupDraft - Rule Collection Group resource.
+type FirewallPolicyRuleCollectionGroupDraft struct {
+	// Resource ID.
+	ID *string
+
+	// The name of the resource that is unique within a resource group. This name can be used to access the resource.
+	Name *string
+
+	// The properties of the firewall policy rule collection group.
+	Properties *FirewallPolicyRuleCollectionGroupDraftProperties
+
+	// READ-ONLY; Rule Group type.
+	Type *string
+}
+
+// FirewallPolicyRuleCollectionGroupDraftProperties - Properties of the rule collection group draft.
+type FirewallPolicyRuleCollectionGroupDraftProperties struct {
+	// Priority of the Firewall Policy Rule Collection Group resource.
+	Priority *int32
+
+	// Group of Firewall Policy rule collections.
+	RuleCollections []FirewallPolicyRuleCollectionClassification
+
+	// READ-ONLY; A read-only string that represents the size of the FirewallPolicyRuleCollectionGroupProperties in MB. (ex 1.2MB)
+	Size *string
+}
+
 // FirewallPolicyRuleCollectionGroupListResult - Response for ListFirewallPolicyRuleCollectionGroups API service call.
 type FirewallPolicyRuleCollectionGroupListResult struct {
 	// URL to get the next set of results.
@@ -6230,6 +6335,9 @@ type FlowLog struct {
 	// Resource ID.
 	ID *string
 
+	// FlowLog resource Managed Identity
+	Identity *ManagedServiceIdentity
+
 	// Resource location.
 	Location *string
 
@@ -6268,6 +6376,9 @@ type FlowLogInformation struct {
 
 	// Parameters that define the configuration of traffic analytics.
 	FlowAnalyticsConfiguration *TrafficAnalyticsProperties
+
+	// FlowLog resource Managed Identity
+	Identity *ManagedServiceIdentity
 }
 
 // FlowLogListResult - List of flow logs.
@@ -6557,6 +6668,20 @@ type HTTPHeader struct {
 
 	// The value in HTTP header.
 	Value *string
+}
+
+// HeaderValueMatcher - An optional field under "Rewrite Action". It lets you capture and modify the value(s) of a specific
+// header when multiple headers with the same name exist. Currently supported for Set-Cookie Response
+// header only. For more details, visit https://aka.ms/appgwheadercrud
+type HeaderValueMatcher struct {
+	// Setting this parameter to truth value with force the pattern to do a case in-sensitive comparison.
+	IgnoreCase *bool
+
+	// Setting this value as truth will force to check the negation of the condition given by the user in the pattern field.
+	Negate *bool
+
+	// The pattern, either fixed string or regular expression, that evaluates if a header value should be selected for rewrite.
+	Pattern *string
 }
 
 // HopLink - Hop link.
@@ -12429,6 +12554,14 @@ type VirtualApplianceConnectionProperties struct {
 	ProvisioningState *ProvisioningState
 }
 
+// VirtualApplianceInstanceIDs - Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+type VirtualApplianceInstanceIDs struct {
+	// The network virtual appliance instance ids. Omitting the network virtual appliance instance ids will result in the operation
+	// being performed on all virtual machines belonging to the network virtual
+	// appliance.
+	InstanceIDs []*string
+}
+
 // VirtualApplianceListResult - Response for ListNetworkVirtualAppliances API service call.
 type VirtualApplianceListResult struct {
 	// URL to get the next set of results.
@@ -13407,6 +13540,21 @@ type VirtualNetworkPeeringPropertiesFormat struct {
 	// If we need to verify the provisioning state of the remote gateway.
 	DoNotVerifyRemoteGateways *bool
 
+	// Whether only Ipv6 address space is peered for subnet peering.
+	EnableOnlyIPv6Peering *bool
+
+	// The local address space of the local virtual network that is peered.
+	LocalAddressSpace *AddressSpace
+
+	// List of local subnet names that are subnet peered with remote virtual network.
+	LocalSubnetNames []*string
+
+	// The current local address space of the local virtual network that is peered.
+	LocalVirtualNetworkAddressSpace *AddressSpace
+
+	// Whether complete virtual network address space is peered.
+	PeerCompleteVnets *bool
+
 	// The status of the virtual network peering.
 	PeeringState *VirtualNetworkPeeringState
 
@@ -13418,6 +13566,9 @@ type VirtualNetworkPeeringPropertiesFormat struct {
 
 	// The reference to the remote virtual network's Bgp Communities.
 	RemoteBgpCommunities *VirtualNetworkBgpCommunities
+
+	// List of remote subnet names from remote virtual network that are subnet peered.
+	RemoteSubnetNames []*string
 
 	// The reference to the remote virtual network. The remote virtual network can be in the same or different region (preview).
 	// See here to register for the preview and learn more
