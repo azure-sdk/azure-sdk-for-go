@@ -10,7 +10,7 @@ package armrelay
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/relay/armrelay"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 type AccessRights string
