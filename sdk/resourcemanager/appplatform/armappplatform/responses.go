@@ -656,6 +656,30 @@ type DevToolPortalsClientListResponse struct {
 	DevToolPortalResourceCollection
 }
 
+// EurekaServersClientGetResponse contains the response from method EurekaServersClient.Get.
+type EurekaServersClientGetResponse struct {
+	// Eureka server resource
+	EurekaServerResource
+}
+
+// EurekaServersClientListResponse contains the response from method EurekaServersClient.List.
+type EurekaServersClientListResponse struct {
+	// Object that includes an array of Eureka server resources and a possible link for next set
+	EurekaServerResourceCollection
+}
+
+// EurekaServersClientUpdatePatchResponse contains the response from method EurekaServersClient.BeginUpdatePatch.
+type EurekaServersClientUpdatePatchResponse struct {
+	// Eureka server resource
+	EurekaServerResource
+}
+
+// EurekaServersClientUpdatePutResponse contains the response from method EurekaServersClient.BeginUpdatePut.
+type EurekaServersClientUpdatePutResponse struct {
+	// Eureka server resource
+	EurekaServerResource
+}
+
 // GatewayCustomDomainsClientCreateOrUpdateResponse contains the response from method GatewayCustomDomainsClient.BeginCreateOrUpdate.
 type GatewayCustomDomainsClientCreateOrUpdateResponse struct {
 	// Custom domain of the Spring Cloud Gateway
@@ -734,6 +758,12 @@ type GatewaysClientListResponse struct {
 // GatewaysClientRestartResponse contains the response from method GatewaysClient.BeginRestart.
 type GatewaysClientRestartResponse struct {
 	// placeholder for future response values
+}
+
+// GatewaysClientUpdateCapacityResponse contains the response from method GatewaysClient.BeginUpdateCapacity.
+type GatewaysClientUpdateCapacityResponse struct {
+	// Spring Cloud Gateway resource
+	GatewayResource
 }
 
 // GatewaysClientValidateDomainResponse contains the response from method GatewaysClient.ValidateDomain.
