@@ -1361,7 +1361,8 @@ type AzureIaaSVMProtectionPolicy struct {
 	RetentionPolicy RetentionPolicyClassification
 
 	// Backup schedule specified as part of backup policy.
-	SchedulePolicy SchedulePolicyClassification
+	SchedulePolicy          SchedulePolicyClassification
+	SnapshotConsistencyType *IaasVMSnapshotConsistencyType
 
 	// Tiering policy to automatically move RPs to another tier Key is Target Tier, defined in RecoveryPointTierType enum. Tiering
 	// policy specifies the criteria to move RP to the target tier.
