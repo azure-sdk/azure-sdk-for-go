@@ -1,5 +1,23 @@
 # Release History
 
+## 2.3.0 (2024-02-28)
+### Features Added
+
+- New value `SourceKindTypeOCIRepository` added to enum type `SourceKindType`
+- New struct `MatchOIDCIdentityDefinition`
+- New struct `MatchOIDCIdentityPatchDefinition`
+- New struct `OCIRepositoryDefinition`
+- New struct `OCIRepositoryLayerSelectorDefinition`
+- New struct `OCIRepositoryLayerSelectorPatchDefinition`
+- New struct `OCIRepositoryPatchDefinition`
+- New struct `OCIRepositoryRefDefinition`
+- New struct `OCIRepositoryRefPatchDefinition`
+- New struct `OCIRepositoryVerifyDefinition`
+- New struct `OCIRepositoryVerifyPatchDefinition`
+- New field `OciRepository` in struct `FluxConfigurationPatchProperties`
+- New field `OciRepository` in struct `FluxConfigurationProperties`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 

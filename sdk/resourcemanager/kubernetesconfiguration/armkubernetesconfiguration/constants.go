@@ -10,7 +10,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 // AKSIdentityType - The identity type.
@@ -247,6 +247,7 @@ const (
 	SourceKindTypeAzureBlob     SourceKindType = "AzureBlob"
 	SourceKindTypeBucket        SourceKindType = "Bucket"
 	SourceKindTypeGitRepository SourceKindType = "GitRepository"
+	SourceKindTypeOCIRepository SourceKindType = "OCIRepository"
 )
 
 // PossibleSourceKindTypeValues returns the possible values for the SourceKindType const type.
@@ -255,5 +256,6 @@ func PossibleSourceKindTypeValues() []SourceKindType {
 		SourceKindTypeAzureBlob,
 		SourceKindTypeBucket,
 		SourceKindTypeGitRepository,
+		SourceKindTypeOCIRepository,
 	}
 }

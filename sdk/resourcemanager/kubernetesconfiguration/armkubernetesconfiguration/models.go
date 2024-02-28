@@ -327,6 +327,9 @@ type FluxConfigurationPatchProperties struct {
 	// Array of kustomizations used to reconcile the artifact pulled by the source type on the cluster.
 	Kustomizations map[string]*KustomizationPatchDefinition
 
+	// Parameters to reconcile to the OCIRepository source kind type.
+	OciRepository *OCIRepositoryPatchDefinition
+
 	// Source Kind to pull the configuration data from.
 	SourceKind *SourceKindType
 
@@ -354,6 +357,9 @@ type FluxConfigurationProperties struct {
 	// The namespace to which this configuration is installed to. Maximum of 253 lower case alphanumeric characters, hyphen and
 	// period only.
 	Namespace *string
+
+	// Parameters to reconcile to the OCIRepository source kind type.
+	OciRepository *OCIRepositoryDefinition
 
 	// Maximum duration to wait for flux configuration reconciliation. E.g PT1H, PT5M, P1D
 	ReconciliationWaitDuration *string
@@ -578,6 +584,155 @@ type ManagedIdentityDefinition struct {
 type ManagedIdentityPatchDefinition struct {
 	// The client Id for authenticating a Managed Identity.
 	ClientID *string
+}
+
+// MatchOIDCIdentityDefinition - MatchOIDCIdentity defines the criteria for matching the identity while verifying an OCI artifact.
+type MatchOIDCIdentityDefinition struct {
+	// The regex pattern to match against to verify the OIDC issuer.
+	Issuer *string
+
+	// The regex pattern to match against to verify the identity subject.
+	Subject *string
+}
+
+// MatchOIDCIdentityPatchDefinition - MatchOIDCIdentity defines the criteria for matching the identity while verifying an
+// OCI artifact.
+type MatchOIDCIdentityPatchDefinition struct {
+	// The regex pattern to match against to verify the OIDC issuer.
+	Issuer *string
+
+	// The regex pattern to match against to verify the identity subject.
+	Subject *string
+}
+
+// OCIRepositoryDefinition - Parameters to reconcile to the OCIRepository source kind type.
+type OCIRepositoryDefinition struct {
+	// The name of the Secret containing client certificate and private key or CA certificate for connecting to the registry.
+	CertSecretRef *string
+
+	// The layer to be pulled from the OCI artifact.
+	LayerSelector *OCIRepositoryLayerSelectorDefinition
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string
+
+	// The source reference for the OCIRepository object.
+	RepositoryRef *OCIRepositoryRefDefinition
+
+	// The service account name to authenticate with the OCI repository.
+	ServiceAccountName *string
+
+	// The interval at which to re-reconcile the cluster OCI repository source with the remote.
+	SyncIntervalInSeconds *int64
+
+	// The maximum time to attempt to reconcile the cluster OCI repository source with the remote.
+	TimeoutInSeconds *int64
+
+	// The URL to sync for the flux configuration OCI repository.
+	URL *string
+
+	// Verification of the authenticity of an OCI Artifact.
+	Verify *OCIRepositoryVerifyDefinition
+}
+
+// OCIRepositoryLayerSelectorDefinition - Parameters to specify which layer to pull from the OCI artifact. By default, the
+// first layer in the artifact is pulled.
+type OCIRepositoryLayerSelectorDefinition struct {
+	// The first layer matching the specified media type will be used.
+	MediaType *string
+
+	// The operation to be performed on the selected layer. The default value is 'extract', but it can be set to 'copy'.
+	Operation *string
+}
+
+// OCIRepositoryLayerSelectorPatchDefinition - Parameters to specify which layer to pull from the OCI artifact. By default,
+// the first layer in the artifact is pulled.
+type OCIRepositoryLayerSelectorPatchDefinition struct {
+	// The first layer matching the specified media type will be used.
+	MediaType *string
+
+	// The operation to be performed on the selected layer. The default value is 'extract', but it can be set to 'copy'.
+	Operation *string
+}
+
+// OCIRepositoryPatchDefinition - Parameters to reconcile to the OCIRepository source kind type.
+type OCIRepositoryPatchDefinition struct {
+	// The name of the Secret containing client certificate and private key or CA certificate for connecting to the registry.
+	CertSecretRef *string
+
+	// The layer to be pulled from the OCI artifact.
+	LayerSelector *OCIRepositoryLayerSelectorPatchDefinition
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string
+
+	// The source reference for the OCIRepository object.
+	RepositoryRef *OCIRepositoryRefPatchDefinition
+
+	// The service account name to authenticate with the OCI repository.
+	ServiceAccountName *string
+
+	// The interval at which to re-reconcile the cluster OCI repository source with the remote.
+	SyncIntervalInSeconds *int64
+
+	// The maximum time to attempt to reconcile the cluster OCI repository source with the remote.
+	TimeoutInSeconds *int64
+
+	// The URL to sync for the flux configuration OCI repository.
+	URL *string
+
+	// Verification of the authenticity of an OCI Artifact.
+	Verify *OCIRepositoryVerifyPatchDefinition
+}
+
+// OCIRepositoryRefDefinition - The source reference for the OCIRepository object.
+type OCIRepositoryRefDefinition struct {
+	// The image digest to pull from OCI repository, the value should be in the format ‘sha256:’. This takes precedence over semver.
+	Digest *string
+
+	// The semver range used to match against OCI repository tags. This takes precedence over tag.
+	Semver *string
+
+	// The OCI repository image tag name to pull. This defaults to 'latest'.
+	Tag *string
+}
+
+// OCIRepositoryRefPatchDefinition - The source reference for the OCIRepository object.
+type OCIRepositoryRefPatchDefinition struct {
+	// The image digest to pull from OCI repository, the value should be in the format ‘sha256:’. This takes precedence over semver.
+	Digest *string
+
+	// The semver range used to match against OCI repository tags. This takes precedence over tag.
+	Semver *string
+
+	// The OCI repository image tag name to pull. This defaults to 'latest'.
+	Tag *string
+}
+
+// OCIRepositoryVerifyDefinition - Parameters to verify the authenticity of an OCI Artifact.
+type OCIRepositoryVerifyDefinition struct {
+	// Array defining the criteria for matching the identity while verifying an OCI artifact.
+	MatchOIDCIdentity []*MatchOIDCIdentityDefinition
+
+	// Verification provider name.
+	Provider *string
+
+	// Kubernetes Secret that contains the trusted public keys of trusted authors.
+	SecretRef *string
+}
+
+// OCIRepositoryVerifyPatchDefinition - Parameters to verify the authenticity of an OCI Artifact.
+type OCIRepositoryVerifyPatchDefinition struct {
+	// Array defining the criteria for matching the identity while verifying an OCI artifact.
+	MatchOIDCIdentity []*MatchOIDCIdentityPatchDefinition
+
+	// Verification provider name.
+	Provider *string
+
+	// Kubernetes Secret that contains the trusted public keys of trusted authors.
+	SecretRef *string
 }
 
 // ObjectReferenceDefinition - Object reference to a Kubernetes object on a cluster
