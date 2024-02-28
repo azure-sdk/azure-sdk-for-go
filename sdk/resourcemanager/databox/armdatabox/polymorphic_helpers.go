@@ -11,7 +11,7 @@ package armdatabox
 import "encoding/json"
 
 func unmarshalCommonJobDetailsClassification(rawMsg json.RawMessage) (CommonJobDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -38,7 +38,7 @@ func unmarshalCommonJobDetailsClassification(rawMsg json.RawMessage) (CommonJobD
 }
 
 func unmarshalCommonJobSecretsClassification(rawMsg json.RawMessage) (CommonJobSecretsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -65,7 +65,7 @@ func unmarshalCommonJobSecretsClassification(rawMsg json.RawMessage) (CommonJobS
 }
 
 func unmarshalCommonScheduleAvailabilityRequestClassification(rawMsg json.RawMessage) (CommonScheduleAvailabilityRequestClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -90,7 +90,7 @@ func unmarshalCommonScheduleAvailabilityRequestClassification(rawMsg json.RawMes
 }
 
 func unmarshalCopyLogDetailsClassification(rawMsg json.RawMessage) (CopyLogDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -117,7 +117,7 @@ func unmarshalCopyLogDetailsClassification(rawMsg json.RawMessage) (CopyLogDetai
 }
 
 func unmarshalCopyLogDetailsClassificationArray(rawMsg json.RawMessage) ([]CopyLogDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -136,7 +136,7 @@ func unmarshalCopyLogDetailsClassificationArray(rawMsg json.RawMessage) ([]CopyL
 }
 
 func unmarshalDataAccountDetailsClassification(rawMsg json.RawMessage) (DataAccountDetailsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -159,7 +159,7 @@ func unmarshalDataAccountDetailsClassification(rawMsg json.RawMessage) (DataAcco
 }
 
 func unmarshalDatacenterAddressResponseClassification(rawMsg json.RawMessage) (DatacenterAddressResponseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -182,7 +182,7 @@ func unmarshalDatacenterAddressResponseClassification(rawMsg json.RawMessage) (D
 }
 
 func unmarshalValidationInputRequestClassification(rawMsg json.RawMessage) (ValidationInputRequestClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -213,7 +213,7 @@ func unmarshalValidationInputRequestClassification(rawMsg json.RawMessage) (Vali
 }
 
 func unmarshalValidationInputRequestClassificationArray(rawMsg json.RawMessage) ([]ValidationInputRequestClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -232,7 +232,7 @@ func unmarshalValidationInputRequestClassificationArray(rawMsg json.RawMessage) 
 }
 
 func unmarshalValidationInputResponseClassification(rawMsg json.RawMessage) (ValidationInputResponseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -263,7 +263,7 @@ func unmarshalValidationInputResponseClassification(rawMsg json.RawMessage) (Val
 }
 
 func unmarshalValidationInputResponseClassificationArray(rawMsg json.RawMessage) ([]ValidationInputResponseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
