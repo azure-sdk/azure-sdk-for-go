@@ -28,7 +28,7 @@ type InventoryItemsClient struct {
 }
 
 // NewInventoryItemsClient creates a new instance of InventoryItemsClient with the specified values.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewInventoryItemsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*InventoryItemsClient, error) {
@@ -46,18 +46,18 @@ func NewInventoryItemsClient(subscriptionID string, credential azcore.TokenCrede
 // Create - Create Or Update InventoryItem.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-06-05-preview
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-10-07
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VMMServer.
-//   - inventoryItemName - Name of the inventoryItem.
+//   - inventoryItemResourceName - Name of the inventoryItem.
 //   - options - InventoryItemsClientCreateOptions contains the optional parameters for the InventoryItemsClient.Create method.
-func (client *InventoryItemsClient) Create(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *InventoryItemsClientCreateOptions) (InventoryItemsClientCreateResponse, error) {
+func (client *InventoryItemsClient) Create(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *InventoryItemsClientCreateOptions) (InventoryItemsClientCreateResponse, error) {
 	var err error
 	const operationName = "InventoryItemsClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, resourceGroupName, vmmServerName, inventoryItemName, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, vmmServerName, inventoryItemResourceName, options)
 	if err != nil {
 		return InventoryItemsClientCreateResponse{}, err
 	}
@@ -65,7 +65,7 @@ func (client *InventoryItemsClient) Create(ctx context.Context, resourceGroupNam
 	if err != nil {
 		return InventoryItemsClientCreateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
 		return InventoryItemsClientCreateResponse{}, err
 	}
@@ -74,8 +74,8 @@ func (client *InventoryItemsClient) Create(ctx context.Context, resourceGroupNam
 }
 
 // createCreateRequest creates the Create request.
-func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *InventoryItemsClientCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}/inventoryItems/{inventoryItemName}"
+func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *InventoryItemsClientCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}/inventoryItems/{inventoryItemResourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -88,16 +88,16 @@ func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter vmmServerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmmServerName}", url.PathEscape(vmmServerName))
-	if inventoryItemName == "" {
-		return nil, errors.New("parameter inventoryItemName cannot be empty")
+	if inventoryItemResourceName == "" {
+		return nil, errors.New("parameter inventoryItemResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{inventoryItemName}", url.PathEscape(inventoryItemName))
+	urlPath = strings.ReplaceAll(urlPath, "{inventoryItemResourceName}", url.PathEscape(inventoryItemResourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-06-05-preview")
+	reqQP.Set("api-version", "2023-10-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -121,18 +121,18 @@ func (client *InventoryItemsClient) createHandleResponse(resp *http.Response) (I
 // Delete - Deletes an inventoryItem.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-06-05-preview
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-10-07
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VMMServer.
-//   - inventoryItemName - Name of the inventoryItem.
+//   - inventoryItemResourceName - Name of the inventoryItem.
 //   - options - InventoryItemsClientDeleteOptions contains the optional parameters for the InventoryItemsClient.Delete method.
-func (client *InventoryItemsClient) Delete(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *InventoryItemsClientDeleteOptions) (InventoryItemsClientDeleteResponse, error) {
+func (client *InventoryItemsClient) Delete(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *InventoryItemsClientDeleteOptions) (InventoryItemsClientDeleteResponse, error) {
 	var err error
 	const operationName = "InventoryItemsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, vmmServerName, inventoryItemName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, vmmServerName, inventoryItemResourceName, options)
 	if err != nil {
 		return InventoryItemsClientDeleteResponse{}, err
 	}
@@ -148,8 +148,8 @@ func (client *InventoryItemsClient) Delete(ctx context.Context, resourceGroupNam
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *InventoryItemsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}/inventoryItems/{inventoryItemName}"
+func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *InventoryItemsClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}/inventoryItems/{inventoryItemResourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -162,16 +162,16 @@ func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter vmmServerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmmServerName}", url.PathEscape(vmmServerName))
-	if inventoryItemName == "" {
-		return nil, errors.New("parameter inventoryItemName cannot be empty")
+	if inventoryItemResourceName == "" {
+		return nil, errors.New("parameter inventoryItemResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{inventoryItemName}", url.PathEscape(inventoryItemName))
+	urlPath = strings.ReplaceAll(urlPath, "{inventoryItemResourceName}", url.PathEscape(inventoryItemResourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-06-05-preview")
+	reqQP.Set("api-version", "2023-10-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,18 +180,18 @@ func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Shows an inventory item.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-06-05-preview
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-10-07
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VMMServer.
-//   - inventoryItemName - Name of the inventoryItem.
+//   - inventoryItemResourceName - Name of the inventoryItem.
 //   - options - InventoryItemsClientGetOptions contains the optional parameters for the InventoryItemsClient.Get method.
-func (client *InventoryItemsClient) Get(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *InventoryItemsClientGetOptions) (InventoryItemsClientGetResponse, error) {
+func (client *InventoryItemsClient) Get(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *InventoryItemsClientGetOptions) (InventoryItemsClientGetResponse, error) {
 	var err error
 	const operationName = "InventoryItemsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, vmmServerName, inventoryItemName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, vmmServerName, inventoryItemResourceName, options)
 	if err != nil {
 		return InventoryItemsClientGetResponse{}, err
 	}
@@ -208,8 +208,8 @@ func (client *InventoryItemsClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // getCreateRequest creates the Get request.
-func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *InventoryItemsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}/inventoryItems/{inventoryItemName}"
+func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *InventoryItemsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}/inventoryItems/{inventoryItemResourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -222,16 +222,16 @@ func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter vmmServerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmmServerName}", url.PathEscape(vmmServerName))
-	if inventoryItemName == "" {
-		return nil, errors.New("parameter inventoryItemName cannot be empty")
+	if inventoryItemResourceName == "" {
+		return nil, errors.New("parameter inventoryItemResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{inventoryItemName}", url.PathEscape(inventoryItemName))
+	urlPath = strings.ReplaceAll(urlPath, "{inventoryItemResourceName}", url.PathEscape(inventoryItemResourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-06-05-preview")
+	reqQP.Set("api-version", "2023-10-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,8 +248,8 @@ func (client *InventoryItemsClient) getHandleResponse(resp *http.Response) (Inve
 
 // NewListByVMMServerPager - Returns the list of inventoryItems in the given VMMServer.
 //
-// Generated from API version 2020-06-05-preview
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-10-07
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VMMServer.
 //   - options - InventoryItemsClientListByVMMServerOptions contains the optional parameters for the InventoryItemsClient.NewListByVMMServerPager
 //     method.
@@ -296,7 +296,7 @@ func (client *InventoryItemsClient) listByVMMServerCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-06-05-preview")
+	reqQP.Set("api-version", "2023-10-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
