@@ -656,6 +656,30 @@ type DevToolPortalsClientListResponse struct {
 	DevToolPortalResourceCollection
 }
 
+// EurekaServersClientGetResponse contains the response from method EurekaServersClient.Get.
+type EurekaServersClientGetResponse struct {
+	// Eureka server resource
+	EurekaServerResource
+}
+
+// EurekaServersClientListResponse contains the response from method EurekaServersClient.List.
+type EurekaServersClientListResponse struct {
+	// Object that includes an array of Eureka server resources and a possible link for next set
+	EurekaServerResourceCollection
+}
+
+// EurekaServersClientUpdatePatchResponse contains the response from method EurekaServersClient.BeginUpdatePatch.
+type EurekaServersClientUpdatePatchResponse struct {
+	// Eureka server resource
+	EurekaServerResource
+}
+
+// EurekaServersClientUpdatePutResponse contains the response from method EurekaServersClient.BeginUpdatePut.
+type EurekaServersClientUpdatePutResponse struct {
+	// Eureka server resource
+	EurekaServerResource
+}
+
 // GatewayCustomDomainsClientCreateOrUpdateResponse contains the response from method GatewayCustomDomainsClient.BeginCreateOrUpdate.
 type GatewayCustomDomainsClientCreateOrUpdateResponse struct {
 	// Custom domain of the Spring Cloud Gateway
@@ -736,10 +760,74 @@ type GatewaysClientRestartResponse struct {
 	// placeholder for future response values
 }
 
+// GatewaysClientUpdateCapacityResponse contains the response from method GatewaysClient.BeginUpdateCapacity.
+type GatewaysClientUpdateCapacityResponse struct {
+	// Spring Cloud Gateway resource
+	GatewayResource
+}
+
 // GatewaysClientValidateDomainResponse contains the response from method GatewaysClient.ValidateDomain.
 type GatewaysClientValidateDomainResponse struct {
 	// Validation result for custom domain.
 	CustomDomainValidateResult
+}
+
+// JobClientCreateOrUpdateResponse contains the response from method JobClient.BeginCreateOrUpdate.
+type JobClientCreateOrUpdateResponse struct {
+	// Job resource payload
+	JobResource
+}
+
+// JobClientDeleteResponse contains the response from method JobClient.BeginDelete.
+type JobClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// JobClientGetResponse contains the response from method JobClient.Get.
+type JobClientGetResponse struct {
+	// Job resource payload
+	JobResource
+}
+
+// JobClientListEnvSecretsResponse contains the response from method JobClient.ListEnvSecrets.
+type JobClientListEnvSecretsResponse struct {
+	// Sensitive properties for environment variables
+	Value map[string]*string
+}
+
+// JobClientStartResponse contains the response from method JobClient.BeginStart.
+type JobClientStartResponse struct {
+	// Azure Spring Apps Job execution.
+	JobExecution
+}
+
+// JobExecutionClientCancelResponse contains the response from method JobExecutionClient.BeginCancel.
+type JobExecutionClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// JobExecutionClientGetResponse contains the response from method JobExecutionClient.Get.
+type JobExecutionClientGetResponse struct {
+	// Azure Spring Apps Job execution.
+	JobExecution
+}
+
+// JobExecutionClientListEnvSecretsResponse contains the response from method JobExecutionClient.ListEnvSecrets.
+type JobExecutionClientListEnvSecretsResponse struct {
+	// Sensitive properties for environment variables
+	Value map[string]*string
+}
+
+// JobExecutionsClientListResponse contains the response from method JobExecutionsClient.NewListPager.
+type JobExecutionsClientListResponse struct {
+	// Azure Spring App Job executions collection.
+	JobExecutionCollection
+}
+
+// JobsClientListResponse contains the response from method JobsClient.NewListPager.
+type JobsClientListResponse struct {
+	// List of Azure Spring Apps Jobs and a possible link for next set.
+	JobResourceCollection
 }
 
 // MonitoringSettingsClientGetResponse contains the response from method MonitoringSettingsClient.Get.

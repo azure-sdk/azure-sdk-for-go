@@ -20,69 +20,68 @@ import (
 	"strings"
 )
 
-// ApmsClient contains the methods for the Apms group.
-// Don't use this type directly, use NewApmsClient() instead.
-type ApmsClient struct {
+// JobClient contains the methods for the Job group.
+// Don't use this type directly, use NewJobClient() instead.
+type JobClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewApmsClient creates a new instance of ApmsClient with the specified values.
+// NewJobClient creates a new instance of JobClient with the specified values.
 //   - subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewApmsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApmsClient, error) {
+func NewJobClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ApmsClient{
+	client := &JobClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create or update an APM.
+// BeginCreateOrUpdate - Create a new Job or update an exiting Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apmName - The name of the APM
-//   - apmResource - Parameters for the create or update operation
-//   - options - ApmsClientBeginCreateOrUpdateOptions contains the optional parameters for the ApmsClient.BeginCreateOrUpdate
-//     method.
-func (client *ApmsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apmName string, apmResource ApmResource, options *ApmsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ApmsClientCreateOrUpdateResponse], error) {
+//   - jobName - The name of the Job resource.
+//   - jobResource - Parameters for the create or update operation
+//   - options - JobClientBeginCreateOrUpdateOptions contains the optional parameters for the JobClient.BeginCreateOrUpdate method.
+func (client *JobClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, jobName string, jobResource JobResource, options *JobClientBeginCreateOrUpdateOptions) (*runtime.Poller[JobClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, serviceName, apmName, apmResource, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, serviceName, jobName, jobResource, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ApmsClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[JobClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ApmsClientCreateOrUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[JobClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// CreateOrUpdate - Create or update an APM.
+// CreateOrUpdate - Create a new Job or update an exiting Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
-func (client *ApmsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apmName string, apmResource ApmResource, options *ApmsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *JobClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, jobName string, jobResource JobResource, options *JobClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ApmsClient.BeginCreateOrUpdate"
+	const operationName = "JobClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, apmName, apmResource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, jobName, jobResource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -98,8 +97,8 @@ func (client *ApmsClient) createOrUpdate(ctx context.Context, resourceGroupName 
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ApmsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apmName string, apmResource ApmResource, options *ApmsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms/{apmName}"
+func (client *JobClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, jobResource JobResource, options *JobClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -112,10 +111,10 @@ func (client *ApmsClient) createOrUpdateCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apmName == "" {
-		return nil, errors.New("parameter apmName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apmName}", url.PathEscape(apmName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -124,50 +123,49 @@ func (client *ApmsClient) createOrUpdateCreateRequest(ctx context.Context, resou
 	reqQP.Set("api-version", "2024-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, apmResource); err != nil {
+	if err := runtime.MarshalAsJSON(req, jobResource); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
-// BeginDelete - Operation to delete an APM
+// BeginDelete - Operation to delete a Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apmName - The name of the APM
-//   - options - ApmsClientBeginDeleteOptions contains the optional parameters for the ApmsClient.BeginDelete method.
-func (client *ApmsClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientBeginDeleteOptions) (*runtime.Poller[ApmsClientDeleteResponse], error) {
+//   - jobName - The name of the Job resource.
+//   - options - JobClientBeginDeleteOptions contains the optional parameters for the JobClient.BeginDelete method.
+func (client *JobClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientBeginDeleteOptions) (*runtime.Poller[JobClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, apmName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, jobName, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ApmsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-			Tracer:        client.internal.Tracer(),
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[JobClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ApmsClientDeleteResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[JobClientDeleteResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// Delete - Operation to delete an APM
+// Delete - Operation to delete a Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
-func (client *ApmsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientBeginDeleteOptions) (*http.Response, error) {
+func (client *JobClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ApmsClient.BeginDelete"
+	const operationName = "JobClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, apmName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -183,8 +181,8 @@ func (client *ApmsClient) deleteOperation(ctx context.Context, resourceGroupName
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ApmsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms/{apmName}"
+func (client *JobClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -197,10 +195,10 @@ func (client *ApmsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apmName == "" {
-		return nil, errors.New("parameter apmName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apmName}", url.PathEscape(apmName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -212,40 +210,40 @@ func (client *ApmsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 	return req, nil
 }
 
-// Get - Get the APM by name.
+// Get - Get an Job and its properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apmName - The name of the APM
-//   - options - ApmsClientGetOptions contains the optional parameters for the ApmsClient.Get method.
-func (client *ApmsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientGetOptions) (ApmsClientGetResponse, error) {
+//   - jobName - The name of the Job resource.
+//   - options - JobClientGetOptions contains the optional parameters for the JobClient.Get method.
+func (client *JobClient) Get(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientGetOptions) (JobClientGetResponse, error) {
 	var err error
-	const operationName = "ApmsClient.Get"
+	const operationName = "JobClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, apmName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
 	if err != nil {
-		return ApmsClientGetResponse{}, err
+		return JobClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ApmsClientGetResponse{}, err
+		return JobClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ApmsClientGetResponse{}, err
+		return JobClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ApmsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms/{apmName}"
+func (client *JobClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -258,10 +256,10 @@ func (client *ApmsClient) getCreateRequest(ctx context.Context, resourceGroupNam
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apmName == "" {
-		return nil, errors.New("parameter apmName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apmName}", url.PathEscape(apmName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -274,113 +272,48 @@ func (client *ApmsClient) getCreateRequest(ctx context.Context, resourceGroupNam
 }
 
 // getHandleResponse handles the Get response.
-func (client *ApmsClient) getHandleResponse(resp *http.Response) (ApmsClientGetResponse, error) {
-	result := ApmsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ApmResource); err != nil {
-		return ApmsClientGetResponse{}, err
+func (client *JobClient) getHandleResponse(resp *http.Response) (JobClientGetResponse, error) {
+	result := JobClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.JobResource); err != nil {
+		return JobClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Get collection of APMs.
-//
-// Generated from API version 2024-01-01-preview
-//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-//     Resource Manager API or the portal.
-//   - serviceName - The name of the Service resource.
-//   - options - ApmsClientListOptions contains the optional parameters for the ApmsClient.NewListPager method.
-func (client *ApmsClient) NewListPager(resourceGroupName string, serviceName string, options *ApmsClientListOptions) *runtime.Pager[ApmsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ApmsClientListResponse]{
-		More: func(page ApmsClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ApmsClientListResponse) (ApmsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ApmsClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, serviceName, options)
-			}, nil)
-			if err != nil {
-				return ApmsClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *ApmsClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *ApmsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serviceName == "" {
-		return nil, errors.New("parameter serviceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *ApmsClient) listHandleResponse(resp *http.Response) (ApmsClientListResponse, error) {
-	result := ApmsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ApmResourceCollection); err != nil {
-		return ApmsClientListResponse{}, err
-	}
-	return result, nil
-}
-
-// ListSecretKeys - List keys of APM sensitive properties.
+// ListEnvSecrets - List sensitive environment variables of Job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
-//   - apmName - The name of the APM
-//   - options - ApmsClientListSecretKeysOptions contains the optional parameters for the ApmsClient.ListSecretKeys method.
-func (client *ApmsClient) ListSecretKeys(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientListSecretKeysOptions) (ApmsClientListSecretKeysResponse, error) {
+//   - jobName - The name of the Job resource.
+//   - options - JobClientListEnvSecretsOptions contains the optional parameters for the JobClient.ListEnvSecrets method.
+func (client *JobClient) ListEnvSecrets(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientListEnvSecretsOptions) (JobClientListEnvSecretsResponse, error) {
 	var err error
-	const operationName = "ApmsClient.ListSecretKeys"
+	const operationName = "JobClient.ListEnvSecrets"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.listSecretKeysCreateRequest(ctx, resourceGroupName, serviceName, apmName, options)
+	req, err := client.listEnvSecretsCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
 	if err != nil {
-		return ApmsClientListSecretKeysResponse{}, err
+		return JobClientListEnvSecretsResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ApmsClientListSecretKeysResponse{}, err
+		return JobClientListEnvSecretsResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ApmsClientListSecretKeysResponse{}, err
+		return JobClientListEnvSecretsResponse{}, err
 	}
-	resp, err := client.listSecretKeysHandleResponse(httpResp)
+	resp, err := client.listEnvSecretsHandleResponse(httpResp)
 	return resp, err
 }
 
-// listSecretKeysCreateRequest creates the ListSecretKeys request.
-func (client *ApmsClient) listSecretKeysCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientListSecretKeysOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms/{apmName}/listSecretKeys"
+// listEnvSecretsCreateRequest creates the ListEnvSecrets request.
+func (client *JobClient) listEnvSecretsCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientListEnvSecretsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}/listEnvSecrets"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -393,10 +326,10 @@ func (client *ApmsClient) listSecretKeysCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if apmName == "" {
-		return nil, errors.New("parameter apmName cannot be empty")
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apmName}", url.PathEscape(apmName))
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -408,11 +341,99 @@ func (client *ApmsClient) listSecretKeysCreateRequest(ctx context.Context, resou
 	return req, nil
 }
 
-// listSecretKeysHandleResponse handles the ListSecretKeys response.
-func (client *ApmsClient) listSecretKeysHandleResponse(resp *http.Response) (ApmsClientListSecretKeysResponse, error) {
-	result := ApmsClientListSecretKeysResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ApmSecretKeys); err != nil {
-		return ApmsClientListSecretKeysResponse{}, err
+// listEnvSecretsHandleResponse handles the ListEnvSecrets response.
+func (client *JobClient) listEnvSecretsHandleResponse(resp *http.Response) (JobClientListEnvSecretsResponse, error) {
+	result := JobClientListEnvSecretsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Value); err != nil {
+		return JobClientListEnvSecretsResponse{}, err
 	}
 	return result, nil
+}
+
+// BeginStart - Start a Azure Spring Apps Job
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-01-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - jobName - The name of the Job resource.
+//   - options - JobClientBeginStartOptions contains the optional parameters for the JobClient.BeginStart method.
+func (client *JobClient) BeginStart(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientBeginStartOptions) (*runtime.Poller[JobClientStartResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.start(ctx, resourceGroupName, serviceName, jobName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[JobClientStartResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[JobClientStartResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Start - Start a Azure Spring Apps Job
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-01-01-preview
+func (client *JobClient) start(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientBeginStartOptions) (*http.Response, error) {
+	var err error
+	const operationName = "JobClient.BeginStart"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.startCreateRequest(ctx, resourceGroupName, serviceName, jobName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// startCreateRequest creates the Start request.
+func (client *JobClient) startCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, jobName string, options *JobClientBeginStartOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs/{jobName}/start"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	if jobName == "" {
+		return nil, errors.New("parameter jobName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{jobName}", url.PathEscape(jobName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-01-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.Properties != nil {
+		if err := runtime.MarshalAsJSON(req, *options.Properties); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
+	return req, nil
 }
