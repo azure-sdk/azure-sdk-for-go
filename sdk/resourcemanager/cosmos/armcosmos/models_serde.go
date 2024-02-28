@@ -1950,7 +1950,9 @@ func (c ClientEncryptionKeyGetPropertiesResource) MarshalJSON() ([]byte, error) 
 	populate(objectMap, "keyWrapMetadata", c.KeyWrapMetadata)
 	populate(objectMap, "_rid", c.Rid)
 	populate(objectMap, "_ts", c.Ts)
-	populateByteArray(objectMap, "wrappedDataEncryptionKey", c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "wrappedDataEncryptionKey", c.WrappedDataEncryptionKey, func() any {
+		return runtime.EncodeByteArray(c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -1982,7 +1984,9 @@ func (c *ClientEncryptionKeyGetPropertiesResource) UnmarshalJSON(data []byte) er
 			err = unpopulate(val, "Ts", &c.Ts)
 			delete(rawMsg, key)
 		case "wrappedDataEncryptionKey":
-			err = runtime.DecodeByteArray(string(val), &c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2037,7 +2041,9 @@ func (c ClientEncryptionKeyResource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "encryptionAlgorithm", c.EncryptionAlgorithm)
 	populate(objectMap, "id", c.ID)
 	populate(objectMap, "keyWrapMetadata", c.KeyWrapMetadata)
-	populateByteArray(objectMap, "wrappedDataEncryptionKey", c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "wrappedDataEncryptionKey", c.WrappedDataEncryptionKey, func() any {
+		return runtime.EncodeByteArray(c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -2060,7 +2066,9 @@ func (c *ClientEncryptionKeyResource) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "KeyWrapMetadata", &c.KeyWrapMetadata)
 			delete(rawMsg, key)
 		case "wrappedDataEncryptionKey":
-			err = runtime.DecodeByteArray(string(val), &c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.WrappedDataEncryptionKey, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3636,6 +3644,7 @@ func (d DatabaseAccountCreateUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableMaterializedViews", d.EnableMaterializedViews)
 	populate(objectMap, "enableMultipleWriteLocations", d.EnableMultipleWriteLocations)
 	populate(objectMap, "enablePartitionMerge", d.EnablePartitionMerge)
+	populate(objectMap, "enablePerRegionPerPartitionAutoscale", d.EnablePerRegionPerPartitionAutoscale)
 	populate(objectMap, "enablePriorityBasedExecution", d.EnablePriorityBasedExecution)
 	populate(objectMap, "ipRules", d.IPRules)
 	populate(objectMap, "isVirtualNetworkFilterEnabled", d.IsVirtualNetworkFilterEnabled)
@@ -3732,6 +3741,9 @@ func (d *DatabaseAccountCreateUpdateProperties) UnmarshalJSON(data []byte) error
 		case "enablePartitionMerge":
 			err = unpopulate(val, "EnablePartitionMerge", &d.EnablePartitionMerge)
 			delete(rawMsg, key)
+		case "enablePerRegionPerPartitionAutoscale":
+			err = unpopulate(val, "EnablePerRegionPerPartitionAutoscale", &d.EnablePerRegionPerPartitionAutoscale)
+			delete(rawMsg, key)
 		case "enablePriorityBasedExecution":
 			err = unpopulate(val, "EnablePriorityBasedExecution", &d.EnablePriorityBasedExecution)
 			delete(rawMsg, key)
@@ -3804,6 +3816,7 @@ func (d DatabaseAccountGetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableMaterializedViews", d.EnableMaterializedViews)
 	populate(objectMap, "enableMultipleWriteLocations", d.EnableMultipleWriteLocations)
 	populate(objectMap, "enablePartitionMerge", d.EnablePartitionMerge)
+	populate(objectMap, "enablePerRegionPerPartitionAutoscale", d.EnablePerRegionPerPartitionAutoscale)
 	populate(objectMap, "enablePriorityBasedExecution", d.EnablePriorityBasedExecution)
 	populate(objectMap, "failoverPolicies", d.FailoverPolicies)
 	populate(objectMap, "ipRules", d.IPRules)
@@ -3908,6 +3921,9 @@ func (d *DatabaseAccountGetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enablePartitionMerge":
 			err = unpopulate(val, "EnablePartitionMerge", &d.EnablePartitionMerge)
+			delete(rawMsg, key)
+		case "enablePerRegionPerPartitionAutoscale":
+			err = unpopulate(val, "EnablePerRegionPerPartitionAutoscale", &d.EnablePerRegionPerPartitionAutoscale)
 			delete(rawMsg, key)
 		case "enablePriorityBasedExecution":
 			err = unpopulate(val, "EnablePriorityBasedExecution", &d.EnablePriorityBasedExecution)
@@ -4257,6 +4273,7 @@ func (d DatabaseAccountUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableMaterializedViews", d.EnableMaterializedViews)
 	populate(objectMap, "enableMultipleWriteLocations", d.EnableMultipleWriteLocations)
 	populate(objectMap, "enablePartitionMerge", d.EnablePartitionMerge)
+	populate(objectMap, "enablePerRegionPerPartitionAutoscale", d.EnablePerRegionPerPartitionAutoscale)
 	populate(objectMap, "enablePriorityBasedExecution", d.EnablePriorityBasedExecution)
 	populate(objectMap, "ipRules", d.IPRules)
 	populate(objectMap, "isVirtualNetworkFilterEnabled", d.IsVirtualNetworkFilterEnabled)
@@ -4345,6 +4362,9 @@ func (d *DatabaseAccountUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enablePartitionMerge":
 			err = unpopulate(val, "EnablePartitionMerge", &d.EnablePartitionMerge)
+			delete(rawMsg, key)
+		case "enablePerRegionPerPartitionAutoscale":
+			err = unpopulate(val, "EnablePerRegionPerPartitionAutoscale", &d.EnablePerRegionPerPartitionAutoscale)
 			delete(rawMsg, key)
 		case "enablePriorityBasedExecution":
 			err = unpopulate(val, "EnablePriorityBasedExecution", &d.EnablePriorityBasedExecution)
@@ -9281,6 +9301,7 @@ func (p PrivateEndpointConnection) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "id", p.ID)
 	populate(objectMap, "name", p.Name)
 	populate(objectMap, "properties", p.Properties)
+	populate(objectMap, "systemData", p.SystemData)
 	populate(objectMap, "type", p.Type)
 	return json.Marshal(objectMap)
 }
@@ -9302,6 +9323,9 @@ func (p *PrivateEndpointConnection) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "properties":
 			err = unpopulate(val, "Properties", &p.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, "SystemData", &p.SystemData)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &p.Type)
@@ -9610,48 +9634,13 @@ func (p ProxyResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", p.ID)
 	populate(objectMap, "name", p.Name)
+	populate(objectMap, "systemData", p.SystemData)
 	populate(objectMap, "type", p.Type)
 	return json.Marshal(objectMap)
 }
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type ProxyResource.
 func (p *ProxyResource) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", p, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &p.ID)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &p.Name)
-			delete(rawMsg, key)
-		case "type":
-			err = unpopulate(val, "Type", &p.Type)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", p, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type ProxyResourceAutoGenerated.
-func (p ProxyResourceAutoGenerated) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "id", p.ID)
-	populate(objectMap, "name", p.Name)
-	populate(objectMap, "systemData", p.SystemData)
-	populate(objectMap, "type", p.Type)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type ProxyResourceAutoGenerated.
-func (p *ProxyResourceAutoGenerated) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", p, err)
@@ -9859,48 +9848,13 @@ func (r Resource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", r.ID)
 	populate(objectMap, "name", r.Name)
+	populate(objectMap, "systemData", r.SystemData)
 	populate(objectMap, "type", r.Type)
 	return json.Marshal(objectMap)
 }
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type Resource.
 func (r *Resource) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", r, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &r.ID)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &r.Name)
-			delete(rawMsg, key)
-		case "type":
-			err = unpopulate(val, "Type", &r.Type)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", r, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type ResourceAutoGenerated.
-func (r ResourceAutoGenerated) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "id", r.ID)
-	populate(objectMap, "name", r.Name)
-	populate(objectMap, "systemData", r.SystemData)
-	populate(objectMap, "type", r.Type)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type ResourceAutoGenerated.
-func (r *ResourceAutoGenerated) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", r, err)
@@ -9933,6 +9887,7 @@ func (r ResourceRestoreParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	return json.Marshal(objectMap)
 }
 
@@ -9950,6 +9905,9 @@ func (r *ResourceRestoreParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -11557,6 +11515,7 @@ func (r RestoreParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "restoreMode", r.RestoreMode)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	populate(objectMap, "sourceBackupLocation", r.SourceBackupLocation)
 	populate(objectMap, "tablesToRestore", r.TablesToRestore)
 	return json.Marshal(objectMap)
@@ -11586,6 +11545,9 @@ func (r *RestoreParameters) UnmarshalJSON(data []byte) error {
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
 			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
+			delete(rawMsg, key)
 		case "sourceBackupLocation":
 			err = unpopulate(val, "SourceBackupLocation", &r.SourceBackupLocation)
 			delete(rawMsg, key)
@@ -11605,6 +11567,7 @@ func (r RestoreParametersBase) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	return json.Marshal(objectMap)
 }
 
@@ -11622,6 +11585,9 @@ func (r *RestoreParametersBase) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -15110,18 +15076,18 @@ func populateAny(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
