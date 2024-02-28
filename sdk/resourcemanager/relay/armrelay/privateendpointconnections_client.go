@@ -68,7 +68,7 @@ func (client *PrivateEndpointConnectionsClient) CreateOrUpdate(ctx context.Conte
 	if err != nil {
 		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, err
 	}
