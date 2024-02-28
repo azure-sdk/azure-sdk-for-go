@@ -1,5 +1,61 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-02-28)
+### Breaking Changes
+
+- Type of `Encryption.CustomerManagedKeyEncryption` has been changed from `*CustomerManagedKeyEncryption` to `*EncryptionCustomerManagedKeyEncryption`
+- `KindGen1` from enum `Kind` has been removed
+- `NameS0`, `NameS1` from enum `Name` has been removed
+- Enum `IdentityType` has been removed
+- Function `*Client.NewListSubscriptionOperationsPager` has been removed
+- Struct `CustomerManagedKeyEncryption` has been removed
+- Struct `CustomerManagedKeyEncryptionKeyIdentity` has been removed
+- Struct `Dimension` has been removed
+- Struct `MetricSpecification` has been removed
+- Struct `OperationDetail` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `Operations` has been removed
+- Struct `ServiceSpecification` has been removed
+- Field `Operations` of struct `ClientListOperationsResponse` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `EncryptionCustomerManagedKeyEncryptionKeyIdentityType` with values `EncryptionCustomerManagedKeyEncryptionKeyIdentityTypeDelegatedResourceIdentity`, `EncryptionCustomerManagedKeyEncryptionKeyIdentityTypeSystemAssignedIdentity`, `EncryptionCustomerManagedKeyEncryptionKeyIdentityTypeUserAssignedIdentity`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `PrivateEndpointConnectionProvisioningState` with values `PrivateEndpointConnectionProvisioningStateCreating`, `PrivateEndpointConnectionProvisioningStateDeleting`, `PrivateEndpointConnectionProvisioningStateFailed`, `PrivateEndpointConnectionProvisioningStateSucceeded`
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New enum type `PublicNetworkAccess` with values `PublicNetworkAccessDisabled`, `PublicNetworkAccessEnabled`
+- New function `*ClientFactory.NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient`
+- New function `*ClientFactory.NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient`
+- New function `NewPrivateEndpointConnectionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error)`
+- New function `*PrivateEndpointConnectionsClient.BeginCreate(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionsClientBeginCreateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientCreateResponse], error)`
+- New function `*PrivateEndpointConnectionsClient.BeginDelete(context.Context, string, string, string, *PrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error)`
+- New function `*PrivateEndpointConnectionsClient.Get(context.Context, string, string, string, *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error)`
+- New function `*PrivateEndpointConnectionsClient.NewListByAccountPager(string, string, *PrivateEndpointConnectionsClientListByAccountOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByAccountResponse]`
+- New function `NewPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourcesClient, error)`
+- New function `*PrivateLinkResourcesClient.Get(context.Context, string, string, string, *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error)`
+- New function `*PrivateLinkResourcesClient.NewListByAccountPager(string, string, *PrivateLinkResourcesClientListByAccountOptions) *runtime.Pager[PrivateLinkResourcesClientListByAccountResponse]`
+- New struct `EncryptionCustomerManagedKeyEncryption`
+- New struct `EncryptionCustomerManagedKeyEncryptionKeyIdentity`
+- New struct `LocationsItem`
+- New struct `Operation`
+- New struct `OperationListResult`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionList`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceList`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkServiceConnectionState`
+- New field `Locations`, `PrivateEndpointConnections`, `PublicNetworkAccess` in struct `AccountProperties`
+- New anonymous field `OperationListResult` in struct `ClientListOperationsResponse`
+- New field `ConsumedStorageUnitSizeInBytes`, `TotalStorageUnitSizeInBytes` in struct `CreatorProperties`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
