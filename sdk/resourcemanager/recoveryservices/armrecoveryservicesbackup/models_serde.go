@@ -1710,6 +1710,7 @@ func (a AzureIaaSVMProtectionPolicy) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "retentionPolicy", a.RetentionPolicy)
 	populate(objectMap, "schedulePolicy", a.SchedulePolicy)
+	populate(objectMap, "snapshotConsistencyType", a.SnapshotConsistencyType)
 	populate(objectMap, "tieringPolicy", a.TieringPolicy)
 	populate(objectMap, "timeZone", a.TimeZone)
 	return json.Marshal(objectMap)
@@ -1747,6 +1748,9 @@ func (a *AzureIaaSVMProtectionPolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "schedulePolicy":
 			a.SchedulePolicy, err = unmarshalSchedulePolicyClassification(val)
+			delete(rawMsg, key)
+		case "snapshotConsistencyType":
+			err = unpopulate(val, "SnapshotConsistencyType", &a.SnapshotConsistencyType)
 			delete(rawMsg, key)
 		case "tieringPolicy":
 			err = unpopulate(val, "TieringPolicy", &a.TieringPolicy)
@@ -15285,7 +15289,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
