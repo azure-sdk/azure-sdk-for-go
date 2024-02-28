@@ -1,5 +1,11 @@
 # Release History
 
+## 5.6.0 (2024-02-28)
+### Features Added
+
+- New field `VirtualMachineID` in struct `GalleryArtifactVersionFullSource`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
