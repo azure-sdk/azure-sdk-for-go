@@ -657,6 +657,9 @@ type DeploymentsClientListForClusterOptions struct {
 
 // DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.NewListPager method.
 type DeploymentsClientListOptions struct {
+	// The expand expression to apply on the operation.
+	Expand *string
+
 	// Version of the deployments to be listed
 	Version []string
 }
@@ -681,6 +684,29 @@ type DevToolPortalsClientGetOptions struct {
 
 // DevToolPortalsClientListOptions contains the optional parameters for the DevToolPortalsClient.NewListPager method.
 type DevToolPortalsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EurekaServersClientBeginUpdatePatchOptions contains the optional parameters for the EurekaServersClient.BeginUpdatePatch
+// method.
+type EurekaServersClientBeginUpdatePatchOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EurekaServersClientBeginUpdatePutOptions contains the optional parameters for the EurekaServersClient.BeginUpdatePut method.
+type EurekaServersClientBeginUpdatePutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EurekaServersClientGetOptions contains the optional parameters for the EurekaServersClient.Get method.
+type EurekaServersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EurekaServersClientListOptions contains the optional parameters for the EurekaServersClient.List method.
+type EurekaServersClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -747,6 +773,12 @@ type GatewaysClientBeginDeleteOptions struct {
 
 // GatewaysClientBeginRestartOptions contains the optional parameters for the GatewaysClient.BeginRestart method.
 type GatewaysClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GatewaysClientBeginUpdateCapacityOptions contains the optional parameters for the GatewaysClient.BeginUpdateCapacity method.
+type GatewaysClientBeginUpdateCapacityOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
