@@ -677,10 +677,16 @@ func (d *DeploymentsServerTransport) dispatchNewListPager(req *http.Request) (*h
 			}
 			versionParam[i] = u
 		}
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		var options *armappplatform.DeploymentsClientListOptions
-		if len(versionParam) > 0 {
+		if len(versionParam) > 0 || expandParam != nil {
 			options = &armappplatform.DeploymentsClientListOptions{
 				Version: versionParam,
+				Expand:  expandParam,
 			}
 		}
 		resp := d.srv.NewListPager(resourceGroupNameParam, serviceNameParam, appNameParam, options)
