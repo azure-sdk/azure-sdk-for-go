@@ -44,6 +44,24 @@ type CustomPersistentDiskPropertiesClassification interface {
 	GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties
 }
 
+// GatewayResponseCachePropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetGatewayResponseCacheProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *GatewayLocalResponseCachePerInstanceProperties, *GatewayLocalResponseCachePerRouteProperties, *GatewayResponseCacheProperties
+type GatewayResponseCachePropertiesClassification interface {
+	// GetGatewayResponseCacheProperties returns the GatewayResponseCacheProperties content of the underlying type.
+	GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties
+}
+
+// MaintenanceScheduleConfigurationClassification provides polymorphic access to related types.
+// Call the interface's GetMaintenanceScheduleConfiguration() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *MaintenanceScheduleConfiguration, *WeeklyMaintenanceScheduleConfiguration
+type MaintenanceScheduleConfigurationClassification interface {
+	// GetMaintenanceScheduleConfiguration returns the MaintenanceScheduleConfiguration content of the underlying type.
+	GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration
+}
+
 // ProbeActionClassification provides polymorphic access to related types.
 // Call the interface's GetProbeAction() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
