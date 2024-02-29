@@ -38,6 +38,7 @@ type ServerFactory struct {
 	CustomizedAcceleratorsServer  CustomizedAcceleratorsServer
 	DeploymentsServer             DeploymentsServer
 	DevToolPortalsServer          DevToolPortalsServer
+	EurekaServersServer           EurekaServersServer
 	GatewayCustomDomainsServer    GatewayCustomDomainsServer
 	GatewayRouteConfigsServer     GatewayRouteConfigsServer
 	GatewaysServer                GatewaysServer
@@ -84,6 +85,7 @@ type ServerFactoryTransport struct {
 	trCustomizedAcceleratorsServer  *CustomizedAcceleratorsServerTransport
 	trDeploymentsServer             *DeploymentsServerTransport
 	trDevToolPortalsServer          *DevToolPortalsServerTransport
+	trEurekaServersServer           *EurekaServersServerTransport
 	trGatewayCustomDomainsServer    *GatewayCustomDomainsServerTransport
 	trGatewayRouteConfigsServer     *GatewayRouteConfigsServerTransport
 	trGatewaysServer                *GatewaysServerTransport
@@ -191,6 +193,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDevToolPortalsServerTransport(&s.srv.DevToolPortalsServer)
 		})
 		resp, err = s.trDevToolPortalsServer.Do(req)
+	case "EurekaServersClient":
+		initServer(s, &s.trEurekaServersServer, func() *EurekaServersServerTransport {
+			return NewEurekaServersServerTransport(&s.srv.EurekaServersServer)
+		})
+		resp, err = s.trEurekaServersServer.Do(req)
 	case "GatewayCustomDomainsClient":
 		initServer(s, &s.trGatewayCustomDomainsServer, func() *GatewayCustomDomainsServerTransport {
 			return NewGatewayCustomDomainsServerTransport(&s.srv.GatewayCustomDomainsServer)
