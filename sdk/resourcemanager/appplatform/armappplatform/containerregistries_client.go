@@ -47,7 +47,7 @@ func NewContainerRegistriesClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Create or update container registry resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -76,7 +76,7 @@ func (client *ContainerRegistriesClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Create or update container registry resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 func (client *ContainerRegistriesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, containerRegistryName string, containerRegistryResource ContainerRegistryResource, options *ContainerRegistriesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainerRegistriesClient.BeginCreateOrUpdate"
@@ -122,7 +122,7 @@ func (client *ContainerRegistriesClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, containerRegistryResource); err != nil {
@@ -134,7 +134,7 @@ func (client *ContainerRegistriesClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Delete a container registry resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -162,7 +162,7 @@ func (client *ContainerRegistriesClient) BeginDelete(ctx context.Context, resour
 // Delete - Delete a container registry resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 func (client *ContainerRegistriesClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, containerRegistryName string, options *ContainerRegistriesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainerRegistriesClient.BeginDelete"
@@ -208,7 +208,7 @@ func (client *ContainerRegistriesClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -217,7 +217,7 @@ func (client *ContainerRegistriesClient) deleteCreateRequest(ctx context.Context
 // Get - Get the container registries resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -269,7 +269,7 @@ func (client *ContainerRegistriesClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -286,7 +286,7 @@ func (client *ContainerRegistriesClient) getHandleResponse(resp *http.Response) 
 
 // NewListPager - List container registries resource.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -335,7 +335,7 @@ func (client *ContainerRegistriesClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -353,7 +353,7 @@ func (client *ContainerRegistriesClient) listHandleResponse(resp *http.Response)
 // BeginValidate - Check if the container registry properties are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -382,7 +382,7 @@ func (client *ContainerRegistriesClient) BeginValidate(ctx context.Context, reso
 // Validate - Check if the container registry properties are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 func (client *ContainerRegistriesClient) validate(ctx context.Context, resourceGroupName string, serviceName string, containerRegistryName string, containerRegistryProperties ContainerRegistryProperties, options *ContainerRegistriesClientBeginValidateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainerRegistriesClient.BeginValidate"
@@ -428,7 +428,7 @@ func (client *ContainerRegistriesClient) validateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, containerRegistryProperties); err != nil {
