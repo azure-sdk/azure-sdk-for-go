@@ -47,7 +47,7 @@ func NewCustomizedAcceleratorsClient(subscriptionID string, credential azcore.To
 // BeginCreateOrUpdate - Create or update the customized accelerator.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -76,7 +76,7 @@ func (client *CustomizedAcceleratorsClient) BeginCreateOrUpdate(ctx context.Cont
 // CreateOrUpdate - Create or update the customized accelerator.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 func (client *CustomizedAcceleratorsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, applicationAcceleratorName string, customizedAcceleratorName string, customizedAcceleratorResource CustomizedAcceleratorResource, options *CustomizedAcceleratorsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CustomizedAcceleratorsClient.BeginCreateOrUpdate"
@@ -126,7 +126,7 @@ func (client *CustomizedAcceleratorsClient) createOrUpdateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, customizedAcceleratorResource); err != nil {
@@ -138,7 +138,7 @@ func (client *CustomizedAcceleratorsClient) createOrUpdateCreateRequest(ctx cont
 // BeginDelete - Delete the customized accelerator.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -166,7 +166,7 @@ func (client *CustomizedAcceleratorsClient) BeginDelete(ctx context.Context, res
 // Delete - Delete the customized accelerator.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 func (client *CustomizedAcceleratorsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, applicationAcceleratorName string, customizedAcceleratorName string, options *CustomizedAcceleratorsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CustomizedAcceleratorsClient.BeginDelete"
@@ -216,7 +216,7 @@ func (client *CustomizedAcceleratorsClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -225,7 +225,7 @@ func (client *CustomizedAcceleratorsClient) deleteCreateRequest(ctx context.Cont
 // Get - Get the customized accelerator.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -283,7 +283,7 @@ func (client *CustomizedAcceleratorsClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -300,7 +300,7 @@ func (client *CustomizedAcceleratorsClient) getHandleResponse(resp *http.Respons
 
 // NewListPager - Handle requests to list all customized accelerators.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -354,7 +354,7 @@ func (client *CustomizedAcceleratorsClient) listCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -372,7 +372,7 @@ func (client *CustomizedAcceleratorsClient) listHandleResponse(resp *http.Respon
 // BeginValidate - Check the customized accelerator are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -401,7 +401,7 @@ func (client *CustomizedAcceleratorsClient) BeginValidate(ctx context.Context, r
 // Validate - Check the customized accelerator are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-05-01-preview
 func (client *CustomizedAcceleratorsClient) validate(ctx context.Context, resourceGroupName string, serviceName string, applicationAcceleratorName string, customizedAcceleratorName string, properties CustomizedAcceleratorProperties, options *CustomizedAcceleratorsClientBeginValidateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CustomizedAcceleratorsClient.BeginValidate"
@@ -451,7 +451,7 @@ func (client *CustomizedAcceleratorsClient) validateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {
