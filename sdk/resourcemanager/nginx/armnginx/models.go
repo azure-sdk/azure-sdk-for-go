@@ -10,6 +10,56 @@ package armnginx
 
 import "time"
 
+// AnalysisCreate - The request body for creating an analysis for an NGINX configuration.
+type AnalysisCreate struct {
+	// REQUIRED
+	Config *AnalysisCreateConfig
+}
+
+type AnalysisCreateConfig struct {
+	Files          []*ConfigurationFile
+	Package        *ConfigurationPackage
+	ProtectedFiles []*ConfigurationFile
+
+	// The root file of the NGINX config file(s). It must match one of the files' filepath.
+	RootFile *string
+}
+
+// AnalysisError - An error object found during the analysis of an NGINX configuration.
+type AnalysisError struct {
+	// REQUIRED
+	Description *string
+
+	// REQUIRED
+	Directive *string
+
+	// REQUIRED; the filepath of the most relevant config file
+	File *string
+
+	// REQUIRED
+	Line *float32
+
+	// REQUIRED
+	Message *string
+
+	// REQUIRED
+	Rule *string
+
+	// Unique identifier for the error
+	ID *string
+}
+
+// AnalysisResult - The response body for an analysis request. Contains the status of the analysis and any errors.
+type AnalysisResult struct {
+	// REQUIRED; The status of the analysis.
+	Status *string
+	Data   *AnalysisResultData
+}
+
+type AnalysisResultData struct {
+	Errors []*AnalysisError
+}
+
 type Certificate struct {
 	Location   *string
 	Properties *CertificateProperties
@@ -27,18 +77,33 @@ type Certificate struct {
 	Type *string
 }
 
+type CertificateErrorResponseBody struct {
+	Code    *string
+	Message *string
+}
+
 type CertificateListResponse struct {
 	NextLink *string
 	Value    []*Certificate
 }
 
 type CertificateProperties struct {
+	CertificateError       *CertificateErrorResponseBody
 	CertificateVirtualPath *string
 	KeyVaultSecretID       *string
 	KeyVirtualPath         *string
 
 	// READ-ONLY
+	KeyVaultSecretCreated *time.Time
+
+	// READ-ONLY
+	KeyVaultSecretVersion *string
+
+	// READ-ONLY
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY
+	SHA1Thumbprint *string
 }
 
 type Configuration struct {
@@ -161,11 +226,31 @@ type DeploymentUserProfile struct {
 	PreferredEmail *string
 }
 
-type ErrorResponseBody struct {
-	Code    *string
-	Details []*ErrorResponseBody
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
 	Message *string
-	Target  *string
+
+	// READ-ONLY; The error target.
+	Target *string
 }
 
 type FrontendIPConfiguration struct {
@@ -246,7 +331,8 @@ type PublicIPAddress struct {
 }
 
 type ResourceProviderDefaultErrorResponse struct {
-	Error *ErrorResponseBody
+	// The error detail.
+	Error *ErrorDetail
 }
 
 type ResourceSKU struct {
