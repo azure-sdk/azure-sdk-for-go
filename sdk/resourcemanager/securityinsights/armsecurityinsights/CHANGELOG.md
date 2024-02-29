@@ -1,5 +1,357 @@
 # Release History
 
+## 2.0.0-beta.4 (2024-02-29)
+### Breaking Changes
+
+- Function `*IncidentsClient.CreateTeam` parameter(s) have been changed from `(context.Context, string, string, string, TeamProperties, *IncidentsClientCreateTeamOptions)` to `(context.Context, string, string, string, TeamInformation, *IncidentsClientCreateTeamOptions)`
+- Function `*SourceControlClient.NewListRepositoriesPager` parameter(s) have been changed from `(string, string, RepoType, *SourceControlClientListRepositoriesOptions)` to `(string, string, RepositoryAccessProperties, *SourceControlClientListRepositoriesOptions)`
+- Function `*SourceControlsClient.Delete` parameter(s) have been changed from `(context.Context, string, string, string, *SourceControlsClientDeleteOptions)` to `(context.Context, string, string, string, RepositoryAccessProperties, *SourceControlsClientDeleteOptions)`
+- Type of `AccountEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `AzureResourceEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `CloudApplicationEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `DNSEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `Entity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `EntityQueriesClientListOptions.Kind` has been changed from `*Enum13` to `*Enum24`
+- Type of `EntityQueryTemplatesClientListOptions.Kind` has been changed from `*Enum15` to `*Enum26`
+- Type of `ExpansionResultAggregation.EntityKind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `FileEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `FileHashEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `HostEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `HuntingBookmark.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `IPEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `IncidentEntitiesResultsMetadata.EntityKind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `IoTDeviceEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MailClusterEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MailMessageEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MailboxEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MalwareEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MetadataProperties.Kind` has been changed from `*Kind` to `*string`
+- Type of `MetadataPropertiesPatch.Kind` has been changed from `*Kind` to `*string`
+- Type of `NicEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `ProcessEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `RegistryKeyEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `RegistryValueEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `SecurityAlert.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `SecurityGroupEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `SubmissionMailEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `ThreatIntelligenceIndicatorModel.Kind` has been changed from `*ThreatIntelligenceResourceKindEnum` to `*ThreatIntelligenceResourceInnerKind`
+- Type of `ThreatIntelligenceInformation.Kind` has been changed from `*ThreatIntelligenceResourceKindEnum` to `*ThreatIntelligenceResourceInnerKind`
+- Type of `ThreatIntelligenceSortingCriteria.SortOrder` has been changed from `*ThreatIntelligenceSortingCriteriaEnum` to `*ThreatIntelligenceSortingOrder`
+- Type of `URLEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `Webhook.WebhookSecretUpdateTime` has been changed from `*string` to `*time.Time`
+- `RepoTypeDevOps` from enum `RepoType` has been removed
+- Enum `EntityKind` has been removed
+- Enum `Enum13` has been removed
+- Enum `Enum15` has been removed
+- Enum `ThreatIntelligenceResourceKindEnum` has been removed
+- Enum `ThreatIntelligenceSortingCriteriaEnum` has been removed
+- Struct `ContentPathMap` has been removed
+- Struct `MSTIDataConnectorDataTypesBingSafetyPhishingURL` has been removed
+- Struct `TeamProperties` has been removed
+- Field `BingSafetyPhishingURL` of struct `MSTIDataConnectorDataTypes` has been removed
+- Field `PathMapping` of struct `Repository` has been removed
+
+### Features Added
+
+- New value `ActionTypeAddIncidentTask` added to enum type `ActionType`
+- New value `ContentTypeAutomationRule`, `ContentTypeHuntingQuery`, `ContentTypeParser`, `ContentTypePlaybook` added to enum type `ContentType`
+- New value `DataConnectorKindGCP`, `DataConnectorKindMicrosoftPurviewInformationProtection` added to enum type `DataConnectorKind`
+- New value `RepoTypeAzureDevOps` added to enum type `RepoType`
+- New enum type `AlertProperty` with values `AlertPropertyAlertLink`, `AlertPropertyConfidenceLevel`, `AlertPropertyConfidenceScore`, `AlertPropertyExtendedLinks`, `AlertPropertyProductComponentName`, `AlertPropertyProductName`, `AlertPropertyProviderName`, `AlertPropertyRemediationSteps`, `AlertPropertyTechniques`
+- New enum type `AuthenticationArmType` with values `AuthenticationArmTypeSnc`, `AuthenticationArmTypeSncWithUsernamePassword`, `AuthenticationArmTypeUsernamePassword`
+- New enum type `BillingStatisticKind` with values `BillingStatisticKindSapSolutionUsage`
+- New enum type `Category` with values `CategoryCostOptimization`, `CategoryDemo`, `CategoryNewFeature`, `CategoryOnboarding`, `CategorySocEfficiency`
+- New enum type `ConfigurationArmType` with values `ConfigurationArmTypeSap`
+- New enum type `Context` with values `ContextAnalytics`, `ContextIncidents`, `ContextNone`, `ContextOverview`
+- New enum type `DataConnectorDefinitionKind` with values `DataConnectorDefinitionKindCustomizable`
+- New enum type `EntityKindEnum` with values `EntityKindEnumAccount`, `EntityKindEnumAzureResource`, `EntityKindEnumBookmark`, `EntityKindEnumCloudApplication`, `EntityKindEnumDNSResolution`, `EntityKindEnumFile`, `EntityKindEnumFileHash`, `EntityKindEnumHost`, `EntityKindEnumIP`, `EntityKindEnumIoTDevice`, `EntityKindEnumMailCluster`, `EntityKindEnumMailMessage`, `EntityKindEnumMailbox`, `EntityKindEnumMalware`, `EntityKindEnumNic`, `EntityKindEnumProcess`, `EntityKindEnumRegistryKey`, `EntityKindEnumRegistryValue`, `EntityKindEnumSecurityAlert`, `EntityKindEnumSecurityGroup`, `EntityKindEnumSubmissionMail`, `EntityKindEnumURL`
+- New enum type `Enum24` with values `Enum24Activity`, `Enum24Expansion`
+- New enum type `Enum26` with values `Enum26Activity`
+- New enum type `Flag` with values `FlagFalse`, `FlagTrue`
+- New enum type `HTTPSConfigurationArmType` with values `HTTPSConfigurationArmTypeHTTPOnly`, `HTTPSConfigurationArmTypeHTTPSWithSSLVerification`, `HTTPSConfigurationArmTypeHTTPSWithoutSSLVerification`
+- New enum type `HypothesisStatus` with values `HypothesisStatusInvalidated`, `HypothesisStatusUnknown`, `HypothesisStatusValidated`
+- New enum type `IncidentTaskStatus` with values `IncidentTaskStatusCompleted`, `IncidentTaskStatusNew`
+- New enum type `IngestionArmType` with values `IngestionArmTypeFull`, `IngestionArmTypeIncremental`
+- New enum type `KeyVaultAuthType` with values `KeyVaultAuthTypeApplicationIdentity`, `KeyVaultAuthTypeManagedIdentity`
+- New enum type `LogArmType` with values `LogArmTypeADCP`, `LogArmTypeADR6`, `LogArmTypeAGR1251`, `LogArmTypeAGRAGRS`, `LogArmTypeAGRDEFINE`, `LogArmTypeAGRFLAGS`, `LogArmTypeAGRPROF`, `LogArmTypeAGRTCODES`, `LogArmTypeAGRUSERS`, `LogArmTypeAbapAppLog`, `LogArmTypeAbapAuditLog`, `LogArmTypeAbapChangeDocsLog`, `LogArmTypeAbapCrLog`, `LogArmTypeAbapFilesLogs`, `LogArmTypeAbapJobLog`, `LogArmTypeAbapSpoolLog`, `LogArmTypeAbapSpoolOutputLog`, `LogArmTypeAbapTableDataLog`, `LogArmTypeAbapWorkflowLog`, `LogArmTypeDEVACCESS`, `LogArmTypeGateway`, `LogArmTypeICM`, `LogArmTypeJavaFilesLogs`, `LogArmTypePAHI`, `LogArmTypeSNCSYSACL`, `LogArmTypeSysLog`, `LogArmTypeUSERADDR`, `LogArmTypeUSGRPUSER`, `LogArmTypeUSR01`, `LogArmTypeUSR02`, `LogArmTypeUSR05`, `LogArmTypeUSR21`, `LogArmTypeUSRACL`, `LogArmTypeUSRSTAMP`, `LogArmTypeUST04`, `LogArmTypeWorkProcess`
+- New enum type `LogStatusArmType` with values `LogStatusArmTypeDisabled`, `LogStatusArmTypeEnabled`
+- New enum type `Mode` with values `ModeDisabled`, `ModeEnabled`
+- New enum type `MtpProvider` with values `MtpProviderMicrosoftDefenderForCloudApps`, `MtpProviderMicrosoftDefenderForIdentity`
+- New enum type `PackageKind` with values `PackageKindSolution`, `PackageKindStandalone`
+- New enum type `Priority` with values `PriorityHigh`, `PriorityLow`, `PriorityMedium`
+- New enum type `ProviderPermissionsScope` with values `ProviderPermissionsScopeResourceGroup`, `ProviderPermissionsScopeSubscription`, `ProviderPermissionsScopeWorkspace`
+- New enum type `ProvisioningState` with values `ProvisioningStateAccepted`, `ProvisioningStateCanceled`, `ProvisioningStateFailed`, `ProvisioningStateInProgress`, `ProvisioningStateSucceeded`
+- New enum type `RepositoryAccessKind` with values `RepositoryAccessKindApp`, `RepositoryAccessKindOAuth`, `RepositoryAccessKindPAT`
+- New enum type `SapSystemArmType` with values `SapSystemArmTypeJavaOs`, `SapSystemArmTypeNetWeaver`, `SapSystemArmTypeSapControlOs`
+- New enum type `SecretSourceType` with values `SecretSourceTypeAzureKeyVault`, `SecretSourceTypeEnvironmentVariable`
+- New enum type `State` with values `StateActive`, `StateCompletedByAction`, `StateCompletedByUser`, `StateDisabled`, `StateHidden`
+- New enum type `Status` with values `StatusActive`, `StatusApproved`, `StatusBacklog`, `StatusClosed`, `StatusFailed`, `StatusInProgress`, `StatusNew`, `StatusSucceeded`
+- New enum type `SystemStatusType` with values `SystemStatusTypeRunning`, `SystemStatusTypeStopped`
+- New enum type `ThreatIntelligenceResourceInnerKind` with values `ThreatIntelligenceResourceInnerKindIndicator`
+- New enum type `ThreatIntelligenceSortingOrder` with values `ThreatIntelligenceSortingOrderAscending`, `ThreatIntelligenceSortingOrderDescending`, `ThreatIntelligenceSortingOrderUnsorted`
+- New enum type `WarningCode` with values `WarningCodeSourceControlDeletedWithWarnings`, `WarningCodeSourceControlWarningDeletePipelineFromAzureDevOps`, `WarningCodeSourceControlWarningDeleteRoleAssignment`, `WarningCodeSourceControlWarningDeleteServicePrincipal`, `WarningCodeSourceControlWarningDeleteWorkflowAndSecretFromGitHub`
+- New function `*AbapOsConnector.GetSystemsConfigurationConnector() *SystemsConfigurationConnector`
+- New function `NewAlertRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AlertRuleClient, error)`
+- New function `*AlertRuleClient.BeginTriggerRuleRun(context.Context, string, string, string, AnalyticsRuleRunTrigger, *AlertRuleClientBeginTriggerRuleRunOptions) (*runtime.Poller[AlertRuleClientTriggerRuleRunResponse], error)`
+- New function `*AutomationRuleAddIncidentTaskAction.GetAutomationRuleAction() *AutomationRuleAction`
+- New function `*BillingStatistic.GetBillingStatistic() *BillingStatistic`
+- New function `NewBillingStatisticsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingStatisticsClient, error)`
+- New function `*BillingStatisticsClient.Get(context.Context, string, string, string, *BillingStatisticsClientGetOptions) (BillingStatisticsClientGetResponse, error)`
+- New function `*BillingStatisticsClient.NewListPager(string, string, *BillingStatisticsClientListOptions) *runtime.Pager[BillingStatisticsClientListResponse]`
+- New function `NewBusinessApplicationAgentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessApplicationAgentClient, error)`
+- New function `*BusinessApplicationAgentClient.Get(context.Context, string, string, string, *BusinessApplicationAgentClientGetOptions) (BusinessApplicationAgentClientGetResponse, error)`
+- New function `NewBusinessApplicationAgentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessApplicationAgentsClient, error)`
+- New function `*BusinessApplicationAgentsClient.CreateOrUpdate(context.Context, string, string, string, *BusinessApplicationAgentsClientCreateOrUpdateOptions) (BusinessApplicationAgentsClientCreateOrUpdateResponse, error)`
+- New function `*BusinessApplicationAgentsClient.Delete(context.Context, string, string, string, *BusinessApplicationAgentsClientDeleteOptions) (BusinessApplicationAgentsClientDeleteResponse, error)`
+- New function `*BusinessApplicationAgentsClient.NewListPager(string, string, *BusinessApplicationAgentsClientListOptions) *runtime.Pager[BusinessApplicationAgentsClientListResponse]`
+- New function `*ClientFactory.NewAlertRuleClient() *AlertRuleClient`
+- New function `*ClientFactory.NewBillingStatisticsClient() *BillingStatisticsClient`
+- New function `*ClientFactory.NewBusinessApplicationAgentClient() *BusinessApplicationAgentClient`
+- New function `*ClientFactory.NewBusinessApplicationAgentsClient() *BusinessApplicationAgentsClient`
+- New function `*ClientFactory.NewContentPackageClient() *ContentPackageClient`
+- New function `*ClientFactory.NewContentPackagesClient() *ContentPackagesClient`
+- New function `*ClientFactory.NewContentTemplateClient() *ContentTemplateClient`
+- New function `*ClientFactory.NewContentTemplatesClient() *ContentTemplatesClient`
+- New function `*ClientFactory.NewDataConnectorDefinitionsClient() *DataConnectorDefinitionsClient`
+- New function `*ClientFactory.NewGetClient() *GetClient`
+- New function `*ClientFactory.NewGetRecommendationsClient() *GetRecommendationsClient`
+- New function `*ClientFactory.NewGetTriggeredAnalyticsRuleRunsClient() *GetTriggeredAnalyticsRuleRunsClient`
+- New function `*ClientFactory.NewHuntCommentsClient() *HuntCommentsClient`
+- New function `*ClientFactory.NewHuntRelationsClient() *HuntRelationsClient`
+- New function `*ClientFactory.NewHuntsClient() *HuntsClient`
+- New function `*ClientFactory.NewIncidentTasksClient() *IncidentTasksClient`
+- New function `*ClientFactory.NewProductPackageClient() *ProductPackageClient`
+- New function `*ClientFactory.NewProductPackagesClient() *ProductPackagesClient`
+- New function `*ClientFactory.NewProductTemplateClient() *ProductTemplateClient`
+- New function `*ClientFactory.NewProductTemplatesClient() *ProductTemplatesClient`
+- New function `*ClientFactory.NewSystemsClient() *SystemsClient`
+- New function `*ClientFactory.NewTriggeredAnalyticsRuleRunClient() *TriggeredAnalyticsRuleRunClient`
+- New function `*ClientFactory.NewUpdateClient() *UpdateClient`
+- New function `*ClientFactory.NewWorkspaceManagerAssignmentJobsClient() *WorkspaceManagerAssignmentJobsClient`
+- New function `*ClientFactory.NewWorkspaceManagerAssignmentsClient() *WorkspaceManagerAssignmentsClient`
+- New function `*ClientFactory.NewWorkspaceManagerConfigurationsClient() *WorkspaceManagerConfigurationsClient`
+- New function `*ClientFactory.NewWorkspaceManagerGroupsClient() *WorkspaceManagerGroupsClient`
+- New function `*ClientFactory.NewWorkspaceManagerMembersClient() *WorkspaceManagerMembersClient`
+- New function `NewContentPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentPackageClient, error)`
+- New function `*ContentPackageClient.Install(context.Context, string, string, string, PackageModel, *ContentPackageClientInstallOptions) (ContentPackageClientInstallResponse, error)`
+- New function `*ContentPackageClient.Uninstall(context.Context, string, string, string, *ContentPackageClientUninstallOptions) (ContentPackageClientUninstallResponse, error)`
+- New function `NewContentPackagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentPackagesClient, error)`
+- New function `*ContentPackagesClient.Get(context.Context, string, string, string, *ContentPackagesClientGetOptions) (ContentPackagesClientGetResponse, error)`
+- New function `*ContentPackagesClient.NewListPager(string, string, *ContentPackagesClientListOptions) *runtime.Pager[ContentPackagesClientListResponse]`
+- New function `NewContentTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentTemplateClient, error)`
+- New function `*ContentTemplateClient.Delete(context.Context, string, string, string, *ContentTemplateClientDeleteOptions) (ContentTemplateClientDeleteResponse, error)`
+- New function `*ContentTemplateClient.Get(context.Context, string, string, string, *ContentTemplateClientGetOptions) (ContentTemplateClientGetResponse, error)`
+- New function `*ContentTemplateClient.Install(context.Context, string, string, string, TemplateModel, *ContentTemplateClientInstallOptions) (ContentTemplateClientInstallResponse, error)`
+- New function `NewContentTemplatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentTemplatesClient, error)`
+- New function `*ContentTemplatesClient.NewListPager(string, string, *ContentTemplatesClientListOptions) *runtime.Pager[ContentTemplatesClientListResponse]`
+- New function `*CustomizableConnectorDefinition.GetDataConnectorDefinition() *DataConnectorDefinition`
+- New function `*DataConnectorDefinition.GetDataConnectorDefinition() *DataConnectorDefinition`
+- New function `NewDataConnectorDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DataConnectorDefinitionsClient, error)`
+- New function `*DataConnectorDefinitionsClient.CreateOrUpdate(context.Context, string, string, string, DataConnectorDefinitionClassification, *DataConnectorDefinitionsClientCreateOrUpdateOptions) (DataConnectorDefinitionsClientCreateOrUpdateResponse, error)`
+- New function `*DataConnectorDefinitionsClient.Delete(context.Context, string, string, string, *DataConnectorDefinitionsClientDeleteOptions) (DataConnectorDefinitionsClientDeleteResponse, error)`
+- New function `*DataConnectorDefinitionsClient.Get(context.Context, string, string, string, *DataConnectorDefinitionsClientGetOptions) (DataConnectorDefinitionsClientGetResponse, error)`
+- New function `*DataConnectorDefinitionsClient.NewListPager(string, string, *DataConnectorDefinitionsClientListOptions) *runtime.Pager[DataConnectorDefinitionsClientListResponse]`
+- New function `*EntitiesClient.RunPlaybook(context.Context, string, string, string, *EntitiesClientRunPlaybookOptions) (EntitiesClientRunPlaybookResponse, error)`
+- New function `*GCPDataConnector.GetDataConnector() *DataConnector`
+- New function `NewGetClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GetClient, error)`
+- New function `*GetClient.SingleRecommendation(context.Context, string, string, string, *GetClientSingleRecommendationOptions) (GetClientSingleRecommendationResponse, error)`
+- New function `NewGetRecommendationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GetRecommendationsClient, error)`
+- New function `*GetRecommendationsClient.List(context.Context, string, string, *GetRecommendationsClientListOptions) (GetRecommendationsClientListResponse, error)`
+- New function `NewGetTriggeredAnalyticsRuleRunsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GetTriggeredAnalyticsRuleRunsClient, error)`
+- New function `*GetTriggeredAnalyticsRuleRunsClient.NewListPager(string, string, *GetTriggeredAnalyticsRuleRunsClientListOptions) *runtime.Pager[GetTriggeredAnalyticsRuleRunsClientListResponse]`
+- New function `NewHuntCommentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HuntCommentsClient, error)`
+- New function `*HuntCommentsClient.CreateOrUpdate(context.Context, string, string, string, string, HuntComment, *HuntCommentsClientCreateOrUpdateOptions) (HuntCommentsClientCreateOrUpdateResponse, error)`
+- New function `*HuntCommentsClient.Delete(context.Context, string, string, string, string, *HuntCommentsClientDeleteOptions) (HuntCommentsClientDeleteResponse, error)`
+- New function `*HuntCommentsClient.Get(context.Context, string, string, string, string, *HuntCommentsClientGetOptions) (HuntCommentsClientGetResponse, error)`
+- New function `*HuntCommentsClient.NewListPager(string, string, string, *HuntCommentsClientListOptions) *runtime.Pager[HuntCommentsClientListResponse]`
+- New function `NewHuntRelationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HuntRelationsClient, error)`
+- New function `*HuntRelationsClient.CreateOrUpdate(context.Context, string, string, string, string, HuntRelation, *HuntRelationsClientCreateOrUpdateOptions) (HuntRelationsClientCreateOrUpdateResponse, error)`
+- New function `*HuntRelationsClient.Delete(context.Context, string, string, string, string, *HuntRelationsClientDeleteOptions) (HuntRelationsClientDeleteResponse, error)`
+- New function `*HuntRelationsClient.Get(context.Context, string, string, string, string, *HuntRelationsClientGetOptions) (HuntRelationsClientGetResponse, error)`
+- New function `*HuntRelationsClient.NewListPager(string, string, string, *HuntRelationsClientListOptions) *runtime.Pager[HuntRelationsClientListResponse]`
+- New function `NewHuntsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HuntsClient, error)`
+- New function `*HuntsClient.CreateOrUpdate(context.Context, string, string, string, Hunt, *HuntsClientCreateOrUpdateOptions) (HuntsClientCreateOrUpdateResponse, error)`
+- New function `*HuntsClient.Delete(context.Context, string, string, string, *HuntsClientDeleteOptions) (HuntsClientDeleteResponse, error)`
+- New function `*HuntsClient.Get(context.Context, string, string, string, *HuntsClientGetOptions) (HuntsClientGetResponse, error)`
+- New function `*HuntsClient.NewListPager(string, string, *HuntsClientListOptions) *runtime.Pager[HuntsClientListResponse]`
+- New function `NewIncidentTasksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IncidentTasksClient, error)`
+- New function `*IncidentTasksClient.CreateOrUpdate(context.Context, string, string, string, string, IncidentTask, *IncidentTasksClientCreateOrUpdateOptions) (IncidentTasksClientCreateOrUpdateResponse, error)`
+- New function `*IncidentTasksClient.Delete(context.Context, string, string, string, string, *IncidentTasksClientDeleteOptions) (IncidentTasksClientDeleteResponse, error)`
+- New function `*IncidentTasksClient.Get(context.Context, string, string, string, string, *IncidentTasksClientGetOptions) (IncidentTasksClientGetResponse, error)`
+- New function `*IncidentTasksClient.NewListPager(string, string, string, *IncidentTasksClientListOptions) *runtime.Pager[IncidentTasksClientListResponse]`
+- New function `*JavaOsConnector.GetSystemsConfigurationConnector() *SystemsConfigurationConnector`
+- New function `*MicrosoftPurviewInformationProtectionCheckRequirements.GetDataConnectorsCheckRequirements() *DataConnectorsCheckRequirements`
+- New function `*MicrosoftPurviewInformationProtectionDataConnector.GetDataConnector() *DataConnector`
+- New function `NewProductPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductPackageClient, error)`
+- New function `*ProductPackageClient.Get(context.Context, string, string, string, *ProductPackageClientGetOptions) (ProductPackageClientGetResponse, error)`
+- New function `NewProductPackagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductPackagesClient, error)`
+- New function `*ProductPackagesClient.NewListPager(string, string, *ProductPackagesClientListOptions) *runtime.Pager[ProductPackagesClientListResponse]`
+- New function `NewProductTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductTemplateClient, error)`
+- New function `*ProductTemplateClient.Get(context.Context, string, string, string, *ProductTemplateClientGetOptions) (ProductTemplateClientGetResponse, error)`
+- New function `NewProductTemplatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductTemplatesClient, error)`
+- New function `*ProductTemplatesClient.NewListPager(string, string, *ProductTemplatesClientListOptions) *runtime.Pager[ProductTemplatesClientListResponse]`
+- New function `*SapSolutionUsageStatistic.GetBillingStatistic() *BillingStatistic`
+- New function `*SapSystemsConfiguration.GetSystemsConfiguration() *SystemsConfiguration`
+- New function `NewSystemsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SystemsClient, error)`
+- New function `*SystemsClient.CreateOrUpdate(context.Context, string, string, string, *SystemsClientCreateOrUpdateOptions) (SystemsClientCreateOrUpdateResponse, error)`
+- New function `*SystemsClient.Delete(context.Context, string, string, string, *SystemsClientDeleteOptions) (SystemsClientDeleteResponse, error)`
+- New function `*SystemsClient.Get(context.Context, string, string, string, *SystemsClientGetOptions) (SystemsClientGetResponse, error)`
+- New function `*SystemsClient.NewGetAllPager(string, string, *SystemsClientGetAllOptions) *runtime.Pager[SystemsClientGetAllResponse]`
+- New function `*SystemsConfiguration.GetSystemsConfiguration() *SystemsConfiguration`
+- New function `*SystemsConfigurationConnector.GetSystemsConfigurationConnector() *SystemsConfigurationConnector`
+- New function `NewTriggeredAnalyticsRuleRunClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TriggeredAnalyticsRuleRunClient, error)`
+- New function `*TriggeredAnalyticsRuleRunClient.Get(context.Context, string, string, string, *TriggeredAnalyticsRuleRunClientGetOptions) (TriggeredAnalyticsRuleRunClientGetResponse, error)`
+- New function `NewUpdateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdateClient, error)`
+- New function `*UpdateClient.BeginRecommendation(context.Context, string, string, string, []*RecommendationPatch, *UpdateClientBeginRecommendationOptions) (*runtime.Poller[UpdateClientRecommendationResponse], error)`
+- New function `NewWorkspaceManagerAssignmentJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkspaceManagerAssignmentJobsClient, error)`
+- New function `*WorkspaceManagerAssignmentJobsClient.Create(context.Context, string, string, string, *WorkspaceManagerAssignmentJobsClientCreateOptions) (WorkspaceManagerAssignmentJobsClientCreateResponse, error)`
+- New function `*WorkspaceManagerAssignmentJobsClient.Delete(context.Context, string, string, string, string, *WorkspaceManagerAssignmentJobsClientDeleteOptions) (WorkspaceManagerAssignmentJobsClientDeleteResponse, error)`
+- New function `*WorkspaceManagerAssignmentJobsClient.Get(context.Context, string, string, string, string, *WorkspaceManagerAssignmentJobsClientGetOptions) (WorkspaceManagerAssignmentJobsClientGetResponse, error)`
+- New function `*WorkspaceManagerAssignmentJobsClient.NewListPager(string, string, string, *WorkspaceManagerAssignmentJobsClientListOptions) *runtime.Pager[WorkspaceManagerAssignmentJobsClientListResponse]`
+- New function `NewWorkspaceManagerAssignmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkspaceManagerAssignmentsClient, error)`
+- New function `*WorkspaceManagerAssignmentsClient.CreateOrUpdate(context.Context, string, string, string, WorkspaceManagerAssignment, *WorkspaceManagerAssignmentsClientCreateOrUpdateOptions) (WorkspaceManagerAssignmentsClientCreateOrUpdateResponse, error)`
+- New function `*WorkspaceManagerAssignmentsClient.Delete(context.Context, string, string, string, *WorkspaceManagerAssignmentsClientDeleteOptions) (WorkspaceManagerAssignmentsClientDeleteResponse, error)`
+- New function `*WorkspaceManagerAssignmentsClient.Get(context.Context, string, string, string, *WorkspaceManagerAssignmentsClientGetOptions) (WorkspaceManagerAssignmentsClientGetResponse, error)`
+- New function `*WorkspaceManagerAssignmentsClient.NewListPager(string, string, *WorkspaceManagerAssignmentsClientListOptions) *runtime.Pager[WorkspaceManagerAssignmentsClientListResponse]`
+- New function `NewWorkspaceManagerConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkspaceManagerConfigurationsClient, error)`
+- New function `*WorkspaceManagerConfigurationsClient.CreateOrUpdate(context.Context, string, string, string, WorkspaceManagerConfiguration, *WorkspaceManagerConfigurationsClientCreateOrUpdateOptions) (WorkspaceManagerConfigurationsClientCreateOrUpdateResponse, error)`
+- New function `*WorkspaceManagerConfigurationsClient.Delete(context.Context, string, string, string, *WorkspaceManagerConfigurationsClientDeleteOptions) (WorkspaceManagerConfigurationsClientDeleteResponse, error)`
+- New function `*WorkspaceManagerConfigurationsClient.Get(context.Context, string, string, string, *WorkspaceManagerConfigurationsClientGetOptions) (WorkspaceManagerConfigurationsClientGetResponse, error)`
+- New function `*WorkspaceManagerConfigurationsClient.NewListPager(string, string, *WorkspaceManagerConfigurationsClientListOptions) *runtime.Pager[WorkspaceManagerConfigurationsClientListResponse]`
+- New function `NewWorkspaceManagerGroupsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkspaceManagerGroupsClient, error)`
+- New function `*WorkspaceManagerGroupsClient.CreateOrUpdate(context.Context, string, string, string, WorkspaceManagerGroup, *WorkspaceManagerGroupsClientCreateOrUpdateOptions) (WorkspaceManagerGroupsClientCreateOrUpdateResponse, error)`
+- New function `*WorkspaceManagerGroupsClient.Delete(context.Context, string, string, string, *WorkspaceManagerGroupsClientDeleteOptions) (WorkspaceManagerGroupsClientDeleteResponse, error)`
+- New function `*WorkspaceManagerGroupsClient.Get(context.Context, string, string, string, *WorkspaceManagerGroupsClientGetOptions) (WorkspaceManagerGroupsClientGetResponse, error)`
+- New function `*WorkspaceManagerGroupsClient.NewListPager(string, string, *WorkspaceManagerGroupsClientListOptions) *runtime.Pager[WorkspaceManagerGroupsClientListResponse]`
+- New function `NewWorkspaceManagerMembersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkspaceManagerMembersClient, error)`
+- New function `*WorkspaceManagerMembersClient.CreateOrUpdate(context.Context, string, string, string, WorkspaceManagerMember, *WorkspaceManagerMembersClientCreateOrUpdateOptions) (WorkspaceManagerMembersClientCreateOrUpdateResponse, error)`
+- New function `*WorkspaceManagerMembersClient.Delete(context.Context, string, string, string, *WorkspaceManagerMembersClientDeleteOptions) (WorkspaceManagerMembersClientDeleteResponse, error)`
+- New function `*WorkspaceManagerMembersClient.Get(context.Context, string, string, string, *WorkspaceManagerMembersClientGetOptions) (WorkspaceManagerMembersClientGetResponse, error)`
+- New function `*WorkspaceManagerMembersClient.NewListPager(string, string, *WorkspaceManagerMembersClientListOptions) *runtime.Pager[WorkspaceManagerMembersClientListResponse]`
+- New function `*NetWeaverConnector.GetSystemsConfigurationConnector() *SystemsConfigurationConnector`
+- New struct `AbapOsConnector`
+- New struct `AddIncidentTaskActionProperties`
+- New struct `Agent`
+- New struct `AgentArmModel`
+- New struct `AgentsList`
+- New struct `AgentsSystemArmModel`
+- New struct `AlertPropertyMapping`
+- New struct `AnalyticsRuleRunTrigger`
+- New struct `AnalyticsRuleRunTriggerProperties`
+- New struct `AssignmentItem`
+- New struct `AutomationRuleAddIncidentTaskAction`
+- New struct `BillingStatisticList`
+- New struct `ConnectivityCriterion`
+- New struct `ConnectorDataType`
+- New struct `ConnectorDefinitionsAvailability`
+- New struct `ConnectorDefinitionsPermissions`
+- New struct `ConnectorDefinitionsResourceProvider`
+- New struct `Content`
+- New struct `CustomPermissionDetails`
+- New struct `CustomizableConnectionsConfig`
+- New struct `CustomizableConnectorDefinition`
+- New struct `CustomizableConnectorDefinitionProperties`
+- New struct `CustomizableConnectorUIConfig`
+- New struct `DCRConfiguration`
+- New struct `DataConnectorDefinitionArmCollectionWrapper`
+- New struct `EntityManualTriggerRequestBody`
+- New struct `Error`
+- New struct `GCPAuthProperties`
+- New struct `GCPDataConnector`
+- New struct `GCPDataConnectorProperties`
+- New struct `GCPRequestProperties`
+- New struct `GraphQuery`
+- New struct `Hunt`
+- New struct `HuntComment`
+- New struct `HuntCommentList`
+- New struct `HuntCommentProperties`
+- New struct `HuntList`
+- New struct `HuntOwner`
+- New struct `HuntProperties`
+- New struct `HuntRelation`
+- New struct `HuntRelationList`
+- New struct `HuntRelationProperties`
+- New struct `IncidentTask`
+- New struct `IncidentTaskList`
+- New struct `IncidentTaskProperties`
+- New struct `InstructionStep`
+- New struct `InstructionStepDetails`
+- New struct `Instructions`
+- New struct `JavaOsConnector`
+- New struct `Job`
+- New struct `JobItem`
+- New struct `JobList`
+- New struct `JobProperties`
+- New struct `LogArmModel`
+- New struct `MTPDataConnectorDataTypesAlerts`
+- New struct `MicrosoftPurviewInformationProtectionCheckRequirements`
+- New struct `MicrosoftPurviewInformationProtectionCheckRequirementsProperties`
+- New struct `MicrosoftPurviewInformationProtectionConnectorDataTypes`
+- New struct `MicrosoftPurviewInformationProtectionConnectorDataTypesLogs`
+- New struct `MicrosoftPurviewInformationProtectionDataConnector`
+- New struct `MicrosoftPurviewInformationProtectionDataConnectorProperties`
+- New struct `MtpFilteredProviders`
+- New struct `NetWeaverConnector`
+- New struct `PackageList`
+- New struct `PackageModel`
+- New struct `PackageProperties`
+- New struct `ProductPackageList`
+- New struct `ProductPackageModel`
+- New struct `ProductPackageProperties`
+- New struct `ProductTemplateList`
+- New struct `ProductTemplateModel`
+- New struct `ProductTemplateProperties`
+- New struct `PullRequest`
+- New struct `Recommendation`
+- New struct `RecommendationList`
+- New struct `RecommendationPatch`
+- New struct `RecommendedAction`
+- New struct `RepositoryAccess`
+- New struct `RepositoryAccessObject`
+- New struct `RepositoryAccessProperties`
+- New struct `ResourceProviderRequiredPermissions`
+- New struct `SampleQuery`
+- New struct `SapSolutionUsageStatistic`
+- New struct `SapSolutionUsageStatisticProperties`
+- New struct `SapSystemsConfiguration`
+- New struct `SentinelEntityMapping`
+- New struct `ServicePrincipal`
+- New struct `System`
+- New struct `SystemArmModel`
+- New struct `SystemsList`
+- New struct `TemplateList`
+- New struct `TemplateModel`
+- New struct `TemplateProperties`
+- New struct `TriggeredAnalyticsRuleRun`
+- New struct `TriggeredAnalyticsRuleRunProperties`
+- New struct `TriggeredAnalyticsRuleRuns`
+- New struct `Warning`
+- New struct `WarningBody`
+- New struct `WorkspaceManagerAssignment`
+- New struct `WorkspaceManagerAssignmentList`
+- New struct `WorkspaceManagerAssignmentProperties`
+- New struct `WorkspaceManagerConfiguration`
+- New struct `WorkspaceManagerConfigurationList`
+- New struct `WorkspaceManagerConfigurationProperties`
+- New struct `WorkspaceManagerGroup`
+- New struct `WorkspaceManagerGroupList`
+- New struct `WorkspaceManagerGroupProperties`
+- New struct `WorkspaceManagerMember`
+- New struct `WorkspaceManagerMemberProperties`
+- New struct `WorkspaceManagerMembersList`
+- New field `AlertDynamicProperties` in struct `AlertDetailsOverride`
+- New field `Alerts` in struct `MTPDataConnectorDataTypes`
+- New field `FilteredProviders` in struct `MTPDataConnectorProperties`
+- New field `SentinelEntitiesMappings` in struct `NrtAlertRuleProperties`
+- New field `SentinelEntitiesMappings` in struct `NrtAlertRuleTemplateProperties`
+- New field `InstallationID` in struct `Repo`
+- New field `SentinelEntitiesMappings` in struct `ScheduledAlertRuleProperties`
+- New field `SentinelEntitiesMappings` in struct `ScheduledAlertRuleTemplateProperties`
+- New field `Intent`, `Techniques` in struct `SecurityAlertTimelineItem`
+- New field `PullRequest`, `RepositoryAccess`, `ServicePrincipal` in struct `SourceControlProperties`
+- New anonymous field `Warning` in struct `SourceControlsClientDeleteResponse`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
