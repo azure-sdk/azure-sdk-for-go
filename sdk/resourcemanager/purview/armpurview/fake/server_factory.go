@@ -19,11 +19,15 @@ import (
 
 // ServerFactory is a fake server for instances of the armpurview.ClientFactory type.
 type ServerFactory struct {
-	AccountsServer                   AccountsServer
-	DefaultAccountsServer            DefaultAccountsServer
-	OperationsServer                 OperationsServer
-	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
-	PrivateLinkResourcesServer       PrivateLinkResourcesServer
+	AccountsServer                            AccountsServer
+	DefaultAccountsServer                     DefaultAccountsServer
+	FeaturesServer                            FeaturesServer
+	IngestionPrivateEndpointConnectionsServer IngestionPrivateEndpointConnectionsServer
+	KafkaConfigurationsServer                 KafkaConfigurationsServer
+	OperationsServer                          OperationsServer
+	PrivateEndpointConnectionsServer          PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer                PrivateLinkResourcesServer
+	UsagesServer                              UsagesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -38,13 +42,17 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armpurview.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                *ServerFactory
-	trMu                               sync.Mutex
-	trAccountsServer                   *AccountsServerTransport
-	trDefaultAccountsServer            *DefaultAccountsServerTransport
-	trOperationsServer                 *OperationsServerTransport
-	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
-	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
+	srv                                         *ServerFactory
+	trMu                                        sync.Mutex
+	trAccountsServer                            *AccountsServerTransport
+	trDefaultAccountsServer                     *DefaultAccountsServerTransport
+	trFeaturesServer                            *FeaturesServerTransport
+	trIngestionPrivateEndpointConnectionsServer *IngestionPrivateEndpointConnectionsServerTransport
+	trKafkaConfigurationsServer                 *KafkaConfigurationsServerTransport
+	trOperationsServer                          *OperationsServerTransport
+	trPrivateEndpointConnectionsServer          *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer                *PrivateLinkResourcesServerTransport
+	trUsagesServer                              *UsagesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -68,6 +76,19 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDefaultAccountsServerTransport(&s.srv.DefaultAccountsServer)
 		})
 		resp, err = s.trDefaultAccountsServer.Do(req)
+	case "FeaturesClient":
+		initServer(s, &s.trFeaturesServer, func() *FeaturesServerTransport { return NewFeaturesServerTransport(&s.srv.FeaturesServer) })
+		resp, err = s.trFeaturesServer.Do(req)
+	case "IngestionPrivateEndpointConnectionsClient":
+		initServer(s, &s.trIngestionPrivateEndpointConnectionsServer, func() *IngestionPrivateEndpointConnectionsServerTransport {
+			return NewIngestionPrivateEndpointConnectionsServerTransport(&s.srv.IngestionPrivateEndpointConnectionsServer)
+		})
+		resp, err = s.trIngestionPrivateEndpointConnectionsServer.Do(req)
+	case "KafkaConfigurationsClient":
+		initServer(s, &s.trKafkaConfigurationsServer, func() *KafkaConfigurationsServerTransport {
+			return NewKafkaConfigurationsServerTransport(&s.srv.KafkaConfigurationsServer)
+		})
+		resp, err = s.trKafkaConfigurationsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -81,6 +102,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "UsagesClient":
+		initServer(s, &s.trUsagesServer, func() *UsagesServerTransport { return NewUsagesServerTransport(&s.srv.UsagesServer) })
+		resp, err = s.trUsagesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
