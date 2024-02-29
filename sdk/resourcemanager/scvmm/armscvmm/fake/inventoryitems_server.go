@@ -26,16 +26,16 @@ import (
 // InventoryItemsServer is a fake server for instances of the armscvmm.InventoryItemsClient type.
 type InventoryItemsServer struct {
 	// Create is the fake for method InventoryItemsClient.Create
-	// HTTP status codes to indicate success: http.StatusOK
-	Create func(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *armscvmm.InventoryItemsClientCreateOptions) (resp azfake.Responder[armscvmm.InventoryItemsClientCreateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	Create func(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *armscvmm.InventoryItemsClientCreateOptions) (resp azfake.Responder[armscvmm.InventoryItemsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method InventoryItemsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *armscvmm.InventoryItemsClientDeleteOptions) (resp azfake.Responder[armscvmm.InventoryItemsClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *armscvmm.InventoryItemsClientDeleteOptions) (resp azfake.Responder[armscvmm.InventoryItemsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method InventoryItemsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemName string, options *armscvmm.InventoryItemsClientGetOptions) (resp azfake.Responder[armscvmm.InventoryItemsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, vmmServerName string, inventoryItemResourceName string, options *armscvmm.InventoryItemsClientGetOptions) (resp azfake.Responder[armscvmm.InventoryItemsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByVMMServerPager is the fake for method InventoryItemsClient.NewListByVMMServerPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -94,7 +94,7 @@ func (i *InventoryItemsServerTransport) dispatchCreate(req *http.Request) (*http
 	if i.srv.Create == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Create not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ScVmm/vmmServers/(?P<vmmServerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryItems/(?P<inventoryItemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ScVmm/vmmServers/(?P<vmmServerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryItems/(?P<inventoryItemResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -112,7 +112,7 @@ func (i *InventoryItemsServerTransport) dispatchCreate(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	inventoryItemNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inventoryItemName")])
+	inventoryItemResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inventoryItemResourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -122,13 +122,13 @@ func (i *InventoryItemsServerTransport) dispatchCreate(req *http.Request) (*http
 			Body: &body,
 		}
 	}
-	respr, errRespr := i.srv.Create(req.Context(), resourceGroupNameParam, vmmServerNameParam, inventoryItemNameParam, options)
+	respr, errRespr := i.srv.Create(req.Context(), resourceGroupNameParam, vmmServerNameParam, inventoryItemResourceNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).InventoryItem, req)
 	if err != nil {
@@ -141,7 +141,7 @@ func (i *InventoryItemsServerTransport) dispatchDelete(req *http.Request) (*http
 	if i.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ScVmm/vmmServers/(?P<vmmServerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryItems/(?P<inventoryItemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ScVmm/vmmServers/(?P<vmmServerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryItems/(?P<inventoryItemResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -155,11 +155,11 @@ func (i *InventoryItemsServerTransport) dispatchDelete(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	inventoryItemNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inventoryItemName")])
+	inventoryItemResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inventoryItemResourceName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := i.srv.Delete(req.Context(), resourceGroupNameParam, vmmServerNameParam, inventoryItemNameParam, nil)
+	respr, errRespr := i.srv.Delete(req.Context(), resourceGroupNameParam, vmmServerNameParam, inventoryItemResourceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -178,7 +178,7 @@ func (i *InventoryItemsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if i.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ScVmm/vmmServers/(?P<vmmServerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryItems/(?P<inventoryItemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ScVmm/vmmServers/(?P<vmmServerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryItems/(?P<inventoryItemResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -192,11 +192,11 @@ func (i *InventoryItemsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if err != nil {
 		return nil, err
 	}
-	inventoryItemNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inventoryItemName")])
+	inventoryItemResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inventoryItemResourceName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := i.srv.Get(req.Context(), resourceGroupNameParam, vmmServerNameParam, inventoryItemNameParam, nil)
+	respr, errRespr := i.srv.Get(req.Context(), resourceGroupNameParam, vmmServerNameParam, inventoryItemResourceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
