@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -77,6 +77,10 @@ type WebSiteManagementServer struct {
 	// HTTP status codes to indicate success: http.StatusNoContent
 	Move func(ctx context.Context, resourceGroupName string, moveResourceEnvelope armappservice.CsmMoveResourceEnvelope, options *armappservice.WebSiteManagementClientMoveOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientMoveResponse], errResp azfake.ErrorResponder)
 
+	// PurgeUnusedVirtualNetworkIntegrations is the fake for method WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations
+	// HTTP status codes to indicate success: http.StatusOK
+	PurgeUnusedVirtualNetworkIntegrations func(ctx context.Context, location string, request armappservice.VirtualNetworkIntegrationRequest, options *armappservice.WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse], errResp azfake.ErrorResponder)
+
 	// UpdatePublishingUser is the fake for method WebSiteManagementClient.UpdatePublishingUser
 	// HTTP status codes to indicate success: http.StatusOK
 	UpdatePublishingUser func(ctx context.Context, userDetails armappservice.User, options *armappservice.WebSiteManagementClientUpdatePublishingUserOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientUpdatePublishingUserResponse], errResp azfake.ErrorResponder)
@@ -96,6 +100,10 @@ type WebSiteManagementServer struct {
 	// VerifyHostingEnvironmentVnet is the fake for method WebSiteManagementClient.VerifyHostingEnvironmentVnet
 	// HTTP status codes to indicate success: http.StatusOK
 	VerifyHostingEnvironmentVnet func(ctx context.Context, parameters armappservice.VnetParameters, options *armappservice.WebSiteManagementClientVerifyHostingEnvironmentVnetOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientVerifyHostingEnvironmentVnetResponse], errResp azfake.ErrorResponder)
+
+	// VirtualNetworkIntegrations is the fake for method WebSiteManagementClient.VirtualNetworkIntegrations
+	// HTTP status codes to indicate success: http.StatusOK
+	VirtualNetworkIntegrations func(ctx context.Context, location string, request armappservice.VirtualNetworkIntegrationRequest, options *armappservice.WebSiteManagementClientVirtualNetworkIntegrationsOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientVirtualNetworkIntegrationsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewWebSiteManagementServerTransport creates a new instance of WebSiteManagementServerTransport with the provided implementation.
@@ -165,6 +173,8 @@ func (w *WebSiteManagementServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = w.dispatchNewListSourceControlsPager(req)
 	case "WebSiteManagementClient.Move":
 		resp, err = w.dispatchMove(req)
+	case "WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations":
+		resp, err = w.dispatchPurgeUnusedVirtualNetworkIntegrations(req)
 	case "WebSiteManagementClient.UpdatePublishingUser":
 		resp, err = w.dispatchUpdatePublishingUser(req)
 	case "WebSiteManagementClient.UpdateSourceControl":
@@ -175,6 +185,8 @@ func (w *WebSiteManagementServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = w.dispatchValidateMove(req)
 	case "WebSiteManagementClient.VerifyHostingEnvironmentVnet":
 		resp, err = w.dispatchVerifyHostingEnvironmentVnet(req)
+	case "WebSiteManagementClient.VirtualNetworkIntegrations":
+		resp, err = w.dispatchVirtualNetworkIntegrations(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -303,9 +315,6 @@ func (w *WebSiteManagementServerTransport) dispatchNewListAseRegionsPager(req *h
 		resp := w.srv.NewListAseRegionsPager(nil)
 		newListAseRegionsPager = &resp
 		w.newListAseRegionsPager.add(req, newListAseRegionsPager)
-		server.PagerResponderInjectNextLinks(newListAseRegionsPager, req, func(page *armappservice.WebSiteManagementClientListAseRegionsResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
 	}
 	resp, err := server.PagerResponderNext(newListAseRegionsPager, req)
 	if err != nil {
@@ -644,6 +653,39 @@ func (w *WebSiteManagementServerTransport) dispatchMove(req *http.Request) (*htt
 	return resp, nil
 }
 
+func (w *WebSiteManagementServerTransport) dispatchPurgeUnusedVirtualNetworkIntegrations(req *http.Request) (*http.Response, error) {
+	if w.srv.PurgeUnusedVirtualNetworkIntegrations == nil {
+		return nil, &nonRetriableError{errors.New("fake for method PurgeUnusedVirtualNetworkIntegrations not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/purgeUnusedVirtualNetworkIntegration`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armappservice.VirtualNetworkIntegrationRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := w.srv.PurgeUnusedVirtualNetworkIntegrations(req.Context(), locationParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Value, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (w *WebSiteManagementServerTransport) dispatchUpdatePublishingUser(req *http.Request) (*http.Response, error) {
 	if w.srv.UpdatePublishingUser == nil {
 		return nil, &nonRetriableError{errors.New("fake for method UpdatePublishingUser not implemented")}
@@ -789,6 +831,39 @@ func (w *WebSiteManagementServerTransport) dispatchVerifyHostingEnvironmentVnet(
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VnetValidationFailureDetails, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (w *WebSiteManagementServerTransport) dispatchVirtualNetworkIntegrations(req *http.Request) (*http.Response, error) {
+	if w.srv.VirtualNetworkIntegrations == nil {
+		return nil, &nonRetriableError{errors.New("fake for method VirtualNetworkIntegrations not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualNetworkIntegrations`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armappservice.VirtualNetworkIntegrationRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := w.srv.VirtualNetworkIntegrations(req.Context(), locationParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
 	if err != nil {
 		return nil, err
 	}
