@@ -26,10 +26,12 @@ type ServerFactory struct {
 	DatastoresServer             DatastoresServer
 	GlobalReachConnectionsServer GlobalReachConnectionsServer
 	HcxEnterpriseSitesServer     HcxEnterpriseSitesServer
+	IscsiPathsServer             IscsiPathsServer
 	LocationsServer              LocationsServer
 	OperationsServer             OperationsServer
 	PlacementPoliciesServer      PlacementPoliciesServer
 	PrivateCloudsServer          PrivateCloudsServer
+	ProvisionedNetworksServer    ProvisionedNetworksServer
 	ScriptCmdletsServer          ScriptCmdletsServer
 	ScriptExecutionsServer       ScriptExecutionsServer
 	ScriptPackagesServer         ScriptPackagesServer
@@ -58,10 +60,12 @@ type ServerFactoryTransport struct {
 	trDatastoresServer             *DatastoresServerTransport
 	trGlobalReachConnectionsServer *GlobalReachConnectionsServerTransport
 	trHcxEnterpriseSitesServer     *HcxEnterpriseSitesServerTransport
+	trIscsiPathsServer             *IscsiPathsServerTransport
 	trLocationsServer              *LocationsServerTransport
 	trOperationsServer             *OperationsServerTransport
 	trPlacementPoliciesServer      *PlacementPoliciesServerTransport
 	trPrivateCloudsServer          *PrivateCloudsServerTransport
+	trProvisionedNetworksServer    *ProvisionedNetworksServerTransport
 	trScriptCmdletsServer          *ScriptCmdletsServerTransport
 	trScriptExecutionsServer       *ScriptExecutionsServerTransport
 	trScriptPackagesServer         *ScriptPackagesServerTransport
@@ -109,6 +113,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewHcxEnterpriseSitesServerTransport(&s.srv.HcxEnterpriseSitesServer)
 		})
 		resp, err = s.trHcxEnterpriseSitesServer.Do(req)
+	case "IscsiPathsClient":
+		initServer(s, &s.trIscsiPathsServer, func() *IscsiPathsServerTransport { return NewIscsiPathsServerTransport(&s.srv.IscsiPathsServer) })
+		resp, err = s.trIscsiPathsServer.Do(req)
 	case "LocationsClient":
 		initServer(s, &s.trLocationsServer, func() *LocationsServerTransport { return NewLocationsServerTransport(&s.srv.LocationsServer) })
 		resp, err = s.trLocationsServer.Do(req)
@@ -125,6 +132,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateCloudsServerTransport(&s.srv.PrivateCloudsServer)
 		})
 		resp, err = s.trPrivateCloudsServer.Do(req)
+	case "ProvisionedNetworksClient":
+		initServer(s, &s.trProvisionedNetworksServer, func() *ProvisionedNetworksServerTransport {
+			return NewProvisionedNetworksServerTransport(&s.srv.ProvisionedNetworksServer)
+		})
+		resp, err = s.trProvisionedNetworksServer.Do(req)
 	case "ScriptCmdletsClient":
 		initServer(s, &s.trScriptCmdletsServer, func() *ScriptCmdletsServerTransport {
 			return NewScriptCmdletsServerTransport(&s.srv.ScriptCmdletsServer)
