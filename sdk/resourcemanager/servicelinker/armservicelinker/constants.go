@@ -10,7 +10,7 @@ package armservicelinker
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -67,16 +67,17 @@ func PossibleAzureResourceTypeValues() []AzureResourceType {
 type ClientType string
 
 const (
-	ClientTypeDjango     ClientType = "django"
-	ClientTypeDotnet     ClientType = "dotnet"
-	ClientTypeGo         ClientType = "go"
-	ClientTypeJava       ClientType = "java"
-	ClientTypeNodejs     ClientType = "nodejs"
-	ClientTypeNone       ClientType = "none"
-	ClientTypePhp        ClientType = "php"
-	ClientTypePython     ClientType = "python"
-	ClientTypeRuby       ClientType = "ruby"
-	ClientTypeSpringBoot ClientType = "springBoot"
+	ClientTypeDjango          ClientType = "django"
+	ClientTypeDotnet          ClientType = "dotnet"
+	ClientTypeGo              ClientType = "go"
+	ClientTypeJava            ClientType = "java"
+	ClientTypeKafkaSpringBoot ClientType = "kafka-springBoot"
+	ClientTypeNodejs          ClientType = "nodejs"
+	ClientTypeNone            ClientType = "none"
+	ClientTypePhp             ClientType = "php"
+	ClientTypePython          ClientType = "python"
+	ClientTypeRuby            ClientType = "ruby"
+	ClientTypeSpringBoot      ClientType = "springBoot"
 )
 
 // PossibleClientTypeValues returns the possible values for the ClientType const type.
@@ -86,6 +87,7 @@ func PossibleClientTypeValues() []ClientType {
 		ClientTypeDotnet,
 		ClientTypeGo,
 		ClientTypeJava,
+		ClientTypeKafkaSpringBoot,
 		ClientTypeNodejs,
 		ClientTypeNone,
 		ClientTypePhp,
