@@ -2610,8 +2610,12 @@ func (d *DataDiskImageEncryption) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type DataDisksToAttach.
 func (d DataDisksToAttach) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "caching", d.Caching)
+	populate(objectMap, "deleteOption", d.DeleteOption)
+	populate(objectMap, "diskEncryptionSet", d.DiskEncryptionSet)
 	populate(objectMap, "diskId", d.DiskID)
 	populate(objectMap, "lun", d.Lun)
+	populate(objectMap, "writeAcceleratorEnabled", d.WriteAcceleratorEnabled)
 	return json.Marshal(objectMap)
 }
 
@@ -2624,11 +2628,23 @@ func (d *DataDisksToAttach) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "caching":
+			err = unpopulate(val, "Caching", &d.Caching)
+			delete(rawMsg, key)
+		case "deleteOption":
+			err = unpopulate(val, "DeleteOption", &d.DeleteOption)
+			delete(rawMsg, key)
+		case "diskEncryptionSet":
+			err = unpopulate(val, "DiskEncryptionSet", &d.DiskEncryptionSet)
+			delete(rawMsg, key)
 		case "diskId":
 			err = unpopulate(val, "DiskID", &d.DiskID)
 			delete(rawMsg, key)
 		case "lun":
 			err = unpopulate(val, "Lun", &d.Lun)
+			delete(rawMsg, key)
+		case "writeAcceleratorEnabled":
+			err = unpopulate(val, "WriteAcceleratorEnabled", &d.WriteAcceleratorEnabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -9037,6 +9053,41 @@ func (p *PirSharedGalleryResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type Placement.
+func (p Placement) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "excludeZones", p.ExcludeZones)
+	populate(objectMap, "includeZones", p.IncludeZones)
+	populate(objectMap, "zonePlacementPolicy", p.ZonePlacementPolicy)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type Placement.
+func (p *Placement) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "excludeZones":
+			err = unpopulate(val, "ExcludeZones", &p.ExcludeZones)
+			delete(rawMsg, key)
+		case "includeZones":
+			err = unpopulate(val, "IncludeZones", &p.IncludeZones)
+			delete(rawMsg, key)
+		case "zonePlacementPolicy":
+			err = unpopulate(val, "ZonePlacementPolicy", &p.ZonePlacementPolicy)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Plan.
 func (p Plan) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -14718,6 +14769,7 @@ func (v VirtualMachine) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "managedBy", v.ManagedBy)
 	populate(objectMap, "name", v.Name)
+	populate(objectMap, "placement", v.Placement)
 	populate(objectMap, "plan", v.Plan)
 	populate(objectMap, "properties", v.Properties)
 	populate(objectMap, "resources", v.Resources)
@@ -14756,6 +14808,9 @@ func (v *VirtualMachine) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
+			delete(rawMsg, key)
+		case "placement":
+			err = unpopulate(val, "Placement", &v.Placement)
 			delete(rawMsg, key)
 		case "plan":
 			err = unpopulate(val, "Plan", &v.Plan)
@@ -18352,6 +18407,7 @@ func (v VirtualMachineScaleSetUpdateOSDisk) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "caching", v.Caching)
 	populate(objectMap, "deleteOption", v.DeleteOption)
+	populate(objectMap, "diffDiskSettings", v.DiffDiskSettings)
 	populate(objectMap, "diskSizeGB", v.DiskSizeGB)
 	populate(objectMap, "image", v.Image)
 	populate(objectMap, "managedDisk", v.ManagedDisk)
@@ -18374,6 +18430,9 @@ func (v *VirtualMachineScaleSetUpdateOSDisk) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "deleteOption":
 			err = unpopulate(val, "DeleteOption", &v.DeleteOption)
+			delete(rawMsg, key)
+		case "diffDiskSettings":
+			err = unpopulate(val, "DiffDiskSettings", &v.DiffDiskSettings)
 			delete(rawMsg, key)
 		case "diskSizeGB":
 			err = unpopulate(val, "DiskSizeGB", &v.DiskSizeGB)
@@ -19769,7 +19828,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
