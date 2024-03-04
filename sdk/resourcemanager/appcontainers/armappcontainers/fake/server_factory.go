@@ -19,8 +19,13 @@ import (
 
 // ServerFactory is a fake server for instances of the armappcontainers.ClientFactory type.
 type ServerFactory struct {
+	AppResiliencyServer                       AppResiliencyServer
 	AvailableWorkloadProfilesServer           AvailableWorkloadProfilesServer
 	BillingMetersServer                       BillingMetersServer
+	BuildAuthTokenServer                      BuildAuthTokenServer
+	BuildersServer                            BuildersServer
+	BuildsByBuilderResourceServer             BuildsByBuilderResourceServer
+	BuildsServer                              BuildsServer
 	CertificatesServer                        CertificatesServer
 	ConnectedEnvironmentsCertificatesServer   ConnectedEnvironmentsCertificatesServer
 	ConnectedEnvironmentsServer               ConnectedEnvironmentsServer
@@ -32,17 +37,26 @@ type ServerFactory struct {
 	ContainerAppsDiagnosticsServer            ContainerAppsDiagnosticsServer
 	ContainerAppsRevisionReplicasServer       ContainerAppsRevisionReplicasServer
 	ContainerAppsRevisionsServer              ContainerAppsRevisionsServer
+	ContainerAppsSessionPoolSessionsServer    ContainerAppsSessionPoolSessionsServer
+	ContainerAppsSessionPoolsServer           ContainerAppsSessionPoolsServer
 	ContainerAppsSourceControlsServer         ContainerAppsSourceControlsServer
+	DaprComponentResiliencyPoliciesServer     DaprComponentResiliencyPoliciesServer
 	DaprComponentsServer                      DaprComponentsServer
+	DaprSubscriptionsServer                   DaprSubscriptionsServer
+	DotNetComponentsServer                    DotNetComponentsServer
+	FunctionsExtensionServer                  FunctionsExtensionServer
+	JavaComponentsServer                      JavaComponentsServer
 	JobsServer                                JobsServer
 	JobsExecutionsServer                      JobsExecutionsServer
 	ManagedCertificatesServer                 ManagedCertificatesServer
 	ManagedEnvironmentDiagnosticsServer       ManagedEnvironmentDiagnosticsServer
+	ManagedEnvironmentUsagesServer            ManagedEnvironmentUsagesServer
 	ManagedEnvironmentsServer                 ManagedEnvironmentsServer
 	ManagedEnvironmentsDiagnosticsServer      ManagedEnvironmentsDiagnosticsServer
 	ManagedEnvironmentsStoragesServer         ManagedEnvironmentsStoragesServer
 	NamespacesServer                          NamespacesServer
 	OperationsServer                          OperationsServer
+	UsagesServer                              UsagesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -59,8 +73,13 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                         *ServerFactory
 	trMu                                        sync.Mutex
+	trAppResiliencyServer                       *AppResiliencyServerTransport
 	trAvailableWorkloadProfilesServer           *AvailableWorkloadProfilesServerTransport
 	trBillingMetersServer                       *BillingMetersServerTransport
+	trBuildAuthTokenServer                      *BuildAuthTokenServerTransport
+	trBuildersServer                            *BuildersServerTransport
+	trBuildsByBuilderResourceServer             *BuildsByBuilderResourceServerTransport
+	trBuildsServer                              *BuildsServerTransport
 	trCertificatesServer                        *CertificatesServerTransport
 	trConnectedEnvironmentsCertificatesServer   *ConnectedEnvironmentsCertificatesServerTransport
 	trConnectedEnvironmentsServer               *ConnectedEnvironmentsServerTransport
@@ -72,17 +91,26 @@ type ServerFactoryTransport struct {
 	trContainerAppsDiagnosticsServer            *ContainerAppsDiagnosticsServerTransport
 	trContainerAppsRevisionReplicasServer       *ContainerAppsRevisionReplicasServerTransport
 	trContainerAppsRevisionsServer              *ContainerAppsRevisionsServerTransport
+	trContainerAppsSessionPoolSessionsServer    *ContainerAppsSessionPoolSessionsServerTransport
+	trContainerAppsSessionPoolsServer           *ContainerAppsSessionPoolsServerTransport
 	trContainerAppsSourceControlsServer         *ContainerAppsSourceControlsServerTransport
+	trDaprComponentResiliencyPoliciesServer     *DaprComponentResiliencyPoliciesServerTransport
 	trDaprComponentsServer                      *DaprComponentsServerTransport
+	trDaprSubscriptionsServer                   *DaprSubscriptionsServerTransport
+	trDotNetComponentsServer                    *DotNetComponentsServerTransport
+	trFunctionsExtensionServer                  *FunctionsExtensionServerTransport
+	trJavaComponentsServer                      *JavaComponentsServerTransport
 	trJobsServer                                *JobsServerTransport
 	trJobsExecutionsServer                      *JobsExecutionsServerTransport
 	trManagedCertificatesServer                 *ManagedCertificatesServerTransport
 	trManagedEnvironmentDiagnosticsServer       *ManagedEnvironmentDiagnosticsServerTransport
+	trManagedEnvironmentUsagesServer            *ManagedEnvironmentUsagesServerTransport
 	trManagedEnvironmentsServer                 *ManagedEnvironmentsServerTransport
 	trManagedEnvironmentsDiagnosticsServer      *ManagedEnvironmentsDiagnosticsServerTransport
 	trManagedEnvironmentsStoragesServer         *ManagedEnvironmentsStoragesServerTransport
 	trNamespacesServer                          *NamespacesServerTransport
 	trOperationsServer                          *OperationsServerTransport
+	trUsagesServer                              *UsagesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -98,6 +126,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "AppResiliencyClient":
+		initServer(s, &s.trAppResiliencyServer, func() *AppResiliencyServerTransport {
+			return NewAppResiliencyServerTransport(&s.srv.AppResiliencyServer)
+		})
+		resp, err = s.trAppResiliencyServer.Do(req)
 	case "AvailableWorkloadProfilesClient":
 		initServer(s, &s.trAvailableWorkloadProfilesServer, func() *AvailableWorkloadProfilesServerTransport {
 			return NewAvailableWorkloadProfilesServerTransport(&s.srv.AvailableWorkloadProfilesServer)
@@ -108,6 +141,22 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewBillingMetersServerTransport(&s.srv.BillingMetersServer)
 		})
 		resp, err = s.trBillingMetersServer.Do(req)
+	case "BuildAuthTokenClient":
+		initServer(s, &s.trBuildAuthTokenServer, func() *BuildAuthTokenServerTransport {
+			return NewBuildAuthTokenServerTransport(&s.srv.BuildAuthTokenServer)
+		})
+		resp, err = s.trBuildAuthTokenServer.Do(req)
+	case "BuildersClient":
+		initServer(s, &s.trBuildersServer, func() *BuildersServerTransport { return NewBuildersServerTransport(&s.srv.BuildersServer) })
+		resp, err = s.trBuildersServer.Do(req)
+	case "BuildsByBuilderResourceClient":
+		initServer(s, &s.trBuildsByBuilderResourceServer, func() *BuildsByBuilderResourceServerTransport {
+			return NewBuildsByBuilderResourceServerTransport(&s.srv.BuildsByBuilderResourceServer)
+		})
+		resp, err = s.trBuildsByBuilderResourceServer.Do(req)
+	case "BuildsClient":
+		initServer(s, &s.trBuildsServer, func() *BuildsServerTransport { return NewBuildsServerTransport(&s.srv.BuildsServer) })
+		resp, err = s.trBuildsServer.Do(req)
 	case "CertificatesClient":
 		initServer(s, &s.trCertificatesServer, func() *CertificatesServerTransport { return NewCertificatesServerTransport(&s.srv.CertificatesServer) })
 		resp, err = s.trCertificatesServer.Do(req)
@@ -161,16 +210,51 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewContainerAppsRevisionsServerTransport(&s.srv.ContainerAppsRevisionsServer)
 		})
 		resp, err = s.trContainerAppsRevisionsServer.Do(req)
+	case "ContainerAppsSessionPoolSessionsClient":
+		initServer(s, &s.trContainerAppsSessionPoolSessionsServer, func() *ContainerAppsSessionPoolSessionsServerTransport {
+			return NewContainerAppsSessionPoolSessionsServerTransport(&s.srv.ContainerAppsSessionPoolSessionsServer)
+		})
+		resp, err = s.trContainerAppsSessionPoolSessionsServer.Do(req)
+	case "ContainerAppsSessionPoolsClient":
+		initServer(s, &s.trContainerAppsSessionPoolsServer, func() *ContainerAppsSessionPoolsServerTransport {
+			return NewContainerAppsSessionPoolsServerTransport(&s.srv.ContainerAppsSessionPoolsServer)
+		})
+		resp, err = s.trContainerAppsSessionPoolsServer.Do(req)
 	case "ContainerAppsSourceControlsClient":
 		initServer(s, &s.trContainerAppsSourceControlsServer, func() *ContainerAppsSourceControlsServerTransport {
 			return NewContainerAppsSourceControlsServerTransport(&s.srv.ContainerAppsSourceControlsServer)
 		})
 		resp, err = s.trContainerAppsSourceControlsServer.Do(req)
+	case "DaprComponentResiliencyPoliciesClient":
+		initServer(s, &s.trDaprComponentResiliencyPoliciesServer, func() *DaprComponentResiliencyPoliciesServerTransport {
+			return NewDaprComponentResiliencyPoliciesServerTransport(&s.srv.DaprComponentResiliencyPoliciesServer)
+		})
+		resp, err = s.trDaprComponentResiliencyPoliciesServer.Do(req)
 	case "DaprComponentsClient":
 		initServer(s, &s.trDaprComponentsServer, func() *DaprComponentsServerTransport {
 			return NewDaprComponentsServerTransport(&s.srv.DaprComponentsServer)
 		})
 		resp, err = s.trDaprComponentsServer.Do(req)
+	case "DaprSubscriptionsClient":
+		initServer(s, &s.trDaprSubscriptionsServer, func() *DaprSubscriptionsServerTransport {
+			return NewDaprSubscriptionsServerTransport(&s.srv.DaprSubscriptionsServer)
+		})
+		resp, err = s.trDaprSubscriptionsServer.Do(req)
+	case "DotNetComponentsClient":
+		initServer(s, &s.trDotNetComponentsServer, func() *DotNetComponentsServerTransport {
+			return NewDotNetComponentsServerTransport(&s.srv.DotNetComponentsServer)
+		})
+		resp, err = s.trDotNetComponentsServer.Do(req)
+	case "FunctionsExtensionClient":
+		initServer(s, &s.trFunctionsExtensionServer, func() *FunctionsExtensionServerTransport {
+			return NewFunctionsExtensionServerTransport(&s.srv.FunctionsExtensionServer)
+		})
+		resp, err = s.trFunctionsExtensionServer.Do(req)
+	case "JavaComponentsClient":
+		initServer(s, &s.trJavaComponentsServer, func() *JavaComponentsServerTransport {
+			return NewJavaComponentsServerTransport(&s.srv.JavaComponentsServer)
+		})
+		resp, err = s.trJavaComponentsServer.Do(req)
 	case "JobsClient":
 		initServer(s, &s.trJobsServer, func() *JobsServerTransport { return NewJobsServerTransport(&s.srv.JobsServer) })
 		resp, err = s.trJobsServer.Do(req)
@@ -189,6 +273,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewManagedEnvironmentDiagnosticsServerTransport(&s.srv.ManagedEnvironmentDiagnosticsServer)
 		})
 		resp, err = s.trManagedEnvironmentDiagnosticsServer.Do(req)
+	case "ManagedEnvironmentUsagesClient":
+		initServer(s, &s.trManagedEnvironmentUsagesServer, func() *ManagedEnvironmentUsagesServerTransport {
+			return NewManagedEnvironmentUsagesServerTransport(&s.srv.ManagedEnvironmentUsagesServer)
+		})
+		resp, err = s.trManagedEnvironmentUsagesServer.Do(req)
 	case "ManagedEnvironmentsClient":
 		initServer(s, &s.trManagedEnvironmentsServer, func() *ManagedEnvironmentsServerTransport {
 			return NewManagedEnvironmentsServerTransport(&s.srv.ManagedEnvironmentsServer)
@@ -210,6 +299,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "UsagesClient":
+		initServer(s, &s.trUsagesServer, func() *UsagesServerTransport { return NewUsagesServerTransport(&s.srv.UsagesServer) })
+		resp, err = s.trUsagesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
