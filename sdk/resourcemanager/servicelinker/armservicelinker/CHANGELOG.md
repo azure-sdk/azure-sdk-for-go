@@ -1,5 +1,11 @@
 # Release History
 
+## 1.3.0 (2024-03-04)
+### Features Added
+
+- New value `ClientTypeKafkaSpringBoot` added to enum type `ClientType`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
