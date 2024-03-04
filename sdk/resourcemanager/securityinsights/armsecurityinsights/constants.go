@@ -10,10 +10,10 @@ package armsecurityinsights
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
-// ActionType - The type of the automation rule action
+// ActionType - The type of the automation rule action.
 type ActionType string
 
 const (
@@ -46,6 +46,45 @@ func PossibleAlertDetailValues() []AlertDetail {
 	return []AlertDetail{
 		AlertDetailDisplayName,
 		AlertDetailSeverity,
+	}
+}
+
+// AlertProperty - The V3 alert property
+type AlertProperty string
+
+const (
+	// AlertPropertyAlertLink - Alert's link
+	AlertPropertyAlertLink AlertProperty = "AlertLink"
+	// AlertPropertyConfidenceLevel - Confidence level property
+	AlertPropertyConfidenceLevel AlertProperty = "ConfidenceLevel"
+	// AlertPropertyConfidenceScore - Confidence score
+	AlertPropertyConfidenceScore AlertProperty = "ConfidenceScore"
+	// AlertPropertyExtendedLinks - Extended links to the alert
+	AlertPropertyExtendedLinks AlertProperty = "ExtendedLinks"
+	// AlertPropertyProductComponentName - Product component name alert property
+	AlertPropertyProductComponentName AlertProperty = "ProductComponentName"
+	// AlertPropertyProductName - Product name alert property
+	AlertPropertyProductName AlertProperty = "ProductName"
+	// AlertPropertyProviderName - Provider name alert property
+	AlertPropertyProviderName AlertProperty = "ProviderName"
+	// AlertPropertyRemediationSteps - Remediation steps alert property
+	AlertPropertyRemediationSteps AlertProperty = "RemediationSteps"
+	// AlertPropertyTechniques - Techniques alert property
+	AlertPropertyTechniques AlertProperty = "Techniques"
+)
+
+// PossibleAlertPropertyValues returns the possible values for the AlertProperty const type.
+func PossibleAlertPropertyValues() []AlertProperty {
+	return []AlertProperty{
+		AlertPropertyAlertLink,
+		AlertPropertyConfidenceLevel,
+		AlertPropertyConfidenceScore,
+		AlertPropertyExtendedLinks,
+		AlertPropertyProductComponentName,
+		AlertPropertyProductName,
+		AlertPropertyProviderName,
+		AlertPropertyRemediationSteps,
+		AlertPropertyTechniques,
 	}
 }
 
@@ -146,19 +185,23 @@ func PossibleAntispamMailDirectionValues() []AntispamMailDirection {
 type AttackTactic string
 
 const (
-	AttackTacticCollection          AttackTactic = "Collection"
-	AttackTacticCommandAndControl   AttackTactic = "CommandAndControl"
-	AttackTacticCredentialAccess    AttackTactic = "CredentialAccess"
-	AttackTacticDefenseEvasion      AttackTactic = "DefenseEvasion"
-	AttackTacticDiscovery           AttackTactic = "Discovery"
-	AttackTacticExecution           AttackTactic = "Execution"
-	AttackTacticExfiltration        AttackTactic = "Exfiltration"
-	AttackTacticImpact              AttackTactic = "Impact"
-	AttackTacticInitialAccess       AttackTactic = "InitialAccess"
-	AttackTacticLateralMovement     AttackTactic = "LateralMovement"
-	AttackTacticPersistence         AttackTactic = "Persistence"
-	AttackTacticPreAttack           AttackTactic = "PreAttack"
-	AttackTacticPrivilegeEscalation AttackTactic = "PrivilegeEscalation"
+	AttackTacticCollection              AttackTactic = "Collection"
+	AttackTacticCommandAndControl       AttackTactic = "CommandAndControl"
+	AttackTacticCredentialAccess        AttackTactic = "CredentialAccess"
+	AttackTacticDefenseEvasion          AttackTactic = "DefenseEvasion"
+	AttackTacticDiscovery               AttackTactic = "Discovery"
+	AttackTacticExecution               AttackTactic = "Execution"
+	AttackTacticExfiltration            AttackTactic = "Exfiltration"
+	AttackTacticImpact                  AttackTactic = "Impact"
+	AttackTacticImpairProcessControl    AttackTactic = "ImpairProcessControl"
+	AttackTacticInhibitResponseFunction AttackTactic = "InhibitResponseFunction"
+	AttackTacticInitialAccess           AttackTactic = "InitialAccess"
+	AttackTacticLateralMovement         AttackTactic = "LateralMovement"
+	AttackTacticPersistence             AttackTactic = "Persistence"
+	AttackTacticPreAttack               AttackTactic = "PreAttack"
+	AttackTacticPrivilegeEscalation     AttackTactic = "PrivilegeEscalation"
+	AttackTacticReconnaissance          AttackTactic = "Reconnaissance"
+	AttackTacticResourceDevelopment     AttackTactic = "ResourceDevelopment"
 )
 
 // PossibleAttackTacticValues returns the possible values for the AttackTactic const type.
@@ -172,11 +215,91 @@ func PossibleAttackTacticValues() []AttackTactic {
 		AttackTacticExecution,
 		AttackTacticExfiltration,
 		AttackTacticImpact,
+		AttackTacticImpairProcessControl,
+		AttackTacticInhibitResponseFunction,
 		AttackTacticInitialAccess,
 		AttackTacticLateralMovement,
 		AttackTacticPersistence,
 		AttackTacticPreAttack,
 		AttackTacticPrivilegeEscalation,
+		AttackTacticReconnaissance,
+		AttackTacticResourceDevelopment,
+	}
+}
+
+type AutomationRulePropertyArrayChangedConditionSupportedArrayType string
+
+const (
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts - Evaluate the condition on the alerts
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Alerts"
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments - Evaluate the condition on the comments
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Comments"
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels - Evaluate the condition on the labels
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Labels"
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics - Evaluate the condition on the tactics
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Tactics"
+)
+
+// PossibleAutomationRulePropertyArrayChangedConditionSupportedArrayTypeValues returns the possible values for the AutomationRulePropertyArrayChangedConditionSupportedArrayType const type.
+func PossibleAutomationRulePropertyArrayChangedConditionSupportedArrayTypeValues() []AutomationRulePropertyArrayChangedConditionSupportedArrayType {
+	return []AutomationRulePropertyArrayChangedConditionSupportedArrayType{
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts,
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments,
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels,
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics,
+	}
+}
+
+type AutomationRulePropertyArrayChangedConditionSupportedChangeType string
+
+const (
+	// AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded - Evaluate the condition on items added to the array
+	AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded AutomationRulePropertyArrayChangedConditionSupportedChangeType = "Added"
+)
+
+// PossibleAutomationRulePropertyArrayChangedConditionSupportedChangeTypeValues returns the possible values for the AutomationRulePropertyArrayChangedConditionSupportedChangeType const type.
+func PossibleAutomationRulePropertyArrayChangedConditionSupportedChangeTypeValues() []AutomationRulePropertyArrayChangedConditionSupportedChangeType {
+	return []AutomationRulePropertyArrayChangedConditionSupportedChangeType{
+		AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded,
+	}
+}
+
+type AutomationRulePropertyChangedConditionSupportedChangedType string
+
+const (
+	// AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom - Evaluate the condition on the previous value of
+	// the property
+	AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom AutomationRulePropertyChangedConditionSupportedChangedType = "ChangedFrom"
+	// AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo - Evaluate the condition on the updated value of the
+	// property
+	AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo AutomationRulePropertyChangedConditionSupportedChangedType = "ChangedTo"
+)
+
+// PossibleAutomationRulePropertyChangedConditionSupportedChangedTypeValues returns the possible values for the AutomationRulePropertyChangedConditionSupportedChangedType const type.
+func PossibleAutomationRulePropertyChangedConditionSupportedChangedTypeValues() []AutomationRulePropertyChangedConditionSupportedChangedType {
+	return []AutomationRulePropertyChangedConditionSupportedChangedType{
+		AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom,
+		AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo,
+	}
+}
+
+type AutomationRulePropertyChangedConditionSupportedPropertyType string
+
+const (
+	// AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner - Evaluate the condition on the incident owner
+	AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner AutomationRulePropertyChangedConditionSupportedPropertyType = "IncidentOwner"
+	// AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity - Evaluate the condition on the incident severity
+	AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity AutomationRulePropertyChangedConditionSupportedPropertyType = "IncidentSeverity"
+	// AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus - Evaluate the condition on the incident status
+	AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus AutomationRulePropertyChangedConditionSupportedPropertyType = "IncidentStatus"
+)
+
+// PossibleAutomationRulePropertyChangedConditionSupportedPropertyTypeValues returns the possible values for the AutomationRulePropertyChangedConditionSupportedPropertyType const type.
+func PossibleAutomationRulePropertyChangedConditionSupportedPropertyTypeValues() []AutomationRulePropertyChangedConditionSupportedPropertyType {
+	return []AutomationRulePropertyChangedConditionSupportedPropertyType{
+		AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner,
+		AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity,
+		AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus,
 	}
 }
 
@@ -222,7 +345,7 @@ func PossibleAutomationRulePropertyConditionSupportedOperatorValues() []Automati
 	}
 }
 
-// AutomationRulePropertyConditionSupportedProperty - The property to evaluate in an automation rule property condition
+// AutomationRulePropertyConditionSupportedProperty - The property to evaluate in an automation rule property condition.
 type AutomationRulePropertyConditionSupportedProperty string
 
 const (
@@ -242,6 +365,8 @@ const (
 	AutomationRulePropertyConditionSupportedPropertyAccountSid AutomationRulePropertyConditionSupportedProperty = "AccountSid"
 	// AutomationRulePropertyConditionSupportedPropertyAccountUPNSuffix - The account user principal name suffix
 	AutomationRulePropertyConditionSupportedPropertyAccountUPNSuffix AutomationRulePropertyConditionSupportedProperty = "AccountUPNSuffix"
+	// AutomationRulePropertyConditionSupportedPropertyAlertAnalyticRuleIDs - The analytic rule ids of the alert
+	AutomationRulePropertyConditionSupportedPropertyAlertAnalyticRuleIDs AutomationRulePropertyConditionSupportedProperty = "AlertAnalyticRuleIds"
 	// AutomationRulePropertyConditionSupportedPropertyAlertProductNames - The name of the product of the alert
 	AutomationRulePropertyConditionSupportedPropertyAlertProductNames AutomationRulePropertyConditionSupportedProperty = "AlertProductNames"
 	// AutomationRulePropertyConditionSupportedPropertyAzureResourceResourceID - The Azure resource id
@@ -288,6 +413,8 @@ const (
 	AutomationRulePropertyConditionSupportedPropertyIncidentTactics AutomationRulePropertyConditionSupportedProperty = "IncidentTactics"
 	// AutomationRulePropertyConditionSupportedPropertyIncidentTitle - The title of the incident
 	AutomationRulePropertyConditionSupportedPropertyIncidentTitle AutomationRulePropertyConditionSupportedProperty = "IncidentTitle"
+	// AutomationRulePropertyConditionSupportedPropertyIncidentUpdatedBySource - The update source of the incident
+	AutomationRulePropertyConditionSupportedPropertyIncidentUpdatedBySource AutomationRulePropertyConditionSupportedProperty = "IncidentUpdatedBySource"
 	// AutomationRulePropertyConditionSupportedPropertyIoTDeviceID - "The IoT device id
 	AutomationRulePropertyConditionSupportedPropertyIoTDeviceID AutomationRulePropertyConditionSupportedProperty = "IoTDeviceId"
 	// AutomationRulePropertyConditionSupportedPropertyIoTDeviceModel - The IoT device model
@@ -347,6 +474,7 @@ func PossibleAutomationRulePropertyConditionSupportedPropertyValues() []Automati
 		AutomationRulePropertyConditionSupportedPropertyAccountPUID,
 		AutomationRulePropertyConditionSupportedPropertyAccountSid,
 		AutomationRulePropertyConditionSupportedPropertyAccountUPNSuffix,
+		AutomationRulePropertyConditionSupportedPropertyAlertAnalyticRuleIDs,
 		AutomationRulePropertyConditionSupportedPropertyAlertProductNames,
 		AutomationRulePropertyConditionSupportedPropertyAzureResourceResourceID,
 		AutomationRulePropertyConditionSupportedPropertyAzureResourceSubscriptionID,
@@ -370,6 +498,7 @@ func PossibleAutomationRulePropertyConditionSupportedPropertyValues() []Automati
 		AutomationRulePropertyConditionSupportedPropertyIncidentStatus,
 		AutomationRulePropertyConditionSupportedPropertyIncidentTactics,
 		AutomationRulePropertyConditionSupportedPropertyIncidentTitle,
+		AutomationRulePropertyConditionSupportedPropertyIncidentUpdatedBySource,
 		AutomationRulePropertyConditionSupportedPropertyIoTDeviceID,
 		AutomationRulePropertyConditionSupportedPropertyIoTDeviceModel,
 		AutomationRulePropertyConditionSupportedPropertyIoTDeviceName,
@@ -396,17 +525,57 @@ func PossibleAutomationRulePropertyConditionSupportedPropertyValues() []Automati
 	}
 }
 
+// CcpAuthType - Type of paging
+type CcpAuthType string
+
+const (
+	CcpAuthTypeAPIKey     CcpAuthType = "APIKey"
+	CcpAuthTypeAWS        CcpAuthType = "AWS"
+	CcpAuthTypeBasic      CcpAuthType = "Basic"
+	CcpAuthTypeGCP        CcpAuthType = "GCP"
+	CcpAuthTypeGitHub     CcpAuthType = "GitHub"
+	CcpAuthTypeJwtToken   CcpAuthType = "JwtToken"
+	CcpAuthTypeNone       CcpAuthType = "None"
+	CcpAuthTypeOAuth2     CcpAuthType = "OAuth2"
+	CcpAuthTypeOracle     CcpAuthType = "Oracle"
+	CcpAuthTypeServiceBus CcpAuthType = "ServiceBus"
+	CcpAuthTypeSession    CcpAuthType = "Session"
+)
+
+// PossibleCcpAuthTypeValues returns the possible values for the CcpAuthType const type.
+func PossibleCcpAuthTypeValues() []CcpAuthType {
+	return []CcpAuthType{
+		CcpAuthTypeAPIKey,
+		CcpAuthTypeAWS,
+		CcpAuthTypeBasic,
+		CcpAuthTypeGCP,
+		CcpAuthTypeGitHub,
+		CcpAuthTypeJwtToken,
+		CcpAuthTypeNone,
+		CcpAuthTypeOAuth2,
+		CcpAuthTypeOracle,
+		CcpAuthTypeServiceBus,
+		CcpAuthTypeSession,
+	}
+}
+
 type ConditionType string
 
 const (
 	// ConditionTypeProperty - Evaluate an object property value
 	ConditionTypeProperty ConditionType = "Property"
+	// ConditionTypePropertyArrayChanged - Evaluate an object array property changed value
+	ConditionTypePropertyArrayChanged ConditionType = "PropertyArrayChanged"
+	// ConditionTypePropertyChanged - Evaluate an object property changed value
+	ConditionTypePropertyChanged ConditionType = "PropertyChanged"
 )
 
 // PossibleConditionTypeValues returns the possible values for the ConditionType const type.
 func PossibleConditionTypeValues() []ConditionType {
 	return []ConditionType{
 		ConditionTypeProperty,
+		ConditionTypePropertyArrayChanged,
+		ConditionTypePropertyChanged,
 	}
 }
 
@@ -457,6 +626,30 @@ func PossibleConfidenceScoreStatusValues() []ConfidenceScoreStatus {
 	}
 }
 
+// ContentType - The content type of a source control path.
+type ContentType string
+
+const (
+	ContentTypeAnalyticRule   ContentType = "AnalyticRule"
+	ContentTypeAutomationRule ContentType = "AutomationRule"
+	ContentTypeHuntingQuery   ContentType = "HuntingQuery"
+	ContentTypeParser         ContentType = "Parser"
+	ContentTypePlaybook       ContentType = "Playbook"
+	ContentTypeWorkbook       ContentType = "Workbook"
+)
+
+// PossibleContentTypeValues returns the possible values for the ContentType const type.
+func PossibleContentTypeValues() []ContentType {
+	return []ContentType{
+		ContentTypeAnalyticRule,
+		ContentTypeAutomationRule,
+		ContentTypeHuntingQuery,
+		ContentTypeParser,
+		ContentTypePlaybook,
+		ContentTypeWorkbook,
+	}
+}
+
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
 
@@ -488,6 +681,7 @@ const (
 	DataConnectorKindMicrosoftCloudAppSecurity                 DataConnectorKind = "MicrosoftCloudAppSecurity"
 	DataConnectorKindMicrosoftDefenderAdvancedThreatProtection DataConnectorKind = "MicrosoftDefenderAdvancedThreatProtection"
 	DataConnectorKindOffice365                                 DataConnectorKind = "Office365"
+	DataConnectorKindRestAPIPoller                             DataConnectorKind = "RestApiPoller"
 	DataConnectorKindThreatIntelligence                        DataConnectorKind = "ThreatIntelligence"
 )
 
@@ -501,6 +695,7 @@ func PossibleDataConnectorKindValues() []DataConnectorKind {
 		DataConnectorKindMicrosoftCloudAppSecurity,
 		DataConnectorKindMicrosoftDefenderAdvancedThreatProtection,
 		DataConnectorKindOffice365,
+		DataConnectorKindRestAPIPoller,
 		DataConnectorKindThreatIntelligence,
 	}
 }
@@ -584,6 +779,62 @@ func PossibleDeliveryLocationValues() []DeliveryLocation {
 		DeliveryLocationJunkFolder,
 		DeliveryLocationQuarantine,
 		DeliveryLocationUnknown,
+	}
+}
+
+// DeploymentFetchStatus - Status while trying to fetch the deployment information.
+type DeploymentFetchStatus string
+
+const (
+	DeploymentFetchStatusNotFound     DeploymentFetchStatus = "NotFound"
+	DeploymentFetchStatusSuccess      DeploymentFetchStatus = "Success"
+	DeploymentFetchStatusUnauthorized DeploymentFetchStatus = "Unauthorized"
+)
+
+// PossibleDeploymentFetchStatusValues returns the possible values for the DeploymentFetchStatus const type.
+func PossibleDeploymentFetchStatusValues() []DeploymentFetchStatus {
+	return []DeploymentFetchStatus{
+		DeploymentFetchStatusNotFound,
+		DeploymentFetchStatusSuccess,
+		DeploymentFetchStatusUnauthorized,
+	}
+}
+
+// DeploymentResult - Status while trying to fetch the deployment information.
+type DeploymentResult string
+
+const (
+	DeploymentResultCanceled DeploymentResult = "Canceled"
+	DeploymentResultFailed   DeploymentResult = "Failed"
+	DeploymentResultSuccess  DeploymentResult = "Success"
+)
+
+// PossibleDeploymentResultValues returns the possible values for the DeploymentResult const type.
+func PossibleDeploymentResultValues() []DeploymentResult {
+	return []DeploymentResult{
+		DeploymentResultCanceled,
+		DeploymentResultFailed,
+		DeploymentResultSuccess,
+	}
+}
+
+// DeploymentState - The current state of the deployment.
+type DeploymentState string
+
+const (
+	DeploymentStateCanceling  DeploymentState = "Canceling"
+	DeploymentStateCompleted  DeploymentState = "Completed"
+	DeploymentStateInProgress DeploymentState = "In_Progress"
+	DeploymentStateQueued     DeploymentState = "Queued"
+)
+
+// PossibleDeploymentStateValues returns the possible values for the DeploymentState const type.
+func PossibleDeploymentStateValues() []DeploymentState {
+	return []DeploymentState{
+		DeploymentStateCanceling,
+		DeploymentStateCompleted,
+		DeploymentStateInProgress,
+		DeploymentStateQueued,
 	}
 }
 
@@ -792,6 +1043,42 @@ func PossibleFileHashAlgorithmValues() []FileHashAlgorithm {
 	}
 }
 
+// Flag - The boolean value the metadata is for.
+type Flag string
+
+const (
+	FlagFalse Flag = "false"
+	FlagTrue  Flag = "true"
+)
+
+// PossibleFlagValues returns the possible values for the Flag const type.
+func PossibleFlagValues() []Flag {
+	return []Flag{
+		FlagFalse,
+		FlagTrue,
+	}
+}
+
+// HTTPMethodVerb - The HTTP method, default value GET.
+type HTTPMethodVerb string
+
+const (
+	HTTPMethodVerbDELETE HTTPMethodVerb = "DELETE"
+	HTTPMethodVerbGET    HTTPMethodVerb = "GET"
+	HTTPMethodVerbPOST   HTTPMethodVerb = "POST"
+	HTTPMethodVerbPUT    HTTPMethodVerb = "PUT"
+)
+
+// PossibleHTTPMethodVerbValues returns the possible values for the HTTPMethodVerb const type.
+func PossibleHTTPMethodVerbValues() []HTTPMethodVerb {
+	return []HTTPMethodVerb{
+		HTTPMethodVerbDELETE,
+		HTTPMethodVerbGET,
+		HTTPMethodVerbPOST,
+		HTTPMethodVerbPUT,
+	}
+}
+
 // IncidentClassification - The reason the incident was closed
 type IncidentClassification string
 
@@ -991,6 +1278,52 @@ func PossibleKillChainIntentValues() []KillChainIntent {
 	}
 }
 
+// Kind - The kind of content the metadata is for.
+type Kind string
+
+const (
+	KindAnalyticsRule            Kind = "AnalyticsRule"
+	KindAnalyticsRuleTemplate    Kind = "AnalyticsRuleTemplate"
+	KindAutomationRule           Kind = "AutomationRule"
+	KindAzureFunction            Kind = "AzureFunction"
+	KindDataConnector            Kind = "DataConnector"
+	KindDataType                 Kind = "DataType"
+	KindHuntingQuery             Kind = "HuntingQuery"
+	KindInvestigationQuery       Kind = "InvestigationQuery"
+	KindLogicAppsCustomConnector Kind = "LogicAppsCustomConnector"
+	KindParser                   Kind = "Parser"
+	KindPlaybook                 Kind = "Playbook"
+	KindPlaybookTemplate         Kind = "PlaybookTemplate"
+	KindSolution                 Kind = "Solution"
+	KindWatchlist                Kind = "Watchlist"
+	KindWatchlistTemplate        Kind = "WatchlistTemplate"
+	KindWorkbook                 Kind = "Workbook"
+	KindWorkbookTemplate         Kind = "WorkbookTemplate"
+)
+
+// PossibleKindValues returns the possible values for the Kind const type.
+func PossibleKindValues() []Kind {
+	return []Kind{
+		KindAnalyticsRule,
+		KindAnalyticsRuleTemplate,
+		KindAutomationRule,
+		KindAzureFunction,
+		KindDataConnector,
+		KindDataType,
+		KindHuntingQuery,
+		KindInvestigationQuery,
+		KindLogicAppsCustomConnector,
+		KindParser,
+		KindPlaybook,
+		KindPlaybookTemplate,
+		KindSolution,
+		KindWatchlist,
+		KindWatchlistTemplate,
+		KindWorkbook,
+		KindWorkbookTemplate,
+	}
+}
+
 // MatchingMethod - Grouping matching method. When method is Selected at least one of groupByEntities, groupByAlertDetails,
 // groupByCustomDetails must be provided and not empty.
 type MatchingMethod string
@@ -1063,6 +1396,22 @@ func PossibleOSFamilyValues() []OSFamily {
 	}
 }
 
+// Operator - Operator used for list of dependencies in criteria array.
+type Operator string
+
+const (
+	OperatorAND Operator = "AND"
+	OperatorOR  Operator = "OR"
+)
+
+// PossibleOperatorValues returns the possible values for the Operator const type.
+func PossibleOperatorValues() []Operator {
+	return []Operator{
+		OperatorAND,
+		OperatorOR,
+	}
+}
+
 // OwnerType - The type of the owner the incident is assigned to.
 type OwnerType string
 
@@ -1081,6 +1430,22 @@ func PossibleOwnerTypeValues() []OwnerType {
 		OwnerTypeGroup,
 		OwnerTypeUnknown,
 		OwnerTypeUser,
+	}
+}
+
+// PackageKind - The package kind
+type PackageKind string
+
+const (
+	PackageKindSolution   PackageKind = "Solution"
+	PackageKindStandalone PackageKind = "Standalone"
+)
+
+// PossiblePackageKindValues returns the possible values for the PackageKind const type.
+func PossiblePackageKindValues() []PackageKind {
+	return []PackageKind{
+		PackageKindSolution,
+		PackageKindStandalone,
 	}
 }
 
@@ -1163,19 +1528,149 @@ func PossibleRegistryValueKindValues() []RegistryValueKind {
 	}
 }
 
-// Source - The source of the watchlist
-type Source string
+// RepoType - The type of repository.
+type RepoType string
 
 const (
-	SourceLocalFile     Source = "Local file"
-	SourceRemoteStorage Source = "Remote storage"
+	RepoTypeAzureDevOps RepoType = "AzureDevOps"
+	RepoTypeGithub      RepoType = "Github"
 )
 
-// PossibleSourceValues returns the possible values for the Source const type.
-func PossibleSourceValues() []Source {
-	return []Source{
-		SourceLocalFile,
-		SourceRemoteStorage,
+// PossibleRepoTypeValues returns the possible values for the RepoType const type.
+func PossibleRepoTypeValues() []RepoType {
+	return []RepoType{
+		RepoTypeAzureDevOps,
+		RepoTypeGithub,
+	}
+}
+
+// RepositoryAccessKind - The kind of repository access credentials
+type RepositoryAccessKind string
+
+const (
+	RepositoryAccessKindApp   RepositoryAccessKind = "App"
+	RepositoryAccessKindOAuth RepositoryAccessKind = "OAuth"
+	RepositoryAccessKindPAT   RepositoryAccessKind = "PAT"
+)
+
+// PossibleRepositoryAccessKindValues returns the possible values for the RepositoryAccessKind const type.
+func PossibleRepositoryAccessKindValues() []RepositoryAccessKind {
+	return []RepositoryAccessKind{
+		RepositoryAccessKindApp,
+		RepositoryAccessKindOAuth,
+		RepositoryAccessKindPAT,
+	}
+}
+
+// RestAPIPollerRequestPagingKind - Type of paging
+type RestAPIPollerRequestPagingKind string
+
+const (
+	RestAPIPollerRequestPagingKindCountBasedPaging     RestAPIPollerRequestPagingKind = "CountBasedPaging"
+	RestAPIPollerRequestPagingKindLinkHeader           RestAPIPollerRequestPagingKind = "LinkHeader"
+	RestAPIPollerRequestPagingKindNextPageToken        RestAPIPollerRequestPagingKind = "NextPageToken"
+	RestAPIPollerRequestPagingKindNextPageURL          RestAPIPollerRequestPagingKind = "NextPageUrl"
+	RestAPIPollerRequestPagingKindOffset               RestAPIPollerRequestPagingKind = "Offset"
+	RestAPIPollerRequestPagingKindPersistentLinkHeader RestAPIPollerRequestPagingKind = "PersistentLinkHeader"
+	RestAPIPollerRequestPagingKindPersistentToken      RestAPIPollerRequestPagingKind = "PersistentToken"
+)
+
+// PossibleRestAPIPollerRequestPagingKindValues returns the possible values for the RestAPIPollerRequestPagingKind const type.
+func PossibleRestAPIPollerRequestPagingKindValues() []RestAPIPollerRequestPagingKind {
+	return []RestAPIPollerRequestPagingKind{
+		RestAPIPollerRequestPagingKindCountBasedPaging,
+		RestAPIPollerRequestPagingKindLinkHeader,
+		RestAPIPollerRequestPagingKindNextPageToken,
+		RestAPIPollerRequestPagingKindNextPageURL,
+		RestAPIPollerRequestPagingKindOffset,
+		RestAPIPollerRequestPagingKindPersistentLinkHeader,
+		RestAPIPollerRequestPagingKindPersistentToken,
+	}
+}
+
+// SecurityMLAnalyticsSettingsKind - The kind of security ML analytics settings
+type SecurityMLAnalyticsSettingsKind string
+
+const (
+	SecurityMLAnalyticsSettingsKindAnomaly SecurityMLAnalyticsSettingsKind = "Anomaly"
+)
+
+// PossibleSecurityMLAnalyticsSettingsKindValues returns the possible values for the SecurityMLAnalyticsSettingsKind const type.
+func PossibleSecurityMLAnalyticsSettingsKindValues() []SecurityMLAnalyticsSettingsKind {
+	return []SecurityMLAnalyticsSettingsKind{
+		SecurityMLAnalyticsSettingsKindAnomaly,
+	}
+}
+
+// SettingsStatus - The anomaly SecurityMLAnalyticsSettings status
+type SettingsStatus string
+
+const (
+	// SettingsStatusFlighting - Anomaly settings status in Flighting mode
+	SettingsStatusFlighting SettingsStatus = "Flighting"
+	// SettingsStatusProduction - Anomaly settings status in Production mode
+	SettingsStatusProduction SettingsStatus = "Production"
+)
+
+// PossibleSettingsStatusValues returns the possible values for the SettingsStatus const type.
+func PossibleSettingsStatusValues() []SettingsStatus {
+	return []SettingsStatus{
+		SettingsStatusFlighting,
+		SettingsStatusProduction,
+	}
+}
+
+// SourceKind - Source type of the content
+type SourceKind string
+
+const (
+	SourceKindCommunity        SourceKind = "Community"
+	SourceKindLocalWorkspace   SourceKind = "LocalWorkspace"
+	SourceKindSolution         SourceKind = "Solution"
+	SourceKindSourceRepository SourceKind = "SourceRepository"
+)
+
+// PossibleSourceKindValues returns the possible values for the SourceKind const type.
+func PossibleSourceKindValues() []SourceKind {
+	return []SourceKind{
+		SourceKindCommunity,
+		SourceKindLocalWorkspace,
+		SourceKindSolution,
+		SourceKindSourceRepository,
+	}
+}
+
+// State - Status of the pull request.
+type State string
+
+const (
+	StateClosed State = "Closed"
+	StateOpen   State = "Open"
+)
+
+// PossibleStateValues returns the possible values for the State const type.
+func PossibleStateValues() []State {
+	return []State{
+		StateClosed,
+		StateOpen,
+	}
+}
+
+// SupportTier - Type of support for content item
+type SupportTier string
+
+const (
+	SupportTierCommunity SupportTier = "Community"
+	SupportTierMicrosoft SupportTier = "Microsoft"
+	SupportTierPartner   SupportTier = "Partner"
+)
+
+// PossibleSupportTierValues returns the possible values for the SupportTier const type.
+func PossibleSupportTierValues() []SupportTier {
+	return []SupportTier{
+		SupportTierCommunity,
+		SupportTierMicrosoft,
+		SupportTierPartner,
 	}
 }
 
@@ -1256,6 +1751,8 @@ func PossibleTriggerOperatorValues() []TriggerOperator {
 type TriggersOn string
 
 const (
+	// TriggersOnAlerts - Trigger on Alerts
+	TriggersOnAlerts TriggersOn = "Alerts"
 	// TriggersOnIncidents - Trigger on Incidents
 	TriggersOnIncidents TriggersOn = "Incidents"
 )
@@ -1263,6 +1760,7 @@ const (
 // PossibleTriggersOnValues returns the possible values for the TriggersOn const type.
 func PossibleTriggersOnValues() []TriggersOn {
 	return []TriggersOn{
+		TriggersOnAlerts,
 		TriggersOnIncidents,
 	}
 }
@@ -1272,11 +1770,52 @@ type TriggersWhen string
 const (
 	// TriggersWhenCreated - Trigger on created objects
 	TriggersWhenCreated TriggersWhen = "Created"
+	// TriggersWhenUpdated - Trigger on updated objects
+	TriggersWhenUpdated TriggersWhen = "Updated"
 )
 
 // PossibleTriggersWhenValues returns the possible values for the TriggersWhen const type.
 func PossibleTriggersWhenValues() []TriggersWhen {
 	return []TriggersWhen{
 		TriggersWhenCreated,
+		TriggersWhenUpdated,
+	}
+}
+
+// Version - The version of the source control.
+type Version string
+
+const (
+	VersionV1 Version = "V1"
+	VersionV2 Version = "V2"
+)
+
+// PossibleVersionValues returns the possible values for the Version const type.
+func PossibleVersionValues() []Version {
+	return []Version{
+		VersionV1,
+		VersionV2,
+	}
+}
+
+// WarningCode - The type of repository.
+type WarningCode string
+
+const (
+	WarningCodeSourceControlDeletedWithWarnings                      WarningCode = "SourceControl_DeletedWithWarnings"
+	WarningCodeSourceControlWarningDeletePipelineFromAzureDevOps     WarningCode = "SourceControlWarning_DeletePipelineFromAzureDevOps"
+	WarningCodeSourceControlWarningDeleteRoleAssignment              WarningCode = "SourceControlWarning_DeleteRoleAssignment"
+	WarningCodeSourceControlWarningDeleteServicePrincipal            WarningCode = "SourceControlWarning_DeleteServicePrincipal"
+	WarningCodeSourceControlWarningDeleteWorkflowAndSecretFromGitHub WarningCode = "SourceControlWarning_DeleteWorkflowAndSecretFromGitHub"
+)
+
+// PossibleWarningCodeValues returns the possible values for the WarningCode const type.
+func PossibleWarningCodeValues() []WarningCode {
+	return []WarningCode{
+		WarningCodeSourceControlDeletedWithWarnings,
+		WarningCodeSourceControlWarningDeletePipelineFromAzureDevOps,
+		WarningCodeSourceControlWarningDeleteRoleAssignment,
+		WarningCodeSourceControlWarningDeleteServicePrincipal,
+		WarningCodeSourceControlWarningDeleteWorkflowAndSecretFromGitHub,
 	}
 }

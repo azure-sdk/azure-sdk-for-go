@@ -38,17 +38,27 @@ type AutomationRuleActionClassification interface {
 // AutomationRuleConditionClassification provides polymorphic access to related types.
 // Call the interface's GetAutomationRuleCondition() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutomationRuleCondition, *PropertyConditionProperties
+// - *AutomationRuleCondition, *PropertyArrayChangedConditionProperties, *PropertyChangedConditionProperties, *PropertyConditionProperties
 type AutomationRuleConditionClassification interface {
 	// GetAutomationRuleCondition returns the AutomationRuleCondition content of the underlying type.
 	GetAutomationRuleCondition() *AutomationRuleCondition
+}
+
+// CcpAuthConfigClassification provides polymorphic access to related types.
+// Call the interface's GetCcpAuthConfig() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *APIKeyAuthModel, *AWSAuthModel, *BasicAuthModel, *CcpAuthConfig, *GCPAuthModel, *GenericBlobSbsAuthModel, *GitHubAuthModel,
+// - *JwtAuthModel, *NoneAuthModel, *OAuthModel, *OracleAuthModel, *SessionAuthModel
+type CcpAuthConfigClassification interface {
+	// GetCcpAuthConfig returns the CcpAuthConfig content of the underlying type.
+	GetCcpAuthConfig() *CcpAuthConfig
 }
 
 // DataConnectorClassification provides polymorphic access to related types.
 // Call the interface's GetDataConnector() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AADDataConnector, *AATPDataConnector, *ASCDataConnector, *AwsCloudTrailDataConnector, *DataConnector, *MCASDataConnector,
-// - *MDATPDataConnector, *OfficeDataConnector, *TIDataConnector
+// - *MDATPDataConnector, *OfficeDataConnector, *RestAPIPollerDataConnector, *TIDataConnector
 type DataConnectorClassification interface {
 	// GetDataConnector returns the DataConnector content of the underlying type.
 	GetDataConnector() *DataConnector
@@ -64,6 +74,15 @@ type DataConnectorClassification interface {
 type EntityClassification interface {
 	// GetEntity returns the Entity content of the underlying type.
 	GetEntity() *Entity
+}
+
+// SecurityMLAnalyticsSettingClassification provides polymorphic access to related types.
+// Call the interface's GetSecurityMLAnalyticsSetting() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AnomalySecurityMLAnalyticsSettings, *SecurityMLAnalyticsSetting
+type SecurityMLAnalyticsSettingClassification interface {
+	// GetSecurityMLAnalyticsSetting returns the SecurityMLAnalyticsSetting content of the underlying type.
+	GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting
 }
 
 // ThreatIntelligenceInformationClassification provides polymorphic access to related types.
