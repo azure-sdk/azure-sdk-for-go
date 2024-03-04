@@ -2385,13 +2385,17 @@ type GalleryArtifactVersionFullSource struct {
 	// The resource Id of the source Community Gallery Image. Only required when using Community Gallery Image as a source.
 	CommunityGalleryImageID *string
 
-	// The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource.
+	// The id of the gallery artifact version source.
 	ID *string
+
+	// The resource Id of the source virtual machine. Only required when capturing a virtual machine to source this Gallery Image
+	// Version.
+	VirtualMachineID *string
 }
 
 // GalleryArtifactVersionSource - The gallery artifact version source.
 type GalleryArtifactVersionSource struct {
-	// The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource.
+	// The id of the gallery artifact version source.
 	ID *string
 }
 
@@ -2426,7 +2430,7 @@ type GalleryDiskImage struct {
 
 // GalleryDiskImageSource - The source for the disk image.
 type GalleryDiskImageSource struct {
-	// The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource.
+	// The id of the gallery artifact version source.
 	ID *string
 
 	// The Storage Account Id that contains the vhd blob being used as a source for this artifact version.
@@ -7868,6 +7872,9 @@ type VirtualMachineScaleSetUpdateOSDisk struct {
 	// The default value is set to Delete. For an Ephemeral OS Disk, the default value is set to Delete. User cannot change the
 	// delete option for Ephemeral OS Disk.
 	DeleteOption *DiskDeleteOptionTypes
+
+	// Specifies the ephemeral disk Settings for the operating system disk used by the virtual machine scale set.
+	DiffDiskSettings *DiffDiskSettings
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
 	// virtual machine image.

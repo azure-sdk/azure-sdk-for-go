@@ -1,5 +1,12 @@
 # Release History
 
+## 5.6.0 (2024-03-04)
+### Features Added
+
+- New field `VirtualMachineID` in struct `GalleryArtifactVersionFullSource`
+- New field `DiffDiskSettings` in struct `VirtualMachineScaleSetUpdateOSDisk`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
