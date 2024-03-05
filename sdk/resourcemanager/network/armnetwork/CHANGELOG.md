@@ -1,5 +1,15 @@
 # Release History
 
+## 5.2.0 (2024-03-05)
+### Features Added
+
+- New enum type `ExceptionEntryMatchVariable` with values `ExceptionEntryMatchVariableRemoteAddr`, `ExceptionEntryMatchVariableRequestHeader`, `ExceptionEntryMatchVariableRequestURI`
+- New enum type `ExceptionEntrySelectorMatchOperator` with values `ExceptionEntrySelectorMatchOperatorContains`, `ExceptionEntrySelectorMatchOperatorEndsWith`, `ExceptionEntrySelectorMatchOperatorEquals`, `ExceptionEntrySelectorMatchOperatorStartsWith`
+- New enum type `ExceptionEntryValueMatchOperator` with values `ExceptionEntryValueMatchOperatorContains`, `ExceptionEntryValueMatchOperatorEndsWith`, `ExceptionEntryValueMatchOperatorEquals`, `ExceptionEntryValueMatchOperatorIPMatch`, `ExceptionEntryValueMatchOperatorStartsWith`
+- New struct `ExceptionEntry`
+- New field `Exceptions` in struct `ManagedRulesDefinition`
+
+
 ## 5.1.0 (2024-02-23)
 ### Features Added
 

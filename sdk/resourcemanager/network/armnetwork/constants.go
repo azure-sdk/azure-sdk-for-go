@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.1.0"
+	moduleVersion = "v5.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -1355,6 +1355,67 @@ func PossibleEvaluationStateValues() []EvaluationState {
 		EvaluationStateCompleted,
 		EvaluationStateInProgress,
 		EvaluationStateNotStarted,
+	}
+}
+
+// ExceptionEntryMatchVariable - The variable on which we evaluate the exception condition
+type ExceptionEntryMatchVariable string
+
+const (
+	ExceptionEntryMatchVariableRemoteAddr    ExceptionEntryMatchVariable = "RemoteAddr"
+	ExceptionEntryMatchVariableRequestHeader ExceptionEntryMatchVariable = "RequestHeader"
+	ExceptionEntryMatchVariableRequestURI    ExceptionEntryMatchVariable = "RequestURI"
+)
+
+// PossibleExceptionEntryMatchVariableValues returns the possible values for the ExceptionEntryMatchVariable const type.
+func PossibleExceptionEntryMatchVariableValues() []ExceptionEntryMatchVariable {
+	return []ExceptionEntryMatchVariable{
+		ExceptionEntryMatchVariableRemoteAddr,
+		ExceptionEntryMatchVariableRequestHeader,
+		ExceptionEntryMatchVariableRequestURI,
+	}
+}
+
+// ExceptionEntrySelectorMatchOperator - When the matchVariable points to a key-value pair (e.g, RequestHeader), this operates
+// on the selector
+type ExceptionEntrySelectorMatchOperator string
+
+const (
+	ExceptionEntrySelectorMatchOperatorContains   ExceptionEntrySelectorMatchOperator = "Contains"
+	ExceptionEntrySelectorMatchOperatorEndsWith   ExceptionEntrySelectorMatchOperator = "EndsWith"
+	ExceptionEntrySelectorMatchOperatorEquals     ExceptionEntrySelectorMatchOperator = "Equals"
+	ExceptionEntrySelectorMatchOperatorStartsWith ExceptionEntrySelectorMatchOperator = "StartsWith"
+)
+
+// PossibleExceptionEntrySelectorMatchOperatorValues returns the possible values for the ExceptionEntrySelectorMatchOperator const type.
+func PossibleExceptionEntrySelectorMatchOperatorValues() []ExceptionEntrySelectorMatchOperator {
+	return []ExceptionEntrySelectorMatchOperator{
+		ExceptionEntrySelectorMatchOperatorContains,
+		ExceptionEntrySelectorMatchOperatorEndsWith,
+		ExceptionEntrySelectorMatchOperatorEquals,
+		ExceptionEntrySelectorMatchOperatorStartsWith,
+	}
+}
+
+// ExceptionEntryValueMatchOperator - Operates on the allowed values for the matchVariable
+type ExceptionEntryValueMatchOperator string
+
+const (
+	ExceptionEntryValueMatchOperatorContains   ExceptionEntryValueMatchOperator = "Contains"
+	ExceptionEntryValueMatchOperatorEndsWith   ExceptionEntryValueMatchOperator = "EndsWith"
+	ExceptionEntryValueMatchOperatorEquals     ExceptionEntryValueMatchOperator = "Equals"
+	ExceptionEntryValueMatchOperatorIPMatch    ExceptionEntryValueMatchOperator = "IPMatch"
+	ExceptionEntryValueMatchOperatorStartsWith ExceptionEntryValueMatchOperator = "StartsWith"
+)
+
+// PossibleExceptionEntryValueMatchOperatorValues returns the possible values for the ExceptionEntryValueMatchOperator const type.
+func PossibleExceptionEntryValueMatchOperatorValues() []ExceptionEntryValueMatchOperator {
+	return []ExceptionEntryValueMatchOperator{
+		ExceptionEntryValueMatchOperatorContains,
+		ExceptionEntryValueMatchOperatorEndsWith,
+		ExceptionEntryValueMatchOperatorEquals,
+		ExceptionEntryValueMatchOperatorIPMatch,
+		ExceptionEntryValueMatchOperatorStartsWith,
 	}
 }
 

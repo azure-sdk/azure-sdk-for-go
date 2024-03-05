@@ -4714,6 +4714,27 @@ type EvaluatedNetworkSecurityGroup struct {
 	RulesEvaluationResult []*SecurityRulesEvaluationResult
 }
 
+// ExceptionEntry - Adds exception to allow a request when the condition is satisfied.
+type ExceptionEntry struct {
+	// REQUIRED; The variable on which we evaluate the exception condition
+	MatchVariable *ExceptionEntryMatchVariable
+
+	// REQUIRED; Operates on the allowed values for the matchVariable
+	ValueMatchOperator *ExceptionEntryValueMatchOperator
+
+	// The managed rule sets that are associated with the exception.
+	ExceptionManagedRuleSets []*ExclusionManagedRuleSet
+
+	// When the matchVariable points to a key-value pair (e.g, RequestHeader), this identifies the key.
+	Selector *string
+
+	// When the matchVariable points to a key-value pair (e.g, RequestHeader), this operates on the selector
+	SelectorMatchOperator *ExceptionEntrySelectorMatchOperator
+
+	// Allowed values for the matchVariable
+	Values []*string
+}
+
 // ExclusionManagedRule - Defines a managed rule to use for exclusion.
 type ExclusionManagedRule struct {
 	// REQUIRED; Identifier for the managed rule.
@@ -8069,6 +8090,9 @@ type ManagedRuleSet struct {
 type ManagedRulesDefinition struct {
 	// REQUIRED; The managed rule sets that are associated with the policy.
 	ManagedRuleSets []*ManagedRuleSet
+
+	// The exceptions that are applied on the policy.
+	Exceptions []*ExceptionEntry
 
 	// The Exclusions that are applied on the policy.
 	Exclusions []*OwaspCrsExclusionEntry

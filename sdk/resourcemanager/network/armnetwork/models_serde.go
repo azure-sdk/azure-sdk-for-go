@@ -11525,6 +11525,53 @@ func (e *EvaluatedNetworkSecurityGroup) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExceptionEntry.
+func (e ExceptionEntry) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "exceptionManagedRuleSets", e.ExceptionManagedRuleSets)
+	populate(objectMap, "matchVariable", e.MatchVariable)
+	populate(objectMap, "selector", e.Selector)
+	populate(objectMap, "selectorMatchOperator", e.SelectorMatchOperator)
+	populate(objectMap, "valueMatchOperator", e.ValueMatchOperator)
+	populate(objectMap, "values", e.Values)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExceptionEntry.
+func (e *ExceptionEntry) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "exceptionManagedRuleSets":
+			err = unpopulate(val, "ExceptionManagedRuleSets", &e.ExceptionManagedRuleSets)
+			delete(rawMsg, key)
+		case "matchVariable":
+			err = unpopulate(val, "MatchVariable", &e.MatchVariable)
+			delete(rawMsg, key)
+		case "selector":
+			err = unpopulate(val, "Selector", &e.Selector)
+			delete(rawMsg, key)
+		case "selectorMatchOperator":
+			err = unpopulate(val, "SelectorMatchOperator", &e.SelectorMatchOperator)
+			delete(rawMsg, key)
+		case "valueMatchOperator":
+			err = unpopulate(val, "ValueMatchOperator", &e.ValueMatchOperator)
+			delete(rawMsg, key)
+		case "values":
+			err = unpopulate(val, "Values", &e.Values)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ExclusionManagedRule.
 func (e ExclusionManagedRule) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -20006,6 +20053,7 @@ func (m *ManagedRuleSet) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ManagedRulesDefinition.
 func (m ManagedRulesDefinition) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "exceptions", m.Exceptions)
 	populate(objectMap, "exclusions", m.Exclusions)
 	populate(objectMap, "managedRuleSets", m.ManagedRuleSets)
 	return json.Marshal(objectMap)
@@ -20020,6 +20068,9 @@ func (m *ManagedRulesDefinition) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "exceptions":
+			err = unpopulate(val, "Exceptions", &m.Exceptions)
+			delete(rawMsg, key)
 		case "exclusions":
 			err = unpopulate(val, "Exclusions", &m.Exclusions)
 			delete(rawMsg, key)
