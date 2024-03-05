@@ -46,7 +46,7 @@ func NewManagedInstanceDtcsClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Updates managed instance DTC settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -74,7 +74,7 @@ func (client *ManagedInstanceDtcsClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Updates managed instance DTC settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2024-02-01-preview
 func (client *ManagedInstanceDtcsClient) createOrUpdate(ctx context.Context, resourceGroupName string, managedInstanceName string, dtcName DtcName, parameters ManagedInstanceDtc, options *ManagedInstanceDtcsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedInstanceDtcsClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *ManagedInstanceDtcsClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -132,7 +132,7 @@ func (client *ManagedInstanceDtcsClient) createOrUpdateCreateRequest(ctx context
 // Get - Gets managed instance DTC settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -184,7 +184,7 @@ func (client *ManagedInstanceDtcsClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -201,7 +201,7 @@ func (client *ManagedInstanceDtcsClient) getHandleResponse(resp *http.Response) 
 
 // NewListByManagedInstancePager - Gets a list of managed instance DTC settings.
 //
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -250,7 +250,7 @@ func (client *ManagedInstanceDtcsClient) listByManagedInstanceCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

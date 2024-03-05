@@ -45,6 +45,10 @@ type SensitivityLabelsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, serverName string, databaseName string, schemaName string, tableName string, columnName string, sensitivityLabelSource armsql.SensitivityLabelSource, options *armsql.SensitivityLabelsClientGetOptions) (resp azfake.Responder[armsql.SensitivityLabelsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// NewListByDatabasePager is the fake for method SensitivityLabelsClient.NewListByDatabasePager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByDatabasePager func(resourceGroupName string, serverName string, databaseName string, options *armsql.SensitivityLabelsClientListByDatabaseOptions) (resp azfake.PagerResponder[armsql.SensitivityLabelsClientListByDatabaseResponse])
+
 	// NewListCurrentByDatabasePager is the fake for method SensitivityLabelsClient.NewListCurrentByDatabasePager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListCurrentByDatabasePager func(resourceGroupName string, serverName string, databaseName string, options *armsql.SensitivityLabelsClientListCurrentByDatabaseOptions) (resp azfake.PagerResponder[armsql.SensitivityLabelsClientListCurrentByDatabaseResponse])
@@ -64,6 +68,7 @@ type SensitivityLabelsServer struct {
 func NewSensitivityLabelsServerTransport(srv *SensitivityLabelsServer) *SensitivityLabelsServerTransport {
 	return &SensitivityLabelsServerTransport{
 		srv:                               srv,
+		newListByDatabasePager:            newTracker[azfake.PagerResponder[armsql.SensitivityLabelsClientListByDatabaseResponse]](),
 		newListCurrentByDatabasePager:     newTracker[azfake.PagerResponder[armsql.SensitivityLabelsClientListCurrentByDatabaseResponse]](),
 		newListRecommendedByDatabasePager: newTracker[azfake.PagerResponder[armsql.SensitivityLabelsClientListRecommendedByDatabaseResponse]](),
 	}
@@ -73,6 +78,7 @@ func NewSensitivityLabelsServerTransport(srv *SensitivityLabelsServer) *Sensitiv
 // Don't use this type directly, use NewSensitivityLabelsServerTransport instead.
 type SensitivityLabelsServerTransport struct {
 	srv                               *SensitivityLabelsServer
+	newListByDatabasePager            *tracker[azfake.PagerResponder[armsql.SensitivityLabelsClientListByDatabaseResponse]]
 	newListCurrentByDatabasePager     *tracker[azfake.PagerResponder[armsql.SensitivityLabelsClientListCurrentByDatabaseResponse]]
 	newListRecommendedByDatabasePager *tracker[azfake.PagerResponder[armsql.SensitivityLabelsClientListRecommendedByDatabaseResponse]]
 }
@@ -99,6 +105,8 @@ func (s *SensitivityLabelsServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = s.dispatchEnableRecommendation(req)
 	case "SensitivityLabelsClient.Get":
 		resp, err = s.dispatchGet(req)
+	case "SensitivityLabelsClient.NewListByDatabasePager":
+		resp, err = s.dispatchNewListByDatabasePager(req)
 	case "SensitivityLabelsClient.NewListCurrentByDatabasePager":
 		resp, err = s.dispatchNewListCurrentByDatabasePager(req)
 	case "SensitivityLabelsClient.NewListRecommendedByDatabasePager":
@@ -371,6 +379,63 @@ func (s *SensitivityLabelsServerTransport) dispatchGet(req *http.Request) (*http
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SensitivityLabel, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *SensitivityLabelsServerTransport) dispatchNewListByDatabasePager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListByDatabasePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByDatabasePager not implemented")}
+	}
+	newListByDatabasePager := s.newListByDatabasePager.get(req)
+	if newListByDatabasePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Sql/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sensitivityLabels`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serverNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serverName")])
+		if err != nil {
+			return nil, err
+		}
+		databaseNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("databaseName")])
+		if err != nil {
+			return nil, err
+		}
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		var options *armsql.SensitivityLabelsClientListByDatabaseOptions
+		if filterParam != nil {
+			options = &armsql.SensitivityLabelsClientListByDatabaseOptions{
+				Filter: filterParam,
+			}
+		}
+		resp := s.srv.NewListByDatabasePager(resourceGroupNameParam, serverNameParam, databaseNameParam, options)
+		newListByDatabasePager = &resp
+		s.newListByDatabasePager.add(req, newListByDatabasePager)
+		server.PagerResponderInjectNextLinks(newListByDatabasePager, req, func(page *armsql.SensitivityLabelsClientListByDatabaseResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListByDatabasePager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		s.newListByDatabasePager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListByDatabasePager) {
+		s.newListByDatabasePager.remove(req)
 	}
 	return resp, nil
 }

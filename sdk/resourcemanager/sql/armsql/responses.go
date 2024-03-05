@@ -52,25 +52,25 @@ type CapabilitiesClientListByLocationResponse struct {
 
 // DataMaskingPoliciesClientCreateOrUpdateResponse contains the response from method DataMaskingPoliciesClient.CreateOrUpdate.
 type DataMaskingPoliciesClientCreateOrUpdateResponse struct {
-	// Represents a database data masking policy.
+	// A database data masking policy.
 	DataMaskingPolicy
 }
 
 // DataMaskingPoliciesClientGetResponse contains the response from method DataMaskingPoliciesClient.Get.
 type DataMaskingPoliciesClientGetResponse struct {
-	// Represents a database data masking policy.
+	// A database data masking policy.
 	DataMaskingPolicy
 }
 
 // DataMaskingRulesClientCreateOrUpdateResponse contains the response from method DataMaskingRulesClient.CreateOrUpdate.
 type DataMaskingRulesClientCreateOrUpdateResponse struct {
-	// Represents a database data masking rule.
+	// A database data masking rule.
 	DataMaskingRule
 }
 
 // DataMaskingRulesClientListByDatabaseResponse contains the response from method DataMaskingRulesClient.NewListByDatabasePager.
 type DataMaskingRulesClientListByDatabaseResponse struct {
-	// The response to a list data masking rules request.
+	// The list of database data masking rules.
 	DataMaskingRuleListResult
 }
 
@@ -472,18 +472,6 @@ type DatabasesClientListInaccessibleByServerResponse struct {
 	DatabaseListResult
 }
 
-// DatabasesClientListMetricDefinitionsResponse contains the response from method DatabasesClient.NewListMetricDefinitionsPager.
-type DatabasesClientListMetricDefinitionsResponse struct {
-	// The response to a list database metric definitions request.
-	MetricDefinitionListResult
-}
-
-// DatabasesClientListMetricsResponse contains the response from method DatabasesClient.NewListMetricsPager.
-type DatabasesClientListMetricsResponse struct {
-	// The response to a list database metrics request.
-	MetricListResult
-}
-
 // DatabasesClientPauseResponse contains the response from method DatabasesClient.BeginPause.
 type DatabasesClientPauseResponse struct {
 	// A database resource.
@@ -547,6 +535,12 @@ type DistributedAvailabilityGroupsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// DistributedAvailabilityGroupsClientFailoverResponse contains the response from method DistributedAvailabilityGroupsClient.BeginFailover.
+type DistributedAvailabilityGroupsClientFailoverResponse struct {
+	// Distributed availability group between box and Sql Managed Instance.
+	DistributedAvailabilityGroup
+}
+
 // DistributedAvailabilityGroupsClientGetResponse contains the response from method DistributedAvailabilityGroupsClient.Get.
 type DistributedAvailabilityGroupsClientGetResponse struct {
 	// Distributed availability group between box and Sql Managed Instance.
@@ -559,22 +553,16 @@ type DistributedAvailabilityGroupsClientListByInstanceResponse struct {
 	DistributedAvailabilityGroupsListResult
 }
 
-// DistributedAvailabilityGroupsClientUpdateResponse contains the response from method DistributedAvailabilityGroupsClient.BeginUpdate.
-type DistributedAvailabilityGroupsClientUpdateResponse struct {
+// DistributedAvailabilityGroupsClientSetRoleResponse contains the response from method DistributedAvailabilityGroupsClient.BeginSetRole.
+type DistributedAvailabilityGroupsClientSetRoleResponse struct {
 	// Distributed availability group between box and Sql Managed Instance.
 	DistributedAvailabilityGroup
 }
 
-// ElasticPoolActivitiesClientListByElasticPoolResponse contains the response from method ElasticPoolActivitiesClient.NewListByElasticPoolPager.
-type ElasticPoolActivitiesClientListByElasticPoolResponse struct {
-	// Represents the response to a list elastic pool activity request.
-	ElasticPoolActivityListResult
-}
-
-// ElasticPoolDatabaseActivitiesClientListByElasticPoolResponse contains the response from method ElasticPoolDatabaseActivitiesClient.NewListByElasticPoolPager.
-type ElasticPoolDatabaseActivitiesClientListByElasticPoolResponse struct {
-	// Represents the response to a list elastic pool database activity request.
-	ElasticPoolDatabaseActivityListResult
+// DistributedAvailabilityGroupsClientUpdateResponse contains the response from method DistributedAvailabilityGroupsClient.BeginUpdate.
+type DistributedAvailabilityGroupsClientUpdateResponse struct {
+	// Distributed availability group between box and Sql Managed Instance.
+	DistributedAvailabilityGroup
 }
 
 // ElasticPoolOperationsClientCancelResponse contains the response from method ElasticPoolOperationsClient.Cancel.
@@ -614,18 +602,6 @@ type ElasticPoolsClientGetResponse struct {
 type ElasticPoolsClientListByServerResponse struct {
 	// The result of an elastic pool list request.
 	ElasticPoolListResult
-}
-
-// ElasticPoolsClientListMetricDefinitionsResponse contains the response from method ElasticPoolsClient.NewListMetricDefinitionsPager.
-type ElasticPoolsClientListMetricDefinitionsResponse struct {
-	// The response to a list database metric definitions request.
-	MetricDefinitionListResult
-}
-
-// ElasticPoolsClientListMetricsResponse contains the response from method ElasticPoolsClient.NewListMetricsPager.
-type ElasticPoolsClientListMetricsResponse struct {
-	// The response to a list database metrics request.
-	MetricListResult
 }
 
 // ElasticPoolsClientUpdateResponse contains the response from method ElasticPoolsClient.BeginUpdate.
@@ -783,19 +759,19 @@ type FirewallRulesClientReplaceResponse struct {
 
 // GeoBackupPoliciesClientCreateOrUpdateResponse contains the response from method GeoBackupPoliciesClient.CreateOrUpdate.
 type GeoBackupPoliciesClientCreateOrUpdateResponse struct {
-	// A database geo backup policy.
+	// A Geo backup policy.
 	GeoBackupPolicy
 }
 
 // GeoBackupPoliciesClientGetResponse contains the response from method GeoBackupPoliciesClient.Get.
 type GeoBackupPoliciesClientGetResponse struct {
-	// A database geo backup policy.
+	// A Geo backup policy.
 	GeoBackupPolicy
 }
 
-// GeoBackupPoliciesClientListByDatabaseResponse contains the response from method GeoBackupPoliciesClient.NewListByDatabasePager.
-type GeoBackupPoliciesClientListByDatabaseResponse struct {
-	// The response to a list geo backup policies request.
+// GeoBackupPoliciesClientListResponse contains the response from method GeoBackupPoliciesClient.NewListPager.
+type GeoBackupPoliciesClientListResponse struct {
+	// The list of geo backup policies.
 	GeoBackupPolicyListResult
 }
 
@@ -1494,6 +1470,12 @@ type ManagedDatabaseSensitivityLabelsClientGetResponse struct {
 	SensitivityLabel
 }
 
+// ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse contains the response from method ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager.
+type ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse struct {
+	// A list of sensitivity labels.
+	SensitivityLabelListResult
+}
+
 // ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse contains the response from method ManagedDatabaseSensitivityLabelsClient.NewListCurrentByDatabasePager.
 type ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse struct {
 	// A list of sensitivity labels.
@@ -1793,6 +1775,12 @@ type ManagedInstanceLongTermRetentionPoliciesClientCreateOrUpdateResponse struct
 	ManagedInstanceLongTermRetentionPolicy
 }
 
+// ManagedInstanceLongTermRetentionPoliciesClientDeleteResponse contains the response from method ManagedInstanceLongTermRetentionPoliciesClient.BeginDelete.
+type ManagedInstanceLongTermRetentionPoliciesClientDeleteResponse struct {
+	// A long term retention policy.
+	ManagedInstanceLongTermRetentionPolicy
+}
+
 // ManagedInstanceLongTermRetentionPoliciesClientGetResponse contains the response from method ManagedInstanceLongTermRetentionPoliciesClient.Get.
 type ManagedInstanceLongTermRetentionPoliciesClientGetResponse struct {
 	// A long term retention policy.
@@ -1937,14 +1925,22 @@ type ManagedInstancesClientListResponse struct {
 	ManagedInstanceListResult
 }
 
+// ManagedInstancesClientRefreshStatusResponse contains the response from method ManagedInstancesClient.BeginRefreshStatus.
+type ManagedInstancesClientRefreshStatusResponse struct {
+	// An RefreshExternalGovernanceStatus operation result resource.
+	RefreshExternalGovernanceStatusOperationResultMI
+}
+
 // ManagedInstancesClientStartResponse contains the response from method ManagedInstancesClient.BeginStart.
 type ManagedInstancesClientStartResponse struct {
-	// placeholder for future response values
+	// An Azure SQL managed instance.
+	ManagedInstance
 }
 
 // ManagedInstancesClientStopResponse contains the response from method ManagedInstancesClient.BeginStop.
 type ManagedInstancesClientStopResponse struct {
-	// placeholder for future response values
+	// An Azure SQL managed instance.
+	ManagedInstance
 }
 
 // ManagedInstancesClientUpdateResponse contains the response from method ManagedInstancesClient.BeginUpdate.
@@ -2051,6 +2047,24 @@ type ManagedServerSecurityAlertPoliciesClientListByInstanceResponse struct {
 	ManagedServerSecurityAlertPolicyListResult
 }
 
+// NetworkSecurityPerimeterConfigurationsClientGetResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.Get.
+type NetworkSecurityPerimeterConfigurationsClientGetResponse struct {
+	// NSP Configuration for a server.
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByServerResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.NewListByServerPager.
+type NetworkSecurityPerimeterConfigurationsClientListByServerResponse struct {
+	// A list of NSP configurations for a server.
+	NetworkSecurityPerimeterConfigurationListResult
+}
+
+// NetworkSecurityPerimeterConfigurationsClientReconcileResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.BeginReconcile.
+type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
+	// NSP Configuration for a server.
+	NetworkSecurityPerimeterConfiguration
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// Result of the request to list SQL operations.
@@ -2144,6 +2158,12 @@ type RecoverableManagedDatabasesClientListByInstanceResponse struct {
 	RecoverableManagedDatabaseListResult
 }
 
+// ReplicationLinksClientCreateOrUpdateResponse contains the response from method ReplicationLinksClient.BeginCreateOrUpdate.
+type ReplicationLinksClientCreateOrUpdateResponse struct {
+	// A replication link.
+	ReplicationLink
+}
+
 // ReplicationLinksClientDeleteResponse contains the response from method ReplicationLinksClient.BeginDelete.
 type ReplicationLinksClientDeleteResponse struct {
 	// placeholder for future response values
@@ -2177,6 +2197,12 @@ type ReplicationLinksClientListByDatabaseResponse struct {
 type ReplicationLinksClientListByServerResponse struct {
 	// A list of replication links.
 	ReplicationLinkListResult
+}
+
+// ReplicationLinksClientUpdateResponse contains the response from method ReplicationLinksClient.BeginUpdate.
+type ReplicationLinksClientUpdateResponse struct {
+	// A replication link.
+	ReplicationLink
 }
 
 // RestorableDroppedDatabasesClientGetResponse contains the response from method RestorableDroppedDatabasesClient.Get.
@@ -2251,6 +2277,12 @@ type SensitivityLabelsClientEnableRecommendationResponse struct {
 type SensitivityLabelsClientGetResponse struct {
 	// A sensitivity label.
 	SensitivityLabel
+}
+
+// SensitivityLabelsClientListByDatabaseResponse contains the response from method SensitivityLabelsClient.NewListByDatabasePager.
+type SensitivityLabelsClientListByDatabaseResponse struct {
+	// A list of sensitivity labels.
+	SensitivityLabelListResult
 }
 
 // SensitivityLabelsClientListCurrentByDatabaseResponse contains the response from method SensitivityLabelsClient.NewListCurrentByDatabasePager.
@@ -2380,29 +2412,6 @@ type ServerBlobAuditingPoliciesClientGetResponse struct {
 type ServerBlobAuditingPoliciesClientListByServerResponse struct {
 	// A list of server auditing settings.
 	ServerBlobAuditingPolicyListResult
-}
-
-// ServerCommunicationLinksClientCreateOrUpdateResponse contains the response from method ServerCommunicationLinksClient.BeginCreateOrUpdate.
-type ServerCommunicationLinksClientCreateOrUpdateResponse struct {
-	// Server communication link.
-	ServerCommunicationLink
-}
-
-// ServerCommunicationLinksClientDeleteResponse contains the response from method ServerCommunicationLinksClient.Delete.
-type ServerCommunicationLinksClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ServerCommunicationLinksClientGetResponse contains the response from method ServerCommunicationLinksClient.Get.
-type ServerCommunicationLinksClientGetResponse struct {
-	// Server communication link.
-	ServerCommunicationLink
-}
-
-// ServerCommunicationLinksClientListByServerResponse contains the response from method ServerCommunicationLinksClient.NewListByServerPager.
-type ServerCommunicationLinksClientListByServerResponse struct {
-	// A list of server communication links.
-	ServerCommunicationLinkListResult
 }
 
 // ServerConfigurationOptionsClientCreateOrUpdateResponse contains the response from method ServerConfigurationOptionsClient.BeginCreateOrUpdate.
@@ -2589,7 +2598,7 @@ type ServerTrustGroupsClientListByLocationResponse struct {
 
 // ServerUsagesClientListByServerResponse contains the response from method ServerUsagesClient.NewListByServerPager.
 type ServerUsagesClientListByServerResponse struct {
-	// Represents the response to a list server metrics request.
+	// A list of server usage metrics.
 	ServerUsageListResult
 }
 
@@ -2667,18 +2676,6 @@ type ServersClientRefreshStatusResponse struct {
 type ServersClientUpdateResponse struct {
 	// An Azure SQL Database server.
 	Server
-}
-
-// ServiceObjectivesClientGetResponse contains the response from method ServiceObjectivesClient.Get.
-type ServiceObjectivesClientGetResponse struct {
-	// Represents a database service objective.
-	ServiceObjective
-}
-
-// ServiceObjectivesClientListByServerResponse contains the response from method ServiceObjectivesClient.NewListByServerPager.
-type ServiceObjectivesClientListByServerResponse struct {
-	// Represents the response to a get database service objectives request.
-	ServiceObjectiveListResult
 }
 
 // StartStopManagedInstanceSchedulesClientCreateOrUpdateResponse contains the response from method StartStopManagedInstanceSchedulesClient.CreateOrUpdate.
@@ -2866,7 +2863,7 @@ type TdeCertificatesClientCreateResponse struct {
 
 // TimeZonesClientGetResponse contains the response from method TimeZonesClient.Get.
 type TimeZonesClientGetResponse struct {
-	// Time Zone.
+	// Time Zone property.
 	TimeZone
 }
 

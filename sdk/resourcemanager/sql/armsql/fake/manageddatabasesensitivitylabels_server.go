@@ -45,6 +45,10 @@ type ManagedDatabaseSensitivityLabelsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, managedInstanceName string, databaseName string, schemaName string, tableName string, columnName string, sensitivityLabelSource armsql.SensitivityLabelSource, options *armsql.ManagedDatabaseSensitivityLabelsClientGetOptions) (resp azfake.Responder[armsql.ManagedDatabaseSensitivityLabelsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// NewListByDatabasePager is the fake for method ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByDatabasePager func(resourceGroupName string, managedInstanceName string, databaseName string, options *armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions) (resp azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse])
+
 	// NewListCurrentByDatabasePager is the fake for method ManagedDatabaseSensitivityLabelsClient.NewListCurrentByDatabasePager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListCurrentByDatabasePager func(resourceGroupName string, managedInstanceName string, databaseName string, options *armsql.ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseOptions) (resp azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse])
@@ -64,6 +68,7 @@ type ManagedDatabaseSensitivityLabelsServer struct {
 func NewManagedDatabaseSensitivityLabelsServerTransport(srv *ManagedDatabaseSensitivityLabelsServer) *ManagedDatabaseSensitivityLabelsServerTransport {
 	return &ManagedDatabaseSensitivityLabelsServerTransport{
 		srv:                               srv,
+		newListByDatabasePager:            newTracker[azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse]](),
 		newListCurrentByDatabasePager:     newTracker[azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse]](),
 		newListRecommendedByDatabasePager: newTracker[azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListRecommendedByDatabaseResponse]](),
 	}
@@ -73,6 +78,7 @@ func NewManagedDatabaseSensitivityLabelsServerTransport(srv *ManagedDatabaseSens
 // Don't use this type directly, use NewManagedDatabaseSensitivityLabelsServerTransport instead.
 type ManagedDatabaseSensitivityLabelsServerTransport struct {
 	srv                               *ManagedDatabaseSensitivityLabelsServer
+	newListByDatabasePager            *tracker[azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse]]
 	newListCurrentByDatabasePager     *tracker[azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse]]
 	newListRecommendedByDatabasePager *tracker[azfake.PagerResponder[armsql.ManagedDatabaseSensitivityLabelsClientListRecommendedByDatabaseResponse]]
 }
@@ -99,6 +105,8 @@ func (m *ManagedDatabaseSensitivityLabelsServerTransport) Do(req *http.Request) 
 		resp, err = m.dispatchEnableRecommendation(req)
 	case "ManagedDatabaseSensitivityLabelsClient.Get":
 		resp, err = m.dispatchGet(req)
+	case "ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager":
+		resp, err = m.dispatchNewListByDatabasePager(req)
 	case "ManagedDatabaseSensitivityLabelsClient.NewListCurrentByDatabasePager":
 		resp, err = m.dispatchNewListCurrentByDatabasePager(req)
 	case "ManagedDatabaseSensitivityLabelsClient.NewListRecommendedByDatabasePager":
@@ -371,6 +379,63 @@ func (m *ManagedDatabaseSensitivityLabelsServerTransport) dispatchGet(req *http.
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SensitivityLabel, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (m *ManagedDatabaseSensitivityLabelsServerTransport) dispatchNewListByDatabasePager(req *http.Request) (*http.Response, error) {
+	if m.srv.NewListByDatabasePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByDatabasePager not implemented")}
+	}
+	newListByDatabasePager := m.newListByDatabasePager.get(req)
+	if newListByDatabasePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Sql/managedInstances/(?P<managedInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sensitivityLabels`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		managedInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("managedInstanceName")])
+		if err != nil {
+			return nil, err
+		}
+		databaseNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("databaseName")])
+		if err != nil {
+			return nil, err
+		}
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		var options *armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions
+		if filterParam != nil {
+			options = &armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions{
+				Filter: filterParam,
+			}
+		}
+		resp := m.srv.NewListByDatabasePager(resourceGroupNameParam, managedInstanceNameParam, databaseNameParam, options)
+		newListByDatabasePager = &resp
+		m.newListByDatabasePager.add(req, newListByDatabasePager)
+		server.PagerResponderInjectNextLinks(newListByDatabasePager, req, func(page *armsql.ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListByDatabasePager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		m.newListByDatabasePager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListByDatabasePager) {
+		m.newListByDatabasePager.remove(req)
 	}
 	return resp, nil
 }

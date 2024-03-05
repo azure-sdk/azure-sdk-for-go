@@ -46,7 +46,7 @@ func NewManagedDatabaseSecurityEventsClient(subscriptionID string, credential az
 
 // NewListByDatabasePager - Gets a list of security events.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -104,15 +104,15 @@ func (client *ManagedDatabaseSecurityEventsClient) listByDatabaseCreateRequest(c
 		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+		reqQP.Set("$skip", strconv.FormatInt(*options.Skip, 10))
 	}
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", *options.Skiptoken)
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(*options.Top, 10))
+	}
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
