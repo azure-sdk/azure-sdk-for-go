@@ -894,6 +894,18 @@ type PlansClientGetServerFarmSKUsResponse struct {
 	Interface any
 }
 
+// PlansClientGetVirtualNetworkIntegrationResponse contains the response from method PlansClient.GetVirtualNetworkIntegration.
+type PlansClientGetVirtualNetworkIntegrationResponse struct {
+	// Swift Virtual Network Contract
+	SwiftVirtualNetwork
+}
+
+// PlansClientGetVirtualNetworkIntegrationsResponse contains the response from method PlansClient.NewGetVirtualNetworkIntegrationsPager.
+type PlansClientGetVirtualNetworkIntegrationsResponse struct {
+	// Collection of Swift Virtual Networks
+	SwiftVirtualNetworkCollection
+}
+
 // PlansClientGetVnetFromServerFarmResponse contains the response from method PlansClient.GetVnetFromServerFarm.
 type PlansClientGetVnetFromServerFarmResponse struct {
 	// Virtual Network information ARM resource.
@@ -1721,7 +1733,7 @@ type WebAppsClientCreateOneDeployOperationResponse struct {
 	Interface any
 }
 
-// WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.CreateOrUpdateConfiguration.
+// WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.BeginCreateOrUpdateConfiguration.
 type WebAppsClientCreateOrUpdateConfigurationResponse struct {
 	// Web app configuration ARM resource.
 	SiteConfigResource
@@ -1823,6 +1835,18 @@ type WebAppsClientCreateOrUpdateResponse struct {
 	Site
 }
 
+// WebAppsClientCreateOrUpdateSiteContainerResponse contains the response from method WebAppsClient.CreateOrUpdateSiteContainer.
+type WebAppsClientCreateOrUpdateSiteContainerResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
+// WebAppsClientCreateOrUpdateSiteContainerSlotResponse contains the response from method WebAppsClient.CreateOrUpdateSiteContainerSlot.
+type WebAppsClientCreateOrUpdateSiteContainerSlotResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
 // WebAppsClientCreateOrUpdateSlotResponse contains the response from method WebAppsClient.BeginCreateOrUpdateSlot.
 type WebAppsClientCreateOrUpdateSlotResponse struct {
 	// A web app, a mobile app backend, or an API app.
@@ -1843,14 +1867,14 @@ type WebAppsClientCreateOrUpdateSourceControlSlotResponse struct {
 
 // WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse contains the response from method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck.
 type WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse struct {
-	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	// Swift Virtual Network Contract (Proxy resource)
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse contains the response from method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot.
 type WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse struct {
-	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	// Swift Virtual Network Contract (Proxy resource)
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientCreateOrUpdateVnetConnectionGatewayResponse contains the response from method WebAppsClient.CreateOrUpdateVnetConnectionGateway.
@@ -2049,8 +2073,18 @@ type WebAppsClientDeleteRelayServiceConnectionSlotResponse struct {
 	// placeholder for future response values
 }
 
-// WebAppsClientDeleteResponse contains the response from method WebAppsClient.Delete.
+// WebAppsClientDeleteResponse contains the response from method WebAppsClient.BeginDelete.
 type WebAppsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// WebAppsClientDeleteSiteContainerResponse contains the response from method WebAppsClient.DeleteSiteContainer.
+type WebAppsClientDeleteSiteContainerResponse struct {
+	// placeholder for future response values
+}
+
+// WebAppsClientDeleteSiteContainerSlotResponse contains the response from method WebAppsClient.DeleteSiteContainerSlot.
+type WebAppsClientDeleteSiteContainerSlotResponse struct {
 	// placeholder for future response values
 }
 
@@ -2695,6 +2729,18 @@ type WebAppsClientGetSiteConnectionStringKeyVaultReferencesSlotResponse struct {
 	APIKVReferenceCollection
 }
 
+// WebAppsClientGetSiteContainerResponse contains the response from method WebAppsClient.GetSiteContainer.
+type WebAppsClientGetSiteContainerResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
+// WebAppsClientGetSiteContainerSlotResponse contains the response from method WebAppsClient.GetSiteContainerSlot.
+type WebAppsClientGetSiteContainerSlotResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
 // WebAppsClientGetSiteExtensionResponse contains the response from method WebAppsClient.GetSiteExtension.
 type WebAppsClientGetSiteExtensionResponse struct {
 	// Site Extension Information.
@@ -2745,14 +2791,14 @@ type WebAppsClientGetSourceControlSlotResponse struct {
 
 // WebAppsClientGetSwiftVirtualNetworkConnectionResponse contains the response from method WebAppsClient.GetSwiftVirtualNetworkConnection.
 type WebAppsClientGetSwiftVirtualNetworkConnectionResponse struct {
-	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	// Swift Virtual Network Contract (Proxy resource)
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientGetSwiftVirtualNetworkConnectionSlotResponse contains the response from method WebAppsClient.GetSwiftVirtualNetworkConnectionSlot.
 type WebAppsClientGetSwiftVirtualNetworkConnectionSlotResponse struct {
-	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	// Swift Virtual Network Contract (Proxy resource)
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientGetTriggeredWebJobHistoryResponse contains the response from method WebAppsClient.GetTriggeredWebJobHistory.
@@ -3289,6 +3335,18 @@ type WebAppsClientListSiteBackupsSlotResponse struct {
 	BackupItemCollection
 }
 
+// WebAppsClientListSiteContainersResponse contains the response from method WebAppsClient.NewListSiteContainersPager.
+type WebAppsClientListSiteContainersResponse struct {
+	// Collection of site containers
+	SiteContainerCollection
+}
+
+// WebAppsClientListSiteContainersSlotResponse contains the response from method WebAppsClient.NewListSiteContainersSlotPager.
+type WebAppsClientListSiteContainersSlotResponse struct {
+	// Collection of site containers
+	SiteContainerCollection
+}
+
 // WebAppsClientListSiteExtensionsResponse contains the response from method WebAppsClient.NewListSiteExtensionsPager.
 type WebAppsClientListSiteExtensionsResponse struct {
 	// Collection of Kudu site extension information elements.
@@ -3725,7 +3783,7 @@ type WebAppsClientSyncRepositorySlotResponse struct {
 	// placeholder for future response values
 }
 
-// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.UpdateApplicationSettings.
+// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.BeginUpdateApplicationSettings.
 type WebAppsClientUpdateApplicationSettingsResponse struct {
 	// String dictionary resource.
 	StringDictionary
@@ -3785,7 +3843,7 @@ type WebAppsClientUpdateBackupConfigurationSlotResponse struct {
 	BackupRequest
 }
 
-// WebAppsClientUpdateConfigurationResponse contains the response from method WebAppsClient.UpdateConfiguration.
+// WebAppsClientUpdateConfigurationResponse contains the response from method WebAppsClient.BeginUpdateConfiguration.
 type WebAppsClientUpdateConfigurationResponse struct {
 	// Web app configuration ARM resource.
 	SiteConfigResource
@@ -3797,7 +3855,7 @@ type WebAppsClientUpdateConfigurationSlotResponse struct {
 	SiteConfigResource
 }
 
-// WebAppsClientUpdateConnectionStringsResponse contains the response from method WebAppsClient.UpdateConnectionStrings.
+// WebAppsClientUpdateConnectionStringsResponse contains the response from method WebAppsClient.BeginUpdateConnectionStrings.
 type WebAppsClientUpdateConnectionStringsResponse struct {
 	// String dictionary resource.
 	ConnectionStringDictionary
@@ -3893,7 +3951,7 @@ type WebAppsClientUpdateRelayServiceConnectionSlotResponse struct {
 	RelayServiceConnectionEntity
 }
 
-// WebAppsClientUpdateResponse contains the response from method WebAppsClient.Update.
+// WebAppsClientUpdateResponse contains the response from method WebAppsClient.BeginUpdate.
 type WebAppsClientUpdateResponse struct {
 	// A web app, a mobile app backend, or an API app.
 	Site
@@ -3949,14 +4007,14 @@ type WebAppsClientUpdateSourceControlSlotResponse struct {
 
 // WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse contains the response from method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheck.
 type WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse struct {
-	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	// Swift Virtual Network Contract (Proxy resource)
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse contains the response from method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheckSlot.
 type WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse struct {
-	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	// Swift Virtual Network Contract (Proxy resource)
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientUpdateVnetConnectionGatewayResponse contains the response from method WebAppsClient.UpdateVnetConnectionGateway.
@@ -4061,6 +4119,12 @@ type WebSiteManagementClientMoveResponse struct {
 	// placeholder for future response values
 }
 
+// WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse contains the response from method WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations.
+type WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse struct {
+	// Response content upon successful deletion of an unused virtual network.
+	Value *PurgedUnusedVirtualNetworkSuccessResponse
+}
+
 // WebSiteManagementClientUpdatePublishingUserResponse contains the response from method WebSiteManagementClient.UpdatePublishingUser.
 type WebSiteManagementClientUpdatePublishingUserResponse struct {
 	// User credentials used for publishing activity.
@@ -4088,6 +4152,12 @@ type WebSiteManagementClientValidateResponse struct {
 type WebSiteManagementClientVerifyHostingEnvironmentVnetResponse struct {
 	// A class that describes the reason for a validation failure.
 	VnetValidationFailureDetails
+}
+
+// WebSiteManagementClientVirtualNetworkIntegrationsResponse contains the response from method WebSiteManagementClient.VirtualNetworkIntegrations.
+type WebSiteManagementClientVirtualNetworkIntegrationsResponse struct {
+	// Swift Virtual Network Contract
+	SwiftVirtualNetwork
 }
 
 // WorkflowRunActionRepetitionsClientGetResponse contains the response from method WorkflowRunActionRepetitionsClient.Get.
