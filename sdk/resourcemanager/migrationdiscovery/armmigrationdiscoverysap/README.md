@@ -1,10 +1,10 @@
-# Azure Quantum Module for Go
+# Azure Migrationdiscovery Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/quantum/armquantum)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/quantum/armquantum)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrationdiscovery/armmigrationdiscoverysap)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrationdiscovery/armmigrationdiscoverysap)
 
-The `armquantum` module provides operations for working with Azure Quantum.
+The `armmigrationdiscoverysap` module provides operations for working with Azure Migrationdiscovery.
 
-[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/quantum/armquantum)
+[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/migrationdiscovery/armmigrationdiscoverysap)
 
 # Getting started
 
@@ -17,15 +17,15 @@ The `armquantum` module provides operations for working with Azure Quantum.
 
 This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for versioning and dependency management.
 
-Install the Azure Quantum module:
+Install the Azure Migrationdiscovery module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/quantum/armquantum
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrationdiscovery/armmigrationdiscoverysap
 ```
 
 ## Authorization
 
-When creating a client, you will need to provide a credential for authenticating with Azure Quantum.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
+When creating a client, you will need to provide a credential for authenticating with Azure Migrationdiscovery.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
 
 ```go
 cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -35,10 +35,10 @@ For more information on authentication, please see the documentation for `aziden
 
 ## Client Factory
 
-Azure Quantum module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
+Azure Migrationdiscovery module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
 
 ```go
-clientFactory, err := armquantum.NewClientFactory(<subscription ID>, cred, nil)
+clientFactory, err := armmigrationdiscoverysap.NewClientFactory(<subscription ID>, cred, nil)
 ```
 
 You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
@@ -49,7 +49,7 @@ options := arm.ClientOptions {
         Cloud: cloud.AzureChina,
     },
 }
-clientFactory, err := armquantum.NewClientFactory(<subscription ID>, cred, &options)
+clientFactory, err := armmigrationdiscoverysap.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
 ## Clients
@@ -57,7 +57,7 @@ clientFactory, err := armquantum.NewClientFactory(<subscription ID>, cred, &opti
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewOfferingsClient()
+client := clientFactory.NewSapDiscoverySitesClient()
 ```
 
 ## Fakes
@@ -70,7 +70,7 @@ Please see https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/samples/fakes
 ## Provide Feedback
 
 If you encounter bugs or have suggestions, please
-[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Quantum` label.
+[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Migrationdiscovery` label.
 
 # Contributing
 
