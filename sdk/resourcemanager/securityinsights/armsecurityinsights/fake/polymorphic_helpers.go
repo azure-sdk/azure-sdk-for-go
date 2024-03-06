@@ -10,11 +10,11 @@ package fake
 
 import (
 	"encoding/json"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights/v2"
 )
 
 func unmarshalAlertRuleClassification(rawMsg json.RawMessage) (armsecurityinsights.AlertRuleClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -39,7 +39,7 @@ func unmarshalAlertRuleClassification(rawMsg json.RawMessage) (armsecurityinsigh
 }
 
 func unmarshalDataConnectorClassification(rawMsg json.RawMessage) (armsecurityinsights.DataConnectorClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -64,8 +64,31 @@ func unmarshalDataConnectorClassification(rawMsg json.RawMessage) (armsecurityin
 		b = &armsecurityinsights.OfficeDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindThreatIntelligence):
 		b = &armsecurityinsights.TIDataConnector{}
+	case string(armsecurityinsights.DataConnectorKindThreatIntelligenceTaxii):
+		b = &armsecurityinsights.TiTaxiiDataConnector{}
 	default:
 		b = &armsecurityinsights.DataConnector{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalSecurityMLAnalyticsSettingClassification(rawMsg json.RawMessage) (armsecurityinsights.SecurityMLAnalyticsSettingClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b armsecurityinsights.SecurityMLAnalyticsSettingClassification
+	switch m["kind"] {
+	case string(armsecurityinsights.SecurityMLAnalyticsSettingsKindAnomaly):
+		b = &armsecurityinsights.AnomalySecurityMLAnalyticsSettings{}
+	default:
+		b = &armsecurityinsights.SecurityMLAnalyticsSetting{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err

@@ -24,12 +24,24 @@ type ServerFactory struct {
 	AlertRulesServer                         AlertRulesServer
 	AutomationRulesServer                    AutomationRulesServer
 	BookmarksServer                          BookmarksServer
+	ContentPackageServer                     ContentPackageServer
+	ContentPackagesServer                    ContentPackagesServer
+	ContentTemplateServer                    ContentTemplateServer
+	ContentTemplatesServer                   ContentTemplatesServer
 	DataConnectorsServer                     DataConnectorsServer
 	IncidentCommentsServer                   IncidentCommentsServer
 	IncidentRelationsServer                  IncidentRelationsServer
 	IncidentsServer                          IncidentsServer
+	MetadataServer                           MetadataServer
 	OperationsServer                         OperationsServer
+	ProductPackageServer                     ProductPackageServer
+	ProductPackagesServer                    ProductPackagesServer
+	ProductTemplateServer                    ProductTemplateServer
+	ProductTemplatesServer                   ProductTemplatesServer
+	SecurityMLAnalyticsSettingsServer        SecurityMLAnalyticsSettingsServer
 	SentinelOnboardingStatesServer           SentinelOnboardingStatesServer
+	SourceControlServer                      SourceControlServer
+	SourceControlsServer                     SourceControlsServer
 	ThreatIntelligenceIndicatorServer        ThreatIntelligenceIndicatorServer
 	ThreatIntelligenceIndicatorMetricsServer ThreatIntelligenceIndicatorMetricsServer
 	ThreatIntelligenceIndicatorsServer       ThreatIntelligenceIndicatorsServer
@@ -56,12 +68,24 @@ type ServerFactoryTransport struct {
 	trAlertRulesServer                         *AlertRulesServerTransport
 	trAutomationRulesServer                    *AutomationRulesServerTransport
 	trBookmarksServer                          *BookmarksServerTransport
+	trContentPackageServer                     *ContentPackageServerTransport
+	trContentPackagesServer                    *ContentPackagesServerTransport
+	trContentTemplateServer                    *ContentTemplateServerTransport
+	trContentTemplatesServer                   *ContentTemplatesServerTransport
 	trDataConnectorsServer                     *DataConnectorsServerTransport
 	trIncidentCommentsServer                   *IncidentCommentsServerTransport
 	trIncidentRelationsServer                  *IncidentRelationsServerTransport
 	trIncidentsServer                          *IncidentsServerTransport
+	trMetadataServer                           *MetadataServerTransport
 	trOperationsServer                         *OperationsServerTransport
+	trProductPackageServer                     *ProductPackageServerTransport
+	trProductPackagesServer                    *ProductPackagesServerTransport
+	trProductTemplateServer                    *ProductTemplateServerTransport
+	trProductTemplatesServer                   *ProductTemplatesServerTransport
+	trSecurityMLAnalyticsSettingsServer        *SecurityMLAnalyticsSettingsServerTransport
 	trSentinelOnboardingStatesServer           *SentinelOnboardingStatesServerTransport
+	trSourceControlServer                      *SourceControlServerTransport
+	trSourceControlsServer                     *SourceControlsServerTransport
 	trThreatIntelligenceIndicatorServer        *ThreatIntelligenceIndicatorServerTransport
 	trThreatIntelligenceIndicatorMetricsServer *ThreatIntelligenceIndicatorMetricsServerTransport
 	trThreatIntelligenceIndicatorsServer       *ThreatIntelligenceIndicatorsServerTransport
@@ -101,6 +125,26 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "BookmarksClient":
 		initServer(s, &s.trBookmarksServer, func() *BookmarksServerTransport { return NewBookmarksServerTransport(&s.srv.BookmarksServer) })
 		resp, err = s.trBookmarksServer.Do(req)
+	case "ContentPackageClient":
+		initServer(s, &s.trContentPackageServer, func() *ContentPackageServerTransport {
+			return NewContentPackageServerTransport(&s.srv.ContentPackageServer)
+		})
+		resp, err = s.trContentPackageServer.Do(req)
+	case "ContentPackagesClient":
+		initServer(s, &s.trContentPackagesServer, func() *ContentPackagesServerTransport {
+			return NewContentPackagesServerTransport(&s.srv.ContentPackagesServer)
+		})
+		resp, err = s.trContentPackagesServer.Do(req)
+	case "ContentTemplateClient":
+		initServer(s, &s.trContentTemplateServer, func() *ContentTemplateServerTransport {
+			return NewContentTemplateServerTransport(&s.srv.ContentTemplateServer)
+		})
+		resp, err = s.trContentTemplateServer.Do(req)
+	case "ContentTemplatesClient":
+		initServer(s, &s.trContentTemplatesServer, func() *ContentTemplatesServerTransport {
+			return NewContentTemplatesServerTransport(&s.srv.ContentTemplatesServer)
+		})
+		resp, err = s.trContentTemplatesServer.Do(req)
 	case "DataConnectorsClient":
 		initServer(s, &s.trDataConnectorsServer, func() *DataConnectorsServerTransport {
 			return NewDataConnectorsServerTransport(&s.srv.DataConnectorsServer)
@@ -119,14 +163,52 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "IncidentsClient":
 		initServer(s, &s.trIncidentsServer, func() *IncidentsServerTransport { return NewIncidentsServerTransport(&s.srv.IncidentsServer) })
 		resp, err = s.trIncidentsServer.Do(req)
+	case "MetadataClient":
+		initServer(s, &s.trMetadataServer, func() *MetadataServerTransport { return NewMetadataServerTransport(&s.srv.MetadataServer) })
+		resp, err = s.trMetadataServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "ProductPackageClient":
+		initServer(s, &s.trProductPackageServer, func() *ProductPackageServerTransport {
+			return NewProductPackageServerTransport(&s.srv.ProductPackageServer)
+		})
+		resp, err = s.trProductPackageServer.Do(req)
+	case "ProductPackagesClient":
+		initServer(s, &s.trProductPackagesServer, func() *ProductPackagesServerTransport {
+			return NewProductPackagesServerTransport(&s.srv.ProductPackagesServer)
+		})
+		resp, err = s.trProductPackagesServer.Do(req)
+	case "ProductTemplateClient":
+		initServer(s, &s.trProductTemplateServer, func() *ProductTemplateServerTransport {
+			return NewProductTemplateServerTransport(&s.srv.ProductTemplateServer)
+		})
+		resp, err = s.trProductTemplateServer.Do(req)
+	case "ProductTemplatesClient":
+		initServer(s, &s.trProductTemplatesServer, func() *ProductTemplatesServerTransport {
+			return NewProductTemplatesServerTransport(&s.srv.ProductTemplatesServer)
+		})
+		resp, err = s.trProductTemplatesServer.Do(req)
+	case "SecurityMLAnalyticsSettingsClient":
+		initServer(s, &s.trSecurityMLAnalyticsSettingsServer, func() *SecurityMLAnalyticsSettingsServerTransport {
+			return NewSecurityMLAnalyticsSettingsServerTransport(&s.srv.SecurityMLAnalyticsSettingsServer)
+		})
+		resp, err = s.trSecurityMLAnalyticsSettingsServer.Do(req)
 	case "SentinelOnboardingStatesClient":
 		initServer(s, &s.trSentinelOnboardingStatesServer, func() *SentinelOnboardingStatesServerTransport {
 			return NewSentinelOnboardingStatesServerTransport(&s.srv.SentinelOnboardingStatesServer)
 		})
 		resp, err = s.trSentinelOnboardingStatesServer.Do(req)
+	case "SourceControlClient":
+		initServer(s, &s.trSourceControlServer, func() *SourceControlServerTransport {
+			return NewSourceControlServerTransport(&s.srv.SourceControlServer)
+		})
+		resp, err = s.trSourceControlServer.Do(req)
+	case "SourceControlsClient":
+		initServer(s, &s.trSourceControlsServer, func() *SourceControlsServerTransport {
+			return NewSourceControlsServerTransport(&s.srv.SourceControlsServer)
+		})
+		resp, err = s.trSourceControlsServer.Do(req)
 	case "ThreatIntelligenceIndicatorClient":
 		initServer(s, &s.trThreatIntelligenceIndicatorServer, func() *ThreatIntelligenceIndicatorServerTransport {
 			return NewThreatIntelligenceIndicatorServerTransport(&s.srv.ThreatIntelligenceIndicatorServer)

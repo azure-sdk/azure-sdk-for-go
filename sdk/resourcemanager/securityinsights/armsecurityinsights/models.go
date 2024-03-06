@@ -301,11 +301,23 @@ type AlertDetailsOverride struct {
 	// the format containing columns name(s) to override the alert name
 	AlertDisplayNameFormat *string
 
+	// List of additional dynamic properties to override
+	AlertDynamicProperties []*AlertPropertyMapping
+
 	// the column name to take the alert severity from
 	AlertSeverityColumnName *string
 
 	// the column name to take the alert tactics from
 	AlertTacticsColumnName *string
+}
+
+// AlertPropertyMapping - A single alert property mapping to override
+type AlertPropertyMapping struct {
+	// The V3 alert property
+	AlertProperty *AlertProperty
+
+	// the column name to use to override this property
+	Value *string
 }
 
 // AlertRule - Alert rule.
@@ -386,6 +398,88 @@ type AlertsDataTypeOfDataConnector struct {
 	Alerts *DataConnectorDataTypeCommon
 }
 
+// AnomalySecurityMLAnalyticsSettings - Represents Anomaly Security ML Analytics Settings
+type AnomalySecurityMLAnalyticsSettings struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind
+
+	// Etag of the azure resource
+	Etag *string
+
+	// Anomaly Security ML Analytics Settings properties
+	Properties *AnomalySecurityMLAnalyticsSettingsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GetSecurityMLAnalyticsSetting implements the SecurityMLAnalyticsSettingClassification interface for type AnomalySecurityMLAnalyticsSettings.
+func (a *AnomalySecurityMLAnalyticsSettings) GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting {
+	return &SecurityMLAnalyticsSetting{
+		Etag:       a.Etag,
+		ID:         a.ID,
+		Kind:       a.Kind,
+		Name:       a.Name,
+		SystemData: a.SystemData,
+		Type:       a.Type,
+	}
+}
+
+// AnomalySecurityMLAnalyticsSettingsProperties - AnomalySecurityMLAnalytics settings base property bag.
+type AnomalySecurityMLAnalyticsSettingsProperties struct {
+	// REQUIRED; The anomaly version of the AnomalySecurityMLAnalyticsSettings.
+	AnomalyVersion *string
+
+	// REQUIRED; The display name for settings created by this SecurityMLAnalyticsSettings.
+	DisplayName *string
+
+	// REQUIRED; Determines whether this settings is enabled or disabled.
+	Enabled *bool
+
+	// REQUIRED; The frequency that this SecurityMLAnalyticsSettings will be run.
+	Frequency *string
+
+	// REQUIRED; Determines whether this anomaly security ml analytics settings is a default settings
+	IsDefaultSettings *bool
+
+	// REQUIRED; The anomaly SecurityMLAnalyticsSettings status
+	SettingsStatus *SettingsStatus
+
+	// The anomaly settings version of the Anomaly security ml analytics settings that dictates whether job version gets updated
+	// or not.
+	AnomalySettingsVersion *int32
+
+	// The customizable observations of the AnomalySecurityMLAnalyticsSettings.
+	CustomizableObservations any
+
+	// The description of the SecurityMLAnalyticsSettings.
+	Description *string
+
+	// The required data sources for this SecurityMLAnalyticsSettings
+	RequiredDataConnectors []*SecurityMLAnalyticsSettingsDataSource
+
+	// The anomaly settings definition Id
+	SettingsDefinitionID *string
+
+	// The tactics of the SecurityMLAnalyticsSettings
+	Tactics []*AttackTactic
+
+	// The techniques of the SecurityMLAnalyticsSettings
+	Techniques []*string
+
+	// READ-ONLY; The last time that this SecurityMLAnalyticsSettings has been modified.
+	LastModifiedUTC *time.Time
+}
+
 type AutomationRule struct {
 	// REQUIRED; Automation rule properties
 	Properties *AutomationRuleProperties
@@ -406,9 +500,9 @@ type AutomationRule struct {
 	Type *string
 }
 
-// AutomationRuleAction - Describes an automation rule action
+// AutomationRuleAction - Describes an automation rule action.
 type AutomationRuleAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType
 
 	// REQUIRED
@@ -418,7 +512,7 @@ type AutomationRuleAction struct {
 // GetAutomationRuleAction implements the AutomationRuleActionClassification interface for type AutomationRuleAction.
 func (a *AutomationRuleAction) GetAutomationRuleAction() *AutomationRuleAction { return a }
 
-// AutomationRuleCondition - Describes an automation rule condition
+// AutomationRuleCondition - Describes an automation rule condition.
 type AutomationRuleCondition struct {
 	// REQUIRED
 	ConditionType *ConditionType
@@ -427,9 +521,9 @@ type AutomationRuleCondition struct {
 // GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type AutomationRuleCondition.
 func (a *AutomationRuleCondition) GetAutomationRuleCondition() *AutomationRuleCondition { return a }
 
-// AutomationRuleModifyPropertiesAction - Describes an automation rule action to modify an object's properties.
+// AutomationRuleModifyPropertiesAction - Describes an automation rule action to modify an object's properties
 type AutomationRuleModifyPropertiesAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType
 
 	// REQUIRED
@@ -447,42 +541,54 @@ func (a *AutomationRuleModifyPropertiesAction) GetAutomationRuleAction() *Automa
 
 // AutomationRuleProperties - Automation rule properties
 type AutomationRuleProperties struct {
-	// REQUIRED; The actions to execute when the automation rule is triggered
+	// REQUIRED; The actions to execute when the automation rule is triggered.
 	Actions []AutomationRuleActionClassification
 
-	// REQUIRED; The display name of the automation rule
+	// REQUIRED; The display name of the automation rule.
 	DisplayName *string
 
-	// REQUIRED; The order of execution of the automation rule
+	// REQUIRED; The order of execution of the automation rule.
 	Order *int32
 
-	// REQUIRED; Describes automation rule triggering logic
+	// REQUIRED; Describes automation rule triggering logic.
 	TriggeringLogic *AutomationRuleTriggeringLogic
 
 	// READ-ONLY; Information on the client (user or application) that made some action
 	CreatedBy *ClientInfo
 
-	// READ-ONLY; The time the automation rule was created
+	// READ-ONLY; The time the automation rule was created.
 	CreatedTimeUTC *time.Time
 
 	// READ-ONLY; Information on the client (user or application) that made some action
 	LastModifiedBy *ClientInfo
 
-	// READ-ONLY; The last time the automation rule was updated
+	// READ-ONLY; The last time the automation rule was updated.
 	LastModifiedTimeUTC *time.Time
+}
+
+type AutomationRulePropertyArrayChangedValuesCondition struct {
+	ArrayType  *AutomationRulePropertyArrayChangedConditionSupportedArrayType
+	ChangeType *AutomationRulePropertyArrayChangedConditionSupportedChangeType
+}
+
+type AutomationRulePropertyValuesChangedCondition struct {
+	ChangeType     *AutomationRulePropertyChangedConditionSupportedChangedType
+	Operator       *AutomationRulePropertyConditionSupportedOperator
+	PropertyName   *AutomationRulePropertyChangedConditionSupportedPropertyType
+	PropertyValues []*string
 }
 
 type AutomationRulePropertyValuesCondition struct {
 	Operator *AutomationRulePropertyConditionSupportedOperator
 
-	// The property to evaluate in an automation rule property condition
+	// The property to evaluate in an automation rule property condition.
 	PropertyName   *AutomationRulePropertyConditionSupportedProperty
 	PropertyValues []*string
 }
 
 // AutomationRuleRunPlaybookAction - Describes an automation rule action to run a playbook
 type AutomationRuleRunPlaybookAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType
 
 	// REQUIRED
@@ -498,9 +604,9 @@ func (a *AutomationRuleRunPlaybookAction) GetAutomationRuleAction() *AutomationR
 	}
 }
 
-// AutomationRuleTriggeringLogic - Describes automation rule triggering logic
+// AutomationRuleTriggeringLogic - Describes automation rule triggering logic.
 type AutomationRuleTriggeringLogic struct {
-	// REQUIRED; Determines whether the automation rule is enabled or disabled
+	// REQUIRED; Determines whether the automation rule is enabled or disabled.
 	IsEnabled *bool
 
 	// REQUIRED
@@ -509,7 +615,7 @@ type AutomationRuleTriggeringLogic struct {
 	// REQUIRED
 	TriggersWhen *TriggersWhen
 
-	// The conditions to evaluate to determine if the automation rule should be triggered on a given object
+	// The conditions to evaluate to determine if the automation rule should be triggered on a given object.
 	Conditions []AutomationRuleConditionClassification
 
 	// Determines when the automation rule should automatically expire and be disabled.
@@ -576,6 +682,15 @@ type AwsCloudTrailDataConnectorProperties struct {
 
 	// The available data types for the connector.
 	DataTypes *AwsCloudTrailDataConnectorDataTypes
+}
+
+// AzureDevOpsResourceInfo - Resources created in Azure DevOps repository.
+type AzureDevOpsResourceInfo struct {
+	// Id of the pipeline created for the source-control.
+	PipelineID *string
+
+	// Id of the service-connection created for the source-control.
+	ServiceConnectionID *string
 }
 
 // AzureResourceEntity - Represents an azure resource entity.
@@ -858,6 +973,36 @@ type DataConnectorList struct {
 	NextLink *string
 }
 
+// Deployment - Description about a deployment.
+type Deployment struct {
+	// Deployment identifier.
+	DeploymentID *string
+
+	// Url to access repository action logs.
+	DeploymentLogsURL *string
+
+	// The outcome of the deployment.
+	DeploymentResult *DeploymentResult
+
+	// Current status of the deployment.
+	DeploymentState *DeploymentState
+
+	// The time when the deployment finished.
+	DeploymentTime *time.Time
+}
+
+// DeploymentInfo - Information regarding a deployment.
+type DeploymentInfo struct {
+	// Deployment information.
+	Deployment *Deployment
+
+	// Status while fetching the last deployment.
+	DeploymentFetchStatus *DeploymentFetchStatus
+
+	// Additional details about the deployment that can be shown to the user.
+	Message *string
+}
+
 // Entity - Specific entity.
 type Entity struct {
 	// REQUIRED; The kind of the entity.
@@ -1063,6 +1208,9 @@ type FusionAlertRuleProperties struct {
 
 	// READ-ONLY; The tactics of the alert rule
 	Tactics []*AttackTactic
+
+	// READ-ONLY; The techniques of the alert rule
+	Techniques []*string
 }
 
 // FusionAlertRuleTemplate - Represents Fusion alert rule template.
@@ -1120,6 +1268,9 @@ type FusionAlertRuleTemplateProperties struct {
 	// The tactics of the alert rule template
 	Tactics []*AttackTactic
 
+	// The techniques of the alert rule template
+	Techniques []*string
+
 	// READ-ONLY; The time that this alert rule template has been added.
 	CreatedDateUTC *time.Time
 
@@ -1153,6 +1304,12 @@ type GeoLocation struct {
 
 	// READ-ONLY; State name
 	State *string
+}
+
+// GitHubResourceInfo - Resources created in GitHub repository.
+type GitHubResourceInfo struct {
+	// GitHub application installation id.
+	AppInstallationID *string
 }
 
 // GroupingConfiguration - Grouping configuration property bag.
@@ -1413,6 +1570,9 @@ type IncidentAdditionalData struct {
 	// READ-ONLY; The number of comments in the incident
 	CommentsCount *int32
 
+	// READ-ONLY; The provider incident url to the incident in Microsoft 365 Defender portal
+	ProviderIncidentURL *string
+
 	// READ-ONLY; The tactics associated with incident
 	Tactics []*AttackTactic
 }
@@ -1545,21 +1705,6 @@ type IncidentOwnerInfo struct {
 	// The object id of the user the incident is assigned to.
 	ObjectID *string
 
-	// The user principal name of the user the incident is assigned to.
-	UserPrincipalName *string
-}
-
-// IncidentOwnerInfoAutoGenerated - Information on the user an incident is assigned to
-type IncidentOwnerInfoAutoGenerated struct {
-	// The name of the user the incident is assigned to.
-	AssignedTo *string
-
-	// The email of the user the incident is assigned to.
-	Email *string
-
-	// The object id of the user the incident is assigned to.
-	ObjectID *string
-
 	// The type of the owner the incident is assigned to.
 	OwnerType *OwnerType
 
@@ -1617,6 +1762,12 @@ type IncidentProperties struct {
 	// READ-ONLY; The last time the incident was updated
 	LastModifiedTimeUTC *time.Time
 
+	// READ-ONLY; The incident ID assigned by the incident provider
+	ProviderIncidentID *string
+
+	// READ-ONLY; The name of the source provider that generated the incident
+	ProviderName *string
+
 	// READ-ONLY; List of resource ids of Analytic rules related to the incident
 	RelatedAnalyticRuleIDs []*string
 }
@@ -1625,17 +1776,17 @@ type IncidentPropertiesAction struct {
 	// The reason the incident was closed
 	Classification *IncidentClassification
 
-	// Describes the reason the incident was closed
+	// Describes the reason the incident was closed.
 	ClassificationComment *string
 
 	// The classification reason the incident was closed with
 	ClassificationReason *IncidentClassificationReason
 
-	// List of labels to add to the incident
+	// List of labels to add to the incident.
 	Labels []*IncidentLabel
 
 	// Information on the user an incident is assigned to
-	Owner *IncidentOwnerInfoAutoGenerated
+	Owner *IncidentOwnerInfo
 
 	// The severity of the incident
 	Severity *IncidentSeverity
@@ -2150,6 +2301,250 @@ type MalwareEntityProperties struct {
 	ProcessEntityIDs []*string
 }
 
+// MetadataAuthor - Publisher or creator of the content item.
+type MetadataAuthor struct {
+	// Email of author contact
+	Email *string
+
+	// Link for author/vendor page
+	Link *string
+
+	// Name of the author. Company or person.
+	Name *string
+}
+
+// MetadataCategories - ies for the solution content item
+type MetadataCategories struct {
+	// domain for the solution content item
+	Domains []*string
+
+	// Industry verticals for the solution content item
+	Verticals []*string
+}
+
+// MetadataDependencies - Dependencies for the content item, what other content items it requires to work. Can describe more
+// complex dependencies using a recursive/nested structure. For a single dependency an id/kind/version
+// can be supplied or operator/criteria for complex dependencies.
+type MetadataDependencies struct {
+	// Id of the content item we depend on
+	ContentID *string
+
+	// This is the list of dependencies we must fulfill, according to the AND/OR operator
+	Criteria []*MetadataDependencies
+
+	// Type of the content item we depend on
+	Kind *Kind
+
+	// Name of the content item
+	Name *string
+
+	// Operator used for list of dependencies in criteria array.
+	Operator *Operator
+
+	// Version of the the content item we depend on. Can be blank, * or missing to indicate any version fulfills the dependency.
+	// If version does not match our defined numeric format then an exact match is
+	// required.
+	Version *string
+}
+
+// MetadataList - List of all the metadata.
+type MetadataList struct {
+	// REQUIRED; Array of metadata.
+	Value []*MetadataModel
+
+	// READ-ONLY; URL to fetch the next page of metadata.
+	NextLink *string
+}
+
+// MetadataModel - Metadata resource definition.
+type MetadataModel struct {
+	// Etag of the azure resource
+	Etag *string
+
+	// Metadata properties
+	Properties *MetadataProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MetadataPatch - Metadata patch request body.
+type MetadataPatch struct {
+	// Metadata patch request body
+	Properties *MetadataPropertiesPatch
+}
+
+// MetadataProperties - Metadata property bag.
+type MetadataProperties struct {
+	// REQUIRED; The kind of content the metadata is for.
+	Kind *string
+
+	// REQUIRED; Full parent resource ID of the content item the metadata is for. This is the full resource ID including the scope
+	// (subscription and resource group)
+	ParentID *string
+
+	// The creator of the content item.
+	Author *MetadataAuthor
+
+	// Categories for the solution content item
+	Categories *MetadataCategories
+
+	// Static ID for the content. Used to identify dependencies and content from solutions or community. Hard-coded/static for
+	// out of the box content and solutions. Dynamic for user-created. This is the
+	// resource name
+	ContentID *string
+
+	// Schema version of the content. Can be used to distinguish between different flow based on the schema version
+	ContentSchemaVersion *string
+
+	// The custom version of the content. A optional free text
+	CustomVersion *string
+
+	// Dependencies for the content item, what other content items it requires to work. Can describe more complex dependencies
+	// using a recursive/nested structure. For a single dependency an id/kind/version
+	// can be supplied or operator/criteria for complex formats.
+	Dependencies *MetadataDependencies
+
+	// first publish date solution content item
+	FirstPublishDate *time.Time
+
+	// the icon identifier. this id can later be fetched from the solution template
+	Icon *string
+
+	// last publish date for the solution content item
+	LastPublishDate *time.Time
+
+	// preview image file names. These will be taken from the solution artifacts
+	PreviewImages []*string
+
+	// preview image file names. These will be taken from the solution artifacts. used for dark theme support
+	PreviewImagesDark []*string
+
+	// Providers for the solution content item
+	Providers []*string
+
+	// Source of the content. This is where/how it was created.
+	Source *MetadataSource
+
+	// Support information for the metadata - type, name, contact information
+	Support *MetadataSupport
+
+	// the tactics the resource covers
+	ThreatAnalysisTactics []*string
+
+	// the techniques the resource covers, these have to be aligned with the tactics being used
+	ThreatAnalysisTechniques []*string
+
+	// Version of the content. Default and recommended format is numeric (e.g. 1, 1.0, 1.0.0, 1.0.0.0), following ARM template
+	// best practices. Can also be any string, but then we cannot guarantee any version
+	// checks
+	Version *string
+}
+
+// MetadataPropertiesPatch - Metadata property bag for patch requests. This is the same as the MetadataProperties, but with
+// nothing required
+type MetadataPropertiesPatch struct {
+	// The creator of the content item.
+	Author *MetadataAuthor
+
+	// Categories for the solution content item
+	Categories *MetadataCategories
+
+	// Static ID for the content. Used to identify dependencies and content from solutions or community. Hard-coded/static for
+	// out of the box content and solutions. Dynamic for user-created. This is the
+	// resource name
+	ContentID *string
+
+	// Schema version of the content. Can be used to distinguish between different flow based on the schema version
+	ContentSchemaVersion *string
+
+	// The custom version of the content. A optional free text
+	CustomVersion *string
+
+	// Dependencies for the content item, what other content items it requires to work. Can describe more complex dependencies
+	// using a recursive/nested structure. For a single dependency an id/kind/version
+	// can be supplied or operator/criteria for complex formats.
+	Dependencies *MetadataDependencies
+
+	// first publish date solution content item
+	FirstPublishDate *time.Time
+
+	// the icon identifier. this id can later be fetched from the solution template
+	Icon *string
+
+	// The kind of content the metadata is for.
+	Kind *string
+
+	// last publish date for the solution content item
+	LastPublishDate *time.Time
+
+	// Full parent resource ID of the content item the metadata is for. This is the full resource ID including the scope (subscription
+	// and resource group)
+	ParentID *string
+
+	// preview image file names. These will be taken from the solution artifacts
+	PreviewImages []*string
+
+	// preview image file names. These will be taken from the solution artifacts. used for dark theme support
+	PreviewImagesDark []*string
+
+	// Providers for the solution content item
+	Providers []*string
+
+	// Source of the content. This is where/how it was created.
+	Source *MetadataSource
+
+	// Support information for the metadata - type, name, contact information
+	Support *MetadataSupport
+
+	// the tactics the resource covers
+	ThreatAnalysisTactics []*string
+
+	// the techniques the resource covers, these have to be aligned with the tactics being used
+	ThreatAnalysisTechniques []*string
+
+	// Version of the content. Default and recommended format is numeric (e.g. 1, 1.0, 1.0.0, 1.0.0.0), following ARM template
+	// best practices. Can also be any string, but then we cannot guarantee any version
+	// checks
+	Version *string
+}
+
+// MetadataSource - The original source of the content item, where it comes from.
+type MetadataSource struct {
+	// REQUIRED; Source type of the content
+	Kind *SourceKind
+
+	// Name of the content source. The repo name, solution name, LA workspace name etc.
+	Name *string
+
+	// ID of the content source. The solution ID, workspace ID, etc
+	SourceID *string
+}
+
+// MetadataSupport - Support information for the content item.
+type MetadataSupport struct {
+	// REQUIRED; Type of support for content item
+	Tier *SupportTier
+
+	// Email of support contact
+	Email *string
+
+	// Link for support help, like to support page to open a ticket etc.
+	Link *string
+
+	// Name of the support contact. Company or person.
+	Name *string
+}
+
 // MicrosoftSecurityIncidentCreationAlertRule - Represents MicrosoftSecurityIncidentCreation rule.
 type MicrosoftSecurityIncidentCreationAlertRule struct {
 	// REQUIRED; The alert rule kind
@@ -2250,9 +2645,6 @@ func (m *MicrosoftSecurityIncidentCreationAlertRuleTemplate) GetAlertRuleTemplat
 
 // MicrosoftSecurityIncidentCreationAlertRuleTemplateProperties - MicrosoftSecurityIncidentCreation rule template properties
 type MicrosoftSecurityIncidentCreationAlertRuleTemplateProperties struct {
-	// REQUIRED; The alerts' productName on which the cases will be generated
-	ProductFilter *MicrosoftSecurityProductName
-
 	// the number of alert rules that were created by this template
 	AlertRulesCreatedByTemplateCount *int32
 
@@ -2267,6 +2659,9 @@ type MicrosoftSecurityIncidentCreationAlertRuleTemplateProperties struct {
 
 	// the alerts' displayNames on which the cases will be generated
 	DisplayNamesFilter []*string
+
+	// The alerts' productName on which the cases will be generated
+	ProductFilter *MicrosoftSecurityProductName
 
 	// The required data connectors for this template
 	RequiredDataConnectors []*AlertRuleTemplateDataSource
@@ -2398,11 +2793,113 @@ type OperationsList struct {
 	NextLink *string
 }
 
+// PackageList - List available packages.
+type PackageList struct {
+	// REQUIRED; Array of packages.
+	Value []*PackageModel
+
+	// READ-ONLY; URL to fetch the next set of packages.
+	NextLink *string
+}
+
+// PackageModel - Represents a Package in Azure Security Insights.
+type PackageModel struct {
+	// Etag of the azure resource
+	Etag *string
+
+	// package properties
+	Properties *PackageProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PackageProperties - Describes package properties
+type PackageProperties struct {
+	// The author of the package
+	Author *MetadataAuthor
+
+	// The categories of the package
+	Categories *MetadataCategories
+
+	// The content id of the package
+	ContentID *string
+
+	// The package kind
+	ContentKind *PackageKind
+
+	// Unique ID for the content. It should be generated based on the contentId, contentKind and the contentVersion of the package
+	ContentProductID *string
+
+	// The version of the content schema.
+	ContentSchemaVersion *string
+
+	// The support tier of the package
+	Dependencies *MetadataDependencies
+
+	// The description of the package
+	Description *string
+
+	// The display name of the package
+	DisplayName *string
+
+	// first publish date package item
+	FirstPublishDate *time.Time
+
+	// the icon identifier. this id can later be fetched from the content metadata
+	Icon *string
+
+	// Flag indicates if this template is deprecated
+	IsDeprecated *Flag
+
+	// Flag indicates if this package is among the featured list.
+	IsFeatured *Flag
+
+	// Flag indicates if this is a newly published package.
+	IsNew *Flag
+
+	// Flag indicates if this package is in preview.
+	IsPreview *Flag
+
+	// last publish date for the package item
+	LastPublishDate *time.Time
+
+	// Providers for the package item
+	Providers []*string
+
+	// The publisher display name of the package
+	PublisherDisplayName *string
+
+	// The source of the package
+	Source *MetadataSource
+
+	// The support tier of the package
+	Support *MetadataSupport
+
+	// the tactics the resource covers
+	ThreatAnalysisTactics []*string
+
+	// the techniques the resource covers, these have to be aligned with the tactics being used
+	ThreatAnalysisTechniques []*string
+
+	// the latest version number of the package
+	Version *string
+}
+
 type PlaybookActionProperties struct {
-	// REQUIRED; The resource id of the playbook resource
+	// REQUIRED; The resource id of the playbook resource.
 	LogicAppResourceID *string
 
-	// The tenant id of the playbook resource
+	// The tenant id of the playbook resource.
 	TenantID *string
 }
 
@@ -2475,6 +2972,266 @@ type ProcessEntityProperties struct {
 	ProcessID *string
 }
 
+// ProductPackageList - List available packages.
+type ProductPackageList struct {
+	// REQUIRED; Array of packages.
+	Value []*ProductPackageModel
+
+	// READ-ONLY; URL to fetch the next set of packages.
+	NextLink *string
+}
+
+// ProductPackageModel - Represents a Package in Azure Security Insights.
+type ProductPackageModel struct {
+	// Etag of the azure resource
+	Etag *string
+
+	// package properties
+	Properties *ProductPackageProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProductPackageProperties - Describes package properties
+type ProductPackageProperties struct {
+	// The author of the package
+	Author *MetadataAuthor
+
+	// The categories of the package
+	Categories *MetadataCategories
+
+	// The content id of the package
+	ContentID *string
+
+	// The package kind
+	ContentKind *PackageKind
+
+	// Unique ID for the content. It should be generated based on the contentId, contentKind and the contentVersion of the package
+	ContentProductID *string
+
+	// The version of the content schema.
+	ContentSchemaVersion *string
+
+	// The support tier of the package
+	Dependencies *MetadataDependencies
+
+	// The description of the package
+	Description *string
+
+	// The display name of the package
+	DisplayName *string
+
+	// first publish date package item
+	FirstPublishDate *time.Time
+
+	// the icon identifier. this id can later be fetched from the content metadata
+	Icon *string
+
+	// The version of the installed package, null or absent means not installed.
+	InstalledVersion *string
+
+	// Flag indicates if this template is deprecated
+	IsDeprecated *Flag
+
+	// Flag indicates if this package is among the featured list.
+	IsFeatured *Flag
+
+	// Flag indicates if this is a newly published package.
+	IsNew *Flag
+
+	// Flag indicates if this package is in preview.
+	IsPreview *Flag
+
+	// last publish date for the package item
+	LastPublishDate *time.Time
+
+	// The metadata resource id.
+	MetadataResourceID *string
+
+	// The json of the ARM template to deploy. Expandable.
+	PackagedContent any
+
+	// Providers for the package item
+	Providers []*string
+
+	// The publisher display name of the package
+	PublisherDisplayName *string
+
+	// The source of the package
+	Source *MetadataSource
+
+	// The support tier of the package
+	Support *MetadataSupport
+
+	// the tactics the resource covers
+	ThreatAnalysisTactics []*string
+
+	// the techniques the resource covers, these have to be aligned with the tactics being used
+	ThreatAnalysisTechniques []*string
+
+	// the latest version number of the package
+	Version *string
+}
+
+// ProductTemplateList - List of all the template.
+type ProductTemplateList struct {
+	// REQUIRED; Array of templates.
+	Value []*ProductTemplateModel
+
+	// READ-ONLY; URL to fetch the next page of template.
+	NextLink *string
+}
+
+// ProductTemplateModel - Template resource definition.
+type ProductTemplateModel struct {
+	// Etag of the azure resource
+	Etag *string
+
+	// template properties
+	Properties *ProductTemplateProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProductTemplateProperties - Template property bag.
+type ProductTemplateProperties struct {
+	// The creator of the content item.
+	Author *MetadataAuthor
+
+	// Categories for the item
+	Categories *MetadataCategories
+
+	// Static ID for the content. Used to identify dependencies and content from solutions or community. Hard-coded/static for
+	// out of the box content and solutions. Dynamic for user-created. This is the
+	// resource name
+	ContentID *string
+
+	// The kind of content the template is for.
+	ContentKind *Kind
+
+	// Unique ID for the content. It should be generated based on the contentId of the package, contentId of the template, contentKind
+	// of the template and the contentVersion of the template
+	ContentProductID *string
+
+	// Schema version of the content. Can be used to distinguish between different flow based on the schema version
+	ContentSchemaVersion *string
+
+	// The custom version of the content. A optional free text
+	CustomVersion *string
+
+	// Dependencies for the content item, what other content items it requires to work. Can describe more complex dependencies
+	// using a recursive/nested structure. For a single dependency an id/kind/version
+	// can be supplied or operator/criteria for complex formats.
+	Dependencies *MetadataDependencies
+
+	// The display name of the template
+	DisplayName *string
+
+	// first publish date content item
+	FirstPublishDate *time.Time
+
+	// the icon identifier. this id can later be fetched from the content metadata
+	Icon *string
+
+	// last publish date for the content item
+	LastPublishDate *time.Time
+
+	// the package Id contains this template
+	PackageID *string
+
+	// the packageKind of the package contains this template
+	PackageKind *PackageKind
+
+	// the name of the package contains this template
+	PackageName *string
+
+	// Version of the package. Default and recommended format is numeric (e.g. 1, 1.0, 1.0.0, 1.0.0.0), following ARM metadata
+	// best practices. Can also be any string, but then we cannot guarantee any version
+	// checks
+	PackageVersion *string
+
+	// The json of the ARM template to deploy
+	PackagedContent any
+
+	// preview image file names. These will be taken from the solution artifacts
+	PreviewImages []*string
+
+	// preview image file names. These will be taken from the solution artifacts. used for dark theme support
+	PreviewImagesDark []*string
+
+	// Providers for the content item
+	Providers []*string
+
+	// Source of the content. This is where/how it was created.
+	Source *MetadataSource
+
+	// Support information for the template - type, name, contact information
+	Support *MetadataSupport
+
+	// the tactics the resource covers
+	ThreatAnalysisTactics []*string
+
+	// the techniques the resource covers, these have to be aligned with the tactics being used
+	ThreatAnalysisTechniques []*string
+
+	// Version of the content. Default and recommended format is numeric (e.g. 1, 1.0, 1.0.0, 1.0.0.0), following ARM metadata
+	// best practices. Can also be any string, but then we cannot guarantee any version
+	// checks
+	Version *string
+
+	// READ-ONLY; Flag indicates if this template is deprecated
+	IsDeprecated *Flag
+}
+
+// PropertyArrayChangedConditionProperties - Describes an automation rule condition that evaluates an array property's value
+// change
+type PropertyArrayChangedConditionProperties struct {
+	// REQUIRED
+	ConditionType       *ConditionType
+	ConditionProperties *AutomationRulePropertyArrayChangedValuesCondition
+}
+
+// GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyArrayChangedConditionProperties.
+func (p *PropertyArrayChangedConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
+	return &AutomationRuleCondition{
+		ConditionType: p.ConditionType,
+	}
+}
+
+// PropertyChangedConditionProperties - Describes an automation rule condition that evaluates a property's value change
+type PropertyChangedConditionProperties struct {
+	// REQUIRED
+	ConditionType       *ConditionType
+	ConditionProperties *AutomationRulePropertyValuesChangedCondition
+}
+
+// GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyChangedConditionProperties.
+func (p *PropertyChangedConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
+	return &AutomationRuleCondition{
+		ConditionType: p.ConditionType,
+	}
+}
+
 // PropertyConditionProperties - Describes an automation rule condition that evaluates a property's value
 type PropertyConditionProperties struct {
 	// REQUIRED
@@ -2487,6 +3244,15 @@ func (p *PropertyConditionProperties) GetAutomationRuleCondition() *AutomationRu
 	return &AutomationRuleCondition{
 		ConditionType: p.ConditionType,
 	}
+}
+
+// PullRequest - Information regarding pull request for protected branches.
+type PullRequest struct {
+	// READ-ONLY; State of the pull request
+	State *State
+
+	// READ-ONLY; URL of pull request
+	URL *string
 }
 
 // RegistryKeyEntity - Represents a registry key entity.
@@ -2637,6 +3403,90 @@ type RelationProperties struct {
 	RelatedResourceType *string
 }
 
+// Repo - Represents a repository.
+type Repo struct {
+	// Array of branches.
+	Branches []*string
+
+	// The name of the repository.
+	FullName *string
+
+	// The installation id of the repository.
+	InstallationID *int64
+
+	// The url to access the repository.
+	URL *string
+}
+
+// RepoList - List all the source controls.
+type RepoList struct {
+	// REQUIRED; Array of repositories.
+	Value []*Repo
+
+	// READ-ONLY; URL to fetch the next set of repositories.
+	NextLink *string
+}
+
+// Repository - metadata of a repository.
+type Repository struct {
+	// REQUIRED; Branch name of repository.
+	Branch *string
+
+	// REQUIRED; Url of repository.
+	URL *string
+
+	// Display url of repository.
+	DisplayURL *string
+
+	// READ-ONLY; Url to access repository action logs.
+	DeploymentLogsURL *string
+}
+
+// RepositoryAccess - Credentials to access repository.
+type RepositoryAccess struct {
+	// REQUIRED; The kind of repository access credentials
+	Kind *RepositoryAccessKind
+
+	// OAuth ClientId. Required when kind is OAuth
+	ClientID *string
+
+	// OAuth Code. Required when kind is OAuth
+	Code *string
+
+	// Application installation ID. Required when kind is App. Supported by GitHub only.
+	InstallationID *string
+
+	// OAuth State. Required when kind is OAuth
+	State *string
+
+	// Personal Access Token. Required when kind is PAT
+	Token *string
+}
+
+// RepositoryAccessObject - Credentials to access repository.
+type RepositoryAccessObject struct {
+	// REQUIRED; RepositoryAccess properties
+	RepositoryAccess *RepositoryAccess
+}
+
+// RepositoryAccessProperties - Credentials to access repository.
+type RepositoryAccessProperties struct {
+	// REQUIRED; RepositoryAccess properties
+	Properties *RepositoryAccessObject
+}
+
+// RepositoryResourceInfo - Resources created in user's repository for the source-control.
+type RepositoryResourceInfo struct {
+	// The webhook object created for the source-control.
+	Webhook *Webhook
+
+	// READ-ONLY; Resources created in Azure DevOps for this source-control.
+	AzureDevOpsResourceInfo *AzureDevOpsResourceInfo
+
+	// READ-ONLY; Resources created in GitHub for this source-control.
+	GitHubResourceInfo *GitHubResourceInfo
+}
+
 // ScheduledAlertRule - Represents scheduled alert rule.
 type ScheduledAlertRule struct {
 	// REQUIRED; The alert rule kind
@@ -2722,6 +3572,9 @@ type ScheduledAlertRuleProperties struct {
 
 	// The tactics of the alert rule
 	Tactics []*AttackTactic
+
+	// The techniques of the alert rule
+	Techniques []*string
 
 	// The version of the alert rule template used to create this rule - in format , where all are numbers, for example 0
 	TemplateVersion *string
@@ -2811,6 +3664,9 @@ type ScheduledAlertRuleTemplateProperties struct {
 
 	// The tactics of the alert rule template
 	Tactics []*AttackTactic
+
+	// The techniques of the alert rule template
+	Techniques []*string
 
 	// The operation against the threshold that triggers alert rule.
 	TriggerOperator *TriggerOperator
@@ -3006,6 +3862,50 @@ type SecurityGroupEntityProperties struct {
 	Sid *string
 }
 
+// SecurityMLAnalyticsSetting - Security ML Analytics Setting
+type SecurityMLAnalyticsSetting struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind
+
+	// Etag of the azure resource
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GetSecurityMLAnalyticsSetting implements the SecurityMLAnalyticsSettingClassification interface for type SecurityMLAnalyticsSetting.
+func (s *SecurityMLAnalyticsSetting) GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting {
+	return s
+}
+
+// SecurityMLAnalyticsSettingsDataSource - security ml analytics settings data sources
+type SecurityMLAnalyticsSettingsDataSource struct {
+	// The connector id that provides the following data types
+	ConnectorID *string
+
+	// The data types used by the security ml analytics settings
+	DataTypes []*string
+}
+
+// SecurityMLAnalyticsSettingsList - List all the SecurityMLAnalyticsSettings
+type SecurityMLAnalyticsSettingsList struct {
+	// REQUIRED; Array of SecurityMLAnalyticsSettings
+	Value []SecurityMLAnalyticsSettingClassification
+
+	// READ-ONLY; URL to fetch the next set of SecurityMLAnalyticsSettings.
+	NextLink *string
+}
+
 // SentinelOnboardingState - Sentinel onboarding state
 type SentinelOnboardingState struct {
 	// Etag of the azure resource
@@ -3037,6 +3937,90 @@ type SentinelOnboardingStateProperties struct {
 type SentinelOnboardingStatesList struct {
 	// REQUIRED; Array of Sentinel onboarding states
 	Value []*SentinelOnboardingState
+}
+
+// ServicePrincipal - Service principal metadata.
+type ServicePrincipal struct {
+	// Expiration time of service principal credentials.
+	CredentialsExpireOn *time.Time
+
+	// READ-ONLY; App id of service principal.
+	AppID *string
+
+	// READ-ONLY; Id of service principal.
+	ID *string
+
+	// READ-ONLY; Tenant id of service principal.
+	TenantID *string
+}
+
+// SourceControl - Represents a SourceControl in Azure Security Insights.
+type SourceControl struct {
+	// REQUIRED; source control properties
+	Properties *SourceControlProperties
+
+	// Etag of the azure resource
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SourceControlList - List all the source controls.
+type SourceControlList struct {
+	// REQUIRED; Array of source controls.
+	Value []*SourceControl
+
+	// READ-ONLY; URL to fetch the next set of source controls.
+	NextLink *string
+}
+
+// SourceControlProperties - Describes source control properties
+type SourceControlProperties struct {
+	// REQUIRED; Array of source control content types.
+	ContentTypes []*ContentType
+
+	// REQUIRED; The display name of the source control
+	DisplayName *string
+
+	// REQUIRED; The repository type of the source control
+	RepoType *RepoType
+
+	// REQUIRED; Repository metadata.
+	Repository *Repository
+
+	// A description of the source control
+	Description *string
+
+	// Repository access credentials. This is write-only object and it never returns back to a user.
+	RepositoryAccess *RepositoryAccess
+
+	// Information regarding the resources created in user's repository.
+	RepositoryResourceInfo *RepositoryResourceInfo
+
+	// Service principal metadata.
+	ServicePrincipal *ServicePrincipal
+
+	// READ-ONLY; The id (a Guid) of the source control
+	ID *string
+
+	// READ-ONLY; Information regarding the latest deployment for the source control.
+	LastDeploymentInfo *DeploymentInfo
+
+	// READ-ONLY; Information regarding the pull request of the source control.
+	PullRequest *PullRequest
+
+	// READ-ONLY; The version number associated with the source control
+	Version *Version
 }
 
 // SubmissionMailEntity - Represents a submission mail entity.
@@ -3190,6 +4174,129 @@ type TIDataConnectorProperties struct {
 
 	// The lookback period for the feed to be imported.
 	TipLookbackPeriod *time.Time
+}
+
+// TemplateList - List of all the template.
+type TemplateList struct {
+	// REQUIRED; Array of templates.
+	Value []*TemplateModel
+
+	// READ-ONLY; URL to fetch the next page of template.
+	NextLink *string
+}
+
+// TemplateModel - Template resource definition.
+type TemplateModel struct {
+	// Etag of the azure resource
+	Etag *string
+
+	// template properties
+	Properties *TemplateProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TemplateProperties - Template property bag.
+type TemplateProperties struct {
+	// The creator of the content item.
+	Author *MetadataAuthor
+
+	// Categories for the item
+	Categories *MetadataCategories
+
+	// Static ID for the content. Used to identify dependencies and content from solutions or community. Hard-coded/static for
+	// out of the box content and solutions. Dynamic for user-created. This is the
+	// resource name
+	ContentID *string
+
+	// The kind of content the template is for.
+	ContentKind *Kind
+
+	// Unique ID for the content. It should be generated based on the contentId of the package, contentId of the template, contentKind
+	// of the template and the contentVersion of the template
+	ContentProductID *string
+
+	// Schema version of the content. Can be used to distinguish between different flow based on the schema version
+	ContentSchemaVersion *string
+
+	// The custom version of the content. A optional free text
+	CustomVersion *string
+
+	// Dependencies for the content item, what other content items it requires to work. Can describe more complex dependencies
+	// using a recursive/nested structure. For a single dependency an id/kind/version
+	// can be supplied or operator/criteria for complex formats.
+	Dependencies *MetadataDependencies
+
+	// The display name of the template
+	DisplayName *string
+
+	// first publish date content item
+	FirstPublishDate *time.Time
+
+	// the icon identifier. this id can later be fetched from the content metadata
+	Icon *string
+
+	// last publish date for the content item
+	LastPublishDate *time.Time
+
+	// The JSON of the ARM template to deploy active content. Expandable.
+	MainTemplate any
+
+	// the package Id contains this template
+	PackageID *string
+
+	// the packageKind of the package contains this template
+	PackageKind *PackageKind
+
+	// the name of the package contains this template
+	PackageName *string
+
+	// Version of the package. Default and recommended format is numeric (e.g. 1, 1.0, 1.0.0, 1.0.0.0), following ARM metadata
+	// best practices. Can also be any string, but then we cannot guarantee any version
+	// checks
+	PackageVersion *string
+
+	// preview image file names. These will be taken from the solution artifacts
+	PreviewImages []*string
+
+	// preview image file names. These will be taken from the solution artifacts. used for dark theme support
+	PreviewImagesDark []*string
+
+	// Providers for the content item
+	Providers []*string
+
+	// Source of the content. This is where/how it was created.
+	Source *MetadataSource
+
+	// Support information for the template - type, name, contact information
+	Support *MetadataSupport
+
+	// the tactics the resource covers
+	ThreatAnalysisTactics []*string
+
+	// the techniques the resource covers, these have to be aligned with the tactics being used
+	ThreatAnalysisTechniques []*string
+
+	// Version of the content. Default and recommended format is numeric (e.g. 1, 1.0, 1.0.0, 1.0.0.0), following ARM metadata
+	// best practices. Can also be any string, but then we cannot guarantee any version
+	// checks
+	Version *string
+
+	// READ-ONLY; Dependant templates. Expandable.
+	DependantTemplates []*TemplateProperties
+
+	// READ-ONLY; Flag indicates if this template is deprecated
+	IsDeprecated *Flag
 }
 
 // ThreatIntelligence property bag.
@@ -3528,6 +4635,87 @@ type ThreatIntelligenceSortingCriteria struct {
 	SortOrder *ThreatIntelligenceSortingOrder
 }
 
+// TiTaxiiDataConnector - Data connector to pull Threat intelligence data from TAXII 2.0/2.1 server
+type TiTaxiiDataConnector struct {
+	// REQUIRED; The data connector kind
+	Kind *DataConnectorKind
+
+	// Etag of the azure resource
+	Etag *string
+
+	// Threat intelligence TAXII data connector properties.
+	Properties *TiTaxiiDataConnectorProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GetDataConnector implements the DataConnectorClassification interface for type TiTaxiiDataConnector.
+func (t *TiTaxiiDataConnector) GetDataConnector() *DataConnector {
+	return &DataConnector{
+		Etag:       t.Etag,
+		ID:         t.ID,
+		Kind:       t.Kind,
+		Name:       t.Name,
+		SystemData: t.SystemData,
+		Type:       t.Type,
+	}
+}
+
+// TiTaxiiDataConnectorDataTypes - The available data types for Threat Intelligence TAXII data connector.
+type TiTaxiiDataConnectorDataTypes struct {
+	// REQUIRED; Data type for TAXII connector.
+	TaxiiClient *TiTaxiiDataConnectorDataTypesTaxiiClient
+}
+
+// TiTaxiiDataConnectorDataTypesTaxiiClient - Data type for TAXII connector.
+type TiTaxiiDataConnectorDataTypesTaxiiClient struct {
+	// Describe whether this data type connection is enabled or not.
+	State *DataTypeState
+}
+
+// TiTaxiiDataConnectorProperties - Threat Intelligence TAXII data connector properties.
+type TiTaxiiDataConnectorProperties struct {
+	// REQUIRED; The available data types for Threat Intelligence TAXII data connector.
+	DataTypes *TiTaxiiDataConnectorDataTypes
+
+	// REQUIRED; The polling frequency for the TAXII server.
+	PollingFrequency *PollingFrequency
+
+	// The collection id of the TAXII server.
+	CollectionID *string
+
+	// The friendly name for the TAXII server.
+	FriendlyName *string
+
+	// The password for the TAXII server.
+	Password *string
+
+	// The lookback period for the TAXII server.
+	TaxiiLookbackPeriod *time.Time
+
+	// The API root for the TAXII server.
+	TaxiiServer *string
+
+	// The tenant id to connect to, and get the data from.
+	TenantID *string
+
+	// The userName for the TAXII server.
+	UserName *string
+
+	// The workspace id.
+	WorkspaceID *string
+}
+
 // URLEntity - Represents a url entity.
 type URLEntity struct {
 	// REQUIRED; The kind of the entity.
@@ -3583,6 +4771,24 @@ type UserInfo struct {
 
 	// READ-ONLY; The name of the user.
 	Name *string
+}
+
+// Warning response structure.
+type Warning struct {
+	// READ-ONLY; Warning data.
+	Warning *WarningBody
+}
+
+// WarningBody - Warning details.
+type WarningBody struct {
+	// READ-ONLY; An identifier for the warning. Codes are invariant and are intended to be consumed programmatically.
+	Code *WarningCode
+
+	// READ-ONLY
+	Details []*WarningBody
+
+	// READ-ONLY; A message describing the warning, intended to be suitable for display in a user interface.
+	Message *string
 }
 
 // Watchlist - Represents a Watchlist in Azure Security Insights.
@@ -3691,9 +4897,6 @@ type WatchlistProperties struct {
 	// REQUIRED; The provider of the watchlist
 	Provider *string
 
-	// REQUIRED; The source of the watchlist
-	Source *Source
-
 	// The content type of the raw content. For now, only text/csv is valid
 	ContentType *string
 
@@ -3721,6 +4924,9 @@ type WatchlistProperties struct {
 	// The raw content that represents to watchlist items to create. Example : This line will be skipped header1,header2 value1,value2
 	RawContent *string
 
+	// The source of the watchlist. Only accepts "Local file" and "Remote storage". And it must included in the request.
+	Source *string
+
 	// The tenantId where the watchlist belongs to
 	TenantID *string
 
@@ -3742,4 +4948,19 @@ type WatchlistProperties struct {
 
 	// The type of the watchlist
 	WatchlistType *string
+}
+
+// Webhook - Detail about the webhook object.
+type Webhook struct {
+	// A flag to instruct the backend service to rotate webhook secret.
+	RotateWebhookSecret *bool
+
+	// READ-ONLY; Unique identifier for the webhook.
+	WebhookID *string
+
+	// READ-ONLY; Time when the webhook secret was updated.
+	WebhookSecretUpdateTime *time.Time
+
+	// READ-ONLY; URL that gets invoked by the webhook.
+	WebhookURL *string
 }

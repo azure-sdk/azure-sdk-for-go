@@ -100,6 +100,91 @@ type BookmarksClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ContentPackageClientInstallOptions contains the optional parameters for the ContentPackageClient.Install method.
+type ContentPackageClientInstallOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContentPackageClientUninstallOptions contains the optional parameters for the ContentPackageClient.Uninstall method.
+type ContentPackageClientUninstallOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContentPackagesClientGetOptions contains the optional parameters for the ContentPackagesClient.Get method.
+type ContentPackagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContentPackagesClientListOptions contains the optional parameters for the ContentPackagesClient.NewListPager method.
+type ContentPackagesClientListOptions struct {
+	// Instructs the server to return only object count without actual body. Optional.
+	Count *bool
+
+	// Filters the results, based on a Boolean condition. Optional.
+	Filter *string
+
+	// Sorts the results. Optional.
+	Orderby *string
+
+	// Searches for a substring in the response. Optional.
+	Search *string
+
+	// Used to skip n elements in the OData query (offset). Returns a nextLink to the next page of results if there are any left.
+	Skip *int32
+
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+
+	// Returns only the first n results. Optional.
+	Top *int32
+}
+
+// ContentTemplateClientDeleteOptions contains the optional parameters for the ContentTemplateClient.Delete method.
+type ContentTemplateClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContentTemplateClientGetOptions contains the optional parameters for the ContentTemplateClient.Get method.
+type ContentTemplateClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContentTemplateClientInstallOptions contains the optional parameters for the ContentTemplateClient.Install method.
+type ContentTemplateClientInstallOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContentTemplatesClientListOptions contains the optional parameters for the ContentTemplatesClient.NewListPager method.
+type ContentTemplatesClientListOptions struct {
+	// Instructs the server to return only object count without actual body. Optional.
+	Count *bool
+
+	// Expands the object with optional fiends that are not included by default. Optional.
+	Expand *string
+
+	// Filters the results, based on a Boolean condition. Optional.
+	Filter *string
+
+	// Sorts the results. Optional.
+	Orderby *string
+
+	// Searches for a substring in the response. Optional.
+	Search *string
+
+	// Used to skip n elements in the OData query (offset). Returns a nextLink to the next page of results if there are any left.
+	Skip *int32
+
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+
+	// Returns only the first n results. Optional.
+	Top *int32
+}
+
 // DataConnectorsClientCreateOrUpdateOptions contains the optional parameters for the DataConnectorsClient.CreateOrUpdate
 // method.
 type DataConnectorsClientCreateOrUpdateOptions struct {
@@ -234,8 +319,120 @@ type IncidentsClientListOptions struct {
 	Top *int32
 }
 
+// MetadataClientCreateOptions contains the optional parameters for the MetadataClient.Create method.
+type MetadataClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MetadataClientDeleteOptions contains the optional parameters for the MetadataClient.Delete method.
+type MetadataClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MetadataClientGetOptions contains the optional parameters for the MetadataClient.Get method.
+type MetadataClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MetadataClientListOptions contains the optional parameters for the MetadataClient.NewListPager method.
+type MetadataClientListOptions struct {
+	// Filters the results, based on a Boolean condition. Optional.
+	Filter *string
+
+	// Sorts the results. Optional.
+	Orderby *string
+
+	// Used to skip n elements in the OData query (offset). Returns a nextLink to the next page of results if there are any left.
+	Skip *int32
+
+	// Returns only the first n results. Optional.
+	Top *int32
+}
+
+// MetadataClientUpdateOptions contains the optional parameters for the MetadataClient.Update method.
+type MetadataClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductPackageClientGetOptions contains the optional parameters for the ProductPackageClient.Get method.
+type ProductPackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductPackagesClientListOptions contains the optional parameters for the ProductPackagesClient.NewListPager method.
+type ProductPackagesClientListOptions struct {
+	// Filters the results, based on a Boolean condition. Optional.
+	Filter *string
+
+	// Sorts the results. Optional.
+	Orderby *string
+
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+
+	// Returns only the first n results. Optional.
+	Top *int32
+}
+
+// ProductTemplateClientGetOptions contains the optional parameters for the ProductTemplateClient.Get method.
+type ProductTemplateClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductTemplatesClientListOptions contains the optional parameters for the ProductTemplatesClient.NewListPager method.
+type ProductTemplatesClientListOptions struct {
+	// Instructs the server to return only object count without actual body. Optional.
+	Count *bool
+
+	// Filters the results, based on a Boolean condition. Optional.
+	Filter *string
+
+	// Sorts the results. Optional.
+	Orderby *string
+
+	// Searches for a substring in the response. Optional.
+	Search *string
+
+	// Used to skip n elements in the OData query (offset). Returns a nextLink to the next page of results if there are any left.
+	Skip *int32
+
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+
+	// Returns only the first n results. Optional.
+	Top *int32
+}
+
+// SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.CreateOrUpdate
+// method.
+type SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientDeleteOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Delete
+// method.
+type SecurityMLAnalyticsSettingsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientGetOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Get
+// method.
+type SecurityMLAnalyticsSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientListOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.NewListPager
+// method.
+type SecurityMLAnalyticsSettingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -260,6 +457,32 @@ type SentinelOnboardingStatesClientGetOptions struct {
 // SentinelOnboardingStatesClientListOptions contains the optional parameters for the SentinelOnboardingStatesClient.List
 // method.
 type SentinelOnboardingStatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SourceControlClientListRepositoriesOptions contains the optional parameters for the SourceControlClient.NewListRepositoriesPager
+// method.
+type SourceControlClientListRepositoriesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SourceControlsClientCreateOptions contains the optional parameters for the SourceControlsClient.Create method.
+type SourceControlsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SourceControlsClientDeleteOptions contains the optional parameters for the SourceControlsClient.Delete method.
+type SourceControlsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SourceControlsClientGetOptions contains the optional parameters for the SourceControlsClient.Get method.
+type SourceControlsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SourceControlsClientListOptions contains the optional parameters for the SourceControlsClient.NewListPager method.
+type SourceControlsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
