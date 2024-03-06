@@ -154,9 +154,6 @@ type SpringbootappsModel struct {
 	// The springbootapps resource definition.
 	Properties *SpringbootappsProperties
 
-	// Resource tags
-	Tags map[string]*string
-
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
@@ -174,9 +171,6 @@ type SpringbootappsModel struct {
 type SpringbootappsPatch struct {
 	// The springbootapps resource definition.
 	Properties *SpringbootappsProperties
-
-	// Resource tags
-	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -247,6 +241,9 @@ type SpringbootappsProperties struct {
 	// The jvm options.
 	JvmOptions []*string
 
+	// Resource labels
+	Labels map[string]*string
+
 	// Time when this springbootapps jar file was last modified.
 	LastModifiedTime *time.Time
 
@@ -259,23 +256,20 @@ type SpringbootappsProperties struct {
 	// The other types of date collected.
 	Miscs []*SpringbootappsPropertiesMiscsItem
 
-	// The resource provisioning state.
-	ProvisioningState *ProvisioningState
-
 	// The jdk version installed on server
 	RuntimeJdkVersion *string
 
 	// The server list the app installed
 	Servers []*string
 
-	// The site name.
-	SiteName *string
-
 	// The spring boot version.
 	SpringBootVersion *string
 
 	// The static content location list.
 	StaticContentLocations []*string
+
+	// READ-ONLY; The resource provisioning state.
+	ProvisioningState *ProvisioningState
 }
 
 type SpringbootappsPropertiesApplicationConfigurationsItem struct {
@@ -319,9 +313,6 @@ type SpringbootserversModel struct {
 	// The springbootservers resource definition.
 	Properties *SpringbootserversProperties
 
-	// Resource tags
-	Tags map[string]*string
-
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
@@ -339,9 +330,6 @@ type SpringbootserversModel struct {
 type SpringbootserversPatch struct {
 	// The springbootsites resource definition.
 	Properties *SpringbootserversProperties
-
-	// Resource tags
-	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -366,6 +354,9 @@ type SpringbootserversProperties struct {
 
 	// The alternative FQDN or IP addresses to discover for this server
 	FqdnAndIPAddressList []*string
+
+	// Resource labels
+	Labels map[string]*string
 
 	// The machine Id from ARM
 	MachineArmID *string
@@ -430,26 +421,11 @@ type SpringbootsitesModelExtendedLocation struct {
 
 // SpringbootsitesPatch - The springbootsites resource patch definition.
 type SpringbootsitesPatch struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string
-
 	// The springbootsites resource definition.
 	Properties *SpringbootsitesProperties
 
-	// Resource tags.
+	// Resource tags
 	Tags map[string]*string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
 }
 
 // SpringbootsitesProperties - The springbootsites resource definition.

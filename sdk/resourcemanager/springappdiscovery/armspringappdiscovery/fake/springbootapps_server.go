@@ -24,6 +24,14 @@ import (
 
 // SpringbootappsServer is a fake server for instances of the armspringappdiscovery.SpringbootappsClient type.
 type SpringbootappsServer struct {
+	// BeginCreateOrUpdate is the fake for method SpringbootappsClient.BeginCreateOrUpdate
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps armspringappdiscovery.SpringbootappsModel, options *armspringappdiscovery.SpringbootappsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+
+	// BeginDelete is the fake for method SpringbootappsClient.BeginDelete
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	BeginDelete func(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, options *armspringappdiscovery.SpringbootappsClientBeginDeleteOptions) (resp azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientDeleteResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method SpringbootappsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, options *armspringappdiscovery.SpringbootappsClientGetOptions) (resp azfake.Responder[armspringappdiscovery.SpringbootappsClientGetResponse], errResp azfake.ErrorResponder)
@@ -36,9 +44,9 @@ type SpringbootappsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(siteName string, options *armspringappdiscovery.SpringbootappsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armspringappdiscovery.SpringbootappsClientListBySubscriptionResponse])
 
-	// BeginUpdate is the fake for method SpringbootappsClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps armspringappdiscovery.SpringbootappsPatch, options *armspringappdiscovery.SpringbootappsClientBeginUpdateOptions) (resp azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientUpdateResponse], errResp azfake.ErrorResponder)
+	// Update is the fake for method SpringbootappsClient.Update
+	// HTTP status codes to indicate success: http.StatusOK
+	Update func(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps armspringappdiscovery.SpringbootappsPatch, options *armspringappdiscovery.SpringbootappsClientUpdateOptions) (resp azfake.Responder[armspringappdiscovery.SpringbootappsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSpringbootappsServerTransport creates a new instance of SpringbootappsServerTransport with the provided implementation.
@@ -47,9 +55,10 @@ type SpringbootappsServer struct {
 func NewSpringbootappsServerTransport(srv *SpringbootappsServer) *SpringbootappsServerTransport {
 	return &SpringbootappsServerTransport{
 		srv:                         srv,
+		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientCreateOrUpdateResponse]](),
+		beginDelete:                 newTracker[azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientDeleteResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armspringappdiscovery.SpringbootappsClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armspringappdiscovery.SpringbootappsClientListBySubscriptionResponse]](),
-		beginUpdate:                 newTracker[azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientUpdateResponse]](),
 	}
 }
 
@@ -57,9 +66,10 @@ func NewSpringbootappsServerTransport(srv *SpringbootappsServer) *Springbootapps
 // Don't use this type directly, use NewSpringbootappsServerTransport instead.
 type SpringbootappsServerTransport struct {
 	srv                         *SpringbootappsServer
+	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientCreateOrUpdateResponse]]
+	beginDelete                 *tracker[azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientDeleteResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armspringappdiscovery.SpringbootappsClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armspringappdiscovery.SpringbootappsClientListBySubscriptionResponse]]
-	beginUpdate                 *tracker[azfake.PollerResponder[armspringappdiscovery.SpringbootappsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for SpringbootappsServerTransport.
@@ -74,20 +84,124 @@ func (s *SpringbootappsServerTransport) Do(req *http.Request) (*http.Response, e
 	var err error
 
 	switch method {
+	case "SpringbootappsClient.BeginCreateOrUpdate":
+		resp, err = s.dispatchBeginCreateOrUpdate(req)
+	case "SpringbootappsClient.BeginDelete":
+		resp, err = s.dispatchBeginDelete(req)
 	case "SpringbootappsClient.Get":
 		resp, err = s.dispatchGet(req)
 	case "SpringbootappsClient.NewListByResourceGroupPager":
 		resp, err = s.dispatchNewListByResourceGroupPager(req)
 	case "SpringbootappsClient.NewListBySubscriptionPager":
 		resp, err = s.dispatchNewListBySubscriptionPager(req)
-	case "SpringbootappsClient.BeginUpdate":
-		resp, err = s.dispatchBeginUpdate(req)
+	case "SpringbootappsClient.Update":
+		resp, err = s.dispatchUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (s *SpringbootappsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginCreateOrUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
+	}
+	beginCreateOrUpdate := s.beginCreateOrUpdate.get(req)
+	if beginCreateOrUpdate == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OffAzureSpringBoot/springbootsites/(?P<siteName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/springbootapps/(?P<springbootappsName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armspringappdiscovery.SpringbootappsModel](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		siteNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("siteName")])
+		if err != nil {
+			return nil, err
+		}
+		springbootappsNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("springbootappsName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, siteNameParam, springbootappsNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginCreateOrUpdate = &respr
+		s.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
+	}
+
+	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+		s.beginCreateOrUpdate.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginCreateOrUpdate) {
+		s.beginCreateOrUpdate.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (s *SpringbootappsServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginDelete == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
+	}
+	beginDelete := s.beginDelete.get(req)
+	if beginDelete == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OffAzureSpringBoot/springbootsites/(?P<siteName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/springbootapps/(?P<springbootappsName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		siteNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("siteName")])
+		if err != nil {
+			return nil, err
+		}
+		springbootappsNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("springbootappsName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, siteNameParam, springbootappsNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDelete = &respr
+		s.beginDelete.add(req, beginDelete)
+	}
+
+	resp, err := server.PollerResponderNext(beginDelete, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+		s.beginDelete.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginDelete) {
+		s.beginDelete.remove(req)
 	}
 
 	return resp, nil
@@ -208,54 +322,43 @@ func (s *SpringbootappsServerTransport) dispatchNewListBySubscriptionPager(req *
 	return resp, nil
 }
 
-func (s *SpringbootappsServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
-	if s.srv.BeginUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
+func (s *SpringbootappsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.Update == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
 	}
-	beginUpdate := s.beginUpdate.get(req)
-	if beginUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OffAzureSpringBoot/springbootsites/(?P<siteName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/springbootapps/(?P<springbootappsName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armspringappdiscovery.SpringbootappsPatch](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		siteNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("siteName")])
-		if err != nil {
-			return nil, err
-		}
-		springbootappsNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("springbootappsName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceGroupNameParam, siteNameParam, springbootappsNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginUpdate = &respr
-		s.beginUpdate.add(req, beginUpdate)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OffAzureSpringBoot/springbootsites/(?P<siteName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/springbootapps/(?P<springbootappsName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-
-	resp, err := server.PollerResponderNext(beginUpdate, req)
+	body, err := server.UnmarshalRequestAsJSON[armspringappdiscovery.SpringbootappsPatch](req)
 	if err != nil {
 		return nil, err
 	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		s.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PollerResponderMore(beginUpdate) {
-		s.beginUpdate.remove(req)
+	siteNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("siteName")])
+	if err != nil {
+		return nil, err
 	}
-
+	springbootappsNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("springbootappsName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, siteNameParam, springbootappsNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SpringbootappsModel, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
