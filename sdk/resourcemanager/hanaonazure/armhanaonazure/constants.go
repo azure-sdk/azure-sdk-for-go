@@ -10,7 +10,7 @@ package armhanaonazure
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hanaonazure/armhanaonazure"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.7.1"
 )
 
 // HanaProvisioningStatesEnum - State of provisioning of the HanaInstance

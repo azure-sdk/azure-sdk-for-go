@@ -44,8 +44,7 @@ func NewProviderInstancesClient(subscriptionID string, credential azcore.TokenCr
 	return client, nil
 }
 
-// BeginCreate - Creates a provider instance for the specified subscription, resource group, SapMonitor name, and resource
-// name.
+// BeginCreate - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -72,7 +71,7 @@ func (client *ProviderInstancesClient) BeginCreate(ctx context.Context, resource
 	}
 }
 
-// Create - Creates a provider instance for the specified subscription, resource group, SapMonitor name, and resource name.
+// Create - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -130,8 +129,7 @@ func (client *ProviderInstancesClient) createCreateRequest(ctx context.Context, 
 	return req, nil
 }
 
-// BeginDelete - Deletes a provider instance for the specified subscription, resource group, SapMonitor name, and resource
-// name.
+// BeginDelete - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -157,7 +155,7 @@ func (client *ProviderInstancesClient) BeginDelete(ctx context.Context, resource
 	}
 }
 
-// Delete - Deletes a provider instance for the specified subscription, resource group, SapMonitor name, and resource name.
+// Delete - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -212,8 +210,7 @@ func (client *ProviderInstancesClient) deleteCreateRequest(ctx context.Context, 
 	return req, nil
 }
 
-// Get - Gets properties of a provider instance for the specified subscription, resource group, SapMonitor name, and resource
-// name.
+// Get - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -282,8 +279,7 @@ func (client *ProviderInstancesClient) getHandleResponse(resp *http.Response) (P
 	return result, nil
 }
 
-// NewListPager - Gets a list of provider instances in the specified SAP monitor. The operations returns various properties
-// of each provider instances.
+// NewListPager - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 //
 // Generated from API version 2020-02-07-preview
 //   - resourceGroupName - Name of the resource group.

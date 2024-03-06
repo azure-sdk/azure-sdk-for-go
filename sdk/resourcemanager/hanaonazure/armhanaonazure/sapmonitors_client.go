@@ -44,7 +44,7 @@ func NewSapMonitorsClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// BeginCreate - Creates a SAP monitor for the specified subscription, resource group, and resource name.
+// BeginCreate - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -69,7 +69,7 @@ func (client *SapMonitorsClient) BeginCreate(ctx context.Context, resourceGroupN
 	}
 }
 
-// Create - Creates a SAP monitor for the specified subscription, resource group, and resource name.
+// Create - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -123,7 +123,7 @@ func (client *SapMonitorsClient) createCreateRequest(ctx context.Context, resour
 	return req, nil
 }
 
-// BeginDelete - Deletes a SAP monitor with the specified subscription, resource group, and monitor name.
+// BeginDelete - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -147,7 +147,7 @@ func (client *SapMonitorsClient) BeginDelete(ctx context.Context, resourceGroupN
 	}
 }
 
-// Delete - Deletes a SAP monitor with the specified subscription, resource group, and monitor name.
+// Delete - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -198,7 +198,7 @@ func (client *SapMonitorsClient) deleteCreateRequest(ctx context.Context, resour
 	return req, nil
 }
 
-// Get - Gets properties of a SAP monitor for the specified subscription, resource group, and resource name.
+// Get - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
@@ -262,8 +262,7 @@ func (client *SapMonitorsClient) getHandleResponse(resp *http.Response) (SapMoni
 	return result, nil
 }
 
-// NewListPager - Gets a list of SAP monitors in the specified subscription. The operations returns various properties of
-// each SAP monitor.
+// NewListPager - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 //
 // Generated from API version 2020-02-07-preview
 //   - options - SapMonitorsClientListOptions contains the optional parameters for the SapMonitorsClient.NewListPager method.
@@ -317,7 +316,7 @@ func (client *SapMonitorsClient) listHandleResponse(resp *http.Response) (SapMon
 	return result, nil
 }
 
-// Update - Patches the Tags field of a SAP monitor for the specified subscription, resource group, and monitor name.
+// Update - The product Microsoft.Workloads/sapMonitors (AMS Classic) is officially retired as of May 31, 2023.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-07-preview
