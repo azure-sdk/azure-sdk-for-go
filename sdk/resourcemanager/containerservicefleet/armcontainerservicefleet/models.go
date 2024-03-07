@@ -220,8 +220,7 @@ type ManagedClusterUpdate struct {
 
 // ManagedClusterUpgradeSpec - The upgrade to apply to a ManagedCluster.
 type ManagedClusterUpgradeSpec struct {
-	// REQUIRED; The upgrade type. Full requires the KubernetesVersion property to be set. NodeImageOnly requires the KubernetesVersion
-	// property not to be set.
+	// REQUIRED; ManagedClusterUpgradeType is the type of upgrade to be applied.
 	Type *ManagedClusterUpgradeType
 
 	// The Kubernetes version to upgrade the member clusters to.
@@ -331,6 +330,22 @@ type OperationListResult struct {
 
 	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// SkipProperties - The properties of a skip operation containing multiple skip requests.
+type SkipProperties struct {
+	// REQUIRED; The targets to skip.
+	Targets []*SkipTarget
+}
+
+// SkipTarget - The definition of a single skip request.
+type SkipTarget struct {
+	// REQUIRED; The skip target's name. To skip a member/group/stage, use the member/group/stage's name; Tp skip an after stage
+	// wait, use the parent stage's name.
+	Name *string
+
+	// REQUIRED; The skip target type.
+	Type *TargetType
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
