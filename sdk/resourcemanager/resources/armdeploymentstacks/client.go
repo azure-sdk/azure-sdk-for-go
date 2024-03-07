@@ -346,16 +346,16 @@ func (client *Client) deleteAtManagementGroupCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.UnmanageActionResources != nil {
-		reqQP.Set("unmanageAction.Resources", string(*options.UnmanageActionResources))
+	reqQP.Set("api-version", "2022-08-01-preview")
+	if options != nil && options.UnmanageActionManagementGroups != nil {
+		reqQP.Set("unmanageAction.ManagementGroups", string(*options.UnmanageActionManagementGroups))
 	}
 	if options != nil && options.UnmanageActionResourceGroups != nil {
 		reqQP.Set("unmanageAction.ResourceGroups", string(*options.UnmanageActionResourceGroups))
 	}
-	if options != nil && options.UnmanageActionManagementGroups != nil {
-		reqQP.Set("unmanageAction.ManagementGroups", string(*options.UnmanageActionManagementGroups))
+	if options != nil && options.UnmanageActionResources != nil {
+		reqQP.Set("unmanageAction.Resources", string(*options.UnmanageActionResources))
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -434,13 +434,13 @@ func (client *Client) deleteAtResourceGroupCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.UnmanageActionResources != nil {
-		reqQP.Set("unmanageAction.Resources", string(*options.UnmanageActionResources))
-	}
+	reqQP.Set("api-version", "2022-08-01-preview")
 	if options != nil && options.UnmanageActionResourceGroups != nil {
 		reqQP.Set("unmanageAction.ResourceGroups", string(*options.UnmanageActionResourceGroups))
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	if options != nil && options.UnmanageActionResources != nil {
+		reqQP.Set("unmanageAction.Resources", string(*options.UnmanageActionResources))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -513,13 +513,13 @@ func (client *Client) deleteAtSubscriptionCreateRequest(ctx context.Context, dep
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.UnmanageActionResources != nil {
-		reqQP.Set("unmanageAction.Resources", string(*options.UnmanageActionResources))
-	}
+	reqQP.Set("api-version", "2022-08-01-preview")
 	if options != nil && options.UnmanageActionResourceGroups != nil {
 		reqQP.Set("unmanageAction.ResourceGroups", string(*options.UnmanageActionResourceGroups))
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	if options != nil && options.UnmanageActionResources != nil {
+		reqQP.Set("unmanageAction.Resources", string(*options.UnmanageActionResources))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
