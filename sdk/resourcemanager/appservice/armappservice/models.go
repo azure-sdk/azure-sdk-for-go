@@ -477,10 +477,12 @@ type ApplicationStackResource struct {
 }
 
 type ArcConfiguration struct {
-	ArtifactStorageAccessMode    *string
-	ArtifactStorageClassName     *string
-	ArtifactStorageMountPath     *string
-	ArtifactStorageNodeName      *string
+	ArtifactStorageAccessMode *string
+	ArtifactStorageClassName  *string
+	ArtifactStorageMountPath  *string
+	ArtifactStorageNodeName   *string
+
+	// Property to select Azure Storage type. Available options: blobContainer.
 	ArtifactsStorageType         *StorageType
 	FrontEndServiceConfiguration *FrontEndConfiguration
 	KubeConfig                   *string
@@ -3227,6 +3229,14 @@ type EnvironmentVar struct {
 	Value *string
 }
 
+type EnvironmentVariable struct {
+	// REQUIRED; Environment variable name
+	Name *string
+
+	// REQUIRED; Environment variable value
+	Value *string
+}
+
 // ErrorEntity - Body of the error response returned from the API.
 type ErrorEntity struct {
 	// Basic error code.
@@ -3434,6 +3444,18 @@ type FrontEndConfiguration struct {
 	Kind *FrontEndServiceType
 }
 
+// FunctionAppConfig - Function app configuration.
+type FunctionAppConfig struct {
+	// Function app deployment configuration.
+	Deployment *FunctionsDeployment
+
+	// Function app runtime settings.
+	Runtime *FunctionsRuntime
+
+	// Function app scale and concurrency settings.
+	ScaleAndConcurrency *FunctionsScaleAndConcurrency
+}
+
 // FunctionAppMajorVersion - Function App stack major version.
 type FunctionAppMajorVersion struct {
 	// READ-ONLY; Function App stack major version (display only).
@@ -3633,6 +3655,87 @@ type FunctionSecrets struct {
 
 	// Trigger URL.
 	TriggerURL *string
+}
+
+// FunctionsAlwaysReadyConfig - Sets the number of 'Always Ready' instances for a function group or a specific function.
+type FunctionsAlwaysReadyConfig struct {
+	// Sets the number of 'Always Ready' instances for a given function group or a specific function. For additional information
+	// see https://aka.ms/flexconsumption/alwaysready.
+	InstanceCount *float32
+
+	// Either a function group or a function name is required. For additional information see https://aka.ms/flexconsumption/alwaysready.
+	Name *string
+}
+
+// FunctionsDeployment - Configuration section for the function app deployment.
+type FunctionsDeployment struct {
+	// Storage for deployed package used by the function app.
+	Storage *FunctionsDeploymentStorage
+}
+
+// FunctionsDeploymentStorage - Storage for deployed package used by the function app.
+type FunctionsDeploymentStorage struct {
+	// Authentication method to access the storage account for deployment.
+	Authentication *FunctionsDeploymentStorageAuthentication
+
+	// Property to select Azure Storage type. Available options: blobContainer.
+	Type *StorageType
+
+	// Property to set the URL for the selected Azure Storage type. Example: For blobContainer, the value could be https://.blob.core.windows.net/.
+	Value *string
+}
+
+// FunctionsDeploymentStorageAuthentication - Authentication method to access the storage account for deployment.
+type FunctionsDeploymentStorageAuthentication struct {
+	// Use this property for StorageAccountConnectionString. Set the name of the app setting that has the storage account connection
+	// string. Do not set a value for this property when using other
+	// authentication type.
+	StorageAccountConnectionStringName *string
+
+	// Property to select authentication type to access the selected storage account. Available options: SystemAssignedIdentity,
+	// UserAssignedIdentity, StorageAccountConnectionString.
+	Type *AuthenticationType
+
+	// Use this property for UserAssignedIdentity. Set the resource ID of the identity. Do not set a value for this property when
+	// using other authentication type.
+	UserAssignedIdentityResourceID *string
+}
+
+// FunctionsRuntime - Function app runtime name and version.
+type FunctionsRuntime struct {
+	// Function app runtime name. Available options: dotnet-isolated, node, java, powershell, python, custom
+	Name *RuntimeName
+
+	// Function app runtime version. Example: 8 (for dotnet-isolated)
+	Version *string
+}
+
+// FunctionsScaleAndConcurrency - Scale and concurrency settings for the function app.
+type FunctionsScaleAndConcurrency struct {
+	// 'Always Ready' configuration for the function app.
+	AlwaysReady []*FunctionsAlwaysReadyConfig
+
+	// Set the amount of memory allocated to each instance of the function app in MB. CPU and network bandwidth are allocated
+	// proportionally.
+	InstanceMemoryMB *float32
+
+	// The maximum number of instances for the function app.
+	MaximumInstanceCount *float32
+
+	// Scale and concurrency settings for the function app triggers.
+	Triggers *FunctionsScaleAndConcurrencyTriggers
+}
+
+// FunctionsScaleAndConcurrencyTriggers - Scale and concurrency settings for the function app triggers.
+type FunctionsScaleAndConcurrencyTriggers struct {
+	// Scale and concurrency settings for the HTTP trigger.
+	HTTP *FunctionsScaleAndConcurrencyTriggersHTTP
+}
+
+// FunctionsScaleAndConcurrencyTriggersHTTP - Scale and concurrency settings for the HTTP trigger.
+type FunctionsScaleAndConcurrencyTriggersHTTP struct {
+	// The maximum number of concurrent HTTP trigger invocations per instance.
+	PerInstanceConcurrency *float32
 }
 
 // GeoRegion - Geographical region.
@@ -7542,6 +7645,92 @@ type SiteConfigurationSnapshotInfoProperties struct {
 	Time *time.Time
 }
 
+// SiteContainer - Container of a site
+type SiteContainer struct {
+	// Kind of resource.
+	Kind *string
+
+	// SiteContainer resource specific properties
+	Properties *SiteContainerProperties
+
+	// READ-ONLY; Resource Id.
+	ID *string
+
+	// READ-ONLY; Resource Name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// SiteContainerCollection - Collection of site containers
+type SiteContainerCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*SiteContainer
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// SiteContainerProperties - SiteContainer resource specific properties
+type SiteContainerProperties struct {
+	// REQUIRED; Image Name
+	Image *string
+
+	// REQUIRED; true if the container is the main site container; false otherwise.
+	IsMain *bool
+
+	// Auth Type
+	AuthType *AuthType
+
+	// List of environment variables
+	EnvironmentVariables []*EnvironmentVariable
+
+	// Password Secret
+	PasswordSecret *string
+
+	// StartUp Command
+	StartUpCommand *string
+
+	// Target Port
+	TargetPort *string
+
+	// UserManagedIdentity ClientId
+	UserManagedIdentityClientID *string
+
+	// User Name
+	UserName *string
+
+	// List of volume mounts
+	VolumeMounts []*VolumeMount
+
+	// READ-ONLY; Created Time
+	CreatedTime *time.Time
+
+	// READ-ONLY; Last Modified Time
+	LastModifiedTime *time.Time
+}
+
+type SiteDNSConfig struct {
+	// Alternate DNS server to be used by apps. This property replicates the WEBSITEDNSALT_SERVER app setting.
+	DNSAltServer *string
+
+	// Custom time for DNS to be cached in seconds. Allowed range: 0-60. Default is 30 seconds. 0 means caching disabled.
+	DNSMaxCacheTimeout *int32
+
+	// Total number of retries for dns lookup. Allowed range: 1-5. Default is 3.
+	DNSRetryAttemptCount *int32
+
+	// Timeout for a single dns lookup in seconds. Allowed range: 1-30. Default is 3.
+	DNSRetryAttemptTimeout *int32
+
+	// List of custom DNS servers to be used by an app for lookups. Maximum 5 dns servers can be set.
+	DNSServers []*string
+
+	// READ-ONLY; Indicates that sites using Virtual network custom DNS servers are still sorting the list of DNS servers. Read-Only.
+	DNSLegacySortOrder *bool
+}
+
 // SiteExtensionInfo - Site Extension Information.
 type SiteExtensionInfo struct {
 	// Kind of resource.
@@ -7738,6 +7927,9 @@ type SitePatchResourceProperties struct {
 	// Unique identifier that verifies the custom domains assigned to the app. Customer will add this id to a txt record for verification.
 	CustomDomainVerificationID *string
 
+	// Property to configure various DNS related settings for a site.
+	DNSConfiguration *SiteDNSConfig
+
 	// Maximum allowed daily memory-time quota (applicable on dynamic apps only).
 	DailyMemoryTimeQuota *int32
 
@@ -7907,6 +8099,9 @@ type SiteProperties struct {
 	// Unique identifier that verifies the custom domains assigned to the app. Customer will add this id to a txt record for verification.
 	CustomDomainVerificationID *string
 
+	// Property to configure various DNS related settings for a site.
+	DNSConfiguration *SiteDNSConfig
+
 	// Maximum allowed daily memory-time quota (applicable on dynamic apps only).
 	DailyMemoryTimeQuota *int32
 
@@ -7915,6 +8110,9 @@ type SiteProperties struct {
 
 	// true if the app is enabled; otherwise, false. Setting this value to false disables the app (takes the app offline).
 	Enabled *bool
+
+	// Configuration specific of the Azure Function app.
+	FunctionAppConfig *FunctionAppConfig
 
 	// HttpsOnly: configures a web site to accept only https requests. Issues redirect for http requests
 	HTTPSOnly *bool
@@ -7971,6 +8169,9 @@ type SiteProperties struct {
 	// the form
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string
+
+	// To enable Backup and Restore operations over virtual network
+	VnetBackupRestoreEnabled *bool
 
 	// To enable accessing content over virtual network
 	VnetContentShareEnabled *bool
@@ -9343,14 +9544,40 @@ type SupportTopic struct {
 	PesID *string
 }
 
-// SwiftVirtualNetwork - Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network
-// integration.
+// SwiftVirtualNetwork - Swift Virtual Network Contract
 type SwiftVirtualNetwork struct {
+	// Resources (sites and serverfarms) allocated to this subnet
+	ResourceAllocation *SwiftVirtualNetworkResourceAllocation
+
+	// IP allocation for a Swift Subnet
+	SubnetIPAllocation *SwiftVirtualNetworkSubnetIPAllocation
+
+	// The Virtual Network subnet's Azure resource ID
+	SubnetResourceID *string
+
+	// Boolean flag indicating whether Swift integration is supported
+	SwiftSupported *bool
+
+	// Swift Connection allocation for an App Service Plan
+	VnetConnectionAllocation *SwiftVirtualNetworkVnetConnectionAllocation
+}
+
+// SwiftVirtualNetworkCollection - Collection of Swift Virtual Networks
+type SwiftVirtualNetworkCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*SwiftVirtualNetwork
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// SwiftVirtualNetworkProxy - Swift Virtual Network Contract (Proxy resource)
+type SwiftVirtualNetworkProxy struct {
 	// Kind of resource.
 	Kind *string
 
-	// SwiftVirtualNetwork resource specific properties
-	Properties *SwiftVirtualNetworkProperties
+	// Swift Virtual Network Contract
+	Properties *SwiftVirtualNetwork
 
 	// READ-ONLY; Resource Id.
 	ID *string
@@ -9362,14 +9589,31 @@ type SwiftVirtualNetwork struct {
 	Type *string
 }
 
-// SwiftVirtualNetworkProperties - SwiftVirtualNetwork resource specific properties
-type SwiftVirtualNetworkProperties struct {
-	// The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation
-	// to Microsoft.Web/serverFarms defined first.
-	SubnetResourceID *string
+// SwiftVirtualNetworkResourceAllocation - Resources (sites and serverfarms) allocated to this subnet
+type SwiftVirtualNetworkResourceAllocation struct {
+	// The list of all ServerFarms' Azure resource ID that are using the VNET
+	ConnectedServerFarmsID []*string
 
-	// A flag that specifies if the scale unit this Web App is on supports Swift integration.
-	SwiftSupported *bool
+	// The list of all Sites' Azure resource ID that are using the VNET
+	ConnectedSitesID []*string
+}
+
+// SwiftVirtualNetworkSubnetIPAllocation - IP allocation for a Swift Subnet
+type SwiftVirtualNetworkSubnetIPAllocation struct {
+	// The number of IP addresses available in the Swift subnet address space
+	SubnetIPAddressesAvailable *int32
+
+	// The number of IP addresses that have already been used in the Swift subnet address space
+	SubnetIPAddressesUsed *int32
+}
+
+// SwiftVirtualNetworkVnetConnectionAllocation - Swift Connection allocation for an App Service Plan
+type SwiftVirtualNetworkVnetConnectionAllocation struct {
+	// The maximum number of Swift Connections available for an App Service Plan
+	VnetConnectionsMax *int32
+
+	// The number of Swift Connections used for an App Service Plan
+	VnetConnectionsUsed *int32
 }
 
 // Template - Container App versioned application definition. Defines the desired state of an immutable revision. Any changes
@@ -9856,6 +10100,12 @@ type VirtualIPMapping struct {
 	VirtualIP *string
 }
 
+// VirtualNetworkIntegrationRequest - Virtual Network Integration request content.
+type VirtualNetworkIntegrationRequest struct {
+	// REQUIRED; The Azure Resource ID of the subnet
+	SubnetResourceID *string
+}
+
 // VirtualNetworkProfile - Specification for using a Virtual Network.
 type VirtualNetworkProfile struct {
 	// REQUIRED; Resource id of the Virtual Network.
@@ -10065,6 +10315,20 @@ type VnetValidationTestFailureProperties struct {
 
 	// The name of the test that failed.
 	TestName *string
+}
+
+type VolumeMount struct {
+	// REQUIRED; Target path on the container where volume is mounted on
+	ContainerMountPath *string
+
+	// REQUIRED; Sub path in the volume where volume is mounted from.
+	VolumeSubPath *string
+
+	// Config Data to be mounted on the volume
+	Data *string
+
+	// Boolean to specify if the mount is read only on the container
+	ReadOnly *bool
 }
 
 // WebAppCollection - Collection of App Service apps.
