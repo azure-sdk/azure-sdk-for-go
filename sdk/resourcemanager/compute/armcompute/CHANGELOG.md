@@ -1,5 +1,21 @@
 # Release History
 
+## 5.6.0 (2024-03-07)
+### Features Added
+
+- New value `DiffDiskPlacementNvmeDisk` added to enum type `DiffDiskPlacement`
+- New value `DiskCreateOptionTypesCopy`, `DiskCreateOptionTypesRestore` added to enum type `DiskCreateOptionTypes`
+- New enum type `ResourceIDOptionsForGetCapacityReservationGroups` with values `ResourceIDOptionsForGetCapacityReservationGroupsAll`, `ResourceIDOptionsForGetCapacityReservationGroupsCreatedInSubscription`, `ResourceIDOptionsForGetCapacityReservationGroupsSharedWithSubscription`
+- New enum type `ZonePlacementPolicyType` with values `ZonePlacementPolicyTypeAny`
+- New struct `Placement`
+- New field `ResourceIDsOnly` in struct `CapacityReservationGroupsClientListBySubscriptionOptions`
+- New field `SourceResource` in struct `DataDisk`
+- New field `Caching`, `DeleteOption`, `DiskEncryptionSet`, `WriteAcceleratorEnabled` in struct `DataDisksToAttach`
+- New field `Placement` in struct `VirtualMachine`
+- New field `ForceUpdateOSDiskForEphemeral` in struct `VirtualMachineScaleSetReimageParameters`
+- New field `ForceUpdateOSDiskForEphemeral` in struct `VirtualMachineScaleSetVMReimageParameters`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
