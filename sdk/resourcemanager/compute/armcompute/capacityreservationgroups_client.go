@@ -286,10 +286,10 @@ func (client *CapacityReservationGroupsClient) listByResourceGroupCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -345,10 +345,10 @@ func (client *CapacityReservationGroupsClient) listBySubscriptionCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -359,76 +359,6 @@ func (client *CapacityReservationGroupsClient) listBySubscriptionHandleResponse(
 	result := CapacityReservationGroupsClientListBySubscriptionResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.CapacityReservationGroupListResult); err != nil {
 		return CapacityReservationGroupsClientListBySubscriptionResponse{}, err
-	}
-	return result, nil
-}
-
-// Update - The operation to update a capacity reservation group. When updating a capacity reservation group, only tags and
-// sharing profile may be modified.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-09-01
-//   - resourceGroupName - The name of the resource group.
-//   - capacityReservationGroupName - The name of the capacity reservation group.
-//   - parameters - Parameters supplied to the Update capacity reservation Group operation.
-//   - options - CapacityReservationGroupsClientUpdateOptions contains the optional parameters for the CapacityReservationGroupsClient.Update
-//     method.
-func (client *CapacityReservationGroupsClient) Update(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, parameters CapacityReservationGroupUpdate, options *CapacityReservationGroupsClientUpdateOptions) (CapacityReservationGroupsClientUpdateResponse, error) {
-	var err error
-	const operationName = "CapacityReservationGroupsClient.Update"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, capacityReservationGroupName, parameters, options)
-	if err != nil {
-		return CapacityReservationGroupsClientUpdateResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return CapacityReservationGroupsClientUpdateResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return CapacityReservationGroupsClientUpdateResponse{}, err
-	}
-	resp, err := client.updateHandleResponse(httpResp)
-	return resp, err
-}
-
-// updateCreateRequest creates the Update request.
-func (client *CapacityReservationGroupsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, parameters CapacityReservationGroupUpdate, options *CapacityReservationGroupsClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if capacityReservationGroupName == "" {
-		return nil, errors.New("parameter capacityReservationGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{capacityReservationGroupName}", url.PathEscape(capacityReservationGroupName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
-		return nil, err
-	}
-	return req, nil
-}
-
-// updateHandleResponse handles the Update response.
-func (client *CapacityReservationGroupsClient) updateHandleResponse(resp *http.Response) (CapacityReservationGroupsClientUpdateResponse, error) {
-	result := CapacityReservationGroupsClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CapacityReservationGroup); err != nil {
-		return CapacityReservationGroupsClientUpdateResponse{}, err
 	}
 	return result, nil
 }

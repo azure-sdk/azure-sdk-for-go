@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -40,10 +40,6 @@ type AvailabilitySetsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, options *armcompute.AvailabilitySetsClientListOptions) (resp azfake.PagerResponder[armcompute.AvailabilitySetsClientListResponse])
 
-	// NewListAvailableSizesPager is the fake for method AvailabilitySetsClient.NewListAvailableSizesPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListAvailableSizesPager func(resourceGroupName string, availabilitySetName string, options *armcompute.AvailabilitySetsClientListAvailableSizesOptions) (resp azfake.PagerResponder[armcompute.AvailabilitySetsClientListAvailableSizesResponse])
-
 	// NewListBySubscriptionPager is the fake for method AvailabilitySetsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armcompute.AvailabilitySetsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armcompute.AvailabilitySetsClientListBySubscriptionResponse])
@@ -60,7 +56,6 @@ func NewAvailabilitySetsServerTransport(srv *AvailabilitySetsServer) *Availabili
 	return &AvailabilitySetsServerTransport{
 		srv:                        srv,
 		newListPager:               newTracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListResponse]](),
-		newListAvailableSizesPager: newTracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListAvailableSizesResponse]](),
 		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListBySubscriptionResponse]](),
 	}
 }
@@ -70,7 +65,6 @@ func NewAvailabilitySetsServerTransport(srv *AvailabilitySetsServer) *Availabili
 type AvailabilitySetsServerTransport struct {
 	srv                        *AvailabilitySetsServer
 	newListPager               *tracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListResponse]]
-	newListAvailableSizesPager *tracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListAvailableSizesResponse]]
 	newListBySubscriptionPager *tracker[azfake.PagerResponder[armcompute.AvailabilitySetsClientListBySubscriptionResponse]]
 }
 
@@ -94,8 +88,6 @@ func (a *AvailabilitySetsServerTransport) Do(req *http.Request) (*http.Response,
 		resp, err = a.dispatchGet(req)
 	case "AvailabilitySetsClient.NewListPager":
 		resp, err = a.dispatchNewListPager(req)
-	case "AvailabilitySetsClient.NewListAvailableSizesPager":
-		resp, err = a.dispatchNewListAvailableSizesPager(req)
 	case "AvailabilitySetsClient.NewListBySubscriptionPager":
 		resp, err = a.dispatchNewListBySubscriptionPager(req)
 	case "AvailabilitySetsClient.Update":
@@ -247,44 +239,6 @@ func (a *AvailabilitySetsServerTransport) dispatchNewListPager(req *http.Request
 	}
 	if !server.PagerResponderMore(newListPager) {
 		a.newListPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (a *AvailabilitySetsServerTransport) dispatchNewListAvailableSizesPager(req *http.Request) (*http.Response, error) {
-	if a.srv.NewListAvailableSizesPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListAvailableSizesPager not implemented")}
-	}
-	newListAvailableSizesPager := a.newListAvailableSizesPager.get(req)
-	if newListAvailableSizesPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/availabilitySets/(?P<availabilitySetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/vmSizes`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		availabilitySetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("availabilitySetName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := a.srv.NewListAvailableSizesPager(resourceGroupNameParam, availabilitySetNameParam, nil)
-		newListAvailableSizesPager = &resp
-		a.newListAvailableSizesPager.add(req, newListAvailableSizesPager)
-	}
-	resp, err := server.PagerResponderNext(newListAvailableSizesPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		a.newListAvailableSizesPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListAvailableSizesPager) {
-		a.newListAvailableSizesPager.remove(req)
 	}
 	return resp, nil
 }

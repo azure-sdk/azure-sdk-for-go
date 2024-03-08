@@ -291,73 +291,6 @@ func (client *AvailabilitySetsClient) listHandleResponse(resp *http.Response) (A
 	return result, nil
 }
 
-// NewListAvailableSizesPager - Lists all available virtual machine sizes that can be used to create a new virtual machine
-// in an existing availability set.
-//
-// Generated from API version 2023-09-01
-//   - resourceGroupName - The name of the resource group.
-//   - availabilitySetName - The name of the availability set.
-//   - options - AvailabilitySetsClientListAvailableSizesOptions contains the optional parameters for the AvailabilitySetsClient.NewListAvailableSizesPager
-//     method.
-func (client *AvailabilitySetsClient) NewListAvailableSizesPager(resourceGroupName string, availabilitySetName string, options *AvailabilitySetsClientListAvailableSizesOptions) *runtime.Pager[AvailabilitySetsClientListAvailableSizesResponse] {
-	return runtime.NewPager(runtime.PagingHandler[AvailabilitySetsClientListAvailableSizesResponse]{
-		More: func(page AvailabilitySetsClientListAvailableSizesResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *AvailabilitySetsClientListAvailableSizesResponse) (AvailabilitySetsClientListAvailableSizesResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AvailabilitySetsClient.NewListAvailableSizesPager")
-			req, err := client.listAvailableSizesCreateRequest(ctx, resourceGroupName, availabilitySetName, options)
-			if err != nil {
-				return AvailabilitySetsClientListAvailableSizesResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return AvailabilitySetsClientListAvailableSizesResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return AvailabilitySetsClientListAvailableSizesResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listAvailableSizesHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listAvailableSizesCreateRequest creates the ListAvailableSizes request.
-func (client *AvailabilitySetsClient) listAvailableSizesCreateRequest(ctx context.Context, resourceGroupName string, availabilitySetName string, options *AvailabilitySetsClientListAvailableSizesOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/availabilitySets/{availabilitySetName}/vmSizes"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if availabilitySetName == "" {
-		return nil, errors.New("parameter availabilitySetName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{availabilitySetName}", url.PathEscape(availabilitySetName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listAvailableSizesHandleResponse handles the ListAvailableSizes response.
-func (client *AvailabilitySetsClient) listAvailableSizesHandleResponse(resp *http.Response) (AvailabilitySetsClientListAvailableSizesResponse, error) {
-	result := AvailabilitySetsClientListAvailableSizesResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineSizeListResult); err != nil {
-		return AvailabilitySetsClientListAvailableSizesResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListBySubscriptionPager - Lists all availability sets in a subscription.
 //
 // Generated from API version 2023-09-01
@@ -398,10 +331,10 @@ func (client *AvailabilitySetsClient) listBySubscriptionCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

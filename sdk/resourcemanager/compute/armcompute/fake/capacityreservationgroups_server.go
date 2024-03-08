@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -43,10 +43,6 @@ type CapacityReservationGroupsServer struct {
 	// NewListBySubscriptionPager is the fake for method CapacityReservationGroupsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armcompute.CapacityReservationGroupsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armcompute.CapacityReservationGroupsClientListBySubscriptionResponse])
-
-	// Update is the fake for method CapacityReservationGroupsClient.Update
-	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, parameters armcompute.CapacityReservationGroupUpdate, options *armcompute.CapacityReservationGroupsClientUpdateOptions) (resp azfake.Responder[armcompute.CapacityReservationGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewCapacityReservationGroupsServerTransport creates a new instance of CapacityReservationGroupsServerTransport with the provided implementation.
@@ -90,8 +86,6 @@ func (c *CapacityReservationGroupsServerTransport) Do(req *http.Request) (*http.
 		resp, err = c.dispatchNewListByResourceGroupPager(req)
 	case "CapacityReservationGroupsClient.NewListBySubscriptionPager":
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
-	case "CapacityReservationGroupsClient.Update":
-		resp, err = c.dispatchUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -308,43 +302,6 @@ func (c *CapacityReservationGroupsServerTransport) dispatchNewListBySubscription
 	}
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		c.newListBySubscriptionPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (c *CapacityReservationGroupsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if c.srv.Update == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/capacityReservationGroups/(?P<capacityReservationGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armcompute.CapacityReservationGroupUpdate](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	capacityReservationGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("capacityReservationGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := c.srv.Update(req.Context(), resourceGroupNameParam, capacityReservationGroupNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CapacityReservationGroup, req)
-	if err != nil {
-		return nil, err
 	}
 	return resp, nil
 }
