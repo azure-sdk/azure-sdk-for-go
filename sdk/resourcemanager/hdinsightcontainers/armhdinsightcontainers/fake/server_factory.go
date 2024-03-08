@@ -21,8 +21,13 @@ import (
 type ServerFactory struct {
 	AvailableClusterPoolVersionsServer AvailableClusterPoolVersionsServer
 	AvailableClusterVersionsServer     AvailableClusterVersionsServer
+	ClusterAvailableUpgradesServer     ClusterAvailableUpgradesServer
 	ClusterJobsServer                  ClusterJobsServer
+	ClusterLibrariesServer             ClusterLibrariesServer
+	ClusterPoolAvailableUpgradesServer ClusterPoolAvailableUpgradesServer
+	ClusterPoolUpgradeHistoriesServer  ClusterPoolUpgradeHistoriesServer
 	ClusterPoolsServer                 ClusterPoolsServer
+	ClusterUpgradeHistoriesServer      ClusterUpgradeHistoriesServer
 	ClustersServer                     ClustersServer
 	LocationsServer                    LocationsServer
 	OperationsServer                   OperationsServer
@@ -44,8 +49,13 @@ type ServerFactoryTransport struct {
 	trMu                                 sync.Mutex
 	trAvailableClusterPoolVersionsServer *AvailableClusterPoolVersionsServerTransport
 	trAvailableClusterVersionsServer     *AvailableClusterVersionsServerTransport
+	trClusterAvailableUpgradesServer     *ClusterAvailableUpgradesServerTransport
 	trClusterJobsServer                  *ClusterJobsServerTransport
+	trClusterLibrariesServer             *ClusterLibrariesServerTransport
+	trClusterPoolAvailableUpgradesServer *ClusterPoolAvailableUpgradesServerTransport
+	trClusterPoolUpgradeHistoriesServer  *ClusterPoolUpgradeHistoriesServerTransport
 	trClusterPoolsServer                 *ClusterPoolsServerTransport
+	trClusterUpgradeHistoriesServer      *ClusterUpgradeHistoriesServerTransport
 	trClustersServer                     *ClustersServerTransport
 	trLocationsServer                    *LocationsServerTransport
 	trOperationsServer                   *OperationsServerTransport
@@ -74,12 +84,37 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewAvailableClusterVersionsServerTransport(&s.srv.AvailableClusterVersionsServer)
 		})
 		resp, err = s.trAvailableClusterVersionsServer.Do(req)
+	case "ClusterAvailableUpgradesClient":
+		initServer(s, &s.trClusterAvailableUpgradesServer, func() *ClusterAvailableUpgradesServerTransport {
+			return NewClusterAvailableUpgradesServerTransport(&s.srv.ClusterAvailableUpgradesServer)
+		})
+		resp, err = s.trClusterAvailableUpgradesServer.Do(req)
 	case "ClusterJobsClient":
 		initServer(s, &s.trClusterJobsServer, func() *ClusterJobsServerTransport { return NewClusterJobsServerTransport(&s.srv.ClusterJobsServer) })
 		resp, err = s.trClusterJobsServer.Do(req)
+	case "ClusterLibrariesClient":
+		initServer(s, &s.trClusterLibrariesServer, func() *ClusterLibrariesServerTransport {
+			return NewClusterLibrariesServerTransport(&s.srv.ClusterLibrariesServer)
+		})
+		resp, err = s.trClusterLibrariesServer.Do(req)
+	case "ClusterPoolAvailableUpgradesClient":
+		initServer(s, &s.trClusterPoolAvailableUpgradesServer, func() *ClusterPoolAvailableUpgradesServerTransport {
+			return NewClusterPoolAvailableUpgradesServerTransport(&s.srv.ClusterPoolAvailableUpgradesServer)
+		})
+		resp, err = s.trClusterPoolAvailableUpgradesServer.Do(req)
+	case "ClusterPoolUpgradeHistoriesClient":
+		initServer(s, &s.trClusterPoolUpgradeHistoriesServer, func() *ClusterPoolUpgradeHistoriesServerTransport {
+			return NewClusterPoolUpgradeHistoriesServerTransport(&s.srv.ClusterPoolUpgradeHistoriesServer)
+		})
+		resp, err = s.trClusterPoolUpgradeHistoriesServer.Do(req)
 	case "ClusterPoolsClient":
 		initServer(s, &s.trClusterPoolsServer, func() *ClusterPoolsServerTransport { return NewClusterPoolsServerTransport(&s.srv.ClusterPoolsServer) })
 		resp, err = s.trClusterPoolsServer.Do(req)
+	case "ClusterUpgradeHistoriesClient":
+		initServer(s, &s.trClusterUpgradeHistoriesServer, func() *ClusterUpgradeHistoriesServerTransport {
+			return NewClusterUpgradeHistoriesServerTransport(&s.srv.ClusterUpgradeHistoriesServer)
+		})
+		resp, err = s.trClusterUpgradeHistoriesServer.Do(req)
 	case "ClustersClient":
 		initServer(s, &s.trClustersServer, func() *ClustersServerTransport { return NewClustersServerTransport(&s.srv.ClustersServer) })
 		resp, err = s.trClustersServer.Do(req)
