@@ -1,5 +1,14 @@
 # Release History
 
+## 6.0.0 (2024-03-08)
+### Breaking Changes
+
+- Function `NewApplicationGatewayWafDynamicManifestsClient` has been removed
+- Function `*ApplicationGatewayWafDynamicManifestsClient.NewGetPager` has been removed
+- Function `*ApplicationSecurityGroupsClient.BeginCreateOrUpdate` has been removed
+- Function `*ClientFactory.NewApplicationGatewayWafDynamicManifestsClient` has been removed
+
+
 ## 5.1.0 (2024-02-23)
 ### Features Added
 

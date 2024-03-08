@@ -23,7 +23,6 @@ type ServerFactory struct {
 	AdminRulesServer                                      AdminRulesServer
 	ApplicationGatewayPrivateEndpointConnectionsServer    ApplicationGatewayPrivateEndpointConnectionsServer
 	ApplicationGatewayPrivateLinkResourcesServer          ApplicationGatewayPrivateLinkResourcesServer
-	ApplicationGatewayWafDynamicManifestsServer           ApplicationGatewayWafDynamicManifestsServer
 	ApplicationGatewayWafDynamicManifestsDefaultServer    ApplicationGatewayWafDynamicManifestsDefaultServer
 	ApplicationGatewaysServer                             ApplicationGatewaysServer
 	ApplicationSecurityGroupsServer                       ApplicationSecurityGroupsServer
@@ -172,7 +171,6 @@ type ServerFactoryTransport struct {
 	trAdminRulesServer                                      *AdminRulesServerTransport
 	trApplicationGatewayPrivateEndpointConnectionsServer    *ApplicationGatewayPrivateEndpointConnectionsServerTransport
 	trApplicationGatewayPrivateLinkResourcesServer          *ApplicationGatewayPrivateLinkResourcesServerTransport
-	trApplicationGatewayWafDynamicManifestsServer           *ApplicationGatewayWafDynamicManifestsServerTransport
 	trApplicationGatewayWafDynamicManifestsDefaultServer    *ApplicationGatewayWafDynamicManifestsDefaultServerTransport
 	trApplicationGatewaysServer                             *ApplicationGatewaysServerTransport
 	trApplicationSecurityGroupsServer                       *ApplicationSecurityGroupsServerTransport
@@ -334,11 +332,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewApplicationGatewayPrivateLinkResourcesServerTransport(&s.srv.ApplicationGatewayPrivateLinkResourcesServer)
 		})
 		resp, err = s.trApplicationGatewayPrivateLinkResourcesServer.Do(req)
-	case "ApplicationGatewayWafDynamicManifestsClient":
-		initServer(s, &s.trApplicationGatewayWafDynamicManifestsServer, func() *ApplicationGatewayWafDynamicManifestsServerTransport {
-			return NewApplicationGatewayWafDynamicManifestsServerTransport(&s.srv.ApplicationGatewayWafDynamicManifestsServer)
-		})
-		resp, err = s.trApplicationGatewayWafDynamicManifestsServer.Do(req)
 	case "ApplicationGatewayWafDynamicManifestsDefaultClient":
 		initServer(s, &s.trApplicationGatewayWafDynamicManifestsDefaultServer, func() *ApplicationGatewayWafDynamicManifestsDefaultServerTransport {
 			return NewApplicationGatewayWafDynamicManifestsDefaultServerTransport(&s.srv.ApplicationGatewayWafDynamicManifestsDefaultServer)

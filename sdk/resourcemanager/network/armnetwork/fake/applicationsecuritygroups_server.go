@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,10 +24,6 @@ import (
 
 // ApplicationSecurityGroupsServer is a fake server for instances of the armnetwork.ApplicationSecurityGroupsClient type.
 type ApplicationSecurityGroupsServer struct {
-	// BeginCreateOrUpdate is the fake for method ApplicationSecurityGroupsClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, applicationSecurityGroupName string, parameters armnetwork.ApplicationSecurityGroup, options *armnetwork.ApplicationSecurityGroupsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
 	// BeginDelete is the fake for method ApplicationSecurityGroupsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, applicationSecurityGroupName string, options *armnetwork.ApplicationSecurityGroupsClientBeginDeleteOptions) (resp azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientDeleteResponse], errResp azfake.ErrorResponder)
@@ -54,22 +50,20 @@ type ApplicationSecurityGroupsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewApplicationSecurityGroupsServerTransport(srv *ApplicationSecurityGroupsServer) *ApplicationSecurityGroupsServerTransport {
 	return &ApplicationSecurityGroupsServerTransport{
-		srv:                 srv,
-		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientCreateOrUpdateResponse]](),
-		beginDelete:         newTracker[azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientDeleteResponse]](),
-		newListPager:        newTracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListResponse]](),
-		newListAllPager:     newTracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListAllResponse]](),
+		srv:             srv,
+		beginDelete:     newTracker[azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientDeleteResponse]](),
+		newListPager:    newTracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListResponse]](),
+		newListAllPager: newTracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListAllResponse]](),
 	}
 }
 
 // ApplicationSecurityGroupsServerTransport connects instances of armnetwork.ApplicationSecurityGroupsClient to instances of ApplicationSecurityGroupsServer.
 // Don't use this type directly, use NewApplicationSecurityGroupsServerTransport instead.
 type ApplicationSecurityGroupsServerTransport struct {
-	srv                 *ApplicationSecurityGroupsServer
-	beginCreateOrUpdate *tracker[azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientCreateOrUpdateResponse]]
-	beginDelete         *tracker[azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientDeleteResponse]]
-	newListPager        *tracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListResponse]]
-	newListAllPager     *tracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListAllResponse]]
+	srv             *ApplicationSecurityGroupsServer
+	beginDelete     *tracker[azfake.PollerResponder[armnetwork.ApplicationSecurityGroupsClientDeleteResponse]]
+	newListPager    *tracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListResponse]]
+	newListAllPager *tracker[azfake.PagerResponder[armnetwork.ApplicationSecurityGroupsClientListAllResponse]]
 }
 
 // Do implements the policy.Transporter interface for ApplicationSecurityGroupsServerTransport.
@@ -84,8 +78,6 @@ func (a *ApplicationSecurityGroupsServerTransport) Do(req *http.Request) (*http.
 	var err error
 
 	switch method {
-	case "ApplicationSecurityGroupsClient.BeginCreateOrUpdate":
-		resp, err = a.dispatchBeginCreateOrUpdate(req)
 	case "ApplicationSecurityGroupsClient.BeginDelete":
 		resp, err = a.dispatchBeginDelete(req)
 	case "ApplicationSecurityGroupsClient.Get":
@@ -102,54 +94,6 @@ func (a *ApplicationSecurityGroupsServerTransport) Do(req *http.Request) (*http.
 
 	if err != nil {
 		return nil, err
-	}
-
-	return resp, nil
-}
-
-func (a *ApplicationSecurityGroupsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if a.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
-	}
-	beginCreateOrUpdate := a.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/applicationSecurityGroups/(?P<applicationSecurityGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armnetwork.ApplicationSecurityGroup](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		applicationSecurityGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("applicationSecurityGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := a.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, applicationSecurityGroupNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginCreateOrUpdate = &respr
-		a.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		a.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		a.beginCreateOrUpdate.remove(req)
 	}
 
 	return resp, nil

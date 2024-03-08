@@ -105,12 +105,6 @@ type ApplicationGatewayPrivateLinkResourcesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ApplicationGatewayWafDynamicManifestsClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsClient.NewGetPager
-// method.
-type ApplicationGatewayWafDynamicManifestsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsDefaultClient.Get
 // method.
 type ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions struct {
@@ -227,13 +221,6 @@ type ApplicationGatewaysClientListOptions struct {
 // method.
 type ApplicationGatewaysClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
-}
-
-// ApplicationSecurityGroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the ApplicationSecurityGroupsClient.BeginCreateOrUpdate
-// method.
-type ApplicationSecurityGroupsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
 }
 
 // ApplicationSecurityGroupsClientBeginDeleteOptions contains the optional parameters for the ApplicationSecurityGroupsClient.BeginDelete

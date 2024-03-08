@@ -69,14 +69,6 @@ func (c *ClientFactory) NewApplicationGatewayPrivateLinkResourcesClient() *Appli
 	}
 }
 
-// NewApplicationGatewayWafDynamicManifestsClient creates a new instance of ApplicationGatewayWafDynamicManifestsClient.
-func (c *ClientFactory) NewApplicationGatewayWafDynamicManifestsClient() *ApplicationGatewayWafDynamicManifestsClient {
-	return &ApplicationGatewayWafDynamicManifestsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewApplicationGatewayWafDynamicManifestsDefaultClient creates a new instance of ApplicationGatewayWafDynamicManifestsDefaultClient.
 func (c *ClientFactory) NewApplicationGatewayWafDynamicManifestsDefaultClient() *ApplicationGatewayWafDynamicManifestsDefaultClient {
 	return &ApplicationGatewayWafDynamicManifestsDefaultClient{

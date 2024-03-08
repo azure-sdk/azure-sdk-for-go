@@ -107,12 +107,6 @@ type ApplicationGatewayPrivateLinkResourcesClientListResponse struct {
 	ApplicationGatewayPrivateLinkResourceListResult
 }
 
-// ApplicationGatewayWafDynamicManifestsClientGetResponse contains the response from method ApplicationGatewayWafDynamicManifestsClient.NewGetPager.
-type ApplicationGatewayWafDynamicManifestsClientGetResponse struct {
-	// Response for ApplicationGatewayWafDynamicManifests API service call.
-	ApplicationGatewayWafDynamicManifestResultList
-}
-
 // ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse contains the response from method ApplicationGatewayWafDynamicManifestsDefaultClient.Get.
 type ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse struct {
 	// Response for ApplicationGatewayWafDynamicManifest API service call.
@@ -216,12 +210,6 @@ type ApplicationGatewaysClientStopResponse struct {
 type ApplicationGatewaysClientUpdateTagsResponse struct {
 	// Application gateway resource.
 	ApplicationGateway
-}
-
-// ApplicationSecurityGroupsClientCreateOrUpdateResponse contains the response from method ApplicationSecurityGroupsClient.BeginCreateOrUpdate.
-type ApplicationSecurityGroupsClientCreateOrUpdateResponse struct {
-	// An application security group in a resource group.
-	ApplicationSecurityGroup
 }
 
 // ApplicationSecurityGroupsClientDeleteResponse contains the response from method ApplicationSecurityGroupsClient.BeginDelete.
