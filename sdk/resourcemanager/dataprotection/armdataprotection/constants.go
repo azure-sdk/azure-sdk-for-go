@@ -10,7 +10,7 @@ package armdataprotection
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/dataprotection/armdataprotection"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v3.1.0"
 )
 
 type AbsoluteMarker string
