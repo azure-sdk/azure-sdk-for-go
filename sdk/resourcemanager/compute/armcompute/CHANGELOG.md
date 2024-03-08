@@ -1,5 +1,21 @@
 # Release History
 
+## 6.0.0 (2024-03-08)
+### Breaking Changes
+
+- Enum `CapacityReservationInstanceViewTypes` has been removed
+- Function `*CapacityReservationsClient.Get` has been removed
+- Function `*ClientFactory.NewVirtualMachineSizesClient` has been removed
+- Function `*DedicatedHostsClient.NewListAvailableSizesPager` has been removed
+- Function `*ImagesClient.NewListPager` has been removed
+- Function `NewVirtualMachineSizesClient` has been removed
+- Function `*VirtualMachineSizesClient.NewListPager` has been removed
+
+### Features Added
+
+- New field `VirtualMachineID` in struct `GalleryArtifactVersionFullSource`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 

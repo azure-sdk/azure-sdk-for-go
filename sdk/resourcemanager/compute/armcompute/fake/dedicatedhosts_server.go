@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -35,10 +35,6 @@ type DedicatedHostsServer struct {
 	// Get is the fake for method DedicatedHostsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, hostGroupName string, hostName string, options *armcompute.DedicatedHostsClientGetOptions) (resp azfake.Responder[armcompute.DedicatedHostsClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListAvailableSizesPager is the fake for method DedicatedHostsClient.NewListAvailableSizesPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListAvailableSizesPager func(resourceGroupName string, hostGroupName string, hostName string, options *armcompute.DedicatedHostsClientListAvailableSizesOptions) (resp azfake.PagerResponder[armcompute.DedicatedHostsClientListAvailableSizesResponse])
 
 	// NewListByHostGroupPager is the fake for method DedicatedHostsClient.NewListByHostGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -62,28 +58,26 @@ type DedicatedHostsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewDedicatedHostsServerTransport(srv *DedicatedHostsServer) *DedicatedHostsServerTransport {
 	return &DedicatedHostsServerTransport{
-		srv:                        srv,
-		beginCreateOrUpdate:        newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientCreateOrUpdateResponse]](),
-		beginDelete:                newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientDeleteResponse]](),
-		newListAvailableSizesPager: newTracker[azfake.PagerResponder[armcompute.DedicatedHostsClientListAvailableSizesResponse]](),
-		newListByHostGroupPager:    newTracker[azfake.PagerResponder[armcompute.DedicatedHostsClientListByHostGroupResponse]](),
-		beginRedeploy:              newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRedeployResponse]](),
-		beginRestart:               newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRestartResponse]](),
-		beginUpdate:                newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientUpdateResponse]](),
+		srv:                     srv,
+		beginCreateOrUpdate:     newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientCreateOrUpdateResponse]](),
+		beginDelete:             newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientDeleteResponse]](),
+		newListByHostGroupPager: newTracker[azfake.PagerResponder[armcompute.DedicatedHostsClientListByHostGroupResponse]](),
+		beginRedeploy:           newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRedeployResponse]](),
+		beginRestart:            newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRestartResponse]](),
+		beginUpdate:             newTracker[azfake.PollerResponder[armcompute.DedicatedHostsClientUpdateResponse]](),
 	}
 }
 
 // DedicatedHostsServerTransport connects instances of armcompute.DedicatedHostsClient to instances of DedicatedHostsServer.
 // Don't use this type directly, use NewDedicatedHostsServerTransport instead.
 type DedicatedHostsServerTransport struct {
-	srv                        *DedicatedHostsServer
-	beginCreateOrUpdate        *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientCreateOrUpdateResponse]]
-	beginDelete                *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientDeleteResponse]]
-	newListAvailableSizesPager *tracker[azfake.PagerResponder[armcompute.DedicatedHostsClientListAvailableSizesResponse]]
-	newListByHostGroupPager    *tracker[azfake.PagerResponder[armcompute.DedicatedHostsClientListByHostGroupResponse]]
-	beginRedeploy              *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRedeployResponse]]
-	beginRestart               *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRestartResponse]]
-	beginUpdate                *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientUpdateResponse]]
+	srv                     *DedicatedHostsServer
+	beginCreateOrUpdate     *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientCreateOrUpdateResponse]]
+	beginDelete             *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientDeleteResponse]]
+	newListByHostGroupPager *tracker[azfake.PagerResponder[armcompute.DedicatedHostsClientListByHostGroupResponse]]
+	beginRedeploy           *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRedeployResponse]]
+	beginRestart            *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientRestartResponse]]
+	beginUpdate             *tracker[azfake.PollerResponder[armcompute.DedicatedHostsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for DedicatedHostsServerTransport.
@@ -104,8 +98,6 @@ func (d *DedicatedHostsServerTransport) Do(req *http.Request) (*http.Response, e
 		resp, err = d.dispatchBeginDelete(req)
 	case "DedicatedHostsClient.Get":
 		resp, err = d.dispatchGet(req)
-	case "DedicatedHostsClient.NewListAvailableSizesPager":
-		resp, err = d.dispatchNewListAvailableSizesPager(req)
 	case "DedicatedHostsClient.NewListByHostGroupPager":
 		resp, err = d.dispatchNewListByHostGroupPager(req)
 	case "DedicatedHostsClient.BeginRedeploy":
@@ -270,48 +262,6 @@ func (d *DedicatedHostsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DedicatedHost, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (d *DedicatedHostsServerTransport) dispatchNewListAvailableSizesPager(req *http.Request) (*http.Response, error) {
-	if d.srv.NewListAvailableSizesPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListAvailableSizesPager not implemented")}
-	}
-	newListAvailableSizesPager := d.newListAvailableSizesPager.get(req)
-	if newListAvailableSizesPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/hostGroups/(?P<hostGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/hosts/(?P<hostName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/hostSizes`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		hostGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("hostGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		hostNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("hostName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := d.srv.NewListAvailableSizesPager(resourceGroupNameParam, hostGroupNameParam, hostNameParam, nil)
-		newListAvailableSizesPager = &resp
-		d.newListAvailableSizesPager.add(req, newListAvailableSizesPager)
-	}
-	resp, err := server.PagerResponderNext(newListAvailableSizesPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		d.newListAvailableSizesPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListAvailableSizesPager) {
-		d.newListAvailableSizesPager.remove(req)
 	}
 	return resp, nil
 }
