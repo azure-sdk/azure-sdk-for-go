@@ -1080,7 +1080,9 @@ func (c CertificateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "subjectName", c.SubjectName)
 	populate(objectMap, "thumbprint", c.Thumbprint)
 	populate(objectMap, "valid", c.Valid)
-	populateByteArray(objectMap, "value", c.Value, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "value", c.Value, func() any {
+		return runtime.EncodeByteArray(c.Value, runtime.Base64StdFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -1124,7 +1126,9 @@ func (c *CertificateProperties) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "Valid", &c.Valid)
 			delete(rawMsg, key)
 		case "value":
-			err = runtime.DecodeByteArray(string(val), &c.Value, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.Value, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2200,7 +2204,9 @@ func (c *CustomDomain) UnmarshalJSON(data []byte) error {
 func (c CustomDomainConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "certificatePassword", c.CertificatePassword)
-	populateByteArray(objectMap, "certificateValue", c.CertificateValue, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "certificateValue", c.CertificateValue, func() any {
+		return runtime.EncodeByteArray(c.CertificateValue, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "customDomainVerificationId", c.CustomDomainVerificationID)
 	populate(objectMap, "dnsSuffix", c.DNSSuffix)
 	populateDateTimeRFC3339(objectMap, "expirationDate", c.ExpirationDate)
@@ -2222,7 +2228,9 @@ func (c *CustomDomainConfiguration) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "CertificatePassword", &c.CertificatePassword)
 			delete(rawMsg, key)
 		case "certificateValue":
-			err = runtime.DecodeByteArray(string(val), &c.CertificateValue, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.CertificateValue, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "customDomainVerificationId":
 			err = unpopulate(val, "CustomDomainVerificationID", &c.CustomDomainVerificationID)
@@ -4379,12 +4387,9 @@ func (j *JobConfigurationScheduleTriggerConfig) UnmarshalJSON(data []byte) error
 // MarshalJSON implements the json.Marshaller interface for type JobExecution.
 func (j JobExecution) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateDateTimeRFC3339(objectMap, "endTime", j.EndTime)
 	populate(objectMap, "id", j.ID)
 	populate(objectMap, "name", j.Name)
-	populateDateTimeRFC3339(objectMap, "startTime", j.StartTime)
-	populate(objectMap, "status", j.Status)
-	populate(objectMap, "template", j.Template)
+	populate(objectMap, "properties", j.Properties)
 	populate(objectMap, "type", j.Type)
 	return json.Marshal(objectMap)
 }
@@ -4398,23 +4403,14 @@ func (j *JobExecution) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "endTime":
-			err = unpopulateDateTimeRFC3339(val, "EndTime", &j.EndTime)
-			delete(rawMsg, key)
 		case "id":
 			err = unpopulate(val, "ID", &j.ID)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &j.Name)
 			delete(rawMsg, key)
-		case "startTime":
-			err = unpopulateDateTimeRFC3339(val, "StartTime", &j.StartTime)
-			delete(rawMsg, key)
-		case "status":
-			err = unpopulate(val, "Status", &j.Status)
-			delete(rawMsg, key)
-		case "template":
-			err = unpopulate(val, "Template", &j.Template)
+		case "properties":
+			err = unpopulate(val, "Properties", &j.Properties)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &j.Type)
@@ -4523,6 +4519,45 @@ func (j *JobExecutionNamesCollection) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "value":
 			err = unpopulate(val, "Value", &j.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", j, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type JobExecutionProperties.
+func (j JobExecutionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "endTime", j.EndTime)
+	populateDateTimeRFC3339(objectMap, "startTime", j.StartTime)
+	populate(objectMap, "status", j.Status)
+	populate(objectMap, "template", j.Template)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type JobExecutionProperties.
+func (j *JobExecutionProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", j, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "endTime":
+			err = unpopulateDateTimeRFC3339(val, "EndTime", &j.EndTime)
+			delete(rawMsg, key)
+		case "startTime":
+			err = unpopulateDateTimeRFC3339(val, "StartTime", &j.StartTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &j.Status)
+			delete(rawMsg, key)
+		case "template":
+			err = unpopulate(val, "Template", &j.Template)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -5270,6 +5305,7 @@ func (m ManagedEnvironmentProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "infrastructureResourceGroup", m.InfrastructureResourceGroup)
 	populate(objectMap, "kedaConfiguration", m.KedaConfiguration)
 	populate(objectMap, "peerAuthentication", m.PeerAuthentication)
+	populate(objectMap, "peerTrafficConfiguration", m.PeerTrafficConfiguration)
 	populate(objectMap, "provisioningState", m.ProvisioningState)
 	populate(objectMap, "staticIp", m.StaticIP)
 	populate(objectMap, "vnetConfiguration", m.VnetConfiguration)
@@ -5320,6 +5356,9 @@ func (m *ManagedEnvironmentProperties) UnmarshalJSON(data []byte) error {
 		case "peerAuthentication":
 			err = unpopulate(val, "PeerAuthentication", &m.PeerAuthentication)
 			delete(rawMsg, key)
+		case "peerTrafficConfiguration":
+			err = unpopulate(val, "PeerTrafficConfiguration", &m.PeerTrafficConfiguration)
+			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &m.ProvisioningState)
 			delete(rawMsg, key)
@@ -5361,6 +5400,60 @@ func (m *ManagedEnvironmentPropertiesPeerAuthentication) UnmarshalJSON(data []by
 		switch key {
 		case "mtls":
 			err = unpopulate(val, "Mtls", &m.Mtls)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedEnvironmentPropertiesPeerTrafficConfiguration.
+func (m ManagedEnvironmentPropertiesPeerTrafficConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "encryption", m.Encryption)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagedEnvironmentPropertiesPeerTrafficConfiguration.
+func (m *ManagedEnvironmentPropertiesPeerTrafficConfiguration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "encryption":
+			err = unpopulate(val, "Encryption", &m.Encryption)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption.
+func (m ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", m.Enabled)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption.
+func (m *ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &m.Enabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -7287,18 +7380,18 @@ func populateAny(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

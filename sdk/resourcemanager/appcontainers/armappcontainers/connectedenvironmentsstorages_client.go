@@ -46,7 +46,7 @@ func NewConnectedEnvironmentsStoragesClient(subscriptionID string, credential az
 // CreateOrUpdate - Create or update storage for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - storageName - Name of the storage.
@@ -99,7 +99,7 @@ func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, storageEnvelope); err != nil {
@@ -120,7 +120,7 @@ func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateHandleResponse(
 // Delete - Delete storage for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - storageName - Name of the storage.
@@ -171,7 +171,7 @@ func (client *ConnectedEnvironmentsStoragesClient) deleteCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *ConnectedEnvironmentsStoragesClient) deleteCreateRequest(ctx conte
 // Get - Get storage for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - storageName - Name of the storage.
@@ -232,7 +232,7 @@ func (client *ConnectedEnvironmentsStoragesClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +250,7 @@ func (client *ConnectedEnvironmentsStoragesClient) getHandleResponse(resp *http.
 // List - Get all storages for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - options - ConnectedEnvironmentsStoragesClientListOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.List
@@ -297,7 +297,7 @@ func (client *ConnectedEnvironmentsStoragesClient) listCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

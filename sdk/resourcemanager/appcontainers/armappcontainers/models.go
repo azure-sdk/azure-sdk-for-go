@@ -1736,26 +1736,17 @@ type JobConfigurationScheduleTriggerConfig struct {
 
 // JobExecution - Container Apps Job execution.
 type JobExecution struct {
-	// Job execution end time.
-	EndTime *time.Time
-
 	// Job execution Id.
 	ID *string
 
 	// Job execution Name.
 	Name *string
 
-	// Job execution start time.
-	StartTime *time.Time
+	// Container Apps Job execution specific properties.
+	Properties *JobExecutionProperties
 
-	// Job's execution container.
-	Template *JobExecutionTemplate
-
-	// Job Type.
+	// Job execution type
 	Type *string
-
-	// READ-ONLY; Current running State of the job
-	Status *JobExecutionRunningState
 }
 
 // JobExecutionBase - Container App's Job execution name.
@@ -1792,6 +1783,21 @@ type JobExecutionContainer struct {
 type JobExecutionNamesCollection struct {
 	// REQUIRED; Collection of resources.
 	Value []*JobExecutionBase
+}
+
+// JobExecutionProperties - Container Apps Job execution specific properties.
+type JobExecutionProperties struct {
+	// Job execution end time.
+	EndTime *time.Time
+
+	// Job execution start time.
+	StartTime *time.Time
+
+	// Job's execution container.
+	Template *JobExecutionTemplate
+
+	// READ-ONLY; Current running State of the job
+	Status *JobExecutionRunningState
 }
 
 // JobExecutionTemplate - Job's execution template, containing container configuration for a job's execution
@@ -2082,6 +2088,9 @@ type ManagedEnvironmentProperties struct {
 	// Peer authentication settings for the Managed Environment
 	PeerAuthentication *ManagedEnvironmentPropertiesPeerAuthentication
 
+	// Peer traffic settings for the Managed Environment
+	PeerTrafficConfiguration *ManagedEnvironmentPropertiesPeerTrafficConfiguration
+
 	// Vnet configuration for the environment
 	VnetConfiguration *VnetConfiguration
 
@@ -2111,6 +2120,18 @@ type ManagedEnvironmentProperties struct {
 type ManagedEnvironmentPropertiesPeerAuthentication struct {
 	// Mutual TLS authentication settings for the Managed Environment
 	Mtls *Mtls
+}
+
+// ManagedEnvironmentPropertiesPeerTrafficConfiguration - Peer traffic settings for the Managed Environment
+type ManagedEnvironmentPropertiesPeerTrafficConfiguration struct {
+	// Peer traffic encryption settings for the Managed Environment
+	Encryption *ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption
+}
+
+// ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption - Peer traffic encryption settings for the Managed Environment
+type ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption struct {
+	// Boolean indicating whether the peer traffic encryption is enabled
+	Enabled *bool
 }
 
 // ManagedEnvironmentStorage - Storage resource for managedEnvironment.
