@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2024-03-08)
+### Breaking Changes
+
+- Function `*LinkerClient.NewListPager` has been removed
+
+### Features Added
+
+- New value `ClientTypeKafkaSpringBoot` added to enum type `ClientType`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

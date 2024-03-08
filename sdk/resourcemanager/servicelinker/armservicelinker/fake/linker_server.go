@@ -15,8 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -35,10 +34,6 @@ type LinkerServer struct {
 	// Get is the fake for method LinkerClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceURI string, linkerName string, options *armservicelinker.LinkerClientGetOptions) (resp azfake.Responder[armservicelinker.LinkerClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method LinkerClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceURI string, options *armservicelinker.LinkerClientListOptions) (resp azfake.PagerResponder[armservicelinker.LinkerClientListResponse])
 
 	// ListConfigurations is the fake for method LinkerClient.ListConfigurations
 	// HTTP status codes to indicate success: http.StatusOK
@@ -61,7 +56,6 @@ func NewLinkerServerTransport(srv *LinkerServer) *LinkerServerTransport {
 		srv:                 srv,
 		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armservicelinker.LinkerClientCreateOrUpdateResponse]](),
 		beginDelete:         newTracker[azfake.PollerResponder[armservicelinker.LinkerClientDeleteResponse]](),
-		newListPager:        newTracker[azfake.PagerResponder[armservicelinker.LinkerClientListResponse]](),
 		beginUpdate:         newTracker[azfake.PollerResponder[armservicelinker.LinkerClientUpdateResponse]](),
 		beginValidate:       newTracker[azfake.PollerResponder[armservicelinker.LinkerClientValidateResponse]](),
 	}
@@ -73,7 +67,6 @@ type LinkerServerTransport struct {
 	srv                 *LinkerServer
 	beginCreateOrUpdate *tracker[azfake.PollerResponder[armservicelinker.LinkerClientCreateOrUpdateResponse]]
 	beginDelete         *tracker[azfake.PollerResponder[armservicelinker.LinkerClientDeleteResponse]]
-	newListPager        *tracker[azfake.PagerResponder[armservicelinker.LinkerClientListResponse]]
 	beginUpdate         *tracker[azfake.PollerResponder[armservicelinker.LinkerClientUpdateResponse]]
 	beginValidate       *tracker[azfake.PollerResponder[armservicelinker.LinkerClientValidateResponse]]
 }
@@ -96,8 +89,6 @@ func (l *LinkerServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = l.dispatchBeginDelete(req)
 	case "LinkerClient.Get":
 		resp, err = l.dispatchGet(req)
-	case "LinkerClient.NewListPager":
-		resp, err = l.dispatchNewListPager(req)
 	case "LinkerClient.ListConfigurations":
 		resp, err = l.dispatchListConfigurations(req)
 	case "LinkerClient.BeginUpdate":
@@ -236,43 +227,6 @@ func (l *LinkerServerTransport) dispatchGet(req *http.Request) (*http.Response, 
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).LinkerResource, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (l *LinkerServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if l.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := l.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/(?P<resourceUri>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ServiceLinker/linkers`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceURIParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceUri")])
-		if err != nil {
-			return nil, err
-		}
-		resp := l.srv.NewListPager(resourceURIParam, nil)
-		newListPager = &resp
-		l.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armservicelinker.LinkerClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		l.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		l.newListPager.remove(req)
 	}
 	return resp, nil
 }

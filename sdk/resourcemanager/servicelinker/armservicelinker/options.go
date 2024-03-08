@@ -42,11 +42,6 @@ type LinkerClientListConfigurationsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LinkerClientListOptions contains the optional parameters for the LinkerClient.NewListPager method.
-type LinkerClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
