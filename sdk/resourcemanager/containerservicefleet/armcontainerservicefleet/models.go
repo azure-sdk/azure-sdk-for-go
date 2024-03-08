@@ -10,6 +10,22 @@ package armcontainerservicefleet
 
 import "time"
 
+// APIServerAccessProfile - Access profile for the Fleet hub API server.
+type APIServerAccessProfile struct {
+	// Whether to create the Fleet hub as a private cluster or not.
+	EnablePrivateCluster *bool
+}
+
+// AgentProfile - Agent profile for the Fleet hub.
+type AgentProfile struct {
+	// The ID of the subnet which the Fleet hub node will join on startup. If this is not specified, a vnet and subnet will be
+	// generated and used.
+	SubnetID *string
+
+	// The virtual machine size of the Fleet hub.
+	VMSize *string
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -85,12 +101,33 @@ type FleetCredentialResults struct {
 	Kubeconfigs []*FleetCredentialResult
 }
 
+// FleetHubProfile - The FleetHubProfile configures the fleet hub.
+type FleetHubProfile struct {
+	// The access profile for the Fleet hub API server.
+	APIServerAccessProfile *APIServerAccessProfile
+
+	// The agent profile for the Fleet hub.
+	AgentProfile *AgentProfile
+
+	// DNS prefix used to create the FQDN for the Fleet hub.
+	DNSPrefix *string
+
+	// READ-ONLY; The FQDN of the Fleet hub.
+	Fqdn *string
+
+	// READ-ONLY; The Kubernetes version of the Fleet hub.
+	KubernetesVersion *string
+
+	// READ-ONLY; The Azure Portal FQDN of the Fleet hub.
+	PortalFqdn *string
+}
+
 // FleetListResult - The response of a Fleet list operation.
 type FleetListResult struct {
 	// REQUIRED; The Fleet items on this page
 	Value []*Fleet
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -123,7 +160,7 @@ type FleetMemberListResult struct {
 	// REQUIRED; The FleetMember items on this page
 	Value []*FleetMember
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -163,6 +200,9 @@ type FleetPatch struct {
 
 // FleetProperties - Fleet properties.
 type FleetProperties struct {
+	// The FleetHubProfile configures the Fleet's hub.
+	HubProfile *FleetHubProfile
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *FleetProvisioningState
 }
@@ -196,7 +236,7 @@ type FleetUpdateStrategyListResult struct {
 	// REQUIRED; The FleetUpdateStrategy items on this page
 	Value []*FleetUpdateStrategy
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -220,8 +260,7 @@ type ManagedClusterUpdate struct {
 
 // ManagedClusterUpgradeSpec - The upgrade to apply to a ManagedCluster.
 type ManagedClusterUpgradeSpec struct {
-	// REQUIRED; The upgrade type. Full requires the KubernetesVersion property to be set. NodeImageOnly requires the KubernetesVersion
-	// property not to be set.
+	// REQUIRED; ManagedClusterUpgradeType is the type of upgrade to be applied.
 	Type *ManagedClusterUpgradeType
 
 	// The Kubernetes version to upgrade the member clusters to.
@@ -333,6 +372,22 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
+// SkipProperties - The properties of a skip operation containing multiple skip requests.
+type SkipProperties struct {
+	// REQUIRED; The targets to skip.
+	Targets []*SkipTarget
+}
+
+// SkipTarget - The definition of a single skip request.
+type SkipTarget struct {
+	// REQUIRED; The skip target's name. To skip a member/group/stage, use the member/group/stage's name; Tp skip an after stage
+	// wait, use the parent stage's name.
+	Name *string
+
+	// REQUIRED; The skip target type.
+	Type *TargetType
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -401,7 +456,7 @@ type UpdateRunListResult struct {
 	// REQUIRED; The UpdateRun items on this page
 	Value []*UpdateRun
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
