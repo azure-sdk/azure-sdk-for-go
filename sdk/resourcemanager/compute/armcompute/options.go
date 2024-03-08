@@ -323,11 +323,6 @@ type CloudServicesUpdateDomainClientListUpdateDomainsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CommunityGalleriesClientGetOptions contains the optional parameters for the CommunityGalleriesClient.Get method.
-type CommunityGalleriesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
 // CommunityGalleryImageVersionsClientGetOptions contains the optional parameters for the CommunityGalleryImageVersionsClient.Get
 // method.
 type CommunityGalleryImageVersionsClientGetOptions struct {
@@ -991,12 +986,6 @@ type SSHPublicKeysClientUpdateOptions struct {
 // SharedGalleriesClientGetOptions contains the optional parameters for the SharedGalleriesClient.Get method.
 type SharedGalleriesClientGetOptions struct {
 	// placeholder for future optional parameters
-}
-
-// SharedGalleriesClientListOptions contains the optional parameters for the SharedGalleriesClient.NewListPager method.
-type SharedGalleriesClientListOptions struct {
-	// The query parameter to decide what shared galleries to fetch when doing listing operations.
-	SharedTo *SharedToValues
 }
 
 // SharedGalleryImageVersionsClientGetOptions contains the optional parameters for the SharedGalleryImageVersionsClient.Get

@@ -27,7 +27,6 @@ type ServerFactory struct {
 	CloudServiceRolesServer                     CloudServiceRolesServer
 	CloudServicesServer                         CloudServicesServer
 	CloudServicesUpdateDomainServer             CloudServicesUpdateDomainServer
-	CommunityGalleriesServer                    CommunityGalleriesServer
 	CommunityGalleryImageVersionsServer         CommunityGalleryImageVersionsServer
 	CommunityGalleryImagesServer                CommunityGalleryImagesServer
 	DedicatedHostGroupsServer                   DedicatedHostGroupsServer
@@ -92,7 +91,6 @@ type ServerFactoryTransport struct {
 	trCloudServiceRolesServer                     *CloudServiceRolesServerTransport
 	trCloudServicesServer                         *CloudServicesServerTransport
 	trCloudServicesUpdateDomainServer             *CloudServicesUpdateDomainServerTransport
-	trCommunityGalleriesServer                    *CommunityGalleriesServerTransport
 	trCommunityGalleryImageVersionsServer         *CommunityGalleryImageVersionsServerTransport
 	trCommunityGalleryImagesServer                *CommunityGalleryImagesServerTransport
 	trDedicatedHostGroupsServer                   *DedicatedHostGroupsServerTransport
@@ -188,11 +186,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewCloudServicesUpdateDomainServerTransport(&s.srv.CloudServicesUpdateDomainServer)
 		})
 		resp, err = s.trCloudServicesUpdateDomainServer.Do(req)
-	case "CommunityGalleriesClient":
-		initServer(s, &s.trCommunityGalleriesServer, func() *CommunityGalleriesServerTransport {
-			return NewCommunityGalleriesServerTransport(&s.srv.CommunityGalleriesServer)
-		})
-		resp, err = s.trCommunityGalleriesServer.Do(req)
 	case "CommunityGalleryImageVersionsClient":
 		initServer(s, &s.trCommunityGalleryImageVersionsServer, func() *CommunityGalleryImageVersionsServerTransport {
 			return NewCommunityGalleryImageVersionsServerTransport(&s.srv.CommunityGalleryImageVersionsServer)

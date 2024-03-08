@@ -47,7 +47,7 @@ func NewSharedGalleriesClient(subscriptionID string, credential azcore.TokenCred
 // Get - Get a shared gallery by subscription id or tenant id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-03
+// Generated from API version 2023-07-03
 //   - location - Resource location.
 //   - galleryUniqueName - The unique name of the Shared Gallery.
 //   - options - SharedGalleriesClientGetOptions contains the optional parameters for the SharedGalleriesClient.Get method.
@@ -93,7 +93,7 @@ func (client *SharedGalleriesClient) getCreateRequest(ctx context.Context, locat
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-03")
+	reqQP.Set("api-version", "2023-07-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -104,69 +104,6 @@ func (client *SharedGalleriesClient) getHandleResponse(resp *http.Response) (Sha
 	result := SharedGalleriesClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.SharedGallery); err != nil {
 		return SharedGalleriesClientGetResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListPager - List shared galleries by subscription id or tenant id.
-//
-// Generated from API version 2022-08-03
-//   - location - Resource location.
-//   - options - SharedGalleriesClientListOptions contains the optional parameters for the SharedGalleriesClient.NewListPager
-//     method.
-func (client *SharedGalleriesClient) NewListPager(location string, options *SharedGalleriesClientListOptions) *runtime.Pager[SharedGalleriesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[SharedGalleriesClientListResponse]{
-		More: func(page SharedGalleriesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *SharedGalleriesClientListResponse) (SharedGalleriesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SharedGalleriesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, location, options)
-			}, nil)
-			if err != nil {
-				return SharedGalleriesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *SharedGalleriesClient) listCreateRequest(ctx context.Context, location string, options *SharedGalleriesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/sharedGalleries"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-03")
-	if options != nil && options.SharedTo != nil {
-		reqQP.Set("sharedTo", string(*options.SharedTo))
-	}
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *SharedGalleriesClient) listHandleResponse(resp *http.Response) (SharedGalleriesClientListResponse, error) {
-	result := SharedGalleriesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SharedGalleryList); err != nil {
-		return SharedGalleriesClientListResponse{}, err
 	}
 	return result, nil
 }

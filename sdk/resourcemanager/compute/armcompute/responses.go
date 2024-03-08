@@ -304,12 +304,6 @@ type CloudServicesUpdateDomainClientWalkUpdateDomainResponse struct {
 	// placeholder for future response values
 }
 
-// CommunityGalleriesClientGetResponse contains the response from method CommunityGalleriesClient.Get.
-type CommunityGalleriesClientGetResponse struct {
-	// Specifies information about the Community Gallery that you want to create or update.
-	CommunityGallery
-}
-
 // CommunityGalleryImageVersionsClientGetResponse contains the response from method CommunityGalleryImageVersionsClient.Get.
 type CommunityGalleryImageVersionsClientGetResponse struct {
 	// Specifies information about the gallery image version that you want to create or update.
@@ -945,12 +939,6 @@ type SSHPublicKeysClientUpdateResponse struct {
 type SharedGalleriesClientGetResponse struct {
 	// Specifies information about the Shared Gallery that you want to create or update.
 	SharedGallery
-}
-
-// SharedGalleriesClientListResponse contains the response from method SharedGalleriesClient.NewListPager.
-type SharedGalleriesClientListResponse struct {
-	// The List Shared Galleries operation response.
-	SharedGalleryList
 }
 
 // SharedGalleryImageVersionsClientGetResponse contains the response from method SharedGalleryImageVersionsClient.Get.

@@ -1,5 +1,18 @@
 # Release History
 
+## 6.0.0 (2024-03-08)
+### Breaking Changes
+
+- Function `*ClientFactory.NewCommunityGalleriesClient` has been removed
+- Function `NewCommunityGalleriesClient` has been removed
+- Function `*CommunityGalleriesClient.Get` has been removed
+- Function `*SharedGalleriesClient.NewListPager` has been removed
+
+### Features Added
+
+- New field `VirtualMachineID` in struct `GalleryArtifactVersionFullSource`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 
