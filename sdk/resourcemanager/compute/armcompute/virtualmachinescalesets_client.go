@@ -261,13 +261,13 @@ func (client *VirtualMachineScaleSetsClient) createOrUpdateCreateRequest(ctx con
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfNoneMatch != nil {
 		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
 		return nil, err
 	}
@@ -348,10 +348,10 @@ func (client *VirtualMachineScaleSetsClient) deallocateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.Hibernate != nil {
 		reqQP.Set("hibernate", strconv.FormatBool(*options.Hibernate))
 	}
-	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.VMInstanceIDs != nil {
@@ -433,10 +433,10 @@ func (client *VirtualMachineScaleSetsClient) deleteCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.ForceDeletion != nil {
 		reqQP.Set("forceDeletion", strconv.FormatBool(*options.ForceDeletion))
 	}
-	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -513,10 +513,10 @@ func (client *VirtualMachineScaleSetsClient) deleteInstancesCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.ForceDeletion != nil {
 		reqQP.Set("forceDeletion", strconv.FormatBool(*options.ForceDeletion))
 	}
-	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, vmInstanceIDs); err != nil {
@@ -578,12 +578,12 @@ func (client *VirtualMachineScaleSetsClient) forceRecoveryServiceFabricPlatformU
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-09-01")
+	if options != nil && options.PlacementGroupID != nil {
+		reqQP.Set("placementGroupId", *options.PlacementGroupID)
+	}
 	reqQP.Set("platformUpdateDomain", strconv.FormatInt(int64(platformUpdateDomain), 10))
 	if options != nil && options.Zone != nil {
 		reqQP.Set("zone", *options.Zone)
-	}
-	if options != nil && options.PlacementGroupID != nil {
-		reqQP.Set("placementGroupId", *options.PlacementGroupID)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -649,10 +649,10 @@ func (client *VirtualMachineScaleSetsClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1114,95 +1114,6 @@ func (client *VirtualMachineScaleSetsClient) performMaintenanceCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.VMInstanceIDs != nil {
-		if err := runtime.MarshalAsJSON(req, *options.VMInstanceIDs); err != nil {
-			return nil, err
-		}
-		return req, nil
-	}
-	return req, nil
-}
-
-// BeginPowerOff - Power off (stop) one or more virtual machines in a VM scale set. Note that resources are still attached
-// and you are getting charged for the resources. Instead, use deallocate to release resources and
-// avoid charges.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-09-01
-//   - resourceGroupName - The name of the resource group.
-//   - vmScaleSetName - The name of the VM scale set.
-//   - options - VirtualMachineScaleSetsClientBeginPowerOffOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginPowerOff
-//     method.
-func (client *VirtualMachineScaleSetsClient) BeginPowerOff(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetsClientBeginPowerOffOptions) (*runtime.Poller[VirtualMachineScaleSetsClientPowerOffResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.powerOff(ctx, resourceGroupName, vmScaleSetName, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualMachineScaleSetsClientPowerOffResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[VirtualMachineScaleSetsClientPowerOffResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
-// PowerOff - Power off (stop) one or more virtual machines in a VM scale set. Note that resources are still attached and
-// you are getting charged for the resources. Instead, use deallocate to release resources and
-// avoid charges.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-09-01
-func (client *VirtualMachineScaleSetsClient) powerOff(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetsClientBeginPowerOffOptions) (*http.Response, error) {
-	var err error
-	const operationName = "VirtualMachineScaleSetsClient.BeginPowerOff"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.powerOffCreateRequest(ctx, resourceGroupName, vmScaleSetName, options)
-	if err != nil {
-		return nil, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return nil, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
-		err = runtime.NewResponseError(httpResp)
-		return nil, err
-	}
-	return httpResp, nil
-}
-
-// powerOffCreateRequest creates the PowerOff request.
-func (client *VirtualMachineScaleSetsClient) powerOffCreateRequest(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetsClientBeginPowerOffOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/poweroff"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if vmScaleSetName == "" {
-		return nil, errors.New("parameter vmScaleSetName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{vmScaleSetName}", url.PathEscape(vmScaleSetName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	if options != nil && options.SkipShutdown != nil {
-		reqQP.Set("skipShutdown", strconv.FormatBool(*options.SkipShutdown))
-	}
 	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -1863,13 +1774,13 @@ func (client *VirtualMachineScaleSetsClient) updateCreateRequest(ctx context.Con
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfNoneMatch != nil {
 		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
 		return nil, err
 	}

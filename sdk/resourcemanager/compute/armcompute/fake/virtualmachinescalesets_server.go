@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -86,10 +86,6 @@ type VirtualMachineScaleSetsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginPerformMaintenance func(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *armcompute.VirtualMachineScaleSetsClientBeginPerformMaintenanceOptions) (resp azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPerformMaintenanceResponse], errResp azfake.ErrorResponder)
 
-	// BeginPowerOff is the fake for method VirtualMachineScaleSetsClient.BeginPowerOff
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginPowerOff func(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *armcompute.VirtualMachineScaleSetsClientBeginPowerOffOptions) (resp azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPowerOffResponse], errResp azfake.ErrorResponder)
-
 	// BeginReapply is the fake for method VirtualMachineScaleSetsClient.BeginReapply
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginReapply func(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *armcompute.VirtualMachineScaleSetsClientBeginReapplyOptions) (resp azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientReapplyResponse], errResp azfake.ErrorResponder)
@@ -144,7 +140,6 @@ func NewVirtualMachineScaleSetsServerTransport(srv *VirtualMachineScaleSetsServe
 		newListByLocationPager:            newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse]](),
 		newListSKUsPager:                  newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListSKUsResponse]](),
 		beginPerformMaintenance:           newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPerformMaintenanceResponse]](),
-		beginPowerOff:                     newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPowerOffResponse]](),
 		beginReapply:                      newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientReapplyResponse]](),
 		beginRedeploy:                     newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientRedeployResponse]](),
 		beginReimage:                      newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientReimageResponse]](),
@@ -172,7 +167,6 @@ type VirtualMachineScaleSetsServerTransport struct {
 	newListByLocationPager            *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse]]
 	newListSKUsPager                  *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListSKUsResponse]]
 	beginPerformMaintenance           *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPerformMaintenanceResponse]]
-	beginPowerOff                     *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPowerOffResponse]]
 	beginReapply                      *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientReapplyResponse]]
 	beginRedeploy                     *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientRedeployResponse]]
 	beginReimage                      *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientReimageResponse]]
@@ -226,8 +220,6 @@ func (v *VirtualMachineScaleSetsServerTransport) Do(req *http.Request) (*http.Re
 		resp, err = v.dispatchNewListSKUsPager(req)
 	case "VirtualMachineScaleSetsClient.BeginPerformMaintenance":
 		resp, err = v.dispatchBeginPerformMaintenance(req)
-	case "VirtualMachineScaleSetsClient.BeginPowerOff":
-		resp, err = v.dispatchBeginPowerOff(req)
 	case "VirtualMachineScaleSetsClient.BeginReapply":
 		resp, err = v.dispatchBeginReapply(req)
 	case "VirtualMachineScaleSetsClient.BeginRedeploy":
@@ -972,70 +964,6 @@ func (v *VirtualMachineScaleSetsServerTransport) dispatchBeginPerformMaintenance
 	}
 	if !server.PollerResponderMore(beginPerformMaintenance) {
 		v.beginPerformMaintenance.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (v *VirtualMachineScaleSetsServerTransport) dispatchBeginPowerOff(req *http.Request) (*http.Response, error) {
-	if v.srv.BeginPowerOff == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginPowerOff not implemented")}
-	}
-	beginPowerOff := v.beginPowerOff.get(req)
-	if beginPowerOff == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/virtualMachineScaleSets/(?P<vmScaleSetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/poweroff`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		body, err := server.UnmarshalRequestAsJSON[armcompute.VirtualMachineScaleSetVMInstanceIDs](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		vmScaleSetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vmScaleSetName")])
-		if err != nil {
-			return nil, err
-		}
-		skipShutdownUnescaped, err := url.QueryUnescape(qp.Get("skipShutdown"))
-		if err != nil {
-			return nil, err
-		}
-		skipShutdownParam, err := parseOptional(skipShutdownUnescaped, strconv.ParseBool)
-		if err != nil {
-			return nil, err
-		}
-		var options *armcompute.VirtualMachineScaleSetsClientBeginPowerOffOptions
-		if skipShutdownParam != nil || !reflect.ValueOf(body).IsZero() {
-			options = &armcompute.VirtualMachineScaleSetsClientBeginPowerOffOptions{
-				SkipShutdown:  skipShutdownParam,
-				VMInstanceIDs: &body,
-			}
-		}
-		respr, errRespr := v.srv.BeginPowerOff(req.Context(), resourceGroupNameParam, vmScaleSetNameParam, options)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginPowerOff = &respr
-		v.beginPowerOff.add(req, beginPowerOff)
-	}
-
-	resp, err := server.PollerResponderNext(beginPowerOff, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		v.beginPowerOff.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginPowerOff) {
-		v.beginPowerOff.remove(req)
 	}
 
 	return resp, nil

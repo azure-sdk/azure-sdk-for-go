@@ -15,11 +15,10 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 )
 
 // VirtualMachineExtensionImagesServer is a fake server for instances of the armcompute.VirtualMachineExtensionImagesClient type.
@@ -31,10 +30,6 @@ type VirtualMachineExtensionImagesServer struct {
 	// ListTypes is the fake for method VirtualMachineExtensionImagesClient.ListTypes
 	// HTTP status codes to indicate success: http.StatusOK
 	ListTypes func(ctx context.Context, location string, publisherName string, options *armcompute.VirtualMachineExtensionImagesClientListTypesOptions) (resp azfake.Responder[armcompute.VirtualMachineExtensionImagesClientListTypesResponse], errResp azfake.ErrorResponder)
-
-	// ListVersions is the fake for method VirtualMachineExtensionImagesClient.ListVersions
-	// HTTP status codes to indicate success: http.StatusOK
-	ListVersions func(ctx context.Context, location string, publisherName string, typeParam string, options *armcompute.VirtualMachineExtensionImagesClientListVersionsOptions) (resp azfake.Responder[armcompute.VirtualMachineExtensionImagesClientListVersionsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewVirtualMachineExtensionImagesServerTransport creates a new instance of VirtualMachineExtensionImagesServerTransport with the provided implementation.
@@ -66,8 +61,6 @@ func (v *VirtualMachineExtensionImagesServerTransport) Do(req *http.Request) (*h
 		resp, err = v.dispatchGet(req)
 	case "VirtualMachineExtensionImagesClient.ListTypes":
 		resp, err = v.dispatchListTypes(req)
-	case "VirtualMachineExtensionImagesClient.ListVersions":
-		resp, err = v.dispatchListVersions(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -139,76 +132,6 @@ func (v *VirtualMachineExtensionImagesServerTransport) dispatchListTypes(req *ht
 		return nil, err
 	}
 	respr, errRespr := v.srv.ListTypes(req.Context(), locationParam, publisherNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineExtensionImageArray, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (v *VirtualMachineExtensionImagesServerTransport) dispatchListVersions(req *http.Request) (*http.Response, error) {
-	if v.srv.ListVersions == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListVersions not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifacttypes/vmextension/types/(?P<type>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versions`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	qp := req.URL.Query()
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-	if err != nil {
-		return nil, err
-	}
-	publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
-	if err != nil {
-		return nil, err
-	}
-	typeParamParam, err := url.PathUnescape(matches[regex.SubexpIndex("type")])
-	if err != nil {
-		return nil, err
-	}
-	filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
-	if err != nil {
-		return nil, err
-	}
-	filterParam := getOptional(filterUnescaped)
-	topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
-	if err != nil {
-		return nil, err
-	}
-	topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
-		p, parseErr := strconv.ParseInt(v, 10, 32)
-		if parseErr != nil {
-			return 0, parseErr
-		}
-		return int32(p), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
-	if err != nil {
-		return nil, err
-	}
-	orderbyParam := getOptional(orderbyUnescaped)
-	var options *armcompute.VirtualMachineExtensionImagesClientListVersionsOptions
-	if filterParam != nil || topParam != nil || orderbyParam != nil {
-		options = &armcompute.VirtualMachineExtensionImagesClientListVersionsOptions{
-			Filter:  filterParam,
-			Top:     topParam,
-			Orderby: orderbyParam,
-		}
-	}
-	respr, errRespr := v.srv.ListVersions(req.Context(), locationParam, publisherNameParam, typeParamParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
