@@ -49,19 +49,19 @@ func NewClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*
 // the request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-//   - resourceName - Resource name for a given resource provider. For example:
-//   - SKU name for Microsoft.Compute
-//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
 //     URI in the GET operation for the specific resource.
+//   - resourceName - Resource name for a given resource provider. For example:
+//   - SKU name for Microsoft.Compute
+//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
 //   - createQuotaRequest - Quota request payload.
 //   - options - ClientBeginCreateOrUpdateOptions contains the optional parameters for the Client.BeginCreateOrUpdate method.
-func (client *Client) BeginCreateOrUpdate(ctx context.Context, resourceName string, scope string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClientCreateOrUpdateResponse], error) {
+func (client *Client) BeginCreateOrUpdate(ctx context.Context, scope string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceName, scope, createQuotaRequest, options)
+		resp, err := client.createOrUpdate(ctx, scope, resourceName, createQuotaRequest, options)
 		if err != nil {
 			return nil, err
 		}
@@ -86,14 +86,14 @@ func (client *Client) BeginCreateOrUpdate(ctx context.Context, resourceName stri
 // the request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-func (client *Client) createOrUpdate(ctx context.Context, resourceName string, scope string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2023-06-01-preview
+func (client *Client) createOrUpdate(ctx context.Context, scope string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "Client.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceName, scope, createQuotaRequest, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, scope, resourceName, createQuotaRequest, options)
 	if err != nil {
 		return nil, err
 	}
@@ -109,19 +109,19 @@ func (client *Client) createOrUpdate(ctx context.Context, resourceName string, s
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *Client) createOrUpdateCreateRequest(ctx context.Context, resourceName string, scope string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *Client) createOrUpdateCreateRequest(ctx context.Context, scope string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Quota/quotas/{resourceName}"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if resourceName == "" {
 		return nil, errors.New("parameter resourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, createQuotaRequest); err != nil {
@@ -134,22 +134,22 @@ func (client *Client) createOrUpdateCreateRequest(ctx context.Context, resourceN
 // limit that can be submitted with a PUT request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-//   - resourceName - Resource name for a given resource provider. For example:
-//   - SKU name for Microsoft.Compute
-//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
 //     URI in the GET operation for the specific resource.
+//   - resourceName - Resource name for a given resource provider. For example:
+//   - SKU name for Microsoft.Compute
+//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
 //   - options - ClientGetOptions contains the optional parameters for the Client.Get method.
-func (client *Client) Get(ctx context.Context, resourceName string, scope string, options *ClientGetOptions) (ClientGetResponse, error) {
+func (client *Client) Get(ctx context.Context, scope string, resourceName string, options *ClientGetOptions) (ClientGetResponse, error) {
 	var err error
 	const operationName = "Client.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceName, scope, options)
+	req, err := client.getCreateRequest(ctx, scope, resourceName, options)
 	if err != nil {
 		return ClientGetResponse{}, err
 	}
@@ -166,19 +166,19 @@ func (client *Client) Get(ctx context.Context, resourceName string, scope string
 }
 
 // getCreateRequest creates the Get request.
-func (client *Client) getCreateRequest(ctx context.Context, resourceName string, scope string, options *ClientGetOptions) (*policy.Request, error) {
+func (client *Client) getCreateRequest(ctx context.Context, scope string, resourceName string, options *ClientGetOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Quota/quotas/{resourceName}"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if resourceName == "" {
 		return nil, errors.New("parameter resourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -199,7 +199,7 @@ func (client *Client) getHandleResponse(resp *http.Response) (ClientGetResponse,
 // NewListPager - Get a list of current quota limits of all resources for the specified scope. The response from this GET
 // operation can be leveraged to submit requests to update a quota.
 //
-// Generated from API version 2023-02-01
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
@@ -237,7 +237,7 @@ func (client *Client) listCreateRequest(ctx context.Context, scope string, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -263,19 +263,19 @@ func (client *Client) listHandleResponse(resp *http.Response) (ClientListRespons
 // the request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-//   - resourceName - Resource name for a given resource provider. For example:
-//   - SKU name for Microsoft.Compute
-//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
+// Generated from API version 2023-06-01-preview
 //   - scope - The target Azure resource URI. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/qms-test/providers/Microsoft.Batch/batchAccounts/testAccount/.
 //     This is the target Azure
 //     resource URI for the List GET operation. If a {resourceName} is added after /quotas, then it's the target Azure resource
 //     URI in the GET operation for the specific resource.
+//   - resourceName - Resource name for a given resource provider. For example:
+//   - SKU name for Microsoft.Compute
+//   - SKU or TotalLowPriorityCores for Microsoft.MachineLearningServices For Microsoft.Network PublicIPAddresses.
 //   - createQuotaRequest - Quota requests payload.
 //   - options - ClientBeginUpdateOptions contains the optional parameters for the Client.BeginUpdate method.
-func (client *Client) BeginUpdate(ctx context.Context, resourceName string, scope string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginUpdateOptions) (*runtime.Poller[ClientUpdateResponse], error) {
+func (client *Client) BeginUpdate(ctx context.Context, scope string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginUpdateOptions) (*runtime.Poller[ClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceName, scope, createQuotaRequest, options)
+		resp, err := client.update(ctx, scope, resourceName, createQuotaRequest, options)
 		if err != nil {
 			return nil, err
 		}
@@ -299,14 +299,14 @@ func (client *Client) BeginUpdate(ctx context.Context, resourceName string, scop
 // the request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01
-func (client *Client) update(ctx context.Context, resourceName string, scope string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginUpdateOptions) (*http.Response, error) {
+// Generated from API version 2023-06-01-preview
+func (client *Client) update(ctx context.Context, scope string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "Client.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceName, scope, createQuotaRequest, options)
+	req, err := client.updateCreateRequest(ctx, scope, resourceName, createQuotaRequest, options)
 	if err != nil {
 		return nil, err
 	}
@@ -322,19 +322,19 @@ func (client *Client) update(ctx context.Context, resourceName string, scope str
 }
 
 // updateCreateRequest creates the Update request.
-func (client *Client) updateCreateRequest(ctx context.Context, resourceName string, scope string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *Client) updateCreateRequest(ctx context.Context, scope string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *ClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Quota/quotas/{resourceName}"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if resourceName == "" {
 		return nil, errors.New("parameter resourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, createQuotaRequest); err != nil {
