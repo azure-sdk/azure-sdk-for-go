@@ -1,4 +1,5 @@
-// +build go1.13
+//go:build go1.18
+// +build go1.18
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
@@ -6,105 +7,167 @@
 package azcore
 
 import (
-	"context"
-	"io"
-	"net/http"
+	"reflect"
+	"sync"
+
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/exported"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/internal/shared"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/tracing"
 )
 
-// Policy represents an extensibility point for the Pipeline that can mutate the specified
-// Request and react to the received Response.
-type Policy interface {
-	// Do applies the policy to the specified Request.  When implementing a Policy, mutate the
-	// request before calling req.Do() to move on to the next policy, and respond to the result
-	// before returning to the caller.
-	Do(ctx context.Context, req *Request) (*Response, error)
+// AccessToken represents an Azure service bearer access token with expiry information.
+type AccessToken = exported.AccessToken
+
+// TokenCredential represents a credential capable of providing an OAuth token.
+type TokenCredential = exported.TokenCredential
+
+// KeyCredential contains an authentication key used to authenticate to an Azure service.
+type KeyCredential = exported.KeyCredential
+
+// NewKeyCredential creates a new instance of [KeyCredential] with the specified values.
+//   - key is the authentication key
+func NewKeyCredential(key string) *KeyCredential {
+	return exported.NewKeyCredential(key)
 }
 
-// PolicyFunc is a type that implements the Policy interface.
-// Use this type when implementing a stateless policy as a first-class function.
-type PolicyFunc func(context.Context, *Request) (*Response, error)
+// SASCredential contains a shared access signature used to authenticate to an Azure service.
+type SASCredential = exported.SASCredential
 
-// Do implements the Policy interface on PolicyFunc.
-func (pf PolicyFunc) Do(ctx context.Context, req *Request) (*Response, error) {
-	return pf(ctx, req)
+// NewSASCredential creates a new instance of [SASCredential] with the specified values.
+//   - sas is the shared access signature
+func NewSASCredential(sas string) *SASCredential {
+	return exported.NewSASCredential(sas)
 }
 
-// Transport represents an HTTP pipeline transport used to send HTTP requests and receive responses.
-type Transport interface {
-	// Do sends the HTTP request and returns the HTTP response or error.
-	Do(ctx context.Context, req *http.Request) (*http.Response, error)
-}
+// holds sentinel values used to send nulls
+var nullables map[reflect.Type]any = map[reflect.Type]any{}
+var nullablesMu sync.RWMutex
 
-// TransportFunc is a type that implements the Transport interface.
-// Use this type when implementing a stateless transport as a first-class function.
-type TransportFunc func(context.Context, *http.Request) (*http.Response, error)
+// NullValue is used to send an explicit 'null' within a request.
+// This is typically used in JSON-MERGE-PATCH operations to delete a value.
+func NullValue[T any]() T {
+	t := shared.TypeOfT[T]()
 
-// Do implements the Transport interface on TransportFunc.
-func (tf TransportFunc) Do(ctx context.Context, req *http.Request) (*http.Response, error) {
-	return tf(ctx, req)
-}
+	nullablesMu.RLock()
+	v, found := nullables[t]
+	nullablesMu.RUnlock()
 
-// used to adapt a TransportPolicy to a Policy
-type transportPolicy struct {
-	trans Transport
-}
-
-func (tp transportPolicy) Do(ctx context.Context, req *Request) (*Response, error) {
-	resp, err := tp.trans.Do(ctx, req.Request)
-	if err != nil {
-		return nil, err
+	if found {
+		// return the sentinel object
+		return v.(T)
 	}
-	return &Response{Response: resp}, nil
-}
 
-// Pipeline represents a primitive for sending HTTP requests and receiving responses.
-// Its behavior can be extended by specifying policies during construction.
-type Pipeline struct {
-	policies []Policy
-}
+	// promote to exclusive lock and check again (double-checked locking pattern)
+	nullablesMu.Lock()
+	defer nullablesMu.Unlock()
+	v, found = nullables[t]
 
-// NewPipeline creates a new goroutine-safe Pipeline object from the specified Policies.
-// If no transport is provided then the default HTTP transport will be used.
-func NewPipeline(transport Transport, policies ...Policy) Pipeline {
-	if transport == nil {
-		transport = DefaultHTTPClientTransport()
+	if !found {
+		var o reflect.Value
+		if k := t.Kind(); k == reflect.Map {
+			o = reflect.MakeMap(t)
+		} else if k == reflect.Slice {
+			// empty slices appear to all point to the same data block
+			// which causes comparisons to become ambiguous.  so we create
+			// a slice with len/cap of one which ensures a unique address.
+			o = reflect.MakeSlice(t, 1, 1)
+		} else {
+			o = reflect.New(t.Elem())
+		}
+		v = o.Interface()
+		nullables[t] = v
 	}
-	// transport policy must always be the last in the slice
-	policies = append(policies, newBodyDownloadPolicy(), transportPolicy{trans: transport})
-	return Pipeline{
-		policies: policies,
+	// return the sentinel object
+	return v.(T)
+}
+
+// IsNullValue returns true if the field contains a null sentinel value.
+// This is used by custom marshallers to properly encode a null value.
+func IsNullValue[T any](v T) bool {
+	// see if our map has a sentinel object for this *T
+	t := reflect.TypeOf(v)
+	nullablesMu.RLock()
+	defer nullablesMu.RUnlock()
+
+	if o, found := nullables[t]; found {
+		o1 := reflect.ValueOf(o)
+		v1 := reflect.ValueOf(v)
+		// we found it; return true if v points to the sentinel object.
+		// NOTE: maps and slices can only be compared to nil, else you get
+		// a runtime panic.  so we compare addresses instead.
+		return o1.Pointer() == v1.Pointer()
 	}
+	// no sentinel object for this *t
+	return false
 }
 
-// Do is called for each and every HTTP request. It passes the Context and request through
-// all the Policy objects (which can transform the Request's URL/query parameters/headers)
-// and ultimately sends the transformed HTTP request over the network.
-func (p Pipeline) Do(ctx context.Context, req *Request) (*Response, error) {
-	req.policies = p.policies
-	return req.Next(ctx)
+// ClientOptions contains optional settings for a client's pipeline.
+// Instances can be shared across calls to SDK client constructors when uniform configuration is desired.
+// Zero-value fields will have their specified default values applied during use.
+type ClientOptions = policy.ClientOptions
+
+// Client is a basic HTTP client.  It consists of a pipeline and tracing provider.
+type Client struct {
+	pl runtime.Pipeline
+	tr tracing.Tracer
+
+	// cached on the client to support shallow copying with new values
+	tp        tracing.Provider
+	modVer    string
+	namespace string
 }
 
-// ReadSeekCloser is the interface that groups the io.ReadCloser and io.Seeker interfaces.
-type ReadSeekCloser interface {
-	io.ReadCloser
-	io.Seeker
+// NewClient creates a new Client instance with the provided values.
+//   - moduleName - the fully qualified name of the module where the client is defined; used by the telemetry policy and tracing provider.
+//   - moduleVersion - the semantic version of the module; used by the telemetry policy and tracing provider.
+//   - plOpts - pipeline configuration options; can be the zero-value
+//   - options - optional client configurations; pass nil to accept the default values
+func NewClient(moduleName, moduleVersion string, plOpts runtime.PipelineOptions, options *ClientOptions) (*Client, error) {
+	if options == nil {
+		options = &ClientOptions{}
+	}
+
+	if !options.Telemetry.Disabled {
+		if err := shared.ValidateModVer(moduleVersion); err != nil {
+			return nil, err
+		}
+	}
+
+	pl := runtime.NewPipeline(moduleName, moduleVersion, plOpts, options)
+
+	tr := options.TracingProvider.NewTracer(moduleName, moduleVersion)
+	if tr.Enabled() && plOpts.Tracing.Namespace != "" {
+		tr.SetAttributes(tracing.Attribute{Key: shared.TracingNamespaceAttrName, Value: plOpts.Tracing.Namespace})
+	}
+
+	return &Client{
+		pl:        pl,
+		tr:        tr,
+		tp:        options.TracingProvider,
+		modVer:    moduleVersion,
+		namespace: plOpts.Tracing.Namespace,
+	}, nil
 }
 
-type nopCloser struct {
-	io.ReadSeeker
+// Pipeline returns the pipeline for this client.
+func (c *Client) Pipeline() runtime.Pipeline {
+	return c.pl
 }
 
-func (n nopCloser) Close() error {
-	return nil
+// Tracer returns the tracer for this client.
+func (c *Client) Tracer() tracing.Tracer {
+	return c.tr
 }
 
-// NopCloser returns a ReadSeekCloser with a no-op close method wrapping the provided io.ReadSeeker.
-func NopCloser(rs io.ReadSeeker) ReadSeekCloser {
-	return nopCloser{rs}
-}
-
-// Retrier provides methods describing if an error should be considered as transient.
-type Retrier interface {
-	// IsNotRetriable returns true for error types that are not retriable.
-	IsNotRetriable() bool
+// WithClientName returns a shallow copy of the Client with its tracing client name changed to clientName.
+// Note that the values for module name and version will be preserved from the source Client.
+//   - clientName - the fully qualified name of the client ("package.Client"); this is used by the tracing provider when creating spans
+func (c *Client) WithClientName(clientName string) *Client {
+	tr := c.tp.NewTracer(clientName, c.modVer)
+	if tr.Enabled() && c.namespace != "" {
+		tr.SetAttributes(tracing.Attribute{Key: shared.TracingNamespaceAttrName, Value: c.namespace})
+	}
+	return &Client{pl: c.pl, tr: tr, tp: c.tp, modVer: c.modVer, namespace: c.namespace}
 }
