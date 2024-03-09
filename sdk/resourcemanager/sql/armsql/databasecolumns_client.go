@@ -46,7 +46,7 @@ func NewDatabaseColumnsClient(subscriptionID string, credential azcore.TokenCred
 // Get - Get database column
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -113,7 +113,7 @@ func (client *DatabaseColumnsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -130,7 +130,7 @@ func (client *DatabaseColumnsClient) getHandleResponse(resp *http.Response) (Dat
 
 // NewListByDatabasePager - List database columns
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -184,16 +184,10 @@ func (client *DatabaseColumnsClient) listByDatabaseCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Schema != nil {
-		for _, qv := range options.Schema {
-			reqQP.Add("schema", qv)
-		}
+	if options != nil && options.Skiptoken != nil {
+		reqQP.Set("$skiptoken", *options.Skiptoken)
 	}
-	if options != nil && options.Table != nil {
-		for _, qv := range options.Table {
-			reqQP.Add("table", qv)
-		}
-	}
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.Column != nil {
 		for _, qv := range options.Column {
 			reqQP.Add("column", qv)
@@ -204,10 +198,16 @@ func (client *DatabaseColumnsClient) listByDatabaseCreateRequest(ctx context.Con
 			reqQP.Add("orderBy", qv)
 		}
 	}
-	if options != nil && options.Skiptoken != nil {
-		reqQP.Set("$skiptoken", *options.Skiptoken)
+	if options != nil && options.Schema != nil {
+		for _, qv := range options.Schema {
+			reqQP.Add("schema", qv)
+		}
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	if options != nil && options.Table != nil {
+		for _, qv := range options.Table {
+			reqQP.Add("table", qv)
+		}
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -224,7 +224,7 @@ func (client *DatabaseColumnsClient) listByDatabaseHandleResponse(resp *http.Res
 
 // NewListByTablePager - List database columns
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -291,7 +291,7 @@ func (client *DatabaseColumnsClient) listByTableCreateRequest(ctx context.Contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

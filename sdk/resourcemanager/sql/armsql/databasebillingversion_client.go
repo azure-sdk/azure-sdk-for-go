@@ -20,30 +20,30 @@ import (
 	"strings"
 )
 
-// RecommendedSensitivityLabelsClient contains the methods for the RecommendedSensitivityLabels group.
-// Don't use this type directly, use NewRecommendedSensitivityLabelsClient() instead.
-type RecommendedSensitivityLabelsClient struct {
+// DatabaseBillingVersionClient contains the methods for the DatabaseBillingVersion group.
+// Don't use this type directly, use NewDatabaseBillingVersionClient() instead.
+type DatabaseBillingVersionClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewRecommendedSensitivityLabelsClient creates a new instance of RecommendedSensitivityLabelsClient with the specified values.
+// NewDatabaseBillingVersionClient creates a new instance of DatabaseBillingVersionClient with the specified values.
 //   - subscriptionID - The subscription ID that identifies an Azure subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewRecommendedSensitivityLabelsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RecommendedSensitivityLabelsClient, error) {
+func NewDatabaseBillingVersionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DatabaseBillingVersionClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &RecommendedSensitivityLabelsClient{
+	client := &DatabaseBillingVersionClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Update - Update recommended sensitivity labels states of a given database using an operations batch.
+// Create - Request a specific billing version for a database.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-02-01-preview
@@ -51,32 +51,37 @@ func NewRecommendedSensitivityLabelsClient(subscriptionID string, credential azc
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
 //   - databaseName - The name of the database.
-//   - options - RecommendedSensitivityLabelsClientUpdateOptions contains the optional parameters for the RecommendedSensitivityLabelsClient.Update
+//   - options - DatabaseBillingVersionClientCreateOptions contains the optional parameters for the DatabaseBillingVersionClient.Create
 //     method.
-func (client *RecommendedSensitivityLabelsClient) Update(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters RecommendedSensitivityLabelUpdateList, options *RecommendedSensitivityLabelsClientUpdateOptions) (RecommendedSensitivityLabelsClientUpdateResponse, error) {
+func (client *DatabaseBillingVersionClient) Create(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabaseBillingVersionClientCreateOptions) (DatabaseBillingVersionClientCreateResponse, error) {
 	var err error
-	const operationName = "RecommendedSensitivityLabelsClient.Update"
+	const operationName = "DatabaseBillingVersionClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
-		return RecommendedSensitivityLabelsClientUpdateResponse{}, err
+		return DatabaseBillingVersionClientCreateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return RecommendedSensitivityLabelsClientUpdateResponse{}, err
+		return DatabaseBillingVersionClientCreateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return RecommendedSensitivityLabelsClientUpdateResponse{}, err
+		return DatabaseBillingVersionClientCreateResponse{}, err
 	}
-	return RecommendedSensitivityLabelsClientUpdateResponse{}, nil
+	resp, err := client.createHandleResponse(httpResp)
+	return resp, err
 }
 
-// updateCreateRequest creates the Update request.
-func (client *RecommendedSensitivityLabelsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters RecommendedSensitivityLabelUpdateList, options *RecommendedSensitivityLabelsClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/recommendedSensitivityLabels"
+// createCreateRequest creates the Create request.
+func (client *DatabaseBillingVersionClient) createCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabaseBillingVersionClientCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/billing/servers/{serverName}/databases/{databaseName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -89,11 +94,7 @@ func (client *RecommendedSensitivityLabelsClient) updateCreateRequest(ctx contex
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -101,8 +102,14 @@ func (client *RecommendedSensitivityLabelsClient) updateCreateRequest(ctx contex
 	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
-		return nil, err
-	}
 	return req, nil
+}
+
+// createHandleResponse handles the Create response.
+func (client *DatabaseBillingVersionClient) createHandleResponse(resp *http.Response) (DatabaseBillingVersionClientCreateResponse, error) {
+	result := DatabaseBillingVersionClientCreateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DatabaseBillingVersionResponse); err != nil {
+		return DatabaseBillingVersionClientCreateResponse{}, err
+	}
+	return result, nil
 }

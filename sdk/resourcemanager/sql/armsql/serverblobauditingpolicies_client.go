@@ -46,7 +46,7 @@ func NewServerBlobAuditingPoliciesClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Creates or updates a server's blob auditing policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -73,7 +73,7 @@ func (client *ServerBlobAuditingPoliciesClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Creates or updates a server's blob auditing policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2024-02-01-preview
 func (client *ServerBlobAuditingPoliciesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, parameters ServerBlobAuditingPolicy, options *ServerBlobAuditingPoliciesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServerBlobAuditingPoliciesClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *ServerBlobAuditingPoliciesClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -128,7 +128,7 @@ func (client *ServerBlobAuditingPoliciesClient) createOrUpdateCreateRequest(ctx 
 // Get - Gets a server's blob auditing policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -177,7 +177,7 @@ func (client *ServerBlobAuditingPoliciesClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *ServerBlobAuditingPoliciesClient) getHandleResponse(resp *http.Res
 
 // NewListByServerPager - Lists auditing settings of a server.
 //
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serverName - The name of the server.
@@ -243,7 +243,7 @@ func (client *ServerBlobAuditingPoliciesClient) listByServerCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

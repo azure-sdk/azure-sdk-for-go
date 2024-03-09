@@ -46,7 +46,7 @@ func NewManagedDatabaseQueriesClient(subscriptionID string, credential azcore.To
 // Get - Get query by query id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -103,7 +103,7 @@ func (client *ManagedDatabaseQueriesClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-11-01-preview")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,7 +120,7 @@ func (client *ManagedDatabaseQueriesClient) getHandleResponse(resp *http.Respons
 
 // NewListByQueryPager - Get query execution statistics by query id.
 //
-// Generated from API version 2020-11-01-preview
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - managedInstanceName - The name of the managed instance.
@@ -178,16 +178,16 @@ func (client *ManagedDatabaseQueriesClient) listByQueryCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", *options.StartTime)
-	}
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.EndTime != nil {
 		reqQP.Set("endTime", *options.EndTime)
 	}
 	if options != nil && options.Interval != nil {
 		reqQP.Set("interval", string(*options.Interval))
 	}
-	reqQP.Set("api-version", "2020-11-01-preview")
+	if options != nil && options.StartTime != nil {
+		reqQP.Set("startTime", *options.StartTime)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

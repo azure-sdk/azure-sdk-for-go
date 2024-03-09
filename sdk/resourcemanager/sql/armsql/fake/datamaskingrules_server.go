@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql/v2"
 	"net/http"
 	"net/url"
@@ -25,11 +26,11 @@ import (
 type DataMaskingRulesServer struct {
 	// CreateOrUpdate is the fake for method DataMaskingRulesClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, serverName string, databaseName string, dataMaskingRuleName string, parameters armsql.DataMaskingRule, options *armsql.DataMaskingRulesClientCreateOrUpdateOptions) (resp azfake.Responder[armsql.DataMaskingRulesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, serverName string, databaseName string, dataMaskingPolicyName armsql.DataMaskingPolicyName, dataMaskingRuleName string, parameters armsql.DataMaskingRule, options *armsql.DataMaskingRulesClientCreateOrUpdateOptions) (resp azfake.Responder[armsql.DataMaskingRulesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// NewListByDatabasePager is the fake for method DataMaskingRulesClient.NewListByDatabasePager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByDatabasePager func(resourceGroupName string, serverName string, databaseName string, options *armsql.DataMaskingRulesClientListByDatabaseOptions) (resp azfake.PagerResponder[armsql.DataMaskingRulesClientListByDatabaseResponse])
+	NewListByDatabasePager func(resourceGroupName string, serverName string, databaseName string, dataMaskingPolicyName armsql.DataMaskingPolicyName, options *armsql.DataMaskingRulesClientListByDatabaseOptions) (resp azfake.PagerResponder[armsql.DataMaskingRulesClientListByDatabaseResponse])
 }
 
 // NewDataMaskingRulesServerTransport creates a new instance of DataMaskingRulesServerTransport with the provided implementation.
@@ -83,7 +84,7 @@ func (d *DataMaskingRulesServerTransport) dispatchCreateOrUpdate(req *http.Reque
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Sql/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/dataMaskingPolicies/(?P<dataMaskingPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/rules/(?P<dataMaskingRuleName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 5 {
+	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armsql.DataMaskingRule](req)
@@ -102,11 +103,21 @@ func (d *DataMaskingRulesServerTransport) dispatchCreateOrUpdate(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
+	dataMaskingPolicyNameParam, err := parseWithCast(matches[regex.SubexpIndex("dataMaskingPolicyName")], func(v string) (armsql.DataMaskingPolicyName, error) {
+		p, unescapeErr := url.PathUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armsql.DataMaskingPolicyName(p), nil
+	})
+	if err != nil {
+		return nil, err
+	}
 	dataMaskingRuleNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataMaskingRuleName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := d.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, serverNameParam, databaseNameParam, dataMaskingRuleNameParam, body, nil)
+	respr, errRespr := d.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, serverNameParam, databaseNameParam, dataMaskingPolicyNameParam, dataMaskingRuleNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -130,7 +141,7 @@ func (d *DataMaskingRulesServerTransport) dispatchNewListByDatabasePager(req *ht
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Sql/servers/(?P<serverName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/dataMaskingPolicies/(?P<dataMaskingPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/rules`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
+		if matches == nil || len(matches) < 5 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -145,9 +156,22 @@ func (d *DataMaskingRulesServerTransport) dispatchNewListByDatabasePager(req *ht
 		if err != nil {
 			return nil, err
 		}
-		resp := d.srv.NewListByDatabasePager(resourceGroupNameParam, serverNameParam, databaseNameParam, nil)
+		dataMaskingPolicyNameParam, err := parseWithCast(matches[regex.SubexpIndex("dataMaskingPolicyName")], func(v string) (armsql.DataMaskingPolicyName, error) {
+			p, unescapeErr := url.PathUnescape(v)
+			if unescapeErr != nil {
+				return "", unescapeErr
+			}
+			return armsql.DataMaskingPolicyName(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
+		resp := d.srv.NewListByDatabasePager(resourceGroupNameParam, serverNameParam, databaseNameParam, dataMaskingPolicyNameParam, nil)
 		newListByDatabasePager = &resp
 		d.newListByDatabasePager.add(req, newListByDatabasePager)
+		server.PagerResponderInjectNextLinks(newListByDatabasePager, req, func(page *armsql.DataMaskingRulesClientListByDatabaseResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListByDatabasePager, req)
 	if err != nil {
