@@ -1,6 +1,6 @@
 # Azure Storage Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2)
 
 The `armstorage` module provides operations for working with Azure Storage.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Storage module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2
 ```
 
 ## Authorization

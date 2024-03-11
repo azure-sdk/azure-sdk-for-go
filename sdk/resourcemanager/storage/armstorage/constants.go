@@ -10,7 +10,7 @@ package armstorage
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
-	moduleVersion = "v1.5.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -481,6 +481,22 @@ func PossibleInventoryRuleTypeValues() []InventoryRuleType {
 	}
 }
 
+// IssueType - Type of issue
+type IssueType string
+
+const (
+	IssueTypeConfigurationPropagationFailure IssueType = "ConfigurationPropagationFailure"
+	IssueTypeUnknown                         IssueType = "Unknown"
+)
+
+// PossibleIssueTypeValues returns the possible values for the IssueType const type.
+func PossibleIssueTypeValues() []IssueType {
+	return []IssueType{
+		IssueTypeConfigurationPropagationFailure,
+		IssueTypeUnknown,
+	}
+}
+
 // KeyPermission - Permissions for the key -- read-only or full permissions.
 type KeyPermission string
 
@@ -794,6 +810,45 @@ func PossibleNameValues() []Name {
 	}
 }
 
+// NetworkSecurityPerimeterConfigurationProvisioningState - Provisioning state of Network Security Perimeter configuration
+// propagation
+type NetworkSecurityPerimeterConfigurationProvisioningState string
+
+const (
+	NetworkSecurityPerimeterConfigurationProvisioningStateAccepted  NetworkSecurityPerimeterConfigurationProvisioningState = "Accepted"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCanceled  NetworkSecurityPerimeterConfigurationProvisioningState = "Canceled"
+	NetworkSecurityPerimeterConfigurationProvisioningStateDeleting  NetworkSecurityPerimeterConfigurationProvisioningState = "Deleting"
+	NetworkSecurityPerimeterConfigurationProvisioningStateFailed    NetworkSecurityPerimeterConfigurationProvisioningState = "Failed"
+	NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded NetworkSecurityPerimeterConfigurationProvisioningState = "Succeeded"
+)
+
+// PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues returns the possible values for the NetworkSecurityPerimeterConfigurationProvisioningState const type.
+func PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues() []NetworkSecurityPerimeterConfigurationProvisioningState {
+	return []NetworkSecurityPerimeterConfigurationProvisioningState{
+		NetworkSecurityPerimeterConfigurationProvisioningStateAccepted,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCanceled,
+		NetworkSecurityPerimeterConfigurationProvisioningStateDeleting,
+		NetworkSecurityPerimeterConfigurationProvisioningStateFailed,
+		NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded,
+	}
+}
+
+// NspAccessRuleDirection - Direction of Access Rule
+type NspAccessRuleDirection string
+
+const (
+	NspAccessRuleDirectionInbound  NspAccessRuleDirection = "Inbound"
+	NspAccessRuleDirectionOutbound NspAccessRuleDirection = "Outbound"
+)
+
+// PossibleNspAccessRuleDirectionValues returns the possible values for the NspAccessRuleDirection const type.
+func PossibleNspAccessRuleDirectionValues() []NspAccessRuleDirection {
+	return []NspAccessRuleDirection{
+		NspAccessRuleDirectionInbound,
+		NspAccessRuleDirectionOutbound,
+	}
+}
+
 // ObjectType - This is a required field. This field specifies the scope of the inventory created either at the blob or container
 // level.
 type ObjectType string
@@ -950,13 +1005,15 @@ func PossiblePublicAccessValues() []PublicAccess {
 	}
 }
 
-// PublicNetworkAccess - Allow or disallow public network access to Storage Account. Value is optional but if passed in, must
-// be 'Enabled' or 'Disabled'.
+// PublicNetworkAccess - Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access
+// to Storage Account. Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+// 'SecuredByPerimeter'.
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -964,6 +1021,24 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
+	}
+}
+
+// PublicNetworkAccessLegacy - Allow or disallow public network access to Storage Account. Value is optional but if passed
+// in, must be 'Enabled' or 'Disabled'.
+type PublicNetworkAccessLegacy string
+
+const (
+	PublicNetworkAccessLegacyDisabled PublicNetworkAccessLegacy = "Disabled"
+	PublicNetworkAccessLegacyEnabled  PublicNetworkAccessLegacy = "Enabled"
+)
+
+// PossiblePublicNetworkAccessLegacyValues returns the possible values for the PublicNetworkAccessLegacy const type.
+func PossiblePublicNetworkAccessLegacyValues() []PublicNetworkAccessLegacy {
+	return []PublicNetworkAccessLegacy{
+		PublicNetworkAccessLegacyDisabled,
+		PublicNetworkAccessLegacyEnabled,
 	}
 }
 
@@ -999,6 +1074,24 @@ func PossibleReasonCodeValues() []ReasonCode {
 	return []ReasonCode{
 		ReasonCodeNotAvailableForSubscription,
 		ReasonCodeQuotaID,
+	}
+}
+
+// ResourceAssociationAccessMode - Access Mode of the resource association
+type ResourceAssociationAccessMode string
+
+const (
+	ResourceAssociationAccessModeAudit    ResourceAssociationAccessMode = "Audit"
+	ResourceAssociationAccessModeEnforced ResourceAssociationAccessMode = "Enforced"
+	ResourceAssociationAccessModeLearning ResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleResourceAssociationAccessModeValues returns the possible values for the ResourceAssociationAccessMode const type.
+func PossibleResourceAssociationAccessModeValues() []ResourceAssociationAccessMode {
+	return []ResourceAssociationAccessMode{
+		ResourceAssociationAccessModeAudit,
+		ResourceAssociationAccessModeEnforced,
+		ResourceAssociationAccessModeLearning,
 	}
 }
 
@@ -1147,6 +1240,22 @@ func PossibleServicesValues() []Services {
 		ServicesF,
 		ServicesQ,
 		ServicesT,
+	}
+}
+
+// Severity - Severity of the issue.
+type Severity string
+
+const (
+	SeverityError   Severity = "Error"
+	SeverityWarning Severity = "Warning"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityError,
+		SeverityWarning,
 	}
 }
 
