@@ -31,12 +31,6 @@ type LinkerClientListConfigurationsResponse struct {
 	SourceConfigurationResult
 }
 
-// LinkerClientListResponse contains the response from method LinkerClient.NewListPager.
-type LinkerClientListResponse struct {
-	// The list of Linker.
-	LinkerList
-}
-
 // LinkerClientUpdateResponse contains the response from method LinkerClient.BeginUpdate.
 type LinkerClientUpdateResponse struct {
 	// Linker of source and target resource
