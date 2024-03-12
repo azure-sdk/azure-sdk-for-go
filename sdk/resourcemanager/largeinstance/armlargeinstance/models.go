@@ -39,7 +39,7 @@ type AzureLargeInstanceListResult struct {
 	// REQUIRED; The AzureLargeInstance items on this page
 	Value []*AzureLargeInstance
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -111,7 +111,7 @@ type AzureLargeStorageInstanceListResult struct {
 	// REQUIRED; The AzureLargeStorageInstance items on this page
 	Value []*AzureLargeStorageInstance
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 

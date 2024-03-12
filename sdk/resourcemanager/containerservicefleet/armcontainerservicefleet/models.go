@@ -90,7 +90,7 @@ type FleetListResult struct {
 	// REQUIRED; The Fleet items on this page
 	Value []*Fleet
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -123,7 +123,7 @@ type FleetMemberListResult struct {
 	// REQUIRED; The FleetMember items on this page
 	Value []*FleetMember
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -196,7 +196,7 @@ type FleetUpdateStrategyListResult struct {
 	// REQUIRED; The FleetUpdateStrategy items on this page
 	Value []*FleetUpdateStrategy
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -401,7 +401,7 @@ type UpdateRunListResult struct {
 	// REQUIRED; The UpdateRun items on this page
 	Value []*UpdateRun
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
