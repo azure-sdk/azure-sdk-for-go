@@ -153,7 +153,9 @@ func (f *Fleet) UnmarshalJSON(data []byte) error {
 func (f FleetCredentialResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "name", f.Name)
-	populateByteArray(objectMap, "value", f.Value, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "value", f.Value, func() any {
+		return runtime.EncodeByteArray(f.Value, runtime.Base64StdFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -170,7 +172,9 @@ func (f *FleetCredentialResult) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "Name", &f.Name)
 			delete(rawMsg, key)
 		case "value":
-			err = runtime.DecodeByteArray(string(val), &f.Value, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &f.Value, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1397,18 +1401,18 @@ func populateAny(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
