@@ -100,16 +100,16 @@ func (client *CertificateOrdersDiagnosticsClient) getAppServiceCertificateOrderD
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
-	}
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.EndTime != nil {
 		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.StartTime != nil {
+		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
 	}
-	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

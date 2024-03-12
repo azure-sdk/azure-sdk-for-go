@@ -805,6 +805,9 @@ type AzureStorageInfoValue struct {
 	// Path to mount the storage within the site's runtime environment.
 	MountPath *string
 
+	// Mounting protocol to use for the storage account.
+	Protocol *AzureStorageProtocol
+
 	// Name of the file share (container name, for Blob storage).
 	ShareName *string
 

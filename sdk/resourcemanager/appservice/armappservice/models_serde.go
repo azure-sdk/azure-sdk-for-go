@@ -671,7 +671,9 @@ func (a *AppCertificatePatchResource) UnmarshalJSON(data []byte) error {
 func (a AppCertificatePatchResourceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "canonicalName", a.CanonicalName)
-	populateByteArray(objectMap, "cerBlob", a.CerBlob, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "cerBlob", a.CerBlob, func() any {
+		return runtime.EncodeByteArray(a.CerBlob, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "domainValidationMethod", a.DomainValidationMethod)
 	populateDateTimeRFC3339(objectMap, "expirationDate", a.ExpirationDate)
 	populate(objectMap, "friendlyName", a.FriendlyName)
@@ -683,7 +685,9 @@ func (a AppCertificatePatchResourceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "keyVaultSecretName", a.KeyVaultSecretName)
 	populate(objectMap, "keyVaultSecretStatus", a.KeyVaultSecretStatus)
 	populate(objectMap, "password", a.Password)
-	populateByteArray(objectMap, "pfxBlob", a.PfxBlob, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "pfxBlob", a.PfxBlob, func() any {
+		return runtime.EncodeByteArray(a.PfxBlob, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "publicKeyHash", a.PublicKeyHash)
 	populate(objectMap, "selfLink", a.SelfLink)
 	populate(objectMap, "serverFarmId", a.ServerFarmID)
@@ -707,7 +711,9 @@ func (a *AppCertificatePatchResourceProperties) UnmarshalJSON(data []byte) error
 			err = unpopulate(val, "CanonicalName", &a.CanonicalName)
 			delete(rawMsg, key)
 		case "cerBlob":
-			err = runtime.DecodeByteArray(string(val), &a.CerBlob, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &a.CerBlob, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "domainValidationMethod":
 			err = unpopulate(val, "DomainValidationMethod", &a.DomainValidationMethod)
@@ -743,7 +749,9 @@ func (a *AppCertificatePatchResourceProperties) UnmarshalJSON(data []byte) error
 			err = unpopulate(val, "Password", &a.Password)
 			delete(rawMsg, key)
 		case "pfxBlob":
-			err = runtime.DecodeByteArray(string(val), &a.PfxBlob, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &a.PfxBlob, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "publicKeyHash":
 			err = unpopulate(val, "PublicKeyHash", &a.PublicKeyHash)
@@ -778,7 +786,9 @@ func (a *AppCertificatePatchResourceProperties) UnmarshalJSON(data []byte) error
 func (a AppCertificateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "canonicalName", a.CanonicalName)
-	populateByteArray(objectMap, "cerBlob", a.CerBlob, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "cerBlob", a.CerBlob, func() any {
+		return runtime.EncodeByteArray(a.CerBlob, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "domainValidationMethod", a.DomainValidationMethod)
 	populateDateTimeRFC3339(objectMap, "expirationDate", a.ExpirationDate)
 	populate(objectMap, "friendlyName", a.FriendlyName)
@@ -790,7 +800,9 @@ func (a AppCertificateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "keyVaultSecretName", a.KeyVaultSecretName)
 	populate(objectMap, "keyVaultSecretStatus", a.KeyVaultSecretStatus)
 	populate(objectMap, "password", a.Password)
-	populateByteArray(objectMap, "pfxBlob", a.PfxBlob, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "pfxBlob", a.PfxBlob, func() any {
+		return runtime.EncodeByteArray(a.PfxBlob, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "publicKeyHash", a.PublicKeyHash)
 	populate(objectMap, "selfLink", a.SelfLink)
 	populate(objectMap, "serverFarmId", a.ServerFarmID)
@@ -814,7 +826,9 @@ func (a *AppCertificateProperties) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "CanonicalName", &a.CanonicalName)
 			delete(rawMsg, key)
 		case "cerBlob":
-			err = runtime.DecodeByteArray(string(val), &a.CerBlob, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &a.CerBlob, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "domainValidationMethod":
 			err = unpopulate(val, "DomainValidationMethod", &a.DomainValidationMethod)
@@ -850,7 +864,9 @@ func (a *AppCertificateProperties) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "Password", &a.Password)
 			delete(rawMsg, key)
 		case "pfxBlob":
-			err = runtime.DecodeByteArray(string(val), &a.PfxBlob, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &a.PfxBlob, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "publicKeyHash":
 			err = unpopulate(val, "PublicKeyHash", &a.PublicKeyHash)
@@ -2040,6 +2056,7 @@ func (a AzureStorageInfoValue) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "accessKey", a.AccessKey)
 	populate(objectMap, "accountName", a.AccountName)
 	populate(objectMap, "mountPath", a.MountPath)
+	populate(objectMap, "protocol", a.Protocol)
 	populate(objectMap, "shareName", a.ShareName)
 	populate(objectMap, "state", a.State)
 	populate(objectMap, "type", a.Type)
@@ -2063,6 +2080,9 @@ func (a *AzureStorageInfoValue) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "mountPath":
 			err = unpopulate(val, "MountPath", &a.MountPath)
+			delete(rawMsg, key)
+		case "protocol":
+			err = unpopulate(val, "Protocol", &a.Protocol)
 			delete(rawMsg, key)
 		case "shareName":
 			err = unpopulate(val, "ShareName", &a.ShareName)
@@ -14783,7 +14803,9 @@ func (p *PublicCertificateCollection) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PublicCertificateProperties.
 func (p PublicCertificateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateByteArray(objectMap, "blob", p.Blob, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "blob", p.Blob, func() any {
+		return runtime.EncodeByteArray(p.Blob, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "publicCertificateLocation", p.PublicCertificateLocation)
 	populate(objectMap, "thumbprint", p.Thumbprint)
 	return json.Marshal(objectMap)
@@ -14799,7 +14821,9 @@ func (p *PublicCertificateProperties) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "blob":
-			err = runtime.DecodeByteArray(string(val), &p.Blob, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &p.Blob, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "publicCertificateLocation":
 			err = unpopulate(val, "PublicCertificateLocation", &p.PublicCertificateLocation)
@@ -26964,18 +26988,18 @@ func populateAny(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

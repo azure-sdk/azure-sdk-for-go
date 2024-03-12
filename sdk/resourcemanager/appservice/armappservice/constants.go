@@ -10,7 +10,7 @@ package armappservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice"
-	moduleVersion = "v2.3.0"
+	moduleVersion = "v3.0.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -86,6 +86,24 @@ func PossibleAzureResourceTypeValues() []AzureResourceType {
 	return []AzureResourceType{
 		AzureResourceTypeTrafficManager,
 		AzureResourceTypeWebsite,
+	}
+}
+
+// AzureStorageProtocol - Mounting protocol to use for the storage account.
+type AzureStorageProtocol string
+
+const (
+	AzureStorageProtocolHTTP AzureStorageProtocol = "Http"
+	AzureStorageProtocolNfs  AzureStorageProtocol = "Nfs"
+	AzureStorageProtocolSmb  AzureStorageProtocol = "Smb"
+)
+
+// PossibleAzureStorageProtocolValues returns the possible values for the AzureStorageProtocol const type.
+func PossibleAzureStorageProtocolValues() []AzureStorageProtocol {
+	return []AzureStorageProtocol{
+		AzureStorageProtocolHTTP,
+		AzureStorageProtocolNfs,
+		AzureStorageProtocolSmb,
 	}
 }
 
