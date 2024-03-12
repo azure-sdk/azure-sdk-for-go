@@ -29,7 +29,7 @@ type AlertRuleTemplateClassification interface {
 // AutomationRuleActionClassification provides polymorphic access to related types.
 // Call the interface's GetAutomationRuleAction() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutomationRuleAction, *AutomationRuleModifyPropertiesAction, *AutomationRuleRunPlaybookAction
+// - *AutomationRuleAction, *AutomationRuleAddIncidentTaskAction, *AutomationRuleModifyPropertiesAction, *AutomationRuleRunPlaybookAction
 type AutomationRuleActionClassification interface {
 	// GetAutomationRuleAction returns the AutomationRuleAction content of the underlying type.
 	GetAutomationRuleAction() *AutomationRuleAction
@@ -38,7 +38,8 @@ type AutomationRuleActionClassification interface {
 // AutomationRuleConditionClassification provides polymorphic access to related types.
 // Call the interface's GetAutomationRuleCondition() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutomationRuleCondition, *PropertyConditionProperties
+// - *AutomationRuleCondition, *BooleanConditionProperties, *PropertyArrayChangedConditionProperties, *PropertyArrayConditionProperties,
+// - *PropertyChangedConditionProperties, *PropertyConditionProperties
 type AutomationRuleConditionClassification interface {
 	// GetAutomationRuleCondition returns the AutomationRuleCondition content of the underlying type.
 	GetAutomationRuleCondition() *AutomationRuleCondition
@@ -64,6 +65,15 @@ type DataConnectorClassification interface {
 type EntityClassification interface {
 	// GetEntity returns the Entity content of the underlying type.
 	GetEntity() *Entity
+}
+
+// SecurityMLAnalyticsSettingClassification provides polymorphic access to related types.
+// Call the interface's GetSecurityMLAnalyticsSetting() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AnomalySecurityMLAnalyticsSettings, *SecurityMLAnalyticsSetting
+type SecurityMLAnalyticsSettingClassification interface {
+	// GetSecurityMLAnalyticsSetting returns the SecurityMLAnalyticsSetting content of the underlying type.
+	GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting
 }
 
 // ThreatIntelligenceInformationClassification provides polymorphic access to related types.

@@ -16,9 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights/v2"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -52,6 +53,10 @@ type IncidentsServer struct {
 	// ListEntities is the fake for method IncidentsClient.ListEntities
 	// HTTP status codes to indicate success: http.StatusOK
 	ListEntities func(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, options *armsecurityinsights.IncidentsClientListEntitiesOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientListEntitiesResponse], errResp azfake.ErrorResponder)
+
+	// RunPlaybook is the fake for method IncidentsClient.RunPlaybook
+	// HTTP status codes to indicate success: http.StatusNoContent
+	RunPlaybook func(ctx context.Context, resourceGroupName string, workspaceName string, incidentIdentifier string, options *armsecurityinsights.IncidentsClientRunPlaybookOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientRunPlaybookResponse], errResp azfake.ErrorResponder)
 }
 
 // NewIncidentsServerTransport creates a new instance of IncidentsServerTransport with the provided implementation.
@@ -97,6 +102,8 @@ func (i *IncidentsServerTransport) Do(req *http.Request) (*http.Response, error)
 		resp, err = i.dispatchListBookmarks(req)
 	case "IncidentsClient.ListEntities":
 		resp, err = i.dispatchListEntities(req)
+	case "IncidentsClient.RunPlaybook":
+		resp, err = i.dispatchRunPlaybook(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -408,6 +415,53 @@ func (i *IncidentsServerTransport) dispatchListEntities(req *http.Request) (*htt
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).IncidentEntitiesResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (i *IncidentsServerTransport) dispatchRunPlaybook(req *http.Request) (*http.Response, error) {
+	if i.srv.RunPlaybook == nil {
+		return nil, &nonRetriableError{errors.New("fake for method RunPlaybook not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/incidents/(?P<incidentIdentifier>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/runPlaybook`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.ManualTriggerRequestBody](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+	if err != nil {
+		return nil, err
+	}
+	incidentIdentifierParam, err := url.PathUnescape(matches[regex.SubexpIndex("incidentIdentifier")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armsecurityinsights.IncidentsClientRunPlaybookOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armsecurityinsights.IncidentsClientRunPlaybookOptions{
+			RequestBody: &body,
+		}
+	}
+	respr, errRespr := i.srv.RunPlaybook(req.Context(), resourceGroupNameParam, workspaceNameParam, incidentIdentifierParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}
