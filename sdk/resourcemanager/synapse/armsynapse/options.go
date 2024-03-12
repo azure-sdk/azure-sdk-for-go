@@ -635,6 +635,12 @@ type OperationsClientGetLocationHeaderResultOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OperationsClientGetWorkspacePerSubscriptionQuotaOptions contains the optional parameters for the OperationsClient.GetWorkspacePerSubscriptionQuota
+// method.
+type OperationsClientGetWorkspacePerSubscriptionQuotaOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -1162,11 +1168,6 @@ type SQLPoolsClientGetOptions struct {
 
 // SQLPoolsClientListByWorkspaceOptions contains the optional parameters for the SQLPoolsClient.NewListByWorkspacePager method.
 type SQLPoolsClientListByWorkspaceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SQLPoolsClientRenameOptions contains the optional parameters for the SQLPoolsClient.Rename method.
-type SQLPoolsClientRenameOptions struct {
 	// placeholder for future optional parameters
 }
 

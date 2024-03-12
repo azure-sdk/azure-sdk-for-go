@@ -670,6 +670,12 @@ type OperationsClientGetLocationHeaderResultResponse struct {
 	// placeholder for future response values
 }
 
+// OperationsClientGetWorkspacePerSubscriptionQuotaResponse contains the response from method OperationsClient.GetWorkspacePerSubscriptionQuota.
+type OperationsClientGetWorkspacePerSubscriptionQuotaResponse struct {
+	// Workspaces per subscription usage and limit.
+	WorkspaceUsageQuotaResponse
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	// Array of AvailableRpOperation
@@ -1169,11 +1175,6 @@ type SQLPoolsClientListByWorkspaceResponse struct {
 type SQLPoolsClientPauseResponse struct {
 	// A SQL Analytics pool
 	SQLPool
-}
-
-// SQLPoolsClientRenameResponse contains the response from method SQLPoolsClient.Rename.
-type SQLPoolsClientRenameResponse struct {
-	// placeholder for future response values
 }
 
 // SQLPoolsClientResumeResponse contains the response from method SQLPoolsClient.BeginResume.

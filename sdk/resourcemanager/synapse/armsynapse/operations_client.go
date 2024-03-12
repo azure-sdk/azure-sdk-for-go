@@ -232,6 +232,66 @@ func (client *OperationsClient) getLocationHeaderResultCreateRequest(ctx context
 	return req, nil
 }
 
+// GetWorkspacePerSubscriptionQuota - Gets the current usage and quota of workspaces in a subscription/region
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-06-01
+//   - location - The location on which resource usage is queried.
+//   - options - OperationsClientGetWorkspacePerSubscriptionQuotaOptions contains the optional parameters for the OperationsClient.GetWorkspacePerSubscriptionQuota
+//     method.
+func (client *OperationsClient) GetWorkspacePerSubscriptionQuota(ctx context.Context, location string, options *OperationsClientGetWorkspacePerSubscriptionQuotaOptions) (OperationsClientGetWorkspacePerSubscriptionQuotaResponse, error) {
+	var err error
+	const operationName = "OperationsClient.GetWorkspacePerSubscriptionQuota"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getWorkspacePerSubscriptionQuotaCreateRequest(ctx, location, options)
+	if err != nil {
+		return OperationsClientGetWorkspacePerSubscriptionQuotaResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OperationsClientGetWorkspacePerSubscriptionQuotaResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return OperationsClientGetWorkspacePerSubscriptionQuotaResponse{}, err
+	}
+	resp, err := client.getWorkspacePerSubscriptionQuotaHandleResponse(httpResp)
+	return resp, err
+}
+
+// getWorkspacePerSubscriptionQuotaCreateRequest creates the GetWorkspacePerSubscriptionQuota request.
+func (client *OperationsClient) getWorkspacePerSubscriptionQuotaCreateRequest(ctx context.Context, location string, options *OperationsClientGetWorkspacePerSubscriptionQuotaOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Synapse/locations/{location}/usages"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-06-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getWorkspacePerSubscriptionQuotaHandleResponse handles the GetWorkspacePerSubscriptionQuota response.
+func (client *OperationsClient) getWorkspacePerSubscriptionQuotaHandleResponse(resp *http.Response) (OperationsClientGetWorkspacePerSubscriptionQuotaResponse, error) {
+	result := OperationsClientGetWorkspacePerSubscriptionQuotaResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.WorkspaceUsageQuotaResponse); err != nil {
+		return OperationsClientGetWorkspacePerSubscriptionQuotaResponse{}, err
+	}
+	return result, nil
+}
+
 // List - Get all available operations
 // If the operation fails it returns an *azcore.ResponseError type.
 //

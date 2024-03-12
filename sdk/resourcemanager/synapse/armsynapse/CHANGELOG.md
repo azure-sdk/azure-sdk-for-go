@@ -1,5 +1,19 @@
 # Release History
 
+## 0.9.0 (2024-03-12)
+### Breaking Changes
+
+- Function `*SQLPoolsClient.Rename` has been removed
+- Struct `ResourceMoveDefinition` has been removed
+
+### Features Added
+
+- Type of `WorkspaceProperties.ExtraProperties` has been changed from `map[string]any` to `any`
+- New function `*OperationsClient.GetWorkspacePerSubscriptionQuota(context.Context, string, *OperationsClientGetWorkspacePerSubscriptionQuotaOptions) (OperationsClientGetWorkspacePerSubscriptionQuotaResponse, error)`
+- New struct `WorkspaceUsageQuotaResponse`
+- New field `OSType`, `TargetFramework` in struct `SelfHostedIntegrationRuntimeStatusTypeProperties`
+
+
 ## 0.8.0 (2023-11-24)
 ### Features Added
 

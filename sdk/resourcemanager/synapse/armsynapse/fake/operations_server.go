@@ -35,6 +35,10 @@ type OperationsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent
 	GetLocationHeaderResult func(ctx context.Context, resourceGroupName string, workspaceName string, operationID string, options *armsynapse.OperationsClientGetLocationHeaderResultOptions) (resp azfake.Responder[armsynapse.OperationsClientGetLocationHeaderResultResponse], errResp azfake.ErrorResponder)
 
+	// GetWorkspacePerSubscriptionQuota is the fake for method OperationsClient.GetWorkspacePerSubscriptionQuota
+	// HTTP status codes to indicate success: http.StatusOK
+	GetWorkspacePerSubscriptionQuota func(ctx context.Context, location string, options *armsynapse.OperationsClientGetWorkspacePerSubscriptionQuotaOptions) (resp azfake.Responder[armsynapse.OperationsClientGetWorkspacePerSubscriptionQuotaResponse], errResp azfake.ErrorResponder)
+
 	// List is the fake for method OperationsClient.List
 	// HTTP status codes to indicate success: http.StatusOK
 	List func(ctx context.Context, options *armsynapse.OperationsClientListOptions) (resp azfake.Responder[armsynapse.OperationsClientListResponse], errResp azfake.ErrorResponder)
@@ -71,6 +75,8 @@ func (o *OperationsServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = o.dispatchGetAzureAsyncHeaderResult(req)
 	case "OperationsClient.GetLocationHeaderResult":
 		resp, err = o.dispatchGetLocationHeaderResult(req)
+	case "OperationsClient.GetWorkspacePerSubscriptionQuota":
+		resp, err = o.dispatchGetWorkspacePerSubscriptionQuota(req)
 	case "OperationsClient.List":
 		resp, err = o.dispatchList(req)
 	default:
@@ -181,6 +187,35 @@ func (o *OperationsServerTransport) dispatchGetLocationHeaderResult(req *http.Re
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (o *OperationsServerTransport) dispatchGetWorkspacePerSubscriptionQuota(req *http.Request) (*http.Response, error) {
+	if o.srv.GetWorkspacePerSubscriptionQuota == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetWorkspacePerSubscriptionQuota not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Synapse/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.GetWorkspacePerSubscriptionQuota(req.Context(), locationParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).WorkspaceUsageQuotaResponse, req)
 	if err != nil {
 		return nil, err
 	}
