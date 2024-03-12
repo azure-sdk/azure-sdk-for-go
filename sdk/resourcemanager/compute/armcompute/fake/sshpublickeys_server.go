@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 )
 
@@ -32,10 +31,6 @@ type SSHPublicKeysServer struct {
 	// Delete is the fake for method SSHPublicKeysClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	Delete func(ctx context.Context, resourceGroupName string, sshPublicKeyName string, options *armcompute.SSHPublicKeysClientDeleteOptions) (resp azfake.Responder[armcompute.SSHPublicKeysClientDeleteResponse], errResp azfake.ErrorResponder)
-
-	// GenerateKeyPair is the fake for method SSHPublicKeysClient.GenerateKeyPair
-	// HTTP status codes to indicate success: http.StatusOK
-	GenerateKeyPair func(ctx context.Context, resourceGroupName string, sshPublicKeyName string, options *armcompute.SSHPublicKeysClientGenerateKeyPairOptions) (resp azfake.Responder[armcompute.SSHPublicKeysClientGenerateKeyPairResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SSHPublicKeysClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -89,8 +84,6 @@ func (s *SSHPublicKeysServerTransport) Do(req *http.Request) (*http.Response, er
 		resp, err = s.dispatchCreate(req)
 	case "SSHPublicKeysClient.Delete":
 		resp, err = s.dispatchDelete(req)
-	case "SSHPublicKeysClient.GenerateKeyPair":
-		resp, err = s.dispatchGenerateKeyPair(req)
 	case "SSHPublicKeysClient.Get":
 		resp, err = s.dispatchGet(req)
 	case "SSHPublicKeysClient.NewListByResourceGroupPager":
@@ -174,49 +167,6 @@ func (s *SSHPublicKeysServerTransport) dispatchDelete(req *http.Request) (*http.
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (s *SSHPublicKeysServerTransport) dispatchGenerateKeyPair(req *http.Request) (*http.Response, error) {
-	if s.srv.GenerateKeyPair == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GenerateKeyPair not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/sshPublicKeys/(?P<sshPublicKeyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/generateKeyPair`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armcompute.SSHGenerateKeyPairInputParameters](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	sshPublicKeyNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sshPublicKeyName")])
-	if err != nil {
-		return nil, err
-	}
-	var options *armcompute.SSHPublicKeysClientGenerateKeyPairOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armcompute.SSHPublicKeysClientGenerateKeyPairOptions{
-			Parameters: &body,
-		}
-	}
-	respr, errRespr := s.srv.GenerateKeyPair(req.Context(), resourceGroupNameParam, sshPublicKeyNameParam, options)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SSHPublicKeyGenerateKeyPairResult, req)
 	if err != nil {
 		return nil, err
 	}

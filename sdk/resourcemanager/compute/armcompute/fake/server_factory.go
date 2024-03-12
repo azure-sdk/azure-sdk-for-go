@@ -48,7 +48,6 @@ type ServerFactory struct {
 	ProximityPlacementGroupsServer              ProximityPlacementGroupsServer
 	ResourceSKUsServer                          ResourceSKUsServer
 	RestorePointCollectionsServer               RestorePointCollectionsServer
-	RestorePointsServer                         RestorePointsServer
 	SSHPublicKeysServer                         SSHPublicKeysServer
 	SharedGalleriesServer                       SharedGalleriesServer
 	SharedGalleryImageVersionsServer            SharedGalleryImageVersionsServer
@@ -113,7 +112,6 @@ type ServerFactoryTransport struct {
 	trProximityPlacementGroupsServer              *ProximityPlacementGroupsServerTransport
 	trResourceSKUsServer                          *ResourceSKUsServerTransport
 	trRestorePointCollectionsServer               *RestorePointCollectionsServerTransport
-	trRestorePointsServer                         *RestorePointsServerTransport
 	trSSHPublicKeysServer                         *SSHPublicKeysServerTransport
 	trSharedGalleriesServer                       *SharedGalleriesServerTransport
 	trSharedGalleryImageVersionsServer            *SharedGalleryImageVersionsServerTransport
@@ -279,11 +277,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewRestorePointCollectionsServerTransport(&s.srv.RestorePointCollectionsServer)
 		})
 		resp, err = s.trRestorePointCollectionsServer.Do(req)
-	case "RestorePointsClient":
-		initServer(s, &s.trRestorePointsServer, func() *RestorePointsServerTransport {
-			return NewRestorePointsServerTransport(&s.srv.RestorePointsServer)
-		})
-		resp, err = s.trRestorePointsServer.Do(req)
 	case "SSHPublicKeysClient":
 		initServer(s, &s.trSSHPublicKeysServer, func() *SSHPublicKeysServerTransport {
 			return NewSSHPublicKeysServerTransport(&s.srv.SSHPublicKeysServer)

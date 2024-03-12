@@ -37,12 +37,6 @@ type AvailabilitySetsClientGetResponse struct {
 	AvailabilitySet
 }
 
-// AvailabilitySetsClientListAvailableSizesResponse contains the response from method AvailabilitySetsClient.NewListAvailableSizesPager.
-type AvailabilitySetsClientListAvailableSizesResponse struct {
-	// The List Virtual Machine operation response.
-	VirtualMachineSizeListResult
-}
-
 // AvailabilitySetsClientListBySubscriptionResponse contains the response from method AvailabilitySetsClient.NewListBySubscriptionPager.
 type AvailabilitySetsClientListBySubscriptionResponse struct {
 	// The List Availability Set operation response.
@@ -97,14 +91,6 @@ type CapacityReservationGroupsClientListByResourceGroupResponse struct {
 type CapacityReservationGroupsClientListBySubscriptionResponse struct {
 	// The List capacity reservation group with resource group response.
 	CapacityReservationGroupListResult
-}
-
-// CapacityReservationGroupsClientUpdateResponse contains the response from method CapacityReservationGroupsClient.Update.
-type CapacityReservationGroupsClientUpdateResponse struct {
-	// Specifies information about the capacity reservation group that the capacity reservations should be assigned to. Currently,
-	// a capacity reservation can only be added to a capacity reservation group at creation time. An existing capacity reservation
-	// cannot be added or moved to another capacity reservation group.
-	CapacityReservationGroup
 }
 
 // CapacityReservationsClientCreateOrUpdateResponse contains the response from method CapacityReservationsClient.BeginCreateOrUpdate.
@@ -390,12 +376,6 @@ type DedicatedHostsClientDeleteResponse struct {
 type DedicatedHostsClientGetResponse struct {
 	// Specifies information about the Dedicated host.
 	DedicatedHost
-}
-
-// DedicatedHostsClientListAvailableSizesResponse contains the response from method DedicatedHostsClient.NewListAvailableSizesPager.
-type DedicatedHostsClientListAvailableSizesResponse struct {
-	// The List Dedicated Host sizes operation response.
-	DedicatedHostSizeListResult
 }
 
 // DedicatedHostsClientListByHostGroupResponse contains the response from method DedicatedHostsClient.NewListByHostGroupPager.
@@ -824,12 +804,6 @@ type ProximityPlacementGroupsClientGetResponse struct {
 	ProximityPlacementGroup
 }
 
-// ProximityPlacementGroupsClientListByResourceGroupResponse contains the response from method ProximityPlacementGroupsClient.NewListByResourceGroupPager.
-type ProximityPlacementGroupsClientListByResourceGroupResponse struct {
-	// The List Proximity Placement Group operation response.
-	ProximityPlacementGroupListResult
-}
-
 // ProximityPlacementGroupsClientListBySubscriptionResponse contains the response from method ProximityPlacementGroupsClient.NewListBySubscriptionPager.
 type ProximityPlacementGroupsClientListBySubscriptionResponse struct {
 	// The List Proximity Placement Group operation response.
@@ -883,23 +857,6 @@ type RestorePointCollectionsClientUpdateResponse struct {
 	RestorePointCollection
 }
 
-// RestorePointsClientCreateResponse contains the response from method RestorePointsClient.BeginCreate.
-type RestorePointsClientCreateResponse struct {
-	// Restore Point details.
-	RestorePoint
-}
-
-// RestorePointsClientDeleteResponse contains the response from method RestorePointsClient.BeginDelete.
-type RestorePointsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// RestorePointsClientGetResponse contains the response from method RestorePointsClient.Get.
-type RestorePointsClientGetResponse struct {
-	// Restore Point details.
-	RestorePoint
-}
-
 // SSHPublicKeysClientCreateResponse contains the response from method SSHPublicKeysClient.Create.
 type SSHPublicKeysClientCreateResponse struct {
 	// Specifies information about the SSH public key.
@@ -909,12 +866,6 @@ type SSHPublicKeysClientCreateResponse struct {
 // SSHPublicKeysClientDeleteResponse contains the response from method SSHPublicKeysClient.Delete.
 type SSHPublicKeysClientDeleteResponse struct {
 	// placeholder for future response values
-}
-
-// SSHPublicKeysClientGenerateKeyPairResponse contains the response from method SSHPublicKeysClient.GenerateKeyPair.
-type SSHPublicKeysClientGenerateKeyPairResponse struct {
-	// Response from generation of an SSH key pair.
-	SSHPublicKeyGenerateKeyPairResult
 }
 
 // SSHPublicKeysClientGetResponse contains the response from method SSHPublicKeysClient.Get.
@@ -1279,12 +1230,6 @@ type VirtualMachineScaleSetVMRunCommandsClientGetResponse struct {
 	VirtualMachineRunCommand
 }
 
-// VirtualMachineScaleSetVMRunCommandsClientListResponse contains the response from method VirtualMachineScaleSetVMRunCommandsClient.NewListPager.
-type VirtualMachineScaleSetVMRunCommandsClientListResponse struct {
-	// The List run command operation response
-	VirtualMachineRunCommandsListResult
-}
-
 // VirtualMachineScaleSetVMRunCommandsClientUpdateResponse contains the response from method VirtualMachineScaleSetVMRunCommandsClient.BeginUpdate.
 type VirtualMachineScaleSetVMRunCommandsClientUpdateResponse struct {
 	// Describes a Virtual Machine run command.
@@ -1535,12 +1480,6 @@ type VirtualMachinesClientAssessPatchesResponse struct {
 	VirtualMachineAssessPatchesResult
 }
 
-// VirtualMachinesClientAttachDetachDataDisksResponse contains the response from method VirtualMachinesClient.BeginAttachDetachDataDisks.
-type VirtualMachinesClientAttachDetachDataDisksResponse struct {
-	// Specifies the storage settings for the virtual machine disks.
-	StorageProfile
-}
-
 // VirtualMachinesClientCaptureResponse contains the response from method VirtualMachinesClient.BeginCapture.
 type VirtualMachinesClientCaptureResponse struct {
 	// Output of virtual machine capture operation.
@@ -1577,12 +1516,6 @@ type VirtualMachinesClientGeneralizeResponse struct {
 type VirtualMachinesClientGetResponse struct {
 	// Describes a Virtual Machine.
 	VirtualMachine
-}
-
-// VirtualMachinesClientInstallPatchesResponse contains the response from method VirtualMachinesClient.BeginInstallPatches.
-type VirtualMachinesClientInstallPatchesResponse struct {
-	// The result summary of an installation operation.
-	VirtualMachineInstallPatchesResult
 }
 
 // VirtualMachinesClientInstanceViewResponse contains the response from method VirtualMachinesClient.InstanceView.
