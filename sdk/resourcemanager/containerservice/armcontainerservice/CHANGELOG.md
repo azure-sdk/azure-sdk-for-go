@@ -1,5 +1,17 @@
 # Release History
 
+## 5.0.0 (2024-03-12)
+### Breaking Changes
+
+- Field `NodeSelector` of struct `IstioEgressGateway` has been removed
+
+### Features Added
+
+- New struct `ManagedClusterIngressProfile`
+- New struct `ManagedClusterIngressProfileWebAppRouting`
+- New field `IngressProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.8.0-beta.1 (2024-02-23)
 ### Features Added
 
