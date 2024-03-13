@@ -46,7 +46,7 @@ func NewSpringbootappsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Get a springbootapps resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - springbootappsName - The springbootapps name.
@@ -97,7 +97,7 @@ func (client *SpringbootappsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *SpringbootappsClient) getHandleResponse(resp *http.Response) (Spri
 
 // NewListByResourceGroupPager - List springbootapps resource by resourceGroup
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - options - SpringbootappsClientListByResourceGroupOptions contains the optional parameters for the SpringbootappsClient.NewListByResourceGroupPager
@@ -162,7 +162,7 @@ func (client *SpringbootappsClient) listByResourceGroupCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,7 +179,7 @@ func (client *SpringbootappsClient) listByResourceGroupHandleResponse(resp *http
 
 // NewListBySubscriptionPager - List springbootapps resource by subscription
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - siteName - The springbootsites name.
 //   - options - SpringbootappsClientListBySubscriptionOptions contains the optional parameters for the SpringbootappsClient.NewListBySubscriptionPager
 //     method.
@@ -222,7 +222,7 @@ func (client *SpringbootappsClient) listBySubscriptionCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -240,7 +240,7 @@ func (client *SpringbootappsClient) listBySubscriptionHandleResponse(resp *http.
 // BeginUpdate - Update a springbootapps resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - springbootappsName - The springbootapps name.
@@ -268,7 +268,7 @@ func (client *SpringbootappsClient) BeginUpdate(ctx context.Context, resourceGro
 // Update - Update a springbootapps resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 func (client *SpringbootappsClient) update(ctx context.Context, resourceGroupName string, siteName string, springbootappsName string, springbootapps SpringbootappsPatch, options *SpringbootappsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SpringbootappsClient.BeginUpdate"
@@ -314,7 +314,7 @@ func (client *SpringbootappsClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, springbootapps); err != nil {
