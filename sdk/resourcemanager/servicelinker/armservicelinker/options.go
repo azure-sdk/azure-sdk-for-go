@@ -8,6 +8,56 @@
 
 package armservicelinker
 
+// ConfigurationNamesClientListOptions contains the optional parameters for the ConfigurationNamesClient.NewListPager method.
+type ConfigurationNamesClientListOptions struct {
+	// OData filter options.
+	Filter *string
+
+	// OData skipToken option for pagination.
+	SkipToken *string
+}
+
+// ConnectorClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectorClient.BeginCreateOrUpdate
+// method.
+type ConnectorClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConnectorClientBeginDeleteOptions contains the optional parameters for the ConnectorClient.BeginDelete method.
+type ConnectorClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConnectorClientBeginUpdateOptions contains the optional parameters for the ConnectorClient.BeginUpdate method.
+type ConnectorClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConnectorClientGenerateConfigurationsOptions contains the optional parameters for the ConnectorClient.GenerateConfigurations
+// method.
+type ConnectorClientGenerateConfigurationsOptions struct {
+	// Connection Info, including format, secret store, etc
+	Parameters *ConfigurationInfo
+}
+
+// ConnectorClientGetOptions contains the optional parameters for the ConnectorClient.Get method.
+type ConnectorClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectorClientListDryrunOptions contains the optional parameters for the ConnectorClient.NewListDryrunPager method.
+type ConnectorClientListDryrunOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectorClientListOptions contains the optional parameters for the ConnectorClient.NewListPager method.
+type ConnectorClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // LinkerClientBeginCreateOrUpdateOptions contains the optional parameters for the LinkerClient.BeginCreateOrUpdate method.
 type LinkerClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -44,6 +94,40 @@ type LinkerClientListConfigurationsOptions struct {
 
 // LinkerClientListOptions contains the optional parameters for the LinkerClient.NewListPager method.
 type LinkerClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LinkersClientBeginCreateDryrunOptions contains the optional parameters for the LinkersClient.BeginCreateDryrun method.
+type LinkersClientBeginCreateDryrunOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LinkersClientBeginUpdateDryrunOptions contains the optional parameters for the LinkersClient.BeginUpdateDryrun method.
+type LinkersClientBeginUpdateDryrunOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LinkersClientDeleteDryrunOptions contains the optional parameters for the LinkersClient.DeleteDryrun method.
+type LinkersClientDeleteDryrunOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LinkersClientGenerateConfigurationsOptions contains the optional parameters for the LinkersClient.GenerateConfigurations
+// method.
+type LinkersClientGenerateConfigurationsOptions struct {
+	// Connection Info, including format, secret store, etc
+	Parameters *ConfigurationInfo
+}
+
+// LinkersClientGetDryrunOptions contains the optional parameters for the LinkersClient.GetDryrun method.
+type LinkersClientGetDryrunOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LinkersClientListDryrunOptions contains the optional parameters for the LinkersClient.NewListDryrunPager method.
+type LinkersClientListDryrunOptions struct {
 	// placeholder for future optional parameters
 }
 
