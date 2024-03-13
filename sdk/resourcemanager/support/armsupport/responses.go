@@ -26,6 +26,12 @@ type ChatTranscriptsNoSubscriptionClientGetResponse struct {
 	ChatTranscriptDetails
 }
 
+// ChatTranscriptsNoSubscriptionClientListResponse contains the response from method ChatTranscriptsNoSubscriptionClient.NewListPager.
+type ChatTranscriptsNoSubscriptionClientListResponse struct {
+	// Collection of Chat Transcripts resources.
+	ChatTranscriptsListResult
+}
+
 // CommunicationsClientCheckNameAvailabilityResponse contains the response from method CommunicationsClient.CheckNameAvailability.
 type CommunicationsClientCheckNameAvailabilityResponse struct {
 	// Output of check name availability API.
@@ -66,6 +72,12 @@ type CommunicationsNoSubscriptionClientCreateResponse struct {
 type CommunicationsNoSubscriptionClientGetResponse struct {
 	// Object that represents a Communication resource.
 	CommunicationDetails
+}
+
+// CommunicationsNoSubscriptionClientListResponse contains the response from method CommunicationsNoSubscriptionClient.NewListPager.
+type CommunicationsNoSubscriptionClientListResponse struct {
+	// Collection of Communication resources.
+	CommunicationsListResult
 }
 
 // FileWorkspacesClientCreateResponse contains the response from method FileWorkspacesClient.Create.
@@ -166,18 +178,6 @@ type ServicesClientGetResponse struct {
 type ServicesClientListResponse struct {
 	// Collection of Service resources.
 	ServicesListResult
-}
-
-// TicketChatTranscriptsNoSubscriptionClientListResponse contains the response from method TicketChatTranscriptsNoSubscriptionClient.NewListPager.
-type TicketChatTranscriptsNoSubscriptionClientListResponse struct {
-	// Collection of Chat Transcripts resources.
-	ChatTranscriptsListResult
-}
-
-// TicketCommunicationsNoSubscriptionClientListResponse contains the response from method TicketCommunicationsNoSubscriptionClient.NewListPager.
-type TicketCommunicationsNoSubscriptionClientListResponse struct {
-	// Collection of Communication resources.
-	CommunicationsListResult
 }
 
 // TicketsClientCheckNameAvailabilityResponse contains the response from method TicketsClient.CheckNameAvailability.
