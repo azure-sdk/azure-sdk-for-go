@@ -1835,6 +1835,13 @@ type WebAppsClientBeginCreateMSDeployOperationSlotOptions struct {
 	ResumeToken string
 }
 
+// WebAppsClientBeginCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.BeginCreateOrUpdateConfiguration
+// method.
+type WebAppsClientBeginCreateOrUpdateConfigurationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // WebAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the WebAppsClient.BeginCreateOrUpdate method.
 type WebAppsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -1858,6 +1865,18 @@ type WebAppsClientBeginCreateOrUpdateSourceControlOptions struct {
 // WebAppsClientBeginCreateOrUpdateSourceControlSlotOptions contains the optional parameters for the WebAppsClient.BeginCreateOrUpdateSourceControlSlot
 // method.
 type WebAppsClientBeginCreateOrUpdateSourceControlSlotOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppsClientBeginDeleteOptions contains the optional parameters for the WebAppsClient.BeginDelete method.
+type WebAppsClientBeginDeleteOptions struct {
+	// Specify false if you want to keep empty App Service plan. By default, empty App Service plan is deleted.
+	DeleteEmptyServerFarm *bool
+
+	// If true, web app metrics are also deleted.
+	DeleteMetrics *bool
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2060,6 +2079,33 @@ type WebAppsClientBeginSwapSlotWithProductionOptions struct {
 	ResumeToken string
 }
 
+// WebAppsClientBeginUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.BeginUpdateApplicationSettings
+// method.
+type WebAppsClientBeginUpdateApplicationSettingsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppsClientBeginUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.BeginUpdateConfiguration
+// method.
+type WebAppsClientBeginUpdateConfigurationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppsClientBeginUpdateConnectionStringsOptions contains the optional parameters for the WebAppsClient.BeginUpdateConnectionStrings
+// method.
+type WebAppsClientBeginUpdateConnectionStringsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppsClientBeginUpdateOptions contains the optional parameters for the WebAppsClient.BeginUpdate method.
+type WebAppsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // WebAppsClientCreateDeploymentOptions contains the optional parameters for the WebAppsClient.CreateDeployment method.
 type WebAppsClientCreateDeploymentOptions struct {
 	// placeholder for future optional parameters
@@ -2073,12 +2119,6 @@ type WebAppsClientCreateDeploymentSlotOptions struct {
 // WebAppsClientCreateOneDeployOperationOptions contains the optional parameters for the WebAppsClient.CreateOneDeployOperation
 // method.
 type WebAppsClientCreateOneDeployOperationOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateConfiguration
-// method.
-type WebAppsClientCreateOrUpdateConfigurationOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2169,6 +2209,18 @@ type WebAppsClientCreateOrUpdateRelayServiceConnectionOptions struct {
 // WebAppsClientCreateOrUpdateRelayServiceConnectionSlotOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateRelayServiceConnectionSlot
 // method.
 type WebAppsClientCreateOrUpdateRelayServiceConnectionSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientCreateOrUpdateSiteContainerOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateSiteContainer
+// method.
+type WebAppsClientCreateOrUpdateSiteContainerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientCreateOrUpdateSiteContainerSlotOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateSiteContainerSlot
+// method.
+type WebAppsClientCreateOrUpdateSiteContainerSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2332,15 +2384,6 @@ type WebAppsClientDeleteInstanceProcessSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WebAppsClientDeleteOptions contains the optional parameters for the WebAppsClient.Delete method.
-type WebAppsClientDeleteOptions struct {
-	// Specify false if you want to keep empty App Service plan. By default, empty App Service plan is deleted.
-	DeleteEmptyServerFarm *bool
-
-	// If true, web app metrics are also deleted.
-	DeleteMetrics *bool
-}
-
 // WebAppsClientDeletePremierAddOnOptions contains the optional parameters for the WebAppsClient.DeletePremierAddOn method.
 type WebAppsClientDeletePremierAddOnOptions struct {
 	// placeholder for future optional parameters
@@ -2383,6 +2426,17 @@ type WebAppsClientDeleteRelayServiceConnectionOptions struct {
 // WebAppsClientDeleteRelayServiceConnectionSlotOptions contains the optional parameters for the WebAppsClient.DeleteRelayServiceConnectionSlot
 // method.
 type WebAppsClientDeleteRelayServiceConnectionSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientDeleteSiteContainerOptions contains the optional parameters for the WebAppsClient.DeleteSiteContainer method.
+type WebAppsClientDeleteSiteContainerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientDeleteSiteContainerSlotOptions contains the optional parameters for the WebAppsClient.DeleteSiteContainerSlot
+// method.
+type WebAppsClientDeleteSiteContainerSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3006,6 +3060,16 @@ type WebAppsClientGetSiteConnectionStringKeyVaultReferencesSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WebAppsClientGetSiteContainerOptions contains the optional parameters for the WebAppsClient.GetSiteContainer method.
+type WebAppsClientGetSiteContainerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientGetSiteContainerSlotOptions contains the optional parameters for the WebAppsClient.GetSiteContainerSlot method.
+type WebAppsClientGetSiteContainerSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WebAppsClientGetSiteExtensionOptions contains the optional parameters for the WebAppsClient.GetSiteExtension method.
 type WebAppsClientGetSiteExtensionOptions struct {
 	// placeholder for future optional parameters
@@ -3549,6 +3613,18 @@ type WebAppsClientListSiteBackupsSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WebAppsClientListSiteContainersOptions contains the optional parameters for the WebAppsClient.NewListSiteContainersPager
+// method.
+type WebAppsClientListSiteContainersOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientListSiteContainersSlotOptions contains the optional parameters for the WebAppsClient.NewListSiteContainersSlotPager
+// method.
+type WebAppsClientListSiteContainersSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WebAppsClientListSiteExtensionsOptions contains the optional parameters for the WebAppsClient.NewListSiteExtensionsPager
 // method.
 type WebAppsClientListSiteExtensionsOptions struct {
@@ -3912,12 +3988,6 @@ type WebAppsClientSyncRepositorySlotOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WebAppsClientUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.UpdateApplicationSettings
-// method.
-type WebAppsClientUpdateApplicationSettingsOptions struct {
-	// placeholder for future optional parameters
-}
-
 // WebAppsClientUpdateApplicationSettingsSlotOptions contains the optional parameters for the WebAppsClient.UpdateApplicationSettingsSlot
 // method.
 type WebAppsClientUpdateApplicationSettingsSlotOptions struct {
@@ -3970,20 +4040,9 @@ type WebAppsClientUpdateBackupConfigurationSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WebAppsClientUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.UpdateConfiguration method.
-type WebAppsClientUpdateConfigurationOptions struct {
-	// placeholder for future optional parameters
-}
-
 // WebAppsClientUpdateConfigurationSlotOptions contains the optional parameters for the WebAppsClient.UpdateConfigurationSlot
 // method.
 type WebAppsClientUpdateConfigurationSlotOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientUpdateConnectionStringsOptions contains the optional parameters for the WebAppsClient.UpdateConnectionStrings
-// method.
-type WebAppsClientUpdateConnectionStringsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -4046,11 +4105,6 @@ type WebAppsClientUpdateMetadataOptions struct {
 
 // WebAppsClientUpdateMetadataSlotOptions contains the optional parameters for the WebAppsClient.UpdateMetadataSlot method.
 type WebAppsClientUpdateMetadataSlotOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientUpdateOptions contains the optional parameters for the WebAppsClient.Update method.
-type WebAppsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
