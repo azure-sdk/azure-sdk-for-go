@@ -10,7 +10,7 @@ package armappplatform
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appplatform/armappplatform"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // APIPortalAPITryOutEnabledState - Indicates whether the API try-out feature is enabled or disabled. When enabled, users
@@ -88,6 +88,28 @@ func PossibleApmProvisioningStateValues() []ApmProvisioningState {
 		ApmProvisioningStateFailed,
 		ApmProvisioningStateSucceeded,
 		ApmProvisioningStateUpdating,
+	}
+}
+
+// ApmType - Type of application performance monitoring
+type ApmType string
+
+const (
+	ApmTypeAppDynamics         ApmType = "AppDynamics"
+	ApmTypeApplicationInsights ApmType = "ApplicationInsights"
+	ApmTypeDynatrace           ApmType = "Dynatrace"
+	ApmTypeElasticAPM          ApmType = "ElasticAPM"
+	ApmTypeNewRelic            ApmType = "NewRelic"
+)
+
+// PossibleApmTypeValues returns the possible values for the ApmType const type.
+func PossibleApmTypeValues() []ApmType {
+	return []ApmType{
+		ApmTypeAppDynamics,
+		ApmTypeApplicationInsights,
+		ApmTypeDynatrace,
+		ApmTypeElasticAPM,
+		ApmTypeNewRelic,
 	}
 }
 
@@ -184,6 +206,7 @@ const (
 	BindingTypeApacheSkyWalking    BindingType = "ApacheSkyWalking"
 	BindingTypeAppDynamics         BindingType = "AppDynamics"
 	BindingTypeApplicationInsights BindingType = "ApplicationInsights"
+	BindingTypeCACertificates      BindingType = "CACertificates"
 	BindingTypeDynatrace           BindingType = "Dynatrace"
 	BindingTypeElasticAPM          BindingType = "ElasticAPM"
 	BindingTypeNewRelic            BindingType = "NewRelic"
@@ -195,6 +218,7 @@ func PossibleBindingTypeValues() []BindingType {
 		BindingTypeApacheSkyWalking,
 		BindingTypeAppDynamics,
 		BindingTypeApplicationInsights,
+		BindingTypeCACertificates,
 		BindingTypeDynatrace,
 		BindingTypeElasticAPM,
 		BindingTypeNewRelic,
@@ -330,6 +354,24 @@ func PossibleCertificateResourceProvisioningStateValues() []CertificateResourceP
 		CertificateResourceProvisioningStateFailed,
 		CertificateResourceProvisioningStateSucceeded,
 		CertificateResourceProvisioningStateUpdating,
+	}
+}
+
+// ConfigServerEnabledState - Enabled state of the config server. This is only used in Consumption tier.
+type ConfigServerEnabledState string
+
+const (
+	// ConfigServerEnabledStateDisabled - Disable the config server.
+	ConfigServerEnabledStateDisabled ConfigServerEnabledState = "Disabled"
+	// ConfigServerEnabledStateEnabled - Enable the config server.
+	ConfigServerEnabledStateEnabled ConfigServerEnabledState = "Enabled"
+)
+
+// PossibleConfigServerEnabledStateValues returns the possible values for the ConfigServerEnabledState const type.
+func PossibleConfigServerEnabledStateValues() []ConfigServerEnabledState {
+	return []ConfigServerEnabledState{
+		ConfigServerEnabledStateDisabled,
+		ConfigServerEnabledStateEnabled,
 	}
 }
 
@@ -595,6 +637,58 @@ func PossibleDevToolPortalProvisioningStateValues() []DevToolPortalProvisioningS
 	}
 }
 
+// EurekaServerEnabledState - Enabled state of the eureka server. This is only used in Consumption tier.
+type EurekaServerEnabledState string
+
+const (
+	// EurekaServerEnabledStateDisabled - Disable the eureka server.
+	EurekaServerEnabledStateDisabled EurekaServerEnabledState = "Disabled"
+	// EurekaServerEnabledStateEnabled - Enable the eureka server.
+	EurekaServerEnabledStateEnabled EurekaServerEnabledState = "Enabled"
+)
+
+// PossibleEurekaServerEnabledStateValues returns the possible values for the EurekaServerEnabledState const type.
+func PossibleEurekaServerEnabledStateValues() []EurekaServerEnabledState {
+	return []EurekaServerEnabledState{
+		EurekaServerEnabledStateDisabled,
+		EurekaServerEnabledStateEnabled,
+	}
+}
+
+// EurekaServerState - State of the eureka server.
+type EurekaServerState string
+
+const (
+	EurekaServerStateCanceled  EurekaServerState = "Canceled"
+	EurekaServerStateFailed    EurekaServerState = "Failed"
+	EurekaServerStateSucceeded EurekaServerState = "Succeeded"
+	EurekaServerStateUpdating  EurekaServerState = "Updating"
+)
+
+// PossibleEurekaServerStateValues returns the possible values for the EurekaServerState const type.
+func PossibleEurekaServerStateValues() []EurekaServerState {
+	return []EurekaServerState{
+		EurekaServerStateCanceled,
+		EurekaServerStateFailed,
+		EurekaServerStateSucceeded,
+		EurekaServerStateUpdating,
+	}
+}
+
+// Frequency - The frequency to run the maintenance job
+type Frequency string
+
+const (
+	FrequencyWeekly Frequency = "Weekly"
+)
+
+// PossibleFrequencyValues returns the possible values for the Frequency const type.
+func PossibleFrequencyValues() []Frequency {
+	return []Frequency{
+		FrequencyWeekly,
+	}
+}
+
 // GatewayCertificateVerification - Whether to enable certificate verification or not
 type GatewayCertificateVerification string
 
@@ -683,6 +777,52 @@ func PossibleHTTPSchemeTypeValues() []HTTPSchemeType {
 	return []HTTPSchemeType{
 		HTTPSchemeTypeHTTP,
 		HTTPSchemeTypeHTTPS,
+	}
+}
+
+// JobExecutionRunningState - Current state of the job execution
+type JobExecutionRunningState string
+
+const (
+	JobExecutionRunningStateCanceled  JobExecutionRunningState = "Canceled"
+	JobExecutionRunningStateCompleted JobExecutionRunningState = "Completed"
+	JobExecutionRunningStateFailed    JobExecutionRunningState = "Failed"
+	JobExecutionRunningStatePending   JobExecutionRunningState = "Pending"
+	JobExecutionRunningStateRunning   JobExecutionRunningState = "Running"
+)
+
+// PossibleJobExecutionRunningStateValues returns the possible values for the JobExecutionRunningState const type.
+func PossibleJobExecutionRunningStateValues() []JobExecutionRunningState {
+	return []JobExecutionRunningState{
+		JobExecutionRunningStateCanceled,
+		JobExecutionRunningStateCompleted,
+		JobExecutionRunningStateFailed,
+		JobExecutionRunningStatePending,
+		JobExecutionRunningStateRunning,
+	}
+}
+
+// JobResourceProvisioningState - Provisioning state of the Job
+type JobResourceProvisioningState string
+
+const (
+	JobResourceProvisioningStateCanceled  JobResourceProvisioningState = "Canceled"
+	JobResourceProvisioningStateCreating  JobResourceProvisioningState = "Creating"
+	JobResourceProvisioningStateDeleting  JobResourceProvisioningState = "Deleting"
+	JobResourceProvisioningStateFailed    JobResourceProvisioningState = "Failed"
+	JobResourceProvisioningStateSucceeded JobResourceProvisioningState = "Succeeded"
+	JobResourceProvisioningStateUpdating  JobResourceProvisioningState = "Updating"
+)
+
+// PossibleJobResourceProvisioningStateValues returns the possible values for the JobResourceProvisioningState const type.
+func PossibleJobResourceProvisioningStateValues() []JobResourceProvisioningState {
+	return []JobResourceProvisioningState{
+		JobResourceProvisioningStateCanceled,
+		JobResourceProvisioningStateCreating,
+		JobResourceProvisioningStateDeleting,
+		JobResourceProvisioningStateFailed,
+		JobResourceProvisioningStateSucceeded,
+		JobResourceProvisioningStateUpdating,
 	}
 }
 
@@ -835,6 +975,23 @@ func PossiblePredefinedAcceleratorStateValues() []PredefinedAcceleratorState {
 	return []PredefinedAcceleratorState{
 		PredefinedAcceleratorStateDisabled,
 		PredefinedAcceleratorStateEnabled,
+	}
+}
+
+// PrivateLinkState - Indicates whether the vnet injection service enables private links for backend storage account and container
+// registry.
+type PrivateLinkState string
+
+const (
+	PrivateLinkStateDisabled PrivateLinkState = "Disabled"
+	PrivateLinkStateEnabled  PrivateLinkState = "Enabled"
+)
+
+// PossiblePrivateLinkStateValues returns the possible values for the PrivateLinkState const type.
+func PossiblePrivateLinkStateValues() []PrivateLinkState {
+	return []PrivateLinkState{
+		PrivateLinkStateDisabled,
+		PrivateLinkStateEnabled,
 	}
 }
 
@@ -1014,6 +1171,7 @@ type SupportedRuntimeValue string
 const (
 	SupportedRuntimeValueJava11    SupportedRuntimeValue = "Java_11"
 	SupportedRuntimeValueJava17    SupportedRuntimeValue = "Java_17"
+	SupportedRuntimeValueJava21    SupportedRuntimeValue = "Java_21"
 	SupportedRuntimeValueJava8     SupportedRuntimeValue = "Java_8"
 	SupportedRuntimeValueNetCore31 SupportedRuntimeValue = "NetCore_31"
 )
@@ -1023,8 +1181,43 @@ func PossibleSupportedRuntimeValueValues() []SupportedRuntimeValue {
 	return []SupportedRuntimeValue{
 		SupportedRuntimeValueJava11,
 		SupportedRuntimeValueJava17,
+		SupportedRuntimeValueJava21,
 		SupportedRuntimeValueJava8,
 		SupportedRuntimeValueNetCore31,
+	}
+}
+
+// SystemAssignedServiceIdentityType - Type of managed service identity (either system assigned, or none).
+type SystemAssignedServiceIdentityType string
+
+const (
+	SystemAssignedServiceIdentityTypeNone           SystemAssignedServiceIdentityType = "None"
+	SystemAssignedServiceIdentityTypeSystemAssigned SystemAssignedServiceIdentityType = "SystemAssigned"
+)
+
+// PossibleSystemAssignedServiceIdentityTypeValues returns the possible values for the SystemAssignedServiceIdentityType const type.
+func PossibleSystemAssignedServiceIdentityTypeValues() []SystemAssignedServiceIdentityType {
+	return []SystemAssignedServiceIdentityType{
+		SystemAssignedServiceIdentityTypeNone,
+		SystemAssignedServiceIdentityTypeSystemAssigned,
+	}
+}
+
+// TestEndpointAuthState - State of test endpoint auth.
+type TestEndpointAuthState string
+
+const (
+	// TestEndpointAuthStateDisabled - Disable test endpoint auth
+	TestEndpointAuthStateDisabled TestEndpointAuthState = "Disabled"
+	// TestEndpointAuthStateEnabled - Enable test endpoint auth.
+	TestEndpointAuthStateEnabled TestEndpointAuthState = "Enabled"
+)
+
+// PossibleTestEndpointAuthStateValues returns the possible values for the TestEndpointAuthState const type.
+func PossibleTestEndpointAuthStateValues() []TestEndpointAuthState {
+	return []TestEndpointAuthState{
+		TestEndpointAuthStateDisabled,
+		TestEndpointAuthStateEnabled,
 	}
 }
 
@@ -1095,5 +1288,31 @@ const (
 func PossibleTypeValues() []Type {
 	return []Type{
 		TypeAzureFileVolume,
+	}
+}
+
+// WeekDay - The day to run the maintenance job
+type WeekDay string
+
+const (
+	WeekDayFriday    WeekDay = "Friday"
+	WeekDayMonday    WeekDay = "Monday"
+	WeekDaySaturday  WeekDay = "Saturday"
+	WeekDaySunday    WeekDay = "Sunday"
+	WeekDayThursday  WeekDay = "Thursday"
+	WeekDayTuesday   WeekDay = "Tuesday"
+	WeekDayWednesday WeekDay = "Wednesday"
+)
+
+// PossibleWeekDayValues returns the possible values for the WeekDay const type.
+func PossibleWeekDayValues() []WeekDay {
+	return []WeekDay{
+		WeekDayFriday,
+		WeekDayMonday,
+		WeekDaySaturday,
+		WeekDaySunday,
+		WeekDayThursday,
+		WeekDayTuesday,
+		WeekDayWednesday,
 	}
 }

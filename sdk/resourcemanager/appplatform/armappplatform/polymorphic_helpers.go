@@ -11,7 +11,7 @@ package armappplatform
 import "encoding/json"
 
 func unmarshalAcceleratorAuthSettingClassification(rawMsg json.RawMessage) (AcceleratorAuthSettingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -36,7 +36,7 @@ func unmarshalAcceleratorAuthSettingClassification(rawMsg json.RawMessage) (Acce
 }
 
 func unmarshalCertificatePropertiesClassification(rawMsg json.RawMessage) (CertificatePropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -59,7 +59,7 @@ func unmarshalCertificatePropertiesClassification(rawMsg json.RawMessage) (Certi
 }
 
 func unmarshalContainerRegistryCredentialsClassification(rawMsg json.RawMessage) (ContainerRegistryCredentialsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -80,7 +80,7 @@ func unmarshalContainerRegistryCredentialsClassification(rawMsg json.RawMessage)
 }
 
 func unmarshalCustomPersistentDiskPropertiesClassification(rawMsg json.RawMessage) (CustomPersistentDiskPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -100,8 +100,73 @@ func unmarshalCustomPersistentDiskPropertiesClassification(rawMsg json.RawMessag
 	return b, nil
 }
 
+func unmarshalGatewayResponseCachePropertiesClassification(rawMsg json.RawMessage) (GatewayResponseCachePropertiesClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b GatewayResponseCachePropertiesClassification
+	switch m["responseCacheType"] {
+	case "LocalCachePerInstance":
+		b = &GatewayLocalResponseCachePerInstanceProperties{}
+	case "LocalCachePerRoute":
+		b = &GatewayLocalResponseCachePerRouteProperties{}
+	default:
+		b = &GatewayResponseCacheProperties{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalJobTriggerConfigClassification(rawMsg json.RawMessage) (JobTriggerConfigClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b JobTriggerConfigClassification
+	switch m["triggerType"] {
+	case "Manual":
+		b = &ManualJobTriggerConfig{}
+	default:
+		b = &JobTriggerConfig{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMaintenanceScheduleConfigurationClassification(rawMsg json.RawMessage) (MaintenanceScheduleConfigurationClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MaintenanceScheduleConfigurationClassification
+	switch m["frequency"] {
+	case string(FrequencyWeekly):
+		b = &WeeklyMaintenanceScheduleConfiguration{}
+	default:
+		b = &MaintenanceScheduleConfiguration{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalProbeActionClassification(rawMsg json.RawMessage) (ProbeActionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -126,7 +191,7 @@ func unmarshalProbeActionClassification(rawMsg json.RawMessage) (ProbeActionClas
 }
 
 func unmarshalStoragePropertiesClassification(rawMsg json.RawMessage) (StoragePropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -147,7 +212,7 @@ func unmarshalStoragePropertiesClassification(rawMsg json.RawMessage) (StoragePr
 }
 
 func unmarshalUserSourceInfoClassification(rawMsg json.RawMessage) (UserSourceInfoClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
