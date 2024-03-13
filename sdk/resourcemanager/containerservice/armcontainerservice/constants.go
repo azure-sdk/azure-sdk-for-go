@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v4.8.0-beta.1"
+	moduleVersion = "v4.8.0-beta.2"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -36,6 +36,9 @@ func PossibleAddonAutoscalingValues() []AddonAutoscaling {
 type AgentPoolMode string
 
 const (
+	// AgentPoolModeGateway - Gateway agent pools are dedicated to providing static egress IPs to pods. For more details, see
+	// https://aka.ms/aks/static-egress-gateway.
+	AgentPoolModeGateway AgentPoolMode = "Gateway"
 	// AgentPoolModeSystem - System agent pools are primarily for hosting critical system pods such as CoreDNS and metrics-server.
 	// System agent pools osType must be Linux. System agent pools VM SKU must have at least 2vCPUs and 4GB of memory.
 	AgentPoolModeSystem AgentPoolMode = "System"
@@ -46,6 +49,7 @@ const (
 // PossibleAgentPoolModeValues returns the possible values for the AgentPoolMode const type.
 func PossibleAgentPoolModeValues() []AgentPoolMode {
 	return []AgentPoolMode{
+		AgentPoolModeGateway,
 		AgentPoolModeSystem,
 		AgentPoolModeUser,
 	}
@@ -90,6 +94,24 @@ func PossibleAgentPoolTypeValues() []AgentPoolType {
 	}
 }
 
+// ArtifactSource - The source where the artifacts are downloaded from.
+type ArtifactSource string
+
+const (
+	// ArtifactSourceCache - pull images from Azure Container Registry with cache
+	ArtifactSourceCache ArtifactSource = "Cache"
+	// ArtifactSourceDirect - pull images from Microsoft Artifact Registry
+	ArtifactSourceDirect ArtifactSource = "Direct"
+)
+
+// PossibleArtifactSourceValues returns the possible values for the ArtifactSource const type.
+func PossibleArtifactSourceValues() []ArtifactSource {
+	return []ArtifactSource{
+		ArtifactSourceCache,
+		ArtifactSourceDirect,
+	}
+}
+
 // BackendPoolType - The type of the managed inbound Load Balancer BackendPool.
 type BackendPoolType string
 
@@ -105,6 +127,26 @@ func PossibleBackendPoolTypeValues() []BackendPoolType {
 	return []BackendPoolType{
 		BackendPoolTypeNodeIP,
 		BackendPoolTypeNodeIPConfiguration,
+	}
+}
+
+// ClusterServiceLoadBalancerHealthProbeMode - The health probing behavior for External Traffic Policy Cluster services.
+type ClusterServiceLoadBalancerHealthProbeMode string
+
+const (
+	// ClusterServiceLoadBalancerHealthProbeModeServiceNodePort - Each External Traffic Policy Cluster service will have its own
+	// health probe targeting service nodePort.
+	ClusterServiceLoadBalancerHealthProbeModeServiceNodePort ClusterServiceLoadBalancerHealthProbeMode = "ServiceNodePort"
+	// ClusterServiceLoadBalancerHealthProbeModeShared - All External Traffic Policy Cluster services in a Standard Load Balancer
+	// will have a dedicated health probe targeting the backend nodes' kube-proxy health check port 10256.
+	ClusterServiceLoadBalancerHealthProbeModeShared ClusterServiceLoadBalancerHealthProbeMode = "Shared"
+)
+
+// PossibleClusterServiceLoadBalancerHealthProbeModeValues returns the possible values for the ClusterServiceLoadBalancerHealthProbeMode const type.
+func PossibleClusterServiceLoadBalancerHealthProbeModeValues() []ClusterServiceLoadBalancerHealthProbeMode {
+	return []ClusterServiceLoadBalancerHealthProbeMode{
+		ClusterServiceLoadBalancerHealthProbeModeServiceNodePort,
+		ClusterServiceLoadBalancerHealthProbeModeShared,
 	}
 }
 
@@ -786,6 +828,30 @@ func PossibleOutboundTypeValues() []OutboundType {
 		OutboundTypeManagedNATGateway,
 		OutboundTypeUserAssignedNATGateway,
 		OutboundTypeUserDefinedRouting,
+	}
+}
+
+// PodIPAllocationMode - The IP allocation mode for pods in the agent pool. Must be used with podSubnetId. The default is
+// 'DynamicIndividual'.
+type PodIPAllocationMode string
+
+const (
+	// PodIPAllocationModeDynamicIndividual - Each pod gets a single IP address assigned. This is better for maximizing a small
+	// to medium subnet of size /16 or smaller. The Azure CNI cluster with dynamic IP allocation defaults to this mode if the
+	// customer does not explicitly specify a podIPAllocationMode
+	PodIPAllocationModeDynamicIndividual PodIPAllocationMode = "DynamicIndividual"
+	// PodIPAllocationModeStaticBlock - Each node is statically allocated CIDR block(s) of size /28 = 16 IPs per block to satisfy
+	// the maxPods per node. Number of CIDR blocks >= (maxPods / 16). The block, rather than a single IP, counts against the Azure
+	// Vnet Private IP limit of 65K. Therefore block mode is suitable for running larger workloads with more than the current
+	// limit of 65K pods in a cluster. This mode is better suited to scale with larger subnets of /15 or bigger
+	PodIPAllocationModeStaticBlock PodIPAllocationMode = "StaticBlock"
+)
+
+// PossiblePodIPAllocationModeValues returns the possible values for the PodIPAllocationMode const type.
+func PossiblePodIPAllocationModeValues() []PodIPAllocationMode {
+	return []PodIPAllocationMode{
+		PodIPAllocationModeDynamicIndividual,
+		PodIPAllocationModeStaticBlock,
 	}
 }
 
