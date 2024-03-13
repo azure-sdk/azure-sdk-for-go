@@ -18,8 +18,8 @@ type APIEntityReference struct {
 
 // BackupProperties - Cloud Hsm Cluster backup information
 type BackupProperties struct {
-	// Azure storage Resource Uri
-	AzureStorageResourceURI *string
+	// Azure Blob storage container Uri
+	AzureStorageContainerURI *string
 
 	// READ-ONLY; Last Date Time that Customer Enabled Backup was taken
 	LastBackupDateTime *time.Time
@@ -28,8 +28,8 @@ type BackupProperties struct {
 	LastBackupStatus *string
 }
 
-// CHsmError - Error details
-type CHsmError struct {
+// ChsmError - Error details
+type ChsmError struct {
 	// READ-ONLY; The error code.
 	Code *string
 
@@ -70,7 +70,7 @@ type CloudHsmCluster struct {
 // CloudHsmClusterError - The Cloud HSM Cluster error details
 type CloudHsmClusterError struct {
 	// Error details
-	Error *CHsmError
+	Error *ChsmError
 }
 
 // CloudHsmClusterListResult - List of Cloud HSM Clusters
@@ -111,6 +111,9 @@ type CloudHsmClusterProperties struct {
 	// Cloud Hsm Cluster backup information
 	BackupProperties *BackupProperties
 
+	// Security domain properties information for Cloud HSM cluster
+	ClusterStatus *CloudHsmClusterStatusProperties
+
 	// An array of Cloud HSM Cluster's HSMs
 	Hsms []*CloudHsmProperties
 
@@ -125,9 +128,6 @@ type CloudHsmClusterProperties struct {
 
 	// Cloud Hsm Cluster restore information
 	RestoreProperties *RestoreProperties
-
-	// Security domain properties information for Cloud HSM cluster
-	SecurityDomain *CloudHsmClusterSecurityDomainProperties
 
 	// READ-ONLY; Cloud HSM Cluster status message
 	StatusMessage *string
@@ -172,8 +172,8 @@ type CloudHsmClusterSKU struct {
 	Capacity *int32
 }
 
-// CloudHsmClusterSecurityDomainProperties - Security domain properties information for Cloud HSM cluster
-type CloudHsmClusterSecurityDomainProperties struct {
+// CloudHsmClusterStatusProperties - Security domain properties information for Cloud HSM cluster
+type CloudHsmClusterStatusProperties struct {
 	// status of security domain activation
 	ActivationStatus *string
 
@@ -579,10 +579,10 @@ type ResourceListResult struct {
 // RestoreProperties - Cloud Hsm Cluster restore information
 type RestoreProperties struct {
 	// Azure Blob storage container Uri
-	AzureStorageResourceURI *string
+	AzureStorageContainerURI *string
 
 	// Directory name in Azure Storage Blob where the backup is stored
-	Foldername *string
+	FolderName *string
 }
 
 // SKU of the dedicated HSM

@@ -1,5 +1,24 @@
 # Release History
 
+## 2.0.0-beta.2 (2024-03-13)
+### Breaking Changes
+
+- Type of `CloudHsmClusterError.Error` has been changed from `*CHsmError` to `*ChsmError`
+- Struct `CHsmError` has been removed
+- Struct `CloudHsmClusterSecurityDomainProperties` has been removed
+- Field `AzureStorageResourceURI` of struct `BackupProperties` has been removed
+- Field `SecurityDomain` of struct `CloudHsmClusterProperties` has been removed
+- Field `AzureStorageResourceURI`, `Foldername` of struct `RestoreProperties` has been removed
+
+### Features Added
+
+- New struct `ChsmError`
+- New struct `CloudHsmClusterStatusProperties`
+- New field `AzureStorageContainerURI` in struct `BackupProperties`
+- New field `ClusterStatus` in struct `CloudHsmClusterProperties`
+- New field `AzureStorageContainerURI`, `FolderName` in struct `RestoreProperties`
+
+
 ## 2.0.0-beta.1 (2024-01-26)
 ### Breaking Changes
 
