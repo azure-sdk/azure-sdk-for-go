@@ -140,6 +140,52 @@ type BookmarksClientListResponse struct {
 	BookmarkList
 }
 
+// ContentPackageClientInstallResponse contains the response from method ContentPackageClient.Install.
+type ContentPackageClientInstallResponse struct {
+	// Represents a Package in Azure Security Insights.
+	PackageModel
+}
+
+// ContentPackageClientUninstallResponse contains the response from method ContentPackageClient.Uninstall.
+type ContentPackageClientUninstallResponse struct {
+	// placeholder for future response values
+}
+
+// ContentPackagesClientGetResponse contains the response from method ContentPackagesClient.Get.
+type ContentPackagesClientGetResponse struct {
+	// Represents a Package in Azure Security Insights.
+	PackageModel
+}
+
+// ContentPackagesClientListResponse contains the response from method ContentPackagesClient.NewListPager.
+type ContentPackagesClientListResponse struct {
+	// List available packages.
+	PackageList
+}
+
+// ContentTemplateClientDeleteResponse contains the response from method ContentTemplateClient.Delete.
+type ContentTemplateClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContentTemplateClientGetResponse contains the response from method ContentTemplateClient.Get.
+type ContentTemplateClientGetResponse struct {
+	// Template resource definition.
+	TemplateModel
+}
+
+// ContentTemplateClientInstallResponse contains the response from method ContentTemplateClient.Install.
+type ContentTemplateClientInstallResponse struct {
+	// Template resource definition.
+	TemplateModel
+}
+
+// ContentTemplatesClientListResponse contains the response from method ContentTemplatesClient.NewListPager.
+type ContentTemplatesClientListResponse struct {
+	// List of all the template.
+	TemplateList
+}
+
 // DataConnectorsClientCreateOrUpdateResponse contains the response from method DataConnectorsClient.CreateOrUpdate.
 type DataConnectorsClientCreateOrUpdateResponse struct {
 	// Data connector.
@@ -181,6 +227,11 @@ func (d *DataConnectorsClientGetResponse) UnmarshalJSON(data []byte) error {
 type DataConnectorsClientListResponse struct {
 	// List all the data connectors.
 	DataConnectorList
+}
+
+// EntitiesClientRunPlaybookResponse contains the response from method EntitiesClient.RunPlaybook.
+type EntitiesClientRunPlaybookResponse struct {
+	// placeholder for future response values
 }
 
 // IncidentCommentsClientCreateOrUpdateResponse contains the response from method IncidentCommentsClient.CreateOrUpdate.
@@ -229,6 +280,29 @@ type IncidentRelationsClientListResponse struct {
 	RelationList
 }
 
+// IncidentTasksClientCreateOrUpdateResponse contains the response from method IncidentTasksClient.CreateOrUpdate.
+type IncidentTasksClientCreateOrUpdateResponse struct {
+	// Describes incident task properties
+	IncidentTask
+}
+
+// IncidentTasksClientDeleteResponse contains the response from method IncidentTasksClient.Delete.
+type IncidentTasksClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// IncidentTasksClientGetResponse contains the response from method IncidentTasksClient.Get.
+type IncidentTasksClientGetResponse struct {
+	// Describes incident task properties
+	IncidentTask
+}
+
+// IncidentTasksClientListResponse contains the response from method IncidentTasksClient.NewListPager.
+type IncidentTasksClientListResponse struct {
+	// List of incident tasks
+	IncidentTaskList
+}
+
 // IncidentsClientCreateOrUpdateResponse contains the response from method IncidentsClient.CreateOrUpdate.
 type IncidentsClientCreateOrUpdateResponse struct {
 	// Represents an incident in Azure Security Insights.
@@ -270,10 +344,111 @@ type IncidentsClientListResponse struct {
 	IncidentList
 }
 
+// IncidentsClientRunPlaybookResponse contains the response from method IncidentsClient.RunPlaybook.
+type IncidentsClientRunPlaybookResponse struct {
+	// placeholder for future response values
+}
+
+// MetadataClientCreateResponse contains the response from method MetadataClient.Create.
+type MetadataClientCreateResponse struct {
+	// Metadata resource definition.
+	MetadataModel
+}
+
+// MetadataClientDeleteResponse contains the response from method MetadataClient.Delete.
+type MetadataClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MetadataClientGetResponse contains the response from method MetadataClient.Get.
+type MetadataClientGetResponse struct {
+	// Metadata resource definition.
+	MetadataModel
+}
+
+// MetadataClientListResponse contains the response from method MetadataClient.NewListPager.
+type MetadataClientListResponse struct {
+	// List of all the metadata.
+	MetadataList
+}
+
+// MetadataClientUpdateResponse contains the response from method MetadataClient.Update.
+type MetadataClientUpdateResponse struct {
+	// Metadata resource definition.
+	MetadataModel
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// Lists the operations available in the SecurityInsights RP.
 	OperationsList
+}
+
+// ProductPackageClientGetResponse contains the response from method ProductPackageClient.Get.
+type ProductPackageClientGetResponse struct {
+	// Represents a Package in Azure Security Insights.
+	ProductPackageModel
+}
+
+// ProductPackagesClientListResponse contains the response from method ProductPackagesClient.NewListPager.
+type ProductPackagesClientListResponse struct {
+	// List available packages.
+	ProductPackageList
+}
+
+// ProductTemplateClientGetResponse contains the response from method ProductTemplateClient.Get.
+type ProductTemplateClientGetResponse struct {
+	// Template resource definition.
+	ProductTemplateModel
+}
+
+// ProductTemplatesClientListResponse contains the response from method ProductTemplatesClient.NewListPager.
+type ProductTemplatesClientListResponse struct {
+	// List of all the template.
+	ProductTemplateList
+}
+
+// SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse contains the response from method SecurityMLAnalyticsSettingsClient.CreateOrUpdate.
+type SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse struct {
+	// Security ML Analytics Setting
+	SecurityMLAnalyticsSettingClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse.
+func (s *SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalSecurityMLAnalyticsSettingClassification(data)
+	if err != nil {
+		return err
+	}
+	s.SecurityMLAnalyticsSettingClassification = res
+	return nil
+}
+
+// SecurityMLAnalyticsSettingsClientDeleteResponse contains the response from method SecurityMLAnalyticsSettingsClient.Delete.
+type SecurityMLAnalyticsSettingsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityMLAnalyticsSettingsClientGetResponse contains the response from method SecurityMLAnalyticsSettingsClient.Get.
+type SecurityMLAnalyticsSettingsClientGetResponse struct {
+	// Security ML Analytics Setting
+	SecurityMLAnalyticsSettingClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SecurityMLAnalyticsSettingsClientGetResponse.
+func (s *SecurityMLAnalyticsSettingsClientGetResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalSecurityMLAnalyticsSettingClassification(data)
+	if err != nil {
+		return err
+	}
+	s.SecurityMLAnalyticsSettingClassification = res
+	return nil
+}
+
+// SecurityMLAnalyticsSettingsClientListResponse contains the response from method SecurityMLAnalyticsSettingsClient.NewListPager.
+type SecurityMLAnalyticsSettingsClientListResponse struct {
+	// List all the SecurityMLAnalyticsSettings
+	SecurityMLAnalyticsSettingsList
 }
 
 // SentinelOnboardingStatesClientCreateResponse contains the response from method SentinelOnboardingStatesClient.Create.
@@ -297,6 +472,36 @@ type SentinelOnboardingStatesClientGetResponse struct {
 type SentinelOnboardingStatesClientListResponse struct {
 	// List of the Sentinel onboarding states
 	SentinelOnboardingStatesList
+}
+
+// SourceControlClientListRepositoriesResponse contains the response from method SourceControlClient.NewListRepositoriesPager.
+type SourceControlClientListRepositoriesResponse struct {
+	// List all the source controls.
+	RepoList
+}
+
+// SourceControlsClientCreateResponse contains the response from method SourceControlsClient.Create.
+type SourceControlsClientCreateResponse struct {
+	// Represents a SourceControl in Azure Security Insights.
+	SourceControl
+}
+
+// SourceControlsClientDeleteResponse contains the response from method SourceControlsClient.Delete.
+type SourceControlsClientDeleteResponse struct {
+	// Warning response structure.
+	Warning
+}
+
+// SourceControlsClientGetResponse contains the response from method SourceControlsClient.Get.
+type SourceControlsClientGetResponse struct {
+	// Represents a SourceControl in Azure Security Insights.
+	SourceControl
+}
+
+// SourceControlsClientListResponse contains the response from method SourceControlsClient.NewListPager.
+type SourceControlsClientListResponse struct {
+	// List all the source controls.
+	SourceControlList
 }
 
 // ThreatIntelligenceIndicatorClientAppendTagsResponse contains the response from method ThreatIntelligenceIndicatorClient.AppendTags.
