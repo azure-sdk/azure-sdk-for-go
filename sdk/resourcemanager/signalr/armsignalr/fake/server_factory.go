@@ -25,6 +25,7 @@ type ServerFactory struct {
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer       PrivateLinkResourcesServer
+	ReplicaServer                    ReplicaServer
 	ReplicasServer                   ReplicasServer
 	SharedPrivateLinkResourcesServer SharedPrivateLinkResourcesServer
 	UsagesServer                     UsagesServer
@@ -50,6 +51,7 @@ type ServerFactoryTransport struct {
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
+	trReplicaServer                    *ReplicaServerTransport
 	trReplicasServer                   *ReplicasServerTransport
 	trSharedPrivateLinkResourcesServer *SharedPrivateLinkResourcesServerTransport
 	trUsagesServer                     *UsagesServerTransport
@@ -94,6 +96,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "ReplicaClient":
+		initServer(s, &s.trReplicaServer, func() *ReplicaServerTransport { return NewReplicaServerTransport(&s.srv.ReplicaServer) })
+		resp, err = s.trReplicaServer.Do(req)
 	case "ReplicasClient":
 		initServer(s, &s.trReplicasServer, func() *ReplicasServerTransport { return NewReplicasServerTransport(&s.srv.ReplicasServer) })
 		resp, err = s.trReplicasServer.Do(req)

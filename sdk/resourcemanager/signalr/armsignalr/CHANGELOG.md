@@ -1,5 +1,15 @@
 # Release History
 
+## 1.3.0-beta.2 (2024-03-13)
+### Features Added
+
+- New function `*ClientFactory.NewReplicaClient() *ReplicaClient`
+- New function `NewReplicaClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReplicaClient, error)`
+- New function `*ReplicaClient.BeginSharedPrivateLinkResourcesCreateOrUpdate(context.Context, string, string, string, string, SharedPrivateLinkResource, *ReplicaClientBeginSharedPrivateLinkResourcesCreateOrUpdateOptions) (*runtime.Poller[ReplicaClientSharedPrivateLinkResourcesCreateOrUpdateResponse], error)`
+- New function `*ReplicaClient.SharedPrivateLinkResourcesGet(context.Context, string, string, string, string, *ReplicaClientSharedPrivateLinkResourcesGetOptions) (ReplicaClientSharedPrivateLinkResourcesGetResponse, error)`
+- New function `*ReplicaClient.NewSharedPrivateLinkResourcesListPager(string, string, string, *ReplicaClientSharedPrivateLinkResourcesListOptions) *runtime.Pager[ReplicaClientSharedPrivateLinkResourcesListResponse]`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 

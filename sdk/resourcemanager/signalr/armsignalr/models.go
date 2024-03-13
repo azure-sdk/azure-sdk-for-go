@@ -647,12 +647,13 @@ type ResourceReference struct {
 // ResourceSKU - The billing information of the resource.
 type ResourceSKU struct {
 	// REQUIRED; The name of the SKU. Required.
-	// Allowed values: StandardS1, FreeF1, Premium_P1
+	// Allowed values: StandardS1, FreeF1, PremiumP1, PremiumP2
 	Name *string
 
-	// Optional, integer. The unit count of the resource. 1 by default.
-	// If present, following values are allowed: Free: 1; Standard: 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100; Premium:
-	// 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100;
+	// Optional, integer. The unit count of the resource. 1 for FreeF1/StandardS1/PremiumP1, 100 for PremiumP2 by default.
+	// If present, following values are allowed: FreeF1: 1; StandardS1: 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100; PremiumP1:
+	// 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100; PremiumP2:
+	// 100,200,300,400,500,600,700,800,900,1000;
 	Capacity *int32
 
 	// Optional tier of this particular SKU. 'Standard' or 'Free'.
