@@ -113,14 +113,6 @@ type CapacityReservationsClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
-// CapacityReservationsClientGetOptions contains the optional parameters for the CapacityReservationsClient.Get method.
-type CapacityReservationsClientGetOptions struct {
-	// The expand expression to apply on the operation. 'InstanceView' retrieves a snapshot of the runtime properties of the capacity
-	// reservation that is managed by the platform and can change outside of
-	// control plane operations.
-	Expand *CapacityReservationInstanceViewTypes
-}
-
 // CapacityReservationsClientListByCapacityReservationGroupOptions contains the optional parameters for the CapacityReservationsClient.NewListByCapacityReservationGroupPager
 // method.
 type CapacityReservationsClientListByCapacityReservationGroupOptions struct {
@@ -423,12 +415,6 @@ type DedicatedHostsClientGetOptions struct {
 	// The expand expression to apply on the operation. 'InstanceView' will retrieve the list of instance views of the dedicated
 	// host. 'UserData' is not supported for dedicated host.
 	Expand *InstanceViewTypes
-}
-
-// DedicatedHostsClientListAvailableSizesOptions contains the optional parameters for the DedicatedHostsClient.NewListAvailableSizesPager
-// method.
-type DedicatedHostsClientListAvailableSizesOptions struct {
-	// placeholder for future optional parameters
 }
 
 // DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
@@ -820,11 +806,6 @@ type ImagesClientGetOptions struct {
 // ImagesClientListByResourceGroupOptions contains the optional parameters for the ImagesClient.NewListByResourceGroupPager
 // method.
 type ImagesClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ImagesClientListOptions contains the optional parameters for the ImagesClient.NewListPager method.
-type ImagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1759,11 +1740,6 @@ type VirtualMachineScaleSetsClientListOptions struct {
 // VirtualMachineScaleSetsClientListSKUsOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListSKUsPager
 // method.
 type VirtualMachineScaleSetsClientListSKUsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.NewListPager method.
-type VirtualMachineSizesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
