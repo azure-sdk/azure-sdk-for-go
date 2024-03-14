@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.1.0"
+	moduleVersion = "v5.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -1316,6 +1316,7 @@ func PossibleEffectiveSecurityRuleProtocolValues() []EffectiveSecurityRuleProtoc
 type EndpointType string
 
 const (
+	EndpointTypeAzureArcNetwork     EndpointType = "AzureArcNetwork"
 	EndpointTypeAzureArcVM          EndpointType = "AzureArcVM"
 	EndpointTypeAzureSubnet         EndpointType = "AzureSubnet"
 	EndpointTypeAzureVM             EndpointType = "AzureVM"
@@ -1329,6 +1330,7 @@ const (
 // PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
 func PossibleEndpointTypeValues() []EndpointType {
 	return []EndpointType{
+		EndpointTypeAzureArcNetwork,
 		EndpointTypeAzureArcVM,
 		EndpointTypeAzureSubnet,
 		EndpointTypeAzureVM,
@@ -3402,6 +3404,24 @@ func PossibleSeverityValues() []Severity {
 	return []Severity{
 		SeverityError,
 		SeverityWarning,
+	}
+}
+
+// SharingScope - Set this property to Tenant to allow sharing subnet with other subscriptions in your AAD tenant. This property
+// can only be set if defaultOutboundAccess is set to false, both properties can only be set
+// if subnet is empty.
+type SharingScope string
+
+const (
+	SharingScopeDelegatedServices SharingScope = "DelegatedServices"
+	SharingScopeTenant            SharingScope = "Tenant"
+)
+
+// PossibleSharingScopeValues returns the possible values for the SharingScope const type.
+func PossibleSharingScopeValues() []SharingScope {
+	return []SharingScope{
+		SharingScopeDelegatedServices,
+		SharingScopeTenant,
 	}
 }
 
