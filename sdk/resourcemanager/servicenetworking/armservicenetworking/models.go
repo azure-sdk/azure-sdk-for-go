@@ -39,7 +39,7 @@ type AssociationListResult struct {
 	// REQUIRED; The Association items on this page
 	Value []*Association
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -114,7 +114,7 @@ type FrontendListResult struct {
 	// REQUIRED; The Frontend items on this page
 	Value []*Frontend
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -238,7 +238,7 @@ type TrafficControllerListResult struct {
 	// REQUIRED; The TrafficController items on this page
 	Value []*TrafficController
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
