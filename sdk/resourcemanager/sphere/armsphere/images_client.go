@@ -50,7 +50,7 @@ func NewImagesClient(subscriptionID string, credential azcore.TokenCredential, o
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - imageName - Image name. Use .default for image creation.
+//   - imageName - Image name. Use an image GUID for GA versions of the API.
 //   - resource - Resource create parameters.
 //   - options - ImagesClientBeginCreateOrUpdateOptions contains the optional parameters for the ImagesClient.BeginCreateOrUpdate
 //     method.
@@ -136,7 +136,7 @@ func (client *ImagesClient) createOrUpdateCreateRequest(ctx context.Context, res
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - imageName - Image name. Use .default for image creation.
+//   - imageName - Image name. Use an image GUID for GA versions of the API.
 //   - options - ImagesClientBeginDeleteOptions contains the optional parameters for the ImagesClient.BeginDelete method.
 func (client *ImagesClient) BeginDelete(ctx context.Context, resourceGroupName string, catalogName string, imageName string, options *ImagesClientBeginDeleteOptions) (*runtime.Poller[ImagesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -217,7 +217,7 @@ func (client *ImagesClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Generated from API version 2022-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - catalogName - Name of catalog
-//   - imageName - Image name. Use .default for image creation.
+//   - imageName - Image name. Use an image GUID for GA versions of the API.
 //   - options - ImagesClientGetOptions contains the optional parameters for the ImagesClient.Get method.
 func (client *ImagesClient) Get(ctx context.Context, resourceGroupName string, catalogName string, imageName string, options *ImagesClientGetOptions) (ImagesClientGetResponse, error) {
 	var err error
@@ -333,14 +333,14 @@ func (client *ImagesClient) listByCatalogCreateRequest(ctx context.Context, reso
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Maxpagesize != nil {
+		reqQP.Set("$maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Maxpagesize != nil {
-		reqQP.Set("$maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
