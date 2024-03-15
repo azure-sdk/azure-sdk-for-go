@@ -46,7 +46,7 @@ func NewStartMenuItemsClient(subscriptionID string, credential azcore.TokenCrede
 
 // NewListPager - List start menu items in the given application group.
 //
-// Generated from API version 2023-09-05
+// Generated from API version 2024-03-06-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - options - StartMenuItemsClientListOptions contains the optional parameters for the StartMenuItemsClient.NewListPager method.
@@ -93,15 +93,15 @@ func (client *StartMenuItemsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-05")
-	if options != nil && options.PageSize != nil {
-		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
+	reqQP.Set("api-version", "2024-03-06-preview")
+	if options != nil && options.InitialSkip != nil {
+		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
 	if options != nil && options.IsDescending != nil {
 		reqQP.Set("isDescending", strconv.FormatBool(*options.IsDescending))
 	}
-	if options != nil && options.InitialSkip != nil {
-		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
+	if options != nil && options.PageSize != nil {
+		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
