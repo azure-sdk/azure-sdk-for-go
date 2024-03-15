@@ -19971,6 +19971,7 @@ func (m *ManagedRuleOverride) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ManagedRuleSet.
 func (m ManagedRuleSet) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "computedDisabledRuleGroups", m.ComputedDisabledRuleGroups)
 	populate(objectMap, "ruleGroupOverrides", m.RuleGroupOverrides)
 	populate(objectMap, "ruleSetType", m.RuleSetType)
 	populate(objectMap, "ruleSetVersion", m.RuleSetVersion)
@@ -19986,6 +19987,9 @@ func (m *ManagedRuleSet) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "computedDisabledRuleGroups":
+			err = unpopulate(val, "ComputedDisabledRuleGroups", &m.ComputedDisabledRuleGroups)
+			delete(rawMsg, key)
 		case "ruleGroupOverrides":
 			err = unpopulate(val, "RuleGroupOverrides", &m.RuleGroupOverrides)
 			delete(rawMsg, key)
@@ -19994,6 +19998,37 @@ func (m *ManagedRuleSet) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "ruleSetVersion":
 			err = unpopulate(val, "RuleSetVersion", &m.RuleSetVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedRuleSetRuleGroup.
+func (m ManagedRuleSetRuleGroup) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "ruleGroupName", m.RuleGroupName)
+	populate(objectMap, "rules", m.Rules)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagedRuleSetRuleGroup.
+func (m *ManagedRuleSetRuleGroup) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "ruleGroupName":
+			err = unpopulate(val, "RuleGroupName", &m.RuleGroupName)
+			delete(rawMsg, key)
+		case "rules":
+			err = unpopulate(val, "Rules", &m.Rules)
 			delete(rawMsg, key)
 		}
 		if err != nil {

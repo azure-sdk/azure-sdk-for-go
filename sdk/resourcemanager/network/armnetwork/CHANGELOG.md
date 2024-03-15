@@ -1,5 +1,12 @@
 # Release History
 
+## 5.2.0 (2024-03-15)
+### Features Added
+
+- New struct `ManagedRuleSetRuleGroup`
+- New field `ComputedDisabledRuleGroups` in struct `ManagedRuleSet`
+
+
 ## 5.1.0 (2024-02-23)
 ### Features Added
 

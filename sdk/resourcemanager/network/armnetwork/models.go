@@ -8063,6 +8063,18 @@ type ManagedRuleSet struct {
 
 	// Defines the rule group overrides to apply to the rule set.
 	RuleGroupOverrides []*ManagedRuleGroupOverride
+
+	// READ-ONLY; Stores the final list of disabled rule groups
+	ComputedDisabledRuleGroups []*ManagedRuleSetRuleGroup
+}
+
+// ManagedRuleSetRuleGroup - Defines a managed rule set rule group
+type ManagedRuleSetRuleGroup struct {
+	// REQUIRED; Name of the rule group
+	RuleGroupName *string
+
+	// List of rules within the rule group
+	Rules []*string
 }
 
 // ManagedRulesDefinition - Allow to exclude some variable satisfy the condition for the WAF check.
