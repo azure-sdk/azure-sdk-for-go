@@ -11,7 +11,7 @@ package armservicelinker
 import "encoding/json"
 
 func unmarshalAuthInfoBaseClassification(rawMsg json.RawMessage) (AuthInfoBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -40,7 +40,7 @@ func unmarshalAuthInfoBaseClassification(rawMsg json.RawMessage) (AuthInfoBaseCl
 }
 
 func unmarshalAzureResourcePropertiesBaseClassification(rawMsg json.RawMessage) (AzureResourcePropertiesBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -61,7 +61,7 @@ func unmarshalAzureResourcePropertiesBaseClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalSecretInfoBaseClassification(rawMsg json.RawMessage) (SecretInfoBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -86,7 +86,7 @@ func unmarshalSecretInfoBaseClassification(rawMsg json.RawMessage) (SecretInfoBa
 }
 
 func unmarshalTargetServiceBaseClassification(rawMsg json.RawMessage) (TargetServiceBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
