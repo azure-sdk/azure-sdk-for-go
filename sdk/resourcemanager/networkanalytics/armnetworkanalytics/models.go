@@ -111,7 +111,7 @@ type DataProductListResult struct {
 	// REQUIRED; The DataProduct items on this page
 	Value []*DataProduct
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -252,7 +252,7 @@ type DataProductsCatalogListResult struct {
 	// REQUIRED; The DataProductsCatalog items on this page
 	Value []*DataProductsCatalog
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
@@ -288,7 +288,7 @@ type DataTypeListResult struct {
 	// REQUIRED; The DataType items on this page
 	Value []*DataType
 
-	// The link to the next page of items
+	// READ-ONLY; The link to the next page of items
 	NextLink *string
 }
 
