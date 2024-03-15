@@ -240,58 +240,6 @@ func (client *LinkerClient) getHandleResponse(resp *http.Response) (LinkerClient
 	return result, nil
 }
 
-// NewListPager - Returns list of Linkers which connects to the resource.
-//
-// Generated from API version 2022-05-01
-//   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
-//   - options - LinkerClientListOptions contains the optional parameters for the LinkerClient.NewListPager method.
-func (client *LinkerClient) NewListPager(resourceURI string, options *LinkerClientListOptions) *runtime.Pager[LinkerClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[LinkerClientListResponse]{
-		More: func(page LinkerClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *LinkerClientListResponse) (LinkerClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "LinkerClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceURI, options)
-			}, nil)
-			if err != nil {
-				return LinkerClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *LinkerClient) listCreateRequest(ctx context.Context, resourceURI string, options *LinkerClientListOptions) (*policy.Request, error) {
-	urlPath := "/{resourceUri}/providers/Microsoft.ServiceLinker/linkers"
-	urlPath = strings.ReplaceAll(urlPath, "{resourceUri}", resourceURI)
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *LinkerClient) listHandleResponse(resp *http.Response) (LinkerClientListResponse, error) {
-	result := LinkerClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.LinkerList); err != nil {
-		return LinkerClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // ListConfigurations - list source configurations for a linker.
 // If the operation fails it returns an *azcore.ResponseError type.
 //

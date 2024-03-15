@@ -31,12 +31,6 @@ type LinkerClientListConfigurationsResponse struct {
 	SourceConfigurationResult
 }
 
-// LinkerClientListResponse contains the response from method LinkerClient.NewListPager.
-type LinkerClientListResponse struct {
-	// The list of Linker.
-	LinkerList
-}
-
 // LinkerClientUpdateResponse contains the response from method LinkerClient.BeginUpdate.
 type LinkerClientUpdateResponse struct {
 	// Linker of source and target resource
@@ -47,10 +41,4 @@ type LinkerClientUpdateResponse struct {
 type LinkerClientValidateResponse struct {
 	// The validation operation result for a linker.
 	ValidateOperationResult
-}
-
-// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
-type OperationsClientListResponse struct {
-	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
-	OperationListResult
 }
