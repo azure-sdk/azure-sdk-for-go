@@ -22,6 +22,8 @@ func unmarshalAddDisksProviderSpecificInputClassification(rawMsg json.RawMessage
 	switch m["instanceType"] {
 	case "A2A":
 		b = &A2AAddDisksInput{}
+	case "InMageRcm":
+		b = &InMageRcmAddDisksInput{}
 	default:
 		b = &AddDisksProviderSpecificInput{}
 	}

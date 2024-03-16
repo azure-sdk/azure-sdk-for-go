@@ -2864,11 +2864,14 @@ type HyperVReplicaAzureDiskInputDetails struct {
 	// The DiskId.
 	DiskID *string
 
-	// The DiskType.
+	// The disk type.
 	DiskType *DiskAccountType
 
 	// The LogStorageAccountId.
 	LogStorageAccountID *string
+
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
 }
 
 // HyperVReplicaAzureEnableProtectionInput - HyperVReplicaAzure specific enable protection input.
@@ -2879,7 +2882,7 @@ type HyperVReplicaAzureEnableProtectionInput struct {
 	// The DiskEncryptionSet ARM Id.
 	DiskEncryptionSetID *string
 
-	// The DiskType.
+	// The disk type.
 	DiskType *DiskAccountType
 
 	// The list of VHD Ids of disks to be protected.
@@ -2943,6 +2946,9 @@ type HyperVReplicaAzureEnableProtectionInput struct {
 	// The storage account Id.
 	TargetStorageAccountID *string
 
+	// The target VM security profile.
+	TargetVMSecurityProfile *SecurityProfileProperties
+
 	// The target VM size.
 	TargetVMSize *string
 
@@ -2954,6 +2960,9 @@ type HyperVReplicaAzureEnableProtectionInput struct {
 
 	// A value indicating whether managed disks should be used during replication.
 	UseManagedDisksForReplication *string
+
+	// The OS name selected by user.
+	UserSelectedOSName *string
 
 	// The VM Name.
 	VMName *string
@@ -3026,8 +3035,14 @@ type HyperVReplicaAzureManagedDiskDetails struct {
 	// The replica disk type.
 	ReplicaDiskType *string
 
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
+
 	// Seed managed disk Id.
 	SeedManagedDiskID *string
+
+	// The disk type.
+	TargetDiskAccountType *DiskAccountType
 }
 
 // HyperVReplicaAzurePlannedFailoverProviderInput - HyperVReplicaAzure specific planned failover input.
@@ -3203,6 +3218,9 @@ type HyperVReplicaAzureReplicationDetails struct {
 
 	// The target proximity placement group Id.
 	TargetProximityPlacementGroupID *string
+
+	// The target VM security profile.
+	TargetVMSecurityProfile *SecurityProfileProperties
 
 	// The target VM tags.
 	TargetVMTags map[string]*string
@@ -3907,7 +3925,7 @@ type InMageAzureV2DiskInputDetails struct {
 	// The DiskId.
 	DiskID *string
 
-	// The DiskType.
+	// The disk type.
 	DiskType *DiskAccountType
 
 	// The LogStorageAccountId.
@@ -3922,7 +3940,7 @@ type InMageAzureV2EnableProtectionInput struct {
 	// The DiskEncryptionSet ARM Id.
 	DiskEncryptionSetID *string
 
-	// The DiskType.
+	// The disk type.
 	DiskType *DiskAccountType
 
 	// The disks to include list.
@@ -4873,6 +4891,22 @@ type InMageProtectedDiskDetails struct {
 	TargetDataInMB *float64
 }
 
+// InMageRcmAddDisksInput - InMageRcm add disk(s) input.
+type InMageRcmAddDisksInput struct {
+	// REQUIRED; The list of disk details.
+	Disks []*InMageRcmDiskInput
+
+	// REQUIRED; The class type.
+	InstanceType *string
+}
+
+// GetAddDisksProviderSpecificInput implements the AddDisksProviderSpecificInputClassification interface for type InMageRcmAddDisksInput.
+func (i *InMageRcmAddDisksInput) GetAddDisksProviderSpecificInput() *AddDisksProviderSpecificInput {
+	return &AddDisksProviderSpecificInput{
+		InstanceType: i.InstanceType,
+	}
+}
+
 // InMageRcmAgentUpgradeBlockingErrorDetails - InMageRcm source agent upgrade blocking error details.
 type InMageRcmAgentUpgradeBlockingErrorDetails struct {
 	// READ-ONLY; The error code.
@@ -5015,6 +5049,9 @@ type InMageRcmDiskInput struct {
 
 	// The DiskEncryptionSet ARM Id.
 	DiskEncryptionSetID *string
+
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
 }
 
 // InMageRcmDisksDefaultInput - InMageRcm disk input.
@@ -5027,6 +5064,9 @@ type InMageRcmDisksDefaultInput struct {
 
 	// The DiskEncryptionSet ARM Id.
 	DiskEncryptionSetID *string
+
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
 }
 
 // InMageRcmEnableProtectionInput - InMageRcm specific enable protection input.
@@ -5058,6 +5098,12 @@ type InMageRcmEnableProtectionInput struct {
 	// The run-as account Id.
 	RunAsAccountID *string
 
+	// The SQL Server license type.
+	SQLServerLicenseType *SQLServerLicenseType
+
+	// The tags for the seed managed disks.
+	SeedManagedDiskTags []*UserCreatedResourceTag
+
 	// The target availability set ARM Id.
 	TargetAvailabilitySetID *string
 
@@ -5067,8 +5113,14 @@ type InMageRcmEnableProtectionInput struct {
 	// The target boot diagnostics storage account ARM Id.
 	TargetBootDiagnosticsStorageAccountID *string
 
+	// The tags for the target managed disks.
+	TargetManagedDiskTags []*UserCreatedResourceTag
+
 	// The selected target network ARM Id.
 	TargetNetworkID *string
+
+	// The tags for the target NICs.
+	TargetNicTags []*UserCreatedResourceTag
 
 	// The target proximity placement group Id.
 	TargetProximityPlacementGroupID *string
@@ -5079,14 +5131,23 @@ type InMageRcmEnableProtectionInput struct {
 	// The target VM name.
 	TargetVMName *string
 
+	// The target VM security profile.
+	TargetVMSecurityProfile *SecurityProfileProperties
+
 	// The target VM size.
 	TargetVMSize *string
+
+	// The target VM tags.
+	TargetVMTags []*UserCreatedResourceTag
 
 	// The selected test network ARM Id.
 	TestNetworkID *string
 
 	// The selected test subnet name.
 	TestSubnetName *string
+
+	// The OS name selected by user.
+	UserSelectedOSName *string
 }
 
 // GetEnableProtectionProviderSpecificInput implements the EnableProtectionProviderSpecificInputClassification interface for
@@ -5766,6 +5827,9 @@ func (i *InMageRcmPolicyDetails) GetPolicyProviderSpecificDetails() *PolicyProvi
 
 // InMageRcmProtectedDiskDetails - InMageRcm protected disk details.
 type InMageRcmProtectedDiskDetails struct {
+	// The custom target Azure disk name.
+	CustomTargetDiskName *string
+
 	// The disk type.
 	DiskType *DiskAccountType
 
@@ -5774,6 +5838,9 @@ type InMageRcmProtectedDiskDetails struct {
 
 	// The resync details.
 	ResyncDetails *InMageRcmSyncDetails
+
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
 
 	// READ-ONLY; The disk capacity in bytes.
 	CapacityInBytes *int64
@@ -5792,6 +5859,9 @@ type InMageRcmProtectedDiskDetails struct {
 
 	// READ-ONLY; The disk name.
 	DiskName *string
+
+	// READ-ONLY; The disk state.
+	DiskState *DiskState
 
 	// READ-ONLY; A value indicating whether initial replication is complete or not.
 	IsInitialReplicationComplete *string
@@ -5866,8 +5936,20 @@ type InMageRcmReplicationDetails struct {
 	// The mobility agent information.
 	MobilityAgentDetails *InMageRcmMobilityAgentDetails
 
+	// The OS name associated with VM.
+	OSName *string
+
 	// The list of protected disks.
 	ProtectedDisks []*InMageRcmProtectedDiskDetails
+
+	// The SQL Server license type.
+	SQLServerLicenseType *string
+
+	// The tags for the seed managed disks.
+	SeedManagedDiskTags []*UserCreatedResourceTag
+
+	// A value indicating the inplace OS Upgrade version.
+	SupportedOSVersions []*string
 
 	// The target availability set Id.
 	TargetAvailabilitySetID *string
@@ -5881,8 +5963,14 @@ type InMageRcmReplicationDetails struct {
 	// The target location.
 	TargetLocation *string
 
+	// The tags for the target managed disks.
+	TargetManagedDiskTags []*UserCreatedResourceTag
+
 	// The target network Id.
 	TargetNetworkID *string
+
+	// The tags for the target NICs.
+	TargetNicTags []*UserCreatedResourceTag
 
 	// The target proximity placement group Id.
 	TargetProximityPlacementGroupID *string
@@ -5893,11 +5981,20 @@ type InMageRcmReplicationDetails struct {
 	// Target VM name.
 	TargetVMName *string
 
+	// The target VM security profile.
+	TargetVMSecurityProfile *SecurityProfileProperties
+
 	// The target VM size.
 	TargetVMSize *string
 
+	// The target VM tags.
+	TargetVMTags []*UserCreatedResourceTag
+
 	// The test network Id.
 	TestNetworkID *string
+
+	// The list of unprotected disks.
+	UnprotectedDisks []*InMageRcmUnProtectedDiskDetails
 
 	// The network details.
 	VMNics []*InMageRcmNicDetails
@@ -6094,6 +6191,18 @@ func (i *InMageRcmTestFailoverInput) GetTestFailoverProviderSpecificInput() *Tes
 	}
 }
 
+// InMageRcmUnProtectedDiskDetails - InMageRcm un-protected disk details.
+type InMageRcmUnProtectedDiskDetails struct {
+	// READ-ONLY; The disk capacity in bytes.
+	CapacityInBytes *int64
+
+	// READ-ONLY; The disk Id.
+	DiskID *string
+
+	// READ-ONLY; The disk name.
+	DiskName *string
+}
+
 // InMageRcmUnplannedFailoverInput - InMageRcm provider specific input for unplanned failover.
 type InMageRcmUnplannedFailoverInput struct {
 	// REQUIRED; The class type.
@@ -6158,6 +6267,9 @@ type InMageRcmUpdateReplicationProtectedItemInput struct {
 	// The license type.
 	LicenseType *LicenseType
 
+	// The SQL Server license type.
+	SQLServerLicenseType *SQLServerLicenseType
+
 	// The target availability set ARM Id.
 	TargetAvailabilitySetID *string
 
@@ -6167,8 +6279,14 @@ type InMageRcmUpdateReplicationProtectedItemInput struct {
 	// The target boot diagnostics storage account ARM Id.
 	TargetBootDiagnosticsStorageAccountID *string
 
+	// The tags for the target managed disks.
+	TargetManagedDiskTags []*UserCreatedResourceTag
+
 	// The target network ARM Id.
 	TargetNetworkID *string
+
+	// The tags for the target NICs.
+	TargetNicTags []*UserCreatedResourceTag
 
 	// The target proximity placement group Id.
 	TargetProximityPlacementGroupID *string
@@ -6181,6 +6299,9 @@ type InMageRcmUpdateReplicationProtectedItemInput struct {
 
 	// The target VM size.
 	TargetVMSize *string
+
+	// The target VM tags.
+	TargetVMTags []*UserCreatedResourceTag
 
 	// The test network ARM Id.
 	TestNetworkID *string
@@ -6777,6 +6898,18 @@ type LogicalNetworkProperties struct {
 	NetworkVirtualizationStatus *string
 }
 
+// ManagedRunCommandScriptInput - Managed RunCommand script input
+type ManagedRunCommandScriptInput struct {
+	// REQUIRED; The script parameters.
+	ScriptParameters *string
+
+	// REQUIRED; The script url.
+	ScriptURL *string
+
+	// REQUIRED; The step name.
+	StepName *string
+}
+
 // ManualActionTaskDetails - This class represents the manual action task details.
 type ManualActionTaskDetails struct {
 	// REQUIRED; The type of task details.
@@ -7256,6 +7389,9 @@ type OSDetails struct {
 
 	// Product type.
 	ProductType *string
+
+	// The OS name selected by user.
+	UserSelectedOSName *string
 }
 
 // OSDiskDetails - Details of the OS Disk.
@@ -9268,6 +9404,24 @@ func (s *ScriptActionTaskDetails) GetTaskTypeDetails() *TaskTypeDetails {
 	}
 }
 
+// SecurityProfileProperties - Security profile input.
+type SecurityProfileProperties struct {
+	// A value indicating whether confidential compute encryption to be enabled.
+	TargetVMConfidentialEncryption *SecurityConfiguration
+
+	// A value indicating whether integrity monitoring to be enabled.
+	TargetVMMonitoring *SecurityConfiguration
+
+	// A value indicating whether secure boot to be enabled.
+	TargetVMSecureBoot *SecurityConfiguration
+
+	// The target VM security type.
+	TargetVMSecurityType *SecurityType
+
+	// A value indicating whether trusted platform module to be enabled.
+	TargetVMTpm *SecurityConfiguration
+}
+
 // ServiceError - ASR error model.
 type ServiceError struct {
 	// Activity Id.
@@ -9920,6 +10074,15 @@ type UpdateVCenterRequestProperties struct {
 	RunAsAccountID *string
 }
 
+// UserCreatedResourceTag - Resource tag input.
+type UserCreatedResourceTag struct {
+	// The tag name. Please read for more information: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#limitations
+	TagName *string
+
+	// The tag value. Please read her for more information: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#limitations
+	TagValue *string
+}
+
 // VCenter - vCenter definition.
 type VCenter struct {
 	// Resource Location
@@ -10175,6 +10338,9 @@ type VMwareCbtDiskInput struct {
 
 	// The disk type.
 	DiskType *DiskAccountType
+
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
 }
 
 // VMwareCbtEnableMigrationInput - VMwareCbt specific enable migration input.
@@ -10205,6 +10371,9 @@ type VMwareCbtEnableMigrationInput struct {
 
 	// License type.
 	LicenseType *LicenseType
+
+	// The license type for Linux VM's.
+	LinuxLicenseType *LinuxLicenseType
 
 	// A value indicating whether auto resync is to be done.
 	PerformAutoResync *string
@@ -10256,6 +10425,9 @@ type VMwareCbtEnableMigrationInput struct {
 
 	// The selected test subnet name.
 	TestSubnetName *string
+
+	// The OS name selected by user.
+	UserSelectedOSName *string
 }
 
 // GetEnableMigrationProviderSpecificInput implements the EnableMigrationProviderSpecificInputClassification interface for
@@ -10292,6 +10464,9 @@ type VMwareCbtMigrateInput struct {
 
 	// A value indicating the inplace OS Upgrade version.
 	OSUpgradeVersion *string
+
+	// The managed run command script input.
+	PostMigrationSteps []*ManagedRunCommandScriptInput
 }
 
 // GetMigrateProviderSpecificInput implements the MigrateProviderSpecificInputClassification interface for type VMwareCbtMigrateInput.
@@ -10311,6 +10486,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// License Type of the VM to be used.
 	LicenseType *string
+
+	// The license type for Linux VM's.
+	LinuxLicenseType *LinuxLicenseType
 
 	// A value indicating whether auto resync is to be done.
 	PerformAutoResync *string
@@ -10558,6 +10736,9 @@ type VMwareCbtProtectedDiskDetails struct {
 	// The disk type.
 	DiskType *DiskAccountType
 
+	// The logical sector size (in bytes), 512 by default.
+	SectorSizeInBytes *int32
+
 	// The name for the target managed disk.
 	TargetDiskName *string
 
@@ -10704,6 +10885,9 @@ type VMwareCbtTestMigrateInput struct {
 	// A value indicating the inplace OS Upgrade version.
 	OSUpgradeVersion *string
 
+	// The managed run command script input.
+	PostMigrationSteps []*ManagedRunCommandScriptInput
+
 	// The list of NIC details.
 	VMNics []*VMwareCbtNicInput
 }
@@ -10734,6 +10918,9 @@ type VMwareCbtUpdateMigrationItemInput struct {
 
 	// The license type.
 	LicenseType *LicenseType
+
+	// The license type for Linux VM's.
+	LinuxLicenseType *LinuxLicenseType
 
 	// A value indicating whether auto resync is to be done.
 	PerformAutoResync *string

@@ -1,5 +1,38 @@
 # Release History
 
+## 2.4.0 (2024-03-16)
+### Features Added
+
+- New value `DiskAccountTypePremiumV2LRS`, `DiskAccountTypePremiumZRS`, `DiskAccountTypeStandardSSDZRS`, `DiskAccountTypeUltraSSDLRS` added to enum type `DiskAccountType`
+- New enum type `DiskState` with values `DiskStateInitialReplicationFailed`, `DiskStateInitialReplicationPending`, `DiskStateProtected`, `DiskStateUnavailable`
+- New enum type `LinuxLicenseType` with values `LinuxLicenseTypeLinuxServer`, `LinuxLicenseTypeNoLicenseType`, `LinuxLicenseTypeNotSpecified`
+- New enum type `SecurityConfiguration` with values `SecurityConfigurationDisabled`, `SecurityConfigurationEnabled`
+- New function `*InMageRcmAddDisksInput.GetAddDisksProviderSpecificInput() *AddDisksProviderSpecificInput`
+- New struct `InMageRcmAddDisksInput`
+- New struct `InMageRcmUnProtectedDiskDetails`
+- New struct `ManagedRunCommandScriptInput`
+- New struct `SecurityProfileProperties`
+- New struct `UserCreatedResourceTag`
+- New field `SectorSizeInBytes` in struct `HyperVReplicaAzureDiskInputDetails`
+- New field `TargetVMSecurityProfile`, `UserSelectedOSName` in struct `HyperVReplicaAzureEnableProtectionInput`
+- New field `SectorSizeInBytes`, `TargetDiskAccountType` in struct `HyperVReplicaAzureManagedDiskDetails`
+- New field `TargetVMSecurityProfile` in struct `HyperVReplicaAzureReplicationDetails`
+- New field `SectorSizeInBytes` in struct `InMageRcmDiskInput`
+- New field `SectorSizeInBytes` in struct `InMageRcmDisksDefaultInput`
+- New field `SQLServerLicenseType`, `SeedManagedDiskTags`, `TargetManagedDiskTags`, `TargetNicTags`, `TargetVMSecurityProfile`, `TargetVMTags`, `UserSelectedOSName` in struct `InMageRcmEnableProtectionInput`
+- New field `CustomTargetDiskName`, `DiskState`, `SectorSizeInBytes` in struct `InMageRcmProtectedDiskDetails`
+- New field `OSName`, `SQLServerLicenseType`, `SeedManagedDiskTags`, `SupportedOSVersions`, `TargetManagedDiskTags`, `TargetNicTags`, `TargetVMSecurityProfile`, `TargetVMTags`, `UnprotectedDisks` in struct `InMageRcmReplicationDetails`
+- New field `SQLServerLicenseType`, `TargetManagedDiskTags`, `TargetNicTags`, `TargetVMTags` in struct `InMageRcmUpdateReplicationProtectedItemInput`
+- New field `UserSelectedOSName` in struct `OSDetails`
+- New field `SectorSizeInBytes` in struct `VMwareCbtDiskInput`
+- New field `LinuxLicenseType`, `UserSelectedOSName` in struct `VMwareCbtEnableMigrationInput`
+- New field `PostMigrationSteps` in struct `VMwareCbtMigrateInput`
+- New field `LinuxLicenseType` in struct `VMwareCbtMigrationDetails`
+- New field `SectorSizeInBytes` in struct `VMwareCbtProtectedDiskDetails`
+- New field `PostMigrationSteps` in struct `VMwareCbtTestMigrateInput`
+- New field `LinuxLicenseType` in struct `VMwareCbtUpdateMigrationItemInput`
+
+
 ## 2.3.0 (2024-02-23)
 ### Features Added
 

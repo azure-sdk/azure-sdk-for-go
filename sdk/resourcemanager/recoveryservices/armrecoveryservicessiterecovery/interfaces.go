@@ -11,7 +11,7 @@ package armrecoveryservicessiterecovery
 // AddDisksProviderSpecificInputClassification provides polymorphic access to related types.
 // Call the interface's GetAddDisksProviderSpecificInput() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *A2AAddDisksInput, *AddDisksProviderSpecificInput
+// - *A2AAddDisksInput, *AddDisksProviderSpecificInput, *InMageRcmAddDisksInput
 type AddDisksProviderSpecificInputClassification interface {
 	// GetAddDisksProviderSpecificInput returns the AddDisksProviderSpecificInput content of the underlying type.
 	GetAddDisksProviderSpecificInput() *AddDisksProviderSpecificInput

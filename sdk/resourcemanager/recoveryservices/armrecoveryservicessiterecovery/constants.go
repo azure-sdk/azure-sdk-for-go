@@ -10,7 +10,7 @@ package armrecoveryservicessiterecovery
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicessiterecovery"
-	moduleVersion = "v2.3.0"
+	moduleVersion = "v2.4.0"
 )
 
 // A2ARecoveryAvailabilityType - The recovery availability type of the virtual machine.
@@ -224,21 +224,29 @@ func PossibleDisableProtectionReasonValues() []DisableProtectionReason {
 	}
 }
 
-// DiskAccountType - The DiskType.
+// DiskAccountType - The disk type.
 type DiskAccountType string
 
 const (
 	DiskAccountTypePremiumLRS     DiskAccountType = "Premium_LRS"
+	DiskAccountTypePremiumV2LRS   DiskAccountType = "PremiumV2_LRS"
+	DiskAccountTypePremiumZRS     DiskAccountType = "Premium_ZRS"
 	DiskAccountTypeStandardLRS    DiskAccountType = "Standard_LRS"
 	DiskAccountTypeStandardSSDLRS DiskAccountType = "StandardSSD_LRS"
+	DiskAccountTypeStandardSSDZRS DiskAccountType = "StandardSSD_ZRS"
+	DiskAccountTypeUltraSSDLRS    DiskAccountType = "UltraSSD_LRS"
 )
 
 // PossibleDiskAccountTypeValues returns the possible values for the DiskAccountType const type.
 func PossibleDiskAccountTypeValues() []DiskAccountType {
 	return []DiskAccountType{
 		DiskAccountTypePremiumLRS,
+		DiskAccountTypePremiumV2LRS,
+		DiskAccountTypePremiumZRS,
 		DiskAccountTypeStandardLRS,
 		DiskAccountTypeStandardSSDLRS,
+		DiskAccountTypeStandardSSDZRS,
+		DiskAccountTypeUltraSSDLRS,
 	}
 }
 
@@ -261,6 +269,26 @@ func PossibleDiskReplicationProgressHealthValues() []DiskReplicationProgressHeal
 		DiskReplicationProgressHealthNone,
 		DiskReplicationProgressHealthQueued,
 		DiskReplicationProgressHealthSlowProgress,
+	}
+}
+
+// DiskState - The disk state.
+type DiskState string
+
+const (
+	DiskStateInitialReplicationFailed  DiskState = "InitialReplicationFailed"
+	DiskStateInitialReplicationPending DiskState = "InitialReplicationPending"
+	DiskStateProtected                 DiskState = "Protected"
+	DiskStateUnavailable               DiskState = "Unavailable"
+)
+
+// PossibleDiskStateValues returns the possible values for the DiskState const type.
+func PossibleDiskStateValues() []DiskState {
+	return []DiskState{
+		DiskStateInitialReplicationFailed,
+		DiskStateInitialReplicationPending,
+		DiskStateProtected,
+		DiskStateUnavailable,
 	}
 }
 
@@ -449,6 +477,24 @@ func PossibleLicenseTypeValues() []LicenseType {
 		LicenseTypeNoLicenseType,
 		LicenseTypeNotSpecified,
 		LicenseTypeWindowsServer,
+	}
+}
+
+// LinuxLicenseType - The license type for Linux VM's.
+type LinuxLicenseType string
+
+const (
+	LinuxLicenseTypeLinuxServer   LinuxLicenseType = "LinuxServer"
+	LinuxLicenseTypeNoLicenseType LinuxLicenseType = "NoLicenseType"
+	LinuxLicenseTypeNotSpecified  LinuxLicenseType = "NotSpecified"
+)
+
+// PossibleLinuxLicenseTypeValues returns the possible values for the LinuxLicenseType const type.
+func PossibleLinuxLicenseTypeValues() []LinuxLicenseType {
+	return []LinuxLicenseType{
+		LinuxLicenseTypeLinuxServer,
+		LinuxLicenseTypeNoLicenseType,
+		LinuxLicenseTypeNotSpecified,
 	}
 }
 
@@ -869,6 +915,22 @@ func PossibleSQLServerLicenseTypeValues() []SQLServerLicenseType {
 		SQLServerLicenseTypeNoLicenseType,
 		SQLServerLicenseTypeNotSpecified,
 		SQLServerLicenseTypePAYG,
+	}
+}
+
+// SecurityConfiguration - Security configuration state.
+type SecurityConfiguration string
+
+const (
+	SecurityConfigurationDisabled SecurityConfiguration = "Disabled"
+	SecurityConfigurationEnabled  SecurityConfiguration = "Enabled"
+)
+
+// PossibleSecurityConfigurationValues returns the possible values for the SecurityConfiguration const type.
+func PossibleSecurityConfigurationValues() []SecurityConfiguration {
+	return []SecurityConfiguration{
+		SecurityConfigurationDisabled,
+		SecurityConfigurationEnabled,
 	}
 }
 
