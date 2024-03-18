@@ -45,7 +45,7 @@ func NewSecurityAdvisoryImpactedResourcesClient(subscriptionID string, credentia
 
 // NewListBySubscriptionIDAndEventIDPager - Lists impacted resources in the subscription by an event (Security Advisory).
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-02-01
 //   - eventTrackingID - Event Id which uniquely identifies ServiceHealth event.
 //   - options - SecurityAdvisoryImpactedResourcesClientListBySubscriptionIDAndEventIDOptions contains the optional parameters
 //     for the SecurityAdvisoryImpactedResourcesClient.NewListBySubscriptionIDAndEventIDPager method.
@@ -91,7 +91,7 @@ func (client *SecurityAdvisoryImpactedResourcesClient) listBySubscriptionIDAndEv
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-10-01-preview")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *SecurityAdvisoryImpactedResourcesClient) listBySubscriptionIDAndEv
 
 // NewListByTenantIDAndEventIDPager - Lists impacted resources in the tenant by an event (Security Advisory).
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-02-01
 //   - eventTrackingID - Event Id which uniquely identifies ServiceHealth event.
 //   - options - SecurityAdvisoryImpactedResourcesClientListByTenantIDAndEventIDOptions contains the optional parameters for the
 //     SecurityAdvisoryImpactedResourcesClient.NewListByTenantIDAndEventIDPager method.
@@ -150,7 +150,7 @@ func (client *SecurityAdvisoryImpactedResourcesClient) listByTenantIDAndEventIDC
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-10-01-preview")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

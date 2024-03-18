@@ -1,5 +1,12 @@
 # Release History
 
+## 1.4.0 (2024-03-18)
+### Features Added
+
+- New field `ImpactedServiceGUID` in struct `Impact`
+- New field `PreviousID`, `ServiceGUID` in struct `MetadataSupportedValueDetail`
+
+
 ## 1.4.0-beta.2 (2024-02-07)
 ### Bugs Fixed
 
