@@ -196,6 +196,44 @@ type Contact struct {
 	URL *string
 }
 
+// DeletedService - Soft-deleted service entity.
+type DeletedService struct {
+	// The resource-specific properties for this resource.
+	Properties *DeletedServiceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DeletedServiceListResult - The response of a DeletedService list operation.
+type DeletedServiceListResult struct {
+	// READ-ONLY; The DeletedService items on this page
+	Value []*DeletedService
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+}
+
+// DeletedServiceProperties - Deleted service properties.
+type DeletedServiceProperties struct {
+	// UTC date and time when the service was soft-deleted. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as
+	// specified by the ISO 8601 standard.
+	DeletedOn *time.Time
+
+	// UTC date and time when the service will be automatically purged. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ
+	// as specified by the ISO 8601 standard.
+	ExpiresOn *time.Time
+}
+
 // Deployment - API deployment entity.
 type Deployment struct {
 	// The resource-specific properties for this resource.

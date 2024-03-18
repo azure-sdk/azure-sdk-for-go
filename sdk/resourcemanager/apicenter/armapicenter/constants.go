@@ -10,7 +10,7 @@ package armapicenter
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // APIKind - The kind of the API
