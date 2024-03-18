@@ -1,5 +1,70 @@
 # Release History
 
+## 6.0.0-beta.2 (2024-03-18)
+### Breaking Changes
+
+- Enum `BackupType` has been removed
+- Function `NewAccountBackupsClient` has been removed
+- Function `*AccountBackupsClient.BeginDelete` has been removed
+- Function `*AccountBackupsClient.Get` has been removed
+- Function `*AccountBackupsClient.NewListByNetAppAccountPager` has been removed
+- Function `*AccountsClient.BeginMigrateEncryptionKey` has been removed
+- Function `NewBackupVaultsClient` has been removed
+- Function `*BackupVaultsClient.BeginCreateOrUpdate` has been removed
+- Function `*BackupVaultsClient.BeginDelete` has been removed
+- Function `*BackupVaultsClient.Get` has been removed
+- Function `*BackupVaultsClient.NewListByNetAppAccountPager` has been removed
+- Function `*BackupVaultsClient.BeginUpdate` has been removed
+- Function `*BackupsClient.BeginCreate` has been removed
+- Function `*BackupsClient.BeginDelete` has been removed
+- Function `*BackupsClient.Get` has been removed
+- Function `*BackupsClient.GetLatestStatus` has been removed
+- Function `*BackupsClient.NewListByVaultPager` has been removed
+- Function `*BackupsClient.BeginUpdate` has been removed
+- Function `NewBackupsUnderAccountClient` has been removed
+- Function `*BackupsUnderAccountClient.BeginMigrateBackups` has been removed
+- Function `NewBackupsUnderBackupVaultClient` has been removed
+- Function `*BackupsUnderBackupVaultClient.BeginRestoreFiles` has been removed
+- Function `NewBackupsUnderVolumeClient` has been removed
+- Function `*BackupsUnderVolumeClient.BeginMigrateBackups` has been removed
+- Function `*ClientFactory.NewAccountBackupsClient` has been removed
+- Function `*ClientFactory.NewBackupVaultsClient` has been removed
+- Function `*ClientFactory.NewBackupsUnderAccountClient` has been removed
+- Function `*ClientFactory.NewBackupsUnderBackupVaultClient` has been removed
+- Function `*ClientFactory.NewBackupsUnderVolumeClient` has been removed
+- Function `*ClientFactory.NewResourceRegionInfosClient` has been removed
+- Function `NewResourceRegionInfosClient` has been removed
+- Function `*ResourceRegionInfosClient.Get` has been removed
+- Function `*ResourceRegionInfosClient.NewListPager` has been removed
+- Function `*VolumesClient.BeginSplitCloneFromParent` has been removed
+- Struct `Backup` has been removed
+- Struct `BackupPatch` has been removed
+- Struct `BackupPatchProperties` has been removed
+- Struct `BackupProperties` has been removed
+- Struct `BackupRestoreFiles` has been removed
+- Struct `BackupStatus` has been removed
+- Struct `BackupVault` has been removed
+- Struct `BackupVaultPatch` has been removed
+- Struct `BackupVaultProperties` has been removed
+- Struct `BackupVaultsList` has been removed
+- Struct `BackupsList` has been removed
+- Struct `BackupsMigrationRequest` has been removed
+- Struct `EncryptionMigrationRequest` has been removed
+- Struct `RegionInfoResource` has been removed
+- Struct `RegionInfosList` has been removed
+- Struct `RemotePath` has been removed
+- Struct `VolumeBackupProperties` has been removed
+- Field `IsMultiAdEnabled`, `NfsV4IDDomain` of struct `AccountProperties` has been removed
+- Field `RemotePath` of struct `ReplicationObject` has been removed
+- Field `Backup` of struct `VolumePatchPropertiesDataProtection` has been removed
+- Field `InheritedSizeInBytes` of struct `VolumeProperties` has been removed
+- Field `Backup` of struct `VolumePropertiesDataProtection` has been removed
+
+### Features Added
+
+- New value `RelationshipStatusFailed`, `RelationshipStatusUnknown` added to enum type `RelationshipStatus`
+
+
 ## 6.0.0-beta.1 (2023-12-22)
 ### Breaking Changes
 
