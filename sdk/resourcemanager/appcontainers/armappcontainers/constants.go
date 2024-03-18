@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
 
 // AccessMode - Access mode for storage
@@ -127,6 +127,76 @@ func PossibleBindingTypeValues() []BindingType {
 	}
 }
 
+// BuildProvisioningState - Resource instance provisioning state.
+type BuildProvisioningState string
+
+const (
+	BuildProvisioningStateCanceled  BuildProvisioningState = "Canceled"
+	BuildProvisioningStateCreating  BuildProvisioningState = "Creating"
+	BuildProvisioningStateDeleting  BuildProvisioningState = "Deleting"
+	BuildProvisioningStateFailed    BuildProvisioningState = "Failed"
+	BuildProvisioningStateSucceeded BuildProvisioningState = "Succeeded"
+	BuildProvisioningStateUpdating  BuildProvisioningState = "Updating"
+)
+
+// PossibleBuildProvisioningStateValues returns the possible values for the BuildProvisioningState const type.
+func PossibleBuildProvisioningStateValues() []BuildProvisioningState {
+	return []BuildProvisioningState{
+		BuildProvisioningStateCanceled,
+		BuildProvisioningStateCreating,
+		BuildProvisioningStateDeleting,
+		BuildProvisioningStateFailed,
+		BuildProvisioningStateSucceeded,
+		BuildProvisioningStateUpdating,
+	}
+}
+
+// BuildStatus - Status of the build once it has been provisioned.
+type BuildStatus string
+
+const (
+	BuildStatusCanceled   BuildStatus = "Canceled"
+	BuildStatusFailed     BuildStatus = "Failed"
+	BuildStatusInProgress BuildStatus = "InProgress"
+	BuildStatusNotStarted BuildStatus = "NotStarted"
+	BuildStatusSucceeded  BuildStatus = "Succeeded"
+)
+
+// PossibleBuildStatusValues returns the possible values for the BuildStatus const type.
+func PossibleBuildStatusValues() []BuildStatus {
+	return []BuildStatus{
+		BuildStatusCanceled,
+		BuildStatusFailed,
+		BuildStatusInProgress,
+		BuildStatusNotStarted,
+		BuildStatusSucceeded,
+	}
+}
+
+// BuilderProvisioningState - Resource instance provisioning state.
+type BuilderProvisioningState string
+
+const (
+	BuilderProvisioningStateCanceled  BuilderProvisioningState = "Canceled"
+	BuilderProvisioningStateCreating  BuilderProvisioningState = "Creating"
+	BuilderProvisioningStateDeleting  BuilderProvisioningState = "Deleting"
+	BuilderProvisioningStateFailed    BuilderProvisioningState = "Failed"
+	BuilderProvisioningStateSucceeded BuilderProvisioningState = "Succeeded"
+	BuilderProvisioningStateUpdating  BuilderProvisioningState = "Updating"
+)
+
+// PossibleBuilderProvisioningStateValues returns the possible values for the BuilderProvisioningState const type.
+func PossibleBuilderProvisioningStateValues() []BuilderProvisioningState {
+	return []BuilderProvisioningState{
+		BuilderProvisioningStateCanceled,
+		BuilderProvisioningStateCreating,
+		BuilderProvisioningStateDeleting,
+		BuilderProvisioningStateFailed,
+		BuilderProvisioningStateSucceeded,
+		BuilderProvisioningStateUpdating,
+	}
+}
+
 // CertificateProvisioningState - Provisioning state of the certificate.
 type CertificateProvisioningState string
 
@@ -146,6 +216,22 @@ func PossibleCertificateProvisioningStateValues() []CertificateProvisioningState
 		CertificateProvisioningStateFailed,
 		CertificateProvisioningStatePending,
 		CertificateProvisioningStateSucceeded,
+	}
+}
+
+// CertificateType - The type of the certificate. Allowed values are ServerSSLCertificate and ImagePullTrustedCA
+type CertificateType string
+
+const (
+	CertificateTypeImagePullTrustedCA   CertificateType = "ImagePullTrustedCA"
+	CertificateTypeServerSSLCertificate CertificateType = "ServerSSLCertificate"
+)
+
+// PossibleCertificateTypeValues returns the possible values for the CertificateType const type.
+func PossibleCertificateTypeValues() []CertificateType {
+	return []CertificateType{
+		CertificateTypeImagePullTrustedCA,
+		CertificateTypeServerSSLCertificate,
 	}
 }
 
@@ -305,6 +391,60 @@ func PossibleDNSVerificationTestResultValues() []DNSVerificationTestResult {
 	}
 }
 
+// DetectionStatus - The status of the patch detection.
+type DetectionStatus string
+
+const (
+	DetectionStatusFailed              DetectionStatus = "Failed"
+	DetectionStatusRegistryLoginFailed DetectionStatus = "RegistryLoginFailed"
+	DetectionStatusSucceeded           DetectionStatus = "Succeeded"
+)
+
+// PossibleDetectionStatusValues returns the possible values for the DetectionStatus const type.
+func PossibleDetectionStatusValues() []DetectionStatus {
+	return []DetectionStatus{
+		DetectionStatusFailed,
+		DetectionStatusRegistryLoginFailed,
+		DetectionStatusSucceeded,
+	}
+}
+
+// DotNetComponentProvisioningState - Provisioning state of the .NET Component.
+type DotNetComponentProvisioningState string
+
+const (
+	DotNetComponentProvisioningStateCanceled   DotNetComponentProvisioningState = "Canceled"
+	DotNetComponentProvisioningStateDeleting   DotNetComponentProvisioningState = "Deleting"
+	DotNetComponentProvisioningStateFailed     DotNetComponentProvisioningState = "Failed"
+	DotNetComponentProvisioningStateInProgress DotNetComponentProvisioningState = "InProgress"
+	DotNetComponentProvisioningStateSucceeded  DotNetComponentProvisioningState = "Succeeded"
+)
+
+// PossibleDotNetComponentProvisioningStateValues returns the possible values for the DotNetComponentProvisioningState const type.
+func PossibleDotNetComponentProvisioningStateValues() []DotNetComponentProvisioningState {
+	return []DotNetComponentProvisioningState{
+		DotNetComponentProvisioningStateCanceled,
+		DotNetComponentProvisioningStateDeleting,
+		DotNetComponentProvisioningStateFailed,
+		DotNetComponentProvisioningStateInProgress,
+		DotNetComponentProvisioningStateSucceeded,
+	}
+}
+
+// DotNetComponentType - Type of the .NET Component.
+type DotNetComponentType string
+
+const (
+	DotNetComponentTypeAspireDashboard DotNetComponentType = "AspireDashboard"
+)
+
+// PossibleDotNetComponentTypeValues returns the possible values for the DotNetComponentType const type.
+func PossibleDotNetComponentTypeValues() []DotNetComponentType {
+	return []DotNetComponentType{
+		DotNetComponentTypeAspireDashboard,
+	}
+}
+
 // EnvironmentProvisioningState - Provisioning state of the Environment.
 type EnvironmentProvisioningState string
 
@@ -369,6 +509,23 @@ func PossibleForwardProxyConventionValues() []ForwardProxyConvention {
 	}
 }
 
+// ImageType - The type of the image. Set to CloudBuild to let the system manages the image, where user will not be able to
+// update image through image field. Set to ContainerImage for user provided image.
+type ImageType string
+
+const (
+	ImageTypeCloudBuild     ImageType = "CloudBuild"
+	ImageTypeContainerImage ImageType = "ContainerImage"
+)
+
+// PossibleImageTypeValues returns the possible values for the ImageType const type.
+func PossibleImageTypeValues() []ImageType {
+	return []ImageType{
+		ImageTypeCloudBuild,
+		ImageTypeContainerImage,
+	}
+}
+
 // IngressClientCertificateMode - Client certificate mode for mTLS authentication. Ignore indicates server drops client certificate
 // on forwarding. Accept indicates server forwards client certificate but does not require a client
 // certificate. Require indicates server requires a client certificate.
@@ -389,6 +546,22 @@ func PossibleIngressClientCertificateModeValues() []IngressClientCertificateMode
 	}
 }
 
+// IngressTargetPortHTTPScheme - Whether an http app listens on http or https
+type IngressTargetPortHTTPScheme string
+
+const (
+	IngressTargetPortHTTPSchemeHTTP  IngressTargetPortHTTPScheme = "http"
+	IngressTargetPortHTTPSchemeHTTPS IngressTargetPortHTTPScheme = "https"
+)
+
+// PossibleIngressTargetPortHTTPSchemeValues returns the possible values for the IngressTargetPortHTTPScheme const type.
+func PossibleIngressTargetPortHTTPSchemeValues() []IngressTargetPortHTTPScheme {
+	return []IngressTargetPortHTTPScheme{
+		IngressTargetPortHTTPSchemeHTTP,
+		IngressTargetPortHTTPSchemeHTTPS,
+	}
+}
+
 // IngressTransportMethod - Ingress transport protocol
 type IngressTransportMethod string
 
@@ -406,6 +579,48 @@ func PossibleIngressTransportMethodValues() []IngressTransportMethod {
 		IngressTransportMethodHTTP,
 		IngressTransportMethodHTTP2,
 		IngressTransportMethodTCP,
+	}
+}
+
+// JavaComponentProvisioningState - Provisioning state of the Java Component.
+type JavaComponentProvisioningState string
+
+const (
+	JavaComponentProvisioningStateCanceled   JavaComponentProvisioningState = "Canceled"
+	JavaComponentProvisioningStateDeleting   JavaComponentProvisioningState = "Deleting"
+	JavaComponentProvisioningStateFailed     JavaComponentProvisioningState = "Failed"
+	JavaComponentProvisioningStateInProgress JavaComponentProvisioningState = "InProgress"
+	JavaComponentProvisioningStateSucceeded  JavaComponentProvisioningState = "Succeeded"
+)
+
+// PossibleJavaComponentProvisioningStateValues returns the possible values for the JavaComponentProvisioningState const type.
+func PossibleJavaComponentProvisioningStateValues() []JavaComponentProvisioningState {
+	return []JavaComponentProvisioningState{
+		JavaComponentProvisioningStateCanceled,
+		JavaComponentProvisioningStateDeleting,
+		JavaComponentProvisioningStateFailed,
+		JavaComponentProvisioningStateInProgress,
+		JavaComponentProvisioningStateSucceeded,
+	}
+}
+
+// JavaComponentType - Type of the Java Component.
+type JavaComponentType string
+
+const (
+	JavaComponentTypeNacos             JavaComponentType = "Nacos"
+	JavaComponentTypeSpringBootAdmin   JavaComponentType = "SpringBootAdmin"
+	JavaComponentTypeSpringCloudConfig JavaComponentType = "SpringCloudConfig"
+	JavaComponentTypeSpringCloudEureka JavaComponentType = "SpringCloudEureka"
+)
+
+// PossibleJavaComponentTypeValues returns the possible values for the JavaComponentType const type.
+func PossibleJavaComponentTypeValues() []JavaComponentType {
+	return []JavaComponentType{
+		JavaComponentTypeNacos,
+		JavaComponentTypeSpringBootAdmin,
+		JavaComponentTypeSpringCloudConfig,
+		JavaComponentTypeSpringCloudEureka,
 	}
 }
 
@@ -515,6 +730,76 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
+// PatchApplyStatus - The status of the patch once it has been provisioned
+type PatchApplyStatus string
+
+const (
+	PatchApplyStatusCanceled               PatchApplyStatus = "Canceled"
+	PatchApplyStatusCreatingRevision       PatchApplyStatus = "CreatingRevision"
+	PatchApplyStatusImagePushPullFailed    PatchApplyStatus = "ImagePushPullFailed"
+	PatchApplyStatusManuallySkipped        PatchApplyStatus = "ManuallySkipped"
+	PatchApplyStatusNotStarted             PatchApplyStatus = "NotStarted"
+	PatchApplyStatusRebaseFailed           PatchApplyStatus = "RebaseFailed"
+	PatchApplyStatusRebaseInProgress       PatchApplyStatus = "RebaseInProgress"
+	PatchApplyStatusRevisionCreationFailed PatchApplyStatus = "RevisionCreationFailed"
+	PatchApplyStatusSucceeded              PatchApplyStatus = "Succeeded"
+)
+
+// PossiblePatchApplyStatusValues returns the possible values for the PatchApplyStatus const type.
+func PossiblePatchApplyStatusValues() []PatchApplyStatus {
+	return []PatchApplyStatus{
+		PatchApplyStatusCanceled,
+		PatchApplyStatusCreatingRevision,
+		PatchApplyStatusImagePushPullFailed,
+		PatchApplyStatusManuallySkipped,
+		PatchApplyStatusNotStarted,
+		PatchApplyStatusRebaseFailed,
+		PatchApplyStatusRebaseInProgress,
+		PatchApplyStatusRevisionCreationFailed,
+		PatchApplyStatusSucceeded,
+	}
+}
+
+// PatchType - The type for the patch.
+type PatchType string
+
+const (
+	PatchTypeFrameworkAndOSSecurity PatchType = "FrameworkAndOSSecurity"
+	PatchTypeFrameworkSecurity      PatchType = "FrameworkSecurity"
+	PatchTypeOSSecurity             PatchType = "OSSecurity"
+	PatchTypeOther                  PatchType = "Other"
+)
+
+// PossiblePatchTypeValues returns the possible values for the PatchType const type.
+func PossiblePatchTypeValues() []PatchType {
+	return []PatchType{
+		PatchTypeFrameworkAndOSSecurity,
+		PatchTypeFrameworkSecurity,
+		PatchTypeOSSecurity,
+		PatchTypeOther,
+	}
+}
+
+// PatchingMode - Patching mode for the container app. Null or default in this field will be interpreted as Automatic by RP.
+// Automatic mode will automatically apply available patches. Manual mode will require the user
+// to manually apply patches. Disabled mode will stop patch detection and auto patching.
+type PatchingMode string
+
+const (
+	PatchingModeAutomatic PatchingMode = "Automatic"
+	PatchingModeDisabled  PatchingMode = "Disabled"
+	PatchingModeManual    PatchingMode = "Manual"
+)
+
+// PossiblePatchingModeValues returns the possible values for the PatchingMode const type.
+func PossiblePatchingModeValues() []PatchingMode {
+	return []PatchingMode{
+		PatchingModeAutomatic,
+		PatchingModeDisabled,
+		PatchingModeManual,
+	}
+}
+
 // RevisionHealthState - Current health State of the revision
 type RevisionHealthState string
 
@@ -619,9 +904,10 @@ func PossibleSourceControlOperationStateValues() []SourceControlOperationState {
 type StorageType string
 
 const (
-	StorageTypeAzureFile StorageType = "AzureFile"
-	StorageTypeEmptyDir  StorageType = "EmptyDir"
-	StorageTypeSecret    StorageType = "Secret"
+	StorageTypeAzureFile    StorageType = "AzureFile"
+	StorageTypeEmptyDir     StorageType = "EmptyDir"
+	StorageTypeNfsAzureFile StorageType = "NfsAzureFile"
+	StorageTypeSecret       StorageType = "Secret"
 )
 
 // PossibleStorageTypeValues returns the possible values for the StorageType const type.
@@ -629,6 +915,7 @@ func PossibleStorageTypeValues() []StorageType {
 	return []StorageType{
 		StorageTypeAzureFile,
 		StorageTypeEmptyDir,
+		StorageTypeNfsAzureFile,
 		StorageTypeSecret,
 	}
 }
