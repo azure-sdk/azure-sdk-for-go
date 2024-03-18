@@ -115,6 +115,9 @@ type APIContractProperties struct {
 
 	// READ-ONLY; Indicates if API revision is accessible via the gateway.
 	IsOnline *bool
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
 }
 
 // APIContractUpdateProperties - API update contract properties.
@@ -225,7 +228,7 @@ type APICreateOrUpdateProperties struct {
 	// API name. Must be 1 to 300 characters long.
 	DisplayName *string
 
-	// Format of the Content in which the API is getting imported.
+	// Format of the Content in which the API is getting imported. New formats can be added in the future
 	Format *ContentFormat
 
 	// Indicates if API revision is current api revision.
@@ -244,7 +247,7 @@ type APICreateOrUpdateProperties struct {
 	// * http creates a REST API
 	// * soap creates a SOAP pass-through API
 	// * websocket creates websocket API
-	// * graphql creates GraphQL API.
+	// * graphql creates GraphQL API. New types can be added in the future.
 	SoapAPIType *SoapAPIType
 
 	// API identifier of the source API.
@@ -271,6 +274,9 @@ type APICreateOrUpdateProperties struct {
 
 	// READ-ONLY; Indicates if API revision is accessible via the gateway.
 	IsOnline *bool
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
 }
 
 // APICreateOrUpdatePropertiesWsdlSelector - Criteria to limit import of WSDL to a subset of the document.
@@ -772,6 +778,39 @@ type AdditionalLocation struct {
 	PublicIPAddresses []*string
 }
 
+// AllPoliciesCollection - The response of All Policies.
+type AllPoliciesCollection struct {
+	// Next page link if any.
+	NextLink *string
+
+	// AllPolicies Contract value.
+	Value []*AllPoliciesContract
+}
+
+// AllPoliciesContract - AllPolicies Contract details.
+type AllPoliciesContract struct {
+	// Properties of the All Policies.
+	Properties *AllPoliciesContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AllPoliciesContractProperties - AllPolicies Properties.
+type AllPoliciesContractProperties struct {
+	// Policy Restriction Compliance State
+	ComplianceState *PolicyComplianceState
+
+	// Policy Identifier
+	ReferencePolicyID *string
+}
+
 // ApimResource - The Resource definition.
 type ApimResource struct {
 	// Resource tags.
@@ -858,6 +897,9 @@ type AuthorizationAccessPolicyContract struct {
 
 // AuthorizationAccessPolicyContractProperties - Authorization Access Policy details.
 type AuthorizationAccessPolicyContractProperties struct {
+	// The allowed Azure Active Directory Application IDs
+	AppIDs []*string
+
 	// The Object Id
 	ObjectID *string
 
@@ -1235,11 +1277,15 @@ type BackendAuthorizationHeaderCredentials struct {
 
 // BackendBaseParameters - Backend entity base Parameter set.
 type BackendBaseParameters struct {
+	// Backend Circuit Breaker Configuration
+	CircuitBreaker *BackendCircuitBreaker
+
 	// Backend Credentials Contract Properties
 	Credentials *BackendCredentialsContract
 
 	// Backend Description.
 	Description *string
+	Pool        *BackendBaseParametersPool
 
 	// Backend Properties contract
 	Properties *BackendProperties
@@ -1256,6 +1302,20 @@ type BackendBaseParameters struct {
 
 	// Backend Title.
 	Title *string
+
+	// Type of the backend. A backend can be either Single or Pool.
+	Type *BackendType
+}
+
+type BackendBaseParametersPool struct {
+	// The list of backend entities belonging to a pool.
+	Services []*BackendPoolItem
+}
+
+// BackendCircuitBreaker - The configuration of the backend circuit breaker
+type BackendCircuitBreaker struct {
+	// The rules for tripping the backend.
+	Rules []*CircuitBreakerRule
 }
 
 // BackendCollection - Paged Backend list representation.
@@ -1293,11 +1353,15 @@ type BackendContractProperties struct {
 	// REQUIRED; Runtime Url of the Backend.
 	URL *string
 
+	// Backend Circuit Breaker Configuration
+	CircuitBreaker *BackendCircuitBreaker
+
 	// Backend Credentials Contract Properties
 	Credentials *BackendCredentialsContract
 
 	// Backend Description.
 	Description *string
+	Pool        *BackendBaseParametersPool
 
 	// Backend Properties contract
 	Properties *BackendProperties
@@ -1314,6 +1378,9 @@ type BackendContractProperties struct {
 
 	// Backend Title.
 	Title *string
+
+	// Type of the backend. A backend can be either Single or Pool.
+	Type *BackendType
 }
 
 // BackendCredentialsContract - Details of the Credentials used to connect to Backend.
@@ -1332,6 +1399,18 @@ type BackendCredentialsContract struct {
 
 	// Query Parameter description.
 	Query map[string][]*string
+}
+
+// BackendPool - Backend pool information
+type BackendPool struct {
+	// The list of backend entities belonging to a pool.
+	Services []*BackendPoolItem
+}
+
+// BackendPoolItem - Backend pool service information
+type BackendPoolItem struct {
+	// REQUIRED; The unique ARM id of the backend entity. The ARM id should refer to an already existing backend entity.
+	ID *string
 }
 
 // BackendProperties - Properties specific to the Backend Type.
@@ -1408,11 +1487,15 @@ type BackendTLSProperties struct {
 
 // BackendUpdateParameterProperties - Parameters supplied to the Update Backend operation.
 type BackendUpdateParameterProperties struct {
+	// Backend Circuit Breaker Configuration
+	CircuitBreaker *BackendCircuitBreaker
+
 	// Backend Credentials Contract Properties
 	Credentials *BackendCredentialsContract
 
 	// Backend Description.
 	Description *string
+	Pool        *BackendBaseParametersPool
 
 	// Backend Properties contract
 	Properties *BackendProperties
@@ -1432,6 +1515,9 @@ type BackendUpdateParameterProperties struct {
 
 	// Backend Title.
 	Title *string
+
+	// Type of the backend. A backend can be either Single or Pool.
+	Type *BackendType
 
 	// Runtime Url of the Backend.
 	URL *string
@@ -1602,10 +1688,48 @@ type CertificateInformation struct {
 	Thumbprint *string
 }
 
+// CircuitBreakerFailureCondition - The trip conditions of the circuit breaker
+type CircuitBreakerFailureCondition struct {
+	// The threshold for opening the circuit.
+	Count *int64
+
+	// The error reasons which are considered as failure.
+	ErrorReasons []*string
+
+	// The interval during which the failures are counted.
+	Interval *string
+
+	// The threshold for opening the circuit.
+	Percentage *int64
+
+	// The status code ranges which are considered as failure.
+	StatusCodeRanges []*FailureStatusCodeRange
+}
+
+// CircuitBreakerRule - Rule configuration to trip the backend.
+type CircuitBreakerRule struct {
+	// The conditions for tripping the circuit breaker.
+	FailureCondition *CircuitBreakerFailureCondition
+
+	// The rule name.
+	Name *string
+
+	// The duration for which the circuit will be tripped.
+	TripDuration *string
+}
+
 // ClientSecretContract - Client or app secret used in IdentityProviders, Aad, OpenID or OAuth.
 type ClientSecretContract struct {
 	// Client or app secret used in IdentityProviders, Aad, OpenID or OAuth.
 	ClientSecret *string
+}
+
+// ConfigurationAPI - Information regarding the Configuration API of the API Management service.
+type ConfigurationAPI struct {
+	// Indication whether or not the legacy Configuration API (v1) should be exposed on the API Management service. Value is optional
+	// but must be 'Enabled' or 'Disabled'. If 'Disabled', legacy Configuration
+	// API (v1) will not be available for self-hosted gateways. Default value is 'Enabled'
+	LegacyAPI *LegacyAPIState
 }
 
 // ConnectivityCheckRequest - A request to perform the connectivity check operation on a API Management service.
@@ -2120,6 +2244,15 @@ type ErrorResponseBody struct {
 	Message *string
 }
 
+// FailureStatusCodeRange - The failure http status code range
+type FailureStatusCodeRange struct {
+	// The maximum http status code.
+	Max *int32
+
+	// The minimum http status code.
+	Min *int32
+}
+
 // GatewayCertificateAuthorityCollection - Paged Gateway certificate authority list representation.
 type GatewayCertificateAuthorityCollection struct {
 	// READ-ONLY; Next page link if any.
@@ -2186,6 +2319,12 @@ type GatewayContractProperties struct {
 	LocationData *ResourceLocationDataContract
 }
 
+// GatewayDebugCredentialsContract - Gateway debug credentials.
+type GatewayDebugCredentialsContract struct {
+	// Gateway debug token.
+	Token *string
+}
+
 // GatewayHostnameConfigurationCollection - Paged Gateway hostname configuration list representation.
 type GatewayHostnameConfigurationCollection struct {
 	// READ-ONLY; Next page link if any.
@@ -2244,6 +2383,25 @@ type GatewayKeysContract struct {
 
 	// Secondary gateway key.
 	Secondary *string
+}
+
+// GatewayListDebugCredentialsContract - List debug credentials properties.
+type GatewayListDebugCredentialsContract struct {
+	// REQUIRED; Full resource Id of an API.
+	APIID *string
+
+	// REQUIRED; Purposes of debug credential.
+	Purposes []*GatewayListDebugCredentialsContractPurpose
+
+	// Credentials expiration in ISO8601 format. Maximum duration of the credentials is PT1H. When property is not specified,
+	// them value PT1H is used.
+	CredentialsExpireAfter *string
+}
+
+// GatewayListTraceContract - List trace properties.
+type GatewayListTraceContract struct {
+	// Trace id.
+	TraceID *string
 }
 
 // GatewayTokenContract - Gateway access token.
@@ -2308,6 +2466,9 @@ type GlobalSchemaContractProperties struct {
 
 	// Json-encoded string for non json-based schema.
 	Value any
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
 }
 
 // GroupCollection - Paged Group list representation.
@@ -2933,6 +3094,12 @@ type LoggerUpdateParameters struct {
 	LoggerType *LoggerType
 }
 
+// MigrateToStv2Contract - Describes an available API Management SKU.
+type MigrateToStv2Contract struct {
+	// Mode of Migration to stv2. Default is PreserveIp.
+	Mode *MigrateToStv2Mode
+}
+
 // NamedValueCollection - Paged NamedValue list representation.
 type NamedValueCollection struct {
 	// Total record count number across all pages.
@@ -2978,6 +3145,9 @@ type NamedValueContractProperties struct {
 	// will not be filled on 'GET' operations! Use '/listSecrets' POST request to get
 	// the value.
 	Value *string
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
 }
 
 // NamedValueCreateContract - NamedValue details.
@@ -3620,6 +3790,79 @@ type PolicyFragmentContractProperties struct {
 
 	// Format of the policy fragment content.
 	Format *PolicyFragmentContentFormat
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
+}
+
+// PolicyRestrictionCollection - The response of the get policy restrictions operation.
+type PolicyRestrictionCollection struct {
+	// Next page link if any.
+	NextLink *string
+	Value    []*PolicyRestrictionContract
+}
+
+// PolicyRestrictionContract - Policy restriction contract details.
+type PolicyRestrictionContract struct {
+	// Properties of the Policy Restriction.
+	Properties *PolicyRestrictionContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PolicyRestrictionContractProperties - Policy restrictions contract properties.
+type PolicyRestrictionContractProperties struct {
+	// Indicates if base policy should be enforced for the policy document.
+	RequireBase *PolicyRestrictionRequireBase
+
+	// Path to the policy document.
+	Scope *string
+}
+
+// PolicyRestrictionUpdateContract - Policy restriction contract details.
+type PolicyRestrictionUpdateContract struct {
+	// Properties of the Policy Restriction.
+	Properties *PolicyRestrictionContractProperties
+}
+
+// PolicyWithComplianceCollection - The response of the list policy operation.
+type PolicyWithComplianceCollection struct {
+	// Next page link if any.
+	NextLink *string
+
+	// Policy Contract value.
+	Value []*PolicyWithComplianceContract
+}
+
+// PolicyWithComplianceContract - Policy Contract details.
+type PolicyWithComplianceContract struct {
+	// Properties of the Policy.
+	Properties *PolicyWithComplianceContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PolicyWithComplianceContractProperties - Policy contract Properties.
+type PolicyWithComplianceContractProperties struct {
+	// Policy Restriction Compliance State
+	ComplianceState *PolicyComplianceState
+
+	// Policy Identifier
+	ReferencePolicyID *string
 }
 
 // PortalConfigCollection - The collection of the developer portal configurations.
@@ -3777,6 +4020,9 @@ type PortalRevisionContractProperties struct {
 
 	// READ-ONLY; Portal's revision creation date and time.
 	CreatedDateTime *time.Time
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
 
 	// READ-ONLY; Status of the portal's revision.
 	Status *PortalRevisionStatus
@@ -3999,6 +4245,39 @@ type PrivateLinkServiceConnectionState struct {
 	Status *PrivateEndpointServiceConnectionStatus
 }
 
+// ProductAPILinkCollection - Paged Product-API link list representation.
+type ProductAPILinkCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*ProductAPILinkContract
+}
+
+// ProductAPILinkContract - Product-API link details.
+type ProductAPILinkContract struct {
+	// Product-API link entity contract properties.
+	Properties *ProductAPILinkContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProductAPILinkContractProperties - Product-API link entity properties.
+type ProductAPILinkContractProperties struct {
+	// REQUIRED; Full resource Id of an API.
+	APIID *string
+}
+
 // ProductCollection - Paged Products list representation.
 type ProductCollection struct {
 	// Total record count number across all pages.
@@ -4093,6 +4372,39 @@ type ProductEntityBaseParameters struct {
 	// Product terms of use. Developers trying to subscribe to the product will be presented and required to accept these terms
 	// before they can complete the subscription process.
 	Terms *string
+}
+
+// ProductGroupLinkCollection - Paged Product-group link list representation.
+type ProductGroupLinkCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*ProductGroupLinkContract
+}
+
+// ProductGroupLinkContract - Product-group link details.
+type ProductGroupLinkContract struct {
+	// Product-group link entity contract properties.
+	Properties *ProductGroupLinkContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProductGroupLinkContractProperties - Product-group link entity properties.
+type ProductGroupLinkContractProperties struct {
+	// REQUIRED; Full resource Id of a group.
+	GroupID *string
 }
 
 // ProductTagResourceContractProperties - Product profile.
@@ -4974,11 +5286,16 @@ type SchemaContractProperties struct {
 	// - Swagger Schema use application/vnd.ms-azure-apim.swagger.definitions+json
 	// - WSDL Schema use application/vnd.ms-azure-apim.xsd+xml
 	// - OpenApi Schema use application/vnd.oai.openapi.components+json
-	// - WADL Schema use application/vnd.ms-azure-apim.wadl.grammars+xml.
+	// - WADL Schema use application/vnd.ms-azure-apim.wadl.grammars+xml
+	// - OData Schema use application/vnd.ms-azure-apim.odata.schema
+	// - gRPC Schema use text/protobuf.
 	ContentType *string
 
 	// REQUIRED; Create or update Properties of the API Schema Document.
 	Document *SchemaDocumentProperties
+
+	// READ-ONLY; The provisioning state
+	ProvisioningState *string
 }
 
 // SchemaDocumentProperties - Api Schema Document Properties.
@@ -5033,6 +5350,9 @@ type ServiceBaseProperties struct {
 	// is 10.
 	Certificates []*CertificateConfiguration
 
+	// Configuration API configuration of the API Management service.
+	ConfigurationAPI *ConfigurationAPI
+
 	// Custom properties of the API Management service.
 	// Setting Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168 will disable the cipher TLSRSAWITH3DESEDECBCSHA
 	// for all TLS(1.0, 1.1 and 1.2).
@@ -5058,6 +5378,9 @@ type ServiceBaseProperties struct {
 	// SHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBCSHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256
 	CustomProperties map[string]*string
 
+	// Status of developer portal in this API Management service.
+	DeveloperPortalStatus *DeveloperPortalStatus
+
 	// Property only valid for an Api Management service deployed in multiple locations. This can be used to disable the gateway
 	// in master region.
 	DisableGateway *bool
@@ -5069,6 +5392,9 @@ type ServiceBaseProperties struct {
 
 	// Custom hostname configuration of the API Management service.
 	HostnameConfigurations []*HostnameConfiguration
+
+	// Status of legacy portal in the API Management service.
+	LegacyPortalStatus *LegacyPortalStatus
 
 	// Property can be used to enable NAT Gateway for this API Management service.
 	NatGatewayState *NatGatewayState
@@ -5228,6 +5554,9 @@ type ServiceProperties struct {
 	// is 10.
 	Certificates []*CertificateConfiguration
 
+	// Configuration API configuration of the API Management service.
+	ConfigurationAPI *ConfigurationAPI
+
 	// Custom properties of the API Management service.
 	// Setting Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168 will disable the cipher TLSRSAWITH3DESEDECBCSHA
 	// for all TLS(1.0, 1.1 and 1.2).
@@ -5253,6 +5582,9 @@ type ServiceProperties struct {
 	// SHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBCSHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256
 	CustomProperties map[string]*string
 
+	// Status of developer portal in this API Management service.
+	DeveloperPortalStatus *DeveloperPortalStatus
+
 	// Property only valid for an Api Management service deployed in multiple locations. This can be used to disable the gateway
 	// in master region.
 	DisableGateway *bool
@@ -5264,6 +5596,9 @@ type ServiceProperties struct {
 
 	// Custom hostname configuration of the API Management service.
 	HostnameConfigurations []*HostnameConfiguration
+
+	// Status of legacy portal in the API Management service.
+	LegacyPortalStatus *LegacyPortalStatus
 
 	// Property can be used to enable NAT Gateway for this API Management service.
 	NatGatewayState *NatGatewayState
@@ -5431,6 +5766,9 @@ type ServiceUpdateProperties struct {
 	// is 10.
 	Certificates []*CertificateConfiguration
 
+	// Configuration API configuration of the API Management service.
+	ConfigurationAPI *ConfigurationAPI
+
 	// Custom properties of the API Management service.
 	// Setting Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168 will disable the cipher TLSRSAWITH3DESEDECBCSHA
 	// for all TLS(1.0, 1.1 and 1.2).
@@ -5456,6 +5794,9 @@ type ServiceUpdateProperties struct {
 	// SHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBCSHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256
 	CustomProperties map[string]*string
 
+	// Status of developer portal in this API Management service.
+	DeveloperPortalStatus *DeveloperPortalStatus
+
 	// Property only valid for an Api Management service deployed in multiple locations. This can be used to disable the gateway
 	// in master region.
 	DisableGateway *bool
@@ -5467,6 +5808,9 @@ type ServiceUpdateProperties struct {
 
 	// Custom hostname configuration of the API Management service.
 	HostnameConfigurations []*HostnameConfiguration
+
+	// Status of legacy portal in the API Management service.
+	LegacyPortalStatus *LegacyPortalStatus
 
 	// Property can be used to enable NAT Gateway for this API Management service.
 	NatGatewayState *NatGatewayState
@@ -5761,6 +6105,39 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TagAPILinkCollection - Paged Tag-API link list representation.
+type TagAPILinkCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*TagAPILinkContract
+}
+
+// TagAPILinkContract - Tag-API link details.
+type TagAPILinkContract struct {
+	// Tag-API link entity contract properties.
+	Properties *TagAPILinkContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TagAPILinkContractProperties - Tag-API link entity properties.
+type TagAPILinkContractProperties struct {
+	// REQUIRED; Full resource Id of an API.
+	APIID *string
+}
+
 // TagCollection - Paged Tag list representation.
 type TagCollection struct {
 	// Total record count number across all pages.
@@ -5861,6 +6238,72 @@ type TagDescriptionContractProperties struct {
 type TagDescriptionCreateParameters struct {
 	// Properties supplied to Create TagDescription operation.
 	Properties *TagDescriptionBaseProperties
+}
+
+// TagOperationLinkCollection - Paged Tag-operation link list representation.
+type TagOperationLinkCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*TagOperationLinkContract
+}
+
+// TagOperationLinkContract - Tag-operation link details.
+type TagOperationLinkContract struct {
+	// Tag-API link entity contract properties.
+	Properties *TagOperationLinkContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TagOperationLinkContractProperties - Tag-operation link entity properties.
+type TagOperationLinkContractProperties struct {
+	// REQUIRED; Full resource Id of an API operation.
+	OperationID *string
+}
+
+// TagProductLinkCollection - Paged Tag-product link list representation.
+type TagProductLinkCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*TagProductLinkContract
+}
+
+// TagProductLinkContract - Tag-product link details.
+type TagProductLinkContract struct {
+	// Tag-API link entity contract properties.
+	Properties *TagProductLinkContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TagProductLinkContractProperties - Tag-product link entity properties.
+type TagProductLinkContractProperties struct {
+	// REQUIRED; Full resource Id of a product.
+	ProductID *string
 }
 
 // TagResourceCollection - Paged Tag list representation.
@@ -6234,6 +6677,42 @@ type WikiDocumentationContract struct {
 type WikiUpdateContract struct {
 	// Wiki details.
 	Properties *WikiContractProperties
+}
+
+// WorkspaceCollection - Paged workspace list representation.
+type WorkspaceCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*WorkspaceContract
+}
+
+// WorkspaceContract - Workspace details.
+type WorkspaceContract struct {
+	// Workspace entity contract properties.
+	Properties *WorkspaceContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WorkspaceContractProperties - Workspace entity properties.
+type WorkspaceContractProperties struct {
+	// REQUIRED; Name of the workspace.
+	DisplayName *string
+
+	// Description of the workspace.
+	Description *string
 }
 
 // X509CertificateName - Properties of server X509Names.

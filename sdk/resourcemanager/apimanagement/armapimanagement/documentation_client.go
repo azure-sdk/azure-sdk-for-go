@@ -29,7 +29,7 @@ type DocumentationClient struct {
 }
 
 // NewDocumentationClient creates a new instance of DocumentationClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDocumentationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DocumentationClient, error) {
@@ -47,7 +47,7 @@ func NewDocumentationClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Creates a new Documentation or updates an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - documentationID - Documentation identifier. Must be unique in the current API Management service instance.
@@ -100,12 +100,12 @@ func (client *DocumentationClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func (client *DocumentationClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Deletes the specified Documentation from an API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - documentationID - Documentation identifier. Must be unique in the current API Management service instance.
@@ -179,17 +179,17 @@ func (client *DocumentationClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["If-Match"] = []string{ifMatch}
 	return req, nil
 }
 
 // Get - Gets the details of the Documentation specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - documentationID - Documentation identifier. Must be unique in the current API Management service instance.
@@ -240,7 +240,7 @@ func (client *DocumentationClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -260,7 +260,7 @@ func (client *DocumentationClient) getHandleResponse(resp *http.Response) (Docum
 
 // GetEntityTag - Gets the entity state (Etag) version of the Documentation by its identifier.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - documentationID - Documentation identifier. Must be unique in the current API Management service instance.
@@ -312,7 +312,7 @@ func (client *DocumentationClient) getEntityTagCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,7 +329,7 @@ func (client *DocumentationClient) getEntityTagHandleResponse(resp *http.Respons
 
 // NewListByServicePager - Lists all Documentations of the API Management service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - DocumentationClientListByServiceOptions contains the optional parameters for the DocumentationClient.NewListByServicePager
@@ -380,13 +380,13 @@ func (client *DocumentationClient) listByServiceCreateRequest(ctx context.Contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	}
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -404,7 +404,7 @@ func (client *DocumentationClient) listByServiceHandleResponse(resp *http.Respon
 // Update - Updates the details of the Documentation for an API specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - documentationID - Documentation identifier. Must be unique in the current API Management service instance.
@@ -458,10 +458,10 @@ func (client *DocumentationClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["If-Match"] = []string{ifMatch}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
 		return nil, err
 	}
