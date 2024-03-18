@@ -11,7 +11,7 @@ package armmachinelearning
 import "encoding/json"
 
 func unmarshalAssetReferenceBaseClassification(rawMsg json.RawMessage) (AssetReferenceBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -36,7 +36,7 @@ func unmarshalAssetReferenceBaseClassification(rawMsg json.RawMessage) (AssetRef
 }
 
 func unmarshalAutoMLVerticalClassification(rawMsg json.RawMessage) (AutoMLVerticalClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -75,7 +75,7 @@ func unmarshalAutoMLVerticalClassification(rawMsg json.RawMessage) (AutoMLVertic
 }
 
 func unmarshalComputeClassification(rawMsg json.RawMessage) (ComputeClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -114,7 +114,7 @@ func unmarshalComputeClassification(rawMsg json.RawMessage) (ComputeClassificati
 }
 
 func unmarshalComputeSecretsClassification(rawMsg json.RawMessage) (ComputeSecretsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -138,8 +138,119 @@ func unmarshalComputeSecretsClassification(rawMsg json.RawMessage) (ComputeSecre
 	return b, nil
 }
 
+func unmarshalDataDriftMetricThresholdBaseClassification(rawMsg json.RawMessage) (DataDriftMetricThresholdBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b DataDriftMetricThresholdBaseClassification
+	switch m["dataType"] {
+	case string(MonitoringFeatureDataTypeCategorical):
+		b = &CategoricalDataDriftMetricThreshold{}
+	case string(MonitoringFeatureDataTypeNumerical):
+		b = &NumericalDataDriftMetricThreshold{}
+	default:
+		b = &DataDriftMetricThresholdBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalDataDriftMetricThresholdBaseClassificationArray(rawMsg json.RawMessage) ([]DataDriftMetricThresholdBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]DataDriftMetricThresholdBaseClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalDataDriftMetricThresholdBaseClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalDataQualityMetricThresholdBaseClassification(rawMsg json.RawMessage) (DataQualityMetricThresholdBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b DataQualityMetricThresholdBaseClassification
+	switch m["dataType"] {
+	case string(MonitoringFeatureDataTypeCategorical):
+		b = &CategoricalDataQualityMetricThreshold{}
+	case string(MonitoringFeatureDataTypeNumerical):
+		b = &NumericalDataQualityMetricThreshold{}
+	default:
+		b = &DataQualityMetricThresholdBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalDataQualityMetricThresholdBaseClassificationArray(rawMsg json.RawMessage) ([]DataQualityMetricThresholdBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]DataQualityMetricThresholdBaseClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalDataQualityMetricThresholdBaseClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalDataReferenceCredentialClassification(rawMsg json.RawMessage) (DataReferenceCredentialClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b DataReferenceCredentialClassification
+	switch m["credentialType"] {
+	case string(DataReferenceCredentialTypeDockerCredentials):
+		b = &DockerCredential{}
+	case string(DataReferenceCredentialTypeManagedIdentity):
+		b = &ManagedIdentityCredential{}
+	case string(DataReferenceCredentialTypeNoCredentials):
+		b = &AnonymousAccessCredential{}
+	case string(DataReferenceCredentialTypeSAS):
+		b = &SASCredential{}
+	default:
+		b = &DataReferenceCredential{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalDataVersionBasePropertiesClassification(rawMsg json.RawMessage) (DataVersionBasePropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -164,7 +275,7 @@ func unmarshalDataVersionBasePropertiesClassification(rawMsg json.RawMessage) (D
 }
 
 func unmarshalDatastoreCredentialsClassification(rawMsg json.RawMessage) (DatastoreCredentialsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -193,7 +304,7 @@ func unmarshalDatastoreCredentialsClassification(rawMsg json.RawMessage) (Datast
 }
 
 func unmarshalDatastorePropertiesClassification(rawMsg json.RawMessage) (DatastorePropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -210,6 +321,8 @@ func unmarshalDatastorePropertiesClassification(rawMsg json.RawMessage) (Datasto
 		b = &AzureDataLakeGen2Datastore{}
 	case string(DatastoreTypeAzureFile):
 		b = &AzureFileDatastore{}
+	case string(DatastoreTypeOneLake):
+		b = &OneLakeDatastore{}
 	default:
 		b = &DatastoreProperties{}
 	}
@@ -220,7 +333,7 @@ func unmarshalDatastorePropertiesClassification(rawMsg json.RawMessage) (Datasto
 }
 
 func unmarshalDatastoreSecretsClassification(rawMsg json.RawMessage) (DatastoreSecretsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -247,7 +360,7 @@ func unmarshalDatastoreSecretsClassification(rawMsg json.RawMessage) (DatastoreS
 }
 
 func unmarshalDistributionConfigurationClassification(rawMsg json.RawMessage) (DistributionConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -272,7 +385,7 @@ func unmarshalDistributionConfigurationClassification(rawMsg json.RawMessage) (D
 }
 
 func unmarshalEarlyTerminationPolicyClassification(rawMsg json.RawMessage) (EarlyTerminationPolicyClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -297,7 +410,7 @@ func unmarshalEarlyTerminationPolicyClassification(rawMsg json.RawMessage) (Earl
 }
 
 func unmarshalForecastHorizonClassification(rawMsg json.RawMessage) (ForecastHorizonClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -320,7 +433,7 @@ func unmarshalForecastHorizonClassification(rawMsg json.RawMessage) (ForecastHor
 }
 
 func unmarshalIdentityConfigurationClassification(rawMsg json.RawMessage) (IdentityConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -345,7 +458,7 @@ func unmarshalIdentityConfigurationClassification(rawMsg json.RawMessage) (Ident
 }
 
 func unmarshalJobBasePropertiesClassification(rawMsg json.RawMessage) (JobBasePropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -360,6 +473,8 @@ func unmarshalJobBasePropertiesClassification(rawMsg json.RawMessage) (JobBasePr
 		b = &CommandJob{}
 	case string(JobTypePipeline):
 		b = &PipelineJob{}
+	case string(JobTypeSpark):
+		b = &SparkJob{}
 	case string(JobTypeSweep):
 		b = &SweepJob{}
 	default:
@@ -372,7 +487,7 @@ func unmarshalJobBasePropertiesClassification(rawMsg json.RawMessage) (JobBasePr
 }
 
 func unmarshalJobInputClassification(rawMsg json.RawMessage) (JobInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -405,7 +520,7 @@ func unmarshalJobInputClassification(rawMsg json.RawMessage) (JobInputClassifica
 }
 
 func unmarshalJobInputClassificationMap(rawMsg json.RawMessage) (map[string]JobInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages map[string]json.RawMessage
@@ -424,7 +539,7 @@ func unmarshalJobInputClassificationMap(rawMsg json.RawMessage) (map[string]JobI
 }
 
 func unmarshalJobOutputClassification(rawMsg json.RawMessage) (JobOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -455,7 +570,7 @@ func unmarshalJobOutputClassification(rawMsg json.RawMessage) (JobOutputClassifi
 }
 
 func unmarshalJobOutputClassificationMap(rawMsg json.RawMessage) (map[string]JobOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages map[string]json.RawMessage
@@ -473,8 +588,188 @@ func unmarshalJobOutputClassificationMap(rawMsg json.RawMessage) (map[string]Job
 	return fMap, nil
 }
 
+func unmarshalMonitorComputeConfigurationBaseClassification(rawMsg json.RawMessage) (MonitorComputeConfigurationBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MonitorComputeConfigurationBaseClassification
+	switch m["computeType"] {
+	case string(MonitorComputeTypeServerlessSpark):
+		b = &MonitorServerlessSparkCompute{}
+	default:
+		b = &MonitorComputeConfigurationBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMonitorComputeIdentityBaseClassification(rawMsg json.RawMessage) (MonitorComputeIdentityBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MonitorComputeIdentityBaseClassification
+	switch m["computeIdentityType"] {
+	case string(MonitorComputeIdentityTypeAmlToken):
+		b = &AmlTokenComputeIdentity{}
+	case string(MonitorComputeIdentityTypeManagedIdentity):
+		b = &ManagedComputeIdentity{}
+	default:
+		b = &MonitorComputeIdentityBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMonitoringFeatureFilterBaseClassification(rawMsg json.RawMessage) (MonitoringFeatureFilterBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MonitoringFeatureFilterBaseClassification
+	switch m["filterType"] {
+	case string(MonitoringFeatureFilterTypeAllFeatures):
+		b = &AllFeatures{}
+	case string(MonitoringFeatureFilterTypeFeatureSubset):
+		b = &FeatureSubset{}
+	case string(MonitoringFeatureFilterTypeTopNByAttribution):
+		b = &TopNFeaturesByAttribution{}
+	default:
+		b = &MonitoringFeatureFilterBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMonitoringInputDataBaseClassification(rawMsg json.RawMessage) (MonitoringInputDataBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MonitoringInputDataBaseClassification
+	switch m["inputDataType"] {
+	case string(MonitoringInputDataTypeFixed):
+		b = &FixedInputData{}
+	case string(MonitoringInputDataTypeRolling):
+		b = &RollingInputData{}
+	case string(MonitoringInputDataTypeStatic):
+		b = &StaticInputData{}
+	default:
+		b = &MonitoringInputDataBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMonitoringInputDataBaseClassificationArray(rawMsg json.RawMessage) ([]MonitoringInputDataBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]MonitoringInputDataBaseClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalMonitoringInputDataBaseClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalMonitoringInputDataBaseClassificationMap(rawMsg json.RawMessage) (map[string]MonitoringInputDataBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages map[string]json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fMap := make(map[string]MonitoringInputDataBaseClassification, len(rawMessages))
+	for key, rawMessage := range rawMessages {
+		f, err := unmarshalMonitoringInputDataBaseClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fMap[key] = f
+	}
+	return fMap, nil
+}
+
+func unmarshalMonitoringSignalBaseClassification(rawMsg json.RawMessage) (MonitoringSignalBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MonitoringSignalBaseClassification
+	switch m["signalType"] {
+	case string(MonitoringSignalTypeCustom):
+		b = &CustomMonitoringSignal{}
+	case string(MonitoringSignalTypeDataDrift):
+		b = &DataDriftMonitoringSignal{}
+	case string(MonitoringSignalTypeDataQuality):
+		b = &DataQualityMonitoringSignal{}
+	case string(MonitoringSignalTypeFeatureAttributionDrift):
+		b = &FeatureAttributionDriftMonitoringSignal{}
+	case string(MonitoringSignalTypePredictionDrift):
+		b = &PredictionDriftMonitoringSignal{}
+	default:
+		b = &MonitoringSignalBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalMonitoringSignalBaseClassificationMap(rawMsg json.RawMessage) (map[string]MonitoringSignalBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages map[string]json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fMap := make(map[string]MonitoringSignalBaseClassification, len(rawMessages))
+	for key, rawMessage := range rawMessages {
+		f, err := unmarshalMonitoringSignalBaseClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fMap[key] = f
+	}
+	return fMap, nil
+}
+
 func unmarshalNCrossValidationsClassification(rawMsg json.RawMessage) (NCrossValidationsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -496,8 +791,50 @@ func unmarshalNCrossValidationsClassification(rawMsg json.RawMessage) (NCrossVal
 	return b, nil
 }
 
+func unmarshalNodesClassification(rawMsg json.RawMessage) (NodesClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b NodesClassification
+	switch m["nodesValueType"] {
+	case string(NodesValueTypeAll):
+		b = &AllNodes{}
+	default:
+		b = &Nodes{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalOneLakeArtifactClassification(rawMsg json.RawMessage) (OneLakeArtifactClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b OneLakeArtifactClassification
+	switch m["artifactType"] {
+	case string(OneLakeArtifactTypeLakeHouse):
+		b = &LakeHouseArtifact{}
+	default:
+		b = &OneLakeArtifact{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalOnlineDeploymentPropertiesClassification(rawMsg json.RawMessage) (OnlineDeploymentPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -520,7 +857,7 @@ func unmarshalOnlineDeploymentPropertiesClassification(rawMsg json.RawMessage) (
 }
 
 func unmarshalOnlineScaleSettingsClassification(rawMsg json.RawMessage) (OnlineScaleSettingsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -542,8 +879,115 @@ func unmarshalOnlineScaleSettingsClassification(rawMsg json.RawMessage) (OnlineS
 	return b, nil
 }
 
+func unmarshalOutboundRuleClassification(rawMsg json.RawMessage) (OutboundRuleClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b OutboundRuleClassification
+	switch m["type"] {
+	case string(RuleTypeFQDN):
+		b = &FqdnOutboundRule{}
+	case string(RuleTypePrivateEndpoint):
+		b = &PrivateEndpointOutboundRule{}
+	case string(RuleTypeServiceTag):
+		b = &ServiceTagOutboundRule{}
+	default:
+		b = &OutboundRule{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalOutboundRuleClassificationMap(rawMsg json.RawMessage) (map[string]OutboundRuleClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages map[string]json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fMap := make(map[string]OutboundRuleClassification, len(rawMessages))
+	for key, rawMessage := range rawMessages {
+		f, err := unmarshalOutboundRuleClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fMap[key] = f
+	}
+	return fMap, nil
+}
+
+func unmarshalPendingUploadCredentialDtoClassification(rawMsg json.RawMessage) (PendingUploadCredentialDtoClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b PendingUploadCredentialDtoClassification
+	switch m["credentialType"] {
+	case string(PendingUploadCredentialTypeSAS):
+		b = &SASCredentialDto{}
+	default:
+		b = &PendingUploadCredentialDto{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalPredictionDriftMetricThresholdBaseClassification(rawMsg json.RawMessage) (PredictionDriftMetricThresholdBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b PredictionDriftMetricThresholdBaseClassification
+	switch m["dataType"] {
+	case string(MonitoringFeatureDataTypeCategorical):
+		b = &CategoricalPredictionDriftMetricThreshold{}
+	case string(MonitoringFeatureDataTypeNumerical):
+		b = &NumericalPredictionDriftMetricThreshold{}
+	default:
+		b = &PredictionDriftMetricThresholdBase{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalPredictionDriftMetricThresholdBaseClassificationArray(rawMsg json.RawMessage) ([]PredictionDriftMetricThresholdBaseClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]PredictionDriftMetricThresholdBaseClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalPredictionDriftMetricThresholdBaseClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
 func unmarshalSamplingAlgorithmClassification(rawMsg json.RawMessage) (SamplingAlgorithmClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -568,7 +1012,7 @@ func unmarshalSamplingAlgorithmClassification(rawMsg json.RawMessage) (SamplingA
 }
 
 func unmarshalScheduleActionBaseClassification(rawMsg json.RawMessage) (ScheduleActionBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -579,6 +1023,8 @@ func unmarshalScheduleActionBaseClassification(rawMsg json.RawMessage) (Schedule
 	switch m["actionType"] {
 	case string(ScheduleActionTypeCreateJob):
 		b = &JobScheduleAction{}
+	case string(ScheduleActionTypeCreateMonitor):
+		b = &CreateMonitorAction{}
 	case string(ScheduleActionTypeInvokeBatchEndpoint):
 		b = &EndpointScheduleAction{}
 	default:
@@ -591,7 +1037,7 @@ func unmarshalScheduleActionBaseClassification(rawMsg json.RawMessage) (Schedule
 }
 
 func unmarshalSeasonalityClassification(rawMsg json.RawMessage) (SeasonalityClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -613,8 +1059,31 @@ func unmarshalSeasonalityClassification(rawMsg json.RawMessage) (SeasonalityClas
 	return b, nil
 }
 
+func unmarshalSparkJobEntryClassification(rawMsg json.RawMessage) (SparkJobEntryClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SparkJobEntryClassification
+	switch m["sparkJobEntryType"] {
+	case string(SparkJobEntryTypeSparkJobPythonEntry):
+		b = &SparkJobPythonEntry{}
+	case string(SparkJobEntryTypeSparkJobScalaEntry):
+		b = &SparkJobScalaEntry{}
+	default:
+		b = &SparkJobEntry{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalTargetLagsClassification(rawMsg json.RawMessage) (TargetLagsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -637,7 +1106,7 @@ func unmarshalTargetLagsClassification(rawMsg json.RawMessage) (TargetLagsClassi
 }
 
 func unmarshalTargetRollingWindowSizeClassification(rawMsg json.RawMessage) (TargetRollingWindowSizeClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -660,7 +1129,7 @@ func unmarshalTargetRollingWindowSizeClassification(rawMsg json.RawMessage) (Tar
 }
 
 func unmarshalTriggerBaseClassification(rawMsg json.RawMessage) (TriggerBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -682,8 +1151,48 @@ func unmarshalTriggerBaseClassification(rawMsg json.RawMessage) (TriggerBaseClas
 	return b, nil
 }
 
+func unmarshalWebhookClassification(rawMsg json.RawMessage) (WebhookClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b WebhookClassification
+	switch m["webhookType"] {
+	case string(WebhookTypeAzureDevOps):
+		b = &AzureDevOpsWebhook{}
+	default:
+		b = &Webhook{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalWebhookClassificationMap(rawMsg json.RawMessage) (map[string]WebhookClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var rawMessages map[string]json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fMap := make(map[string]WebhookClassification, len(rawMessages))
+	for key, rawMessage := range rawMessages {
+		f, err := unmarshalWebhookClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fMap[key] = f
+	}
+	return fMap, nil
+}
+
 func unmarshalWorkspaceConnectionPropertiesV2Classification(rawMsg json.RawMessage) (WorkspaceConnectionPropertiesV2Classification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
