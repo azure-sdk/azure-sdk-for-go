@@ -15,8 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -36,10 +35,6 @@ type VirtualMachineScaleSetVMRunCommandsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, vmScaleSetName string, instanceID string, runCommandName string, options *armcompute.VirtualMachineScaleSetVMRunCommandsClientGetOptions) (resp azfake.Responder[armcompute.VirtualMachineScaleSetVMRunCommandsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method VirtualMachineScaleSetVMRunCommandsClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, vmScaleSetName string, instanceID string, options *armcompute.VirtualMachineScaleSetVMRunCommandsClientListOptions) (resp azfake.PagerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientListResponse])
-
 	// BeginUpdate is the fake for method VirtualMachineScaleSetVMRunCommandsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK
 	BeginUpdate func(ctx context.Context, resourceGroupName string, vmScaleSetName string, instanceID string, runCommandName string, runCommand armcompute.VirtualMachineRunCommandUpdate, options *armcompute.VirtualMachineScaleSetVMRunCommandsClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -53,7 +48,6 @@ func NewVirtualMachineScaleSetVMRunCommandsServerTransport(srv *VirtualMachineSc
 		srv:                 srv,
 		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientCreateOrUpdateResponse]](),
 		beginDelete:         newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientDeleteResponse]](),
-		newListPager:        newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientListResponse]](),
 		beginUpdate:         newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientUpdateResponse]](),
 	}
 }
@@ -64,7 +58,6 @@ type VirtualMachineScaleSetVMRunCommandsServerTransport struct {
 	srv                 *VirtualMachineScaleSetVMRunCommandsServer
 	beginCreateOrUpdate *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientCreateOrUpdateResponse]]
 	beginDelete         *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientDeleteResponse]]
-	newListPager        *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientListResponse]]
 	beginUpdate         *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetVMRunCommandsClientUpdateResponse]]
 }
 
@@ -86,8 +79,6 @@ func (v *VirtualMachineScaleSetVMRunCommandsServerTransport) Do(req *http.Reques
 		resp, err = v.dispatchBeginDelete(req)
 	case "VirtualMachineScaleSetVMRunCommandsClient.Get":
 		resp, err = v.dispatchGet(req)
-	case "VirtualMachineScaleSetVMRunCommandsClient.NewListPager":
-		resp, err = v.dispatchNewListPager(req)
 	case "VirtualMachineScaleSetVMRunCommandsClient.BeginUpdate":
 		resp, err = v.dispatchBeginUpdate(req)
 	default:
@@ -258,63 +249,6 @@ func (v *VirtualMachineScaleSetVMRunCommandsServerTransport) dispatchGet(req *ht
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineRunCommand, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (v *VirtualMachineScaleSetVMRunCommandsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if v.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := v.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/virtualMachineScaleSets/(?P<vmScaleSetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualMachines/(?P<instanceId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/runCommands`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		vmScaleSetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vmScaleSetName")])
-		if err != nil {
-			return nil, err
-		}
-		instanceIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("instanceId")])
-		if err != nil {
-			return nil, err
-		}
-		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
-		if err != nil {
-			return nil, err
-		}
-		expandParam := getOptional(expandUnescaped)
-		var options *armcompute.VirtualMachineScaleSetVMRunCommandsClientListOptions
-		if expandParam != nil {
-			options = &armcompute.VirtualMachineScaleSetVMRunCommandsClientListOptions{
-				Expand: expandParam,
-			}
-		}
-		resp := v.srv.NewListPager(resourceGroupNameParam, vmScaleSetNameParam, instanceIDParam, options)
-		newListPager = &resp
-		v.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armcompute.VirtualMachineScaleSetVMRunCommandsClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		v.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		v.newListPager.remove(req)
 	}
 	return resp, nil
 }
