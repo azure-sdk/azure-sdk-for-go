@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,10 +26,6 @@ type LogAnalyticsServer struct {
 	// BeginExportRequestRateByInterval is the fake for method LogAnalyticsClient.BeginExportRequestRateByInterval
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginExportRequestRateByInterval func(ctx context.Context, location string, parameters armcompute.RequestRateByIntervalInput, options *armcompute.LogAnalyticsClientBeginExportRequestRateByIntervalOptions) (resp azfake.PollerResponder[armcompute.LogAnalyticsClientExportRequestRateByIntervalResponse], errResp azfake.ErrorResponder)
-
-	// BeginExportThrottledRequests is the fake for method LogAnalyticsClient.BeginExportThrottledRequests
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginExportThrottledRequests func(ctx context.Context, location string, parameters armcompute.ThrottledRequestsInput, options *armcompute.LogAnalyticsClientBeginExportThrottledRequestsOptions) (resp azfake.PollerResponder[armcompute.LogAnalyticsClientExportThrottledRequestsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewLogAnalyticsServerTransport creates a new instance of LogAnalyticsServerTransport with the provided implementation.
@@ -39,7 +35,6 @@ func NewLogAnalyticsServerTransport(srv *LogAnalyticsServer) *LogAnalyticsServer
 	return &LogAnalyticsServerTransport{
 		srv:                              srv,
 		beginExportRequestRateByInterval: newTracker[azfake.PollerResponder[armcompute.LogAnalyticsClientExportRequestRateByIntervalResponse]](),
-		beginExportThrottledRequests:     newTracker[azfake.PollerResponder[armcompute.LogAnalyticsClientExportThrottledRequestsResponse]](),
 	}
 }
 
@@ -48,7 +43,6 @@ func NewLogAnalyticsServerTransport(srv *LogAnalyticsServer) *LogAnalyticsServer
 type LogAnalyticsServerTransport struct {
 	srv                              *LogAnalyticsServer
 	beginExportRequestRateByInterval *tracker[azfake.PollerResponder[armcompute.LogAnalyticsClientExportRequestRateByIntervalResponse]]
-	beginExportThrottledRequests     *tracker[azfake.PollerResponder[armcompute.LogAnalyticsClientExportThrottledRequestsResponse]]
 }
 
 // Do implements the policy.Transporter interface for LogAnalyticsServerTransport.
@@ -65,8 +59,6 @@ func (l *LogAnalyticsServerTransport) Do(req *http.Request) (*http.Response, err
 	switch method {
 	case "LogAnalyticsClient.BeginExportRequestRateByInterval":
 		resp, err = l.dispatchBeginExportRequestRateByInterval(req)
-	case "LogAnalyticsClient.BeginExportThrottledRequests":
-		resp, err = l.dispatchBeginExportThrottledRequests(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -117,50 +109,6 @@ func (l *LogAnalyticsServerTransport) dispatchBeginExportRequestRateByInterval(r
 	}
 	if !server.PollerResponderMore(beginExportRequestRateByInterval) {
 		l.beginExportRequestRateByInterval.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (l *LogAnalyticsServerTransport) dispatchBeginExportThrottledRequests(req *http.Request) (*http.Response, error) {
-	if l.srv.BeginExportThrottledRequests == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginExportThrottledRequests not implemented")}
-	}
-	beginExportThrottledRequests := l.beginExportThrottledRequests.get(req)
-	if beginExportThrottledRequests == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/logAnalytics/apiAccess/getThrottledRequests`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armcompute.ThrottledRequestsInput](req)
-		if err != nil {
-			return nil, err
-		}
-		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := l.srv.BeginExportThrottledRequests(req.Context(), locationParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginExportThrottledRequests = &respr
-		l.beginExportThrottledRequests.add(req, beginExportThrottledRequests)
-	}
-
-	resp, err := server.PollerResponderNext(beginExportThrottledRequests, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		l.beginExportThrottledRequests.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginExportThrottledRequests) {
-		l.beginExportThrottledRequests.remove(req)
 	}
 
 	return resp, nil

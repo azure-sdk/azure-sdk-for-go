@@ -24,12 +24,6 @@ type AvailabilitySetsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AvailabilitySetsClientListAvailableSizesOptions contains the optional parameters for the AvailabilitySetsClient.NewListAvailableSizesPager
-// method.
-type AvailabilitySetsClientListAvailableSizesOptions struct {
-	// placeholder for future optional parameters
-}
-
 // AvailabilitySetsClientListBySubscriptionOptions contains the optional parameters for the AvailabilitySetsClient.NewListBySubscriptionPager
 // method.
 type AvailabilitySetsClientListBySubscriptionOptions struct {
@@ -111,14 +105,6 @@ type CapacityReservationsClientBeginDeleteOptions struct {
 type CapacityReservationsClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
-}
-
-// CapacityReservationsClientGetOptions contains the optional parameters for the CapacityReservationsClient.Get method.
-type CapacityReservationsClientGetOptions struct {
-	// The expand expression to apply on the operation. 'InstanceView' retrieves a snapshot of the runtime properties of the capacity
-	// reservation that is managed by the platform and can change outside of
-	// control plane operations.
-	Expand *CapacityReservationInstanceViewTypes
 }
 
 // CapacityReservationsClientListByCapacityReservationGroupOptions contains the optional parameters for the CapacityReservationsClient.NewListByCapacityReservationGroupPager
@@ -423,12 +409,6 @@ type DedicatedHostsClientGetOptions struct {
 	// The expand expression to apply on the operation. 'InstanceView' will retrieve the list of instance views of the dedicated
 	// host. 'UserData' is not supported for dedicated host.
 	Expand *InstanceViewTypes
-}
-
-// DedicatedHostsClientListAvailableSizesOptions contains the optional parameters for the DedicatedHostsClient.NewListAvailableSizesPager
-// method.
-type DedicatedHostsClientListAvailableSizesOptions struct {
-	// placeholder for future optional parameters
 }
 
 // DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
@@ -823,21 +803,9 @@ type ImagesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ImagesClientListOptions contains the optional parameters for the ImagesClient.NewListPager method.
-type ImagesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // LogAnalyticsClientBeginExportRequestRateByIntervalOptions contains the optional parameters for the LogAnalyticsClient.BeginExportRequestRateByInterval
 // method.
 type LogAnalyticsClientBeginExportRequestRateByIntervalOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// LogAnalyticsClientBeginExportThrottledRequestsOptions contains the optional parameters for the LogAnalyticsClient.BeginExportThrottledRequests
-// method.
-type LogAnalyticsClientBeginExportThrottledRequestsOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -863,12 +831,6 @@ type ProximityPlacementGroupsClientDeleteOptions struct {
 type ProximityPlacementGroupsClientGetOptions struct {
 	// includeColocationStatus=true enables fetching the colocation status of all the resources in the proximity placement group.
 	IncludeColocationStatus *string
-}
-
-// ProximityPlacementGroupsClientListByResourceGroupOptions contains the optional parameters for the ProximityPlacementGroupsClient.NewListByResourceGroupPager
-// method.
-type ProximityPlacementGroupsClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ProximityPlacementGroupsClientListBySubscriptionOptions contains the optional parameters for the ProximityPlacementGroupsClient.NewListBySubscriptionPager
@@ -930,25 +892,6 @@ type RestorePointCollectionsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RestorePointsClientBeginCreateOptions contains the optional parameters for the RestorePointsClient.BeginCreate method.
-type RestorePointsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// RestorePointsClientBeginDeleteOptions contains the optional parameters for the RestorePointsClient.BeginDelete method.
-type RestorePointsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// RestorePointsClientGetOptions contains the optional parameters for the RestorePointsClient.Get method.
-type RestorePointsClientGetOptions struct {
-	// The expand expression to apply on the operation. 'InstanceView' retrieves information about the run-time state of a restore
-	// point.
-	Expand *RestorePointExpandOptions
-}
-
 // SSHPublicKeysClientCreateOptions contains the optional parameters for the SSHPublicKeysClient.Create method.
 type SSHPublicKeysClientCreateOptions struct {
 	// placeholder for future optional parameters
@@ -957,13 +900,6 @@ type SSHPublicKeysClientCreateOptions struct {
 // SSHPublicKeysClientDeleteOptions contains the optional parameters for the SSHPublicKeysClient.Delete method.
 type SSHPublicKeysClientDeleteOptions struct {
 	// placeholder for future optional parameters
-}
-
-// SSHPublicKeysClientGenerateKeyPairOptions contains the optional parameters for the SSHPublicKeysClient.GenerateKeyPair
-// method.
-type SSHPublicKeysClientGenerateKeyPairOptions struct {
-	// Parameters supplied to generate the SSH public key.
-	Parameters *SSHGenerateKeyPairInputParameters
 }
 
 // SSHPublicKeysClientGetOptions contains the optional parameters for the SSHPublicKeysClient.Get method.
@@ -1087,15 +1023,6 @@ type VirtualMachineExtensionImagesClientListTypesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineExtensionImagesClientListVersionsOptions contains the optional parameters for the VirtualMachineExtensionImagesClient.ListVersions
-// method.
-type VirtualMachineExtensionImagesClientListVersionsOptions struct {
-	// The filter to apply on the operation.
-	Filter  *string
-	Orderby *string
-	Top     *int32
-}
-
 // VirtualMachineExtensionsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineExtensionsClient.BeginCreateOrUpdate
 // method.
 type VirtualMachineExtensionsClientBeginCreateOrUpdateOptions struct {
@@ -1195,12 +1122,6 @@ type VirtualMachineImagesEdgeZoneClientListOptions struct {
 // VirtualMachineImagesEdgeZoneClientListPublishersOptions contains the optional parameters for the VirtualMachineImagesEdgeZoneClient.ListPublishers
 // method.
 type VirtualMachineImagesEdgeZoneClientListPublishersOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VirtualMachineImagesEdgeZoneClientListSKUsOptions contains the optional parameters for the VirtualMachineImagesEdgeZoneClient.ListSKUs
-// method.
-type VirtualMachineImagesEdgeZoneClientListSKUsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1371,13 +1292,6 @@ type VirtualMachineScaleSetVMRunCommandsClientBeginUpdateOptions struct {
 // VirtualMachineScaleSetVMRunCommandsClientGetOptions contains the optional parameters for the VirtualMachineScaleSetVMRunCommandsClient.Get
 // method.
 type VirtualMachineScaleSetVMRunCommandsClientGetOptions struct {
-	// The expand expression to apply on the operation.
-	Expand *string
-}
-
-// VirtualMachineScaleSetVMRunCommandsClientListOptions contains the optional parameters for the VirtualMachineScaleSetVMRunCommandsClient.NewListPager
-// method.
-type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	// The expand expression to apply on the operation.
 	Expand *string
 }
@@ -1603,20 +1517,6 @@ type VirtualMachineScaleSetsClientBeginPerformMaintenanceOptions struct {
 	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
 }
 
-// VirtualMachineScaleSetsClientBeginPowerOffOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginPowerOff
-// method.
-type VirtualMachineScaleSetsClientBeginPowerOffOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-
-	// The parameter to request non-graceful VM shutdown. True value for this flag indicates non-graceful shutdown whereas false
-	// indicates otherwise. Default value for this flag is false if not specified
-	SkipShutdown *bool
-
-	// A list of virtual machine instance IDs from the VM scale set.
-	VMInstanceIDs *VirtualMachineScaleSetVMInstanceIDs
-}
-
 // VirtualMachineScaleSetsClientBeginReapplyOptions contains the optional parameters for the VirtualMachineScaleSetsClient.BeginReapply
 // method.
 type VirtualMachineScaleSetsClientBeginReapplyOptions struct {
@@ -1762,21 +1662,9 @@ type VirtualMachineScaleSetsClientListSKUsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.NewListPager method.
-type VirtualMachineSizesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // VirtualMachinesClientBeginAssessPatchesOptions contains the optional parameters for the VirtualMachinesClient.BeginAssessPatches
 // method.
 type VirtualMachinesClientBeginAssessPatchesOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualMachinesClientBeginAttachDetachDataDisksOptions contains the optional parameters for the VirtualMachinesClient.BeginAttachDetachDataDisks
-// method.
-type VirtualMachinesClientBeginAttachDetachDataDisksOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1824,13 +1712,6 @@ type VirtualMachinesClientBeginDeleteOptions struct {
 	// Optional parameter to force delete virtual machines.
 	ForceDeletion *bool
 
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualMachinesClientBeginInstallPatchesOptions contains the optional parameters for the VirtualMachinesClient.BeginInstallPatches
-// method.
-type VirtualMachinesClientBeginInstallPatchesOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

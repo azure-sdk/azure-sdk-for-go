@@ -218,10 +218,10 @@ func (client *ProximityPlacementGroupsClient) getCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-09-01")
 	if options != nil && options.IncludeColocationStatus != nil {
 		reqQP.Set("includeColocationStatus", *options.IncludeColocationStatus)
 	}
-	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,66 +232,6 @@ func (client *ProximityPlacementGroupsClient) getHandleResponse(resp *http.Respo
 	result := ProximityPlacementGroupsClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ProximityPlacementGroup); err != nil {
 		return ProximityPlacementGroupsClientGetResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListByResourceGroupPager - Lists all proximity placement groups in a resource group.
-//
-// Generated from API version 2023-09-01
-//   - resourceGroupName - The name of the resource group.
-//   - options - ProximityPlacementGroupsClientListByResourceGroupOptions contains the optional parameters for the ProximityPlacementGroupsClient.NewListByResourceGroupPager
-//     method.
-func (client *ProximityPlacementGroupsClient) NewListByResourceGroupPager(resourceGroupName string, options *ProximityPlacementGroupsClientListByResourceGroupOptions) *runtime.Pager[ProximityPlacementGroupsClientListByResourceGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ProximityPlacementGroupsClientListByResourceGroupResponse]{
-		More: func(page ProximityPlacementGroupsClientListByResourceGroupResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ProximityPlacementGroupsClientListByResourceGroupResponse) (ProximityPlacementGroupsClientListByResourceGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ProximityPlacementGroupsClient.NewListByResourceGroupPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			}, nil)
-			if err != nil {
-				return ProximityPlacementGroupsClientListByResourceGroupResponse{}, err
-			}
-			return client.listByResourceGroupHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listByResourceGroupCreateRequest creates the ListByResourceGroup request.
-func (client *ProximityPlacementGroupsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ProximityPlacementGroupsClientListByResourceGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/proximityPlacementGroups"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
-func (client *ProximityPlacementGroupsClient) listByResourceGroupHandleResponse(resp *http.Response) (ProximityPlacementGroupsClientListByResourceGroupResponse, error) {
-	result := ProximityPlacementGroupsClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ProximityPlacementGroupListResult); err != nil {
-		return ProximityPlacementGroupsClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
 }

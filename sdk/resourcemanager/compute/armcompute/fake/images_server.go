@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -36,10 +36,6 @@ type ImagesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, imageName string, options *armcompute.ImagesClientGetOptions) (resp azfake.Responder[armcompute.ImagesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method ImagesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armcompute.ImagesClientListOptions) (resp azfake.PagerResponder[armcompute.ImagesClientListResponse])
-
 	// NewListByResourceGroupPager is the fake for method ImagesClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armcompute.ImagesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armcompute.ImagesClientListByResourceGroupResponse])
@@ -57,7 +53,6 @@ func NewImagesServerTransport(srv *ImagesServer) *ImagesServerTransport {
 		srv:                         srv,
 		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armcompute.ImagesClientCreateOrUpdateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armcompute.ImagesClientDeleteResponse]](),
-		newListPager:                newTracker[azfake.PagerResponder[armcompute.ImagesClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armcompute.ImagesClientListByResourceGroupResponse]](),
 		beginUpdate:                 newTracker[azfake.PollerResponder[armcompute.ImagesClientUpdateResponse]](),
 	}
@@ -69,7 +64,6 @@ type ImagesServerTransport struct {
 	srv                         *ImagesServer
 	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armcompute.ImagesClientCreateOrUpdateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armcompute.ImagesClientDeleteResponse]]
-	newListPager                *tracker[azfake.PagerResponder[armcompute.ImagesClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armcompute.ImagesClientListByResourceGroupResponse]]
 	beginUpdate                 *tracker[azfake.PollerResponder[armcompute.ImagesClientUpdateResponse]]
 }
@@ -92,8 +86,6 @@ func (i *ImagesServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = i.dispatchBeginDelete(req)
 	case "ImagesClient.Get":
 		resp, err = i.dispatchGet(req)
-	case "ImagesClient.NewListPager":
-		resp, err = i.dispatchNewListPager(req)
 	case "ImagesClient.NewListByResourceGroupPager":
 		resp, err = i.dispatchNewListByResourceGroupPager(req)
 	case "ImagesClient.BeginUpdate":
@@ -242,39 +234,6 @@ func (i *ImagesServerTransport) dispatchGet(req *http.Request) (*http.Response, 
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Image, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (i *ImagesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if i.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := i.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/images`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := i.srv.NewListPager(nil)
-		newListPager = &resp
-		i.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armcompute.ImagesClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		i.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		i.newListPager.remove(req)
 	}
 	return resp, nil
 }

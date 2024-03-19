@@ -48,7 +48,6 @@ type ServerFactory struct {
 	ProximityPlacementGroupsServer              ProximityPlacementGroupsServer
 	ResourceSKUsServer                          ResourceSKUsServer
 	RestorePointCollectionsServer               RestorePointCollectionsServer
-	RestorePointsServer                         RestorePointsServer
 	SSHPublicKeysServer                         SSHPublicKeysServer
 	SharedGalleriesServer                       SharedGalleriesServer
 	SharedGalleryImageVersionsServer            SharedGalleryImageVersionsServer
@@ -66,7 +65,6 @@ type ServerFactory struct {
 	VirtualMachineScaleSetVMRunCommandsServer   VirtualMachineScaleSetVMRunCommandsServer
 	VirtualMachineScaleSetVMsServer             VirtualMachineScaleSetVMsServer
 	VirtualMachineScaleSetsServer               VirtualMachineScaleSetsServer
-	VirtualMachineSizesServer                   VirtualMachineSizesServer
 	VirtualMachinesServer                       VirtualMachinesServer
 }
 
@@ -113,7 +111,6 @@ type ServerFactoryTransport struct {
 	trProximityPlacementGroupsServer              *ProximityPlacementGroupsServerTransport
 	trResourceSKUsServer                          *ResourceSKUsServerTransport
 	trRestorePointCollectionsServer               *RestorePointCollectionsServerTransport
-	trRestorePointsServer                         *RestorePointsServerTransport
 	trSSHPublicKeysServer                         *SSHPublicKeysServerTransport
 	trSharedGalleriesServer                       *SharedGalleriesServerTransport
 	trSharedGalleryImageVersionsServer            *SharedGalleryImageVersionsServerTransport
@@ -131,7 +128,6 @@ type ServerFactoryTransport struct {
 	trVirtualMachineScaleSetVMRunCommandsServer   *VirtualMachineScaleSetVMRunCommandsServerTransport
 	trVirtualMachineScaleSetVMsServer             *VirtualMachineScaleSetVMsServerTransport
 	trVirtualMachineScaleSetsServer               *VirtualMachineScaleSetsServerTransport
-	trVirtualMachineSizesServer                   *VirtualMachineSizesServerTransport
 	trVirtualMachinesServer                       *VirtualMachinesServerTransport
 }
 
@@ -279,11 +275,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewRestorePointCollectionsServerTransport(&s.srv.RestorePointCollectionsServer)
 		})
 		resp, err = s.trRestorePointCollectionsServer.Do(req)
-	case "RestorePointsClient":
-		initServer(s, &s.trRestorePointsServer, func() *RestorePointsServerTransport {
-			return NewRestorePointsServerTransport(&s.srv.RestorePointsServer)
-		})
-		resp, err = s.trRestorePointsServer.Do(req)
 	case "SSHPublicKeysClient":
 		initServer(s, &s.trSSHPublicKeysServer, func() *SSHPublicKeysServerTransport {
 			return NewSSHPublicKeysServerTransport(&s.srv.SSHPublicKeysServer)
@@ -365,11 +356,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewVirtualMachineScaleSetsServerTransport(&s.srv.VirtualMachineScaleSetsServer)
 		})
 		resp, err = s.trVirtualMachineScaleSetsServer.Do(req)
-	case "VirtualMachineSizesClient":
-		initServer(s, &s.trVirtualMachineSizesServer, func() *VirtualMachineSizesServerTransport {
-			return NewVirtualMachineSizesServerTransport(&s.srv.VirtualMachineSizesServer)
-		})
-		resp, err = s.trVirtualMachineSizesServer.Do(req)
 	case "VirtualMachinesClient":
 		initServer(s, &s.trVirtualMachinesServer, func() *VirtualMachinesServerTransport {
 			return NewVirtualMachinesServerTransport(&s.srv.VirtualMachinesServer)

@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -39,10 +39,6 @@ type VirtualMachineImagesEdgeZoneServer struct {
 	// ListPublishers is the fake for method VirtualMachineImagesEdgeZoneClient.ListPublishers
 	// HTTP status codes to indicate success: http.StatusOK
 	ListPublishers func(ctx context.Context, location string, edgeZone string, options *armcompute.VirtualMachineImagesEdgeZoneClientListPublishersOptions) (resp azfake.Responder[armcompute.VirtualMachineImagesEdgeZoneClientListPublishersResponse], errResp azfake.ErrorResponder)
-
-	// ListSKUs is the fake for method VirtualMachineImagesEdgeZoneClient.ListSKUs
-	// HTTP status codes to indicate success: http.StatusOK
-	ListSKUs func(ctx context.Context, location string, edgeZone string, publisherName string, offer string, options *armcompute.VirtualMachineImagesEdgeZoneClientListSKUsOptions) (resp azfake.Responder[armcompute.VirtualMachineImagesEdgeZoneClientListSKUsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewVirtualMachineImagesEdgeZoneServerTransport creates a new instance of VirtualMachineImagesEdgeZoneServerTransport with the provided implementation.
@@ -78,8 +74,6 @@ func (v *VirtualMachineImagesEdgeZoneServerTransport) Do(req *http.Request) (*ht
 		resp, err = v.dispatchListOffers(req)
 	case "VirtualMachineImagesEdgeZoneClient.ListPublishers":
 		resp, err = v.dispatchListPublishers(req)
-	case "VirtualMachineImagesEdgeZoneClient.ListSKUs":
-		resp, err = v.dispatchListSKUs(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -274,47 +268,6 @@ func (v *VirtualMachineImagesEdgeZoneServerTransport) dispatchListPublishers(req
 		return nil, err
 	}
 	respr, errRespr := v.srv.ListPublishers(req.Context(), locationParam, edgeZoneParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (v *VirtualMachineImagesEdgeZoneServerTransport) dispatchListSKUs(req *http.Request) (*http.Response, error) {
-	if v.srv.ListSKUs == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListSKUs not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/edgeZones/(?P<edgeZone>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifacttypes/vmimage/offers/(?P<offer>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/skus`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 5 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-	if err != nil {
-		return nil, err
-	}
-	edgeZoneParam, err := url.PathUnescape(matches[regex.SubexpIndex("edgeZone")])
-	if err != nil {
-		return nil, err
-	}
-	publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
-	if err != nil {
-		return nil, err
-	}
-	offerParam, err := url.PathUnescape(matches[regex.SubexpIndex("offer")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := v.srv.ListSKUs(req.Context(), locationParam, edgeZoneParam, publisherNameParam, offerParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

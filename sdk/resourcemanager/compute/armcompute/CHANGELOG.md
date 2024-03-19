@@ -1,5 +1,37 @@
 # Release History
 
+## 6.0.0 (2024-03-19)
+### Breaking Changes
+
+- Enum `CapacityReservationInstanceViewTypes` has been removed
+- Enum `RestorePointExpandOptions` has been removed
+- Function `*AvailabilitySetsClient.NewListAvailableSizesPager` has been removed
+- Function `*CapacityReservationsClient.Get` has been removed
+- Function `*ClientFactory.NewRestorePointsClient` has been removed
+- Function `*ClientFactory.NewVirtualMachineSizesClient` has been removed
+- Function `*DedicatedHostsClient.NewListAvailableSizesPager` has been removed
+- Function `*ImagesClient.NewListPager` has been removed
+- Function `*LogAnalyticsClient.BeginExportThrottledRequests` has been removed
+- Function `*ProximityPlacementGroupsClient.NewListByResourceGroupPager` has been removed
+- Function `NewRestorePointsClient` has been removed
+- Function `*RestorePointsClient.BeginCreate` has been removed
+- Function `*RestorePointsClient.BeginDelete` has been removed
+- Function `*RestorePointsClient.Get` has been removed
+- Function `*SSHPublicKeysClient.GenerateKeyPair` has been removed
+- Function `*VirtualMachineExtensionImagesClient.ListVersions` has been removed
+- Function `*VirtualMachineImagesEdgeZoneClient.ListSKUs` has been removed
+- Function `*VirtualMachineScaleSetVMRunCommandsClient.NewListPager` has been removed
+- Function `*VirtualMachineScaleSetsClient.BeginPowerOff` has been removed
+- Function `NewVirtualMachineSizesClient` has been removed
+- Function `*VirtualMachineSizesClient.NewListPager` has been removed
+- Function `*VirtualMachinesClient.BeginAttachDetachDataDisks` has been removed
+- Function `*VirtualMachinesClient.BeginInstallPatches` has been removed
+
+### Features Added
+
+- New field `VirtualMachineID` in struct `GalleryArtifactVersionFullSource`
+
+
 ## 5.5.0 (2024-01-26)
 ### Features Added
 

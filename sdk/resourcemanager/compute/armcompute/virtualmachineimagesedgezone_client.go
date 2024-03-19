@@ -198,11 +198,11 @@ func (client *VirtualMachineImagesEdgeZoneClient) listCreateRequest(ctx context.
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -350,81 +350,6 @@ func (client *VirtualMachineImagesEdgeZoneClient) listPublishersHandleResponse(r
 	result := VirtualMachineImagesEdgeZoneClientListPublishersResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineImageResourceArray); err != nil {
 		return VirtualMachineImagesEdgeZoneClientListPublishersResponse{}, err
-	}
-	return result, nil
-}
-
-// ListSKUs - Gets a list of virtual machine image SKUs for the specified location, edge zone, publisher, and offer.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-09-01
-//   - location - The name of a supported Azure region.
-//   - edgeZone - The name of the edge zone.
-//   - publisherName - A valid image publisher.
-//   - offer - A valid image publisher offer.
-//   - options - VirtualMachineImagesEdgeZoneClientListSKUsOptions contains the optional parameters for the VirtualMachineImagesEdgeZoneClient.ListSKUs
-//     method.
-func (client *VirtualMachineImagesEdgeZoneClient) ListSKUs(ctx context.Context, location string, edgeZone string, publisherName string, offer string, options *VirtualMachineImagesEdgeZoneClientListSKUsOptions) (VirtualMachineImagesEdgeZoneClientListSKUsResponse, error) {
-	var err error
-	const operationName = "VirtualMachineImagesEdgeZoneClient.ListSKUs"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.listSKUsCreateRequest(ctx, location, edgeZone, publisherName, offer, options)
-	if err != nil {
-		return VirtualMachineImagesEdgeZoneClientListSKUsResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return VirtualMachineImagesEdgeZoneClientListSKUsResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return VirtualMachineImagesEdgeZoneClientListSKUsResponse{}, err
-	}
-	resp, err := client.listSKUsHandleResponse(httpResp)
-	return resp, err
-}
-
-// listSKUsCreateRequest creates the ListSKUs request.
-func (client *VirtualMachineImagesEdgeZoneClient) listSKUsCreateRequest(ctx context.Context, location string, edgeZone string, publisherName string, offer string, options *VirtualMachineImagesEdgeZoneClientListSKUsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/edgeZones/{edgeZone}/publishers/{publisherName}/artifacttypes/vmimage/offers/{offer}/skus"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	if edgeZone == "" {
-		return nil, errors.New("parameter edgeZone cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{edgeZone}", url.PathEscape(edgeZone))
-	if publisherName == "" {
-		return nil, errors.New("parameter publisherName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
-	if offer == "" {
-		return nil, errors.New("parameter offer cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{offer}", url.PathEscape(offer))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listSKUsHandleResponse handles the ListSKUs response.
-func (client *VirtualMachineImagesEdgeZoneClient) listSKUsHandleResponse(resp *http.Response) (VirtualMachineImagesEdgeZoneClientListSKUsResponse, error) {
-	result := VirtualMachineImagesEdgeZoneClientListSKUsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineImageResourceArray); err != nil {
-		return VirtualMachineImagesEdgeZoneClientListSKUsResponse{}, err
 	}
 	return result, nil
 }
