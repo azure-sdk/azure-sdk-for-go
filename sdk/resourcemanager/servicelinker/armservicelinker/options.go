@@ -8,12 +8,6 @@
 
 package armservicelinker
 
-// LinkerClientBeginCreateOrUpdateOptions contains the optional parameters for the LinkerClient.BeginCreateOrUpdate method.
-type LinkerClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // LinkerClientBeginDeleteOptions contains the optional parameters for the LinkerClient.BeginDelete method.
 type LinkerClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
@@ -39,11 +33,6 @@ type LinkerClientGetOptions struct {
 
 // LinkerClientListConfigurationsOptions contains the optional parameters for the LinkerClient.ListConfigurations method.
 type LinkerClientListConfigurationsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// LinkerClientListOptions contains the optional parameters for the LinkerClient.NewListPager method.
-type LinkerClientListOptions struct {
 	// placeholder for future optional parameters
 }
 

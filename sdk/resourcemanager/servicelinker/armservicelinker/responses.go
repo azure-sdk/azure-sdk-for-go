@@ -8,12 +8,6 @@
 
 package armservicelinker
 
-// LinkerClientCreateOrUpdateResponse contains the response from method LinkerClient.BeginCreateOrUpdate.
-type LinkerClientCreateOrUpdateResponse struct {
-	// Linker of source and target resource
-	LinkerResource
-}
-
 // LinkerClientDeleteResponse contains the response from method LinkerClient.BeginDelete.
 type LinkerClientDeleteResponse struct {
 	// placeholder for future response values
@@ -29,12 +23,6 @@ type LinkerClientGetResponse struct {
 type LinkerClientListConfigurationsResponse struct {
 	// Configurations for source resource, include appSettings, connectionString and serviceBindings
 	SourceConfigurationResult
-}
-
-// LinkerClientListResponse contains the response from method LinkerClient.NewListPager.
-type LinkerClientListResponse struct {
-	// The list of Linker.
-	LinkerList
 }
 
 // LinkerClientUpdateResponse contains the response from method LinkerClient.BeginUpdate.
