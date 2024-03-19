@@ -27,6 +27,24 @@ type AutoMLVerticalClassification interface {
 	GetAutoMLVertical() *AutoMLVertical
 }
 
+// BaseEnvironmentSourceClassification provides polymorphic access to related types.
+// Call the interface's GetBaseEnvironmentSource() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *BaseEnvironmentID, *BaseEnvironmentSource
+type BaseEnvironmentSourceClassification interface {
+	// GetBaseEnvironmentSource returns the BaseEnvironmentSource content of the underlying type.
+	GetBaseEnvironmentSource() *BaseEnvironmentSource
+}
+
+// BatchDeploymentConfigurationClassification provides polymorphic access to related types.
+// Call the interface's GetBatchDeploymentConfiguration() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *BatchDeploymentConfiguration, *BatchPipelineComponentDeploymentConfiguration
+type BatchDeploymentConfigurationClassification interface {
+	// GetBatchDeploymentConfiguration returns the BatchDeploymentConfiguration content of the underlying type.
+	GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration
+}
+
 // ComputeClassification provides polymorphic access to related types.
 // Call the interface's GetCompute() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -46,6 +64,42 @@ type ComputeSecretsClassification interface {
 	GetComputeSecrets() *ComputeSecrets
 }
 
+// DataDriftMetricThresholdBaseClassification provides polymorphic access to related types.
+// Call the interface's GetDataDriftMetricThresholdBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *CategoricalDataDriftMetricThreshold, *DataDriftMetricThresholdBase, *NumericalDataDriftMetricThreshold
+type DataDriftMetricThresholdBaseClassification interface {
+	// GetDataDriftMetricThresholdBase returns the DataDriftMetricThresholdBase content of the underlying type.
+	GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase
+}
+
+// DataImportSourceClassification provides polymorphic access to related types.
+// Call the interface's GetDataImportSource() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *DataImportSource, *DatabaseSource, *FileSystemSource
+type DataImportSourceClassification interface {
+	// GetDataImportSource returns the DataImportSource content of the underlying type.
+	GetDataImportSource() *DataImportSource
+}
+
+// DataQualityMetricThresholdBaseClassification provides polymorphic access to related types.
+// Call the interface's GetDataQualityMetricThresholdBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *CategoricalDataQualityMetricThreshold, *DataQualityMetricThresholdBase, *NumericalDataQualityMetricThreshold
+type DataQualityMetricThresholdBaseClassification interface {
+	// GetDataQualityMetricThresholdBase returns the DataQualityMetricThresholdBase content of the underlying type.
+	GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase
+}
+
+// DataReferenceCredentialClassification provides polymorphic access to related types.
+// Call the interface's GetDataReferenceCredential() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AnonymousAccessCredential, *DataReferenceCredential, *DockerCredential, *ManagedIdentityCredential, *SASCredential
+type DataReferenceCredentialClassification interface {
+	// GetDataReferenceCredential returns the DataReferenceCredential content of the underlying type.
+	GetDataReferenceCredential() *DataReferenceCredential
+}
+
 // DataVersionBasePropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetDataVersionBaseProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -58,8 +112,8 @@ type DataVersionBasePropertiesClassification interface {
 // DatastoreCredentialsClassification provides polymorphic access to related types.
 // Call the interface's GetDatastoreCredentials() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AccountKeyDatastoreCredentials, *CertificateDatastoreCredentials, *DatastoreCredentials, *NoneDatastoreCredentials,
-// - *SasDatastoreCredentials, *ServicePrincipalDatastoreCredentials
+// - *AccountKeyDatastoreCredentials, *CertificateDatastoreCredentials, *DatastoreCredentials, *KerberosKeytabCredentials,
+// - *KerberosPasswordCredentials, *NoneDatastoreCredentials, *SasDatastoreCredentials, *ServicePrincipalDatastoreCredentials
 type DatastoreCredentialsClassification interface {
 	// GetDatastoreCredentials returns the DatastoreCredentials content of the underlying type.
 	GetDatastoreCredentials() *DatastoreCredentials
@@ -68,7 +122,8 @@ type DatastoreCredentialsClassification interface {
 // DatastorePropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetDatastoreProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureBlobDatastore, *AzureDataLakeGen1Datastore, *AzureDataLakeGen2Datastore, *AzureFileDatastore, *DatastoreProperties
+// - *AzureBlobDatastore, *AzureDataLakeGen1Datastore, *AzureDataLakeGen2Datastore, *AzureFileDatastore, *DatastoreProperties,
+// - *HdfsDatastore, *OneLakeDatastore
 type DatastorePropertiesClassification interface {
 	// GetDatastoreProperties returns the DatastoreProperties content of the underlying type.
 	GetDatastoreProperties() *DatastoreProperties
@@ -77,7 +132,8 @@ type DatastorePropertiesClassification interface {
 // DatastoreSecretsClassification provides polymorphic access to related types.
 // Call the interface's GetDatastoreSecrets() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AccountKeyDatastoreSecrets, *CertificateDatastoreSecrets, *DatastoreSecrets, *SasDatastoreSecrets, *ServicePrincipalDatastoreSecrets
+// - *AccountKeyDatastoreSecrets, *CertificateDatastoreSecrets, *DatastoreSecrets, *KerberosKeytabSecrets, *KerberosPasswordSecrets,
+// - *SasDatastoreSecrets, *ServicePrincipalDatastoreSecrets
 type DatastoreSecretsClassification interface {
 	// GetDatastoreSecrets returns the DatastoreSecrets content of the underlying type.
 	GetDatastoreSecrets() *DatastoreSecrets
@@ -86,7 +142,7 @@ type DatastoreSecretsClassification interface {
 // DistributionConfigurationClassification provides polymorphic access to related types.
 // Call the interface's GetDistributionConfiguration() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *DistributionConfiguration, *Mpi, *PyTorch, *TensorFlow
+// - *DistributionConfiguration, *Mpi, *PyTorch, *Ray, *TensorFlow
 type DistributionConfigurationClassification interface {
 	// GetDistributionConfiguration returns the DistributionConfiguration content of the underlying type.
 	GetDistributionConfiguration() *DistributionConfiguration
@@ -99,6 +155,44 @@ type DistributionConfigurationClassification interface {
 type EarlyTerminationPolicyClassification interface {
 	// GetEarlyTerminationPolicy returns the EarlyTerminationPolicy content of the underlying type.
 	GetEarlyTerminationPolicy() *EarlyTerminationPolicy
+}
+
+// EndpointDeploymentResourcePropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetEndpointDeploymentResourceProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ContentSafetyEndpointDeploymentResourceProperties, *EndpointDeploymentResourceProperties, *ManagedOnlineEndpointDeploymentResourceProperties,
+// - *OpenAIEndpointDeploymentResourceProperties, *SpeechEndpointDeploymentResourceProperties
+type EndpointDeploymentResourcePropertiesClassification interface {
+	// GetEndpointDeploymentResourceProperties returns the EndpointDeploymentResourceProperties content of the underlying type.
+	GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties
+}
+
+// EndpointResourcePropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetEndpointResourceProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ContentSafetyEndpointResourceProperties, *EndpointResourceProperties, *ManagedOnlineEndpointResourceProperties, *OpenAIEndpointResourceProperties,
+// - *SpeechEndpointResourceProperties
+type EndpointResourcePropertiesClassification interface {
+	// GetEndpointResourceProperties returns the EndpointResourceProperties content of the underlying type.
+	GetEndpointResourceProperties() *EndpointResourceProperties
+}
+
+// ExportSummaryClassification provides polymorphic access to related types.
+// Call the interface's GetExportSummary() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *CSVExportSummary, *CocoExportSummary, *DatasetExportSummary, *ExportSummary
+type ExportSummaryClassification interface {
+	// GetExportSummary returns the ExportSummary content of the underlying type.
+	GetExportSummary() *ExportSummary
+}
+
+// FineTuningVerticalClassification provides polymorphic access to related types.
+// Call the interface's GetFineTuningVertical() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AzureOpenAiFineTuning, *CustomModelFineTuning, *FineTuningVertical
+type FineTuningVerticalClassification interface {
+	// GetFineTuningVertical returns the FineTuningVertical content of the underlying type.
+	GetFineTuningVertical() *FineTuningVertical
 }
 
 // ForecastHorizonClassification provides polymorphic access to related types.
@@ -119,10 +213,19 @@ type IdentityConfigurationClassification interface {
 	GetIdentityConfiguration() *IdentityConfiguration
 }
 
+// InferencingServerClassification provides polymorphic access to related types.
+// Call the interface's GetInferencingServer() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AzureMLBatchInferencingServer, *AzureMLOnlineInferencingServer, *CustomInferencingServer, *InferencingServer, *TritonInferencingServer
+type InferencingServerClassification interface {
+	// GetInferencingServer returns the InferencingServer content of the underlying type.
+	GetInferencingServer() *InferencingServer
+}
+
 // JobBasePropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetJobBaseProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutoMLJob, *CommandJob, *JobBaseProperties, *PipelineJob, *SweepJob
+// - *AutoMLJob, *CommandJob, *FineTuningJob, *JobBaseProperties, *LabelingJobProperties, *PipelineJob, *SparkJob, *SweepJob
 type JobBasePropertiesClassification interface {
 	// GetJobBaseProperties returns the JobBaseProperties content of the underlying type.
 	GetJobBaseProperties() *JobBaseProperties
@@ -157,6 +260,80 @@ type JobOutputClassification interface {
 	GetJobOutput() *JobOutput
 }
 
+// LabelingJobMediaPropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetLabelingJobMediaProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *LabelingJobImageProperties, *LabelingJobMediaProperties, *LabelingJobTextProperties
+type LabelingJobMediaPropertiesClassification interface {
+	// GetLabelingJobMediaProperties returns the LabelingJobMediaProperties content of the underlying type.
+	GetLabelingJobMediaProperties() *LabelingJobMediaProperties
+}
+
+// MLAssistConfigurationClassification provides polymorphic access to related types.
+// Call the interface's GetMLAssistConfiguration() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *MLAssistConfiguration, *MLAssistConfigurationDisabled, *MLAssistConfigurationEnabled
+type MLAssistConfigurationClassification interface {
+	// GetMLAssistConfiguration returns the MLAssistConfiguration content of the underlying type.
+	GetMLAssistConfiguration() *MLAssistConfiguration
+}
+
+// ModelPerformanceMetricThresholdBaseClassification provides polymorphic access to related types.
+// Call the interface's GetModelPerformanceMetricThresholdBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ClassificationModelPerformanceMetricThreshold, *ModelPerformanceMetricThresholdBase, *RegressionModelPerformanceMetricThreshold
+type ModelPerformanceMetricThresholdBaseClassification interface {
+	// GetModelPerformanceMetricThresholdBase returns the ModelPerformanceMetricThresholdBase content of the underlying type.
+	GetModelPerformanceMetricThresholdBase() *ModelPerformanceMetricThresholdBase
+}
+
+// MonitorComputeConfigurationBaseClassification provides polymorphic access to related types.
+// Call the interface's GetMonitorComputeConfigurationBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *MonitorComputeConfigurationBase, *MonitorServerlessSparkCompute
+type MonitorComputeConfigurationBaseClassification interface {
+	// GetMonitorComputeConfigurationBase returns the MonitorComputeConfigurationBase content of the underlying type.
+	GetMonitorComputeConfigurationBase() *MonitorComputeConfigurationBase
+}
+
+// MonitorComputeIdentityBaseClassification provides polymorphic access to related types.
+// Call the interface's GetMonitorComputeIdentityBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AmlTokenComputeIdentity, *ManagedComputeIdentity, *MonitorComputeIdentityBase
+type MonitorComputeIdentityBaseClassification interface {
+	// GetMonitorComputeIdentityBase returns the MonitorComputeIdentityBase content of the underlying type.
+	GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase
+}
+
+// MonitoringFeatureFilterBaseClassification provides polymorphic access to related types.
+// Call the interface's GetMonitoringFeatureFilterBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AllFeatures, *FeatureSubset, *MonitoringFeatureFilterBase, *TopNFeaturesByAttribution
+type MonitoringFeatureFilterBaseClassification interface {
+	// GetMonitoringFeatureFilterBase returns the MonitoringFeatureFilterBase content of the underlying type.
+	GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase
+}
+
+// MonitoringInputDataBaseClassification provides polymorphic access to related types.
+// Call the interface's GetMonitoringInputDataBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *FixedInputData, *MonitoringInputDataBase, *RollingInputData, *StaticInputData
+type MonitoringInputDataBaseClassification interface {
+	// GetMonitoringInputDataBase returns the MonitoringInputDataBase content of the underlying type.
+	GetMonitoringInputDataBase() *MonitoringInputDataBase
+}
+
+// MonitoringSignalBaseClassification provides polymorphic access to related types.
+// Call the interface's GetMonitoringSignalBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *CustomMonitoringSignal, *DataDriftMonitoringSignal, *DataQualityMonitoringSignal, *FeatureAttributionDriftMonitoringSignal,
+// - *GenerationSafetyQualityMonitoringSignal, *GenerationTokenUsageSignal, *ModelPerformanceSignal, *MonitoringSignalBase,
+// - *PredictionDriftMonitoringSignal
+type MonitoringSignalBaseClassification interface {
+	// GetMonitoringSignalBase returns the MonitoringSignalBase content of the underlying type.
+	GetMonitoringSignalBase() *MonitoringSignalBase
+}
+
 // NCrossValidationsClassification provides polymorphic access to related types.
 // Call the interface's GetNCrossValidations() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -164,6 +341,24 @@ type JobOutputClassification interface {
 type NCrossValidationsClassification interface {
 	// GetNCrossValidations returns the NCrossValidations content of the underlying type.
 	GetNCrossValidations() *NCrossValidations
+}
+
+// NodesClassification provides polymorphic access to related types.
+// Call the interface's GetNodes() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AllNodes, *Nodes
+type NodesClassification interface {
+	// GetNodes returns the Nodes content of the underlying type.
+	GetNodes() *Nodes
+}
+
+// OneLakeArtifactClassification provides polymorphic access to related types.
+// Call the interface's GetOneLakeArtifact() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *LakeHouseArtifact, *OneLakeArtifact
+type OneLakeArtifactClassification interface {
+	// GetOneLakeArtifact returns the OneLakeArtifact content of the underlying type.
+	GetOneLakeArtifact() *OneLakeArtifact
 }
 
 // OnlineDeploymentPropertiesClassification provides polymorphic access to related types.
@@ -184,6 +379,42 @@ type OnlineScaleSettingsClassification interface {
 	GetOnlineScaleSettings() *OnlineScaleSettings
 }
 
+// OutboundRuleClassification provides polymorphic access to related types.
+// Call the interface's GetOutboundRule() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *FqdnOutboundRule, *OutboundRule, *PrivateEndpointOutboundRule, *ServiceTagOutboundRule
+type OutboundRuleClassification interface {
+	// GetOutboundRule returns the OutboundRule content of the underlying type.
+	GetOutboundRule() *OutboundRule
+}
+
+// PackageInputPathBaseClassification provides polymorphic access to related types.
+// Call the interface's GetPackageInputPathBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *PackageInputPathBase, *PackageInputPathID, *PackageInputPathURL, *PackageInputPathVersion
+type PackageInputPathBaseClassification interface {
+	// GetPackageInputPathBase returns the PackageInputPathBase content of the underlying type.
+	GetPackageInputPathBase() *PackageInputPathBase
+}
+
+// PendingUploadCredentialDtoClassification provides polymorphic access to related types.
+// Call the interface's GetPendingUploadCredentialDto() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *PendingUploadCredentialDto, *SASCredentialDto
+type PendingUploadCredentialDtoClassification interface {
+	// GetPendingUploadCredentialDto returns the PendingUploadCredentialDto content of the underlying type.
+	GetPendingUploadCredentialDto() *PendingUploadCredentialDto
+}
+
+// PredictionDriftMetricThresholdBaseClassification provides polymorphic access to related types.
+// Call the interface's GetPredictionDriftMetricThresholdBase() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *CategoricalPredictionDriftMetricThreshold, *NumericalPredictionDriftMetricThreshold, *PredictionDriftMetricThresholdBase
+type PredictionDriftMetricThresholdBaseClassification interface {
+	// GetPredictionDriftMetricThresholdBase returns the PredictionDriftMetricThresholdBase content of the underlying type.
+	GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase
+}
+
 // SamplingAlgorithmClassification provides polymorphic access to related types.
 // Call the interface's GetSamplingAlgorithm() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -196,7 +427,7 @@ type SamplingAlgorithmClassification interface {
 // ScheduleActionBaseClassification provides polymorphic access to related types.
 // Call the interface's GetScheduleActionBase() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *EndpointScheduleAction, *JobScheduleAction, *ScheduleActionBase
+// - *CreateMonitorAction, *EndpointScheduleAction, *ImportDataAction, *JobScheduleAction, *ScheduleActionBase
 type ScheduleActionBaseClassification interface {
 	// GetScheduleActionBase returns the ScheduleActionBase content of the underlying type.
 	GetScheduleActionBase() *ScheduleActionBase
@@ -209,6 +440,15 @@ type ScheduleActionBaseClassification interface {
 type SeasonalityClassification interface {
 	// GetSeasonality returns the Seasonality content of the underlying type.
 	GetSeasonality() *Seasonality
+}
+
+// SparkJobEntryClassification provides polymorphic access to related types.
+// Call the interface's GetSparkJobEntry() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *SparkJobEntry, *SparkJobPythonEntry, *SparkJobScalaEntry
+type SparkJobEntryClassification interface {
+	// GetSparkJobEntry returns the SparkJobEntry content of the underlying type.
+	GetSparkJobEntry() *SparkJobEntry
 }
 
 // TargetLagsClassification provides polymorphic access to related types.
@@ -238,11 +478,23 @@ type TriggerBaseClassification interface {
 	GetTriggerBase() *TriggerBase
 }
 
+// WebhookClassification provides polymorphic access to related types.
+// Call the interface's GetWebhook() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AzureDevOpsWebhook, *Webhook
+type WebhookClassification interface {
+	// GetWebhook returns the Webhook content of the underlying type.
+	GetWebhook() *Webhook
+}
+
 // WorkspaceConnectionPropertiesV2Classification provides polymorphic access to related types.
 // Call the interface's GetWorkspaceConnectionPropertiesV2() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *ManagedIdentityAuthTypeWorkspaceConnectionProperties, *NoneAuthTypeWorkspaceConnectionProperties, *PATAuthTypeWorkspaceConnectionProperties,
-// - *SASAuthTypeWorkspaceConnectionProperties, *UsernamePasswordAuthTypeWorkspaceConnectionProperties, *WorkspaceConnectionPropertiesV2
+// - *AADAuthTypeWorkspaceConnectionProperties, *APIKeyAuthWorkspaceConnectionProperties, *AccessKeyAuthTypeWorkspaceConnectionProperties,
+// - *AccountKeyAuthTypeWorkspaceConnectionProperties, *CustomKeysWorkspaceConnectionProperties, *ManagedIdentityAuthTypeWorkspaceConnectionProperties,
+// - *NoneAuthTypeWorkspaceConnectionProperties, *OAuth2AuthTypeWorkspaceConnectionProperties, *PATAuthTypeWorkspaceConnectionProperties,
+// - *SASAuthTypeWorkspaceConnectionProperties, *ServicePrincipalAuthTypeWorkspaceConnectionProperties, *UsernamePasswordAuthTypeWorkspaceConnectionProperties,
+// - *WorkspaceConnectionPropertiesV2
 type WorkspaceConnectionPropertiesV2Classification interface {
 	// GetWorkspaceConnectionPropertiesV2 returns the WorkspaceConnectionPropertiesV2 content of the underlying type.
 	GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2
