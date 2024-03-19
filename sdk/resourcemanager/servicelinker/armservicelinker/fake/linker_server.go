@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -27,10 +27,6 @@ type LinkerServer struct {
 	// BeginCreateOrUpdate is the fake for method LinkerClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceURI string, linkerName string, parameters armservicelinker.LinkerResource, options *armservicelinker.LinkerClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armservicelinker.LinkerClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
-	// BeginDelete is the fake for method LinkerClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceURI string, linkerName string, options *armservicelinker.LinkerClientBeginDeleteOptions) (resp azfake.PollerResponder[armservicelinker.LinkerClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method LinkerClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -60,7 +56,6 @@ func NewLinkerServerTransport(srv *LinkerServer) *LinkerServerTransport {
 	return &LinkerServerTransport{
 		srv:                 srv,
 		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armservicelinker.LinkerClientCreateOrUpdateResponse]](),
-		beginDelete:         newTracker[azfake.PollerResponder[armservicelinker.LinkerClientDeleteResponse]](),
 		newListPager:        newTracker[azfake.PagerResponder[armservicelinker.LinkerClientListResponse]](),
 		beginUpdate:         newTracker[azfake.PollerResponder[armservicelinker.LinkerClientUpdateResponse]](),
 		beginValidate:       newTracker[azfake.PollerResponder[armservicelinker.LinkerClientValidateResponse]](),
@@ -72,7 +67,6 @@ func NewLinkerServerTransport(srv *LinkerServer) *LinkerServerTransport {
 type LinkerServerTransport struct {
 	srv                 *LinkerServer
 	beginCreateOrUpdate *tracker[azfake.PollerResponder[armservicelinker.LinkerClientCreateOrUpdateResponse]]
-	beginDelete         *tracker[azfake.PollerResponder[armservicelinker.LinkerClientDeleteResponse]]
 	newListPager        *tracker[azfake.PagerResponder[armservicelinker.LinkerClientListResponse]]
 	beginUpdate         *tracker[azfake.PollerResponder[armservicelinker.LinkerClientUpdateResponse]]
 	beginValidate       *tracker[azfake.PollerResponder[armservicelinker.LinkerClientValidateResponse]]
@@ -92,8 +86,6 @@ func (l *LinkerServerTransport) Do(req *http.Request) (*http.Response, error) {
 	switch method {
 	case "LinkerClient.BeginCreateOrUpdate":
 		resp, err = l.dispatchBeginCreateOrUpdate(req)
-	case "LinkerClient.BeginDelete":
-		resp, err = l.dispatchBeginDelete(req)
 	case "LinkerClient.Get":
 		resp, err = l.dispatchGet(req)
 	case "LinkerClient.NewListPager":
@@ -158,50 +150,6 @@ func (l *LinkerServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
 		l.beginCreateOrUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (l *LinkerServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if l.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
-	}
-	beginDelete := l.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/(?P<resourceUri>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ServiceLinker/linkers/(?P<linkerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceURIParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceUri")])
-		if err != nil {
-			return nil, err
-		}
-		linkerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("linkerName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := l.srv.BeginDelete(req.Context(), resourceURIParam, linkerNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginDelete = &respr
-		l.beginDelete.add(req, beginDelete)
-	}
-
-	resp, err := server.PollerResponderNext(beginDelete, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		l.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginDelete) {
-		l.beginDelete.remove(req)
 	}
 
 	return resp, nil

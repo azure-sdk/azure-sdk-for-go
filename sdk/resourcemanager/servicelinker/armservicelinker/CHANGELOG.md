@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2024-03-19)
+### Breaking Changes
+
+- Function `*LinkerClient.BeginDelete` has been removed
+
+### Features Added
+
+- New value `ClientTypeKafkaSpringBoot` added to enum type `ClientType`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

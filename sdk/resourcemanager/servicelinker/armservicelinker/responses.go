@@ -14,11 +14,6 @@ type LinkerClientCreateOrUpdateResponse struct {
 	LinkerResource
 }
 
-// LinkerClientDeleteResponse contains the response from method LinkerClient.BeginDelete.
-type LinkerClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
 // LinkerClientGetResponse contains the response from method LinkerClient.Get.
 type LinkerClientGetResponse struct {
 	// Linker of source and target resource

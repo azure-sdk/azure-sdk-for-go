@@ -14,12 +14,6 @@ type LinkerClientBeginCreateOrUpdateOptions struct {
 	ResumeToken string
 }
 
-// LinkerClientBeginDeleteOptions contains the optional parameters for the LinkerClient.BeginDelete method.
-type LinkerClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // LinkerClientBeginUpdateOptions contains the optional parameters for the LinkerClient.BeginUpdate method.
 type LinkerClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
