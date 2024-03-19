@@ -14,11 +14,6 @@ type LinkerClientCreateOrUpdateResponse struct {
 	LinkerResource
 }
 
-// LinkerClientDeleteResponse contains the response from method LinkerClient.BeginDelete.
-type LinkerClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
 // LinkerClientGetResponse contains the response from method LinkerClient.Get.
 type LinkerClientGetResponse struct {
 	// Linker of source and target resource
@@ -31,22 +26,10 @@ type LinkerClientListConfigurationsResponse struct {
 	SourceConfigurationResult
 }
 
-// LinkerClientListResponse contains the response from method LinkerClient.NewListPager.
-type LinkerClientListResponse struct {
-	// The list of Linker.
-	LinkerList
-}
-
 // LinkerClientUpdateResponse contains the response from method LinkerClient.BeginUpdate.
 type LinkerClientUpdateResponse struct {
 	// Linker of source and target resource
 	LinkerResource
-}
-
-// LinkerClientValidateResponse contains the response from method LinkerClient.BeginValidate.
-type LinkerClientValidateResponse struct {
-	// The validation operation result for a linker.
-	ValidateOperationResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
