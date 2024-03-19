@@ -1,5 +1,23 @@
 # Release History
 
+## 5.0.0 (2024-03-19)
+### Breaking Changes
+
+- Field `NodeSelector` of struct `IstioEgressGateway` has been removed
+
+### Features Added
+
+- New struct `AgentPoolWindowsProfile`
+- New struct `ManagedClusterCostAnalysis`
+- New struct `ManagedClusterIngressProfile`
+- New struct `ManagedClusterIngressProfileWebAppRouting`
+- New struct `ManagedClusterMetricsProfile`
+- New field `IsDefault` in struct `KubernetesVersion`
+- New field `WindowsProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `WindowsProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `IngressProfile`, `MetricsProfile` in struct `ManagedClusterProperties`
+
+
 ## 4.8.0-beta.1 (2024-02-23)
 ### Features Added
 
