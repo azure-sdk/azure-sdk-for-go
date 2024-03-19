@@ -1,5 +1,53 @@
 # Release History
 
+## 7.0.0 (2024-03-19)
+### Breaking Changes
+
+- Function `*CredentialOperationsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, ManagedIdentityCredentialResource, *CredentialOperationsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, CredentialResource, *CredentialOperationsClientCreateOrUpdateOptions)`
+- Type of `CredentialListResponse.Value` has been changed from `[]*ManagedIdentityCredentialResource` to `[]*CredentialResource`
+- Struct `ManagedIdentityCredentialResource` has been removed
+- Struct `ManagedIdentityTypeProperties` has been removed
+- Field `ManagedIdentityCredentialResource` of struct `CredentialOperationsClientCreateOrUpdateResponse` has been removed
+- Field `ManagedIdentityCredentialResource` of struct `CredentialOperationsClientGetResponse` has been removed
+- Field `TypeProperties` of struct `ManagedIdentityCredential` has been removed
+
+### Features Added
+
+- New enum type `ExpressionV2Type` with values `ExpressionV2TypeBinary`, `ExpressionV2TypeConstant`, `ExpressionV2TypeField`, `ExpressionV2TypeUnary`
+- New enum type `GoogleBigQueryV2AuthenticationType` with values `GoogleBigQueryV2AuthenticationTypeServiceAuthentication`, `GoogleBigQueryV2AuthenticationTypeUserAuthentication`
+- New enum type `ServiceNowV2AuthenticationType` with values `ServiceNowV2AuthenticationTypeBasic`, `ServiceNowV2AuthenticationTypeOAuth2`
+- New function `*GoogleBigQueryV2LinkedService.GetLinkedService() *LinkedService`
+- New function `*GoogleBigQueryV2ObjectDataset.GetDataset() *Dataset`
+- New function `*GoogleBigQueryV2Source.GetCopySource() *CopySource`
+- New function `*GoogleBigQueryV2Source.GetTabularSource() *TabularSource`
+- New function `*PostgreSQLV2LinkedService.GetLinkedService() *LinkedService`
+- New function `*PostgreSQLV2Source.GetCopySource() *CopySource`
+- New function `*PostgreSQLV2Source.GetTabularSource() *TabularSource`
+- New function `*PostgreSQLV2TableDataset.GetDataset() *Dataset`
+- New function `*ServiceNowV2LinkedService.GetLinkedService() *LinkedService`
+- New function `*ServiceNowV2ObjectDataset.GetDataset() *Dataset`
+- New function `*ServiceNowV2Source.GetCopySource() *CopySource`
+- New function `*ServiceNowV2Source.GetTabularSource() *TabularSource`
+- New struct `CredentialResource`
+- New struct `ExpressionV2`
+- New struct `GoogleBigQueryV2DatasetTypeProperties`
+- New struct `GoogleBigQueryV2LinkedService`
+- New struct `GoogleBigQueryV2LinkedServiceTypeProperties`
+- New struct `GoogleBigQueryV2ObjectDataset`
+- New struct `GoogleBigQueryV2Source`
+- New struct `PostgreSQLV2LinkedService`
+- New struct `PostgreSQLV2LinkedServiceTypeProperties`
+- New struct `PostgreSQLV2Source`
+- New struct `PostgreSQLV2TableDataset`
+- New struct `PostgreSQLV2TableDatasetTypeProperties`
+- New struct `ServiceNowV2LinkedService`
+- New struct `ServiceNowV2LinkedServiceTypeProperties`
+- New struct `ServiceNowV2ObjectDataset`
+- New struct `ServiceNowV2Source`
+- New anonymous field `CredentialResource` in struct `CredentialOperationsClientCreateOrUpdateResponse`
+- New anonymous field `CredentialResource` in struct `CredentialOperationsClientGetResponse`
+
+
 ## 6.0.0 (2024-02-23)
 ### Breaking Changes
 
