@@ -1,5 +1,98 @@
 # Release History
 
+## 2.1.0-beta.1 (2024-03-19)
+### Features Added
+
+- New value `BindingTypeCACertificates` added to enum type `BindingType`
+- New value `ConfigServerStateCreating`, `ConfigServerStateDeleting` added to enum type `ConfigServerState`
+- New value `SupportedRuntimeValueJava21` added to enum type `SupportedRuntimeValue`
+- New enum type `ApmType` with values `ApmTypeAppDynamics`, `ApmTypeApplicationInsights`, `ApmTypeDynatrace`, `ApmTypeElasticAPM`, `ApmTypeNewRelic`
+- New enum type `ConfigServerEnabledState` with values `ConfigServerEnabledStateDisabled`, `ConfigServerEnabledStateEnabled`
+- New enum type `EurekaServerEnabledState` with values `EurekaServerEnabledStateDisabled`, `EurekaServerEnabledStateEnabled`
+- New enum type `EurekaServerState` with values `EurekaServerStateCanceled`, `EurekaServerStateFailed`, `EurekaServerStateSucceeded`, `EurekaServerStateUpdating`
+- New enum type `Frequency` with values `FrequencyWeekly`
+- New enum type `JobExecutionRunningState` with values `JobExecutionRunningStateCanceled`, `JobExecutionRunningStateCompleted`, `JobExecutionRunningStateFailed`, `JobExecutionRunningStatePending`, `JobExecutionRunningStateRunning`
+- New enum type `JobResourceProvisioningState` with values `JobResourceProvisioningStateCanceled`, `JobResourceProvisioningStateCreating`, `JobResourceProvisioningStateDeleting`, `JobResourceProvisioningStateFailed`, `JobResourceProvisioningStateSucceeded`, `JobResourceProvisioningStateUpdating`
+- New enum type `PrivateStorageAccess` with values `PrivateStorageAccessDisabled`, `PrivateStorageAccessEnabled`
+- New enum type `SystemAssignedServiceIdentityType` with values `SystemAssignedServiceIdentityTypeNone`, `SystemAssignedServiceIdentityTypeSystemAssigned`
+- New enum type `TestEndpointAuthState` with values `TestEndpointAuthStateDisabled`, `TestEndpointAuthStateEnabled`
+- New enum type `WeekDay` with values `WeekDayFriday`, `WeekDayMonday`, `WeekDaySaturday`, `WeekDaySunday`, `WeekDayThursday`, `WeekDayTuesday`, `WeekDayWednesday`
+- New function `*ClientFactory.NewEurekaServersClient() *EurekaServersClient`
+- New function `*ClientFactory.NewJobClient() *JobClient`
+- New function `*ClientFactory.NewJobExecutionClient() *JobExecutionClient`
+- New function `*ClientFactory.NewJobExecutionsClient() *JobExecutionsClient`
+- New function `*ClientFactory.NewJobsClient() *JobsClient`
+- New function `*ConfigServersClient.BeginDelete(context.Context, string, string, *ConfigServersClientBeginDeleteOptions) (*runtime.Poller[ConfigServersClientDeleteResponse], error)`
+- New function `*ConfigServersClient.NewListPager(string, string, *ConfigServersClientListOptions) *runtime.Pager[ConfigServersClientListResponse]`
+- New function `NewEurekaServersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EurekaServersClient, error)`
+- New function `*EurekaServersClient.Get(context.Context, string, string, *EurekaServersClientGetOptions) (EurekaServersClientGetResponse, error)`
+- New function `*EurekaServersClient.List(context.Context, string, string, *EurekaServersClientListOptions) (EurekaServersClientListResponse, error)`
+- New function `*EurekaServersClient.BeginUpdatePatch(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePatchOptions) (*runtime.Poller[EurekaServersClientUpdatePatchResponse], error)`
+- New function `*EurekaServersClient.BeginUpdatePut(context.Context, string, string, EurekaServerResource, *EurekaServersClientBeginUpdatePutOptions) (*runtime.Poller[EurekaServersClientUpdatePutResponse], error)`
+- New function `*GatewayLocalResponseCachePerInstanceProperties.GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties`
+- New function `*GatewayLocalResponseCachePerRouteProperties.GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties`
+- New function `*GatewayResponseCacheProperties.GetGatewayResponseCacheProperties() *GatewayResponseCacheProperties`
+- New function `*GatewaysClient.BeginUpdateCapacity(context.Context, string, string, string, SKUObject, *GatewaysClientBeginUpdateCapacityOptions) (*runtime.Poller[GatewaysClientUpdateCapacityResponse], error)`
+- New function `NewJobClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobClient, error)`
+- New function `*JobClient.BeginCreateOrUpdate(context.Context, string, string, string, JobResource, *JobClientBeginCreateOrUpdateOptions) (*runtime.Poller[JobClientCreateOrUpdateResponse], error)`
+- New function `*JobClient.BeginDelete(context.Context, string, string, string, *JobClientBeginDeleteOptions) (*runtime.Poller[JobClientDeleteResponse], error)`
+- New function `*JobClient.Get(context.Context, string, string, string, *JobClientGetOptions) (JobClientGetResponse, error)`
+- New function `*JobClient.ListEnvSecrets(context.Context, string, string, string, *JobClientListEnvSecretsOptions) (JobClientListEnvSecretsResponse, error)`
+- New function `*JobClient.BeginStart(context.Context, string, string, string, *JobClientBeginStartOptions) (*runtime.Poller[JobClientStartResponse], error)`
+- New function `NewJobExecutionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobExecutionClient, error)`
+- New function `*JobExecutionClient.BeginCancel(context.Context, string, string, string, string, *JobExecutionClientBeginCancelOptions) (*runtime.Poller[JobExecutionClientCancelResponse], error)`
+- New function `*JobExecutionClient.Get(context.Context, string, string, string, string, *JobExecutionClientGetOptions) (JobExecutionClientGetResponse, error)`
+- New function `*JobExecutionClient.ListEnvSecrets(context.Context, string, string, string, string, *JobExecutionClientListEnvSecretsOptions) (JobExecutionClientListEnvSecretsResponse, error)`
+- New function `NewJobExecutionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobExecutionsClient, error)`
+- New function `*JobExecutionsClient.NewListPager(string, string, string, *JobExecutionsClientListOptions) *runtime.Pager[JobExecutionsClientListResponse]`
+- New function `*JobTriggerConfig.GetJobTriggerConfig() *JobTriggerConfig`
+- New function `NewJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobsClient, error)`
+- New function `*JobsClient.NewListPager(string, string, *JobsClientListOptions) *runtime.Pager[JobsClientListResponse]`
+- New function `*MaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
+- New function `*ManualJobTriggerConfig.GetJobTriggerConfig() *JobTriggerConfig`
+- New function `*WeeklyMaintenanceScheduleConfiguration.GetMaintenanceScheduleConfiguration() *MaintenanceScheduleConfiguration`
+- New struct `ConfigServerInstance`
+- New struct `ConfigServerResourceCollection`
+- New struct `ConfigServerResourceRequests`
+- New struct `CustomScaleRule`
+- New struct `EnvSecretsCollection`
+- New struct `EnvVar`
+- New struct `EurekaServerProperties`
+- New struct `EurekaServerResource`
+- New struct `EurekaServerResourceCollection`
+- New struct `GatewayLocalResponseCachePerInstanceProperties`
+- New struct `GatewayLocalResponseCachePerRouteProperties`
+- New struct `HTTPScaleRule`
+- New struct `JobExecution`
+- New struct `JobExecutionCollection`
+- New struct `JobExecutionProperties`
+- New struct `JobExecutionTemplate`
+- New struct `JobResource`
+- New struct `JobResourceCollection`
+- New struct `JobResourceProperties`
+- New struct `ManagedComponentReference`
+- New struct `ManualJobTriggerConfig`
+- New struct `QueueScaleRule`
+- New struct `Scale`
+- New struct `ScaleRule`
+- New struct `ScaleRuleAuth`
+- New struct `Secret`
+- New struct `SystemAssignedServiceIdentity`
+- New struct `TCPScaleRule`
+- New struct `WeeklyMaintenanceScheduleConfiguration`
+- New field `Secrets`, `TestEndpointAuthState`, `WorkloadProfileName` in struct `AppResourceProperties`
+- New field `Version` in struct `BuildpackProperties`
+- New field `InfraResourceGroup`, `MaintenanceScheduleConfiguration`, `ManagedEnvironmentID` in struct `ClusterResourceProperties`
+- New field `EnabledState`, `Instances`, `ResourceRequests` in struct `ConfigServerProperties`
+- New field `RefreshIntervalInSeconds` in struct `ConfigurationServiceSettings`
+- New field `Scale` in struct `DeploymentSettings`
+- New field `Expand` in struct `DeploymentsClientListOptions`
+- New field `AddonConfigs`, `ApmTypes`, `ResponseCacheProperties` in struct `GatewayProperties`
+- New field `Identity` in struct `ServiceResource`
+- New field `PrivateDNSZoneID`, `PrivateStorageAccess` in struct `ServiceVNetAddons`
+- New field `Version` in struct `SupportedBuildpackResourceProperties`
+
+
 ## 2.0.0 (2024-01-26)
 ### Breaking Changes
 
