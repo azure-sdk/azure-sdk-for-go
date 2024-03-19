@@ -348,6 +348,35 @@ type BuildServiceClientListSupportedStacksOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BuildSettingClientBeginCreateOrUpdateOptions contains the optional parameters for the BuildSettingClient.BeginCreateOrUpdate
+// method.
+type BuildSettingClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildSettingsClientBeginDeleteOptions contains the optional parameters for the BuildSettingsClient.BeginDelete method.
+type BuildSettingsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildSettingsClientGetOptions contains the optional parameters for the BuildSettingsClient.Get method.
+type BuildSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildSettingsClientListOptions contains the optional parameters for the BuildSettingsClient.NewListPager method.
+type BuildSettingsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildSettingsClientListSupportedTypesOptions contains the optional parameters for the BuildSettingsClient.NewListSupportedTypesPager
+// method.
+type BuildSettingsClientListSupportedTypesOptions struct {
+	// placeholder for future optional parameters
+}
+
 // BuildpackBindingClientBeginCreateOrUpdateOptions contains the optional parameters for the BuildpackBindingClient.BeginCreateOrUpdate
 // method.
 type BuildpackBindingClientBeginCreateOrUpdateOptions struct {
@@ -400,6 +429,12 @@ type CertificatesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConfigServersClientBeginDeleteOptions contains the optional parameters for the ConfigServersClient.BeginDelete method.
+type ConfigServersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ConfigServersClientBeginUpdatePatchOptions contains the optional parameters for the ConfigServersClient.BeginUpdatePatch
 // method.
 type ConfigServersClientBeginUpdatePatchOptions struct {
@@ -421,6 +456,11 @@ type ConfigServersClientBeginValidateOptions struct {
 
 // ConfigServersClientGetOptions contains the optional parameters for the ConfigServersClient.Get method.
 type ConfigServersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigServersClientListOptions contains the optional parameters for the ConfigServersClient.NewListPager method.
+type ConfigServersClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -657,6 +697,9 @@ type DeploymentsClientListForClusterOptions struct {
 
 // DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.NewListPager method.
 type DeploymentsClientListOptions struct {
+	// The expand expression to apply on the operation.
+	Expand *string
+
 	// Version of the deployments to be listed
 	Version []string
 }
@@ -681,6 +724,29 @@ type DevToolPortalsClientGetOptions struct {
 
 // DevToolPortalsClientListOptions contains the optional parameters for the DevToolPortalsClient.NewListPager method.
 type DevToolPortalsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EurekaServersClientBeginUpdatePatchOptions contains the optional parameters for the EurekaServersClient.BeginUpdatePatch
+// method.
+type EurekaServersClientBeginUpdatePatchOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EurekaServersClientBeginUpdatePutOptions contains the optional parameters for the EurekaServersClient.BeginUpdatePut method.
+type EurekaServersClientBeginUpdatePutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EurekaServersClientGetOptions contains the optional parameters for the EurekaServersClient.Get method.
+type EurekaServersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EurekaServersClientListOptions contains the optional parameters for the EurekaServersClient.List method.
+type EurekaServersClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -751,6 +817,12 @@ type GatewaysClientBeginRestartOptions struct {
 	ResumeToken string
 }
 
+// GatewaysClientBeginUpdateCapacityOptions contains the optional parameters for the GatewaysClient.BeginUpdateCapacity method.
+type GatewaysClientBeginUpdateCapacityOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // GatewaysClientGetOptions contains the optional parameters for the GatewaysClient.Get method.
 type GatewaysClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -768,6 +840,63 @@ type GatewaysClientListOptions struct {
 
 // GatewaysClientValidateDomainOptions contains the optional parameters for the GatewaysClient.ValidateDomain method.
 type GatewaysClientValidateDomainOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobClientBeginCreateOrUpdateOptions contains the optional parameters for the JobClient.BeginCreateOrUpdate method.
+type JobClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// JobClientBeginDeleteOptions contains the optional parameters for the JobClient.BeginDelete method.
+type JobClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// JobClientBeginStartOptions contains the optional parameters for the JobClient.BeginStart method.
+type JobClientBeginStartOptions struct {
+	// Properties used to start a Job execution.
+	Properties *JobExecutionProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// JobClientGetOptions contains the optional parameters for the JobClient.Get method.
+type JobClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobClientListEnvSecretsOptions contains the optional parameters for the JobClient.ListEnvSecrets method.
+type JobClientListEnvSecretsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobExecutionClientBeginCancelOptions contains the optional parameters for the JobExecutionClient.BeginCancel method.
+type JobExecutionClientBeginCancelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// JobExecutionClientGetOptions contains the optional parameters for the JobExecutionClient.Get method.
+type JobExecutionClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobExecutionClientListEnvSecretsOptions contains the optional parameters for the JobExecutionClient.ListEnvSecrets method.
+type JobExecutionClientListEnvSecretsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobExecutionsClientListOptions contains the optional parameters for the JobExecutionsClient.NewListPager method.
+type JobExecutionsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// JobsClientListOptions contains the optional parameters for the JobsClient.NewListPager method.
+type JobsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
