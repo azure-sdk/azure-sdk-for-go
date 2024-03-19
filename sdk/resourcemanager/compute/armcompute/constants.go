@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.5.0"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -146,19 +146,6 @@ const (
 func PossibleCapacityReservationGroupInstanceViewTypesValues() []CapacityReservationGroupInstanceViewTypes {
 	return []CapacityReservationGroupInstanceViewTypes{
 		CapacityReservationGroupInstanceViewTypesInstanceView,
-	}
-}
-
-type CapacityReservationInstanceViewTypes string
-
-const (
-	CapacityReservationInstanceViewTypesInstanceView CapacityReservationInstanceViewTypes = "instanceView"
-)
-
-// PossibleCapacityReservationInstanceViewTypesValues returns the possible values for the CapacityReservationInstanceViewTypes const type.
-func PossibleCapacityReservationInstanceViewTypesValues() []CapacityReservationInstanceViewTypes {
-	return []CapacityReservationInstanceViewTypes{
-		CapacityReservationInstanceViewTypesInstanceView,
 	}
 }
 

@@ -266,61 +266,6 @@ func (client *ImagesClient) getHandleResponse(resp *http.Response) (ImagesClient
 	return result, nil
 }
 
-// NewListPager - Gets the list of Images in the subscription. Use nextLink property in the response to get the next page
-// of Images. Do this till nextLink is null to fetch all the Images.
-//
-// Generated from API version 2023-09-01
-//   - options - ImagesClientListOptions contains the optional parameters for the ImagesClient.NewListPager method.
-func (client *ImagesClient) NewListPager(options *ImagesClientListOptions) *runtime.Pager[ImagesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ImagesClientListResponse]{
-		More: func(page ImagesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ImagesClientListResponse) (ImagesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ImagesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
-			}, nil)
-			if err != nil {
-				return ImagesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *ImagesClient) listCreateRequest(ctx context.Context, options *ImagesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *ImagesClient) listHandleResponse(resp *http.Response) (ImagesClientListResponse, error) {
-	result := ImagesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ImageListResult); err != nil {
-		return ImagesClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListByResourceGroupPager - Gets the list of images under a resource group. Use nextLink property in the response to
 // get the next page of Images. Do this till nextLink is null to fetch all the Images.
 //

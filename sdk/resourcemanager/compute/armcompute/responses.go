@@ -118,12 +118,6 @@ type CapacityReservationsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// CapacityReservationsClientGetResponse contains the response from method CapacityReservationsClient.Get.
-type CapacityReservationsClientGetResponse struct {
-	// Specifies information about the capacity reservation.
-	CapacityReservation
-}
-
 // CapacityReservationsClientListByCapacityReservationGroupResponse contains the response from method CapacityReservationsClient.NewListByCapacityReservationGroupPager.
 type CapacityReservationsClientListByCapacityReservationGroupResponse struct {
 	// The list capacity reservation operation response.
@@ -390,12 +384,6 @@ type DedicatedHostsClientDeleteResponse struct {
 type DedicatedHostsClientGetResponse struct {
 	// Specifies information about the Dedicated host.
 	DedicatedHost
-}
-
-// DedicatedHostsClientListAvailableSizesResponse contains the response from method DedicatedHostsClient.NewListAvailableSizesPager.
-type DedicatedHostsClientListAvailableSizesResponse struct {
-	// The List Dedicated Host sizes operation response.
-	DedicatedHostSizeListResult
 }
 
 // DedicatedHostsClientListByHostGroupResponse contains the response from method DedicatedHostsClient.NewListByHostGroupPager.
@@ -772,12 +760,6 @@ type ImagesClientGetResponse struct {
 
 // ImagesClientListByResourceGroupResponse contains the response from method ImagesClient.NewListByResourceGroupPager.
 type ImagesClientListByResourceGroupResponse struct {
-	// The List Image operation response.
-	ImageListResult
-}
-
-// ImagesClientListResponse contains the response from method ImagesClient.NewListPager.
-type ImagesClientListResponse struct {
 	// The List Image operation response.
 	ImageListResult
 }
@@ -1521,12 +1503,6 @@ type VirtualMachineScaleSetsClientUpdateInstancesResponse struct {
 type VirtualMachineScaleSetsClientUpdateResponse struct {
 	// Describes a Virtual Machine Scale Set.
 	VirtualMachineScaleSet
-}
-
-// VirtualMachineSizesClientListResponse contains the response from method VirtualMachineSizesClient.NewListPager.
-type VirtualMachineSizesClientListResponse struct {
-	// The List Virtual Machine operation response.
-	VirtualMachineSizeListResult
 }
 
 // VirtualMachinesClientAssessPatchesResponse contains the response from method VirtualMachinesClient.BeginAssessPatches.
