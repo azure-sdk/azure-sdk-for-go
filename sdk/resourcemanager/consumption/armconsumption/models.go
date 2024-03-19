@@ -87,6 +87,9 @@ type BalanceProperties struct {
 	// READ-ONLY; List of new purchases.
 	NewPurchasesDetails []*BalancePropertiesNewPurchasesDetailsItem
 
+	// READ-ONLY; Overage Refunds
+	OverageRefund *float64
+
 	// READ-ONLY; Price is hidden or not.
 	PriceHidden *bool
 
@@ -262,20 +265,18 @@ type CreditBalanceSummary struct {
 
 // CreditSummary - A credit summary resource.
 type CreditSummary struct {
+	// eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating
+	// the latest version or not.
+	ETag *string
+
 	// The properties of the credit summary.
 	Properties *CreditSummaryProperties
 
-	// READ-ONLY; The etag for the resource.
-	Etag *string
-
-	// READ-ONLY; The full qualified ARM ID of an event.
+	// READ-ONLY; Resource Id.
 	ID *string
 
-	// READ-ONLY; The ID that uniquely identifies an event.
+	// READ-ONLY; Resource name.
 	Name *string
-
-	// READ-ONLY; Resource tags.
-	Tags map[string]*string
 
 	// READ-ONLY; Resource type.
 	Type *string
@@ -297,6 +298,9 @@ type CreditSummaryProperties struct {
 
 	// READ-ONLY; Expired credit.
 	ExpiredCredit *Amount
+
+	// READ-ONLY; If true, the listed details are based on an estimation and it will be subjected to change.
+	IsEstimatedBalance *bool
 
 	// READ-ONLY; Pending credit adjustments.
 	PendingCreditAdjustments *Amount
@@ -359,6 +363,12 @@ type EventProperties struct {
 	// READ-ONLY; The amount of balance adjustment in billing currency.
 	AdjustmentsInBillingCurrency *AmountWithExchangeRate
 
+	// READ-ONLY; Name of the billing account.
+	BillingAccountDisplayName *string
+
+	// READ-ONLY; Identifier of the billing account.
+	BillingAccountID *string
+
 	// READ-ONLY; The billing currency of the event.
 	BillingCurrency *string
 
@@ -379,10 +389,12 @@ type EventProperties struct {
 	// READ-ONLY; The amount of charges for events of type SettleCharges and PendingEligibleCharges in billing currency.
 	ChargesInBillingCurrency *AmountWithExchangeRate
 
-	// READ-ONLY; The balance after the event.
+	// READ-ONLY; The balance after the event, Note: This will not be returned for Contributor Organization Type in Multi-Entity
+	// consumption commitment
 	ClosedBalance *Amount
 
-	// READ-ONLY; The balance in billing currency after the event.
+	// READ-ONLY; The balance in billing currency after the event, Note: This will not be returned for Contributor Organization
+	// Type in Multi-Entity consumption commitment
 	ClosedBalanceInBillingCurrency *AmountWithExchangeRate
 
 	// READ-ONLY; The credit currency of the event.
@@ -403,6 +415,9 @@ type EventProperties struct {
 	// READ-ONLY; The number which uniquely identifies the invoice on which the event was billed. This will be empty for unbilled
 	// events.
 	InvoiceNumber *string
+
+	// READ-ONLY; If true, the listed details are based on an estimation and it will be subjected to change.
+	IsEstimatedBalance *bool
 
 	// READ-ONLY; The ID that uniquely identifies the lot for which the event happened.
 	LotID *string
@@ -521,6 +536,9 @@ type LegacyChargeSummaryProperties struct {
 	// READ-ONLY; Azure Charges.
 	AzureCharges *float64
 
+	// READ-ONLY; Marketplace Charges.
+	AzureMarketplaceCharges *float64
+
 	// READ-ONLY; The id of the billing period resource that the charge belongs to.
 	BillingPeriodID *string
 
@@ -529,9 +547,6 @@ type LegacyChargeSummaryProperties struct {
 
 	// READ-ONLY; Currency Code
 	Currency *string
-
-	// READ-ONLY; Marketplace Charges.
-	MarketplaceCharges *float64
 
 	// READ-ONLY; Usage end date.
 	UsageEnd *string
@@ -625,7 +640,7 @@ type LegacyReservationRecommendationProperties struct {
 	// READ-ONLY; List of sku properties
 	SKUProperties []*SKUProperty
 
-	// READ-ONLY; RI recommendations in one or three year terms.
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
 	Term *string
 
 	// READ-ONLY; The total amount of cost with reserved instances.
@@ -694,7 +709,7 @@ type LegacyReservationTransactionProperties struct {
 	// READ-ONLY; The date of the transaction
 	EventDate *time.Time
 
-	// READ-ONLY; The type of the transaction (Purchase, Cancel, etc.)
+	// READ-ONLY; The type of the transaction (Purchase, Cancel or Refund).
 	EventType *string
 
 	// READ-ONLY; The monetary commitment amount at the enrollment scope.
@@ -772,7 +787,7 @@ type LegacySharedScopeReservationRecommendationProperties struct {
 	// READ-ONLY; List of sku properties
 	SKUProperties []*SKUProperty
 
-	// READ-ONLY; RI recommendations in one or three year terms.
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
 	Term *string
 
 	// READ-ONLY; The total amount of cost with reserved instances.
@@ -846,7 +861,7 @@ type LegacySingleScopeReservationRecommendationProperties struct {
 	// READ-ONLY; Subscription id associated with single scoped recommendation.
 	SubscriptionID *string
 
-	// READ-ONLY; RI recommendations in one or three year terms.
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
 	Term *string
 
 	// READ-ONLY; The total amount of cost with reserved instances.
@@ -1080,10 +1095,18 @@ type LotProperties struct {
 	// READ-ONLY; The expiration date of a lot.
 	ExpirationDate *time.Time
 
-	// READ-ONLY; The original amount of a lot.
+	// READ-ONLY; If true, the listed details are based on an estimation and it will be subjected to change.
+	IsEstimatedBalance *bool
+
+	// READ-ONLY; The organization type of the lot.
+	OrganizationType *OrganizationType
+
+	// READ-ONLY; The original amount of a lot, Note: This will not be returned for Contributor Organization Type in Multi-Entity
+	// consumption commitment
 	OriginalAmount *Amount
 
-	// READ-ONLY; The original amount of a lot in billing currency.
+	// READ-ONLY; The original amount of a lot in billing currency, Note: This will not be returned for Contributor Organization
+	// Type in Multi-Entity consumption commitment
 	OriginalAmountInBillingCurrency *AmountWithExchangeRate
 
 	// READ-ONLY; The po number of the invoice on which the lot was added. This property is not available for ConsumptionCommitment
@@ -1104,6 +1127,9 @@ type LotProperties struct {
 
 	// READ-ONLY; The status of the lot.
 	Status *Status
+
+	// READ-ONLY; Amount consumed from the commitment.
+	UsedAmount *Amount
 }
 
 // LotSummary - A lot summary resource.
@@ -1410,6 +1436,9 @@ type ModernChargeSummaryProperties struct {
 	// READ-ONLY; Marketplace Charges.
 	MarketplaceCharges *Amount
 
+	// READ-ONLY; Subscription guid.
+	SubscriptionID *string
+
 	// READ-ONLY; Usage end date.
 	UsageEnd *string
 
@@ -1423,7 +1452,7 @@ type ModernReservationRecommendation struct {
 	Kind *ReservationRecommendationKind
 
 	// REQUIRED; Properties for modern reservation recommendation
-	Properties *ModernReservationRecommendationProperties
+	Properties ModernReservationRecommendationPropertiesClassification
 
 	// READ-ONLY; The etag for the resource.
 	Etag *string
@@ -1463,6 +1492,9 @@ func (m *ModernReservationRecommendation) GetReservationRecommendation() *Reserv
 
 // ModernReservationRecommendationProperties - The properties of the reservation recommendation.
 type ModernReservationRecommendationProperties struct {
+	// REQUIRED; Shared or single recommendation.
+	Scope *string
+
 	// READ-ONLY; The total amount of cost without reserved instances.
 	CostWithNoReservedInstances *Amount
 
@@ -1496,20 +1528,26 @@ type ModernReservationRecommendationProperties struct {
 	// READ-ONLY; The recommended Quantity Normalized.
 	RecommendedQuantityNormalized *float32
 
+	// READ-ONLY; Resource type.
+	ResourceType *string
+
 	// READ-ONLY; This is the ARM Sku name.
 	SKUName *string
 
 	// READ-ONLY; List of sku properties
 	SKUProperties []*SKUProperty
 
-	// READ-ONLY; Shared or single recommendation.
-	Scope *string
-
-	// READ-ONLY; RI recommendations in one or three year terms.
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
 	Term *string
 
 	// READ-ONLY; The total amount of cost with reserved instances.
 	TotalCostWithReservedInstances *Amount
+}
+
+// GetModernReservationRecommendationProperties implements the ModernReservationRecommendationPropertiesClassification interface
+// for type ModernReservationRecommendationProperties.
+func (m *ModernReservationRecommendationProperties) GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties {
+	return m
 }
 
 // ModernReservationTransaction - Modern Reservation transaction resource.
@@ -1556,7 +1594,7 @@ type ModernReservationTransactionProperties struct {
 	// READ-ONLY; The date of the transaction
 	EventDate *time.Time
 
-	// READ-ONLY; The type of the transaction (Purchase, Cancel, etc.)
+	// READ-ONLY; The type of the transaction (Purchase, Cancel or Refund).
 	EventType *string
 
 	// READ-ONLY; Invoice Number
@@ -1602,6 +1640,167 @@ type ModernReservationTransactionsListResult struct {
 
 	// READ-ONLY; The list of reservation recommendations.
 	Value []*ModernReservationTransaction
+}
+
+// ModernSharedScopeReservationRecommendationProperties - The properties of the modern reservation recommendation for shared
+// scope.
+type ModernSharedScopeReservationRecommendationProperties struct {
+	// REQUIRED; Shared or single recommendation.
+	Scope *string
+
+	// READ-ONLY; The total amount of cost without reserved instances.
+	CostWithNoReservedInstances *Amount
+
+	// READ-ONLY; The usage date for looking back.
+	FirstUsageDate *time.Time
+
+	// READ-ONLY; The instance Flexibility Group.
+	InstanceFlexibilityGroup *string
+
+	// READ-ONLY; The instance Flexibility Ratio.
+	InstanceFlexibilityRatio *float32
+
+	// READ-ONLY; Resource Location.
+	Location *string
+
+	// READ-ONLY; The number of days of usage to look back for recommendation.
+	LookBackPeriod *int32
+
+	// READ-ONLY; The meter id (GUID)
+	MeterID *string
+
+	// READ-ONLY; Total estimated savings with reserved instances.
+	NetSavings *Amount
+
+	// READ-ONLY; The normalized Size.
+	NormalizedSize *string
+
+	// READ-ONLY; Recommended quality for reserved instances.
+	RecommendedQuantity *float64
+
+	// READ-ONLY; The recommended Quantity Normalized.
+	RecommendedQuantityNormalized *float32
+
+	// READ-ONLY; Resource type.
+	ResourceType *string
+
+	// READ-ONLY; This is the ARM Sku name.
+	SKUName *string
+
+	// READ-ONLY; List of sku properties
+	SKUProperties []*SKUProperty
+
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
+	Term *string
+
+	// READ-ONLY; The total amount of cost with reserved instances.
+	TotalCostWithReservedInstances *Amount
+}
+
+// GetModernReservationRecommendationProperties implements the ModernReservationRecommendationPropertiesClassification interface
+// for type ModernSharedScopeReservationRecommendationProperties.
+func (m *ModernSharedScopeReservationRecommendationProperties) GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties {
+	return &ModernReservationRecommendationProperties{
+		CostWithNoReservedInstances:    m.CostWithNoReservedInstances,
+		FirstUsageDate:                 m.FirstUsageDate,
+		InstanceFlexibilityGroup:       m.InstanceFlexibilityGroup,
+		InstanceFlexibilityRatio:       m.InstanceFlexibilityRatio,
+		Location:                       m.Location,
+		LookBackPeriod:                 m.LookBackPeriod,
+		MeterID:                        m.MeterID,
+		NetSavings:                     m.NetSavings,
+		NormalizedSize:                 m.NormalizedSize,
+		RecommendedQuantity:            m.RecommendedQuantity,
+		RecommendedQuantityNormalized:  m.RecommendedQuantityNormalized,
+		ResourceType:                   m.ResourceType,
+		SKUName:                        m.SKUName,
+		SKUProperties:                  m.SKUProperties,
+		Scope:                          m.Scope,
+		Term:                           m.Term,
+		TotalCostWithReservedInstances: m.TotalCostWithReservedInstances,
+	}
+}
+
+// ModernSingleScopeReservationRecommendationProperties - The properties of the modern reservation recommendation for single
+// scope.
+type ModernSingleScopeReservationRecommendationProperties struct {
+	// REQUIRED; Shared or single recommendation.
+	Scope *string
+
+	// READ-ONLY; The total amount of cost without reserved instances.
+	CostWithNoReservedInstances *Amount
+
+	// READ-ONLY; The usage date for looking back.
+	FirstUsageDate *time.Time
+
+	// READ-ONLY; The instance Flexibility Group.
+	InstanceFlexibilityGroup *string
+
+	// READ-ONLY; The instance Flexibility Ratio.
+	InstanceFlexibilityRatio *float32
+
+	// READ-ONLY; Resource Location.
+	Location *string
+
+	// READ-ONLY; The number of days of usage to look back for recommendation.
+	LookBackPeriod *int32
+
+	// READ-ONLY; The meter id (GUID)
+	MeterID *string
+
+	// READ-ONLY; Total estimated savings with reserved instances.
+	NetSavings *Amount
+
+	// READ-ONLY; The normalized Size.
+	NormalizedSize *string
+
+	// READ-ONLY; Recommended quality for reserved instances.
+	RecommendedQuantity *float64
+
+	// READ-ONLY; The recommended Quantity Normalized.
+	RecommendedQuantityNormalized *float32
+
+	// READ-ONLY; Resource type.
+	ResourceType *string
+
+	// READ-ONLY; This is the ARM Sku name.
+	SKUName *string
+
+	// READ-ONLY; List of sku properties
+	SKUProperties []*SKUProperty
+
+	// READ-ONLY; Subscription ID associated with single scoped recommendation.
+	SubscriptionID *string
+
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
+	Term *string
+
+	// READ-ONLY; The total amount of cost with reserved instances.
+	TotalCostWithReservedInstances *Amount
+}
+
+// GetModernReservationRecommendationProperties implements the ModernReservationRecommendationPropertiesClassification interface
+// for type ModernSingleScopeReservationRecommendationProperties.
+func (m *ModernSingleScopeReservationRecommendationProperties) GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties {
+	return &ModernReservationRecommendationProperties{
+		CostWithNoReservedInstances:    m.CostWithNoReservedInstances,
+		FirstUsageDate:                 m.FirstUsageDate,
+		InstanceFlexibilityGroup:       m.InstanceFlexibilityGroup,
+		InstanceFlexibilityRatio:       m.InstanceFlexibilityRatio,
+		Location:                       m.Location,
+		LookBackPeriod:                 m.LookBackPeriod,
+		MeterID:                        m.MeterID,
+		NetSavings:                     m.NetSavings,
+		NormalizedSize:                 m.NormalizedSize,
+		RecommendedQuantity:            m.RecommendedQuantity,
+		RecommendedQuantityNormalized:  m.RecommendedQuantityNormalized,
+		ResourceType:                   m.ResourceType,
+		SKUName:                        m.SKUName,
+		SKUProperties:                  m.SKUProperties,
+		Scope:                          m.Scope,
+		Term:                           m.Term,
+		TotalCostWithReservedInstances: m.TotalCostWithReservedInstances,
+	}
 }
 
 // ModernUsageDetail - Modern usage detail.
@@ -1946,6 +2145,15 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
+// OperationStatus - The status of the long running operation.
+type OperationStatus struct {
+	// The properties of the resource generated.
+	Properties *PricesheetDownloadProperties
+
+	// The status of the long running operation.
+	Status *OperationStatusType
+}
+
 // PriceSheetModel - price sheet result. It contains the pricesheet associated with billing period
 type PriceSheetModel struct {
 	// READ-ONLY; Pricesheet download details.
@@ -1981,6 +2189,9 @@ type PriceSheetProperties struct {
 	// READ-ONLY; Part Number
 	PartNumber *string
 
+	// READ-ONLY; SavingsPlan Details
+	SavingsPlan *SavingsPlan
+
 	// READ-ONLY; Unit of measure
 	UnitOfMeasure *string
 
@@ -2007,6 +2218,15 @@ type PriceSheetResult struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// PricesheetDownloadProperties - The properties of the price sheet download.
+type PricesheetDownloadProperties struct {
+	// READ-ONLY; The link (url) to download the pricesheet.
+	DownloadURL *string
+
+	// READ-ONLY; Download link validity.
+	ValidTill *time.Time
 }
 
 // ProxyResource - The Resource model definition.
@@ -2137,27 +2357,28 @@ func (r *ReservationRecommendation) GetReservationRecommendation() *ReservationR
 	return r
 }
 
-// ReservationRecommendationDetailsCalculatedSavingsProperties - Details of estimated savings.
+// ReservationRecommendationDetailsCalculatedSavingsProperties - Details of estimated savings. The costs and savings are estimated
+// for the term.
 type ReservationRecommendationDetailsCalculatedSavingsProperties struct {
 	// The number of reserved units used to calculate savings. Always 1 for virtual machines.
 	ReservedUnitCount *float32
 
-	// READ-ONLY; The cost without reservation.
+	// READ-ONLY; The cost without reservation. Includes hardware and software cost.
 	OnDemandCost *float32
 
-	// READ-ONLY; The difference between total reservation cost and reservation cost.
+	// READ-ONLY; Hardware and software cost of the resources not covered by the reservation.
 	OverageCost *float32
 
 	// READ-ONLY; The quantity for calculated savings.
 	Quantity *float32
 
-	// READ-ONLY; The exact cost of the estimated usage using reservation.
+	// READ-ONLY; Hardware cost of the resources covered by the reservation.
 	ReservationCost *float32
 
-	// READ-ONLY; The amount saved by purchasing the recommended quantity of reservation.
+	// READ-ONLY; The amount saved by purchasing the recommended quantity of reservation. This is equal to onDemandCost - totalReservationCost.
 	Savings *float32
 
-	// READ-ONLY; The cost of the suggested quantity.
+	// READ-ONLY; Reservation cost + software cost of the resources covered by the reservation + overage cost.
 	TotalReservationCost *float32
 }
 
@@ -2214,7 +2435,7 @@ type ReservationRecommendationDetailsResourceProperties struct {
 	// READ-ONLY; List of subscriptions for which the reservation is applied.
 	AppliedScopes []*string
 
-	// READ-ONLY; On demand rate of the resource.
+	// READ-ONLY; Hourly on-demand rate of the resource. Includes only hardware rate i.e, software rate is not included.
 	OnDemandRate *float32
 
 	// READ-ONLY; Azure product ex: StandardE8sv3 etc.
@@ -2223,7 +2444,7 @@ type ReservationRecommendationDetailsResourceProperties struct {
 	// READ-ONLY; Azure resource region ex:EastUS, WestUS etc.
 	Region *string
 
-	// READ-ONLY; Reservation rate of the resource.
+	// READ-ONLY; Hourly reservation rate of the resource. Varies based on the term.
 	ReservationRate *float32
 
 	// READ-ONLY; The azure resource type.
@@ -2241,7 +2462,7 @@ type ReservationRecommendationDetailsSavingsProperties struct {
 	// READ-ONLY; Number of recommended units of the resource.
 	RecommendedQuantity *float32
 
-	// READ-ONLY; Term period of the reservation, ex: P1Y or P3Y.
+	// READ-ONLY; Term period of the reservation. Will be in ISO 8601 Duration format. ex: P1M, P1Y or P3Y.
 	ReservationOrderTerm *string
 
 	// READ-ONLY; Type of savings, ex: instance.
@@ -2446,6 +2667,18 @@ type SKUProperty struct {
 
 	// READ-ONLY; The value of sku property.
 	Value *string
+}
+
+// SavingsPlan - The properties of the SavingsPlan.
+type SavingsPlan struct {
+	// READ-ONLY; SavingsPlan Effective Price
+	EffectivePrice *float64
+
+	// READ-ONLY; SavingsPlan Market Price
+	MarketPrice *float64
+
+	// READ-ONLY; SavingsPlan term
+	Term *string
 }
 
 // Tag - The tag resource.

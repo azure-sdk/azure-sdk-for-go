@@ -1,5 +1,40 @@
 # Release History
 
+## 2.0.0 (2024-03-19)
+### Breaking Changes
+
+- Function `*ReservationRecommendationDetailsClient.Get` parameter(s) have been changed from `(context.Context, string, Scope, string, Term, LookBackPeriod, string, *ReservationRecommendationDetailsClientGetOptions)` to `(context.Context, string, Scope, string, string, LookBackPeriod, string, *ReservationRecommendationDetailsClientGetOptions)`
+- Type of `ModernReservationRecommendation.Properties` has been changed from `*ModernReservationRecommendationProperties` to `ModernReservationRecommendationPropertiesClassification`
+- Enum `Term` has been removed
+- Field `Etag`, `Tags` of struct `CreditSummary` has been removed
+- Field `MarketplaceCharges` of struct `LegacyChargeSummaryProperties` has been removed
+
+### Features Added
+
+- New value `EventTypeCreditExpired` added to enum type `EventType`
+- New enum type `OperationStatusType` with values `OperationStatusTypeCompleted`, `OperationStatusTypeFailed`, `OperationStatusTypeRunning`
+- New enum type `OrganizationType` with values `OrganizationTypeContributorOrganizationType`, `OrganizationTypePrimaryOrganizationType`
+- New function `*ModernReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*ModernSharedScopeReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*ModernSingleScopeReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*PriceSheetClient.BeginDownloadByBillingAccountPeriod(context.Context, string, string, *PriceSheetClientBeginDownloadByBillingAccountPeriodOptions) (*runtime.Poller[PriceSheetClientDownloadByBillingAccountPeriodResponse], error)`
+- New struct `ModernSharedScopeReservationRecommendationProperties`
+- New struct `ModernSingleScopeReservationRecommendationProperties`
+- New struct `OperationStatus`
+- New struct `PricesheetDownloadProperties`
+- New struct `SavingsPlan`
+- New field `OverageRefund` in struct `BalanceProperties`
+- New field `ETag` in struct `CreditSummary`
+- New field `IsEstimatedBalance` in struct `CreditSummaryProperties`
+- New field `BillingAccountDisplayName`, `BillingAccountID`, `IsEstimatedBalance` in struct `EventProperties`
+- New field `AzureMarketplaceCharges` in struct `LegacyChargeSummaryProperties`
+- New field `IsEstimatedBalance`, `OrganizationType`, `UsedAmount` in struct `LotProperties`
+- New field `SubscriptionID` in struct `ModernChargeSummaryProperties`
+- New field `SavingsPlan` in struct `PriceSheetProperties`
+- New field `Filter` in struct `ReservationRecommendationDetailsClientGetOptions`
+- New field `PreviewMarkupPercentage`, `UseMarkupIfPartner` in struct `ReservationTransactionsClientListOptions`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

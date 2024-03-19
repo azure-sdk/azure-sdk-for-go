@@ -41,7 +41,7 @@ func NewChargesClient(credential azcore.TokenCredential, options *arm.ClientOpti
 // List - Lists the charges based for the defined scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-04-01
 //   - scope - The scope associated with charges operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
 //     for Department scope, and
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
@@ -52,9 +52,9 @@ func NewChargesClient(credential azcore.TokenCredential, options *arm.ClientOpti
 //     Also, Modern Commerce Account scopes are
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for billingAccount scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
 //     for
-//     billingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}'
+//     billingProfile scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}'
 //     for invoiceSection scope, and
-//     'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}' specific for partners.
+//     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}' specific for partners.
 //   - options - ChargesClientListOptions contains the optional parameters for the ChargesClient.List method.
 func (client *ChargesClient) List(ctx context.Context, scope string, options *ChargesClientListOptions) (ChargesClientListResponse, error) {
 	var err error
@@ -87,18 +87,18 @@ func (client *ChargesClient) listCreateRequest(ctx context.Context, scope string
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
-	if options != nil && options.StartDate != nil {
-		reqQP.Set("startDate", *options.StartDate)
-	}
-	if options != nil && options.EndDate != nil {
-		reqQP.Set("endDate", *options.EndDate)
+	if options != nil && options.Apply != nil {
+		reqQP.Set("$apply", *options.Apply)
 	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	if options != nil && options.Apply != nil {
-		reqQP.Set("$apply", *options.Apply)
+	reqQP.Set("api-version", "2024-04-01")
+	if options != nil && options.EndDate != nil {
+		reqQP.Set("endDate", *options.EndDate)
+	}
+	if options != nil && options.StartDate != nil {
+		reqQP.Set("startDate", *options.StartDate)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}

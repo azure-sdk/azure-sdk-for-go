@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +25,7 @@ import (
 type ReservationRecommendationDetailsServer struct {
 	// Get is the fake for method ReservationRecommendationDetailsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Get func(ctx context.Context, resourceScope string, scope armconsumption.Scope, region string, term armconsumption.Term, lookBackPeriod armconsumption.LookBackPeriod, product string, options *armconsumption.ReservationRecommendationDetailsClientGetOptions) (resp azfake.Responder[armconsumption.ReservationRecommendationDetailsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceScope string, scope armconsumption.Scope, region string, term string, lookBackPeriod armconsumption.LookBackPeriod, product string, options *armconsumption.ReservationRecommendationDetailsClientGetOptions) (resp azfake.Responder[armconsumption.ReservationRecommendationDetailsClientGetResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReservationRecommendationDetailsServerTransport creates a new instance of ReservationRecommendationDetailsServerTransport with the provided implementation.
@@ -95,13 +95,7 @@ func (r *ReservationRecommendationDetailsServerTransport) dispatchGet(req *http.
 	if err != nil {
 		return nil, err
 	}
-	termParam, err := parseWithCast(qp.Get("term"), func(v string) (armconsumption.Term, error) {
-		p, unescapeErr := url.QueryUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armconsumption.Term(p), nil
-	})
+	termParam, err := url.QueryUnescape(qp.Get("term"))
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +113,18 @@ func (r *ReservationRecommendationDetailsServerTransport) dispatchGet(req *http.
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceScopeParam, scopeParam, regionParam, termParam, lookBackPeriodParam, productParam, nil)
+	filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+	if err != nil {
+		return nil, err
+	}
+	filterParam := getOptional(filterUnescaped)
+	var options *armconsumption.ReservationRecommendationDetailsClientGetOptions
+	if filterParam != nil {
+		options = &armconsumption.ReservationRecommendationDetailsClientGetOptions{
+			Filter: filterParam,
+		}
+	}
+	respr, errRespr := r.srv.Get(req.Context(), resourceScopeParam, scopeParam, regionParam, termParam, lookBackPeriodParam, productParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

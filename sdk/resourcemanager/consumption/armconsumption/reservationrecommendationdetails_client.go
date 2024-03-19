@@ -41,7 +41,7 @@ func NewReservationRecommendationDetailsClient(credential azcore.TokenCredential
 // Get - Details of a reservation recommendation for what-if analysis of reserved instances.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-04-01
 //   - resourceScope - The scope associated with reservation recommendation details operations. This includes '/subscriptions/{subscriptionId}/'
 //     for subscription scope,
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resource group scope, /providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
@@ -50,13 +50,14 @@ func NewReservationRecommendationDetailsClient(credential azcore.TokenCredential
 //     scope
 //   - scope - Scope of the reservation.
 //   - region - Used to select the region the recommendation should be generated for.
-//   - term - Specify length of reservation recommendation term.
+//   - term - Specify length of reservation recommendation term. Specify in ISO 8601 Duration. Allowed values: ['P1M', 'P1Y',
+//     'P3Y']
 //   - lookBackPeriod - Filter the time period on which reservation recommendation results are based.
 //   - product - Filter the products for which reservation recommendation results are generated. Examples: StandardDS1v2 (for
 //     VM), PremiumSSDManagedDisksP30 (for Managed Disks)
 //   - options - ReservationRecommendationDetailsClientGetOptions contains the optional parameters for the ReservationRecommendationDetailsClient.Get
 //     method.
-func (client *ReservationRecommendationDetailsClient) Get(ctx context.Context, resourceScope string, scope Scope, region string, term Term, lookBackPeriod LookBackPeriod, product string, options *ReservationRecommendationDetailsClientGetOptions) (ReservationRecommendationDetailsClientGetResponse, error) {
+func (client *ReservationRecommendationDetailsClient) Get(ctx context.Context, resourceScope string, scope Scope, region string, term string, lookBackPeriod LookBackPeriod, product string, options *ReservationRecommendationDetailsClientGetOptions) (ReservationRecommendationDetailsClientGetResponse, error) {
 	var err error
 	const operationName = "ReservationRecommendationDetailsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -79,7 +80,7 @@ func (client *ReservationRecommendationDetailsClient) Get(ctx context.Context, r
 }
 
 // getCreateRequest creates the Get request.
-func (client *ReservationRecommendationDetailsClient) getCreateRequest(ctx context.Context, resourceScope string, scope Scope, region string, term Term, lookBackPeriod LookBackPeriod, product string, options *ReservationRecommendationDetailsClientGetOptions) (*policy.Request, error) {
+func (client *ReservationRecommendationDetailsClient) getCreateRequest(ctx context.Context, resourceScope string, scope Scope, region string, term string, lookBackPeriod LookBackPeriod, product string, options *ReservationRecommendationDetailsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/{resourceScope}/providers/Microsoft.Consumption/reservationRecommendationDetails"
 	urlPath = strings.ReplaceAll(urlPath, "{resourceScope}", resourceScope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
@@ -87,12 +88,15 @@ func (client *ReservationRecommendationDetailsClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
-	reqQP.Set("scope", string(scope))
-	reqQP.Set("region", region)
-	reqQP.Set("term", string(term))
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	reqQP.Set("api-version", "2024-04-01")
 	reqQP.Set("lookBackPeriod", string(lookBackPeriod))
 	reqQP.Set("product", product)
+	reqQP.Set("region", region)
+	reqQP.Set("scope", string(scope))
+	reqQP.Set("term", term)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
