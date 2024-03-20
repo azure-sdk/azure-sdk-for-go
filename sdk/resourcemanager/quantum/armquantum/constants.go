@@ -10,7 +10,7 @@ package armquantum
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/quantum/armquantum"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.8.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
