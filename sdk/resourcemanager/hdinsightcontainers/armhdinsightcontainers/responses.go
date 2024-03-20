@@ -20,6 +20,12 @@ type AvailableClusterVersionsClientListByLocationResponse struct {
 	ClusterVersionsListResult
 }
 
+// ClusterAvailableUpgradesClientListResponse contains the response from method ClusterAvailableUpgradesClient.NewListPager.
+type ClusterAvailableUpgradesClientListResponse struct {
+	// Collection of cluster available upgrade.
+	ClusterAvailableUpgradeList
+}
+
 // ClusterJobsClientListResponse contains the response from method ClusterJobsClient.NewListPager.
 type ClusterJobsClientListResponse struct {
 	// Collection of cluster job.
@@ -30,6 +36,29 @@ type ClusterJobsClientListResponse struct {
 type ClusterJobsClientRunJobResponse struct {
 	// Cluster job.
 	ClusterJob
+}
+
+// ClusterLibrariesClientListResponse contains the response from method ClusterLibrariesClient.NewListPager.
+type ClusterLibrariesClientListResponse struct {
+	// Collection of libraries in the cluster.
+	ClusterLibraryList
+}
+
+// ClusterLibrariesClientManageLibrariesResponse contains the response from method ClusterLibrariesClient.BeginManageLibraries.
+type ClusterLibrariesClientManageLibrariesResponse struct {
+	// placeholder for future response values
+}
+
+// ClusterPoolAvailableUpgradesClientListResponse contains the response from method ClusterPoolAvailableUpgradesClient.NewListPager.
+type ClusterPoolAvailableUpgradesClientListResponse struct {
+	// collection of cluster pool available upgrade.
+	ClusterPoolAvailableUpgradeList
+}
+
+// ClusterPoolUpgradeHistoriesClientListResponse contains the response from method ClusterPoolUpgradeHistoriesClient.NewListPager.
+type ClusterPoolUpgradeHistoriesClientListResponse struct {
+	// Represents a list of cluster pool upgrade history.
+	ClusterPoolUpgradeHistoryListResult
 }
 
 // ClusterPoolsClientCreateOrUpdateResponse contains the response from method ClusterPoolsClient.BeginCreateOrUpdate.
@@ -65,6 +94,18 @@ type ClusterPoolsClientListBySubscriptionResponse struct {
 type ClusterPoolsClientUpdateTagsResponse struct {
 	// Cluster pool.
 	ClusterPool
+}
+
+// ClusterPoolsClientUpgradeResponse contains the response from method ClusterPoolsClient.BeginUpgrade.
+type ClusterPoolsClientUpgradeResponse struct {
+	// Cluster pool.
+	ClusterPool
+}
+
+// ClusterUpgradeHistoriesClientListResponse contains the response from method ClusterUpgradeHistoriesClient.NewListPager.
+type ClusterUpgradeHistoriesClientListResponse struct {
+	// Represents a list of cluster upgrade history.
+	ClusterUpgradeHistoryListResult
 }
 
 // ClustersClientCreateResponse contains the response from method ClustersClient.BeginCreate.
@@ -116,6 +157,18 @@ type ClustersClientResizeResponse struct {
 
 // ClustersClientUpdateResponse contains the response from method ClustersClient.BeginUpdate.
 type ClustersClientUpdateResponse struct {
+	// The cluster.
+	Cluster
+}
+
+// ClustersClientUpgradeManualRollbackResponse contains the response from method ClustersClient.BeginUpgradeManualRollback.
+type ClustersClientUpgradeManualRollbackResponse struct {
+	// The cluster.
+	Cluster
+}
+
+// ClustersClientUpgradeResponse contains the response from method ClustersClient.BeginUpgrade.
+type ClustersClientUpgradeResponse struct {
 	// The cluster.
 	Cluster
 }

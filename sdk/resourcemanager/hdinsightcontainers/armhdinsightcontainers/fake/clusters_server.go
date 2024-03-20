@@ -59,6 +59,14 @@ type ClustersServer struct {
 	// BeginUpdate is the fake for method ClustersClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterPoolName string, clusterName string, clusterPatchRequest armhdinsightcontainers.ClusterPatch, options *armhdinsightcontainers.ClustersClientBeginUpdateOptions) (resp azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpdateResponse], errResp azfake.ErrorResponder)
+
+	// BeginUpgrade is the fake for method ClustersClient.BeginUpgrade
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpgrade func(ctx context.Context, resourceGroupName string, clusterPoolName string, clusterName string, clusterUpgradeRequest armhdinsightcontainers.ClusterUpgrade, options *armhdinsightcontainers.ClustersClientBeginUpgradeOptions) (resp azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpgradeResponse], errResp azfake.ErrorResponder)
+
+	// BeginUpgradeManualRollback is the fake for method ClustersClient.BeginUpgradeManualRollback
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpgradeManualRollback func(ctx context.Context, resourceGroupName string, clusterPoolName string, clusterName string, clusterRollbackUpgradeRequest armhdinsightcontainers.ClusterUpgradeRollback, options *armhdinsightcontainers.ClustersClientBeginUpgradeManualRollbackOptions) (resp azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpgradeManualRollbackResponse], errResp azfake.ErrorResponder)
 }
 
 // NewClustersServerTransport creates a new instance of ClustersServerTransport with the provided implementation.
@@ -74,6 +82,8 @@ func NewClustersServerTransport(srv *ClustersServer) *ClustersServerTransport {
 		newListServiceConfigsPager:    newTracker[azfake.PagerResponder[armhdinsightcontainers.ClustersClientListServiceConfigsResponse]](),
 		beginResize:                   newTracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientResizeResponse]](),
 		beginUpdate:                   newTracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpdateResponse]](),
+		beginUpgrade:                  newTracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpgradeResponse]](),
+		beginUpgradeManualRollback:    newTracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpgradeManualRollbackResponse]](),
 	}
 }
 
@@ -88,6 +98,8 @@ type ClustersServerTransport struct {
 	newListServiceConfigsPager    *tracker[azfake.PagerResponder[armhdinsightcontainers.ClustersClientListServiceConfigsResponse]]
 	beginResize                   *tracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientResizeResponse]]
 	beginUpdate                   *tracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpdateResponse]]
+	beginUpgrade                  *tracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpgradeResponse]]
+	beginUpgradeManualRollback    *tracker[azfake.PollerResponder[armhdinsightcontainers.ClustersClientUpgradeManualRollbackResponse]]
 }
 
 // Do implements the policy.Transporter interface for ClustersServerTransport.
@@ -120,6 +132,10 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = c.dispatchBeginResize(req)
 	case "ClustersClient.BeginUpdate":
 		resp, err = c.dispatchBeginUpdate(req)
+	case "ClustersClient.BeginUpgrade":
+		resp, err = c.dispatchBeginUpgrade(req)
+	case "ClustersClient.BeginUpgradeManualRollback":
+		resp, err = c.dispatchBeginUpgradeManualRollback(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -535,6 +551,110 @@ func (c *ClustersServerTransport) dispatchBeginUpdate(req *http.Request) (*http.
 	}
 	if !server.PollerResponderMore(beginUpdate) {
 		c.beginUpdate.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (c *ClustersServerTransport) dispatchBeginUpgrade(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginUpgrade == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginUpgrade not implemented")}
+	}
+	beginUpgrade := c.beginUpgrade.get(req)
+	if beginUpgrade == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HDInsight/clusterpools/(?P<clusterPoolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/clusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/upgrade`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhdinsightcontainers.ClusterUpgrade](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		clusterPoolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterPoolName")])
+		if err != nil {
+			return nil, err
+		}
+		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := c.srv.BeginUpgrade(req.Context(), resourceGroupNameParam, clusterPoolNameParam, clusterNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginUpgrade = &respr
+		c.beginUpgrade.add(req, beginUpgrade)
+	}
+
+	resp, err := server.PollerResponderNext(beginUpgrade, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginUpgrade.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginUpgrade) {
+		c.beginUpgrade.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (c *ClustersServerTransport) dispatchBeginUpgradeManualRollback(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginUpgradeManualRollback == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginUpgradeManualRollback not implemented")}
+	}
+	beginUpgradeManualRollback := c.beginUpgradeManualRollback.get(req)
+	if beginUpgradeManualRollback == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HDInsight/clusterpools/(?P<clusterPoolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/clusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/rollback`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhdinsightcontainers.ClusterUpgradeRollback](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		clusterPoolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterPoolName")])
+		if err != nil {
+			return nil, err
+		}
+		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := c.srv.BeginUpgradeManualRollback(req.Context(), resourceGroupNameParam, clusterPoolNameParam, clusterNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginUpgradeManualRollback = &respr
+		c.beginUpgradeManualRollback.add(req, beginUpgradeManualRollback)
+	}
+
+	resp, err := server.PollerResponderNext(beginUpgradeManualRollback, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginUpgradeManualRollback.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginUpgradeManualRollback) {
+		c.beginUpgradeManualRollback.remove(req)
 	}
 
 	return resp, nil
