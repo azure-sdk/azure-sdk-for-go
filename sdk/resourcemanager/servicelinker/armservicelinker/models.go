@@ -19,84 +19,6 @@ type AuthInfoBase struct {
 // GetAuthInfoBase implements the AuthInfoBaseClassification interface for type AuthInfoBase.
 func (a *AuthInfoBase) GetAuthInfoBase() *AuthInfoBase { return a }
 
-// AzureKeyVaultProperties - The resource properties when type is Azure Key Vault
-type AzureKeyVaultProperties struct {
-	// REQUIRED; The azure resource type.
-	Type *AzureResourceType
-
-	// True if connect via Kubernetes CSI Driver.
-	ConnectAsKubernetesCsiDriver *bool
-}
-
-// GetAzureResourcePropertiesBase implements the AzureResourcePropertiesBaseClassification interface for type AzureKeyVaultProperties.
-func (a *AzureKeyVaultProperties) GetAzureResourcePropertiesBase() *AzureResourcePropertiesBase {
-	return &AzureResourcePropertiesBase{
-		Type: a.Type,
-	}
-}
-
-// AzureResource - The azure resource info when target service type is AzureResource
-type AzureResource struct {
-	// REQUIRED; The target service type.
-	Type *TargetServiceType
-
-	// The Id of azure resource.
-	ID *string
-
-	// The azure resource connection related properties.
-	ResourceProperties AzureResourcePropertiesBaseClassification
-}
-
-// GetTargetServiceBase implements the TargetServiceBaseClassification interface for type AzureResource.
-func (a *AzureResource) GetTargetServiceBase() *TargetServiceBase {
-	return &TargetServiceBase{
-		Type: a.Type,
-	}
-}
-
-// AzureResourcePropertiesBase - The azure resource properties
-type AzureResourcePropertiesBase struct {
-	// REQUIRED; The azure resource type.
-	Type *AzureResourceType
-}
-
-// GetAzureResourcePropertiesBase implements the AzureResourcePropertiesBaseClassification interface for type AzureResourcePropertiesBase.
-func (a *AzureResourcePropertiesBase) GetAzureResourcePropertiesBase() *AzureResourcePropertiesBase {
-	return a
-}
-
-// ConfluentBootstrapServer - The service properties when target service type is ConfluentBootstrapServer
-type ConfluentBootstrapServer struct {
-	// REQUIRED; The target service type.
-	Type *TargetServiceType
-
-	// The endpoint of service.
-	Endpoint *string
-}
-
-// GetTargetServiceBase implements the TargetServiceBaseClassification interface for type ConfluentBootstrapServer.
-func (c *ConfluentBootstrapServer) GetTargetServiceBase() *TargetServiceBase {
-	return &TargetServiceBase{
-		Type: c.Type,
-	}
-}
-
-// ConfluentSchemaRegistry - The service properties when target service type is ConfluentSchemaRegistry
-type ConfluentSchemaRegistry struct {
-	// REQUIRED; The target service type.
-	Type *TargetServiceType
-
-	// The endpoint of service.
-	Endpoint *string
-}
-
-// GetTargetServiceBase implements the TargetServiceBaseClassification interface for type ConfluentSchemaRegistry.
-func (c *ConfluentSchemaRegistry) GetTargetServiceBase() *TargetServiceBase {
-	return &TargetServiceBase{
-		Type: c.Type,
-	}
-}
-
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -131,44 +53,6 @@ type ErrorResponse struct {
 	Error *ErrorDetail
 }
 
-// KeyVaultSecretReferenceSecretInfo - The secret info when type is keyVaultSecretReference. It's for scenario that user provides
-// a secret stored in user's keyvault and source is Azure Kubernetes. The key Vault's resource id is linked to
-// secretStore.keyVaultId.
-type KeyVaultSecretReferenceSecretInfo struct {
-	// REQUIRED; The secret type.
-	SecretType *SecretType
-
-	// Name of the Key Vault secret.
-	Name *string
-
-	// Version of the Key Vault secret.
-	Version *string
-}
-
-// GetSecretInfoBase implements the SecretInfoBaseClassification interface for type KeyVaultSecretReferenceSecretInfo.
-func (k *KeyVaultSecretReferenceSecretInfo) GetSecretInfoBase() *SecretInfoBase {
-	return &SecretInfoBase{
-		SecretType: k.SecretType,
-	}
-}
-
-// KeyVaultSecretURISecretInfo - The secret info when type is keyVaultSecretUri. It's for scenario that user provides a secret
-// stored in user's keyvault and source is Web App, Spring Cloud or Container App.
-type KeyVaultSecretURISecretInfo struct {
-	// REQUIRED; The secret type.
-	SecretType *SecretType
-
-	// URI to the keyvault secret
-	Value *string
-}
-
-// GetSecretInfoBase implements the SecretInfoBaseClassification interface for type KeyVaultSecretURISecretInfo.
-func (k *KeyVaultSecretURISecretInfo) GetSecretInfoBase() *SecretInfoBase {
-	return &SecretInfoBase{
-		SecretType: k.SecretType,
-	}
-}
-
 // LinkerList - The list of Linker.
 type LinkerList struct {
 	// The link used to get the next page of Linker list.
@@ -192,14 +76,11 @@ type LinkerProperties struct {
 	// The application client type
 	ClientType *ClientType
 
-	// connection scope in source service.
-	Scope *string
-
 	// An option to store secret value in secure place
 	SecretStore *SecretStore
 
-	// The target service properties
-	TargetService TargetServiceBaseClassification
+	// The resource Id of target service.
+	TargetID *string
 
 	// The VNet solution.
 	VNetSolution *VNetSolution
@@ -308,8 +189,8 @@ type SecretAuthInfo struct {
 	// Username or account name for secret auth.
 	Name *string
 
-	// Password or key vault secret for secret auth.
-	SecretInfo SecretInfoBaseClassification
+	// Password or account key for secret auth.
+	Secret *string
 }
 
 // GetAuthInfoBase implements the AuthInfoBaseClassification interface for type SecretAuthInfo.
@@ -318,15 +199,6 @@ func (s *SecretAuthInfo) GetAuthInfoBase() *AuthInfoBase {
 		AuthType: s.AuthType,
 	}
 }
-
-// SecretInfoBase - The secret info
-type SecretInfoBase struct {
-	// REQUIRED; The secret type.
-	SecretType *SecretType
-}
-
-// GetSecretInfoBase implements the SecretInfoBaseClassification interface for type SecretInfoBase.
-func (s *SecretInfoBase) GetSecretInfoBase() *SecretInfoBase { return s }
 
 // SecretStore - An option to store secret value in secure place
 type SecretStore struct {
@@ -427,24 +299,15 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
-// TargetServiceBase - The target service properties
-type TargetServiceBase struct {
-	// REQUIRED; The target service type.
-	Type *TargetServiceType
-}
-
-// GetTargetServiceBase implements the TargetServiceBaseClassification interface for type TargetServiceBase.
-func (t *TargetServiceBase) GetTargetServiceBase() *TargetServiceBase { return t }
-
 // UserAssignedIdentityAuthInfo - The authentication info when authType is userAssignedIdentity
 type UserAssignedIdentityAuthInfo struct {
 	// REQUIRED; The authentication type.
 	AuthType *AuthType
 
-	// Client Id for userAssignedIdentity.
+	// REQUIRED; Client Id for userAssignedIdentity.
 	ClientID *string
 
-	// Subscription id for userAssignedIdentity.
+	// REQUIRED; Subscription id for userAssignedIdentity.
 	SubscriptionID *string
 }
 
@@ -461,28 +324,19 @@ type VNetSolution struct {
 	Type *VNetSolutionType
 }
 
-// ValidateOperationResult - The validation operation result for a linker.
-type ValidateOperationResult struct {
-	// The validation result detail.
-	Properties *ValidateResult
-
-	// Validated linker id.
-	ResourceID *string
-
-	// Validation operation status.
-	Status *string
-}
-
 // ValidateResult - The validation result for a linker.
 type ValidateResult struct {
 	// The authentication type.
 	AuthType *AuthType
 
-	// A boolean value indicating whether the connection is available or not
-	IsConnectionAvailable *bool
+	// Specifies if the linker is healthy.
+	LinkerStatus *LinkerStatus
 
 	// The linker name.
-	LinkerName *string
+	Name *string
+
+	// The reason of the error.
+	Reason *string
 
 	// The end time of the validation report.
 	ReportEndTimeUTC *time.Time
@@ -490,46 +344,6 @@ type ValidateResult struct {
 	// The start time of the validation report.
 	ReportStartTimeUTC *time.Time
 
-	// The resource id of the linker source application.
-	SourceID *string
-
 	// The resource Id of target service.
 	TargetID *string
-
-	// The detail of validation result
-	ValidationDetail []*ValidationResultItem
-}
-
-// ValidationResultItem - The validation item for a linker.
-type ValidationResultItem struct {
-	// The display name of validation item
-	Description *string
-
-	// The error code of validation result
-	ErrorCode *string
-
-	// The error message of validation result
-	ErrorMessage *string
-
-	// The validation item name.
-	Name *string
-
-	// The result of validation
-	Result *ValidationResultStatus
-}
-
-// ValueSecretInfo - The secret info when type is rawValue. It's for scenarios that user input the secret.
-type ValueSecretInfo struct {
-	// REQUIRED; The secret type.
-	SecretType *SecretType
-
-	// The actual value of the secret.
-	Value *string
-}
-
-// GetSecretInfoBase implements the SecretInfoBaseClassification interface for type ValueSecretInfo.
-func (v *ValueSecretInfo) GetSecretInfoBase() *SecretInfoBase {
-	return &SecretInfoBase{
-		SecretType: v.SecretType,
-	}
 }

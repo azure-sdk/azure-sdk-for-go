@@ -45,8 +45,8 @@ type LinkerClientUpdateResponse struct {
 
 // LinkerClientValidateResponse contains the response from method LinkerClient.BeginValidate.
 type LinkerClientValidateResponse struct {
-	// The validation operation result for a linker.
-	ValidateOperationResult
+	// The validation result for a linker.
+	ValidateResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.

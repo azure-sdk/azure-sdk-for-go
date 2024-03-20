@@ -11,7 +11,7 @@ package armservicelinker
 import "encoding/json"
 
 func unmarshalAuthInfoBaseClassification(rawMsg json.RawMessage) (AuthInfoBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -32,77 +32,6 @@ func unmarshalAuthInfoBaseClassification(rawMsg json.RawMessage) (AuthInfoBaseCl
 		b = &UserAssignedIdentityAuthInfo{}
 	default:
 		b = &AuthInfoBase{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalAzureResourcePropertiesBaseClassification(rawMsg json.RawMessage) (AzureResourcePropertiesBaseClassification, error) {
-	if rawMsg == nil {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b AzureResourcePropertiesBaseClassification
-	switch m["type"] {
-	case string(AzureResourceTypeKeyVault):
-		b = &AzureKeyVaultProperties{}
-	default:
-		b = &AzureResourcePropertiesBase{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalSecretInfoBaseClassification(rawMsg json.RawMessage) (SecretInfoBaseClassification, error) {
-	if rawMsg == nil {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b SecretInfoBaseClassification
-	switch m["secretType"] {
-	case string(SecretTypeKeyVaultSecretReference):
-		b = &KeyVaultSecretReferenceSecretInfo{}
-	case string(SecretTypeKeyVaultSecretURI):
-		b = &KeyVaultSecretURISecretInfo{}
-	case string(SecretTypeRawValue):
-		b = &ValueSecretInfo{}
-	default:
-		b = &SecretInfoBase{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalTargetServiceBaseClassification(rawMsg json.RawMessage) (TargetServiceBaseClassification, error) {
-	if rawMsg == nil {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b TargetServiceBaseClassification
-	switch m["type"] {
-	case string(TargetServiceTypeAzureResource):
-		b = &AzureResource{}
-	case string(TargetServiceTypeConfluentBootstrapServer):
-		b = &ConfluentBootstrapServer{}
-	case string(TargetServiceTypeConfluentSchemaRegistry):
-		b = &ConfluentSchemaRegistry{}
-	default:
-		b = &TargetServiceBase{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
