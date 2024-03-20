@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appplatform/armappplatform/v2"
 	"net/http"
 	"net/url"
@@ -23,9 +24,17 @@ import (
 
 // ConfigServersServer is a fake server for instances of the armappplatform.ConfigServersClient type.
 type ConfigServersServer struct {
+	// BeginDelete is the fake for method ConfigServersClient.BeginDelete
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	BeginDelete func(ctx context.Context, resourceGroupName string, serviceName string, options *armappplatform.ConfigServersClientBeginDeleteOptions) (resp azfake.PollerResponder[armappplatform.ConfigServersClientDeleteResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method ConfigServersClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, serviceName string, options *armappplatform.ConfigServersClientGetOptions) (resp azfake.Responder[armappplatform.ConfigServersClientGetResponse], errResp azfake.ErrorResponder)
+
+	// NewListPager is the fake for method ConfigServersClient.NewListPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListPager func(resourceGroupName string, serviceName string, options *armappplatform.ConfigServersClientListOptions) (resp azfake.PagerResponder[armappplatform.ConfigServersClientListResponse])
 
 	// BeginUpdatePatch is the fake for method ConfigServersClient.BeginUpdatePatch
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -46,6 +55,8 @@ type ConfigServersServer struct {
 func NewConfigServersServerTransport(srv *ConfigServersServer) *ConfigServersServerTransport {
 	return &ConfigServersServerTransport{
 		srv:              srv,
+		beginDelete:      newTracker[azfake.PollerResponder[armappplatform.ConfigServersClientDeleteResponse]](),
+		newListPager:     newTracker[azfake.PagerResponder[armappplatform.ConfigServersClientListResponse]](),
 		beginUpdatePatch: newTracker[azfake.PollerResponder[armappplatform.ConfigServersClientUpdatePatchResponse]](),
 		beginUpdatePut:   newTracker[azfake.PollerResponder[armappplatform.ConfigServersClientUpdatePutResponse]](),
 		beginValidate:    newTracker[azfake.PollerResponder[armappplatform.ConfigServersClientValidateResponse]](),
@@ -56,6 +67,8 @@ func NewConfigServersServerTransport(srv *ConfigServersServer) *ConfigServersSer
 // Don't use this type directly, use NewConfigServersServerTransport instead.
 type ConfigServersServerTransport struct {
 	srv              *ConfigServersServer
+	beginDelete      *tracker[azfake.PollerResponder[armappplatform.ConfigServersClientDeleteResponse]]
+	newListPager     *tracker[azfake.PagerResponder[armappplatform.ConfigServersClientListResponse]]
 	beginUpdatePatch *tracker[azfake.PollerResponder[armappplatform.ConfigServersClientUpdatePatchResponse]]
 	beginUpdatePut   *tracker[azfake.PollerResponder[armappplatform.ConfigServersClientUpdatePutResponse]]
 	beginValidate    *tracker[azfake.PollerResponder[armappplatform.ConfigServersClientValidateResponse]]
@@ -73,8 +86,12 @@ func (c *ConfigServersServerTransport) Do(req *http.Request) (*http.Response, er
 	var err error
 
 	switch method {
+	case "ConfigServersClient.BeginDelete":
+		resp, err = c.dispatchBeginDelete(req)
 	case "ConfigServersClient.Get":
 		resp, err = c.dispatchGet(req)
+	case "ConfigServersClient.NewListPager":
+		resp, err = c.dispatchNewListPager(req)
 	case "ConfigServersClient.BeginUpdatePatch":
 		resp, err = c.dispatchBeginUpdatePatch(req)
 	case "ConfigServersClient.BeginUpdatePut":
@@ -87,6 +104,50 @@ func (c *ConfigServersServerTransport) Do(req *http.Request) (*http.Response, er
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (c *ConfigServersServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginDelete == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
+	}
+	beginDelete := c.beginDelete.get(req)
+	if beginDelete == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/configServers/default`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := c.srv.BeginDelete(req.Context(), resourceGroupNameParam, serviceNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDelete = &respr
+		c.beginDelete.add(req, beginDelete)
+	}
+
+	resp, err := server.PollerResponderNext(beginDelete, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+		c.beginDelete.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginDelete) {
+		c.beginDelete.remove(req)
 	}
 
 	return resp, nil
@@ -121,6 +182,47 @@ func (c *ConfigServersServerTransport) dispatchGet(req *http.Request) (*http.Res
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ConfigServerResource, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (c *ConfigServersServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if c.srv.NewListPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+	}
+	newListPager := c.newListPager.get(req)
+	if newListPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/configServers`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := c.srv.NewListPager(resourceGroupNameParam, serviceNameParam, nil)
+		newListPager = &resp
+		c.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armappplatform.ConfigServersClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		c.newListPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListPager) {
+		c.newListPager.remove(req)
 	}
 	return resp, nil
 }
