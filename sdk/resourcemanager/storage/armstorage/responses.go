@@ -396,6 +396,23 @@ type ManagementPoliciesClientGetResponse struct {
 	ManagementPolicy
 }
 
+// NetworkSecurityPerimeterConfigurationsClientGetResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.Get.
+type NetworkSecurityPerimeterConfigurationsClientGetResponse struct {
+	// The Network Security Perimeter configuration resource.
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.NewListPager.
+type NetworkSecurityPerimeterConfigurationsClientListResponse struct {
+	// Result of the List Network Security Perimeter configuration operation.
+	NetworkSecurityPerimeterConfigurationList
+}
+
+// NetworkSecurityPerimeterConfigurationsClientReconcileResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.BeginReconcile.
+type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
+	// placeholder for future response values
+}
+
 // ObjectReplicationPoliciesClientCreateOrUpdateResponse contains the response from method ObjectReplicationPoliciesClient.CreateOrUpdate.
 type ObjectReplicationPoliciesClientCreateOrUpdateResponse struct {
 	// The replication policy between two storage accounts. Multiple rules can be defined in one policy.
