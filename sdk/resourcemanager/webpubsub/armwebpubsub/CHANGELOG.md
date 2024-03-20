@@ -1,5 +1,18 @@
 # Release History
 
+## 1.3.0-beta.2 (2024-03-20)
+### Features Added
+
+- New function `*ClientFactory.NewReplicaSharedPrivateLinkResourcesClient() *ReplicaSharedPrivateLinkResourcesClient`
+- New function `NewReplicaSharedPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReplicaSharedPrivateLinkResourcesClient, error)`
+- New function `*ReplicaSharedPrivateLinkResourcesClient.BeginCreateOrUpdate(context.Context, string, string, string, string, SharedPrivateLinkResource, *ReplicaSharedPrivateLinkResourcesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ReplicaSharedPrivateLinkResourcesClientCreateOrUpdateResponse], error)`
+- New function `*ReplicaSharedPrivateLinkResourcesClient.Get(context.Context, string, string, string, string, *ReplicaSharedPrivateLinkResourcesClientGetOptions) (ReplicaSharedPrivateLinkResourcesClientGetResponse, error)`
+- New function `*ReplicaSharedPrivateLinkResourcesClient.NewListPager(string, string, string, *ReplicaSharedPrivateLinkResourcesClientListOptions) *runtime.Pager[ReplicaSharedPrivateLinkResourcesClientListResponse]`
+- New struct `SocketIOSettings`
+- New field `WebSocketKeepAliveIntervalInSeconds` in struct `HubProperties`
+- New field `SocketIO` in struct `Properties`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 
