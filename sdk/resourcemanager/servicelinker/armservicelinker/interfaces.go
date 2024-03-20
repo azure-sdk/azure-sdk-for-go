@@ -17,30 +17,3 @@ type AuthInfoBaseClassification interface {
 	// GetAuthInfoBase returns the AuthInfoBase content of the underlying type.
 	GetAuthInfoBase() *AuthInfoBase
 }
-
-// AzureResourcePropertiesBaseClassification provides polymorphic access to related types.
-// Call the interface's GetAzureResourcePropertiesBase() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureKeyVaultProperties, *AzureResourcePropertiesBase
-type AzureResourcePropertiesBaseClassification interface {
-	// GetAzureResourcePropertiesBase returns the AzureResourcePropertiesBase content of the underlying type.
-	GetAzureResourcePropertiesBase() *AzureResourcePropertiesBase
-}
-
-// SecretInfoBaseClassification provides polymorphic access to related types.
-// Call the interface's GetSecretInfoBase() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *KeyVaultSecretReferenceSecretInfo, *KeyVaultSecretURISecretInfo, *SecretInfoBase, *ValueSecretInfo
-type SecretInfoBaseClassification interface {
-	// GetSecretInfoBase returns the SecretInfoBase content of the underlying type.
-	GetSecretInfoBase() *SecretInfoBase
-}
-
-// TargetServiceBaseClassification provides polymorphic access to related types.
-// Call the interface's GetTargetServiceBase() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureResource, *ConfluentBootstrapServer, *ConfluentSchemaRegistry, *TargetServiceBase
-type TargetServiceBaseClassification interface {
-	// GetTargetServiceBase returns the TargetServiceBase content of the underlying type.
-	GetTargetServiceBase() *TargetServiceBase
-}

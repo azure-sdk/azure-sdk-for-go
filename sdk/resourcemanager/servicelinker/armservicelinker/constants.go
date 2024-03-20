@@ -10,7 +10,7 @@ package armservicelinker
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -46,20 +46,6 @@ func PossibleAuthTypeValues() []AuthType {
 		AuthTypeServicePrincipalSecret,
 		AuthTypeSystemAssignedIdentity,
 		AuthTypeUserAssignedIdentity,
-	}
-}
-
-// AzureResourceType - The azure resource type.
-type AzureResourceType string
-
-const (
-	AzureResourceTypeKeyVault AzureResourceType = "KeyVault"
-)
-
-// PossibleAzureResourceTypeValues returns the possible values for the AzureResourceType const type.
-func PossibleAzureResourceTypeValues() []AzureResourceType {
-	return []AzureResourceType{
-		AzureResourceTypeKeyVault,
 	}
 }
 
@@ -115,6 +101,22 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// LinkerStatus - Specifies if the linker is healthy.
+type LinkerStatus string
+
+const (
+	LinkerStatusHealthy    LinkerStatus = "Healthy"
+	LinkerStatusNotHealthy LinkerStatus = "Not healthy"
+)
+
+// PossibleLinkerStatusValues returns the possible values for the LinkerStatus const type.
+func PossibleLinkerStatusValues() []LinkerStatus {
+	return []LinkerStatus{
+		LinkerStatusHealthy,
+		LinkerStatusNotHealthy,
+	}
+}
+
 // Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
 // value is "user,system"
 type Origin string
@@ -134,42 +136,6 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
-// SecretType - The secret type.
-type SecretType string
-
-const (
-	SecretTypeKeyVaultSecretReference SecretType = "keyVaultSecretReference"
-	SecretTypeKeyVaultSecretURI       SecretType = "keyVaultSecretUri"
-	SecretTypeRawValue                SecretType = "rawValue"
-)
-
-// PossibleSecretTypeValues returns the possible values for the SecretType const type.
-func PossibleSecretTypeValues() []SecretType {
-	return []SecretType{
-		SecretTypeKeyVaultSecretReference,
-		SecretTypeKeyVaultSecretURI,
-		SecretTypeRawValue,
-	}
-}
-
-// TargetServiceType - The target service type.
-type TargetServiceType string
-
-const (
-	TargetServiceTypeAzureResource            TargetServiceType = "AzureResource"
-	TargetServiceTypeConfluentBootstrapServer TargetServiceType = "ConfluentBootstrapServer"
-	TargetServiceTypeConfluentSchemaRegistry  TargetServiceType = "ConfluentSchemaRegistry"
-)
-
-// PossibleTargetServiceTypeValues returns the possible values for the TargetServiceType const type.
-func PossibleTargetServiceTypeValues() []TargetServiceType {
-	return []TargetServiceType{
-		TargetServiceTypeAzureResource,
-		TargetServiceTypeConfluentBootstrapServer,
-		TargetServiceTypeConfluentSchemaRegistry,
-	}
-}
-
 // VNetSolutionType - Type of VNet solution.
 type VNetSolutionType string
 
@@ -183,23 +149,5 @@ func PossibleVNetSolutionTypeValues() []VNetSolutionType {
 	return []VNetSolutionType{
 		VNetSolutionTypePrivateLink,
 		VNetSolutionTypeServiceEndpoint,
-	}
-}
-
-// ValidationResultStatus - The result of validation
-type ValidationResultStatus string
-
-const (
-	ValidationResultStatusFailure ValidationResultStatus = "failure"
-	ValidationResultStatusSuccess ValidationResultStatus = "success"
-	ValidationResultStatusWarning ValidationResultStatus = "warning"
-)
-
-// PossibleValidationResultStatusValues returns the possible values for the ValidationResultStatus const type.
-func PossibleValidationResultStatusValues() []ValidationResultStatus {
-	return []ValidationResultStatus{
-		ValidationResultStatusFailure,
-		ValidationResultStatusSuccess,
-		ValidationResultStatusWarning,
 	}
 }
