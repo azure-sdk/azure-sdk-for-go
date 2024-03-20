@@ -19,7 +19,6 @@ import (
 
 // ServerFactory is a fake server for instances of the armnetapp.ClientFactory type.
 type ServerFactory struct {
-	AccountBackupsServer          AccountBackupsServer
 	AccountsServer                AccountsServer
 	BackupPoliciesServer          BackupPoliciesServer
 	BackupVaultsServer            BackupVaultsServer
@@ -54,7 +53,6 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                             *ServerFactory
 	trMu                            sync.Mutex
-	trAccountBackupsServer          *AccountBackupsServerTransport
 	trAccountsServer                *AccountsServerTransport
 	trBackupPoliciesServer          *BackupPoliciesServerTransport
 	trBackupVaultsServer            *BackupVaultsServerTransport
@@ -88,11 +86,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "AccountBackupsClient":
-		initServer(s, &s.trAccountBackupsServer, func() *AccountBackupsServerTransport {
-			return NewAccountBackupsServerTransport(&s.srv.AccountBackupsServer)
-		})
-		resp, err = s.trAccountBackupsServer.Do(req)
 	case "AccountsClient":
 		initServer(s, &s.trAccountsServer, func() *AccountsServerTransport { return NewAccountsServerTransport(&s.srv.AccountsServer) })
 		resp, err = s.trAccountsServer.Do(req)

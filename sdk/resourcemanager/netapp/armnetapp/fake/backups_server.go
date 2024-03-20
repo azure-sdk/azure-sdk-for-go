@@ -36,13 +36,13 @@ type BackupsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, accountName string, backupVaultName string, backupName string, options *armnetapp.BackupsClientGetOptions) (resp azfake.Responder[armnetapp.BackupsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// GetLatestStatus is the fake for method BackupsClient.GetLatestStatus
+	// NewGetLatestStatusPager is the fake for method BackupsClient.NewGetLatestStatusPager
 	// HTTP status codes to indicate success: http.StatusOK
-	GetLatestStatus func(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *armnetapp.BackupsClientGetLatestStatusOptions) (resp azfake.Responder[armnetapp.BackupsClientGetLatestStatusResponse], errResp azfake.ErrorResponder)
+	NewGetLatestStatusPager func(resourceGroupName string, accountName string, poolName string, volumeName string, options *armnetapp.BackupsClientGetLatestStatusOptions) (resp azfake.PagerResponder[armnetapp.BackupsClientGetLatestStatusResponse])
 
-	// GetVolumeRestoreStatus is the fake for method BackupsClient.GetVolumeRestoreStatus
+	// NewGetVolumeLatestRestoreStatusPager is the fake for method BackupsClient.NewGetVolumeLatestRestoreStatusPager
 	// HTTP status codes to indicate success: http.StatusOK
-	GetVolumeRestoreStatus func(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *armnetapp.BackupsClientGetVolumeRestoreStatusOptions) (resp azfake.Responder[armnetapp.BackupsClientGetVolumeRestoreStatusResponse], errResp azfake.ErrorResponder)
+	NewGetVolumeLatestRestoreStatusPager func(resourceGroupName string, accountName string, poolName string, volumeName string, options *armnetapp.BackupsClientGetVolumeLatestRestoreStatusOptions) (resp azfake.PagerResponder[armnetapp.BackupsClientGetVolumeLatestRestoreStatusResponse])
 
 	// NewListByVaultPager is the fake for method BackupsClient.NewListByVaultPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -58,22 +58,26 @@ type BackupsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewBackupsServerTransport(srv *BackupsServer) *BackupsServerTransport {
 	return &BackupsServerTransport{
-		srv:                 srv,
-		beginCreate:         newTracker[azfake.PollerResponder[armnetapp.BackupsClientCreateResponse]](),
-		beginDelete:         newTracker[azfake.PollerResponder[armnetapp.BackupsClientDeleteResponse]](),
-		newListByVaultPager: newTracker[azfake.PagerResponder[armnetapp.BackupsClientListByVaultResponse]](),
-		beginUpdate:         newTracker[azfake.PollerResponder[armnetapp.BackupsClientUpdateResponse]](),
+		srv:                                  srv,
+		beginCreate:                          newTracker[azfake.PollerResponder[armnetapp.BackupsClientCreateResponse]](),
+		beginDelete:                          newTracker[azfake.PollerResponder[armnetapp.BackupsClientDeleteResponse]](),
+		newGetLatestStatusPager:              newTracker[azfake.PagerResponder[armnetapp.BackupsClientGetLatestStatusResponse]](),
+		newGetVolumeLatestRestoreStatusPager: newTracker[azfake.PagerResponder[armnetapp.BackupsClientGetVolumeLatestRestoreStatusResponse]](),
+		newListByVaultPager:                  newTracker[azfake.PagerResponder[armnetapp.BackupsClientListByVaultResponse]](),
+		beginUpdate:                          newTracker[azfake.PollerResponder[armnetapp.BackupsClientUpdateResponse]](),
 	}
 }
 
 // BackupsServerTransport connects instances of armnetapp.BackupsClient to instances of BackupsServer.
 // Don't use this type directly, use NewBackupsServerTransport instead.
 type BackupsServerTransport struct {
-	srv                 *BackupsServer
-	beginCreate         *tracker[azfake.PollerResponder[armnetapp.BackupsClientCreateResponse]]
-	beginDelete         *tracker[azfake.PollerResponder[armnetapp.BackupsClientDeleteResponse]]
-	newListByVaultPager *tracker[azfake.PagerResponder[armnetapp.BackupsClientListByVaultResponse]]
-	beginUpdate         *tracker[azfake.PollerResponder[armnetapp.BackupsClientUpdateResponse]]
+	srv                                  *BackupsServer
+	beginCreate                          *tracker[azfake.PollerResponder[armnetapp.BackupsClientCreateResponse]]
+	beginDelete                          *tracker[azfake.PollerResponder[armnetapp.BackupsClientDeleteResponse]]
+	newGetLatestStatusPager              *tracker[azfake.PagerResponder[armnetapp.BackupsClientGetLatestStatusResponse]]
+	newGetVolumeLatestRestoreStatusPager *tracker[azfake.PagerResponder[armnetapp.BackupsClientGetVolumeLatestRestoreStatusResponse]]
+	newListByVaultPager                  *tracker[azfake.PagerResponder[armnetapp.BackupsClientListByVaultResponse]]
+	beginUpdate                          *tracker[azfake.PollerResponder[armnetapp.BackupsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for BackupsServerTransport.
@@ -94,10 +98,10 @@ func (b *BackupsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = b.dispatchBeginDelete(req)
 	case "BackupsClient.Get":
 		resp, err = b.dispatchGet(req)
-	case "BackupsClient.GetLatestStatus":
-		resp, err = b.dispatchGetLatestStatus(req)
-	case "BackupsClient.GetVolumeRestoreStatus":
-		resp, err = b.dispatchGetVolumeRestoreStatus(req)
+	case "BackupsClient.NewGetLatestStatusPager":
+		resp, err = b.dispatchNewGetLatestStatusPager(req)
+	case "BackupsClient.NewGetVolumeLatestRestoreStatusPager":
+		resp, err = b.dispatchNewGetVolumeLatestRestoreStatusPager(req)
 	case "BackupsClient.NewListByVaultPager":
 		resp, err = b.dispatchNewListByVaultPager(req)
 	case "BackupsClient.BeginUpdate":
@@ -262,84 +266,94 @@ func (b *BackupsServerTransport) dispatchGet(req *http.Request) (*http.Response,
 	return resp, nil
 }
 
-func (b *BackupsServerTransport) dispatchGetLatestStatus(req *http.Request) (*http.Response, error) {
-	if b.srv.GetLatestStatus == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GetLatestStatus not implemented")}
+func (b *BackupsServerTransport) dispatchNewGetLatestStatusPager(req *http.Request) (*http.Response, error) {
+	if b.srv.NewGetLatestStatusPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewGetLatestStatusPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capacityPools/(?P<poolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/volumes/(?P<volumeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/latestBackupStatus/current`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 5 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newGetLatestStatusPager := b.newGetLatestStatusPager.get(req)
+	if newGetLatestStatusPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capacityPools/(?P<poolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/volumes/(?P<volumeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/latestBackupStatus/current`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 5 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		poolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("poolName")])
+		if err != nil {
+			return nil, err
+		}
+		volumeNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("volumeName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := b.srv.NewGetLatestStatusPager(resourceGroupNameParam, accountNameParam, poolNameParam, volumeNameParam, nil)
+		newGetLatestStatusPager = &resp
+		b.newGetLatestStatusPager.add(req, newGetLatestStatusPager)
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newGetLatestStatusPager, req)
 	if err != nil {
 		return nil, err
 	}
-	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		b.newGetLatestStatusPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	poolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("poolName")])
-	if err != nil {
-		return nil, err
-	}
-	volumeNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("volumeName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := b.srv.GetLatestStatus(req.Context(), resourceGroupNameParam, accountNameParam, poolNameParam, volumeNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).BackupStatus, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newGetLatestStatusPager) {
+		b.newGetLatestStatusPager.remove(req)
 	}
 	return resp, nil
 }
 
-func (b *BackupsServerTransport) dispatchGetVolumeRestoreStatus(req *http.Request) (*http.Response, error) {
-	if b.srv.GetVolumeRestoreStatus == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GetVolumeRestoreStatus not implemented")}
+func (b *BackupsServerTransport) dispatchNewGetVolumeLatestRestoreStatusPager(req *http.Request) (*http.Response, error) {
+	if b.srv.NewGetVolumeLatestRestoreStatusPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewGetVolumeLatestRestoreStatusPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capacityPools/(?P<poolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/volumes/(?P<volumeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restoreStatus`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 5 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newGetVolumeLatestRestoreStatusPager := b.newGetVolumeLatestRestoreStatusPager.get(req)
+	if newGetVolumeLatestRestoreStatusPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capacityPools/(?P<poolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/volumes/(?P<volumeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/latestRestoreStatus/current`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 5 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		poolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("poolName")])
+		if err != nil {
+			return nil, err
+		}
+		volumeNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("volumeName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := b.srv.NewGetVolumeLatestRestoreStatusPager(resourceGroupNameParam, accountNameParam, poolNameParam, volumeNameParam, nil)
+		newGetVolumeLatestRestoreStatusPager = &resp
+		b.newGetVolumeLatestRestoreStatusPager.add(req, newGetVolumeLatestRestoreStatusPager)
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newGetVolumeLatestRestoreStatusPager, req)
 	if err != nil {
 		return nil, err
 	}
-	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		b.newGetVolumeLatestRestoreStatusPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	poolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("poolName")])
-	if err != nil {
-		return nil, err
-	}
-	volumeNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("volumeName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := b.srv.GetVolumeRestoreStatus(req.Context(), resourceGroupNameParam, accountNameParam, poolNameParam, volumeNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).RestoreStatus, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newGetVolumeLatestRestoreStatusPager) {
+		b.newGetVolumeLatestRestoreStatusPager.remove(req)
 	}
 	return resp, nil
 }

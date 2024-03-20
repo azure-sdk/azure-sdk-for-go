@@ -43,32 +43,34 @@ func NewResourceRegionInfosClient(subscriptionID string, credential azcore.Token
 	return client, nil
 }
 
-// Get - Provides storage to network proximity and logical zone mapping information.
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewGetPager - Provides storage to network proximity and logical zone mapping information.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - location - The name of the Azure region.
-//   - options - ResourceRegionInfosClientGetOptions contains the optional parameters for the ResourceRegionInfosClient.Get method.
-func (client *ResourceRegionInfosClient) Get(ctx context.Context, location string, options *ResourceRegionInfosClientGetOptions) (ResourceRegionInfosClientGetResponse, error) {
-	var err error
-	const operationName = "ResourceRegionInfosClient.Get"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, location, options)
-	if err != nil {
-		return ResourceRegionInfosClientGetResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return ResourceRegionInfosClientGetResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return ResourceRegionInfosClientGetResponse{}, err
-	}
-	resp, err := client.getHandleResponse(httpResp)
-	return resp, err
+//   - options - ResourceRegionInfosClientGetOptions contains the optional parameters for the ResourceRegionInfosClient.NewGetPager
+//     method.
+func (client *ResourceRegionInfosClient) NewGetPager(location string, options *ResourceRegionInfosClientGetOptions) *runtime.Pager[ResourceRegionInfosClientGetResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ResourceRegionInfosClientGetResponse]{
+		More: func(page ResourceRegionInfosClientGetResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *ResourceRegionInfosClientGetResponse) (ResourceRegionInfosClientGetResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ResourceRegionInfosClient.NewGetPager")
+			req, err := client.getCreateRequest(ctx, location, options)
+			if err != nil {
+				return ResourceRegionInfosClientGetResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ResourceRegionInfosClientGetResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ResourceRegionInfosClientGetResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.getHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
 // getCreateRequest creates the Get request.
@@ -87,7 +89,7 @@ func (client *ResourceRegionInfosClient) getCreateRequest(ctx context.Context, l
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -104,7 +106,7 @@ func (client *ResourceRegionInfosClient) getHandleResponse(resp *http.Response) 
 
 // NewListPager - Provides region specific information.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - location - The name of the Azure region.
 //   - options - ResourceRegionInfosClientListOptions contains the optional parameters for the ResourceRegionInfosClient.NewListPager
 //     method.
@@ -147,7 +149,7 @@ func (client *ResourceRegionInfosClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -46,7 +46,7 @@ func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, 
 // BeginCreate - Create a backup under the Backup Vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - backupVaultName - The name of the Backup Vault
@@ -74,7 +74,7 @@ func (client *BackupsClient) BeginCreate(ctx context.Context, resourceGroupName 
 // Create - Create a backup under the Backup Vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 func (client *BackupsClient) create(ctx context.Context, resourceGroupName string, accountName string, backupVaultName string, backupName string, body Backup, options *BackupsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupsClient.BeginCreate"
@@ -124,7 +124,7 @@ func (client *BackupsClient) createCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -136,7 +136,7 @@ func (client *BackupsClient) createCreateRequest(ctx context.Context, resourceGr
 // BeginDelete - Delete a Backup under the Backup Vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - backupVaultName - The name of the Backup Vault
@@ -163,7 +163,7 @@ func (client *BackupsClient) BeginDelete(ctx context.Context, resourceGroupName 
 // Delete - Delete a Backup under the Backup Vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 func (client *BackupsClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, backupVaultName string, backupName string, options *BackupsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupsClient.BeginDelete"
@@ -213,7 +213,7 @@ func (client *BackupsClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -222,7 +222,7 @@ func (client *BackupsClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Get the specified Backup under Backup Vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - backupVaultName - The name of the Backup Vault
@@ -278,7 +278,7 @@ func (client *BackupsClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -293,35 +293,37 @@ func (client *BackupsClient) getHandleResponse(resp *http.Response) (BackupsClie
 	return result, nil
 }
 
-// GetLatestStatus - Get the latest status of the backup for a volume
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewGetLatestStatusPager - Get the latest status of the backup for a volume
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - poolName - The name of the capacity pool
 //   - volumeName - The name of the volume
-//   - options - BackupsClientGetLatestStatusOptions contains the optional parameters for the BackupsClient.GetLatestStatus method.
-func (client *BackupsClient) GetLatestStatus(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetLatestStatusOptions) (BackupsClientGetLatestStatusResponse, error) {
-	var err error
-	const operationName = "BackupsClient.GetLatestStatus"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.getLatestStatusCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, options)
-	if err != nil {
-		return BackupsClientGetLatestStatusResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return BackupsClientGetLatestStatusResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return BackupsClientGetLatestStatusResponse{}, err
-	}
-	resp, err := client.getLatestStatusHandleResponse(httpResp)
-	return resp, err
+//   - options - BackupsClientGetLatestStatusOptions contains the optional parameters for the BackupsClient.NewGetLatestStatusPager
+//     method.
+func (client *BackupsClient) NewGetLatestStatusPager(resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetLatestStatusOptions) *runtime.Pager[BackupsClientGetLatestStatusResponse] {
+	return runtime.NewPager(runtime.PagingHandler[BackupsClientGetLatestStatusResponse]{
+		More: func(page BackupsClientGetLatestStatusResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *BackupsClientGetLatestStatusResponse) (BackupsClientGetLatestStatusResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BackupsClient.NewGetLatestStatusPager")
+			req, err := client.getLatestStatusCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, options)
+			if err != nil {
+				return BackupsClientGetLatestStatusResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return BackupsClientGetLatestStatusResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return BackupsClientGetLatestStatusResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.getLatestStatusHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
 // getLatestStatusCreateRequest creates the GetLatestStatus request.
@@ -352,7 +354,7 @@ func (client *BackupsClient) getLatestStatusCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -367,41 +369,42 @@ func (client *BackupsClient) getLatestStatusHandleResponse(resp *http.Response) 
 	return result, nil
 }
 
-// GetVolumeRestoreStatus - Get the status of the restore for a volume
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewGetVolumeLatestRestoreStatusPager - Get the latest status of the restore for a volume
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - poolName - The name of the capacity pool
 //   - volumeName - The name of the volume
-//   - options - BackupsClientGetVolumeRestoreStatusOptions contains the optional parameters for the BackupsClient.GetVolumeRestoreStatus
+//   - options - BackupsClientGetVolumeLatestRestoreStatusOptions contains the optional parameters for the BackupsClient.NewGetVolumeLatestRestoreStatusPager
 //     method.
-func (client *BackupsClient) GetVolumeRestoreStatus(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetVolumeRestoreStatusOptions) (BackupsClientGetVolumeRestoreStatusResponse, error) {
-	var err error
-	const operationName = "BackupsClient.GetVolumeRestoreStatus"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.getVolumeRestoreStatusCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, options)
-	if err != nil {
-		return BackupsClientGetVolumeRestoreStatusResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return BackupsClientGetVolumeRestoreStatusResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return BackupsClientGetVolumeRestoreStatusResponse{}, err
-	}
-	resp, err := client.getVolumeRestoreStatusHandleResponse(httpResp)
-	return resp, err
+func (client *BackupsClient) NewGetVolumeLatestRestoreStatusPager(resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetVolumeLatestRestoreStatusOptions) *runtime.Pager[BackupsClientGetVolumeLatestRestoreStatusResponse] {
+	return runtime.NewPager(runtime.PagingHandler[BackupsClientGetVolumeLatestRestoreStatusResponse]{
+		More: func(page BackupsClientGetVolumeLatestRestoreStatusResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *BackupsClientGetVolumeLatestRestoreStatusResponse) (BackupsClientGetVolumeLatestRestoreStatusResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BackupsClient.NewGetVolumeLatestRestoreStatusPager")
+			req, err := client.getVolumeLatestRestoreStatusCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, options)
+			if err != nil {
+				return BackupsClientGetVolumeLatestRestoreStatusResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return BackupsClientGetVolumeLatestRestoreStatusResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return BackupsClientGetVolumeLatestRestoreStatusResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.getVolumeLatestRestoreStatusHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
-// getVolumeRestoreStatusCreateRequest creates the GetVolumeRestoreStatus request.
-func (client *BackupsClient) getVolumeRestoreStatusCreateRequest(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetVolumeRestoreStatusOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetApp/netAppAccounts/{accountName}/capacityPools/{poolName}/volumes/{volumeName}/restoreStatus"
+// getVolumeLatestRestoreStatusCreateRequest creates the GetVolumeLatestRestoreStatus request.
+func (client *BackupsClient) getVolumeLatestRestoreStatusCreateRequest(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetVolumeLatestRestoreStatusOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetApp/netAppAccounts/{accountName}/capacityPools/{poolName}/volumes/{volumeName}/latestRestoreStatus/current"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -427,24 +430,24 @@ func (client *BackupsClient) getVolumeRestoreStatusCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// getVolumeRestoreStatusHandleResponse handles the GetVolumeRestoreStatus response.
-func (client *BackupsClient) getVolumeRestoreStatusHandleResponse(resp *http.Response) (BackupsClientGetVolumeRestoreStatusResponse, error) {
-	result := BackupsClientGetVolumeRestoreStatusResponse{}
+// getVolumeLatestRestoreStatusHandleResponse handles the GetVolumeLatestRestoreStatus response.
+func (client *BackupsClient) getVolumeLatestRestoreStatusHandleResponse(resp *http.Response) (BackupsClientGetVolumeLatestRestoreStatusResponse, error) {
+	result := BackupsClientGetVolumeLatestRestoreStatusResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.RestoreStatus); err != nil {
-		return BackupsClientGetVolumeRestoreStatusResponse{}, err
+		return BackupsClientGetVolumeLatestRestoreStatusResponse{}, err
 	}
 	return result, nil
 }
 
 // NewListByVaultPager - List all backups Under a Backup Vault
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - backupVaultName - The name of the Backup Vault
@@ -499,7 +502,7 @@ func (client *BackupsClient) listByVaultCreateRequest(ctx context.Context, resou
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -517,7 +520,7 @@ func (client *BackupsClient) listByVaultHandleResponse(resp *http.Response) (Bac
 // BeginUpdate - Patch a Backup under the Backup Vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the NetApp account
 //   - backupVaultName - The name of the Backup Vault
@@ -545,7 +548,7 @@ func (client *BackupsClient) BeginUpdate(ctx context.Context, resourceGroupName 
 // Update - Patch a Backup under the Backup Vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01-preview
+// Generated from API version 2023-07-01-preview
 func (client *BackupsClient) update(ctx context.Context, resourceGroupName string, accountName string, backupVaultName string, backupName string, body BackupPatch, options *BackupsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupsClient.BeginUpdate"
@@ -595,7 +598,7 @@ func (client *BackupsClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01-preview")
+	reqQP.Set("api-version", "2023-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {

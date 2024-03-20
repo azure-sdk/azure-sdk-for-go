@@ -9,7 +9,6 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
@@ -24,9 +23,9 @@ import (
 
 // ResourceRegionInfosServer is a fake server for instances of the armnetapp.ResourceRegionInfosClient type.
 type ResourceRegionInfosServer struct {
-	// Get is the fake for method ResourceRegionInfosClient.Get
+	// NewGetPager is the fake for method ResourceRegionInfosClient.NewGetPager
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, location string, options *armnetapp.ResourceRegionInfosClientGetOptions) (resp azfake.Responder[armnetapp.ResourceRegionInfosClientGetResponse], errResp azfake.ErrorResponder)
+	NewGetPager func(location string, options *armnetapp.ResourceRegionInfosClientGetOptions) (resp azfake.PagerResponder[armnetapp.ResourceRegionInfosClientGetResponse])
 
 	// NewListPager is the fake for method ResourceRegionInfosClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -39,6 +38,7 @@ type ResourceRegionInfosServer struct {
 func NewResourceRegionInfosServerTransport(srv *ResourceRegionInfosServer) *ResourceRegionInfosServerTransport {
 	return &ResourceRegionInfosServerTransport{
 		srv:          srv,
+		newGetPager:  newTracker[azfake.PagerResponder[armnetapp.ResourceRegionInfosClientGetResponse]](),
 		newListPager: newTracker[azfake.PagerResponder[armnetapp.ResourceRegionInfosClientListResponse]](),
 	}
 }
@@ -47,6 +47,7 @@ func NewResourceRegionInfosServerTransport(srv *ResourceRegionInfosServer) *Reso
 // Don't use this type directly, use NewResourceRegionInfosServerTransport instead.
 type ResourceRegionInfosServerTransport struct {
 	srv          *ResourceRegionInfosServer
+	newGetPager  *tracker[azfake.PagerResponder[armnetapp.ResourceRegionInfosClientGetResponse]]
 	newListPager *tracker[azfake.PagerResponder[armnetapp.ResourceRegionInfosClientListResponse]]
 }
 
@@ -62,8 +63,8 @@ func (r *ResourceRegionInfosServerTransport) Do(req *http.Request) (*http.Respon
 	var err error
 
 	switch method {
-	case "ResourceRegionInfosClient.Get":
-		resp, err = r.dispatchGet(req)
+	case "ResourceRegionInfosClient.NewGetPager":
+		resp, err = r.dispatchNewGetPager(req)
 	case "ResourceRegionInfosClient.NewListPager":
 		resp, err = r.dispatchNewListPager(req)
 	default:
@@ -77,31 +78,36 @@ func (r *ResourceRegionInfosServerTransport) Do(req *http.Request) (*http.Respon
 	return resp, nil
 }
 
-func (r *ResourceRegionInfosServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if r.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
+func (r *ResourceRegionInfosServerTransport) dispatchNewGetPager(req *http.Request) (*http.Response, error) {
+	if r.srv.NewGetPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewGetPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/regionInfos/default`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 2 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newGetPager := r.newGetPager.get(req)
+	if newGetPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/regionInfos/default`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 2 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewGetPager(locationParam, nil)
+		newGetPager = &resp
+		r.newGetPager.add(req, newGetPager)
 	}
-	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	resp, err := server.PagerResponderNext(newGetPager, req)
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), locationParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		r.newGetPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).RegionInfoResource, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newGetPager) {
+		r.newGetPager.remove(req)
 	}
 	return resp, nil
 }

@@ -1242,6 +1242,33 @@ func (c *CheckAvailabilityResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ClusterPeerCommandResponse.
+func (c ClusterPeerCommandResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "peerAcceptCommand", c.PeerAcceptCommand)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ClusterPeerCommandResponse.
+func (c *ClusterPeerCommandResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "peerAcceptCommand":
+			err = unpopulate(val, "PeerAcceptCommand", &c.PeerAcceptCommand)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DailySchedule.
 func (d DailySchedule) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1460,6 +1487,7 @@ func (e *ExportPolicyRule) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type FilePathAvailabilityRequest.
 func (f FilePathAvailabilityRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "availabilityZone", f.AvailabilityZone)
 	populate(objectMap, "name", f.Name)
 	populate(objectMap, "subnetId", f.SubnetID)
 	return json.Marshal(objectMap)
@@ -1474,6 +1502,9 @@ func (f *FilePathAvailabilityRequest) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "availabilityZone":
+			err = unpopulate(val, "AvailabilityZone", &f.AvailabilityZone)
+			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &f.Name)
 			delete(rawMsg, key)
@@ -2126,6 +2157,37 @@ func (o *OperationProperties) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PeerClusterForVolumeMigrationRequest.
+func (p PeerClusterForVolumeMigrationRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "peerAddresses", p.PeerAddresses)
+	populate(objectMap, "remotePath", p.RemotePath)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PeerClusterForVolumeMigrationRequest.
+func (p *PeerClusterForVolumeMigrationRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "peerAddresses":
+			err = unpopulate(val, "PeerAddresses", &p.PeerAddresses)
+			delete(rawMsg, key)
+		case "remotePath":
+			err = unpopulate(val, "RemotePath", &p.RemotePath)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
 		}
 	}
 	return nil
@@ -3533,6 +3595,33 @@ func (s *SubvolumesList) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type SvmPeerCommandResponse.
+func (s SvmPeerCommandResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "svmPeeringCommand", s.SvmPeeringCommand)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SvmPeerCommandResponse.
+func (s *SvmPeerCommandResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "svmPeeringCommand":
+			err = unpopulate(val, "SvmPeeringCommand", &s.SvmPeeringCommand)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type SystemData.
 func (s SystemData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4867,7 +4956,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

@@ -10,7 +10,7 @@ package armnetapp
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/netapp/armnetapp"
-	moduleVersion = "v6.0.0-beta.1"
+	moduleVersion = "v6.0.0-beta.2"
 )
 
 // ActiveDirectoryStatus - Status of the Active Directory
@@ -525,15 +525,19 @@ func PossibleRegionStorageToNetworkProximityValues() []RegionStorageToNetworkPro
 type RelationshipStatus string
 
 const (
+	RelationshipStatusFailed       RelationshipStatus = "Failed"
 	RelationshipStatusIdle         RelationshipStatus = "Idle"
 	RelationshipStatusTransferring RelationshipStatus = "Transferring"
+	RelationshipStatusUnknown      RelationshipStatus = "Unknown"
 )
 
 // PossibleRelationshipStatusValues returns the possible values for the RelationshipStatus const type.
 func PossibleRelationshipStatusValues() []RelationshipStatus {
 	return []RelationshipStatus{
+		RelationshipStatusFailed,
 		RelationshipStatusIdle,
 		RelationshipStatusTransferring,
+		RelationshipStatusUnknown,
 	}
 }
 

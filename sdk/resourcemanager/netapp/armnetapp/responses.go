@@ -8,23 +8,6 @@
 
 package armnetapp
 
-// AccountBackupsClientDeleteResponse contains the response from method AccountBackupsClient.BeginDelete.
-type AccountBackupsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// AccountBackupsClientGetResponse contains the response from method AccountBackupsClient.Get.
-type AccountBackupsClientGetResponse struct {
-	// Backup under a Backup Vault
-	Backup
-}
-
-// AccountBackupsClientListByNetAppAccountResponse contains the response from method AccountBackupsClient.NewListByNetAppAccountPager.
-type AccountBackupsClientListByNetAppAccountResponse struct {
-	// List of Backups
-	BackupsList
-}
-
 // AccountsClientCreateOrUpdateResponse contains the response from method AccountsClient.BeginCreateOrUpdate.
 type AccountsClientCreateOrUpdateResponse struct {
 	// NetApp account resource
@@ -139,7 +122,7 @@ type BackupsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// BackupsClientGetLatestStatusResponse contains the response from method BackupsClient.GetLatestStatus.
+// BackupsClientGetLatestStatusResponse contains the response from method BackupsClient.NewGetLatestStatusPager.
 type BackupsClientGetLatestStatusResponse struct {
 	// Backup status
 	BackupStatus
@@ -151,8 +134,8 @@ type BackupsClientGetResponse struct {
 	Backup
 }
 
-// BackupsClientGetVolumeRestoreStatusResponse contains the response from method BackupsClient.GetVolumeRestoreStatus.
-type BackupsClientGetVolumeRestoreStatusResponse struct {
+// BackupsClientGetVolumeLatestRestoreStatusResponse contains the response from method BackupsClient.NewGetVolumeLatestRestoreStatusPager.
+type BackupsClientGetVolumeLatestRestoreStatusResponse struct {
 	// Restore status
 	RestoreStatus
 }
@@ -268,7 +251,7 @@ type ResourceQuotaLimitsClientListResponse struct {
 	SubscriptionQuotaItemList
 }
 
-// ResourceRegionInfosClientGetResponse contains the response from method ResourceRegionInfosClient.Get.
+// ResourceRegionInfosClientGetResponse contains the response from method ResourceRegionInfosClient.NewGetPager.
 type ResourceRegionInfosClientGetResponse struct {
 	// Information regarding regionInfo Item.
 	RegionInfoResource
@@ -451,6 +434,12 @@ type VolumesClientBreakReplicationResponse struct {
 	// placeholder for future response values
 }
 
+// VolumesClientCreateOnPremMigrationReplicationResponse contains the response from method VolumesClient.BeginCreateOnPremMigrationReplication.
+type VolumesClientCreateOnPremMigrationReplicationResponse struct {
+	// Information about SVM peering process
+	SvmPeerCommandResponse
+}
+
 // VolumesClientCreateOrUpdateResponse contains the response from method VolumesClient.BeginCreateOrUpdate.
 type VolumesClientCreateOrUpdateResponse struct {
 	// Volume resource
@@ -464,6 +453,11 @@ type VolumesClientDeleteReplicationResponse struct {
 
 // VolumesClientDeleteResponse contains the response from method VolumesClient.BeginDelete.
 type VolumesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VolumesClientFinalizeOnPremMigrationResponse contains the response from method VolumesClient.BeginFinalizeOnPremMigration.
+type VolumesClientFinalizeOnPremMigrationResponse struct {
 	// placeholder for future response values
 }
 
@@ -494,6 +488,17 @@ type VolumesClientListReplicationsResponse struct {
 type VolumesClientListResponse struct {
 	// List of volume resources
 	VolumeList
+}
+
+// VolumesClientPeerClusterForOnPremMigrationResponse contains the response from method VolumesClient.BeginPeerClusterForOnPremMigration.
+type VolumesClientPeerClusterForOnPremMigrationResponse struct {
+	// Information about cluster peering process
+	ClusterPeerCommandResponse
+}
+
+// VolumesClientPerformReplicationTransferResponse contains the response from method VolumesClient.BeginPerformReplicationTransfer.
+type VolumesClientPerformReplicationTransferResponse struct {
+	// placeholder for future response values
 }
 
 // VolumesClientPoolChangeResponse contains the response from method VolumesClient.BeginPoolChange.

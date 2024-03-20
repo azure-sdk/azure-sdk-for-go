@@ -1,5 +1,31 @@
 # Release History
 
+## 6.0.0-beta.2 (2024-03-20)
+### Breaking Changes
+
+- Function `NewAccountBackupsClient` has been removed
+- Function `*AccountBackupsClient.BeginDelete` has been removed
+- Function `*AccountBackupsClient.Get` has been removed
+- Function `*AccountBackupsClient.NewListByNetAppAccountPager` has been removed
+- Function `*BackupsClient.GetVolumeRestoreStatus` has been removed
+- Function `*ClientFactory.NewAccountBackupsClient` has been removed
+- Operation `*BackupsClient.GetLatestStatus` has supported pagination, use `*BackupsClient.NewGetLatestStatusPager` instead.
+- Operation `*ResourceRegionInfosClient.Get` has supported pagination, use `*ResourceRegionInfosClient.NewGetPager` instead.
+
+### Features Added
+
+- New value `RelationshipStatusFailed`, `RelationshipStatusUnknown` added to enum type `RelationshipStatus`
+- New function `*BackupsClient.NewGetVolumeLatestRestoreStatusPager(string, string, string, string, *BackupsClientGetVolumeLatestRestoreStatusOptions) *runtime.Pager[BackupsClientGetVolumeLatestRestoreStatusResponse]`
+- New function `*VolumesClient.BeginCreateOnPremMigrationReplication(context.Context, string, string, string, string, *VolumesClientBeginCreateOnPremMigrationReplicationOptions) (*runtime.Poller[VolumesClientCreateOnPremMigrationReplicationResponse], error)`
+- New function `*VolumesClient.BeginFinalizeOnPremMigration(context.Context, string, string, string, string, *VolumesClientBeginFinalizeOnPremMigrationOptions) (*runtime.Poller[VolumesClientFinalizeOnPremMigrationResponse], error)`
+- New function `*VolumesClient.BeginPeerClusterForOnPremMigration(context.Context, string, string, string, string, PeerClusterForVolumeMigrationRequest, *VolumesClientBeginPeerClusterForOnPremMigrationOptions) (*runtime.Poller[VolumesClientPeerClusterForOnPremMigrationResponse], error)`
+- New function `*VolumesClient.BeginPerformReplicationTransfer(context.Context, string, string, string, string, *VolumesClientBeginPerformReplicationTransferOptions) (*runtime.Poller[VolumesClientPerformReplicationTransferResponse], error)`
+- New struct `ClusterPeerCommandResponse`
+- New struct `PeerClusterForVolumeMigrationRequest`
+- New struct `SvmPeerCommandResponse`
+- New field `AvailabilityZone` in struct `FilePathAvailabilityRequest`
+
+
 ## 6.0.0-beta.1 (2023-12-22)
 ### Breaking Changes
 

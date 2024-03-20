@@ -8,24 +8,6 @@
 
 package armnetapp
 
-// AccountBackupsClientBeginDeleteOptions contains the optional parameters for the AccountBackupsClient.BeginDelete method.
-type AccountBackupsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// AccountBackupsClientGetOptions contains the optional parameters for the AccountBackupsClient.Get method.
-type AccountBackupsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AccountBackupsClientListByNetAppAccountOptions contains the optional parameters for the AccountBackupsClient.NewListByNetAppAccountPager
-// method.
-type AccountBackupsClientListByNetAppAccountOptions struct {
-	// An option to specify whether to return backups only from deleted volumes
-	IncludeOnlyBackupsFromDeletedVolumes *string
-}
-
 // AccountsClientBeginCreateOrUpdateOptions contains the optional parameters for the AccountsClient.BeginCreateOrUpdate method.
 type AccountsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -153,7 +135,7 @@ type BackupsClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
-// BackupsClientGetLatestStatusOptions contains the optional parameters for the BackupsClient.GetLatestStatus method.
+// BackupsClientGetLatestStatusOptions contains the optional parameters for the BackupsClient.NewGetLatestStatusPager method.
 type BackupsClientGetLatestStatusOptions struct {
 	// placeholder for future optional parameters
 }
@@ -163,9 +145,9 @@ type BackupsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BackupsClientGetVolumeRestoreStatusOptions contains the optional parameters for the BackupsClient.GetVolumeRestoreStatus
+// BackupsClientGetVolumeLatestRestoreStatusOptions contains the optional parameters for the BackupsClient.NewGetVolumeLatestRestoreStatusPager
 // method.
-type BackupsClientGetVolumeRestoreStatusOptions struct {
+type BackupsClientGetVolumeLatestRestoreStatusOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -275,7 +257,7 @@ type ResourceQuotaLimitsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ResourceRegionInfosClientGetOptions contains the optional parameters for the ResourceRegionInfosClient.Get method.
+// ResourceRegionInfosClientGetOptions contains the optional parameters for the ResourceRegionInfosClient.NewGetPager method.
 type ResourceRegionInfosClientGetOptions struct {
 	// placeholder for future optional parameters
 }
@@ -463,6 +445,13 @@ type VolumesClientBeginBreakReplicationOptions struct {
 	ResumeToken string
 }
 
+// VolumesClientBeginCreateOnPremMigrationReplicationOptions contains the optional parameters for the VolumesClient.BeginCreateOnPremMigrationReplication
+// method.
+type VolumesClientBeginCreateOnPremMigrationReplicationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VolumesClientBeginCreateOrUpdateOptions contains the optional parameters for the VolumesClient.BeginCreateOrUpdate method.
 type VolumesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -485,6 +474,13 @@ type VolumesClientBeginDeleteReplicationOptions struct {
 	ResumeToken string
 }
 
+// VolumesClientBeginFinalizeOnPremMigrationOptions contains the optional parameters for the VolumesClient.BeginFinalizeOnPremMigration
+// method.
+type VolumesClientBeginFinalizeOnPremMigrationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VolumesClientBeginFinalizeRelocationOptions contains the optional parameters for the VolumesClient.BeginFinalizeRelocation
 // method.
 type VolumesClientBeginFinalizeRelocationOptions struct {
@@ -495,6 +491,20 @@ type VolumesClientBeginFinalizeRelocationOptions struct {
 // VolumesClientBeginListGetGroupIDListForLdapUserOptions contains the optional parameters for the VolumesClient.BeginListGetGroupIDListForLdapUser
 // method.
 type VolumesClientBeginListGetGroupIDListForLdapUserOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VolumesClientBeginPeerClusterForOnPremMigrationOptions contains the optional parameters for the VolumesClient.BeginPeerClusterForOnPremMigration
+// method.
+type VolumesClientBeginPeerClusterForOnPremMigrationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VolumesClientBeginPerformReplicationTransferOptions contains the optional parameters for the VolumesClient.BeginPerformReplicationTransfer
+// method.
+type VolumesClientBeginPerformReplicationTransferOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
