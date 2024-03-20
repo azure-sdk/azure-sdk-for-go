@@ -1200,31 +1200,6 @@ type Vault struct {
 	Type *string
 }
 
-// VaultAccessPolicyParameters - Parameters for updating the access policy in a vault
-type VaultAccessPolicyParameters struct {
-	// REQUIRED; Properties of the access policy
-	Properties *VaultAccessPolicyProperties
-
-	// READ-ONLY; The resource id of the access policy.
-	ID *string
-
-	// READ-ONLY; The resource type of the access policy.
-	Location *string
-
-	// READ-ONLY; The resource name of the access policy.
-	Name *string
-
-	// READ-ONLY; The resource name of the access policy.
-	Type *string
-}
-
-// VaultAccessPolicyProperties - Properties of the vault access policy
-type VaultAccessPolicyProperties struct {
-	// REQUIRED; An array of 0 to 16 identities that have access to the key vault. All identities in the array must use the same
-	// tenant ID as the key vault's tenant ID.
-	AccessPolicies []*AccessPolicyEntry
-}
-
 // VaultCheckNameAvailabilityParameters - The parameters used to check the availability of the vault name.
 type VaultCheckNameAvailabilityParameters struct {
 	// REQUIRED; The vault name.

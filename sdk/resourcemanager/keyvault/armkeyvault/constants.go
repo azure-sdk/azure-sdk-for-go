@@ -10,25 +10,8 @@ package armkeyvault
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
-	moduleVersion = "v1.4.0"
+	moduleVersion = "v2.0.0"
 )
-
-type AccessPolicyUpdateKind string
-
-const (
-	AccessPolicyUpdateKindAdd     AccessPolicyUpdateKind = "add"
-	AccessPolicyUpdateKindRemove  AccessPolicyUpdateKind = "remove"
-	AccessPolicyUpdateKindReplace AccessPolicyUpdateKind = "replace"
-)
-
-// PossibleAccessPolicyUpdateKindValues returns the possible values for the AccessPolicyUpdateKind const type.
-func PossibleAccessPolicyUpdateKindValues() []AccessPolicyUpdateKind {
-	return []AccessPolicyUpdateKind{
-		AccessPolicyUpdateKindAdd,
-		AccessPolicyUpdateKindRemove,
-		AccessPolicyUpdateKindReplace,
-	}
-}
 
 // ActionsRequired - A message indicating if changes on the service provider require any updates on the consumer.
 type ActionsRequired string

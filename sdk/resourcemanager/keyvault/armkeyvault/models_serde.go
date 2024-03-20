@@ -699,7 +699,9 @@ func (k *KeyProperties) UnmarshalJSON(data []byte) error {
 func (k KeyReleasePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "contentType", k.ContentType)
-	populateByteArray(objectMap, "data", k.Data, runtime.Base64URLFormat)
+	populateByteArray(objectMap, "data", k.Data, func() any {
+		return runtime.EncodeByteArray(k.Data, runtime.Base64URLFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -716,7 +718,9 @@ func (k *KeyReleasePolicy) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "ContentType", &k.ContentType)
 			delete(rawMsg, key)
 		case "data":
-			err = runtime.DecodeByteArray(string(val), &k.Data, runtime.Base64URLFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &k.Data, runtime.Base64URLFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1669,7 +1673,9 @@ func (m *ManagedHsmKeyProperties) UnmarshalJSON(data []byte) error {
 func (m ManagedHsmKeyReleasePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "contentType", m.ContentType)
-	populateByteArray(objectMap, "data", m.Data, runtime.Base64URLFormat)
+	populateByteArray(objectMap, "data", m.Data, func() any {
+		return runtime.EncodeByteArray(m.Data, runtime.Base64URLFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -1686,7 +1692,9 @@ func (m *ManagedHsmKeyReleasePolicy) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "ContentType", &m.ContentType)
 			delete(rawMsg, key)
 		case "data":
-			err = runtime.DecodeByteArray(string(val), &m.Data, runtime.Base64URLFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &m.Data, runtime.Base64URLFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3210,76 +3218,6 @@ func (v *Vault) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type VaultAccessPolicyParameters.
-func (v VaultAccessPolicyParameters) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "id", v.ID)
-	populate(objectMap, "location", v.Location)
-	populate(objectMap, "name", v.Name)
-	populate(objectMap, "properties", v.Properties)
-	populate(objectMap, "type", v.Type)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type VaultAccessPolicyParameters.
-func (v *VaultAccessPolicyParameters) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", v, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &v.ID)
-			delete(rawMsg, key)
-		case "location":
-			err = unpopulate(val, "Location", &v.Location)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &v.Name)
-			delete(rawMsg, key)
-		case "properties":
-			err = unpopulate(val, "Properties", &v.Properties)
-			delete(rawMsg, key)
-		case "type":
-			err = unpopulate(val, "Type", &v.Type)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", v, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type VaultAccessPolicyProperties.
-func (v VaultAccessPolicyProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "accessPolicies", v.AccessPolicies)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type VaultAccessPolicyProperties.
-func (v *VaultAccessPolicyProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", v, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "accessPolicies":
-			err = unpopulate(val, "AccessPolicies", &v.AccessPolicies)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", v, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type VaultCheckNameAvailabilityParameters.
 func (v VaultCheckNameAvailabilityParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -3615,18 +3553,18 @@ func populate(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

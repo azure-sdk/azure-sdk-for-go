@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2024-03-20)
+### Breaking Changes
+
+- Enum `AccessPolicyUpdateKind` has been removed
+- Function `*VaultsClient.Delete` has been removed
+- Function `*VaultsClient.Get` has been removed
+- Function `*VaultsClient.UpdateAccessPolicy` has been removed
+- Struct `VaultAccessPolicyParameters` has been removed
+- Struct `VaultAccessPolicyProperties` has been removed
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 
