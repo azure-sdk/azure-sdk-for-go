@@ -246,21 +246,10 @@ type VaultsClientCreateOrUpdateResponse struct {
 	Vault
 }
 
-// VaultsClientDeleteResponse contains the response from method VaultsClient.Delete.
-type VaultsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
 // VaultsClientGetDeletedResponse contains the response from method VaultsClient.GetDeleted.
 type VaultsClientGetDeletedResponse struct {
 	// Deleted vault information with extended details.
 	DeletedVault
-}
-
-// VaultsClientGetResponse contains the response from method VaultsClient.Get.
-type VaultsClientGetResponse struct {
-	// Resource information with extended details.
-	Vault
 }
 
 // VaultsClientListByResourceGroupResponse contains the response from method VaultsClient.NewListByResourceGroupPager.

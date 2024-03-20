@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0 (2024-03-20)
+### Breaking Changes
+
+- Function `*VaultsClient.Delete` has been removed
+- Function `*VaultsClient.Get` has been removed
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 

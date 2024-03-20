@@ -232,18 +232,8 @@ type VaultsClientCheckNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VaultsClientDeleteOptions contains the optional parameters for the VaultsClient.Delete method.
-type VaultsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
 // VaultsClientGetDeletedOptions contains the optional parameters for the VaultsClient.GetDeleted method.
 type VaultsClientGetDeletedOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VaultsClientGetOptions contains the optional parameters for the VaultsClient.Get method.
-type VaultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
