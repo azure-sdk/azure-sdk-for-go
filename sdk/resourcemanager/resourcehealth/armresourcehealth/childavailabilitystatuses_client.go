@@ -41,7 +41,7 @@ func NewChildAvailabilityStatusesClient(credential azcore.TokenCredential, optio
 // GetByResource - Gets current availability status for a single resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-02-01
 //   - resourceURI - The fully qualified ID of the resource, including the resource name and resource type. Currently the API
 //     only support one nesting level resource types :
 //     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resource-provider-name}/{parentResourceType}/{parentResourceName}/{resourceType}/{resourceName}
@@ -84,7 +84,7 @@ func (client *ChildAvailabilityStatusesClient) getByResourceCreateRequest(ctx co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-10-01-preview")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -102,7 +102,7 @@ func (client *ChildAvailabilityStatusesClient) getByResourceHandleResponse(resp 
 // NewListPager - Lists the historical availability statuses for a single child resource. Use the nextLink property in the
 // response to get the next page of availability status
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-02-01
 //   - resourceURI - The fully qualified ID of the resource, including the resource name and resource type. Currently the API
 //     only support one nesting level resource types :
 //     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resource-provider-name}/{parentResourceType}/{parentResourceName}/{resourceType}/{resourceName}
@@ -146,7 +146,7 @@ func (client *ChildAvailabilityStatusesClient) listCreateRequest(ctx context.Con
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-10-01-preview")
+	reqQP.Set("api-version", "2024-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

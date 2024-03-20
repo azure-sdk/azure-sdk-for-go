@@ -223,21 +223,6 @@ type EventImpactedResourceProperties struct {
 	// Additional information.
 	Info []*KeyValueItem
 
-	// READ-ONLY; End time of maintenance for the impacted resource.
-	MaintenanceEndTime *string
-
-	// READ-ONLY; Start time of maintenance for the impacted resource.
-	MaintenanceStartTime *string
-
-	// READ-ONLY; Resource group name of the impacted resource.
-	ResourceGroup *string
-
-	// READ-ONLY; Resource name of the impacted resource.
-	ResourceName *string
-
-	// READ-ONLY; Status of the impacted resource.
-	Status *string
-
 	// READ-ONLY; Impacted resource region name.
 	TargetRegion *string
 
@@ -252,9 +237,6 @@ type EventImpactedResourceProperties struct {
 type EventProperties struct {
 	// Additional information
 	AdditionalInformation *EventPropertiesAdditionalInformation
-
-	// Azure Resource Graph query to fetch the affected resources from their existing Azure Resource Graph locations.
-	ArgQuery *string
 
 	// Article of event.
 	Article *EventPropertiesArticle
@@ -276,9 +258,6 @@ type EventProperties struct {
 
 	// Source of event.
 	EventSource *EventSourceValues
-
-	// Sub type of the event. Currently used to determine retirement communications for health advisory events
-	EventSubType *EventSubTypeValues
 
 	// Type of event.
 	EventType *EventTypeValues
@@ -318,12 +297,6 @@ type EventProperties struct {
 
 	// Useful links of event.
 	Links []*Link
-
-	// Unique identifier for planned maintenance event.
-	MaintenanceID *string
-
-	// The type of planned maintenance event.
-	MaintenanceType *string
 
 	// Is true if the event is platform initiated.
 	PlatformInitiated *bool
@@ -416,6 +389,9 @@ type Impact struct {
 
 	// Impacted service name.
 	ImpactedService *string
+
+	// Impacted service guid. This is the permanent identifier for the impacted service.
+	ImpactedServiceGUID *string
 }
 
 // ImpactedRegion - Object of impacted region.
@@ -531,11 +507,17 @@ type MetadataSupportedValueDetail struct {
 	// The display name.
 	DisplayName *string
 
-	// The id.
+	// The id of the metadata value
 	ID *string
+
+	// The previous value of the id field incase the data has changed.
+	PreviousID *string
 
 	// The list of associated resource types.
 	ResourceTypes []*string
+
+	// The permanent guid for the service. Used when the id is a service name.
+	ServiceGUID *string
 }
 
 // Operation available in the Microsoft.ResourceHealth resource provider.
