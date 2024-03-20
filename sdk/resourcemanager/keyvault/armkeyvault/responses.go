@@ -8,12 +8,6 @@
 
 package armkeyvault
 
-// KeysClientCreateIfNotExistResponse contains the response from method KeysClient.CreateIfNotExist.
-type KeysClientCreateIfNotExistResponse struct {
-	// The key resource.
-	Key
-}
-
 // KeysClientGetResponse contains the response from method KeysClient.Get.
 type KeysClientGetResponse struct {
 	// The key resource.

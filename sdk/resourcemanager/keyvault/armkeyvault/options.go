@@ -8,11 +8,6 @@
 
 package armkeyvault
 
-// KeysClientCreateIfNotExistOptions contains the optional parameters for the KeysClient.CreateIfNotExist method.
-type KeysClientCreateIfNotExistOptions struct {
-	// placeholder for future optional parameters
-}
-
 // KeysClientGetOptions contains the optional parameters for the KeysClient.Get method.
 type KeysClientGetOptions struct {
 	// placeholder for future optional parameters

@@ -220,15 +220,6 @@ type KeyAttributes struct {
 	Updated *int64
 }
 
-// KeyCreateParameters - The parameters used to create a key.
-type KeyCreateParameters struct {
-	// REQUIRED; The properties of the key to be created.
-	Properties *KeyProperties
-
-	// The tags that will be assigned to the key.
-	Tags map[string]*string
-}
-
 // KeyListResult - The page of keys.
 type KeyListResult struct {
 	// The URL to get the next page of keys.

@@ -574,37 +574,6 @@ func (k *KeyAttributes) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type KeyCreateParameters.
-func (k KeyCreateParameters) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "properties", k.Properties)
-	populate(objectMap, "tags", k.Tags)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type KeyCreateParameters.
-func (k *KeyCreateParameters) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", k, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "properties":
-			err = unpopulate(val, "Properties", &k.Properties)
-			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &k.Tags)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", k, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type KeyListResult.
 func (k KeyListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -699,7 +668,9 @@ func (k *KeyProperties) UnmarshalJSON(data []byte) error {
 func (k KeyReleasePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "contentType", k.ContentType)
-	populateByteArray(objectMap, "data", k.Data, runtime.Base64URLFormat)
+	populateByteArray(objectMap, "data", k.Data, func() any {
+		return runtime.EncodeByteArray(k.Data, runtime.Base64URLFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -716,7 +687,9 @@ func (k *KeyReleasePolicy) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "ContentType", &k.ContentType)
 			delete(rawMsg, key)
 		case "data":
-			err = runtime.DecodeByteArray(string(val), &k.Data, runtime.Base64URLFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &k.Data, runtime.Base64URLFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1669,7 +1642,9 @@ func (m *ManagedHsmKeyProperties) UnmarshalJSON(data []byte) error {
 func (m ManagedHsmKeyReleasePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "contentType", m.ContentType)
-	populateByteArray(objectMap, "data", m.Data, runtime.Base64URLFormat)
+	populateByteArray(objectMap, "data", m.Data, func() any {
+		return runtime.EncodeByteArray(m.Data, runtime.Base64URLFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -1686,7 +1661,9 @@ func (m *ManagedHsmKeyReleasePolicy) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "ContentType", &m.ContentType)
 			delete(rawMsg, key)
 		case "data":
-			err = runtime.DecodeByteArray(string(val), &m.Data, runtime.Base64URLFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &m.Data, runtime.Base64URLFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3615,18 +3592,18 @@ func populate(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
