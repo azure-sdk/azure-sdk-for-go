@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -31,10 +31,6 @@ type KeysServer struct {
 	// Get is the fake for method KeysClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, vaultName string, keyName string, options *armkeyvault.KeysClientGetOptions) (resp azfake.Responder[armkeyvault.KeysClientGetResponse], errResp azfake.ErrorResponder)
-
-	// GetVersion is the fake for method KeysClient.GetVersion
-	// HTTP status codes to indicate success: http.StatusOK
-	GetVersion func(ctx context.Context, resourceGroupName string, vaultName string, keyName string, keyVersion string, options *armkeyvault.KeysClientGetVersionOptions) (resp azfake.Responder[armkeyvault.KeysClientGetVersionResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method KeysClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -80,8 +76,6 @@ func (k *KeysServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = k.dispatchCreateIfNotExist(req)
 	case "KeysClient.Get":
 		resp, err = k.dispatchGet(req)
-	case "KeysClient.GetVersion":
-		resp, err = k.dispatchGetVersion(req)
 	case "KeysClient.NewListPager":
 		resp, err = k.dispatchNewListPager(req)
 	case "KeysClient.NewListVersionsPager":
@@ -161,47 +155,6 @@ func (k *KeysServerTransport) dispatchGet(req *http.Request) (*http.Response, er
 		return nil, err
 	}
 	respr, errRespr := k.srv.Get(req.Context(), resourceGroupNameParam, vaultNameParam, keyNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Key, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (k *KeysServerTransport) dispatchGetVersion(req *http.Request) (*http.Response, error) {
-	if k.srv.GetVersion == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GetVersion not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/keys/(?P<keyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versions/(?P<keyVersion>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 5 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-	if err != nil {
-		return nil, err
-	}
-	keyNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("keyName")])
-	if err != nil {
-		return nil, err
-	}
-	keyVersionParam, err := url.PathUnescape(matches[regex.SubexpIndex("keyVersion")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := k.srv.GetVersion(req.Context(), resourceGroupNameParam, vaultNameParam, keyNameParam, keyVersionParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

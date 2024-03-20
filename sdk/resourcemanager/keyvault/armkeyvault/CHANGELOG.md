@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2024-03-20)
+### Breaking Changes
+
+- Function `*KeysClient.GetVersion` has been removed
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 

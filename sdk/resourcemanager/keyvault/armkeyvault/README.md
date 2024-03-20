@@ -1,6 +1,6 @@
 # Azure Key Vault Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2)
 
 The `armkeyvault` module provides operations for working with Azure Key Vault.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Key Vault module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armkeyvault.NewClientFactory(<subscription ID>, cred, &opt
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewVaultsClient()
+client := clientFactory.NewKeysClient()
 ```
 
 ## Fakes

@@ -18,11 +18,6 @@ type KeysClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// KeysClientGetVersionOptions contains the optional parameters for the KeysClient.GetVersion method.
-type KeysClientGetVersionOptions struct {
-	// placeholder for future optional parameters
-}
-
 // KeysClientListOptions contains the optional parameters for the KeysClient.NewListPager method.
 type KeysClientListOptions struct {
 	// placeholder for future optional parameters
