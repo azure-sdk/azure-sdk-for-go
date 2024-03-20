@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,14 +24,6 @@ import (
 
 // ManagedHsmKeysServer is a fake server for instances of the armkeyvault.ManagedHsmKeysClient type.
 type ManagedHsmKeysServer struct {
-	// CreateIfNotExist is the fake for method ManagedHsmKeysClient.CreateIfNotExist
-	// HTTP status codes to indicate success: http.StatusOK
-	CreateIfNotExist func(ctx context.Context, resourceGroupName string, name string, keyName string, parameters armkeyvault.ManagedHsmKeyCreateParameters, options *armkeyvault.ManagedHsmKeysClientCreateIfNotExistOptions) (resp azfake.Responder[armkeyvault.ManagedHsmKeysClientCreateIfNotExistResponse], errResp azfake.ErrorResponder)
-
-	// Get is the fake for method ManagedHsmKeysClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, name string, keyName string, options *armkeyvault.ManagedHsmKeysClientGetOptions) (resp azfake.Responder[armkeyvault.ManagedHsmKeysClientGetResponse], errResp azfake.ErrorResponder)
-
 	// GetVersion is the fake for method ManagedHsmKeysClient.GetVersion
 	// HTTP status codes to indicate success: http.StatusOK
 	GetVersion func(ctx context.Context, resourceGroupName string, name string, keyName string, keyVersion string, options *armkeyvault.ManagedHsmKeysClientGetVersionOptions) (resp azfake.Responder[armkeyvault.ManagedHsmKeysClientGetVersionResponse], errResp azfake.ErrorResponder)
@@ -76,10 +68,6 @@ func (m *ManagedHsmKeysServerTransport) Do(req *http.Request) (*http.Response, e
 	var err error
 
 	switch method {
-	case "ManagedHsmKeysClient.CreateIfNotExist":
-		resp, err = m.dispatchCreateIfNotExist(req)
-	case "ManagedHsmKeysClient.Get":
-		resp, err = m.dispatchGet(req)
 	case "ManagedHsmKeysClient.GetVersion":
 		resp, err = m.dispatchGetVersion(req)
 	case "ManagedHsmKeysClient.NewListPager":
@@ -94,84 +82,6 @@ func (m *ManagedHsmKeysServerTransport) Do(req *http.Request) (*http.Response, e
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (m *ManagedHsmKeysServerTransport) dispatchCreateIfNotExist(req *http.Request) (*http.Response, error) {
-	if m.srv.CreateIfNotExist == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CreateIfNotExist not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/managedHSMs/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/keys/(?P<keyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armkeyvault.ManagedHsmKeyCreateParameters](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-	if err != nil {
-		return nil, err
-	}
-	keyNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("keyName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := m.srv.CreateIfNotExist(req.Context(), resourceGroupNameParam, nameParam, keyNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ManagedHsmKey, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (m *ManagedHsmKeysServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if m.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/managedHSMs/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/keys/(?P<keyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-	if err != nil {
-		return nil, err
-	}
-	keyNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("keyName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := m.srv.Get(req.Context(), resourceGroupNameParam, nameParam, keyNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ManagedHsmKey, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 

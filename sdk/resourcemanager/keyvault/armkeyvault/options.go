@@ -70,17 +70,6 @@ type MHSMRegionsClientListByResourceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ManagedHsmKeysClientCreateIfNotExistOptions contains the optional parameters for the ManagedHsmKeysClient.CreateIfNotExist
-// method.
-type ManagedHsmKeysClientCreateIfNotExistOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagedHsmKeysClientGetOptions contains the optional parameters for the ManagedHsmKeysClient.Get method.
-type ManagedHsmKeysClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ManagedHsmKeysClientGetVersionOptions contains the optional parameters for the ManagedHsmKeysClient.GetVersion method.
 type ManagedHsmKeysClientGetVersionOptions struct {
 	// placeholder for future optional parameters

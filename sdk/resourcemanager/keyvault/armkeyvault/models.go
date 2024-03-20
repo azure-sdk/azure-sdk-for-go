@@ -575,15 +575,6 @@ type ManagedHsmKeyAttributes struct {
 	Updated *int64
 }
 
-// ManagedHsmKeyCreateParameters - The parameters used to create a key.
-type ManagedHsmKeyCreateParameters struct {
-	// REQUIRED; The properties of the key to be created.
-	Properties *ManagedHsmKeyProperties
-
-	// The tags that will be assigned to the key.
-	Tags map[string]*string
-}
-
 // ManagedHsmKeyListResult - The page of keys.
 type ManagedHsmKeyListResult struct {
 	// The URL to get the next page of keys.

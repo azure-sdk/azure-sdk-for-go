@@ -1,5 +1,13 @@
 # Release History
 
+## 2.0.0 (2024-03-20)
+### Breaking Changes
+
+- Function `*ManagedHsmKeysClient.CreateIfNotExist` has been removed
+- Function `*ManagedHsmKeysClient.Get` has been removed
+- Struct `ManagedHsmKeyCreateParameters` has been removed
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 

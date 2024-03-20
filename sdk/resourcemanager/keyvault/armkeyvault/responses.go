@@ -80,18 +80,6 @@ type MHSMRegionsClientListByResourceResponse struct {
 	MHSMRegionsListResult
 }
 
-// ManagedHsmKeysClientCreateIfNotExistResponse contains the response from method ManagedHsmKeysClient.CreateIfNotExist.
-type ManagedHsmKeysClientCreateIfNotExistResponse struct {
-	// The key resource.
-	ManagedHsmKey
-}
-
-// ManagedHsmKeysClientGetResponse contains the response from method ManagedHsmKeysClient.Get.
-type ManagedHsmKeysClientGetResponse struct {
-	// The key resource.
-	ManagedHsmKey
-}
-
 // ManagedHsmKeysClientGetVersionResponse contains the response from method ManagedHsmKeysClient.GetVersion.
 type ManagedHsmKeysClientGetVersionResponse struct {
 	// The key resource.
