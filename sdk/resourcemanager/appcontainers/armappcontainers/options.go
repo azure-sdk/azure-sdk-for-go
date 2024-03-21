@@ -295,6 +295,24 @@ type ContainerAppsAuthConfigsClientListByContainerAppOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ContainerAppsBuildsByContainerAppClientListOptions contains the optional parameters for the ContainerAppsBuildsByContainerAppClient.NewListPager
+// method.
+type ContainerAppsBuildsByContainerAppClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsBuildsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsBuildsClient.BeginDelete
+// method.
+type ContainerAppsBuildsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsBuildsClientGetOptions contains the optional parameters for the ContainerAppsBuildsClient.Get method.
+type ContainerAppsBuildsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ContainerAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerAppsClient.BeginCreateOrUpdate
 // method.
 type ContainerAppsClientBeginCreateOrUpdateOptions struct {
@@ -388,6 +406,39 @@ type ContainerAppsDiagnosticsClientListDetectorsOptions struct {
 // method.
 type ContainerAppsDiagnosticsClientListRevisionsOptions struct {
 	// The filter to apply on the operation.
+	Filter *string
+}
+
+// ContainerAppsPatchesClientBeginApplyOptions contains the optional parameters for the ContainerAppsPatchesClient.BeginApply
+// method.
+type ContainerAppsPatchesClientBeginApplyOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsPatchesClientBeginDeleteOptions contains the optional parameters for the ContainerAppsPatchesClient.BeginDelete
+// method.
+type ContainerAppsPatchesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsPatchesClientBeginSkipConfigureOptions contains the optional parameters for the ContainerAppsPatchesClient.BeginSkipConfigure
+// method.
+type ContainerAppsPatchesClientBeginSkipConfigureOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsPatchesClientGetOptions contains the optional parameters for the ContainerAppsPatchesClient.Get method.
+type ContainerAppsPatchesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsPatchesClientListByContainerAppOptions contains the optional parameters for the ContainerAppsPatchesClient.NewListByContainerAppPager
+// method.
+type ContainerAppsPatchesClientListByContainerAppOptions struct {
+	// The filter to apply on the operation. For example, $filter=properties/patchApplyStatus eq 'Succeeded'
 	Filter *string
 }
 
@@ -557,6 +608,12 @@ type DotNetComponentsClientGetOptions struct {
 
 // DotNetComponentsClientListOptions contains the optional parameters for the DotNetComponentsClient.NewListPager method.
 type DotNetComponentsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FunctionsExtensionClientInvokeFunctionsHostOptions contains the optional parameters for the FunctionsExtensionClient.InvokeFunctionsHost
+// method.
+type FunctionsExtensionClientInvokeFunctionsHostOptions struct {
 	// placeholder for future optional parameters
 }
 
