@@ -1,5 +1,74 @@
 # Release History
 
+## 7.0.0-beta.1 (2024-03-21)
+### Breaking Changes
+
+- Function `*BackupsClient.GetVolumeRestoreStatus` has been removed
+
+### Features Added
+
+- New enum type `BackupType` with values `BackupTypeManual`, `BackupTypeScheduled`
+- New function `*AccountsClient.BeginMigrateEncryptionKey(context.Context, string, string, *AccountsClientBeginMigrateEncryptionKeyOptions) (*runtime.Poller[AccountsClientMigrateEncryptionKeyResponse], error)`
+- New function `NewBackupVaultsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BackupVaultsClient, error)`
+- New function `*BackupVaultsClient.BeginCreateOrUpdate(context.Context, string, string, string, BackupVault, *BackupVaultsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BackupVaultsClientCreateOrUpdateResponse], error)`
+- New function `*BackupVaultsClient.BeginDelete(context.Context, string, string, string, *BackupVaultsClientBeginDeleteOptions) (*runtime.Poller[BackupVaultsClientDeleteResponse], error)`
+- New function `*BackupVaultsClient.Get(context.Context, string, string, string, *BackupVaultsClientGetOptions) (BackupVaultsClientGetResponse, error)`
+- New function `*BackupVaultsClient.NewListByNetAppAccountPager(string, string, *BackupVaultsClientListByNetAppAccountOptions) *runtime.Pager[BackupVaultsClientListByNetAppAccountResponse]`
+- New function `*BackupVaultsClient.BeginUpdate(context.Context, string, string, string, BackupVaultPatch, *BackupVaultsClientBeginUpdateOptions) (*runtime.Poller[BackupVaultsClientUpdateResponse], error)`
+- New function `*BackupsClient.BeginCreate(context.Context, string, string, string, string, Backup, *BackupsClientBeginCreateOptions) (*runtime.Poller[BackupsClientCreateResponse], error)`
+- New function `*BackupsClient.BeginDelete(context.Context, string, string, string, string, *BackupsClientBeginDeleteOptions) (*runtime.Poller[BackupsClientDeleteResponse], error)`
+- New function `*BackupsClient.Get(context.Context, string, string, string, string, *BackupsClientGetOptions) (BackupsClientGetResponse, error)`
+- New function `*BackupsClient.NewGetLatestStatusPager(string, string, string, string, *BackupsClientGetLatestStatusOptions) *runtime.Pager[BackupsClientGetLatestStatusResponse]`
+- New function `*BackupsClient.NewGetVolumeLatestRestoreStatusPager(string, string, string, string, *BackupsClientGetVolumeLatestRestoreStatusOptions) *runtime.Pager[BackupsClientGetVolumeLatestRestoreStatusResponse]`
+- New function `*BackupsClient.NewListByVaultPager(string, string, string, *BackupsClientListByVaultOptions) *runtime.Pager[BackupsClientListByVaultResponse]`
+- New function `*BackupsClient.BeginUpdate(context.Context, string, string, string, string, BackupPatch, *BackupsClientBeginUpdateOptions) (*runtime.Poller[BackupsClientUpdateResponse], error)`
+- New function `NewBackupsUnderAccountClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BackupsUnderAccountClient, error)`
+- New function `*BackupsUnderAccountClient.BeginMigrateBackups(context.Context, string, string, BackupsMigrationRequest, *BackupsUnderAccountClientBeginMigrateBackupsOptions) (*runtime.Poller[BackupsUnderAccountClientMigrateBackupsResponse], error)`
+- New function `NewBackupsUnderBackupVaultClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BackupsUnderBackupVaultClient, error)`
+- New function `*BackupsUnderBackupVaultClient.BeginRestoreFiles(context.Context, string, string, string, string, BackupRestoreFiles, *BackupsUnderBackupVaultClientBeginRestoreFilesOptions) (*runtime.Poller[BackupsUnderBackupVaultClientRestoreFilesResponse], error)`
+- New function `NewBackupsUnderVolumeClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BackupsUnderVolumeClient, error)`
+- New function `*BackupsUnderVolumeClient.BeginMigrateBackups(context.Context, string, string, string, string, BackupsMigrationRequest, *BackupsUnderVolumeClientBeginMigrateBackupsOptions) (*runtime.Poller[BackupsUnderVolumeClientMigrateBackupsResponse], error)`
+- New function `*ClientFactory.NewBackupVaultsClient() *BackupVaultsClient`
+- New function `*ClientFactory.NewBackupsUnderAccountClient() *BackupsUnderAccountClient`
+- New function `*ClientFactory.NewBackupsUnderBackupVaultClient() *BackupsUnderBackupVaultClient`
+- New function `*ClientFactory.NewBackupsUnderVolumeClient() *BackupsUnderVolumeClient`
+- New function `*ClientFactory.NewResourceRegionInfosClient() *ResourceRegionInfosClient`
+- New function `NewResourceRegionInfosClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ResourceRegionInfosClient, error)`
+- New function `*ResourceRegionInfosClient.NewGetPager(string, *ResourceRegionInfosClientGetOptions) *runtime.Pager[ResourceRegionInfosClientGetResponse]`
+- New function `*ResourceRegionInfosClient.NewListPager(string, *ResourceRegionInfosClientListOptions) *runtime.Pager[ResourceRegionInfosClientListResponse]`
+- New function `*VolumesClient.BeginCreateOnPremMigrationReplication(context.Context, string, string, string, string, *VolumesClientBeginCreateOnPremMigrationReplicationOptions) (*runtime.Poller[VolumesClientCreateOnPremMigrationReplicationResponse], error)`
+- New function `*VolumesClient.BeginFinalizeOnPremMigration(context.Context, string, string, string, string, *VolumesClientBeginFinalizeOnPremMigrationOptions) (*runtime.Poller[VolumesClientFinalizeOnPremMigrationResponse], error)`
+- New function `*VolumesClient.BeginPeerClusterForOnPremMigration(context.Context, string, string, string, string, PeerClusterForVolumeMigrationRequest, *VolumesClientBeginPeerClusterForOnPremMigrationOptions) (*runtime.Poller[VolumesClientPeerClusterForOnPremMigrationResponse], error)`
+- New function `*VolumesClient.BeginPerformReplicationTransfer(context.Context, string, string, string, string, *VolumesClientBeginPerformReplicationTransferOptions) (*runtime.Poller[VolumesClientPerformReplicationTransferResponse], error)`
+- New function `*VolumesClient.BeginSplitCloneFromParent(context.Context, string, string, string, string, *VolumesClientBeginSplitCloneFromParentOptions) (*runtime.Poller[VolumesClientSplitCloneFromParentResponse], error)`
+- New struct `Backup`
+- New struct `BackupPatch`
+- New struct `BackupPatchProperties`
+- New struct `BackupProperties`
+- New struct `BackupRestoreFiles`
+- New struct `BackupStatus`
+- New struct `BackupVault`
+- New struct `BackupVaultPatch`
+- New struct `BackupVaultProperties`
+- New struct `BackupVaultsList`
+- New struct `BackupsList`
+- New struct `BackupsMigrationRequest`
+- New struct `ClusterPeerCommandResponse`
+- New struct `EncryptionMigrationRequest`
+- New struct `PeerClusterForVolumeMigrationRequest`
+- New struct `RegionInfoResource`
+- New struct `RegionInfosList`
+- New struct `RemotePath`
+- New struct `SvmPeerCommandResponse`
+- New struct `VolumeBackupProperties`
+- New field `IsMultiAdEnabled`, `NfsV4IDDomain` in struct `AccountProperties`
+- New field `AvailabilityZone` in struct `FilePathAvailabilityRequest`
+- New field `RemotePath` in struct `ReplicationObject`
+- New field `Backup` in struct `VolumePatchPropertiesDataProtection`
+- New field `InheritedSizeInBytes` in struct `VolumeProperties`
+- New field `Backup` in struct `VolumePropertiesDataProtection`
+
+
 ## 6.0.0 (2024-03-22)
 ### Breaking Changes
 
