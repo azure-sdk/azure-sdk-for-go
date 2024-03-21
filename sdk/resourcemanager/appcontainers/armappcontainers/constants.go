@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers"
-	moduleVersion = "v3.0.0-beta.1"
+	moduleVersion = "v3.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -417,15 +417,13 @@ func PossibleDotNetComponentProvisioningStateValues() []DotNetComponentProvision
 type DotNetComponentType string
 
 const (
-	DotNetComponentTypeAspireDashboard         DotNetComponentType = "AspireDashboard"
-	DotNetComponentTypeAspireResourceServerAPI DotNetComponentType = "AspireResourceServerApi"
+	DotNetComponentTypeAspireDashboard DotNetComponentType = "AspireDashboard"
 )
 
 // PossibleDotNetComponentTypeValues returns the possible values for the DotNetComponentType const type.
 func PossibleDotNetComponentTypeValues() []DotNetComponentType {
 	return []DotNetComponentType{
 		DotNetComponentTypeAspireDashboard,
-		DotNetComponentTypeAspireResourceServerAPI,
 	}
 }
 
