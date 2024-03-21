@@ -10,7 +10,7 @@ package armmobilenetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v4.0.1"
 )
 
 // AuthenticationType - How to authenticate users who access local diagnostics APIs.
