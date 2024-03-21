@@ -72,6 +72,11 @@ type ClustersClientListNamespacesResponse struct {
 	EHNamespaceIDListResult
 }
 
+// ClustersClientTriggerUpgradePostResponse contains the response from method ClustersClient.TriggerUpgradePost.
+type ClustersClientTriggerUpgradePostResponse struct {
+	// placeholder for future response values
+}
+
 // ClustersClientUpdateResponse contains the response from method ClustersClient.BeginUpdate.
 type ClustersClientUpdateResponse struct {
 	// Single Event Hubs Cluster resource in List or Get operations.
