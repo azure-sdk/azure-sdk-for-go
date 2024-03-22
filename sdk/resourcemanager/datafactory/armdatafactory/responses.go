@@ -169,12 +169,6 @@ type ExposureControlClientQueryFeatureValuesByFactoryResponse struct {
 	ExposureControlBatchResponse
 }
 
-// FactoriesClientConfigureFactoryRepoResponse contains the response from method FactoriesClient.ConfigureFactoryRepo.
-type FactoriesClientConfigureFactoryRepoResponse struct {
-	// Factory resource type.
-	Factory
-}
-
 // FactoriesClientCreateOrUpdateResponse contains the response from method FactoriesClient.CreateOrUpdate.
 type FactoriesClientCreateOrUpdateResponse struct {
 	// Factory resource type.
@@ -206,12 +200,6 @@ type FactoriesClientGetResponse struct {
 
 // FactoriesClientListByResourceGroupResponse contains the response from method FactoriesClient.NewListByResourceGroupPager.
 type FactoriesClientListByResourceGroupResponse struct {
-	// A list of factory resources.
-	FactoryListResponse
-}
-
-// FactoriesClientListResponse contains the response from method FactoriesClient.NewListPager.
-type FactoriesClientListResponse struct {
 	// A list of factory resources.
 	FactoryListResponse
 }

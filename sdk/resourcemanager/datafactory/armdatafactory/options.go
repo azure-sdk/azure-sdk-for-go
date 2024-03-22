@@ -178,12 +178,6 @@ type ExposureControlClientQueryFeatureValuesByFactoryOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FactoriesClientConfigureFactoryRepoOptions contains the optional parameters for the FactoriesClient.ConfigureFactoryRepo
-// method.
-type FactoriesClientConfigureFactoryRepoOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FactoriesClientCreateOrUpdateOptions contains the optional parameters for the FactoriesClient.CreateOrUpdate method.
 type FactoriesClientCreateOrUpdateOptions struct {
 	// ETag of the factory entity. Should only be specified for update, for which it should match existing entity or can be *
@@ -217,11 +211,6 @@ type FactoriesClientGetOptions struct {
 // FactoriesClientListByResourceGroupOptions contains the optional parameters for the FactoriesClient.NewListByResourceGroupPager
 // method.
 type FactoriesClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FactoriesClientListOptions contains the optional parameters for the FactoriesClient.NewListPager method.
-type FactoriesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 

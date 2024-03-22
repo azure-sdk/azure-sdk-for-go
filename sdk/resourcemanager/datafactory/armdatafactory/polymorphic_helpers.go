@@ -340,6 +340,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &GoogleAdWordsSource{}
 	case "GoogleBigQuerySource":
 		b = &GoogleBigQuerySource{}
+	case "GoogleBigQueryV2Source":
+		b = &GoogleBigQueryV2Source{}
 	case "GreenplumSource":
 		b = &GreenplumSource{}
 	case "HBaseSource":
@@ -436,6 +438,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &SapTableSource{}
 	case "ServiceNowSource":
 		b = &ServiceNowSource{}
+	case "ServiceNowV2Source":
+		b = &ServiceNowV2Source{}
 	case "SharePointOnlineListSource":
 		b = &SharePointOnlineListSource{}
 	case "ShopifySource":
@@ -642,6 +646,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &GoogleAdWordsObjectDataset{}
 	case "GoogleBigQueryObject":
 		b = &GoogleBigQueryObjectDataset{}
+	case "GoogleBigQueryV2Object":
+		b = &GoogleBigQueryV2ObjectDataset{}
 	case "GreenplumTable":
 		b = &GreenplumTableDataset{}
 	case "HBaseObject":
@@ -736,6 +742,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &SapTableResourceDataset{}
 	case "ServiceNowObject":
 		b = &ServiceNowObjectDataset{}
+	case "ServiceNowV2Object":
+		b = &ServiceNowV2ObjectDataset{}
 	case "SharePointOnlineListResource":
 		b = &SharePointOnlineListResourceDataset{}
 	case "ShopifyObject":
@@ -1124,6 +1132,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &GoogleAdWordsLinkedService{}
 	case "GoogleBigQuery":
 		b = &GoogleBigQueryLinkedService{}
+	case "GoogleBigQueryV2":
+		b = &GoogleBigQueryV2LinkedService{}
 	case "GoogleCloudStorage":
 		b = &GoogleCloudStorageLinkedService{}
 	case "GoogleSheets":
@@ -1224,6 +1234,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SapTableLinkedService{}
 	case "ServiceNow":
 		b = &ServiceNowLinkedService{}
+	case "ServiceNowV2":
+		b = &ServiceNowV2LinkedService{}
 	case "Sftp":
 		b = &SftpServerLinkedService{}
 	case "SharePointOnlineList":

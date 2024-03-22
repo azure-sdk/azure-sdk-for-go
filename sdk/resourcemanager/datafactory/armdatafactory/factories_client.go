@@ -43,70 +43,6 @@ func NewFactoriesClient(subscriptionID string, credential azcore.TokenCredential
 	return client, nil
 }
 
-// ConfigureFactoryRepo - Updates a factory's repo information.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2018-06-01
-//   - locationID - The location identifier.
-//   - factoryRepoUpdate - Update factory repo request definition.
-//   - options - FactoriesClientConfigureFactoryRepoOptions contains the optional parameters for the FactoriesClient.ConfigureFactoryRepo
-//     method.
-func (client *FactoriesClient) ConfigureFactoryRepo(ctx context.Context, locationID string, factoryRepoUpdate FactoryRepoUpdate, options *FactoriesClientConfigureFactoryRepoOptions) (FactoriesClientConfigureFactoryRepoResponse, error) {
-	var err error
-	const operationName = "FactoriesClient.ConfigureFactoryRepo"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.configureFactoryRepoCreateRequest(ctx, locationID, factoryRepoUpdate, options)
-	if err != nil {
-		return FactoriesClientConfigureFactoryRepoResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return FactoriesClientConfigureFactoryRepoResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return FactoriesClientConfigureFactoryRepoResponse{}, err
-	}
-	resp, err := client.configureFactoryRepoHandleResponse(httpResp)
-	return resp, err
-}
-
-// configureFactoryRepoCreateRequest creates the ConfigureFactoryRepo request.
-func (client *FactoriesClient) configureFactoryRepoCreateRequest(ctx context.Context, locationID string, factoryRepoUpdate FactoryRepoUpdate, options *FactoriesClientConfigureFactoryRepoOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DataFactory/locations/{locationId}/configureFactoryRepo"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if locationID == "" {
-		return nil, errors.New("parameter locationID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{locationId}", url.PathEscape(locationID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, factoryRepoUpdate); err != nil {
-		return nil, err
-	}
-	return req, nil
-}
-
-// configureFactoryRepoHandleResponse handles the ConfigureFactoryRepo response.
-func (client *FactoriesClient) configureFactoryRepoHandleResponse(resp *http.Response) (FactoriesClientConfigureFactoryRepoResponse, error) {
-	result := FactoriesClientConfigureFactoryRepoResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Factory); err != nil {
-		return FactoriesClientConfigureFactoryRepoResponse{}, err
-	}
-	return result, nil
-}
-
 // CreateOrUpdate - Creates or updates a factory.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
@@ -434,60 +370,6 @@ func (client *FactoriesClient) getGitHubAccessTokenHandleResponse(resp *http.Res
 	result := FactoriesClientGetGitHubAccessTokenResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.GitHubAccessTokenResponse); err != nil {
 		return FactoriesClientGetGitHubAccessTokenResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListPager - Lists factories under the specified subscription.
-//
-// Generated from API version 2018-06-01
-//   - options - FactoriesClientListOptions contains the optional parameters for the FactoriesClient.NewListPager method.
-func (client *FactoriesClient) NewListPager(options *FactoriesClientListOptions) *runtime.Pager[FactoriesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[FactoriesClientListResponse]{
-		More: func(page FactoriesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *FactoriesClientListResponse) (FactoriesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FactoriesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
-			}, nil)
-			if err != nil {
-				return FactoriesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *FactoriesClient) listCreateRequest(ctx context.Context, options *FactoriesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DataFactory/factories"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *FactoriesClient) listHandleResponse(resp *http.Response) (FactoriesClientListResponse, error) {
-	result := FactoriesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.FactoryListResponse); err != nil {
-		return FactoriesClientListResponse{}, err
 	}
 	return result, nil
 }

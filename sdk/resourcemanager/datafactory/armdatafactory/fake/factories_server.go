@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,10 +24,6 @@ import (
 
 // FactoriesServer is a fake server for instances of the armdatafactory.FactoriesClient type.
 type FactoriesServer struct {
-	// ConfigureFactoryRepo is the fake for method FactoriesClient.ConfigureFactoryRepo
-	// HTTP status codes to indicate success: http.StatusOK
-	ConfigureFactoryRepo func(ctx context.Context, locationID string, factoryRepoUpdate armdatafactory.FactoryRepoUpdate, options *armdatafactory.FactoriesClientConfigureFactoryRepoOptions) (resp azfake.Responder[armdatafactory.FactoriesClientConfigureFactoryRepoResponse], errResp azfake.ErrorResponder)
-
 	// CreateOrUpdate is the fake for method FactoriesClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK
 	CreateOrUpdate func(ctx context.Context, resourceGroupName string, factoryName string, factory armdatafactory.Factory, options *armdatafactory.FactoriesClientCreateOrUpdateOptions) (resp azfake.Responder[armdatafactory.FactoriesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -48,10 +44,6 @@ type FactoriesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetGitHubAccessToken func(ctx context.Context, resourceGroupName string, factoryName string, gitHubAccessTokenRequest armdatafactory.GitHubAccessTokenRequest, options *armdatafactory.FactoriesClientGetGitHubAccessTokenOptions) (resp azfake.Responder[armdatafactory.FactoriesClientGetGitHubAccessTokenResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method FactoriesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armdatafactory.FactoriesClientListOptions) (resp azfake.PagerResponder[armdatafactory.FactoriesClientListResponse])
-
 	// NewListByResourceGroupPager is the fake for method FactoriesClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armdatafactory.FactoriesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armdatafactory.FactoriesClientListByResourceGroupResponse])
@@ -67,7 +59,6 @@ type FactoriesServer struct {
 func NewFactoriesServerTransport(srv *FactoriesServer) *FactoriesServerTransport {
 	return &FactoriesServerTransport{
 		srv:                         srv,
-		newListPager:                newTracker[azfake.PagerResponder[armdatafactory.FactoriesClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armdatafactory.FactoriesClientListByResourceGroupResponse]](),
 	}
 }
@@ -76,7 +67,6 @@ func NewFactoriesServerTransport(srv *FactoriesServer) *FactoriesServerTransport
 // Don't use this type directly, use NewFactoriesServerTransport instead.
 type FactoriesServerTransport struct {
 	srv                         *FactoriesServer
-	newListPager                *tracker[azfake.PagerResponder[armdatafactory.FactoriesClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armdatafactory.FactoriesClientListByResourceGroupResponse]]
 }
 
@@ -92,8 +82,6 @@ func (f *FactoriesServerTransport) Do(req *http.Request) (*http.Response, error)
 	var err error
 
 	switch method {
-	case "FactoriesClient.ConfigureFactoryRepo":
-		resp, err = f.dispatchConfigureFactoryRepo(req)
 	case "FactoriesClient.CreateOrUpdate":
 		resp, err = f.dispatchCreateOrUpdate(req)
 	case "FactoriesClient.Delete":
@@ -104,8 +92,6 @@ func (f *FactoriesServerTransport) Do(req *http.Request) (*http.Response, error)
 		resp, err = f.dispatchGetDataPlaneAccess(req)
 	case "FactoriesClient.GetGitHubAccessToken":
 		resp, err = f.dispatchGetGitHubAccessToken(req)
-	case "FactoriesClient.NewListPager":
-		resp, err = f.dispatchNewListPager(req)
 	case "FactoriesClient.NewListByResourceGroupPager":
 		resp, err = f.dispatchNewListByResourceGroupPager(req)
 	case "FactoriesClient.Update":
@@ -118,39 +104,6 @@ func (f *FactoriesServerTransport) Do(req *http.Request) (*http.Response, error)
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (f *FactoriesServerTransport) dispatchConfigureFactoryRepo(req *http.Request) (*http.Response, error) {
-	if f.srv.ConfigureFactoryRepo == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ConfigureFactoryRepo not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataFactory/locations/(?P<locationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/configureFactoryRepo`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 2 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armdatafactory.FactoryRepoUpdate](req)
-	if err != nil {
-		return nil, err
-	}
-	locationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := f.srv.ConfigureFactoryRepo(req.Context(), locationIDParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Factory, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
@@ -341,39 +294,6 @@ func (f *FactoriesServerTransport) dispatchGetGitHubAccessToken(req *http.Reques
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GitHubAccessTokenResponse, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (f *FactoriesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if f.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := f.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataFactory/factories`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := f.srv.NewListPager(nil)
-		newListPager = &resp
-		f.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdatafactory.FactoriesClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		f.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		f.newListPager.remove(req)
 	}
 	return resp, nil
 }
