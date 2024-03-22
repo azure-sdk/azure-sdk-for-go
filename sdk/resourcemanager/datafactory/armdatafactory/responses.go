@@ -250,12 +250,6 @@ type IntegrationRuntimeNodesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// IntegrationRuntimeNodesClientGetIPAddressResponse contains the response from method IntegrationRuntimeNodesClient.GetIPAddress.
-type IntegrationRuntimeNodesClientGetIPAddressResponse struct {
-	// The IP address of self-hosted integration runtime node.
-	IntegrationRuntimeNodeIPAddress
-}
-
 // IntegrationRuntimeNodesClientGetResponse contains the response from method IntegrationRuntimeNodesClient.Get.
 type IntegrationRuntimeNodesClientGetResponse struct {
 	// Properties of Self-hosted integration runtime node.

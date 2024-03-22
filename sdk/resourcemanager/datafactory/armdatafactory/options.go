@@ -258,12 +258,6 @@ type IntegrationRuntimeNodesClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IntegrationRuntimeNodesClientGetIPAddressOptions contains the optional parameters for the IntegrationRuntimeNodesClient.GetIPAddress
-// method.
-type IntegrationRuntimeNodesClientGetIPAddressOptions struct {
-	// placeholder for future optional parameters
-}
-
 // IntegrationRuntimeNodesClientGetOptions contains the optional parameters for the IntegrationRuntimeNodesClient.Get method.
 type IntegrationRuntimeNodesClientGetOptions struct {
 	// placeholder for future optional parameters
