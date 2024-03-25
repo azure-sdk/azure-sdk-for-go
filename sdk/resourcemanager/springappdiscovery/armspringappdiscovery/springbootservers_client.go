@@ -46,7 +46,7 @@ func NewSpringbootserversClient(subscriptionID string, credential azcore.TokenCr
 // CreateOrUpdate - Create springbootservers resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - springbootserversName - The springbootservers name.
@@ -99,7 +99,7 @@ func (client *SpringbootserversClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, springbootservers); err != nil {
@@ -120,7 +120,7 @@ func (client *SpringbootserversClient) createOrUpdateHandleResponse(resp *http.R
 // BeginDelete - Delete springbootservers resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - springbootserversName - The springbootservers name.
@@ -147,7 +147,7 @@ func (client *SpringbootserversClient) BeginDelete(ctx context.Context, resource
 // Delete - Delete springbootservers resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 func (client *SpringbootserversClient) deleteOperation(ctx context.Context, resourceGroupName string, siteName string, springbootserversName string, options *SpringbootserversClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SpringbootserversClient.BeginDelete"
@@ -193,7 +193,7 @@ func (client *SpringbootserversClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -202,7 +202,7 @@ func (client *SpringbootserversClient) deleteCreateRequest(ctx context.Context, 
 // Get - List springbootservers resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - springbootserversName - The springbootservers name.
@@ -253,7 +253,7 @@ func (client *SpringbootserversClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -270,7 +270,7 @@ func (client *SpringbootserversClient) getHandleResponse(resp *http.Response) (S
 
 // NewListByResourceGroupPager - List springbootservers resource by resourceGroup
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - options - SpringbootserversClientListByResourceGroupOptions contains the optional parameters for the SpringbootserversClient.NewListByResourceGroupPager
@@ -318,7 +318,7 @@ func (client *SpringbootserversClient) listByResourceGroupCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -335,7 +335,7 @@ func (client *SpringbootserversClient) listByResourceGroupHandleResponse(resp *h
 
 // NewListBySubscriptionPager - List springbootservers resource by subscription
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - siteName - The springbootsites name.
 //   - options - SpringbootserversClientListBySubscriptionOptions contains the optional parameters for the SpringbootserversClient.NewListBySubscriptionPager
 //     method.
@@ -378,7 +378,7 @@ func (client *SpringbootserversClient) listBySubscriptionCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -393,61 +393,40 @@ func (client *SpringbootserversClient) listBySubscriptionHandleResponse(resp *ht
 	return result, nil
 }
 
-// BeginUpdate - Update springbootservers resource.
+// Update - Update springbootservers resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteName - The springbootsites name.
 //   - springbootserversName - The springbootservers name.
 //   - springbootservers - Update a springbootservers payload.
-//   - options - SpringbootserversClientBeginUpdateOptions contains the optional parameters for the SpringbootserversClient.BeginUpdate
+//   - options - SpringbootserversClientUpdateOptions contains the optional parameters for the SpringbootserversClient.Update
 //     method.
-func (client *SpringbootserversClient) BeginUpdate(ctx context.Context, resourceGroupName string, siteName string, springbootserversName string, springbootservers SpringbootserversPatch, options *SpringbootserversClientBeginUpdateOptions) (*runtime.Poller[SpringbootserversClientUpdateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, siteName, springbootserversName, springbootservers, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SpringbootserversClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SpringbootserversClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
-// Update - Update springbootservers resource.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-01-01-preview
-func (client *SpringbootserversClient) update(ctx context.Context, resourceGroupName string, siteName string, springbootserversName string, springbootservers SpringbootserversPatch, options *SpringbootserversClientBeginUpdateOptions) (*http.Response, error) {
+func (client *SpringbootserversClient) Update(ctx context.Context, resourceGroupName string, siteName string, springbootserversName string, springbootservers SpringbootserversPatch, options *SpringbootserversClientUpdateOptions) (SpringbootserversClientUpdateResponse, error) {
 	var err error
-	const operationName = "SpringbootserversClient.BeginUpdate"
+	const operationName = "SpringbootserversClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, siteName, springbootserversName, springbootservers, options)
 	if err != nil {
-		return nil, err
+		return SpringbootserversClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return SpringbootserversClientUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return SpringbootserversClientUpdateResponse{}, err
 	}
-	return httpResp, nil
+	resp, err := client.updateHandleResponse(httpResp)
+	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *SpringbootserversClient) updateCreateRequest(ctx context.Context, resourceGroupName string, siteName string, springbootserversName string, springbootservers SpringbootserversPatch, options *SpringbootserversClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *SpringbootserversClient) updateCreateRequest(ctx context.Context, resourceGroupName string, siteName string, springbootserversName string, springbootservers SpringbootserversPatch, options *SpringbootserversClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OffAzureSpringBoot/springbootsites/{siteName}/springbootservers/{springbootserversName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -470,11 +449,20 @@ func (client *SpringbootserversClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, springbootservers); err != nil {
 		return nil, err
 	}
 	return req, nil
+}
+
+// updateHandleResponse handles the Update response.
+func (client *SpringbootserversClient) updateHandleResponse(resp *http.Response) (SpringbootserversClientUpdateResponse, error) {
+	result := SpringbootserversClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SpringbootserversModel); err != nil {
+		return SpringbootserversClientUpdateResponse{}, err
+	}
+	return result, nil
 }
