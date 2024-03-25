@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,462 +26,611 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewAzureADOnlyAuthenticationsClient creates a new instance of AzureADOnlyAuthenticationsClient.
 func (c *ClientFactory) NewAzureADOnlyAuthenticationsClient() *AzureADOnlyAuthenticationsClient {
-	subClient, _ := NewAzureADOnlyAuthenticationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &AzureADOnlyAuthenticationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewBigDataPoolsClient creates a new instance of BigDataPoolsClient.
 func (c *ClientFactory) NewBigDataPoolsClient() *BigDataPoolsClient {
-	subClient, _ := NewBigDataPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &BigDataPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewDataMaskingPoliciesClient creates a new instance of DataMaskingPoliciesClient.
 func (c *ClientFactory) NewDataMaskingPoliciesClient() *DataMaskingPoliciesClient {
-	subClient, _ := NewDataMaskingPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &DataMaskingPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewDataMaskingRulesClient creates a new instance of DataMaskingRulesClient.
 func (c *ClientFactory) NewDataMaskingRulesClient() *DataMaskingRulesClient {
-	subClient, _ := NewDataMaskingRulesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &DataMaskingRulesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewExtendedSQLPoolBlobAuditingPoliciesClient creates a new instance of ExtendedSQLPoolBlobAuditingPoliciesClient.
 func (c *ClientFactory) NewExtendedSQLPoolBlobAuditingPoliciesClient() *ExtendedSQLPoolBlobAuditingPoliciesClient {
-	subClient, _ := NewExtendedSQLPoolBlobAuditingPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ExtendedSQLPoolBlobAuditingPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewGetClient creates a new instance of GetClient.
 func (c *ClientFactory) NewGetClient() *GetClient {
-	subClient, _ := NewGetClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &GetClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIPFirewallRulesClient creates a new instance of IPFirewallRulesClient.
 func (c *ClientFactory) NewIPFirewallRulesClient() *IPFirewallRulesClient {
-	subClient, _ := NewIPFirewallRulesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IPFirewallRulesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeAuthKeysClient creates a new instance of IntegrationRuntimeAuthKeysClient.
 func (c *ClientFactory) NewIntegrationRuntimeAuthKeysClient() *IntegrationRuntimeAuthKeysClient {
-	subClient, _ := NewIntegrationRuntimeAuthKeysClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeAuthKeysClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeConnectionInfosClient creates a new instance of IntegrationRuntimeConnectionInfosClient.
 func (c *ClientFactory) NewIntegrationRuntimeConnectionInfosClient() *IntegrationRuntimeConnectionInfosClient {
-	subClient, _ := NewIntegrationRuntimeConnectionInfosClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeConnectionInfosClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeCredentialsClient creates a new instance of IntegrationRuntimeCredentialsClient.
 func (c *ClientFactory) NewIntegrationRuntimeCredentialsClient() *IntegrationRuntimeCredentialsClient {
-	subClient, _ := NewIntegrationRuntimeCredentialsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeCredentialsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeMonitoringDataClient creates a new instance of IntegrationRuntimeMonitoringDataClient.
 func (c *ClientFactory) NewIntegrationRuntimeMonitoringDataClient() *IntegrationRuntimeMonitoringDataClient {
-	subClient, _ := NewIntegrationRuntimeMonitoringDataClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeMonitoringDataClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeNodeIPAddressClient creates a new instance of IntegrationRuntimeNodeIPAddressClient.
 func (c *ClientFactory) NewIntegrationRuntimeNodeIPAddressClient() *IntegrationRuntimeNodeIPAddressClient {
-	subClient, _ := NewIntegrationRuntimeNodeIPAddressClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeNodeIPAddressClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeNodesClient creates a new instance of IntegrationRuntimeNodesClient.
 func (c *ClientFactory) NewIntegrationRuntimeNodesClient() *IntegrationRuntimeNodesClient {
-	subClient, _ := NewIntegrationRuntimeNodesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeNodesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeObjectMetadataClient creates a new instance of IntegrationRuntimeObjectMetadataClient.
 func (c *ClientFactory) NewIntegrationRuntimeObjectMetadataClient() *IntegrationRuntimeObjectMetadataClient {
-	subClient, _ := NewIntegrationRuntimeObjectMetadataClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeObjectMetadataClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimeStatusClient creates a new instance of IntegrationRuntimeStatusClient.
 func (c *ClientFactory) NewIntegrationRuntimeStatusClient() *IntegrationRuntimeStatusClient {
-	subClient, _ := NewIntegrationRuntimeStatusClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimeStatusClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationRuntimesClient creates a new instance of IntegrationRuntimesClient.
 func (c *ClientFactory) NewIntegrationRuntimesClient() *IntegrationRuntimesClient {
-	subClient, _ := NewIntegrationRuntimesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationRuntimesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKeysClient creates a new instance of KeysClient.
 func (c *ClientFactory) NewKeysClient() *KeysClient {
-	subClient, _ := NewKeysClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KeysClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoOperationsClient creates a new instance of KustoOperationsClient.
 func (c *ClientFactory) NewKustoOperationsClient() *KustoOperationsClient {
-	subClient, _ := NewKustoOperationsClient(c.credential, c.options)
-	return subClient
+	return &KustoOperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewKustoPoolAttachedDatabaseConfigurationsClient creates a new instance of KustoPoolAttachedDatabaseConfigurationsClient.
 func (c *ClientFactory) NewKustoPoolAttachedDatabaseConfigurationsClient() *KustoPoolAttachedDatabaseConfigurationsClient {
-	subClient, _ := NewKustoPoolAttachedDatabaseConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolAttachedDatabaseConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolChildResourceClient creates a new instance of KustoPoolChildResourceClient.
 func (c *ClientFactory) NewKustoPoolChildResourceClient() *KustoPoolChildResourceClient {
-	subClient, _ := NewKustoPoolChildResourceClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolChildResourceClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolDataConnectionsClient creates a new instance of KustoPoolDataConnectionsClient.
 func (c *ClientFactory) NewKustoPoolDataConnectionsClient() *KustoPoolDataConnectionsClient {
-	subClient, _ := NewKustoPoolDataConnectionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolDataConnectionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolDatabasePrincipalAssignmentsClient creates a new instance of KustoPoolDatabasePrincipalAssignmentsClient.
 func (c *ClientFactory) NewKustoPoolDatabasePrincipalAssignmentsClient() *KustoPoolDatabasePrincipalAssignmentsClient {
-	subClient, _ := NewKustoPoolDatabasePrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolDatabasePrincipalAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolDatabasesClient creates a new instance of KustoPoolDatabasesClient.
 func (c *ClientFactory) NewKustoPoolDatabasesClient() *KustoPoolDatabasesClient {
-	subClient, _ := NewKustoPoolDatabasesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolDatabasesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolPrincipalAssignmentsClient creates a new instance of KustoPoolPrincipalAssignmentsClient.
 func (c *ClientFactory) NewKustoPoolPrincipalAssignmentsClient() *KustoPoolPrincipalAssignmentsClient {
-	subClient, _ := NewKustoPoolPrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolPrincipalAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolPrivateLinkResourcesClient creates a new instance of KustoPoolPrivateLinkResourcesClient.
 func (c *ClientFactory) NewKustoPoolPrivateLinkResourcesClient() *KustoPoolPrivateLinkResourcesClient {
-	subClient, _ := NewKustoPoolPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolPrivateLinkResourcesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewKustoPoolsClient creates a new instance of KustoPoolsClient.
 func (c *ClientFactory) NewKustoPoolsClient() *KustoPoolsClient {
-	subClient, _ := NewKustoPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &KustoPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewLibrariesClient creates a new instance of LibrariesClient.
 func (c *ClientFactory) NewLibrariesClient() *LibrariesClient {
-	subClient, _ := NewLibrariesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &LibrariesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewLibraryClient creates a new instance of LibraryClient.
 func (c *ClientFactory) NewLibraryClient() *LibraryClient {
-	subClient, _ := NewLibraryClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &LibraryClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient.
 func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
-	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateEndpointConnectionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewPrivateEndpointConnectionsPrivateLinkHubClient creates a new instance of PrivateEndpointConnectionsPrivateLinkHubClient.
 func (c *ClientFactory) NewPrivateEndpointConnectionsPrivateLinkHubClient() *PrivateEndpointConnectionsPrivateLinkHubClient {
-	subClient, _ := NewPrivateEndpointConnectionsPrivateLinkHubClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateEndpointConnectionsPrivateLinkHubClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewPrivateLinkHubPrivateLinkResourcesClient creates a new instance of PrivateLinkHubPrivateLinkResourcesClient.
 func (c *ClientFactory) NewPrivateLinkHubPrivateLinkResourcesClient() *PrivateLinkHubPrivateLinkResourcesClient {
-	subClient, _ := NewPrivateLinkHubPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateLinkHubPrivateLinkResourcesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewPrivateLinkHubsClient creates a new instance of PrivateLinkHubsClient.
 func (c *ClientFactory) NewPrivateLinkHubsClient() *PrivateLinkHubsClient {
-	subClient, _ := NewPrivateLinkHubsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateLinkHubsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient.
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
-	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateLinkResourcesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewRestorableDroppedSQLPoolsClient creates a new instance of RestorableDroppedSQLPoolsClient.
 func (c *ClientFactory) NewRestorableDroppedSQLPoolsClient() *RestorableDroppedSQLPoolsClient {
-	subClient, _ := NewRestorableDroppedSQLPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &RestorableDroppedSQLPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolBlobAuditingPoliciesClient creates a new instance of SQLPoolBlobAuditingPoliciesClient.
 func (c *ClientFactory) NewSQLPoolBlobAuditingPoliciesClient() *SQLPoolBlobAuditingPoliciesClient {
-	subClient, _ := NewSQLPoolBlobAuditingPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolBlobAuditingPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolColumnsClient creates a new instance of SQLPoolColumnsClient.
 func (c *ClientFactory) NewSQLPoolColumnsClient() *SQLPoolColumnsClient {
-	subClient, _ := NewSQLPoolColumnsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolColumnsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolConnectionPoliciesClient creates a new instance of SQLPoolConnectionPoliciesClient.
 func (c *ClientFactory) NewSQLPoolConnectionPoliciesClient() *SQLPoolConnectionPoliciesClient {
-	subClient, _ := NewSQLPoolConnectionPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolConnectionPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolDataWarehouseUserActivitiesClient creates a new instance of SQLPoolDataWarehouseUserActivitiesClient.
 func (c *ClientFactory) NewSQLPoolDataWarehouseUserActivitiesClient() *SQLPoolDataWarehouseUserActivitiesClient {
-	subClient, _ := NewSQLPoolDataWarehouseUserActivitiesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolDataWarehouseUserActivitiesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolGeoBackupPoliciesClient creates a new instance of SQLPoolGeoBackupPoliciesClient.
 func (c *ClientFactory) NewSQLPoolGeoBackupPoliciesClient() *SQLPoolGeoBackupPoliciesClient {
-	subClient, _ := NewSQLPoolGeoBackupPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolGeoBackupPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolMaintenanceWindowOptionsClient creates a new instance of SQLPoolMaintenanceWindowOptionsClient.
 func (c *ClientFactory) NewSQLPoolMaintenanceWindowOptionsClient() *SQLPoolMaintenanceWindowOptionsClient {
-	subClient, _ := NewSQLPoolMaintenanceWindowOptionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolMaintenanceWindowOptionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolMaintenanceWindowsClient creates a new instance of SQLPoolMaintenanceWindowsClient.
 func (c *ClientFactory) NewSQLPoolMaintenanceWindowsClient() *SQLPoolMaintenanceWindowsClient {
-	subClient, _ := NewSQLPoolMaintenanceWindowsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolMaintenanceWindowsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolMetadataSyncConfigsClient creates a new instance of SQLPoolMetadataSyncConfigsClient.
 func (c *ClientFactory) NewSQLPoolMetadataSyncConfigsClient() *SQLPoolMetadataSyncConfigsClient {
-	subClient, _ := NewSQLPoolMetadataSyncConfigsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolMetadataSyncConfigsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolOperationResultsClient creates a new instance of SQLPoolOperationResultsClient.
 func (c *ClientFactory) NewSQLPoolOperationResultsClient() *SQLPoolOperationResultsClient {
-	subClient, _ := NewSQLPoolOperationResultsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolOperationResultsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolOperationsClient creates a new instance of SQLPoolOperationsClient.
 func (c *ClientFactory) NewSQLPoolOperationsClient() *SQLPoolOperationsClient {
-	subClient, _ := NewSQLPoolOperationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolOperationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolRecommendedSensitivityLabelsClient creates a new instance of SQLPoolRecommendedSensitivityLabelsClient.
 func (c *ClientFactory) NewSQLPoolRecommendedSensitivityLabelsClient() *SQLPoolRecommendedSensitivityLabelsClient {
-	subClient, _ := NewSQLPoolRecommendedSensitivityLabelsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolRecommendedSensitivityLabelsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolReplicationLinksClient creates a new instance of SQLPoolReplicationLinksClient.
 func (c *ClientFactory) NewSQLPoolReplicationLinksClient() *SQLPoolReplicationLinksClient {
-	subClient, _ := NewSQLPoolReplicationLinksClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolReplicationLinksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolRestorePointsClient creates a new instance of SQLPoolRestorePointsClient.
 func (c *ClientFactory) NewSQLPoolRestorePointsClient() *SQLPoolRestorePointsClient {
-	subClient, _ := NewSQLPoolRestorePointsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolRestorePointsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolSchemasClient creates a new instance of SQLPoolSchemasClient.
 func (c *ClientFactory) NewSQLPoolSchemasClient() *SQLPoolSchemasClient {
-	subClient, _ := NewSQLPoolSchemasClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolSchemasClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolSecurityAlertPoliciesClient creates a new instance of SQLPoolSecurityAlertPoliciesClient.
 func (c *ClientFactory) NewSQLPoolSecurityAlertPoliciesClient() *SQLPoolSecurityAlertPoliciesClient {
-	subClient, _ := NewSQLPoolSecurityAlertPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolSecurityAlertPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolSensitivityLabelsClient creates a new instance of SQLPoolSensitivityLabelsClient.
 func (c *ClientFactory) NewSQLPoolSensitivityLabelsClient() *SQLPoolSensitivityLabelsClient {
-	subClient, _ := NewSQLPoolSensitivityLabelsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolSensitivityLabelsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolTableColumnsClient creates a new instance of SQLPoolTableColumnsClient.
 func (c *ClientFactory) NewSQLPoolTableColumnsClient() *SQLPoolTableColumnsClient {
-	subClient, _ := NewSQLPoolTableColumnsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolTableColumnsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolTablesClient creates a new instance of SQLPoolTablesClient.
 func (c *ClientFactory) NewSQLPoolTablesClient() *SQLPoolTablesClient {
-	subClient, _ := NewSQLPoolTablesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolTablesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolTransparentDataEncryptionsClient creates a new instance of SQLPoolTransparentDataEncryptionsClient.
 func (c *ClientFactory) NewSQLPoolTransparentDataEncryptionsClient() *SQLPoolTransparentDataEncryptionsClient {
-	subClient, _ := NewSQLPoolTransparentDataEncryptionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolTransparentDataEncryptionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolUsagesClient creates a new instance of SQLPoolUsagesClient.
 func (c *ClientFactory) NewSQLPoolUsagesClient() *SQLPoolUsagesClient {
-	subClient, _ := NewSQLPoolUsagesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolUsagesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolVulnerabilityAssessmentRuleBaselinesClient creates a new instance of SQLPoolVulnerabilityAssessmentRuleBaselinesClient.
 func (c *ClientFactory) NewSQLPoolVulnerabilityAssessmentRuleBaselinesClient() *SQLPoolVulnerabilityAssessmentRuleBaselinesClient {
-	subClient, _ := NewSQLPoolVulnerabilityAssessmentRuleBaselinesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolVulnerabilityAssessmentRuleBaselinesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolVulnerabilityAssessmentScansClient creates a new instance of SQLPoolVulnerabilityAssessmentScansClient.
 func (c *ClientFactory) NewSQLPoolVulnerabilityAssessmentScansClient() *SQLPoolVulnerabilityAssessmentScansClient {
-	subClient, _ := NewSQLPoolVulnerabilityAssessmentScansClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolVulnerabilityAssessmentScansClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolVulnerabilityAssessmentsClient creates a new instance of SQLPoolVulnerabilityAssessmentsClient.
 func (c *ClientFactory) NewSQLPoolVulnerabilityAssessmentsClient() *SQLPoolVulnerabilityAssessmentsClient {
-	subClient, _ := NewSQLPoolVulnerabilityAssessmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolVulnerabilityAssessmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolWorkloadClassifierClient creates a new instance of SQLPoolWorkloadClassifierClient.
 func (c *ClientFactory) NewSQLPoolWorkloadClassifierClient() *SQLPoolWorkloadClassifierClient {
-	subClient, _ := NewSQLPoolWorkloadClassifierClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolWorkloadClassifierClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolWorkloadGroupClient creates a new instance of SQLPoolWorkloadGroupClient.
 func (c *ClientFactory) NewSQLPoolWorkloadGroupClient() *SQLPoolWorkloadGroupClient {
-	subClient, _ := NewSQLPoolWorkloadGroupClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolWorkloadGroupClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSQLPoolsClient creates a new instance of SQLPoolsClient.
 func (c *ClientFactory) NewSQLPoolsClient() *SQLPoolsClient {
-	subClient, _ := NewSQLPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SQLPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSparkConfigurationClient creates a new instance of SparkConfigurationClient.
 func (c *ClientFactory) NewSparkConfigurationClient() *SparkConfigurationClient {
-	subClient, _ := NewSparkConfigurationClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SparkConfigurationClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSparkConfigurationsClient creates a new instance of SparkConfigurationsClient.
 func (c *ClientFactory) NewSparkConfigurationsClient() *SparkConfigurationsClient {
-	subClient, _ := NewSparkConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SparkConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceAADAdminsClient creates a new instance of WorkspaceAADAdminsClient.
 func (c *ClientFactory) NewWorkspaceAADAdminsClient() *WorkspaceAADAdminsClient {
-	subClient, _ := NewWorkspaceAADAdminsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceAADAdminsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedIdentitySQLControlSettingsClient creates a new instance of WorkspaceManagedIdentitySQLControlSettingsClient.
 func (c *ClientFactory) NewWorkspaceManagedIdentitySQLControlSettingsClient() *WorkspaceManagedIdentitySQLControlSettingsClient {
-	subClient, _ := NewWorkspaceManagedIdentitySQLControlSettingsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedIdentitySQLControlSettingsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerBlobAuditingPoliciesClient creates a new instance of WorkspaceManagedSQLServerBlobAuditingPoliciesClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerBlobAuditingPoliciesClient() *WorkspaceManagedSQLServerBlobAuditingPoliciesClient {
-	subClient, _ := NewWorkspaceManagedSQLServerBlobAuditingPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerBlobAuditingPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerDedicatedSQLMinimalTLSSettingsClient creates a new instance of WorkspaceManagedSQLServerDedicatedSQLMinimalTLSSettingsClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerDedicatedSQLMinimalTLSSettingsClient() *WorkspaceManagedSQLServerDedicatedSQLMinimalTLSSettingsClient {
-	subClient, _ := NewWorkspaceManagedSQLServerDedicatedSQLMinimalTLSSettingsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerDedicatedSQLMinimalTLSSettingsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerEncryptionProtectorClient creates a new instance of WorkspaceManagedSQLServerEncryptionProtectorClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerEncryptionProtectorClient() *WorkspaceManagedSQLServerEncryptionProtectorClient {
-	subClient, _ := NewWorkspaceManagedSQLServerEncryptionProtectorClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerEncryptionProtectorClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerExtendedBlobAuditingPoliciesClient creates a new instance of WorkspaceManagedSQLServerExtendedBlobAuditingPoliciesClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerExtendedBlobAuditingPoliciesClient() *WorkspaceManagedSQLServerExtendedBlobAuditingPoliciesClient {
-	subClient, _ := NewWorkspaceManagedSQLServerExtendedBlobAuditingPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerExtendedBlobAuditingPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerRecoverableSQLPoolsClient creates a new instance of WorkspaceManagedSQLServerRecoverableSQLPoolsClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerRecoverableSQLPoolsClient() *WorkspaceManagedSQLServerRecoverableSQLPoolsClient {
-	subClient, _ := NewWorkspaceManagedSQLServerRecoverableSQLPoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerRecoverableSQLPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerSecurityAlertPolicyClient creates a new instance of WorkspaceManagedSQLServerSecurityAlertPolicyClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerSecurityAlertPolicyClient() *WorkspaceManagedSQLServerSecurityAlertPolicyClient {
-	subClient, _ := NewWorkspaceManagedSQLServerSecurityAlertPolicyClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerSecurityAlertPolicyClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerUsagesClient creates a new instance of WorkspaceManagedSQLServerUsagesClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerUsagesClient() *WorkspaceManagedSQLServerUsagesClient {
-	subClient, _ := NewWorkspaceManagedSQLServerUsagesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerUsagesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceManagedSQLServerVulnerabilityAssessmentsClient creates a new instance of WorkspaceManagedSQLServerVulnerabilityAssessmentsClient.
 func (c *ClientFactory) NewWorkspaceManagedSQLServerVulnerabilityAssessmentsClient() *WorkspaceManagedSQLServerVulnerabilityAssessmentsClient {
-	subClient, _ := NewWorkspaceManagedSQLServerVulnerabilityAssessmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceManagedSQLServerVulnerabilityAssessmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspaceSQLAADAdminsClient creates a new instance of WorkspaceSQLAADAdminsClient.
 func (c *ClientFactory) NewWorkspaceSQLAADAdminsClient() *WorkspaceSQLAADAdminsClient {
-	subClient, _ := NewWorkspaceSQLAADAdminsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspaceSQLAADAdminsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkspacesClient creates a new instance of WorkspacesClient.
 func (c *ClientFactory) NewWorkspacesClient() *WorkspacesClient {
-	subClient, _ := NewWorkspacesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkspacesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }

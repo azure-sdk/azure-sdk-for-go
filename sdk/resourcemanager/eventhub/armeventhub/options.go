@@ -76,6 +76,11 @@ type ClustersClientListNamespacesOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ClustersClientTriggerUpgradePostOptions contains the optional parameters for the ClustersClient.TriggerUpgradePost method.
+type ClustersClientTriggerUpgradePostOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ConfigurationClientGetOptions contains the optional parameters for the ConfigurationClient.Get method.
 type ConfigurationClientGetOptions struct {
 	// placeholder for future optional parameters
