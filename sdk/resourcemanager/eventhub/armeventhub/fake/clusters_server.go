@@ -52,6 +52,10 @@ type ClustersServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	ListNamespaces func(ctx context.Context, resourceGroupName string, clusterName string, options *armeventhub.ClustersClientListNamespacesOptions) (resp azfake.Responder[armeventhub.ClustersClientListNamespacesResponse], errResp azfake.ErrorResponder)
 
+	// TriggerUpgradePost is the fake for method ClustersClient.TriggerUpgradePost
+	// HTTP status codes to indicate success: http.StatusNoContent
+	TriggerUpgradePost func(ctx context.Context, resourceGroupName string, clusterName string, options *armeventhub.ClustersClientTriggerUpgradePostOptions) (resp azfake.Responder[armeventhub.ClustersClientTriggerUpgradePostResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpdate is the fake for method ClustersClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterName string, parameters armeventhub.Cluster, options *armeventhub.ClustersClientBeginUpdateOptions) (resp azfake.PollerResponder[armeventhub.ClustersClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -108,6 +112,8 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
 	case "ClustersClient.ListNamespaces":
 		resp, err = c.dispatchListNamespaces(req)
+	case "ClustersClient.TriggerUpgradePost":
+		resp, err = c.dispatchTriggerUpgradePost(req)
 	case "ClustersClient.BeginUpdate":
 		resp, err = c.dispatchBeginUpdate(req)
 	default:
@@ -368,6 +374,39 @@ func (c *ClustersServerTransport) dispatchListNamespaces(req *http.Request) (*ht
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).EHNamespaceIDListResult, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (c *ClustersServerTransport) dispatchTriggerUpgradePost(req *http.Request) (*http.Response, error) {
+	if c.srv.TriggerUpgradePost == nil {
+		return nil, &nonRetriableError{errors.New("fake for method TriggerUpgradePost not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.EventHub/clusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/triggerUpgrade`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := c.srv.TriggerUpgradePost(req.Context(), resourceGroupNameParam, clusterNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}

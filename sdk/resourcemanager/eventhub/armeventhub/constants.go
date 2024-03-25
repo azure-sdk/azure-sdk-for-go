@@ -10,7 +10,7 @@ package armeventhub
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/eventhub/armeventhub"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0"
 )
 
 type AccessRights string
@@ -44,18 +44,34 @@ func PossibleApplicationGroupPolicyTypeValues() []ApplicationGroupPolicyType {
 	}
 }
 
+// CaptureIdentityType - Type of Azure Active Directory Managed Identity.
+type CaptureIdentityType string
+
+const (
+	CaptureIdentityTypeSystemAssigned CaptureIdentityType = "SystemAssigned"
+	CaptureIdentityTypeUserAssigned   CaptureIdentityType = "UserAssigned"
+)
+
+// PossibleCaptureIdentityTypeValues returns the possible values for the CaptureIdentityType const type.
+func PossibleCaptureIdentityTypeValues() []CaptureIdentityType {
+	return []CaptureIdentityType{
+		CaptureIdentityTypeSystemAssigned,
+		CaptureIdentityTypeUserAssigned,
+	}
+}
+
 // CleanupPolicyRetentionDescription - Enumerates the possible values for cleanup policy
 type CleanupPolicyRetentionDescription string
 
 const (
-	CleanupPolicyRetentionDescriptionCompaction CleanupPolicyRetentionDescription = "Compaction"
-	CleanupPolicyRetentionDescriptionDelete     CleanupPolicyRetentionDescription = "Delete"
+	CleanupPolicyRetentionDescriptionCompact CleanupPolicyRetentionDescription = "Compact"
+	CleanupPolicyRetentionDescriptionDelete  CleanupPolicyRetentionDescription = "Delete"
 )
 
 // PossibleCleanupPolicyRetentionDescriptionValues returns the possible values for the CleanupPolicyRetentionDescription const type.
 func PossibleCleanupPolicyRetentionDescriptionValues() []CleanupPolicyRetentionDescription {
 	return []CleanupPolicyRetentionDescription{
-		CleanupPolicyRetentionDescriptionCompaction,
+		CleanupPolicyRetentionDescriptionCompact,
 		CleanupPolicyRetentionDescriptionDelete,
 	}
 }
@@ -322,6 +338,34 @@ func PossiblePrivateLinkConnectionStatusValues() []PrivateLinkConnectionStatus {
 	}
 }
 
+// ProvisioningState - Provisioning state of the Cluster.
+type ProvisioningState string
+
+const (
+	ProvisioningStateActive    ProvisioningState = "Active"
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateDeleting  ProvisioningState = "Deleting"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateScaling   ProvisioningState = "Scaling"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateUnknown   ProvisioningState = "Unknown"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateActive,
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateScaling,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUnknown,
+	}
+}
+
 // ProvisioningStateDR - Provisioning state of the Alias(Disaster Recovery configuration) - possible values 'Accepted' or
 // 'Succeeded' or 'Failed'
 type ProvisioningStateDR string
@@ -484,6 +528,35 @@ func PossibleSchemaTypeValues() []SchemaType {
 	return []SchemaType{
 		SchemaTypeAvro,
 		SchemaTypeUnknown,
+	}
+}
+
+// StartDayOfWeek - Preferred day of the week in UTC time to begin an upgrade. If 'Any' is selected, upgrade will proceed
+// at any given weekday
+type StartDayOfWeek string
+
+const (
+	StartDayOfWeekAny       StartDayOfWeek = "Any"
+	StartDayOfWeekFriday    StartDayOfWeek = "Friday"
+	StartDayOfWeekMonday    StartDayOfWeek = "Monday"
+	StartDayOfWeekSaturday  StartDayOfWeek = "Saturday"
+	StartDayOfWeekSunday    StartDayOfWeek = "Sunday"
+	StartDayOfWeekThursday  StartDayOfWeek = "Thursday"
+	StartDayOfWeekTuesday   StartDayOfWeek = "Tuesday"
+	StartDayOfWeekWednesday StartDayOfWeek = "Wednesday"
+)
+
+// PossibleStartDayOfWeekValues returns the possible values for the StartDayOfWeek const type.
+func PossibleStartDayOfWeekValues() []StartDayOfWeek {
+	return []StartDayOfWeek{
+		StartDayOfWeekAny,
+		StartDayOfWeekFriday,
+		StartDayOfWeekMonday,
+		StartDayOfWeekSaturday,
+		StartDayOfWeekSunday,
+		StartDayOfWeekThursday,
+		StartDayOfWeekTuesday,
+		StartDayOfWeekWednesday,
 	}
 }
 
