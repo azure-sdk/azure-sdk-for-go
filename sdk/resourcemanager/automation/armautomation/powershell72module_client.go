@@ -20,24 +20,24 @@ import (
 	"strings"
 )
 
-// ModuleClient contains the methods for the Module group.
-// Don't use this type directly, use NewModuleClient() instead.
-type ModuleClient struct {
+// PowerShell72ModuleClient contains the methods for the PowerShell72Module group.
+// Don't use this type directly, use NewPowerShell72ModuleClient() instead.
+type PowerShell72ModuleClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewModuleClient creates a new instance of ModuleClient with the specified values.
+// NewPowerShell72ModuleClient creates a new instance of PowerShell72ModuleClient with the specified values.
 //   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
 //     forms part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewModuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ModuleClient, error) {
+func NewPowerShell72ModuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PowerShell72ModuleClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ModuleClient{
+	client := &PowerShell72ModuleClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
@@ -48,25 +48,25 @@ func NewModuleClient(subscriptionID string, credential azcore.TokenCredential, o
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
 //   - moduleName - The name of module.
 //   - parameters - The create or update parameters for module.
-//   - options - ModuleClientBeginCreateOrUpdateOptions contains the optional parameters for the ModuleClient.BeginCreateOrUpdate
+//   - options - PowerShell72ModuleClientBeginCreateOrUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.BeginCreateOrUpdate
 //     method.
-func (client *ModuleClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *ModuleClientBeginCreateOrUpdateOptions) (*runtime.Poller[ModuleClientCreateOrUpdateResponse], error) {
+func (client *PowerShell72ModuleClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientBeginCreateOrUpdateOptions) (*runtime.Poller[PowerShell72ModuleClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ModuleClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PowerShell72ModuleClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ModuleClientCreateOrUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[PowerShell72ModuleClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
@@ -76,9 +76,9 @@ func (client *ModuleClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-func (client *ModuleClient) createOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *ModuleClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *PowerShell72ModuleClient) createOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ModuleClient.BeginCreateOrUpdate"
+	const operationName = "PowerShell72ModuleClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -98,8 +98,8 @@ func (client *ModuleClient) createOrUpdate(ctx context.Context, resourceGroupNam
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ModuleClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *ModuleClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/modules/{moduleName}"
+func (client *PowerShell72ModuleClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *PowerShell72ModuleClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -134,34 +134,35 @@ func (client *ModuleClient) createOrUpdateCreateRequest(ctx context.Context, res
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - moduleName - The module name.
-//   - options - ModuleClientDeleteOptions contains the optional parameters for the ModuleClient.Delete method.
-func (client *ModuleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *ModuleClientDeleteOptions) (ModuleClientDeleteResponse, error) {
+//   - moduleName - The name of module.
+//   - options - PowerShell72ModuleClientDeleteOptions contains the optional parameters for the PowerShell72ModuleClient.Delete
+//     method.
+func (client *PowerShell72ModuleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientDeleteOptions) (PowerShell72ModuleClientDeleteResponse, error) {
 	var err error
-	const operationName = "ModuleClient.Delete"
+	const operationName = "PowerShell72ModuleClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
-		return ModuleClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ModuleClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ModuleClientDeleteResponse{}, err
+		return PowerShell72ModuleClientDeleteResponse{}, err
 	}
-	return ModuleClientDeleteResponse{}, nil
+	return PowerShell72ModuleClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ModuleClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *ModuleClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/modules/{moduleName}"
+func (client *PowerShell72ModuleClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -193,35 +194,35 @@ func (client *ModuleClient) deleteCreateRequest(ctx context.Context, resourceGro
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - moduleName - The module name.
-//   - options - ModuleClientGetOptions contains the optional parameters for the ModuleClient.Get method.
-func (client *ModuleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *ModuleClientGetOptions) (ModuleClientGetResponse, error) {
+//   - moduleName - The name of module.
+//   - options - PowerShell72ModuleClientGetOptions contains the optional parameters for the PowerShell72ModuleClient.Get method.
+func (client *PowerShell72ModuleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientGetOptions) (PowerShell72ModuleClientGetResponse, error) {
 	var err error
-	const operationName = "ModuleClient.Get"
+	const operationName = "PowerShell72ModuleClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
-		return ModuleClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ModuleClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ModuleClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ModuleClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *ModuleClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/modules/{moduleName}"
+func (client *PowerShell72ModuleClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *PowerShell72ModuleClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -250,28 +251,28 @@ func (client *ModuleClient) getCreateRequest(ctx context.Context, resourceGroupN
 }
 
 // getHandleResponse handles the Get response.
-func (client *ModuleClient) getHandleResponse(resp *http.Response) (ModuleClientGetResponse, error) {
-	result := ModuleClientGetResponse{}
+func (client *PowerShell72ModuleClient) getHandleResponse(resp *http.Response) (PowerShell72ModuleClientGetResponse, error) {
+	result := PowerShell72ModuleClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
-		return ModuleClientGetResponse{}, err
+		return PowerShell72ModuleClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByAutomationAccountPager - Retrieve a list of modules.
+// NewListByAutomationAccountPager - Retrieve a list of PowerShell72 modules.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
-//   - options - ModuleClientListByAutomationAccountOptions contains the optional parameters for the ModuleClient.NewListByAutomationAccountPager
+//   - options - PowerShell72ModuleClientListByAutomationAccountOptions contains the optional parameters for the PowerShell72ModuleClient.NewListByAutomationAccountPager
 //     method.
-func (client *ModuleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *ModuleClientListByAutomationAccountOptions) *runtime.Pager[ModuleClientListByAutomationAccountResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ModuleClientListByAutomationAccountResponse]{
-		More: func(page ModuleClientListByAutomationAccountResponse) bool {
+func (client *PowerShell72ModuleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *PowerShell72ModuleClientListByAutomationAccountOptions) *runtime.Pager[PowerShell72ModuleClientListByAutomationAccountResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PowerShell72ModuleClientListByAutomationAccountResponse]{
+		More: func(page PowerShell72ModuleClientListByAutomationAccountResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ModuleClientListByAutomationAccountResponse) (ModuleClientListByAutomationAccountResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ModuleClient.NewListByAutomationAccountPager")
+		Fetcher: func(ctx context.Context, page *PowerShell72ModuleClientListByAutomationAccountResponse) (PowerShell72ModuleClientListByAutomationAccountResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PowerShell72ModuleClient.NewListByAutomationAccountPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -280,7 +281,7 @@ func (client *ModuleClient) NewListByAutomationAccountPager(resourceGroupName st
 				return client.listByAutomationAccountCreateRequest(ctx, resourceGroupName, automationAccountName, options)
 			}, nil)
 			if err != nil {
-				return ModuleClientListByAutomationAccountResponse{}, err
+				return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 			}
 			return client.listByAutomationAccountHandleResponse(resp)
 		},
@@ -289,8 +290,8 @@ func (client *ModuleClient) NewListByAutomationAccountPager(resourceGroupName st
 }
 
 // listByAutomationAccountCreateRequest creates the ListByAutomationAccount request.
-func (client *ModuleClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *ModuleClientListByAutomationAccountOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/modules"
+func (client *PowerShell72ModuleClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *PowerShell72ModuleClientListByAutomationAccountOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -315,10 +316,10 @@ func (client *ModuleClient) listByAutomationAccountCreateRequest(ctx context.Con
 }
 
 // listByAutomationAccountHandleResponse handles the ListByAutomationAccount response.
-func (client *ModuleClient) listByAutomationAccountHandleResponse(resp *http.Response) (ModuleClientListByAutomationAccountResponse, error) {
-	result := ModuleClientListByAutomationAccountResponse{}
+func (client *PowerShell72ModuleClient) listByAutomationAccountHandleResponse(resp *http.Response) (PowerShell72ModuleClientListByAutomationAccountResponse, error) {
+	result := PowerShell72ModuleClientListByAutomationAccountResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ModuleListResult); err != nil {
-		return ModuleClientListByAutomationAccountResponse{}, err
+		return PowerShell72ModuleClientListByAutomationAccountResponse{}, err
 	}
 	return result, nil
 }
@@ -327,36 +328,37 @@ func (client *ModuleClient) listByAutomationAccountHandleResponse(resp *http.Res
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - resourceGroupName - Name of an Azure Resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - automationAccountName - The name of the automation account.
 //   - moduleName - The name of module.
 //   - parameters - The update parameters for module.
-//   - options - ModuleClientUpdateOptions contains the optional parameters for the ModuleClient.Update method.
-func (client *ModuleClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *ModuleClientUpdateOptions) (ModuleClientUpdateResponse, error) {
+//   - options - PowerShell72ModuleClientUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.Update
+//     method.
+func (client *PowerShell72ModuleClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *PowerShell72ModuleClientUpdateOptions) (PowerShell72ModuleClientUpdateResponse, error) {
 	var err error
-	const operationName = "ModuleClient.Update"
+	const operationName = "PowerShell72ModuleClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
-		return ModuleClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ModuleClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ModuleClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ModuleClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *ModuleClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/modules/{moduleName}"
+func (client *PowerShell72ModuleClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *PowerShell72ModuleClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/powerShell72Modules/{moduleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -388,10 +390,10 @@ func (client *ModuleClient) updateCreateRequest(ctx context.Context, resourceGro
 }
 
 // updateHandleResponse handles the Update response.
-func (client *ModuleClient) updateHandleResponse(resp *http.Response) (ModuleClientUpdateResponse, error) {
-	result := ModuleClientUpdateResponse{}
+func (client *PowerShell72ModuleClient) updateHandleResponse(resp *http.Response) (PowerShell72ModuleClientUpdateResponse, error) {
+	result := PowerShell72ModuleClientUpdateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
-		return ModuleClientUpdateResponse{}, err
+		return PowerShell72ModuleClientUpdateResponse{}, err
 	}
 	return result, nil
 }
