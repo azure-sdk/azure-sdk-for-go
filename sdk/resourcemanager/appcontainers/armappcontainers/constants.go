@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers"
-	moduleVersion = "v3.0.0-beta.1"
+	moduleVersion = "v3.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -47,10 +47,12 @@ func PossibleActionValues() []Action {
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
 // revisions can be active.Single: Only one revision can be active at a time. Revision weights can
-// not be used in this mode. If no value if provided, this is the default.
+// not be used in this mode. If no value if provided, this is the default.Labeled: Only the revisions that have labels attached
+// to them are active.
 type ActiveRevisionsMode string
 
 const (
+	ActiveRevisionsModeLabeled  ActiveRevisionsMode = "Labeled"
 	ActiveRevisionsModeMultiple ActiveRevisionsMode = "Multiple"
 	ActiveRevisionsModeSingle   ActiveRevisionsMode = "Single"
 )
@@ -58,6 +60,7 @@ const (
 // PossibleActiveRevisionsModeValues returns the possible values for the ActiveRevisionsMode const type.
 func PossibleActiveRevisionsModeValues() []ActiveRevisionsMode {
 	return []ActiveRevisionsMode{
+		ActiveRevisionsModeLabeled,
 		ActiveRevisionsModeMultiple,
 		ActiveRevisionsModeSingle,
 	}
@@ -391,6 +394,24 @@ func PossibleDNSVerificationTestResultValues() []DNSVerificationTestResult {
 	}
 }
 
+// DetectionStatus - The status of the patch detection.
+type DetectionStatus string
+
+const (
+	DetectionStatusFailed              DetectionStatus = "Failed"
+	DetectionStatusRegistryLoginFailed DetectionStatus = "RegistryLoginFailed"
+	DetectionStatusSucceeded           DetectionStatus = "Succeeded"
+)
+
+// PossibleDetectionStatusValues returns the possible values for the DetectionStatus const type.
+func PossibleDetectionStatusValues() []DetectionStatus {
+	return []DetectionStatus{
+		DetectionStatusFailed,
+		DetectionStatusRegistryLoginFailed,
+		DetectionStatusSucceeded,
+	}
+}
+
 // DotNetComponentProvisioningState - Provisioning state of the .NET Component.
 type DotNetComponentProvisioningState string
 
@@ -417,15 +438,13 @@ func PossibleDotNetComponentProvisioningStateValues() []DotNetComponentProvision
 type DotNetComponentType string
 
 const (
-	DotNetComponentTypeAspireDashboard         DotNetComponentType = "AspireDashboard"
-	DotNetComponentTypeAspireResourceServerAPI DotNetComponentType = "AspireResourceServerApi"
+	DotNetComponentTypeAspireDashboard DotNetComponentType = "AspireDashboard"
 )
 
 // PossibleDotNetComponentTypeValues returns the possible values for the DotNetComponentType const type.
 func PossibleDotNetComponentTypeValues() []DotNetComponentType {
 	return []DotNetComponentType{
 		DotNetComponentTypeAspireDashboard,
-		DotNetComponentTypeAspireResourceServerAPI,
 	}
 }
 
@@ -490,6 +509,23 @@ func PossibleForwardProxyConventionValues() []ForwardProxyConvention {
 		ForwardProxyConventionCustom,
 		ForwardProxyConventionNoProxy,
 		ForwardProxyConventionStandard,
+	}
+}
+
+// ImageType - The type of the image. Set to CloudBuild to let the system manages the image, where user will not be able to
+// update image through image field. Set to ContainerImage for user provided image.
+type ImageType string
+
+const (
+	ImageTypeCloudBuild     ImageType = "CloudBuild"
+	ImageTypeContainerImage ImageType = "ContainerImage"
+)
+
+// PossibleImageTypeValues returns the possible values for the ImageType const type.
+func PossibleImageTypeValues() []ImageType {
+	return []ImageType{
+		ImageTypeCloudBuild,
+		ImageTypeContainerImage,
 	}
 }
 
@@ -575,6 +611,7 @@ func PossibleJavaComponentProvisioningStateValues() []JavaComponentProvisioningS
 type JavaComponentType string
 
 const (
+	JavaComponentTypeNacos             JavaComponentType = "Nacos"
 	JavaComponentTypeSpringBootAdmin   JavaComponentType = "SpringBootAdmin"
 	JavaComponentTypeSpringCloudConfig JavaComponentType = "SpringCloudConfig"
 	JavaComponentTypeSpringCloudEureka JavaComponentType = "SpringCloudEureka"
@@ -583,6 +620,7 @@ const (
 // PossibleJavaComponentTypeValues returns the possible values for the JavaComponentType const type.
 func PossibleJavaComponentTypeValues() []JavaComponentType {
 	return []JavaComponentType{
+		JavaComponentTypeNacos,
 		JavaComponentTypeSpringBootAdmin,
 		JavaComponentTypeSpringCloudConfig,
 		JavaComponentTypeSpringCloudEureka,
@@ -634,6 +672,26 @@ func PossibleJobProvisioningStateValues() []JobProvisioningState {
 		JobProvisioningStateFailed,
 		JobProvisioningStateInProgress,
 		JobProvisioningStateSucceeded,
+	}
+}
+
+// LabelsProvisioningState - Current provisioning State of the operation
+type LabelsProvisioningState string
+
+const (
+	LabelsProvisioningStateCanceled   LabelsProvisioningState = "Canceled"
+	LabelsProvisioningStateFailed     LabelsProvisioningState = "Failed"
+	LabelsProvisioningStateInProgress LabelsProvisioningState = "InProgress"
+	LabelsProvisioningStateSucceeded  LabelsProvisioningState = "Succeeded"
+)
+
+// PossibleLabelsProvisioningStateValues returns the possible values for the LabelsProvisioningState const type.
+func PossibleLabelsProvisioningStateValues() []LabelsProvisioningState {
+	return []LabelsProvisioningState{
+		LabelsProvisioningStateCanceled,
+		LabelsProvisioningStateFailed,
+		LabelsProvisioningStateInProgress,
+		LabelsProvisioningStateSucceeded,
 	}
 }
 
@@ -692,6 +750,76 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 		ManagedServiceIdentityTypeSystemAssigned,
 		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
 		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// PatchApplyStatus - The status of the patch once it has been provisioned
+type PatchApplyStatus string
+
+const (
+	PatchApplyStatusCanceled               PatchApplyStatus = "Canceled"
+	PatchApplyStatusCreatingRevision       PatchApplyStatus = "CreatingRevision"
+	PatchApplyStatusImagePushPullFailed    PatchApplyStatus = "ImagePushPullFailed"
+	PatchApplyStatusManuallySkipped        PatchApplyStatus = "ManuallySkipped"
+	PatchApplyStatusNotStarted             PatchApplyStatus = "NotStarted"
+	PatchApplyStatusRebaseFailed           PatchApplyStatus = "RebaseFailed"
+	PatchApplyStatusRebaseInProgress       PatchApplyStatus = "RebaseInProgress"
+	PatchApplyStatusRevisionCreationFailed PatchApplyStatus = "RevisionCreationFailed"
+	PatchApplyStatusSucceeded              PatchApplyStatus = "Succeeded"
+)
+
+// PossiblePatchApplyStatusValues returns the possible values for the PatchApplyStatus const type.
+func PossiblePatchApplyStatusValues() []PatchApplyStatus {
+	return []PatchApplyStatus{
+		PatchApplyStatusCanceled,
+		PatchApplyStatusCreatingRevision,
+		PatchApplyStatusImagePushPullFailed,
+		PatchApplyStatusManuallySkipped,
+		PatchApplyStatusNotStarted,
+		PatchApplyStatusRebaseFailed,
+		PatchApplyStatusRebaseInProgress,
+		PatchApplyStatusRevisionCreationFailed,
+		PatchApplyStatusSucceeded,
+	}
+}
+
+// PatchType - The type for the patch.
+type PatchType string
+
+const (
+	PatchTypeFrameworkAndOSSecurity PatchType = "FrameworkAndOSSecurity"
+	PatchTypeFrameworkSecurity      PatchType = "FrameworkSecurity"
+	PatchTypeOSSecurity             PatchType = "OSSecurity"
+	PatchTypeOther                  PatchType = "Other"
+)
+
+// PossiblePatchTypeValues returns the possible values for the PatchType const type.
+func PossiblePatchTypeValues() []PatchType {
+	return []PatchType{
+		PatchTypeFrameworkAndOSSecurity,
+		PatchTypeFrameworkSecurity,
+		PatchTypeOSSecurity,
+		PatchTypeOther,
+	}
+}
+
+// PatchingMode - Patching mode for the container app. Null or default in this field will be interpreted as Automatic by RP.
+// Automatic mode will automatically apply available patches. Manual mode will require the user
+// to manually apply patches. Disabled mode will stop patch detection and auto patching.
+type PatchingMode string
+
+const (
+	PatchingModeAutomatic PatchingMode = "Automatic"
+	PatchingModeDisabled  PatchingMode = "Disabled"
+	PatchingModeManual    PatchingMode = "Manual"
+)
+
+// PossiblePatchingModeValues returns the possible values for the PatchingMode const type.
+func PossiblePatchingModeValues() []PatchingMode {
+	return []PatchingMode{
+		PatchingModeAutomatic,
+		PatchingModeDisabled,
+		PatchingModeManual,
 	}
 }
 

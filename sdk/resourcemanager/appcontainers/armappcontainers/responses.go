@@ -299,6 +299,23 @@ type ContainerAppsAuthConfigsClientListByContainerAppResponse struct {
 	AuthConfigCollection
 }
 
+// ContainerAppsBuildsByContainerAppClientListResponse contains the response from method ContainerAppsBuildsByContainerAppClient.NewListPager.
+type ContainerAppsBuildsByContainerAppClientListResponse struct {
+	// The response of a Container Apps Build Resource list operation.
+	ContainerAppsBuildCollection
+}
+
+// ContainerAppsBuildsClientDeleteResponse contains the response from method ContainerAppsBuildsClient.BeginDelete.
+type ContainerAppsBuildsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsBuildsClientGetResponse contains the response from method ContainerAppsBuildsClient.Get.
+type ContainerAppsBuildsClientGetResponse struct {
+	// Information pertaining to an individual build.
+	ContainerAppsBuildResource
+}
+
 // ContainerAppsClientCreateOrUpdateResponse contains the response from method ContainerAppsClient.BeginCreateOrUpdate.
 type ContainerAppsClientCreateOrUpdateResponse struct {
 	// Container App.
@@ -392,6 +409,57 @@ type ContainerAppsDiagnosticsClientListDetectorsResponse struct {
 type ContainerAppsDiagnosticsClientListRevisionsResponse struct {
 	// Container App Revisions collection ARM resource.
 	RevisionCollection
+}
+
+// ContainerAppsLabelsClientCreateOrUpdateResponse contains the response from method ContainerAppsLabelsClient.BeginCreateOrUpdate.
+type ContainerAppsLabelsClientCreateOrUpdateResponse struct {
+	// Container App Labels.
+	Labels
+}
+
+// ContainerAppsLabelsClientDeleteResponse contains the response from method ContainerAppsLabelsClient.BeginDelete.
+type ContainerAppsLabelsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsLabelsClientGetResponse contains the response from method ContainerAppsLabelsClient.Get.
+type ContainerAppsLabelsClientGetResponse struct {
+	// Container App Labels.
+	Labels
+}
+
+// ContainerAppsLabelsClientListResponse contains the response from method ContainerAppsLabelsClient.NewListPager.
+type ContainerAppsLabelsClientListResponse struct {
+	// Labels collection ARM resource.
+	LabelsCollection
+}
+
+// ContainerAppsPatchesClientApplyResponse contains the response from method ContainerAppsPatchesClient.BeginApply.
+type ContainerAppsPatchesClientApplyResponse struct {
+	// Container App Patch
+	ContainerAppsPatchResource
+}
+
+// ContainerAppsPatchesClientDeleteResponse contains the response from method ContainerAppsPatchesClient.BeginDelete.
+type ContainerAppsPatchesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsPatchesClientGetResponse contains the response from method ContainerAppsPatchesClient.Get.
+type ContainerAppsPatchesClientGetResponse struct {
+	// Container App Patch
+	ContainerAppsPatchResource
+}
+
+// ContainerAppsPatchesClientListByContainerAppResponse contains the response from method ContainerAppsPatchesClient.NewListByContainerAppPager.
+type ContainerAppsPatchesClientListByContainerAppResponse struct {
+	// Container App patch collection
+	PatchCollection
+}
+
+// ContainerAppsPatchesClientSkipConfigureResponse contains the response from method ContainerAppsPatchesClient.BeginSkipConfigure.
+type ContainerAppsPatchesClientSkipConfigureResponse struct {
+	// placeholder for future response values
 }
 
 // ContainerAppsRevisionReplicasClientGetReplicaResponse contains the response from method ContainerAppsRevisionReplicasClient.GetReplica.
@@ -558,6 +626,11 @@ type DotNetComponentsClientListResponse struct {
 type DotNetComponentsClientUpdateResponse struct {
 	// .NET Component.
 	DotNetComponent
+}
+
+// FunctionsExtensionClientInvokeFunctionsHostResponse contains the response from method FunctionsExtensionClient.InvokeFunctionsHost.
+type FunctionsExtensionClientInvokeFunctionsHostResponse struct {
+	Value *string
 }
 
 // JavaComponentsClientCreateOrUpdateResponse contains the response from method JavaComponentsClient.BeginCreateOrUpdate.
