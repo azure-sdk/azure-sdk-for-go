@@ -10,7 +10,7 @@ package armsynapse
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/synapse/armsynapse"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
 
 // ActualState - Actual state
