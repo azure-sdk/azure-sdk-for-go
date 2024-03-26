@@ -699,6 +699,9 @@ type BackupVault struct {
 	// Security Settings
 	SecuritySettings *SecuritySettings
 
+	// READ-ONLY; Security Level of Backup Vault
+	BcdrSecurityLevel *BCDRSecurityLevel
+
 	// READ-ONLY; Is vault protected by resource guard
 	IsVaultProtectedByResourceGuard *bool
 
@@ -915,6 +918,23 @@ type ClientDiscoveryValueForSingleAPI struct {
 
 	// Properties for the given operation.
 	Properties *ClientDiscoveryForProperties
+}
+
+// CmkKekIdentity - The details of the managed identity used for CMK
+type CmkKekIdentity struct {
+	// The managed identity to be used which has access permissions to the Key Vault. Provide a value here in case identity types:
+	// 'UserAssigned' only.
+	IdentityID *string
+
+	// The identity type. 'SystemAssigned' and 'UserAssigned' are mutually exclusive. 'SystemAssigned' will use implicitly created
+	// managed identity.
+	IdentityType *IdentityType
+}
+
+// CmkKeyVaultProperties - The properties of the Key Vault which hosts CMK
+type CmkKeyVaultProperties struct {
+	// The key uri of the Customer Managed Key
+	KeyURI *string
 }
 
 // CopyOnExpiryOption - Copy on Expiry Option
@@ -1343,6 +1363,21 @@ type DppWorkerRequest struct {
 	URI                    *string
 }
 
+// EncryptionSettings - Customer Managed Key details of the resource.
+type EncryptionSettings struct {
+	// Enabling/Disabling the Double Encryption state
+	InfrastructureEncryption *InfrastructureEncryptionState
+
+	// The details of the managed identity used for CMK
+	KekIdentity *CmkKekIdentity
+
+	// The properties of the Key Vault which hosts CMK
+	KeyVaultProperties *CmkKeyVaultProperties
+
+	// Encryption state of the Backup Vault.
+	State *EncryptionState
+}
+
 // Error - The resource management error response.
 type Error struct {
 	// READ-ONLY; The error additional info.
@@ -1710,6 +1745,9 @@ type KubernetesClusterRestoreCriteria struct {
 	// Gets or sets the PV (Persistent Volume) Restore Mode property. This property sets whether volumes needs to be restored.
 	PersistentVolumeRestoreMode *PersistentVolumeRestoreMode
 
+	// Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore.
+	ResourceModifierReference *NamespacedNameResource
+
 	// Gets or sets the restore hook references. This property sets the hook reference to be executed during restore.
 	RestoreHookReferences []*NamespacedNameResource
 }
@@ -1757,6 +1795,9 @@ type KubernetesClusterVaultTierRestoreCriteria struct {
 	// Gets or sets the PV (Persistent Volume) Restore Mode property. This property sets whether volumes needs to be restored
 	// from vault.
 	PersistentVolumeRestoreMode *PersistentVolumeRestoreMode
+
+	// Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore.
+	ResourceModifierReference *NamespacedNameResource
 
 	// Gets or sets the restore hook references. This property sets the hook reference to be executed during restore from vault.
 	RestoreHookReferences []*NamespacedNameResource
@@ -2278,6 +2319,9 @@ type SecretStoreResource struct {
 
 // SecuritySettings - Class containing security settings of vault
 type SecuritySettings struct {
+	// Customer Managed Key details of the resource.
+	EncryptionSettings *EncryptionSettings
+
 	// Immutability Settings at vault level
 	ImmutabilitySettings *ImmutabilitySettings
 

@@ -1,5 +1,21 @@
 # Release History
 
+## 3.1.0 (2024-03-26)
+### Features Added
+
+- New enum type `BCDRSecurityLevel` with values `BCDRSecurityLevelExcellent`, `BCDRSecurityLevelFair`, `BCDRSecurityLevelGood`, `BCDRSecurityLevelNotSupported`, `BCDRSecurityLevelPoor`
+- New enum type `EncryptionState` with values `EncryptionStateDisabled`, `EncryptionStateEnabled`, `EncryptionStateInconsistent`
+- New enum type `IdentityType` with values `IdentityTypeSystemAssigned`, `IdentityTypeUserAssigned`
+- New enum type `InfrastructureEncryptionState` with values `InfrastructureEncryptionStateDisabled`, `InfrastructureEncryptionStateEnabled`
+- New struct `CmkKekIdentity`
+- New struct `CmkKeyVaultProperties`
+- New struct `EncryptionSettings`
+- New field `BcdrSecurityLevel` in struct `BackupVault`
+- New field `ResourceModifierReference` in struct `KubernetesClusterRestoreCriteria`
+- New field `ResourceModifierReference` in struct `KubernetesClusterVaultTierRestoreCriteria`
+- New field `EncryptionSettings` in struct `SecuritySettings`
+
+
 ## 3.0.0 (2023-12-22)
 ### Breaking Changes
 

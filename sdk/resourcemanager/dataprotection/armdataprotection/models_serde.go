@@ -1448,6 +1448,7 @@ func (b *BackupSchedule) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type BackupVault.
 func (b BackupVault) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "bcdrSecurityLevel", b.BcdrSecurityLevel)
 	populate(objectMap, "featureSettings", b.FeatureSettings)
 	populate(objectMap, "isVaultProtectedByResourceGuard", b.IsVaultProtectedByResourceGuard)
 	populate(objectMap, "monitoringSettings", b.MonitoringSettings)
@@ -1470,6 +1471,9 @@ func (b *BackupVault) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "bcdrSecurityLevel":
+			err = unpopulate(val, "BcdrSecurityLevel", &b.BcdrSecurityLevel)
+			delete(rawMsg, key)
 		case "featureSettings":
 			err = unpopulate(val, "FeatureSettings", &b.FeatureSettings)
 			delete(rawMsg, key)
@@ -2051,6 +2055,64 @@ func (c *ClientDiscoveryValueForSingleAPI) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "properties":
 			err = unpopulate(val, "Properties", &c.Properties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CmkKekIdentity.
+func (c CmkKekIdentity) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "identityId", c.IdentityID)
+	populate(objectMap, "identityType", c.IdentityType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CmkKekIdentity.
+func (c *CmkKekIdentity) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "identityId":
+			err = unpopulate(val, "IdentityID", &c.IdentityID)
+			delete(rawMsg, key)
+		case "identityType":
+			err = unpopulate(val, "IdentityType", &c.IdentityType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CmkKeyVaultProperties.
+func (c CmkKeyVaultProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "keyUri", c.KeyURI)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CmkKeyVaultProperties.
+func (c *CmkKeyVaultProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "keyUri":
+			err = unpopulate(val, "KeyURI", &c.KeyURI)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3174,6 +3236,45 @@ func (d *DppWorkerRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type EncryptionSettings.
+func (e EncryptionSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "infrastructureEncryption", e.InfrastructureEncryption)
+	populate(objectMap, "kekIdentity", e.KekIdentity)
+	populate(objectMap, "keyVaultProperties", e.KeyVaultProperties)
+	populate(objectMap, "state", e.State)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type EncryptionSettings.
+func (e *EncryptionSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "infrastructureEncryption":
+			err = unpopulate(val, "InfrastructureEncryption", &e.InfrastructureEncryption)
+			delete(rawMsg, key)
+		case "kekIdentity":
+			err = unpopulate(val, "KekIdentity", &e.KekIdentity)
+			delete(rawMsg, key)
+		case "keyVaultProperties":
+			err = unpopulate(val, "KeyVaultProperties", &e.KeyVaultProperties)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &e.State)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Error.
 func (e Error) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -3950,6 +4051,7 @@ func (k KubernetesClusterRestoreCriteria) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "namespaceMappings", k.NamespaceMappings)
 	objectMap["objectType"] = "KubernetesClusterRestoreCriteria"
 	populate(objectMap, "persistentVolumeRestoreMode", k.PersistentVolumeRestoreMode)
+	populate(objectMap, "resourceModifierReference", k.ResourceModifierReference)
 	populate(objectMap, "restoreHookReferences", k.RestoreHookReferences)
 	return json.Marshal(objectMap)
 }
@@ -3993,6 +4095,9 @@ func (k *KubernetesClusterRestoreCriteria) UnmarshalJSON(data []byte) error {
 		case "persistentVolumeRestoreMode":
 			err = unpopulate(val, "PersistentVolumeRestoreMode", &k.PersistentVolumeRestoreMode)
 			delete(rawMsg, key)
+		case "resourceModifierReference":
+			err = unpopulate(val, "ResourceModifierReference", &k.ResourceModifierReference)
+			delete(rawMsg, key)
 		case "restoreHookReferences":
 			err = unpopulate(val, "RestoreHookReferences", &k.RestoreHookReferences)
 			delete(rawMsg, key)
@@ -4017,6 +4122,7 @@ func (k KubernetesClusterVaultTierRestoreCriteria) MarshalJSON() ([]byte, error)
 	populate(objectMap, "namespaceMappings", k.NamespaceMappings)
 	objectMap["objectType"] = "KubernetesClusterVaultTierRestoreCriteria"
 	populate(objectMap, "persistentVolumeRestoreMode", k.PersistentVolumeRestoreMode)
+	populate(objectMap, "resourceModifierReference", k.ResourceModifierReference)
 	populate(objectMap, "restoreHookReferences", k.RestoreHookReferences)
 	populate(objectMap, "stagingResourceGroupId", k.StagingResourceGroupID)
 	populate(objectMap, "stagingStorageAccountId", k.StagingStorageAccountID)
@@ -4061,6 +4167,9 @@ func (k *KubernetesClusterVaultTierRestoreCriteria) UnmarshalJSON(data []byte) e
 			delete(rawMsg, key)
 		case "persistentVolumeRestoreMode":
 			err = unpopulate(val, "PersistentVolumeRestoreMode", &k.PersistentVolumeRestoreMode)
+			delete(rawMsg, key)
+		case "resourceModifierReference":
+			err = unpopulate(val, "ResourceModifierReference", &k.ResourceModifierReference)
 			delete(rawMsg, key)
 		case "restoreHookReferences":
 			err = unpopulate(val, "RestoreHookReferences", &k.RestoreHookReferences)
@@ -5383,6 +5492,7 @@ func (s *SecretStoreResource) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SecuritySettings.
 func (s SecuritySettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "encryptionSettings", s.EncryptionSettings)
 	populate(objectMap, "immutabilitySettings", s.ImmutabilitySettings)
 	populate(objectMap, "softDeleteSettings", s.SoftDeleteSettings)
 	return json.Marshal(objectMap)
@@ -5397,6 +5507,9 @@ func (s *SecuritySettings) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "encryptionSettings":
+			err = unpopulate(val, "EncryptionSettings", &s.EncryptionSettings)
+			delete(rawMsg, key)
 		case "immutabilitySettings":
 			err = unpopulate(val, "ImmutabilitySettings", &s.ImmutabilitySettings)
 			delete(rawMsg, key)
@@ -6065,7 +6178,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
