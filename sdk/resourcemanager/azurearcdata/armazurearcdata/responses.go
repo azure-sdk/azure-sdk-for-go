@@ -66,6 +66,29 @@ type DataControllersClientPutDataControllerResponse struct {
 	DataControllerResource
 }
 
+// FailoverGroupsClientCreateResponse contains the response from method FailoverGroupsClient.BeginCreate.
+type FailoverGroupsClientCreateResponse struct {
+	// A failover group resource.
+	FailoverGroupResource
+}
+
+// FailoverGroupsClientDeleteResponse contains the response from method FailoverGroupsClient.BeginDelete.
+type FailoverGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FailoverGroupsClientGetResponse contains the response from method FailoverGroupsClient.Get.
+type FailoverGroupsClientGetResponse struct {
+	// A failover group resource.
+	FailoverGroupResource
+}
+
+// FailoverGroupsClientListResponse contains the response from method FailoverGroupsClient.NewListPager.
+type FailoverGroupsClientListResponse struct {
+	// A list of failover groups.
+	FailoverGroupListResult
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// Result of the request to list Azure Data Services on Azure Arc operations.
@@ -142,6 +165,82 @@ type SQLManagedInstancesClientUpdateResponse struct {
 	SQLManagedInstance
 }
 
+// SQLServerAvailabilityGroupsClientCreateResponse contains the response from method SQLServerAvailabilityGroupsClient.Create.
+type SQLServerAvailabilityGroupsClientCreateResponse struct {
+	// Arc Sql Server Availability Group
+	SQLServerAvailabilityGroupResource
+}
+
+// SQLServerAvailabilityGroupsClientDeleteResponse contains the response from method SQLServerAvailabilityGroupsClient.BeginDelete.
+type SQLServerAvailabilityGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SQLServerAvailabilityGroupsClientDetailViewResponse contains the response from method SQLServerAvailabilityGroupsClient.DetailView.
+type SQLServerAvailabilityGroupsClientDetailViewResponse struct {
+	// Arc Sql Server Availability Group
+	SQLServerAvailabilityGroupResource
+}
+
+// SQLServerAvailabilityGroupsClientFailoverResponse contains the response from method SQLServerAvailabilityGroupsClient.Failover.
+type SQLServerAvailabilityGroupsClientFailoverResponse struct {
+	// Arc Sql Server Availability Group
+	SQLServerAvailabilityGroupResource
+}
+
+// SQLServerAvailabilityGroupsClientForceFailoverAllowDataLossResponse contains the response from method SQLServerAvailabilityGroupsClient.ForceFailoverAllowDataLoss.
+type SQLServerAvailabilityGroupsClientForceFailoverAllowDataLossResponse struct {
+	// Arc Sql Server Availability Group
+	SQLServerAvailabilityGroupResource
+}
+
+// SQLServerAvailabilityGroupsClientGetResponse contains the response from method SQLServerAvailabilityGroupsClient.Get.
+type SQLServerAvailabilityGroupsClientGetResponse struct {
+	// Arc Sql Server Availability Group
+	SQLServerAvailabilityGroupResource
+}
+
+// SQLServerAvailabilityGroupsClientListResponse contains the response from method SQLServerAvailabilityGroupsClient.NewListPager.
+type SQLServerAvailabilityGroupsClientListResponse struct {
+	// A list of Arc Sql Server Availability Groups.
+	ArcSQLServerAvailabilityGroupListResult
+}
+
+// SQLServerAvailabilityGroupsClientUpdateResponse contains the response from method SQLServerAvailabilityGroupsClient.BeginUpdate.
+type SQLServerAvailabilityGroupsClientUpdateResponse struct {
+	// Arc Sql Server Availability Group
+	SQLServerAvailabilityGroupResource
+}
+
+// SQLServerDatabasesClientCreateResponse contains the response from method SQLServerDatabasesClient.Create.
+type SQLServerDatabasesClientCreateResponse struct {
+	// Arc Sql Server database
+	SQLServerDatabaseResource
+}
+
+// SQLServerDatabasesClientDeleteResponse contains the response from method SQLServerDatabasesClient.BeginDelete.
+type SQLServerDatabasesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SQLServerDatabasesClientGetResponse contains the response from method SQLServerDatabasesClient.Get.
+type SQLServerDatabasesClientGetResponse struct {
+	// Arc Sql Server database
+	SQLServerDatabaseResource
+}
+
+// SQLServerDatabasesClientListResponse contains the response from method SQLServerDatabasesClient.NewListPager.
+type SQLServerDatabasesClientListResponse struct {
+	// A list of Arc Sql Server database.
+	ArcSQLServerDatabaseListResult
+}
+
+// SQLServerDatabasesClientUpdateResponse contains the response from method SQLServerDatabasesClient.BeginUpdate.
+type SQLServerDatabasesClientUpdateResponse struct {
+	// Arc Sql Server database
+	SQLServerDatabaseResource
+}
+
 // SQLServerInstancesClientCreateResponse contains the response from method SQLServerInstancesClient.BeginCreate.
 type SQLServerInstancesClientCreateResponse struct {
 	// A SqlServerInstance.
@@ -159,6 +258,12 @@ type SQLServerInstancesClientGetResponse struct {
 	SQLServerInstance
 }
 
+// SQLServerInstancesClientGetTelemetryResponse contains the response from method SQLServerInstancesClient.BeginGetTelemetry.
+type SQLServerInstancesClientGetTelemetryResponse struct {
+	// A section of the telemetry response for the SQL Server instance.
+	SQLServerInstanceTelemetryResponse
+}
+
 // SQLServerInstancesClientListByResourceGroupResponse contains the response from method SQLServerInstancesClient.NewListByResourceGroupPager.
 type SQLServerInstancesClientListByResourceGroupResponse struct {
 	// A list of SqlServerInstance.
@@ -171,7 +276,7 @@ type SQLServerInstancesClientListResponse struct {
 	SQLServerInstanceListResult
 }
 
-// SQLServerInstancesClientUpdateResponse contains the response from method SQLServerInstancesClient.Update.
+// SQLServerInstancesClientUpdateResponse contains the response from method SQLServerInstancesClient.BeginUpdate.
 type SQLServerInstancesClientUpdateResponse struct {
 	// A SqlServerInstance.
 	SQLServerInstance

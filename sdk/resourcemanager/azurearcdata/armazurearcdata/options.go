@@ -73,6 +73,28 @@ type DataControllersClientListInSubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// FailoverGroupsClientBeginCreateOptions contains the optional parameters for the FailoverGroupsClient.BeginCreate method.
+type FailoverGroupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FailoverGroupsClientBeginDeleteOptions contains the optional parameters for the FailoverGroupsClient.BeginDelete method.
+type FailoverGroupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FailoverGroupsClientGetOptions contains the optional parameters for the FailoverGroupsClient.Get method.
+type FailoverGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FailoverGroupsClientListOptions contains the optional parameters for the FailoverGroupsClient.NewListPager method.
+type FailoverGroupsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -148,6 +170,85 @@ type SQLManagedInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SQLServerAvailabilityGroupsClientBeginDeleteOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.BeginDelete
+// method.
+type SQLServerAvailabilityGroupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLServerAvailabilityGroupsClientBeginUpdateOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.BeginUpdate
+// method.
+type SQLServerAvailabilityGroupsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLServerAvailabilityGroupsClientCreateOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Create
+// method.
+type SQLServerAvailabilityGroupsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientDetailViewOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.DetailView
+// method.
+type SQLServerAvailabilityGroupsClientDetailViewOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientFailoverOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Failover
+// method.
+type SQLServerAvailabilityGroupsClientFailoverOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientForceFailoverAllowDataLossOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.ForceFailoverAllowDataLoss
+// method.
+type SQLServerAvailabilityGroupsClientForceFailoverAllowDataLossOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientGetOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Get
+// method.
+type SQLServerAvailabilityGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientListOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.NewListPager
+// method.
+type SQLServerAvailabilityGroupsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientBeginDeleteOptions contains the optional parameters for the SQLServerDatabasesClient.BeginDelete
+// method.
+type SQLServerDatabasesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLServerDatabasesClientBeginUpdateOptions contains the optional parameters for the SQLServerDatabasesClient.BeginUpdate
+// method.
+type SQLServerDatabasesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLServerDatabasesClientCreateOptions contains the optional parameters for the SQLServerDatabasesClient.Create method.
+type SQLServerDatabasesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientGetOptions contains the optional parameters for the SQLServerDatabasesClient.Get method.
+type SQLServerDatabasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientListOptions contains the optional parameters for the SQLServerDatabasesClient.NewListPager method.
+type SQLServerDatabasesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SQLServerInstancesClientBeginCreateOptions contains the optional parameters for the SQLServerInstancesClient.BeginCreate
 // method.
 type SQLServerInstancesClientBeginCreateOptions struct {
@@ -158,6 +259,20 @@ type SQLServerInstancesClientBeginCreateOptions struct {
 // SQLServerInstancesClientBeginDeleteOptions contains the optional parameters for the SQLServerInstancesClient.BeginDelete
 // method.
 type SQLServerInstancesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLServerInstancesClientBeginGetTelemetryOptions contains the optional parameters for the SQLServerInstancesClient.BeginGetTelemetry
+// method.
+type SQLServerInstancesClientBeginGetTelemetryOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLServerInstancesClientBeginUpdateOptions contains the optional parameters for the SQLServerInstancesClient.BeginUpdate
+// method.
+type SQLServerInstancesClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -175,10 +290,5 @@ type SQLServerInstancesClientListByResourceGroupOptions struct {
 
 // SQLServerInstancesClientListOptions contains the optional parameters for the SQLServerInstancesClient.NewListPager method.
 type SQLServerInstancesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SQLServerInstancesClientUpdateOptions contains the optional parameters for the SQLServerInstancesClient.Update method.
-type SQLServerInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }

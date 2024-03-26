@@ -10,7 +10,7 @@ package armazurearcdata
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurearcdata/armazurearcdata"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v1.0.0"
 )
 
 // AccountProvisioningMode - The service account provisioning mode for this Active Directory connector.
@@ -26,6 +26,48 @@ func PossibleAccountProvisioningModeValues() []AccountProvisioningMode {
 	return []AccountProvisioningMode{
 		AccountProvisioningModeAutomatic,
 		AccountProvisioningModeManual,
+	}
+}
+
+// AggregationType - The aggregation type to use for the numerical columns in the dataset.
+type AggregationType string
+
+const (
+	AggregationTypeAverage AggregationType = "Average"
+	AggregationTypeCount   AggregationType = "Count"
+	AggregationTypeMaximum AggregationType = "Maximum"
+	AggregationTypeMinimum AggregationType = "Minimum"
+	AggregationTypeSum     AggregationType = "Sum"
+)
+
+// PossibleAggregationTypeValues returns the possible values for the AggregationType const type.
+func PossibleAggregationTypeValues() []AggregationType {
+	return []AggregationType{
+		AggregationTypeAverage,
+		AggregationTypeCount,
+		AggregationTypeMaximum,
+		AggregationTypeMinimum,
+		AggregationTypeSum,
+	}
+}
+
+// AlwaysOnRole - The role of the SQL Server, based on availability.
+type AlwaysOnRole string
+
+const (
+	AlwaysOnRoleAvailabilityGroupReplica AlwaysOnRole = "AvailabilityGroupReplica"
+	AlwaysOnRoleFailoverClusterInstance  AlwaysOnRole = "FailoverClusterInstance"
+	AlwaysOnRoleFailoverClusterNode      AlwaysOnRole = "FailoverClusterNode"
+	AlwaysOnRoleNone                     AlwaysOnRole = "None"
+)
+
+// PossibleAlwaysOnRoleValues returns the possible values for the AlwaysOnRole const type.
+func PossibleAlwaysOnRoleValues() []AlwaysOnRole {
+	return []AlwaysOnRole{
+		AlwaysOnRoleAvailabilityGroupReplica,
+		AlwaysOnRoleFailoverClusterInstance,
+		AlwaysOnRoleFailoverClusterNode,
+		AlwaysOnRoleNone,
 	}
 }
 
@@ -51,10 +93,13 @@ func PossibleArcSQLManagedInstanceLicenseTypeValues() []ArcSQLManagedInstanceLic
 type ArcSQLServerLicenseType string
 
 const (
-	ArcSQLServerLicenseTypeFree      ArcSQLServerLicenseType = "Free"
-	ArcSQLServerLicenseTypeHADR      ArcSQLServerLicenseType = "HADR"
-	ArcSQLServerLicenseTypePaid      ArcSQLServerLicenseType = "Paid"
-	ArcSQLServerLicenseTypeUndefined ArcSQLServerLicenseType = "Undefined"
+	ArcSQLServerLicenseTypeFree        ArcSQLServerLicenseType = "Free"
+	ArcSQLServerLicenseTypeHADR        ArcSQLServerLicenseType = "HADR"
+	ArcSQLServerLicenseTypeLicenseOnly ArcSQLServerLicenseType = "LicenseOnly"
+	ArcSQLServerLicenseTypePAYG        ArcSQLServerLicenseType = "PAYG"
+	ArcSQLServerLicenseTypePaid        ArcSQLServerLicenseType = "Paid"
+	ArcSQLServerLicenseTypeServerCAL   ArcSQLServerLicenseType = "ServerCAL"
+	ArcSQLServerLicenseTypeUndefined   ArcSQLServerLicenseType = "Undefined"
 )
 
 // PossibleArcSQLServerLicenseTypeValues returns the possible values for the ArcSQLServerLicenseType const type.
@@ -62,7 +107,10 @@ func PossibleArcSQLServerLicenseTypeValues() []ArcSQLServerLicenseType {
 	return []ArcSQLServerLicenseType{
 		ArcSQLServerLicenseTypeFree,
 		ArcSQLServerLicenseTypeHADR,
+		ArcSQLServerLicenseTypeLicenseOnly,
+		ArcSQLServerLicenseTypePAYG,
 		ArcSQLServerLicenseTypePaid,
+		ArcSQLServerLicenseTypeServerCAL,
 		ArcSQLServerLicenseTypeUndefined,
 	}
 }
@@ -107,6 +155,53 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// DatabaseCreateMode - Database create mode. PointInTimeRestore: Create a database by restoring a point in time backup of
+// an existing database. sourceDatabaseId and restorePointInTime must be specified.
+type DatabaseCreateMode string
+
+const (
+	DatabaseCreateModeDefault            DatabaseCreateMode = "Default"
+	DatabaseCreateModePointInTimeRestore DatabaseCreateMode = "PointInTimeRestore"
+)
+
+// PossibleDatabaseCreateModeValues returns the possible values for the DatabaseCreateMode const type.
+func PossibleDatabaseCreateModeValues() []DatabaseCreateMode {
+	return []DatabaseCreateMode{
+		DatabaseCreateModeDefault,
+		DatabaseCreateModePointInTimeRestore,
+	}
+}
+
+// DatabaseState - State of the database.
+type DatabaseState string
+
+const (
+	DatabaseStateCopying          DatabaseState = "Copying"
+	DatabaseStateEmergency        DatabaseState = "Emergency"
+	DatabaseStateOffline          DatabaseState = "Offline"
+	DatabaseStateOfflineSecondary DatabaseState = "OfflineSecondary"
+	DatabaseStateOnline           DatabaseState = "Online"
+	DatabaseStateRecovering       DatabaseState = "Recovering"
+	DatabaseStateRecoveryPending  DatabaseState = "RecoveryPending"
+	DatabaseStateRestoring        DatabaseState = "Restoring"
+	DatabaseStateSuspect          DatabaseState = "Suspect"
+)
+
+// PossibleDatabaseStateValues returns the possible values for the DatabaseState const type.
+func PossibleDatabaseStateValues() []DatabaseState {
+	return []DatabaseState{
+		DatabaseStateCopying,
+		DatabaseStateEmergency,
+		DatabaseStateOffline,
+		DatabaseStateOfflineSecondary,
+		DatabaseStateOnline,
+		DatabaseStateRecovering,
+		DatabaseStateRecoveryPending,
+		DatabaseStateRestoring,
+		DatabaseStateSuspect,
+	}
+}
+
 // DefenderStatus - Status of Azure Defender.
 type DefenderStatus string
 
@@ -125,21 +220,39 @@ func PossibleDefenderStatusValues() []DefenderStatus {
 	}
 }
 
+// DifferentialBackupHours - The differential backup interval in hours.
+type DifferentialBackupHours int32
+
+const (
+	DifferentialBackupHoursTwelve     DifferentialBackupHours = 12
+	DifferentialBackupHoursTwentyFour DifferentialBackupHours = 24
+)
+
+// PossibleDifferentialBackupHoursValues returns the possible values for the DifferentialBackupHours const type.
+func PossibleDifferentialBackupHoursValues() []DifferentialBackupHours {
+	return []DifferentialBackupHours{
+		DifferentialBackupHoursTwelve,
+		DifferentialBackupHoursTwentyFour,
+	}
+}
+
 // EditionType - SQL Server edition.
 type EditionType string
 
 const (
-	EditionTypeDeveloper  EditionType = "Developer"
-	EditionTypeEnterprise EditionType = "Enterprise"
-	EditionTypeEvaluation EditionType = "Evaluation"
-	EditionTypeExpress    EditionType = "Express"
-	EditionTypeStandard   EditionType = "Standard"
-	EditionTypeWeb        EditionType = "Web"
+	EditionTypeBusinessIntelligence EditionType = "Business Intelligence"
+	EditionTypeDeveloper            EditionType = "Developer"
+	EditionTypeEnterprise           EditionType = "Enterprise"
+	EditionTypeEvaluation           EditionType = "Evaluation"
+	EditionTypeExpress              EditionType = "Express"
+	EditionTypeStandard             EditionType = "Standard"
+	EditionTypeWeb                  EditionType = "Web"
 )
 
 // PossibleEditionTypeValues returns the possible values for the EditionType const type.
 func PossibleEditionTypeValues() []EditionType {
 	return []EditionType{
+		EditionTypeBusinessIntelligence,
 		EditionTypeDeveloper,
 		EditionTypeEnterprise,
 		EditionTypeEvaluation,
@@ -163,21 +276,53 @@ func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	}
 }
 
+// FailoverGroupPartnerSyncMode - The partner sync mode of the SQL managed instance.
+type FailoverGroupPartnerSyncMode string
+
+const (
+	FailoverGroupPartnerSyncModeAsync FailoverGroupPartnerSyncMode = "async"
+	FailoverGroupPartnerSyncModeSync  FailoverGroupPartnerSyncMode = "sync"
+)
+
+// PossibleFailoverGroupPartnerSyncModeValues returns the possible values for the FailoverGroupPartnerSyncMode const type.
+func PossibleFailoverGroupPartnerSyncModeValues() []FailoverGroupPartnerSyncMode {
+	return []FailoverGroupPartnerSyncMode{
+		FailoverGroupPartnerSyncModeAsync,
+		FailoverGroupPartnerSyncModeSync,
+	}
+}
+
 // HostType - Type of host for Azure Arc SQL Server
 type HostType string
 
 const (
-	HostTypeAWSVirtualMachine HostType = "AWS Virtual Machine"
-	HostTypeGCPVirtualMachine HostType = "GCP Virtual Machine"
-	HostTypeOther             HostType = "Other"
-	HostTypePhysicalServer    HostType = "Physical Server"
-	HostTypeVirtualMachine    HostType = "Virtual Machine"
+	HostTypeAWSKubernetesService      HostType = "AWS Kubernetes Service"
+	HostTypeAWSVMWareVirtualMachine   HostType = "AWS VMWare Virtual Machine"
+	HostTypeAWSVirtualMachine         HostType = "AWS Virtual Machine"
+	HostTypeAzureKubernetesService    HostType = "Azure Kubernetes Service"
+	HostTypeAzureVMWareVirtualMachine HostType = "Azure VMWare Virtual Machine"
+	HostTypeAzureVirtualMachine       HostType = "Azure Virtual Machine"
+	HostTypeContainer                 HostType = "Container"
+	HostTypeGCPKubernetesService      HostType = "GCP Kubernetes Service"
+	HostTypeGCPVMWareVirtualMachine   HostType = "GCP VMWare Virtual Machine"
+	HostTypeGCPVirtualMachine         HostType = "GCP Virtual Machine"
+	HostTypeOther                     HostType = "Other"
+	HostTypePhysicalServer            HostType = "Physical Server"
+	HostTypeVirtualMachine            HostType = "Virtual Machine"
 )
 
 // PossibleHostTypeValues returns the possible values for the HostType const type.
 func PossibleHostTypeValues() []HostType {
 	return []HostType{
+		HostTypeAWSKubernetesService,
+		HostTypeAWSVMWareVirtualMachine,
 		HostTypeAWSVirtualMachine,
+		HostTypeAzureKubernetesService,
+		HostTypeAzureVMWareVirtualMachine,
+		HostTypeAzureVirtualMachine,
+		HostTypeContainer,
+		HostTypeGCPKubernetesService,
+		HostTypeGCPVMWareVirtualMachine,
 		HostTypeGCPVirtualMachine,
 		HostTypeOther,
 		HostTypePhysicalServer,
@@ -209,6 +354,26 @@ func PossibleInfrastructureValues() []Infrastructure {
 	}
 }
 
+// InstanceFailoverGroupRole - The role of the SQL managed instance in this failover group.
+type InstanceFailoverGroupRole string
+
+const (
+	InstanceFailoverGroupRoleForcePrimaryAllowDataLoss InstanceFailoverGroupRole = "force-primary-allow-data-loss"
+	InstanceFailoverGroupRoleForceSecondary            InstanceFailoverGroupRole = "force-secondary"
+	InstanceFailoverGroupRolePrimary                   InstanceFailoverGroupRole = "primary"
+	InstanceFailoverGroupRoleSecondary                 InstanceFailoverGroupRole = "secondary"
+)
+
+// PossibleInstanceFailoverGroupRoleValues returns the possible values for the InstanceFailoverGroupRole const type.
+func PossibleInstanceFailoverGroupRoleValues() []InstanceFailoverGroupRole {
+	return []InstanceFailoverGroupRole{
+		InstanceFailoverGroupRoleForcePrimaryAllowDataLoss,
+		InstanceFailoverGroupRoleForceSecondary,
+		InstanceFailoverGroupRolePrimary,
+		InstanceFailoverGroupRoleSecondary,
+	}
+}
+
 // OperationOrigin - The intended executor of the operation.
 type OperationOrigin string
 
@@ -225,6 +390,63 @@ func PossibleOperationOriginValues() []OperationOrigin {
 	}
 }
 
+// ProvisioningState - The provisioning state of the failover group resource.
+type ProvisioningState string
+
+const (
+	ProvisioningStateAccepted  ProvisioningState = "Accepted"
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateAccepted,
+		ProvisioningStateCanceled,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+	}
+}
+
+// RecoveryMode - Status of the database.
+type RecoveryMode string
+
+const (
+	RecoveryModeBulkLogged RecoveryMode = "Bulk-logged"
+	RecoveryModeFull       RecoveryMode = "Full"
+	RecoveryModeSimple     RecoveryMode = "Simple"
+)
+
+// PossibleRecoveryModeValues returns the possible values for the RecoveryMode const type.
+func PossibleRecoveryModeValues() []RecoveryMode {
+	return []RecoveryMode{
+		RecoveryModeBulkLogged,
+		RecoveryModeFull,
+		RecoveryModeSimple,
+	}
+}
+
+type ReplicationPartnerType string
+
+const (
+	ReplicationPartnerTypeAzureSQLManagedInstance ReplicationPartnerType = "AzureSQLManagedInstance"
+	ReplicationPartnerTypeAzureSQLVM              ReplicationPartnerType = "AzureSQLVM"
+	ReplicationPartnerTypeSQLServer               ReplicationPartnerType = "SQLServer"
+	ReplicationPartnerTypeUnknown                 ReplicationPartnerType = "Unknown"
+)
+
+// PossibleReplicationPartnerTypeValues returns the possible values for the ReplicationPartnerType const type.
+func PossibleReplicationPartnerTypeValues() []ReplicationPartnerType {
+	return []ReplicationPartnerType{
+		ReplicationPartnerTypeAzureSQLManagedInstance,
+		ReplicationPartnerTypeAzureSQLVM,
+		ReplicationPartnerTypeSQLServer,
+		ReplicationPartnerTypeUnknown,
+	}
+}
+
 // SQLManagedInstanceSKUTier - The pricing tier for the instance.
 type SQLManagedInstanceSKUTier string
 
@@ -238,6 +460,34 @@ func PossibleSQLManagedInstanceSKUTierValues() []SQLManagedInstanceSKUTier {
 	return []SQLManagedInstanceSKUTier{
 		SQLManagedInstanceSKUTierBusinessCritical,
 		SQLManagedInstanceSKUTierGeneralPurpose,
+	}
+}
+
+// SQLServerInstanceTelemetryColumnType - The type of the telemetry column.
+type SQLServerInstanceTelemetryColumnType string
+
+const (
+	SQLServerInstanceTelemetryColumnTypeBool     SQLServerInstanceTelemetryColumnType = "bool"
+	SQLServerInstanceTelemetryColumnTypeDatetime SQLServerInstanceTelemetryColumnType = "datetime"
+	SQLServerInstanceTelemetryColumnTypeDouble   SQLServerInstanceTelemetryColumnType = "double"
+	SQLServerInstanceTelemetryColumnTypeGUID     SQLServerInstanceTelemetryColumnType = "guid"
+	SQLServerInstanceTelemetryColumnTypeInt      SQLServerInstanceTelemetryColumnType = "int"
+	SQLServerInstanceTelemetryColumnTypeLong     SQLServerInstanceTelemetryColumnType = "long"
+	SQLServerInstanceTelemetryColumnTypeString   SQLServerInstanceTelemetryColumnType = "string"
+	SQLServerInstanceTelemetryColumnTypeTimespan SQLServerInstanceTelemetryColumnType = "timespan"
+)
+
+// PossibleSQLServerInstanceTelemetryColumnTypeValues returns the possible values for the SQLServerInstanceTelemetryColumnType const type.
+func PossibleSQLServerInstanceTelemetryColumnTypeValues() []SQLServerInstanceTelemetryColumnType {
+	return []SQLServerInstanceTelemetryColumnType{
+		SQLServerInstanceTelemetryColumnTypeBool,
+		SQLServerInstanceTelemetryColumnTypeDatetime,
+		SQLServerInstanceTelemetryColumnTypeDouble,
+		SQLServerInstanceTelemetryColumnTypeGUID,
+		SQLServerInstanceTelemetryColumnTypeInt,
+		SQLServerInstanceTelemetryColumnTypeLong,
+		SQLServerInstanceTelemetryColumnTypeString,
+		SQLServerInstanceTelemetryColumnTypeTimespan,
 	}
 }
 
