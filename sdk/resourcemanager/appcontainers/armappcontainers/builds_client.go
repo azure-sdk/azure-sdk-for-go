@@ -46,7 +46,7 @@ func NewBuildsClient(subscriptionID string, credential azcore.TokenCredential, o
 // BeginCreateOrUpdate - Create a BuildResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - buildName - The name of a build.
@@ -74,7 +74,7 @@ func (client *BuildsClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 // CreateOrUpdate - Create a BuildResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *BuildsClient) createOrUpdate(ctx context.Context, resourceGroupName string, builderName string, buildName string, buildEnvelope BuildResource, options *BuildsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BuildsClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *BuildsClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, buildEnvelope); err != nil {
@@ -132,7 +132,7 @@ func (client *BuildsClient) createOrUpdateCreateRequest(ctx context.Context, res
 // BeginDelete - Delete a BuildResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - buildName - The name of a build.
@@ -158,7 +158,7 @@ func (client *BuildsClient) BeginDelete(ctx context.Context, resourceGroupName s
 // Delete - Delete a BuildResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *BuildsClient) deleteOperation(ctx context.Context, resourceGroupName string, builderName string, buildName string, options *BuildsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BuildsClient.BeginDelete"
@@ -204,7 +204,7 @@ func (client *BuildsClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *BuildsClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Get a BuildResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - buildName - The name of a build.
@@ -264,7 +264,7 @@ func (client *BuildsClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
