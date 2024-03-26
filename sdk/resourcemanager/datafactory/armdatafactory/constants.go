@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v6.1.0"
+	moduleVersion = "v7.0.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -288,17 +288,17 @@ func PossibleDataFlowReferenceTypeValues() []DataFlowReferenceType {
 	}
 }
 
-// DatasetReferenceType - Dataset reference type.
-type DatasetReferenceType string
+// DataSetReferenceType - Dataset reference type.
+type DataSetReferenceType string
 
 const (
-	DatasetReferenceTypeDatasetReference DatasetReferenceType = "DatasetReference"
+	DataSetReferenceTypeDatasetReference DataSetReferenceType = "DatasetReference"
 )
 
-// PossibleDatasetReferenceTypeValues returns the possible values for the DatasetReferenceType const type.
-func PossibleDatasetReferenceTypeValues() []DatasetReferenceType {
-	return []DatasetReferenceType{
-		DatasetReferenceTypeDatasetReference,
+// PossibleDataSetReferenceTypeValues returns the possible values for the DataSetReferenceType const type.
+func PossibleDataSetReferenceTypeValues() []DataSetReferenceType {
+	return []DataSetReferenceType{
+		DataSetReferenceTypeDatasetReference,
 	}
 }
 
