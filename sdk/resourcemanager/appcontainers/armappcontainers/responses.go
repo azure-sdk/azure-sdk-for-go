@@ -299,6 +299,23 @@ type ContainerAppsAuthConfigsClientListByContainerAppResponse struct {
 	AuthConfigCollection
 }
 
+// ContainerAppsBuildsByContainerAppClientListResponse contains the response from method ContainerAppsBuildsByContainerAppClient.NewListPager.
+type ContainerAppsBuildsByContainerAppClientListResponse struct {
+	// The response of a Container Apps Build Resource list operation.
+	ContainerAppsBuildCollection
+}
+
+// ContainerAppsBuildsClientDeleteResponse contains the response from method ContainerAppsBuildsClient.BeginDelete.
+type ContainerAppsBuildsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsBuildsClientGetResponse contains the response from method ContainerAppsBuildsClient.Get.
+type ContainerAppsBuildsClientGetResponse struct {
+	// Information pertaining to an individual build.
+	ContainerAppsBuildResource
+}
+
 // ContainerAppsClientCreateOrUpdateResponse contains the response from method ContainerAppsClient.BeginCreateOrUpdate.
 type ContainerAppsClientCreateOrUpdateResponse struct {
 	// Container App.
@@ -394,6 +411,34 @@ type ContainerAppsDiagnosticsClientListRevisionsResponse struct {
 	RevisionCollection
 }
 
+// ContainerAppsPatchesClientApplyResponse contains the response from method ContainerAppsPatchesClient.BeginApply.
+type ContainerAppsPatchesClientApplyResponse struct {
+	// Container App Patch
+	ContainerAppsPatchResource
+}
+
+// ContainerAppsPatchesClientDeleteResponse contains the response from method ContainerAppsPatchesClient.BeginDelete.
+type ContainerAppsPatchesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsPatchesClientGetResponse contains the response from method ContainerAppsPatchesClient.Get.
+type ContainerAppsPatchesClientGetResponse struct {
+	// Container App Patch
+	ContainerAppsPatchResource
+}
+
+// ContainerAppsPatchesClientListByContainerAppResponse contains the response from method ContainerAppsPatchesClient.NewListByContainerAppPager.
+type ContainerAppsPatchesClientListByContainerAppResponse struct {
+	// Container App patch collection
+	PatchCollection
+}
+
+// ContainerAppsPatchesClientSkipConfigureResponse contains the response from method ContainerAppsPatchesClient.BeginSkipConfigure.
+type ContainerAppsPatchesClientSkipConfigureResponse struct {
+	// placeholder for future response values
+}
+
 // ContainerAppsRevisionReplicasClientGetReplicaResponse contains the response from method ContainerAppsRevisionReplicasClient.GetReplica.
 type ContainerAppsRevisionReplicasClientGetReplicaResponse struct {
 	// Container App Revision Replica.
@@ -431,6 +476,64 @@ type ContainerAppsRevisionsClientListRevisionsResponse struct {
 // ContainerAppsRevisionsClientRestartRevisionResponse contains the response from method ContainerAppsRevisionsClient.RestartRevision.
 type ContainerAppsRevisionsClientRestartRevisionResponse struct {
 	// placeholder for future response values
+}
+
+// ContainerAppsSessionPoolSessionsClientGenerateSessionsResponse contains the response from method ContainerAppsSessionPoolSessionsClient.NewGenerateSessionsPager.
+type ContainerAppsSessionPoolSessionsClientGenerateSessionsResponse struct {
+	// Session collection ARM resource.
+	SessionCollection
+}
+
+// ContainerAppsSessionPoolSessionsClientGetResponse contains the response from method ContainerAppsSessionPoolSessionsClient.Get.
+type ContainerAppsSessionPoolSessionsClientGetResponse struct {
+	// Session resource.
+	Session
+}
+
+// ContainerAppsSessionPoolSessionsClientListBySessionPoolResponse contains the response from method ContainerAppsSessionPoolSessionsClient.NewListBySessionPoolPager.
+type ContainerAppsSessionPoolSessionsClientListBySessionPoolResponse struct {
+	// Session collection ARM resource.
+	SessionCollection
+}
+
+// ContainerAppsSessionPoolSessionsClientUpdateEnvironmentVariablesResponse contains the response from method ContainerAppsSessionPoolSessionsClient.UpdateEnvironmentVariables.
+type ContainerAppsSessionPoolSessionsClientUpdateEnvironmentVariablesResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsSessionPoolsClientCreateOrUpdateResponse contains the response from method ContainerAppsSessionPoolsClient.BeginCreateOrUpdate.
+type ContainerAppsSessionPoolsClientCreateOrUpdateResponse struct {
+	// Container App Session Pool.
+	SessionPool
+}
+
+// ContainerAppsSessionPoolsClientDeleteResponse contains the response from method ContainerAppsSessionPoolsClient.BeginDelete.
+type ContainerAppsSessionPoolsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ContainerAppsSessionPoolsClientGetResponse contains the response from method ContainerAppsSessionPoolsClient.Get.
+type ContainerAppsSessionPoolsClientGetResponse struct {
+	// Container App Session Pool.
+	SessionPool
+}
+
+// ContainerAppsSessionPoolsClientListByResourceGroupResponse contains the response from method ContainerAppsSessionPoolsClient.NewListByResourceGroupPager.
+type ContainerAppsSessionPoolsClientListByResourceGroupResponse struct {
+	// Session Pool collection ARM resource.
+	SessionPoolCollection
+}
+
+// ContainerAppsSessionPoolsClientListBySubscriptionResponse contains the response from method ContainerAppsSessionPoolsClient.NewListBySubscriptionPager.
+type ContainerAppsSessionPoolsClientListBySubscriptionResponse struct {
+	// Session Pool collection ARM resource.
+	SessionPoolCollection
+}
+
+// ContainerAppsSessionPoolsClientUpdateResponse contains the response from method ContainerAppsSessionPoolsClient.BeginUpdate.
+type ContainerAppsSessionPoolsClientUpdateResponse struct {
+	// Container App Session Pool.
+	SessionPool
 }
 
 // ContainerAppsSourceControlsClientCreateOrUpdateResponse contains the response from method ContainerAppsSourceControlsClient.BeginCreateOrUpdate.
@@ -558,6 +661,11 @@ type DotNetComponentsClientListResponse struct {
 type DotNetComponentsClientUpdateResponse struct {
 	// .NET Component.
 	DotNetComponent
+}
+
+// FunctionsExtensionClientInvokeFunctionsHostResponse contains the response from method FunctionsExtensionClient.InvokeFunctionsHost.
+type FunctionsExtensionClientInvokeFunctionsHostResponse struct {
+	Value *string
 }
 
 // JavaComponentsClientCreateOrUpdateResponse contains the response from method JavaComponentsClient.BeginCreateOrUpdate.

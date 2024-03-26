@@ -33,15 +33,21 @@ type ServerFactory struct {
 	ConnectedEnvironmentsStoragesServer       ConnectedEnvironmentsStoragesServer
 	ContainerAppsAPIServer                    ContainerAppsAPIServer
 	ContainerAppsAuthConfigsServer            ContainerAppsAuthConfigsServer
+	ContainerAppsBuildsByContainerAppServer   ContainerAppsBuildsByContainerAppServer
+	ContainerAppsBuildsServer                 ContainerAppsBuildsServer
 	ContainerAppsServer                       ContainerAppsServer
 	ContainerAppsDiagnosticsServer            ContainerAppsDiagnosticsServer
+	ContainerAppsPatchesServer                ContainerAppsPatchesServer
 	ContainerAppsRevisionReplicasServer       ContainerAppsRevisionReplicasServer
 	ContainerAppsRevisionsServer              ContainerAppsRevisionsServer
+	ContainerAppsSessionPoolSessionsServer    ContainerAppsSessionPoolSessionsServer
+	ContainerAppsSessionPoolsServer           ContainerAppsSessionPoolsServer
 	ContainerAppsSourceControlsServer         ContainerAppsSourceControlsServer
 	DaprComponentResiliencyPoliciesServer     DaprComponentResiliencyPoliciesServer
 	DaprComponentsServer                      DaprComponentsServer
 	DaprSubscriptionsServer                   DaprSubscriptionsServer
 	DotNetComponentsServer                    DotNetComponentsServer
+	FunctionsExtensionServer                  FunctionsExtensionServer
 	JavaComponentsServer                      JavaComponentsServer
 	JobsServer                                JobsServer
 	JobsExecutionsServer                      JobsExecutionsServer
@@ -84,15 +90,21 @@ type ServerFactoryTransport struct {
 	trConnectedEnvironmentsStoragesServer       *ConnectedEnvironmentsStoragesServerTransport
 	trContainerAppsAPIServer                    *ContainerAppsAPIServerTransport
 	trContainerAppsAuthConfigsServer            *ContainerAppsAuthConfigsServerTransport
+	trContainerAppsBuildsByContainerAppServer   *ContainerAppsBuildsByContainerAppServerTransport
+	trContainerAppsBuildsServer                 *ContainerAppsBuildsServerTransport
 	trContainerAppsServer                       *ContainerAppsServerTransport
 	trContainerAppsDiagnosticsServer            *ContainerAppsDiagnosticsServerTransport
+	trContainerAppsPatchesServer                *ContainerAppsPatchesServerTransport
 	trContainerAppsRevisionReplicasServer       *ContainerAppsRevisionReplicasServerTransport
 	trContainerAppsRevisionsServer              *ContainerAppsRevisionsServerTransport
+	trContainerAppsSessionPoolSessionsServer    *ContainerAppsSessionPoolSessionsServerTransport
+	trContainerAppsSessionPoolsServer           *ContainerAppsSessionPoolsServerTransport
 	trContainerAppsSourceControlsServer         *ContainerAppsSourceControlsServerTransport
 	trDaprComponentResiliencyPoliciesServer     *DaprComponentResiliencyPoliciesServerTransport
 	trDaprComponentsServer                      *DaprComponentsServerTransport
 	trDaprSubscriptionsServer                   *DaprSubscriptionsServerTransport
 	trDotNetComponentsServer                    *DotNetComponentsServerTransport
+	trFunctionsExtensionServer                  *FunctionsExtensionServerTransport
 	trJavaComponentsServer                      *JavaComponentsServerTransport
 	trJobsServer                                *JobsServerTransport
 	trJobsExecutionsServer                      *JobsExecutionsServerTransport
@@ -184,6 +196,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewContainerAppsAuthConfigsServerTransport(&s.srv.ContainerAppsAuthConfigsServer)
 		})
 		resp, err = s.trContainerAppsAuthConfigsServer.Do(req)
+	case "ContainerAppsBuildsByContainerAppClient":
+		initServer(s, &s.trContainerAppsBuildsByContainerAppServer, func() *ContainerAppsBuildsByContainerAppServerTransport {
+			return NewContainerAppsBuildsByContainerAppServerTransport(&s.srv.ContainerAppsBuildsByContainerAppServer)
+		})
+		resp, err = s.trContainerAppsBuildsByContainerAppServer.Do(req)
+	case "ContainerAppsBuildsClient":
+		initServer(s, &s.trContainerAppsBuildsServer, func() *ContainerAppsBuildsServerTransport {
+			return NewContainerAppsBuildsServerTransport(&s.srv.ContainerAppsBuildsServer)
+		})
+		resp, err = s.trContainerAppsBuildsServer.Do(req)
 	case "ContainerAppsClient":
 		initServer(s, &s.trContainerAppsServer, func() *ContainerAppsServerTransport {
 			return NewContainerAppsServerTransport(&s.srv.ContainerAppsServer)
@@ -194,6 +216,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewContainerAppsDiagnosticsServerTransport(&s.srv.ContainerAppsDiagnosticsServer)
 		})
 		resp, err = s.trContainerAppsDiagnosticsServer.Do(req)
+	case "ContainerAppsPatchesClient":
+		initServer(s, &s.trContainerAppsPatchesServer, func() *ContainerAppsPatchesServerTransport {
+			return NewContainerAppsPatchesServerTransport(&s.srv.ContainerAppsPatchesServer)
+		})
+		resp, err = s.trContainerAppsPatchesServer.Do(req)
 	case "ContainerAppsRevisionReplicasClient":
 		initServer(s, &s.trContainerAppsRevisionReplicasServer, func() *ContainerAppsRevisionReplicasServerTransport {
 			return NewContainerAppsRevisionReplicasServerTransport(&s.srv.ContainerAppsRevisionReplicasServer)
@@ -204,6 +231,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewContainerAppsRevisionsServerTransport(&s.srv.ContainerAppsRevisionsServer)
 		})
 		resp, err = s.trContainerAppsRevisionsServer.Do(req)
+	case "ContainerAppsSessionPoolSessionsClient":
+		initServer(s, &s.trContainerAppsSessionPoolSessionsServer, func() *ContainerAppsSessionPoolSessionsServerTransport {
+			return NewContainerAppsSessionPoolSessionsServerTransport(&s.srv.ContainerAppsSessionPoolSessionsServer)
+		})
+		resp, err = s.trContainerAppsSessionPoolSessionsServer.Do(req)
+	case "ContainerAppsSessionPoolsClient":
+		initServer(s, &s.trContainerAppsSessionPoolsServer, func() *ContainerAppsSessionPoolsServerTransport {
+			return NewContainerAppsSessionPoolsServerTransport(&s.srv.ContainerAppsSessionPoolsServer)
+		})
+		resp, err = s.trContainerAppsSessionPoolsServer.Do(req)
 	case "ContainerAppsSourceControlsClient":
 		initServer(s, &s.trContainerAppsSourceControlsServer, func() *ContainerAppsSourceControlsServerTransport {
 			return NewContainerAppsSourceControlsServerTransport(&s.srv.ContainerAppsSourceControlsServer)
@@ -229,6 +266,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDotNetComponentsServerTransport(&s.srv.DotNetComponentsServer)
 		})
 		resp, err = s.trDotNetComponentsServer.Do(req)
+	case "FunctionsExtensionClient":
+		initServer(s, &s.trFunctionsExtensionServer, func() *FunctionsExtensionServerTransport {
+			return NewFunctionsExtensionServerTransport(&s.srv.FunctionsExtensionServer)
+		})
+		resp, err = s.trFunctionsExtensionServer.Do(req)
 	case "JavaComponentsClient":
 		initServer(s, &s.trJavaComponentsServer, func() *JavaComponentsServerTransport {
 			return NewJavaComponentsServerTransport(&s.srv.JavaComponentsServer)

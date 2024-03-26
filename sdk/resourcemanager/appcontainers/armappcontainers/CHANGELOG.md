@@ -1,5 +1,119 @@
 # Release History
 
+## 3.0.0-beta.2 (2024-03-26)
+### Breaking Changes
+
+- Type of `JavaComponent.Properties` has been changed from `*JavaComponentProperties` to `JavaComponentPropertiesClassification`
+- `DotNetComponentTypeAspireResourceServerAPI` from enum `DotNetComponentType` has been removed
+
+### Features Added
+
+- New value `JavaComponentTypeNacos` added to enum type `JavaComponentType`
+- New enum type `ContainerType` with values `ContainerTypeCustomContainer`, `ContainerTypeCustomImage`, `ContainerTypeFunctionsPython`, `ContainerTypeJupyterPython`, `ContainerTypeSSH`
+- New enum type `DetectionStatus` with values `DetectionStatusFailed`, `DetectionStatusRegistryLoginFailed`, `DetectionStatusSucceeded`
+- New enum type `ExecutionType` with values `ExecutionTypeTimed`
+- New enum type `ImageType` with values `ImageTypeCloudBuild`, `ImageTypeContainerImage`
+- New enum type `PatchApplyStatus` with values `PatchApplyStatusCanceled`, `PatchApplyStatusCreatingRevision`, `PatchApplyStatusImagePushPullFailed`, `PatchApplyStatusManuallySkipped`, `PatchApplyStatusNotStarted`, `PatchApplyStatusRebaseFailed`, `PatchApplyStatusRebaseInProgress`, `PatchApplyStatusRevisionCreationFailed`, `PatchApplyStatusSucceeded`
+- New enum type `PatchType` with values `PatchTypeFrameworkAndOSSecurity`, `PatchTypeFrameworkSecurity`, `PatchTypeOSSecurity`, `PatchTypeOther`
+- New enum type `PatchingMode` with values `PatchingModeAutomatic`, `PatchingModeDisabled`, `PatchingModeManual`
+- New enum type `PoolManagementType` with values `PoolManagementTypeDynamic`, `PoolManagementTypeManual`
+- New enum type `SessionPoolProvisioningState` with values `SessionPoolProvisioningStateCanceled`, `SessionPoolProvisioningStateDeleting`, `SessionPoolProvisioningStateFailed`, `SessionPoolProvisioningStateInProgress`, `SessionPoolProvisioningStateSucceeded`
+- New function `*ClientFactory.NewContainerAppsBuildsByContainerAppClient() *ContainerAppsBuildsByContainerAppClient`
+- New function `*ClientFactory.NewContainerAppsBuildsClient() *ContainerAppsBuildsClient`
+- New function `*ClientFactory.NewContainerAppsPatchesClient() *ContainerAppsPatchesClient`
+- New function `*ClientFactory.NewContainerAppsSessionPoolSessionsClient() *ContainerAppsSessionPoolSessionsClient`
+- New function `*ClientFactory.NewContainerAppsSessionPoolsClient() *ContainerAppsSessionPoolsClient`
+- New function `*ClientFactory.NewFunctionsExtensionClient() *FunctionsExtensionClient`
+- New function `NewContainerAppsBuildsByContainerAppClient(string, string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsBuildsByContainerAppClient, error)`
+- New function `*ContainerAppsBuildsByContainerAppClient.NewListPager(string, *ContainerAppsBuildsByContainerAppClientListOptions) *runtime.Pager[ContainerAppsBuildsByContainerAppClientListResponse]`
+- New function `NewContainerAppsBuildsClient(string, string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsBuildsClient, error)`
+- New function `*ContainerAppsBuildsClient.BeginDelete(context.Context, string, string, *ContainerAppsBuildsClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsBuildsClientDeleteResponse], error)`
+- New function `*ContainerAppsBuildsClient.Get(context.Context, string, string, *ContainerAppsBuildsClientGetOptions) (ContainerAppsBuildsClientGetResponse, error)`
+- New function `NewContainerAppsPatchesClient(string, string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsPatchesClient, error)`
+- New function `*ContainerAppsPatchesClient.BeginApply(context.Context, string, string, *ContainerAppsPatchesClientBeginApplyOptions) (*runtime.Poller[ContainerAppsPatchesClientApplyResponse], error)`
+- New function `*ContainerAppsPatchesClient.BeginDelete(context.Context, string, string, *ContainerAppsPatchesClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsPatchesClientDeleteResponse], error)`
+- New function `*ContainerAppsPatchesClient.Get(context.Context, string, string, *ContainerAppsPatchesClientGetOptions) (ContainerAppsPatchesClientGetResponse, error)`
+- New function `*ContainerAppsPatchesClient.NewListByContainerAppPager(string, *ContainerAppsPatchesClientListByContainerAppOptions) *runtime.Pager[ContainerAppsPatchesClientListByContainerAppResponse]`
+- New function `*ContainerAppsPatchesClient.BeginSkipConfigure(context.Context, string, string, PatchSkipConfig, *ContainerAppsPatchesClientBeginSkipConfigureOptions) (*runtime.Poller[ContainerAppsPatchesClientSkipConfigureResponse], error)`
+- New function `NewContainerAppsSessionPoolSessionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsSessionPoolSessionsClient, error)`
+- New function `*ContainerAppsSessionPoolSessionsClient.NewGenerateSessionsPager(string, string, Session, *ContainerAppsSessionPoolSessionsClientGenerateSessionsOptions) *runtime.Pager[ContainerAppsSessionPoolSessionsClientGenerateSessionsResponse]`
+- New function `*ContainerAppsSessionPoolSessionsClient.Get(context.Context, string, string, string, *ContainerAppsSessionPoolSessionsClientGetOptions) (ContainerAppsSessionPoolSessionsClientGetResponse, error)`
+- New function `*ContainerAppsSessionPoolSessionsClient.NewListBySessionPoolPager(string, string, *ContainerAppsSessionPoolSessionsClientListBySessionPoolOptions) *runtime.Pager[ContainerAppsSessionPoolSessionsClientListBySessionPoolResponse]`
+- New function `*ContainerAppsSessionPoolSessionsClient.UpdateEnvironmentVariables(context.Context, string, string, string, EnvironmentVariableCollection, *ContainerAppsSessionPoolSessionsClientUpdateEnvironmentVariablesOptions) (ContainerAppsSessionPoolSessionsClientUpdateEnvironmentVariablesResponse, error)`
+- New function `NewContainerAppsSessionPoolsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsSessionPoolsClient, error)`
+- New function `*ContainerAppsSessionPoolsClient.BeginCreateOrUpdate(context.Context, string, string, SessionPool, *ContainerAppsSessionPoolsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ContainerAppsSessionPoolsClientCreateOrUpdateResponse], error)`
+- New function `*ContainerAppsSessionPoolsClient.BeginDelete(context.Context, string, string, *ContainerAppsSessionPoolsClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsSessionPoolsClientDeleteResponse], error)`
+- New function `*ContainerAppsSessionPoolsClient.Get(context.Context, string, string, *ContainerAppsSessionPoolsClientGetOptions) (ContainerAppsSessionPoolsClientGetResponse, error)`
+- New function `*ContainerAppsSessionPoolsClient.NewListByResourceGroupPager(string, *ContainerAppsSessionPoolsClientListByResourceGroupOptions) *runtime.Pager[ContainerAppsSessionPoolsClientListByResourceGroupResponse]`
+- New function `*ContainerAppsSessionPoolsClient.NewListBySubscriptionPager(*ContainerAppsSessionPoolsClientListBySubscriptionOptions) *runtime.Pager[ContainerAppsSessionPoolsClientListBySubscriptionResponse]`
+- New function `*ContainerAppsSessionPoolsClient.BeginUpdate(context.Context, string, string, SessionPoolPatchProperties, *ContainerAppsSessionPoolsClientBeginUpdateOptions) (*runtime.Poller[ContainerAppsSessionPoolsClientUpdateResponse], error)`
+- New function `NewFunctionsExtensionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FunctionsExtensionClient, error)`
+- New function `*FunctionsExtensionClient.InvokeFunctionsHost(context.Context, string, string, string, string, *FunctionsExtensionClientInvokeFunctionsHostOptions) (FunctionsExtensionClientInvokeFunctionsHostResponse, error)`
+- New function `*JavaComponentProperties.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringBootAdminComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudConfigComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudEurekaComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*NacosComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New struct `CodeExecutionConfiguration`
+- New struct `ContainerAppPropertiesPatchingConfiguration`
+- New struct `ContainerAppsBuildCollection`
+- New struct `ContainerAppsBuildConfiguration`
+- New struct `ContainerAppsBuildProperties`
+- New struct `ContainerAppsBuildResource`
+- New struct `ContainerAppsPatchResource`
+- New struct `ContainerRegistryWithCustomImageAutoGenerated`
+- New struct `CustomContainerConfiguration`
+- New struct `DynamicPoolConfiguration`
+- New struct `EnvironmentVariableCollection`
+- New struct `EnvironmentVariablesItem`
+- New struct `ErrorDetailAutoGenerated`
+- New struct `ErrorResponseAutoGenerated`
+- New struct `HTTPGetAutoGenerated`
+- New struct `JavaComponentIngress`
+- New struct `LogLevelSetting`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfiguration`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption`
+- New struct `NacosComponent`
+- New struct `PatchCollection`
+- New struct `PatchDetails`
+- New struct `PatchDetailsNewLayer`
+- New struct `PatchDetailsOldLayer`
+- New struct `PatchProperties`
+- New struct `PatchSkipConfig`
+- New struct `PreBuildStepAutoGenerated`
+- New struct `ProxyResourceAutoGenerated`
+- New struct `ResourceAutoGenerated`
+- New struct `Runtime`
+- New struct `RuntimeDotnet`
+- New struct `RuntimeJava`
+- New struct `RuntimeJavaAgent`
+- New struct `SSHConfiguration`
+- New struct `ScaleConfiguration`
+- New struct `SecretAutoGenerated`
+- New struct `Session`
+- New struct `SessionAuthConfiguration`
+- New struct `SessionCollection`
+- New struct `SessionContainer`
+- New struct `SessionContainerResources`
+- New struct `SessionIngress`
+- New struct `SessionPool`
+- New struct `SessionPoolCollection`
+- New struct `SessionPoolPatchProperties`
+- New struct `SessionPoolPatchPropertiesProperties`
+- New struct `SessionPoolProperties`
+- New struct `SessionProperties`
+- New struct `SessionRegistryCredentials`
+- New struct `SpringBootAdminComponent`
+- New struct `SpringCloudConfigComponent`
+- New struct `SpringCloudEurekaComponent`
+- New field `ImageType` in struct `BaseContainer`
+- New field `Runtime` in struct `Configuration`
+- New field `ImageType` in struct `Container`
+- New field `PatchingConfiguration` in struct `ContainerAppProperties`
+- New field `ImageType` in struct `InitContainer`
+- New field `PeerTrafficConfiguration` in struct `ManagedEnvironmentProperties`
+
+
 ## 3.0.0-beta.1 (2024-03-22)
 ### Breaking Changes
 

@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers"
-	moduleVersion = "v3.0.0-beta.1"
+	moduleVersion = "v3.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -337,6 +337,28 @@ func PossibleContainerAppReplicaRunningStateValues() []ContainerAppReplicaRunnin
 	}
 }
 
+// ContainerType - The container type of the Sessions.
+type ContainerType string
+
+const (
+	ContainerTypeCustomContainer ContainerType = "CustomContainer"
+	ContainerTypeCustomImage     ContainerType = "CustomImage"
+	ContainerTypeFunctionsPython ContainerType = "FunctionsPython"
+	ContainerTypeJupyterPython   ContainerType = "JupyterPython"
+	ContainerTypeSSH             ContainerType = "SSH"
+)
+
+// PossibleContainerTypeValues returns the possible values for the ContainerType const type.
+func PossibleContainerTypeValues() []ContainerType {
+	return []ContainerType{
+		ContainerTypeCustomContainer,
+		ContainerTypeCustomImage,
+		ContainerTypeFunctionsPython,
+		ContainerTypeJupyterPython,
+		ContainerTypeSSH,
+	}
+}
+
 // CookieExpirationConvention - The convention used when determining the session cookie's expiration.
 type CookieExpirationConvention string
 
@@ -391,6 +413,24 @@ func PossibleDNSVerificationTestResultValues() []DNSVerificationTestResult {
 	}
 }
 
+// DetectionStatus - The status of the patch detection.
+type DetectionStatus string
+
+const (
+	DetectionStatusFailed              DetectionStatus = "Failed"
+	DetectionStatusRegistryLoginFailed DetectionStatus = "RegistryLoginFailed"
+	DetectionStatusSucceeded           DetectionStatus = "Succeeded"
+)
+
+// PossibleDetectionStatusValues returns the possible values for the DetectionStatus const type.
+func PossibleDetectionStatusValues() []DetectionStatus {
+	return []DetectionStatus{
+		DetectionStatusFailed,
+		DetectionStatusRegistryLoginFailed,
+		DetectionStatusSucceeded,
+	}
+}
+
 // DotNetComponentProvisioningState - Provisioning state of the .NET Component.
 type DotNetComponentProvisioningState string
 
@@ -417,15 +457,13 @@ func PossibleDotNetComponentProvisioningStateValues() []DotNetComponentProvision
 type DotNetComponentType string
 
 const (
-	DotNetComponentTypeAspireDashboard         DotNetComponentType = "AspireDashboard"
-	DotNetComponentTypeAspireResourceServerAPI DotNetComponentType = "AspireResourceServerApi"
+	DotNetComponentTypeAspireDashboard DotNetComponentType = "AspireDashboard"
 )
 
 // PossibleDotNetComponentTypeValues returns the possible values for the DotNetComponentType const type.
 func PossibleDotNetComponentTypeValues() []DotNetComponentType {
 	return []DotNetComponentType{
 		DotNetComponentTypeAspireDashboard,
-		DotNetComponentTypeAspireResourceServerAPI,
 	}
 }
 
@@ -461,6 +499,20 @@ func PossibleEnvironmentProvisioningStateValues() []EnvironmentProvisioningState
 	}
 }
 
+// ExecutionType - The execution type of the Session Pool.
+type ExecutionType string
+
+const (
+	ExecutionTypeTimed ExecutionType = "Timed"
+)
+
+// PossibleExecutionTypeValues returns the possible values for the ExecutionType const type.
+func PossibleExecutionTypeValues() []ExecutionType {
+	return []ExecutionType{
+		ExecutionTypeTimed,
+	}
+}
+
 // ExtendedLocationTypes - The type of extendedLocation.
 type ExtendedLocationTypes string
 
@@ -490,6 +542,23 @@ func PossibleForwardProxyConventionValues() []ForwardProxyConvention {
 		ForwardProxyConventionCustom,
 		ForwardProxyConventionNoProxy,
 		ForwardProxyConventionStandard,
+	}
+}
+
+// ImageType - The type of the image. Set to CloudBuild to let the system manages the image, where user will not be able to
+// update image through image field. Set to ContainerImage for user provided image.
+type ImageType string
+
+const (
+	ImageTypeCloudBuild     ImageType = "CloudBuild"
+	ImageTypeContainerImage ImageType = "ContainerImage"
+)
+
+// PossibleImageTypeValues returns the possible values for the ImageType const type.
+func PossibleImageTypeValues() []ImageType {
+	return []ImageType{
+		ImageTypeCloudBuild,
+		ImageTypeContainerImage,
 	}
 }
 
@@ -575,6 +644,7 @@ func PossibleJavaComponentProvisioningStateValues() []JavaComponentProvisioningS
 type JavaComponentType string
 
 const (
+	JavaComponentTypeNacos             JavaComponentType = "Nacos"
 	JavaComponentTypeSpringBootAdmin   JavaComponentType = "SpringBootAdmin"
 	JavaComponentTypeSpringCloudConfig JavaComponentType = "SpringCloudConfig"
 	JavaComponentTypeSpringCloudEureka JavaComponentType = "SpringCloudEureka"
@@ -583,6 +653,7 @@ const (
 // PossibleJavaComponentTypeValues returns the possible values for the JavaComponentType const type.
 func PossibleJavaComponentTypeValues() []JavaComponentType {
 	return []JavaComponentType{
+		JavaComponentTypeNacos,
 		JavaComponentTypeSpringBootAdmin,
 		JavaComponentTypeSpringCloudConfig,
 		JavaComponentTypeSpringCloudEureka,
@@ -695,6 +766,92 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
+// PatchApplyStatus - The status of the patch once it has been provisioned
+type PatchApplyStatus string
+
+const (
+	PatchApplyStatusCanceled               PatchApplyStatus = "Canceled"
+	PatchApplyStatusCreatingRevision       PatchApplyStatus = "CreatingRevision"
+	PatchApplyStatusImagePushPullFailed    PatchApplyStatus = "ImagePushPullFailed"
+	PatchApplyStatusManuallySkipped        PatchApplyStatus = "ManuallySkipped"
+	PatchApplyStatusNotStarted             PatchApplyStatus = "NotStarted"
+	PatchApplyStatusRebaseFailed           PatchApplyStatus = "RebaseFailed"
+	PatchApplyStatusRebaseInProgress       PatchApplyStatus = "RebaseInProgress"
+	PatchApplyStatusRevisionCreationFailed PatchApplyStatus = "RevisionCreationFailed"
+	PatchApplyStatusSucceeded              PatchApplyStatus = "Succeeded"
+)
+
+// PossiblePatchApplyStatusValues returns the possible values for the PatchApplyStatus const type.
+func PossiblePatchApplyStatusValues() []PatchApplyStatus {
+	return []PatchApplyStatus{
+		PatchApplyStatusCanceled,
+		PatchApplyStatusCreatingRevision,
+		PatchApplyStatusImagePushPullFailed,
+		PatchApplyStatusManuallySkipped,
+		PatchApplyStatusNotStarted,
+		PatchApplyStatusRebaseFailed,
+		PatchApplyStatusRebaseInProgress,
+		PatchApplyStatusRevisionCreationFailed,
+		PatchApplyStatusSucceeded,
+	}
+}
+
+// PatchType - The type for the patch.
+type PatchType string
+
+const (
+	PatchTypeFrameworkAndOSSecurity PatchType = "FrameworkAndOSSecurity"
+	PatchTypeFrameworkSecurity      PatchType = "FrameworkSecurity"
+	PatchTypeOSSecurity             PatchType = "OSSecurity"
+	PatchTypeOther                  PatchType = "Other"
+)
+
+// PossiblePatchTypeValues returns the possible values for the PatchType const type.
+func PossiblePatchTypeValues() []PatchType {
+	return []PatchType{
+		PatchTypeFrameworkAndOSSecurity,
+		PatchTypeFrameworkSecurity,
+		PatchTypeOSSecurity,
+		PatchTypeOther,
+	}
+}
+
+// PatchingMode - Patching mode for the container app. Null or default in this field will be interpreted as Automatic by RP.
+// Automatic mode will automatically apply available patches. Manual mode will require the user
+// to manually apply patches. Disabled mode will stop patch detection and auto patching.
+type PatchingMode string
+
+const (
+	PatchingModeAutomatic PatchingMode = "Automatic"
+	PatchingModeDisabled  PatchingMode = "Disabled"
+	PatchingModeManual    PatchingMode = "Manual"
+)
+
+// PossiblePatchingModeValues returns the possible values for the PatchingMode const type.
+func PossiblePatchingModeValues() []PatchingMode {
+	return []PatchingMode{
+		PatchingModeAutomatic,
+		PatchingModeDisabled,
+		PatchingModeManual,
+	}
+}
+
+// PoolManagementType - The pool management type of the Session Pool.
+type PoolManagementType string
+
+const (
+	PoolManagementTypeDynamic PoolManagementType = "Dynamic"
+	PoolManagementTypeManual  PoolManagementType = "Manual"
+)
+
+// PossiblePoolManagementTypeValues returns the possible values for the PoolManagementType const type.
+func PossiblePoolManagementTypeValues() []PoolManagementType {
+	return []PoolManagementType{
+		PoolManagementTypeDynamic,
+		PoolManagementTypeManual,
+	}
+}
+
 // RevisionHealthState - Current health State of the revision
 type RevisionHealthState string
 
@@ -772,6 +929,28 @@ func PossibleSchemeValues() []Scheme {
 	return []Scheme{
 		SchemeHTTP,
 		SchemeHTTPS,
+	}
+}
+
+// SessionPoolProvisioningState - Provisioning state of the Session Pool.
+type SessionPoolProvisioningState string
+
+const (
+	SessionPoolProvisioningStateCanceled   SessionPoolProvisioningState = "Canceled"
+	SessionPoolProvisioningStateDeleting   SessionPoolProvisioningState = "Deleting"
+	SessionPoolProvisioningStateFailed     SessionPoolProvisioningState = "Failed"
+	SessionPoolProvisioningStateInProgress SessionPoolProvisioningState = "InProgress"
+	SessionPoolProvisioningStateSucceeded  SessionPoolProvisioningState = "Succeeded"
+)
+
+// PossibleSessionPoolProvisioningStateValues returns the possible values for the SessionPoolProvisioningState const type.
+func PossibleSessionPoolProvisioningStateValues() []SessionPoolProvisioningState {
+	return []SessionPoolProvisioningState{
+		SessionPoolProvisioningStateCanceled,
+		SessionPoolProvisioningStateDeleting,
+		SessionPoolProvisioningStateFailed,
+		SessionPoolProvisioningStateInProgress,
+		SessionPoolProvisioningStateSucceeded,
 	}
 }
 

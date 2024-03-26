@@ -295,6 +295,24 @@ type ContainerAppsAuthConfigsClientListByContainerAppOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ContainerAppsBuildsByContainerAppClientListOptions contains the optional parameters for the ContainerAppsBuildsByContainerAppClient.NewListPager
+// method.
+type ContainerAppsBuildsByContainerAppClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsBuildsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsBuildsClient.BeginDelete
+// method.
+type ContainerAppsBuildsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsBuildsClientGetOptions contains the optional parameters for the ContainerAppsBuildsClient.Get method.
+type ContainerAppsBuildsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ContainerAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerAppsClient.BeginCreateOrUpdate
 // method.
 type ContainerAppsClientBeginCreateOrUpdateOptions struct {
@@ -391,6 +409,39 @@ type ContainerAppsDiagnosticsClientListRevisionsOptions struct {
 	Filter *string
 }
 
+// ContainerAppsPatchesClientBeginApplyOptions contains the optional parameters for the ContainerAppsPatchesClient.BeginApply
+// method.
+type ContainerAppsPatchesClientBeginApplyOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsPatchesClientBeginDeleteOptions contains the optional parameters for the ContainerAppsPatchesClient.BeginDelete
+// method.
+type ContainerAppsPatchesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsPatchesClientBeginSkipConfigureOptions contains the optional parameters for the ContainerAppsPatchesClient.BeginSkipConfigure
+// method.
+type ContainerAppsPatchesClientBeginSkipConfigureOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsPatchesClientGetOptions contains the optional parameters for the ContainerAppsPatchesClient.Get method.
+type ContainerAppsPatchesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsPatchesClientListByContainerAppOptions contains the optional parameters for the ContainerAppsPatchesClient.NewListByContainerAppPager
+// method.
+type ContainerAppsPatchesClientListByContainerAppOptions struct {
+	// The filter to apply on the operation. For example, $filter=properties/patchApplyStatus eq 'Succeeded'
+	Filter *string
+}
+
 // ContainerAppsRevisionReplicasClientGetReplicaOptions contains the optional parameters for the ContainerAppsRevisionReplicasClient.GetReplica
 // method.
 type ContainerAppsRevisionReplicasClientGetReplicaOptions struct {
@@ -431,6 +482,69 @@ type ContainerAppsRevisionsClientListRevisionsOptions struct {
 // ContainerAppsRevisionsClientRestartRevisionOptions contains the optional parameters for the ContainerAppsRevisionsClient.RestartRevision
 // method.
 type ContainerAppsRevisionsClientRestartRevisionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolSessionsClientGenerateSessionsOptions contains the optional parameters for the ContainerAppsSessionPoolSessionsClient.NewGenerateSessionsPager
+// method.
+type ContainerAppsSessionPoolSessionsClientGenerateSessionsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolSessionsClientGetOptions contains the optional parameters for the ContainerAppsSessionPoolSessionsClient.Get
+// method.
+type ContainerAppsSessionPoolSessionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolSessionsClientListBySessionPoolOptions contains the optional parameters for the ContainerAppsSessionPoolSessionsClient.NewListBySessionPoolPager
+// method.
+type ContainerAppsSessionPoolSessionsClientListBySessionPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolSessionsClientUpdateEnvironmentVariablesOptions contains the optional parameters for the ContainerAppsSessionPoolSessionsClient.UpdateEnvironmentVariables
+// method.
+type ContainerAppsSessionPoolSessionsClientUpdateEnvironmentVariablesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerAppsSessionPoolsClient.BeginCreateOrUpdate
+// method.
+type ContainerAppsSessionPoolsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsSessionPoolsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsSessionPoolsClient.BeginDelete
+// method.
+type ContainerAppsSessionPoolsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsSessionPoolsClientBeginUpdateOptions contains the optional parameters for the ContainerAppsSessionPoolsClient.BeginUpdate
+// method.
+type ContainerAppsSessionPoolsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerAppsSessionPoolsClientGetOptions contains the optional parameters for the ContainerAppsSessionPoolsClient.Get
+// method.
+type ContainerAppsSessionPoolsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolsClientListByResourceGroupOptions contains the optional parameters for the ContainerAppsSessionPoolsClient.NewListByResourceGroupPager
+// method.
+type ContainerAppsSessionPoolsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsSessionPoolsClientListBySubscriptionOptions contains the optional parameters for the ContainerAppsSessionPoolsClient.NewListBySubscriptionPager
+// method.
+type ContainerAppsSessionPoolsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -557,6 +671,12 @@ type DotNetComponentsClientGetOptions struct {
 
 // DotNetComponentsClientListOptions contains the optional parameters for the DotNetComponentsClient.NewListPager method.
 type DotNetComponentsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FunctionsExtensionClientInvokeFunctionsHostOptions contains the optional parameters for the FunctionsExtensionClient.InvokeFunctionsHost
+// method.
+type FunctionsExtensionClientInvokeFunctionsHostOptions struct {
 	// placeholder for future optional parameters
 }
 
