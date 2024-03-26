@@ -1,5 +1,40 @@
 # Release History
 
+## 0.14.0 (2024-03-26)
+### Breaking Changes
+
+- Function `*ContactsClient.Create` parameter(s) have been changed from `(context.Context, string, Contact, *ContactsClientCreateOptions)` to `(context.Context, SecurityContactName, Contact, *ContactsClientCreateOptions)`
+- Function `*ContactsClient.Delete` parameter(s) have been changed from `(context.Context, string, *ContactsClientDeleteOptions)` to `(context.Context, SecurityContactName, *ContactsClientDeleteOptions)`
+- Function `*ContactsClient.Get` parameter(s) have been changed from `(context.Context, string, *ContactsClientGetOptions)` to `(context.Context, SecurityContactName, *ContactsClientGetOptions)`
+- Type of `ContactPropertiesNotificationsByRole.Roles` has been changed from `[]*Roles` to `[]*SecurityContactRole`
+- Enum `Roles` has been removed
+- Function `NewCenterClient` has been removed
+- Function `*CenterClient.GetSensitivitySettings` has been removed
+- Function `*CenterClient.UpdateSensitivitySettings` has been removed
+- Function `*ClientFactory.NewCenterClient` has been removed
+- Struct `ContactPropertiesAlertNotifications` has been removed
+- Field `AlertNotifications` of struct `ContactProperties` has been removed
+
+### Features Added
+
+- New value `EventSourceAttackPaths`, `EventSourceAttackPathsSnapshot` added to enum type `EventSource`
+- New enum type `MinimalRiskLevel` with values `MinimalRiskLevelCritical`, `MinimalRiskLevelHigh`, `MinimalRiskLevelLow`, `MinimalRiskLevelMedium`
+- New enum type `SecurityContactName` with values `SecurityContactNameDefault`
+- New enum type `SecurityContactRole` with values `SecurityContactRoleAccountAdmin`, `SecurityContactRoleContributor`, `SecurityContactRoleOwner`, `SecurityContactRoleServiceAdmin`
+- New enum type `SourceType` with values `SourceTypeAlert`, `SourceTypeAttackPath`
+- New function `*AutomationsClient.Update(context.Context, string, string, AutomationUpdateModel, *AutomationsClientUpdateOptions) (AutomationsClientUpdateResponse, error)`
+- New function `*SensitivitySettingsClient.CreateOrUpdate(context.Context, UpdateSensitivitySettingsRequest, *SensitivitySettingsClientCreateOrUpdateOptions) (SensitivitySettingsClientCreateOrUpdateResponse, error)`
+- New function `*SensitivitySettingsClient.Get(context.Context, *SensitivitySettingsClientGetOptions) (SensitivitySettingsClientGetResponse, error)`
+- New function `*NotificationsSource.GetNotificationsSource() *NotificationsSource`
+- New function `*NotificationsSourceAlert.GetNotificationsSource() *NotificationsSource`
+- New function `*NotificationsSourceAttackPath.GetNotificationsSource() *NotificationsSource`
+- New struct `AutomationUpdateModel`
+- New struct `NotificationsSourceAlert`
+- New struct `NotificationsSourceAttackPath`
+- New field `IsTrustedServiceEnabled` in struct `AutomationActionEventHub`
+- New field `IsEnabled`, `NotificationsSources` in struct `ContactProperties`
+
+
 ## 0.13.0 (2024-03-08)
 ### Breaking Changes
 

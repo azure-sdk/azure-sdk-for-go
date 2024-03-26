@@ -130,6 +130,15 @@ type ListCustomAlertRuleClassification interface {
 	GetListCustomAlertRule() *ListCustomAlertRule
 }
 
+// NotificationsSourceClassification provides polymorphic access to related types.
+// Call the interface's GetNotificationsSource() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *NotificationsSource, *NotificationsSourceAlert, *NotificationsSourceAttackPath
+type NotificationsSourceClassification interface {
+	// GetNotificationsSource returns the NotificationsSource content of the underlying type.
+	GetNotificationsSource() *NotificationsSource
+}
+
 // OnPremiseResourceDetailsClassification provides polymorphic access to related types.
 // Call the interface's GetOnPremiseResourceDetails() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:

@@ -1360,6 +1360,9 @@ type AutomationActionEventHub struct {
 	// The target Event Hub Azure Resource ID.
 	EventHubResourceID *string
 
+	// Indicates whether the trusted service is enabled or not.
+	IsTrustedServiceEnabled *bool
+
 	// READ-ONLY; The target Event Hub SAS policy name.
 	SasPolicyName *string
 }
@@ -1392,7 +1395,7 @@ func (a *AutomationActionLogicApp) GetAutomationAction() *AutomationAction {
 	}
 }
 
-// AutomationActionWorkspace - The Log Analytics Workspace to which event data will be exported. Security alerts data will
+// AutomationActionWorkspace - The�Log�Analytics�Workspace�to�which�event data will be exported. Security alerts data will
 // reside in the 'SecurityAlert' table and the assessments data will reside in the 'SecurityRecommendation'
 // table (under the 'Security'/'SecurityCenterFree' solutions). Note that in order to view the data in the workspace, the
 // Security Center Log Analytics free/standard solution needs to be enabled on that
@@ -1486,6 +1489,15 @@ type AutomationTriggeringRule struct {
 
 	// The data type of the compared operands (string, integer, floating point number or a boolean [true/false]]
 	PropertyType *PropertyType
+}
+
+// AutomationUpdateModel - The update model of security automation resource.
+type AutomationUpdateModel struct {
+	// Security automation data
+	Properties *AutomationProperties
+
+	// A list of key value pairs that describe the resource.
+	Tags map[string]*string
 }
 
 // AutomationValidationStatus - The security automation model state property bag.
@@ -2391,44 +2403,38 @@ type Contact struct {
 
 // ContactList - List of security contacts response
 type ContactList struct {
+	// REQUIRED; List of security contacts
+	Value []*Contact
+
 	// READ-ONLY; The URI to fetch the next page.
 	NextLink *string
-
-	// READ-ONLY; List of security contacts
-	Value []*Contact
 }
 
 // ContactProperties - Describes security contact properties
 type ContactProperties struct {
-	// Defines whether to send email notifications about new security alerts
-	AlertNotifications *ContactPropertiesAlertNotifications
-
 	// List of email addresses which will get notifications from Microsoft Defender for Cloud by the configurations defined in
 	// this security contact.
 	Emails *string
+
+	// Indicates whether the security contact is enabled.
+	IsEnabled *bool
 
 	// Defines whether to send email notifications from Microsoft Defender for Cloud to persons with specific RBAC roles on the
 	// subscription.
 	NotificationsByRole *ContactPropertiesNotificationsByRole
 
+	// A collection of sources types which evaluate the email notification.
+	NotificationsSources []NotificationsSourceClassification
+
 	// The security contact's phone number
 	Phone *string
-}
-
-// ContactPropertiesAlertNotifications - Defines whether to send email notifications about new security alerts
-type ContactPropertiesAlertNotifications struct {
-	// Defines the minimal alert severity which will be sent as email notifications
-	MinimalSeverity *MinimalSeverity
-
-	// Defines if email notifications will be sent about new security alerts
-	State *State
 }
 
 // ContactPropertiesNotificationsByRole - Defines whether to send email notifications from Microsoft Defender for Cloud to
 // persons with specific RBAC roles on the subscription.
 type ContactPropertiesNotificationsByRole struct {
 	// Defines which RBAC roles will get email notifications from Microsoft Defender for Cloud. List of allowed RBAC roles:
-	Roles []*Roles
+	Roles []*SecurityContactRole
 
 	// Defines whether to send email notifications from AMicrosoft Defender for Cloud to persons with specific RBAC roles on the
 	// subscription.
@@ -5987,6 +5993,47 @@ func (m *MqttD2CMessagesNotInAllowedRange) GetTimeWindowCustomAlertRule() *TimeW
 		MinThreshold:   m.MinThreshold,
 		RuleType:       m.RuleType,
 		TimeWindowSize: m.TimeWindowSize,
+	}
+}
+
+// NotificationsSource - A valid notification source type
+type NotificationsSource struct {
+	// REQUIRED; The source type that will trigger the notification
+	SourceType *SourceType
+}
+
+// GetNotificationsSource implements the NotificationsSourceClassification interface for type NotificationsSource.
+func (n *NotificationsSource) GetNotificationsSource() *NotificationsSource { return n }
+
+// NotificationsSourceAlert - Alert notification source
+type NotificationsSourceAlert struct {
+	// REQUIRED; The source type that will trigger the notification
+	SourceType *SourceType
+
+	// Defines the minimal alert severity which will be sent as email notifications
+	MinimalSeverity *MinimalSeverity
+}
+
+// GetNotificationsSource implements the NotificationsSourceClassification interface for type NotificationsSourceAlert.
+func (n *NotificationsSourceAlert) GetNotificationsSource() *NotificationsSource {
+	return &NotificationsSource{
+		SourceType: n.SourceType,
+	}
+}
+
+// NotificationsSourceAttackPath - Attack path notification source
+type NotificationsSourceAttackPath struct {
+	// REQUIRED; The source type that will trigger the notification
+	SourceType *SourceType
+
+	// Defines the minimal attach path risk level which will be sent as email notifications
+	MinimalRiskLevel *MinimalRiskLevel
+}
+
+// GetNotificationsSource implements the NotificationsSourceClassification interface for type NotificationsSourceAttackPath.
+func (n *NotificationsSourceAttackPath) GetNotificationsSource() *NotificationsSource {
+	return &NotificationsSource{
+		SourceType: n.SourceType,
 	}
 }
 
