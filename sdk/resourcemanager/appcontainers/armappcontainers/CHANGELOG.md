@@ -1,5 +1,19 @@
 # Release History
 
+## 3.0.0 (2024-03-26)
+### Breaking Changes
+
+- Field `EndTime`, `StartTime`, `Status`, `Template` of struct `JobExecution` has been removed
+
+### Features Added
+
+- New struct `JobExecutionProperties`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfiguration`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption`
+- New field `Properties` in struct `JobExecution`
+- New field `PeerTrafficConfiguration` in struct `ManagedEnvironmentProperties`
+
+
 ## 3.0.0-beta.1 (2024-03-22)
 ### Breaking Changes
 
