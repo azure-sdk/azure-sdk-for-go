@@ -148,6 +148,22 @@ func (c *ClientFactory) NewContainerAppsAuthConfigsClient() *ContainerAppsAuthCo
 	}
 }
 
+// NewContainerAppsBuildsByContainerAppClient creates a new instance of ContainerAppsBuildsByContainerAppClient.
+func (c *ClientFactory) NewContainerAppsBuildsByContainerAppClient() *ContainerAppsBuildsByContainerAppClient {
+	return &ContainerAppsBuildsByContainerAppClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewContainerAppsBuildsClient creates a new instance of ContainerAppsBuildsClient.
+func (c *ClientFactory) NewContainerAppsBuildsClient() *ContainerAppsBuildsClient {
+	return &ContainerAppsBuildsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewContainerAppsClient creates a new instance of ContainerAppsClient.
 func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 	return &ContainerAppsClient{
@@ -159,6 +175,14 @@ func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 // NewContainerAppsDiagnosticsClient creates a new instance of ContainerAppsDiagnosticsClient.
 func (c *ClientFactory) NewContainerAppsDiagnosticsClient() *ContainerAppsDiagnosticsClient {
 	return &ContainerAppsDiagnosticsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewContainerAppsPatchesClient creates a new instance of ContainerAppsPatchesClient.
+func (c *ClientFactory) NewContainerAppsPatchesClient() *ContainerAppsPatchesClient {
+	return &ContainerAppsPatchesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -215,6 +239,14 @@ func (c *ClientFactory) NewDaprSubscriptionsClient() *DaprSubscriptionsClient {
 // NewDotNetComponentsClient creates a new instance of DotNetComponentsClient.
 func (c *ClientFactory) NewDotNetComponentsClient() *DotNetComponentsClient {
 	return &DotNetComponentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewFunctionsExtensionClient creates a new instance of FunctionsExtensionClient.
+func (c *ClientFactory) NewFunctionsExtensionClient() *FunctionsExtensionClient {
+	return &FunctionsExtensionClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

@@ -1,5 +1,78 @@
 # Release History
 
+## 3.0.0-beta.2 (2024-03-26)
+### Breaking Changes
+
+- Type of `JavaComponent.Properties` has been changed from `*JavaComponentProperties` to `JavaComponentPropertiesClassification`
+- `DotNetComponentTypeAspireResourceServerAPI` from enum `DotNetComponentType` has been removed
+
+### Features Added
+
+- New value `JavaComponentTypeNacos` added to enum type `JavaComponentType`
+- New enum type `DetectionStatus` with values `DetectionStatusFailed`, `DetectionStatusRegistryLoginFailed`, `DetectionStatusSucceeded`
+- New enum type `ImageType` with values `ImageTypeCloudBuild`, `ImageTypeContainerImage`
+- New enum type `PatchApplyStatus` with values `PatchApplyStatusCanceled`, `PatchApplyStatusCreatingRevision`, `PatchApplyStatusImagePushPullFailed`, `PatchApplyStatusManuallySkipped`, `PatchApplyStatusNotStarted`, `PatchApplyStatusRebaseFailed`, `PatchApplyStatusRebaseInProgress`, `PatchApplyStatusRevisionCreationFailed`, `PatchApplyStatusSucceeded`
+- New enum type `PatchType` with values `PatchTypeFrameworkAndOSSecurity`, `PatchTypeFrameworkSecurity`, `PatchTypeOSSecurity`, `PatchTypeOther`
+- New enum type `PatchingMode` with values `PatchingModeAutomatic`, `PatchingModeDisabled`, `PatchingModeManual`
+- New function `*ClientFactory.NewContainerAppsBuildsByContainerAppClient() *ContainerAppsBuildsByContainerAppClient`
+- New function `*ClientFactory.NewContainerAppsBuildsClient() *ContainerAppsBuildsClient`
+- New function `*ClientFactory.NewContainerAppsPatchesClient() *ContainerAppsPatchesClient`
+- New function `*ClientFactory.NewFunctionsExtensionClient() *FunctionsExtensionClient`
+- New function `NewContainerAppsBuildsByContainerAppClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsBuildsByContainerAppClient, error)`
+- New function `*ContainerAppsBuildsByContainerAppClient.NewListPager(string, string, *ContainerAppsBuildsByContainerAppClientListOptions) *runtime.Pager[ContainerAppsBuildsByContainerAppClientListResponse]`
+- New function `NewContainerAppsBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsBuildsClient, error)`
+- New function `*ContainerAppsBuildsClient.BeginDelete(context.Context, string, string, string, *ContainerAppsBuildsClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsBuildsClientDeleteResponse], error)`
+- New function `*ContainerAppsBuildsClient.Get(context.Context, string, string, string, *ContainerAppsBuildsClientGetOptions) (ContainerAppsBuildsClientGetResponse, error)`
+- New function `NewContainerAppsPatchesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsPatchesClient, error)`
+- New function `*ContainerAppsPatchesClient.BeginApply(context.Context, string, string, string, *ContainerAppsPatchesClientBeginApplyOptions) (*runtime.Poller[ContainerAppsPatchesClientApplyResponse], error)`
+- New function `*ContainerAppsPatchesClient.BeginDelete(context.Context, string, string, string, *ContainerAppsPatchesClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsPatchesClientDeleteResponse], error)`
+- New function `*ContainerAppsPatchesClient.Get(context.Context, string, string, string, *ContainerAppsPatchesClientGetOptions) (ContainerAppsPatchesClientGetResponse, error)`
+- New function `*ContainerAppsPatchesClient.NewListByContainerAppPager(string, string, *ContainerAppsPatchesClientListByContainerAppOptions) *runtime.Pager[ContainerAppsPatchesClientListByContainerAppResponse]`
+- New function `*ContainerAppsPatchesClient.BeginSkipConfigure(context.Context, string, string, string, PatchSkipConfig, *ContainerAppsPatchesClientBeginSkipConfigureOptions) (*runtime.Poller[ContainerAppsPatchesClientSkipConfigureResponse], error)`
+- New function `NewFunctionsExtensionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FunctionsExtensionClient, error)`
+- New function `*FunctionsExtensionClient.InvokeFunctionsHost(context.Context, string, string, string, string, *FunctionsExtensionClientInvokeFunctionsHostOptions) (FunctionsExtensionClientInvokeFunctionsHostResponse, error)`
+- New function `*JavaComponentProperties.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringBootAdminComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudConfigComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudEurekaComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*NacosComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New struct `ContainerAppPropertiesPatchingConfiguration`
+- New struct `ContainerAppsBuildCollection`
+- New struct `ContainerAppsBuildConfiguration`
+- New struct `ContainerAppsBuildProperties`
+- New struct `ContainerAppsBuildResource`
+- New struct `ContainerAppsPatchResource`
+- New struct `JavaComponentIngress`
+- New struct `LogLevelSetting`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfiguration`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption`
+- New struct `NacosComponent`
+- New struct `PatchCollection`
+- New struct `PatchDetails`
+- New struct `PatchDetailsNewLayer`
+- New struct `PatchDetailsOldLayer`
+- New struct `PatchProperties`
+- New struct `PatchSkipConfig`
+- New struct `Runtime`
+- New struct `RuntimeDotnet`
+- New struct `RuntimeJava`
+- New struct `RuntimeJavaAgent`
+- New struct `SpringBootAdminComponent`
+- New struct `SpringCloudConfigComponent`
+- New struct `SpringCloudEurekaComponent`
+- New field `ImageType` in struct `BaseContainer`
+- New field `Runtime` in struct `Configuration`
+- New field `ImageType` in struct `Container`
+- New field `PatchingConfiguration` in struct `ContainerAppProperties`
+- New field `Identity` in struct `CustomScaleRule`
+- New field `Identity` in struct `HTTPScaleRule`
+- New field `ImageType` in struct `InitContainer`
+- New field `Identity` in struct `JobScaleRule`
+- New field `PeerTrafficConfiguration` in struct `ManagedEnvironmentProperties`
+- New field `Identity` in struct `QueueScaleRule`
+- New field `Identity` in struct `TCPScaleRule`
+
+
 ## 3.0.0-beta.1 (2024-03-22)
 ### Breaking Changes
 

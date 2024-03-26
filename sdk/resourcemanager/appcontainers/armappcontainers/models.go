@@ -54,7 +54,7 @@ type AppResiliency struct {
 	// App Resiliency resource specific properties
 	Properties *AppResiliencyProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -123,7 +123,7 @@ type AuthConfig struct {
 	// AuthConfig resource specific properties
 	Properties *AuthConfigProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -195,7 +195,7 @@ type AvailableWorkloadProfile struct {
 	// Revision resource specific properties
 	Properties *AvailableWorkloadProfileProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -374,6 +374,10 @@ type BaseContainer struct {
 	// Container image tag.
 	Image *string
 
+	// The type of the image. Set to CloudBuild to let the system manages the image, where user will not be able to update image
+	// through image field. Set to ContainerImage for user provided image.
+	ImageType *ImageType
+
 	// Custom container name.
 	Name *string
 
@@ -392,7 +396,7 @@ type BillingMeter struct {
 	// Revision resource specific properties
 	Properties *BillingMeterProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -485,7 +489,7 @@ type BuildResource struct {
 	// The resource-specific properties for this resource.
 	Properties *BuildProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -542,7 +546,7 @@ type BuilderResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -584,7 +588,7 @@ type Certificate struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -725,6 +729,9 @@ type Configuration struct {
 	// Collection of private container registry credentials for containers used by the Container app
 	Registries []*RegistryCredentials
 
+	// App runtime configuration for the Container App.
+	Runtime *Runtime
+
 	// Collection of secrets used by a Container app
 	Secrets []*Secret
 
@@ -746,7 +753,7 @@ type ConnectedEnvironment struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -794,7 +801,7 @@ type ConnectedEnvironmentStorage struct {
 	// Storage properties
 	Properties *ConnectedEnvironmentStorageProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -833,6 +840,10 @@ type Container struct {
 	// Container image tag.
 	Image *string
 
+	// The type of the image. Set to CloudBuild to let the system manages the image, where user will not be able to update image
+	// through image field. Set to ContainerImage for user provided image.
+	ImageType *ImageType
+
 	// Custom container name.
 	Name *string
 
@@ -869,7 +880,7 @@ type ContainerApp struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -893,7 +904,7 @@ type ContainerAppAuthToken struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1023,6 +1034,9 @@ type ContainerAppProperties struct {
 	// Deprecated. Resource ID of the Container App's environment.
 	ManagedEnvironmentID *string
 
+	// Container App auto patch configuration.
+	PatchingConfiguration *ContainerAppPropertiesPatchingConfiguration
+
 	// Container App versioned application definition.
 	Template *Template
 
@@ -1051,6 +1065,14 @@ type ContainerAppProperties struct {
 	ProvisioningState *ContainerAppProvisioningState
 }
 
+// ContainerAppPropertiesPatchingConfiguration - Container App auto patch configuration.
+type ContainerAppPropertiesPatchingConfiguration struct {
+	// Patching mode for the container app. Null or default in this field will be interpreted as Automatic by RP. Automatic mode
+	// will automatically apply available patches. Manual mode will require the user
+	// to manually apply patches. Disabled mode will stop patch detection and auto patching.
+	PatchingMode *PatchingMode
+}
+
 // ContainerAppSecret - Container App Secret.
 type ContainerAppSecret struct {
 	// READ-ONLY; Resource ID of a managed identity to authenticate with Azure Key Vault, or System to use a system-assigned identity.
@@ -1064,6 +1086,87 @@ type ContainerAppSecret struct {
 
 	// READ-ONLY; Secret Value.
 	Value *string
+}
+
+// ContainerAppsBuildCollection - The response of a Container Apps Build Resource list operation.
+type ContainerAppsBuildCollection struct {
+	// REQUIRED; The Container Apps Build Resource items on this page
+	Value []*ContainerAppsBuildResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ContainerAppsBuildConfiguration - Configuration of the build.
+type ContainerAppsBuildConfiguration struct {
+	// READ-ONLY; Base OS used to build and run the app.
+	BaseOs *string
+
+	// READ-ONLY; List of environment variables to be passed to the build, secrets should not be used in environment variable.
+	EnvironmentVariables []*EnvironmentVariable
+
+	// READ-ONLY; Platform to be used to build and run the app.
+	Platform *string
+
+	// READ-ONLY; Platform version to be used to build and run the app.
+	PlatformVersion *string
+
+	// READ-ONLY; List of steps to perform before the build.
+	PreBuildSteps []*PreBuildStep
+}
+
+// ContainerAppsBuildProperties - The ContainerAppBuild properties.
+type ContainerAppsBuildProperties struct {
+	// READ-ONLY; Status of the build once it has been provisioned.
+	BuildStatus *BuildStatus
+
+	// READ-ONLY; Configuration of the build.
+	Configuration *ContainerAppsBuildConfiguration
+
+	// READ-ONLY; Container registry that the final image will be uploaded to.
+	DestinationContainerRegistry *ContainerRegistryWithCustomImage
+
+	// READ-ONLY; Endpoint from which the build logs can be streamed.
+	LogStreamEndpoint *string
+
+	// READ-ONLY; Build provisioning state.
+	ProvisioningState *BuildProvisioningState
+}
+
+// ContainerAppsBuildResource - Information pertaining to an individual build.
+type ContainerAppsBuildResource struct {
+	// The resource-specific properties for this resource.
+	Properties *ContainerAppsBuildProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ContainerAppsPatchResource - Container App Patch
+type ContainerAppsPatchResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Properties that describes current states of the patch resource.
+	Properties *PatchProperties
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // ContainerRegistry - Model representing a mapping from a container registry to the identity used to connect to it.
@@ -1249,6 +1352,10 @@ type CustomScaleRule struct {
 	// Authentication secrets for the custom scale rule.
 	Auth []*ScaleRuleAuth
 
+	// The resource ID of a user-assigned managed identity that is assigned to the Container App, or 'system' for system-assigned
+	// identity.
+	Identity *string
+
 	// Metadata properties to describe custom scale rule.
 	Metadata map[string]*string
 
@@ -1289,7 +1396,7 @@ type DaprComponent struct {
 	// Dapr Component resource specific properties
 	Properties *DaprComponentProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1346,7 +1453,7 @@ type DaprComponentResiliencyPolicy struct {
 	// Dapr Component Resiliency Policy resource specific properties
 	Properties *DaprComponentResiliencyPolicyProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1486,7 +1593,7 @@ type DaprSubscription struct {
 	// Dapr PubSub Event Subscription resource specific properties
 	Properties *DaprSubscriptionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1699,7 +1806,7 @@ type Diagnostics struct {
 	// Diagnostics resource specific properties
 	Properties *DiagnosticsProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1789,7 +1896,7 @@ type DotNetComponent struct {
 	// .NET Component resource specific properties
 	Properties *DotNetComponentProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1865,7 +1972,7 @@ type EnvironmentAuthToken struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2111,6 +2218,10 @@ type HTTPScaleRule struct {
 	// Authentication secrets for the custom scale rule.
 	Auth []*ScaleRuleAuth
 
+	// The resource ID of a user-assigned managed identity that is assigned to the Container App, or 'system' for system-assigned
+	// identity.
+	Identity *string
+
 	// Metadata properties to describe http scale rule.
 	Metadata map[string]*string
 }
@@ -2291,6 +2402,10 @@ type InitContainer struct {
 	// Container image tag.
 	Image *string
 
+	// The type of the image. Set to CloudBuild to let the system manages the image, where user will not be able to update image
+	// through image field. Set to ContainerImage for user provided image.
+	ImageType *ImageType
+
 	// Custom container name.
 	Name *string
 
@@ -2304,9 +2419,9 @@ type InitContainer struct {
 // JavaComponent - Java Component.
 type JavaComponent struct {
 	// Java Component resource specific properties
-	Properties *JavaComponentProperties
+	Properties JavaComponentPropertiesClassification
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2328,9 +2443,15 @@ type JavaComponentConfigurationProperty struct {
 	Value *string
 }
 
-// JavaComponentProperties - Java Component resource specific properties
+// JavaComponentIngress - Container App Ingress configuration.
+type JavaComponentIngress struct {
+	// READ-ONLY; Hostname of the Java Component endpoint
+	Fqdn *string
+}
+
+// JavaComponentProperties - Java Component common properties.
 type JavaComponentProperties struct {
-	// Type of the Java Component.
+	// REQUIRED; Type of the Java Component.
 	ComponentType *JavaComponentType
 
 	// List of Java Components configuration properties
@@ -2342,6 +2463,9 @@ type JavaComponentProperties struct {
 	// READ-ONLY; Provisioning state of the Java Component.
 	ProvisioningState *JavaComponentProvisioningState
 }
+
+// GetJavaComponentProperties implements the JavaComponentPropertiesClassification interface for type JavaComponentProperties.
+func (j *JavaComponentProperties) GetJavaComponentProperties() *JavaComponentProperties { return j }
 
 // JavaComponentServiceBind - Configuration to bind a Java Component to another Java Component
 type JavaComponentServiceBind struct {
@@ -2379,7 +2503,7 @@ type Job struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2606,6 +2730,9 @@ type JobScaleRule struct {
 	// Authentication secrets for the scale rule.
 	Auth []*ScaleRuleAuth
 
+	// The resource ID of a user-assigned managed identity that is assigned to the job, or 'system' for system-assigned identity.
+	Identity *string
+
 	// Metadata properties to describe the scale rule.
 	Metadata any
 
@@ -2680,6 +2807,15 @@ type LogAnalyticsConfiguration struct {
 	SharedKey *string
 }
 
+// LogLevelSetting - Log level settings for java workloads.
+type LogLevelSetting struct {
+	// REQUIRED; The specified logger's log level.
+	Level *string
+
+	// REQUIRED; Logger name.
+	Logger *string
+}
+
 // Login - The configuration settings of the login flow of users using ContainerApp Service Authentication/Authorization.
 type Login struct {
 	// External URLs that can be redirected to as part of logging in or logging out of the app. Note that the query string part
@@ -2732,7 +2868,7 @@ type ManagedCertificate struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2796,7 +2932,7 @@ type ManagedEnvironment struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2844,6 +2980,9 @@ type ManagedEnvironmentProperties struct {
 	// Peer authentication settings for the Managed Environment
 	PeerAuthentication *ManagedEnvironmentPropertiesPeerAuthentication
 
+	// Peer traffic settings for the Managed Environment
+	PeerTrafficConfiguration *ManagedEnvironmentPropertiesPeerTrafficConfiguration
+
 	// Vnet configuration for the environment
 	VnetConfiguration *VnetConfiguration
 
@@ -2875,12 +3014,24 @@ type ManagedEnvironmentPropertiesPeerAuthentication struct {
 	Mtls *Mtls
 }
 
+// ManagedEnvironmentPropertiesPeerTrafficConfiguration - Peer traffic settings for the Managed Environment
+type ManagedEnvironmentPropertiesPeerTrafficConfiguration struct {
+	// Peer traffic encryption settings for the Managed Environment
+	Encryption *ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption
+}
+
+// ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption - Peer traffic encryption settings for the Managed Environment
+type ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption struct {
+	// Boolean indicating whether the peer traffic encryption is enabled
+	Enabled *bool
+}
+
 // ManagedEnvironmentStorage - Storage resource for managedEnvironment.
 type ManagedEnvironmentStorage struct {
 	// Storage properties
 	Properties *ManagedEnvironmentStorageProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -2947,6 +3098,34 @@ type MetricsConfiguration struct {
 type Mtls struct {
 	// Boolean indicating whether the mutual TLS authentication is enabled
 	Enabled *bool
+}
+
+// NacosComponent - Nacos properties.
+type NacosComponent struct {
+	// REQUIRED; Type of the Java Component.
+	ComponentType *JavaComponentType
+
+	// List of Java Components configuration properties
+	Configurations []*JavaComponentConfigurationProperty
+
+	// Java Component Ingress configurations.
+	Ingress *JavaComponentIngress
+
+	// List of Java Components that are bound to the Java component
+	ServiceBinds []*JavaComponentServiceBind
+
+	// READ-ONLY; Provisioning state of the Java Component.
+	ProvisioningState *JavaComponentProvisioningState
+}
+
+// GetJavaComponentProperties implements the JavaComponentPropertiesClassification interface for type NacosComponent.
+func (n *NacosComponent) GetJavaComponentProperties() *JavaComponentProperties {
+	return &JavaComponentProperties{
+		ComponentType:     n.ComponentType,
+		Configurations:    n.Configurations,
+		ProvisioningState: n.ProvisioningState,
+		ServiceBinds:      n.ServiceBinds,
+	}
 }
 
 // NfsAzureFileProperties - NFS Azure File Properties.
@@ -3078,6 +3257,96 @@ type OtlpConfiguration struct {
 	Name *string
 }
 
+// PatchCollection - Container App patch collection
+type PatchCollection struct {
+	// REQUIRED; Collection of patch resources.
+	Value []*ContainerAppsPatchResource
+
+	// the link to the next page of items
+	NextLink *string
+}
+
+// PatchDetails - The detailed info of patch operation performing when applying a patch.
+type PatchDetails struct {
+	// READ-ONLY; The status of the patch detection.
+	DetectionStatus *DetectionStatus
+
+	// READ-ONLY; The UTC timestamp that describes the latest detection was done.
+	LastDetectionTime *time.Time
+
+	// READ-ONLY; The name of the target container for the patch.
+	TargetContainerName *string
+
+	// READ-ONLY; The name of the target image for the patch.
+	TargetImage *string
+
+	// READ-ONLY; The name of the new image created by the patch.
+	NewImageName *string
+
+	// READ-ONLY; New layer update details in the target image.
+	NewLayer *PatchDetailsNewLayer
+
+	// READ-ONLY; The old layer details in the target image.
+	OldLayer *PatchDetailsOldLayer
+
+	// READ-ONLY; The type for the patch.
+	PatchType *PatchType
+}
+
+// PatchDetailsNewLayer - New layer update details in the target image.
+type PatchDetailsNewLayer struct {
+	// The framework and its version in the new run image for the target image.
+	FrameworkAndVersion *string
+
+	// The details of the new layer for the target image.
+	Name *string
+
+	// The OS name and its version in the new run image for the target image.
+	OSAndVersion *string
+}
+
+// PatchDetailsOldLayer - The old layer details in the target image.
+type PatchDetailsOldLayer struct {
+	// The framework and its version in the old run image for the target image.
+	FrameworkAndVersion *string
+
+	// The details of the old layer for the target image.
+	Name *string
+
+	// The OS name and its version in the old run image for the target image.
+	OSAndVersion *string
+}
+
+// PatchProperties - Top level properties that describes current states of the patch resource
+type PatchProperties struct {
+	// The Azure resource id of the target container app for the patch.
+	TargetContainerAppID *string
+
+	// The Azure resource id of the target environment for the patch.
+	TargetEnvironmentID *string
+
+	// The Azure resource id of the target revision for the patch.
+	TargetRevisionID *string
+
+	// READ-ONLY; The UTC timestamp that describes when the patch object was created.
+	CreatedAt *time.Time
+
+	// READ-ONLY; The UTC timestamp that describes when the patch object was last updated.
+	LastModifiedAt *time.Time
+
+	// READ-ONLY; The status of the patch operation.
+	PatchApplyStatus *PatchApplyStatus
+
+	// READ-ONLY; Detailed info describes the patch operation for the target container app.
+	PatchDetails []*PatchDetails
+}
+
+// PatchSkipConfig - The configuration for patcher to skip a patch or not.
+type PatchSkipConfig struct {
+	// The flag to indicate whether to skip the patch or not.
+	Skip *bool
+}
+
 // PreBuildStep - Model representing a pre-build step.
 type PreBuildStep struct {
 	// Description of the pre-build step.
@@ -3093,7 +3362,7 @@ type PreBuildStep struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -3110,6 +3379,10 @@ type ProxyResource struct {
 type QueueScaleRule struct {
 	// Authentication secrets for the queue scale rule.
 	Auth []*ScaleRuleAuth
+
+	// The resource ID of a user-assigned managed identity that is assigned to the Container App, or 'system' for system-assigned
+	// identity.
+	Identity *string
 
 	// Queue length.
 	QueueLength *int32
@@ -3151,7 +3424,7 @@ type Replica struct {
 	// Replica resource specific properties
 	Properties *ReplicaProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -3220,7 +3493,7 @@ type ReplicaProperties struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -3238,7 +3511,7 @@ type Revision struct {
 	// Revision resource specific properties
 	Properties *RevisionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -3295,6 +3568,39 @@ type RevisionProperties struct {
 
 	// READ-ONLY; Traffic weight assigned to this revision
 	TrafficWeight *int32
+}
+
+// Runtime - Container App Runtime configuration.
+type Runtime struct {
+	// .NET app configuration
+	Dotnet *RuntimeDotnet
+
+	// Java app configuration
+	Java *RuntimeJava
+}
+
+// RuntimeDotnet - .NET app configuration
+type RuntimeDotnet struct {
+	// Auto configure the ASP.NET Core Data Protection feature
+	AutoConfigureDataProtection *bool
+}
+
+// RuntimeJava - Java app configuration
+type RuntimeJava struct {
+	// Enable jmx core metrics for the java app
+	EnableMetrics *bool
+
+	// Diagnostic capabilities achieved by java agent
+	JavaAgent *RuntimeJavaAgent
+}
+
+// RuntimeJavaAgent - Diagnostic capabilities achieved by java agent
+type RuntimeJavaAgent struct {
+	// Enable java agent injection for the java app.
+	Enabled *bool
+
+	// Settings of the log level for the java app.
+	LogLevelSettings []*LogLevelSetting
 }
 
 // Scale - Container App scaling configurations.
@@ -3392,7 +3698,7 @@ type SourceControl struct {
 	// SourceControl resource specific properties
 	Properties *SourceControlProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -3428,6 +3734,87 @@ type SourceControlProperties struct {
 
 	// READ-ONLY; Current provisioning State of the operation
 	OperationState *SourceControlOperationState
+}
+
+// SpringBootAdminComponent - Spring Boot Admin properties.
+type SpringBootAdminComponent struct {
+	// REQUIRED; Type of the Java Component.
+	ComponentType *JavaComponentType
+
+	// List of Java Components configuration properties
+	Configurations []*JavaComponentConfigurationProperty
+
+	// Java Component Ingress configurations.
+	Ingress *JavaComponentIngress
+
+	// List of Java Components that are bound to the Java component
+	ServiceBinds []*JavaComponentServiceBind
+
+	// READ-ONLY; Provisioning state of the Java Component.
+	ProvisioningState *JavaComponentProvisioningState
+}
+
+// GetJavaComponentProperties implements the JavaComponentPropertiesClassification interface for type SpringBootAdminComponent.
+func (s *SpringBootAdminComponent) GetJavaComponentProperties() *JavaComponentProperties {
+	return &JavaComponentProperties{
+		ComponentType:     s.ComponentType,
+		Configurations:    s.Configurations,
+		ProvisioningState: s.ProvisioningState,
+		ServiceBinds:      s.ServiceBinds,
+	}
+}
+
+// SpringCloudConfigComponent - Spring Cloud Config properties.
+type SpringCloudConfigComponent struct {
+	// REQUIRED; Type of the Java Component.
+	ComponentType *JavaComponentType
+
+	// List of Java Components configuration properties
+	Configurations []*JavaComponentConfigurationProperty
+
+	// List of Java Components that are bound to the Java component
+	ServiceBinds []*JavaComponentServiceBind
+
+	// READ-ONLY; Provisioning state of the Java Component.
+	ProvisioningState *JavaComponentProvisioningState
+}
+
+// GetJavaComponentProperties implements the JavaComponentPropertiesClassification interface for type SpringCloudConfigComponent.
+func (s *SpringCloudConfigComponent) GetJavaComponentProperties() *JavaComponentProperties {
+	return &JavaComponentProperties{
+		ComponentType:     s.ComponentType,
+		Configurations:    s.Configurations,
+		ProvisioningState: s.ProvisioningState,
+		ServiceBinds:      s.ServiceBinds,
+	}
+}
+
+// SpringCloudEurekaComponent - Spring Cloud Eureka properties.
+type SpringCloudEurekaComponent struct {
+	// REQUIRED; Type of the Java Component.
+	ComponentType *JavaComponentType
+
+	// List of Java Components configuration properties
+	Configurations []*JavaComponentConfigurationProperty
+
+	// Java Component Ingress configurations.
+	Ingress *JavaComponentIngress
+
+	// List of Java Components that are bound to the Java component
+	ServiceBinds []*JavaComponentServiceBind
+
+	// READ-ONLY; Provisioning state of the Java Component.
+	ProvisioningState *JavaComponentProvisioningState
+}
+
+// GetJavaComponentProperties implements the JavaComponentPropertiesClassification interface for type SpringCloudEurekaComponent.
+func (s *SpringCloudEurekaComponent) GetJavaComponentProperties() *JavaComponentProperties {
+	return &JavaComponentProperties{
+		ComponentType:     s.ComponentType,
+		Configurations:    s.Configurations,
+		ProvisioningState: s.ProvisioningState,
+		ServiceBinds:      s.ServiceBinds,
+	}
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -3467,6 +3854,10 @@ type TCPRetryPolicy struct {
 type TCPScaleRule struct {
 	// Authentication secrets for the tcp scale rule.
 	Auth []*ScaleRuleAuth
+
+	// The resource ID of a user-assigned managed identity that is assigned to the Container App, or 'system' for system-assigned
+	// identity.
+	Identity *string
 
 	// Metadata properties to describe tcp scale rule.
 	Metadata map[string]*string
@@ -3538,7 +3929,7 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -3688,7 +4079,7 @@ type WorkloadProfileStates struct {
 	// Workload Profile resource specific properties.
 	Properties *WorkloadProfileStatesProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
