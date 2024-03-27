@@ -40,6 +40,10 @@ type UpdateRunsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByFleetPager func(resourceGroupName string, fleetName string, options *armcontainerservicefleet.UpdateRunsClientListByFleetOptions) (resp azfake.PagerResponder[armcontainerservicefleet.UpdateRunsClientListByFleetResponse])
 
+	// Skip is the fake for method UpdateRunsClient.Skip
+	// HTTP status codes to indicate success: http.StatusOK
+	Skip func(ctx context.Context, resourceGroupName string, fleetName string, updateRunName string, body armcontainerservicefleet.SkipProperties, options *armcontainerservicefleet.UpdateRunsClientSkipOptions) (resp azfake.Responder[armcontainerservicefleet.UpdateRunsClientSkipResponse], errResp azfake.ErrorResponder)
+
 	// BeginStart is the fake for method UpdateRunsClient.BeginStart
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginStart func(ctx context.Context, resourceGroupName string, fleetName string, updateRunName string, options *armcontainerservicefleet.UpdateRunsClientBeginStartOptions) (resp azfake.PollerResponder[armcontainerservicefleet.UpdateRunsClientStartResponse], errResp azfake.ErrorResponder)
@@ -94,6 +98,8 @@ func (u *UpdateRunsServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = u.dispatchGet(req)
 	case "UpdateRunsClient.NewListByFleetPager":
 		resp, err = u.dispatchNewListByFleetPager(req)
+	case "UpdateRunsClient.Skip":
+		resp, err = u.dispatchSkip(req)
 	case "UpdateRunsClient.BeginStart":
 		resp, err = u.dispatchBeginStart(req)
 	case "UpdateRunsClient.BeginStop":
@@ -299,6 +305,54 @@ func (u *UpdateRunsServerTransport) dispatchNewListByFleetPager(req *http.Reques
 	}
 	if !server.PagerResponderMore(newListByFleetPager) {
 		u.newListByFleetPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (u *UpdateRunsServerTransport) dispatchSkip(req *http.Request) (*http.Response, error) {
+	if u.srv.Skip == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Skip not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ContainerService/fleets/(?P<fleetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/updateRuns/(?P<updateRunName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/skip`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armcontainerservicefleet.SkipProperties](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	ifMatchParam := getOptional(getHeaderValue(req.Header, "If-Match"))
+	fleetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("fleetName")])
+	if err != nil {
+		return nil, err
+	}
+	updateRunNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("updateRunName")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armcontainerservicefleet.UpdateRunsClientSkipOptions
+	if ifMatchParam != nil {
+		options = &armcontainerservicefleet.UpdateRunsClientSkipOptions{
+			IfMatch: ifMatchParam,
+		}
+	}
+	respr, errRespr := u.srv.Skip(req.Context(), resourceGroupNameParam, fleetNameParam, updateRunNameParam, body, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).UpdateRun, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
