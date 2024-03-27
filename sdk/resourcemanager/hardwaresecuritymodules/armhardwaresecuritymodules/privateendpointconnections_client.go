@@ -46,7 +46,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // NewListByCloudHsmClusterPager - The List operation gets information about the private endpoint connections associated with
 // the Cloud HSM Cluster
 //
-// Generated from API version 2023-12-10-preview
+// Generated from API version 2024-06-30
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 24 characters in length.
@@ -95,7 +95,7 @@ func (client *PrivateEndpointConnectionsClient) listByCloudHsmClusterCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-10-preview")
+	reqQP.Set("api-version", "2024-06-30")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
