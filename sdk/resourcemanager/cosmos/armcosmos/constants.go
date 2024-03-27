@@ -10,7 +10,7 @@ package armcosmos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos"
-	moduleVersion = "v3.0.0-beta.4"
+	moduleVersion = "v3.0.0-beta.5"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -933,8 +933,10 @@ func PossibleScheduledEventStrategyValues() []ScheduledEventStrategy {
 type ServerVersion string
 
 const (
+	ServerVersionFive0  ServerVersion = "5.0"
 	ServerVersionFour0  ServerVersion = "4.0"
 	ServerVersionFour2  ServerVersion = "4.2"
+	ServerVersionSix0   ServerVersion = "6.0"
 	ServerVersionThree2 ServerVersion = "3.2"
 	ServerVersionThree6 ServerVersion = "3.6"
 )
@@ -942,8 +944,10 @@ const (
 // PossibleServerVersionValues returns the possible values for the ServerVersion const type.
 func PossibleServerVersionValues() []ServerVersion {
 	return []ServerVersion{
+		ServerVersionFive0,
 		ServerVersionFour0,
 		ServerVersionFour2,
+		ServerVersionSix0,
 		ServerVersionThree2,
 		ServerVersionThree6,
 	}
