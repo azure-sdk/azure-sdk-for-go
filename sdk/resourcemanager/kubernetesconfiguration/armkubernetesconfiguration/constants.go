@@ -10,7 +10,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.2.1"
 )
 
 // AKSIdentityType - The identity type.
