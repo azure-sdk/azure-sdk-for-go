@@ -47,7 +47,7 @@ func NewApplicationGatewaysClient(subscriptionID string, credential azcore.Token
 // BeginBackendHealth - Gets the backend health of the specified application gateway in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - options - ApplicationGatewaysClientBeginBackendHealthOptions contains the optional parameters for the ApplicationGatewaysClient.BeginBackendHealth
@@ -73,7 +73,7 @@ func (client *ApplicationGatewaysClient) BeginBackendHealth(ctx context.Context,
 // BackendHealth - Gets the backend health of the specified application gateway in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 func (client *ApplicationGatewaysClient) backendHealth(ctx context.Context, resourceGroupName string, applicationGatewayName string, options *ApplicationGatewaysClientBeginBackendHealthOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApplicationGatewaysClient.BeginBackendHealth"
@@ -118,7 +118,7 @@ func (client *ApplicationGatewaysClient) backendHealthCreateRequest(ctx context.
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -128,7 +128,7 @@ func (client *ApplicationGatewaysClient) backendHealthCreateRequest(ctx context.
 // application gateway in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - probeRequest - Request body for on-demand test probe operation.
@@ -156,7 +156,7 @@ func (client *ApplicationGatewaysClient) BeginBackendHealthOnDemand(ctx context.
 // application gateway in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 func (client *ApplicationGatewaysClient) backendHealthOnDemand(ctx context.Context, resourceGroupName string, applicationGatewayName string, probeRequest ApplicationGatewayOnDemandProbe, options *ApplicationGatewaysClientBeginBackendHealthOnDemandOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApplicationGatewaysClient.BeginBackendHealthOnDemand"
@@ -201,7 +201,7 @@ func (client *ApplicationGatewaysClient) backendHealthOnDemandCreateRequest(ctx 
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, probeRequest); err != nil {
@@ -210,10 +210,91 @@ func (client *ApplicationGatewaysClient) backendHealthOnDemandCreateRequest(ctx 
 	return req, nil
 }
 
+// BeginCommitMigration - Deletes the v1 gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-01
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - migrationRequest - Application gateway migration request body.
+//   - options - ApplicationGatewaysClientBeginCommitMigrationOptions contains the optional parameters for the ApplicationGatewaysClient.BeginCommitMigration
+//     method.
+func (client *ApplicationGatewaysClient) BeginCommitMigration(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginCommitMigrationOptions) (*runtime.Poller[ApplicationGatewaysClientCommitMigrationResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.commitMigration(ctx, resourceGroupName, applicationGatewayName, migrationRequest, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ApplicationGatewaysClientCommitMigrationResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ApplicationGatewaysClientCommitMigrationResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// CommitMigration - Deletes the v1 gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-01
+func (client *ApplicationGatewaysClient) commitMigration(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginCommitMigrationOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ApplicationGatewaysClient.BeginCommitMigration"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.commitMigrationCreateRequest(ctx, resourceGroupName, applicationGatewayName, migrationRequest, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// commitMigrationCreateRequest creates the CommitMigration request.
+func (client *ApplicationGatewaysClient) commitMigrationCreateRequest(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginCommitMigrationOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}/commitMigration"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if applicationGatewayName == "" {
+		return nil, errors.New("parameter applicationGatewayName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{applicationGatewayName}", url.PathEscape(applicationGatewayName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, migrationRequest); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginCreateOrUpdate - Creates or updates the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - parameters - Parameters supplied to the create or update application gateway operation.
@@ -240,7 +321,7 @@ func (client *ApplicationGatewaysClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 func (client *ApplicationGatewaysClient) createOrUpdate(ctx context.Context, resourceGroupName string, applicationGatewayName string, parameters ApplicationGateway, options *ApplicationGatewaysClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApplicationGatewaysClient.BeginCreateOrUpdate"
@@ -282,7 +363,7 @@ func (client *ApplicationGatewaysClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -294,7 +375,7 @@ func (client *ApplicationGatewaysClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Deletes the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - options - ApplicationGatewaysClientBeginDeleteOptions contains the optional parameters for the ApplicationGatewaysClient.BeginDelete
@@ -320,7 +401,7 @@ func (client *ApplicationGatewaysClient) BeginDelete(ctx context.Context, resour
 // Delete - Deletes the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 func (client *ApplicationGatewaysClient) deleteOperation(ctx context.Context, resourceGroupName string, applicationGatewayName string, options *ApplicationGatewaysClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApplicationGatewaysClient.BeginDelete"
@@ -362,16 +443,97 @@ func (client *ApplicationGatewaysClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// BeginExecuteMigration - To switch the existing v1 data plane to v2 dataplane.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-01
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - migrationRequest - Application gateway migration request body.
+//   - options - ApplicationGatewaysClientBeginExecuteMigrationOptions contains the optional parameters for the ApplicationGatewaysClient.BeginExecuteMigration
+//     method.
+func (client *ApplicationGatewaysClient) BeginExecuteMigration(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginExecuteMigrationOptions) (*runtime.Poller[ApplicationGatewaysClientExecuteMigrationResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.executeMigration(ctx, resourceGroupName, applicationGatewayName, migrationRequest, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ApplicationGatewaysClientExecuteMigrationResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ApplicationGatewaysClientExecuteMigrationResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// ExecuteMigration - To switch the existing v1 data plane to v2 dataplane.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-01
+func (client *ApplicationGatewaysClient) executeMigration(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginExecuteMigrationOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ApplicationGatewaysClient.BeginExecuteMigration"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.executeMigrationCreateRequest(ctx, resourceGroupName, applicationGatewayName, migrationRequest, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// executeMigrationCreateRequest creates the ExecuteMigration request.
+func (client *ApplicationGatewaysClient) executeMigrationCreateRequest(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginExecuteMigrationOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}/executeMigration"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if applicationGatewayName == "" {
+		return nil, errors.New("parameter applicationGatewayName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{applicationGatewayName}", url.PathEscape(applicationGatewayName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, migrationRequest); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
 // Get - Gets the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - options - ApplicationGatewaysClientGetOptions contains the optional parameters for the ApplicationGatewaysClient.Get method.
@@ -417,7 +579,7 @@ func (client *ApplicationGatewaysClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -435,7 +597,7 @@ func (client *ApplicationGatewaysClient) getHandleResponse(resp *http.Response) 
 // GetSSLPredefinedPolicy - Gets Ssl predefined policy with the specified policy name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - predefinedPolicyName - Name of Ssl predefined policy.
 //   - options - ApplicationGatewaysClientGetSSLPredefinedPolicyOptions contains the optional parameters for the ApplicationGatewaysClient.GetSSLPredefinedPolicy
 //     method.
@@ -477,7 +639,7 @@ func (client *ApplicationGatewaysClient) getSSLPredefinedPolicyCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -494,7 +656,7 @@ func (client *ApplicationGatewaysClient) getSSLPredefinedPolicyHandleResponse(re
 
 // NewListPager - Lists all application gateways in a resource group.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - options - ApplicationGatewaysClientListOptions contains the optional parameters for the ApplicationGatewaysClient.NewListPager
 //     method.
@@ -537,7 +699,7 @@ func (client *ApplicationGatewaysClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -554,7 +716,7 @@ func (client *ApplicationGatewaysClient) listHandleResponse(resp *http.Response)
 
 // NewListAllPager - Gets all the application gateways in a subscription.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAllOptions contains the optional parameters for the ApplicationGatewaysClient.NewListAllPager
 //     method.
 func (client *ApplicationGatewaysClient) NewListAllPager(options *ApplicationGatewaysClientListAllOptions) *runtime.Pager[ApplicationGatewaysClientListAllResponse] {
@@ -592,7 +754,7 @@ func (client *ApplicationGatewaysClient) listAllCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -610,7 +772,7 @@ func (client *ApplicationGatewaysClient) listAllHandleResponse(resp *http.Respon
 // ListAvailableRequestHeaders - Lists all available request headers.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAvailableRequestHeadersOptions contains the optional parameters for the ApplicationGatewaysClient.ListAvailableRequestHeaders
 //     method.
 func (client *ApplicationGatewaysClient) ListAvailableRequestHeaders(ctx context.Context, options *ApplicationGatewaysClientListAvailableRequestHeadersOptions) (ApplicationGatewaysClientListAvailableRequestHeadersResponse, error) {
@@ -647,7 +809,7 @@ func (client *ApplicationGatewaysClient) listAvailableRequestHeadersCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -665,7 +827,7 @@ func (client *ApplicationGatewaysClient) listAvailableRequestHeadersHandleRespon
 // ListAvailableResponseHeaders - Lists all available response headers.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAvailableResponseHeadersOptions contains the optional parameters for the ApplicationGatewaysClient.ListAvailableResponseHeaders
 //     method.
 func (client *ApplicationGatewaysClient) ListAvailableResponseHeaders(ctx context.Context, options *ApplicationGatewaysClientListAvailableResponseHeadersOptions) (ApplicationGatewaysClientListAvailableResponseHeadersResponse, error) {
@@ -702,7 +864,7 @@ func (client *ApplicationGatewaysClient) listAvailableResponseHeadersCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -720,7 +882,7 @@ func (client *ApplicationGatewaysClient) listAvailableResponseHeadersHandleRespo
 // ListAvailableSSLOptions - Lists available Ssl options for configuring Ssl policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAvailableSSLOptionsOptions contains the optional parameters for the ApplicationGatewaysClient.ListAvailableSSLOptions
 //     method.
 func (client *ApplicationGatewaysClient) ListAvailableSSLOptions(ctx context.Context, options *ApplicationGatewaysClientListAvailableSSLOptionsOptions) (ApplicationGatewaysClientListAvailableSSLOptionsResponse, error) {
@@ -757,7 +919,7 @@ func (client *ApplicationGatewaysClient) listAvailableSSLOptionsCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -774,7 +936,7 @@ func (client *ApplicationGatewaysClient) listAvailableSSLOptionsHandleResponse(r
 
 // NewListAvailableSSLPredefinedPoliciesPager - Lists all SSL predefined policies for configuring Ssl policy.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAvailableSSLPredefinedPoliciesOptions contains the optional parameters for the ApplicationGatewaysClient.NewListAvailableSSLPredefinedPoliciesPager
 //     method.
 func (client *ApplicationGatewaysClient) NewListAvailableSSLPredefinedPoliciesPager(options *ApplicationGatewaysClientListAvailableSSLPredefinedPoliciesOptions) *runtime.Pager[ApplicationGatewaysClientListAvailableSSLPredefinedPoliciesResponse] {
@@ -812,7 +974,7 @@ func (client *ApplicationGatewaysClient) listAvailableSSLPredefinedPoliciesCreat
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -830,7 +992,7 @@ func (client *ApplicationGatewaysClient) listAvailableSSLPredefinedPoliciesHandl
 // ListAvailableServerVariables - Lists all available server variables.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAvailableServerVariablesOptions contains the optional parameters for the ApplicationGatewaysClient.ListAvailableServerVariables
 //     method.
 func (client *ApplicationGatewaysClient) ListAvailableServerVariables(ctx context.Context, options *ApplicationGatewaysClientListAvailableServerVariablesOptions) (ApplicationGatewaysClientListAvailableServerVariablesResponse, error) {
@@ -867,7 +1029,7 @@ func (client *ApplicationGatewaysClient) listAvailableServerVariablesCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -885,7 +1047,7 @@ func (client *ApplicationGatewaysClient) listAvailableServerVariablesHandleRespo
 // ListAvailableWafRuleSets - Lists all available web application firewall rule sets.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - options - ApplicationGatewaysClientListAvailableWafRuleSetsOptions contains the optional parameters for the ApplicationGatewaysClient.ListAvailableWafRuleSets
 //     method.
 func (client *ApplicationGatewaysClient) ListAvailableWafRuleSets(ctx context.Context, options *ApplicationGatewaysClientListAvailableWafRuleSetsOptions) (ApplicationGatewaysClientListAvailableWafRuleSetsResponse, error) {
@@ -922,7 +1084,7 @@ func (client *ApplicationGatewaysClient) listAvailableWafRuleSetsCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -937,10 +1099,93 @@ func (client *ApplicationGatewaysClient) listAvailableWafRuleSetsHandleResponse(
 	return result, nil
 }
 
+// BeginPrepareMigration - Validates the feasibility of the specified application gateway in a resource group for v1 to v2
+// migration and spins up a parallel v2 gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-01
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - migrationRequest - Application gateway migration request body.
+//   - options - ApplicationGatewaysClientBeginPrepareMigrationOptions contains the optional parameters for the ApplicationGatewaysClient.BeginPrepareMigration
+//     method.
+func (client *ApplicationGatewaysClient) BeginPrepareMigration(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginPrepareMigrationOptions) (*runtime.Poller[ApplicationGatewaysClientPrepareMigrationResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.prepareMigration(ctx, resourceGroupName, applicationGatewayName, migrationRequest, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ApplicationGatewaysClientPrepareMigrationResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ApplicationGatewaysClientPrepareMigrationResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// PrepareMigration - Validates the feasibility of the specified application gateway in a resource group for v1 to v2 migration
+// and spins up a parallel v2 gateway.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-01
+func (client *ApplicationGatewaysClient) prepareMigration(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginPrepareMigrationOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ApplicationGatewaysClient.BeginPrepareMigration"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.prepareMigrationCreateRequest(ctx, resourceGroupName, applicationGatewayName, migrationRequest, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// prepareMigrationCreateRequest creates the PrepareMigration request.
+func (client *ApplicationGatewaysClient) prepareMigrationCreateRequest(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest ApplicationGatewayMigrationRequest, options *ApplicationGatewaysClientBeginPrepareMigrationOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}/prepareMigration"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if applicationGatewayName == "" {
+		return nil, errors.New("parameter applicationGatewayName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{applicationGatewayName}", url.PathEscape(applicationGatewayName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, migrationRequest); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginStart - Starts the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - options - ApplicationGatewaysClientBeginStartOptions contains the optional parameters for the ApplicationGatewaysClient.BeginStart
@@ -966,7 +1211,7 @@ func (client *ApplicationGatewaysClient) BeginStart(ctx context.Context, resourc
 // Start - Starts the specified application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 func (client *ApplicationGatewaysClient) start(ctx context.Context, resourceGroupName string, applicationGatewayName string, options *ApplicationGatewaysClientBeginStartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApplicationGatewaysClient.BeginStart"
@@ -1008,7 +1253,7 @@ func (client *ApplicationGatewaysClient) startCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1017,7 +1262,7 @@ func (client *ApplicationGatewaysClient) startCreateRequest(ctx context.Context,
 // BeginStop - Stops the specified application gateway in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - options - ApplicationGatewaysClientBeginStopOptions contains the optional parameters for the ApplicationGatewaysClient.BeginStop
@@ -1043,7 +1288,7 @@ func (client *ApplicationGatewaysClient) BeginStop(ctx context.Context, resource
 // Stop - Stops the specified application gateway in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 func (client *ApplicationGatewaysClient) stop(ctx context.Context, resourceGroupName string, applicationGatewayName string, options *ApplicationGatewaysClientBeginStopOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApplicationGatewaysClient.BeginStop"
@@ -1085,7 +1330,7 @@ func (client *ApplicationGatewaysClient) stopCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1094,7 +1339,7 @@ func (client *ApplicationGatewaysClient) stopCreateRequest(ctx context.Context, 
 // UpdateTags - Updates the specified application gateway tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - applicationGatewayName - The name of the application gateway.
 //   - parameters - Parameters supplied to update application gateway tags.
@@ -1142,7 +1387,7 @@ func (client *ApplicationGatewaysClient) updateTagsCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

@@ -32,6 +32,10 @@ type ApplicationGatewaysServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginBackendHealthOnDemand func(ctx context.Context, resourceGroupName string, applicationGatewayName string, probeRequest armnetwork.ApplicationGatewayOnDemandProbe, options *armnetwork.ApplicationGatewaysClientBeginBackendHealthOnDemandOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientBackendHealthOnDemandResponse], errResp azfake.ErrorResponder)
 
+	// BeginCommitMigration is the fake for method ApplicationGatewaysClient.BeginCommitMigration
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginCommitMigration func(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest armnetwork.ApplicationGatewayMigrationRequest, options *armnetwork.ApplicationGatewaysClientBeginCommitMigrationOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientCommitMigrationResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method ApplicationGatewaysClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, applicationGatewayName string, parameters armnetwork.ApplicationGateway, options *armnetwork.ApplicationGatewaysClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -39,6 +43,10 @@ type ApplicationGatewaysServer struct {
 	// BeginDelete is the fake for method ApplicationGatewaysClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, applicationGatewayName string, options *armnetwork.ApplicationGatewaysClientBeginDeleteOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientDeleteResponse], errResp azfake.ErrorResponder)
+
+	// BeginExecuteMigration is the fake for method ApplicationGatewaysClient.BeginExecuteMigration
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginExecuteMigration func(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest armnetwork.ApplicationGatewayMigrationRequest, options *armnetwork.ApplicationGatewaysClientBeginExecuteMigrationOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientExecuteMigrationResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ApplicationGatewaysClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -80,6 +88,10 @@ type ApplicationGatewaysServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	ListAvailableWafRuleSets func(ctx context.Context, options *armnetwork.ApplicationGatewaysClientListAvailableWafRuleSetsOptions) (resp azfake.Responder[armnetwork.ApplicationGatewaysClientListAvailableWafRuleSetsResponse], errResp azfake.ErrorResponder)
 
+	// BeginPrepareMigration is the fake for method ApplicationGatewaysClient.BeginPrepareMigration
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginPrepareMigration func(ctx context.Context, resourceGroupName string, applicationGatewayName string, migrationRequest armnetwork.ApplicationGatewayMigrationRequest, options *armnetwork.ApplicationGatewaysClientBeginPrepareMigrationOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientPrepareMigrationResponse], errResp azfake.ErrorResponder)
+
 	// BeginStart is the fake for method ApplicationGatewaysClient.BeginStart
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginStart func(ctx context.Context, resourceGroupName string, applicationGatewayName string, options *armnetwork.ApplicationGatewaysClientBeginStartOptions) (resp azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStartResponse], errResp azfake.ErrorResponder)
@@ -101,13 +113,16 @@ func NewApplicationGatewaysServerTransport(srv *ApplicationGatewaysServer) *Appl
 		srv:                        srv,
 		beginBackendHealth:         newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientBackendHealthResponse]](),
 		beginBackendHealthOnDemand: newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientBackendHealthOnDemandResponse]](),
+		beginCommitMigration:       newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientCommitMigrationResponse]](),
 		beginCreateOrUpdate:        newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientCreateOrUpdateResponse]](),
 		beginDelete:                newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientDeleteResponse]](),
+		beginExecuteMigration:      newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientExecuteMigrationResponse]](),
 		newListPager:               newTracker[azfake.PagerResponder[armnetwork.ApplicationGatewaysClientListResponse]](),
 		newListAllPager:            newTracker[azfake.PagerResponder[armnetwork.ApplicationGatewaysClientListAllResponse]](),
 		newListAvailableSSLPredefinedPoliciesPager: newTracker[azfake.PagerResponder[armnetwork.ApplicationGatewaysClientListAvailableSSLPredefinedPoliciesResponse]](),
-		beginStart: newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStartResponse]](),
-		beginStop:  newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStopResponse]](),
+		beginPrepareMigration:                      newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientPrepareMigrationResponse]](),
+		beginStart:                                 newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStartResponse]](),
+		beginStop:                                  newTracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStopResponse]](),
 	}
 }
 
@@ -117,11 +132,14 @@ type ApplicationGatewaysServerTransport struct {
 	srv                                        *ApplicationGatewaysServer
 	beginBackendHealth                         *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientBackendHealthResponse]]
 	beginBackendHealthOnDemand                 *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientBackendHealthOnDemandResponse]]
+	beginCommitMigration                       *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientCommitMigrationResponse]]
 	beginCreateOrUpdate                        *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientCreateOrUpdateResponse]]
 	beginDelete                                *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientDeleteResponse]]
+	beginExecuteMigration                      *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientExecuteMigrationResponse]]
 	newListPager                               *tracker[azfake.PagerResponder[armnetwork.ApplicationGatewaysClientListResponse]]
 	newListAllPager                            *tracker[azfake.PagerResponder[armnetwork.ApplicationGatewaysClientListAllResponse]]
 	newListAvailableSSLPredefinedPoliciesPager *tracker[azfake.PagerResponder[armnetwork.ApplicationGatewaysClientListAvailableSSLPredefinedPoliciesResponse]]
+	beginPrepareMigration                      *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientPrepareMigrationResponse]]
 	beginStart                                 *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStartResponse]]
 	beginStop                                  *tracker[azfake.PollerResponder[armnetwork.ApplicationGatewaysClientStopResponse]]
 }
@@ -142,10 +160,14 @@ func (a *ApplicationGatewaysServerTransport) Do(req *http.Request) (*http.Respon
 		resp, err = a.dispatchBeginBackendHealth(req)
 	case "ApplicationGatewaysClient.BeginBackendHealthOnDemand":
 		resp, err = a.dispatchBeginBackendHealthOnDemand(req)
+	case "ApplicationGatewaysClient.BeginCommitMigration":
+		resp, err = a.dispatchBeginCommitMigration(req)
 	case "ApplicationGatewaysClient.BeginCreateOrUpdate":
 		resp, err = a.dispatchBeginCreateOrUpdate(req)
 	case "ApplicationGatewaysClient.BeginDelete":
 		resp, err = a.dispatchBeginDelete(req)
+	case "ApplicationGatewaysClient.BeginExecuteMigration":
+		resp, err = a.dispatchBeginExecuteMigration(req)
 	case "ApplicationGatewaysClient.Get":
 		resp, err = a.dispatchGet(req)
 	case "ApplicationGatewaysClient.GetSSLPredefinedPolicy":
@@ -166,6 +188,8 @@ func (a *ApplicationGatewaysServerTransport) Do(req *http.Request) (*http.Respon
 		resp, err = a.dispatchListAvailableServerVariables(req)
 	case "ApplicationGatewaysClient.ListAvailableWafRuleSets":
 		resp, err = a.dispatchListAvailableWafRuleSets(req)
+	case "ApplicationGatewaysClient.BeginPrepareMigration":
+		resp, err = a.dispatchBeginPrepareMigration(req)
 	case "ApplicationGatewaysClient.BeginStart":
 		resp, err = a.dispatchBeginStart(req)
 	case "ApplicationGatewaysClient.BeginStop":
@@ -299,6 +323,54 @@ func (a *ApplicationGatewaysServerTransport) dispatchBeginBackendHealthOnDemand(
 	return resp, nil
 }
 
+func (a *ApplicationGatewaysServerTransport) dispatchBeginCommitMigration(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginCommitMigration == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCommitMigration not implemented")}
+	}
+	beginCommitMigration := a.beginCommitMigration.get(req)
+	if beginCommitMigration == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/applicationGateways/(?P<applicationGatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/commitMigration`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.ApplicationGatewayMigrationRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		applicationGatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("applicationGatewayName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginCommitMigration(req.Context(), resourceGroupNameParam, applicationGatewayNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginCommitMigration = &respr
+		a.beginCommitMigration.add(req, beginCommitMigration)
+	}
+
+	resp, err := server.PollerResponderNext(beginCommitMigration, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		a.beginCommitMigration.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginCommitMigration) {
+		a.beginCommitMigration.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (a *ApplicationGatewaysServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
 	if a.srv.BeginCreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
@@ -386,6 +458,54 @@ func (a *ApplicationGatewaysServerTransport) dispatchBeginDelete(req *http.Reque
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		a.beginDelete.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (a *ApplicationGatewaysServerTransport) dispatchBeginExecuteMigration(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginExecuteMigration == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginExecuteMigration not implemented")}
+	}
+	beginExecuteMigration := a.beginExecuteMigration.get(req)
+	if beginExecuteMigration == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/applicationGateways/(?P<applicationGatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/executeMigration`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.ApplicationGatewayMigrationRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		applicationGatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("applicationGatewayName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginExecuteMigration(req.Context(), resourceGroupNameParam, applicationGatewayNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginExecuteMigration = &respr
+		a.beginExecuteMigration.add(req, beginExecuteMigration)
+	}
+
+	resp, err := server.PollerResponderNext(beginExecuteMigration, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		a.beginExecuteMigration.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginExecuteMigration) {
+		a.beginExecuteMigration.remove(req)
 	}
 
 	return resp, nil
@@ -678,6 +798,54 @@ func (a *ApplicationGatewaysServerTransport) dispatchListAvailableWafRuleSets(re
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (a *ApplicationGatewaysServerTransport) dispatchBeginPrepareMigration(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginPrepareMigration == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginPrepareMigration not implemented")}
+	}
+	beginPrepareMigration := a.beginPrepareMigration.get(req)
+	if beginPrepareMigration == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/applicationGateways/(?P<applicationGatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/prepareMigration`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.ApplicationGatewayMigrationRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		applicationGatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("applicationGatewayName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginPrepareMigration(req.Context(), resourceGroupNameParam, applicationGatewayNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginPrepareMigration = &respr
+		a.beginPrepareMigration.add(req, beginPrepareMigration)
+	}
+
+	resp, err := server.PollerResponderNext(beginPrepareMigration, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		a.beginPrepareMigration.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginPrepareMigration) {
+		a.beginPrepareMigration.remove(req)
+	}
+
 	return resp, nil
 }
 
