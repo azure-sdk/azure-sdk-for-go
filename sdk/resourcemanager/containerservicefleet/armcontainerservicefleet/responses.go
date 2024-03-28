@@ -8,6 +8,29 @@
 
 package armcontainerservicefleet
 
+// AutoUpgradeProfilesClientCreateOrUpdateResponse contains the response from method AutoUpgradeProfilesClient.BeginCreateOrUpdate.
+type AutoUpgradeProfilesClientCreateOrUpdateResponse struct {
+	// The AutoUpgradeProfile resource.
+	AutoUpgradeProfile
+}
+
+// AutoUpgradeProfilesClientDeleteResponse contains the response from method AutoUpgradeProfilesClient.BeginDelete.
+type AutoUpgradeProfilesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AutoUpgradeProfilesClientGetResponse contains the response from method AutoUpgradeProfilesClient.Get.
+type AutoUpgradeProfilesClientGetResponse struct {
+	// The AutoUpgradeProfile resource.
+	AutoUpgradeProfile
+}
+
+// AutoUpgradeProfilesClientListByFleetResponse contains the response from method AutoUpgradeProfilesClient.NewListByFleetPager.
+type AutoUpgradeProfilesClientListByFleetResponse struct {
+	// The response of a AutoUpgradeProfile list operation.
+	AutoUpgradeProfileListResult
+}
+
 // FleetMembersClientCreateResponse contains the response from method FleetMembersClient.BeginCreate.
 type FleetMembersClientCreateResponse struct {
 	// A member of the Fleet. It contains a reference to an existing Kubernetes cluster on Azure.
@@ -128,6 +151,12 @@ type UpdateRunsClientGetResponse struct {
 type UpdateRunsClientListByFleetResponse struct {
 	// The response of a UpdateRun list operation.
 	UpdateRunListResult
+}
+
+// UpdateRunsClientSkipResponse contains the response from method UpdateRunsClient.Skip.
+type UpdateRunsClientSkipResponse struct {
+	// A multi-stage process to perform update operations across members of a Fleet.
+	UpdateRun
 }
 
 // UpdateRunsClientStartResponse contains the response from method UpdateRunsClient.BeginStart.

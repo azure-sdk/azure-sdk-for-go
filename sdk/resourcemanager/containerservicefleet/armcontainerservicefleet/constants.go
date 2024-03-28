@@ -10,7 +10,7 @@ package armcontainerservicefleet
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,6 +24,27 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AutoUpgradeProfileProvisioningState - The provisioning state of the AutoUpgradeProfile resource.
+type AutoUpgradeProfileProvisioningState string
+
+const (
+	// AutoUpgradeProfileProvisioningStateCanceled - Resource creation was canceled.
+	AutoUpgradeProfileProvisioningStateCanceled AutoUpgradeProfileProvisioningState = "Canceled"
+	// AutoUpgradeProfileProvisioningStateFailed - Resource creation failed.
+	AutoUpgradeProfileProvisioningStateFailed AutoUpgradeProfileProvisioningState = "Failed"
+	// AutoUpgradeProfileProvisioningStateSucceeded - Resource has been created.
+	AutoUpgradeProfileProvisioningStateSucceeded AutoUpgradeProfileProvisioningState = "Succeeded"
+)
+
+// PossibleAutoUpgradeProfileProvisioningStateValues returns the possible values for the AutoUpgradeProfileProvisioningState const type.
+func PossibleAutoUpgradeProfileProvisioningStateValues() []AutoUpgradeProfileProvisioningState {
+	return []AutoUpgradeProfileProvisioningState{
+		AutoUpgradeProfileProvisioningStateCanceled,
+		AutoUpgradeProfileProvisioningStateFailed,
+		AutoUpgradeProfileProvisioningStateSucceeded,
 	}
 }
 
@@ -210,6 +231,30 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
+// TargetType - The target type of a skip request.
+type TargetType string
+
+const (
+	// TargetTypeAfterStageWait - Skip the update of the after stage wait of a certain stage.
+	TargetTypeAfterStageWait TargetType = "AfterStageWait"
+	// TargetTypeGroup - Skip the update of a group.
+	TargetTypeGroup TargetType = "Group"
+	// TargetTypeMember - Skip the update of a member.
+	TargetTypeMember TargetType = "Member"
+	// TargetTypeStage - Skip the update of an entire stage including the after stage wait.
+	TargetTypeStage TargetType = "Stage"
+)
+
+// PossibleTargetTypeValues returns the possible values for the TargetType const type.
+func PossibleTargetTypeValues() []TargetType {
+	return []TargetType{
+		TargetTypeAfterStageWait,
+		TargetTypeGroup,
+		TargetTypeMember,
+		TargetTypeStage,
+	}
+}
+
 // UpdateRunProvisioningState - The provisioning state of the UpdateRun resource.
 type UpdateRunProvisioningState string
 
@@ -261,5 +306,30 @@ func PossibleUpdateStateValues() []UpdateState {
 		UpdateStateSkipped,
 		UpdateStateStopped,
 		UpdateStateStopping,
+	}
+}
+
+// UpgradeChannel - Configuration of how auto upgrade will be run.
+type UpgradeChannel string
+
+const (
+	// UpgradeChannelNodeImage - Upgrade node image version of the clusters.
+	UpgradeChannelNodeImage UpgradeChannel = "NodeImage"
+	// UpgradeChannelRapid - Upgrades the clusters kubernetes version to the latest supported patch release on the latest supported
+	// minor version.
+	UpgradeChannelRapid UpgradeChannel = "Rapid"
+	// UpgradeChannelStable - Upgrades the clusters kubernetes version to the latest supported patch release on minor version
+	// N-1, where N is the latest supported minor version.
+	// For example, if a cluster runs version 1.17.7 and versions 1.17.9, 1.18.4, 1.18.6, and 1.19.1 are available, the cluster
+	// upgrades to 1.18.6.
+	UpgradeChannelStable UpgradeChannel = "Stable"
+)
+
+// PossibleUpgradeChannelValues returns the possible values for the UpgradeChannel const type.
+func PossibleUpgradeChannelValues() []UpgradeChannel {
+	return []UpgradeChannel{
+		UpgradeChannelNodeImage,
+		UpgradeChannelRapid,
+		UpgradeChannelStable,
 	}
 }

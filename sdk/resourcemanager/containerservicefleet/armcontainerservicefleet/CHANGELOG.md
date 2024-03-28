@@ -1,5 +1,29 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-03-28)
+### Features Added
+
+- New enum type `AutoUpgradeProfileProvisioningState` with values `AutoUpgradeProfileProvisioningStateCanceled`, `AutoUpgradeProfileProvisioningStateFailed`, `AutoUpgradeProfileProvisioningStateSucceeded`
+- New enum type `TargetType` with values `TargetTypeAfterStageWait`, `TargetTypeGroup`, `TargetTypeMember`, `TargetTypeStage`
+- New enum type `UpgradeChannel` with values `UpgradeChannelNodeImage`, `UpgradeChannelRapid`, `UpgradeChannelStable`
+- New function `NewAutoUpgradeProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AutoUpgradeProfilesClient, error)`
+- New function `*AutoUpgradeProfilesClient.BeginCreateOrUpdate(context.Context, string, string, string, AutoUpgradeProfile, *AutoUpgradeProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[AutoUpgradeProfilesClientCreateOrUpdateResponse], error)`
+- New function `*AutoUpgradeProfilesClient.BeginDelete(context.Context, string, string, string, *AutoUpgradeProfilesClientBeginDeleteOptions) (*runtime.Poller[AutoUpgradeProfilesClientDeleteResponse], error)`
+- New function `*AutoUpgradeProfilesClient.Get(context.Context, string, string, string, *AutoUpgradeProfilesClientGetOptions) (AutoUpgradeProfilesClientGetResponse, error)`
+- New function `*AutoUpgradeProfilesClient.NewListByFleetPager(string, string, *AutoUpgradeProfilesClientListByFleetOptions) *runtime.Pager[AutoUpgradeProfilesClientListByFleetResponse]`
+- New function `*ClientFactory.NewAutoUpgradeProfilesClient() *AutoUpgradeProfilesClient`
+- New function `*UpdateRunsClient.Skip(context.Context, string, string, string, SkipProperties, *UpdateRunsClientSkipOptions) (UpdateRunsClientSkipResponse, error)`
+- New struct `APIServerAccessProfile`
+- New struct `AgentProfile`
+- New struct `AutoUpgradeProfile`
+- New struct `AutoUpgradeProfileListResult`
+- New struct `AutoUpgradeProfileProperties`
+- New struct `FleetHubProfile`
+- New struct `SkipProperties`
+- New struct `SkipTarget`
+- New field `HubProfile` in struct `FleetProperties`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
