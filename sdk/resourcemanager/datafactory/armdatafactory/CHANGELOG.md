@@ -1,5 +1,38 @@
 # Release History
 
+## 7.0.0 (2024-03-29)
+### Breaking Changes
+
+- Function `*CredentialOperationsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, ManagedIdentityCredentialResource, *CredentialOperationsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, CredentialResource, *CredentialOperationsClientCreateOrUpdateOptions)`
+- Type of `AzureFunctionActivityTypeProperties.Headers` has been changed from `map[string]*string` to `map[string]any`
+- Type of `CredentialListResponse.Value` has been changed from `[]*ManagedIdentityCredentialResource` to `[]*CredentialResource`
+- Type of `WebActivityTypeProperties.Headers` has been changed from `map[string]*string` to `map[string]any`
+- Type of `WebHookActivityTypeProperties.Headers` has been changed from `map[string]*string` to `map[string]any`
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `ManagedIdentityCredentialResource` has been removed
+- Struct `ManagedIdentityTypeProperties` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResponse` has been removed
+- Struct `OperationLogSpecification` has been removed
+- Struct `OperationMetricAvailability` has been removed
+- Struct `OperationMetricDimension` has been removed
+- Struct `OperationMetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `OperationServiceSpecification` has been removed
+- Field `ManagedIdentityCredentialResource` of struct `CredentialOperationsClientCreateOrUpdateResponse` has been removed
+- Field `ManagedIdentityCredentialResource` of struct `CredentialOperationsClientGetResponse` has been removed
+- Field `TypeProperties` of struct `ManagedIdentityCredential` has been removed
+
+### Features Added
+
+- New struct `CredentialResource`
+- New anonymous field `CredentialResource` in struct `CredentialOperationsClientCreateOrUpdateResponse`
+- New anonymous field `CredentialResource` in struct `CredentialOperationsClientGetResponse`
+
+
 ## 6.0.0 (2024-02-23)
 ### Breaking Changes
 
