@@ -15,10 +15,11 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // LotsServer is a fake server for instances of the armconsumption.LotsClient type.
@@ -108,10 +109,19 @@ func (l *LotsServerTransport) dispatchNewListByBillingAccountPager(req *http.Req
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		extendedPropertiesUnescaped, err := url.QueryUnescape(qp.Get("extendedProperties"))
+		if err != nil {
+			return nil, err
+		}
+		extendedPropertiesParam, err := parseOptional(extendedPropertiesUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
 		var options *armconsumption.LotsClientListByBillingAccountOptions
-		if filterParam != nil {
+		if filterParam != nil || extendedPropertiesParam != nil {
 			options = &armconsumption.LotsClientListByBillingAccountOptions{
-				Filter: filterParam,
+				Filter:             filterParam,
+				ExtendedProperties: extendedPropertiesParam,
 			}
 		}
 		resp := l.srv.NewListByBillingAccountPager(billingAccountIDParam, options)

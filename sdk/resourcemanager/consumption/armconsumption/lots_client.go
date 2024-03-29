@@ -17,6 +17,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -41,9 +42,9 @@ func NewLotsClient(credential azcore.TokenCredential, options *arm.ClientOptions
 }
 
 // NewListByBillingAccountPager - Lists all Microsoft Azure consumption commitments for a billing account. The API is only
-// supported for Microsoft Customer Agreements (MCA) and Direct Enterprise Agreement (EA) billing accounts.
+// supported for Microsoft Customer Agreements (MCA) and Enterprise Agreement (EA) billing accounts.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-04-01-preview
 //   - billingAccountID - BillingAccount ID
 //   - options - LotsClientListByBillingAccountOptions contains the optional parameters for the LotsClient.NewListByBillingAccountPager
 //     method.
@@ -82,9 +83,12 @@ func (client *LotsClient) listByBillingAccountCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
+	}
+	reqQP.Set("api-version", "2024-04-01-preview")
+	if options != nil && options.ExtendedProperties != nil {
+		reqQP.Set("extendedProperties", strconv.FormatBool(*options.ExtendedProperties))
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -103,7 +107,7 @@ func (client *LotsClient) listByBillingAccountHandleResponse(resp *http.Response
 // NewListByBillingProfilePager - Lists all Azure credits for a billing account or a billing profile. The API is only supported
 // for Microsoft Customer Agreements (MCA) billing accounts.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-04-01-preview
 //   - billingAccountID - BillingAccount ID
 //   - billingProfileID - Azure Billing Profile ID.
 //   - options - LotsClientListByBillingProfileOptions contains the optional parameters for the LotsClient.NewListByBillingProfilePager
@@ -147,7 +151,7 @@ func (client *LotsClient) listByBillingProfileCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,7 +169,7 @@ func (client *LotsClient) listByBillingProfileHandleResponse(resp *http.Response
 // NewListByCustomerPager - Lists all Azure credits for a customer. The API is only supported for Microsoft Partner Agreements
 // (MPA) billing accounts.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-04-01-preview
 //   - billingAccountID - BillingAccount ID
 //   - customerID - Customer ID
 //   - options - LotsClientListByCustomerOptions contains the optional parameters for the LotsClient.NewListByCustomerPager method.
@@ -208,10 +212,10 @@ func (client *LotsClient) listByCustomerCreateRequest(ctx context.Context, billi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
