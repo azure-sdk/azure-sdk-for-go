@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -30,10 +30,6 @@ type IntegrationRuntimeNodesServer struct {
 	// Get is the fake for method IntegrationRuntimeNodesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, factoryName string, integrationRuntimeName string, nodeName string, options *armdatafactory.IntegrationRuntimeNodesClientGetOptions) (resp azfake.Responder[armdatafactory.IntegrationRuntimeNodesClientGetResponse], errResp azfake.ErrorResponder)
-
-	// GetIPAddress is the fake for method IntegrationRuntimeNodesClient.GetIPAddress
-	// HTTP status codes to indicate success: http.StatusOK
-	GetIPAddress func(ctx context.Context, resourceGroupName string, factoryName string, integrationRuntimeName string, nodeName string, options *armdatafactory.IntegrationRuntimeNodesClientGetIPAddressOptions) (resp azfake.Responder[armdatafactory.IntegrationRuntimeNodesClientGetIPAddressResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method IntegrationRuntimeNodesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
@@ -69,8 +65,6 @@ func (i *IntegrationRuntimeNodesServerTransport) Do(req *http.Request) (*http.Re
 		resp, err = i.dispatchDelete(req)
 	case "IntegrationRuntimeNodesClient.Get":
 		resp, err = i.dispatchGet(req)
-	case "IntegrationRuntimeNodesClient.GetIPAddress":
-		resp, err = i.dispatchGetIPAddress(req)
 	case "IntegrationRuntimeNodesClient.Update":
 		resp, err = i.dispatchUpdate(req)
 	default:
@@ -160,47 +154,6 @@ func (i *IntegrationRuntimeNodesServerTransport) dispatchGet(req *http.Request) 
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SelfHostedIntegrationRuntimeNode, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (i *IntegrationRuntimeNodesServerTransport) dispatchGetIPAddress(req *http.Request) (*http.Response, error) {
-	if i.srv.GetIPAddress == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GetIPAddress not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataFactory/factories/(?P<factoryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/integrationRuntimes/(?P<integrationRuntimeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/nodes/(?P<nodeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/ipAddress`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 5 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	factoryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("factoryName")])
-	if err != nil {
-		return nil, err
-	}
-	integrationRuntimeNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("integrationRuntimeName")])
-	if err != nil {
-		return nil, err
-	}
-	nodeNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("nodeName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := i.srv.GetIPAddress(req.Context(), resourceGroupNameParam, factoryNameParam, integrationRuntimeNameParam, nodeNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).IntegrationRuntimeNodeIPAddress, req)
 	if err != nil {
 		return nil, err
 	}

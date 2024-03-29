@@ -1,5 +1,21 @@
 # Release History
 
+## 7.0.0 (2024-03-29)
+### Breaking Changes
+
+- Function `*IntegrationRuntimeNodesClient.GetIPAddress` has been removed
+- Function `*PostgreSQLV2LinkedService.GetLinkedService` has been removed
+- Function `*PostgreSQLV2Source.GetCopySource` has been removed
+- Function `*PostgreSQLV2Source.GetTabularSource` has been removed
+- Function `*PostgreSQLV2TableDataset.GetDataset` has been removed
+- Struct `IntegrationRuntimeNodeIPAddress` has been removed
+- Struct `PostgreSQLV2LinkedService` has been removed
+- Struct `PostgreSQLV2LinkedServiceTypeProperties` has been removed
+- Struct `PostgreSQLV2Source` has been removed
+- Struct `PostgreSQLV2TableDataset` has been removed
+- Struct `PostgreSQLV2TableDatasetTypeProperties` has been removed
+
+
 ## 6.0.0 (2024-02-23)
 ### Breaking Changes
 
