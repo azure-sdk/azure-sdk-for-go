@@ -25,7 +25,7 @@ import (
 // CloudHsmClustersServer is a fake server for instances of the armhardwaresecuritymodules.CloudHsmClustersClient type.
 type CloudHsmClustersServer struct {
 	// BeginCreateOrUpdate is the fake for method CloudHsmClustersClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	// HTTP status codes to indicate success: http.StatusOK
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, body armhardwaresecuritymodules.CloudHsmCluster, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method CloudHsmClustersClient.BeginDelete
@@ -45,7 +45,7 @@ type CloudHsmClustersServer struct {
 	NewListBySubscriptionPager func(options *armhardwaresecuritymodules.CloudHsmClustersClientListBySubscriptionOptions) (resp azfake.PagerResponder[armhardwaresecuritymodules.CloudHsmClustersClientListBySubscriptionResponse])
 
 	// BeginUpdate is the fake for method CloudHsmClustersClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK
 	BeginUpdate func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, body armhardwaresecuritymodules.CloudHsmClusterPatchParameters, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
@@ -146,9 +146,9 @@ func (c *CloudHsmClustersServerTransport) dispatchBeginCreateOrUpdate(req *http.
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		c.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
 		c.beginCreateOrUpdate.remove(req)
@@ -365,9 +365,9 @@ func (c *CloudHsmClustersServerTransport) dispatchBeginUpdate(req *http.Request)
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		c.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpdate) {
 		c.beginUpdate.remove(req)

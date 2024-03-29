@@ -25,7 +25,7 @@ type CloudHsmClusterPrivateEndpointConnectionsClientGetResponse struct {
 	PrivateEndpointConnection
 }
 
-// CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterResponse contains the response from method CloudHsmClusterPrivateLinkResourcesClient.ListByCloudHsmCluster.
+// CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterResponse contains the response from method CloudHsmClusterPrivateLinkResourcesClient.NewListByCloudHsmClusterPager.
 type CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterResponse struct {
 	// A list of private link resources.
 	PrivateLinkResourceListResult
@@ -109,8 +109,8 @@ type DedicatedHsmClientUpdateResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Result of the request to list Dedicated HSM Provider operations. It contains a list of operations.
-	DedicatedHsmOperationListResult
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
 // PrivateEndpointConnectionsClientListByCloudHsmClusterResponse contains the response from method PrivateEndpointConnectionsClient.NewListByCloudHsmClusterPager.
