@@ -1,5 +1,37 @@
 # Release History
 
+## 4.9.0-beta.2 (2024-04-01)
+### Breaking Changes
+
+- Struct `ManagedClusterAzureMonitorProfileLogs` has been removed
+- Struct `ManagedClusterAzureMonitorProfileWindowsHostLogs` has been removed
+- Field `NodeSelector` of struct `IstioEgressGateway` has been removed
+- Field `Logs` of struct `ManagedClusterAzureMonitorProfile` has been removed
+- Field `Enabled` of struct `ManagedClusterAzureMonitorProfileAppMonitoring` has been removed
+- Field `WindowsHostLogs` of struct `ManagedClusterAzureMonitorProfileContainerInsights` has been removed
+- Field `AppMonitoringOpenTelemetryMetrics` of struct `ManagedClusterAzureMonitorProfileMetrics` has been removed
+
+### Features Added
+
+- New value `AgentPoolModeGateway` added to enum type `AgentPoolMode`
+- New value `ManagedClusterSKUNameAutomatic` added to enum type `ManagedClusterSKUName`
+- New enum type `ClusterServiceLoadBalancerHealthProbeMode` with values `ClusterServiceLoadBalancerHealthProbeModeServiceNodePort`, `ClusterServiceLoadBalancerHealthProbeModeShared`
+- New struct `AgentPoolGatewayProfile`
+- New struct `ManagedClusterAzureMonitorProfileAppMonitoringAutoInstrumentation`
+- New struct `ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryLogs`
+- New struct `ManagedClusterStaticEgressGatewayProfile`
+- New field `IsDefault` in struct `KubernetesVersion`
+- New field `Kind` in struct `ManagedCluster`
+- New field `GatewayProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `GatewayProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `AppMonitoring`, `ContainerInsights` in struct `ManagedClusterAzureMonitorProfile`
+- New field `AutoInstrumentation`, `OpenTelemetryLogs`, `OpenTelemetryMetrics` in struct `ManagedClusterAzureMonitorProfileAppMonitoring`
+- New field `Port` in struct `ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics`
+- New field `DisableCustomMetrics`, `DisablePrometheusMetricsScraping`, `SyslogPort` in struct `ManagedClusterAzureMonitorProfileContainerInsights`
+- New field `ClusterServiceLoadBalancerHealthProbeMode` in struct `ManagedClusterLoadBalancerProfile`
+- New field `StaticEgressGatewayProfile` in struct `NetworkProfile`
+
+
 ## 4.9.0-beta.1 (2024-03-22)
 ### Features Added
 
