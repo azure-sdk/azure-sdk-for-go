@@ -1721,7 +1721,7 @@ type WebAppsClientCreateOneDeployOperationResponse struct {
 	Interface any
 }
 
-// WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.CreateOrUpdateConfiguration.
+// WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.BeginCreateOrUpdateConfiguration.
 type WebAppsClientCreateOrUpdateConfigurationResponse struct {
 	// Web app configuration ARM resource.
 	SiteConfigResource
@@ -1821,6 +1821,18 @@ type WebAppsClientCreateOrUpdateRelayServiceConnectionSlotResponse struct {
 type WebAppsClientCreateOrUpdateResponse struct {
 	// A web app, a mobile app backend, or an API app.
 	Site
+}
+
+// WebAppsClientCreateOrUpdateSiteContainerResponse contains the response from method WebAppsClient.CreateOrUpdateSiteContainer.
+type WebAppsClientCreateOrUpdateSiteContainerResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
+// WebAppsClientCreateOrUpdateSiteContainerSlotResponse contains the response from method WebAppsClient.CreateOrUpdateSiteContainerSlot.
+type WebAppsClientCreateOrUpdateSiteContainerSlotResponse struct {
+	// Container of a site
+	SiteContainer
 }
 
 // WebAppsClientCreateOrUpdateSlotResponse contains the response from method WebAppsClient.BeginCreateOrUpdateSlot.
@@ -2049,8 +2061,18 @@ type WebAppsClientDeleteRelayServiceConnectionSlotResponse struct {
 	// placeholder for future response values
 }
 
-// WebAppsClientDeleteResponse contains the response from method WebAppsClient.Delete.
+// WebAppsClientDeleteResponse contains the response from method WebAppsClient.BeginDelete.
 type WebAppsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// WebAppsClientDeleteSiteContainerResponse contains the response from method WebAppsClient.DeleteSiteContainer.
+type WebAppsClientDeleteSiteContainerResponse struct {
+	// placeholder for future response values
+}
+
+// WebAppsClientDeleteSiteContainerSlotResponse contains the response from method WebAppsClient.DeleteSiteContainerSlot.
+type WebAppsClientDeleteSiteContainerSlotResponse struct {
 	// placeholder for future response values
 }
 
@@ -2695,6 +2717,18 @@ type WebAppsClientGetSiteConnectionStringKeyVaultReferencesSlotResponse struct {
 	APIKVReferenceCollection
 }
 
+// WebAppsClientGetSiteContainerResponse contains the response from method WebAppsClient.GetSiteContainer.
+type WebAppsClientGetSiteContainerResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
+// WebAppsClientGetSiteContainerSlotResponse contains the response from method WebAppsClient.GetSiteContainerSlot.
+type WebAppsClientGetSiteContainerSlotResponse struct {
+	// Container of a site
+	SiteContainer
+}
+
 // WebAppsClientGetSiteExtensionResponse contains the response from method WebAppsClient.GetSiteExtension.
 type WebAppsClientGetSiteExtensionResponse struct {
 	// Site Extension Information.
@@ -3289,6 +3323,18 @@ type WebAppsClientListSiteBackupsSlotResponse struct {
 	BackupItemCollection
 }
 
+// WebAppsClientListSiteContainersResponse contains the response from method WebAppsClient.NewListSiteContainersPager.
+type WebAppsClientListSiteContainersResponse struct {
+	// Collection of site containers
+	SiteContainerCollection
+}
+
+// WebAppsClientListSiteContainersSlotResponse contains the response from method WebAppsClient.NewListSiteContainersSlotPager.
+type WebAppsClientListSiteContainersSlotResponse struct {
+	// Collection of site containers
+	SiteContainerCollection
+}
+
 // WebAppsClientListSiteExtensionsResponse contains the response from method WebAppsClient.NewListSiteExtensionsPager.
 type WebAppsClientListSiteExtensionsResponse struct {
 	// Collection of Kudu site extension information elements.
@@ -3725,7 +3771,7 @@ type WebAppsClientSyncRepositorySlotResponse struct {
 	// placeholder for future response values
 }
 
-// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.UpdateApplicationSettings.
+// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.BeginUpdateApplicationSettings.
 type WebAppsClientUpdateApplicationSettingsResponse struct {
 	// String dictionary resource.
 	StringDictionary
@@ -3785,7 +3831,7 @@ type WebAppsClientUpdateBackupConfigurationSlotResponse struct {
 	BackupRequest
 }
 
-// WebAppsClientUpdateConfigurationResponse contains the response from method WebAppsClient.UpdateConfiguration.
+// WebAppsClientUpdateConfigurationResponse contains the response from method WebAppsClient.BeginUpdateConfiguration.
 type WebAppsClientUpdateConfigurationResponse struct {
 	// Web app configuration ARM resource.
 	SiteConfigResource
@@ -3797,7 +3843,7 @@ type WebAppsClientUpdateConfigurationSlotResponse struct {
 	SiteConfigResource
 }
 
-// WebAppsClientUpdateConnectionStringsResponse contains the response from method WebAppsClient.UpdateConnectionStrings.
+// WebAppsClientUpdateConnectionStringsResponse contains the response from method WebAppsClient.BeginUpdateConnectionStrings.
 type WebAppsClientUpdateConnectionStringsResponse struct {
 	// String dictionary resource.
 	ConnectionStringDictionary
@@ -3893,7 +3939,7 @@ type WebAppsClientUpdateRelayServiceConnectionSlotResponse struct {
 	RelayServiceConnectionEntity
 }
 
-// WebAppsClientUpdateResponse contains the response from method WebAppsClient.Update.
+// WebAppsClientUpdateResponse contains the response from method WebAppsClient.BeginUpdate.
 type WebAppsClientUpdateResponse struct {
 	// A web app, a mobile app backend, or an API app.
 	Site
