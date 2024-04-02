@@ -16,10 +16,11 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/purview/armpurview"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/purview/armpurview/v2"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // AccountsServer is a fake server for instances of the armpurview.AccountsClient type.
@@ -253,6 +254,7 @@ func (a *AccountsServerTransport) dispatchBeginDelete(req *http.Request) (*http.
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		qp := req.URL.Query()
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -261,7 +263,21 @@ func (a *AccountsServerTransport) dispatchBeginDelete(req *http.Request) (*http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := a.srv.BeginDelete(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+		softDeleteUnescaped, err := url.QueryUnescape(qp.Get("softDelete"))
+		if err != nil {
+			return nil, err
+		}
+		softDeleteParam, err := parseOptional(softDeleteUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		var options *armpurview.AccountsClientBeginDeleteOptions
+		if softDeleteParam != nil {
+			options = &armpurview.AccountsClientBeginDeleteOptions{
+				SoftDelete: softDeleteParam,
+			}
+		}
+		respr, errRespr := a.srv.BeginDelete(req.Context(), resourceGroupNameParam, accountNameParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
