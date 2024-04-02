@@ -10,7 +10,7 @@ package armmonitor
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
-	moduleVersion = "v0.11.0"
+	moduleVersion = "v0.12.0"
 )
 
 // AccessMode - Access mode types.
@@ -43,7 +43,7 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// AggregationType - the aggregation type of the metric.
+// AggregationType - The aggregation type of the metric.
 type AggregationType string
 
 const (
@@ -354,6 +354,22 @@ func PossibleKindValues() []Kind {
 	}
 }
 
+// KnownAgentSettingName - The name of the setting. Must be part of the list of supported settings
+type KnownAgentSettingName string
+
+const (
+	KnownAgentSettingNameMaxDiskQuotaInMB                  KnownAgentSettingName = "MaxDiskQuotaInMB"
+	KnownAgentSettingNameUseTimeReceivedForForwardedEvents KnownAgentSettingName = "UseTimeReceivedForForwardedEvents"
+)
+
+// PossibleKnownAgentSettingNameValues returns the possible values for the KnownAgentSettingName const type.
+func PossibleKnownAgentSettingNameValues() []KnownAgentSettingName {
+	return []KnownAgentSettingName{
+		KnownAgentSettingNameMaxDiskQuotaInMB,
+		KnownAgentSettingNameUseTimeReceivedForForwardedEvents,
+	}
+}
+
 // KnownColumnDefinitionType - The type of the column data.
 type KnownColumnDefinitionType string
 
@@ -584,12 +600,14 @@ func PossibleKnownLogFileTextSettingsRecordStartTimestampFormatValues() []KnownL
 type KnownLogFilesDataSourceFormat string
 
 const (
+	KnownLogFilesDataSourceFormatJSON KnownLogFilesDataSourceFormat = "json"
 	KnownLogFilesDataSourceFormatText KnownLogFilesDataSourceFormat = "text"
 )
 
 // PossibleKnownLogFilesDataSourceFormatValues returns the possible values for the KnownLogFilesDataSourceFormat const type.
 func PossibleKnownLogFilesDataSourceFormatValues() []KnownLogFilesDataSourceFormat {
 	return []KnownLogFilesDataSourceFormat{
+		KnownLogFilesDataSourceFormatJSON,
 		KnownLogFilesDataSourceFormatText,
 	}
 }
@@ -641,14 +659,34 @@ func PossibleKnownPublicNetworkAccessOptionsValues() []KnownPublicNetworkAccessO
 	}
 }
 
+// KnownStorageBlobLookupType - The type of lookup to perform on the blob
+type KnownStorageBlobLookupType string
+
+const (
+	KnownStorageBlobLookupTypeCidr   KnownStorageBlobLookupType = "Cidr"
+	KnownStorageBlobLookupTypeString KnownStorageBlobLookupType = "String"
+)
+
+// PossibleKnownStorageBlobLookupTypeValues returns the possible values for the KnownStorageBlobLookupType const type.
+func PossibleKnownStorageBlobLookupTypeValues() []KnownStorageBlobLookupType {
+	return []KnownStorageBlobLookupType{
+		KnownStorageBlobLookupTypeCidr,
+		KnownStorageBlobLookupTypeString,
+	}
+}
+
 type KnownSyslogDataSourceFacilityNames string
 
 const (
+	KnownSyslogDataSourceFacilityNamesAlert    KnownSyslogDataSourceFacilityNames = "alert"
 	KnownSyslogDataSourceFacilityNamesAsterisk KnownSyslogDataSourceFacilityNames = "*"
+	KnownSyslogDataSourceFacilityNamesAudit    KnownSyslogDataSourceFacilityNames = "audit"
 	KnownSyslogDataSourceFacilityNamesAuth     KnownSyslogDataSourceFacilityNames = "auth"
 	KnownSyslogDataSourceFacilityNamesAuthpriv KnownSyslogDataSourceFacilityNames = "authpriv"
+	KnownSyslogDataSourceFacilityNamesClock    KnownSyslogDataSourceFacilityNames = "clock"
 	KnownSyslogDataSourceFacilityNamesCron     KnownSyslogDataSourceFacilityNames = "cron"
 	KnownSyslogDataSourceFacilityNamesDaemon   KnownSyslogDataSourceFacilityNames = "daemon"
+	KnownSyslogDataSourceFacilityNamesFtp      KnownSyslogDataSourceFacilityNames = "ftp"
 	KnownSyslogDataSourceFacilityNamesKern     KnownSyslogDataSourceFacilityNames = "kern"
 	KnownSyslogDataSourceFacilityNamesLocal0   KnownSyslogDataSourceFacilityNames = "local0"
 	KnownSyslogDataSourceFacilityNamesLocal1   KnownSyslogDataSourceFacilityNames = "local1"
@@ -662,6 +700,8 @@ const (
 	KnownSyslogDataSourceFacilityNamesMail     KnownSyslogDataSourceFacilityNames = "mail"
 	KnownSyslogDataSourceFacilityNamesMark     KnownSyslogDataSourceFacilityNames = "mark"
 	KnownSyslogDataSourceFacilityNamesNews     KnownSyslogDataSourceFacilityNames = "news"
+	KnownSyslogDataSourceFacilityNamesNopri    KnownSyslogDataSourceFacilityNames = "nopri"
+	KnownSyslogDataSourceFacilityNamesNtp      KnownSyslogDataSourceFacilityNames = "ntp"
 	KnownSyslogDataSourceFacilityNamesSyslog   KnownSyslogDataSourceFacilityNames = "syslog"
 	KnownSyslogDataSourceFacilityNamesUser     KnownSyslogDataSourceFacilityNames = "user"
 	KnownSyslogDataSourceFacilityNamesUucp     KnownSyslogDataSourceFacilityNames = "uucp"
@@ -670,11 +710,15 @@ const (
 // PossibleKnownSyslogDataSourceFacilityNamesValues returns the possible values for the KnownSyslogDataSourceFacilityNames const type.
 func PossibleKnownSyslogDataSourceFacilityNamesValues() []KnownSyslogDataSourceFacilityNames {
 	return []KnownSyslogDataSourceFacilityNames{
+		KnownSyslogDataSourceFacilityNamesAlert,
 		KnownSyslogDataSourceFacilityNamesAsterisk,
+		KnownSyslogDataSourceFacilityNamesAudit,
 		KnownSyslogDataSourceFacilityNamesAuth,
 		KnownSyslogDataSourceFacilityNamesAuthpriv,
+		KnownSyslogDataSourceFacilityNamesClock,
 		KnownSyslogDataSourceFacilityNamesCron,
 		KnownSyslogDataSourceFacilityNamesDaemon,
+		KnownSyslogDataSourceFacilityNamesFtp,
 		KnownSyslogDataSourceFacilityNamesKern,
 		KnownSyslogDataSourceFacilityNamesLocal0,
 		KnownSyslogDataSourceFacilityNamesLocal1,
@@ -688,6 +732,8 @@ func PossibleKnownSyslogDataSourceFacilityNamesValues() []KnownSyslogDataSourceF
 		KnownSyslogDataSourceFacilityNamesMail,
 		KnownSyslogDataSourceFacilityNamesMark,
 		KnownSyslogDataSourceFacilityNamesNews,
+		KnownSyslogDataSourceFacilityNamesNopri,
+		KnownSyslogDataSourceFacilityNamesNtp,
 		KnownSyslogDataSourceFacilityNamesSyslog,
 		KnownSyslogDataSourceFacilityNamesUser,
 		KnownSyslogDataSourceFacilityNamesUucp,
@@ -751,6 +797,23 @@ func PossibleKnownWindowsEventLogDataSourceStreamsValues() []KnownWindowsEventLo
 	}
 }
 
+type KnownWindowsFirewallLogsDataSourceProfileFilter string
+
+const (
+	KnownWindowsFirewallLogsDataSourceProfileFilterDomain  KnownWindowsFirewallLogsDataSourceProfileFilter = "Domain"
+	KnownWindowsFirewallLogsDataSourceProfileFilterPrivate KnownWindowsFirewallLogsDataSourceProfileFilter = "Private"
+	KnownWindowsFirewallLogsDataSourceProfileFilterPublic  KnownWindowsFirewallLogsDataSourceProfileFilter = "Public"
+)
+
+// PossibleKnownWindowsFirewallLogsDataSourceProfileFilterValues returns the possible values for the KnownWindowsFirewallLogsDataSourceProfileFilter const type.
+func PossibleKnownWindowsFirewallLogsDataSourceProfileFilterValues() []KnownWindowsFirewallLogsDataSourceProfileFilter {
+	return []KnownWindowsFirewallLogsDataSourceProfileFilter{
+		KnownWindowsFirewallLogsDataSourceProfileFilterDomain,
+		KnownWindowsFirewallLogsDataSourceProfileFilterPrivate,
+		KnownWindowsFirewallLogsDataSourceProfileFilterPublic,
+	}
+}
+
 // ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
 type ManagedServiceIdentityType string
 
@@ -771,7 +834,7 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
-// MetricAggregationType - the aggregation type of the metric.
+// MetricAggregationType - The aggregation type of the metric.
 type MetricAggregationType string
 
 const (
@@ -860,19 +923,33 @@ func PossibleMetricStatisticTypeValues() []MetricStatisticType {
 type MetricUnit string
 
 const (
-	MetricUnitBitsPerSecond  MetricUnit = "BitsPerSecond"
-	MetricUnitByteSeconds    MetricUnit = "ByteSeconds"
-	MetricUnitBytes          MetricUnit = "Bytes"
+	// MetricUnitBitsPerSecond - Rate unit of binary digits per second.
+	MetricUnitBitsPerSecond MetricUnit = "BitsPerSecond"
+	// MetricUnitByteSeconds - Unit of data transfer or storage. It is the size of the data in bytes multiplied by the time it
+	// takes to transfer or store the data in seconds.
+	MetricUnitByteSeconds MetricUnit = "ByteSeconds"
+	// MetricUnitBytes - Unit of memory in bytes.
+	MetricUnitBytes MetricUnit = "Bytes"
+	// MetricUnitBytesPerSecond - Rate unit of memory in bytes per second.
 	MetricUnitBytesPerSecond MetricUnit = "BytesPerSecond"
-	MetricUnitCores          MetricUnit = "Cores"
-	MetricUnitCount          MetricUnit = "Count"
+	// MetricUnitCores - Unit of processing power.
+	MetricUnitCores MetricUnit = "Cores"
+	// MetricUnitCount - Unit of raw quantity.
+	MetricUnitCount MetricUnit = "Count"
+	// MetricUnitCountPerSecond - Rate unit of raw quantity per second.
 	MetricUnitCountPerSecond MetricUnit = "CountPerSecond"
-	MetricUnitMilliCores     MetricUnit = "MilliCores"
-	MetricUnitMilliSeconds   MetricUnit = "MilliSeconds"
-	MetricUnitNanoCores      MetricUnit = "NanoCores"
-	MetricUnitPercent        MetricUnit = "Percent"
-	MetricUnitSeconds        MetricUnit = "Seconds"
-	MetricUnitUnspecified    MetricUnit = "Unspecified"
+	// MetricUnitMilliCores - Unit of processing power in 1/1000th of a CPU core.
+	MetricUnitMilliCores MetricUnit = "MilliCores"
+	// MetricUnitMilliSeconds - Unit of time in 1/1000th of a second.
+	MetricUnitMilliSeconds MetricUnit = "MilliSeconds"
+	// MetricUnitNanoCores - Unit of processing power in one billionth of a CPU core.
+	MetricUnitNanoCores MetricUnit = "NanoCores"
+	// MetricUnitPercent - Percentage unit.
+	MetricUnitPercent MetricUnit = "Percent"
+	// MetricUnitSeconds - Unit of time in seconds.
+	MetricUnitSeconds MetricUnit = "Seconds"
+	// MetricUnitUnspecified - No specified unit.
+	MetricUnitUnspecified MetricUnit = "Unspecified"
 )
 
 // PossibleMetricUnitValues returns the possible values for the MetricUnit const type.
@@ -1046,7 +1123,7 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy.
+// ProvisioningState - The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy.
 type ProvisioningState string
 
 const (
@@ -1068,13 +1145,12 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// PublicNetworkAccess - This determines if traffic is allowed over public network. By default it is enabled.
+// PublicNetworkAccess - Gets or sets allow or disallow public network access to Azure Monitor Workspace
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
-	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
+	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -1082,7 +1158,6 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
-		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 
@@ -1270,43 +1345,5 @@ func PossibleTimeAggregationTypeValues() []TimeAggregationType {
 		TimeAggregationTypeMaximum,
 		TimeAggregationTypeMinimum,
 		TimeAggregationTypeTotal,
-	}
-}
-
-// Unit - The unit of the metric.
-type Unit string
-
-const (
-	UnitBitsPerSecond  Unit = "BitsPerSecond"
-	UnitByteSeconds    Unit = "ByteSeconds"
-	UnitBytes          Unit = "Bytes"
-	UnitBytesPerSecond Unit = "BytesPerSecond"
-	UnitCores          Unit = "Cores"
-	UnitCount          Unit = "Count"
-	UnitCountPerSecond Unit = "CountPerSecond"
-	UnitMilliCores     Unit = "MilliCores"
-	UnitMilliSeconds   Unit = "MilliSeconds"
-	UnitNanoCores      Unit = "NanoCores"
-	UnitPercent        Unit = "Percent"
-	UnitSeconds        Unit = "Seconds"
-	UnitUnspecified    Unit = "Unspecified"
-)
-
-// PossibleUnitValues returns the possible values for the Unit const type.
-func PossibleUnitValues() []Unit {
-	return []Unit{
-		UnitBitsPerSecond,
-		UnitByteSeconds,
-		UnitBytes,
-		UnitBytesPerSecond,
-		UnitCores,
-		UnitCount,
-		UnitCountPerSecond,
-		UnitMilliCores,
-		UnitMilliSeconds,
-		UnitNanoCores,
-		UnitPercent,
-		UnitSeconds,
-		UnitUnspecified,
 	}
 }
