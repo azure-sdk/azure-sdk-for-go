@@ -1,5 +1,31 @@
 # Release History
 
+## 7.0.0 (2024-04-02)
+### Breaking Changes
+
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `*PostgreSQLV2LinkedService.GetLinkedService` has been removed
+- Function `*PostgreSQLV2Source.GetCopySource` has been removed
+- Function `*PostgreSQLV2Source.GetTabularSource` has been removed
+- Function `*PostgreSQLV2TableDataset.GetDataset` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResponse` has been removed
+- Struct `OperationLogSpecification` has been removed
+- Struct `OperationMetricAvailability` has been removed
+- Struct `OperationMetricDimension` has been removed
+- Struct `OperationMetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `OperationServiceSpecification` has been removed
+- Struct `PostgreSQLV2LinkedService` has been removed
+- Struct `PostgreSQLV2LinkedServiceTypeProperties` has been removed
+- Struct `PostgreSQLV2Source` has been removed
+- Struct `PostgreSQLV2TableDataset` has been removed
+- Struct `PostgreSQLV2TableDatasetTypeProperties` has been removed
+
+
 ## 6.0.0 (2024-02-23)
 ### Breaking Changes
 
