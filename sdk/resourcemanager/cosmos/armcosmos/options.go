@@ -76,6 +76,11 @@ type CassandraClustersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CassandraClustersClientGetRestoreOptions contains the optional parameters for the CassandraClustersClient.GetRestore method.
+type CassandraClustersClientGetRestoreOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CassandraClustersClientListBackupsOptions contains the optional parameters for the CassandraClustersClient.NewListBackupsPager
 // method.
 type CassandraClustersClientListBackupsOptions struct {
@@ -97,6 +102,12 @@ type CassandraClustersClientListBySubscriptionOptions struct {
 // CassandraClustersClientListCommandOptions contains the optional parameters for the CassandraClustersClient.NewListCommandPager
 // method.
 type CassandraClustersClientListCommandOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CassandraClustersClientRestoreBackupOptions contains the optional parameters for the CassandraClustersClient.RestoreBackup
+// method.
+type CassandraClustersClientRestoreBackupOptions struct {
 	// placeholder for future optional parameters
 }
 

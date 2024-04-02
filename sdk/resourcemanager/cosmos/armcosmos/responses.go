@@ -42,6 +42,11 @@ type CassandraClustersClientGetResponse struct {
 	ClusterResource
 }
 
+// CassandraClustersClientGetRestoreResponse contains the response from method CassandraClustersClient.GetRestore.
+type CassandraClustersClientGetRestoreResponse struct {
+	CassandraClusterRestoreInfo
+}
+
 // CassandraClustersClientInvokeCommandAsyncResponse contains the response from method CassandraClustersClient.BeginInvokeCommandAsync.
 type CassandraClustersClientInvokeCommandAsyncResponse struct {
 	// resource representing a command
@@ -76,6 +81,11 @@ type CassandraClustersClientListBySubscriptionResponse struct {
 type CassandraClustersClientListCommandResponse struct {
 	// List of commands for cluster.
 	ListCommands
+}
+
+// CassandraClustersClientRestoreBackupResponse contains the response from method CassandraClustersClient.RestoreBackup.
+type CassandraClustersClientRestoreBackupResponse struct {
+	CassandraClusterRestoreResult
 }
 
 // CassandraClustersClientStartResponse contains the response from method CassandraClustersClient.BeginStart.

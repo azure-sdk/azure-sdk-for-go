@@ -47,6 +47,10 @@ type CassandraClustersServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetCommandAsync func(ctx context.Context, resourceGroupName string, clusterName string, commandID string, options *armcosmos.CassandraClustersClientGetCommandAsyncOptions) (resp azfake.Responder[armcosmos.CassandraClustersClientGetCommandAsyncResponse], errResp azfake.ErrorResponder)
 
+	// GetRestore is the fake for method CassandraClustersClient.GetRestore
+	// HTTP status codes to indicate success: http.StatusOK
+	GetRestore func(ctx context.Context, resourceGroupName string, clusterName string, backupID string, options *armcosmos.CassandraClustersClientGetRestoreOptions) (resp azfake.Responder[armcosmos.CassandraClustersClientGetRestoreResponse], errResp azfake.ErrorResponder)
+
 	// BeginInvokeCommand is the fake for method CassandraClustersClient.BeginInvokeCommand
 	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginInvokeCommand func(ctx context.Context, resourceGroupName string, clusterName string, body armcosmos.CommandPostBody, options *armcosmos.CassandraClustersClientBeginInvokeCommandOptions) (resp azfake.PollerResponder[armcosmos.CassandraClustersClientInvokeCommandResponse], errResp azfake.ErrorResponder)
@@ -70,6 +74,10 @@ type CassandraClustersServer struct {
 	// NewListCommandPager is the fake for method CassandraClustersClient.NewListCommandPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListCommandPager func(resourceGroupName string, clusterName string, options *armcosmos.CassandraClustersClientListCommandOptions) (resp azfake.PagerResponder[armcosmos.CassandraClustersClientListCommandResponse])
+
+	// RestoreBackup is the fake for method CassandraClustersClient.RestoreBackup
+	// HTTP status codes to indicate success: http.StatusOK
+	RestoreBackup func(ctx context.Context, resourceGroupName string, clusterName string, backupID string, options *armcosmos.CassandraClustersClientRestoreBackupOptions) (resp azfake.Responder[armcosmos.CassandraClustersClientRestoreBackupResponse], errResp azfake.ErrorResponder)
 
 	// BeginStart is the fake for method CassandraClustersClient.BeginStart
 	// HTTP status codes to indicate success: http.StatusAccepted
@@ -145,6 +153,8 @@ func (c *CassandraClustersServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = c.dispatchGetBackup(req)
 	case "CassandraClustersClient.GetCommandAsync":
 		resp, err = c.dispatchGetCommandAsync(req)
+	case "CassandraClustersClient.GetRestore":
+		resp, err = c.dispatchGetRestore(req)
 	case "CassandraClustersClient.BeginInvokeCommand":
 		resp, err = c.dispatchBeginInvokeCommand(req)
 	case "CassandraClustersClient.BeginInvokeCommandAsync":
@@ -157,6 +167,8 @@ func (c *CassandraClustersServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
 	case "CassandraClustersClient.NewListCommandPager":
 		resp, err = c.dispatchNewListCommandPager(req)
+	case "CassandraClustersClient.RestoreBackup":
+		resp, err = c.dispatchRestoreBackup(req)
 	case "CassandraClustersClient.BeginStart":
 		resp, err = c.dispatchBeginStart(req)
 	case "CassandraClustersClient.Status":
@@ -424,6 +436,43 @@ func (c *CassandraClustersServerTransport) dispatchGetCommandAsync(req *http.Req
 	return resp, nil
 }
 
+func (c *CassandraClustersServerTransport) dispatchGetRestore(req *http.Request) (*http.Response, error) {
+	if c.srv.GetRestore == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetRestore not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DocumentDB/cassandraClusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backupRestores/(?P<backupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
+	if err != nil {
+		return nil, err
+	}
+	backupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("backupId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := c.srv.GetRestore(req.Context(), resourceGroupNameParam, clusterNameParam, backupIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CassandraClusterRestoreInfo, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (c *CassandraClustersServerTransport) dispatchBeginInvokeCommand(req *http.Request) (*http.Response, error) {
 	if c.srv.BeginInvokeCommand == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginInvokeCommand not implemented")}
@@ -656,6 +705,43 @@ func (c *CassandraClustersServerTransport) dispatchNewListCommandPager(req *http
 	}
 	if !server.PagerResponderMore(newListCommandPager) {
 		c.newListCommandPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (c *CassandraClustersServerTransport) dispatchRestoreBackup(req *http.Request) (*http.Response, error) {
+	if c.srv.RestoreBackup == nil {
+		return nil, &nonRetriableError{errors.New("fake for method RestoreBackup not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DocumentDB/cassandraClusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backupRestores/(?P<backupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
+	if err != nil {
+		return nil, err
+	}
+	backupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("backupId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := c.srv.RestoreBackup(req.Context(), resourceGroupNameParam, clusterNameParam, backupIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CassandraClusterRestoreResult, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
