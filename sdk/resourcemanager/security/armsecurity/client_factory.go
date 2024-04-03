@@ -170,13 +170,6 @@ func (c *ClientFactory) NewAzureDevOpsReposClient() *AzureDevOpsReposClient {
 	}
 }
 
-// NewCenterClient creates a new instance of CenterClient.
-func (c *ClientFactory) NewCenterClient() *CenterClient {
-	return &CenterClient{
-		internal: c.internal,
-	}
-}
-
 // NewComplianceResultsClient creates a new instance of ComplianceResultsClient.
 func (c *ClientFactory) NewComplianceResultsClient() *ComplianceResultsClient {
 	return &ComplianceResultsClient{
@@ -234,6 +227,14 @@ func (c *ClientFactory) NewCustomAssessmentAutomationsClient() *CustomAssessment
 // NewCustomEntityStoreAssignmentsClient creates a new instance of CustomEntityStoreAssignmentsClient.
 func (c *ClientFactory) NewCustomEntityStoreAssignmentsClient() *CustomEntityStoreAssignmentsClient {
 	return &CustomEntityStoreAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDataScannersClient creates a new instance of DataScannersClient.
+func (c *ClientFactory) NewDataScannersClient() *DataScannersClient {
+	return &DataScannersClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

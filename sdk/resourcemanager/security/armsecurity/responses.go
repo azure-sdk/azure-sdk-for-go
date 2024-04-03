@@ -366,6 +366,12 @@ type AutomationsClientListResponse struct {
 	AutomationList
 }
 
+// AutomationsClientUpdateResponse contains the response from method AutomationsClient.Update.
+type AutomationsClientUpdateResponse struct {
+	// The security automation resource.
+	Automation
+}
+
 // AutomationsClientValidateResponse contains the response from method AutomationsClient.Validate.
 type AutomationsClientValidateResponse struct {
 	// The security automation model state property bag.
@@ -448,18 +454,6 @@ type AzureDevOpsReposClientListResponse struct {
 type AzureDevOpsReposClientUpdateResponse struct {
 	// Azure DevOps Repository resource.
 	AzureDevOpsRepository
-}
-
-// CenterClientGetSensitivitySettingsResponse contains the response from method CenterClient.GetSensitivitySettings.
-type CenterClientGetSensitivitySettingsResponse struct {
-	// Data sensitivity settings for sensitive data discovery
-	GetSensitivitySettingsResponse
-}
-
-// CenterClientUpdateSensitivitySettingsResponse contains the response from method CenterClient.UpdateSensitivitySettings.
-type CenterClientUpdateSensitivitySettingsResponse struct {
-	// Data sensitivity settings for sensitive data discovery
-	GetSensitivitySettingsResponse
 }
 
 // ComplianceResultsClientGetResponse contains the response from method ComplianceResultsClient.Get.
@@ -623,6 +617,29 @@ type CustomEntityStoreAssignmentsClientListByResourceGroupResponse struct {
 type CustomEntityStoreAssignmentsClientListBySubscriptionResponse struct {
 	// A list of custom entity store assignments
 	CustomEntityStoreAssignmentsListResult
+}
+
+// DataScannersClientCreateOrUpdateResponse contains the response from method DataScannersClient.CreateOrUpdate.
+type DataScannersClientCreateOrUpdateResponse struct {
+	// Security Data Scanner resource
+	DataScanner
+}
+
+// DataScannersClientDeleteResponse contains the response from method DataScannersClient.Delete.
+type DataScannersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DataScannersClientGetResponse contains the response from method DataScannersClient.Get.
+type DataScannersClientGetResponse struct {
+	// Security Data Scanner resource
+	DataScanner
+}
+
+// DataScannersClientListBySubscriptionResponse contains the response from method DataScannersClient.NewListBySubscriptionPager.
+type DataScannersClientListBySubscriptionResponse struct {
+	// Page of a Data Scanners list
+	DataScannersList
 }
 
 // DefenderForStorageClientCreateResponse contains the response from method DefenderForStorageClient.Create.
@@ -1210,6 +1227,18 @@ type SecureScoresClientGetResponse struct {
 type SecureScoresClientListResponse struct {
 	// List of secure scores
 	SecureScoresList
+}
+
+// SensitivitySettingsClientCreateOrUpdateResponse contains the response from method SensitivitySettingsClient.CreateOrUpdate.
+type SensitivitySettingsClientCreateOrUpdateResponse struct {
+	// Data sensitivity settings for sensitive data discovery
+	GetSensitivitySettingsResponse
+}
+
+// SensitivitySettingsClientGetResponse contains the response from method SensitivitySettingsClient.Get.
+type SensitivitySettingsClientGetResponse struct {
+	// Data sensitivity settings for sensitive data discovery
+	GetSensitivitySettingsResponse
 }
 
 // SensitivitySettingsClientListResponse contains the response from method SensitivitySettingsClient.List.
