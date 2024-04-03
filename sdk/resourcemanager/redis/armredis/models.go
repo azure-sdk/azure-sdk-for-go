@@ -235,6 +235,13 @@ type CreateProperties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies the method in which zones are allocated to the Redis cache. 'Automatic' refers to allocation of zones
+	// automatically by the Azure based on the availability zones support in the
+	// region and number of instances. 'UserDefined' refers to usage of zones passed in by you for allocation. 'NoZones' refers
+	// to the non-zonal cache. If 'zonalAllocation' is not passed, it will be set to
+	// 'UserDefined' when zones are passed in, otherwise, will be set to 'NoZones'
+	ZonalAllocation *ZonalAllocation
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -731,6 +738,13 @@ type Properties struct {
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
 
+	// Optional: Specifies the method in which zones are allocated to the Redis cache. 'Automatic' refers to allocation of zones
+	// automatically by the Azure based on the availability zones support in the
+	// region and number of instances. 'UserDefined' refers to usage of zones passed in by you for allocation. 'NoZones' refers
+	// to the non-zonal cache. If 'zonalAllocation' is not passed, it will be set to
+	// 'UserDefined' when zones are passed in, otherwise, will be set to 'NoZones'
+	ZonalAllocation *ZonalAllocation
+
 	// READ-ONLY; The keys of the Redis cache - not set if this object is not the response to Create or Update redis cache
 	AccessKeys *AccessKeys
 
@@ -886,6 +900,13 @@ type UpdateProperties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies the method in which zones are allocated to the Redis cache. 'Automatic' refers to allocation of zones
+	// automatically by the Azure based on the availability zones support in the
+	// region and number of instances. 'UserDefined' refers to usage of zones passed in by you for allocation. 'NoZones' refers
+	// to the non-zonal cache. If 'zonalAllocation' is not passed, it will be set to
+	// 'UserDefined' when zones are passed in, otherwise, will be set to 'NoZones'
+	ZonalAllocation *ZonalAllocation
 }
 
 // UpgradeNotification - Properties of upgrade notification.

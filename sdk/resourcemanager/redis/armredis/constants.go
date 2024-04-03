@@ -10,7 +10,7 @@ package armredis
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redis/armredis"
-	moduleVersion = "v3.1.0"
+	moduleVersion = "v3.2.0-beta.1"
 )
 
 // AccessPolicyAssignmentProvisioningState - Provisioning state of an access policy assignment set
@@ -351,5 +351,27 @@ func PossibleUpdateChannelValues() []UpdateChannel {
 	return []UpdateChannel{
 		UpdateChannelPreview,
 		UpdateChannelStable,
+	}
+}
+
+// ZonalAllocation - Optional: Specifies the method in which zones are allocated to the Redis cache. 'Automatic' refers to
+// allocation of zones automatically by the Azure based on the availability zones support in the
+// region and number of instances. 'UserDefined' refers to usage of zones passed in by you for allocation. 'NoZones' refers
+// to the non-zonal cache. If 'zonalAllocation' is not passed, it will be set to
+// 'UserDefined' when zones are passed in, otherwise, will be set to 'NoZones'
+type ZonalAllocation string
+
+const (
+	ZonalAllocationAutomatic   ZonalAllocation = "Automatic"
+	ZonalAllocationNoZones     ZonalAllocation = "NoZones"
+	ZonalAllocationUserDefined ZonalAllocation = "UserDefined"
+)
+
+// PossibleZonalAllocationValues returns the possible values for the ZonalAllocation const type.
+func PossibleZonalAllocationValues() []ZonalAllocation {
+	return []ZonalAllocation{
+		ZonalAllocationAutomatic,
+		ZonalAllocationNoZones,
+		ZonalAllocationUserDefined,
 	}
 }

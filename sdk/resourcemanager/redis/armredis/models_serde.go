@@ -460,6 +460,7 @@ func (c CreateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "subnetId", c.SubnetID)
 	populate(objectMap, "tenantSettings", c.TenantSettings)
 	populate(objectMap, "updateChannel", c.UpdateChannel)
+	populate(objectMap, "zonalAllocation", c.ZonalAllocation)
 	return json.Marshal(objectMap)
 }
 
@@ -510,6 +511,9 @@ func (c *CreateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "updateChannel":
 			err = unpopulate(val, "UpdateChannel", &c.UpdateChannel)
+			delete(rawMsg, key)
+		case "zonalAllocation":
+			err = unpopulate(val, "ZonalAllocation", &c.ZonalAllocation)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1742,6 +1746,7 @@ func (p Properties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "subnetId", p.SubnetID)
 	populate(objectMap, "tenantSettings", p.TenantSettings)
 	populate(objectMap, "updateChannel", p.UpdateChannel)
+	populate(objectMap, "zonalAllocation", p.ZonalAllocation)
 	return json.Marshal(objectMap)
 }
 
@@ -1816,6 +1821,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "updateChannel":
 			err = unpopulate(val, "UpdateChannel", &p.UpdateChannel)
+			delete(rawMsg, key)
+		case "zonalAllocation":
+			err = unpopulate(val, "ZonalAllocation", &p.ZonalAllocation)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2088,6 +2096,7 @@ func (u UpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "shardCount", u.ShardCount)
 	populate(objectMap, "tenantSettings", u.TenantSettings)
 	populate(objectMap, "updateChannel", u.UpdateChannel)
+	populate(objectMap, "zonalAllocation", u.ZonalAllocation)
 	return json.Marshal(objectMap)
 }
 
@@ -2132,6 +2141,9 @@ func (u *UpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "updateChannel":
 			err = unpopulate(val, "UpdateChannel", &u.UpdateChannel)
+			delete(rawMsg, key)
+		case "zonalAllocation":
+			err = unpopulate(val, "ZonalAllocation", &u.ZonalAllocation)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2228,7 +2240,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

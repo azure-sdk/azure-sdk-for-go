@@ -1,5 +1,14 @@
 # Release History
 
+## 3.2.0-beta.1 (2024-04-03)
+### Features Added
+
+- New enum type `ZonalAllocation` with values `ZonalAllocationAutomatic`, `ZonalAllocationNoZones`, `ZonalAllocationUserDefined`
+- New field `ZonalAllocation` in struct `CreateProperties`
+- New field `ZonalAllocation` in struct `Properties`
+- New field `ZonalAllocation` in struct `UpdateProperties`
+
+
 ## 3.1.0 (2023-11-24)
 ### Features Added
 
