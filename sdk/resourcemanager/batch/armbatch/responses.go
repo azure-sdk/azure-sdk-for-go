@@ -55,12 +55,6 @@ type AccountClientListOutboundNetworkDependenciesEndpointsResponse struct {
 	OutboundEnvironmentEndpointCollection
 }
 
-// AccountClientListResponse contains the response from method AccountClient.NewListPager.
-type AccountClientListResponse struct {
-	// Values returned by the List operation.
-	AccountListResult
-}
-
 // AccountClientRegenerateKeyResponse contains the response from method AccountClient.RegenerateKey.
 type AccountClientRegenerateKeyResponse struct {
 	// A set of Azure Batch account keys.

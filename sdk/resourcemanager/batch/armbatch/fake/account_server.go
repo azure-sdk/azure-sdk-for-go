@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/batch/armbatch/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/batch/armbatch/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -43,10 +43,6 @@ type AccountServer struct {
 	// GetKeys is the fake for method AccountClient.GetKeys
 	// HTTP status codes to indicate success: http.StatusOK
 	GetKeys func(ctx context.Context, resourceGroupName string, accountName string, options *armbatch.AccountClientGetKeysOptions) (resp azfake.Responder[armbatch.AccountClientGetKeysResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method AccountClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armbatch.AccountClientListOptions) (resp azfake.PagerResponder[armbatch.AccountClientListResponse])
 
 	// NewListByResourceGroupPager is the fake for method AccountClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -81,7 +77,6 @@ func NewAccountServerTransport(srv *AccountServer) *AccountServerTransport {
 		srv:                         srv,
 		beginCreate:                 newTracker[azfake.PollerResponder[armbatch.AccountClientCreateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armbatch.AccountClientDeleteResponse]](),
-		newListPager:                newTracker[azfake.PagerResponder[armbatch.AccountClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armbatch.AccountClientListByResourceGroupResponse]](),
 		newListDetectorsPager:       newTracker[azfake.PagerResponder[armbatch.AccountClientListDetectorsResponse]](),
 		newListOutboundNetworkDependenciesEndpointsPager: newTracker[azfake.PagerResponder[armbatch.AccountClientListOutboundNetworkDependenciesEndpointsResponse]](),
@@ -94,7 +89,6 @@ type AccountServerTransport struct {
 	srv                                              *AccountServer
 	beginCreate                                      *tracker[azfake.PollerResponder[armbatch.AccountClientCreateResponse]]
 	beginDelete                                      *tracker[azfake.PollerResponder[armbatch.AccountClientDeleteResponse]]
-	newListPager                                     *tracker[azfake.PagerResponder[armbatch.AccountClientListResponse]]
 	newListByResourceGroupPager                      *tracker[azfake.PagerResponder[armbatch.AccountClientListByResourceGroupResponse]]
 	newListDetectorsPager                            *tracker[azfake.PagerResponder[armbatch.AccountClientListDetectorsResponse]]
 	newListOutboundNetworkDependenciesEndpointsPager *tracker[azfake.PagerResponder[armbatch.AccountClientListOutboundNetworkDependenciesEndpointsResponse]]
@@ -122,8 +116,6 @@ func (a *AccountServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = a.dispatchGetDetector(req)
 	case "AccountClient.GetKeys":
 		resp, err = a.dispatchGetKeys(req)
-	case "AccountClient.NewListPager":
-		resp, err = a.dispatchNewListPager(req)
 	case "AccountClient.NewListByResourceGroupPager":
 		resp, err = a.dispatchNewListByResourceGroupPager(req)
 	case "AccountClient.NewListDetectorsPager":
@@ -338,39 +330,6 @@ func (a *AccountServerTransport) dispatchGetKeys(req *http.Request) (*http.Respo
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AccountKeys, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (a *AccountServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if a.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := a.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Batch/batchAccounts`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := a.srv.NewListPager(nil)
-		newListPager = &resp
-		a.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armbatch.AccountClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		a.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		a.newListPager.remove(req)
 	}
 	return resp, nil
 }

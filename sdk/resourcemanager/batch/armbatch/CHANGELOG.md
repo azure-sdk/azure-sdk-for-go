@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0 (2024-04-03)
+### Breaking Changes
+
+- Enum `UpgradeMode` has been removed
+- Function `*AccountClient.NewListPager` has been removed
+- Struct `AutomaticOSUpgradePolicy` has been removed
+- Struct `RollingUpgradePolicy` has been removed
+- Struct `UpgradePolicy` has been removed
+- Field `UpgradePolicy` of struct `PoolProperties` has been removed
+- Field `BatchSupportEndOfLife` of struct `SupportedSKU` has been removed
+
+
 ## 2.2.0 (2023-12-22)
 ### Features Added
 

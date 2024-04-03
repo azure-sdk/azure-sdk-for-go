@@ -10,7 +10,7 @@ package armbatch
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/batch/armbatch"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0"
 )
 
 // AccountKeyType - The type of account key to regenerate.

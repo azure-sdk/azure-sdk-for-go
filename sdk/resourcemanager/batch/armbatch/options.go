@@ -46,11 +46,6 @@ type AccountClientListDetectorsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AccountClientListOptions contains the optional parameters for the AccountClient.NewListPager method.
-type AccountClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // AccountClientListOutboundNetworkDependenciesEndpointsOptions contains the optional parameters for the AccountClient.NewListOutboundNetworkDependenciesEndpointsPager
 // method.
 type AccountClientListOutboundNetworkDependenciesEndpointsOptions struct {
