@@ -88,15 +88,16 @@ type VaultsClientBeginCreateOrUpdateOptions struct {
 	ResumeToken string
 }
 
-// VaultsClientBeginUpdateOptions contains the optional parameters for the VaultsClient.BeginUpdate method.
-type VaultsClientBeginUpdateOptions struct {
+// VaultsClientBeginDeleteOptions contains the optional parameters for the VaultsClient.BeginDelete method.
+type VaultsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// VaultsClientDeleteOptions contains the optional parameters for the VaultsClient.Delete method.
-type VaultsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// VaultsClientBeginUpdateOptions contains the optional parameters for the VaultsClient.BeginUpdate method.
+type VaultsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // VaultsClientGetOptions contains the optional parameters for the VaultsClient.Get method.
