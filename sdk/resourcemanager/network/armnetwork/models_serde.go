@@ -7842,6 +7842,41 @@ func (b *BreakOutCategoryPolicies) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CertificateAuthentication.
+func (c CertificateAuthentication) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "inboundAuthCertificateChain", c.InboundAuthCertificateChain)
+	populate(objectMap, "inboundAuthCertificateSubjectName", c.InboundAuthCertificateSubjectName)
+	populate(objectMap, "outboundAuthCertificate", c.OutboundAuthCertificate)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CertificateAuthentication.
+func (c *CertificateAuthentication) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "inboundAuthCertificateChain":
+			err = unpopulate(val, "InboundAuthCertificateChain", &c.InboundAuthCertificateChain)
+			delete(rawMsg, key)
+		case "inboundAuthCertificateSubjectName":
+			err = unpopulate(val, "InboundAuthCertificateSubjectName", &c.InboundAuthCertificateSubjectName)
+			delete(rawMsg, key)
+		case "outboundAuthCertificate":
+			err = unpopulate(val, "OutboundAuthCertificate", &c.OutboundAuthCertificate)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CheckPrivateLinkServiceVisibilityRequest.
 func (c CheckPrivateLinkServiceVisibilityRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -32034,6 +32069,7 @@ func (v VirtualNetworkGateway) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "etag", v.Etag)
 	populate(objectMap, "extendedLocation", v.ExtendedLocation)
 	populate(objectMap, "id", v.ID)
+	populate(objectMap, "identity", v.Identity)
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "properties", v.Properties)
@@ -32059,6 +32095,9 @@ func (v *VirtualNetworkGateway) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "id":
 			err = unpopulate(val, "ID", &v.ID)
+			delete(rawMsg, key)
+		case "identity":
+			err = unpopulate(val, "Identity", &v.Identity)
 			delete(rawMsg, key)
 		case "location":
 			err = unpopulate(val, "Location", &v.Location)
@@ -32392,7 +32431,9 @@ func (v *VirtualNetworkGatewayConnectionListResult) UnmarshalJSON(data []byte) e
 // MarshalJSON implements the json.Marshaller interface for type VirtualNetworkGatewayConnectionPropertiesFormat.
 func (v VirtualNetworkGatewayConnectionPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "authenticationType", v.AuthenticationType)
 	populate(objectMap, "authorizationKey", v.AuthorizationKey)
+	populate(objectMap, "certificateAuthentication", v.CertificateAuthentication)
 	populate(objectMap, "connectionMode", v.ConnectionMode)
 	populate(objectMap, "connectionProtocol", v.ConnectionProtocol)
 	populate(objectMap, "connectionStatus", v.ConnectionStatus)
@@ -32431,8 +32472,14 @@ func (v *VirtualNetworkGatewayConnectionPropertiesFormat) UnmarshalJSON(data []b
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "authenticationType":
+			err = unpopulate(val, "AuthenticationType", &v.AuthenticationType)
+			delete(rawMsg, key)
 		case "authorizationKey":
 			err = unpopulate(val, "AuthorizationKey", &v.AuthorizationKey)
+			delete(rawMsg, key)
+		case "certificateAuthentication":
+			err = unpopulate(val, "CertificateAuthentication", &v.CertificateAuthentication)
 			delete(rawMsg, key)
 		case "connectionMode":
 			err = unpopulate(val, "ConnectionMode", &v.ConnectionMode)

@@ -1,5 +1,14 @@
 # Release History
 
+## 5.2.0 (2024-04-04)
+### Features Added
+
+- New enum type `ConnectionAuthenticationType` with values `ConnectionAuthenticationTypeCertificate`, `ConnectionAuthenticationTypePSK`
+- New struct `CertificateAuthentication`
+- New field `Identity` in struct `VirtualNetworkGateway`
+- New field `AuthenticationType`, `CertificateAuthentication` in struct `VirtualNetworkGatewayConnectionPropertiesFormat`
+
+
 ## 5.1.1 (2024-04-02)
 ### Other Changes
 

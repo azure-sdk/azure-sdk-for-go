@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.1.1"
+	moduleVersion = "v5.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -913,6 +913,22 @@ func PossibleConfigurationTypeValues() []ConfigurationType {
 	return []ConfigurationType{
 		ConfigurationTypeConnectivity,
 		ConfigurationTypeSecurityAdmin,
+	}
+}
+
+// ConnectionAuthenticationType - Gateway connection authentication type.
+type ConnectionAuthenticationType string
+
+const (
+	ConnectionAuthenticationTypeCertificate ConnectionAuthenticationType = "Certificate"
+	ConnectionAuthenticationTypePSK         ConnectionAuthenticationType = "PSK"
+)
+
+// PossibleConnectionAuthenticationTypeValues returns the possible values for the ConnectionAuthenticationType const type.
+func PossibleConnectionAuthenticationTypeValues() []ConnectionAuthenticationType {
+	return []ConnectionAuthenticationType{
+		ConnectionAuthenticationTypeCertificate,
+		ConnectionAuthenticationTypePSK,
 	}
 }
 

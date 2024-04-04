@@ -3225,6 +3225,18 @@ type BreakOutCategoryPolicies struct {
 	Optimize *bool
 }
 
+// CertificateAuthentication - Certificate Authentication information for a certificate based authentication connection.
+type CertificateAuthentication struct {
+	// Inbound authentication certificate chain.
+	InboundAuthCertificateChain []*string
+
+	// Inbound authentication certificate subject name.
+	InboundAuthCertificateSubjectName *string
+
+	// Outbound authentication certificate.
+	OutboundAuthCertificate *string
+}
+
 // CheckPrivateLinkServiceVisibilityRequest - Request body of the CheckPrivateLinkServiceVisibility API service call.
 type CheckPrivateLinkServiceVisibilityRequest struct {
 	// The alias of the private link service.
@@ -12875,6 +12887,9 @@ type VirtualNetworkGateway struct {
 	// Resource ID.
 	ID *string
 
+	// The identity of the virtual network gateway, if configured.
+	Identity *ManagedServiceIdentity
+
 	// Resource location.
 	Location *string
 
@@ -13043,8 +13058,14 @@ type VirtualNetworkGatewayConnectionPropertiesFormat struct {
 	// REQUIRED; The reference to virtual network gateway resource.
 	VirtualNetworkGateway1 *VirtualNetworkGateway
 
+	// Gateway connection authentication type.
+	AuthenticationType *ConnectionAuthenticationType
+
 	// The authorizationKey.
 	AuthorizationKey *string
+
+	// Certificate Authentication information for a certificate based authentication connection.
+	CertificateAuthentication *CertificateAuthentication
 
 	// The connection mode for this connection.
 	ConnectionMode *VirtualNetworkGatewayConnectionMode
