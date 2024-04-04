@@ -1,5 +1,68 @@
 # Release History
 
+## 0.11.0 (2024-04-04)
+### Breaking Changes
+
+- Function `*AlertsClient.ChangeState` parameter(s) have been changed from `(context.Context, string, AlertState, *AlertsClientChangeStateOptions)` to `(context.Context, string, string, AlertState, *AlertsClientChangeStateOptions)`
+- Function `*AlertsClient.GetByID` parameter(s) have been changed from `(context.Context, string, *AlertsClientGetByIDOptions)` to `(context.Context, string, string, *AlertsClientGetByIDOptions)`
+- Function `*AlertsClient.GetHistory` parameter(s) have been changed from `(context.Context, string, *AlertsClientGetHistoryOptions)` to `(context.Context, string, string, *AlertsClientGetHistoryOptions)`
+- Function `*AlertsClient.GetSummary` parameter(s) have been changed from `(context.Context, AlertsSummaryGroupByFields, *AlertsClientGetSummaryOptions)` to `(context.Context, string, AlertsSummaryGroupByFields, *AlertsClientGetSummaryOptions)`
+- Function `*AlertsClient.NewGetAllPager` parameter(s) have been changed from `(*AlertsClientGetAllOptions)` to `(string, *AlertsClientGetAllOptions)`
+- Function `*PrometheusRuleGroupsClient.Update` parameter(s) have been changed from `(context.Context, string, string, PrometheusRuleGroupResourcePatch, *PrometheusRuleGroupsClientUpdateOptions)` to `(context.Context, string, string, PrometheusRuleGroupResourcePatchParameters, *PrometheusRuleGroupsClientUpdateOptions)`
+- Function `*ClientFactory.NewTenantActivityLogAlertsClient` has been removed
+- Function `NewTenantActivityLogAlertsClient` has been removed
+- Function `*TenantActivityLogAlertsClient.CreateOrUpdate` has been removed
+- Function `*TenantActivityLogAlertsClient.Delete` has been removed
+- Function `*TenantActivityLogAlertsClient.Get` has been removed
+- Function `*TenantActivityLogAlertsClient.NewListByManagementGroupPager` has been removed
+- Function `*TenantActivityLogAlertsClient.NewListByTenantPager` has been removed
+- Function `*TenantActivityLogAlertsClient.Update` has been removed
+- Struct `ActionGroup` has been removed
+- Struct `ActionList` has been removed
+- Struct `AlertRuleAllOfCondition` has been removed
+- Struct `AlertRuleAnyOfOrLeafCondition` has been removed
+- Struct `AlertRuleLeafCondition` has been removed
+- Struct `AlertRuleProperties` has been removed
+- Struct `PrometheusRuleGroupResourcePatch` has been removed
+- Struct `PrometheusRuleGroupResourcePatchProperties` has been removed
+- Struct `TenantActivityLogAlertResource` has been removed
+- Struct `TenantAlertRuleList` has been removed
+- Struct `TenantAlertRulePatchObject` has been removed
+- Struct `TenantAlertRulePatchProperties` has been removed
+
+### Features Added
+
+- New value `ActionTypeCorrelateAlerts` added to enum type `ActionType`
+- New value `MonitorServiceResourceHealth` added to enum type `MonitorService`
+- New enum type `NotificationsForCorrelatedAlerts` with values `NotificationsForCorrelatedAlertsNotifyAlways`, `NotificationsForCorrelatedAlertsSuppressAlways`
+- New enum type `Status` with values `StatusFailed`, `StatusSucceeded`
+- New enum type `Type` with values `TypePrometheusInstantQuery`, `TypePrometheusRangeQuery`
+- New enum type `UpdateType` with values `UpdateTypeTimeBased`
+- New function `*AlertEnrichmentItem.GetAlertEnrichmentItem() *AlertEnrichmentItem`
+- New function `*AlertsClient.GetEnrichments(context.Context, string, string, *AlertsClientGetEnrichmentsOptions) (AlertsClientGetEnrichmentsResponse, error)`
+- New function `*AlertsClient.NewListEnrichmentsPager(string, string, *AlertsClientListEnrichmentsOptions) *runtime.Pager[AlertsClientListEnrichmentsResponse]`
+- New function `*CorrelateAlerts.GetAction() *Action`
+- New function `*PrometheusEnrichmentItem.GetAlertEnrichmentItem() *AlertEnrichmentItem`
+- New function `*PrometheusEnrichmentItem.GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem`
+- New function `*PrometheusInstantQuery.GetAlertEnrichmentItem() *AlertEnrichmentItem`
+- New function `*PrometheusInstantQuery.GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem`
+- New function `*PrometheusRangeQuery.GetAlertEnrichmentItem() *AlertEnrichmentItem`
+- New function `*PrometheusRangeQuery.GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem`
+- New struct `AlertEnrichmentProperties`
+- New struct `AlertEnrichmentResponse`
+- New struct `AlertEnrichmentsList`
+- New struct `CorrelateAlerts`
+- New struct `CorrelateBy`
+- New struct `CorrelationDetails`
+- New struct `CorrelationUpdates`
+- New struct `PrometheusInstantQuery`
+- New struct `PrometheusRangeQuery`
+- New struct `PrometheusRuleGroupResourcePatchParameters`
+- New struct `PrometheusRuleGroupResourcePatchParametersProperties`
+- New field `Category` in struct `AlertRuleRecommendationProperties`
+- New field `CorrelationDetails`, `HasEnrichments`, `IsStatefulAlert` in struct `Essentials`
+
+
 ## 0.10.0 (2024-03-01)
 ### Breaking Changes
 
