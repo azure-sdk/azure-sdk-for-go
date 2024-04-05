@@ -1710,6 +1710,7 @@ func (a AzureIaaSVMProtectionPolicy) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "retentionPolicy", a.RetentionPolicy)
 	populate(objectMap, "schedulePolicy", a.SchedulePolicy)
+	populate(objectMap, "snapshotConsistencyType", a.SnapshotConsistencyType)
 	populate(objectMap, "tieringPolicy", a.TieringPolicy)
 	populate(objectMap, "timeZone", a.TimeZone)
 	return json.Marshal(objectMap)
@@ -1747,6 +1748,9 @@ func (a *AzureIaaSVMProtectionPolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "schedulePolicy":
 			a.SchedulePolicy, err = unmarshalSchedulePolicyClassification(val)
+			delete(rawMsg, key)
+		case "snapshotConsistencyType":
+			err = unpopulate(val, "SnapshotConsistencyType", &a.SnapshotConsistencyType)
 			delete(rawMsg, key)
 		case "tieringPolicy":
 			err = unpopulate(val, "TieringPolicy", &a.TieringPolicy)
@@ -11624,6 +11628,60 @@ func (o *OperationWorkerResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PatchRecoveryPointInput.
+func (p PatchRecoveryPointInput) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "recoveryPointProperties", p.RecoveryPointProperties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PatchRecoveryPointInput.
+func (p *PatchRecoveryPointInput) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &p.RecoveryPointProperties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PatchRecoveryPointPropertiesInput.
+func (p PatchRecoveryPointPropertiesInput) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "expiryTime", p.ExpiryTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PatchRecoveryPointPropertiesInput.
+func (p *PatchRecoveryPointPropertiesInput) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expiryTime":
+			err = unpopulate(val, "ExpiryTime", &p.ExpiryTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PointInTimeRange.
 func (p PointInTimeRange) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -14380,6 +14438,33 @@ func (u *UnlockDeleteResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type UpdateRecoveryPointRequest.
+func (u UpdateRecoveryPointRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", u.Properties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type UpdateRecoveryPointRequest.
+func (u *UpdateRecoveryPointRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", u, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &u.Properties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", u, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type UserAssignedIdentityProperties.
 func (u UserAssignedIdentityProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -15285,7 +15370,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

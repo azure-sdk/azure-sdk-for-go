@@ -1361,7 +1361,8 @@ type AzureIaaSVMProtectionPolicy struct {
 	RetentionPolicy RetentionPolicyClassification
 
 	// Backup schedule specified as part of backup policy.
-	SchedulePolicy SchedulePolicyClassification
+	SchedulePolicy          SchedulePolicyClassification
+	SnapshotConsistencyType *IaasVMSnapshotConsistencyType
 
 	// Tiering policy to automatically move RPs to another tier Key is Target Tier, defined in RecoveryPointTierType enum. Tiering
 	// policy specifies the criteria to move RP to the target tier.
@@ -8081,6 +8082,18 @@ type OperationWorkerResponse struct {
 	StatusCode *HTTPStatusCode
 }
 
+// PatchRecoveryPointInput - Recovery Point Contract for Update Recovery Point API.
+type PatchRecoveryPointInput struct {
+	// Properties of Recovery Point
+	RecoveryPointProperties *PatchRecoveryPointPropertiesInput
+}
+
+// PatchRecoveryPointPropertiesInput - Recovery Point Properties Contract for Update Recovery Point API.
+type PatchRecoveryPointPropertiesInput struct {
+	// Expiry time of Recovery Point in UTC.
+	ExpiryTime *string
+}
+
 // PointInTimeRange - Provides details for log ranges
 type PointInTimeRange struct {
 	// End time of the time range for log recovery.
@@ -9182,6 +9195,12 @@ type UnlockDeleteRequest struct {
 type UnlockDeleteResponse struct {
 	// This is the time when unlock delete privileges will get expired.
 	UnlockDeleteExpiryTime *string
+}
+
+// UpdateRecoveryPointRequest - Patch Request content to update recovery point for given RecoveryPointId
+type UpdateRecoveryPointRequest struct {
+	// Resource properties.
+	Properties *PatchRecoveryPointInput
 }
 
 // UserAssignedIdentityProperties - User assigned managed identity properties

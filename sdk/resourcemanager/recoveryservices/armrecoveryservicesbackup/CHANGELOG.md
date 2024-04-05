@@ -1,5 +1,16 @@
 # Release History
 
+## 4.1.0 (2024-04-05)
+### Features Added
+
+- New enum type `IaasVMSnapshotConsistencyType` with values `IaasVMSnapshotConsistencyTypeOnlyCrashConsistent`
+- New function `*RecoveryPointsClient.Update(context.Context, string, string, string, string, string, string, UpdateRecoveryPointRequest, *RecoveryPointsClientUpdateOptions) (RecoveryPointsClientUpdateResponse, error)`
+- New struct `PatchRecoveryPointInput`
+- New struct `PatchRecoveryPointPropertiesInput`
+- New struct `UpdateRecoveryPointRequest`
+- New field `SnapshotConsistencyType` in struct `AzureIaaSVMProtectionPolicy`
+
+
 ## 4.0.0 (2023-12-08)
 ### Breaking Changes
 
