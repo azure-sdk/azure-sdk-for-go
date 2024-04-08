@@ -21,7 +21,6 @@ import (
 type ServerFactory struct {
 	AddonsServer                    AddonsServer
 	AlertsServer                    AlertsServer
-	AvailableSKUsServer             AvailableSKUsServer
 	BandwidthSchedulesServer        BandwidthSchedulesServer
 	ContainersServer                ContainersServer
 	DeviceCapacityCheckServer       DeviceCapacityCheckServer
@@ -59,7 +58,6 @@ type ServerFactoryTransport struct {
 	trMu                              sync.Mutex
 	trAddonsServer                    *AddonsServerTransport
 	trAlertsServer                    *AlertsServerTransport
-	trAvailableSKUsServer             *AvailableSKUsServerTransport
 	trBandwidthSchedulesServer        *BandwidthSchedulesServerTransport
 	trContainersServer                *ContainersServerTransport
 	trDeviceCapacityCheckServer       *DeviceCapacityCheckServerTransport
@@ -100,11 +98,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AlertsClient":
 		initServer(s, &s.trAlertsServer, func() *AlertsServerTransport { return NewAlertsServerTransport(&s.srv.AlertsServer) })
 		resp, err = s.trAlertsServer.Do(req)
-	case "AvailableSKUsClient":
-		initServer(s, &s.trAvailableSKUsServer, func() *AvailableSKUsServerTransport {
-			return NewAvailableSKUsServerTransport(&s.srv.AvailableSKUsServer)
-		})
-		resp, err = s.trAvailableSKUsServer.Do(req)
 	case "BandwidthSchedulesClient":
 		initServer(s, &s.trBandwidthSchedulesServer, func() *BandwidthSchedulesServerTransport {
 			return NewBandwidthSchedulesServerTransport(&s.srv.BandwidthSchedulesServer)

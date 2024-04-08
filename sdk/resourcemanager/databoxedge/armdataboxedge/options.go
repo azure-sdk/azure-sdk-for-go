@@ -41,11 +41,6 @@ type AlertsClientListByDataBoxEdgeDeviceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AvailableSKUsClientListOptions contains the optional parameters for the AvailableSKUsClient.NewListPager method.
-type AvailableSKUsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // BandwidthSchedulesClientBeginCreateOrUpdateOptions contains the optional parameters for the BandwidthSchedulesClient.BeginCreateOrUpdate
 // method.
 type BandwidthSchedulesClientBeginCreateOrUpdateOptions struct {

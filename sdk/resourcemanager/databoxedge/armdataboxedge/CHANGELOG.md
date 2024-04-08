@@ -1,5 +1,18 @@
 # Release History
 
+## 2.0.0 (2024-04-08)
+### Breaking Changes
+
+- Function `NewAvailableSKUsClient` has been removed
+- Function `*AvailableSKUsClient.NewListPager` has been removed
+- Function `*ClientFactory.NewAvailableSKUsClient` has been removed
+
+### Features Added
+
+- New field `KubernetesWorkloadProfile` in struct `DeviceProperties`
+- New field `IPRange` in struct `LoadBalancerConfig`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

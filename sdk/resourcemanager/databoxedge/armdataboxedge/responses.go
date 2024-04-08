@@ -70,12 +70,6 @@ type AlertsClientListByDataBoxEdgeDeviceResponse struct {
 	AlertList
 }
 
-// AvailableSKUsClientListResponse contains the response from method AvailableSKUsClient.NewListPager.
-type AvailableSKUsClientListResponse struct {
-	// List of SKU Information objects.
-	SKUList
-}
-
 // BandwidthSchedulesClientCreateOrUpdateResponse contains the response from method BandwidthSchedulesClient.BeginCreateOrUpdate.
 type BandwidthSchedulesClientCreateOrUpdateResponse struct {
 	// The bandwidth schedule details.
