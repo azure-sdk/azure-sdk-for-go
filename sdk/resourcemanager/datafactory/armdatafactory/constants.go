@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v6.1.0"
+	moduleVersion = "v7.0.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -48,6 +48,22 @@ func PossibleActivityStateValues() []ActivityState {
 	}
 }
 
+// AmazonRdsForSQLAuthenticationType - The type used for authentication. Type: string.
+type AmazonRdsForSQLAuthenticationType string
+
+const (
+	AmazonRdsForSQLAuthenticationTypeSQL     AmazonRdsForSQLAuthenticationType = "SQL"
+	AmazonRdsForSQLAuthenticationTypeWindows AmazonRdsForSQLAuthenticationType = "Windows"
+)
+
+// PossibleAmazonRdsForSQLAuthenticationTypeValues returns the possible values for the AmazonRdsForSQLAuthenticationType const type.
+func PossibleAmazonRdsForSQLAuthenticationTypeValues() []AmazonRdsForSQLAuthenticationType {
+	return []AmazonRdsForSQLAuthenticationType{
+		AmazonRdsForSQLAuthenticationTypeSQL,
+		AmazonRdsForSQLAuthenticationTypeWindows,
+	}
+}
+
 // AzureFunctionActivityMethod - The list of HTTP methods supported by a AzureFunctionActivity.
 type AzureFunctionActivityMethod string
 
@@ -71,6 +87,66 @@ func PossibleAzureFunctionActivityMethodValues() []AzureFunctionActivityMethod {
 		AzureFunctionActivityMethodPOST,
 		AzureFunctionActivityMethodPUT,
 		AzureFunctionActivityMethodTRACE,
+	}
+}
+
+// AzureSQLDWAuthenticationType - The type used for authentication. Type: string.
+type AzureSQLDWAuthenticationType string
+
+const (
+	AzureSQLDWAuthenticationTypeSQL                           AzureSQLDWAuthenticationType = "SQL"
+	AzureSQLDWAuthenticationTypeServicePrincipal              AzureSQLDWAuthenticationType = "ServicePrincipal"
+	AzureSQLDWAuthenticationTypeSystemAssignedManagedIdentity AzureSQLDWAuthenticationType = "SystemAssignedManagedIdentity"
+	AzureSQLDWAuthenticationTypeUserAssignedManagedIdentity   AzureSQLDWAuthenticationType = "UserAssignedManagedIdentity"
+)
+
+// PossibleAzureSQLDWAuthenticationTypeValues returns the possible values for the AzureSQLDWAuthenticationType const type.
+func PossibleAzureSQLDWAuthenticationTypeValues() []AzureSQLDWAuthenticationType {
+	return []AzureSQLDWAuthenticationType{
+		AzureSQLDWAuthenticationTypeSQL,
+		AzureSQLDWAuthenticationTypeServicePrincipal,
+		AzureSQLDWAuthenticationTypeSystemAssignedManagedIdentity,
+		AzureSQLDWAuthenticationTypeUserAssignedManagedIdentity,
+	}
+}
+
+// AzureSQLDatabaseAuthenticationType - The type used for authentication. Type: string.
+type AzureSQLDatabaseAuthenticationType string
+
+const (
+	AzureSQLDatabaseAuthenticationTypeSQL                           AzureSQLDatabaseAuthenticationType = "SQL"
+	AzureSQLDatabaseAuthenticationTypeServicePrincipal              AzureSQLDatabaseAuthenticationType = "ServicePrincipal"
+	AzureSQLDatabaseAuthenticationTypeSystemAssignedManagedIdentity AzureSQLDatabaseAuthenticationType = "SystemAssignedManagedIdentity"
+	AzureSQLDatabaseAuthenticationTypeUserAssignedManagedIdentity   AzureSQLDatabaseAuthenticationType = "UserAssignedManagedIdentity"
+)
+
+// PossibleAzureSQLDatabaseAuthenticationTypeValues returns the possible values for the AzureSQLDatabaseAuthenticationType const type.
+func PossibleAzureSQLDatabaseAuthenticationTypeValues() []AzureSQLDatabaseAuthenticationType {
+	return []AzureSQLDatabaseAuthenticationType{
+		AzureSQLDatabaseAuthenticationTypeSQL,
+		AzureSQLDatabaseAuthenticationTypeServicePrincipal,
+		AzureSQLDatabaseAuthenticationTypeSystemAssignedManagedIdentity,
+		AzureSQLDatabaseAuthenticationTypeUserAssignedManagedIdentity,
+	}
+}
+
+// AzureSQLMIAuthenticationType - The type used for authentication. Type: string.
+type AzureSQLMIAuthenticationType string
+
+const (
+	AzureSQLMIAuthenticationTypeSQL                           AzureSQLMIAuthenticationType = "SQL"
+	AzureSQLMIAuthenticationTypeServicePrincipal              AzureSQLMIAuthenticationType = "ServicePrincipal"
+	AzureSQLMIAuthenticationTypeSystemAssignedManagedIdentity AzureSQLMIAuthenticationType = "SystemAssignedManagedIdentity"
+	AzureSQLMIAuthenticationTypeUserAssignedManagedIdentity   AzureSQLMIAuthenticationType = "UserAssignedManagedIdentity"
+)
+
+// PossibleAzureSQLMIAuthenticationTypeValues returns the possible values for the AzureSQLMIAuthenticationType const type.
+func PossibleAzureSQLMIAuthenticationTypeValues() []AzureSQLMIAuthenticationType {
+	return []AzureSQLMIAuthenticationType{
+		AzureSQLMIAuthenticationTypeSQL,
+		AzureSQLMIAuthenticationTypeServicePrincipal,
+		AzureSQLMIAuthenticationTypeSystemAssignedManagedIdentity,
+		AzureSQLMIAuthenticationTypeUserAssignedManagedIdentity,
 	}
 }
 
@@ -1341,6 +1417,22 @@ func PossibleSQLAlwaysEncryptedAkvAuthTypeValues() []SQLAlwaysEncryptedAkvAuthTy
 		SQLAlwaysEncryptedAkvAuthTypeManagedIdentity,
 		SQLAlwaysEncryptedAkvAuthTypeServicePrincipal,
 		SQLAlwaysEncryptedAkvAuthTypeUserAssignedManagedIdentity,
+	}
+}
+
+// SQLServerAuthenticationType - The type used for authentication. Type: string.
+type SQLServerAuthenticationType string
+
+const (
+	SQLServerAuthenticationTypeSQL     SQLServerAuthenticationType = "SQL"
+	SQLServerAuthenticationTypeWindows SQLServerAuthenticationType = "Windows"
+)
+
+// PossibleSQLServerAuthenticationTypeValues returns the possible values for the SQLServerAuthenticationType const type.
+func PossibleSQLServerAuthenticationTypeValues() []SQLServerAuthenticationType {
+	return []SQLServerAuthenticationType{
+		SQLServerAuthenticationTypeSQL,
+		SQLServerAuthenticationTypeWindows,
 	}
 }
 
