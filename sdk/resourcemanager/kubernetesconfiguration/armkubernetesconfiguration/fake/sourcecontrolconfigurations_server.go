@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,19 +26,19 @@ import (
 type SourceControlConfigurationsServer struct {
 	// CreateOrUpdate is the fake for method SourceControlConfigurationsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, sourceControlConfiguration armkubernetesconfiguration.SourceControlConfiguration, options *armkubernetesconfiguration.SourceControlConfigurationsClientCreateOrUpdateOptions) (resp azfake.Responder[armkubernetesconfiguration.SourceControlConfigurationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, sourceControlConfigurationName string, resource armkubernetesconfiguration.SourceControlConfiguration, options *armkubernetesconfiguration.SourceControlConfigurationsClientCreateOrUpdateOptions) (resp azfake.Responder[armkubernetesconfiguration.SourceControlConfigurationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method SourceControlConfigurationsClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientBeginDeleteOptions) (resp azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	BeginDelete func(ctx context.Context, resourceGroupName string, sourceControlConfigurationName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientBeginDeleteOptions) (resp azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SourceControlConfigurationsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientGetOptions) (resp azfake.Responder[armkubernetesconfiguration.SourceControlConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, sourceControlConfigurationName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientGetOptions) (resp azfake.Responder[armkubernetesconfiguration.SourceControlConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method SourceControlConfigurationsClient.NewListPager
+	// NewListByResourceGroupPager is the fake for method SourceControlConfigurationsClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientListOptions) (resp azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListResponse])
+	NewListByResourceGroupPager func(resourceGroupName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListByResourceGroupResponse])
 }
 
 // NewSourceControlConfigurationsServerTransport creates a new instance of SourceControlConfigurationsServerTransport with the provided implementation.
@@ -46,18 +46,18 @@ type SourceControlConfigurationsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewSourceControlConfigurationsServerTransport(srv *SourceControlConfigurationsServer) *SourceControlConfigurationsServerTransport {
 	return &SourceControlConfigurationsServerTransport{
-		srv:          srv,
-		beginDelete:  newTracker[azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse]](),
-		newListPager: newTracker[azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListResponse]](),
+		srv:                         srv,
+		beginDelete:                 newTracker[azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse]](),
+		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListByResourceGroupResponse]](),
 	}
 }
 
 // SourceControlConfigurationsServerTransport connects instances of armkubernetesconfiguration.SourceControlConfigurationsClient to instances of SourceControlConfigurationsServer.
 // Don't use this type directly, use NewSourceControlConfigurationsServerTransport instead.
 type SourceControlConfigurationsServerTransport struct {
-	srv          *SourceControlConfigurationsServer
-	beginDelete  *tracker[azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse]]
-	newListPager *tracker[azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListResponse]]
+	srv                         *SourceControlConfigurationsServer
+	beginDelete                 *tracker[azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse]]
+	newListByResourceGroupPager *tracker[azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListByResourceGroupResponse]]
 }
 
 // Do implements the policy.Transporter interface for SourceControlConfigurationsServerTransport.
@@ -78,8 +78,8 @@ func (s *SourceControlConfigurationsServerTransport) Do(req *http.Request) (*htt
 		resp, err = s.dispatchBeginDelete(req)
 	case "SourceControlConfigurationsClient.Get":
 		resp, err = s.dispatchGet(req)
-	case "SourceControlConfigurationsClient.NewListPager":
-		resp, err = s.dispatchNewListPager(req)
+	case "SourceControlConfigurationsClient.NewListByResourceGroupPager":
+		resp, err = s.dispatchNewListByResourceGroupPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -95,10 +95,10 @@ func (s *SourceControlConfigurationsServerTransport) dispatchCreateOrUpdate(req 
 	if s.srv.CreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations/(?P<sourceControlConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations/(?P<sourceControlConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 6 {
+	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armkubernetesconfiguration.SourceControlConfiguration](req)
@@ -109,23 +109,11 @@ func (s *SourceControlConfigurationsServerTransport) dispatchCreateOrUpdate(req 
 	if err != nil {
 		return nil, err
 	}
-	clusterRpParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterRp")])
-	if err != nil {
-		return nil, err
-	}
-	clusterResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterResourceName")])
-	if err != nil {
-		return nil, err
-	}
-	clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
-	if err != nil {
-		return nil, err
-	}
 	sourceControlConfigurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sourceControlConfigurationName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, sourceControlConfigurationNameParam, body, nil)
+	respr, errRespr := s.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, sourceControlConfigurationNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -146,25 +134,13 @@ func (s *SourceControlConfigurationsServerTransport) dispatchBeginDelete(req *ht
 	}
 	beginDelete := s.beginDelete.get(req)
 	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations/(?P<sourceControlConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations/(?P<sourceControlConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 6 {
+		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		clusterRpParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterRp")])
-		if err != nil {
-			return nil, err
-		}
-		clusterResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterResourceName")])
-		if err != nil {
-			return nil, err
-		}
-		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
 		if err != nil {
 			return nil, err
 		}
@@ -172,7 +148,7 @@ func (s *SourceControlConfigurationsServerTransport) dispatchBeginDelete(req *ht
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, sourceControlConfigurationNameParam, nil)
+		respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, sourceControlConfigurationNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -185,9 +161,9 @@ func (s *SourceControlConfigurationsServerTransport) dispatchBeginDelete(req *ht
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		s.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		s.beginDelete.remove(req)
@@ -200,25 +176,13 @@ func (s *SourceControlConfigurationsServerTransport) dispatchGet(req *http.Reque
 	if s.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations/(?P<sourceControlConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations/(?P<sourceControlConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 6 {
+	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	clusterRpParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterRp")])
-	if err != nil {
-		return nil, err
-	}
-	clusterResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterResourceName")])
-	if err != nil {
-		return nil, err
-	}
-	clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
 	if err != nil {
 		return nil, err
 	}
@@ -226,7 +190,7 @@ func (s *SourceControlConfigurationsServerTransport) dispatchGet(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, sourceControlConfigurationNameParam, nil)
+	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, sourceControlConfigurationNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -241,51 +205,39 @@ func (s *SourceControlConfigurationsServerTransport) dispatchGet(req *http.Reque
 	return resp, nil
 }
 
-func (s *SourceControlConfigurationsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if s.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (s *SourceControlConfigurationsServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListByResourceGroupPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
 	}
-	newListPager := s.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations`
+	newListByResourceGroupPager := s.newListByResourceGroupPager.get(req)
+	if newListByResourceGroupPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/sourceControlConfigurations`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 5 {
+		if matches == nil || len(matches) < 2 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		clusterRpParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterRp")])
-		if err != nil {
-			return nil, err
-		}
-		clusterResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterResourceName")])
-		if err != nil {
-			return nil, err
-		}
-		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := s.srv.NewListPager(resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, nil)
-		newListPager = &resp
-		s.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armkubernetesconfiguration.SourceControlConfigurationsClientListResponse, createLink func() string) {
+		resp := s.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
+		newListByResourceGroupPager = &resp
+		s.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
+		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armkubernetesconfiguration.SourceControlConfigurationsClientListByResourceGroupResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		s.newListPager.remove(req)
+		s.newListByResourceGroupPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListPager) {
-		s.newListPager.remove(req)
+	if !server.PagerResponderMore(newListByResourceGroupPager) {
+		s.newListByResourceGroupPager.remove(req)
 	}
 	return resp, nil
 }

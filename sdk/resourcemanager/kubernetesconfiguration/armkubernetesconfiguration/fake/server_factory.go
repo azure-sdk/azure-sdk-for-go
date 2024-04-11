@@ -20,7 +20,6 @@ import (
 // ServerFactory is a fake server for instances of the armkubernetesconfiguration.ClientFactory type.
 type ServerFactory struct {
 	ExtensionsServer                  ExtensionsServer
-	FluxConfigOperationStatusServer   FluxConfigOperationStatusServer
 	FluxConfigurationsServer          FluxConfigurationsServer
 	OperationStatusServer             OperationStatusServer
 	OperationsServer                  OperationsServer
@@ -42,7 +41,6 @@ type ServerFactoryTransport struct {
 	srv                                 *ServerFactory
 	trMu                                sync.Mutex
 	trExtensionsServer                  *ExtensionsServerTransport
-	trFluxConfigOperationStatusServer   *FluxConfigOperationStatusServerTransport
 	trFluxConfigurationsServer          *FluxConfigurationsServerTransport
 	trOperationStatusServer             *OperationStatusServerTransport
 	trOperationsServer                  *OperationsServerTransport
@@ -65,11 +63,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ExtensionsClient":
 		initServer(s, &s.trExtensionsServer, func() *ExtensionsServerTransport { return NewExtensionsServerTransport(&s.srv.ExtensionsServer) })
 		resp, err = s.trExtensionsServer.Do(req)
-	case "FluxConfigOperationStatusClient":
-		initServer(s, &s.trFluxConfigOperationStatusServer, func() *FluxConfigOperationStatusServerTransport {
-			return NewFluxConfigOperationStatusServerTransport(&s.srv.FluxConfigOperationStatusServer)
-		})
-		resp, err = s.trFluxConfigOperationStatusServer.Do(req)
 	case "FluxConfigurationsClient":
 		initServer(s, &s.trFluxConfigurationsServer, func() *FluxConfigurationsServerTransport {
 			return NewFluxConfigurationsServerTransport(&s.srv.FluxConfigurationsServer)

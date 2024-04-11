@@ -9,14 +9,13 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,13 +23,9 @@ import (
 
 // OperationStatusServer is a fake server for instances of the armkubernetesconfiguration.OperationStatusClient type.
 type OperationStatusServer struct {
-	// Get is the fake for method OperationStatusClient.Get
+	// NewListByResourceGroupPager is the fake for method OperationStatusClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, operationID string, options *armkubernetesconfiguration.OperationStatusClientGetOptions) (resp azfake.Responder[armkubernetesconfiguration.OperationStatusClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method OperationStatusClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *armkubernetesconfiguration.OperationStatusClientListOptions) (resp azfake.PagerResponder[armkubernetesconfiguration.OperationStatusClientListResponse])
+	NewListByResourceGroupPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *armkubernetesconfiguration.OperationStatusClientListByResourceGroupOptions) (resp azfake.PagerResponder[armkubernetesconfiguration.OperationStatusClientListByResourceGroupResponse])
 }
 
 // NewOperationStatusServerTransport creates a new instance of OperationStatusServerTransport with the provided implementation.
@@ -38,16 +33,16 @@ type OperationStatusServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewOperationStatusServerTransport(srv *OperationStatusServer) *OperationStatusServerTransport {
 	return &OperationStatusServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armkubernetesconfiguration.OperationStatusClientListResponse]](),
+		srv:                         srv,
+		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armkubernetesconfiguration.OperationStatusClientListByResourceGroupResponse]](),
 	}
 }
 
 // OperationStatusServerTransport connects instances of armkubernetesconfiguration.OperationStatusClient to instances of OperationStatusServer.
 // Don't use this type directly, use NewOperationStatusServerTransport instead.
 type OperationStatusServerTransport struct {
-	srv          *OperationStatusServer
-	newListPager *tracker[azfake.PagerResponder[armkubernetesconfiguration.OperationStatusClientListResponse]]
+	srv                         *OperationStatusServer
+	newListByResourceGroupPager *tracker[azfake.PagerResponder[armkubernetesconfiguration.OperationStatusClientListByResourceGroupResponse]]
 }
 
 // Do implements the policy.Transporter interface for OperationStatusServerTransport.
@@ -62,10 +57,8 @@ func (o *OperationStatusServerTransport) Do(req *http.Request) (*http.Response, 
 	var err error
 
 	switch method {
-	case "OperationStatusClient.Get":
-		resp, err = o.dispatchGet(req)
-	case "OperationStatusClient.NewListPager":
-		resp, err = o.dispatchNewListPager(req)
+	case "OperationStatusClient.NewListByResourceGroupPager":
+		resp, err = o.dispatchNewListByResourceGroupPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -77,62 +70,13 @@ func (o *OperationStatusServerTransport) Do(req *http.Request) (*http.Response, 
 	return resp, nil
 }
 
-func (o *OperationStatusServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if o.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
+func (o *OperationStatusServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
+	if o.srv.NewListByResourceGroupPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/extensions/(?P<extensionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/operations/(?P<operationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 7 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	clusterRpParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterRp")])
-	if err != nil {
-		return nil, err
-	}
-	clusterResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterResourceName")])
-	if err != nil {
-		return nil, err
-	}
-	clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
-	if err != nil {
-		return nil, err
-	}
-	extensionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("extensionName")])
-	if err != nil {
-		return nil, err
-	}
-	operationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("operationId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := o.srv.Get(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, extensionNameParam, operationIDParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OperationStatusResult, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (o *OperationStatusServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if o.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := o.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/operations`
+	newListByResourceGroupPager := o.newListByResourceGroupPager.get(req)
+	if newListByResourceGroupPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/provider/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/operations`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 5 {
@@ -154,23 +98,23 @@ func (o *OperationStatusServerTransport) dispatchNewListPager(req *http.Request)
 		if err != nil {
 			return nil, err
 		}
-		resp := o.srv.NewListPager(resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, nil)
-		newListPager = &resp
-		o.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armkubernetesconfiguration.OperationStatusClientListResponse, createLink func() string) {
+		resp := o.srv.NewListByResourceGroupPager(resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, nil)
+		newListByResourceGroupPager = &resp
+		o.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
+		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armkubernetesconfiguration.OperationStatusClientListByResourceGroupResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		o.newListPager.remove(req)
+		o.newListByResourceGroupPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListPager) {
-		o.newListPager.remove(req)
+	if !server.PagerResponderMore(newListByResourceGroupPager) {
+		o.newListByResourceGroupPager.remove(req)
 	}
 	return resp, nil
 }

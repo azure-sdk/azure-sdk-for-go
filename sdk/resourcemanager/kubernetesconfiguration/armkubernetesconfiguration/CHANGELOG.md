@@ -1,5 +1,77 @@
 # Release History
 
+## 3.0.0-beta.1 (2024-04-11)
+### Breaking Changes
+
+- Function `*SourceControlConfigurationsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, string, string, *SourceControlConfigurationsClientBeginDeleteOptions)` to `(context.Context, string, string, *SourceControlConfigurationsClientBeginDeleteOptions)`
+- Function `*SourceControlConfigurationsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, string, SourceControlConfiguration, *SourceControlConfigurationsClientCreateOrUpdateOptions)` to `(context.Context, string, string, SourceControlConfiguration, *SourceControlConfigurationsClientCreateOrUpdateOptions)`
+- Function `*SourceControlConfigurationsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, string, *SourceControlConfigurationsClientGetOptions)` to `(context.Context, string, string, *SourceControlConfigurationsClientGetOptions)`
+- Type of `Extension.Identity` has been changed from `*Identity` to `*ManagedServiceIdentity`
+- `OperatorScopeTypeNamespace` from enum `OperatorScopeType` has been removed
+- `ScopeTypeNamespace` from enum `ScopeType` has been removed
+- Function `*ClientFactory.NewFluxConfigOperationStatusClient` has been removed
+- Function `*ExtensionsClient.NewListPager` has been removed
+- Function `NewFluxConfigOperationStatusClient` has been removed
+- Function `*FluxConfigOperationStatusClient.Get` has been removed
+- Function `*FluxConfigurationsClient.BeginCreateOrUpdate` has been removed
+- Function `*FluxConfigurationsClient.NewListPager` has been removed
+- Function `*OperationStatusClient.Get` has been removed
+- Function `*OperationStatusClient.NewListPager` has been removed
+- Function `*SourceControlConfigurationsClient.NewListPager` has been removed
+- Operation `*ExtensionsClient.BeginUpdate` has been changed to non-LRO, use `*ExtensionsClient.Update` instead.
+- Operation `*FluxConfigurationsClient.BeginUpdate` has been changed to non-LRO, use `*FluxConfigurationsClient.Update` instead.
+- Struct `ExtensionsList` has been removed
+- Struct `FluxConfigurationsList` has been removed
+- Struct `OperationStatusList` has been removed
+- Struct `OperationStatusResult` has been removed
+- Struct `ResourceProviderOperation` has been removed
+- Struct `ResourceProviderOperationDisplay` has been removed
+- Struct `ResourceProviderOperationList` has been removed
+- Struct `SourceControlConfigurationList` has been removed
+- Field `ReconciliationWaitDuration` of struct `FluxConfigurationProperties` has been removed
+- Field `ResourceProviderOperationList` of struct `OperationsClientListResponse` has been removed
+
+### Features Added
+
+- New value `OperatorScopeTypeNameSpace` added to enum type `OperatorScopeType`
+- New value `ProvisioningStateTypeCanceled` added to enum type `ProvisioningStateType`
+- New value `ScopeTypeNameSpace` added to enum type `ScopeType`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `ResourceProvisioningState` with values `ResourceProvisioningStateCanceled`, `ResourceProvisioningStateFailed`, `ResourceProvisioningStateSucceeded`
+- New enum type `Versions` with values `VersionsV20240601Preview`
+- New function `*ExtensionsClient.NewListByResourceGroupPager(string, string, string, string, *ExtensionsClientListByResourceGroupOptions) *runtime.Pager[ExtensionsClientListByResourceGroupResponse]`
+- New function `*ExtensionsClient.OperationStatus(context.Context, string, string, string, string, string, string, any, *ExtensionsClientOperationStatusOptions) (ExtensionsClientOperationStatusResponse, error)`
+- New function `*FluxConfigurationsClient.BeginCreate(context.Context, string, string, string, string, string, FluxConfiguration, *FluxConfigurationsClientBeginCreateOptions) (*runtime.Poller[FluxConfigurationsClientCreateResponse], error)`
+- New function `*FluxConfigurationsClient.NewListByResourceGroupPager(string, string, string, string, *FluxConfigurationsClientListByResourceGroupOptions) *runtime.Pager[FluxConfigurationsClientListByResourceGroupResponse]`
+- New function `*FluxConfigurationsClient.OperationStatus(context.Context, string, string, string, string, string, string, any, *FluxConfigurationsClientOperationStatusOptions) (FluxConfigurationsClientOperationStatusResponse, error)`
+- New function `*OperationStatusClient.NewListByResourceGroupPager(string, string, string, string, *OperationStatusClientListByResourceGroupOptions) *runtime.Pager[OperationStatusClientListByResourceGroupResponse]`
+- New function `*SourceControlConfigurationsClient.NewListByResourceGroupPager(string, *SourceControlConfigurationsClientListByResourceGroupOptions) *runtime.Pager[SourceControlConfigurationsClientListByResourceGroupResponse]`
+- New struct `ExtensionListResult`
+- New struct `ExtensionUpdate`
+- New struct `ExtensionUpdateProperties`
+- New struct `FluxConfigurationListResult`
+- New struct `FluxConfigurationUpdate`
+- New struct `FluxConfigurationUpdateProperties`
+- New struct `ManagedServiceIdentity`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `OperationListResult`
+- New struct `OperationModel`
+- New struct `OperationModelListResult`
+- New struct `OperationsParameter`
+- New struct `Paths1B0Hq6PSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationExtensionsExtensionnameOperationsOperationidGetResponses200ContentApplicationJSONSchema`
+- New struct `PathsT3WamfSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationFluxconfigurationsFluxconfigurationnameOperationsOperationidGetResponses200ContentApplicationJSONSchema`
+- New struct `SourceControlConfigurationListResult`
+- New struct `UserAssignedIdentity`
+- New field `AutoUpgradeChannel` in struct `ExtensionProperties`
+- New field `ReconciliationWait` in struct `FluxConfigurationProperties`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 

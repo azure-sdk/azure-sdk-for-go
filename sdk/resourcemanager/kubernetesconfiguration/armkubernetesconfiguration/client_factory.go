@@ -17,58 +17,60 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewExtensionsClient creates a new instance of ExtensionsClient.
 func (c *ClientFactory) NewExtensionsClient() *ExtensionsClient {
-	subClient, _ := NewExtensionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewFluxConfigOperationStatusClient creates a new instance of FluxConfigOperationStatusClient.
-func (c *ClientFactory) NewFluxConfigOperationStatusClient() *FluxConfigOperationStatusClient {
-	subClient, _ := NewFluxConfigOperationStatusClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ExtensionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewFluxConfigurationsClient creates a new instance of FluxConfigurationsClient.
 func (c *ClientFactory) NewFluxConfigurationsClient() *FluxConfigurationsClient {
-	subClient, _ := NewFluxConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &FluxConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationStatusClient creates a new instance of OperationStatusClient.
 func (c *ClientFactory) NewOperationStatusClient() *OperationStatusClient {
-	subClient, _ := NewOperationStatusClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &OperationStatusClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewSourceControlConfigurationsClient creates a new instance of SourceControlConfigurationsClient.
 func (c *ClientFactory) NewSourceControlConfigurationsClient() *SourceControlConfigurationsClient {
-	subClient, _ := NewSourceControlConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SourceControlConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }

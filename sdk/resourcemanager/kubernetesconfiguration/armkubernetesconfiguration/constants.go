@@ -10,15 +10,17 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
 
-// AKSIdentityType - The identity type.
+// AKSIdentityType - IdentityType Enum
 type AKSIdentityType string
 
 const (
+	// AKSIdentityTypeSystemAssigned - System Assigned Identity
 	AKSIdentityTypeSystemAssigned AKSIdentityType = "SystemAssigned"
-	AKSIdentityTypeUserAssigned   AKSIdentityType = "UserAssigned"
+	// AKSIdentityTypeUserAssigned - User Assigned Identity
+	AKSIdentityTypeUserAssigned AKSIdentityType = "UserAssigned"
 )
 
 // PossibleAKSIdentityTypeValues returns the possible values for the AKSIdentityType const type.
@@ -26,6 +28,20 @@ func PossibleAKSIdentityTypeValues() []AKSIdentityType {
 	return []AKSIdentityType{
 		AKSIdentityTypeSystemAssigned,
 		AKSIdentityTypeUserAssigned,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
@@ -75,11 +91,16 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 type FluxComplianceState string
 
 const (
-	FluxComplianceStateCompliant    FluxComplianceState = "Compliant"
+	// FluxComplianceStateCompliant - Compliant
+	FluxComplianceStateCompliant FluxComplianceState = "Compliant"
+	// FluxComplianceStateNonCompliant - Non-Compliant
 	FluxComplianceStateNonCompliant FluxComplianceState = "Non-Compliant"
-	FluxComplianceStatePending      FluxComplianceState = "Pending"
-	FluxComplianceStateSuspended    FluxComplianceState = "Suspended"
-	FluxComplianceStateUnknown      FluxComplianceState = "Unknown"
+	// FluxComplianceStatePending - Pending
+	FluxComplianceStatePending FluxComplianceState = "Pending"
+	// FluxComplianceStateSuspended - Suspended
+	FluxComplianceStateSuspended FluxComplianceState = "Suspended"
+	// FluxComplianceStateUnknown - Unknown
+	FluxComplianceStateUnknown FluxComplianceState = "Unknown"
 )
 
 // PossibleFluxComplianceStateValues returns the possible values for the FluxComplianceState const type.
@@ -98,8 +119,11 @@ func PossibleFluxComplianceStateValues() []FluxComplianceState {
 type KustomizationValidationType string
 
 const (
+	// KustomizationValidationTypeClient - client side validation
 	KustomizationValidationTypeClient KustomizationValidationType = "client"
-	KustomizationValidationTypeNone   KustomizationValidationType = "none"
+	// KustomizationValidationTypeNone - No validation
+	KustomizationValidationTypeNone KustomizationValidationType = "none"
+	// KustomizationValidationTypeServer - server side validation
 	KustomizationValidationTypeServer KustomizationValidationType = "server"
 )
 
@@ -116,9 +140,12 @@ func PossibleKustomizationValidationTypeValues() []KustomizationValidationType {
 type LevelType string
 
 const (
-	LevelTypeError       LevelType = "Error"
+	// LevelTypeError - Error
+	LevelTypeError LevelType = "Error"
+	// LevelTypeInformation - Information
 	LevelTypeInformation LevelType = "Information"
-	LevelTypeWarning     LevelType = "Warning"
+	// LevelTypeWarning - Warning
+	LevelTypeWarning LevelType = "Warning"
 )
 
 // PossibleLevelTypeValues returns the possible values for the LevelType const type.
@@ -130,13 +157,36 @@ func PossibleLevelTypeValues() []LevelType {
 	}
 }
 
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
 // MessageLevelType - Level of the message.
 type MessageLevelType string
 
 const (
-	MessageLevelTypeError       MessageLevelType = "Error"
+	// MessageLevelTypeError - Message level : Error
+	MessageLevelTypeError MessageLevelType = "Error"
+	// MessageLevelTypeInformation - Message level : Information
 	MessageLevelTypeInformation MessageLevelType = "Information"
-	MessageLevelTypeWarning     MessageLevelType = "Warning"
+	// MessageLevelTypeWarning - Message level : Warning
+	MessageLevelTypeWarning MessageLevelType = "Warning"
 )
 
 // PossibleMessageLevelTypeValues returns the possible values for the MessageLevelType const type.
@@ -153,14 +203,14 @@ type OperatorScopeType string
 
 const (
 	OperatorScopeTypeCluster   OperatorScopeType = "cluster"
-	OperatorScopeTypeNamespace OperatorScopeType = "namespace"
+	OperatorScopeTypeNameSpace OperatorScopeType = "namespace"
 )
 
 // PossibleOperatorScopeTypeValues returns the possible values for the OperatorScopeType const type.
 func PossibleOperatorScopeTypeValues() []OperatorScopeType {
 	return []OperatorScopeType{
 		OperatorScopeTypeCluster,
-		OperatorScopeTypeNamespace,
+		OperatorScopeTypeNameSpace,
 	}
 }
 
@@ -178,16 +228,41 @@ func PossibleOperatorTypeValues() []OperatorType {
 	}
 }
 
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
 // ProvisioningState - The provisioning state of the resource.
 type ProvisioningState string
 
 const (
-	ProvisioningStateCanceled  ProvisioningState = "Canceled"
-	ProvisioningStateCreating  ProvisioningState = "Creating"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
+	// ProvisioningStateCanceled - Canceled
+	ProvisioningStateCanceled ProvisioningState = "Canceled"
+	// ProvisioningStateCreating - Creating
+	ProvisioningStateCreating ProvisioningState = "Creating"
+	// ProvisioningStateDeleting - Deleting
+	ProvisioningStateDeleting ProvisioningState = "Deleting"
+	// ProvisioningStateFailed - Failed
+	ProvisioningStateFailed ProvisioningState = "Failed"
+	// ProvisioningStateSucceeded - Succeeded
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	ProvisioningStateUpdating  ProvisioningState = "Updating"
+	// ProvisioningStateUpdating - Updating
+	ProvisioningStateUpdating ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
@@ -207,6 +282,7 @@ type ProvisioningStateType string
 
 const (
 	ProvisioningStateTypeAccepted  ProvisioningStateType = "Accepted"
+	ProvisioningStateTypeCanceled  ProvisioningStateType = "Canceled"
 	ProvisioningStateTypeDeleting  ProvisioningStateType = "Deleting"
 	ProvisioningStateTypeFailed    ProvisioningStateType = "Failed"
 	ProvisioningStateTypeRunning   ProvisioningStateType = "Running"
@@ -217,6 +293,7 @@ const (
 func PossibleProvisioningStateTypeValues() []ProvisioningStateType {
 	return []ProvisioningStateType{
 		ProvisioningStateTypeAccepted,
+		ProvisioningStateTypeCanceled,
 		ProvisioningStateTypeDeleting,
 		ProvisioningStateTypeFailed,
 		ProvisioningStateTypeRunning,
@@ -224,19 +301,42 @@ func PossibleProvisioningStateTypeValues() []ProvisioningStateType {
 	}
 }
 
-// ScopeType - Scope at which the configuration will be installed.
+// ResourceProvisioningState - The provisioning state of a resource type.
+type ResourceProvisioningState string
+
+const (
+	// ResourceProvisioningStateCanceled - Resource creation was canceled.
+	ResourceProvisioningStateCanceled ResourceProvisioningState = "Canceled"
+	// ResourceProvisioningStateFailed - Resource creation failed.
+	ResourceProvisioningStateFailed ResourceProvisioningState = "Failed"
+	// ResourceProvisioningStateSucceeded - Resource has been created.
+	ResourceProvisioningStateSucceeded ResourceProvisioningState = "Succeeded"
+)
+
+// PossibleResourceProvisioningStateValues returns the possible values for the ResourceProvisioningState const type.
+func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
+	return []ResourceProvisioningState{
+		ResourceProvisioningStateCanceled,
+		ResourceProvisioningStateFailed,
+		ResourceProvisioningStateSucceeded,
+	}
+}
+
+// ScopeType - Scope at which the operator will be installed.
 type ScopeType string
 
 const (
-	ScopeTypeCluster   ScopeType = "cluster"
-	ScopeTypeNamespace ScopeType = "namespace"
+	// ScopeTypeCluster - cluster
+	ScopeTypeCluster ScopeType = "cluster"
+	// ScopeTypeNameSpace - namespace
+	ScopeTypeNameSpace ScopeType = "namespace"
 )
 
 // PossibleScopeTypeValues returns the possible values for the ScopeType const type.
 func PossibleScopeTypeValues() []ScopeType {
 	return []ScopeType{
 		ScopeTypeCluster,
-		ScopeTypeNamespace,
+		ScopeTypeNameSpace,
 	}
 }
 
@@ -244,8 +344,11 @@ func PossibleScopeTypeValues() []ScopeType {
 type SourceKindType string
 
 const (
-	SourceKindTypeAzureBlob     SourceKindType = "AzureBlob"
-	SourceKindTypeBucket        SourceKindType = "Bucket"
+	// SourceKindTypeAzureBlob - AzureBlob
+	SourceKindTypeAzureBlob SourceKindType = "AzureBlob"
+	// SourceKindTypeBucket - Bucket
+	SourceKindTypeBucket SourceKindType = "Bucket"
+	// SourceKindTypeGitRepository - GitRepository
 	SourceKindTypeGitRepository SourceKindType = "GitRepository"
 )
 
@@ -255,5 +358,20 @@ func PossibleSourceKindTypeValues() []SourceKindType {
 		SourceKindTypeAzureBlob,
 		SourceKindTypeBucket,
 		SourceKindTypeGitRepository,
+	}
+}
+
+// Versions - The available API versions.
+type Versions string
+
+const (
+	// VersionsV20240601Preview - The 2024-06-01 API version.
+	VersionsV20240601Preview Versions = "2024-06-01-preview"
+)
+
+// PossibleVersionsValues returns the possible values for the Versions const type.
+func PossibleVersionsValues() []Versions {
+	return []Versions{
+		VersionsV20240601Preview,
 	}
 }

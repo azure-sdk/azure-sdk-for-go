@@ -29,7 +29,7 @@ type ExtensionsClient struct {
 }
 
 // NewExtensionsClient creates a new instance of ExtensionsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewExtensionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExtensionsClient, error) {
@@ -47,17 +47,17 @@ func NewExtensionsClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreate - Create a new Kubernetes Cluster Extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - extensionName - Name of the Extension.
-//   - extension - Properties necessary to Create an Extension.
+//   - resource - Properties necessary to Create an Extension.
 //   - options - ExtensionsClientBeginCreateOptions contains the optional parameters for the ExtensionsClient.BeginCreate method.
-func (client *ExtensionsClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, extension Extension, options *ExtensionsClientBeginCreateOptions) (*runtime.Poller[ExtensionsClientCreateResponse], error) {
+func (client *ExtensionsClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, resource Extension, options *ExtensionsClientBeginCreateOptions) (*runtime.Poller[ExtensionsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, extension, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -76,14 +76,14 @@ func (client *ExtensionsClient) BeginCreate(ctx context.Context, resourceGroupNa
 // Create - Create a new Kubernetes Cluster Extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
-func (client *ExtensionsClient) create(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, extension Extension, options *ExtensionsClientBeginCreateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01-preview
+func (client *ExtensionsClient) create(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, resource Extension, options *ExtensionsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ExtensionsClient.BeginCreate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, extension, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +99,8 @@ func (client *ExtensionsClient) create(ctx context.Context, resourceGroupName st
 }
 
 // createCreateRequest creates the Create request.
-func (client *ExtensionsClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, extension Extension, options *ExtensionsClientBeginCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
+func (client *ExtensionsClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, resource Extension, options *ExtensionsClientBeginCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -130,10 +130,10 @@ func (client *ExtensionsClient) createCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, extension); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -142,11 +142,11 @@ func (client *ExtensionsClient) createCreateRequest(ctx context.Context, resourc
 // BeginDelete - Delete a Kubernetes Cluster Extension. This will cause the Agent to Uninstall the extension from the cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - extensionName - Name of the Extension.
 //   - options - ExtensionsClientBeginDeleteOptions contains the optional parameters for the ExtensionsClient.BeginDelete method.
 func (client *ExtensionsClient) BeginDelete(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, options *ExtensionsClientBeginDeleteOptions) (*runtime.Poller[ExtensionsClientDeleteResponse], error) {
@@ -156,7 +156,7 @@ func (client *ExtensionsClient) BeginDelete(ctx context.Context, resourceGroupNa
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ExtensionsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
@@ -170,7 +170,7 @@ func (client *ExtensionsClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Delete a Kubernetes Cluster Extension. This will cause the Agent to Uninstall the extension from the cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 func (client *ExtensionsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, options *ExtensionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ExtensionsClient.BeginDelete"
@@ -185,7 +185,7 @@ func (client *ExtensionsClient) deleteOperation(ctx context.Context, resourceGro
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -194,7 +194,7 @@ func (client *ExtensionsClient) deleteOperation(ctx context.Context, resourceGro
 
 // deleteCreateRequest creates the Delete request.
 func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, options *ExtensionsClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -224,7 +224,7 @@ func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	if options != nil && options.ForceDelete != nil {
 		reqQP.Set("forceDelete", strconv.FormatBool(*options.ForceDelete))
 	}
@@ -236,11 +236,11 @@ func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets Kubernetes Cluster Extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - extensionName - Name of the Extension.
 //   - options - ExtensionsClientGetOptions contains the optional parameters for the ExtensionsClient.Get method.
 func (client *ExtensionsClient) Get(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, options *ExtensionsClientGetOptions) (ExtensionsClientGetResponse, error) {
@@ -267,7 +267,7 @@ func (client *ExtensionsClient) Get(ctx context.Context, resourceGroupName strin
 
 // getCreateRequest creates the Get request.
 func (client *ExtensionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, options *ExtensionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -297,7 +297,7 @@ func (client *ExtensionsClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,40 +312,41 @@ func (client *ExtensionsClient) getHandleResponse(resp *http.Response) (Extensio
 	return result, nil
 }
 
-// NewListPager - List all Extensions in the cluster.
+// NewListByResourceGroupPager - List all Extensions in the cluster.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
-//   - options - ExtensionsClientListOptions contains the optional parameters for the ExtensionsClient.NewListPager method.
-func (client *ExtensionsClient) NewListPager(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *ExtensionsClientListOptions) *runtime.Pager[ExtensionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ExtensionsClientListResponse]{
-		More: func(page ExtensionsClientListResponse) bool {
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
+//   - options - ExtensionsClientListByResourceGroupOptions contains the optional parameters for the ExtensionsClient.NewListByResourceGroupPager
+//     method.
+func (client *ExtensionsClient) NewListByResourceGroupPager(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *ExtensionsClientListByResourceGroupOptions) *runtime.Pager[ExtensionsClientListByResourceGroupResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ExtensionsClientListByResourceGroupResponse]{
+		More: func(page ExtensionsClientListByResourceGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ExtensionsClientListResponse) (ExtensionsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ExtensionsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ExtensionsClientListByResourceGroupResponse) (ExtensionsClientListByResourceGroupResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ExtensionsClient.NewListByResourceGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, options)
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, options)
 			}, nil)
 			if err != nil {
-				return ExtensionsClientListResponse{}, err
+				return ExtensionsClientListByResourceGroupResponse{}, err
 			}
-			return client.listHandleResponse(resp)
+			return client.listByResourceGroupHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *ExtensionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *ExtensionsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions"
+// listByResourceGroupCreateRequest creates the ListByResourceGroup request.
+func (client *ExtensionsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *ExtensionsClientListByResourceGroupOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -371,78 +372,145 @@ func (client *ExtensionsClient) listCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *ExtensionsClient) listHandleResponse(resp *http.Response) (ExtensionsClientListResponse, error) {
-	result := ExtensionsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ExtensionsList); err != nil {
-		return ExtensionsClientListResponse{}, err
+// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
+func (client *ExtensionsClient) listByResourceGroupHandleResponse(resp *http.Response) (ExtensionsClientListByResourceGroupResponse, error) {
+	result := ExtensionsClientListByResourceGroupResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ExtensionListResult); err != nil {
+		return ExtensionsClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
 }
 
-// BeginUpdate - Patch an existing Kubernetes Cluster Extension.
+// OperationStatus - Get Async Operation status
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - extensionName - Name of the Extension.
-//   - patchExtension - Properties to Patch in an existing Extension.
-//   - options - ExtensionsClientBeginUpdateOptions contains the optional parameters for the ExtensionsClient.BeginUpdate method.
-func (client *ExtensionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, patchExtension PatchExtension, options *ExtensionsClientBeginUpdateOptions) (*runtime.Poller[ExtensionsClientUpdateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, patchExtension, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ExtensionsClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ExtensionsClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
-		})
+//   - operationID - operationId value
+//   - options - ExtensionsClientOperationStatusOptions contains the optional parameters for the ExtensionsClient.OperationStatus
+//     method.
+func (client *ExtensionsClient) OperationStatus(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, operationID string, body any, options *ExtensionsClientOperationStatusOptions) (ExtensionsClientOperationStatusResponse, error) {
+	var err error
+	const operationName = "ExtensionsClient.OperationStatus"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.operationStatusCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, operationID, body, options)
+	if err != nil {
+		return ExtensionsClientOperationStatusResponse{}, err
 	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ExtensionsClientOperationStatusResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ExtensionsClientOperationStatusResponse{}, err
+	}
+	resp, err := client.operationStatusHandleResponse(httpResp)
+	return resp, err
+}
+
+// operationStatusCreateRequest creates the OperationStatus request.
+func (client *ExtensionsClient) operationStatusCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, operationID string, body any, options *ExtensionsClientOperationStatusOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}/operations/{operationId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterRp == "" {
+		return nil, errors.New("parameter clusterRp cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterRp}", url.PathEscape(clusterRp))
+	if clusterResourceName == "" {
+		return nil, errors.New("parameter clusterResourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterResourceName}", url.PathEscape(clusterResourceName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if extensionName == "" {
+		return nil, errors.New("parameter extensionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{extensionName}", url.PathEscape(extensionName))
+	if operationID == "" {
+		return nil, errors.New("parameter operationID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{operationId}", url.PathEscape(operationID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// operationStatusHandleResponse handles the OperationStatus response.
+func (client *ExtensionsClient) operationStatusHandleResponse(resp *http.Response) (ExtensionsClientOperationStatusResponse, error) {
+	result := ExtensionsClientOperationStatusResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Paths1B0Hq6PSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationExtensionsExtensionnameOperationsOperationidGetResponses200ContentApplicationJSONSchema); err != nil {
+		return ExtensionsClientOperationStatusResponse{}, err
+	}
+	return result, nil
 }
 
 // Update - Patch an existing Kubernetes Cluster Extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
-func (client *ExtensionsClient) update(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, patchExtension PatchExtension, options *ExtensionsClientBeginUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
+//   - extensionName - Name of the Extension.
+//   - properties - Properties to Patch in an existing Extension.
+//   - options - ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
+func (client *ExtensionsClient) Update(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, properties ExtensionUpdate, options *ExtensionsClientUpdateOptions) (ExtensionsClientUpdateResponse, error) {
 	var err error
-	const operationName = "ExtensionsClient.BeginUpdate"
+	const operationName = "ExtensionsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, patchExtension, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, extensionName, properties, options)
 	if err != nil {
-		return nil, err
+		return ExtensionsClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return ExtensionsClientUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return ExtensionsClientUpdateResponse{}, err
 	}
-	return httpResp, nil
+	resp, err := client.updateHandleResponse(httpResp)
+	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ExtensionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, patchExtension PatchExtension, options *ExtensionsClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
+func (client *ExtensionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, extensionName string, properties ExtensionUpdate, options *ExtensionsClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/extensions/{extensionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -472,11 +540,20 @@ func (client *ExtensionsClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, patchExtension); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil
+}
+
+// updateHandleResponse handles the Update response.
+func (client *ExtensionsClient) updateHandleResponse(resp *http.Response) (ExtensionsClientUpdateResponse, error) {
+	result := ExtensionsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Extension); err != nil {
+		return ExtensionsClientUpdateResponse{}, err
+	}
+	return result, nil
 }

@@ -25,27 +25,26 @@ type ExtensionsClientGetResponse struct {
 	Extension
 }
 
-// ExtensionsClientListResponse contains the response from method ExtensionsClient.NewListPager.
-type ExtensionsClientListResponse struct {
-	// Result of the request to list Extensions. It contains a list of Extension objects and a URL link to get the next set of
-	// results.
-	ExtensionsList
+// ExtensionsClientListByResourceGroupResponse contains the response from method ExtensionsClient.NewListByResourceGroupPager.
+type ExtensionsClientListByResourceGroupResponse struct {
+	// The response of a Extension list operation.
+	ExtensionListResult
 }
 
-// ExtensionsClientUpdateResponse contains the response from method ExtensionsClient.BeginUpdate.
+// ExtensionsClientOperationStatusResponse contains the response from method ExtensionsClient.OperationStatus.
+type ExtensionsClientOperationStatusResponse struct {
+	// Standard Azure Resource Manager operation status response
+	Paths1B0Hq6PSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationExtensionsExtensionnameOperationsOperationidGetResponses200ContentApplicationJSONSchema
+}
+
+// ExtensionsClientUpdateResponse contains the response from method ExtensionsClient.Update.
 type ExtensionsClientUpdateResponse struct {
 	// The Extension object.
 	Extension
 }
 
-// FluxConfigOperationStatusClientGetResponse contains the response from method FluxConfigOperationStatusClient.Get.
-type FluxConfigOperationStatusClientGetResponse struct {
-	// The current status of an async operation.
-	OperationStatusResult
-}
-
-// FluxConfigurationsClientCreateOrUpdateResponse contains the response from method FluxConfigurationsClient.BeginCreateOrUpdate.
-type FluxConfigurationsClientCreateOrUpdateResponse struct {
+// FluxConfigurationsClientCreateResponse contains the response from method FluxConfigurationsClient.BeginCreate.
+type FluxConfigurationsClientCreateResponse struct {
 	// The Flux Configuration object returned in Get & Put response.
 	FluxConfiguration
 }
@@ -61,35 +60,34 @@ type FluxConfigurationsClientGetResponse struct {
 	FluxConfiguration
 }
 
-// FluxConfigurationsClientListResponse contains the response from method FluxConfigurationsClient.NewListPager.
-type FluxConfigurationsClientListResponse struct {
-	// Result of the request to list Flux Configurations. It contains a list of FluxConfiguration objects and a URL link to get
-	// the next set of results.
-	FluxConfigurationsList
+// FluxConfigurationsClientListByResourceGroupResponse contains the response from method FluxConfigurationsClient.NewListByResourceGroupPager.
+type FluxConfigurationsClientListByResourceGroupResponse struct {
+	// The response of a FluxConfiguration list operation.
+	FluxConfigurationListResult
 }
 
-// FluxConfigurationsClientUpdateResponse contains the response from method FluxConfigurationsClient.BeginUpdate.
+// FluxConfigurationsClientOperationStatusResponse contains the response from method FluxConfigurationsClient.OperationStatus.
+type FluxConfigurationsClientOperationStatusResponse struct {
+	// Standard Azure Resource Manager operation status response
+	PathsT3WamfSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationFluxconfigurationsFluxconfigurationnameOperationsOperationidGetResponses200ContentApplicationJSONSchema
+}
+
+// FluxConfigurationsClientUpdateResponse contains the response from method FluxConfigurationsClient.Update.
 type FluxConfigurationsClientUpdateResponse struct {
 	// The Flux Configuration object returned in Get & Put response.
 	FluxConfiguration
 }
 
-// OperationStatusClientGetResponse contains the response from method OperationStatusClient.Get.
-type OperationStatusClientGetResponse struct {
-	// The current status of an async operation.
-	OperationStatusResult
-}
-
-// OperationStatusClientListResponse contains the response from method OperationStatusClient.NewListPager.
-type OperationStatusClientListResponse struct {
-	// The async operations in progress, in the cluster.
-	OperationStatusList
+// OperationStatusClientListByResourceGroupResponse contains the response from method OperationStatusClient.NewListByResourceGroupPager.
+type OperationStatusClientListByResourceGroupResponse struct {
+	// The response of a OperationModel list operation.
+	OperationModelListResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Result of the request to list operations.
-	ResourceProviderOperationList
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
 // SourceControlConfigurationsClientCreateOrUpdateResponse contains the response from method SourceControlConfigurationsClient.CreateOrUpdate.
@@ -109,9 +107,8 @@ type SourceControlConfigurationsClientGetResponse struct {
 	SourceControlConfiguration
 }
 
-// SourceControlConfigurationsClientListResponse contains the response from method SourceControlConfigurationsClient.NewListPager.
-type SourceControlConfigurationsClientListResponse struct {
-	// Result of the request to list Source Control Configurations. It contains a list of SourceControlConfiguration objects and
-	// a URL link to get the next set of results.
-	SourceControlConfigurationList
+// SourceControlConfigurationsClientListByResourceGroupResponse contains the response from method SourceControlConfigurationsClient.NewListByResourceGroupPager.
+type SourceControlConfigurationsClientListByResourceGroupResponse struct {
+	// The response of a SourceControlConfiguration list operation.
+	SourceControlConfigurationListResult
 }

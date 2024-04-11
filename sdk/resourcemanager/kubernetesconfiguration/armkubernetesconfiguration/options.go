@@ -23,31 +23,30 @@ type ExtensionsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// ExtensionsClientBeginUpdateOptions contains the optional parameters for the ExtensionsClient.BeginUpdate method.
-type ExtensionsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ExtensionsClientGetOptions contains the optional parameters for the ExtensionsClient.Get method.
 type ExtensionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ExtensionsClientListOptions contains the optional parameters for the ExtensionsClient.NewListPager method.
-type ExtensionsClientListOptions struct {
+// ExtensionsClientListByResourceGroupOptions contains the optional parameters for the ExtensionsClient.NewListByResourceGroupPager
+// method.
+type ExtensionsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FluxConfigOperationStatusClientGetOptions contains the optional parameters for the FluxConfigOperationStatusClient.Get
-// method.
-type FluxConfigOperationStatusClientGetOptions struct {
+// ExtensionsClientOperationStatusOptions contains the optional parameters for the ExtensionsClient.OperationStatus method.
+type ExtensionsClientOperationStatusOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FluxConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the FluxConfigurationsClient.BeginCreateOrUpdate
+// ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
+type ExtensionsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FluxConfigurationsClientBeginCreateOptions contains the optional parameters for the FluxConfigurationsClient.BeginCreate
 // method.
-type FluxConfigurationsClientBeginCreateOrUpdateOptions struct {
+type FluxConfigurationsClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -62,30 +61,31 @@ type FluxConfigurationsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// FluxConfigurationsClientBeginUpdateOptions contains the optional parameters for the FluxConfigurationsClient.BeginUpdate
-// method.
-type FluxConfigurationsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // FluxConfigurationsClientGetOptions contains the optional parameters for the FluxConfigurationsClient.Get method.
 type FluxConfigurationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FluxConfigurationsClientListOptions contains the optional parameters for the FluxConfigurationsClient.NewListPager method.
-type FluxConfigurationsClientListOptions struct {
+// FluxConfigurationsClientListByResourceGroupOptions contains the optional parameters for the FluxConfigurationsClient.NewListByResourceGroupPager
+// method.
+type FluxConfigurationsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationStatusClientGetOptions contains the optional parameters for the OperationStatusClient.Get method.
-type OperationStatusClientGetOptions struct {
+// FluxConfigurationsClientOperationStatusOptions contains the optional parameters for the FluxConfigurationsClient.OperationStatus
+// method.
+type FluxConfigurationsClientOperationStatusOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationStatusClientListOptions contains the optional parameters for the OperationStatusClient.NewListPager method.
-type OperationStatusClientListOptions struct {
+// FluxConfigurationsClientUpdateOptions contains the optional parameters for the FluxConfigurationsClient.Update method.
+type FluxConfigurationsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OperationStatusClientListByResourceGroupOptions contains the optional parameters for the OperationStatusClient.NewListByResourceGroupPager
+// method.
+type OperationStatusClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -113,8 +113,8 @@ type SourceControlConfigurationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SourceControlConfigurationsClientListOptions contains the optional parameters for the SourceControlConfigurationsClient.NewListPager
+// SourceControlConfigurationsClientListByResourceGroupOptions contains the optional parameters for the SourceControlConfigurationsClient.NewListByResourceGroupPager
 // method.
-type SourceControlConfigurationsClientListOptions struct {
+type SourceControlConfigurationsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }

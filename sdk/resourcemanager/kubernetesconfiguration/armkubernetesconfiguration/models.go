@@ -173,32 +173,44 @@ type ErrorResponse struct {
 
 // Extension - The Extension object.
 type Extension struct {
-	// Identity of the Extension resource
-	Identity *Identity
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
 
-	// The plan information.
+	// Details of the resource plan.
 	Plan *Plan
 
-	// Properties of an Extension resource
+	// The resource-specific properties for this resource.
 	Properties *ExtensionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Top level metadata https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
+// ExtensionListResult - The response of a Extension list operation.
+type ExtensionListResult struct {
+	// REQUIRED; The Extension items on this page
+	Value []*Extension
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // ExtensionProperties - Properties of an Extension resource
 type ExtensionProperties struct {
 	// Identity of the Extension resource in an AKS cluster
 	AksAssignedIdentity *ExtensionPropertiesAksAssignedIdentity
+
+	// autoUpgrade value for autoUpgradeV2
+	AutoUpgradeChannel *string
 
 	// Flag to note if this extension participates in auto upgrade of minor version, or not.
 	AutoUpgradeMinorVersion *bool
@@ -276,32 +288,79 @@ type ExtensionStatus struct {
 	Time *string
 }
 
-// ExtensionsList - Result of the request to list Extensions. It contains a list of Extension objects and a URL link to get
-// the next set of results.
-type ExtensionsList struct {
-	// READ-ONLY; URL to get the next set of extension objects, if any.
-	NextLink *string
+// ExtensionUpdate - The type used for update operations of the Extension.
+type ExtensionUpdate struct {
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
 
-	// READ-ONLY; List of Extensions within a Kubernetes cluster.
-	Value []*Extension
+	// Details of the resource plan.
+	Plan *Plan
+
+	// The updatable properties of the Extension.
+	Properties *ExtensionUpdateProperties
+}
+
+// ExtensionUpdateProperties - The updatable properties of the Extension.
+type ExtensionUpdateProperties struct {
+	// Identity of the Extension resource in an AKS cluster
+	AksAssignedIdentity *ExtensionPropertiesAksAssignedIdentity
+
+	// autoUpgrade value for autoUpgradeV2
+	AutoUpgradeChannel *string
+
+	// Flag to note if this extension participates in auto upgrade of minor version, or not.
+	AutoUpgradeMinorVersion *bool
+
+	// Configuration settings that are sensitive, as name-value pairs for configuring this extension.
+	ConfigurationProtectedSettings map[string]*string
+
+	// Configuration settings, as name-value pairs for configuring this extension.
+	ConfigurationSettings map[string]*string
+
+	// Type of the Extension, of which this resource is an instance of. It must be one of the Extension Types registered with
+	// Microsoft.KubernetesConfiguration by the Extension publisher.
+	ExtensionType *string
+
+	// ReleaseTrain this extension participates in for auto-upgrade (e.g. Stable, Preview, etc.) - only if autoUpgradeMinorVersion
+	// is 'true'.
+	ReleaseTrain *string
+
+	// Scope at which the extension is installed.
+	Scope *Scope
+
+	// Status from this extension.
+	Statuses []*ExtensionStatus
+
+	// User-specified version of the extension for this extension to 'pin'. To use 'version', autoUpgradeMinorVersion must be
+	// 'false'.
+	Version *string
 }
 
 // FluxConfiguration - The Flux Configuration object returned in Get & Put response.
 type FluxConfiguration struct {
-	// Properties to create a Flux Configuration resource
+	// The resource-specific properties for this resource.
 	Properties *FluxConfigurationProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Top level metadata https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// FluxConfigurationListResult - The response of a FluxConfiguration list operation.
+type FluxConfigurationListResult struct {
+	// REQUIRED; The FluxConfiguration items on this page
+	Value []*FluxConfiguration
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // FluxConfigurationPatch - The Flux Configuration Patch Request object.
@@ -356,7 +415,7 @@ type FluxConfigurationProperties struct {
 	Namespace *string
 
 	// Maximum duration to wait for flux configuration reconciliation. E.g PT1H, PT5M, P1D
-	ReconciliationWaitDuration *string
+	ReconciliationWait *string
 
 	// Scope at which the operator will be installed.
 	Scope *ScopeType
@@ -397,14 +456,16 @@ type FluxConfigurationProperties struct {
 	Statuses []*ObjectStatusDefinition
 }
 
-// FluxConfigurationsList - Result of the request to list Flux Configurations. It contains a list of FluxConfiguration objects
-// and a URL link to get the next set of results.
-type FluxConfigurationsList struct {
-	// READ-ONLY; URL to get the next set of configuration objects, if any.
-	NextLink *string
+// FluxConfigurationUpdate - The type used for update operations of the FluxConfiguration.
+type FluxConfigurationUpdate struct {
+	// The updatable properties of the FluxConfiguration.
+	Properties *FluxConfigurationUpdateProperties
+}
 
-	// READ-ONLY; List of Flux Configurations within a Kubernetes cluster.
-	Value []*FluxConfiguration
+// FluxConfigurationUpdateProperties - The updatable properties of the FluxConfiguration.
+type FluxConfigurationUpdateProperties struct {
+	// Updatable properties of an Flux Configuration Patch Request
+	Properties *FluxConfigurationPatchProperties
 }
 
 // GitRepositoryDefinition - Parameters to reconcile to the GitRepository source kind type.
@@ -580,6 +641,26 @@ type ManagedIdentityPatchDefinition struct {
 	ClientID *string
 }
 
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
 // ObjectReferenceDefinition - Object reference to a Kubernetes object on a cluster
 type ObjectReferenceDefinition struct {
 	// Name of the object
@@ -631,31 +712,89 @@ type ObjectStatusDefinition struct {
 	StatusConditions []*ObjectStatusConditionDefinition
 }
 
-// OperationStatusList - The async operations in progress, in the cluster.
-type OperationStatusList struct {
-	// READ-ONLY; URL to get the next set of Operation Result objects, if any.
-	NextLink *string
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+type Operation struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
 
-	// READ-ONLY; List of async operations in progress, in the cluster.
-	Value []*OperationStatusResult
-}
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
 
-// OperationStatusResult - The current status of an async operation.
-type OperationStatusResult struct {
-	// REQUIRED; Operation status.
-	Status *string
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
 
-	// Fully qualified ID for the async operation.
-	ID *string
-
-	// Name of the async operation.
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
 
-	// Additional information, if available.
-	Properties map[string]*string
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
+}
 
-	// READ-ONLY; If present, details of the operation error.
-	Error *ErrorDetail
+// OperationDisplay - Localized display information for this particular operation.
+type OperationDisplay struct {
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
+	Description *string
+
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
+	Operation *string
+
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
+	Provider *string
+
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
+	Resource *string
+}
+
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
+
+	// READ-ONLY; List of operations supported by the resource provider
+	Value []*Operation
+}
+
+// OperationModel - Concrete proxy resource types can be created by aliasing this type using a specific property type.
+type OperationModel struct {
+	// The resource-specific properties for this resource.
+	Properties *OperationsParameter
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// OperationModelListResult - The response of a OperationModel list operation.
+type OperationModelListResult struct {
+	// REQUIRED; The OperationModel items on this page
+	Value []*OperationModel
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// OperationsParameter - Operations path parameter
+type OperationsParameter struct {
+	// REQUIRED; operationId value
+	OperationID *string
+
+	// READ-ONLY; Status of installation of this extension.
+	ProvisioningState *ProvisioningState
 }
 
 // PatchExtension - The Extension Patch Request object.
@@ -681,6 +820,56 @@ type PatchExtensionProperties struct {
 
 	// Version of the extension for this extension, if it is 'pinned' to a specific version. autoUpgradeMinorVersion must be 'false'.
 	Version *string
+}
+
+// Paths1B0Hq6PSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationExtensionsExtensionnameOperationsOperationidGetResponses200ContentApplicationJSONSchema
+// - Standard Azure Resource Manager operation status response
+type Paths1B0Hq6PSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationExtensionsExtensionnameOperationsOperationidGetResponses200ContentApplicationJSONSchema struct {
+	// REQUIRED; The unique identifier for the operationStatus resource
+	ID *string
+
+	// REQUIRED; The operation status
+	Status *ResourceProvisioningState
+
+	// READ-ONLY; Operation complete time
+	EndTime *time.Time
+
+	// READ-ONLY; Errors that occurred if the operation ended with Canceled or Failed status
+	Error *ErrorDetail
+
+	// READ-ONLY; The name of the operationStatus resource
+	Name *string
+
+	// READ-ONLY; The progress made toward completing the operation
+	PercentComplete *float64
+
+	// READ-ONLY; Operation start time
+	StartTime *time.Time
+}
+
+// PathsT3WamfSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationFluxconfigurationsFluxconfigurationnameOperationsOperationidGetResponses200ContentApplicationJSONSchema
+// - Standard Azure Resource Manager operation status response
+type PathsT3WamfSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationFluxconfigurationsFluxconfigurationnameOperationsOperationidGetResponses200ContentApplicationJSONSchema struct {
+	// REQUIRED; The unique identifier for the operationStatus resource
+	ID *string
+
+	// REQUIRED; The operation status
+	Status *ResourceProvisioningState
+
+	// READ-ONLY; Operation complete time
+	EndTime *time.Time
+
+	// READ-ONLY; Errors that occurred if the operation ended with Canceled or Failed status
+	Error *ErrorDetail
+
+	// READ-ONLY; The name of the operationStatus resource
+	Name *string
+
+	// READ-ONLY; The progress made toward completing the operation
+	PercentComplete *float64
+
+	// READ-ONLY; Operation start time
+	StartTime *time.Time
 }
 
 // Plan for the resource.
@@ -715,11 +904,14 @@ type PostBuildDefinition struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -742,53 +934,17 @@ type RepositoryRefDefinition struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// ResourceProviderOperation - Supported operation of this resource provider.
-type ResourceProviderOperation struct {
-	// Display metadata associated with the operation.
-	Display *ResourceProviderOperationDisplay
-
-	// Operation name, in format of {provider}/{resource}/{operation}
-	Name *string
-
-	// READ-ONLY; The flag that indicates whether the operation applies to data plane.
-	IsDataAction *bool
-
-	// READ-ONLY; Origin of the operation
-	Origin *string
-}
-
-// ResourceProviderOperationDisplay - Display metadata associated with the operation.
-type ResourceProviderOperationDisplay struct {
-	// Description of this operation.
-	Description *string
-
-	// Type of operation: get, read, delete, etc.
-	Operation *string
-
-	// Resource provider: Microsoft KubernetesConfiguration.
-	Provider *string
-
-	// Resource on which the operation is performed.
-	Resource *string
-}
-
-// ResourceProviderOperationList - Result of the request to list operations.
-type ResourceProviderOperationList struct {
-	// List of operations supported by this resource provider.
-	Value []*ResourceProviderOperation
-
-	// READ-ONLY; URL to the next set of results, if any.
-	NextLink *string
 }
 
 // Scope of the extension. It can be either Cluster or Namespace; but not both.
@@ -860,30 +1016,29 @@ type ServicePrincipalPatchDefinition struct {
 
 // SourceControlConfiguration - The SourceControl Configuration object returned in Get & Put response.
 type SourceControlConfiguration struct {
-	// Properties to create a Source Control Configuration resource
+	// The resource-specific properties for this resource.
 	Properties *SourceControlConfigurationProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Top level metadata https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// SourceControlConfigurationList - Result of the request to list Source Control Configurations. It contains a list of SourceControlConfiguration
-// objects and a URL link to get the next set of results.
-type SourceControlConfigurationList struct {
-	// READ-ONLY; URL to get the next set of configuration objects, if any.
-	NextLink *string
-
-	// READ-ONLY; List of Source Control Configurations within a Kubernetes cluster.
+// SourceControlConfigurationListResult - The response of a SourceControlConfiguration list operation.
+type SourceControlConfigurationListResult struct {
+	// REQUIRED; The SourceControlConfiguration items on this page
 	Value []*SourceControlConfiguration
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // SourceControlConfigurationProperties - Properties to create a Source Control Configuration resource
@@ -961,4 +1116,13 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }

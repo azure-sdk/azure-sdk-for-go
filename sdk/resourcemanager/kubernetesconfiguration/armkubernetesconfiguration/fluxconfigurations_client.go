@@ -29,7 +29,7 @@ type FluxConfigurationsClient struct {
 }
 
 // NewFluxConfigurationsClient creates a new instance of FluxConfigurationsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFluxConfigurationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FluxConfigurationsClient, error) {
@@ -44,47 +44,47 @@ func NewFluxConfigurationsClient(subscriptionID string, credential azcore.TokenC
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create a new Kubernetes Flux Configuration.
+// BeginCreate - Create a new Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - fluxConfigurationName - Name of the Flux Configuration.
-//   - fluxConfiguration - Properties necessary to Create a FluxConfiguration.
-//   - options - FluxConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the FluxConfigurationsClient.BeginCreateOrUpdate
+//   - resource - Properties necessary to Create a FluxConfiguration.
+//   - options - FluxConfigurationsClientBeginCreateOptions contains the optional parameters for the FluxConfigurationsClient.BeginCreate
 //     method.
-func (client *FluxConfigurationsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfiguration FluxConfiguration, options *FluxConfigurationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FluxConfigurationsClientCreateOrUpdateResponse], error) {
+func (client *FluxConfigurationsClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, resource FluxConfiguration, options *FluxConfigurationsClientBeginCreateOptions) (*runtime.Poller[FluxConfigurationsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, fluxConfiguration, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, resource, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FluxConfigurationsClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FluxConfigurationsClientCreateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[FluxConfigurationsClientCreateOrUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[FluxConfigurationsClientCreateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// CreateOrUpdate - Create a new Kubernetes Flux Configuration.
+// Create - Create a new Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
-func (client *FluxConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfiguration FluxConfiguration, options *FluxConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01-preview
+func (client *FluxConfigurationsClient) create(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, resource FluxConfiguration, options *FluxConfigurationsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "FluxConfigurationsClient.BeginCreateOrUpdate"
+	const operationName = "FluxConfigurationsClient.BeginCreate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, fluxConfiguration, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -99,9 +99,9 @@ func (client *FluxConfigurationsClient) createOrUpdate(ctx context.Context, reso
 	return httpResp, nil
 }
 
-// createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *FluxConfigurationsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfiguration FluxConfiguration, options *FluxConfigurationsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
+// createCreateRequest creates the Create request.
+func (client *FluxConfigurationsClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, resource FluxConfiguration, options *FluxConfigurationsClientBeginCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -131,10 +131,10 @@ func (client *FluxConfigurationsClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, fluxConfiguration); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -144,11 +144,11 @@ func (client *FluxConfigurationsClient) createOrUpdateCreateRequest(ctx context.
 // source repo.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - fluxConfigurationName - Name of the Flux Configuration.
 //   - options - FluxConfigurationsClientBeginDeleteOptions contains the optional parameters for the FluxConfigurationsClient.BeginDelete
 //     method.
@@ -159,7 +159,7 @@ func (client *FluxConfigurationsClient) BeginDelete(ctx context.Context, resourc
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FluxConfigurationsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
@@ -174,7 +174,7 @@ func (client *FluxConfigurationsClient) BeginDelete(ctx context.Context, resourc
 // repo.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 func (client *FluxConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *FluxConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FluxConfigurationsClient.BeginDelete"
@@ -189,7 +189,7 @@ func (client *FluxConfigurationsClient) deleteOperation(ctx context.Context, res
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -198,7 +198,7 @@ func (client *FluxConfigurationsClient) deleteOperation(ctx context.Context, res
 
 // deleteCreateRequest creates the Delete request.
 func (client *FluxConfigurationsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *FluxConfigurationsClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -228,7 +228,7 @@ func (client *FluxConfigurationsClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	if options != nil && options.ForceDelete != nil {
 		reqQP.Set("forceDelete", strconv.FormatBool(*options.ForceDelete))
 	}
@@ -240,11 +240,11 @@ func (client *FluxConfigurationsClient) deleteCreateRequest(ctx context.Context,
 // Get - Gets details of the Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - fluxConfigurationName - Name of the Flux Configuration.
 //   - options - FluxConfigurationsClientGetOptions contains the optional parameters for the FluxConfigurationsClient.Get method.
 func (client *FluxConfigurationsClient) Get(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *FluxConfigurationsClientGetOptions) (FluxConfigurationsClientGetResponse, error) {
@@ -271,7 +271,7 @@ func (client *FluxConfigurationsClient) Get(ctx context.Context, resourceGroupNa
 
 // getCreateRequest creates the Get request.
 func (client *FluxConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *FluxConfigurationsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -301,7 +301,7 @@ func (client *FluxConfigurationsClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,41 +316,41 @@ func (client *FluxConfigurationsClient) getHandleResponse(resp *http.Response) (
 	return result, nil
 }
 
-// NewListPager - List all Flux Configurations.
+// NewListByResourceGroupPager - List all Flux Configurations.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
-//   - options - FluxConfigurationsClientListOptions contains the optional parameters for the FluxConfigurationsClient.NewListPager
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
+//   - options - FluxConfigurationsClientListByResourceGroupOptions contains the optional parameters for the FluxConfigurationsClient.NewListByResourceGroupPager
 //     method.
-func (client *FluxConfigurationsClient) NewListPager(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *FluxConfigurationsClientListOptions) *runtime.Pager[FluxConfigurationsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[FluxConfigurationsClientListResponse]{
-		More: func(page FluxConfigurationsClientListResponse) bool {
+func (client *FluxConfigurationsClient) NewListByResourceGroupPager(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *FluxConfigurationsClientListByResourceGroupOptions) *runtime.Pager[FluxConfigurationsClientListByResourceGroupResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FluxConfigurationsClientListByResourceGroupResponse]{
+		More: func(page FluxConfigurationsClientListByResourceGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *FluxConfigurationsClientListResponse) (FluxConfigurationsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FluxConfigurationsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *FluxConfigurationsClientListByResourceGroupResponse) (FluxConfigurationsClientListByResourceGroupResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FluxConfigurationsClient.NewListByResourceGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, options)
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, options)
 			}, nil)
 			if err != nil {
-				return FluxConfigurationsClientListResponse{}, err
+				return FluxConfigurationsClientListByResourceGroupResponse{}, err
 			}
-			return client.listHandleResponse(resp)
+			return client.listByResourceGroupHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *FluxConfigurationsClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *FluxConfigurationsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations"
+// listByResourceGroupCreateRequest creates the ListByResourceGroup request.
+func (client *FluxConfigurationsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *FluxConfigurationsClientListByResourceGroupOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -376,79 +376,146 @@ func (client *FluxConfigurationsClient) listCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *FluxConfigurationsClient) listHandleResponse(resp *http.Response) (FluxConfigurationsClientListResponse, error) {
-	result := FluxConfigurationsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.FluxConfigurationsList); err != nil {
-		return FluxConfigurationsClientListResponse{}, err
+// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
+func (client *FluxConfigurationsClient) listByResourceGroupHandleResponse(resp *http.Response) (FluxConfigurationsClientListByResourceGroupResponse, error) {
+	result := FluxConfigurationsClientListByResourceGroupResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FluxConfigurationListResult); err != nil {
+		return FluxConfigurationsClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
 }
 
-// BeginUpdate - Update an existing Kubernetes Flux Configuration.
+// OperationStatus - Get Async Operation status
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
-//   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
-//   - clusterName - The name of the kubernetes cluster.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
 //   - fluxConfigurationName - Name of the Flux Configuration.
-//   - fluxConfigurationPatch - Properties to Patch in an existing Flux Configuration.
-//   - options - FluxConfigurationsClientBeginUpdateOptions contains the optional parameters for the FluxConfigurationsClient.BeginUpdate
+//   - operationID - operationId value
+//   - options - FluxConfigurationsClientOperationStatusOptions contains the optional parameters for the FluxConfigurationsClient.OperationStatus
 //     method.
-func (client *FluxConfigurationsClient) BeginUpdate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfigurationPatch FluxConfigurationPatch, options *FluxConfigurationsClientBeginUpdateOptions) (*runtime.Poller[FluxConfigurationsClientUpdateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, fluxConfigurationPatch, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FluxConfigurationsClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[FluxConfigurationsClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
-		})
+func (client *FluxConfigurationsClient) OperationStatus(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, operationID string, body any, options *FluxConfigurationsClientOperationStatusOptions) (FluxConfigurationsClientOperationStatusResponse, error) {
+	var err error
+	const operationName = "FluxConfigurationsClient.OperationStatus"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.operationStatusCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, operationID, body, options)
+	if err != nil {
+		return FluxConfigurationsClientOperationStatusResponse{}, err
 	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return FluxConfigurationsClientOperationStatusResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return FluxConfigurationsClientOperationStatusResponse{}, err
+	}
+	resp, err := client.operationStatusHandleResponse(httpResp)
+	return resp, err
+}
+
+// operationStatusCreateRequest creates the OperationStatus request.
+func (client *FluxConfigurationsClient) operationStatusCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, operationID string, body any, options *FluxConfigurationsClientOperationStatusOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}/operations/{operationId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterRp == "" {
+		return nil, errors.New("parameter clusterRp cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterRp}", url.PathEscape(clusterRp))
+	if clusterResourceName == "" {
+		return nil, errors.New("parameter clusterResourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterResourceName}", url.PathEscape(clusterResourceName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if fluxConfigurationName == "" {
+		return nil, errors.New("parameter fluxConfigurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{fluxConfigurationName}", url.PathEscape(fluxConfigurationName))
+	if operationID == "" {
+		return nil, errors.New("parameter operationID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{operationId}", url.PathEscape(operationID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// operationStatusHandleResponse handles the OperationStatus response.
+func (client *FluxConfigurationsClient) operationStatusHandleResponse(resp *http.Response) (FluxConfigurationsClientOperationStatusResponse, error) {
+	result := FluxConfigurationsClientOperationStatusResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PathsT3WamfSubscriptionsSubscriptionidResourcegroupsResourcegroupnameProviderClusterrpClusterresourcenameClusternameProvidersMicrosoftKubernetesconfigurationFluxconfigurationsFluxconfigurationnameOperationsOperationidGetResponses200ContentApplicationJSONSchema); err != nil {
+		return FluxConfigurationsClientOperationStatusResponse{}, err
+	}
+	return result, nil
 }
 
 // Update - Update an existing Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-05-01
-func (client *FluxConfigurationsClient) update(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfigurationPatch FluxConfigurationPatch, options *FluxConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterRp - Cluster Resource Provider Name
+//   - clusterResourceName - cluster Resource Name
+//   - clusterName - cluster Name
+//   - fluxConfigurationName - Name of the Flux Configuration.
+//   - properties - Properties to Patch in an existing Flux Configuration.
+//   - options - FluxConfigurationsClientUpdateOptions contains the optional parameters for the FluxConfigurationsClient.Update
+//     method.
+func (client *FluxConfigurationsClient) Update(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, properties FluxConfigurationUpdate, options *FluxConfigurationsClientUpdateOptions) (FluxConfigurationsClientUpdateResponse, error) {
 	var err error
-	const operationName = "FluxConfigurationsClient.BeginUpdate"
+	const operationName = "FluxConfigurationsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, fluxConfigurationPatch, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, properties, options)
 	if err != nil {
-		return nil, err
+		return FluxConfigurationsClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return FluxConfigurationsClientUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return FluxConfigurationsClientUpdateResponse{}, err
 	}
-	return httpResp, nil
+	resp, err := client.updateHandleResponse(httpResp)
+	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *FluxConfigurationsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfigurationPatch FluxConfigurationPatch, options *FluxConfigurationsClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
+func (client *FluxConfigurationsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, properties FluxConfigurationUpdate, options *FluxConfigurationsClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/provider/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -478,11 +545,20 @@ func (client *FluxConfigurationsClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, fluxConfigurationPatch); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil
+}
+
+// updateHandleResponse handles the Update response.
+func (client *FluxConfigurationsClient) updateHandleResponse(resp *http.Response) (FluxConfigurationsClientUpdateResponse, error) {
+	result := FluxConfigurationsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FluxConfiguration); err != nil {
+		return FluxConfigurationsClientUpdateResponse{}, err
+	}
+	return result, nil
 }
