@@ -10,7 +10,7 @@ package armservicelinker
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicelinker/armservicelinker"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 type AccessKeyPermissions string
