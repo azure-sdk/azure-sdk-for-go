@@ -26,8 +26,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -36,84 +35,104 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewClustersClient creates a new instance of ClustersClient.
 func (c *ClientFactory) NewClustersClient() *ClustersClient {
-	subClient, _ := NewClustersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ClustersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewDatastoresClient creates a new instance of DatastoresClient.
 func (c *ClientFactory) NewDatastoresClient() *DatastoresClient {
-	subClient, _ := NewDatastoresClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &DatastoresClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewHostsClient creates a new instance of HostsClient.
 func (c *ClientFactory) NewHostsClient() *HostsClient {
-	subClient, _ := NewHostsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &HostsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewInventoryItemsClient creates a new instance of InventoryItemsClient.
 func (c *ClientFactory) NewInventoryItemsClient() *InventoryItemsClient {
-	subClient, _ := NewInventoryItemsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &InventoryItemsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewResourcePoolsClient creates a new instance of ResourcePoolsClient.
 func (c *ClientFactory) NewResourcePoolsClient() *ResourcePoolsClient {
-	subClient, _ := NewResourcePoolsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ResourcePoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewVCentersClient creates a new instance of VCentersClient.
 func (c *ClientFactory) NewVCentersClient() *VCentersClient {
-	subClient, _ := NewVCentersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &VCentersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewVMInstanceGuestAgentsClient creates a new instance of VMInstanceGuestAgentsClient.
 func (c *ClientFactory) NewVMInstanceGuestAgentsClient() *VMInstanceGuestAgentsClient {
-	subClient, _ := NewVMInstanceGuestAgentsClient(c.credential, c.options)
-	return subClient
+	return &VMInstanceGuestAgentsClient{
+		internal: c.internal,
+	}
 }
 
 // NewVMInstanceHybridIdentityMetadataClient creates a new instance of VMInstanceHybridIdentityMetadataClient.
 func (c *ClientFactory) NewVMInstanceHybridIdentityMetadataClient() *VMInstanceHybridIdentityMetadataClient {
-	subClient, _ := NewVMInstanceHybridIdentityMetadataClient(c.credential, c.options)
-	return subClient
+	return &VMInstanceHybridIdentityMetadataClient{
+		internal: c.internal,
+	}
 }
 
 // NewVirtualMachineInstancesClient creates a new instance of VirtualMachineInstancesClient.
 func (c *ClientFactory) NewVirtualMachineInstancesClient() *VirtualMachineInstancesClient {
-	subClient, _ := NewVirtualMachineInstancesClient(c.credential, c.options)
-	return subClient
+	return &VirtualMachineInstancesClient{
+		internal: c.internal,
+	}
 }
 
 // NewVirtualMachineTemplatesClient creates a new instance of VirtualMachineTemplatesClient.
 func (c *ClientFactory) NewVirtualMachineTemplatesClient() *VirtualMachineTemplatesClient {
-	subClient, _ := NewVirtualMachineTemplatesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &VirtualMachineTemplatesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewVirtualNetworksClient creates a new instance of VirtualNetworksClient.
 func (c *ClientFactory) NewVirtualNetworksClient() *VirtualNetworksClient {
-	subClient, _ := NewVirtualNetworksClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &VirtualNetworksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
