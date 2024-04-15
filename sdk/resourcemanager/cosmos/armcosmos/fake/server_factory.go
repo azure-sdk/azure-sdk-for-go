@@ -33,7 +33,6 @@ type ServerFactory struct {
 	GraphResourcesServer               GraphResourcesServer
 	GremlinResourcesServer             GremlinResourcesServer
 	LocationsServer                    LocationsServer
-	MongoClustersServer                MongoClustersServer
 	MongoDBResourcesServer             MongoDBResourcesServer
 	NotebookWorkspacesServer           NotebookWorkspacesServer
 	OperationsServer                   OperationsServer
@@ -93,7 +92,6 @@ type ServerFactoryTransport struct {
 	trGraphResourcesServer               *GraphResourcesServerTransport
 	trGremlinResourcesServer             *GremlinResourcesServerTransport
 	trLocationsServer                    *LocationsServerTransport
-	trMongoClustersServer                *MongoClustersServerTransport
 	trMongoDBResourcesServer             *MongoDBResourcesServerTransport
 	trNotebookWorkspacesServer           *NotebookWorkspacesServerTransport
 	trOperationsServer                   *OperationsServerTransport
@@ -202,11 +200,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "LocationsClient":
 		initServer(s, &s.trLocationsServer, func() *LocationsServerTransport { return NewLocationsServerTransport(&s.srv.LocationsServer) })
 		resp, err = s.trLocationsServer.Do(req)
-	case "MongoClustersClient":
-		initServer(s, &s.trMongoClustersServer, func() *MongoClustersServerTransport {
-			return NewMongoClustersServerTransport(&s.srv.MongoClustersServer)
-		})
-		resp, err = s.trMongoClustersServer.Do(req)
 	case "MongoDBResourcesClient":
 		initServer(s, &s.trMongoDBResourcesServer, func() *MongoDBResourcesServerTransport {
 			return NewMongoDBResourcesServerTransport(&s.srv.MongoDBResourcesServer)

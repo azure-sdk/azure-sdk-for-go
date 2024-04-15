@@ -148,14 +148,6 @@ func (c *ClientFactory) NewLocationsClient() *LocationsClient {
 	}
 }
 
-// NewMongoClustersClient creates a new instance of MongoClustersClient.
-func (c *ClientFactory) NewMongoClustersClient() *MongoClustersClient {
-	return &MongoClustersClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewMongoDBResourcesClient creates a new instance of MongoDBResourcesClient.
 func (c *ClientFactory) NewMongoDBResourcesClient() *MongoDBResourcesClient {
 	return &MongoDBResourcesClient{

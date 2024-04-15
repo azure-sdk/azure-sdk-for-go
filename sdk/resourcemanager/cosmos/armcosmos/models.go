@@ -225,6 +225,27 @@ type Capacity struct {
 	TotalThroughputLimit *int32
 }
 
+// CapacityModeChangeTransitionState - The transition state information related capacity mode change with update request.
+type CapacityModeChangeTransitionState struct {
+	// The transition status of capacity mode.
+	CapacityModeTransitionStatus *CapacityModeTransitionStatus
+
+	// Indicates the current capacity mode of the account.
+	CurrentCapacityMode *CapacityMode
+
+	// Indicates the previous capacity mode of the account before successful transition.
+	PreviousCapacityMode *CapacityMode
+
+	// READ-ONLY; End time in UTC of the last successful capacity mode change.
+	CapacityModeLastSuccessfulTransitionEndTimestamp *time.Time
+
+	// READ-ONLY; Begin time in UTC of the capacity mode change.
+	CapacityModeTransitionBeginTimestamp *time.Time
+
+	// READ-ONLY; End time in UTC of the capacity mode change.
+	CapacityModeTransitionEndTimestamp *time.Time
+}
+
 // CassandraClusterPublicStatus - Properties of a managed Cassandra cluster public status.
 type CassandraClusterPublicStatus struct {
 	// List relevant information about any connection errors to the Datacenters.
@@ -656,27 +677,6 @@ type Certificate struct {
 	Pem *string
 }
 
-// CheckNameAvailabilityRequest - The check availability request body.
-type CheckNameAvailabilityRequest struct {
-	// The name of the resource for which availability needs to be checked.
-	Name *string
-
-	// The resource type.
-	Type *string
-}
-
-// CheckNameAvailabilityResponse - The check availability result.
-type CheckNameAvailabilityResponse struct {
-	// Detailed reason why the given name is available.
-	Message *string
-
-	// Indicates if the resource name is available.
-	NameAvailable *bool
-
-	// The reason why the given name is not available.
-	Reason *CheckNameAvailabilityReason
-}
-
 // ClientEncryptionIncludedPath - .
 type ClientEncryptionIncludedPath struct {
 	// REQUIRED; The identifier of the Client Encryption Key to be used to encrypt the path.
@@ -1091,15 +1091,6 @@ type ConnectionError struct {
 	Port *int32
 }
 
-// ConnectionString - Connection string for the mongo cluster
-type ConnectionString struct {
-	// READ-ONLY; Value of the connection string
-	ConnectionString *string
-
-	// READ-ONLY; Description of the connection string
-	Description *string
-}
-
 // ConsistencyPolicy - The consistency policy for the Cosmos DB database account.
 type ConsistencyPolicy struct {
 	// REQUIRED; The default consistency level and configuration settings of the Cosmos DB account.
@@ -1485,6 +1476,9 @@ type DatabaseAccountCreateUpdateProperties struct {
 	// The object that represents all properties related to capacity enforcement on an account.
 	Capacity *Capacity
 
+	// Indicates the capacityMode of the Cosmos DB account.
+	CapacityMode *CapacityMode
+
 	// The cassandra connector offer type for the Cosmos DB database C* account.
 	ConnectorOffer *ConnectorOffer
 
@@ -1599,6 +1593,12 @@ type DatabaseAccountGetProperties struct {
 
 	// The object that represents all properties related to capacity enforcement on an account.
 	Capacity *Capacity
+
+	// Indicates the capacityMode of the Cosmos DB account.
+	CapacityMode *CapacityMode
+
+	// The object that represents the migration state for the CapacityMode of the Cosmos DB account.
+	CapacityModeChangeTransitionState *CapacityModeChangeTransitionState
 
 	// The cassandra connector offer type for the Cosmos DB database C* account.
 	ConnectorOffer *ConnectorOffer
@@ -1850,6 +1850,9 @@ type DatabaseAccountUpdateProperties struct {
 	// The object that represents all properties related to capacity enforcement on an account.
 	Capacity *Capacity
 
+	// Indicates the capacityMode of the Cosmos DB account.
+	CapacityMode *CapacityMode
+
 	// The cassandra connector offer type for the Cosmos DB database C* account.
 	ConnectorOffer *ConnectorOffer
 
@@ -2045,45 +2048,6 @@ type FailoverPolicy struct {
 
 	// READ-ONLY; The unique identifier of the region in which the database account replicates to. Example: <accountName>-<locationName>.
 	ID *string
-}
-
-// FirewallRule - Represents a mongo cluster firewall rule.
-type FirewallRule struct {
-	// REQUIRED; The properties of a firewall rule.
-	Properties *FirewallRuleProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// FirewallRuleListResult - A list of firewall rules.
-type FirewallRuleListResult struct {
-	// The list of firewall rules in a mongo cluster.
-	Value []*FirewallRule
-
-	// READ-ONLY; The link used to get the next page of results.
-	NextLink *string
-}
-
-// FirewallRuleProperties - The properties of a mongo cluster firewall rule.
-type FirewallRuleProperties struct {
-	// REQUIRED; The end IP address of the mongo cluster firewall rule. Must be IPv4 format.
-	EndIPAddress *string
-
-	// REQUIRED; The start IP address of the mongo cluster firewall rule. Must be IPv4 format.
-	StartIPAddress *string
-
-	// READ-ONLY; The provisioning state of the firewall rule.
-	ProvisioningState *ProvisioningState
 }
 
 // GraphAPIComputeRegionalServiceResource - Resource for a regional service location.
@@ -2611,12 +2575,6 @@ type ListCommands struct {
 	Value []*CommandPublicResource
 }
 
-// ListConnectionStringsResult - The connection strings for the given mongo cluster.
-type ListConnectionStringsResult struct {
-	// READ-ONLY; An array that contains the connection strings for a mongo cluster.
-	ConnectionStrings []*ConnectionString
-}
-
 // ListDataCenters - List of managed Cassandra data centers and their properties.
 type ListDataCenters struct {
 	// READ-ONLY; Container for array of data centers.
@@ -2921,90 +2879,6 @@ type MetricValue struct {
 
 	// READ-ONLY; The total value of the metric.
 	Total *float64
-}
-
-// MongoCluster - Represents a mongo cluster resource.
-type MongoCluster struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string
-
-	// Properties of the mongo cluster.
-	Properties *MongoClusterProperties
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// MongoClusterListResult - A list of mongo clusters.
-type MongoClusterListResult struct {
-	// The list of mongo clusters
-	Value []*MongoCluster
-
-	// READ-ONLY; The link used to get the next page of results.
-	NextLink *string
-}
-
-// MongoClusterProperties - The properties of a mongo cluster.
-type MongoClusterProperties struct {
-	// The administrator's login for the mongo cluster.
-	AdministratorLogin *string
-
-	// The password of the administrator login.
-	AdministratorLoginPassword *string
-
-	// The mode to create a mongo cluster.
-	CreateMode *CreateMode
-
-	// The list of node group specs in the cluster.
-	NodeGroupSpecs []*NodeGroupSpec
-
-	// Parameters used for restore operations
-	RestoreParameters *MongoClusterRestoreParameters
-
-	// The Mongo DB server version. Defaults to the latest available version if not specified.
-	ServerVersion *string
-
-	// READ-ONLY; A status of the mongo cluster.
-	ClusterStatus *MongoClusterStatus
-
-	// READ-ONLY; The default mongo connection string for the cluster.
-	ConnectionString *string
-
-	// READ-ONLY; Earliest restore timestamp in UTC ISO8601 format.
-	EarliestRestoreTime *string
-
-	// READ-ONLY; A provisioning state of the mongo cluster.
-	ProvisioningState *ProvisioningState
-}
-
-// MongoClusterRestoreParameters - Parameters used for restore operations
-type MongoClusterRestoreParameters struct {
-	// UTC point in time to restore a mongo cluster
-	PointInTimeUTC *time.Time
-
-	// Resource ID to locate the source cluster to restore
-	SourceResourceID *string
-}
-
-// MongoClusterUpdate - Represents a mongo cluster resource for updates.
-type MongoClusterUpdate struct {
-	// Properties of the mongo cluster.
-	Properties *MongoClusterProperties
-
-	// Application-specific metadata in the form of key-value pairs.
-	Tags map[string]*string
 }
 
 // MongoDBCollectionCreateUpdateParameters - Parameters to create and update Cosmos DB MongoDB collection.
@@ -3409,38 +3283,6 @@ type MongoUserDefinitionResource struct {
 	UserName *string
 }
 
-// NodeGroupProperties - The properties of the node group on a cluster.
-type NodeGroupProperties struct {
-	// The disk storage size for the node group in GB. Example values: 128, 256, 512, 1024.
-	DiskSizeGB *int64
-
-	// Whether high availability is enabled on the node group.
-	EnableHa *bool
-
-	// The resource sku for the node group. This defines the size of CPU and memory that is provisioned for each node. Example
-	// values: 'M30', 'M40'.
-	SKU *string
-}
-
-// NodeGroupSpec - Specification for a node group.
-type NodeGroupSpec struct {
-	// The disk storage size for the node group in GB. Example values: 128, 256, 512, 1024.
-	DiskSizeGB *int64
-
-	// Whether high availability is enabled on the node group.
-	EnableHa *bool
-
-	// The node type deployed in the node group.
-	Kind *NodeKind
-
-	// The number of nodes in the node group.
-	NodeCount *int32
-
-	// The resource sku for the node group. This defines the size of CPU and memory that is provisioned for each node. Example
-	// values: 'M30', 'M40'.
-	SKU *string
-}
-
 // NotebookWorkspace - A notebook workspace resource
 type NotebookWorkspace struct {
 	// Resource properties.
@@ -3792,11 +3634,14 @@ type PrivateEndpointConnection struct {
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -3895,19 +3740,6 @@ type PrivilegeResource struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// ProxyResourceAutoGenerated - The resource model definition for a Azure Resource Manager proxy resource. It will not have
-// tags and a location
-type ProxyResourceAutoGenerated struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
@@ -3987,18 +3819,6 @@ type RegionalServiceResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
-type ResourceAutoGenerated struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
