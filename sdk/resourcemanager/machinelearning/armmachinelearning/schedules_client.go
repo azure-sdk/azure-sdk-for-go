@@ -46,7 +46,7 @@ func NewSchedulesClient(subscriptionID string, credential azcore.TokenCredential
 // BeginCreateOrUpdate - Create or update schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Schedule name.
@@ -60,7 +60,8 @@ func (client *SchedulesClient) BeginCreateOrUpdate(ctx context.Context, resource
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SchedulesClientCreateOrUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaOriginalURI,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -73,7 +74,7 @@ func (client *SchedulesClient) BeginCreateOrUpdate(ctx context.Context, resource
 // CreateOrUpdate - Create or update schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-01-preview
 func (client *SchedulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body Schedule, options *SchedulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SchedulesClient.BeginCreateOrUpdate"
@@ -119,7 +120,7 @@ func (client *SchedulesClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -131,7 +132,7 @@ func (client *SchedulesClient) createOrUpdateCreateRequest(ctx context.Context, 
 // BeginDelete - Delete schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Schedule name.
@@ -143,7 +144,8 @@ func (client *SchedulesClient) BeginDelete(ctx context.Context, resourceGroupNam
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SchedulesClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -156,7 +158,7 @@ func (client *SchedulesClient) BeginDelete(ctx context.Context, resourceGroupNam
 // Delete - Delete schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-01-preview
 func (client *SchedulesClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *SchedulesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SchedulesClient.BeginDelete"
@@ -202,7 +204,7 @@ func (client *SchedulesClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +213,7 @@ func (client *SchedulesClient) deleteCreateRequest(ctx context.Context, resource
 // Get - Get schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Schedule name.
@@ -262,7 +264,7 @@ func (client *SchedulesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -279,7 +281,7 @@ func (client *SchedulesClient) getHandleResponse(resp *http.Response) (Schedules
 
 // NewListPager - List schedules in specified workspace.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - options - SchedulesClientListOptions contains the optional parameters for the SchedulesClient.NewListPager method.
@@ -326,10 +328,10 @@ func (client *SchedulesClient) listCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
+	reqQP.Set("api-version", "2024-04-01-preview")
 	if options != nil && options.ListViewType != nil {
 		reqQP.Set("listViewType", string(*options.ListViewType))
 	}
@@ -343,6 +345,79 @@ func (client *SchedulesClient) listHandleResponse(resp *http.Response) (Schedule
 	result := SchedulesClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ScheduleResourceArmPaginatedResult); err != nil {
 		return SchedulesClientListResponse{}, err
+	}
+	return result, nil
+}
+
+// Trigger - Trigger run.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Schedule name.
+//   - body - Request body for trigger once
+//   - options - SchedulesClientTriggerOptions contains the optional parameters for the SchedulesClient.Trigger method.
+func (client *SchedulesClient) Trigger(ctx context.Context, resourceGroupName string, workspaceName string, name string, body TriggerOnceRequest, options *SchedulesClientTriggerOptions) (SchedulesClientTriggerResponse, error) {
+	var err error
+	const operationName = "SchedulesClient.Trigger"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.triggerCreateRequest(ctx, resourceGroupName, workspaceName, name, body, options)
+	if err != nil {
+		return SchedulesClientTriggerResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return SchedulesClientTriggerResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return SchedulesClientTriggerResponse{}, err
+	}
+	resp, err := client.triggerHandleResponse(httpResp)
+	return resp, err
+}
+
+// triggerCreateRequest creates the Trigger request.
+func (client *SchedulesClient) triggerCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, body TriggerOnceRequest, options *SchedulesClientTriggerOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/schedules/{name}/trigger"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// triggerHandleResponse handles the Trigger response.
+func (client *SchedulesClient) triggerHandleResponse(resp *http.Response) (SchedulesClientTriggerResponse, error) {
+	result := SchedulesClientTriggerResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.TriggerRunSubmissionDto); err != nil {
+		return SchedulesClientTriggerResponse{}, err
 	}
 	return result, nil
 }
