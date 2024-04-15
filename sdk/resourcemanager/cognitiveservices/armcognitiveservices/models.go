@@ -175,6 +175,9 @@ type AccountProperties struct {
 	APIProperties   *APIProperties
 	AllowedFqdnList []*string
 
+	// The user owned AML workspace properties.
+	AmlWorkspace *UserOwnedAmlWorkspace
+
 	// Optional subdomain name used for token-based authentication.
 	CustomSubDomainName *string
 	DisableLocalAuth    *bool
@@ -291,6 +294,9 @@ type CallRateLimit struct {
 
 // CapacityConfig - The capacity configuration.
 type CapacityConfig struct {
+	// The array of allowed values for capacity.
+	AllowedValues []*int32
+
 	// The default capacity.
 	Default *int32
 
@@ -392,6 +398,9 @@ type CommitmentPlan struct {
 type CommitmentPlanAccountAssociation struct {
 	// Properties of Cognitive Services account commitment plan association.
 	Properties *CommitmentPlanAccountAssociationProperties
+
+	// Resource tags.
+	Tags map[string]*string
 
 	// READ-ONLY; Resource Etag.
 	Etag *string
@@ -526,6 +535,9 @@ type Deployment struct {
 	// The resource model definition representing SKU
 	SKU *SKU
 
+	// Resource tags.
+	Tags map[string]*string
+
 	// READ-ONLY; Resource Etag.
 	Etag *string
 
@@ -540,6 +552,15 @@ type Deployment struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// DeploymentCapacitySettings - Internal use only.
+type DeploymentCapacitySettings struct {
+	// The designated capacity.
+	DesignatedCapacity *int32
+
+	// The priority of this capacity setting.
+	Priority *int32
 }
 
 // DeploymentListResult - The list of cognitive services accounts operation response.
@@ -573,13 +594,19 @@ type DeploymentModel struct {
 
 // DeploymentProperties - Properties of Cognitive Services account deployment.
 type DeploymentProperties struct {
+	// Internal use only.
+	CapacitySettings *DeploymentCapacitySettings
+
+	// The current capacity.
+	CurrentCapacity *int32
+
 	// Properties of Cognitive Services account deployment model.
 	Model *DeploymentModel
 
 	// The name of RAI policy.
 	RaiPolicyName *string
 
-	// Properties of Cognitive Services account deployment model.
+	// Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku instead.)
 	ScaleSettings *DeploymentScaleSettings
 
 	// Deployment model version upgrade option.
@@ -591,6 +618,9 @@ type DeploymentProperties struct {
 	// READ-ONLY; The capabilities.
 	Capabilities map[string]*string
 
+	// READ-ONLY; If the dynamic throttling is enabled.
+	DynamicThrottlingEnabled *bool
+
 	// READ-ONLY; Gets the status of the resource at the time the operation was called.
 	ProvisioningState *DeploymentProvisioningState
 
@@ -598,7 +628,17 @@ type DeploymentProperties struct {
 	RateLimits []*ThrottlingRule
 }
 
-// DeploymentScaleSettings - Properties of Cognitive Services account deployment model.
+// DeploymentSKUListResult - The list of cognitive services accounts operation response.
+type DeploymentSKUListResult struct {
+	// The link used to get the next page of deployment skus.
+	NextLink *string
+
+	// READ-ONLY; Gets the list of Cognitive Services accounts deployment skus.
+	Value []*SKUResource
+}
+
+// DeploymentScaleSettings - Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku
+// instead.)
 type DeploymentScaleSettings struct {
 	// Deployment capacity.
 	Capacity *int32
@@ -635,6 +675,54 @@ type Encryption struct {
 
 	// Properties of KeyVault
 	KeyVaultProperties *KeyVaultProperties
+}
+
+// EncryptionScope - Cognitive Services EncryptionScope
+type EncryptionScope struct {
+	// Properties of Cognitive Services EncryptionScope.
+	Properties *EncryptionScopeProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EncryptionScopeListResult - The list of cognitive services EncryptionScopes.
+type EncryptionScopeListResult struct {
+	// The link used to get the next page of EncryptionScope.
+	NextLink *string
+
+	// The list of EncryptionScope.
+	Value []*EncryptionScope
+}
+
+// EncryptionScopeProperties - Properties to EncryptionScope
+type EncryptionScopeProperties struct {
+	// Enumerates the possible value of keySource for Encryption
+	KeySource *KeySource
+
+	// Properties of KeyVault
+	KeyVaultProperties *KeyVaultProperties
+
+	// The encryptionScope state.
+	State *EncryptionScopeState
+
+	// READ-ONLY; Gets the status of the resource at the time the operation was called.
+	ProvisioningState *EncryptionScopeProvisioningState
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -776,6 +864,9 @@ type MultiRegionSettings struct {
 
 // NetworkRuleSet - A set of rules governing the network accessibility.
 type NetworkRuleSet struct {
+	// Setting for trusted services.
+	Bypass *ByPassSelection
+
 	// The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property
 	// has been evaluated.
 	DefaultAction *NetworkRuleAction
@@ -970,6 +1061,189 @@ type QuotaLimit struct {
 	Rules         []*ThrottlingRule
 }
 
+// RaiBlockListItemsResult - The list of cognitive services RAI Blocklist Items.
+type RaiBlockListItemsResult struct {
+	// The link used to get the next page of RaiBlocklistItems.
+	NextLink *string
+
+	// The list of RaiBlocklistItems.
+	Value []*RaiBlocklistItem
+}
+
+// RaiBlockListResult - The list of cognitive services RAI Blocklists.
+type RaiBlockListResult struct {
+	// The link used to get the next page of RaiBlocklists.
+	NextLink *string
+
+	// The list of RaiBlocklist.
+	Value []*RaiBlocklist
+}
+
+// RaiBlocklist - Cognitive Services RaiBlocklist.
+type RaiBlocklist struct {
+	// Properties of Cognitive Services RaiBlocklist.
+	Properties *RaiBlocklistProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiBlocklistConfig - Azure OpenAI blocklist config.
+type RaiBlocklistConfig struct {
+	// If blocking would occur.
+	Blocking *bool
+
+	// Name of ContentFilter.
+	BlocklistName *string
+}
+
+// RaiBlocklistItem - Cognitive Services RaiBlocklist Item.
+type RaiBlocklistItem struct {
+	// Properties of Cognitive Services RaiBlocklist Item.
+	Properties *RaiBlocklistItemProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiBlocklistItemProperties - RAI Custom Blocklist Item properties.
+type RaiBlocklistItemProperties struct {
+	// If the pattern is a regex pattern.
+	IsRegex *bool
+
+	// Pattern to match against.
+	Pattern *string
+}
+
+// RaiBlocklistProperties - RAI Custom Blocklist properties.
+type RaiBlocklistProperties struct {
+	// Description of the block list.
+	Description *string
+}
+
+// RaiContentFilter - Azure OpenAI Content Filter.
+type RaiContentFilter struct {
+	// Description of Content Filter.
+	Description *string
+
+	// Content Filter type.
+	FilterType *RaiContentFilterType
+
+	// Name of Content Filter.
+	PolicyName *string
+}
+
+// RaiContentFilterListResult - The list of Content Filters.
+type RaiContentFilterListResult struct {
+	// The link used to get the next page of Content Filters.
+	NextLink *string
+
+	// The list of RaiContentFilter.
+	Value []*RaiContentFilter
+}
+
+// RaiPolicy - Cognitive Services RaiPolicy.
+type RaiPolicy struct {
+	// Properties of Cognitive Services RaiPolicy.
+	Properties *RaiPolicyProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiPolicyContentFilter - Azure OpenAI Content Filter.
+type RaiPolicyContentFilter struct {
+	// Level at which content is filtered.
+	AllowedContentLevel *AllowedContentLevel
+
+	// If blocking would occur.
+	Blocking *bool
+
+	// If the ContentFilter is enabled.
+	Enabled *bool
+
+	// Name of ContentFilter.
+	Name *string
+
+	// Content source to apply the Content Filters.
+	Source *RaiPolicyContentSource
+}
+
+// RaiPolicyListResult - The list of cognitive services RaiPolicies.
+type RaiPolicyListResult struct {
+	// The link used to get the next page of RaiPolicy.
+	NextLink *string
+
+	// The list of RaiPolicy.
+	Value []*RaiPolicy
+}
+
+// RaiPolicyProperties - Azure OpenAI Content Filters properties.
+type RaiPolicyProperties struct {
+	// Name of the base Content Filters.
+	BasePolicyName *string
+
+	// The list of blocklists for completion.
+	CompletionBlocklists []*RaiBlocklistConfig
+
+	// The list of Content Filters.
+	ContentFilters []*RaiPolicyContentFilter
+
+	// Content Filters mode.
+	Mode *RaiPolicyMode
+
+	// The list of blocklists for prompt.
+	PromptBlocklists []*RaiBlocklistConfig
+
+	// READ-ONLY; Content Filters policy type.
+	PolicyType *RaiPolicyType
+}
+
 // RegenerateKeyParameters - Regenerate key parameters.
 type RegenerateKeyParameters struct {
 	// REQUIRED; key name to generate (Key1|Key2)
@@ -1127,6 +1401,18 @@ type SKUChangeInfo struct {
 	LastChangeDate *string
 }
 
+// SKUResource - Properties of Cognitive Services account resource sku resource properties.
+type SKUResource struct {
+	// The capacity configuration.
+	Capacity *CapacityConfig
+
+	// The resource type name.
+	ResourceType *string
+
+	// The resource model definition representing SKU
+	SKU *SKU
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -1197,6 +1483,15 @@ type UserAssignedIdentity struct {
 
 	// READ-ONLY; Azure Active Directory principal ID associated with this Identity.
 	PrincipalID *string
+}
+
+// UserOwnedAmlWorkspace - The user owned AML workspace for Cognitive Services account.
+type UserOwnedAmlWorkspace struct {
+	// Identity Client id of a AML workspace resource.
+	IdentityClientID *string
+
+	// Full resource id of a AML workspace resource.
+	ResourceID *string
 }
 
 // UserOwnedStorage - The user owned storage for Cognitive Services account.
