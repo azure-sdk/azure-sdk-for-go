@@ -19,28 +19,33 @@ import (
 
 // ServerFactory is a fake server for instances of the armdevcenter.ClientFactory type.
 type ServerFactory struct {
-	AttachedNetworksServer               AttachedNetworksServer
-	CatalogDevBoxDefinitionsServer       CatalogDevBoxDefinitionsServer
-	CatalogsServer                       CatalogsServer
-	CheckNameAvailabilityServer          CheckNameAvailabilityServer
-	CustomizationTasksServer             CustomizationTasksServer
-	DevBoxDefinitionsServer              DevBoxDefinitionsServer
-	DevCentersServer                     DevCentersServer
-	EnvironmentDefinitionsServer         EnvironmentDefinitionsServer
-	EnvironmentTypesServer               EnvironmentTypesServer
-	GalleriesServer                      GalleriesServer
-	ImageVersionsServer                  ImageVersionsServer
-	ImagesServer                         ImagesServer
-	NetworkConnectionsServer             NetworkConnectionsServer
-	OperationStatusesServer              OperationStatusesServer
-	OperationsServer                     OperationsServer
-	PoolsServer                          PoolsServer
-	ProjectAllowedEnvironmentTypesServer ProjectAllowedEnvironmentTypesServer
-	ProjectEnvironmentTypesServer        ProjectEnvironmentTypesServer
-	ProjectsServer                       ProjectsServer
-	SKUsServer                           SKUsServer
-	SchedulesServer                      SchedulesServer
-	UsagesServer                         UsagesServer
+	AttachedNetworksServer                     AttachedNetworksServer
+	CatalogsServer                             CatalogsServer
+	CheckNameAvailabilityServer                CheckNameAvailabilityServer
+	CheckScopedNameAvailabilityServer          CheckScopedNameAvailabilityServer
+	CustomizationTasksServer                   CustomizationTasksServer
+	DevBoxDefinitionsServer                    DevBoxDefinitionsServer
+	DevCentersServer                           DevCentersServer
+	EncryptionSetsServer                       EncryptionSetsServer
+	EnvironmentDefinitionsServer               EnvironmentDefinitionsServer
+	EnvironmentTypesServer                     EnvironmentTypesServer
+	GalleriesServer                            GalleriesServer
+	ImageVersionsServer                        ImageVersionsServer
+	ImagesServer                               ImagesServer
+	NetworkConnectionsServer                   NetworkConnectionsServer
+	OperationStatusesServer                    OperationStatusesServer
+	OperationsServer                           OperationsServer
+	PlanMembersServer                          PlanMembersServer
+	PlansServer                                PlansServer
+	PoolsServer                                PoolsServer
+	ProjectAllowedEnvironmentTypesServer       ProjectAllowedEnvironmentTypesServer
+	ProjectCatalogEnvironmentDefinitionsServer ProjectCatalogEnvironmentDefinitionsServer
+	ProjectCatalogsServer                      ProjectCatalogsServer
+	ProjectEnvironmentTypesServer              ProjectEnvironmentTypesServer
+	ProjectsServer                             ProjectsServer
+	SKUsServer                                 SKUsServer
+	SchedulesServer                            SchedulesServer
+	UsagesServer                               UsagesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -55,30 +60,35 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armdevcenter.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                    *ServerFactory
-	trMu                                   sync.Mutex
-	trAttachedNetworksServer               *AttachedNetworksServerTransport
-	trCatalogDevBoxDefinitionsServer       *CatalogDevBoxDefinitionsServerTransport
-	trCatalogsServer                       *CatalogsServerTransport
-	trCheckNameAvailabilityServer          *CheckNameAvailabilityServerTransport
-	trCustomizationTasksServer             *CustomizationTasksServerTransport
-	trDevBoxDefinitionsServer              *DevBoxDefinitionsServerTransport
-	trDevCentersServer                     *DevCentersServerTransport
-	trEnvironmentDefinitionsServer         *EnvironmentDefinitionsServerTransport
-	trEnvironmentTypesServer               *EnvironmentTypesServerTransport
-	trGalleriesServer                      *GalleriesServerTransport
-	trImageVersionsServer                  *ImageVersionsServerTransport
-	trImagesServer                         *ImagesServerTransport
-	trNetworkConnectionsServer             *NetworkConnectionsServerTransport
-	trOperationStatusesServer              *OperationStatusesServerTransport
-	trOperationsServer                     *OperationsServerTransport
-	trPoolsServer                          *PoolsServerTransport
-	trProjectAllowedEnvironmentTypesServer *ProjectAllowedEnvironmentTypesServerTransport
-	trProjectEnvironmentTypesServer        *ProjectEnvironmentTypesServerTransport
-	trProjectsServer                       *ProjectsServerTransport
-	trSKUsServer                           *SKUsServerTransport
-	trSchedulesServer                      *SchedulesServerTransport
-	trUsagesServer                         *UsagesServerTransport
+	srv                                          *ServerFactory
+	trMu                                         sync.Mutex
+	trAttachedNetworksServer                     *AttachedNetworksServerTransport
+	trCatalogsServer                             *CatalogsServerTransport
+	trCheckNameAvailabilityServer                *CheckNameAvailabilityServerTransport
+	trCheckScopedNameAvailabilityServer          *CheckScopedNameAvailabilityServerTransport
+	trCustomizationTasksServer                   *CustomizationTasksServerTransport
+	trDevBoxDefinitionsServer                    *DevBoxDefinitionsServerTransport
+	trDevCentersServer                           *DevCentersServerTransport
+	trEncryptionSetsServer                       *EncryptionSetsServerTransport
+	trEnvironmentDefinitionsServer               *EnvironmentDefinitionsServerTransport
+	trEnvironmentTypesServer                     *EnvironmentTypesServerTransport
+	trGalleriesServer                            *GalleriesServerTransport
+	trImageVersionsServer                        *ImageVersionsServerTransport
+	trImagesServer                               *ImagesServerTransport
+	trNetworkConnectionsServer                   *NetworkConnectionsServerTransport
+	trOperationStatusesServer                    *OperationStatusesServerTransport
+	trOperationsServer                           *OperationsServerTransport
+	trPlanMembersServer                          *PlanMembersServerTransport
+	trPlansServer                                *PlansServerTransport
+	trPoolsServer                                *PoolsServerTransport
+	trProjectAllowedEnvironmentTypesServer       *ProjectAllowedEnvironmentTypesServerTransport
+	trProjectCatalogEnvironmentDefinitionsServer *ProjectCatalogEnvironmentDefinitionsServerTransport
+	trProjectCatalogsServer                      *ProjectCatalogsServerTransport
+	trProjectEnvironmentTypesServer              *ProjectEnvironmentTypesServerTransport
+	trProjectsServer                             *ProjectsServerTransport
+	trSKUsServer                                 *SKUsServerTransport
+	trSchedulesServer                            *SchedulesServerTransport
+	trUsagesServer                               *UsagesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -99,11 +109,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewAttachedNetworksServerTransport(&s.srv.AttachedNetworksServer)
 		})
 		resp, err = s.trAttachedNetworksServer.Do(req)
-	case "CatalogDevBoxDefinitionsClient":
-		initServer(s, &s.trCatalogDevBoxDefinitionsServer, func() *CatalogDevBoxDefinitionsServerTransport {
-			return NewCatalogDevBoxDefinitionsServerTransport(&s.srv.CatalogDevBoxDefinitionsServer)
-		})
-		resp, err = s.trCatalogDevBoxDefinitionsServer.Do(req)
 	case "CatalogsClient":
 		initServer(s, &s.trCatalogsServer, func() *CatalogsServerTransport { return NewCatalogsServerTransport(&s.srv.CatalogsServer) })
 		resp, err = s.trCatalogsServer.Do(req)
@@ -112,6 +117,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewCheckNameAvailabilityServerTransport(&s.srv.CheckNameAvailabilityServer)
 		})
 		resp, err = s.trCheckNameAvailabilityServer.Do(req)
+	case "CheckScopedNameAvailabilityClient":
+		initServer(s, &s.trCheckScopedNameAvailabilityServer, func() *CheckScopedNameAvailabilityServerTransport {
+			return NewCheckScopedNameAvailabilityServerTransport(&s.srv.CheckScopedNameAvailabilityServer)
+		})
+		resp, err = s.trCheckScopedNameAvailabilityServer.Do(req)
 	case "CustomizationTasksClient":
 		initServer(s, &s.trCustomizationTasksServer, func() *CustomizationTasksServerTransport {
 			return NewCustomizationTasksServerTransport(&s.srv.CustomizationTasksServer)
@@ -125,6 +135,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "DevCentersClient":
 		initServer(s, &s.trDevCentersServer, func() *DevCentersServerTransport { return NewDevCentersServerTransport(&s.srv.DevCentersServer) })
 		resp, err = s.trDevCentersServer.Do(req)
+	case "EncryptionSetsClient":
+		initServer(s, &s.trEncryptionSetsServer, func() *EncryptionSetsServerTransport {
+			return NewEncryptionSetsServerTransport(&s.srv.EncryptionSetsServer)
+		})
+		resp, err = s.trEncryptionSetsServer.Do(req)
 	case "EnvironmentDefinitionsClient":
 		initServer(s, &s.trEnvironmentDefinitionsServer, func() *EnvironmentDefinitionsServerTransport {
 			return NewEnvironmentDefinitionsServerTransport(&s.srv.EnvironmentDefinitionsServer)
@@ -159,6 +174,12 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PlanMembersClient":
+		initServer(s, &s.trPlanMembersServer, func() *PlanMembersServerTransport { return NewPlanMembersServerTransport(&s.srv.PlanMembersServer) })
+		resp, err = s.trPlanMembersServer.Do(req)
+	case "PlansClient":
+		initServer(s, &s.trPlansServer, func() *PlansServerTransport { return NewPlansServerTransport(&s.srv.PlansServer) })
+		resp, err = s.trPlansServer.Do(req)
 	case "PoolsClient":
 		initServer(s, &s.trPoolsServer, func() *PoolsServerTransport { return NewPoolsServerTransport(&s.srv.PoolsServer) })
 		resp, err = s.trPoolsServer.Do(req)
@@ -167,6 +188,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewProjectAllowedEnvironmentTypesServerTransport(&s.srv.ProjectAllowedEnvironmentTypesServer)
 		})
 		resp, err = s.trProjectAllowedEnvironmentTypesServer.Do(req)
+	case "ProjectCatalogEnvironmentDefinitionsClient":
+		initServer(s, &s.trProjectCatalogEnvironmentDefinitionsServer, func() *ProjectCatalogEnvironmentDefinitionsServerTransport {
+			return NewProjectCatalogEnvironmentDefinitionsServerTransport(&s.srv.ProjectCatalogEnvironmentDefinitionsServer)
+		})
+		resp, err = s.trProjectCatalogEnvironmentDefinitionsServer.Do(req)
+	case "ProjectCatalogsClient":
+		initServer(s, &s.trProjectCatalogsServer, func() *ProjectCatalogsServerTransport {
+			return NewProjectCatalogsServerTransport(&s.srv.ProjectCatalogsServer)
+		})
+		resp, err = s.trProjectCatalogsServer.Do(req)
 	case "ProjectEnvironmentTypesClient":
 		initServer(s, &s.trProjectEnvironmentTypesServer, func() *ProjectEnvironmentTypesServerTransport {
 			return NewProjectEnvironmentTypesServerTransport(&s.srv.ProjectEnvironmentTypesServer)

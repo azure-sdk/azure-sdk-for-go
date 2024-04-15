@@ -1,5 +1,102 @@
 # Release History
 
+## 1.2.0-beta.2 (2024-04-15)
+### Breaking Changes
+
+- Function `NewCatalogDevBoxDefinitionsClient` has been removed
+- Function `*CatalogDevBoxDefinitionsClient.Get` has been removed
+- Function `*CatalogDevBoxDefinitionsClient.GetErrorDetails` has been removed
+- Function `*CatalogDevBoxDefinitionsClient.NewListByCatalogPager` has been removed
+- Function `*ClientFactory.NewCatalogDevBoxDefinitionsClient` has been removed
+- Field `Tags` of struct `CatalogUpdate` has been removed
+- Field `Location`, `Tags` of struct `ScheduleUpdate` has been removed
+
+### Features Added
+
+- New value `DomainJoinTypeNone` added to enum type `DomainJoinType`
+- New enum type `CatalogItemSyncEnableStatus` with values `CatalogItemSyncEnableStatusDisabled`, `CatalogItemSyncEnableStatusEnabled`
+- New enum type `CatalogItemType` with values `CatalogItemTypeEnvironmentDefinition`
+- New enum type `DevboxDisksEncryptionEnableStatus` with values `DevboxDisksEncryptionEnableStatusDisabled`, `DevboxDisksEncryptionEnableStatusEnabled`
+- New enum type `InstallAzureMonitorAgentEnableStatus` with values `InstallAzureMonitorAgentEnableStatusDisabled`, `InstallAzureMonitorAgentEnableStatusEnabled`
+- New enum type `MicrosoftHostedNetworkEnableStatus` with values `MicrosoftHostedNetworkEnableStatusDisabled`, `MicrosoftHostedNetworkEnableStatusEnabled`
+- New enum type `PlanMemberType` with values `PlanMemberTypeGroup`, `PlanMemberTypeUser`
+- New function `NewCheckScopedNameAvailabilityClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CheckScopedNameAvailabilityClient, error)`
+- New function `*CheckScopedNameAvailabilityClient.Execute(context.Context, CheckScopedNameAvailabilityRequest, *CheckScopedNameAvailabilityClientExecuteOptions) (CheckScopedNameAvailabilityClientExecuteResponse, error)`
+- New function `*ClientFactory.NewCheckScopedNameAvailabilityClient() *CheckScopedNameAvailabilityClient`
+- New function `*ClientFactory.NewEncryptionSetsClient() *EncryptionSetsClient`
+- New function `*ClientFactory.NewPlanMembersClient() *PlanMembersClient`
+- New function `*ClientFactory.NewPlansClient() *PlansClient`
+- New function `*ClientFactory.NewProjectCatalogEnvironmentDefinitionsClient() *ProjectCatalogEnvironmentDefinitionsClient`
+- New function `*ClientFactory.NewProjectCatalogsClient() *ProjectCatalogsClient`
+- New function `NewEncryptionSetsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EncryptionSetsClient, error)`
+- New function `*EncryptionSetsClient.BeginCreateOrUpdate(context.Context, string, string, string, EncryptionSet, *EncryptionSetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[EncryptionSetsClientCreateOrUpdateResponse], error)`
+- New function `*EncryptionSetsClient.BeginDelete(context.Context, string, string, string, *EncryptionSetsClientBeginDeleteOptions) (*runtime.Poller[EncryptionSetsClientDeleteResponse], error)`
+- New function `*EncryptionSetsClient.Get(context.Context, string, string, string, *EncryptionSetsClientGetOptions) (EncryptionSetsClientGetResponse, error)`
+- New function `*EncryptionSetsClient.NewListPager(string, string, *EncryptionSetsClientListOptions) *runtime.Pager[EncryptionSetsClientListResponse]`
+- New function `*EncryptionSetsClient.BeginUpdate(context.Context, string, string, string, EncryptionSetUpdate, *EncryptionSetsClientBeginUpdateOptions) (*runtime.Poller[EncryptionSetsClientUpdateResponse], error)`
+- New function `*EnvironmentDefinitionsClient.GetByProjectCatalog(context.Context, string, string, string, string, *EnvironmentDefinitionsClientGetByProjectCatalogOptions) (EnvironmentDefinitionsClientGetByProjectCatalogResponse, error)`
+- New function `*EnvironmentDefinitionsClient.NewListByProjectCatalogPager(string, string, string, *EnvironmentDefinitionsClientListByProjectCatalogOptions) *runtime.Pager[EnvironmentDefinitionsClientListByProjectCatalogResponse]`
+- New function `NewPlanMembersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PlanMembersClient, error)`
+- New function `*PlanMembersClient.BeginCreateOrUpdate(context.Context, string, string, string, PlanMember, *PlanMembersClientBeginCreateOrUpdateOptions) (*runtime.Poller[PlanMembersClientCreateOrUpdateResponse], error)`
+- New function `*PlanMembersClient.BeginDelete(context.Context, string, string, string, *PlanMembersClientBeginDeleteOptions) (*runtime.Poller[PlanMembersClientDeleteResponse], error)`
+- New function `*PlanMembersClient.Get(context.Context, string, string, string, *PlanMembersClientGetOptions) (PlanMembersClientGetResponse, error)`
+- New function `*PlanMembersClient.NewListPager(string, string, *PlanMembersClientListOptions) *runtime.Pager[PlanMembersClientListResponse]`
+- New function `*PlanMembersClient.BeginUpdate(context.Context, string, string, string, PlanMemberUpdate, *PlanMembersClientBeginUpdateOptions) (*runtime.Poller[PlanMembersClientUpdateResponse], error)`
+- New function `NewPlansClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PlansClient, error)`
+- New function `*PlansClient.BeginCreateOrUpdate(context.Context, string, string, Plan, *PlansClientBeginCreateOrUpdateOptions) (*runtime.Poller[PlansClientCreateOrUpdateResponse], error)`
+- New function `*PlansClient.BeginDelete(context.Context, string, string, *PlansClientBeginDeleteOptions) (*runtime.Poller[PlansClientDeleteResponse], error)`
+- New function `*PlansClient.Get(context.Context, string, string, *PlansClientGetOptions) (PlansClientGetResponse, error)`
+- New function `*PlansClient.NewListByResourceGroupPager(string, *PlansClientListByResourceGroupOptions) *runtime.Pager[PlansClientListByResourceGroupResponse]`
+- New function `*PlansClient.NewListBySubscriptionPager(*PlansClientListBySubscriptionOptions) *runtime.Pager[PlansClientListBySubscriptionResponse]`
+- New function `*PlansClient.BeginUpdate(context.Context, string, string, PlanUpdate, *PlansClientBeginUpdateOptions) (*runtime.Poller[PlansClientUpdateResponse], error)`
+- New function `NewProjectCatalogEnvironmentDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogEnvironmentDefinitionsClient, error)`
+- New function `*ProjectCatalogEnvironmentDefinitionsClient.GetErrorDetails(context.Context, string, string, string, string, *ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsOptions) (ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsResponse, error)`
+- New function `NewProjectCatalogsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogsClient, error)`
+- New function `*ProjectCatalogsClient.BeginConnect(context.Context, string, string, string, *ProjectCatalogsClientBeginConnectOptions) (*runtime.Poller[ProjectCatalogsClientConnectResponse], error)`
+- New function `*ProjectCatalogsClient.BeginCreateOrUpdate(context.Context, string, string, string, Catalog, *ProjectCatalogsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ProjectCatalogsClientCreateOrUpdateResponse], error)`
+- New function `*ProjectCatalogsClient.BeginDelete(context.Context, string, string, string, *ProjectCatalogsClientBeginDeleteOptions) (*runtime.Poller[ProjectCatalogsClientDeleteResponse], error)`
+- New function `*ProjectCatalogsClient.Get(context.Context, string, string, string, *ProjectCatalogsClientGetOptions) (ProjectCatalogsClientGetResponse, error)`
+- New function `*ProjectCatalogsClient.GetSyncErrorDetails(context.Context, string, string, string, *ProjectCatalogsClientGetSyncErrorDetailsOptions) (ProjectCatalogsClientGetSyncErrorDetailsResponse, error)`
+- New function `*ProjectCatalogsClient.NewListPager(string, string, *ProjectCatalogsClientListOptions) *runtime.Pager[ProjectCatalogsClientListResponse]`
+- New function `*ProjectCatalogsClient.BeginPatch(context.Context, string, string, string, CatalogUpdate, *ProjectCatalogsClientBeginPatchOptions) (*runtime.Poller[ProjectCatalogsClientPatchResponse], error)`
+- New function `*ProjectCatalogsClient.BeginSync(context.Context, string, string, string, *ProjectCatalogsClientBeginSyncOptions) (*runtime.Poller[ProjectCatalogsClientSyncResponse], error)`
+- New function `*ProjectsClient.GetInheritedSettings(context.Context, string, string, *ProjectsClientGetInheritedSettingsOptions) (ProjectsClientGetInheritedSettingsResponse, error)`
+- New struct `CheckScopedNameAvailabilityRequest`
+- New struct `DevBoxProvisioningSettings`
+- New struct `EncryptionSet`
+- New struct `EncryptionSetListResult`
+- New struct `EncryptionSetProperties`
+- New struct `EncryptionSetUpdate`
+- New struct `EncryptionSetUpdateProperties`
+- New struct `InheritedSettingsForProject`
+- New struct `NetworkSettings`
+- New struct `Plan`
+- New struct `PlanListResult`
+- New struct `PlanMember`
+- New struct `PlanMemberProperties`
+- New struct `PlanMemberUpdate`
+- New struct `PlanMembersListResult`
+- New struct `PlanProperties`
+- New struct `PlanUpdate`
+- New struct `ProjectCatalogSettings`
+- New struct `ProjectCatalogSettingsInfo`
+- New struct `ProjectNetworkSettings`
+- New field `Tags` in struct `CatalogProperties`
+- New field `Tags` in struct `CatalogUpdateProperties`
+- New field `ResourceID` in struct `OperationStatusResult`
+- New field `Location` in struct `OperationStatusesClientGetResponse`
+- New field `Identity` in struct `Project`
+- New field `DisplayName` in struct `ProjectEnvironmentTypeUpdateProperties`
+- New field `CatalogSettings` in struct `ProjectProperties`
+- New field `Identity` in struct `ProjectUpdate`
+- New field `CatalogSettings` in struct `ProjectUpdateProperties`
+- New field `DevBoxProvisioningSettings`, `NetworkSettings`, `PlanID`, `ProjectCatalogSettings` in struct `Properties`
+- New field `Location`, `Tags` in struct `ScheduleProperties`
+- New field `Location`, `Tags` in struct `ScheduleUpdateProperties`
+- New field `SyncedCatalogItemTypes` in struct `SyncStats`
+- New field `DevBoxProvisioningSettings`, `NetworkSettings`, `PlanID`, `ProjectCatalogSettings` in struct `UpdateProperties`
+
+
 ## 1.2.0-beta.1 (2023-11-30)
 ### Features Added
 

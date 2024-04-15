@@ -47,24 +47,6 @@ type AttachedNetworksClientListByProjectOptions struct {
 	Top *int32
 }
 
-// CatalogDevBoxDefinitionsClientGetErrorDetailsOptions contains the optional parameters for the CatalogDevBoxDefinitionsClient.GetErrorDetails
-// method.
-type CatalogDevBoxDefinitionsClientGetErrorDetailsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CatalogDevBoxDefinitionsClientGetOptions contains the optional parameters for the CatalogDevBoxDefinitionsClient.Get method.
-type CatalogDevBoxDefinitionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CatalogDevBoxDefinitionsClientListByCatalogOptions contains the optional parameters for the CatalogDevBoxDefinitionsClient.NewListByCatalogPager
-// method.
-type CatalogDevBoxDefinitionsClientListByCatalogOptions struct {
-	// The maximum number of resources to return from the operation. Example: '$top=10'.
-	Top *int32
-}
-
 // CatalogsClientBeginConnectOptions contains the optional parameters for the CatalogsClient.BeginConnect method.
 type CatalogsClientBeginConnectOptions struct {
 	// Resumes the LRO from the provided token.
@@ -114,6 +96,12 @@ type CatalogsClientListByDevCenterOptions struct {
 // CheckNameAvailabilityClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityClient.Execute
 // method.
 type CheckNameAvailabilityClientExecuteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CheckScopedNameAvailabilityClientExecuteOptions contains the optional parameters for the CheckScopedNameAvailabilityClient.Execute
+// method.
+type CheckScopedNameAvailabilityClientExecuteOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -219,6 +207,42 @@ type DevCentersClientListBySubscriptionOptions struct {
 	Top *int32
 }
 
+// EncryptionSetsClientBeginCreateOrUpdateOptions contains the optional parameters for the EncryptionSetsClient.BeginCreateOrUpdate
+// method.
+type EncryptionSetsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EncryptionSetsClientBeginDeleteOptions contains the optional parameters for the EncryptionSetsClient.BeginDelete method.
+type EncryptionSetsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EncryptionSetsClientBeginUpdateOptions contains the optional parameters for the EncryptionSetsClient.BeginUpdate method.
+type EncryptionSetsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EncryptionSetsClientGetOptions contains the optional parameters for the EncryptionSetsClient.Get method.
+type EncryptionSetsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EncryptionSetsClientListOptions contains the optional parameters for the EncryptionSetsClient.NewListPager method.
+type EncryptionSetsClientListOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
+// EnvironmentDefinitionsClientGetByProjectCatalogOptions contains the optional parameters for the EnvironmentDefinitionsClient.GetByProjectCatalog
+// method.
+type EnvironmentDefinitionsClientGetByProjectCatalogOptions struct {
+	// placeholder for future optional parameters
+}
+
 // EnvironmentDefinitionsClientGetErrorDetailsOptions contains the optional parameters for the EnvironmentDefinitionsClient.GetErrorDetails
 // method.
 type EnvironmentDefinitionsClientGetErrorDetailsOptions struct {
@@ -235,6 +259,12 @@ type EnvironmentDefinitionsClientGetOptions struct {
 type EnvironmentDefinitionsClientListByCatalogOptions struct {
 	// The maximum number of resources to return from the operation. Example: '$top=10'.
 	Top *int32
+}
+
+// EnvironmentDefinitionsClientListByProjectCatalogOptions contains the optional parameters for the EnvironmentDefinitionsClient.NewListByProjectCatalogPager
+// method.
+type EnvironmentDefinitionsClientListByProjectCatalogOptions struct {
+	// placeholder for future optional parameters
 }
 
 // EnvironmentTypesClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentTypesClient.CreateOrUpdate
@@ -395,6 +425,72 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PlanMembersClientBeginCreateOrUpdateOptions contains the optional parameters for the PlanMembersClient.BeginCreateOrUpdate
+// method.
+type PlanMembersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PlanMembersClientBeginDeleteOptions contains the optional parameters for the PlanMembersClient.BeginDelete method.
+type PlanMembersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PlanMembersClientBeginUpdateOptions contains the optional parameters for the PlanMembersClient.BeginUpdate method.
+type PlanMembersClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PlanMembersClientGetOptions contains the optional parameters for the PlanMembersClient.Get method.
+type PlanMembersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PlanMembersClientListOptions contains the optional parameters for the PlanMembersClient.NewListPager method.
+type PlanMembersClientListOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
+// PlansClientBeginCreateOrUpdateOptions contains the optional parameters for the PlansClient.BeginCreateOrUpdate method.
+type PlansClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PlansClientBeginDeleteOptions contains the optional parameters for the PlansClient.BeginDelete method.
+type PlansClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PlansClientBeginUpdateOptions contains the optional parameters for the PlansClient.BeginUpdate method.
+type PlansClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PlansClientGetOptions contains the optional parameters for the PlansClient.Get method.
+type PlansClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PlansClientListByResourceGroupOptions contains the optional parameters for the PlansClient.NewListByResourceGroupPager
+// method.
+type PlansClientListByResourceGroupOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
+// PlansClientListBySubscriptionOptions contains the optional parameters for the PlansClient.NewListBySubscriptionPager method.
+type PlansClientListBySubscriptionOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
 // PoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the PoolsClient.BeginCreateOrUpdate method.
 type PoolsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -439,6 +535,60 @@ type ProjectAllowedEnvironmentTypesClientGetOptions struct {
 // ProjectAllowedEnvironmentTypesClientListOptions contains the optional parameters for the ProjectAllowedEnvironmentTypesClient.NewListPager
 // method.
 type ProjectAllowedEnvironmentTypesClientListOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
+// ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsOptions contains the optional parameters for the ProjectCatalogEnvironmentDefinitionsClient.GetErrorDetails
+// method.
+type ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogsClientBeginConnectOptions contains the optional parameters for the ProjectCatalogsClient.BeginConnect method.
+type ProjectCatalogsClientBeginConnectOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogsClientBeginCreateOrUpdateOptions contains the optional parameters for the ProjectCatalogsClient.BeginCreateOrUpdate
+// method.
+type ProjectCatalogsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogsClientBeginDeleteOptions contains the optional parameters for the ProjectCatalogsClient.BeginDelete method.
+type ProjectCatalogsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogsClientBeginPatchOptions contains the optional parameters for the ProjectCatalogsClient.BeginPatch method.
+type ProjectCatalogsClientBeginPatchOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogsClientBeginSyncOptions contains the optional parameters for the ProjectCatalogsClient.BeginSync method.
+type ProjectCatalogsClientBeginSyncOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogsClientGetOptions contains the optional parameters for the ProjectCatalogsClient.Get method.
+type ProjectCatalogsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogsClientGetSyncErrorDetailsOptions contains the optional parameters for the ProjectCatalogsClient.GetSyncErrorDetails
+// method.
+type ProjectCatalogsClientGetSyncErrorDetailsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogsClientListOptions contains the optional parameters for the ProjectCatalogsClient.NewListPager method.
+type ProjectCatalogsClientListOptions struct {
 	// The maximum number of resources to return from the operation. Example: '$top=10'.
 	Top *int32
 }
@@ -489,6 +639,12 @@ type ProjectsClientBeginDeleteOptions struct {
 type ProjectsClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ProjectsClientGetInheritedSettingsOptions contains the optional parameters for the ProjectsClient.GetInheritedSettings
+// method.
+type ProjectsClientGetInheritedSettingsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ProjectsClientGetOptions contains the optional parameters for the ProjectsClient.Get method.

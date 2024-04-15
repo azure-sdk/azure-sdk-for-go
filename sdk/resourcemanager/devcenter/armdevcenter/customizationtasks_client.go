@@ -47,7 +47,7 @@ func NewCustomizationTasksClient(subscriptionID string, credential azcore.TokenC
 // Get - Gets a Task from the catalog
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - devCenterName - The name of the devcenter.
 //   - catalogName - The name of the Catalog.
@@ -103,7 +103,7 @@ func (client *CustomizationTasksClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *CustomizationTasksClient) getHandleResponse(resp *http.Response) (
 // GetErrorDetails - Gets Customization Task error details
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - devCenterName - The name of the devcenter.
 //   - catalogName - The name of the Catalog.
@@ -178,7 +178,7 @@ func (client *CustomizationTasksClient) getErrorDetailsCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,7 +195,7 @@ func (client *CustomizationTasksClient) getErrorDetailsHandleResponse(resp *http
 
 // NewListByCatalogPager - List Tasks in the catalog.
 //
-// Generated from API version 2023-10-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - devCenterName - The name of the devcenter.
 //   - catalogName - The name of the Catalog.
@@ -248,10 +248,10 @@ func (client *CustomizationTasksClient) listByCatalogCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01-preview")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

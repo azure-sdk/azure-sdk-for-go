@@ -10,7 +10,7 @@ package armdevcenter
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devcenter/armdevcenter"
-	moduleVersion = "v1.2.0-beta.1"
+	moduleVersion = "v1.2.0-beta.2"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -40,6 +40,37 @@ func PossibleCatalogConnectionStateValues() []CatalogConnectionState {
 	return []CatalogConnectionState{
 		CatalogConnectionStateConnected,
 		CatalogConnectionStateDisconnected,
+	}
+}
+
+// CatalogItemSyncEnableStatus - Catalog item sync types enable or disable status. Indicates whether project catalogs are
+// allowed to sync catalog items under projects associated to this dev center.
+type CatalogItemSyncEnableStatus string
+
+const (
+	CatalogItemSyncEnableStatusDisabled CatalogItemSyncEnableStatus = "Disabled"
+	CatalogItemSyncEnableStatusEnabled  CatalogItemSyncEnableStatus = "Enabled"
+)
+
+// PossibleCatalogItemSyncEnableStatusValues returns the possible values for the CatalogItemSyncEnableStatus const type.
+func PossibleCatalogItemSyncEnableStatusValues() []CatalogItemSyncEnableStatus {
+	return []CatalogItemSyncEnableStatus{
+		CatalogItemSyncEnableStatusDisabled,
+		CatalogItemSyncEnableStatusEnabled,
+	}
+}
+
+// CatalogItemType - Indicates catalog item types.
+type CatalogItemType string
+
+const (
+	CatalogItemTypeEnvironmentDefinition CatalogItemType = "EnvironmentDefinition"
+)
+
+// PossibleCatalogItemTypeValues returns the possible values for the CatalogItemType const type.
+func PossibleCatalogItemTypeValues() []CatalogItemType {
+	return []CatalogItemType{
+		CatalogItemTypeEnvironmentDefinition,
 	}
 }
 
@@ -153,12 +184,30 @@ func PossibleCustomizationTaskInputTypeValues() []CustomizationTaskInputType {
 	}
 }
 
+// DevboxDisksEncryptionEnableStatus - Devbox disk encryption enable or disable status. Indicates if Devbox disks encryption
+// is enabled or not.
+type DevboxDisksEncryptionEnableStatus string
+
+const (
+	DevboxDisksEncryptionEnableStatusDisabled DevboxDisksEncryptionEnableStatus = "Disabled"
+	DevboxDisksEncryptionEnableStatusEnabled  DevboxDisksEncryptionEnableStatus = "Enabled"
+)
+
+// PossibleDevboxDisksEncryptionEnableStatusValues returns the possible values for the DevboxDisksEncryptionEnableStatus const type.
+func PossibleDevboxDisksEncryptionEnableStatusValues() []DevboxDisksEncryptionEnableStatus {
+	return []DevboxDisksEncryptionEnableStatus{
+		DevboxDisksEncryptionEnableStatusDisabled,
+		DevboxDisksEncryptionEnableStatusEnabled,
+	}
+}
+
 // DomainJoinType - Active Directory join type
 type DomainJoinType string
 
 const (
 	DomainJoinTypeAzureADJoin       DomainJoinType = "AzureADJoin"
 	DomainJoinTypeHybridAzureADJoin DomainJoinType = "HybridAzureADJoin"
+	DomainJoinTypeNone              DomainJoinType = "None"
 )
 
 // PossibleDomainJoinTypeValues returns the possible values for the DomainJoinType const type.
@@ -166,6 +215,7 @@ func PossibleDomainJoinTypeValues() []DomainJoinType {
 	return []DomainJoinType{
 		DomainJoinTypeAzureADJoin,
 		DomainJoinTypeHybridAzureADJoin,
+		DomainJoinTypeNone,
 	}
 }
 
@@ -287,6 +337,23 @@ func PossibleImageValidationStatusValues() []ImageValidationStatus {
 	}
 }
 
+// InstallAzureMonitorAgentEnableStatus - Setting to be used when determining whether to install the Azure Monitor Agent service
+// on Dev Boxes that belong to this dev center.
+type InstallAzureMonitorAgentEnableStatus string
+
+const (
+	InstallAzureMonitorAgentEnableStatusDisabled InstallAzureMonitorAgentEnableStatus = "Disabled"
+	InstallAzureMonitorAgentEnableStatusEnabled  InstallAzureMonitorAgentEnableStatus = "Enabled"
+)
+
+// PossibleInstallAzureMonitorAgentEnableStatusValues returns the possible values for the InstallAzureMonitorAgentEnableStatus const type.
+func PossibleInstallAzureMonitorAgentEnableStatusValues() []InstallAzureMonitorAgentEnableStatus {
+	return []InstallAzureMonitorAgentEnableStatus{
+		InstallAzureMonitorAgentEnableStatusDisabled,
+		InstallAzureMonitorAgentEnableStatusEnabled,
+	}
+}
+
 // LicenseType - License Types
 type LicenseType string
 
@@ -338,6 +405,23 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
+// MicrosoftHostedNetworkEnableStatus - Indicates whether pools in this Dev Center can use Microsoft Hosted Networks. Defaults
+// to Enabled if not set.
+type MicrosoftHostedNetworkEnableStatus string
+
+const (
+	MicrosoftHostedNetworkEnableStatusDisabled MicrosoftHostedNetworkEnableStatus = "Disabled"
+	MicrosoftHostedNetworkEnableStatusEnabled  MicrosoftHostedNetworkEnableStatus = "Enabled"
+)
+
+// PossibleMicrosoftHostedNetworkEnableStatusValues returns the possible values for the MicrosoftHostedNetworkEnableStatus const type.
+func PossibleMicrosoftHostedNetworkEnableStatusValues() []MicrosoftHostedNetworkEnableStatus {
+	return []MicrosoftHostedNetworkEnableStatus{
+		MicrosoftHostedNetworkEnableStatusDisabled,
+		MicrosoftHostedNetworkEnableStatusEnabled,
+	}
+}
+
 // Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
 // value is "user,system"
 type Origin string
@@ -384,6 +468,22 @@ func PossibleParameterTypeValues() []ParameterType {
 		ParameterTypeNumber,
 		ParameterTypeObject,
 		ParameterTypeString,
+	}
+}
+
+// PlanMemberType - The type of the member (user, group)
+type PlanMemberType string
+
+const (
+	PlanMemberTypeGroup PlanMemberType = "Group"
+	PlanMemberTypeUser  PlanMemberType = "User"
+)
+
+// PossiblePlanMemberTypeValues returns the possible values for the PlanMemberType const type.
+func PossiblePlanMemberTypeValues() []PlanMemberType {
+	return []PlanMemberType{
+		PlanMemberTypeGroup,
+		PlanMemberTypeUser,
 	}
 }
 

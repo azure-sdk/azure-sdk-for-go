@@ -43,25 +43,6 @@ type AttachedNetworksClientListByProjectResponse struct {
 	AttachedNetworkListResult
 }
 
-// CatalogDevBoxDefinitionsClientGetErrorDetailsResponse contains the response from method CatalogDevBoxDefinitionsClient.GetErrorDetails.
-type CatalogDevBoxDefinitionsClientGetErrorDetailsResponse struct {
-	// List of validator error details. Populated when changes are made to the resource or its dependent resources that impact
-	// the validity of the Catalog resource.
-	CatalogResourceValidationErrorDetails
-}
-
-// CatalogDevBoxDefinitionsClientGetResponse contains the response from method CatalogDevBoxDefinitionsClient.Get.
-type CatalogDevBoxDefinitionsClientGetResponse struct {
-	// Represents a definition for a Developer Machine.
-	DevBoxDefinition
-}
-
-// CatalogDevBoxDefinitionsClientListByCatalogResponse contains the response from method CatalogDevBoxDefinitionsClient.NewListByCatalogPager.
-type CatalogDevBoxDefinitionsClientListByCatalogResponse struct {
-	// Results of the Dev Box definition list operation.
-	DevBoxDefinitionListResult
-}
-
 // CatalogsClientConnectResponse contains the response from method CatalogsClient.BeginConnect.
 type CatalogsClientConnectResponse struct {
 	// placeholder for future response values
@@ -109,6 +90,12 @@ type CatalogsClientUpdateResponse struct {
 
 // CheckNameAvailabilityClientExecuteResponse contains the response from method CheckNameAvailabilityClient.Execute.
 type CheckNameAvailabilityClientExecuteResponse struct {
+	// The check availability result.
+	CheckNameAvailabilityResponse
+}
+
+// CheckScopedNameAvailabilityClientExecuteResponse contains the response from method CheckScopedNameAvailabilityClient.Execute.
+type CheckScopedNameAvailabilityClientExecuteResponse struct {
 	// The check availability result.
 	CheckNameAvailabilityResponse
 }
@@ -208,6 +195,41 @@ type DevCentersClientUpdateResponse struct {
 	DevCenter
 }
 
+// EncryptionSetsClientCreateOrUpdateResponse contains the response from method EncryptionSetsClient.BeginCreateOrUpdate.
+type EncryptionSetsClientCreateOrUpdateResponse struct {
+	// Represents a devcenter encryption set resource.
+	EncryptionSet
+}
+
+// EncryptionSetsClientDeleteResponse contains the response from method EncryptionSetsClient.BeginDelete.
+type EncryptionSetsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// EncryptionSetsClientGetResponse contains the response from method EncryptionSetsClient.Get.
+type EncryptionSetsClientGetResponse struct {
+	// Represents a devcenter encryption set resource.
+	EncryptionSet
+}
+
+// EncryptionSetsClientListResponse contains the response from method EncryptionSetsClient.NewListPager.
+type EncryptionSetsClientListResponse struct {
+	// Result of the list devcenter encryption set operation
+	EncryptionSetListResult
+}
+
+// EncryptionSetsClientUpdateResponse contains the response from method EncryptionSetsClient.BeginUpdate.
+type EncryptionSetsClientUpdateResponse struct {
+	// Represents a devcenter encryption set resource.
+	EncryptionSet
+}
+
+// EnvironmentDefinitionsClientGetByProjectCatalogResponse contains the response from method EnvironmentDefinitionsClient.GetByProjectCatalog.
+type EnvironmentDefinitionsClientGetByProjectCatalogResponse struct {
+	// Represents an environment definition catalog item.
+	EnvironmentDefinition
+}
+
 // EnvironmentDefinitionsClientGetErrorDetailsResponse contains the response from method EnvironmentDefinitionsClient.GetErrorDetails.
 type EnvironmentDefinitionsClientGetErrorDetailsResponse struct {
 	// List of validator error details. Populated when changes are made to the resource or its dependent resources that impact
@@ -223,6 +245,12 @@ type EnvironmentDefinitionsClientGetResponse struct {
 
 // EnvironmentDefinitionsClientListByCatalogResponse contains the response from method EnvironmentDefinitionsClient.NewListByCatalogPager.
 type EnvironmentDefinitionsClientListByCatalogResponse struct {
+	// Results of the environment definition list operation.
+	EnvironmentDefinitionListResult
+}
+
+// EnvironmentDefinitionsClientListByProjectCatalogResponse contains the response from method EnvironmentDefinitionsClient.NewListByProjectCatalogPager.
+type EnvironmentDefinitionsClientListByProjectCatalogResponse struct {
 	// Results of the environment definition list operation.
 	EnvironmentDefinitionListResult
 }
@@ -371,12 +399,79 @@ type NetworkConnectionsClientUpdateResponse struct {
 type OperationStatusesClientGetResponse struct {
 	// The current status of an async operation
 	OperationStatus
+
+	// Location contains the information returned from the Location header response.
+	Location *string
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
+}
+
+// PlanMembersClientCreateOrUpdateResponse contains the response from method PlanMembersClient.BeginCreateOrUpdate.
+type PlanMembersClientCreateOrUpdateResponse struct {
+	// Represents a devcenter plan member resource.
+	PlanMember
+}
+
+// PlanMembersClientDeleteResponse contains the response from method PlanMembersClient.BeginDelete.
+type PlanMembersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PlanMembersClientGetResponse contains the response from method PlanMembersClient.Get.
+type PlanMembersClientGetResponse struct {
+	// Represents a devcenter plan member resource.
+	PlanMember
+}
+
+// PlanMembersClientListResponse contains the response from method PlanMembersClient.NewListPager.
+type PlanMembersClientListResponse struct {
+	// Result of the list devcenter plan members operation
+	PlanMembersListResult
+}
+
+// PlanMembersClientUpdateResponse contains the response from method PlanMembersClient.BeginUpdate.
+type PlanMembersClientUpdateResponse struct {
+	// Represents a devcenter plan member resource.
+	PlanMember
+}
+
+// PlansClientCreateOrUpdateResponse contains the response from method PlansClient.BeginCreateOrUpdate.
+type PlansClientCreateOrUpdateResponse struct {
+	// Represents a devcenter plan resource.
+	Plan
+}
+
+// PlansClientDeleteResponse contains the response from method PlansClient.BeginDelete.
+type PlansClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PlansClientGetResponse contains the response from method PlansClient.Get.
+type PlansClientGetResponse struct {
+	// Represents a devcenter plan resource.
+	Plan
+}
+
+// PlansClientListByResourceGroupResponse contains the response from method PlansClient.NewListByResourceGroupPager.
+type PlansClientListByResourceGroupResponse struct {
+	// Result of the list devcenter plans operation
+	PlanListResult
+}
+
+// PlansClientListBySubscriptionResponse contains the response from method PlansClient.NewListBySubscriptionPager.
+type PlansClientListBySubscriptionResponse struct {
+	// Result of the list devcenter plans operation
+	PlanListResult
+}
+
+// PlansClientUpdateResponse contains the response from method PlansClient.BeginUpdate.
+type PlansClientUpdateResponse struct {
+	// Represents a devcenter plan resource.
+	Plan
 }
 
 // PoolsClientCreateOrUpdateResponse contains the response from method PoolsClient.BeginCreateOrUpdate.
@@ -425,6 +520,58 @@ type ProjectAllowedEnvironmentTypesClientListResponse struct {
 	AllowedEnvironmentTypeListResult
 }
 
+// ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsResponse contains the response from method ProjectCatalogEnvironmentDefinitionsClient.GetErrorDetails.
+type ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsResponse struct {
+	// List of validator error details. Populated when changes are made to the resource or its dependent resources that impact
+	// the validity of the Catalog resource.
+	CatalogResourceValidationErrorDetails
+}
+
+// ProjectCatalogsClientConnectResponse contains the response from method ProjectCatalogsClient.BeginConnect.
+type ProjectCatalogsClientConnectResponse struct {
+	// placeholder for future response values
+}
+
+// ProjectCatalogsClientCreateOrUpdateResponse contains the response from method ProjectCatalogsClient.BeginCreateOrUpdate.
+type ProjectCatalogsClientCreateOrUpdateResponse struct {
+	// Represents a catalog.
+	Catalog
+}
+
+// ProjectCatalogsClientDeleteResponse contains the response from method ProjectCatalogsClient.BeginDelete.
+type ProjectCatalogsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ProjectCatalogsClientGetResponse contains the response from method ProjectCatalogsClient.Get.
+type ProjectCatalogsClientGetResponse struct {
+	// Represents a catalog.
+	Catalog
+}
+
+// ProjectCatalogsClientGetSyncErrorDetailsResponse contains the response from method ProjectCatalogsClient.GetSyncErrorDetails.
+type ProjectCatalogsClientGetSyncErrorDetailsResponse struct {
+	// Synchronization error details.
+	SyncErrorDetails
+}
+
+// ProjectCatalogsClientListResponse contains the response from method ProjectCatalogsClient.NewListPager.
+type ProjectCatalogsClientListResponse struct {
+	// Results of the catalog list operation.
+	CatalogListResult
+}
+
+// ProjectCatalogsClientPatchResponse contains the response from method ProjectCatalogsClient.BeginPatch.
+type ProjectCatalogsClientPatchResponse struct {
+	// Represents a catalog.
+	Catalog
+}
+
+// ProjectCatalogsClientSyncResponse contains the response from method ProjectCatalogsClient.BeginSync.
+type ProjectCatalogsClientSyncResponse struct {
+	// placeholder for future response values
+}
+
 // ProjectEnvironmentTypesClientCreateOrUpdateResponse contains the response from method ProjectEnvironmentTypesClient.CreateOrUpdate.
 type ProjectEnvironmentTypesClientCreateOrUpdateResponse struct {
 	// Represents an environment type.
@@ -463,6 +610,12 @@ type ProjectsClientCreateOrUpdateResponse struct {
 // ProjectsClientDeleteResponse contains the response from method ProjectsClient.BeginDelete.
 type ProjectsClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// ProjectsClientGetInheritedSettingsResponse contains the response from method ProjectsClient.GetInheritedSettings.
+type ProjectsClientGetInheritedSettingsResponse struct {
+	// Applicable inherited settings for a project.
+	InheritedSettingsForProject
 }
 
 // ProjectsClientGetResponse contains the response from method ProjectsClient.Get.
