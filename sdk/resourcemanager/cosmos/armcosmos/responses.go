@@ -863,6 +863,23 @@ type MongoDBResourcesClientUpdateMongoDBDatabaseThroughputResponse struct {
 	ThroughputSettingsGetResults
 }
 
+// NetworkSecurityPerimeterConfigurationsClientGetResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.Get.
+type NetworkSecurityPerimeterConfigurationsClientGetResponse struct {
+	// The Network Security Perimeter configuration resource.
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.NewListPager.
+type NetworkSecurityPerimeterConfigurationsClientListResponse struct {
+	// Result of the List Network Security Perimeter configuration operation.
+	NetworkSecurityPerimeterConfigurationList
+}
+
+// NetworkSecurityPerimeterConfigurationsClientReconcileResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.BeginReconcile.
+type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
+	// placeholder for future response values
+}
+
 // NotebookWorkspacesClientCreateOrUpdateResponse contains the response from method NotebookWorkspacesClient.BeginCreateOrUpdate.
 type NotebookWorkspacesClientCreateOrUpdateResponse struct {
 	// A notebook workspace resource
