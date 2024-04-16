@@ -20,53 +20,52 @@ import (
 	"strings"
 )
 
-// ClusterAvailableUpgradesClient contains the methods for the ClusterAvailableUpgrades group.
-// Don't use this type directly, use NewClusterAvailableUpgradesClient() instead.
-type ClusterAvailableUpgradesClient struct {
+// ClusterPoolUpgradeHistoriesClient contains the methods for the ClusterPoolUpgradeHistories group.
+// Don't use this type directly, use NewClusterPoolUpgradeHistoriesClient() instead.
+type ClusterPoolUpgradeHistoriesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewClusterAvailableUpgradesClient creates a new instance of ClusterAvailableUpgradesClient with the specified values.
+// NewClusterPoolUpgradeHistoriesClient creates a new instance of ClusterPoolUpgradeHistoriesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClusterAvailableUpgradesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClusterAvailableUpgradesClient, error) {
+func NewClusterPoolUpgradeHistoriesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClusterPoolUpgradeHistoriesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ClusterAvailableUpgradesClient{
+	client := &ClusterPoolUpgradeHistoriesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List a cluster available upgrade.
+// NewListPager - Returns a list of upgrade history.
 //
 // Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterPoolName - The name of the cluster pool.
-//   - clusterName - The name of the HDInsight cluster.
-//   - options - ClusterAvailableUpgradesClientListOptions contains the optional parameters for the ClusterAvailableUpgradesClient.NewListPager
+//   - options - ClusterPoolUpgradeHistoriesClientListOptions contains the optional parameters for the ClusterPoolUpgradeHistoriesClient.NewListPager
 //     method.
-func (client *ClusterAvailableUpgradesClient) NewListPager(resourceGroupName string, clusterPoolName string, clusterName string, options *ClusterAvailableUpgradesClientListOptions) *runtime.Pager[ClusterAvailableUpgradesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ClusterAvailableUpgradesClientListResponse]{
-		More: func(page ClusterAvailableUpgradesClientListResponse) bool {
+func (client *ClusterPoolUpgradeHistoriesClient) NewListPager(resourceGroupName string, clusterPoolName string, options *ClusterPoolUpgradeHistoriesClientListOptions) *runtime.Pager[ClusterPoolUpgradeHistoriesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ClusterPoolUpgradeHistoriesClientListResponse]{
+		More: func(page ClusterPoolUpgradeHistoriesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ClusterAvailableUpgradesClientListResponse) (ClusterAvailableUpgradesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ClusterAvailableUpgradesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ClusterPoolUpgradeHistoriesClientListResponse) (ClusterPoolUpgradeHistoriesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ClusterPoolUpgradeHistoriesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, clusterPoolName, clusterName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, clusterPoolName, options)
 			}, nil)
 			if err != nil {
-				return ClusterAvailableUpgradesClientListResponse{}, err
+				return ClusterPoolUpgradeHistoriesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -75,8 +74,8 @@ func (client *ClusterAvailableUpgradesClient) NewListPager(resourceGroupName str
 }
 
 // listCreateRequest creates the List request.
-func (client *ClusterAvailableUpgradesClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterPoolName string, clusterName string, options *ClusterAvailableUpgradesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusterpools/{clusterPoolName}/clusters/{clusterName}/availableUpgrades"
+func (client *ClusterPoolUpgradeHistoriesClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterPoolName string, options *ClusterPoolUpgradeHistoriesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusterpools/{clusterPoolName}/upgradeHistories"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -89,10 +88,6 @@ func (client *ClusterAvailableUpgradesClient) listCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter clusterPoolName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterPoolName}", url.PathEscape(clusterPoolName))
-	if clusterName == "" {
-		return nil, errors.New("parameter clusterName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -105,10 +100,10 @@ func (client *ClusterAvailableUpgradesClient) listCreateRequest(ctx context.Cont
 }
 
 // listHandleResponse handles the List response.
-func (client *ClusterAvailableUpgradesClient) listHandleResponse(resp *http.Response) (ClusterAvailableUpgradesClientListResponse, error) {
-	result := ClusterAvailableUpgradesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterAvailableUpgradeList); err != nil {
-		return ClusterAvailableUpgradesClientListResponse{}, err
+func (client *ClusterPoolUpgradeHistoriesClient) listHandleResponse(resp *http.Response) (ClusterPoolUpgradeHistoriesClientListResponse, error) {
+	result := ClusterPoolUpgradeHistoriesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterPoolUpgradeHistoryListResult); err != nil {
+		return ClusterPoolUpgradeHistoriesClientListResponse{}, err
 	}
 	return result, nil
 }
