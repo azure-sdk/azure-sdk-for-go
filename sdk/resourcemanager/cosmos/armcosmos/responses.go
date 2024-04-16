@@ -24,16 +24,16 @@ type CassandraClustersClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// CassandraClustersClientGetAsyncCommandResponse contains the response from method CassandraClustersClient.GetAsyncCommand.
+type CassandraClustersClientGetAsyncCommandResponse struct {
+	// List of commands for cluster.
+	ListCommands
+}
+
 // CassandraClustersClientGetBackupResponse contains the response from method CassandraClustersClient.GetBackup.
 type CassandraClustersClientGetBackupResponse struct {
 	// A restorable backup of a Cassandra cluster.
 	BackupResource
-}
-
-// CassandraClustersClientGetCommandAsyncResponse contains the response from method CassandraClustersClient.GetCommandAsync.
-type CassandraClustersClientGetCommandAsyncResponse struct {
-	// List of commands for cluster.
-	ListCommands
 }
 
 // CassandraClustersClientGetResponse contains the response from method CassandraClustersClient.Get.
@@ -42,8 +42,13 @@ type CassandraClustersClientGetResponse struct {
 	ClusterResource
 }
 
-// CassandraClustersClientInvokeCommandAsyncResponse contains the response from method CassandraClustersClient.BeginInvokeCommandAsync.
-type CassandraClustersClientInvokeCommandAsyncResponse struct {
+// CassandraClustersClientGetRestoreResponse contains the response from method CassandraClustersClient.GetRestore.
+type CassandraClustersClientGetRestoreResponse struct {
+	CassandraClusterRestoreInfo
+}
+
+// CassandraClustersClientInvokeAsyncCommandResponse contains the response from method CassandraClustersClient.BeginInvokeAsyncCommand.
+type CassandraClustersClientInvokeAsyncCommandResponse struct {
 	// resource representing a command
 	CommandPublicResource
 }
@@ -76,6 +81,11 @@ type CassandraClustersClientListBySubscriptionResponse struct {
 type CassandraClustersClientListCommandResponse struct {
 	// List of commands for cluster.
 	ListCommands
+}
+
+// CassandraClustersClientRestoreBackupResponse contains the response from method CassandraClustersClient.RestoreBackup.
+type CassandraClustersClientRestoreBackupResponse struct {
+	CassandraClusterRestoreResult
 }
 
 // CassandraClustersClientStartResponse contains the response from method CassandraClustersClient.BeginStart.
@@ -861,6 +871,23 @@ type MongoDBResourcesClientUpdateMongoDBCollectionThroughputResponse struct {
 type MongoDBResourcesClientUpdateMongoDBDatabaseThroughputResponse struct {
 	// An Azure Cosmos DB resource throughput.
 	ThroughputSettingsGetResults
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.Get.
+type NetworkSecurityPerimeterConfigurationsClientGetResponse struct {
+	// The Network Security Perimeter configuration resource.
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.NewListPager.
+type NetworkSecurityPerimeterConfigurationsClientListResponse struct {
+	// Result of the List Network Security Perimeter configuration operation.
+	NetworkSecurityPerimeterConfigurationList
+}
+
+// NetworkSecurityPerimeterConfigurationsClientReconcileResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.BeginReconcile.
+type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
+	// placeholder for future response values
 }
 
 // NotebookWorkspacesClientCreateOrUpdateResponse contains the response from method NotebookWorkspacesClient.BeginCreateOrUpdate.

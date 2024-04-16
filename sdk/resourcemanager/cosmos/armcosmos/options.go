@@ -33,9 +33,9 @@ type CassandraClustersClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// CassandraClustersClientBeginInvokeCommandAsyncOptions contains the optional parameters for the CassandraClustersClient.BeginInvokeCommandAsync
+// CassandraClustersClientBeginInvokeAsyncCommandOptions contains the optional parameters for the CassandraClustersClient.BeginInvokeAsyncCommand
 // method.
-type CassandraClustersClientBeginInvokeCommandAsyncOptions struct {
+type CassandraClustersClientBeginInvokeAsyncCommandOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -60,19 +60,24 @@ type CassandraClustersClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// CassandraClustersClientGetAsyncCommandOptions contains the optional parameters for the CassandraClustersClient.GetAsyncCommand
+// method.
+type CassandraClustersClientGetAsyncCommandOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CassandraClustersClientGetBackupOptions contains the optional parameters for the CassandraClustersClient.GetBackup method.
 type CassandraClustersClientGetBackupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraClustersClientGetCommandAsyncOptions contains the optional parameters for the CassandraClustersClient.GetCommandAsync
-// method.
-type CassandraClustersClientGetCommandAsyncOptions struct {
+// CassandraClustersClientGetOptions contains the optional parameters for the CassandraClustersClient.Get method.
+type CassandraClustersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraClustersClientGetOptions contains the optional parameters for the CassandraClustersClient.Get method.
-type CassandraClustersClientGetOptions struct {
+// CassandraClustersClientGetRestoreOptions contains the optional parameters for the CassandraClustersClient.GetRestore method.
+type CassandraClustersClientGetRestoreOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -97,6 +102,12 @@ type CassandraClustersClientListBySubscriptionOptions struct {
 // CassandraClustersClientListCommandOptions contains the optional parameters for the CassandraClustersClient.NewListCommandPager
 // method.
 type CassandraClustersClientListCommandOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CassandraClustersClientRestoreBackupOptions contains the optional parameters for the CassandraClustersClient.RestoreBackup
+// method.
+type CassandraClustersClientRestoreBackupOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -937,6 +948,25 @@ type MongoDBResourcesClientListMongoRoleDefinitionsOptions struct {
 // MongoDBResourcesClientListMongoUserDefinitionsOptions contains the optional parameters for the MongoDBResourcesClient.NewListMongoUserDefinitionsPager
 // method.
 type MongoDBResourcesClientListMongoUserDefinitionsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.BeginReconcile
+// method.
+type NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.Get
+// method.
+type NetworkSecurityPerimeterConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.NewListPager
+// method.
+type NetworkSecurityPerimeterConfigurationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 

@@ -10,7 +10,7 @@ package armcosmos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos"
-	moduleVersion = "v3.0.0-beta.4"
+	moduleVersion = "v3.0.0-beta.5"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -178,6 +178,46 @@ func PossibleBackupStorageRedundancyValues() []BackupStorageRedundancy {
 		BackupStorageRedundancyGeo,
 		BackupStorageRedundancyLocal,
 		BackupStorageRedundancyZone,
+	}
+}
+
+// CapacityMode - Indicates the capacity mode of the account.
+type CapacityMode string
+
+const (
+	CapacityModeNone        CapacityMode = "None"
+	CapacityModeProvisioned CapacityMode = "Provisioned"
+	CapacityModeServerless  CapacityMode = "Serverless"
+)
+
+// PossibleCapacityModeValues returns the possible values for the CapacityMode const type.
+func PossibleCapacityModeValues() []CapacityMode {
+	return []CapacityMode{
+		CapacityModeNone,
+		CapacityModeProvisioned,
+		CapacityModeServerless,
+	}
+}
+
+// CapacityModeTransitionStatus - The transition status of capacity mode.
+type CapacityModeTransitionStatus string
+
+const (
+	CapacityModeTransitionStatusCompleted   CapacityModeTransitionStatus = "Completed"
+	CapacityModeTransitionStatusFailed      CapacityModeTransitionStatus = "Failed"
+	CapacityModeTransitionStatusInProgress  CapacityModeTransitionStatus = "InProgress"
+	CapacityModeTransitionStatusInitialized CapacityModeTransitionStatus = "Initialized"
+	CapacityModeTransitionStatusInvalid     CapacityModeTransitionStatus = "Invalid"
+)
+
+// PossibleCapacityModeTransitionStatusValues returns the possible values for the CapacityModeTransitionStatus const type.
+func PossibleCapacityModeTransitionStatusValues() []CapacityModeTransitionStatus {
+	return []CapacityModeTransitionStatus{
+		CapacityModeTransitionStatusCompleted,
+		CapacityModeTransitionStatusFailed,
+		CapacityModeTransitionStatusInProgress,
+		CapacityModeTransitionStatusInitialized,
+		CapacityModeTransitionStatusInvalid,
 	}
 }
 
@@ -530,6 +570,22 @@ func PossibleIndexingModeValues() []IndexingMode {
 	}
 }
 
+// IssueType - Type of issue
+type IssueType string
+
+const (
+	IssueTypeConfigurationPropagationFailure IssueType = "ConfigurationPropagationFailure"
+	IssueTypeUnknown                         IssueType = "Unknown"
+)
+
+// PossibleIssueTypeValues returns the possible values for the IssueType const type.
+func PossibleIssueTypeValues() []IssueType {
+	return []IssueType{
+		IssueTypeConfigurationPropagationFailure,
+		IssueTypeUnknown,
+	}
+}
+
 // KeyKind - The access key to regenerate.
 type KeyKind string
 
@@ -687,6 +743,29 @@ func PossibleNetworkACLBypassValues() []NetworkACLBypass {
 	}
 }
 
+// NetworkSecurityPerimeterConfigurationProvisioningState - Provisioning state of Network Security Perimeter configuration
+// propagation
+type NetworkSecurityPerimeterConfigurationProvisioningState string
+
+const (
+	NetworkSecurityPerimeterConfigurationProvisioningStateAccepted  NetworkSecurityPerimeterConfigurationProvisioningState = "Accepted"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCanceled  NetworkSecurityPerimeterConfigurationProvisioningState = "Canceled"
+	NetworkSecurityPerimeterConfigurationProvisioningStateDeleting  NetworkSecurityPerimeterConfigurationProvisioningState = "Deleting"
+	NetworkSecurityPerimeterConfigurationProvisioningStateFailed    NetworkSecurityPerimeterConfigurationProvisioningState = "Failed"
+	NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded NetworkSecurityPerimeterConfigurationProvisioningState = "Succeeded"
+)
+
+// PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues returns the possible values for the NetworkSecurityPerimeterConfigurationProvisioningState const type.
+func PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues() []NetworkSecurityPerimeterConfigurationProvisioningState {
+	return []NetworkSecurityPerimeterConfigurationProvisioningState{
+		NetworkSecurityPerimeterConfigurationProvisioningStateAccepted,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCanceled,
+		NetworkSecurityPerimeterConfigurationProvisioningStateDeleting,
+		NetworkSecurityPerimeterConfigurationProvisioningStateFailed,
+		NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded,
+	}
+}
+
 // NodeKind - The kind of a node in the mongo cluster.
 type NodeKind string
 
@@ -749,6 +828,22 @@ const (
 func PossibleNotebookWorkspaceNameValues() []NotebookWorkspaceName {
 	return []NotebookWorkspaceName{
 		NotebookWorkspaceNameDefault,
+	}
+}
+
+// NspAccessRuleDirection - Direction of Access Rule
+type NspAccessRuleDirection string
+
+const (
+	NspAccessRuleDirectionInbound  NspAccessRuleDirection = "Inbound"
+	NspAccessRuleDirectionOutbound NspAccessRuleDirection = "Outbound"
+)
+
+// PossibleNspAccessRuleDirectionValues returns the possible values for the NspAccessRuleDirection const type.
+func PossibleNspAccessRuleDirectionValues() []NspAccessRuleDirection {
+	return []NspAccessRuleDirection{
+		NspAccessRuleDirectionInbound,
+		NspAccessRuleDirectionOutbound,
 	}
 }
 
@@ -859,6 +954,24 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	}
 }
 
+// ResourceAssociationAccessMode - Access Mode of the resource association
+type ResourceAssociationAccessMode string
+
+const (
+	ResourceAssociationAccessModeAudit    ResourceAssociationAccessMode = "Audit"
+	ResourceAssociationAccessModeEnforced ResourceAssociationAccessMode = "Enforced"
+	ResourceAssociationAccessModeLearning ResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleResourceAssociationAccessModeValues returns the possible values for the ResourceAssociationAccessMode const type.
+func PossibleResourceAssociationAccessModeValues() []ResourceAssociationAccessMode {
+	return []ResourceAssociationAccessMode{
+		ResourceAssociationAccessModeAudit,
+		ResourceAssociationAccessModeEnforced,
+		ResourceAssociationAccessModeLearning,
+	}
+}
+
 // ResourceIdentityType - The type of identity used for the resource. The type 'SystemAssigned,UserAssigned' includes both
 // an implicitly created identity and a set of user assigned identities. The type 'None' will remove any
 // identities from the service.
@@ -933,8 +1046,10 @@ func PossibleScheduledEventStrategyValues() []ScheduledEventStrategy {
 type ServerVersion string
 
 const (
+	ServerVersionFive0  ServerVersion = "5.0"
 	ServerVersionFour0  ServerVersion = "4.0"
 	ServerVersionFour2  ServerVersion = "4.2"
+	ServerVersionSix0   ServerVersion = "6.0"
 	ServerVersionThree2 ServerVersion = "3.2"
 	ServerVersionThree6 ServerVersion = "3.6"
 )
@@ -942,8 +1057,10 @@ const (
 // PossibleServerVersionValues returns the possible values for the ServerVersion const type.
 func PossibleServerVersionValues() []ServerVersion {
 	return []ServerVersion{
+		ServerVersionFive0,
 		ServerVersionFour0,
 		ServerVersionFour2,
+		ServerVersionSix0,
 		ServerVersionThree2,
 		ServerVersionThree6,
 	}
@@ -1008,6 +1125,22 @@ func PossibleServiceTypeValues() []ServiceType {
 		ServiceTypeGraphAPICompute,
 		ServiceTypeMaterializedViewsBuilder,
 		ServiceTypeSQLDedicatedGateway,
+	}
+}
+
+// Severity - Severity of the issue.
+type Severity string
+
+const (
+	SeverityError   Severity = "Error"
+	SeverityWarning Severity = "Warning"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityError,
+		SeverityWarning,
 	}
 }
 
