@@ -566,7 +566,7 @@ type TrackingEventDefinition struct {
 	OperationType *string
 
 	// The properties to be collected for event.
-	Properties map[string]any
+	Properties map[string]map[string]any
 }
 
 // TrackingProfileDefinition - The tracking profile for the business process

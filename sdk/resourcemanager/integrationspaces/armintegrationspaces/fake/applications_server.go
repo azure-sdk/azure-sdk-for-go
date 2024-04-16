@@ -34,7 +34,7 @@ type ApplicationsServer struct {
 	Delete func(ctx context.Context, resourceGroupName string, spaceName string, applicationName string, options *armintegrationspaces.ApplicationsClientDeleteOptions) (resp azfake.Responder[armintegrationspaces.ApplicationsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// DeleteBusinessProcessDevelopmentArtifact is the fake for method ApplicationsClient.DeleteBusinessProcessDevelopmentArtifact
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusNoContent
 	DeleteBusinessProcessDevelopmentArtifact func(ctx context.Context, resourceGroupName string, spaceName string, applicationName string, body armintegrationspaces.GetOrDeleteBusinessProcessDevelopmentArtifactRequest, options *armintegrationspaces.ApplicationsClientDeleteBusinessProcessDevelopmentArtifactOptions) (resp azfake.Responder[armintegrationspaces.ApplicationsClientDeleteBusinessProcessDevelopmentArtifactResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ApplicationsClient.Get
@@ -62,7 +62,7 @@ type ApplicationsServer struct {
 	SaveBusinessProcessDevelopmentArtifact func(ctx context.Context, resourceGroupName string, spaceName string, applicationName string, body armintegrationspaces.SaveOrValidateBusinessProcessDevelopmentArtifactRequest, options *armintegrationspaces.ApplicationsClientSaveBusinessProcessDevelopmentArtifactOptions) (resp azfake.Responder[armintegrationspaces.ApplicationsClientSaveBusinessProcessDevelopmentArtifactResponse], errResp azfake.ErrorResponder)
 
 	// ValidateBusinessProcessDevelopmentArtifact is the fake for method ApplicationsClient.ValidateBusinessProcessDevelopmentArtifact
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusNoContent
 	ValidateBusinessProcessDevelopmentArtifact func(ctx context.Context, resourceGroupName string, spaceName string, applicationName string, body armintegrationspaces.SaveOrValidateBusinessProcessDevelopmentArtifactRequest, options *armintegrationspaces.ApplicationsClientValidateBusinessProcessDevelopmentArtifactOptions) (resp azfake.Responder[armintegrationspaces.ApplicationsClientValidateBusinessProcessDevelopmentArtifactResponse], errResp azfake.ErrorResponder)
 }
 
@@ -235,8 +235,8 @@ func (a *ApplicationsServerTransport) dispatchDeleteBusinessProcessDevelopmentAr
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
@@ -601,8 +601,8 @@ func (a *ApplicationsServerTransport) dispatchValidateBusinessProcessDevelopment
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {

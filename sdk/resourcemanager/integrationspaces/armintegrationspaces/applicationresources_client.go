@@ -51,7 +51,7 @@ func NewApplicationResourcesClient(subscriptionID string, credential azcore.Toke
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - spaceName - The name of the space
 //   - applicationName - The name of the Application
-//   - resourceName - The name of the application resource.
+//   - resourceName - The name of the resource
 //   - resource - Resource create parameters.
 //   - options - ApplicationResourcesClientCreateOrUpdateOptions contains the optional parameters for the ApplicationResourcesClient.CreateOrUpdate
 //     method.
@@ -130,7 +130,7 @@ func (client *ApplicationResourcesClient) createOrUpdateHandleResponse(resp *htt
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - spaceName - The name of the space
 //   - applicationName - The name of the Application
-//   - resourceName - The name of the application resource.
+//   - resourceName - The name of the resource
 //   - options - ApplicationResourcesClientDeleteOptions contains the optional parameters for the ApplicationResourcesClient.Delete
 //     method.
 func (client *ApplicationResourcesClient) Delete(ctx context.Context, resourceGroupName string, spaceName string, applicationName string, resourceName string, options *ApplicationResourcesClientDeleteOptions) (ApplicationResourcesClientDeleteResponse, error) {
@@ -195,7 +195,7 @@ func (client *ApplicationResourcesClient) deleteCreateRequest(ctx context.Contex
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - spaceName - The name of the space
 //   - applicationName - The name of the Application
-//   - resourceName - The name of the application resource.
+//   - resourceName - The name of the resource
 //   - options - ApplicationResourcesClientGetOptions contains the optional parameters for the ApplicationResourcesClient.Get
 //     method.
 func (client *ApplicationResourcesClient) Get(ctx context.Context, resourceGroupName string, spaceName string, applicationName string, resourceName string, options *ApplicationResourcesClientGetOptions) (ApplicationResourcesClientGetResponse, error) {
@@ -319,32 +319,32 @@ func (client *ApplicationResourcesClient) listByApplicationCreateRequest(ctx con
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-11-14-preview")
-	if options != nil && options.Top != nil {
-		reqQP.Set("top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Expand != nil {
+		for _, qv := range options.Expand {
+			reqQP.Add("expand", qv)
+		}
 	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
+	if options != nil && options.Filter != nil {
+		reqQP.Set("filter", *options.Filter)
 	}
 	if options != nil && options.Maxpagesize != nil {
 		reqQP.Set("maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
 	}
-	if options != nil && options.Filter != nil {
-		reqQP.Set("filter", *options.Filter)
+	if options != nil && options.Orderby != nil {
+		for _, qv := range options.Orderby {
+			reqQP.Add("orderby", qv)
+		}
 	}
 	if options != nil && options.Select != nil {
 		for _, qv := range options.Select {
 			reqQP.Add("select", qv)
 		}
 	}
-	if options != nil && options.Expand != nil {
-		for _, qv := range options.Expand {
-			reqQP.Add("expand", qv)
-		}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		for _, qv := range options.Orderby {
-			reqQP.Add("orderby", qv)
-		}
+	if options != nil && options.Top != nil {
+		reqQP.Set("top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -367,7 +367,7 @@ func (client *ApplicationResourcesClient) listByApplicationHandleResponse(resp *
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - spaceName - The name of the space
 //   - applicationName - The name of the Application
-//   - resourceName - The name of the application resource.
+//   - resourceName - The name of the resource
 //   - properties - The resource properties to be updated.
 //   - options - ApplicationResourcesClientPatchOptions contains the optional parameters for the ApplicationResourcesClient.Patch
 //     method.

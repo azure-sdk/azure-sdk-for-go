@@ -299,32 +299,32 @@ func (client *InfrastructureResourcesClient) listBySpaceCreateRequest(ctx contex
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-11-14-preview")
-	if options != nil && options.Top != nil {
-		reqQP.Set("top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Expand != nil {
+		for _, qv := range options.Expand {
+			reqQP.Add("expand", qv)
+		}
 	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
+	if options != nil && options.Filter != nil {
+		reqQP.Set("filter", *options.Filter)
 	}
 	if options != nil && options.Maxpagesize != nil {
 		reqQP.Set("maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
 	}
-	if options != nil && options.Filter != nil {
-		reqQP.Set("filter", *options.Filter)
+	if options != nil && options.Orderby != nil {
+		for _, qv := range options.Orderby {
+			reqQP.Add("orderby", qv)
+		}
 	}
 	if options != nil && options.Select != nil {
 		for _, qv := range options.Select {
 			reqQP.Add("select", qv)
 		}
 	}
-	if options != nil && options.Expand != nil {
-		for _, qv := range options.Expand {
-			reqQP.Add("expand", qv)
-		}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		for _, qv := range options.Orderby {
-			reqQP.Add("orderby", qv)
-		}
+	if options != nil && options.Top != nil {
+		reqQP.Set("top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
