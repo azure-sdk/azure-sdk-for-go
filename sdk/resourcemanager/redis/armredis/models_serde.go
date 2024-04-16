@@ -304,6 +304,7 @@ func (c CommonPropertiesRedisConfiguration) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maxmemory-delta", c.MaxmemoryDelta)
 	populate(objectMap, "maxmemory-policy", c.MaxmemoryPolicy)
 	populate(objectMap, "maxmemory-reserved", c.MaxmemoryReserved)
+	populate(objectMap, "notify-keyspace-events", c.NotifyKeyspaceEvents)
 	populate(objectMap, "preferred-data-archive-auth-method", c.PreferredDataArchiveAuthMethod)
 	populate(objectMap, "preferred-data-persistence-auth-method", c.PreferredDataPersistenceAuthMethod)
 	populate(objectMap, "rdb-backup-enabled", c.RdbBackupEnabled)
@@ -358,6 +359,9 @@ func (c *CommonPropertiesRedisConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxmemory-reserved":
 			err = unpopulate(val, "MaxmemoryReserved", &c.MaxmemoryReserved)
+			delete(rawMsg, key)
+		case "notify-keyspace-events":
+			err = unpopulate(val, "NotifyKeyspaceEvents", &c.NotifyKeyspaceEvents)
 			delete(rawMsg, key)
 		case "preferred-data-archive-auth-method":
 			err = unpopulate(val, "PreferredDataArchiveAuthMethod", &c.PreferredDataArchiveAuthMethod)
@@ -2228,7 +2232,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

@@ -1,5 +1,11 @@
 # Release History
 
+## 3.2.0 (2024-04-16)
+### Features Added
+
+- New field `NotifyKeyspaceEvents` in struct `CommonPropertiesRedisConfiguration`
+
+
 ## 3.1.0 (2023-11-24)
 ### Features Added
 
