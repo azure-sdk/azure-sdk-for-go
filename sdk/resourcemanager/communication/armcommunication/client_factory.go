@@ -74,3 +74,19 @@ func (c *ClientFactory) NewServicesClient() *ServicesClient {
 		internal:       c.internal,
 	}
 }
+
+// NewSuppressionListAddressesClient creates a new instance of SuppressionListAddressesClient.
+func (c *ClientFactory) NewSuppressionListAddressesClient() *SuppressionListAddressesClient {
+	return &SuppressionListAddressesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSuppressionListsClient creates a new instance of SuppressionListsClient.
+func (c *ClientFactory) NewSuppressionListsClient() *SuppressionListsClient {
+	return &SuppressionListsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
