@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -41,9 +41,9 @@ type WebSiteManagementServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetSubscriptionDeploymentLocations func(ctx context.Context, options *armappservice.WebSiteManagementClientGetSubscriptionDeploymentLocationsOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientGetSubscriptionDeploymentLocationsResponse], errResp azfake.ErrorResponder)
 
-	// NewListAseRegionsPager is the fake for method WebSiteManagementClient.NewListAseRegionsPager
+	// ListAseRegions is the fake for method WebSiteManagementClient.ListAseRegions
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListAseRegionsPager func(options *armappservice.WebSiteManagementClientListAseRegionsOptions) (resp azfake.PagerResponder[armappservice.WebSiteManagementClientListAseRegionsResponse])
+	ListAseRegions func(ctx context.Context, options *armappservice.WebSiteManagementClientListAseRegionsOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientListAseRegionsResponse], errResp azfake.ErrorResponder)
 
 	// NewListBillingMetersPager is the fake for method WebSiteManagementClient.NewListBillingMetersPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -104,7 +104,6 @@ type WebSiteManagementServer struct {
 func NewWebSiteManagementServerTransport(srv *WebSiteManagementServer) *WebSiteManagementServerTransport {
 	return &WebSiteManagementServerTransport{
 		srv:                             srv,
-		newListAseRegionsPager:          newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListAseRegionsResponse]](),
 		newListBillingMetersPager:       newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListBillingMetersResponse]](),
 		newListCustomHostNameSitesPager: newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListCustomHostNameSitesResponse]](),
 		newListGeoRegionsPager:          newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListGeoRegionsResponse]](),
@@ -118,7 +117,6 @@ func NewWebSiteManagementServerTransport(srv *WebSiteManagementServer) *WebSiteM
 // Don't use this type directly, use NewWebSiteManagementServerTransport instead.
 type WebSiteManagementServerTransport struct {
 	srv                                           *WebSiteManagementServer
-	newListAseRegionsPager                        *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListAseRegionsResponse]]
 	newListBillingMetersPager                     *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListBillingMetersResponse]]
 	newListCustomHostNameSitesPager               *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListCustomHostNameSitesResponse]]
 	newListGeoRegionsPager                        *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListGeoRegionsResponse]]
@@ -147,8 +145,8 @@ func (w *WebSiteManagementServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = w.dispatchGetSourceControl(req)
 	case "WebSiteManagementClient.GetSubscriptionDeploymentLocations":
 		resp, err = w.dispatchGetSubscriptionDeploymentLocations(req)
-	case "WebSiteManagementClient.NewListAseRegionsPager":
-		resp, err = w.dispatchNewListAseRegionsPager(req)
+	case "WebSiteManagementClient.ListAseRegions":
+		resp, err = w.dispatchListAseRegions(req)
 	case "WebSiteManagementClient.NewListBillingMetersPager":
 		resp, err = w.dispatchNewListBillingMetersPager(req)
 	case "WebSiteManagementClient.NewListCustomHostNameSitesPager":
@@ -288,35 +286,27 @@ func (w *WebSiteManagementServerTransport) dispatchGetSubscriptionDeploymentLoca
 	return resp, nil
 }
 
-func (w *WebSiteManagementServerTransport) dispatchNewListAseRegionsPager(req *http.Request) (*http.Response, error) {
-	if w.srv.NewListAseRegionsPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListAseRegionsPager not implemented")}
+func (w *WebSiteManagementServerTransport) dispatchListAseRegions(req *http.Request) (*http.Response, error) {
+	if w.srv.ListAseRegions == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListAseRegions not implemented")}
 	}
-	newListAseRegionsPager := w.newListAseRegionsPager.get(req)
-	if newListAseRegionsPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/aseRegions`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := w.srv.NewListAseRegionsPager(nil)
-		newListAseRegionsPager = &resp
-		w.newListAseRegionsPager.add(req, newListAseRegionsPager)
-		server.PagerResponderInjectNextLinks(newListAseRegionsPager, req, func(page *armappservice.WebSiteManagementClientListAseRegionsResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/aseRegions`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListAseRegionsPager, req)
+	respr, errRespr := w.srv.ListAseRegions(req.Context(), nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AseRegionCollection, req)
 	if err != nil {
 		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		w.newListAseRegionsPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListAseRegionsPager) {
-		w.newListAseRegionsPager.remove(req)
 	}
 	return resp, nil
 }
