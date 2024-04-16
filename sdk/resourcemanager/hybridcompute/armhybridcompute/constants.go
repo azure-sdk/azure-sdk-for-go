@@ -10,7 +10,7 @@ package armhybridcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // AgentConfigurationMode - Name of configuration mode to use. Modes are pre-defined configurations of security controls,
@@ -142,16 +142,63 @@ func PossibleEsuServerTypeValues() []EsuServerType {
 	}
 }
 
-type InstanceViewTypes string
+// ExecutionState - Script execution status.
+type ExecutionState string
 
 const (
-	InstanceViewTypesInstanceView InstanceViewTypes = "instanceView"
+	ExecutionStateCanceled  ExecutionState = "Canceled"
+	ExecutionStateFailed    ExecutionState = "Failed"
+	ExecutionStatePending   ExecutionState = "Pending"
+	ExecutionStateRunning   ExecutionState = "Running"
+	ExecutionStateSucceeded ExecutionState = "Succeeded"
+	ExecutionStateTimedOut  ExecutionState = "TimedOut"
+	ExecutionStateUnknown   ExecutionState = "Unknown"
 )
 
-// PossibleInstanceViewTypesValues returns the possible values for the InstanceViewTypes const type.
-func PossibleInstanceViewTypesValues() []InstanceViewTypes {
-	return []InstanceViewTypes{
-		InstanceViewTypesInstanceView,
+// PossibleExecutionStateValues returns the possible values for the ExecutionState const type.
+func PossibleExecutionStateValues() []ExecutionState {
+	return []ExecutionState{
+		ExecutionStateCanceled,
+		ExecutionStateFailed,
+		ExecutionStatePending,
+		ExecutionStateRunning,
+		ExecutionStateSucceeded,
+		ExecutionStateTimedOut,
+		ExecutionStateUnknown,
+	}
+}
+
+// ExtensionsStatusLevelTypes - The level code.
+type ExtensionsStatusLevelTypes string
+
+const (
+	ExtensionsStatusLevelTypesError   ExtensionsStatusLevelTypes = "Error"
+	ExtensionsStatusLevelTypesInfo    ExtensionsStatusLevelTypes = "Info"
+	ExtensionsStatusLevelTypesWarning ExtensionsStatusLevelTypes = "Warning"
+)
+
+// PossibleExtensionsStatusLevelTypesValues returns the possible values for the ExtensionsStatusLevelTypes const type.
+func PossibleExtensionsStatusLevelTypesValues() []ExtensionsStatusLevelTypes {
+	return []ExtensionsStatusLevelTypes{
+		ExtensionsStatusLevelTypesError,
+		ExtensionsStatusLevelTypesInfo,
+		ExtensionsStatusLevelTypesWarning,
+	}
+}
+
+// GatewayType - The type of the Gateway resource.
+type GatewayType string
+
+const (
+	GatewayTypePrivate GatewayType = "Private"
+	GatewayTypePublic  GatewayType = "Public"
+)
+
+// PossibleGatewayTypeValues returns the possible values for the GatewayType const type.
+func PossibleGatewayTypeValues() []GatewayType {
+	return []GatewayType{
+		GatewayTypePrivate,
+		GatewayTypePublic,
 	}
 }
 
@@ -219,6 +266,42 @@ func PossibleLicenseEditionValues() []LicenseEdition {
 	}
 }
 
+// LicenseProfileProductType - The product type of the license.
+type LicenseProfileProductType string
+
+const (
+	LicenseProfileProductTypeWindowsIoTEnterprise LicenseProfileProductType = "WindowsIoTEnterprise"
+	LicenseProfileProductTypeWindowsServer        LicenseProfileProductType = "WindowsServer"
+)
+
+// PossibleLicenseProfileProductTypeValues returns the possible values for the LicenseProfileProductType const type.
+func PossibleLicenseProfileProductTypeValues() []LicenseProfileProductType {
+	return []LicenseProfileProductType{
+		LicenseProfileProductTypeWindowsIoTEnterprise,
+		LicenseProfileProductTypeWindowsServer,
+	}
+}
+
+// LicenseProfileSubscriptionStatus - Subscription status of the OS or Product feature.
+type LicenseProfileSubscriptionStatus string
+
+const (
+	LicenseProfileSubscriptionStatusDisabled LicenseProfileSubscriptionStatus = "Disabled"
+	LicenseProfileSubscriptionStatusEnabled  LicenseProfileSubscriptionStatus = "Enabled"
+	LicenseProfileSubscriptionStatusEnabling LicenseProfileSubscriptionStatus = "Enabling"
+	LicenseProfileSubscriptionStatusUnknown  LicenseProfileSubscriptionStatus = "Unknown"
+)
+
+// PossibleLicenseProfileSubscriptionStatusValues returns the possible values for the LicenseProfileSubscriptionStatus const type.
+func PossibleLicenseProfileSubscriptionStatusValues() []LicenseProfileSubscriptionStatus {
+	return []LicenseProfileSubscriptionStatus{
+		LicenseProfileSubscriptionStatusDisabled,
+		LicenseProfileSubscriptionStatusEnabled,
+		LicenseProfileSubscriptionStatusEnabling,
+		LicenseProfileSubscriptionStatusUnknown,
+	}
+}
+
 // LicenseState - Describes the state of the license.
 type LicenseState string
 
@@ -232,6 +315,32 @@ func PossibleLicenseStateValues() []LicenseState {
 	return []LicenseState{
 		LicenseStateActivated,
 		LicenseStateDeactivated,
+	}
+}
+
+// LicenseStatus - The license status.
+type LicenseStatus string
+
+const (
+	LicenseStatusExtendedGrace   LicenseStatus = "ExtendedGrace"
+	LicenseStatusLicensed        LicenseStatus = "Licensed"
+	LicenseStatusNonGenuineGrace LicenseStatus = "NonGenuineGrace"
+	LicenseStatusNotification    LicenseStatus = "Notification"
+	LicenseStatusOOBGrace        LicenseStatus = "OOBGrace"
+	LicenseStatusOOTGrace        LicenseStatus = "OOTGrace"
+	LicenseStatusUnlicensed      LicenseStatus = "Unlicensed"
+)
+
+// PossibleLicenseStatusValues returns the possible values for the LicenseStatus const type.
+func PossibleLicenseStatusValues() []LicenseStatus {
+	return []LicenseStatus{
+		LicenseStatusExtendedGrace,
+		LicenseStatusLicensed,
+		LicenseStatusNonGenuineGrace,
+		LicenseStatusNotification,
+		LicenseStatusOOBGrace,
+		LicenseStatusOOTGrace,
+		LicenseStatusUnlicensed,
 	}
 }
 
@@ -404,6 +513,9 @@ const (
 	// PublicNetworkAccessTypeEnabled - Allows Azure Arc agents to communicate with Azure Arc services over both public (internet)
 	// and private endpoints.
 	PublicNetworkAccessTypeEnabled PublicNetworkAccessType = "Enabled"
+	// PublicNetworkAccessTypeSecuredByPerimeter - Azure Arc agent communication with Azure Arc services over public (internet)
+	// is enforced by Network Security Perimeter (NSP)
+	PublicNetworkAccessTypeSecuredByPerimeter PublicNetworkAccessType = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessTypeValues returns the possible values for the PublicNetworkAccessType const type.
@@ -411,6 +523,7 @@ func PossiblePublicNetworkAccessTypeValues() []PublicNetworkAccessType {
 	return []PublicNetworkAccessType{
 		PublicNetworkAccessTypeDisabled,
 		PublicNetworkAccessTypeEnabled,
+		PublicNetworkAccessTypeSecuredByPerimeter,
 	}
 }
 

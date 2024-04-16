@@ -8,18 +8,6 @@
 
 package armhybridcompute
 
-// AgentVersionClientGetResponse contains the response from method AgentVersionClient.Get.
-type AgentVersionClientGetResponse struct {
-	// Describes properties of Agent Version.
-	AgentVersion
-}
-
-// AgentVersionClientListResponse contains the response from method AgentVersionClient.List.
-type AgentVersionClientListResponse struct {
-	// Describes AgentVersions List.
-	AgentVersionsList
-}
-
 // ExtensionMetadataClientGetResponse contains the response from method ExtensionMetadataClient.Get.
 type ExtensionMetadataClientGetResponse struct {
 	// Describes a Extension Metadata
@@ -32,86 +20,39 @@ type ExtensionMetadataClientListResponse struct {
 	ExtensionValueListResult
 }
 
-// HybridIdentityMetadataClientGetResponse contains the response from method HybridIdentityMetadataClient.Get.
-type HybridIdentityMetadataClientGetResponse struct {
-	// Defines the HybridIdentityMetadata.
-	HybridIdentityMetadata
+// GatewaysClientCreateOrUpdateResponse contains the response from method GatewaysClient.BeginCreateOrUpdate.
+type GatewaysClientCreateOrUpdateResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
 }
 
-// HybridIdentityMetadataClientListByMachinesResponse contains the response from method HybridIdentityMetadataClient.NewListByMachinesPager.
-type HybridIdentityMetadataClientListByMachinesResponse struct {
-	// List of HybridIdentityMetadata.
-	HybridIdentityMetadataList
-}
-
-// LicenseProfilesClientCreateOrUpdateResponse contains the response from method LicenseProfilesClient.BeginCreateOrUpdate.
-type LicenseProfilesClientCreateOrUpdateResponse struct {
-	// Describes a license profile in a hybrid machine.
-	LicenseProfile
-}
-
-// LicenseProfilesClientDeleteResponse contains the response from method LicenseProfilesClient.BeginDelete.
-type LicenseProfilesClientDeleteResponse struct {
+// GatewaysClientDeleteResponse contains the response from method GatewaysClient.BeginDelete.
+type GatewaysClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// LicenseProfilesClientGetResponse contains the response from method LicenseProfilesClient.Get.
-type LicenseProfilesClientGetResponse struct {
-	// Describes a license profile in a hybrid machine.
-	LicenseProfile
+// GatewaysClientGetResponse contains the response from method GatewaysClient.Get.
+type GatewaysClientGetResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
 }
 
-// LicenseProfilesClientListResponse contains the response from method LicenseProfilesClient.NewListPager.
-type LicenseProfilesClientListResponse struct {
-	// The List hybrid machine license profile operation response.
-	LicenseProfilesListResult
-}
-
-// LicenseProfilesClientUpdateResponse contains the response from method LicenseProfilesClient.BeginUpdate.
-type LicenseProfilesClientUpdateResponse struct {
-	// Describes a license profile in a hybrid machine.
-	LicenseProfile
-}
-
-// LicensesClientCreateOrUpdateResponse contains the response from method LicensesClient.BeginCreateOrUpdate.
-type LicensesClientCreateOrUpdateResponse struct {
-	// Describes a license in a hybrid machine.
-	License
-}
-
-// LicensesClientDeleteResponse contains the response from method LicensesClient.BeginDelete.
-type LicensesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// LicensesClientGetResponse contains the response from method LicensesClient.Get.
-type LicensesClientGetResponse struct {
-	// Describes a license in a hybrid machine.
-	License
-}
-
-// LicensesClientListByResourceGroupResponse contains the response from method LicensesClient.NewListByResourceGroupPager.
-type LicensesClientListByResourceGroupResponse struct {
+// GatewaysClientListByResourceGroupResponse contains the response from method GatewaysClient.NewListByResourceGroupPager.
+type GatewaysClientListByResourceGroupResponse struct {
 	// The List license operation response.
-	LicensesListResult
+	GatewaysListResult
 }
 
-// LicensesClientListBySubscriptionResponse contains the response from method LicensesClient.NewListBySubscriptionPager.
-type LicensesClientListBySubscriptionResponse struct {
+// GatewaysClientListBySubscriptionResponse contains the response from method GatewaysClient.NewListBySubscriptionPager.
+type GatewaysClientListBySubscriptionResponse struct {
 	// The List license operation response.
-	LicensesListResult
+	GatewaysListResult
 }
 
-// LicensesClientUpdateResponse contains the response from method LicensesClient.BeginUpdate.
-type LicensesClientUpdateResponse struct {
-	// Describes a license in a hybrid machine.
-	License
-}
-
-// LicensesClientValidateLicenseResponse contains the response from method LicensesClient.BeginValidateLicense.
-type LicensesClientValidateLicenseResponse struct {
-	// Describes a license in a hybrid machine.
-	License
+// GatewaysClientUpdateResponse contains the response from method GatewaysClient.Update.
+type GatewaysClientUpdateResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
 }
 
 // MachineExtensionsClientCreateOrUpdateResponse contains the response from method MachineExtensionsClient.BeginCreateOrUpdate.
@@ -143,16 +84,33 @@ type MachineExtensionsClientUpdateResponse struct {
 	MachineExtension
 }
 
+// MachineRunCommandsClientCreateOrUpdateResponse contains the response from method MachineRunCommandsClient.BeginCreateOrUpdate.
+type MachineRunCommandsClientCreateOrUpdateResponse struct {
+	// Describes a Run Command
+	MachineRunCommand
+}
+
+// MachineRunCommandsClientDeleteResponse contains the response from method MachineRunCommandsClient.BeginDelete.
+type MachineRunCommandsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MachineRunCommandsClientGetResponse contains the response from method MachineRunCommandsClient.Get.
+type MachineRunCommandsClientGetResponse struct {
+	// Describes a Run Command
+	MachineRunCommand
+}
+
+// MachineRunCommandsClientListResponse contains the response from method MachineRunCommandsClient.NewListPager.
+type MachineRunCommandsClientListResponse struct {
+	// Describes the Run Commands List Result.
+	MachineRunCommandsListResult
+}
+
 // MachinesClientAssessPatchesResponse contains the response from method MachinesClient.BeginAssessPatches.
 type MachinesClientAssessPatchesResponse struct {
 	// Describes the properties of an AssessPatches result.
 	MachineAssessPatchesResult
-}
-
-// MachinesClientCreateOrUpdateResponse contains the response from method MachinesClient.CreateOrUpdate.
-type MachinesClientCreateOrUpdateResponse struct {
-	// Describes a hybrid machine.
-	Machine
 }
 
 // MachinesClientDeleteResponse contains the response from method MachinesClient.Delete.
