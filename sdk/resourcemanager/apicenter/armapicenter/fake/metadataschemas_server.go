@@ -113,6 +113,7 @@ func (m *MetadataSchemasServerTransport) dispatchCreateOrUpdate(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
+	ifMatchParam := getOptional(getHeaderValue(req.Header, "If-Match"))
 	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
 	if err != nil {
 		return nil, err
@@ -121,7 +122,13 @@ func (m *MetadataSchemasServerTransport) dispatchCreateOrUpdate(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := m.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, serviceNameParam, metadataSchemaNameParam, body, nil)
+	var options *armapicenter.MetadataSchemasClientCreateOrUpdateOptions
+	if ifMatchParam != nil {
+		options = &armapicenter.MetadataSchemasClientCreateOrUpdateOptions{
+			IfMatch: ifMatchParam,
+		}
+	}
+	respr, errRespr := m.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, serviceNameParam, metadataSchemaNameParam, body, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
