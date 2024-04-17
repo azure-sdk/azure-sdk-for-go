@@ -19,26 +19,7 @@ import (
 
 // ServerFactory is a fake server for instances of the armoperationalinsights.ClientFactory type.
 type ServerFactory struct {
-	AvailableServiceTiersServer AvailableServiceTiersServer
-	ClustersServer              ClustersServer
-	DataExportsServer           DataExportsServer
-	DataSourcesServer           DataSourcesServer
-	DeletedWorkspacesServer     DeletedWorkspacesServer
-	GatewaysServer              GatewaysServer
-	IntelligencePacksServer     IntelligencePacksServer
-	LinkedServicesServer        LinkedServicesServer
-	LinkedStorageAccountsServer LinkedStorageAccountsServer
-	ManagementGroupsServer      ManagementGroupsServer
-	OperationStatusesServer     OperationStatusesServer
-	OperationsServer            OperationsServer
-	SavedSearchesServer         SavedSearchesServer
-	SchemaServer                SchemaServer
-	SharedKeysServer            SharedKeysServer
-	StorageInsightConfigsServer StorageInsightConfigsServer
-	TablesServer                TablesServer
-	UsagesServer                UsagesServer
-	WorkspacePurgeServer        WorkspacePurgeServer
-	WorkspacesServer            WorkspacesServer
+	WorkspacesServer WorkspacesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -53,28 +34,9 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armoperationalinsights.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                           *ServerFactory
-	trMu                          sync.Mutex
-	trAvailableServiceTiersServer *AvailableServiceTiersServerTransport
-	trClustersServer              *ClustersServerTransport
-	trDataExportsServer           *DataExportsServerTransport
-	trDataSourcesServer           *DataSourcesServerTransport
-	trDeletedWorkspacesServer     *DeletedWorkspacesServerTransport
-	trGatewaysServer              *GatewaysServerTransport
-	trIntelligencePacksServer     *IntelligencePacksServerTransport
-	trLinkedServicesServer        *LinkedServicesServerTransport
-	trLinkedStorageAccountsServer *LinkedStorageAccountsServerTransport
-	trManagementGroupsServer      *ManagementGroupsServerTransport
-	trOperationStatusesServer     *OperationStatusesServerTransport
-	trOperationsServer            *OperationsServerTransport
-	trSavedSearchesServer         *SavedSearchesServerTransport
-	trSchemaServer                *SchemaServerTransport
-	trSharedKeysServer            *SharedKeysServerTransport
-	trStorageInsightConfigsServer *StorageInsightConfigsServerTransport
-	trTablesServer                *TablesServerTransport
-	trUsagesServer                *UsagesServerTransport
-	trWorkspacePurgeServer        *WorkspacePurgeServerTransport
-	trWorkspacesServer            *WorkspacesServerTransport
+	srv                *ServerFactory
+	trMu               sync.Mutex
+	trWorkspacesServer *WorkspacesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -90,83 +52,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "AvailableServiceTiersClient":
-		initServer(s, &s.trAvailableServiceTiersServer, func() *AvailableServiceTiersServerTransport {
-			return NewAvailableServiceTiersServerTransport(&s.srv.AvailableServiceTiersServer)
-		})
-		resp, err = s.trAvailableServiceTiersServer.Do(req)
-	case "ClustersClient":
-		initServer(s, &s.trClustersServer, func() *ClustersServerTransport { return NewClustersServerTransport(&s.srv.ClustersServer) })
-		resp, err = s.trClustersServer.Do(req)
-	case "DataExportsClient":
-		initServer(s, &s.trDataExportsServer, func() *DataExportsServerTransport { return NewDataExportsServerTransport(&s.srv.DataExportsServer) })
-		resp, err = s.trDataExportsServer.Do(req)
-	case "DataSourcesClient":
-		initServer(s, &s.trDataSourcesServer, func() *DataSourcesServerTransport { return NewDataSourcesServerTransport(&s.srv.DataSourcesServer) })
-		resp, err = s.trDataSourcesServer.Do(req)
-	case "DeletedWorkspacesClient":
-		initServer(s, &s.trDeletedWorkspacesServer, func() *DeletedWorkspacesServerTransport {
-			return NewDeletedWorkspacesServerTransport(&s.srv.DeletedWorkspacesServer)
-		})
-		resp, err = s.trDeletedWorkspacesServer.Do(req)
-	case "GatewaysClient":
-		initServer(s, &s.trGatewaysServer, func() *GatewaysServerTransport { return NewGatewaysServerTransport(&s.srv.GatewaysServer) })
-		resp, err = s.trGatewaysServer.Do(req)
-	case "IntelligencePacksClient":
-		initServer(s, &s.trIntelligencePacksServer, func() *IntelligencePacksServerTransport {
-			return NewIntelligencePacksServerTransport(&s.srv.IntelligencePacksServer)
-		})
-		resp, err = s.trIntelligencePacksServer.Do(req)
-	case "LinkedServicesClient":
-		initServer(s, &s.trLinkedServicesServer, func() *LinkedServicesServerTransport {
-			return NewLinkedServicesServerTransport(&s.srv.LinkedServicesServer)
-		})
-		resp, err = s.trLinkedServicesServer.Do(req)
-	case "LinkedStorageAccountsClient":
-		initServer(s, &s.trLinkedStorageAccountsServer, func() *LinkedStorageAccountsServerTransport {
-			return NewLinkedStorageAccountsServerTransport(&s.srv.LinkedStorageAccountsServer)
-		})
-		resp, err = s.trLinkedStorageAccountsServer.Do(req)
-	case "ManagementGroupsClient":
-		initServer(s, &s.trManagementGroupsServer, func() *ManagementGroupsServerTransport {
-			return NewManagementGroupsServerTransport(&s.srv.ManagementGroupsServer)
-		})
-		resp, err = s.trManagementGroupsServer.Do(req)
-	case "OperationStatusesClient":
-		initServer(s, &s.trOperationStatusesServer, func() *OperationStatusesServerTransport {
-			return NewOperationStatusesServerTransport(&s.srv.OperationStatusesServer)
-		})
-		resp, err = s.trOperationStatusesServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
-	case "SavedSearchesClient":
-		initServer(s, &s.trSavedSearchesServer, func() *SavedSearchesServerTransport {
-			return NewSavedSearchesServerTransport(&s.srv.SavedSearchesServer)
-		})
-		resp, err = s.trSavedSearchesServer.Do(req)
-	case "SchemaClient":
-		initServer(s, &s.trSchemaServer, func() *SchemaServerTransport { return NewSchemaServerTransport(&s.srv.SchemaServer) })
-		resp, err = s.trSchemaServer.Do(req)
-	case "SharedKeysClient":
-		initServer(s, &s.trSharedKeysServer, func() *SharedKeysServerTransport { return NewSharedKeysServerTransport(&s.srv.SharedKeysServer) })
-		resp, err = s.trSharedKeysServer.Do(req)
-	case "StorageInsightConfigsClient":
-		initServer(s, &s.trStorageInsightConfigsServer, func() *StorageInsightConfigsServerTransport {
-			return NewStorageInsightConfigsServerTransport(&s.srv.StorageInsightConfigsServer)
-		})
-		resp, err = s.trStorageInsightConfigsServer.Do(req)
-	case "TablesClient":
-		initServer(s, &s.trTablesServer, func() *TablesServerTransport { return NewTablesServerTransport(&s.srv.TablesServer) })
-		resp, err = s.trTablesServer.Do(req)
-	case "UsagesClient":
-		initServer(s, &s.trUsagesServer, func() *UsagesServerTransport { return NewUsagesServerTransport(&s.srv.UsagesServer) })
-		resp, err = s.trUsagesServer.Do(req)
-	case "WorkspacePurgeClient":
-		initServer(s, &s.trWorkspacePurgeServer, func() *WorkspacePurgeServerTransport {
-			return NewWorkspacePurgeServerTransport(&s.srv.WorkspacePurgeServer)
-		})
-		resp, err = s.trWorkspacePurgeServer.Do(req)
 	case "WorkspacesClient":
 		initServer(s, &s.trWorkspacesServer, func() *WorkspacesServerTransport { return NewWorkspacesServerTransport(&s.srv.WorkspacesServer) })
 		resp, err = s.trWorkspacesServer.Do(req)

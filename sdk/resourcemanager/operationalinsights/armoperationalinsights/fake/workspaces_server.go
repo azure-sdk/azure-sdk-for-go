@@ -15,38 +15,26 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/operationalinsights/armoperationalinsights"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/operationalinsights/armoperationalinsights/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 )
 
 // WorkspacesServer is a fake server for instances of the armoperationalinsights.WorkspacesClient type.
 type WorkspacesServer struct {
-	// BeginCreateOrUpdate is the fake for method WorkspacesClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, parameters armoperationalinsights.Workspace, options *armoperationalinsights.WorkspacesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armoperationalinsights.WorkspacesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
-	// BeginDelete is the fake for method WorkspacesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, workspaceName string, options *armoperationalinsights.WorkspacesClientBeginDeleteOptions) (resp azfake.PollerResponder[armoperationalinsights.WorkspacesClientDeleteResponse], errResp azfake.ErrorResponder)
-
-	// Get is the fake for method WorkspacesClient.Get
+	// GetNSP is the fake for method WorkspacesClient.GetNSP
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, workspaceName string, options *armoperationalinsights.WorkspacesClientGetOptions) (resp azfake.Responder[armoperationalinsights.WorkspacesClientGetResponse], errResp azfake.ErrorResponder)
+	GetNSP func(ctx context.Context, resourceGroupName string, workspaceName string, configurationName string, options *armoperationalinsights.WorkspacesClientGetNSPOptions) (resp azfake.Responder[armoperationalinsights.WorkspacesClientGetNSPResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method WorkspacesClient.NewListPager
+	// NewListNSPPager is the fake for method WorkspacesClient.NewListNSPPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armoperationalinsights.WorkspacesClientListOptions) (resp azfake.PagerResponder[armoperationalinsights.WorkspacesClientListResponse])
+	NewListNSPPager func(resourceGroupName string, workspaceName string, options *armoperationalinsights.WorkspacesClientListNSPOptions) (resp azfake.PagerResponder[armoperationalinsights.WorkspacesClientListNSPResponse])
 
-	// NewListByResourceGroupPager is the fake for method WorkspacesClient.NewListByResourceGroupPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListByResourceGroupPager func(resourceGroupName string, options *armoperationalinsights.WorkspacesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armoperationalinsights.WorkspacesClientListByResourceGroupResponse])
-
-	// Update is the fake for method WorkspacesClient.Update
-	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, workspaceName string, parameters armoperationalinsights.WorkspacePatch, options *armoperationalinsights.WorkspacesClientUpdateOptions) (resp azfake.Responder[armoperationalinsights.WorkspacesClientUpdateResponse], errResp azfake.ErrorResponder)
+	// BeginReconcileNSP is the fake for method WorkspacesClient.BeginReconcileNSP
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginReconcileNSP func(ctx context.Context, resourceGroupName string, workspaceName string, configurationName string, options *armoperationalinsights.WorkspacesClientBeginReconcileNSPOptions) (resp azfake.PollerResponder[armoperationalinsights.WorkspacesClientReconcileNSPResponse], errResp azfake.ErrorResponder)
 }
 
 // NewWorkspacesServerTransport creates a new instance of WorkspacesServerTransport with the provided implementation.
@@ -54,22 +42,18 @@ type WorkspacesServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewWorkspacesServerTransport(srv *WorkspacesServer) *WorkspacesServerTransport {
 	return &WorkspacesServerTransport{
-		srv:                         srv,
-		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armoperationalinsights.WorkspacesClientCreateOrUpdateResponse]](),
-		beginDelete:                 newTracker[azfake.PollerResponder[armoperationalinsights.WorkspacesClientDeleteResponse]](),
-		newListPager:                newTracker[azfake.PagerResponder[armoperationalinsights.WorkspacesClientListResponse]](),
-		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armoperationalinsights.WorkspacesClientListByResourceGroupResponse]](),
+		srv:               srv,
+		newListNSPPager:   newTracker[azfake.PagerResponder[armoperationalinsights.WorkspacesClientListNSPResponse]](),
+		beginReconcileNSP: newTracker[azfake.PollerResponder[armoperationalinsights.WorkspacesClientReconcileNSPResponse]](),
 	}
 }
 
 // WorkspacesServerTransport connects instances of armoperationalinsights.WorkspacesClient to instances of WorkspacesServer.
 // Don't use this type directly, use NewWorkspacesServerTransport instead.
 type WorkspacesServerTransport struct {
-	srv                         *WorkspacesServer
-	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armoperationalinsights.WorkspacesClientCreateOrUpdateResponse]]
-	beginDelete                 *tracker[azfake.PollerResponder[armoperationalinsights.WorkspacesClientDeleteResponse]]
-	newListPager                *tracker[azfake.PagerResponder[armoperationalinsights.WorkspacesClientListResponse]]
-	newListByResourceGroupPager *tracker[azfake.PagerResponder[armoperationalinsights.WorkspacesClientListByResourceGroupResponse]]
+	srv               *WorkspacesServer
+	newListNSPPager   *tracker[azfake.PagerResponder[armoperationalinsights.WorkspacesClientListNSPResponse]]
+	beginReconcileNSP *tracker[azfake.PollerResponder[armoperationalinsights.WorkspacesClientReconcileNSPResponse]]
 }
 
 // Do implements the policy.Transporter interface for WorkspacesServerTransport.
@@ -84,18 +68,12 @@ func (w *WorkspacesServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
-	case "WorkspacesClient.BeginCreateOrUpdate":
-		resp, err = w.dispatchBeginCreateOrUpdate(req)
-	case "WorkspacesClient.BeginDelete":
-		resp, err = w.dispatchBeginDelete(req)
-	case "WorkspacesClient.Get":
-		resp, err = w.dispatchGet(req)
-	case "WorkspacesClient.NewListPager":
-		resp, err = w.dispatchNewListPager(req)
-	case "WorkspacesClient.NewListByResourceGroupPager":
-		resp, err = w.dispatchNewListByResourceGroupPager(req)
-	case "WorkspacesClient.Update":
-		resp, err = w.dispatchUpdate(req)
+	case "WorkspacesClient.GetNSP":
+		resp, err = w.dispatchGetNSP(req)
+	case "WorkspacesClient.NewListNSPPager":
+		resp, err = w.dispatchNewListNSPPager(req)
+	case "WorkspacesClient.BeginReconcileNSP":
+		resp, err = w.dispatchBeginReconcileNSP(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -107,121 +85,14 @@ func (w *WorkspacesServerTransport) Do(req *http.Request) (*http.Response, error
 	return resp, nil
 }
 
-func (w *WorkspacesServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if w.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
+func (w *WorkspacesServerTransport) dispatchGetNSP(req *http.Request) (*http.Response, error) {
+	if w.srv.GetNSP == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetNSP not implemented")}
 	}
-	beginCreateOrUpdate := w.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armoperationalinsights.Workspace](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := w.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, workspaceNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginCreateOrUpdate = &respr
-		w.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
-		w.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		w.beginCreateOrUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (w *WorkspacesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if w.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
-	}
-	beginDelete := w.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-		if err != nil {
-			return nil, err
-		}
-		forceUnescaped, err := url.QueryUnescape(qp.Get("force"))
-		if err != nil {
-			return nil, err
-		}
-		forceParam, err := parseOptional(forceUnescaped, strconv.ParseBool)
-		if err != nil {
-			return nil, err
-		}
-		var options *armoperationalinsights.WorkspacesClientBeginDeleteOptions
-		if forceParam != nil {
-			options = &armoperationalinsights.WorkspacesClientBeginDeleteOptions{
-				Force: forceParam,
-			}
-		}
-		respr, errRespr := w.srv.BeginDelete(req.Context(), resourceGroupNameParam, workspaceNameParam, options)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginDelete = &respr
-		w.beginDelete.add(req, beginDelete)
-	}
-
-	resp, err := server.PollerResponderNext(beginDelete, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		w.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginDelete) {
-		w.beginDelete.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (w *WorkspacesServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if w.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations/(?P<configurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
+	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -232,7 +103,11 @@ func (w *WorkspacesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := w.srv.Get(req.Context(), resourceGroupNameParam, workspaceNameParam, nil)
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := w.srv.GetNSP(req.Context(), resourceGroupNameParam, workspaceNameParam, configurationNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -240,110 +115,98 @@ func (w *WorkspacesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Workspace, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).NetworkSecurityPerimeterConfiguration, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (w *WorkspacesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if w.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (w *WorkspacesServerTransport) dispatchNewListNSPPager(req *http.Request) (*http.Response, error) {
+	if w.srv.NewListNSPPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListNSPPager not implemented")}
 	}
-	newListPager := w.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces`
+	newListNSPPager := w.newListNSPPager.get(req)
+	if newListNSPPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := w.srv.NewListPager(nil)
-		newListPager = &resp
-		w.newListPager.add(req, newListPager)
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		w.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		w.newListPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (w *WorkspacesServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
-	if w.srv.NewListByResourceGroupPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
-	}
-	newListByResourceGroupPager := w.newListByResourceGroupPager.get(req)
-	if newListByResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
+		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := w.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
-		newListByResourceGroupPager = &resp
-		w.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
+		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := w.srv.NewListNSPPager(resourceGroupNameParam, workspaceNameParam, nil)
+		newListNSPPager = &resp
+		w.newListNSPPager.add(req, newListNSPPager)
+		server.PagerResponderInjectNextLinks(newListNSPPager, req, func(page *armoperationalinsights.WorkspacesClientListNSPResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
+	resp, err := server.PagerResponderNext(newListNSPPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		w.newListByResourceGroupPager.remove(req)
+		w.newListNSPPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListByResourceGroupPager) {
-		w.newListByResourceGroupPager.remove(req)
+	if !server.PagerResponderMore(newListNSPPager) {
+		w.newListNSPPager.remove(req)
 	}
 	return resp, nil
 }
 
-func (w *WorkspacesServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if w.srv.Update == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
+func (w *WorkspacesServerTransport) dispatchBeginReconcileNSP(req *http.Request) (*http.Response, error) {
+	if w.srv.BeginReconcileNSP == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginReconcileNSP not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	beginReconcileNSP := w.beginReconcileNSP.get(req)
+	if beginReconcileNSP == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations/(?P<configurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/reconcile`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+		if err != nil {
+			return nil, err
+		}
+		configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := w.srv.BeginReconcileNSP(req.Context(), resourceGroupNameParam, workspaceNameParam, configurationNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginReconcileNSP = &respr
+		w.beginReconcileNSP.add(req, beginReconcileNSP)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armoperationalinsights.WorkspacePatch](req)
+
+	resp, err := server.PollerResponderNext(beginReconcileNSP, req)
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		w.beginReconcileNSP.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
 	}
-	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-	if err != nil {
-		return nil, err
+	if !server.PollerResponderMore(beginReconcileNSP) {
+		w.beginReconcileNSP.remove(req)
 	}
-	respr, errRespr := w.srv.Update(req.Context(), resourceGroupNameParam, workspaceNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Workspace, req)
-	if err != nil {
-		return nil, err
-	}
+
 	return resp, nil
 }
