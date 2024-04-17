@@ -8,23 +8,6 @@
 
 package armhealthbot
 
-// BotsClientBeginCreateOptions contains the optional parameters for the BotsClient.BeginCreate method.
-type BotsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// BotsClientBeginDeleteOptions contains the optional parameters for the BotsClient.BeginDelete method.
-type BotsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// BotsClientGetOptions contains the optional parameters for the BotsClient.Get method.
-type BotsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
 // BotsClientListByResourceGroupOptions contains the optional parameters for the BotsClient.NewListByResourceGroupPager method.
 type BotsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
@@ -35,8 +18,13 @@ type BotsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BotsClientUpdateOptions contains the optional parameters for the BotsClient.Update method.
-type BotsClientUpdateOptions struct {
+// BotsClientListSecretsOptions contains the optional parameters for the BotsClient.ListSecrets method.
+type BotsClientListSecretsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BotsClientRegenerateAPIJwtSecretOptions contains the optional parameters for the BotsClient.RegenerateAPIJwtSecret method.
+type BotsClientRegenerateAPIJwtSecretOptions struct {
 	// placeholder for future optional parameters
 }
 

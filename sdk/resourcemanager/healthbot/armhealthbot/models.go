@@ -110,6 +110,36 @@ type Identity struct {
 	TenantID *string
 }
 
+// Key - An entry of HealthBotKeysResponse
+type Key struct {
+	// The name of the key.
+	KeyName *string
+
+	// The value of the key.
+	Value *string
+}
+
+// KeyVaultProperties - Properties of the key vault.
+type KeyVaultProperties struct {
+	// REQUIRED; The name of the key vault key.
+	KeyName *string
+
+	// REQUIRED; The Uri of the key vault.
+	KeyVaultURI *string
+
+	// The version of the key vault key.
+	KeyVersion *string
+
+	// The user assigned identity (ARM resource id) that has access to the key.
+	UserIdentity *string
+}
+
+// KeysResponse - Health Bot Keys Response.
+type KeysResponse struct {
+	// Array of Azure Health Bot Secrets.
+	Secrets []*Key
+}
+
 // OperationDetail - Operation detail payload
 type OperationDetail struct {
 	// Display of the operation
@@ -147,6 +177,9 @@ type OperationDisplay struct {
 // in Healthcare organizations to build and deploy their compliant, AI-powered virtual health
 // assistants and health bots, that help them improve processes and reduce costs.
 type Properties struct {
+	// KeyVault properties for the resource encryption.
+	KeyVaultProperties *KeyVaultProperties
+
 	// READ-ONLY; The link.
 	BotManagementPortalLink *string
 
@@ -222,6 +255,9 @@ type UpdateParameters struct {
 	// The identity of the Azure Health Bot.
 	Identity *Identity
 	Location *string
+
+	// Properties of Azure Health Bot.
+	Properties *Properties
 
 	// SKU of the Azure Health Bot.
 	SKU *SKU

@@ -1,6 +1,6 @@
 # Azure Health Bot Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot/v2)
 
 The `armhealthbot` module provides operations for working with Azure Health Bot.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Health Bot module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot/v2
 ```
 
 ## Authorization

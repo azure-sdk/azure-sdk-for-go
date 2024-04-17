@@ -8,23 +8,6 @@
 
 package armhealthbot
 
-// BotsClientCreateResponse contains the response from method BotsClient.BeginCreate.
-type BotsClientCreateResponse struct {
-	// Azure Health Bot resource definition
-	HealthBot
-}
-
-// BotsClientDeleteResponse contains the response from method BotsClient.BeginDelete.
-type BotsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// BotsClientGetResponse contains the response from method BotsClient.Get.
-type BotsClientGetResponse struct {
-	// Azure Health Bot resource definition
-	HealthBot
-}
-
 // BotsClientListByResourceGroupResponse contains the response from method BotsClient.NewListByResourceGroupPager.
 type BotsClientListByResourceGroupResponse struct {
 	// The list of Azure Health Bot operation response.
@@ -37,10 +20,16 @@ type BotsClientListResponse struct {
 	BotResponseList
 }
 
-// BotsClientUpdateResponse contains the response from method BotsClient.Update.
-type BotsClientUpdateResponse struct {
-	// Azure Health Bot resource definition
-	HealthBot
+// BotsClientListSecretsResponse contains the response from method BotsClient.ListSecrets.
+type BotsClientListSecretsResponse struct {
+	// Health Bot Keys Response.
+	KeysResponse
+}
+
+// BotsClientRegenerateAPIJwtSecretResponse contains the response from method BotsClient.RegenerateAPIJwtSecret.
+type BotsClientRegenerateAPIJwtSecretResponse struct {
+	// An entry of HealthBotKeysResponse
+	Key
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.

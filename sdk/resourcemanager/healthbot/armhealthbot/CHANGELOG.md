@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0 (2024-04-17)
+### Breaking Changes
+
+- Function `*BotsClient.BeginCreate` has been removed
+- Function `*BotsClient.BeginDelete` has been removed
+- Function `*BotsClient.Get` has been removed
+- Function `*BotsClient.Update` has been removed
+
+### Features Added
+
+- New value `SKUNamePES` added to enum type `SKUName`
+- New function `*BotsClient.ListSecrets(context.Context, string, string, *BotsClientListSecretsOptions) (BotsClientListSecretsResponse, error)`
+- New function `*BotsClient.RegenerateAPIJwtSecret(context.Context, string, string, *BotsClientRegenerateAPIJwtSecretOptions) (BotsClientRegenerateAPIJwtSecretResponse, error)`
+- New struct `Key`
+- New struct `KeyVaultProperties`
+- New struct `KeysResponse`
+- New field `KeyVaultProperties` in struct `Properties`
+- New field `Properties` in struct `UpdateParameters`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
