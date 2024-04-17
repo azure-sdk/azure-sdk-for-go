@@ -15,9 +15,10 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v3"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
@@ -176,6 +177,10 @@ func (e *ExportsServerTransport) dispatchExecute(req *http.Request) (*http.Respo
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[armcostmanagement.ExportRunRequest](req)
+	if err != nil {
+		return nil, err
+	}
 	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 	if err != nil {
 		return nil, err
@@ -184,7 +189,13 @@ func (e *ExportsServerTransport) dispatchExecute(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := e.srv.Execute(req.Context(), scopeParam, exportNameParam, nil)
+	var options *armcostmanagement.ExportsClientExecuteOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armcostmanagement.ExportsClientExecuteOptions{
+			Parameters: &body,
+		}
+	}
+	respr, errRespr := e.srv.Execute(req.Context(), scopeParam, exportNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

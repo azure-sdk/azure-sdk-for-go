@@ -53,9 +53,9 @@ func NewGenerateCostDetailsReportClient(credential azcore.TokenCredential, optio
 // in files ,see https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
-//   - scope - The ARM Resource ID for subscription, resource group, billing account, or other billing scopes. For details, see
-//     https://aka.ms/costmgmt/scopes.
+// Generated from API version 2024-04-15-preview
+//   - scope - The ARM Resource ID for subscription, billing account, or other billing scopes.Currently Resource Group and Management
+//     Group are not supported. For details, see https://aka.ms/costmgmt/scopes.
 //   - parameters - Parameters supplied to the Create cost details operation.
 //   - options - GenerateCostDetailsReportClientBeginCreateOperationOptions contains the optional parameters for the GenerateCostDetailsReportClient.BeginCreateOperation
 //     method.
@@ -90,7 +90,7 @@ func (client *GenerateCostDetailsReportClient) BeginCreateOperation(ctx context.
 // in files ,see https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-15-preview
 func (client *GenerateCostDetailsReportClient) createOperation(ctx context.Context, scope string, parameters GenerateCostDetailsReportRequestDefinition, options *GenerateCostDetailsReportClientBeginCreateOperationOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GenerateCostDetailsReportClient.BeginCreateOperation"
@@ -121,7 +121,7 @@ func (client *GenerateCostDetailsReportClient) createOperationCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2024-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -134,9 +134,9 @@ func (client *GenerateCostDetailsReportClient) createOperationCreateRequest(ctx 
 // request response Location header.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
-//   - scope - The ARM Resource ID for subscription, resource group, billing account, or other billing scopes. For details, see
-//     https://aka.ms/costmgmt/scopes.
+// Generated from API version 2024-04-15-preview
+//   - scope - The ARM Resource ID for subscription, billing account, or other billing scopes.Currently Resource Group and Management
+//     Group are not supported. For details, see https://aka.ms/costmgmt/scopes.
 //   - operationID - The target operation Id.
 //   - options - GenerateCostDetailsReportClientBeginGetOperationResultsOptions contains the optional parameters for the GenerateCostDetailsReportClient.BeginGetOperationResults
 //     method.
@@ -162,7 +162,7 @@ func (client *GenerateCostDetailsReportClient) BeginGetOperationResults(ctx cont
 // response Location header.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2024-04-15-preview
 func (client *GenerateCostDetailsReportClient) getOperationResults(ctx context.Context, scope string, operationID string, options *GenerateCostDetailsReportClientBeginGetOperationResultsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GenerateCostDetailsReportClient.BeginGetOperationResults"
@@ -197,7 +197,7 @@ func (client *GenerateCostDetailsReportClient) getOperationResultsCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2024-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
