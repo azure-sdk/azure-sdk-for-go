@@ -3689,7 +3689,7 @@ type AzureFunctionActivityTypeProperties struct {
 	// Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers"
 	// : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type:
 	// string (or Expression with resultType string).
-	Headers map[string]*string
+	Headers map[string]any
 }
 
 // AzureFunctionLinkedService - Azure Function linked service.
@@ -7923,7 +7923,7 @@ func (c *Credential) GetCredential() *Credential { return c }
 // CredentialListResponse - A list of credential resources.
 type CredentialListResponse struct {
 	// REQUIRED; List of credentials.
-	Value []*ManagedIdentityCredentialResource
+	Value []*CredentialResource
 
 	// The link to the next page of results, if any remaining results exist.
 	NextLink *string
@@ -7939,6 +7939,24 @@ type CredentialReference struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+}
+
+// CredentialResource - Credential resource type.
+type CredentialResource struct {
+	// REQUIRED; Properties of credentials.
+	Properties CredentialClassification
+
+	// READ-ONLY; Etag identifies change in the resource.
+	Etag *string
+
+	// READ-ONLY; The resource identifier.
+	ID *string
+
+	// READ-ONLY; The resource name.
+	Name *string
+
+	// READ-ONLY; The resource type.
+	Type *string
 }
 
 // CustomActivity - Custom activity type.
@@ -17204,9 +17222,6 @@ type ManagedIdentityCredential struct {
 
 	// Credential description.
 	Description *string
-
-	// Managed identity credential properties.
-	TypeProperties *ManagedIdentityTypeProperties
 }
 
 // GetCredential implements the CredentialClassification interface for type ManagedIdentityCredential.
@@ -17217,30 +17232,6 @@ func (m *ManagedIdentityCredential) GetCredential() *Credential {
 		Description:          m.Description,
 		Type:                 m.Type,
 	}
-}
-
-// ManagedIdentityCredentialResource - Credential resource type.
-type ManagedIdentityCredentialResource struct {
-	// REQUIRED; Managed Identity Credential properties.
-	Properties *ManagedIdentityCredential
-
-	// READ-ONLY; Etag identifies change in the resource.
-	Etag *string
-
-	// READ-ONLY; The resource identifier.
-	ID *string
-
-	// READ-ONLY; The resource name.
-	Name *string
-
-	// READ-ONLY; The resource type.
-	Type *string
-}
-
-// ManagedIdentityTypeProperties - Managed identity type properties.
-type ManagedIdentityTypeProperties struct {
-	// The resource id of user assigned managed identity
-	ResourceID *string
 }
 
 // ManagedIntegrationRuntime - Managed integration runtime, including managed elastic and managed dedicated integration runtimes.
@@ -19802,126 +19793,6 @@ func (o *Office365Source) GetCopySource() *CopySource {
 		SourceRetryWait:          o.SourceRetryWait,
 		Type:                     o.Type,
 	}
-}
-
-// Operation - Azure Data Factory API operation definition.
-type Operation struct {
-	// Metadata associated with the operation.
-	Display *OperationDisplay
-
-	// Operation name: {provider}/{resource}/{operation}
-	Name *string
-
-	// The intended executor of the operation.
-	Origin *string
-
-	// Additional details about the operation.
-	Properties *OperationProperties
-}
-
-// OperationDisplay - Metadata associated with the operation.
-type OperationDisplay struct {
-	// The description of the operation.
-	Description *string
-
-	// The type of operation: get, read, delete, etc.
-	Operation *string
-
-	// The name of the provider.
-	Provider *string
-
-	// The name of the resource type on which the operation is performed.
-	Resource *string
-}
-
-// OperationListResponse - A list of operations that can be performed by the Data Factory service.
-type OperationListResponse struct {
-	// The link to the next page of results, if any remaining results exist.
-	NextLink *string
-
-	// List of Data Factory operations supported by the Data Factory resource provider.
-	Value []*Operation
-}
-
-// OperationLogSpecification - Details about an operation related to logs.
-type OperationLogSpecification struct {
-	// Blobs created in the customer storage account, per hour.
-	BlobDuration *string
-
-	// Localized display name.
-	DisplayName *string
-
-	// The name of the log category.
-	Name *string
-}
-
-// OperationMetricAvailability - Defines how often data for a metric becomes available.
-type OperationMetricAvailability struct {
-	// Blob created in the customer storage account, per hour.
-	BlobDuration *string
-
-	// The granularity for the metric.
-	TimeGrain *string
-}
-
-// OperationMetricDimension - Defines the metric dimension.
-type OperationMetricDimension struct {
-	// The display name of the metric dimension.
-	DisplayName *string
-
-	// The name of the dimension for the metric.
-	Name *string
-
-	// Whether the dimension should be exported to Azure Monitor.
-	ToBeExportedForShoebox *bool
-}
-
-// OperationMetricSpecification - Details about an operation related to metrics.
-type OperationMetricSpecification struct {
-	// The type of metric aggregation.
-	AggregationType *string
-
-	// Defines how often data for metrics becomes available.
-	Availabilities []*OperationMetricAvailability
-
-	// Defines the metric dimension.
-	Dimensions []*OperationMetricDimension
-
-	// The description of the metric.
-	DisplayDescription *string
-
-	// Localized display name of the metric.
-	DisplayName *string
-
-	// Whether or not the service is using regional MDM accounts.
-	EnableRegionalMdmAccount *string
-
-	// The name of the metric.
-	Name *string
-
-	// The name of the MDM account.
-	SourceMdmAccount *string
-
-	// The name of the MDM namespace.
-	SourceMdmNamespace *string
-
-	// The unit that the metric is measured in.
-	Unit *string
-}
-
-// OperationProperties - Additional details about an operation.
-type OperationProperties struct {
-	// Details about a service operation.
-	ServiceSpecification *OperationServiceSpecification
-}
-
-// OperationServiceSpecification - Details about a service operation.
-type OperationServiceSpecification struct {
-	// Details about operations related to logs.
-	LogSpecifications []*OperationLogSpecification
-
-	// Details about operations related to metrics.
-	MetricSpecifications []*OperationMetricSpecification
 }
 
 // OracleCloudStorageLinkedService - Linked service for Oracle Cloud Storage.
@@ -26838,8 +26709,9 @@ type ScriptActivityScriptBlock struct {
 	// REQUIRED; The query text. Type: string (or Expression with resultType string).
 	Text any
 
-	// REQUIRED; The type of the query. Type: string.
-	Type *ScriptType
+	// REQUIRED; The type of the query. Please refer to the ScriptType for valid options. Type: string (or Expression with resultType
+	// string).
+	Type any
 
 	// Array of script parameters. Type: array.
 	Parameters []*ScriptActivityParameter
@@ -31357,7 +31229,7 @@ type WebActivityTypeProperties struct {
 	// Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers"
 	// : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type:
 	// string (or Expression with resultType string).
-	Headers map[string]*string
+	Headers map[string]any
 
 	// List of linked services passed to web endpoint.
 	LinkedServices []*LinkedServiceReference
@@ -31516,7 +31388,7 @@ type WebHookActivityTypeProperties struct {
 	// Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers"
 	// : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type:
 	// string (or Expression with resultType string).
-	Headers map[string]*string
+	Headers map[string]any
 
 	// When set to true, statusCode, output and error in callback request body will be consumed by activity. The activity can
 	// be marked as failed by setting statusCode >= 400 in callback request. Default is
