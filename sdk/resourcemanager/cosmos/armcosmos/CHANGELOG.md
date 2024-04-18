@@ -1,5 +1,26 @@
 # Release History
 
+## 3.0.0 (2024-04-18)
+### Breaking Changes
+
+- Type of `ServiceResourceCreateUpdateParameters.Properties` has been changed from `*ServiceResourceCreateUpdateProperties` to `ServiceResourceCreateUpdatePropertiesClassification`
+
+### Features Added
+
+- New value `ServerVersionFive0`, `ServerVersionSix0` added to enum type `ServerVersion`
+- New enum type `DedicatedGatewayType` with values `DedicatedGatewayTypeDistributedQuery`, `DedicatedGatewayTypeIntegratedCache`
+- New function `*DataTransferServiceResourceCreateUpdateParameters.GetServiceResourceCreateUpdateProperties() *ServiceResourceCreateUpdateProperties`
+- New function `*GraphAPIComputeServiceResourceCreateUpdateParameters.GetServiceResourceCreateUpdateProperties() *ServiceResourceCreateUpdateProperties`
+- New function `*MaterializedViewsBuilderServiceResourceCreateUpdateParameters.GetServiceResourceCreateUpdateProperties() *ServiceResourceCreateUpdateProperties`
+- New function `*SQLDedicatedGatewayServiceResourceCreateUpdateParameters.GetServiceResourceCreateUpdateProperties() *ServiceResourceCreateUpdateProperties`
+- New function `*ServiceResourceCreateUpdateProperties.GetServiceResourceCreateUpdateProperties() *ServiceResourceCreateUpdateProperties`
+- New struct `DataTransferServiceResourceCreateUpdateParameters`
+- New struct `GraphAPIComputeServiceResourceCreateUpdateParameters`
+- New struct `MaterializedViewsBuilderServiceResourceCreateUpdateParameters`
+- New struct `SQLDedicatedGatewayServiceResourceCreateUpdateParameters`
+- New field `DedicatedGatewayType` in struct `SQLDedicatedGatewayServiceResourceProperties`
+
+
 ## 3.0.0-beta.4 (2024-03-22)
 ### Breaking Changes
 
