@@ -56,7 +56,7 @@ type ChangeDataCaptureClientStopResponse struct {
 // CredentialOperationsClientCreateOrUpdateResponse contains the response from method CredentialOperationsClient.CreateOrUpdate.
 type CredentialOperationsClientCreateOrUpdateResponse struct {
 	// Credential resource type.
-	ManagedIdentityCredentialResource
+	CredentialResource
 }
 
 // CredentialOperationsClientDeleteResponse contains the response from method CredentialOperationsClient.Delete.
@@ -67,7 +67,7 @@ type CredentialOperationsClientDeleteResponse struct {
 // CredentialOperationsClientGetResponse contains the response from method CredentialOperationsClient.Get.
 type CredentialOperationsClientGetResponse struct {
 	// Credential resource type.
-	ManagedIdentityCredentialResource
+	CredentialResource
 }
 
 // CredentialOperationsClientListByFactoryResponse contains the response from method CredentialOperationsClient.NewListByFactoryPager.
@@ -167,12 +167,6 @@ type ExposureControlClientGetFeatureValueResponse struct {
 type ExposureControlClientQueryFeatureValuesByFactoryResponse struct {
 	// A list of exposure control feature values.
 	ExposureControlBatchResponse
-}
-
-// FactoriesClientConfigureFactoryRepoResponse contains the response from method FactoriesClient.ConfigureFactoryRepo.
-type FactoriesClientConfigureFactoryRepoResponse struct {
-	// Factory resource type.
-	Factory
 }
 
 // FactoriesClientCreateOrUpdateResponse contains the response from method FactoriesClient.CreateOrUpdate.

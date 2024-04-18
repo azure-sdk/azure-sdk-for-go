@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,10 +24,6 @@ import (
 
 // FactoriesServer is a fake server for instances of the armdatafactory.FactoriesClient type.
 type FactoriesServer struct {
-	// ConfigureFactoryRepo is the fake for method FactoriesClient.ConfigureFactoryRepo
-	// HTTP status codes to indicate success: http.StatusOK
-	ConfigureFactoryRepo func(ctx context.Context, locationID string, factoryRepoUpdate armdatafactory.FactoryRepoUpdate, options *armdatafactory.FactoriesClientConfigureFactoryRepoOptions) (resp azfake.Responder[armdatafactory.FactoriesClientConfigureFactoryRepoResponse], errResp azfake.ErrorResponder)
-
 	// CreateOrUpdate is the fake for method FactoriesClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK
 	CreateOrUpdate func(ctx context.Context, resourceGroupName string, factoryName string, factory armdatafactory.Factory, options *armdatafactory.FactoriesClientCreateOrUpdateOptions) (resp azfake.Responder[armdatafactory.FactoriesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -92,8 +88,6 @@ func (f *FactoriesServerTransport) Do(req *http.Request) (*http.Response, error)
 	var err error
 
 	switch method {
-	case "FactoriesClient.ConfigureFactoryRepo":
-		resp, err = f.dispatchConfigureFactoryRepo(req)
 	case "FactoriesClient.CreateOrUpdate":
 		resp, err = f.dispatchCreateOrUpdate(req)
 	case "FactoriesClient.Delete":
@@ -118,39 +112,6 @@ func (f *FactoriesServerTransport) Do(req *http.Request) (*http.Response, error)
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (f *FactoriesServerTransport) dispatchConfigureFactoryRepo(req *http.Request) (*http.Response, error) {
-	if f.srv.ConfigureFactoryRepo == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ConfigureFactoryRepo not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataFactory/locations/(?P<locationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/configureFactoryRepo`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 2 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armdatafactory.FactoryRepoUpdate](req)
-	if err != nil {
-		return nil, err
-	}
-	locationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := f.srv.ConfigureFactoryRepo(req.Context(), locationIDParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Factory, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
