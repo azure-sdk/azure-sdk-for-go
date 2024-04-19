@@ -1,5 +1,14 @@
 # Release History
 
+## 2.8.0 (2024-04-19)
+### Features Added
+
+- New value `ServerVersionFive0`, `ServerVersionSix0` added to enum type `ServerVersion`
+- New enum type `AzureConnectionType` with values `AzureConnectionTypeNone`, `AzureConnectionTypeVPN`
+- New field `AzureConnectionMethod`, `PrivateLinkResourceID` in struct `ClusterResourceProperties`
+- New field `PrivateEndpointIPAddress` in struct `DataCenterResourceProperties`
+
+
 ## 3.0.0-beta.4 (2024-03-22)
 ### Breaking Changes
 
