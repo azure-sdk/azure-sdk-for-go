@@ -16,9 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v6"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
@@ -43,6 +44,10 @@ type VirtualAppliancesServer struct {
 	// NewListByResourceGroupPager is the fake for method VirtualAppliancesClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armnetwork.VirtualAppliancesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armnetwork.VirtualAppliancesClientListByResourceGroupResponse])
+
+	// Restart is the fake for method VirtualAppliancesClient.Restart
+	// HTTP status codes to indicate success: http.StatusOK
+	Restart func(ctx context.Context, resourceGroupName string, networkVirtualApplianceName string, options *armnetwork.VirtualAppliancesClientRestartOptions) (resp azfake.Responder[armnetwork.VirtualAppliancesClientRestartResponse], errResp azfake.ErrorResponder)
 
 	// UpdateTags is the fake for method VirtualAppliancesClient.UpdateTags
 	// HTTP status codes to indicate success: http.StatusOK
@@ -94,6 +99,8 @@ func (v *VirtualAppliancesServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = v.dispatchNewListPager(req)
 	case "VirtualAppliancesClient.NewListByResourceGroupPager":
 		resp, err = v.dispatchNewListByResourceGroupPager(req)
+	case "VirtualAppliancesClient.Restart":
+		resp, err = v.dispatchRestart(req)
 	case "VirtualAppliancesClient.UpdateTags":
 		resp, err = v.dispatchUpdateTags(req)
 	default:
@@ -310,6 +317,49 @@ func (v *VirtualAppliancesServerTransport) dispatchNewListByResourceGroupPager(r
 	}
 	if !server.PagerResponderMore(newListByResourceGroupPager) {
 		v.newListByResourceGroupPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (v *VirtualAppliancesServerTransport) dispatchRestart(req *http.Request) (*http.Response, error) {
+	if v.srv.Restart == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Restart not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/networkVirtualAppliances/(?P<networkVirtualApplianceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restart`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armnetwork.VirtualApplianceInstanceIDs](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	networkVirtualApplianceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkVirtualApplianceName")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armnetwork.VirtualAppliancesClientRestartOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armnetwork.VirtualAppliancesClientRestartOptions{
+			NetworkVirtualApplianceInstanceIDs: &body,
+		}
+	}
+	respr, errRespr := v.srv.Restart(req.Context(), resourceGroupNameParam, networkVirtualApplianceNameParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

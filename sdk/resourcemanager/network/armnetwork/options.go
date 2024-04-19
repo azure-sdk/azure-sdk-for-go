@@ -1079,6 +1079,29 @@ type FirewallPoliciesClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// FirewallPolicyDeploymentsClientBeginDeployOptions contains the optional parameters for the FirewallPolicyDeploymentsClient.BeginDeploy
+// method.
+type FirewallPolicyDeploymentsClientBeginDeployOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FirewallPolicyDraftsClientCreateOrUpdateOptions contains the optional parameters for the FirewallPolicyDraftsClient.CreateOrUpdate
+// method.
+type FirewallPolicyDraftsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyDraftsClientDeleteOptions contains the optional parameters for the FirewallPolicyDraftsClient.Delete method.
+type FirewallPolicyDraftsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyDraftsClientGetOptions contains the optional parameters for the FirewallPolicyDraftsClient.Get method.
+type FirewallPolicyDraftsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // FirewallPolicyIdpsSignaturesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesClient.List
 // method.
 type FirewallPolicyIdpsSignaturesClientListOptions struct {
@@ -1112,6 +1135,24 @@ type FirewallPolicyIdpsSignaturesOverridesClientPatchOptions struct {
 // FirewallPolicyIdpsSignaturesOverridesClientPutOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Put
 // method.
 type FirewallPolicyIdpsSignaturesOverridesClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupDraftsClient.CreateOrUpdate
+// method.
+type FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientDeleteOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupDraftsClient.Delete
+// method.
+type FirewallPolicyRuleCollectionGroupDraftsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientGetOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupDraftsClient.Get
+// method.
+type FirewallPolicyRuleCollectionGroupDraftsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1672,6 +1713,13 @@ type ManagementClientBeginDeleteBastionShareableLinkOptions struct {
 	ResumeToken string
 }
 
+// ManagementClientBeginDisconnectActiveSessionsOptions contains the optional parameters for the ManagementClient.BeginDisconnectActiveSessions
+// method.
+type ManagementClientBeginDisconnectActiveSessionsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ManagementClientBeginGeneratevirtualwanvpnserverconfigurationvpnprofileOptions contains the optional parameters for the
 // ManagementClient.BeginGeneratevirtualwanvpnserverconfigurationvpnprofile method.
 type ManagementClientBeginGeneratevirtualwanvpnserverconfigurationvpnprofileOptions struct {
@@ -1696,12 +1744,6 @@ type ManagementClientBeginPutBastionShareableLinkOptions struct {
 // ManagementClientCheckDNSNameAvailabilityOptions contains the optional parameters for the ManagementClient.CheckDNSNameAvailability
 // method.
 type ManagementClientCheckDNSNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementClientDisconnectActiveSessionsOptions contains the optional parameters for the ManagementClient.NewDisconnectActiveSessionsPager
-// method.
-type ManagementClientDisconnectActiveSessionsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3144,6 +3186,12 @@ type VirtualAppliancesClientListByResourceGroupOptions struct {
 // VirtualAppliancesClientListOptions contains the optional parameters for the VirtualAppliancesClient.NewListPager method.
 type VirtualAppliancesClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// VirtualAppliancesClientRestartOptions contains the optional parameters for the VirtualAppliancesClient.Restart method.
+type VirtualAppliancesClientRestartOptions struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	NetworkVirtualApplianceInstanceIDs *VirtualApplianceInstanceIDs
 }
 
 // VirtualAppliancesClientUpdateTagsOptions contains the optional parameters for the VirtualAppliancesClient.UpdateTags method.
