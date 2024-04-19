@@ -28,7 +28,7 @@ type DevOpsOperationResultsClient struct {
 }
 
 // NewDevOpsOperationResultsClient creates a new instance of DevOpsOperationResultsClient with the specified values.
-//   - subscriptionID - Azure subscription ID
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDevOpsOperationResultsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DevOpsOperationResultsClient, error) {
@@ -46,7 +46,7 @@ func NewDevOpsOperationResultsClient(subscriptionID string, credential azcore.To
 // Get - Get devops long running operation result.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - operationResultID - The operation result Id.
@@ -98,7 +98,7 @@ func (client *DevOpsOperationResultsClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

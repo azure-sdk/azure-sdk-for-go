@@ -28,7 +28,7 @@ type AzureDevOpsProjectsClient struct {
 }
 
 // NewAzureDevOpsProjectsClient creates a new instance of AzureDevOpsProjectsClient with the specified values.
-//   - subscriptionID - Azure subscription ID
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAzureDevOpsProjectsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AzureDevOpsProjectsClient, error) {
@@ -46,7 +46,7 @@ func NewAzureDevOpsProjectsClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Creates or updates a monitored Azure DevOps project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - orgName - The Azure DevOps organization name.
@@ -75,7 +75,7 @@ func (client *AzureDevOpsProjectsClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates a monitored Azure DevOps project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 func (client *AzureDevOpsProjectsClient) createOrUpdate(ctx context.Context, resourceGroupName string, securityConnectorName string, orgName string, projectName string, azureDevOpsProject AzureDevOpsProject, options *AzureDevOpsProjectsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AzureDevOpsProjectsClient.BeginCreateOrUpdate"
@@ -125,7 +125,7 @@ func (client *AzureDevOpsProjectsClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, azureDevOpsProject); err != nil {
@@ -137,7 +137,7 @@ func (client *AzureDevOpsProjectsClient) createOrUpdateCreateRequest(ctx context
 // Get - Returns a monitored Azure DevOps project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - orgName - The Azure DevOps organization name.
@@ -193,7 +193,7 @@ func (client *AzureDevOpsProjectsClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -210,7 +210,7 @@ func (client *AzureDevOpsProjectsClient) getHandleResponse(resp *http.Response) 
 
 // NewListPager - Returns a list of Azure DevOps projects onboarded to the connector.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - orgName - The Azure DevOps organization name.
@@ -263,7 +263,7 @@ func (client *AzureDevOpsProjectsClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,7 +281,7 @@ func (client *AzureDevOpsProjectsClient) listHandleResponse(resp *http.Response)
 // BeginUpdate - Updates a monitored Azure DevOps project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - orgName - The Azure DevOps organization name.
@@ -310,7 +310,7 @@ func (client *AzureDevOpsProjectsClient) BeginUpdate(ctx context.Context, resour
 // Update - Updates a monitored Azure DevOps project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 func (client *AzureDevOpsProjectsClient) update(ctx context.Context, resourceGroupName string, securityConnectorName string, orgName string, projectName string, azureDevOpsProject AzureDevOpsProject, options *AzureDevOpsProjectsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AzureDevOpsProjectsClient.BeginUpdate"
@@ -360,7 +360,7 @@ func (client *AzureDevOpsProjectsClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, azureDevOpsProject); err != nil {

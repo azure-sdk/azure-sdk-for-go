@@ -28,7 +28,7 @@ type GitHubReposClient struct {
 }
 
 // NewGitHubReposClient creates a new instance of GitHubReposClient with the specified values.
-//   - subscriptionID - Azure subscription ID
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewGitHubReposClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GitHubReposClient, error) {
@@ -46,7 +46,7 @@ func NewGitHubReposClient(subscriptionID string, credential azcore.TokenCredenti
 // Get - Returns a monitored GitHub repository.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - ownerName - The GitHub owner name.
@@ -102,7 +102,7 @@ func (client *GitHubReposClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -119,7 +119,7 @@ func (client *GitHubReposClient) getHandleResponse(resp *http.Response) (GitHubR
 
 // NewListPager - Returns a list of GitHub repositories onboarded to the connector.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - ownerName - The GitHub owner name.
@@ -171,7 +171,7 @@ func (client *GitHubReposClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

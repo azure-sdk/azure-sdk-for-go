@@ -28,7 +28,7 @@ type GitLabSubgroupsClient struct {
 }
 
 // NewGitLabSubgroupsClient creates a new instance of GitLabSubgroupsClient with the specified values.
-//   - subscriptionID - Azure subscription ID
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewGitLabSubgroupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GitLabSubgroupsClient, error) {
@@ -46,7 +46,7 @@ func NewGitLabSubgroupsClient(subscriptionID string, credential azcore.TokenCred
 // List - Gets nested subgroups of given GitLab Group which are onboarded to the connector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2025-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - groupFQName - The GitLab group fully-qualified name.
@@ -97,7 +97,7 @@ func (client *GitLabSubgroupsClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2025-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
