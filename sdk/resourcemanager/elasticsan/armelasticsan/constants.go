@@ -10,7 +10,7 @@ package armelasticsan
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // Action - The action of virtual network rule.
@@ -143,6 +143,22 @@ func PossibleOriginValues() []Origin {
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
+	}
+}
+
+// PolicyEnforcement - Enable or Disable scale up setting on Elastic San Appliance.
+type PolicyEnforcement string
+
+const (
+	PolicyEnforcementDisabled PolicyEnforcement = "Disabled"
+	PolicyEnforcementEnabled  PolicyEnforcement = "Enabled"
+)
+
+// PossiblePolicyEnforcementValues returns the possible values for the PolicyEnforcement const type.
+func PossiblePolicyEnforcementValues() []PolicyEnforcement {
+	return []PolicyEnforcement{
+		PolicyEnforcementDisabled,
+		PolicyEnforcementEnabled,
 	}
 }
 
