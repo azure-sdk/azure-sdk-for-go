@@ -10,7 +10,7 @@ package armhybridcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0-beta.3"
 )
 
 // AgentConfigurationMode - Name of configuration mode to use. Modes are pre-defined configurations of security controls,
@@ -273,6 +273,7 @@ const (
 	LicenseProfileSubscriptionStatusDisabled LicenseProfileSubscriptionStatus = "Disabled"
 	LicenseProfileSubscriptionStatusEnabled  LicenseProfileSubscriptionStatus = "Enabled"
 	LicenseProfileSubscriptionStatusEnabling LicenseProfileSubscriptionStatus = "Enabling"
+	LicenseProfileSubscriptionStatusFailed   LicenseProfileSubscriptionStatus = "Failed"
 	LicenseProfileSubscriptionStatusUnknown  LicenseProfileSubscriptionStatus = "Unknown"
 )
 
@@ -282,6 +283,7 @@ func PossibleLicenseProfileSubscriptionStatusValues() []LicenseProfileSubscripti
 		LicenseProfileSubscriptionStatusDisabled,
 		LicenseProfileSubscriptionStatusEnabled,
 		LicenseProfileSubscriptionStatusEnabling,
+		LicenseProfileSubscriptionStatusFailed,
 		LicenseProfileSubscriptionStatusUnknown,
 	}
 }

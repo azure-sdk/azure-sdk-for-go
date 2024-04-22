@@ -736,6 +736,7 @@ func (l *LicenseDetails) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LicenseProfileArmProductProfileProperties.
 func (l LicenseProfileArmProductProfileProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "billingEndDate", l.BillingEndDate)
 	populateDateTimeRFC3339(objectMap, "billingStartDate", l.BillingStartDate)
 	populateDateTimeRFC3339(objectMap, "disenrollmentDate", l.DisenrollmentDate)
 	populateDateTimeRFC3339(objectMap, "enrollmentDate", l.EnrollmentDate)
@@ -754,6 +755,9 @@ func (l *LicenseProfileArmProductProfileProperties) UnmarshalJSON(data []byte) e
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "billingEndDate":
+			err = unpopulateDateTimeRFC3339(val, "BillingEndDate", &l.BillingEndDate)
+			delete(rawMsg, key)
 		case "billingStartDate":
 			err = unpopulateDateTimeRFC3339(val, "BillingStartDate", &l.BillingStartDate)
 			delete(rawMsg, key)
@@ -2878,6 +2882,7 @@ func (p *PrivateLinkServiceConnectionStateProperty) UnmarshalJSON(data []byte) e
 // MarshalJSON implements the json.Marshaller interface for type ProductFeature.
 func (p ProductFeature) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "billingEndDate", p.BillingEndDate)
 	populateDateTimeRFC3339(objectMap, "billingStartDate", p.BillingStartDate)
 	populateDateTimeRFC3339(objectMap, "disenrollmentDate", p.DisenrollmentDate)
 	populateDateTimeRFC3339(objectMap, "enrollmentDate", p.EnrollmentDate)
@@ -2895,6 +2900,9 @@ func (p *ProductFeature) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "billingEndDate":
+			err = unpopulateDateTimeRFC3339(val, "BillingEndDate", &p.BillingEndDate)
+			delete(rawMsg, key)
 		case "billingStartDate":
 			err = unpopulateDateTimeRFC3339(val, "BillingStartDate", &p.BillingStartDate)
 			delete(rawMsg, key)

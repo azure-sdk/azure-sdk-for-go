@@ -304,6 +304,9 @@ type LicenseProfileArmProductProfileProperties struct {
 	// Indicates the subscription status of the product.
 	SubscriptionStatus *LicenseProfileSubscriptionStatus
 
+	// READ-ONLY; The timestamp in UTC when the billing ends.
+	BillingEndDate *time.Time
+
 	// READ-ONLY; The timestamp in UTC when the billing starts.
 	BillingStartDate *time.Time
 
@@ -1221,6 +1224,9 @@ type ProductFeature struct {
 
 	// Indicates the current status of the product features.
 	SubscriptionStatus *LicenseProfileSubscriptionStatus
+
+	// READ-ONLY; The timestamp in UTC when the billing ends.
+	BillingEndDate *time.Time
 
 	// READ-ONLY; The timestamp in UTC when the billing starts.
 	BillingStartDate *time.Time

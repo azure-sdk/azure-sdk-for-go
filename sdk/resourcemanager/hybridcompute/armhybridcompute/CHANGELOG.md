@@ -1,5 +1,13 @@
 # Release History
 
+## 2.0.0-beta.3 (2024-04-22)
+### Features Added
+
+- New value `LicenseProfileSubscriptionStatusFailed` added to enum type `LicenseProfileSubscriptionStatus`
+- New field `BillingEndDate` in struct `LicenseProfileArmProductProfileProperties`
+- New field `BillingEndDate` in struct `ProductFeature`
+
+
 ## 2.0.0-beta.2 (2024-04-26)
 ### Breaking Changes
 
