@@ -11,7 +11,7 @@ package armhybridnetwork
 import "encoding/json"
 
 func unmarshalArtifactAccessCredentialClassification(rawMsg json.RawMessage) (ArtifactAccessCredentialClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -34,7 +34,7 @@ func unmarshalArtifactAccessCredentialClassification(rawMsg json.RawMessage) (Ar
 }
 
 func unmarshalAzureArcKubernetesNetworkFunctionApplicationClassification(rawMsg json.RawMessage) (AzureArcKubernetesNetworkFunctionApplicationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -55,7 +55,7 @@ func unmarshalAzureArcKubernetesNetworkFunctionApplicationClassification(rawMsg 
 }
 
 func unmarshalAzureArcKubernetesNetworkFunctionApplicationClassificationArray(rawMsg json.RawMessage) ([]AzureArcKubernetesNetworkFunctionApplicationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -74,7 +74,7 @@ func unmarshalAzureArcKubernetesNetworkFunctionApplicationClassificationArray(ra
 }
 
 func unmarshalAzureCoreNetworkFunctionApplicationClassification(rawMsg json.RawMessage) (AzureCoreNetworkFunctionApplicationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -97,7 +97,7 @@ func unmarshalAzureCoreNetworkFunctionApplicationClassification(rawMsg json.RawM
 }
 
 func unmarshalAzureCoreNetworkFunctionApplicationClassificationArray(rawMsg json.RawMessage) ([]AzureCoreNetworkFunctionApplicationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -116,7 +116,7 @@ func unmarshalAzureCoreNetworkFunctionApplicationClassificationArray(rawMsg json
 }
 
 func unmarshalAzureOperatorNexusNetworkFunctionApplicationClassification(rawMsg json.RawMessage) (AzureOperatorNexusNetworkFunctionApplicationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -139,7 +139,7 @@ func unmarshalAzureOperatorNexusNetworkFunctionApplicationClassification(rawMsg 
 }
 
 func unmarshalAzureOperatorNexusNetworkFunctionApplicationClassificationArray(rawMsg json.RawMessage) ([]AzureOperatorNexusNetworkFunctionApplicationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -158,7 +158,7 @@ func unmarshalAzureOperatorNexusNetworkFunctionApplicationClassificationArray(ra
 }
 
 func unmarshalConfigurationGroupValuePropertiesFormatClassification(rawMsg json.RawMessage) (ConfigurationGroupValuePropertiesFormatClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -181,7 +181,7 @@ func unmarshalConfigurationGroupValuePropertiesFormatClassification(rawMsg json.
 }
 
 func unmarshalContainerizedNetworkFunctionTemplateClassification(rawMsg json.RawMessage) (ContainerizedNetworkFunctionTemplateClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -202,7 +202,7 @@ func unmarshalContainerizedNetworkFunctionTemplateClassification(rawMsg json.Raw
 }
 
 func unmarshalDeploymentResourceIDReferenceClassification(rawMsg json.RawMessage) (DeploymentResourceIDReferenceClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -225,7 +225,7 @@ func unmarshalDeploymentResourceIDReferenceClassification(rawMsg json.RawMessage
 }
 
 func unmarshalNFVIsClassification(rawMsg json.RawMessage) (NFVIsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -250,7 +250,7 @@ func unmarshalNFVIsClassification(rawMsg json.RawMessage) (NFVIsClassification, 
 }
 
 func unmarshalNFVIsClassificationArray(rawMsg json.RawMessage) ([]NFVIsClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -269,7 +269,7 @@ func unmarshalNFVIsClassificationArray(rawMsg json.RawMessage) ([]NFVIsClassific
 }
 
 func unmarshalNetworkFunctionDefinitionVersionPropertiesFormatClassification(rawMsg json.RawMessage) (NetworkFunctionDefinitionVersionPropertiesFormatClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -292,7 +292,7 @@ func unmarshalNetworkFunctionDefinitionVersionPropertiesFormatClassification(raw
 }
 
 func unmarshalNetworkFunctionPropertiesFormatClassification(rawMsg json.RawMessage) (NetworkFunctionPropertiesFormatClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -315,7 +315,7 @@ func unmarshalNetworkFunctionPropertiesFormatClassification(rawMsg json.RawMessa
 }
 
 func unmarshalResourceElementTemplateClassification(rawMsg json.RawMessage) (ResourceElementTemplateClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -338,7 +338,7 @@ func unmarshalResourceElementTemplateClassification(rawMsg json.RawMessage) (Res
 }
 
 func unmarshalResourceElementTemplateClassificationArray(rawMsg json.RawMessage) ([]ResourceElementTemplateClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -357,7 +357,7 @@ func unmarshalResourceElementTemplateClassificationArray(rawMsg json.RawMessage)
 }
 
 func unmarshalVirtualNetworkFunctionTemplateClassification(rawMsg json.RawMessage) (VirtualNetworkFunctionTemplateClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any

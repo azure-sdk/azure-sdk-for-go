@@ -98,8 +98,8 @@ func (client *ProxyArtifactClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("artifactName", artifactName)
 	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("artifactName", artifactName)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,8 +266,8 @@ func (client *ProxyArtifactClient) updateStateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("artifactName", artifactName)
 	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("artifactName", artifactName)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
