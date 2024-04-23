@@ -274,6 +274,9 @@ type CommonScheduleAvailabilityRequest struct {
 
 	// Country in which storage location should be supported.
 	Country *string
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetCommonScheduleAvailabilityRequest implements the CommonScheduleAvailabilityRequestClassification interface for type
@@ -406,6 +409,9 @@ type CreateOrderLimitForSubscriptionValidationRequest struct {
 
 	// REQUIRED; Identifies the type of validation request.
 	ValidationType *ValidationInputDiscriminator
+
+	// READ-ONLY; Error, if any, in the stage
+	Model *ModelName
 }
 
 // GetValidationInputRequest implements the ValidationInputRequestClassification interface for type CreateOrderLimitForSubscriptionValidationRequest.
@@ -715,6 +721,9 @@ type DataTransferDetailsValidationRequest struct {
 
 	// List of DataTransfer details to be used to import data to azure.
 	DataImportDetails []*DataImportDetails
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetValidationInputRequest implements the ValidationInputRequestClassification interface for type DataTransferDetailsValidationRequest.
@@ -835,6 +844,9 @@ type DatacenterAddressRequest struct {
 
 	// REQUIRED; Storage location. For locations check: https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01
 	StorageLocation *string
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // DatacenterAddressResponse - Datacenter address for given storage location.
@@ -869,6 +881,27 @@ type Details struct {
 
 	// REQUIRED
 	Message *string
+}
+
+// DeviceCapabilityDetails - Device capability details for a given sku for a given region.
+type DeviceCapabilityDetails struct {
+	// READ-ONLY; Hardware encryption support for a given sku for a given region.
+	HardwareEncryption *HardwareEncryption
+}
+
+// DeviceCapabilityRequest - Request body to get the device capabilities for given sku.
+type DeviceCapabilityRequest struct {
+	// Type of the device.
+	SKUName *SKUName
+
+	// READ-ONLY; The model name.
+	Model *ModelName
+}
+
+// DeviceCapabilityResponse - Device capabilities for given sku in a region
+type DeviceCapabilityResponse struct {
+	// READ-ONLY; List of device capabilities available for a given region and a given sku
+	DeviceCapabilityDetails []*DeviceCapabilityDetails
 }
 
 // DeviceErasureDetails - Device erasure details with erasure completion status and erasureordestructionlog sas key
@@ -1160,6 +1193,9 @@ type DiskScheduleAvailabilityRequest struct {
 
 	// Country in which storage location should be supported.
 	Country *string
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetCommonScheduleAvailabilityRequest implements the CommonScheduleAvailabilityRequestClassification interface for type
@@ -1167,6 +1203,7 @@ type DiskScheduleAvailabilityRequest struct {
 func (d *DiskScheduleAvailabilityRequest) GetCommonScheduleAvailabilityRequest() *CommonScheduleAvailabilityRequest {
 	return &CommonScheduleAvailabilityRequest{
 		Country:         d.Country,
+		Model:           d.Model,
 		SKUName:         d.SKUName,
 		StorageLocation: d.StorageLocation,
 	}
@@ -1439,6 +1476,9 @@ type HeavyScheduleAvailabilityRequest struct {
 
 	// Country in which storage location should be supported.
 	Country *string
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetCommonScheduleAvailabilityRequest implements the CommonScheduleAvailabilityRequestClassification interface for type
@@ -1446,6 +1486,7 @@ type HeavyScheduleAvailabilityRequest struct {
 func (h *HeavyScheduleAvailabilityRequest) GetCommonScheduleAvailabilityRequest() *CommonScheduleAvailabilityRequest {
 	return &CommonScheduleAvailabilityRequest{
 		Country:         h.Country,
+		Model:           h.Model,
 		SKUName:         h.SKUName,
 		StorageLocation: h.StorageLocation,
 	}
@@ -1491,6 +1532,24 @@ type ImportDiskDetails struct {
 
 	// READ-ONLY; Path to backed up manifest, only returned if enableManifestBackup is true.
 	BackupManifestCloudPath *string
+}
+
+// JobDelayDetails - Job Delay Notification details
+type JobDelayDetails struct {
+	// READ-ONLY; Description of the delay.
+	Description *string
+
+	// READ-ONLY; Delay Error code
+	ErrorCode *PortalDelayErrorCode
+
+	// READ-ONLY; Timestamp when the delay notification was resolved.
+	ResolutionTime *time.Time
+
+	// READ-ONLY; Timestamp when the delay notification was created.
+	StartTime *time.Time
+
+	// READ-ONLY; Status of notification
+	Status *DelayNotificationStatus
 }
 
 // JobDeliveryInfo - Additional delivery info.
@@ -1612,8 +1671,14 @@ type JobProperties struct {
 	// Details of a job run. This field will only be sent for expand details filter.
 	Details CommonJobDetailsClassification
 
+	// READ-ONLY; Flag to indicate if all devices associated with the job are lost.
+	AllDevicesLost *bool
+
 	// READ-ONLY; Reason for cancellation.
 	CancellationReason *string
+
+	// READ-ONLY; Name of the stage where delay might be present.
+	DelayedStage *StageName
 
 	// READ-ONLY; Top level error for the job.
 	Error *CloudError
@@ -1727,6 +1792,9 @@ func (j *JobSecrets) GetCommonJobSecrets() *CommonJobSecrets {
 
 // JobStages - Job stages.
 type JobStages struct {
+	// READ-ONLY; Delay information for the job stages.
+	DelayInformation []*JobDelayDetails
+
 	// READ-ONLY; Display name of the job stage.
 	DisplayName *string
 
@@ -1925,6 +1993,9 @@ type PreferencesValidationRequest struct {
 
 	// Preference of transport and data center.
 	Preference *Preferences
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetValidationInputRequest implements the ValidationInputRequestClassification interface for type PreferencesValidationRequest.
@@ -1959,6 +2030,9 @@ type RegionConfigurationRequest struct {
 	// Request body to get the datacenter address for given sku.
 	DatacenterAddressRequest *DatacenterAddressRequest
 
+	// Request body to get the device capabilities for a given sku.
+	DeviceCapabilityRequest *DeviceCapabilityRequest
+
 	// Request body to get the availability for scheduling orders.
 	ScheduleAvailabilityRequest CommonScheduleAvailabilityRequestClassification
 
@@ -1970,6 +2044,9 @@ type RegionConfigurationRequest struct {
 type RegionConfigurationResponse struct {
 	// READ-ONLY; Datacenter address for given sku in a region.
 	DatacenterAddressResponse DatacenterAddressResponseClassification
+
+	// READ-ONLY; Device capabilities available for a given sku in a region.
+	DeviceCapabilityResponse *DeviceCapabilityResponse
 
 	// READ-ONLY; Schedule availability for given sku in a region.
 	ScheduleAvailabilityResponse *ScheduleAvailabilityResponse
@@ -2034,6 +2111,9 @@ type SKU struct {
 
 	// The sku family.
 	Family *string
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // SKUAvailabilityValidationRequest - Request to validate sku availability.
@@ -2052,6 +2132,9 @@ type SKUAvailabilityValidationRequest struct {
 
 	// REQUIRED; Identifies the type of validation request.
 	ValidationType *ValidationInputDiscriminator
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetValidationInputRequest implements the ValidationInputRequestClassification interface for type SKUAvailabilityValidationRequest.
@@ -2083,6 +2166,9 @@ func (s *SKUAvailabilityValidationResponseProperties) GetValidationInputResponse
 
 // SKUCapacity - Capacity of the sku.
 type SKUCapacity struct {
+	// READ-ONLY; Maximum capacity per device in TB.
+	IndividualSKUUsable *string
+
 	// READ-ONLY; Maximum capacity in TB.
 	Maximum *string
 
@@ -2152,6 +2238,9 @@ type ScheduleAvailabilityRequest struct {
 
 	// Country in which storage location should be supported.
 	Country *string
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetCommonScheduleAvailabilityRequest implements the CommonScheduleAvailabilityRequestClassification interface for type
@@ -2159,6 +2248,7 @@ type ScheduleAvailabilityRequest struct {
 func (s *ScheduleAvailabilityRequest) GetCommonScheduleAvailabilityRequest() *CommonScheduleAvailabilityRequest {
 	return &CommonScheduleAvailabilityRequest{
 		Country:         s.Country,
+		Model:           s.Model,
 		SKUName:         s.SKUName,
 		StorageLocation: s.StorageLocation,
 	}
@@ -2411,6 +2501,9 @@ type TransportAvailabilityDetails struct {
 type TransportAvailabilityRequest struct {
 	// Type of the device.
 	SKUName *SKUName
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // TransportAvailabilityResponse - Transport options available for given sku in a region.
@@ -2501,6 +2594,9 @@ type ValidateAddress struct {
 
 	// Preferences related to the shipment logistics of the sku.
 	TransportPreferences *TransportPreferences
+
+	// READ-ONLY; The model name.
+	Model *ModelName
 }
 
 // GetValidationInputRequest implements the ValidationInputRequestClassification interface for type ValidateAddress.
