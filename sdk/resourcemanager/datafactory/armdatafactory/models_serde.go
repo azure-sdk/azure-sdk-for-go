@@ -5790,11 +5790,14 @@ func (a AzureDatabricksLinkedServiceTypeProperties) MarshalJSON() ([]byte, error
 	objectMap := make(map[string]any)
 	populate(objectMap, "accessToken", a.AccessToken)
 	populateAny(objectMap, "authentication", a.Authentication)
+	populateAny(objectMap, "clusterOption", a.ClusterOption)
 	populate(objectMap, "credential", a.Credential)
+	populateAny(objectMap, "dataSecurityMode", a.DataSecurityMode)
 	populateAny(objectMap, "domain", a.Domain)
 	populate(objectMap, "encryptedCredential", a.EncryptedCredential)
 	populateAny(objectMap, "existingClusterId", a.ExistingClusterID)
 	populateAny(objectMap, "instancePoolId", a.InstancePoolID)
+	populate(objectMap, "newClusterAttributes", a.NewClusterAttributes)
 	populate(objectMap, "newClusterCustomTags", a.NewClusterCustomTags)
 	populateAny(objectMap, "newClusterDriverNodeType", a.NewClusterDriverNodeType)
 	populateAny(objectMap, "newClusterEnableElasticDisk", a.NewClusterEnableElasticDisk)
@@ -5825,8 +5828,14 @@ func (a *AzureDatabricksLinkedServiceTypeProperties) UnmarshalJSON(data []byte) 
 		case "authentication":
 			err = unpopulate(val, "Authentication", &a.Authentication)
 			delete(rawMsg, key)
+		case "clusterOption":
+			err = unpopulate(val, "ClusterOption", &a.ClusterOption)
+			delete(rawMsg, key)
 		case "credential":
 			err = unpopulate(val, "Credential", &a.Credential)
+			delete(rawMsg, key)
+		case "dataSecurityMode":
+			err = unpopulate(val, "DataSecurityMode", &a.DataSecurityMode)
 			delete(rawMsg, key)
 		case "domain":
 			err = unpopulate(val, "Domain", &a.Domain)
@@ -5839,6 +5848,9 @@ func (a *AzureDatabricksLinkedServiceTypeProperties) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "instancePoolId":
 			err = unpopulate(val, "InstancePoolID", &a.InstancePoolID)
+			delete(rawMsg, key)
+		case "newClusterAttributes":
+			err = unpopulate(val, "NewClusterAttributes", &a.NewClusterAttributes)
 			delete(rawMsg, key)
 		case "newClusterCustomTags":
 			err = unpopulate(val, "NewClusterCustomTags", &a.NewClusterCustomTags)
@@ -29983,6 +29995,7 @@ func (m ManagedIdentityCredential) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "annotations", m.Annotations)
 	populate(objectMap, "description", m.Description)
 	objectMap["type"] = "ManagedIdentity"
+	populate(objectMap, "typeProperties", m.TypeProperties)
 	if m.AdditionalProperties != nil {
 		for key, val := range m.AdditionalProperties {
 			objectMap[key] = val
@@ -30009,6 +30022,9 @@ func (m *ManagedIdentityCredential) UnmarshalJSON(data []byte) error {
 		case "type":
 			err = unpopulate(val, "Type", &m.Type)
 			delete(rawMsg, key)
+		case "typeProperties":
+			err = unpopulate(val, "TypeProperties", &m.TypeProperties)
+			delete(rawMsg, key)
 		default:
 			if m.AdditionalProperties == nil {
 				m.AdditionalProperties = map[string]any{}
@@ -30018,6 +30034,33 @@ func (m *ManagedIdentityCredential) UnmarshalJSON(data []byte) error {
 				err = json.Unmarshal(val, &aux)
 				m.AdditionalProperties[key] = aux
 			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedIdentityTypeProperties.
+func (m ManagedIdentityTypeProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "resourceId", m.ResourceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagedIdentityTypeProperties.
+func (m *ManagedIdentityTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "resourceId":
+			err = unpopulate(val, "ResourceID", &m.ResourceID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -46913,7 +46956,7 @@ func (s ScriptActivityScriptBlock) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "parameters", s.Parameters)
 	populateAny(objectMap, "text", s.Text)
-	populate(objectMap, "type", s.Type)
+	populateAny(objectMap, "type", s.Type)
 	return json.Marshal(objectMap)
 }
 

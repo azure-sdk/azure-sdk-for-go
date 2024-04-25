@@ -3353,8 +3353,16 @@ type AzureDatabricksLinkedServiceTypeProperties struct {
 	// string).
 	Authentication any
 
+	// Cluster option (Fixed / Autoscaling / Single Node) to enables the cluster nodes to be fixed or automatically scale between
+	// the minimum and maximum number of nodes, based on load. Single node clusters
+	// consists of a driver but no workers. Type: string (or Expression with resultType string).
+	ClusterOption any
+
 	// The credential reference containing authentication information.
 	Credential *CredentialReference
+
+	// Access mode for data secured in unity catalog. Type: string (or Expression with resultType string).
+	DataSecurityMode any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
@@ -3367,6 +3375,9 @@ type AzureDatabricksLinkedServiceTypeProperties struct {
 	// The id of an existing instance pool that will be used for all runs of this activity. Type: string (or Expression with resultType
 	// string).
 	InstancePoolID any
+
+	// A set of optional, user-specified cluster attributes key-value pairs.
+	NewClusterAttributes map[string]any
 
 	// Additional tags for cluster resources. This property is ignored in instance pool configurations.
 	NewClusterCustomTags map[string]any
@@ -17222,6 +17233,9 @@ type ManagedIdentityCredential struct {
 
 	// Credential description.
 	Description *string
+
+	// Managed identity credential properties.
+	TypeProperties *ManagedIdentityTypeProperties
 }
 
 // GetCredential implements the CredentialClassification interface for type ManagedIdentityCredential.
@@ -17232,6 +17246,12 @@ func (m *ManagedIdentityCredential) GetCredential() *Credential {
 		Description:          m.Description,
 		Type:                 m.Type,
 	}
+}
+
+// ManagedIdentityTypeProperties - Managed identity type properties.
+type ManagedIdentityTypeProperties struct {
+	// The resource id of user assigned managed identity
+	ResourceID *string
 }
 
 // ManagedIntegrationRuntime - Managed integration runtime, including managed elastic and managed dedicated integration runtimes.
@@ -26829,8 +26849,9 @@ type ScriptActivityScriptBlock struct {
 	// REQUIRED; The query text. Type: string (or Expression with resultType string).
 	Text any
 
-	// REQUIRED; The type of the query. Type: string.
-	Type *ScriptType
+	// REQUIRED; The type of the query. Please refer to the ScriptType for valid options. Type: string (or Expression with resultType
+	// string).
+	Type any
 
 	// Array of script parameters. Type: array.
 	Parameters []*ScriptActivityParameter
