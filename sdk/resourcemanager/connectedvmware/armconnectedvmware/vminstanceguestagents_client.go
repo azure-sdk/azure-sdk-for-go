@@ -50,7 +50,7 @@ func NewVMInstanceGuestAgentsClient(credential azcore.TokenCredential, options *
 // BeginCreate - Create Or Update GuestAgent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - body - Request payload.
 //   - options - VMInstanceGuestAgentsClientBeginCreateOptions contains the optional parameters for the VMInstanceGuestAgentsClient.BeginCreate
@@ -76,7 +76,7 @@ func (client *VMInstanceGuestAgentsClient) BeginCreate(ctx context.Context, reso
 // Create - Create Or Update GuestAgent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *VMInstanceGuestAgentsClient) create(ctx context.Context, resourceURI string, body GuestAgent, options *VMInstanceGuestAgentsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VMInstanceGuestAgentsClient.BeginCreate"
@@ -107,7 +107,7 @@ func (client *VMInstanceGuestAgentsClient) createCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -119,7 +119,7 @@ func (client *VMInstanceGuestAgentsClient) createCreateRequest(ctx context.Conte
 // BeginDelete - Implements GuestAgent DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - options - VMInstanceGuestAgentsClientBeginDeleteOptions contains the optional parameters for the VMInstanceGuestAgentsClient.BeginDelete
 //     method.
@@ -143,7 +143,7 @@ func (client *VMInstanceGuestAgentsClient) BeginDelete(ctx context.Context, reso
 // Delete - Implements GuestAgent DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *VMInstanceGuestAgentsClient) deleteOperation(ctx context.Context, resourceURI string, options *VMInstanceGuestAgentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VMInstanceGuestAgentsClient.BeginDelete"
@@ -174,7 +174,7 @@ func (client *VMInstanceGuestAgentsClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,7 +183,7 @@ func (client *VMInstanceGuestAgentsClient) deleteCreateRequest(ctx context.Conte
 // Get - Implements GuestAgent GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - options - VMInstanceGuestAgentsClientGetOptions contains the optional parameters for the VMInstanceGuestAgentsClient.Get
 //     method.
@@ -218,7 +218,7 @@ func (client *VMInstanceGuestAgentsClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -235,7 +235,7 @@ func (client *VMInstanceGuestAgentsClient) getHandleResponse(resp *http.Response
 
 // NewListPager - Returns the list of GuestAgent of the given vm.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - options - VMInstanceGuestAgentsClientListOptions contains the optional parameters for the VMInstanceGuestAgentsClient.NewListPager
 //     method.
@@ -271,7 +271,7 @@ func (client *VMInstanceGuestAgentsClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

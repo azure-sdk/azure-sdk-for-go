@@ -314,6 +314,9 @@ type GuestCredential struct {
 	// Gets or sets the password to connect with the guest.
 	Password *string
 
+	// Private key used to authenticate to a virtual machine through ssh.
+	PrivateKey *string
+
 	// Gets or sets username to connect with the guest.
 	Username *string
 }
@@ -394,8 +397,26 @@ type HostInventoryItem struct {
 	// Parent host inventory resource details.
 	Parent *InventoryItemDetails
 
+	// READ-ONLY; Gets or sets the cpu model of the host.
+	CPUModel *string
+
+	// READ-ONLY; Gets the total amount of physical memory on the host in GB.
+	MemorySizeGB *int64
+
+	// READ-ONLY; Gets or sets the number of cores per socket on the host.
+	NumCoresPerSocket *int32
+
+	// READ-ONLY; Gets or sets the number of sockets on the host.
+	NumSockets *int32
+
+	// READ-ONLY; Gets or sets the power state of the host.
+	PowerState *string
+
 	// READ-ONLY; Gets the provisioning state.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets or sets the version of the host.
+	Version *string
 }
 
 // GetInventoryItemProperties implements the InventoryItemPropertiesClassification interface for type HostInventoryItem.
@@ -598,6 +619,31 @@ type NetworkInterface struct {
 	NetworkMoRefID *string
 }
 
+// NetworkInterfaceInventory - Inventory Network Interface model
+type NetworkInterfaceInventory struct {
+	// READ-ONLY; Gets or sets the device key value.
+	DeviceKey *int32
+
+	// READ-ONLY; Gets or sets the nic ip addresses.
+	IPAddresses []*string
+
+	// READ-ONLY; Gets or sets the label of the virtual network in vCenter that the nic is connected to.
+	Label *string
+
+	// READ-ONLY; Gets or sets the NIC MAC address.
+	MacAddress *string
+
+	// READ-ONLY; Gets or sets the name of the virtual network in vCenter that the nic is connected to.
+	NetworkMoName *string
+
+	// READ-ONLY; Gets or sets the vCenter MoRef (Managed Object Reference) ID of the virtual network that the nic is connected
+	// to.
+	NetworkMoRefID *string
+
+	// READ-ONLY; NIC type
+	NicType *NICType
+}
+
 // NetworkInterfaceUpdate - Defines the network interface update.
 type NetworkInterfaceUpdate struct {
 	// Gets or sets the device key value.
@@ -620,6 +666,12 @@ type NetworkInterfaceUpdate struct {
 type NetworkProfile struct {
 	// Gets or sets the list of network interfaces associated with the virtual machine.
 	NetworkInterfaces []*NetworkInterface
+}
+
+// NetworkProfileInventory - Specifies the network interfaces of the virtual machine.
+type NetworkProfileInventory struct {
+	// Gets or sets the list of network interfaces associated with the virtual machine.
+	NetworkInterfaces []*NetworkInterfaceInventory
 }
 
 // NetworkProfileUpdate - Specifies the network interfaces of the virtual machine.
@@ -720,6 +772,9 @@ type OsProfileForVMInstance struct {
 
 	// Gets or sets the type of the os.
 	OSType *OsType
+
+	// Windows Configuration.
+	WindowsConfiguration *WindowsConfiguration
 
 	// READ-ONLY; Gets or sets os sku.
 	OSSKU *string
@@ -938,6 +993,12 @@ type StorageProfile struct {
 	ScsiControllers []*VirtualSCSIController
 }
 
+// StorageProfileInventory - Specifies the storage settings for the virtual machine disks.
+type StorageProfileInventory struct {
+	// Gets or sets the list of virtual disks associated with the virtual machine.
+	Disks []*VirtualDiskInventory
+}
+
 // StorageProfileUpdate - Specifies the storage settings for the virtual machine disks.
 type StorageProfileUpdate struct {
 	// Gets or sets the list of virtual disks associated with the virtual machine.
@@ -1126,6 +1187,51 @@ type VirtualDisk struct {
 	Label *string
 }
 
+// VirtualDiskInventory - Virtual disk model
+type VirtualDiskInventory struct {
+	// Gets or sets the name of the virtual disk.
+	DiskName *string
+
+	// READ-ONLY; Gets or sets the controller id.
+	ControllerKey *int32
+
+	// READ-ONLY; Gets or sets the controller type.
+	ControllerType *string
+
+	// READ-ONLY; Gets or sets the device key value.
+	DeviceKey *int32
+
+	// READ-ONLY; Gets or sets the device name.
+	DeviceName *string
+
+	// READ-ONLY; Gets or sets the disk mode.
+	DiskMode *DiskMode
+
+	// READ-ONLY; Gets or sets the disk total size.
+	DiskSizeGB *int32
+
+	// READ-ONLY; Gets or sets the disk backing type.
+	DiskType *DiskType
+
+	// READ-ONLY; Gets or sets the eagerly scrub property of disk.
+	EagerlyScrub *bool
+
+	// READ-ONLY; Gets or sets the disk file name.
+	FileName *string
+
+	// READ-ONLY; Gets or sets the label of the virtual disk in vCenter.
+	Label *string
+
+	// READ-ONLY; Gets or sets the thin provisioning property of disk.
+	ThinProvisioned *bool
+
+	// READ-ONLY; Gets or sets a unique identifier for this resource.
+	UUID *string
+
+	// READ-ONLY; Gets or sets the unit number of the disk on the controller.
+	UnitNumber *int32
+}
+
 // VirtualDiskUpdate - Defines the virtual disk update.
 type VirtualDiskUpdate struct {
 	// Gets or sets the controller id.
@@ -1266,6 +1372,9 @@ type VirtualMachineInventoryItem struct {
 	// Gets or sets the MoRef (Managed Object Reference) ID for the inventory item.
 	MoRefID *string
 
+	// Network properties.
+	NetworkProfile *NetworkProfileInventory
+
 	// Gets or sets os name.
 	OSName *string
 
@@ -1277,6 +1386,36 @@ type VirtualMachineInventoryItem struct {
 
 	// Gets or sets the SMBIOS UUID of the vm.
 	SmbiosUUID *string
+
+	// Storage properties.
+	StorageProfile *StorageProfileInventory
+
+	// READ-ONLY; Gets a value indicating whether change tracking is enabled.
+	ChangeTrackingEnabled *bool
+
+	// READ-ONLY; Gets a value indicating whether change tracking is supported.
+	ChangeTrackingSupported *bool
+
+	// READ-ONLY; Gets the computer name.
+	ComputerName *string
+
+	// READ-ONLY; Gets or sets the disk Enabled UUID of the vm.
+	DiskEnabledUUID *string
+
+	// READ-ONLY; Firmware type
+	FirmwareType *FirmwareType
+
+	// READ-ONLY; Gets a value indicating the maximum possible number of snapshots.
+	MaxSnapshots *int32
+
+	// READ-ONLY; Gets or sets memory size in MBs for the vm.
+	MemorySizeMB *int32
+
+	// READ-ONLY; Gets or sets the number of vCPU for the vm.
+	NumCPUs *int32
+
+	// READ-ONLY; Gets a value indicating the number of snapshots on the vm.
+	NumberOfSnapshots *int32
 
 	// READ-ONLY; Gets the power state of the virtual machine.
 	PowerState *string
@@ -1573,4 +1712,42 @@ type VirtualSCSIController struct {
 
 	// Gets or sets the controller type.
 	Type *SCSIControllerType
+}
+
+// WindowsConfiguration - Specifies the Windows Configuration settings for the virtual machine.
+type WindowsConfiguration struct {
+	// Sets a value indicating whether auto logon is enabled.
+	AutoLogon *bool
+
+	// Sets auto logon count.
+	AutoLogonCount *int32
+
+	// Sets domain name that vm should join.
+	DomainName *string
+
+	// Sets domain user password.
+	DomainUserPassword *string
+
+	// Sets domain username.
+	DomainUsername *string
+
+	// Sets first logon commands
+	FirstLogonCommands []*string
+
+	// Sets full name of the owner of the vm.
+	FullName *string
+
+	// Sets org name to which the owner of the vm belongs.
+	OrgName *string
+
+	// Sets product id of the vm.
+	ProductID *string
+
+	// Specifies the time zone of the virtual machine. e.g. "Pacific Standard Time". Time zone name correspond to time zones listed
+	// at Microsoft Time Zone name
+	// values(https://learn.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)).
+	TimeZone *string
+
+	// Sets work group name that vm should join.
+	WorkGroupName *string
 }

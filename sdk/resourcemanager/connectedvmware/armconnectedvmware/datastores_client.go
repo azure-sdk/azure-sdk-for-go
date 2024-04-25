@@ -56,7 +56,7 @@ func NewDatastoresClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreate - Create Or Update datastore.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - datastoreName - Name of the datastore.
 //   - body - Request payload.
@@ -82,7 +82,7 @@ func (client *DatastoresClient) BeginCreate(ctx context.Context, resourceGroupNa
 // Create - Create Or Update datastore.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *DatastoresClient) create(ctx context.Context, resourceGroupName string, datastoreName string, body Datastore, options *DatastoresClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DatastoresClient.BeginCreate"
@@ -124,7 +124,7 @@ func (client *DatastoresClient) createCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -136,7 +136,7 @@ func (client *DatastoresClient) createCreateRequest(ctx context.Context, resourc
 // BeginDelete - Implements datastore DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - datastoreName - Name of the datastore.
 //   - options - DatastoresClientBeginDeleteOptions contains the optional parameters for the DatastoresClient.BeginDelete method.
@@ -160,7 +160,7 @@ func (client *DatastoresClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Implements datastore DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *DatastoresClient) deleteOperation(ctx context.Context, resourceGroupName string, datastoreName string, options *DatastoresClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DatastoresClient.BeginDelete"
@@ -202,7 +202,7 @@ func (client *DatastoresClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -214,7 +214,7 @@ func (client *DatastoresClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Implements datastore GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - datastoreName - Name of the datastore.
 //   - options - DatastoresClientGetOptions contains the optional parameters for the DatastoresClient.Get method.
@@ -260,7 +260,7 @@ func (client *DatastoresClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +277,7 @@ func (client *DatastoresClient) getHandleResponse(resp *http.Response) (Datastor
 
 // NewListPager - List of datastores in a subscription.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - options - DatastoresClientListOptions contains the optional parameters for the DatastoresClient.NewListPager method.
 func (client *DatastoresClient) NewListPager(options *DatastoresClientListOptions) *runtime.Pager[DatastoresClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DatastoresClientListResponse]{
@@ -314,7 +314,7 @@ func (client *DatastoresClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -331,7 +331,7 @@ func (client *DatastoresClient) listHandleResponse(resp *http.Response) (Datasto
 
 // NewListByResourceGroupPager - List of datastores in a resource group.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - options - DatastoresClientListByResourceGroupOptions contains the optional parameters for the DatastoresClient.NewListByResourceGroupPager
 //     method.
@@ -374,7 +374,7 @@ func (client *DatastoresClient) listByResourceGroupCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -392,7 +392,7 @@ func (client *DatastoresClient) listByResourceGroupHandleResponse(resp *http.Res
 // Update - API to update certain properties of the datastore resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - datastoreName - Name of the datastore.
 //   - body - Resource properties to update.
@@ -439,7 +439,7 @@ func (client *DatastoresClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {

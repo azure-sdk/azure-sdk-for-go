@@ -1,5 +1,19 @@
 # Release History
 
+## 1.2.0 (2024-04-25)
+### Features Added
+
+- New struct `NetworkInterfaceInventory`
+- New struct `NetworkProfileInventory`
+- New struct `StorageProfileInventory`
+- New struct `VirtualDiskInventory`
+- New struct `WindowsConfiguration`
+- New field `PrivateKey` in struct `GuestCredential`
+- New field `CPUModel`, `MemorySizeGB`, `NumCoresPerSocket`, `NumSockets`, `PowerState`, `Version` in struct `HostInventoryItem`
+- New field `WindowsConfiguration` in struct `OsProfileForVMInstance`
+- New field `ChangeTrackingEnabled`, `ChangeTrackingSupported`, `ComputerName`, `DiskEnabledUUID`, `FirmwareType`, `MaxSnapshots`, `MemorySizeMB`, `NetworkProfile`, `NumCPUs`, `NumberOfSnapshots`, `StorageProfile` in struct `VirtualMachineInventoryItem`
+
+
 ## 1.1.1 (2023-12-22)
 ### Others Change
 

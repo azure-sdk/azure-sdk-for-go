@@ -50,7 +50,7 @@ func NewVMInstanceHybridIdentityMetadataClient(credential azcore.TokenCredential
 // Get - Implements HybridIdentityMetadata GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - options - VMInstanceHybridIdentityMetadataClientGetOptions contains the optional parameters for the VMInstanceHybridIdentityMetadataClient.Get
 //     method.
@@ -85,7 +85,7 @@ func (client *VMInstanceHybridIdentityMetadataClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -102,7 +102,7 @@ func (client *VMInstanceHybridIdentityMetadataClient) getHandleResponse(resp *ht
 
 // NewListPager - Returns the list of HybridIdentityMetadata of the given vm.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - options - VMInstanceHybridIdentityMetadataClientListOptions contains the optional parameters for the VMInstanceHybridIdentityMetadataClient.NewListPager
 //     method.
@@ -138,7 +138,7 @@ func (client *VMInstanceHybridIdentityMetadataClient) listCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

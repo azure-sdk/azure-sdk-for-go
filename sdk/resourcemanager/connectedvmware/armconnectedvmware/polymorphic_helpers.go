@@ -20,7 +20,7 @@ package armconnectedvmware
 import "encoding/json"
 
 func unmarshalInventoryItemPropertiesClassification(rawMsg json.RawMessage) (InventoryItemPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any

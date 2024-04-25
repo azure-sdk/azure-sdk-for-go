@@ -56,7 +56,7 @@ func NewVCentersClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreate - Create Or Update vCenter.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - body - Request payload.
@@ -82,7 +82,7 @@ func (client *VCentersClient) BeginCreate(ctx context.Context, resourceGroupName
 // Create - Create Or Update vCenter.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *VCentersClient) create(ctx context.Context, resourceGroupName string, vcenterName string, body VCenter, options *VCentersClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VCentersClient.BeginCreate"
@@ -124,7 +124,7 @@ func (client *VCentersClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -136,7 +136,7 @@ func (client *VCentersClient) createCreateRequest(ctx context.Context, resourceG
 // BeginDelete - Implements vCenter DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - options - VCentersClientBeginDeleteOptions contains the optional parameters for the VCentersClient.BeginDelete method.
@@ -160,7 +160,7 @@ func (client *VCentersClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Implements vCenter DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *VCentersClient) deleteOperation(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VCentersClient.BeginDelete"
@@ -202,7 +202,7 @@ func (client *VCentersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -214,7 +214,7 @@ func (client *VCentersClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Implements vCenter GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - options - VCentersClientGetOptions contains the optional parameters for the VCentersClient.Get method.
@@ -260,7 +260,7 @@ func (client *VCentersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +277,7 @@ func (client *VCentersClient) getHandleResponse(resp *http.Response) (VCentersCl
 
 // NewListPager - List of vCenters in a subscription.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - options - VCentersClientListOptions contains the optional parameters for the VCentersClient.NewListPager method.
 func (client *VCentersClient) NewListPager(options *VCentersClientListOptions) *runtime.Pager[VCentersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VCentersClientListResponse]{
@@ -314,7 +314,7 @@ func (client *VCentersClient) listCreateRequest(ctx context.Context, options *VC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -331,7 +331,7 @@ func (client *VCentersClient) listHandleResponse(resp *http.Response) (VCentersC
 
 // NewListByResourceGroupPager - List of vCenters in a resource group.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - options - VCentersClientListByResourceGroupOptions contains the optional parameters for the VCentersClient.NewListByResourceGroupPager
 //     method.
@@ -374,7 +374,7 @@ func (client *VCentersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -392,7 +392,7 @@ func (client *VCentersClient) listByResourceGroupHandleResponse(resp *http.Respo
 // Update - API to update certain properties of the vCenter resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - body - Resource properties to update.
@@ -439,7 +439,7 @@ func (client *VCentersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
