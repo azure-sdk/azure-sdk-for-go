@@ -508,6 +508,10 @@ func PossibleManagedClusterPodIdentityProvisioningStateValues() []ManagedCluster
 type ManagedClusterSKUName string
 
 const (
+	// ManagedClusterSKUNameAutomatic - Automatic clusters are optimized to run most production workloads with configuration that
+	// follows AKS best practices and recommendations for cluster and workload setup, scalability, and security. For more details
+	// about Automatic clusters see aka.ms/aks/automatic.
+	ManagedClusterSKUNameAutomatic ManagedClusterSKUName = "Automatic"
 	// ManagedClusterSKUNameBase - Base option for the AKS control plane.
 	ManagedClusterSKUNameBase ManagedClusterSKUName = "Base"
 )
@@ -515,6 +519,7 @@ const (
 // PossibleManagedClusterSKUNameValues returns the possible values for the ManagedClusterSKUName const type.
 func PossibleManagedClusterSKUNameValues() []ManagedClusterSKUName {
 	return []ManagedClusterSKUName{
+		ManagedClusterSKUNameAutomatic,
 		ManagedClusterSKUNameBase,
 	}
 }
@@ -800,6 +805,30 @@ func PossibleOSTypeValues() []OSType {
 	return []OSType{
 		OSTypeLinux,
 		OSTypeWindows,
+	}
+}
+
+// Operator - operator represents a key's relationship to a set of values. Valid operators are In and NotIn
+type Operator string
+
+const (
+	// OperatorDoesNotExist - The value of the key should not exist.
+	OperatorDoesNotExist Operator = "DoesNotExist"
+	// OperatorExists - The value of the key should exist.
+	OperatorExists Operator = "Exists"
+	// OperatorIn - The value of the key should be in the given list.
+	OperatorIn Operator = "In"
+	// OperatorNotIn - The value of the key should not be in the given list.
+	OperatorNotIn Operator = "NotIn"
+)
+
+// PossibleOperatorValues returns the possible values for the Operator const type.
+func PossibleOperatorValues() []Operator {
+	return []Operator{
+		OperatorDoesNotExist,
+		OperatorExists,
+		OperatorIn,
+		OperatorNotIn,
 	}
 }
 
