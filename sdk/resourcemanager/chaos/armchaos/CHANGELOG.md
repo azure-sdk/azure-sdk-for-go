@@ -1,5 +1,52 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-04-26)
+### Breaking Changes
+
+- Type of `Experiment.Identity` has been changed from `*ResourceIdentity` to `*ExperimentIdentity`
+- Type of `ExperimentUpdate.Identity` has been changed from `*ResourceIdentity` to `*ExperimentIdentity`
+- Enum `ResourceIdentityType` has been removed
+- Struct `ResourceIdentity` has been removed
+
+### Features Added
+
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `PrivateEndpointConnectionProvisioningState` with values `PrivateEndpointConnectionProvisioningStateCreating`, `PrivateEndpointConnectionProvisioningStateDeleting`, `PrivateEndpointConnectionProvisioningStateFailed`, `PrivateEndpointConnectionProvisioningStateSucceeded`
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New enum type `PublicNetworkAccessOption` with values `PublicNetworkAccessOptionDisabled`, `PublicNetworkAccessOptionEnabled`
+- New function `*ClientFactory.NewPrivateAccessesClient() *PrivateAccessesClient`
+- New function `NewPrivateAccessesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateAccessesClient, error)`
+- New function `*PrivateAccessesClient.BeginCreateOrUpdate(context.Context, string, string, PrivateAccess, *PrivateAccessesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PrivateAccessesClientCreateOrUpdateResponse], error)`
+- New function `*PrivateAccessesClient.BeginDelete(context.Context, string, string, *PrivateAccessesClientBeginDeleteOptions) (*runtime.Poller[PrivateAccessesClientDeleteResponse], error)`
+- New function `*PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions) (*runtime.Poller[PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse], error)`
+- New function `*PrivateAccessesClient.Get(context.Context, string, string, *PrivateAccessesClientGetOptions) (PrivateAccessesClientGetResponse, error)`
+- New function `*PrivateAccessesClient.GetAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientGetAPrivateEndpointConnectionOptions) (PrivateAccessesClientGetAPrivateEndpointConnectionResponse, error)`
+- New function `*PrivateAccessesClient.NewGetPrivateLinkResourcesPager(string, string, *PrivateAccessesClientGetPrivateLinkResourcesOptions) *runtime.Pager[PrivateAccessesClientGetPrivateLinkResourcesResponse]`
+- New function `*PrivateAccessesClient.NewListAllPager(*PrivateAccessesClientListAllOptions) *runtime.Pager[PrivateAccessesClientListAllResponse]`
+- New function `*PrivateAccessesClient.NewListPager(string, *PrivateAccessesClientListOptions) *runtime.Pager[PrivateAccessesClientListResponse]`
+- New function `*PrivateAccessesClient.NewListPrivateEndpointConnectionsPager(string, string, *PrivateAccessesClientListPrivateEndpointConnectionsOptions) *runtime.Pager[PrivateAccessesClientListPrivateEndpointConnectionsResponse]`
+- New function `*PrivateAccessesClient.BeginPatch(context.Context, string, string, PrivateAccessPatch, *PrivateAccessesClientBeginPatchOptions) (*runtime.Poller[PrivateAccessesClientPatchResponse], error)`
+- New struct `CustomerDataStorageProperties`
+- New struct `ExperimentIdentity`
+- New struct `ManagedServiceIdentity`
+- New struct `PrivateAccess`
+- New struct `PrivateAccessListResult`
+- New struct `PrivateAccessPatch`
+- New struct `PrivateAccessProperties`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkServiceConnectionState`
+- New struct `ProxyResource`
+- New field `CustomerDataStorage` in struct `ExperimentProperties`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 1.1.0 (2024-03-22)
 ### Features Added
 

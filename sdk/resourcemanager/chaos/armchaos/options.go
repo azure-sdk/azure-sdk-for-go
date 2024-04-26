@@ -122,6 +122,67 @@ type OperationsClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PrivateAccessesClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateAccessesClient.BeginCreateOrUpdate
+// method.
+type PrivateAccessesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions contains the optional parameters for the PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection
+// method.
+type PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateAccessesClientBeginDeleteOptions contains the optional parameters for the PrivateAccessesClient.BeginDelete method.
+type PrivateAccessesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateAccessesClientBeginPatchOptions contains the optional parameters for the PrivateAccessesClient.BeginPatch method.
+type PrivateAccessesClientBeginPatchOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateAccessesClientGetAPrivateEndpointConnectionOptions contains the optional parameters for the PrivateAccessesClient.GetAPrivateEndpointConnection
+// method.
+type PrivateAccessesClientGetAPrivateEndpointConnectionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientGetOptions contains the optional parameters for the PrivateAccessesClient.Get method.
+type PrivateAccessesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientGetPrivateLinkResourcesOptions contains the optional parameters for the PrivateAccessesClient.NewGetPrivateLinkResourcesPager
+// method.
+type PrivateAccessesClientGetPrivateLinkResourcesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateAccessesClientListAllOptions contains the optional parameters for the PrivateAccessesClient.NewListAllPager method.
+type PrivateAccessesClientListAllOptions struct {
+	// String that sets the continuation token.
+	ContinuationToken *string
+}
+
+// PrivateAccessesClientListOptions contains the optional parameters for the PrivateAccessesClient.NewListPager method.
+type PrivateAccessesClientListOptions struct {
+	// String that sets the continuation token.
+	ContinuationToken *string
+}
+
+// PrivateAccessesClientListPrivateEndpointConnectionsOptions contains the optional parameters for the PrivateAccessesClient.NewListPrivateEndpointConnectionsPager
+// method.
+type PrivateAccessesClientListPrivateEndpointConnectionsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // TargetTypesClientGetOptions contains the optional parameters for the TargetTypesClient.Get method.
 type TargetTypesClientGetOptions struct {
 	// placeholder for future optional parameters
