@@ -44,6 +44,80 @@ func NewAssignmentsVMSSClient(subscriptionID string, credential azcore.TokenCred
 	return client, nil
 }
 
+// CreateOrUpdate - Creates an association between a VMSS and guest configuration
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-01-25
+//   - resourceGroupName - The resource group name.
+//   - vmssName - The name of the virtual machine scale set.
+//   - name - Name of the guest configuration assignment.
+//   - parameters - Parameters supplied to the create or update guest configuration assignment.
+//   - options - AssignmentsVMSSClientCreateOrUpdateOptions contains the optional parameters for the AssignmentsVMSSClient.CreateOrUpdate
+//     method.
+func (client *AssignmentsVMSSClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, vmssName string, name string, parameters Assignment, options *AssignmentsVMSSClientCreateOrUpdateOptions) (AssignmentsVMSSClientCreateOrUpdateResponse, error) {
+	var err error
+	const operationName = "AssignmentsVMSSClient.CreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, vmssName, name, parameters, options)
+	if err != nil {
+		return AssignmentsVMSSClientCreateOrUpdateResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AssignmentsVMSSClientCreateOrUpdateResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
+		err = runtime.NewResponseError(httpResp)
+		return AssignmentsVMSSClientCreateOrUpdateResponse{}, err
+	}
+	resp, err := client.createOrUpdateHandleResponse(httpResp)
+	return resp, err
+}
+
+// createOrUpdateCreateRequest creates the CreateOrUpdate request.
+func (client *AssignmentsVMSSClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, vmssName string, name string, parameters Assignment, options *AssignmentsVMSSClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/{name}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if vmssName == "" {
+		return nil, errors.New("parameter vmssName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{vmssName}", url.PathEscape(vmssName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-01-25")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// createOrUpdateHandleResponse handles the CreateOrUpdate response.
+func (client *AssignmentsVMSSClient) createOrUpdateHandleResponse(resp *http.Response) (AssignmentsVMSSClientCreateOrUpdateResponse, error) {
+	result := AssignmentsVMSSClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Assignment); err != nil {
+		return AssignmentsVMSSClientCreateOrUpdateResponse{}, err
+	}
+	return result, nil
+}
+
 // Delete - Delete a guest configuration assignment for VMSS
 // If the operation fails it returns an *azcore.ResponseError type.
 //
