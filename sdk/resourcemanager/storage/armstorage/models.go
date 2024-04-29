@@ -268,7 +268,7 @@ type AccountProperties struct {
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
 	MinimumTLSVersion *MinimumTLSVersion
 
-	// Allow or disallow public network access to Storage Account. Value is optional but if passed in, must be 'Enabled' or 'Disabled'.
+	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
 	PublicNetworkAccess *PublicNetworkAccess
 
 	// Maintains information about the network routing choice opted by the user for data transfer
@@ -427,7 +427,9 @@ type AccountPropertiesCreateParameters struct {
 	// Network rule set
 	NetworkRuleSet *NetworkRuleSet
 
-	// Allow or disallow public network access to Storage Account. Value is optional but if passed in, must be 'Enabled' or 'Disabled'.
+	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
+	// Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+	// 'SecuredByPerimeter'.
 	PublicNetworkAccess *PublicNetworkAccess
 
 	// Maintains information about the network routing choice opted by the user for data transfer
@@ -506,7 +508,9 @@ type AccountPropertiesUpdateParameters struct {
 	// Network rule set
 	NetworkRuleSet *NetworkRuleSet
 
-	// Allow or disallow public network access to Storage Account. Value is optional but if passed in, must be 'Enabled' or 'Disabled'.
+	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
+	// Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+	// 'SecuredByPerimeter'.
 	PublicNetworkAccess *PublicNetworkAccess
 
 	// Maintains information about the network routing choice opted by the user for data transfer
@@ -2095,6 +2099,123 @@ type NetworkRuleSet struct {
 	VirtualNetworkRules []*VirtualNetworkRule
 }
 
+// NetworkSecurityPerimeter related information
+type NetworkSecurityPerimeter struct {
+	// The ARM identifier of the resource
+	ID *string
+
+	// Location of the resource
+	Location *string
+
+	// Guid of the resource
+	PerimeterGUID *string
+}
+
+// NetworkSecurityPerimeterConfiguration - The Network Security Perimeter configuration resource.
+type NetworkSecurityPerimeterConfiguration struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Properties of the Network Security Perimeter Configuration
+	Properties *NetworkSecurityPerimeterConfigurationProperties
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// NetworkSecurityPerimeterConfigurationList - Result of the List Network Security Perimeter configuration operation.
+type NetworkSecurityPerimeterConfigurationList struct {
+	// The URI that can be used to request the next set of paged results.
+	NextLink *string
+
+	// READ-ONLY; A collection of Network Security Perimeter configurations
+	Value []*NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationProperties - Properties of the Network Security Perimeter Configuration
+type NetworkSecurityPerimeterConfigurationProperties struct {
+	// READ-ONLY; NetworkSecurityPerimeter related information
+	NetworkSecurityPerimeter *NetworkSecurityPerimeter
+
+	// READ-ONLY; Network Security Perimeter profile
+	Profile *NetworkSecurityPerimeterConfigurationPropertiesProfile
+
+	// READ-ONLY; List of Provisioning Issues if any
+	ProvisioningIssues []*ProvisioningIssue
+
+	// READ-ONLY; Provisioning state of Network Security Perimeter configuration propagation
+	ProvisioningState *NetworkSecurityPerimeterConfigurationProvisioningState
+
+	// READ-ONLY; Information about resource association
+	ResourceAssociation *NetworkSecurityPerimeterConfigurationPropertiesResourceAssociation
+}
+
+// NetworkSecurityPerimeterConfigurationPropertiesProfile - Network Security Perimeter profile
+type NetworkSecurityPerimeterConfigurationPropertiesProfile struct {
+	// List of Access Rules
+	AccessRules []*NspAccessRule
+
+	// Current access rules version
+	AccessRulesVersion *float32
+
+	// Diagnostic settings version
+	DiagnosticSettingsVersion *float32
+
+	// Enabled logging categories
+	EnabledLogCategories []*string
+
+	// Name of the resource
+	Name *string
+}
+
+// NetworkSecurityPerimeterConfigurationPropertiesResourceAssociation - Information about resource association
+type NetworkSecurityPerimeterConfigurationPropertiesResourceAssociation struct {
+	// Access Mode of the resource association
+	AccessMode *ResourceAssociationAccessMode
+
+	// Name of the resource association
+	Name *string
+}
+
+// NspAccessRule - Information of Access Rule in Network Security Perimeter profile
+type NspAccessRule struct {
+	// Name of the resource
+	Name *string
+
+	// READ-ONLY; Properties of Access Rule
+	Properties *NspAccessRuleProperties
+}
+
+// NspAccessRuleProperties - Properties of Access Rule
+type NspAccessRuleProperties struct {
+	// Address prefixes in the CIDR format for inbound rules
+	AddressPrefixes []*string
+
+	// Direction of Access Rule
+	Direction *NspAccessRuleDirection
+
+	// Subscriptions for inbound rules
+	Subscriptions []*NspAccessRulePropertiesSubscriptionsItem
+
+	// READ-ONLY; FQDN for outbound rules
+	FullyQualifiedDomainNames []*string
+
+	// READ-ONLY; NetworkSecurityPerimeters for inbound rules
+	NetworkSecurityPerimeters []*NetworkSecurityPerimeter
+}
+
+// NspAccessRulePropertiesSubscriptionsItem - Subscription for inbound rule
+type NspAccessRulePropertiesSubscriptionsItem struct {
+	// The ARM identifier of subscription
+	ID *string
+}
+
 // ObjectReplicationPolicies - List storage account object replication policies.
 type ObjectReplicationPolicies struct {
 	// The replication policy between two storage accounts.
@@ -2318,6 +2439,27 @@ type ProtocolSettings struct {
 	Smb *SmbSetting
 }
 
+// ProvisioningIssue - Describes provisioning issue for given NetworkSecurityPerimeterConfiguration
+type ProvisioningIssue struct {
+	// Name of the issue
+	Name *string
+
+	// READ-ONLY; Properties of provisioning issue
+	Properties *ProvisioningIssueProperties
+}
+
+// ProvisioningIssueProperties - Properties of provisioning issue
+type ProvisioningIssueProperties struct {
+	// Description of the issue
+	Description *string
+
+	// Type of issue
+	IssueType *IssueType
+
+	// Severity of the issue.
+	Severity *Severity
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -2326,6 +2468,22 @@ type ProxyResource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProxyResourceAutoGenerated - The resource model definition for a Azure Resource Manager proxy resource. It will not have
+// tags and a location
+type ProxyResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -2396,6 +2554,21 @@ type ResourceAccessRule struct {
 
 	// Tenant Id
 	TenantID *string
+}
+
+// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // RestorePolicyProperties - The blob service properties for blob restore policy
