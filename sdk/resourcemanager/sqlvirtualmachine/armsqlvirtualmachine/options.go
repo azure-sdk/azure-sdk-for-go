@@ -88,6 +88,13 @@ type SQLVirtualMachinesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// SQLVirtualMachinesClientBeginFetchDCAssessmentOptions contains the optional parameters for the SQLVirtualMachinesClient.BeginFetchDCAssessment
+// method.
+type SQLVirtualMachinesClientBeginFetchDCAssessmentOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // SQLVirtualMachinesClientBeginRedeployOptions contains the optional parameters for the SQLVirtualMachinesClient.BeginRedeploy
 // method.
 type SQLVirtualMachinesClientBeginRedeployOptions struct {
