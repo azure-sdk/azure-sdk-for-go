@@ -20,49 +20,51 @@ import (
 	"strings"
 )
 
-// ResourceSKUsClient contains the methods for the ResourceSKUs group.
-// Don't use this type directly, use NewResourceSKUsClient() instead.
-type ResourceSKUsClient struct {
+// RaiContentFiltersClient contains the methods for the RaiContentFilters group.
+// Don't use this type directly, use NewRaiContentFiltersClient() instead.
+type RaiContentFiltersClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewResourceSKUsClient creates a new instance of ResourceSKUsClient with the specified values.
+// NewRaiContentFiltersClient creates a new instance of RaiContentFiltersClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewResourceSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResourceSKUsClient, error) {
+func NewRaiContentFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RaiContentFiltersClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ResourceSKUsClient{
+	client := &RaiContentFiltersClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Gets the list of Microsoft.CognitiveServices SKUs available for your Subscription.
+// NewListPager - List Content Filters types.
 //
 // Generated from API version 2023-10-01-preview
-//   - options - ResourceSKUsClientListOptions contains the optional parameters for the ResourceSKUsClient.NewListPager method.
-func (client *ResourceSKUsClient) NewListPager(options *ResourceSKUsClientListOptions) *runtime.Pager[ResourceSKUsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ResourceSKUsClientListResponse]{
-		More: func(page ResourceSKUsClientListResponse) bool {
+//   - location - Resource location.
+//   - options - RaiContentFiltersClientListOptions contains the optional parameters for the RaiContentFiltersClient.NewListPager
+//     method.
+func (client *RaiContentFiltersClient) NewListPager(location string, options *RaiContentFiltersClientListOptions) *runtime.Pager[RaiContentFiltersClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[RaiContentFiltersClientListResponse]{
+		More: func(page RaiContentFiltersClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ResourceSKUsClientListResponse) (ResourceSKUsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ResourceSKUsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *RaiContentFiltersClientListResponse) (RaiContentFiltersClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "RaiContentFiltersClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
+				return client.listCreateRequest(ctx, location, options)
 			}, nil)
 			if err != nil {
-				return ResourceSKUsClientListResponse{}, err
+				return RaiContentFiltersClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -71,12 +73,16 @@ func (client *ResourceSKUsClient) NewListPager(options *ResourceSKUsClientListOp
 }
 
 // listCreateRequest creates the List request.
-func (client *ResourceSKUsClient) listCreateRequest(ctx context.Context, options *ResourceSKUsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/skus"
+func (client *RaiContentFiltersClient) listCreateRequest(ctx context.Context, location string, options *RaiContentFiltersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -89,10 +95,10 @@ func (client *ResourceSKUsClient) listCreateRequest(ctx context.Context, options
 }
 
 // listHandleResponse handles the List response.
-func (client *ResourceSKUsClient) listHandleResponse(resp *http.Response) (ResourceSKUsClientListResponse, error) {
-	result := ResourceSKUsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ResourceSKUListResult); err != nil {
-		return ResourceSKUsClientListResponse{}, err
+func (client *RaiContentFiltersClient) listHandleResponse(resp *http.Response) (RaiContentFiltersClientListResponse, error) {
+	result := RaiContentFiltersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.RaiContentFilterListResult); err != nil {
+		return RaiContentFiltersClientListResponse{}, err
 	}
 	return result, nil
 }

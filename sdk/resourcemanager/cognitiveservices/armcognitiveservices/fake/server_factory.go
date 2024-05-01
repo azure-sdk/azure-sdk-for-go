@@ -24,11 +24,16 @@ type ServerFactory struct {
 	CommitmentTiersServer            CommitmentTiersServer
 	DeletedAccountsServer            DeletedAccountsServer
 	DeploymentsServer                DeploymentsServer
+	EncryptionScopesServer           EncryptionScopesServer
 	ManagementServer                 ManagementServer
 	ModelsServer                     ModelsServer
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer       PrivateLinkResourcesServer
+	RaiBlocklistItemsServer          RaiBlocklistItemsServer
+	RaiBlocklistsServer              RaiBlocklistsServer
+	RaiContentFiltersServer          RaiContentFiltersServer
+	RaiPoliciesServer                RaiPoliciesServer
 	ResourceSKUsServer               ResourceSKUsServer
 	UsagesServer                     UsagesServer
 }
@@ -52,11 +57,16 @@ type ServerFactoryTransport struct {
 	trCommitmentTiersServer            *CommitmentTiersServerTransport
 	trDeletedAccountsServer            *DeletedAccountsServerTransport
 	trDeploymentsServer                *DeploymentsServerTransport
+	trEncryptionScopesServer           *EncryptionScopesServerTransport
 	trManagementServer                 *ManagementServerTransport
 	trModelsServer                     *ModelsServerTransport
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
+	trRaiBlocklistItemsServer          *RaiBlocklistItemsServerTransport
+	trRaiBlocklistsServer              *RaiBlocklistsServerTransport
+	trRaiContentFiltersServer          *RaiContentFiltersServerTransport
+	trRaiPoliciesServer                *RaiPoliciesServerTransport
 	trResourceSKUsServer               *ResourceSKUsServerTransport
 	trUsagesServer                     *UsagesServerTransport
 }
@@ -95,6 +105,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "DeploymentsClient":
 		initServer(s, &s.trDeploymentsServer, func() *DeploymentsServerTransport { return NewDeploymentsServerTransport(&s.srv.DeploymentsServer) })
 		resp, err = s.trDeploymentsServer.Do(req)
+	case "EncryptionScopesClient":
+		initServer(s, &s.trEncryptionScopesServer, func() *EncryptionScopesServerTransport {
+			return NewEncryptionScopesServerTransport(&s.srv.EncryptionScopesServer)
+		})
+		resp, err = s.trEncryptionScopesServer.Do(req)
 	case "ManagementClient":
 		initServer(s, &s.trManagementServer, func() *ManagementServerTransport { return NewManagementServerTransport(&s.srv.ManagementServer) })
 		resp, err = s.trManagementServer.Do(req)
@@ -114,6 +129,24 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "RaiBlocklistItemsClient":
+		initServer(s, &s.trRaiBlocklistItemsServer, func() *RaiBlocklistItemsServerTransport {
+			return NewRaiBlocklistItemsServerTransport(&s.srv.RaiBlocklistItemsServer)
+		})
+		resp, err = s.trRaiBlocklistItemsServer.Do(req)
+	case "RaiBlocklistsClient":
+		initServer(s, &s.trRaiBlocklistsServer, func() *RaiBlocklistsServerTransport {
+			return NewRaiBlocklistsServerTransport(&s.srv.RaiBlocklistsServer)
+		})
+		resp, err = s.trRaiBlocklistsServer.Do(req)
+	case "RaiContentFiltersClient":
+		initServer(s, &s.trRaiContentFiltersServer, func() *RaiContentFiltersServerTransport {
+			return NewRaiContentFiltersServerTransport(&s.srv.RaiContentFiltersServer)
+		})
+		resp, err = s.trRaiContentFiltersServer.Do(req)
+	case "RaiPoliciesClient":
+		initServer(s, &s.trRaiPoliciesServer, func() *RaiPoliciesServerTransport { return NewRaiPoliciesServerTransport(&s.srv.RaiPoliciesServer) })
+		resp, err = s.trRaiPoliciesServer.Do(req)
 	case "ResourceSKUsClient":
 		initServer(s, &s.trResourceSKUsServer, func() *ResourceSKUsServerTransport { return NewResourceSKUsServerTransport(&s.srv.ResourceSKUsServer) })
 		resp, err = s.trResourceSKUsServer.Do(req)
