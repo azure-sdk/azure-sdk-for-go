@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v5.1.0-beta.1"
+	moduleVersion = "v5.1.0-beta.2"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -508,6 +508,10 @@ func PossibleManagedClusterPodIdentityProvisioningStateValues() []ManagedCluster
 type ManagedClusterSKUName string
 
 const (
+	// ManagedClusterSKUNameAutomatic - Automatic clusters are optimized to run most production workloads with configuration that
+	// follows AKS best practices and recommendations for cluster and workload setup, scalability, and security. For more details
+	// about Automatic clusters see aka.ms/aks/automatic.
+	ManagedClusterSKUNameAutomatic ManagedClusterSKUName = "Automatic"
 	// ManagedClusterSKUNameBase - Base option for the AKS control plane.
 	ManagedClusterSKUNameBase ManagedClusterSKUName = "Base"
 )
@@ -515,6 +519,7 @@ const (
 // PossibleManagedClusterSKUNameValues returns the possible values for the ManagedClusterSKUName const type.
 func PossibleManagedClusterSKUNameValues() []ManagedClusterSKUName {
 	return []ManagedClusterSKUName{
+		ManagedClusterSKUNameAutomatic,
 		ManagedClusterSKUNameBase,
 	}
 }
@@ -800,6 +805,30 @@ func PossibleOSTypeValues() []OSType {
 	return []OSType{
 		OSTypeLinux,
 		OSTypeWindows,
+	}
+}
+
+// Operator - operator represents a key's relationship to a set of values. Valid operators are In and NotIn
+type Operator string
+
+const (
+	// OperatorDoesNotExist - The value of the key should not exist.
+	OperatorDoesNotExist Operator = "DoesNotExist"
+	// OperatorExists - The value of the key should exist.
+	OperatorExists Operator = "Exists"
+	// OperatorIn - The value of the key should be in the given list.
+	OperatorIn Operator = "In"
+	// OperatorNotIn - The value of the key should not be in the given list.
+	OperatorNotIn Operator = "NotIn"
+)
+
+// PossibleOperatorValues returns the possible values for the Operator const type.
+func PossibleOperatorValues() []Operator {
+	return []Operator{
+		OperatorDoesNotExist,
+		OperatorExists,
+		OperatorIn,
+		OperatorNotIn,
 	}
 }
 
@@ -1120,6 +1149,32 @@ func PossibleTypeValues() []Type {
 		TypeLast,
 		TypeSecond,
 		TypeThird,
+	}
+}
+
+// UndrainableNodeBehavior - Defines the behavior for undrainable nodes during upgrade. The most common cause of undrainable
+// nodes is Pod Disruption Budgets (PDBs), but other issues, such as pod termination grace period is
+// exceeding the remaining per-node drain timeout or pod is still being in a running state, can also cause undrainable nodes.
+type UndrainableNodeBehavior string
+
+const (
+	// UndrainableNodeBehaviorCordon - AKS will cordon the blocked nodes and replace them with surge nodes during upgrade. The
+	// blocked nodes will be cordoned and replaced by surge nodes. The blocked nodes will have label 'kubernetes.azure.com/upgrade-status:Quarantined'.
+	// A surge node will be retained for each blocked node. A best-effort attempt will be made to delete all other surge nodes.
+	// If there are enough surge nodes to replace blocked nodes, then the upgrade operation and the managed cluster will be in
+	// failed state. Otherwise, the upgrade operation and the managed cluster will be in canceled state.
+	UndrainableNodeBehaviorCordon UndrainableNodeBehavior = "Cordon"
+	// UndrainableNodeBehaviorSchedule - AKS will mark the blocked nodes schedulable, but the blocked nodes are not upgraded.
+	// A best-effort attempt will be made to delete all surge nodes. The upgrade operation and the managed cluster will be in
+	// failed state if there are any blocked nodes.
+	UndrainableNodeBehaviorSchedule UndrainableNodeBehavior = "Schedule"
+)
+
+// PossibleUndrainableNodeBehaviorValues returns the possible values for the UndrainableNodeBehavior const type.
+func PossibleUndrainableNodeBehaviorValues() []UndrainableNodeBehavior {
+	return []UndrainableNodeBehavior{
+		UndrainableNodeBehaviorCordon,
+		UndrainableNodeBehaviorSchedule,
 	}
 }
 
