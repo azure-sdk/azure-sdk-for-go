@@ -18,7 +18,8 @@ type ElseCondition struct {
 
 // IfCondition - The if block of storage task operation
 type IfCondition struct {
-	// REQUIRED; The condition predicate which is composed of object properties, eg: blob and container properties.
+	// REQUIRED; Condition predicate to evaluate each object. See https://aka.ms/storagetaskconditions for valid properties and
+	// operators.
 	Condition *string
 
 	// REQUIRED; List of operations to execute when the condition predicate satisfies.
@@ -96,13 +97,13 @@ type OperationListResult struct {
 
 // StorageTask - Represents Storage Task.
 type StorageTask struct {
+	// REQUIRED; The managed service identity of the resource.
+	Identity *ManagedServiceIdentity
+
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// The managed service identity of the resource.
-	Identity *ManagedServiceIdentity
-
-	// Properties of the storage task.
+	// REQUIRED; Properties of the storage task.
 	Properties *StorageTaskProperties
 
 	// Resource tags.
@@ -131,9 +132,9 @@ type StorageTaskAction struct {
 	Else *ElseCondition
 }
 
-// StorageTaskAssignment - Fetch the Storage task assignment ARM ids.
+// StorageTaskAssignment - Storage Task Assignment associated with this Storage Task.
 type StorageTaskAssignment struct {
-	// READ-ONLY; ARM Id of the storage task assignments, associated with the storage tasks.
+	// READ-ONLY; Fully qualified ARM resource id of the Storage Task Assignment.
 	ID *string
 }
 
@@ -143,7 +144,7 @@ type StorageTaskAssignmentsListResult struct {
 	// requested storage task assignment Ids exceed maximum page size.
 	NextLink *string
 
-	// READ-ONLY; Gets the list of storage task assignment Ids.
+	// READ-ONLY; List of Storage Task Assignment resource ids associated with this Storage Task.
 	Value []*StorageTaskAssignment
 }
 
@@ -186,13 +187,13 @@ type StorageTaskPreviewActionIfCondition struct {
 
 // StorageTaskPreviewActionProperties - Storage task preview action properties.
 type StorageTaskPreviewActionProperties struct {
-	// REQUIRED; Preview action container properties to be tested for a match with the provided condition.
+	// REQUIRED; Preview action to test
 	Action *StorageTaskPreviewActionCondition
 
-	// REQUIRED; Preview action container properties to be tested for a match with the provided condition.
+	// REQUIRED; Properties of some sample blobs in the container to test for matches with the preview action.
 	Blobs []*StorageTaskPreviewBlobProperties
 
-	// REQUIRED; Preview action container properties to be tested for a match with the provided condition.
+	// REQUIRED; Properties of a sample container to test for a match with the preview action.
 	Container *StorageTaskPreviewContainerProperties
 }
 
@@ -201,7 +202,7 @@ type StorageTaskPreviewBlobProperties struct {
 	// metadata key value pairs to be tested for a match against the provided condition.
 	Metadata []*StorageTaskPreviewKeyValueProperties
 
-	// property for the container name.
+	// Name of test blob
 	Name *string
 
 	// properties key value pairs to be tested for a match against the provided condition.
@@ -219,7 +220,7 @@ type StorageTaskPreviewContainerProperties struct {
 	// metadata key value pairs to be tested for a match against the provided condition.
 	Metadata []*StorageTaskPreviewKeyValueProperties
 
-	// property for the container name.
+	// Name of test container
 	Name *string
 }
 
@@ -237,11 +238,11 @@ type StorageTaskProperties struct {
 	// REQUIRED; The storage task action that is executed
 	Action *StorageTaskAction
 
-	// REQUIRED; Text that describes the purpose of the storage task
-	Description *string
-
 	// REQUIRED; Storage Task is enabled when set to true and disabled when set to false
 	Enabled *bool
+
+	// Text that describes the purpose of the storage task
+	Description *string
 
 	// READ-ONLY; The creation date and time of the storage task in UTC.
 	CreationTimeInUTC *time.Time

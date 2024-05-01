@@ -43,7 +43,7 @@ func NewStorageTaskAssignmentClient(subscriptionID string, credential azcore.Tok
 	return client, nil
 }
 
-// NewListPager - Lists all the storage tasks available under the given resource group.
+// NewListPager - Lists resource ids of the Storage Task Assignments associated with this Storage Task.
 //
 // Generated from API version 2023-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
