@@ -193,12 +193,21 @@ func (v *VirtualMachineImagesServerTransport) dispatchList(req *http.Request) (*
 		return nil, err
 	}
 	orderbyParam := getOptional(orderbyUnescaped)
+	includeScheduledForDeprecationUnescaped, err := url.QueryUnescape(qp.Get("includeScheduledForDeprecation"))
+	if err != nil {
+		return nil, err
+	}
+	includeScheduledForDeprecationParam, err := parseOptional(includeScheduledForDeprecationUnescaped, strconv.ParseBool)
+	if err != nil {
+		return nil, err
+	}
 	var options *armcompute.VirtualMachineImagesClientListOptions
-	if expandParam != nil || topParam != nil || orderbyParam != nil {
+	if expandParam != nil || topParam != nil || orderbyParam != nil || includeScheduledForDeprecationParam != nil {
 		options = &armcompute.VirtualMachineImagesClientListOptions{
-			Expand:  expandParam,
-			Top:     topParam,
-			Orderby: orderbyParam,
+			Expand:                         expandParam,
+			Top:                            topParam,
+			Orderby:                        orderbyParam,
+			IncludeScheduledForDeprecation: includeScheduledForDeprecationParam,
 		}
 	}
 	respr, errRespr := v.srv.List(req.Context(), locationParam, publisherNameParam, offerParam, skusParam, options)

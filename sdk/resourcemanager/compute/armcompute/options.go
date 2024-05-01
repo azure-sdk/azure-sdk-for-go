@@ -1157,9 +1157,10 @@ type VirtualMachineImagesClientListOffersOptions struct {
 // VirtualMachineImagesClientListOptions contains the optional parameters for the VirtualMachineImagesClient.List method.
 type VirtualMachineImagesClientListOptions struct {
 	// The expand expression to apply on the operation.
-	Expand  *string
-	Orderby *string
-	Top     *int32
+	Expand                         *string
+	IncludeScheduledForDeprecation *bool
+	Orderby                        *string
+	Top                            *int32
 }
 
 // VirtualMachineImagesClientListPublishersOptions contains the optional parameters for the VirtualMachineImagesClient.ListPublishers

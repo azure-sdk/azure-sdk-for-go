@@ -1,5 +1,11 @@
 # Release History
 
+## 5.8.0 (2024-05-01)
+### Features Added
+
+- New field `IncludeScheduledForDeprecation` in struct `VirtualMachineImagesClientListOptions`
+
+
 ## 5.7.0 (2024-04-26)
 ### Features Added
 

@@ -195,6 +195,9 @@ func (client *VirtualMachineImagesClient) listCreateRequest(ctx context.Context,
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2024-03-01")
+	if options != nil && options.IncludeScheduledForDeprecation != nil {
+		reqQP.Set("includeScheduledForDeprecation", strconv.FormatBool(*options.IncludeScheduledForDeprecation))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
