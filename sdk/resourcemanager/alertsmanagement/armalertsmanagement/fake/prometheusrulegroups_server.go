@@ -39,13 +39,13 @@ type PrometheusRuleGroupsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armalertsmanagement.PrometheusRuleGroupsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListByResourceGroupResponse])
 
-	// NewListBySubscriptionPager is the fake for method PrometheusRuleGroupsClient.NewListBySubscriptionPager
+	// NewListBySubscriptionTestPager is the fake for method PrometheusRuleGroupsClient.NewListBySubscriptionTestPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListBySubscriptionPager func(options *armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionResponse])
+	NewListBySubscriptionTestPager func(options *armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionTestOptions) (resp azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionTestResponse])
 
 	// Update is the fake for method PrometheusRuleGroupsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters armalertsmanagement.PrometheusRuleGroupResourcePatch, options *armalertsmanagement.PrometheusRuleGroupsClientUpdateOptions) (resp azfake.Responder[armalertsmanagement.PrometheusRuleGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters armalertsmanagement.PrometheusRuleGroupResourcePatchParameters, options *armalertsmanagement.PrometheusRuleGroupsClientUpdateOptions) (resp azfake.Responder[armalertsmanagement.PrometheusRuleGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPrometheusRuleGroupsServerTransport creates a new instance of PrometheusRuleGroupsServerTransport with the provided implementation.
@@ -53,18 +53,18 @@ type PrometheusRuleGroupsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPrometheusRuleGroupsServerTransport(srv *PrometheusRuleGroupsServer) *PrometheusRuleGroupsServerTransport {
 	return &PrometheusRuleGroupsServerTransport{
-		srv:                         srv,
-		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListByResourceGroupResponse]](),
-		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionResponse]](),
+		srv:                            srv,
+		newListByResourceGroupPager:    newTracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListByResourceGroupResponse]](),
+		newListBySubscriptionTestPager: newTracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionTestResponse]](),
 	}
 }
 
 // PrometheusRuleGroupsServerTransport connects instances of armalertsmanagement.PrometheusRuleGroupsClient to instances of PrometheusRuleGroupsServer.
 // Don't use this type directly, use NewPrometheusRuleGroupsServerTransport instead.
 type PrometheusRuleGroupsServerTransport struct {
-	srv                         *PrometheusRuleGroupsServer
-	newListByResourceGroupPager *tracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListByResourceGroupResponse]]
-	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionResponse]]
+	srv                            *PrometheusRuleGroupsServer
+	newListByResourceGroupPager    *tracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListByResourceGroupResponse]]
+	newListBySubscriptionTestPager *tracker[azfake.PagerResponder[armalertsmanagement.PrometheusRuleGroupsClientListBySubscriptionTestResponse]]
 }
 
 // Do implements the policy.Transporter interface for PrometheusRuleGroupsServerTransport.
@@ -87,8 +87,8 @@ func (p *PrometheusRuleGroupsServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = p.dispatchGet(req)
 	case "PrometheusRuleGroupsClient.NewListByResourceGroupPager":
 		resp, err = p.dispatchNewListByResourceGroupPager(req)
-	case "PrometheusRuleGroupsClient.NewListBySubscriptionPager":
-		resp, err = p.dispatchNewListBySubscriptionPager(req)
+	case "PrometheusRuleGroupsClient.NewListBySubscriptionTestPager":
+		resp, err = p.dispatchNewListBySubscriptionTestPager(req)
 	case "PrometheusRuleGroupsClient.Update":
 		resp, err = p.dispatchUpdate(req)
 	default:
@@ -239,32 +239,32 @@ func (p *PrometheusRuleGroupsServerTransport) dispatchNewListByResourceGroupPage
 	return resp, nil
 }
 
-func (p *PrometheusRuleGroupsServerTransport) dispatchNewListBySubscriptionPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListBySubscriptionPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListBySubscriptionPager not implemented")}
+func (p *PrometheusRuleGroupsServerTransport) dispatchNewListBySubscriptionTestPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListBySubscriptionTestPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListBySubscriptionTestPager not implemented")}
 	}
-	newListBySubscriptionPager := p.newListBySubscriptionPager.get(req)
-	if newListBySubscriptionPager == nil {
+	newListBySubscriptionTestPager := p.newListBySubscriptionTestPager.get(req)
+	if newListBySubscriptionTestPager == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/prometheusRuleGroups`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resp := p.srv.NewListBySubscriptionPager(nil)
-		newListBySubscriptionPager = &resp
-		p.newListBySubscriptionPager.add(req, newListBySubscriptionPager)
+		resp := p.srv.NewListBySubscriptionTestPager(nil)
+		newListBySubscriptionTestPager = &resp
+		p.newListBySubscriptionTestPager.add(req, newListBySubscriptionTestPager)
 	}
-	resp, err := server.PagerResponderNext(newListBySubscriptionPager, req)
+	resp, err := server.PagerResponderNext(newListBySubscriptionTestPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListBySubscriptionPager.remove(req)
+		p.newListBySubscriptionTestPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListBySubscriptionPager) {
-		p.newListBySubscriptionPager.remove(req)
+	if !server.PagerResponderMore(newListBySubscriptionTestPager) {
+		p.newListBySubscriptionTestPager.remove(req)
 	}
 	return resp, nil
 }
@@ -279,7 +279,7 @@ func (p *PrometheusRuleGroupsServerTransport) dispatchUpdate(req *http.Request) 
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armalertsmanagement.PrometheusRuleGroupResourcePatch](req)
+	body, err := server.UnmarshalRequestAsJSON[armalertsmanagement.PrometheusRuleGroupResourcePatchParameters](req)
 	if err != nil {
 		return nil, err
 	}
