@@ -10,7 +10,7 @@ package armcosmos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos"
-	moduleVersion = "v3.0.0-beta.4"
+	moduleVersion = "v3.0.0-beta.5"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -181,19 +181,43 @@ func PossibleBackupStorageRedundancyValues() []BackupStorageRedundancy {
 	}
 }
 
-// CheckNameAvailabilityReason - The reason why the given name is not available.
-type CheckNameAvailabilityReason string
+// CapacityMode - Indicates the capacity mode of the account.
+type CapacityMode string
 
 const (
-	CheckNameAvailabilityReasonAlreadyExists CheckNameAvailabilityReason = "AlreadyExists"
-	CheckNameAvailabilityReasonInvalid       CheckNameAvailabilityReason = "Invalid"
+	CapacityModeNone        CapacityMode = "None"
+	CapacityModeProvisioned CapacityMode = "Provisioned"
+	CapacityModeServerless  CapacityMode = "Serverless"
 )
 
-// PossibleCheckNameAvailabilityReasonValues returns the possible values for the CheckNameAvailabilityReason const type.
-func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
-	return []CheckNameAvailabilityReason{
-		CheckNameAvailabilityReasonAlreadyExists,
-		CheckNameAvailabilityReasonInvalid,
+// PossibleCapacityModeValues returns the possible values for the CapacityMode const type.
+func PossibleCapacityModeValues() []CapacityMode {
+	return []CapacityMode{
+		CapacityModeNone,
+		CapacityModeProvisioned,
+		CapacityModeServerless,
+	}
+}
+
+// CapacityModeTransitionStatus - The transition status of capacity mode.
+type CapacityModeTransitionStatus string
+
+const (
+	CapacityModeTransitionStatusCompleted   CapacityModeTransitionStatus = "Completed"
+	CapacityModeTransitionStatusFailed      CapacityModeTransitionStatus = "Failed"
+	CapacityModeTransitionStatusInProgress  CapacityModeTransitionStatus = "InProgress"
+	CapacityModeTransitionStatusInitialized CapacityModeTransitionStatus = "Initialized"
+	CapacityModeTransitionStatusInvalid     CapacityModeTransitionStatus = "Invalid"
+)
+
+// PossibleCapacityModeTransitionStatusValues returns the possible values for the CapacityModeTransitionStatus const type.
+func PossibleCapacityModeTransitionStatusValues() []CapacityModeTransitionStatus {
+	return []CapacityModeTransitionStatus{
+		CapacityModeTransitionStatusCompleted,
+		CapacityModeTransitionStatusFailed,
+		CapacityModeTransitionStatusInProgress,
+		CapacityModeTransitionStatusInitialized,
+		CapacityModeTransitionStatusInvalid,
 	}
 }
 
@@ -327,16 +351,14 @@ func PossibleContinuousTierValues() []ContinuousTier {
 type CreateMode string
 
 const (
-	CreateModeDefault            CreateMode = "Default"
-	CreateModePointInTimeRestore CreateMode = "PointInTimeRestore"
-	CreateModeRestore            CreateMode = "Restore"
+	CreateModeDefault CreateMode = "Default"
+	CreateModeRestore CreateMode = "Restore"
 )
 
 // PossibleCreateModeValues returns the possible values for the CreateMode const type.
 func PossibleCreateModeValues() []CreateMode {
 	return []CreateMode{
 		CreateModeDefault,
-		CreateModePointInTimeRestore,
 		CreateModeRestore,
 	}
 }
@@ -530,6 +552,22 @@ func PossibleIndexingModeValues() []IndexingMode {
 	}
 }
 
+// IssueType - Type of issue
+type IssueType string
+
+const (
+	IssueTypeConfigurationPropagationFailure IssueType = "ConfigurationPropagationFailure"
+	IssueTypeUnknown                         IssueType = "Unknown"
+)
+
+// PossibleIssueTypeValues returns the possible values for the IssueType const type.
+func PossibleIssueTypeValues() []IssueType {
+	return []IssueType{
+		IssueTypeConfigurationPropagationFailure,
+		IssueTypeUnknown,
+	}
+}
+
 // KeyKind - The access key to regenerate.
 type KeyKind string
 
@@ -629,32 +667,6 @@ func PossibleMinimalTLSVersionValues() []MinimalTLSVersion {
 	}
 }
 
-// MongoClusterStatus - The status of the resource at the time the operation was called.
-type MongoClusterStatus string
-
-const (
-	MongoClusterStatusDropping     MongoClusterStatus = "Dropping"
-	MongoClusterStatusProvisioning MongoClusterStatus = "Provisioning"
-	MongoClusterStatusReady        MongoClusterStatus = "Ready"
-	MongoClusterStatusStarting     MongoClusterStatus = "Starting"
-	MongoClusterStatusStopped      MongoClusterStatus = "Stopped"
-	MongoClusterStatusStopping     MongoClusterStatus = "Stopping"
-	MongoClusterStatusUpdating     MongoClusterStatus = "Updating"
-)
-
-// PossibleMongoClusterStatusValues returns the possible values for the MongoClusterStatus const type.
-func PossibleMongoClusterStatusValues() []MongoClusterStatus {
-	return []MongoClusterStatus{
-		MongoClusterStatusDropping,
-		MongoClusterStatusProvisioning,
-		MongoClusterStatusReady,
-		MongoClusterStatusStarting,
-		MongoClusterStatusStopped,
-		MongoClusterStatusStopping,
-		MongoClusterStatusUpdating,
-	}
-}
-
 // MongoRoleDefinitionType - Indicates whether the Role Definition was built-in or user created.
 type MongoRoleDefinitionType string
 
@@ -687,17 +699,28 @@ func PossibleNetworkACLBypassValues() []NetworkACLBypass {
 	}
 }
 
-// NodeKind - The kind of a node in the mongo cluster.
-type NodeKind string
+// NetworkSecurityPerimeterConfigurationProvisioningState - Provisioning state of Network Security Perimeter configuration
+// propagation
+type NetworkSecurityPerimeterConfigurationProvisioningState string
 
 const (
-	NodeKindShard NodeKind = "Shard"
+	NetworkSecurityPerimeterConfigurationProvisioningStateAccepted  NetworkSecurityPerimeterConfigurationProvisioningState = "Accepted"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCanceled  NetworkSecurityPerimeterConfigurationProvisioningState = "Canceled"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCreating  NetworkSecurityPerimeterConfigurationProvisioningState = "Creating"
+	NetworkSecurityPerimeterConfigurationProvisioningStateDeleting  NetworkSecurityPerimeterConfigurationProvisioningState = "Deleting"
+	NetworkSecurityPerimeterConfigurationProvisioningStateFailed    NetworkSecurityPerimeterConfigurationProvisioningState = "Failed"
+	NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded NetworkSecurityPerimeterConfigurationProvisioningState = "Succeeded"
 )
 
-// PossibleNodeKindValues returns the possible values for the NodeKind const type.
-func PossibleNodeKindValues() []NodeKind {
-	return []NodeKind{
-		NodeKindShard,
+// PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues returns the possible values for the NetworkSecurityPerimeterConfigurationProvisioningState const type.
+func PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues() []NetworkSecurityPerimeterConfigurationProvisioningState {
+	return []NetworkSecurityPerimeterConfigurationProvisioningState{
+		NetworkSecurityPerimeterConfigurationProvisioningStateAccepted,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCanceled,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCreating,
+		NetworkSecurityPerimeterConfigurationProvisioningStateDeleting,
+		NetworkSecurityPerimeterConfigurationProvisioningStateFailed,
+		NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded,
 	}
 }
 
@@ -749,6 +772,22 @@ const (
 func PossibleNotebookWorkspaceNameValues() []NotebookWorkspaceName {
 	return []NotebookWorkspaceName{
 		NotebookWorkspaceNameDefault,
+	}
+}
+
+// NspAccessRuleDirection - Direction of Access Rule
+type NspAccessRuleDirection string
+
+const (
+	NspAccessRuleDirectionInbound  NspAccessRuleDirection = "Inbound"
+	NspAccessRuleDirectionOutbound NspAccessRuleDirection = "Outbound"
+)
+
+// PossibleNspAccessRuleDirectionValues returns the possible values for the NspAccessRuleDirection const type.
+func PossibleNspAccessRuleDirectionValues() []NspAccessRuleDirection {
+	return []NspAccessRuleDirection{
+		NspAccessRuleDirectionInbound,
+		NspAccessRuleDirectionOutbound,
 	}
 }
 
@@ -817,30 +856,6 @@ func PossiblePrimaryAggregationTypeValues() []PrimaryAggregationType {
 	}
 }
 
-// ProvisioningState - The provisioning state of the resource.
-type ProvisioningState string
-
-const (
-	ProvisioningStateCanceled   ProvisioningState = "Canceled"
-	ProvisioningStateDropping   ProvisioningState = "Dropping"
-	ProvisioningStateFailed     ProvisioningState = "Failed"
-	ProvisioningStateInProgress ProvisioningState = "InProgress"
-	ProvisioningStateSucceeded  ProvisioningState = "Succeeded"
-	ProvisioningStateUpdating   ProvisioningState = "Updating"
-)
-
-// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
-func PossibleProvisioningStateValues() []ProvisioningState {
-	return []ProvisioningState{
-		ProvisioningStateCanceled,
-		ProvisioningStateDropping,
-		ProvisioningStateFailed,
-		ProvisioningStateInProgress,
-		ProvisioningStateSucceeded,
-		ProvisioningStateUpdating,
-	}
-}
-
 // PublicNetworkAccess - Whether requests from Public Network are allowed
 type PublicNetworkAccess string
 
@@ -856,6 +871,24 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
 		PublicNetworkAccessSecuredByPerimeter,
+	}
+}
+
+// ResourceAssociationAccessMode - Access Mode of the resource association
+type ResourceAssociationAccessMode string
+
+const (
+	ResourceAssociationAccessModeAudit    ResourceAssociationAccessMode = "Audit"
+	ResourceAssociationAccessModeEnforced ResourceAssociationAccessMode = "Enforced"
+	ResourceAssociationAccessModeLearning ResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleResourceAssociationAccessModeValues returns the possible values for the ResourceAssociationAccessMode const type.
+func PossibleResourceAssociationAccessModeValues() []ResourceAssociationAccessMode {
+	return []ResourceAssociationAccessMode{
+		ResourceAssociationAccessModeAudit,
+		ResourceAssociationAccessModeEnforced,
+		ResourceAssociationAccessModeLearning,
 	}
 }
 
@@ -933,8 +966,10 @@ func PossibleScheduledEventStrategyValues() []ScheduledEventStrategy {
 type ServerVersion string
 
 const (
+	ServerVersionFive0  ServerVersion = "5.0"
 	ServerVersionFour0  ServerVersion = "4.0"
 	ServerVersionFour2  ServerVersion = "4.2"
+	ServerVersionSix0   ServerVersion = "6.0"
 	ServerVersionThree2 ServerVersion = "3.2"
 	ServerVersionThree6 ServerVersion = "3.6"
 )
@@ -942,8 +977,10 @@ const (
 // PossibleServerVersionValues returns the possible values for the ServerVersion const type.
 func PossibleServerVersionValues() []ServerVersion {
 	return []ServerVersion{
+		ServerVersionFive0,
 		ServerVersionFour0,
 		ServerVersionFour2,
+		ServerVersionSix0,
 		ServerVersionThree2,
 		ServerVersionThree6,
 	}
@@ -1008,6 +1045,22 @@ func PossibleServiceTypeValues() []ServiceType {
 		ServiceTypeGraphAPICompute,
 		ServiceTypeMaterializedViewsBuilder,
 		ServiceTypeSQLDedicatedGateway,
+	}
+}
+
+// Severity - Severity of the issue.
+type Severity string
+
+const (
+	SeverityError   Severity = "Error"
+	SeverityWarning Severity = "Warning"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityError,
+		SeverityWarning,
 	}
 }
 
