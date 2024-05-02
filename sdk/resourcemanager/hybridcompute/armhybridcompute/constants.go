@@ -10,7 +10,7 @@ package armhybridcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0-beta.3"
 )
 
 // AgentConfigurationMode - Name of configuration mode to use. Modes are pre-defined configurations of security controls,
@@ -186,6 +186,28 @@ func PossibleExtensionsStatusLevelTypesValues() []ExtensionsStatusLevelTypes {
 	}
 }
 
+// HotpatchEnablementStatus - Status of hotpatch enablement or disablement.
+type HotpatchEnablementStatus string
+
+const (
+	HotpatchEnablementStatusActionRequired    HotpatchEnablementStatus = "ActionRequired"
+	HotpatchEnablementStatusDisabled          HotpatchEnablementStatus = "Disabled"
+	HotpatchEnablementStatusEnabled           HotpatchEnablementStatus = "Enabled"
+	HotpatchEnablementStatusPendingEvaluation HotpatchEnablementStatus = "PendingEvaluation"
+	HotpatchEnablementStatusUnknown           HotpatchEnablementStatus = "Unknown"
+)
+
+// PossibleHotpatchEnablementStatusValues returns the possible values for the HotpatchEnablementStatus const type.
+func PossibleHotpatchEnablementStatusValues() []HotpatchEnablementStatus {
+	return []HotpatchEnablementStatus{
+		HotpatchEnablementStatusActionRequired,
+		HotpatchEnablementStatusDisabled,
+		HotpatchEnablementStatusEnabled,
+		HotpatchEnablementStatusPendingEvaluation,
+		HotpatchEnablementStatusUnknown,
+	}
+}
+
 // LastAttemptStatusEnum - Specifies the status of Agent Upgrade.
 type LastAttemptStatusEnum string
 
@@ -270,18 +292,22 @@ func PossibleLicenseProfileProductTypeValues() []LicenseProfileProductType {
 type LicenseProfileSubscriptionStatus string
 
 const (
-	LicenseProfileSubscriptionStatusDisabled LicenseProfileSubscriptionStatus = "Disabled"
-	LicenseProfileSubscriptionStatusEnabled  LicenseProfileSubscriptionStatus = "Enabled"
-	LicenseProfileSubscriptionStatusEnabling LicenseProfileSubscriptionStatus = "Enabling"
-	LicenseProfileSubscriptionStatusUnknown  LicenseProfileSubscriptionStatus = "Unknown"
+	LicenseProfileSubscriptionStatusDisabled  LicenseProfileSubscriptionStatus = "Disabled"
+	LicenseProfileSubscriptionStatusDisabling LicenseProfileSubscriptionStatus = "Disabling"
+	LicenseProfileSubscriptionStatusEnabled   LicenseProfileSubscriptionStatus = "Enabled"
+	LicenseProfileSubscriptionStatusEnabling  LicenseProfileSubscriptionStatus = "Enabling"
+	LicenseProfileSubscriptionStatusFailed    LicenseProfileSubscriptionStatus = "Failed"
+	LicenseProfileSubscriptionStatusUnknown   LicenseProfileSubscriptionStatus = "Unknown"
 )
 
 // PossibleLicenseProfileSubscriptionStatusValues returns the possible values for the LicenseProfileSubscriptionStatus const type.
 func PossibleLicenseProfileSubscriptionStatusValues() []LicenseProfileSubscriptionStatus {
 	return []LicenseProfileSubscriptionStatus{
 		LicenseProfileSubscriptionStatusDisabled,
+		LicenseProfileSubscriptionStatusDisabling,
 		LicenseProfileSubscriptionStatusEnabled,
 		LicenseProfileSubscriptionStatusEnabling,
+		LicenseProfileSubscriptionStatusFailed,
 		LicenseProfileSubscriptionStatusUnknown,
 	}
 }
