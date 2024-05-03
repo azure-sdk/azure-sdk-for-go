@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,10 +26,10 @@ import (
 type SimGroupsServer struct {
 	// BeginCreateOrUpdate is the fake for method SimGroupsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, simGroupName string, parameters armmobilenetwork.SimGroup, options *armmobilenetwork.SimGroupsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.SimGroupsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, simGroupName string, resource armmobilenetwork.SimGroup, options *armmobilenetwork.SimGroupsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.SimGroupsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method SimGroupsClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, simGroupName string, options *armmobilenetwork.SimGroupsClientBeginDeleteOptions) (resp azfake.PollerResponder[armmobilenetwork.SimGroupsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SimGroupsClient.Get
@@ -46,7 +46,7 @@ type SimGroupsServer struct {
 
 	// UpdateTags is the fake for method SimGroupsClient.UpdateTags
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateTags func(ctx context.Context, resourceGroupName string, simGroupName string, parameters armmobilenetwork.IdentityAndTagsObject, options *armmobilenetwork.SimGroupsClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.SimGroupsClientUpdateTagsResponse], errResp azfake.ErrorResponder)
+	UpdateTags func(ctx context.Context, resourceGroupName string, simGroupName string, properties armmobilenetwork.IdentityAndTagsObject, options *armmobilenetwork.SimGroupsClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.SimGroupsClientUpdateTagsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSimGroupsServerTransport creates a new instance of SimGroupsServerTransport with the provided implementation.
@@ -188,9 +188,9 @@ func (s *SimGroupsServerTransport) dispatchBeginDelete(req *http.Request) (*http
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		s.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		s.beginDelete.remove(req)

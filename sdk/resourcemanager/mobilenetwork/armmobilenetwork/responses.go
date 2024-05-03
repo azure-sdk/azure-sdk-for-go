@@ -8,6 +8,41 @@
 
 package armmobilenetwork
 
+// AmfDeploymentsClientCreateOrUpdateResponse contains the response from method AmfDeploymentsClient.BeginCreateOrUpdate.
+type AmfDeploymentsClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core Access and Mobility Function (AMF) Deployment Resource
+	AmfDeploymentResource
+}
+
+// AmfDeploymentsClientDeleteResponse contains the response from method AmfDeploymentsClient.BeginDelete.
+type AmfDeploymentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AmfDeploymentsClientGetResponse contains the response from method AmfDeploymentsClient.Get.
+type AmfDeploymentsClientGetResponse struct {
+	// Azure for Operators 5G Core Access and Mobility Function (AMF) Deployment Resource
+	AmfDeploymentResource
+}
+
+// AmfDeploymentsClientListByResourceGroupResponse contains the response from method AmfDeploymentsClient.NewListByResourceGroupPager.
+type AmfDeploymentsClientListByResourceGroupResponse struct {
+	// The response of a AmfDeploymentResource list operation.
+	AmfDeploymentResourceListResult
+}
+
+// AmfDeploymentsClientListBySubscriptionResponse contains the response from method AmfDeploymentsClient.NewListBySubscriptionPager.
+type AmfDeploymentsClientListBySubscriptionResponse struct {
+	// The response of a AmfDeploymentResource list operation.
+	AmfDeploymentResourceListResult
+}
+
+// AmfDeploymentsClientUpdateTagsResponse contains the response from method AmfDeploymentsClient.UpdateTags.
+type AmfDeploymentsClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core Access and Mobility Function (AMF) Deployment Resource
+	AmfDeploymentResource
+}
+
 // AttachedDataNetworksClientCreateOrUpdateResponse contains the response from method AttachedDataNetworksClient.BeginCreateOrUpdate.
 type AttachedDataNetworksClientCreateOrUpdateResponse struct {
 	// Attached data network resource. Must be created in the same location as its parent packet core data plane.
@@ -27,7 +62,7 @@ type AttachedDataNetworksClientGetResponse struct {
 
 // AttachedDataNetworksClientListByPacketCoreDataPlaneResponse contains the response from method AttachedDataNetworksClient.NewListByPacketCoreDataPlanePager.
 type AttachedDataNetworksClientListByPacketCoreDataPlaneResponse struct {
-	// Response for attached data network API service call.
+	// The response of a AttachedDataNetwork list operation.
 	AttachedDataNetworkListResult
 }
 
@@ -35,6 +70,41 @@ type AttachedDataNetworksClientListByPacketCoreDataPlaneResponse struct {
 type AttachedDataNetworksClientUpdateTagsResponse struct {
 	// Attached data network resource. Must be created in the same location as its parent packet core data plane.
 	AttachedDataNetwork
+}
+
+// ClusterServicesClientCreateOrUpdateResponse contains the response from method ClusterServicesClient.BeginCreateOrUpdate.
+type ClusterServicesClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core Cluster Service Resource
+	ClusterServiceResource
+}
+
+// ClusterServicesClientDeleteResponse contains the response from method ClusterServicesClient.BeginDelete.
+type ClusterServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ClusterServicesClientGetResponse contains the response from method ClusterServicesClient.Get.
+type ClusterServicesClientGetResponse struct {
+	// Azure for Operators 5G Core Cluster Service Resource
+	ClusterServiceResource
+}
+
+// ClusterServicesClientListByResourceGroupResponse contains the response from method ClusterServicesClient.NewListByResourceGroupPager.
+type ClusterServicesClientListByResourceGroupResponse struct {
+	// The response of a ClusterServiceResource list operation.
+	ClusterServiceResourceListResult
+}
+
+// ClusterServicesClientListBySubscriptionResponse contains the response from method ClusterServicesClient.NewListBySubscriptionPager.
+type ClusterServicesClientListBySubscriptionResponse struct {
+	// The response of a ClusterServiceResource list operation.
+	ClusterServiceResourceListResult
+}
+
+// ClusterServicesClientUpdateTagsResponse contains the response from method ClusterServicesClient.UpdateTags.
+type ClusterServicesClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core Cluster Service Resource
+	ClusterServiceResource
 }
 
 // DataNetworksClientCreateOrUpdateResponse contains the response from method DataNetworksClient.BeginCreateOrUpdate.
@@ -56,7 +126,7 @@ type DataNetworksClientGetResponse struct {
 
 // DataNetworksClientListByMobileNetworkResponse contains the response from method DataNetworksClient.NewListByMobileNetworkPager.
 type DataNetworksClientListByMobileNetworkResponse struct {
-	// Response for data network API service call.
+	// The response of a DataNetwork list operation.
 	DataNetworkListResult
 }
 
@@ -85,12 +155,12 @@ type DiagnosticsPackagesClientGetResponse struct {
 
 // DiagnosticsPackagesClientListByPacketCoreControlPlaneResponse contains the response from method DiagnosticsPackagesClient.NewListByPacketCoreControlPlanePager.
 type DiagnosticsPackagesClientListByPacketCoreControlPlaneResponse struct {
-	// Response for diagnostics package API service call.
+	// The response of a DiagnosticsPackage list operation.
 	DiagnosticsPackageListResult
 }
 
-// ExtendedUeInformationClientGetResponse contains the response from method ExtendedUeInformationClient.Get.
-type ExtendedUeInformationClientGetResponse struct {
+// ExtendedUeInfosClientGetResponse contains the response from method ExtendedUeInfosClient.Get.
+type ExtendedUeInfosClientGetResponse struct {
 	// Extended User Equipment (UE) information.
 	ExtendedUeInfo
 }
@@ -114,14 +184,20 @@ type MobileNetworksClientGetResponse struct {
 
 // MobileNetworksClientListByResourceGroupResponse contains the response from method MobileNetworksClient.NewListByResourceGroupPager.
 type MobileNetworksClientListByResourceGroupResponse struct {
-	// Response for mobile networks API service call.
+	// The response of a MobileNetwork list operation.
 	ListResult
 }
 
 // MobileNetworksClientListBySubscriptionResponse contains the response from method MobileNetworksClient.NewListBySubscriptionPager.
 type MobileNetworksClientListBySubscriptionResponse struct {
-	// Response for mobile networks API service call.
+	// The response of a MobileNetwork list operation.
 	ListResult
+}
+
+// MobileNetworksClientListSimGroupsResponse contains the response from method MobileNetworksClient.NewListSimGroupsPager.
+type MobileNetworksClientListSimGroupsResponse struct {
+	// The response of a SimGroup list operation.
+	SimGroupListResult
 }
 
 // MobileNetworksClientUpdateTagsResponse contains the response from method MobileNetworksClient.UpdateTags.
@@ -130,10 +206,115 @@ type MobileNetworksClientUpdateTagsResponse struct {
 	MobileNetwork
 }
 
+// NrfDeploymentsClientCreateOrUpdateResponse contains the response from method NrfDeploymentsClient.BeginCreateOrUpdate.
+type NrfDeploymentsClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core Network Repository Function (NRF) Deployment Resource
+	NrfDeploymentResource
+}
+
+// NrfDeploymentsClientDeleteResponse contains the response from method NrfDeploymentsClient.BeginDelete.
+type NrfDeploymentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// NrfDeploymentsClientGetResponse contains the response from method NrfDeploymentsClient.Get.
+type NrfDeploymentsClientGetResponse struct {
+	// Azure for Operators 5G Core Network Repository Function (NRF) Deployment Resource
+	NrfDeploymentResource
+}
+
+// NrfDeploymentsClientListByResourceGroupResponse contains the response from method NrfDeploymentsClient.NewListByResourceGroupPager.
+type NrfDeploymentsClientListByResourceGroupResponse struct {
+	// The response of a NrfDeploymentResource list operation.
+	NrfDeploymentResourceListResult
+}
+
+// NrfDeploymentsClientListBySubscriptionResponse contains the response from method NrfDeploymentsClient.NewListBySubscriptionPager.
+type NrfDeploymentsClientListBySubscriptionResponse struct {
+	// The response of a NrfDeploymentResource list operation.
+	NrfDeploymentResourceListResult
+}
+
+// NrfDeploymentsClientUpdateTagsResponse contains the response from method NrfDeploymentsClient.UpdateTags.
+type NrfDeploymentsClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core Network Repository Function (NRF) Deployment Resource
+	NrfDeploymentResource
+}
+
+// NssfDeploymentsClientCreateOrUpdateResponse contains the response from method NssfDeploymentsClient.BeginCreateOrUpdate.
+type NssfDeploymentsClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core Network Slice Selection Function (NSSF) Deployment Resource
+	NssfDeploymentResource
+}
+
+// NssfDeploymentsClientDeleteResponse contains the response from method NssfDeploymentsClient.BeginDelete.
+type NssfDeploymentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// NssfDeploymentsClientGetResponse contains the response from method NssfDeploymentsClient.Get.
+type NssfDeploymentsClientGetResponse struct {
+	// Azure for Operators 5G Core Network Slice Selection Function (NSSF) Deployment Resource
+	NssfDeploymentResource
+}
+
+// NssfDeploymentsClientListByResourceGroupResponse contains the response from method NssfDeploymentsClient.NewListByResourceGroupPager.
+type NssfDeploymentsClientListByResourceGroupResponse struct {
+	// The response of a NssfDeploymentResource list operation.
+	NssfDeploymentResourceListResult
+}
+
+// NssfDeploymentsClientListBySubscriptionResponse contains the response from method NssfDeploymentsClient.NewListBySubscriptionPager.
+type NssfDeploymentsClientListBySubscriptionResponse struct {
+	// The response of a NssfDeploymentResource list operation.
+	NssfDeploymentResourceListResult
+}
+
+// NssfDeploymentsClientUpdateTagsResponse contains the response from method NssfDeploymentsClient.UpdateTags.
+type NssfDeploymentsClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core Network Slice Selection Function (NSSF) Deployment Resource
+	NssfDeploymentResource
+}
+
+// ObservabilityServicesClientCreateOrUpdateResponse contains the response from method ObservabilityServicesClient.BeginCreateOrUpdate.
+type ObservabilityServicesClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core Observability Service Resource
+	ObservabilityServiceResource
+}
+
+// ObservabilityServicesClientDeleteResponse contains the response from method ObservabilityServicesClient.BeginDelete.
+type ObservabilityServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ObservabilityServicesClientGetResponse contains the response from method ObservabilityServicesClient.Get.
+type ObservabilityServicesClientGetResponse struct {
+	// Azure for Operators 5G Core Observability Service Resource
+	ObservabilityServiceResource
+}
+
+// ObservabilityServicesClientListByResourceGroupResponse contains the response from method ObservabilityServicesClient.NewListByResourceGroupPager.
+type ObservabilityServicesClientListByResourceGroupResponse struct {
+	// The response of a ObservabilityServiceResource list operation.
+	ObservabilityServiceResourceListResult
+}
+
+// ObservabilityServicesClientListBySubscriptionResponse contains the response from method ObservabilityServicesClient.NewListBySubscriptionPager.
+type ObservabilityServicesClientListBySubscriptionResponse struct {
+	// The response of a ObservabilityServiceResource list operation.
+	ObservabilityServiceResourceListResult
+}
+
+// ObservabilityServicesClientUpdateTagsResponse contains the response from method ObservabilityServicesClient.UpdateTags.
+type ObservabilityServicesClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core Observability Service Resource
+	ObservabilityServiceResource
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// List of the operations.
-	OperationList
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
 // PacketCapturesClientCreateOrUpdateResponse contains the response from method PacketCapturesClient.BeginCreateOrUpdate.
@@ -155,7 +336,7 @@ type PacketCapturesClientGetResponse struct {
 
 // PacketCapturesClientListByPacketCoreControlPlaneResponse contains the response from method PacketCapturesClient.NewListByPacketCoreControlPlanePager.
 type PacketCapturesClientListByPacketCoreControlPlaneResponse struct {
-	// Response for packet capture API service call.
+	// The response of a PacketCapture list operation.
 	PacketCaptureListResult
 }
 
@@ -171,21 +352,21 @@ type PacketCoreControlPlaneVersionsClientGetBySubscriptionResponse struct {
 	PacketCoreControlPlaneVersion
 }
 
-// PacketCoreControlPlaneVersionsClientGetResponse contains the response from method PacketCoreControlPlaneVersionsClient.Get.
-type PacketCoreControlPlaneVersionsClientGetResponse struct {
+// PacketCoreControlPlaneVersionsClientListBySubscriptionResponse contains the response from method PacketCoreControlPlaneVersionsClient.NewListBySubscriptionPager.
+type PacketCoreControlPlaneVersionsClientListBySubscriptionResponse struct {
+	// The response of a PacketCoreControlPlaneVersion list operation.
+	PacketCoreControlPlaneVersionListResult
+}
+
+// PacketCoreControlPlaneVersionsTenantResourceClientGetResponse contains the response from method PacketCoreControlPlaneVersionsTenantResourceClient.Get.
+type PacketCoreControlPlaneVersionsTenantResourceClientGetResponse struct {
 	// Packet core control plane version resource.
 	PacketCoreControlPlaneVersion
 }
 
-// PacketCoreControlPlaneVersionsClientListBySubscriptionResponse contains the response from method PacketCoreControlPlaneVersionsClient.NewListBySubscriptionPager.
-type PacketCoreControlPlaneVersionsClientListBySubscriptionResponse struct {
-	// Response for packet core control plane version API service call.
-	PacketCoreControlPlaneVersionListResult
-}
-
-// PacketCoreControlPlaneVersionsClientListResponse contains the response from method PacketCoreControlPlaneVersionsClient.NewListPager.
-type PacketCoreControlPlaneVersionsClientListResponse struct {
-	// Response for packet core control plane version API service call.
+// PacketCoreControlPlaneVersionsTenantResourceClientListByTenantResponse contains the response from method PacketCoreControlPlaneVersionsTenantResourceClient.NewListByTenantPager.
+type PacketCoreControlPlaneVersionsTenantResourceClientListByTenantResponse struct {
+	// The response of a PacketCoreControlPlaneVersion list operation.
 	PacketCoreControlPlaneVersionListResult
 }
 
@@ -214,13 +395,13 @@ type PacketCoreControlPlanesClientGetResponse struct {
 
 // PacketCoreControlPlanesClientListByResourceGroupResponse contains the response from method PacketCoreControlPlanesClient.NewListByResourceGroupPager.
 type PacketCoreControlPlanesClientListByResourceGroupResponse struct {
-	// Response for packet core control planes API service call.
+	// The response of a PacketCoreControlPlane list operation.
 	PacketCoreControlPlaneListResult
 }
 
 // PacketCoreControlPlanesClientListBySubscriptionResponse contains the response from method PacketCoreControlPlanesClient.NewListBySubscriptionPager.
 type PacketCoreControlPlanesClientListBySubscriptionResponse struct {
-	// Response for packet core control planes API service call.
+	// The response of a PacketCoreControlPlane list operation.
 	PacketCoreControlPlaneListResult
 }
 
@@ -261,7 +442,7 @@ type PacketCoreDataPlanesClientGetResponse struct {
 
 // PacketCoreDataPlanesClientListByPacketCoreControlPlaneResponse contains the response from method PacketCoreDataPlanesClient.NewListByPacketCoreControlPlanePager.
 type PacketCoreDataPlanesClientListByPacketCoreControlPlaneResponse struct {
-	// Response for packet core data planes API service call.
+	// The response of a PacketCoreDataPlane list operation.
 	PacketCoreDataPlaneListResult
 }
 
@@ -269,6 +450,18 @@ type PacketCoreDataPlanesClientListByPacketCoreControlPlaneResponse struct {
 type PacketCoreDataPlanesClientUpdateTagsResponse struct {
 	// Packet core data plane resource. Must be created in the same location as its parent packet core control plane.
 	PacketCoreDataPlane
+}
+
+// RoutingInfoModelsClientGetResponse contains the response from method RoutingInfoModelsClient.Get.
+type RoutingInfoModelsClientGetResponse struct {
+	// Routing information
+	RoutingInfoModel
+}
+
+// RoutingInfoModelsClientListByPacketCoreControlPlaneResponse contains the response from method RoutingInfoModelsClient.NewListByPacketCoreControlPlanePager.
+type RoutingInfoModelsClientListByPacketCoreControlPlaneResponse struct {
+	// The response of a RoutingInfoModel list operation.
+	RoutingInfoModelListResult
 }
 
 // ServicesClientCreateOrUpdateResponse contains the response from method ServicesClient.BeginCreateOrUpdate.
@@ -290,7 +483,7 @@ type ServicesClientGetResponse struct {
 
 // ServicesClientListByMobileNetworkResponse contains the response from method ServicesClient.NewListByMobileNetworkPager.
 type ServicesClientListByMobileNetworkResponse struct {
-	// Response for services API service call.
+	// The response of a Service list operation.
 	ServiceListResult
 }
 
@@ -319,13 +512,13 @@ type SimGroupsClientGetResponse struct {
 
 // SimGroupsClientListByResourceGroupResponse contains the response from method SimGroupsClient.NewListByResourceGroupPager.
 type SimGroupsClientListByResourceGroupResponse struct {
-	// Response for list SIM groups API service call.
+	// The response of a SimGroup list operation.
 	SimGroupListResult
 }
 
 // SimGroupsClientListBySubscriptionResponse contains the response from method SimGroupsClient.NewListBySubscriptionPager.
 type SimGroupsClientListBySubscriptionResponse struct {
-	// Response for list SIM groups API service call.
+	// The response of a SimGroup list operation.
 	SimGroupListResult
 }
 
@@ -354,7 +547,7 @@ type SimPoliciesClientGetResponse struct {
 
 // SimPoliciesClientListByMobileNetworkResponse contains the response from method SimPoliciesClient.NewListByMobileNetworkPager.
 type SimPoliciesClientListByMobileNetworkResponse struct {
-	// Response for SIM policies API service call.
+	// The response of a SimPolicy list operation.
 	SimPolicyListResult
 }
 
@@ -382,6 +575,12 @@ type SimsClientBulkUploadResponse struct {
 	AsyncOperationStatus
 }
 
+// SimsClientCloneResponse contains the response from method SimsClient.BeginClone.
+type SimsClientCloneResponse struct {
+	// The current status of an async operation.
+	AsyncOperationStatus
+}
+
 // SimsClientCreateOrUpdateResponse contains the response from method SimsClient.BeginCreateOrUpdate.
 type SimsClientCreateOrUpdateResponse struct {
 	// SIM resource.
@@ -401,8 +600,14 @@ type SimsClientGetResponse struct {
 
 // SimsClientListByGroupResponse contains the response from method SimsClient.NewListByGroupPager.
 type SimsClientListByGroupResponse struct {
-	// Response for list SIMs API service call.
+	// The response of a Sim list operation.
 	SimListResult
+}
+
+// SimsClientMoveResponse contains the response from method SimsClient.BeginMove.
+type SimsClientMoveResponse struct {
+	// The current status of an async operation.
+	AsyncOperationStatus
 }
 
 // SitesClientCreateOrUpdateResponse contains the response from method SitesClient.BeginCreateOrUpdate.
@@ -413,7 +618,8 @@ type SitesClientCreateOrUpdateResponse struct {
 
 // SitesClientDeletePacketCoreResponse contains the response from method SitesClient.BeginDeletePacketCore.
 type SitesClientDeletePacketCoreResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	AsyncOperationStatus
 }
 
 // SitesClientDeleteResponse contains the response from method SitesClient.BeginDelete.
@@ -429,7 +635,7 @@ type SitesClientGetResponse struct {
 
 // SitesClientListByMobileNetworkResponse contains the response from method SitesClient.NewListByMobileNetworkPager.
 type SitesClientListByMobileNetworkResponse struct {
-	// Response for sites API service call.
+	// The response of a Site list operation.
 	SiteListResult
 }
 
@@ -458,7 +664,7 @@ type SlicesClientGetResponse struct {
 
 // SlicesClientListByMobileNetworkResponse contains the response from method SlicesClient.NewListByMobileNetworkPager.
 type SlicesClientListByMobileNetworkResponse struct {
-	// Response for network slice API service call.
+	// The response of a Slice list operation.
 	SliceListResult
 }
 
@@ -468,8 +674,78 @@ type SlicesClientUpdateTagsResponse struct {
 	Slice
 }
 
-// UeInformationClientListResponse contains the response from method UeInformationClient.NewListPager.
-type UeInformationClientListResponse struct {
-	// Response for packet core list UEs API call.
-	UeInfoList
+// SmfDeploymentsClientCreateOrUpdateResponse contains the response from method SmfDeploymentsClient.BeginCreateOrUpdate.
+type SmfDeploymentsClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core Session Management Function (SMF) Deployment Resource
+	SmfDeploymentResource
+}
+
+// SmfDeploymentsClientDeleteResponse contains the response from method SmfDeploymentsClient.BeginDelete.
+type SmfDeploymentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SmfDeploymentsClientGetResponse contains the response from method SmfDeploymentsClient.Get.
+type SmfDeploymentsClientGetResponse struct {
+	// Azure for Operators 5G Core Session Management Function (SMF) Deployment Resource
+	SmfDeploymentResource
+}
+
+// SmfDeploymentsClientListByResourceGroupResponse contains the response from method SmfDeploymentsClient.NewListByResourceGroupPager.
+type SmfDeploymentsClientListByResourceGroupResponse struct {
+	// The response of a SmfDeploymentResource list operation.
+	SmfDeploymentResourceListResult
+}
+
+// SmfDeploymentsClientListBySubscriptionResponse contains the response from method SmfDeploymentsClient.NewListBySubscriptionPager.
+type SmfDeploymentsClientListBySubscriptionResponse struct {
+	// The response of a SmfDeploymentResource list operation.
+	SmfDeploymentResourceListResult
+}
+
+// SmfDeploymentsClientUpdateTagsResponse contains the response from method SmfDeploymentsClient.UpdateTags.
+type SmfDeploymentsClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core Session Management Function (SMF) Deployment Resource
+	SmfDeploymentResource
+}
+
+// UesClientListByPacketCoreControlPlaneResponse contains the response from method UesClient.NewListByPacketCoreControlPlanePager.
+type UesClientListByPacketCoreControlPlaneResponse struct {
+	// The response of a UeInfo list operation.
+	UeInfoListResult
+}
+
+// UpfDeploymentsClientCreateOrUpdateResponse contains the response from method UpfDeploymentsClient.BeginCreateOrUpdate.
+type UpfDeploymentsClientCreateOrUpdateResponse struct {
+	// Azure for Operators 5G Core User Plane Function (UPF) Deployment Resource
+	UpfDeploymentResource
+}
+
+// UpfDeploymentsClientDeleteResponse contains the response from method UpfDeploymentsClient.BeginDelete.
+type UpfDeploymentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// UpfDeploymentsClientGetResponse contains the response from method UpfDeploymentsClient.Get.
+type UpfDeploymentsClientGetResponse struct {
+	// Azure for Operators 5G Core User Plane Function (UPF) Deployment Resource
+	UpfDeploymentResource
+}
+
+// UpfDeploymentsClientListByResourceGroupResponse contains the response from method UpfDeploymentsClient.NewListByResourceGroupPager.
+type UpfDeploymentsClientListByResourceGroupResponse struct {
+	// The response of a UpfDeploymentResource list operation.
+	UpfDeploymentResourceListResult
+}
+
+// UpfDeploymentsClientListBySubscriptionResponse contains the response from method UpfDeploymentsClient.NewListBySubscriptionPager.
+type UpfDeploymentsClientListBySubscriptionResponse struct {
+	// The response of a UpfDeploymentResource list operation.
+	UpfDeploymentResourceListResult
+}
+
+// UpfDeploymentsClientUpdateTagsResponse contains the response from method UpfDeploymentsClient.UpdateTags.
+type UpfDeploymentsClientUpdateTagsResponse struct {
+	// Azure for Operators 5G Core User Plane Function (UPF) Deployment Resource
+	UpfDeploymentResource
 }

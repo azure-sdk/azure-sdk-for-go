@@ -46,16 +46,16 @@ func NewDataNetworksClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - Creates or updates a data network. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - dataNetworkName - The name of the data network.
-//   - parameters - Parameters supplied to the create or update data network operation.
+//   - resource - Parameters supplied to the create or update data network operation.
 //   - options - DataNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the DataNetworksClient.BeginCreateOrUpdate
 //     method.
-func (client *DataNetworksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters DataNetwork, options *DataNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[DataNetworksClientCreateOrUpdateResponse], error) {
+func (client *DataNetworksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, resource DataNetwork, options *DataNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[DataNetworksClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, dataNetworkName, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, dataNetworkName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,14 +74,14 @@ func (client *DataNetworksClient) BeginCreateOrUpdate(ctx context.Context, resou
 // CreateOrUpdate - Creates or updates a data network. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
-func (client *DataNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters DataNetwork, options *DataNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01
+func (client *DataNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, resource DataNetwork, options *DataNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DataNetworksClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, dataNetworkName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, dataNetworkName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (client *DataNetworksClient) createOrUpdate(ctx context.Context, resourceGr
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *DataNetworksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters DataNetwork, options *DataNetworksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *DataNetworksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, resource DataNetwork, options *DataNetworksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/dataNetworks/{dataNetworkName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,10 +120,10 @@ func (client *DataNetworksClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -132,7 +132,7 @@ func (client *DataNetworksClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Deletes the specified data network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - dataNetworkName - The name of the data network.
@@ -159,7 +159,7 @@ func (client *DataNetworksClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Deletes the specified data network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 func (client *DataNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, options *DataNetworksClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DataNetworksClient.BeginDelete"
@@ -174,7 +174,7 @@ func (client *DataNetworksClient) deleteOperation(ctx context.Context, resourceG
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (client *DataNetworksClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *DataNetworksClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Gets information about the specified data network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - dataNetworkName - The name of the data network.
@@ -265,7 +265,7 @@ func (client *DataNetworksClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *DataNetworksClient) getHandleResponse(resp *http.Response) (DataNe
 
 // NewListByMobileNetworkPager - Lists all data networks in the mobile network.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - options - DataNetworksClientListByMobileNetworkOptions contains the optional parameters for the DataNetworksClient.NewListByMobileNetworkPager
@@ -330,7 +330,7 @@ func (client *DataNetworksClient) listByMobileNetworkCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -348,19 +348,19 @@ func (client *DataNetworksClient) listByMobileNetworkHandleResponse(resp *http.R
 // UpdateTags - Updates data network tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - dataNetworkName - The name of the data network.
-//   - parameters - Parameters supplied to update data network tags.
+//   - properties - Parameters supplied to update data network tags.
 //   - options - DataNetworksClientUpdateTagsOptions contains the optional parameters for the DataNetworksClient.UpdateTags method.
-func (client *DataNetworksClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters TagsObject, options *DataNetworksClientUpdateTagsOptions) (DataNetworksClientUpdateTagsResponse, error) {
+func (client *DataNetworksClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, properties TagsObject, options *DataNetworksClientUpdateTagsOptions) (DataNetworksClientUpdateTagsResponse, error) {
 	var err error
 	const operationName = "DataNetworksClient.UpdateTags"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, dataNetworkName, parameters, options)
+	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, dataNetworkName, properties, options)
 	if err != nil {
 		return DataNetworksClientUpdateTagsResponse{}, err
 	}
@@ -377,7 +377,7 @@ func (client *DataNetworksClient) UpdateTags(ctx context.Context, resourceGroupN
 }
 
 // updateTagsCreateRequest creates the UpdateTags request.
-func (client *DataNetworksClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters TagsObject, options *DataNetworksClientUpdateTagsOptions) (*policy.Request, error) {
+func (client *DataNetworksClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, properties TagsObject, options *DataNetworksClientUpdateTagsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/dataNetworks/{dataNetworkName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -400,10 +400,10 @@ func (client *DataNetworksClient) updateTagsCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

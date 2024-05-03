@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,15 +26,15 @@ import (
 type SitesServer struct {
 	// BeginCreateOrUpdate is the fake for method SitesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, parameters armmobilenetwork.Site, options *armmobilenetwork.SitesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.SitesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, resource armmobilenetwork.Site, options *armmobilenetwork.SitesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.SitesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method SitesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, options *armmobilenetwork.SitesClientBeginDeleteOptions) (resp azfake.PollerResponder[armmobilenetwork.SitesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// BeginDeletePacketCore is the fake for method SitesClient.BeginDeletePacketCore
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginDeletePacketCore func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, parameters armmobilenetwork.SiteDeletePacketCore, options *armmobilenetwork.SitesClientBeginDeletePacketCoreOptions) (resp azfake.PollerResponder[armmobilenetwork.SitesClientDeletePacketCoreResponse], errResp azfake.ErrorResponder)
+	BeginDeletePacketCore func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, body armmobilenetwork.SiteDeletePacketCore, options *armmobilenetwork.SitesClientBeginDeletePacketCoreOptions) (resp azfake.PollerResponder[armmobilenetwork.SitesClientDeletePacketCoreResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SitesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -46,7 +46,7 @@ type SitesServer struct {
 
 	// UpdateTags is the fake for method SitesClient.UpdateTags
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateTags func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, parameters armmobilenetwork.TagsObject, options *armmobilenetwork.SitesClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.SitesClientUpdateTagsResponse], errResp azfake.ErrorResponder)
+	UpdateTags func(ctx context.Context, resourceGroupName string, mobileNetworkName string, siteName string, properties armmobilenetwork.TagsObject, options *armmobilenetwork.SitesClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.SitesClientUpdateTagsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSitesServerTransport creates a new instance of SitesServerTransport with the provided implementation.
@@ -196,9 +196,9 @@ func (s *SitesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Res
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		s.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		s.beginDelete.remove(req)

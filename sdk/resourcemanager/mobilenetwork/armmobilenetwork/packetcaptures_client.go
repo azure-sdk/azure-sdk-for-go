@@ -46,16 +46,16 @@ func NewPacketCapturesClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreateOrUpdate - Creates or updates a packet capture.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCaptureName - The name of the packet capture session.
-//   - parameters - Parameters supplied to the create or update packet capture operation.
+//   - resource - Parameters supplied to the create or update packet capture operation.
 //   - options - PacketCapturesClientBeginCreateOrUpdateOptions contains the optional parameters for the PacketCapturesClient.BeginCreateOrUpdate
 //     method.
-func (client *PacketCapturesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, parameters PacketCapture, options *PacketCapturesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PacketCapturesClientCreateOrUpdateResponse], error) {
+func (client *PacketCapturesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, resource PacketCapture, options *PacketCapturesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PacketCapturesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, packetCaptureName, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, packetCaptureName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,14 +74,14 @@ func (client *PacketCapturesClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Creates or updates a packet capture.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
-func (client *PacketCapturesClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, parameters PacketCapture, options *PacketCapturesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01
+func (client *PacketCapturesClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, resource PacketCapture, options *PacketCapturesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PacketCapturesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCaptureName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCaptureName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (client *PacketCapturesClient) createOrUpdate(ctx context.Context, resource
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *PacketCapturesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, parameters PacketCapture, options *PacketCapturesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *PacketCapturesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, resource PacketCapture, options *PacketCapturesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/packetCaptures/{packetCaptureName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,10 +120,10 @@ func (client *PacketCapturesClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -132,7 +132,7 @@ func (client *PacketCapturesClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Deletes the specified packet capture.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCaptureName - The name of the packet capture session.
@@ -159,7 +159,7 @@ func (client *PacketCapturesClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Deletes the specified packet capture.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 func (client *PacketCapturesClient) deleteOperation(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, options *PacketCapturesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PacketCapturesClient.BeginDelete"
@@ -174,7 +174,7 @@ func (client *PacketCapturesClient) deleteOperation(ctx context.Context, resourc
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (client *PacketCapturesClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *PacketCapturesClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets information about the specified packet capture session.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCaptureName - The name of the packet capture session.
@@ -265,7 +265,7 @@ func (client *PacketCapturesClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *PacketCapturesClient) getHandleResponse(resp *http.Response) (Pack
 
 // NewListByPacketCoreControlPlanePager - Lists all the packet capture sessions under a packet core control plane.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - options - PacketCapturesClientListByPacketCoreControlPlaneOptions contains the optional parameters for the PacketCapturesClient.NewListByPacketCoreControlPlanePager
@@ -330,7 +330,7 @@ func (client *PacketCapturesClient) listByPacketCoreControlPlaneCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -348,7 +348,7 @@ func (client *PacketCapturesClient) listByPacketCoreControlPlaneHandleResponse(r
 // BeginStop - Stop a packet capture session.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCaptureName - The name of the packet capture session.
@@ -375,7 +375,7 @@ func (client *PacketCapturesClient) BeginStop(ctx context.Context, resourceGroup
 // Stop - Stop a packet capture session.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 func (client *PacketCapturesClient) stop(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, options *PacketCapturesClientBeginStopOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PacketCapturesClient.BeginStop"
@@ -421,7 +421,7 @@ func (client *PacketCapturesClient) stopCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

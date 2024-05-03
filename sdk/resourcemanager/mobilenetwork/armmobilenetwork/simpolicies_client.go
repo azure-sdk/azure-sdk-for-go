@@ -46,16 +46,16 @@ func NewSimPoliciesClient(subscriptionID string, credential azcore.TokenCredenti
 // BeginCreateOrUpdate - Creates or updates a SIM policy. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - simPolicyName - The name of the SIM policy.
-//   - parameters - Parameters supplied to the create or update SIM policy operation.
+//   - resource - Parameters supplied to the create or update SIM policy operation.
 //   - options - SimPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the SimPoliciesClient.BeginCreateOrUpdate
 //     method.
-func (client *SimPoliciesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SimPoliciesClientCreateOrUpdateResponse], error) {
+func (client *SimPoliciesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, resource SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SimPoliciesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, simPolicyName, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, simPolicyName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,14 +74,14 @@ func (client *SimPoliciesClient) BeginCreateOrUpdate(ctx context.Context, resour
 // CreateOrUpdate - Creates or updates a SIM policy. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
-func (client *SimPoliciesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01
+func (client *SimPoliciesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, resource SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SimPoliciesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,12 @@ func (client *SimPoliciesClient) createOrUpdate(ctx context.Context, resourceGro
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *SimPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *SimPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, resource SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/simPolicies/{simPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -111,19 +115,15 @@ func (client *SimPoliciesClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, errors.New("parameter simPolicyName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{simPolicyName}", url.PathEscape(simPolicyName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -132,7 +132,7 @@ func (client *SimPoliciesClient) createOrUpdateCreateRequest(ctx context.Context
 // BeginDelete - Deletes the specified SIM policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - simPolicyName - The name of the SIM policy.
@@ -158,7 +158,7 @@ func (client *SimPoliciesClient) BeginDelete(ctx context.Context, resourceGroupN
 // Delete - Deletes the specified SIM policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 func (client *SimPoliciesClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, options *SimPoliciesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SimPoliciesClient.BeginDelete"
@@ -173,7 +173,7 @@ func (client *SimPoliciesClient) deleteOperation(ctx context.Context, resourceGr
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -183,6 +183,10 @@ func (client *SimPoliciesClient) deleteOperation(ctx context.Context, resourceGr
 // deleteCreateRequest creates the Delete request.
 func (client *SimPoliciesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, options *SimPoliciesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/simPolicies/{simPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -195,16 +199,12 @@ func (client *SimPoliciesClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter simPolicyName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{simPolicyName}", url.PathEscape(simPolicyName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *SimPoliciesClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Gets information about the specified SIM policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - simPolicyName - The name of the SIM policy.
@@ -243,6 +243,10 @@ func (client *SimPoliciesClient) Get(ctx context.Context, resourceGroupName stri
 // getCreateRequest creates the Get request.
 func (client *SimPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, options *SimPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/simPolicies/{simPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -255,16 +259,12 @@ func (client *SimPoliciesClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter simPolicyName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{simPolicyName}", url.PathEscape(simPolicyName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,7 +281,7 @@ func (client *SimPoliciesClient) getHandleResponse(resp *http.Response) (SimPoli
 
 // NewListByMobileNetworkPager - Gets all the SIM policies in a mobile network.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - options - SimPoliciesClientListByMobileNetworkOptions contains the optional parameters for the SimPoliciesClient.NewListByMobileNetworkPager
@@ -312,6 +312,10 @@ func (client *SimPoliciesClient) NewListByMobileNetworkPager(resourceGroupName s
 // listByMobileNetworkCreateRequest creates the ListByMobileNetwork request.
 func (client *SimPoliciesClient) listByMobileNetworkCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, options *SimPoliciesClientListByMobileNetworkOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/simPolicies"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -320,16 +324,12 @@ func (client *SimPoliciesClient) listByMobileNetworkCreateRequest(ctx context.Co
 		return nil, errors.New("parameter mobileNetworkName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{mobileNetworkName}", url.PathEscape(mobileNetworkName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -347,19 +347,19 @@ func (client *SimPoliciesClient) listByMobileNetworkHandleResponse(resp *http.Re
 // UpdateTags - Updates SIM policy tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - simPolicyName - The name of the SIM policy.
-//   - parameters - Parameters supplied to update SIM policy tags.
+//   - properties - Parameters supplied to update SIM policy tags.
 //   - options - SimPoliciesClientUpdateTagsOptions contains the optional parameters for the SimPoliciesClient.UpdateTags method.
-func (client *SimPoliciesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters TagsObject, options *SimPoliciesClientUpdateTagsOptions) (SimPoliciesClientUpdateTagsResponse, error) {
+func (client *SimPoliciesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, properties TagsObject, options *SimPoliciesClientUpdateTagsOptions) (SimPoliciesClientUpdateTagsResponse, error) {
 	var err error
 	const operationName = "SimPoliciesClient.UpdateTags"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, parameters, options)
+	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, properties, options)
 	if err != nil {
 		return SimPoliciesClientUpdateTagsResponse{}, err
 	}
@@ -376,7 +376,7 @@ func (client *SimPoliciesClient) UpdateTags(ctx context.Context, resourceGroupNa
 }
 
 // updateTagsCreateRequest creates the UpdateTags request.
-func (client *SimPoliciesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters TagsObject, options *SimPoliciesClientUpdateTagsOptions) (*policy.Request, error) {
+func (client *SimPoliciesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, properties TagsObject, options *SimPoliciesClientUpdateTagsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/simPolicies/{simPolicyName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -399,10 +399,10 @@ func (client *SimPoliciesClient) updateTagsCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

@@ -47,16 +47,16 @@ func NewPacketCoreDataPlanesClient(subscriptionID string, credential azcore.Toke
 // core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCoreDataPlaneName - The name of the packet core data plane.
-//   - parameters - Parameters supplied to the create or update packet core data plane operation.
+//   - resource - Parameters supplied to the create or update packet core data plane operation.
 //   - options - PacketCoreDataPlanesClientBeginCreateOrUpdateOptions contains the optional parameters for the PacketCoreDataPlanesClient.BeginCreateOrUpdate
 //     method.
-func (client *PacketCoreDataPlanesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PacketCoreDataPlanesClientCreateOrUpdateResponse], error) {
+func (client *PacketCoreDataPlanesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, resource PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PacketCoreDataPlanesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -76,14 +76,14 @@ func (client *PacketCoreDataPlanesClient) BeginCreateOrUpdate(ctx context.Contex
 // core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
-func (client *PacketCoreDataPlanesClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01
+func (client *PacketCoreDataPlanesClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, resource PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PacketCoreDataPlanesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +99,12 @@ func (client *PacketCoreDataPlanesClient) createOrUpdate(ctx context.Context, re
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *PacketCoreDataPlanesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *PacketCoreDataPlanesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, resource PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/packetCoreDataPlanes/{packetCoreDataPlaneName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -113,19 +117,15 @@ func (client *PacketCoreDataPlanesClient) createOrUpdateCreateRequest(ctx contex
 		return nil, errors.New("parameter packetCoreDataPlaneName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{packetCoreDataPlaneName}", url.PathEscape(packetCoreDataPlaneName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -134,7 +134,7 @@ func (client *PacketCoreDataPlanesClient) createOrUpdateCreateRequest(ctx contex
 // BeginDelete - Deletes the specified packet core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCoreDataPlaneName - The name of the packet core data plane.
@@ -161,7 +161,7 @@ func (client *PacketCoreDataPlanesClient) BeginDelete(ctx context.Context, resou
 // Delete - Deletes the specified packet core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 func (client *PacketCoreDataPlanesClient) deleteOperation(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *PacketCoreDataPlanesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PacketCoreDataPlanesClient.BeginDelete"
@@ -176,7 +176,7 @@ func (client *PacketCoreDataPlanesClient) deleteOperation(ctx context.Context, r
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -186,6 +186,10 @@ func (client *PacketCoreDataPlanesClient) deleteOperation(ctx context.Context, r
 // deleteCreateRequest creates the Delete request.
 func (client *PacketCoreDataPlanesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *PacketCoreDataPlanesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/packetCoreDataPlanes/{packetCoreDataPlaneName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -198,16 +202,12 @@ func (client *PacketCoreDataPlanesClient) deleteCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter packetCoreDataPlaneName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{packetCoreDataPlaneName}", url.PathEscape(packetCoreDataPlaneName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -216,7 +216,7 @@ func (client *PacketCoreDataPlanesClient) deleteCreateRequest(ctx context.Contex
 // Get - Gets information about the specified packet core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCoreDataPlaneName - The name of the packet core data plane.
@@ -247,6 +247,10 @@ func (client *PacketCoreDataPlanesClient) Get(ctx context.Context, resourceGroup
 // getCreateRequest creates the Get request.
 func (client *PacketCoreDataPlanesClient) getCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *PacketCoreDataPlanesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/packetCoreDataPlanes/{packetCoreDataPlaneName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -259,16 +263,12 @@ func (client *PacketCoreDataPlanesClient) getCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter packetCoreDataPlaneName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{packetCoreDataPlaneName}", url.PathEscape(packetCoreDataPlaneName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -285,7 +285,7 @@ func (client *PacketCoreDataPlanesClient) getHandleResponse(resp *http.Response)
 
 // NewListByPacketCoreControlPlanePager - Lists all the packet core data planes associated with a packet core control plane.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - options - PacketCoreDataPlanesClientListByPacketCoreControlPlaneOptions contains the optional parameters for the PacketCoreDataPlanesClient.NewListByPacketCoreControlPlanePager
@@ -316,6 +316,10 @@ func (client *PacketCoreDataPlanesClient) NewListByPacketCoreControlPlanePager(r
 // listByPacketCoreControlPlaneCreateRequest creates the ListByPacketCoreControlPlane request.
 func (client *PacketCoreDataPlanesClient) listByPacketCoreControlPlaneCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreDataPlanesClientListByPacketCoreControlPlaneOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/packetCoreDataPlanes"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -324,16 +328,12 @@ func (client *PacketCoreDataPlanesClient) listByPacketCoreControlPlaneCreateRequ
 		return nil, errors.New("parameter packetCoreControlPlaneName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{packetCoreControlPlaneName}", url.PathEscape(packetCoreControlPlaneName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -351,20 +351,20 @@ func (client *PacketCoreDataPlanesClient) listByPacketCoreControlPlaneHandleResp
 // UpdateTags - Updates packet core data planes tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - packetCoreDataPlaneName - The name of the packet core data plane.
-//   - parameters - Parameters supplied to update packet core data plane tags.
+//   - properties - Parameters supplied to update packet core data plane tags.
 //   - options - PacketCoreDataPlanesClientUpdateTagsOptions contains the optional parameters for the PacketCoreDataPlanesClient.UpdateTags
 //     method.
-func (client *PacketCoreDataPlanesClient) UpdateTags(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters TagsObject, options *PacketCoreDataPlanesClientUpdateTagsOptions) (PacketCoreDataPlanesClientUpdateTagsResponse, error) {
+func (client *PacketCoreDataPlanesClient) UpdateTags(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, properties TagsObject, options *PacketCoreDataPlanesClientUpdateTagsOptions) (PacketCoreDataPlanesClientUpdateTagsResponse, error) {
 	var err error
 	const operationName = "PacketCoreDataPlanesClient.UpdateTags"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, parameters, options)
+	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, properties, options)
 	if err != nil {
 		return PacketCoreDataPlanesClientUpdateTagsResponse{}, err
 	}
@@ -381,8 +381,12 @@ func (client *PacketCoreDataPlanesClient) UpdateTags(ctx context.Context, resour
 }
 
 // updateTagsCreateRequest creates the UpdateTags request.
-func (client *PacketCoreDataPlanesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters TagsObject, options *PacketCoreDataPlanesClientUpdateTagsOptions) (*policy.Request, error) {
+func (client *PacketCoreDataPlanesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, properties TagsObject, options *PacketCoreDataPlanesClientUpdateTagsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/packetCoreDataPlanes/{packetCoreDataPlaneName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -395,19 +399,15 @@ func (client *PacketCoreDataPlanesClient) updateTagsCreateRequest(ctx context.Co
 		return nil, errors.New("parameter packetCoreDataPlaneName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{packetCoreDataPlaneName}", url.PathEscape(packetCoreDataPlaneName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

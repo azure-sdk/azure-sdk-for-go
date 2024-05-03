@@ -10,8 +10,22 @@ package armmobilenetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v5.0.0"
 )
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
 
 // AuthenticationType - How to authenticate users who access local diagnostics APIs.
 type AuthenticationType string
@@ -80,7 +94,25 @@ func PossibleCertificateProvisioningStateValues() []CertificateProvisioningState
 	}
 }
 
-// CoreNetworkType - The core network technology generation (5G core, EPC / 4G core or EPC / 4G + 5G core).
+// ClusterType - Cluster Type Definitions
+type ClusterType string
+
+const (
+	// ClusterTypeAks - Azure Kubernetes Service
+	ClusterTypeAks ClusterType = "Aks"
+	// ClusterTypeNexusAks - Azure Operator Nexus Kubernetes Service
+	ClusterTypeNexusAks ClusterType = "NexusAks"
+)
+
+// PossibleClusterTypeValues returns the possible values for the ClusterType const type.
+func PossibleClusterTypeValues() []ClusterType {
+	return []ClusterType{
+		ClusterTypeAks,
+		ClusterTypeNexusAks,
+	}
+}
+
+// CoreNetworkType - The core network technology generation (5G core or EPC / 4G core).
 type CoreNetworkType string
 
 const (
@@ -121,7 +153,7 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DesiredInstallationState - The desired installation state of the packet core.
+// DesiredInstallationState - The desired installation state
 type DesiredInstallationState string
 
 const (
@@ -143,9 +175,13 @@ func PossibleDesiredInstallationStateValues() []DesiredInstallationState {
 type DiagnosticsPackageStatus string
 
 const (
-	DiagnosticsPackageStatusCollected  DiagnosticsPackageStatus = "Collected"
+	// DiagnosticsPackageStatusCollected - Diagnostics package has been collected.
+	DiagnosticsPackageStatusCollected DiagnosticsPackageStatus = "Collected"
+	// DiagnosticsPackageStatusCollecting - Diagnostics package collection is in-progress.
 	DiagnosticsPackageStatusCollecting DiagnosticsPackageStatus = "Collecting"
-	DiagnosticsPackageStatusError      DiagnosticsPackageStatus = "Error"
+	// DiagnosticsPackageStatusError - Error on collecting diagnostics package.
+	DiagnosticsPackageStatusError DiagnosticsPackageStatus = "Error"
+	// DiagnosticsPackageStatusNotStarted - Diagnostics package collection is not started.
 	DiagnosticsPackageStatusNotStarted DiagnosticsPackageStatus = "NotStarted"
 )
 
@@ -272,7 +308,9 @@ func PossibleInstallationStateValues() []InstallationState {
 type ManagedServiceIdentityType string
 
 const (
-	ManagedServiceIdentityTypeNone         ManagedServiceIdentityType = "None"
+	// ManagedServiceIdentityTypeNone - No managed identity is assigned.
+	ManagedServiceIdentityTypeNone ManagedServiceIdentityType = "None"
+	// ManagedServiceIdentityTypeUserAssigned - A managed identity assigned by the user.
 	ManagedServiceIdentityTypeUserAssigned ManagedServiceIdentityType = "UserAssigned"
 )
 
@@ -284,7 +322,28 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
-// NaptEnabled - Whether network address and port translation is enabled.
+// NASEncryptionType - The supported NAS Encryption types.
+type NASEncryptionType string
+
+const (
+	// NASEncryptionTypeNEA0EEA0 - NAS signaling is not encrypted.
+	NASEncryptionTypeNEA0EEA0 NASEncryptionType = "NEA0/EEA0"
+	// NASEncryptionTypeNEA1EEA1 - NAS signaling is encrypted with SNOW 3G cipher.
+	NASEncryptionTypeNEA1EEA1 NASEncryptionType = "NEA1/EEA1"
+	// NASEncryptionTypeNEA2EEA2 - NAS signaling is encrypted with AES cipher.
+	NASEncryptionTypeNEA2EEA2 NASEncryptionType = "NEA2/EEA2"
+)
+
+// PossibleNASEncryptionTypeValues returns the possible values for the NASEncryptionType const type.
+func PossibleNASEncryptionTypeValues() []NASEncryptionType {
+	return []NASEncryptionType{
+		NASEncryptionTypeNEA0EEA0,
+		NASEncryptionTypeNEA1EEA1,
+		NASEncryptionTypeNEA2EEA2,
+	}
+}
+
+// NaptEnabled - Whether NAPT is enabled for connections to this attached data network.
 type NaptEnabled string
 
 const (
@@ -320,14 +379,37 @@ func PossibleObsoleteVersionValues() []ObsoleteVersion {
 	}
 }
 
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
 // PacketCaptureStatus - The status of the packet capture session.
 type PacketCaptureStatus string
 
 const (
-	PacketCaptureStatusError      PacketCaptureStatus = "Error"
+	// PacketCaptureStatusError - Error on packet capture.
+	PacketCaptureStatusError PacketCaptureStatus = "Error"
+	// PacketCaptureStatusNotStarted - Packet capture is not started.
 	PacketCaptureStatusNotStarted PacketCaptureStatus = "NotStarted"
-	PacketCaptureStatusRunning    PacketCaptureStatus = "Running"
-	PacketCaptureStatusStopped    PacketCaptureStatus = "Stopped"
+	// PacketCaptureStatusRunning - Packet capture is in-progress.
+	PacketCaptureStatusRunning PacketCaptureStatus = "Running"
+	// PacketCaptureStatusStopped - Packet capture has been stopped.
+	PacketCaptureStatusStopped PacketCaptureStatus = "Stopped"
 )
 
 // PossiblePacketCaptureStatusValues returns the possible values for the PacketCaptureStatus const type.
@@ -340,10 +422,11 @@ func PossiblePacketCaptureStatusValues() []PacketCaptureStatus {
 	}
 }
 
-// PdnType - Packet Data Network Type
+// PdnType - Packet Data Network Type.
 type PdnType string
 
 const (
+	// PdnTypeIPV4 - Packet Data Network Type IPv4.
 	PdnTypeIPV4 PdnType = "IPV4"
 )
 
@@ -354,11 +437,13 @@ func PossiblePdnTypeValues() []PdnType {
 	}
 }
 
-// PduSessionType - PDU session type (IPv4/IPv6).
+// PduSessionType - The default PDU session type, which is used if the UE does not request a specific session type.
 type PduSessionType string
 
 const (
+	// PduSessionTypeIPv4 - PDU session type IPv4.
 	PduSessionTypeIPv4 PduSessionType = "IPv4"
+	// PduSessionTypeIPv6 - PDU session type IPv6.
 	PduSessionTypeIPv6 PduSessionType = "IPv6"
 )
 
@@ -390,7 +475,9 @@ func PossiblePlatformTypeValues() []PlatformType {
 	}
 }
 
-// PreemptionCapability - Preemption capability.
+// PreemptionCapability - Default QoS Flow preemption capability. The preemption capability of a QoS Flow controls whether
+// it can preempt another QoS Flow with a lower priority level. See 3GPP TS23.501 section 5.7.2.2 for a
+// full description of the ARP parameters.
 type PreemptionCapability string
 
 const (
@@ -408,7 +495,9 @@ func PossiblePreemptionCapabilityValues() []PreemptionCapability {
 	}
 }
 
-// PreemptionVulnerability - Preemption vulnerability.
+// PreemptionVulnerability - Default QoS Flow preemption vulnerability. The preemption vulnerability of a QoS Flow controls
+// whether it can be preempted by a QoS Flow with a higher priority level. See 3GPP TS23.501 section 5.7.2.2
+// for a full description of the ARP parameters.
 type PreemptionVulnerability string
 
 const (
@@ -430,13 +519,24 @@ func PossiblePreemptionVulnerabilityValues() []PreemptionVulnerability {
 type ProvisioningState string
 
 const (
-	ProvisioningStateAccepted  ProvisioningState = "Accepted"
-	ProvisioningStateCanceled  ProvisioningState = "Canceled"
-	ProvisioningStateDeleted   ProvisioningState = "Deleted"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
+	// ProvisioningStateAccepted - Resource has been accepted.
+	ProvisioningStateAccepted ProvisioningState = "Accepted"
+	// ProvisioningStateCanceled - Resource creation was canceled.
+	ProvisioningStateCanceled ProvisioningState = "Canceled"
+	// ProvisioningStateDeleted - Resource has been deleted.
+	ProvisioningStateDeleted ProvisioningState = "Deleted"
+	// ProvisioningStateDeleting - Resource is getting deleted.
+	ProvisioningStateDeleting ProvisioningState = "Deleting"
+	// ProvisioningStateFailed - Resource creation failed.
+	ProvisioningStateFailed ProvisioningState = "Failed"
+	// ProvisioningStateProvisioning - Resource is getting provisioned
+	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
+	// ProvisioningStateSucceeded - Resource has been created.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	ProvisioningStateUnknown   ProvisioningState = "Unknown"
+	// ProvisioningStateUnknown - Resource creation state is unknown.
+	ProvisioningStateUnknown ProvisioningState = "Unknown"
+	// ProvisioningStateUpdating - Resource is updating
+	ProvisioningStateUpdating ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
@@ -447,8 +547,10 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateDeleted,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
+		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUnknown,
+		ProvisioningStateUpdating,
 	}
 }
 
@@ -456,7 +558,9 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 type RatType string
 
 const (
+	// RatTypeFiveG - RAT type 5G.
 	RatTypeFiveG RatType = "5G"
+	// RatTypeFourG - RAT type 4G.
 	RatTypeFourG RatType = "4G"
 )
 
@@ -504,16 +608,22 @@ func PossibleReinstallRequiredValues() []ReinstallRequired {
 	}
 }
 
-// RrcEstablishmentCause - Radio connection establishment cause
+// RrcEstablishmentCause - Radio connection establishment cause.
 type RrcEstablishmentCause string
 
 const (
-	RrcEstablishmentCauseEmergency                 RrcEstablishmentCause = "Emergency"
-	RrcEstablishmentCauseMobileOriginatedData      RrcEstablishmentCause = "MobileOriginatedData"
+	// RrcEstablishmentCauseEmergency - Emergency Cause.
+	RrcEstablishmentCauseEmergency RrcEstablishmentCause = "Emergency"
+	// RrcEstablishmentCauseMobileOriginatedData - Mobile Originated Data.
+	RrcEstablishmentCauseMobileOriginatedData RrcEstablishmentCause = "MobileOriginatedData"
+	// RrcEstablishmentCauseMobileOriginatedSignaling - Mobile Originated Signaling.
 	RrcEstablishmentCauseMobileOriginatedSignaling RrcEstablishmentCause = "MobileOriginatedSignaling"
-	RrcEstablishmentCauseMobileTerminatedData      RrcEstablishmentCause = "MobileTerminatedData"
+	// RrcEstablishmentCauseMobileTerminatedData - Mobile Terminated Data.
+	RrcEstablishmentCauseMobileTerminatedData RrcEstablishmentCause = "MobileTerminatedData"
+	// RrcEstablishmentCauseMobileTerminatedSignaling - Mobile Terminated Signaling.
 	RrcEstablishmentCauseMobileTerminatedSignaling RrcEstablishmentCause = "MobileTerminatedSignaling"
-	RrcEstablishmentCauseSMS                       RrcEstablishmentCause = "SMS"
+	// RrcEstablishmentCauseSMS - Short Message Service.
+	RrcEstablishmentCauseSMS RrcEstablishmentCause = "SMS"
 )
 
 // PossibleRrcEstablishmentCauseValues returns the possible values for the RrcEstablishmentCause const type.
@@ -525,6 +635,24 @@ func PossibleRrcEstablishmentCauseValues() []RrcEstablishmentCause {
 		RrcEstablishmentCauseMobileTerminatedData,
 		RrcEstablishmentCauseMobileTerminatedSignaling,
 		RrcEstablishmentCauseSMS,
+	}
+}
+
+// SKUDeploymentType - Deployment Type Definitions
+type SKUDeploymentType string
+
+const (
+	// SKUDeploymentTypeLab - Lab Deployment
+	SKUDeploymentTypeLab SKUDeploymentType = "Lab"
+	// SKUDeploymentTypeProduction - Production Deployment
+	SKUDeploymentTypeProduction SKUDeploymentType = "Production"
+)
+
+// PossibleSKUDeploymentTypeValues returns the possible values for the SKUDeploymentType const type.
+func PossibleSKUDeploymentTypeValues() []SKUDeploymentType {
+	return []SKUDeploymentType{
+		SKUDeploymentTypeLab,
+		SKUDeploymentTypeProduction,
 	}
 }
 
@@ -622,11 +750,16 @@ func PossibleTrafficControlPermissionValues() []TrafficControlPermission {
 type UeState string
 
 const (
-	UeStateConnected    UeState = "Connected"
+	// UeStateConnected - UE has been connected.
+	UeStateConnected UeState = "Connected"
+	// UeStateDeregistered - UE has been deregistered.
 	UeStateDeregistered UeState = "Deregistered"
-	UeStateDetached     UeState = "Detached"
-	UeStateIdle         UeState = "Idle"
-	UeStateUnknown      UeState = "Unknown"
+	// UeStateDetached - UE has been detached.
+	UeStateDetached UeState = "Detached"
+	// UeStateIdle - UE is idle.
+	UeStateIdle UeState = "Idle"
+	// UeStateUnknown - UE state is unknown.
+	UeStateUnknown UeState = "Unknown"
 )
 
 // PossibleUeStateValues returns the possible values for the UeState const type.
@@ -640,11 +773,13 @@ func PossibleUeStateValues() []UeState {
 	}
 }
 
-// UeUsageSetting - The UE's usage setting
+// UeUsageSetting - The UE's usage setting.
 type UeUsageSetting string
 
 const (
-	UeUsageSettingDataCentric  UeUsageSetting = "DataCentric"
+	// UeUsageSettingDataCentric - Data Centric.
+	UeUsageSettingDataCentric UeUsageSetting = "DataCentric"
+	// UeUsageSettingVoiceCentric - Voice Centric.
 	UeUsageSettingVoiceCentric UeUsageSetting = "VoiceCentric"
 )
 

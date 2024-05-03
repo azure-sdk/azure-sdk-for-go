@@ -20,60 +20,61 @@ import (
 	"strings"
 )
 
-// UeInformationClient contains the methods for the UeInformation group.
-// Don't use this type directly, use NewUeInformationClient() instead.
-type UeInformationClient struct {
+// UesClient contains the methods for the Ues group.
+// Don't use this type directly, use NewUesClient() instead.
+type UesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewUeInformationClient creates a new instance of UeInformationClient with the specified values.
+// NewUesClient creates a new instance of UesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewUeInformationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UeInformationClient, error) {
+func NewUesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &UeInformationClient{
+	client := &UesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List all UEs and their state in a packet core.
+// NewListByPacketCoreControlPlanePager - List all UEs and their state in a packet core.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
-//   - options - UeInformationClientListOptions contains the optional parameters for the UeInformationClient.NewListPager method.
-func (client *UeInformationClient) NewListPager(resourceGroupName string, packetCoreControlPlaneName string, options *UeInformationClientListOptions) *runtime.Pager[UeInformationClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[UeInformationClientListResponse]{
-		More: func(page UeInformationClientListResponse) bool {
+//   - options - UesClientListByPacketCoreControlPlaneOptions contains the optional parameters for the UesClient.NewListByPacketCoreControlPlanePager
+//     method.
+func (client *UesClient) NewListByPacketCoreControlPlanePager(resourceGroupName string, packetCoreControlPlaneName string, options *UesClientListByPacketCoreControlPlaneOptions) *runtime.Pager[UesClientListByPacketCoreControlPlaneResponse] {
+	return runtime.NewPager(runtime.PagingHandler[UesClientListByPacketCoreControlPlaneResponse]{
+		More: func(page UesClientListByPacketCoreControlPlaneResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *UeInformationClientListResponse) (UeInformationClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "UeInformationClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *UesClientListByPacketCoreControlPlaneResponse) (UesClientListByPacketCoreControlPlaneResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "UesClient.NewListByPacketCoreControlPlanePager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, options)
+				return client.listByPacketCoreControlPlaneCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, options)
 			}, nil)
 			if err != nil {
-				return UeInformationClientListResponse{}, err
+				return UesClientListByPacketCoreControlPlaneResponse{}, err
 			}
-			return client.listHandleResponse(resp)
+			return client.listByPacketCoreControlPlaneHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *UeInformationClient) listCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *UeInformationClientListOptions) (*policy.Request, error) {
+// listByPacketCoreControlPlaneCreateRequest creates the ListByPacketCoreControlPlane request.
+func (client *UesClient) listByPacketCoreControlPlaneCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *UesClientListByPacketCoreControlPlaneOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/ues"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -92,17 +93,17 @@ func (client *UeInformationClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *UeInformationClient) listHandleResponse(resp *http.Response) (UeInformationClientListResponse, error) {
-	result := UeInformationClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UeInfoList); err != nil {
-		return UeInformationClientListResponse{}, err
+// listByPacketCoreControlPlaneHandleResponse handles the ListByPacketCoreControlPlane response.
+func (client *UesClient) listByPacketCoreControlPlaneHandleResponse(resp *http.Response) (UesClientListByPacketCoreControlPlaneResponse, error) {
+	result := UesClientListByPacketCoreControlPlaneResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.UeInfoListResult); err != nil {
+		return UesClientListByPacketCoreControlPlaneResponse{}, err
 	}
 	return result, nil
 }

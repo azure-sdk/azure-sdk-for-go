@@ -46,16 +46,16 @@ func NewSlicesClient(subscriptionID string, credential azcore.TokenCredential, o
 // BeginCreateOrUpdate - Creates or updates a network slice. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - sliceName - The name of the network slice.
-//   - parameters - Parameters supplied to the create or update network slice operation.
+//   - resource - Parameters supplied to the create or update network slice operation.
 //   - options - SlicesClientBeginCreateOrUpdateOptions contains the optional parameters for the SlicesClient.BeginCreateOrUpdate
 //     method.
-func (client *SlicesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SlicesClientCreateOrUpdateResponse], error) {
+func (client *SlicesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, resource Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SlicesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, sliceName, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, sliceName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,14 +74,14 @@ func (client *SlicesClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 // CreateOrUpdate - Creates or updates a network slice. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
-func (client *SlicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-06-01
+func (client *SlicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, resource Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SlicesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, parameters, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (client *SlicesClient) createOrUpdate(ctx context.Context, resourceGroupNam
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *SlicesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *SlicesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, resource Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/slices/{sliceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,10 +120,10 @@ func (client *SlicesClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -132,7 +132,7 @@ func (client *SlicesClient) createOrUpdateCreateRequest(ctx context.Context, res
 // BeginDelete - Deletes the specified network slice.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - sliceName - The name of the network slice.
@@ -158,7 +158,7 @@ func (client *SlicesClient) BeginDelete(ctx context.Context, resourceGroupName s
 // Delete - Deletes the specified network slice.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 func (client *SlicesClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, options *SlicesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SlicesClient.BeginDelete"
@@ -173,7 +173,7 @@ func (client *SlicesClient) deleteOperation(ctx context.Context, resourceGroupNa
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (client *SlicesClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *SlicesClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Gets information about the specified network slice.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - sliceName - The name of the network slice.
@@ -264,7 +264,7 @@ func (client *SlicesClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,7 +281,7 @@ func (client *SlicesClient) getHandleResponse(resp *http.Response) (SlicesClient
 
 // NewListByMobileNetworkPager - Lists all slices in the mobile network.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - options - SlicesClientListByMobileNetworkOptions contains the optional parameters for the SlicesClient.NewListByMobileNetworkPager
@@ -329,7 +329,7 @@ func (client *SlicesClient) listByMobileNetworkCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -347,19 +347,19 @@ func (client *SlicesClient) listByMobileNetworkHandleResponse(resp *http.Respons
 // UpdateTags - Updates slice tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mobileNetworkName - The name of the mobile network.
 //   - sliceName - The name of the network slice.
-//   - parameters - Parameters supplied to update network slice tags.
+//   - properties - Parameters supplied to update network slice tags.
 //   - options - SlicesClientUpdateTagsOptions contains the optional parameters for the SlicesClient.UpdateTags method.
-func (client *SlicesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters TagsObject, options *SlicesClientUpdateTagsOptions) (SlicesClientUpdateTagsResponse, error) {
+func (client *SlicesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, properties TagsObject, options *SlicesClientUpdateTagsOptions) (SlicesClientUpdateTagsResponse, error) {
 	var err error
 	const operationName = "SlicesClient.UpdateTags"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, parameters, options)
+	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, properties, options)
 	if err != nil {
 		return SlicesClientUpdateTagsResponse{}, err
 	}
@@ -376,7 +376,7 @@ func (client *SlicesClient) UpdateTags(ctx context.Context, resourceGroupName st
 }
 
 // updateTagsCreateRequest creates the UpdateTags request.
-func (client *SlicesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters TagsObject, options *SlicesClientUpdateTagsOptions) (*policy.Request, error) {
+func (client *SlicesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, properties TagsObject, options *SlicesClientUpdateTagsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/mobileNetworks/{mobileNetworkName}/slices/{sliceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -399,10 +399,10 @@ func (client *SlicesClient) updateTagsCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

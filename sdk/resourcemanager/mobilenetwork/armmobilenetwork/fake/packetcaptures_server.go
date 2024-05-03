@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,10 +26,10 @@ import (
 type PacketCapturesServer struct {
 	// BeginCreateOrUpdate is the fake for method PacketCapturesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, parameters armmobilenetwork.PacketCapture, options *armmobilenetwork.PacketCapturesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.PacketCapturesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, resource armmobilenetwork.PacketCapture, options *armmobilenetwork.PacketCapturesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.PacketCapturesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method PacketCapturesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCaptureName string, options *armmobilenetwork.PacketCapturesClientBeginDeleteOptions) (resp azfake.PollerResponder[armmobilenetwork.PacketCapturesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method PacketCapturesClient.Get
@@ -190,9 +190,9 @@ func (p *PacketCapturesServerTransport) dispatchBeginDelete(req *http.Request) (
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		p.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		p.beginDelete.remove(req)

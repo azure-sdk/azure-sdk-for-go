@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,10 +26,10 @@ import (
 type PacketCoreDataPlanesServer struct {
 	// BeginCreateOrUpdate is the fake for method PacketCoreDataPlanesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters armmobilenetwork.PacketCoreDataPlane, options *armmobilenetwork.PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.PacketCoreDataPlanesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, resource armmobilenetwork.PacketCoreDataPlane, options *armmobilenetwork.PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.PacketCoreDataPlanesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method PacketCoreDataPlanesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *armmobilenetwork.PacketCoreDataPlanesClientBeginDeleteOptions) (resp azfake.PollerResponder[armmobilenetwork.PacketCoreDataPlanesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method PacketCoreDataPlanesClient.Get
@@ -42,7 +42,7 @@ type PacketCoreDataPlanesServer struct {
 
 	// UpdateTags is the fake for method PacketCoreDataPlanesClient.UpdateTags
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateTags func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters armmobilenetwork.TagsObject, options *armmobilenetwork.PacketCoreDataPlanesClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.PacketCoreDataPlanesClientUpdateTagsResponse], errResp azfake.ErrorResponder)
+	UpdateTags func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, properties armmobilenetwork.TagsObject, options *armmobilenetwork.PacketCoreDataPlanesClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.PacketCoreDataPlanesClientUpdateTagsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPacketCoreDataPlanesServerTransport creates a new instance of PacketCoreDataPlanesServerTransport with the provided implementation.
@@ -188,9 +188,9 @@ func (p *PacketCoreDataPlanesServerTransport) dispatchBeginDelete(req *http.Requ
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		p.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		p.beginDelete.remove(req)
