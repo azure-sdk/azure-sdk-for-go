@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos/v3"
 	"net/http"
 	"net/url"
@@ -444,6 +445,9 @@ func (d *DatabaseAccountsServerTransport) dispatchNewListPager(req *http.Request
 		resp := d.srv.NewListPager(nil)
 		newListPager = &resp
 		d.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armcosmos.DatabaseAccountsClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {
@@ -478,6 +482,9 @@ func (d *DatabaseAccountsServerTransport) dispatchNewListByResourceGroupPager(re
 		resp := d.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
 		newListByResourceGroupPager = &resp
 		d.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
+		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armcosmos.DatabaseAccountsClientListByResourceGroupResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
 	if err != nil {
