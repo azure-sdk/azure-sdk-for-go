@@ -19,28 +19,76 @@ type Ambr struct {
 	Uplink *string
 }
 
-// AmfID - AMF identifier
-type AmfID struct {
-	// REQUIRED; AMF pointer
-	Pointer *int32
+// AmfDeploymentResource - Azure for Operators 5G Core Access and Mobility Function (AMF) Deployment Resource
+type AmfDeploymentResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
 
-	// REQUIRED; AMF region identifier
-	RegionID *int32
+	// The resource-specific properties for this resource.
+	Properties *AmfDeploymentResourceProperties
 
-	// REQUIRED; AMF set identifier
-	SetID *int32
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
-// Arp - Allocation and Retention Priority (ARP) parameters.
-type Arp struct {
-	// REQUIRED; ARP preemption capability.
-	PreemptCap *PreemptionCapability
+// AmfDeploymentResourceListResult - The response of a AmfDeploymentResource list operation.
+type AmfDeploymentResourceListResult struct {
+	// REQUIRED; The AmfDeploymentResource items on this page
+	Value []*AmfDeploymentResource
 
-	// REQUIRED; ARP preemption vulnerability
-	PreemptVuln *PreemptionVulnerability
+	// The link to the next page of items
+	NextLink *string
+}
 
-	// REQUIRED; ARP priority level.
-	PriorityLevel *int32
+// AmfDeploymentResourceProperties - AMF Deployment Properties.
+type AmfDeploymentResourceProperties struct {
+	// REQUIRED; Reference to cluster where the Network Function is deployed
+	ClusterService *string
+
+	// Azure for Operators 5G Core AMF component parameters
+	ComponentParameters *string
+
+	// Azure for Operators 5G Core AMF secrets parameters
+	SecretsParameters *string
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Release version. This is inherited from the cluster
+	ReleaseVersion *string
+}
+
+// AmfDeploymentResourceTagsUpdate - The type used for updating tags in AmfDeploymentResource resources.
+type AmfDeploymentResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// AmfID - AMF identifier.
+type AmfID struct {
+	// REQUIRED; AMF pointer.
+	Pointer *int32
+
+	// REQUIRED; AMF region identifier.
+	RegionID *int32
+
+	// REQUIRED; AMF set identifier.
+	SetID *int32
 }
 
 // AsyncOperationID - Reference to an Azure Async Operation ID.
@@ -85,7 +133,7 @@ type AttachedDataNetwork struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Attached data network properties.
+	// The resource-specific properties for this resource.
 	Properties *AttachedDataNetworkPropertiesFormat
 
 	// Resource tags.
@@ -104,12 +152,12 @@ type AttachedDataNetwork struct {
 	Type *string
 }
 
-// AttachedDataNetworkListResult - Response for attached data network API service call.
+// AttachedDataNetworkListResult - The response of a AttachedDataNetwork list operation.
 type AttachedDataNetworkListResult struct {
-	// A list of data networks in a resource group.
+	// REQUIRED; The AttachedDataNetwork items on this page
 	Value []*AttachedDataNetwork
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -172,6 +220,118 @@ type CertificateProvisioning struct {
 	State *CertificateProvisioningState
 }
 
+// ClusterServiceAksClusterData - AKS Cluster specific data.
+type ClusterServiceAksClusterData struct {
+	// REQUIRED; Custom Location resource ID
+	CustomLocationID *string
+
+	// REQUIRED; Cluster Type
+	Type *ClusterType
+}
+
+// GetClusterServiceClusterTypeSpecificData implements the ClusterServiceClusterTypeSpecificDataClassification interface for
+// type ClusterServiceAksClusterData.
+func (c *ClusterServiceAksClusterData) GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData {
+	return &ClusterServiceClusterTypeSpecificData{
+		CustomLocationID: c.CustomLocationID,
+		Type:             c.Type,
+	}
+}
+
+// ClusterServiceClusterTypeSpecificData - Cluster Service cluster type specific data.
+type ClusterServiceClusterTypeSpecificData struct {
+	// REQUIRED; Custom Location resource ID
+	CustomLocationID *string
+
+	// REQUIRED; Cluster Type
+	Type *ClusterType
+}
+
+// GetClusterServiceClusterTypeSpecificData implements the ClusterServiceClusterTypeSpecificDataClassification interface for
+// type ClusterServiceClusterTypeSpecificData.
+func (c *ClusterServiceClusterTypeSpecificData) GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData {
+	return c
+}
+
+// ClusterServiceNexusAksClusterData - Nexus AKS Cluster specific data.
+type ClusterServiceNexusAksClusterData struct {
+	// REQUIRED; Custom Location resource ID
+	CustomLocationID *string
+
+	// REQUIRED; Cluster Type
+	Type *ClusterType
+}
+
+// GetClusterServiceClusterTypeSpecificData implements the ClusterServiceClusterTypeSpecificDataClassification interface for
+// type ClusterServiceNexusAksClusterData.
+func (c *ClusterServiceNexusAksClusterData) GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData {
+	return &ClusterServiceClusterTypeSpecificData{
+		CustomLocationID: c.CustomLocationID,
+		Type:             c.Type,
+	}
+}
+
+// ClusterServiceResource - Azure for Operators 5G Core Cluster Service Resource
+type ClusterServiceResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *ClusterServiceResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ClusterServiceResourceListResult - The response of a ClusterServiceResource list operation.
+type ClusterServiceResourceListResult struct {
+	// REQUIRED; The ClusterServiceResource items on this page
+	Value []*ClusterServiceResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ClusterServiceResourceProperties - Cluster Service Properties.
+type ClusterServiceResourceProperties struct {
+	// REQUIRED; Cluster type specific data. Contents depend on the cluster type
+	ClusterTypeSpecificData ClusterServiceClusterTypeSpecificDataClassification
+
+	// REQUIRED; Azure for Operators 5G Core Local PaaS component parameters. One set per component type
+	ComponentParameters []*QualifiedComponentDeploymentParameters
+
+	// REQUIRED; Cluster type (Lab or Production)
+	DeploymentType *SKUDeploymentType
+
+	// REQUIRED; Azure for Operators 5G Core Release Version. This is applied to all platform as a service (PaaS) components and
+	// running workloads in this cluster
+	ReleaseVersion *string
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// ClusterServiceResourceTagsUpdate - The type used for updating tags in ClusterServiceResource resources.
+type ClusterServiceResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
 // CommonSimPropertiesFormat - Common SIM properties.
 type CommonSimPropertiesFormat struct {
 	// REQUIRED; The international mobile subscriber identity (IMSI) for the SIM.
@@ -210,7 +370,7 @@ type CommonSimPropertiesFormat struct {
 
 // ConnectedClusterResourceID - Reference to an Azure Arc custom location resource.
 type ConnectedClusterResourceID struct {
-	// REQUIRED; Azure Arc connected cluster resource ID.
+	// REQUIRED; Azure Arc custom location resource ID.
 	ID *string
 }
 
@@ -225,7 +385,7 @@ type DataNetwork struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// Data network properties.
+	// The resource-specific properties for this resource.
 	Properties *DataNetworkPropertiesFormat
 
 	// Resource tags.
@@ -291,12 +451,12 @@ type DataNetworkConfiguration struct {
 	PreemptionVulnerability *PreemptionVulnerability
 }
 
-// DataNetworkListResult - Response for data network API service call.
+// DataNetworkListResult - The response of a DataNetwork list operation.
 type DataNetworkListResult struct {
-	// A list of data networks.
+	// REQUIRED; The DataNetwork items on this page
 	Value []*DataNetwork
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -317,8 +477,7 @@ type DataNetworkResourceID struct {
 
 // DiagnosticsPackage - Diagnostics package resource.
 type DiagnosticsPackage struct {
-	// REQUIRED; Diagnostics package properties. A diagnostics package file derived from the name of this resource will be uploaded
-	// to the Storage Account Container URL in the packet core control plane properties
+	// The resource-specific properties for this resource.
 	Properties *DiagnosticsPackagePropertiesFormat
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -334,12 +493,12 @@ type DiagnosticsPackage struct {
 	Type *string
 }
 
-// DiagnosticsPackageListResult - Response for diagnostics package API service call.
+// DiagnosticsPackageListResult - The response of a DiagnosticsPackage list operation.
 type DiagnosticsPackageListResult struct {
-	// A list of diagnostics packages under a packet core control plane.
+	// REQUIRED; The DiagnosticsPackage items on this page
 	Value []*DiagnosticsPackage
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -476,7 +635,7 @@ type EventHubConfiguration struct {
 
 // ExtendedUeInfo - Extended User Equipment (UE) information.
 type ExtendedUeInfo struct {
-	// REQUIRED; Extended UE Information Properties.
+	// The resource-specific properties for this resource.
 	Properties ExtendedUeInfoPropertiesClassification
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -504,64 +663,63 @@ type ExtendedUeInfoProperties struct {
 // GetExtendedUeInfoProperties implements the ExtendedUeInfoPropertiesClassification interface for type ExtendedUeInfoProperties.
 func (e *ExtendedUeInfoProperties) GetExtendedUeInfoProperties() *ExtendedUeInfoProperties { return e }
 
-// GNbID - gNodeB identifier
+// GNbID - gNodeB identifier.
 type GNbID struct {
+	// Bit length.
 	BitLength *int32
-	GNBValue  *string
+
+	// gNodeB value.
+	GNBValue *string
 }
 
-// GlobalRanNodeID - Global RAN Node ID
+// GlobalRanNodeID - Global RAN Node ID.
 type GlobalRanNodeID struct {
-	// REQUIRED; PLMN Identifier
+	// REQUIRED; PLMN Identifier.
 	PlmnID *PlmnID
 
-	// eNodeB identifier
+	// eNodeB identifier.
 	ENbID *string
 
-	// gNodeB identifier
+	// gNodeB identifier.
 	GNbID *GNbID
 
-	// N3 IWF identifier
+	// N3 IWF identifier.
 	N3IwfID *string
 
-	// NG-eNodeB identifier
+	// NG-eNodeB identifier.
 	NgeNbID *string
 
-	// Network identifier
+	// Network identifier.
 	Nid *string
 
-	// TNGF identifier
+	// TNGF identifier.
 	TngfID *string
 
-	// W-AGF identifier
+	// W-AGF identifier.
 	WagfID *string
 }
 
-// Guti4G - Globally Unique Temporary Identifier (4G)
+// Guti4G - Globally Unique Temporary Identifier (4G).
 type Guti4G struct {
-	// REQUIRED; MME Temporary Mobile Subscriber Identity
+	// REQUIRED; MME Temporary Mobile Subscriber Identity.
 	MTmsi *int32
 
-	// REQUIRED; MME identifier
+	// REQUIRED; MME identifier.
 	MmeID *MmeID
 
-	// REQUIRED; Public land mobile network (PLMN) ID. This is made up of the mobile country code and mobile network code, as
-	// defined in https://www.itu.int/rec/T-REC-E.212. The values 001-01 and 001-001 can be used
-	// for testing and the values 999-99 and 999-999 can be used on internal private networks.
+	// REQUIRED; PLMN Identifier.
 	Plmn *PlmnID
 }
 
-// Guti5G - 5G GUTI
+// Guti5G - Globally Unique Temporary Identifier (5G).
 type Guti5G struct {
-	// REQUIRED; AMF identifier
+	// REQUIRED; AMF identifier.
 	AmfID *AmfID
 
-	// REQUIRED; 5G Temporary Mobile Subscriber Identity
+	// REQUIRED; 5G Temporary Mobile Subscriber Identity.
 	FivegTmsi *int32
 
-	// REQUIRED; Public land mobile network (PLMN) ID. This is made up of the mobile country code and mobile network code, as
-	// defined in https://www.itu.int/rec/T-REC-E.212. The values 001-01 and 001-001 can be used
-	// for testing and the values 999-99 and 999-999 can be used on internal private networks.
+	// REQUIRED; PLMN Identifier.
 	Plmn *PlmnID
 }
 
@@ -574,6 +732,7 @@ type HTTPSServerCertificate struct {
 	Provisioning *CertificateProvisioning
 }
 
+// HomeNetworkPrivateKeysProvisioning - Home network private keys provisioning state.
 type HomeNetworkPrivateKeysProvisioning struct {
 	// READ-ONLY; The provisioning state of the private keys for SUPI concealment.
 	State *HomeNetworkPrivateKeysProvisioningState
@@ -587,6 +746,24 @@ type HomeNetworkPublicKey struct {
 
 	// The URL of Azure Key Vault secret containing the private key, versioned or unversioned. For example: https://contosovault.vault.azure.net/secrets/mySuciPrivateKey/562a4bb76b524a1493a6afe8e536ee78.
 	URL *string
+}
+
+// IPv4Route - An IPv4 route.
+type IPv4Route struct {
+	// The destination IPv4 prefix.
+	Destination *string
+
+	// A list of next hops for the destination.
+	NextHops []*IPv4RouteNextHop
+}
+
+// IPv4RouteNextHop - The next hop in an IPv4 route.
+type IPv4RouteNextHop struct {
+	// The next hop address.
+	Address *string
+
+	// The priority of this next hop. Next hops with lower preference values are preferred.
+	Priority *int32
 }
 
 // IdentityAndTagsObject - Identity and Tags object for patch operations.
@@ -618,8 +795,14 @@ type Installation struct {
 
 // InterfaceProperties - Interface properties
 type InterfaceProperties struct {
+	// The IPv4 addresses of the endpoints to send BFD probes to.
+	BfdIPv4Endpoints []*string
+
 	// The IPv4 address.
 	IPv4Address *string
+
+	// The list of IPv4 addresses, for a multi-node system.
+	IPv4AddressList []*string
 
 	// The default IPv4 gateway (router).
 	IPv4Gateway *string
@@ -629,6 +812,9 @@ type InterfaceProperties struct {
 
 	// The logical name for this interface. This should match one of the interfaces configured on your Azure Stack Edge device.
 	Name *string
+
+	// VLAN identifier of the network interface. Example: 501.
+	VlanID *int32
 }
 
 // KeyVaultKey - An Azure key vault key.
@@ -637,12 +823,12 @@ type KeyVaultKey struct {
 	KeyURL *string
 }
 
-// ListResult - Response for mobile networks API service call.
+// ListResult - The response of a MobileNetwork list operation.
 type ListResult struct {
-	// A list of mobile networks in a resource group.
+	// REQUIRED; The MobileNetwork items on this page
 	Value []*MobileNetwork
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -656,7 +842,7 @@ type LocalDiagnosticsAccessConfiguration struct {
 	HTTPSServerCertificate *HTTPSServerCertificate
 }
 
-// ManagedServiceIdentity - Managed service identity (User assigned identity)
+// ManagedServiceIdentity - Managed service identity (User assigned identity).
 type ManagedServiceIdentity struct {
 	// REQUIRED; Type of managed service identity (currently only UserAssigned allowed).
 	Type *ManagedServiceIdentityType
@@ -669,12 +855,12 @@ type ManagedServiceIdentity struct {
 	UserAssignedIdentities map[string]*UserAssignedIdentity
 }
 
-// MmeID - MME identifier
+// MmeID - MME identifier.
 type MmeID struct {
-	// REQUIRED; MME code
+	// REQUIRED; MME code.
 	Code *int32
 
-	// REQUIRED; MME group identifier
+	// REQUIRED; MME group identifier.
 	GroupID *int32
 }
 
@@ -683,11 +869,11 @@ type MobileNetwork struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Mobile network properties.
-	Properties *PropertiesFormat
-
 	// The identity used to retrieve any private keys used for SUPI concealment from Azure key vault.
 	Identity *ManagedServiceIdentity
+
+	// The resource-specific properties for this resource.
+	Properties *PropertiesFormat
 
 	// Resource tags.
 	Tags map[string]*string
@@ -733,46 +919,244 @@ type NaptConfiguration struct {
 	PortReuseHoldTime *PortReuseHoldTimes
 }
 
-// Operation - Object that describes a single Microsoft.MobileNetwork operation.
-type Operation struct {
-	// Indicates whether the operation applies to data-plane.
-	IsDataAction *bool
+// NrfDeploymentResource - Azure for Operators 5G Core Network Repository Function (NRF) Deployment Resource
+type NrfDeploymentResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
 
-	// READ-ONLY; The object that represents the operation.
-	Display *OperationDisplay
+	// The resource-specific properties for this resource.
+	Properties *NrfDeploymentResourceProperties
 
-	// READ-ONLY; Operation name: {provider}/{resource}/{operation}
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
-// OperationDisplay - The object that represents the operation.
+// NrfDeploymentResourceListResult - The response of a NrfDeploymentResource list operation.
+type NrfDeploymentResourceListResult struct {
+	// REQUIRED; The NrfDeploymentResource items on this page
+	Value []*NrfDeploymentResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// NrfDeploymentResourceProperties - NRF Deployment Properties.
+type NrfDeploymentResourceProperties struct {
+	// REQUIRED; Reference to cluster where the Network Function is deployed
+	ClusterService *string
+
+	// Azure for Operators 5G Core NRF component parameters
+	ComponentParameters *string
+
+	// Azure for Operators 5G Core NRF secrets parameters
+	SecretsParameters *string
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Release version. This is inherited from the cluster
+	ReleaseVersion *string
+}
+
+// NrfDeploymentResourceTagsUpdate - The type used for updating tags in NrfDeploymentResource resources.
+type NrfDeploymentResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// NssfDeploymentResource - Azure for Operators 5G Core Network Slice Selection Function (NSSF) Deployment Resource
+type NssfDeploymentResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *NssfDeploymentResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// NssfDeploymentResourceListResult - The response of a NssfDeploymentResource list operation.
+type NssfDeploymentResourceListResult struct {
+	// REQUIRED; The NssfDeploymentResource items on this page
+	Value []*NssfDeploymentResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// NssfDeploymentResourceProperties - NSSF Deployment Properties.
+type NssfDeploymentResourceProperties struct {
+	// REQUIRED; Reference to cluster where the Network Function is deployed
+	ClusterService *string
+
+	// Azure for Operators 5G Core NSSF component parameters
+	ComponentParameters *string
+
+	// Azure for Operators 5G Core NSSF secrets parameters
+	SecretsParameters *string
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Release version. This is inherited from the cluster
+	ReleaseVersion *string
+}
+
+// NssfDeploymentResourceTagsUpdate - The type used for updating tags in NssfDeploymentResource resources.
+type NssfDeploymentResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// ObservabilityServiceResource - Azure for Operators 5G Core Observability Service Resource
+type ObservabilityServiceResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *ObservabilityServiceResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ObservabilityServiceResourceListResult - The response of a ObservabilityServiceResource list operation.
+type ObservabilityServiceResourceListResult struct {
+	// REQUIRED; The ObservabilityServiceResource items on this page
+	Value []*ObservabilityServiceResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ObservabilityServiceResourceProperties - Observability Service Properties.
+type ObservabilityServiceResourceProperties struct {
+	// REQUIRED; Reference to cluster where the observability components are deployed
+	ClusterService *string
+
+	// REQUIRED; Azure for Operators 5G Core Observability component parameters. One set per component type
+	ComponentParameters []*QualifiedComponentDeploymentParameters
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Release version. This is inherited from the cluster
+	ReleaseVersion *string
+}
+
+// ObservabilityServiceResourceTagsUpdate - The type used for updating tags in ObservabilityServiceResource resources.
+type ObservabilityServiceResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+type Operation struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
+
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
+	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
+}
+
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// Description of the operation.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// Operation type: Read, write, delete, etc.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// Service provider: Microsoft.MobileNetwork
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// Resource on which the operation is performed: Registration definition, registration assignment etc.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationList - List of the operations.
-type OperationList struct {
-	// READ-ONLY; The URL to get the next set of results.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
 	NextLink *string
 
-	// READ-ONLY; List of Microsoft.MobileNetwork operations.
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
+}
+
+// OperationalStatus - Operational Status of the resource
+type OperationalStatus struct {
+	// READ-ONLY; Health check results
+	HealthCheck *string
+
+	// READ-ONLY; Status of the deployed workload
+	Workload *string
 }
 
 // PacketCapture - Packet capture session resource.
 type PacketCapture struct {
-	// REQUIRED; Packet capture session properties. Packet capture file(s) derived from the name of this session will be uploaded
-	// to the Storage Account Container URL in the packet core control plane properties
+	// The resource-specific properties for this resource.
 	Properties *PacketCapturePropertiesFormat
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -788,12 +1172,12 @@ type PacketCapture struct {
 	Type *string
 }
 
-// PacketCaptureListResult - Response for packet capture API service call.
+// PacketCaptureListResult - The response of a PacketCapture list operation.
 type PacketCaptureListResult struct {
-	// A list of packet capture sessions under a packet core control plane.
+	// REQUIRED; The PacketCapture items on this page
 	Value []*PacketCapture
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -832,11 +1216,11 @@ type PacketCoreControlPlane struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Packet core control plane Properties.
-	Properties *PacketCoreControlPlanePropertiesFormat
-
 	// The identity used to retrieve the ingress certificate from Azure key vault.
 	Identity *ManagedServiceIdentity
+
+	// The resource-specific properties for this resource.
+	Properties *PacketCoreControlPlanePropertiesFormat
 
 	// Resource tags.
 	Tags map[string]*string
@@ -860,12 +1244,12 @@ type PacketCoreControlPlaneCollectDiagnosticsPackage struct {
 	StorageAccountBlobURL *string
 }
 
-// PacketCoreControlPlaneListResult - Response for packet core control planes API service call.
+// PacketCoreControlPlaneListResult - The response of a PacketCoreControlPlane list operation.
 type PacketCoreControlPlaneListResult struct {
-	// A list of packet core control planes in a resource group.
+	// REQUIRED; The PacketCoreControlPlane items on this page
 	Value []*PacketCoreControlPlane
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -917,6 +1301,9 @@ type PacketCoreControlPlanePropertiesFormat struct {
 	// value to allow for GTP encapsulation.
 	UeMtu *int32
 
+	// The user consent configuration for the packet core.
+	UserConsent *UserConsentConfiguration
+
 	// The desired version of the packet core software.
 	Version *string
 
@@ -941,7 +1328,7 @@ type PacketCoreControlPlaneResourceID struct {
 
 // PacketCoreControlPlaneVersion - Packet core control plane version resource.
 type PacketCoreControlPlaneVersion struct {
-	// REQUIRED; Packet core control plane version properties.
+	// The resource-specific properties for this resource.
 	Properties *PacketCoreControlPlaneVersionPropertiesFormat
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -957,12 +1344,12 @@ type PacketCoreControlPlaneVersion struct {
 	Type *string
 }
 
-// PacketCoreControlPlaneVersionListResult - Response for packet core control plane version API service call.
+// PacketCoreControlPlaneVersionListResult - The response of a PacketCoreControlPlaneVersion list operation.
 type PacketCoreControlPlaneVersionListResult struct {
-	// A list of supported packet core control plane versions.
+	// REQUIRED; The PacketCoreControlPlaneVersion items on this page
 	Value []*PacketCoreControlPlaneVersion
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -981,7 +1368,7 @@ type PacketCoreDataPlane struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Packet core data plane Properties.
+	// The resource-specific properties for this resource.
 	Properties *PacketCoreDataPlanePropertiesFormat
 
 	// Resource tags.
@@ -1000,12 +1387,12 @@ type PacketCoreDataPlane struct {
 	Type *string
 }
 
-// PacketCoreDataPlaneListResult - Response for packet core data planes API service call.
+// PacketCoreDataPlaneListResult - The response of a PacketCoreDataPlane list operation.
 type PacketCoreDataPlaneListResult struct {
-	// A list of packet core data planes in a resource group.
+	// REQUIRED; The PacketCoreDataPlane items on this page
 	Value []*PacketCoreDataPlane
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1093,6 +1480,9 @@ type PinholeTimeouts struct {
 
 // Platform specific packet core control plane version properties.
 type Platform struct {
+	// The list of versions to which a high availability upgrade from this version is supported.
+	HaUpgradesAvailable []*string
+
 	// The maximum software version of the platform where this packet core version can be deployed.
 	MaximumPlatformSoftwareVersion *string
 
@@ -1254,6 +1644,18 @@ type QosPolicy struct {
 	PreemptionVulnerability *PreemptionVulnerability
 }
 
+// QualifiedComponentDeploymentParameters - Containerized Network Function (CNF) Qualified Deployment Parameters
+type QualifiedComponentDeploymentParameters struct {
+	// REQUIRED; Component Type
+	Type *string
+
+	// Deployment Parameters
+	Parameters *string
+
+	// Deployment secrets
+	Secrets *string
+}
+
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -1275,12 +1677,51 @@ type ResourceID struct {
 	ID *string
 }
 
+// RoutingInfoModel - Routing information
+type RoutingInfoModel struct {
+	// The resource-specific properties for this resource.
+	Properties *RoutingInfoPropertiesFormat
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RoutingInfoModelListResult - The response of a RoutingInfoModel list operation.
+type RoutingInfoModelListResult struct {
+	// REQUIRED; The RoutingInfoModel items on this page
+	Value []*RoutingInfoModel
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// RoutingInfoPropertiesFormat - Routing information properties
+type RoutingInfoPropertiesFormat struct {
+	// A list of IPv4 control plane access routes.
+	ControlPlaneAccessRoutes []*IPv4Route
+
+	// A list of IPv4 user plane access routes.
+	UserPlaneAccessRoutes []*IPv4Route
+
+	// A list of attached data networks and their IPv4 routes.
+	UserPlaneDataRoutes []*UserPlaneDataRoutesItem
+}
+
 // Service resource. Must be created in the same location as its parent mobile network.
 type Service struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Service Properties.
+	// The resource-specific properties for this resource.
 	Properties *ServicePropertiesFormat
 
 	// Resource tags.
@@ -1328,12 +1769,12 @@ type ServiceDataFlowTemplate struct {
 	Ports []*string
 }
 
-// ServiceListResult - Response for services API service call.
+// ServiceListResult - The response of a Service list operation.
 type ServiceListResult struct {
-	// A list of services.
+	// REQUIRED; The Service items on this page
 	Value []*Service
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1364,13 +1805,18 @@ type ServiceResourceID struct {
 
 // SignalingConfiguration - Signaling configuration for the packet core.
 type SignalingConfiguration struct {
+	// An ordered list of NAS encryption algorithms, used to encrypt control plane traffic between the UE and packet core, in
+	// order from most to least preferred. If not specified, the packet core will use a
+	// built-in default ordering.
+	NasEncryption []*NASEncryptionType
+
 	// Configuration enabling 4G NAS reroute.
 	NasReroute *NASRerouteConfiguration
 }
 
 // Sim - SIM resource.
 type Sim struct {
-	// REQUIRED; SIM Properties.
+	// The resource-specific properties for this resource.
 	Properties *SimPropertiesFormat
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -1386,9 +1832,18 @@ type Sim struct {
 	Type *string
 }
 
+// SimClone - The SIMs to clone.
+type SimClone struct {
+	// A list of SIM resource names to be cloned.
+	Sims []*string
+
+	// The SIM Group where the SIMs should be cloned.
+	TargetSimGroupID *SimGroupResourceID
+}
+
 // SimDeleteList - The SIMs to delete.
 type SimDeleteList struct {
-	// REQUIRED; A list of SIM resource names to delete.
+	// A list of SIM resource names to delete.
 	Sims []*string
 }
 
@@ -1397,11 +1852,11 @@ type SimGroup struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; SIM group Properties.
-	Properties *SimGroupPropertiesFormat
-
 	// The identity used to retrieve the encryption key from Azure key vault.
 	Identity *ManagedServiceIdentity
+
+	// The resource-specific properties for this resource.
+	Properties *SimGroupPropertiesFormat
 
 	// Resource tags.
 	Tags map[string]*string
@@ -1419,12 +1874,12 @@ type SimGroup struct {
 	Type *string
 }
 
-// SimGroupListResult - Response for list SIM groups API service call.
+// SimGroupListResult - The response of a SimGroup list operation.
 type SimGroupListResult struct {
-	// A list of SIM groups in a resource group.
+	// REQUIRED; The SimGroup items on this page
 	Value []*SimGroup
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1446,13 +1901,22 @@ type SimGroupResourceID struct {
 	ID *string
 }
 
-// SimListResult - Response for list SIMs API service call.
+// SimListResult - The response of a Sim list operation.
 type SimListResult struct {
-	// A list of SIMs in a resource group.
+	// REQUIRED; The Sim items on this page
 	Value []*Sim
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
+}
+
+// SimMove - The SIMs to move.
+type SimMove struct {
+	// A list of SIM resource names to be moved.
+	Sims []*string
+
+	// The SIM Group where the SIMs should be moved.
+	TargetSimGroupID *SimGroupResourceID
 }
 
 // SimNameAndEncryptedProperties - SIM name and encrypted properties.
@@ -1478,7 +1942,7 @@ type SimPolicy struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; SIM policy Properties.
+	// The resource-specific properties for this resource.
 	Properties *SimPolicyPropertiesFormat
 
 	// Resource tags.
@@ -1497,12 +1961,12 @@ type SimPolicy struct {
 	Type *string
 }
 
-// SimPolicyListResult - Response for SIM policies API service call.
+// SimPolicyListResult - The response of a SimPolicy list operation.
 type SimPolicyListResult struct {
-	// A list of SIM policies.
+	// REQUIRED; The SimPolicy items on this page
 	Value []*SimPolicy
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1615,7 +2079,7 @@ type Site struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// Site properties.
+	// The resource-specific properties for this resource.
 	Properties *SitePropertiesFormat
 
 	// Resource tags.
@@ -1640,12 +2104,12 @@ type SiteDeletePacketCore struct {
 	PacketCore *PacketCoreControlPlaneResourceID
 }
 
-// SiteListResult - Response for sites API service call.
+// SiteListResult - The response of a Site list operation.
 type SiteListResult struct {
-	// A list of sites in a mobile network.
+	// REQUIRED; The Site items on this page
 	Value []*Site
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1670,7 +2134,7 @@ type Slice struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// REQUIRED; Slice properties.
+	// The resource-specific properties for this resource.
 	Properties *SlicePropertiesFormat
 
 	// Resource tags.
@@ -1704,12 +2168,12 @@ type SliceConfiguration struct {
 	Slice *SliceResourceID
 }
 
-// SliceListResult - Response for network slice API service call.
+// SliceListResult - The response of a Slice list operation.
 type SliceListResult struct {
-	// A list of network slices in a mobile network.
+	// REQUIRED; The Slice items on this page
 	Value []*Slice
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1729,6 +2193,66 @@ type SlicePropertiesFormat struct {
 type SliceResourceID struct {
 	// REQUIRED; Slice resource ID.
 	ID *string
+}
+
+// SmfDeploymentResource - Azure for Operators 5G Core Session Management Function (SMF) Deployment Resource
+type SmfDeploymentResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *SmfDeploymentResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SmfDeploymentResourceListResult - The response of a SmfDeploymentResource list operation.
+type SmfDeploymentResourceListResult struct {
+	// REQUIRED; The SmfDeploymentResource items on this page
+	Value []*SmfDeploymentResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SmfDeploymentResourceProperties - SMF Deployment Properties.
+type SmfDeploymentResourceProperties struct {
+	// REQUIRED; Reference to cluster where the Network Function is deployed
+	ClusterService *string
+
+	// Azure for Operators 5G Core SMF component parameters
+	ComponentParameters *string
+
+	// Azure for Operators 5G Core SMF secrets parameters
+	SecretsParameters *string
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Release version. This is inherited from the cluster
+	ReleaseVersion *string
+}
+
+// SmfDeploymentResourceTagsUpdate - The type used for updating tags in SmfDeploymentResource resources.
+type SmfDeploymentResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
 }
 
 // Snssai - Single-network slice selection assistance information (S-NSSAI).
@@ -1795,18 +2319,18 @@ type TrackedResource struct {
 	Type *string
 }
 
-// UeConnectionInfo4G - UE Connection Info for 4G
+// UeConnectionInfo4G - UE Connection Info for 4G.
 type UeConnectionInfo4G struct {
-	// REQUIRED; eNodeB S1AP identifier
+	// REQUIRED; eNodeB S1AP identifier.
 	EnbS1ApID *int32
 
-	// REQUIRED; Global RAN Node ID
+	// REQUIRED; Global RAN Node ID.
 	GlobalRanNodeID *GlobalRanNodeID
 
-	// REQUIRED; MME S1AP identifier
+	// REQUIRED; MME S1AP identifier.
 	MmeS1ApID *int32
 
-	// REQUIRED; Radio connection establishment cause
+	// REQUIRED; Radio connection establishment cause.
 	RrcEstablishmentCause *RrcEstablishmentCause
 
 	// REQUIRED; State of the UE.
@@ -1815,52 +2339,52 @@ type UeConnectionInfo4G struct {
 	// The timestamp of last activity of UE (UTC).
 	LastActivityTime *time.Time
 
-	// Last Visited TAI
+	// Last Visited TAI.
 	LastVisitedTai *string
 
-	// UE Location Info properties
+	// UE Location Info properties.
 	LocationInfo *UeLocationInfo
 
-	// Per-UE transport network layer association
+	// Per-UE transport network layer association.
 	PerUeTnla *string
 
-	// The UE's usage setting
+	// The UE's usage setting.
 	UeUsageSetting *UeUsageSetting
 }
 
 // UeConnectionInfo5G - UE Connection Info for 5G.
 type UeConnectionInfo5G struct {
-	// REQUIRED; The AMF UE NGAP ID
+	// REQUIRED; The AMF UE NGAP ID.
 	AmfUeNgapID *int64
 
-	// REQUIRED; Global RAN Node ID
+	// REQUIRED; Global RAN Node ID.
 	GlobalRanNodeID *GlobalRanNodeID
 
-	// REQUIRED; The RAN UE NGAP ID
+	// REQUIRED; The RAN UE NGAP ID.
 	RanUeNgapID *int32
 
-	// REQUIRED; Radio connection establishment cause
+	// REQUIRED; Radio connection establishment cause.
 	RrcEstablishmentCause *RrcEstablishmentCause
 
 	// REQUIRED; State of the UE.
 	UeState *UeState
 
-	// Allowed Network Slice Selection Assistance Information
+	// Allowed Network Slice Selection Assistance Information.
 	AllowedNssai []*Snssai
 
 	// The timestamp of last activity of UE (UTC).
 	LastActivityTime *time.Time
 
-	// Last Visited TAI
+	// Last Visited TAI.
 	LastVisitedTai *string
 
-	// UE Location Info properties
+	// UE Location Info properties.
 	LocationInfo *UeLocationInfo
 
-	// Per-UE transport network layer association
+	// Per-UE transport network layer association.
 	PerUeTnla *string
 
-	// The UE's usage setting
+	// The UE's usage setting.
 	UeUsageSetting *UeUsageSetting
 }
 
@@ -1872,7 +2396,7 @@ type UeIPAddress struct {
 
 // UeInfo - Basic UE Information.
 type UeInfo struct {
-	// REQUIRED; Basic UE Information Properties.
+	// The resource-specific properties for this resource.
 	Properties *UeInfoPropertiesFormat
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
@@ -1910,20 +2434,22 @@ func (u *UeInfo4G) GetExtendedUeInfoProperties() *ExtendedUeInfoProperties {
 
 // UeInfo4GProperties - UE Information properties for 4G.
 type UeInfo4GProperties struct {
-	// REQUIRED; Globally Unique Temporary Identifier (4G)
+	// REQUIRED; Globally Unique Temporary Identifier (4G).
 	Guti *Guti4G
 
-	// REQUIRED; International mobile subscriber identifier
+	// REQUIRED; International mobile subscriber identifier.
 	Imsi *string
 
-	// UE Connection Info for 4G
+	// UE Connection Info for 4G.
 	ConnectionInfo *UeConnectionInfo4G
 
-	// International mobile equipment identity
+	// International mobile equipment identity.
 	Imei *string
 
-	// International mobile equipment identity – software version
-	Imeisv      *string
+	// International mobile equipment identity – software version.
+	Imeisv *string
+
+	// UE Session Info for 4G.
 	SessionInfo []*UeSessionInfo4G
 }
 
@@ -1949,26 +2475,28 @@ func (u *UeInfo5G) GetExtendedUeInfoProperties() *ExtendedUeInfoProperties {
 
 // UeInfo5GProperties - UE Information properties for 5G.
 type UeInfo5GProperties struct {
-	// REQUIRED; 5G GUTI
+	// REQUIRED; Globally Unique Temporary Identifier (5G).
 	FivegGuti *Guti5G
 
-	// REQUIRED; Subscription Permanent Identifier
+	// REQUIRED; Subscription Permanent Identifier.
 	Supi *string
 
 	// UE Connection Info for 5G.
 	ConnectionInfo *UeConnectionInfo5G
 
-	// Permanent Equipment Identifier
-	Pei         *string
+	// Permanent Equipment Identifier.
+	Pei *string
+
+	// UE Session Info for 5G.
 	SessionInfo []*UeSessionInfo5G
 }
 
-// UeInfoList - Response for packet core list UEs API call.
-type UeInfoList struct {
-	// A list of UEs in a packet core and their basic information.
+// UeInfoListResult - The response of a UeInfo list operation.
+type UeInfoListResult struct {
+	// REQUIRED; The UeInfo items on this page
 	Value []*UeInfo
 
-	// READ-ONLY; The URL to get the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -1981,49 +2509,51 @@ type UeInfoPropertiesFormat struct {
 	UeState *UeState
 
 	// The timestamp of last list UEs call to the packet core (UTC).
-	LastReadAt    *time.Time
+	LastReadAt *time.Time
+
+	// List of DNN and UE IP addresses.
 	UeIPAddresses []*DnnIPPair
 }
 
-// UeLocationInfo - UE Location Info properties
+// UeLocationInfo - UE Location Info properties.
 type UeLocationInfo struct {
-	// REQUIRED; Location Type
+	// REQUIRED; Location Type.
 	LocationType *string
 
-	// REQUIRED; PLMN Identifier
+	// REQUIRED; PLMN Identifier.
 	Plmn *PlmnID
 
-	// REQUIRED; Type Allocation Code of UE
+	// REQUIRED; Type Allocation Code of UE.
 	Tac *string
 }
 
-// UeQOSFlow - QoS Flow
+// UeQOSFlow - QoS Flow.
 type UeQOSFlow struct {
 	// REQUIRED; 5G QoS Identifier.
 	Fiveqi *int32
 
-	// REQUIRED; Qos Flow Identifier
+	// REQUIRED; Qos Flow Identifier.
 	Qfi *int32
 
-	// Guaranteed Bit Rate
+	// Guaranteed Bit Rate.
 	Gbr *Ambr
 
-	// Maximum Bit Rate
+	// Maximum Bit Rate.
 	Mbr *Ambr
 }
 
-// UeSessionInfo4G - UE Session Info for 4G
+// UeSessionInfo4G - UE Session Info for 4G.
 type UeSessionInfo4G struct {
-	// REQUIRED; Access point name
+	// REQUIRED; Access point name.
 	Apn *string
 
-	// REQUIRED; EPS bearer identifier
+	// REQUIRED; EPS bearer identifier.
 	Ebi *int32
 
-	// REQUIRED; Packet Data Network Type
+	// REQUIRED; Packet Data Network Type.
 	PdnType *PdnType
 
-	// REQUIRED; UE IP address
+	// REQUIRED; UE IP address.
 	UeIPAddress *UeIPAddress
 }
 
@@ -2032,30 +2562,105 @@ type UeSessionInfo5G struct {
 	// REQUIRED; Aggregate maximum bit rate.
 	Ambr *Ambr
 
-	// REQUIRED; Data network name
+	// REQUIRED; Data network name.
 	Dnn *string
 
-	// REQUIRED; Packet Data Network Type
+	// REQUIRED; Packet Data Network Type.
 	PdnType *PdnType
 
-	// REQUIRED; PDU session identifier
+	// REQUIRED; PDU session identifier.
 	PduSessionID *int32
 
-	// REQUIRED
+	// REQUIRED; QoS Flow.
 	QosFlow []*UeQOSFlow
 
 	// REQUIRED; Single-network slice selection assistance information (S-NSSAI).
 	Snssai *Snssai
 
-	// REQUIRED; UE IP address
+	// REQUIRED; UE IP address.
 	UeIPAddress *UeIPAddress
 }
 
-// UserAssignedIdentity - User assigned identity properties
+// UpfDeploymentResource - Azure for Operators 5G Core User Plane Function (UPF) Deployment Resource
+type UpfDeploymentResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *UpfDeploymentResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// UpfDeploymentResourceListResult - The response of a UpfDeploymentResource list operation.
+type UpfDeploymentResourceListResult struct {
+	// REQUIRED; The UpfDeploymentResource items on this page
+	Value []*UpfDeploymentResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// UpfDeploymentResourceProperties - UPF Deployment Properties.
+type UpfDeploymentResourceProperties struct {
+	// REQUIRED; Reference to cluster where the Network Function is deployed
+	ClusterService *string
+
+	// REQUIRED; Azure for Operators 5G Core UPF component parameters
+	ComponentParameters *string
+
+	// Azure for Operators 5G Core F secrets parameters
+	SecretsParameters *string
+
+	// READ-ONLY; Operational status
+	OperationalStatus *OperationalStatus
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Release version. This is inherited from the cluster
+	ReleaseVersion *string
+}
+
+// UpfDeploymentResourceTagsUpdate - The type used for updating tags in UpfDeploymentResource resources.
+type UpfDeploymentResourceTagsUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// UserAssignedIdentity - User assigned identity properties.
 type UserAssignedIdentity struct {
 	// READ-ONLY; The client ID of the assigned identity.
 	ClientID *string
 
 	// READ-ONLY; The principal ID of the assigned identity.
 	PrincipalID *string
+}
+
+// UserConsentConfiguration - The user consent configuration for the packet core
+type UserConsentConfiguration struct {
+	// Allow Microsoft to access non-PII telemetry information from the packet core.
+	AllowSupportTelemetryAccess *bool
+}
+
+// UserPlaneDataRoutesItem - Attached data networks and their IPv4 routes.
+type UserPlaneDataRoutesItem struct {
+	// Reference to an attached data network resource.
+	AttachedDataNetwork *AttachedDataNetworkResourceID
+
+	// A list of IPv4 routes.
+	Routes []*IPv4Route
 }

@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -29,7 +29,7 @@ type DiagnosticsPackagesServer struct {
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, diagnosticsPackageName string, options *armmobilenetwork.DiagnosticsPackagesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.DiagnosticsPackagesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method DiagnosticsPackagesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, diagnosticsPackageName string, options *armmobilenetwork.DiagnosticsPackagesClientBeginDeleteOptions) (resp azfake.PollerResponder[armmobilenetwork.DiagnosticsPackagesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method DiagnosticsPackagesClient.Get
@@ -178,9 +178,9 @@ func (d *DiagnosticsPackagesServerTransport) dispatchBeginDelete(req *http.Reque
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		d.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		d.beginDelete.remove(req)

@@ -15,34 +15,34 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
 )
 
-// ExtendedUeInformationServer is a fake server for instances of the armmobilenetwork.ExtendedUeInformationClient type.
-type ExtendedUeInformationServer struct {
-	// Get is the fake for method ExtendedUeInformationClient.Get
+// ExtendedUeInfosServer is a fake server for instances of the armmobilenetwork.ExtendedUeInfosClient type.
+type ExtendedUeInfosServer struct {
+	// Get is the fake for method ExtendedUeInfosClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, ueID string, options *armmobilenetwork.ExtendedUeInformationClientGetOptions) (resp azfake.Responder[armmobilenetwork.ExtendedUeInformationClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, ueID string, options *armmobilenetwork.ExtendedUeInfosClientGetOptions) (resp azfake.Responder[armmobilenetwork.ExtendedUeInfosClientGetResponse], errResp azfake.ErrorResponder)
 }
 
-// NewExtendedUeInformationServerTransport creates a new instance of ExtendedUeInformationServerTransport with the provided implementation.
-// The returned ExtendedUeInformationServerTransport instance is connected to an instance of armmobilenetwork.ExtendedUeInformationClient via the
+// NewExtendedUeInfosServerTransport creates a new instance of ExtendedUeInfosServerTransport with the provided implementation.
+// The returned ExtendedUeInfosServerTransport instance is connected to an instance of armmobilenetwork.ExtendedUeInfosClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewExtendedUeInformationServerTransport(srv *ExtendedUeInformationServer) *ExtendedUeInformationServerTransport {
-	return &ExtendedUeInformationServerTransport{srv: srv}
+func NewExtendedUeInfosServerTransport(srv *ExtendedUeInfosServer) *ExtendedUeInfosServerTransport {
+	return &ExtendedUeInfosServerTransport{srv: srv}
 }
 
-// ExtendedUeInformationServerTransport connects instances of armmobilenetwork.ExtendedUeInformationClient to instances of ExtendedUeInformationServer.
-// Don't use this type directly, use NewExtendedUeInformationServerTransport instead.
-type ExtendedUeInformationServerTransport struct {
-	srv *ExtendedUeInformationServer
+// ExtendedUeInfosServerTransport connects instances of armmobilenetwork.ExtendedUeInfosClient to instances of ExtendedUeInfosServer.
+// Don't use this type directly, use NewExtendedUeInfosServerTransport instead.
+type ExtendedUeInfosServerTransport struct {
+	srv *ExtendedUeInfosServer
 }
 
-// Do implements the policy.Transporter interface for ExtendedUeInformationServerTransport.
-func (e *ExtendedUeInformationServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for ExtendedUeInfosServerTransport.
+func (e *ExtendedUeInfosServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
@@ -53,7 +53,7 @@ func (e *ExtendedUeInformationServerTransport) Do(req *http.Request) (*http.Resp
 	var err error
 
 	switch method {
-	case "ExtendedUeInformationClient.Get":
+	case "ExtendedUeInfosClient.Get":
 		resp, err = e.dispatchGet(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
@@ -66,7 +66,7 @@ func (e *ExtendedUeInformationServerTransport) Do(req *http.Request) (*http.Resp
 	return resp, nil
 }
 
-func (e *ExtendedUeInformationServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+func (e *ExtendedUeInfosServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
 	if e.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}

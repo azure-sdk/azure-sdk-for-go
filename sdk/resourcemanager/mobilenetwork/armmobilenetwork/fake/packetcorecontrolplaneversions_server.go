@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,17 +24,9 @@ import (
 
 // PacketCoreControlPlaneVersionsServer is a fake server for instances of the armmobilenetwork.PacketCoreControlPlaneVersionsClient type.
 type PacketCoreControlPlaneVersionsServer struct {
-	// Get is the fake for method PacketCoreControlPlaneVersionsClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, versionName string, options *armmobilenetwork.PacketCoreControlPlaneVersionsClientGetOptions) (resp azfake.Responder[armmobilenetwork.PacketCoreControlPlaneVersionsClientGetResponse], errResp azfake.ErrorResponder)
-
 	// GetBySubscription is the fake for method PacketCoreControlPlaneVersionsClient.GetBySubscription
 	// HTTP status codes to indicate success: http.StatusOK
-	GetBySubscription func(ctx context.Context, versionName string, subscriptionID string, options *armmobilenetwork.PacketCoreControlPlaneVersionsClientGetBySubscriptionOptions) (resp azfake.Responder[armmobilenetwork.PacketCoreControlPlaneVersionsClientGetBySubscriptionResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method PacketCoreControlPlaneVersionsClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armmobilenetwork.PacketCoreControlPlaneVersionsClientListOptions) (resp azfake.PagerResponder[armmobilenetwork.PacketCoreControlPlaneVersionsClientListResponse])
+	GetBySubscription func(ctx context.Context, subscriptionID string, versionName string, options *armmobilenetwork.PacketCoreControlPlaneVersionsClientGetBySubscriptionOptions) (resp azfake.Responder[armmobilenetwork.PacketCoreControlPlaneVersionsClientGetBySubscriptionResponse], errResp azfake.ErrorResponder)
 
 	// NewListBySubscriptionPager is the fake for method PacketCoreControlPlaneVersionsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -47,7 +39,6 @@ type PacketCoreControlPlaneVersionsServer struct {
 func NewPacketCoreControlPlaneVersionsServerTransport(srv *PacketCoreControlPlaneVersionsServer) *PacketCoreControlPlaneVersionsServerTransport {
 	return &PacketCoreControlPlaneVersionsServerTransport{
 		srv:                        srv,
-		newListPager:               newTracker[azfake.PagerResponder[armmobilenetwork.PacketCoreControlPlaneVersionsClientListResponse]](),
 		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armmobilenetwork.PacketCoreControlPlaneVersionsClientListBySubscriptionResponse]](),
 	}
 }
@@ -56,7 +47,6 @@ func NewPacketCoreControlPlaneVersionsServerTransport(srv *PacketCoreControlPlan
 // Don't use this type directly, use NewPacketCoreControlPlaneVersionsServerTransport instead.
 type PacketCoreControlPlaneVersionsServerTransport struct {
 	srv                        *PacketCoreControlPlaneVersionsServer
-	newListPager               *tracker[azfake.PagerResponder[armmobilenetwork.PacketCoreControlPlaneVersionsClientListResponse]]
 	newListBySubscriptionPager *tracker[azfake.PagerResponder[armmobilenetwork.PacketCoreControlPlaneVersionsClientListBySubscriptionResponse]]
 }
 
@@ -72,12 +62,8 @@ func (p *PacketCoreControlPlaneVersionsServerTransport) Do(req *http.Request) (*
 	var err error
 
 	switch method {
-	case "PacketCoreControlPlaneVersionsClient.Get":
-		resp, err = p.dispatchGet(req)
 	case "PacketCoreControlPlaneVersionsClient.GetBySubscription":
 		resp, err = p.dispatchGetBySubscription(req)
-	case "PacketCoreControlPlaneVersionsClient.NewListPager":
-		resp, err = p.dispatchNewListPager(req)
 	case "PacketCoreControlPlaneVersionsClient.NewListBySubscriptionPager":
 		resp, err = p.dispatchNewListBySubscriptionPager(req)
 	default:
@@ -91,35 +77,6 @@ func (p *PacketCoreControlPlaneVersionsServerTransport) Do(req *http.Request) (*
 	return resp, nil
 }
 
-func (p *PacketCoreControlPlaneVersionsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if p.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/providers/Microsoft\.MobileNetwork/packetCoreControlPlaneVersions/(?P<versionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	versionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("versionName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := p.srv.Get(req.Context(), versionNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PacketCoreControlPlaneVersion, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
 func (p *PacketCoreControlPlaneVersionsServerTransport) dispatchGetBySubscription(req *http.Request) (*http.Response, error) {
 	if p.srv.GetBySubscription == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetBySubscription not implemented")}
@@ -130,15 +87,15 @@ func (p *PacketCoreControlPlaneVersionsServerTransport) dispatchGetBySubscriptio
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	versionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("versionName")])
-	if err != nil {
-		return nil, err
-	}
 	subscriptionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("subscriptionId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.GetBySubscription(req.Context(), versionNameParam, subscriptionIDParam, nil)
+	versionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("versionName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetBySubscription(req.Context(), subscriptionIDParam, versionNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -149,33 +106,6 @@ func (p *PacketCoreControlPlaneVersionsServerTransport) dispatchGetBySubscriptio
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PacketCoreControlPlaneVersion, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (p *PacketCoreControlPlaneVersionsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := p.newListPager.get(req)
-	if newListPager == nil {
-		resp := p.srv.NewListPager(nil)
-		newListPager = &resp
-		p.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armmobilenetwork.PacketCoreControlPlaneVersionsClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		p.newListPager.remove(req)
 	}
 	return resp, nil
 }
@@ -189,7 +119,7 @@ func (p *PacketCoreControlPlaneVersionsServerTransport) dispatchNewListBySubscri
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MobileNetwork/packetCoreControlPlaneVersions`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
+		if matches == nil || len(matches) < 2 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		subscriptionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("subscriptionId")])

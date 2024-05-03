@@ -36,9 +36,25 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewAmfDeploymentsClient creates a new instance of AmfDeploymentsClient.
+func (c *ClientFactory) NewAmfDeploymentsClient() *AmfDeploymentsClient {
+	return &AmfDeploymentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewAttachedDataNetworksClient creates a new instance of AttachedDataNetworksClient.
 func (c *ClientFactory) NewAttachedDataNetworksClient() *AttachedDataNetworksClient {
 	return &AttachedDataNetworksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewClusterServicesClient creates a new instance of ClusterServicesClient.
+func (c *ClientFactory) NewClusterServicesClient() *ClusterServicesClient {
+	return &ClusterServicesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -60,9 +76,9 @@ func (c *ClientFactory) NewDiagnosticsPackagesClient() *DiagnosticsPackagesClien
 	}
 }
 
-// NewExtendedUeInformationClient creates a new instance of ExtendedUeInformationClient.
-func (c *ClientFactory) NewExtendedUeInformationClient() *ExtendedUeInformationClient {
-	return &ExtendedUeInformationClient{
+// NewExtendedUeInfosClient creates a new instance of ExtendedUeInfosClient.
+func (c *ClientFactory) NewExtendedUeInfosClient() *ExtendedUeInfosClient {
+	return &ExtendedUeInfosClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -71,6 +87,30 @@ func (c *ClientFactory) NewExtendedUeInformationClient() *ExtendedUeInformationC
 // NewMobileNetworksClient creates a new instance of MobileNetworksClient.
 func (c *ClientFactory) NewMobileNetworksClient() *MobileNetworksClient {
 	return &MobileNetworksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNrfDeploymentsClient creates a new instance of NrfDeploymentsClient.
+func (c *ClientFactory) NewNrfDeploymentsClient() *NrfDeploymentsClient {
+	return &NrfDeploymentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNssfDeploymentsClient creates a new instance of NssfDeploymentsClient.
+func (c *ClientFactory) NewNssfDeploymentsClient() *NssfDeploymentsClient {
+	return &NssfDeploymentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewObservabilityServicesClient creates a new instance of ObservabilityServicesClient.
+func (c *ClientFactory) NewObservabilityServicesClient() *ObservabilityServicesClient {
+	return &ObservabilityServicesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -94,6 +134,14 @@ func (c *ClientFactory) NewPacketCapturesClient() *PacketCapturesClient {
 // NewPacketCoreControlPlaneVersionsClient creates a new instance of PacketCoreControlPlaneVersionsClient.
 func (c *ClientFactory) NewPacketCoreControlPlaneVersionsClient() *PacketCoreControlPlaneVersionsClient {
 	return &PacketCoreControlPlaneVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewPacketCoreControlPlaneVersionsTenantResourceClient creates a new instance of PacketCoreControlPlaneVersionsTenantResourceClient.
+func (c *ClientFactory) NewPacketCoreControlPlaneVersionsTenantResourceClient() *PacketCoreControlPlaneVersionsTenantResourceClient {
+	return &PacketCoreControlPlaneVersionsTenantResourceClient{
 		internal: c.internal,
 	}
 }
@@ -109,6 +157,14 @@ func (c *ClientFactory) NewPacketCoreControlPlanesClient() *PacketCoreControlPla
 // NewPacketCoreDataPlanesClient creates a new instance of PacketCoreDataPlanesClient.
 func (c *ClientFactory) NewPacketCoreDataPlanesClient() *PacketCoreDataPlanesClient {
 	return &PacketCoreDataPlanesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewRoutingInfoModelsClient creates a new instance of RoutingInfoModelsClient.
+func (c *ClientFactory) NewRoutingInfoModelsClient() *RoutingInfoModelsClient {
+	return &RoutingInfoModelsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -162,9 +218,25 @@ func (c *ClientFactory) NewSlicesClient() *SlicesClient {
 	}
 }
 
-// NewUeInformationClient creates a new instance of UeInformationClient.
-func (c *ClientFactory) NewUeInformationClient() *UeInformationClient {
-	return &UeInformationClient{
+// NewSmfDeploymentsClient creates a new instance of SmfDeploymentsClient.
+func (c *ClientFactory) NewSmfDeploymentsClient() *SmfDeploymentsClient {
+	return &SmfDeploymentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewUesClient creates a new instance of UesClient.
+func (c *ClientFactory) NewUesClient() *UesClient {
+	return &UesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewUpfDeploymentsClient creates a new instance of UpfDeploymentsClient.
+func (c *ClientFactory) NewUpfDeploymentsClient() *UpfDeploymentsClient {
+	return &UpfDeploymentsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

@@ -8,6 +8,15 @@
 
 package armmobilenetwork
 
+// ClusterServiceClusterTypeSpecificDataClassification provides polymorphic access to related types.
+// Call the interface's GetClusterServiceClusterTypeSpecificData() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ClusterServiceAksClusterData, *ClusterServiceClusterTypeSpecificData, *ClusterServiceNexusAksClusterData
+type ClusterServiceClusterTypeSpecificDataClassification interface {
+	// GetClusterServiceClusterTypeSpecificData returns the ClusterServiceClusterTypeSpecificData content of the underlying type.
+	GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData
+}
+
 // ExtendedUeInfoPropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetExtendedUeInfoProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:

@@ -1,5 +1,157 @@
 # Release History
 
+## 5.0.0 (2024-05-03)
+### Breaking Changes
+
+- Function `*ClientFactory.NewExtendedUeInformationClient` has been removed
+- Function `*ClientFactory.NewUeInformationClient` has been removed
+- Function `NewExtendedUeInformationClient` has been removed
+- Function `*ExtendedUeInformationClient.Get` has been removed
+- Function `*PacketCoreControlPlaneVersionsClient.Get` has been removed
+- Function `*PacketCoreControlPlaneVersionsClient.NewListPager` has been removed
+- Function `NewUeInformationClient` has been removed
+- Function `*UeInformationClient.NewListPager` has been removed
+- Struct `Arp` has been removed
+- Struct `OperationList` has been removed
+- Struct `UeInfoList` has been removed
+- Field `OperationList` of struct `OperationsClientListResponse` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `ClusterType` with values `ClusterTypeAks`, `ClusterTypeNexusAks`
+- New enum type `NASEncryptionType` with values `NASEncryptionTypeNEA0EEA0`, `NASEncryptionTypeNEA1EEA1`, `NASEncryptionTypeNEA2EEA2`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `SKUDeploymentType` with values `SKUDeploymentTypeLab`, `SKUDeploymentTypeProduction`
+- New function `NewAmfDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AmfDeploymentsClient, error)`
+- New function `*AmfDeploymentsClient.BeginCreateOrUpdate(context.Context, string, string, AmfDeploymentResource, *AmfDeploymentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[AmfDeploymentsClientCreateOrUpdateResponse], error)`
+- New function `*AmfDeploymentsClient.BeginDelete(context.Context, string, string, *AmfDeploymentsClientBeginDeleteOptions) (*runtime.Poller[AmfDeploymentsClientDeleteResponse], error)`
+- New function `*AmfDeploymentsClient.Get(context.Context, string, string, *AmfDeploymentsClientGetOptions) (AmfDeploymentsClientGetResponse, error)`
+- New function `*AmfDeploymentsClient.NewListByResourceGroupPager(string, *AmfDeploymentsClientListByResourceGroupOptions) *runtime.Pager[AmfDeploymentsClientListByResourceGroupResponse]`
+- New function `*AmfDeploymentsClient.NewListBySubscriptionPager(*AmfDeploymentsClientListBySubscriptionOptions) *runtime.Pager[AmfDeploymentsClientListBySubscriptionResponse]`
+- New function `*AmfDeploymentsClient.UpdateTags(context.Context, string, string, AmfDeploymentResourceTagsUpdate, *AmfDeploymentsClientUpdateTagsOptions) (AmfDeploymentsClientUpdateTagsResponse, error)`
+- New function `*ClientFactory.NewAmfDeploymentsClient() *AmfDeploymentsClient`
+- New function `*ClientFactory.NewClusterServicesClient() *ClusterServicesClient`
+- New function `*ClientFactory.NewExtendedUeInfosClient() *ExtendedUeInfosClient`
+- New function `*ClientFactory.NewNrfDeploymentsClient() *NrfDeploymentsClient`
+- New function `*ClientFactory.NewNssfDeploymentsClient() *NssfDeploymentsClient`
+- New function `*ClientFactory.NewObservabilityServicesClient() *ObservabilityServicesClient`
+- New function `*ClientFactory.NewPacketCoreControlPlaneVersionsTenantResourceClient() *PacketCoreControlPlaneVersionsTenantResourceClient`
+- New function `*ClientFactory.NewRoutingInfoModelsClient() *RoutingInfoModelsClient`
+- New function `*ClientFactory.NewSmfDeploymentsClient() *SmfDeploymentsClient`
+- New function `*ClientFactory.NewUesClient() *UesClient`
+- New function `*ClientFactory.NewUpfDeploymentsClient() *UpfDeploymentsClient`
+- New function `*ClusterServiceAksClusterData.GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData`
+- New function `*ClusterServiceClusterTypeSpecificData.GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData`
+- New function `*ClusterServiceNexusAksClusterData.GetClusterServiceClusterTypeSpecificData() *ClusterServiceClusterTypeSpecificData`
+- New function `NewClusterServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ClusterServicesClient, error)`
+- New function `*ClusterServicesClient.BeginCreateOrUpdate(context.Context, string, string, ClusterServiceResource, *ClusterServicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClusterServicesClientCreateOrUpdateResponse], error)`
+- New function `*ClusterServicesClient.BeginDelete(context.Context, string, string, *ClusterServicesClientBeginDeleteOptions) (*runtime.Poller[ClusterServicesClientDeleteResponse], error)`
+- New function `*ClusterServicesClient.Get(context.Context, string, string, *ClusterServicesClientGetOptions) (ClusterServicesClientGetResponse, error)`
+- New function `*ClusterServicesClient.NewListByResourceGroupPager(string, *ClusterServicesClientListByResourceGroupOptions) *runtime.Pager[ClusterServicesClientListByResourceGroupResponse]`
+- New function `*ClusterServicesClient.NewListBySubscriptionPager(*ClusterServicesClientListBySubscriptionOptions) *runtime.Pager[ClusterServicesClientListBySubscriptionResponse]`
+- New function `*ClusterServicesClient.UpdateTags(context.Context, string, string, ClusterServiceResourceTagsUpdate, *ClusterServicesClientUpdateTagsOptions) (ClusterServicesClientUpdateTagsResponse, error)`
+- New function `NewExtendedUeInfosClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ExtendedUeInfosClient, error)`
+- New function `*ExtendedUeInfosClient.Get(context.Context, string, string, string, *ExtendedUeInfosClientGetOptions) (ExtendedUeInfosClientGetResponse, error)`
+- New function `*MobileNetworksClient.NewListSimGroupsPager(string, string, *MobileNetworksClientListSimGroupsOptions) *runtime.Pager[MobileNetworksClientListSimGroupsResponse]`
+- New function `NewObservabilityServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ObservabilityServicesClient, error)`
+- New function `*ObservabilityServicesClient.BeginCreateOrUpdate(context.Context, string, string, ObservabilityServiceResource, *ObservabilityServicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ObservabilityServicesClientCreateOrUpdateResponse], error)`
+- New function `*ObservabilityServicesClient.BeginDelete(context.Context, string, string, *ObservabilityServicesClientBeginDeleteOptions) (*runtime.Poller[ObservabilityServicesClientDeleteResponse], error)`
+- New function `*ObservabilityServicesClient.Get(context.Context, string, string, *ObservabilityServicesClientGetOptions) (ObservabilityServicesClientGetResponse, error)`
+- New function `*ObservabilityServicesClient.NewListByResourceGroupPager(string, *ObservabilityServicesClientListByResourceGroupOptions) *runtime.Pager[ObservabilityServicesClientListByResourceGroupResponse]`
+- New function `*ObservabilityServicesClient.NewListBySubscriptionPager(*ObservabilityServicesClientListBySubscriptionOptions) *runtime.Pager[ObservabilityServicesClientListBySubscriptionResponse]`
+- New function `*ObservabilityServicesClient.UpdateTags(context.Context, string, string, ObservabilityServiceResourceTagsUpdate, *ObservabilityServicesClientUpdateTagsOptions) (ObservabilityServicesClientUpdateTagsResponse, error)`
+- New function `NewPacketCoreControlPlaneVersionsTenantResourceClient(azcore.TokenCredential, *arm.ClientOptions) (*PacketCoreControlPlaneVersionsTenantResourceClient, error)`
+- New function `*PacketCoreControlPlaneVersionsTenantResourceClient.Get(context.Context, string, *PacketCoreControlPlaneVersionsTenantResourceClientGetOptions) (PacketCoreControlPlaneVersionsTenantResourceClientGetResponse, error)`
+- New function `*PacketCoreControlPlaneVersionsTenantResourceClient.NewListByTenantPager(*PacketCoreControlPlaneVersionsTenantResourceClientListByTenantOptions) *runtime.Pager[PacketCoreControlPlaneVersionsTenantResourceClientListByTenantResponse]`
+- New function `NewRoutingInfoModelsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RoutingInfoModelsClient, error)`
+- New function `*RoutingInfoModelsClient.Get(context.Context, string, string, *RoutingInfoModelsClientGetOptions) (RoutingInfoModelsClientGetResponse, error)`
+- New function `*RoutingInfoModelsClient.NewListByPacketCoreControlPlanePager(string, string, *RoutingInfoModelsClientListByPacketCoreControlPlaneOptions) *runtime.Pager[RoutingInfoModelsClientListByPacketCoreControlPlaneResponse]`
+- New function `*SimsClient.BeginClone(context.Context, string, string, SimClone, *SimsClientBeginCloneOptions) (*runtime.Poller[SimsClientCloneResponse], error)`
+- New function `*SimsClient.BeginMove(context.Context, string, string, SimMove, *SimsClientBeginMoveOptions) (*runtime.Poller[SimsClientMoveResponse], error)`
+- New function `NewSmfDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SmfDeploymentsClient, error)`
+- New function `*SmfDeploymentsClient.BeginCreateOrUpdate(context.Context, string, string, SmfDeploymentResource, *SmfDeploymentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SmfDeploymentsClientCreateOrUpdateResponse], error)`
+- New function `*SmfDeploymentsClient.BeginDelete(context.Context, string, string, *SmfDeploymentsClientBeginDeleteOptions) (*runtime.Poller[SmfDeploymentsClientDeleteResponse], error)`
+- New function `*SmfDeploymentsClient.Get(context.Context, string, string, *SmfDeploymentsClientGetOptions) (SmfDeploymentsClientGetResponse, error)`
+- New function `*SmfDeploymentsClient.NewListByResourceGroupPager(string, *SmfDeploymentsClientListByResourceGroupOptions) *runtime.Pager[SmfDeploymentsClientListByResourceGroupResponse]`
+- New function `*SmfDeploymentsClient.NewListBySubscriptionPager(*SmfDeploymentsClientListBySubscriptionOptions) *runtime.Pager[SmfDeploymentsClientListBySubscriptionResponse]`
+- New function `*SmfDeploymentsClient.UpdateTags(context.Context, string, string, SmfDeploymentResourceTagsUpdate, *SmfDeploymentsClientUpdateTagsOptions) (SmfDeploymentsClientUpdateTagsResponse, error)`
+- New function `NewUesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UesClient, error)`
+- New function `*UesClient.NewListByPacketCoreControlPlanePager(string, string, *UesClientListByPacketCoreControlPlaneOptions) *runtime.Pager[UesClientListByPacketCoreControlPlaneResponse]`
+- New function `NewUpfDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpfDeploymentsClient, error)`
+- New function `*UpfDeploymentsClient.BeginCreateOrUpdate(context.Context, string, string, UpfDeploymentResource, *UpfDeploymentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[UpfDeploymentsClientCreateOrUpdateResponse], error)`
+- New function `*UpfDeploymentsClient.BeginDelete(context.Context, string, string, *UpfDeploymentsClientBeginDeleteOptions) (*runtime.Poller[UpfDeploymentsClientDeleteResponse], error)`
+- New function `*UpfDeploymentsClient.Get(context.Context, string, string, *UpfDeploymentsClientGetOptions) (UpfDeploymentsClientGetResponse, error)`
+- New function `*UpfDeploymentsClient.NewListByResourceGroupPager(string, *UpfDeploymentsClientListByResourceGroupOptions) *runtime.Pager[UpfDeploymentsClientListByResourceGroupResponse]`
+- New function `*UpfDeploymentsClient.NewListBySubscriptionPager(*UpfDeploymentsClientListBySubscriptionOptions) *runtime.Pager[UpfDeploymentsClientListBySubscriptionResponse]`
+- New function `*UpfDeploymentsClient.UpdateTags(context.Context, string, string, UpfDeploymentResourceTagsUpdate, *UpfDeploymentsClientUpdateTagsOptions) (UpfDeploymentsClientUpdateTagsResponse, error)`
+- New function `NewNrfDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NrfDeploymentsClient, error)`
+- New function `*NrfDeploymentsClient.BeginCreateOrUpdate(context.Context, string, string, NrfDeploymentResource, *NrfDeploymentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[NrfDeploymentsClientCreateOrUpdateResponse], error)`
+- New function `*NrfDeploymentsClient.BeginDelete(context.Context, string, string, *NrfDeploymentsClientBeginDeleteOptions) (*runtime.Poller[NrfDeploymentsClientDeleteResponse], error)`
+- New function `*NrfDeploymentsClient.Get(context.Context, string, string, *NrfDeploymentsClientGetOptions) (NrfDeploymentsClientGetResponse, error)`
+- New function `*NrfDeploymentsClient.NewListByResourceGroupPager(string, *NrfDeploymentsClientListByResourceGroupOptions) *runtime.Pager[NrfDeploymentsClientListByResourceGroupResponse]`
+- New function `*NrfDeploymentsClient.NewListBySubscriptionPager(*NrfDeploymentsClientListBySubscriptionOptions) *runtime.Pager[NrfDeploymentsClientListBySubscriptionResponse]`
+- New function `*NrfDeploymentsClient.UpdateTags(context.Context, string, string, NrfDeploymentResourceTagsUpdate, *NrfDeploymentsClientUpdateTagsOptions) (NrfDeploymentsClientUpdateTagsResponse, error)`
+- New function `NewNssfDeploymentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NssfDeploymentsClient, error)`
+- New function `*NssfDeploymentsClient.BeginCreateOrUpdate(context.Context, string, string, NssfDeploymentResource, *NssfDeploymentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[NssfDeploymentsClientCreateOrUpdateResponse], error)`
+- New function `*NssfDeploymentsClient.BeginDelete(context.Context, string, string, *NssfDeploymentsClientBeginDeleteOptions) (*runtime.Poller[NssfDeploymentsClientDeleteResponse], error)`
+- New function `*NssfDeploymentsClient.Get(context.Context, string, string, *NssfDeploymentsClientGetOptions) (NssfDeploymentsClientGetResponse, error)`
+- New function `*NssfDeploymentsClient.NewListByResourceGroupPager(string, *NssfDeploymentsClientListByResourceGroupOptions) *runtime.Pager[NssfDeploymentsClientListByResourceGroupResponse]`
+- New function `*NssfDeploymentsClient.NewListBySubscriptionPager(*NssfDeploymentsClientListBySubscriptionOptions) *runtime.Pager[NssfDeploymentsClientListBySubscriptionResponse]`
+- New function `*NssfDeploymentsClient.UpdateTags(context.Context, string, string, NssfDeploymentResourceTagsUpdate, *NssfDeploymentsClientUpdateTagsOptions) (NssfDeploymentsClientUpdateTagsResponse, error)`
+- New struct `AmfDeploymentResource`
+- New struct `AmfDeploymentResourceListResult`
+- New struct `AmfDeploymentResourceProperties`
+- New struct `AmfDeploymentResourceTagsUpdate`
+- New struct `ClusterServiceAksClusterData`
+- New struct `ClusterServiceNexusAksClusterData`
+- New struct `ClusterServiceResource`
+- New struct `ClusterServiceResourceListResult`
+- New struct `ClusterServiceResourceProperties`
+- New struct `ClusterServiceResourceTagsUpdate`
+- New struct `IPv4Route`
+- New struct `IPv4RouteNextHop`
+- New struct `NrfDeploymentResource`
+- New struct `NrfDeploymentResourceListResult`
+- New struct `NrfDeploymentResourceProperties`
+- New struct `NrfDeploymentResourceTagsUpdate`
+- New struct `NssfDeploymentResource`
+- New struct `NssfDeploymentResourceListResult`
+- New struct `NssfDeploymentResourceProperties`
+- New struct `NssfDeploymentResourceTagsUpdate`
+- New struct `ObservabilityServiceResource`
+- New struct `ObservabilityServiceResourceListResult`
+- New struct `ObservabilityServiceResourceProperties`
+- New struct `ObservabilityServiceResourceTagsUpdate`
+- New struct `OperationListResult`
+- New struct `OperationalStatus`
+- New struct `QualifiedComponentDeploymentParameters`
+- New struct `RoutingInfoModel`
+- New struct `RoutingInfoModelListResult`
+- New struct `RoutingInfoPropertiesFormat`
+- New struct `SimClone`
+- New struct `SimMove`
+- New struct `SmfDeploymentResource`
+- New struct `SmfDeploymentResourceListResult`
+- New struct `SmfDeploymentResourceProperties`
+- New struct `SmfDeploymentResourceTagsUpdate`
+- New struct `UeInfoListResult`
+- New struct `UpfDeploymentResource`
+- New struct `UpfDeploymentResourceListResult`
+- New struct `UpfDeploymentResourceProperties`
+- New struct `UpfDeploymentResourceTagsUpdate`
+- New struct `UserConsentConfiguration`
+- New struct `UserPlaneDataRoutesItem`
+- New field `BfdIPv4Endpoints`, `IPv4AddressList`, `VlanID` in struct `InterfaceProperties`
+- New field `ActionType`, `Origin` in struct `Operation`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `UserConsent` in struct `PacketCoreControlPlanePropertiesFormat`
+- New field `HaUpgradesAvailable` in struct `Platform`
+- New field `NasEncryption` in struct `SignalingConfiguration`
+- New anonymous field `AsyncOperationStatus` in struct `SitesClientDeletePacketCoreResponse`
+
+
 ## 4.0.0 (2024-03-22)
 ### Breaking Changes
 

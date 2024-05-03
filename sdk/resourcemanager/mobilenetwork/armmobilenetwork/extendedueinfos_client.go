@@ -20,23 +20,23 @@ import (
 	"strings"
 )
 
-// ExtendedUeInformationClient contains the methods for the ExtendedUeInformation group.
-// Don't use this type directly, use NewExtendedUeInformationClient() instead.
-type ExtendedUeInformationClient struct {
+// ExtendedUeInfosClient contains the methods for the ExtendedUeInfos group.
+// Don't use this type directly, use NewExtendedUeInfosClient() instead.
+type ExtendedUeInfosClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewExtendedUeInformationClient creates a new instance of ExtendedUeInformationClient with the specified values.
+// NewExtendedUeInfosClient creates a new instance of ExtendedUeInfosClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewExtendedUeInformationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExtendedUeInformationClient, error) {
+func NewExtendedUeInfosClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExtendedUeInfosClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ExtendedUeInformationClient{
+	client := &ExtendedUeInfosClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
@@ -46,36 +46,35 @@ func NewExtendedUeInformationClient(subscriptionID string, credential azcore.Tok
 // Get - Gets extended information about the specified UE from the packet core.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - packetCoreControlPlaneName - The name of the packet core control plane.
 //   - ueID - IMSI of a UE.
-//   - options - ExtendedUeInformationClientGetOptions contains the optional parameters for the ExtendedUeInformationClient.Get
-//     method.
-func (client *ExtendedUeInformationClient) Get(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, ueID string, options *ExtendedUeInformationClientGetOptions) (ExtendedUeInformationClientGetResponse, error) {
+//   - options - ExtendedUeInfosClientGetOptions contains the optional parameters for the ExtendedUeInfosClient.Get method.
+func (client *ExtendedUeInfosClient) Get(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, ueID string, options *ExtendedUeInfosClientGetOptions) (ExtendedUeInfosClientGetResponse, error) {
 	var err error
-	const operationName = "ExtendedUeInformationClient.Get"
+	const operationName = "ExtendedUeInfosClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, ueID, options)
 	if err != nil {
-		return ExtendedUeInformationClientGetResponse{}, err
+		return ExtendedUeInfosClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ExtendedUeInformationClientGetResponse{}, err
+		return ExtendedUeInfosClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ExtendedUeInformationClientGetResponse{}, err
+		return ExtendedUeInfosClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ExtendedUeInformationClient) getCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, ueID string, options *ExtendedUeInformationClientGetOptions) (*policy.Request, error) {
+func (client *ExtendedUeInfosClient) getCreateRequest(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, ueID string, options *ExtendedUeInfosClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileNetwork/packetCoreControlPlanes/{packetCoreControlPlaneName}/ues/{ueId}/extendedInformation/default"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -98,17 +97,17 @@ func (client *ExtendedUeInformationClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // getHandleResponse handles the Get response.
-func (client *ExtendedUeInformationClient) getHandleResponse(resp *http.Response) (ExtendedUeInformationClientGetResponse, error) {
-	result := ExtendedUeInformationClientGetResponse{}
+func (client *ExtendedUeInfosClient) getHandleResponse(resp *http.Response) (ExtendedUeInfosClientGetResponse, error) {
+	result := ExtendedUeInfosClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ExtendedUeInfo); err != nil {
-		return ExtendedUeInformationClientGetResponse{}, err
+		return ExtendedUeInfosClientGetResponse{}, err
 	}
 	return result, nil
 }

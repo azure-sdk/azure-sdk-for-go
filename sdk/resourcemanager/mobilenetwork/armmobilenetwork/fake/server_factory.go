@@ -19,23 +19,32 @@ import (
 
 // ServerFactory is a fake server for instances of the armmobilenetwork.ClientFactory type.
 type ServerFactory struct {
-	AttachedDataNetworksServer           AttachedDataNetworksServer
-	DataNetworksServer                   DataNetworksServer
-	DiagnosticsPackagesServer            DiagnosticsPackagesServer
-	ExtendedUeInformationServer          ExtendedUeInformationServer
-	MobileNetworksServer                 MobileNetworksServer
-	OperationsServer                     OperationsServer
-	PacketCapturesServer                 PacketCapturesServer
-	PacketCoreControlPlaneVersionsServer PacketCoreControlPlaneVersionsServer
-	PacketCoreControlPlanesServer        PacketCoreControlPlanesServer
-	PacketCoreDataPlanesServer           PacketCoreDataPlanesServer
-	ServicesServer                       ServicesServer
-	SimGroupsServer                      SimGroupsServer
-	SimPoliciesServer                    SimPoliciesServer
-	SimsServer                           SimsServer
-	SitesServer                          SitesServer
-	SlicesServer                         SlicesServer
-	UeInformationServer                  UeInformationServer
+	AmfDeploymentsServer                               AmfDeploymentsServer
+	AttachedDataNetworksServer                         AttachedDataNetworksServer
+	ClusterServicesServer                              ClusterServicesServer
+	DataNetworksServer                                 DataNetworksServer
+	DiagnosticsPackagesServer                          DiagnosticsPackagesServer
+	ExtendedUeInfosServer                              ExtendedUeInfosServer
+	MobileNetworksServer                               MobileNetworksServer
+	NrfDeploymentsServer                               NrfDeploymentsServer
+	NssfDeploymentsServer                              NssfDeploymentsServer
+	ObservabilityServicesServer                        ObservabilityServicesServer
+	OperationsServer                                   OperationsServer
+	PacketCapturesServer                               PacketCapturesServer
+	PacketCoreControlPlaneVersionsServer               PacketCoreControlPlaneVersionsServer
+	PacketCoreControlPlaneVersionsTenantResourceServer PacketCoreControlPlaneVersionsTenantResourceServer
+	PacketCoreControlPlanesServer                      PacketCoreControlPlanesServer
+	PacketCoreDataPlanesServer                         PacketCoreDataPlanesServer
+	RoutingInfoModelsServer                            RoutingInfoModelsServer
+	ServicesServer                                     ServicesServer
+	SimGroupsServer                                    SimGroupsServer
+	SimPoliciesServer                                  SimPoliciesServer
+	SimsServer                                         SimsServer
+	SitesServer                                        SitesServer
+	SlicesServer                                       SlicesServer
+	SmfDeploymentsServer                               SmfDeploymentsServer
+	UesServer                                          UesServer
+	UpfDeploymentsServer                               UpfDeploymentsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -50,25 +59,34 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armmobilenetwork.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                    *ServerFactory
-	trMu                                   sync.Mutex
-	trAttachedDataNetworksServer           *AttachedDataNetworksServerTransport
-	trDataNetworksServer                   *DataNetworksServerTransport
-	trDiagnosticsPackagesServer            *DiagnosticsPackagesServerTransport
-	trExtendedUeInformationServer          *ExtendedUeInformationServerTransport
-	trMobileNetworksServer                 *MobileNetworksServerTransport
-	trOperationsServer                     *OperationsServerTransport
-	trPacketCapturesServer                 *PacketCapturesServerTransport
-	trPacketCoreControlPlaneVersionsServer *PacketCoreControlPlaneVersionsServerTransport
-	trPacketCoreControlPlanesServer        *PacketCoreControlPlanesServerTransport
-	trPacketCoreDataPlanesServer           *PacketCoreDataPlanesServerTransport
-	trServicesServer                       *ServicesServerTransport
-	trSimGroupsServer                      *SimGroupsServerTransport
-	trSimPoliciesServer                    *SimPoliciesServerTransport
-	trSimsServer                           *SimsServerTransport
-	trSitesServer                          *SitesServerTransport
-	trSlicesServer                         *SlicesServerTransport
-	trUeInformationServer                  *UeInformationServerTransport
+	srv                                                  *ServerFactory
+	trMu                                                 sync.Mutex
+	trAmfDeploymentsServer                               *AmfDeploymentsServerTransport
+	trAttachedDataNetworksServer                         *AttachedDataNetworksServerTransport
+	trClusterServicesServer                              *ClusterServicesServerTransport
+	trDataNetworksServer                                 *DataNetworksServerTransport
+	trDiagnosticsPackagesServer                          *DiagnosticsPackagesServerTransport
+	trExtendedUeInfosServer                              *ExtendedUeInfosServerTransport
+	trMobileNetworksServer                               *MobileNetworksServerTransport
+	trNrfDeploymentsServer                               *NrfDeploymentsServerTransport
+	trNssfDeploymentsServer                              *NssfDeploymentsServerTransport
+	trObservabilityServicesServer                        *ObservabilityServicesServerTransport
+	trOperationsServer                                   *OperationsServerTransport
+	trPacketCapturesServer                               *PacketCapturesServerTransport
+	trPacketCoreControlPlaneVersionsServer               *PacketCoreControlPlaneVersionsServerTransport
+	trPacketCoreControlPlaneVersionsTenantResourceServer *PacketCoreControlPlaneVersionsTenantResourceServerTransport
+	trPacketCoreControlPlanesServer                      *PacketCoreControlPlanesServerTransport
+	trPacketCoreDataPlanesServer                         *PacketCoreDataPlanesServerTransport
+	trRoutingInfoModelsServer                            *RoutingInfoModelsServerTransport
+	trServicesServer                                     *ServicesServerTransport
+	trSimGroupsServer                                    *SimGroupsServerTransport
+	trSimPoliciesServer                                  *SimPoliciesServerTransport
+	trSimsServer                                         *SimsServerTransport
+	trSitesServer                                        *SitesServerTransport
+	trSlicesServer                                       *SlicesServerTransport
+	trSmfDeploymentsServer                               *SmfDeploymentsServerTransport
+	trUesServer                                          *UesServerTransport
+	trUpfDeploymentsServer                               *UpfDeploymentsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -84,11 +102,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "AmfDeploymentsClient":
+		initServer(s, &s.trAmfDeploymentsServer, func() *AmfDeploymentsServerTransport {
+			return NewAmfDeploymentsServerTransport(&s.srv.AmfDeploymentsServer)
+		})
+		resp, err = s.trAmfDeploymentsServer.Do(req)
 	case "AttachedDataNetworksClient":
 		initServer(s, &s.trAttachedDataNetworksServer, func() *AttachedDataNetworksServerTransport {
 			return NewAttachedDataNetworksServerTransport(&s.srv.AttachedDataNetworksServer)
 		})
 		resp, err = s.trAttachedDataNetworksServer.Do(req)
+	case "ClusterServicesClient":
+		initServer(s, &s.trClusterServicesServer, func() *ClusterServicesServerTransport {
+			return NewClusterServicesServerTransport(&s.srv.ClusterServicesServer)
+		})
+		resp, err = s.trClusterServicesServer.Do(req)
 	case "DataNetworksClient":
 		initServer(s, &s.trDataNetworksServer, func() *DataNetworksServerTransport { return NewDataNetworksServerTransport(&s.srv.DataNetworksServer) })
 		resp, err = s.trDataNetworksServer.Do(req)
@@ -97,16 +125,31 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDiagnosticsPackagesServerTransport(&s.srv.DiagnosticsPackagesServer)
 		})
 		resp, err = s.trDiagnosticsPackagesServer.Do(req)
-	case "ExtendedUeInformationClient":
-		initServer(s, &s.trExtendedUeInformationServer, func() *ExtendedUeInformationServerTransport {
-			return NewExtendedUeInformationServerTransport(&s.srv.ExtendedUeInformationServer)
+	case "ExtendedUeInfosClient":
+		initServer(s, &s.trExtendedUeInfosServer, func() *ExtendedUeInfosServerTransport {
+			return NewExtendedUeInfosServerTransport(&s.srv.ExtendedUeInfosServer)
 		})
-		resp, err = s.trExtendedUeInformationServer.Do(req)
+		resp, err = s.trExtendedUeInfosServer.Do(req)
 	case "MobileNetworksClient":
 		initServer(s, &s.trMobileNetworksServer, func() *MobileNetworksServerTransport {
 			return NewMobileNetworksServerTransport(&s.srv.MobileNetworksServer)
 		})
 		resp, err = s.trMobileNetworksServer.Do(req)
+	case "NrfDeploymentsClient":
+		initServer(s, &s.trNrfDeploymentsServer, func() *NrfDeploymentsServerTransport {
+			return NewNrfDeploymentsServerTransport(&s.srv.NrfDeploymentsServer)
+		})
+		resp, err = s.trNrfDeploymentsServer.Do(req)
+	case "NssfDeploymentsClient":
+		initServer(s, &s.trNssfDeploymentsServer, func() *NssfDeploymentsServerTransport {
+			return NewNssfDeploymentsServerTransport(&s.srv.NssfDeploymentsServer)
+		})
+		resp, err = s.trNssfDeploymentsServer.Do(req)
+	case "ObservabilityServicesClient":
+		initServer(s, &s.trObservabilityServicesServer, func() *ObservabilityServicesServerTransport {
+			return NewObservabilityServicesServerTransport(&s.srv.ObservabilityServicesServer)
+		})
+		resp, err = s.trObservabilityServicesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -120,6 +163,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPacketCoreControlPlaneVersionsServerTransport(&s.srv.PacketCoreControlPlaneVersionsServer)
 		})
 		resp, err = s.trPacketCoreControlPlaneVersionsServer.Do(req)
+	case "PacketCoreControlPlaneVersionsTenantResourceClient":
+		initServer(s, &s.trPacketCoreControlPlaneVersionsTenantResourceServer, func() *PacketCoreControlPlaneVersionsTenantResourceServerTransport {
+			return NewPacketCoreControlPlaneVersionsTenantResourceServerTransport(&s.srv.PacketCoreControlPlaneVersionsTenantResourceServer)
+		})
+		resp, err = s.trPacketCoreControlPlaneVersionsTenantResourceServer.Do(req)
 	case "PacketCoreControlPlanesClient":
 		initServer(s, &s.trPacketCoreControlPlanesServer, func() *PacketCoreControlPlanesServerTransport {
 			return NewPacketCoreControlPlanesServerTransport(&s.srv.PacketCoreControlPlanesServer)
@@ -130,6 +178,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPacketCoreDataPlanesServerTransport(&s.srv.PacketCoreDataPlanesServer)
 		})
 		resp, err = s.trPacketCoreDataPlanesServer.Do(req)
+	case "RoutingInfoModelsClient":
+		initServer(s, &s.trRoutingInfoModelsServer, func() *RoutingInfoModelsServerTransport {
+			return NewRoutingInfoModelsServerTransport(&s.srv.RoutingInfoModelsServer)
+		})
+		resp, err = s.trRoutingInfoModelsServer.Do(req)
 	case "ServicesClient":
 		initServer(s, &s.trServicesServer, func() *ServicesServerTransport { return NewServicesServerTransport(&s.srv.ServicesServer) })
 		resp, err = s.trServicesServer.Do(req)
@@ -148,11 +201,19 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "SlicesClient":
 		initServer(s, &s.trSlicesServer, func() *SlicesServerTransport { return NewSlicesServerTransport(&s.srv.SlicesServer) })
 		resp, err = s.trSlicesServer.Do(req)
-	case "UeInformationClient":
-		initServer(s, &s.trUeInformationServer, func() *UeInformationServerTransport {
-			return NewUeInformationServerTransport(&s.srv.UeInformationServer)
+	case "SmfDeploymentsClient":
+		initServer(s, &s.trSmfDeploymentsServer, func() *SmfDeploymentsServerTransport {
+			return NewSmfDeploymentsServerTransport(&s.srv.SmfDeploymentsServer)
 		})
-		resp, err = s.trUeInformationServer.Do(req)
+		resp, err = s.trSmfDeploymentsServer.Do(req)
+	case "UesClient":
+		initServer(s, &s.trUesServer, func() *UesServerTransport { return NewUesServerTransport(&s.srv.UesServer) })
+		resp, err = s.trUesServer.Do(req)
+	case "UpfDeploymentsClient":
+		initServer(s, &s.trUpfDeploymentsServer, func() *UpfDeploymentsServerTransport {
+			return NewUpfDeploymentsServerTransport(&s.srv.UpfDeploymentsServer)
+		})
+		resp, err = s.trUpfDeploymentsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
