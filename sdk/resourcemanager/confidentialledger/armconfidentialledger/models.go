@@ -195,6 +195,9 @@ type ManagedCCFProperties struct {
 	// Deployment Type of Managed CCF
 	DeploymentType *DeploymentType
 
+	// Enclave platform of Managed CCF.
+	EnclavePlatform *EnclavePlatform
+
 	// List of member identity certificates for Managed CCF
 	MemberIdentityCertificates []*MemberIdentityCertificate
 

@@ -527,6 +527,7 @@ func (m ManagedCCFProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "appName", m.AppName)
 	populate(objectMap, "appUri", m.AppURI)
 	populate(objectMap, "deploymentType", m.DeploymentType)
+	populate(objectMap, "enclavePlatform", m.EnclavePlatform)
 	populate(objectMap, "identityServiceUri", m.IdentityServiceURI)
 	populate(objectMap, "memberIdentityCertificates", m.MemberIdentityCertificates)
 	populate(objectMap, "nodeCount", m.NodeCount)
@@ -552,6 +553,9 @@ func (m *ManagedCCFProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "deploymentType":
 			err = unpopulate(val, "DeploymentType", &m.DeploymentType)
+			delete(rawMsg, key)
+		case "enclavePlatform":
+			err = unpopulate(val, "EnclavePlatform", &m.EnclavePlatform)
 			delete(rawMsg, key)
 		case "identityServiceUri":
 			err = unpopulate(val, "IdentityServiceURI", &m.IdentityServiceURI)
