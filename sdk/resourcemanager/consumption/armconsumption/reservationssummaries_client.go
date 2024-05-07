@@ -40,9 +40,11 @@ func NewReservationsSummariesClient(credential azcore.TokenCredential, options *
 	return client, nil
 }
 
-// NewListPager - Lists the reservations summaries for the defined scope daily or monthly grain.
+// NewListPager - Lists the reservations summaries for the defined scope daily or monthly grain. Note: ARM has a payload size
+// limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In
+// such cases, API call should be made with smaller date ranges.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - resourceScope - The scope associated with reservations summaries operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
 //     for BillingAccount scope (legacy), and
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile
@@ -82,23 +84,23 @@ func (client *ReservationsSummariesClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("grain", string(grain))
-	if options != nil && options.StartDate != nil {
-		reqQP.Set("startDate", *options.StartDate)
-	}
-	if options != nil && options.EndDate != nil {
-		reqQP.Set("endDate", *options.EndDate)
-	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-11-01")
+	if options != nil && options.EndDate != nil {
+		reqQP.Set("endDate", *options.EndDate)
+	}
+	reqQP.Set("grain", string(grain))
 	if options != nil && options.ReservationID != nil {
 		reqQP.Set("reservationId", *options.ReservationID)
 	}
 	if options != nil && options.ReservationOrderID != nil {
 		reqQP.Set("reservationOrderId", *options.ReservationOrderID)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	if options != nil && options.StartDate != nil {
+		reqQP.Set("startDate", *options.StartDate)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -113,9 +115,11 @@ func (client *ReservationsSummariesClient) listHandleResponse(resp *http.Respons
 	return result, nil
 }
 
-// NewListByReservationOrderPager - Lists the reservations summaries for daily or monthly grain.
+// NewListByReservationOrderPager - Lists the reservations summaries for daily or monthly grain. Note: ARM has a payload size
+// limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API
+// call should be made with smaller date ranges.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - reservationOrderID - Order Id of the reservation
 //   - grain - Can be daily or monthly
 //   - options - ReservationsSummariesClientListByReservationOrderOptions contains the optional parameters for the ReservationsSummariesClient.NewListByReservationOrderPager
@@ -155,11 +159,11 @@ func (client *ReservationsSummariesClient) listByReservationOrderCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("grain", string(grain))
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("grain", string(grain))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,9 +178,12 @@ func (client *ReservationsSummariesClient) listByReservationOrderHandleResponse(
 	return result, nil
 }
 
-// NewListByReservationOrderAndReservationPager - Lists the reservations summaries for daily or monthly grain.
+// NewListByReservationOrderAndReservationPager - Lists the reservations summaries for daily or monthly grain. Note: ARM has
+// a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases,
+// API
+// call should be made with smaller date ranges.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - reservationOrderID - Order Id of the reservation
 //   - reservationID - Id of the reservation
 //   - grain - Can be daily or monthly
@@ -221,11 +228,11 @@ func (client *ReservationsSummariesClient) listByReservationOrderAndReservationC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("grain", string(grain))
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
+	reqQP.Set("grain", string(grain))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

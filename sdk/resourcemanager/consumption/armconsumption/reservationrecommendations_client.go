@@ -40,7 +40,7 @@ func NewReservationRecommendationsClient(credential azcore.TokenCredential, opti
 
 // NewListPager - List of recommendations for purchasing reserved instances.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - resourceScope - The scope associated with reservation recommendations operations. This includes '/subscriptions/{subscriptionId}/'
 //     for subscription scope,
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resource group scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
@@ -84,7 +84,7 @@ func (client *ReservationRecommendationsClient) listCreateRequest(ctx context.Co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
