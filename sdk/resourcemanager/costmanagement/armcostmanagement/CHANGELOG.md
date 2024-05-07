@@ -1,5 +1,95 @@
 # Release History
 
+## 3.0.0 (2024-05-07)
+### Breaking Changes
+
+- Function `*PriceSheetClient.BeginDownload` has been removed
+- Field `DownloadURL` of struct `PriceSheetClientDownloadByBillingProfileResponse` has been removed
+
+### Features Added
+
+- New value `OperationStatusTypeComplete` added to enum type `OperationStatusType`
+- New enum type `BenefitUtilizationSummaryReportSchema` with values `BenefitUtilizationSummaryReportSchemaAvgUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaBenefitID`, `BenefitUtilizationSummaryReportSchemaBenefitOrderID`, `BenefitUtilizationSummaryReportSchemaBenefitType`, `BenefitUtilizationSummaryReportSchemaKind`, `BenefitUtilizationSummaryReportSchemaMaxUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaMinUtilizationPercentage`, `BenefitUtilizationSummaryReportSchemaUsageDate`, `BenefitUtilizationSummaryReportSchemaUtilizedPercentage`
+- New enum type `BudgetNotificationOperatorType` with values `BudgetNotificationOperatorTypeEqualTo`, `BudgetNotificationOperatorTypeGreaterThan`, `BudgetNotificationOperatorTypeGreaterThanOrEqualTo`, `BudgetNotificationOperatorTypeLessThan`
+- New enum type `BudgetOperatorType` with values `BudgetOperatorTypeIn`
+- New enum type `CategoryType` with values `CategoryTypeCost`, `CategoryTypeReservationUtilization`
+- New enum type `CostAllocationPolicyType` with values `CostAllocationPolicyTypeFixedProportion`
+- New enum type `CostAllocationResourceType` with values `CostAllocationResourceTypeDimension`, `CostAllocationResourceTypeTag`
+- New enum type `CultureCode` with values `CultureCodeCsCz`, `CultureCodeDaDk`, `CultureCodeDeDe`, `CultureCodeEnGb`, `CultureCodeEnUs`, `CultureCodeEsEs`, `CultureCodeFrFr`, `CultureCodeHuHu`, `CultureCodeItIt`, `CultureCodeJaJp`, `CultureCodeKoKr`, `CultureCodeNbNo`, `CultureCodeNlNl`, `CultureCodePlPl`, `CultureCodePtBr`, `CultureCodePtPt`, `CultureCodeRuRu`, `CultureCodeSvSe`, `CultureCodeTrTr`, `CultureCodeZhCn`, `CultureCodeZhTw`
+- New enum type `Frequency` with values `FrequencyDaily`, `FrequencyMonthly`, `FrequencyWeekly`
+- New enum type `Reason` with values `ReasonAlreadyExists`, `ReasonInvalid`, `ReasonValid`
+- New enum type `RuleStatus` with values `RuleStatusActive`, `RuleStatusNotActive`, `RuleStatusProcessing`
+- New enum type `SettingType` with values `SettingTypeTaginheritance`
+- New enum type `SettingsKind` with values `SettingsKindTaginheritance`
+- New enum type `SystemAssignedServiceIdentityType` with values `SystemAssignedServiceIdentityTypeNone`, `SystemAssignedServiceIdentityTypeSystemAssigned`
+- New enum type `ThresholdType` with values `ThresholdTypeActual`, `ThresholdTypeForecasted`
+- New enum type `TimeGrainType` with values `TimeGrainTypeAnnually`, `TimeGrainTypeBillingAnnual`, `TimeGrainTypeBillingMonth`, `TimeGrainTypeBillingQuarter`, `TimeGrainTypeLast30Days`, `TimeGrainTypeLast7Days`, `TimeGrainTypeMonthly`, `TimeGrainTypeQuarterly`
+- New function `NewBudgetsClient(azcore.TokenCredential, *arm.ClientOptions) (*BudgetsClient, error)`
+- New function `*BudgetsClient.CreateOrUpdate(context.Context, string, string, Budget, *BudgetsClientCreateOrUpdateOptions) (BudgetsClientCreateOrUpdateResponse, error)`
+- New function `*BudgetsClient.Delete(context.Context, string, string, *BudgetsClientDeleteOptions) (BudgetsClientDeleteResponse, error)`
+- New function `*BudgetsClient.Get(context.Context, string, string, *BudgetsClientGetOptions) (BudgetsClientGetResponse, error)`
+- New function `*BudgetsClient.NewListPager(string, *BudgetsClientListOptions) *runtime.Pager[BudgetsClientListResponse]`
+- New function `*ClientFactory.NewBudgetsClient() *BudgetsClient`
+- New function `*ClientFactory.NewCostAllocationRulesClient() *CostAllocationRulesClient`
+- New function `*ClientFactory.NewGenerateBenefitUtilizationSummariesReportClient() *GenerateBenefitUtilizationSummariesReportClient`
+- New function `*ClientFactory.NewSettingsClient() *SettingsClient`
+- New function `NewCostAllocationRulesClient(azcore.TokenCredential, *arm.ClientOptions) (*CostAllocationRulesClient, error)`
+- New function `*CostAllocationRulesClient.CheckNameAvailability(context.Context, string, CostAllocationRuleCheckNameAvailabilityRequest, *CostAllocationRulesClientCheckNameAvailabilityOptions) (CostAllocationRulesClientCheckNameAvailabilityResponse, error)`
+- New function `*CostAllocationRulesClient.CreateOrUpdate(context.Context, string, string, CostAllocationRuleDefinition, *CostAllocationRulesClientCreateOrUpdateOptions) (CostAllocationRulesClientCreateOrUpdateResponse, error)`
+- New function `*CostAllocationRulesClient.Delete(context.Context, string, string, *CostAllocationRulesClientDeleteOptions) (CostAllocationRulesClientDeleteResponse, error)`
+- New function `*CostAllocationRulesClient.Get(context.Context, string, string, *CostAllocationRulesClientGetOptions) (CostAllocationRulesClientGetResponse, error)`
+- New function `*CostAllocationRulesClient.NewListPager(string, *CostAllocationRulesClientListOptions) *runtime.Pager[CostAllocationRulesClientListResponse]`
+- New function `NewGenerateBenefitUtilizationSummariesReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateBenefitUtilizationSummariesReportClient, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingAccount(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingAccountOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingAccountResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingProfile(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByBillingProfileOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByBillingProfileResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateByReservationOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateByReservationOrderIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanID(context.Context, string, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanIDResponse], error)`
+- New function `*GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanOrderID(context.Context, string, BenefitUtilizationSummariesRequest, *GenerateBenefitUtilizationSummariesReportClientBeginGenerateBySavingsPlanOrderIDOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanOrderIDResponse], error)`
+- New function `*PriceSheetClient.BeginDownloadByBillingAccount(context.Context, string, string, *PriceSheetClientBeginDownloadByBillingAccountOptions) (*runtime.Poller[PriceSheetClientDownloadByBillingAccountResponse], error)`
+- New function `*PriceSheetClient.BeginDownloadByInvoice(context.Context, string, string, string, *PriceSheetClientBeginDownloadByInvoiceOptions) (*runtime.Poller[PriceSheetClientDownloadByInvoiceResponse], error)`
+- New function `*Setting.GetSetting() *Setting`
+- New function `NewSettingsClient(azcore.TokenCredential, *arm.ClientOptions) (*SettingsClient, error)`
+- New function `*SettingsClient.CreateOrUpdateByScope(context.Context, string, SettingType, SettingClassification, *SettingsClientCreateOrUpdateByScopeOptions) (SettingsClientCreateOrUpdateByScopeResponse, error)`
+- New function `*SettingsClient.DeleteByScope(context.Context, string, SettingType, *SettingsClientDeleteByScopeOptions) (SettingsClientDeleteByScopeResponse, error)`
+- New function `*SettingsClient.GetByScope(context.Context, string, SettingType, *SettingsClientGetByScopeOptions) (SettingsClientGetByScopeResponse, error)`
+- New function `*SettingsClient.List(context.Context, string, *SettingsClientListOptions) (SettingsClientListResponse, error)`
+- New function `*TagInheritanceSetting.GetSetting() *Setting`
+- New struct `AsyncOperationStatusProperties`
+- New struct `BenefitUtilizationSummariesOperationStatus`
+- New struct `BenefitUtilizationSummariesRequest`
+- New struct `Budget`
+- New struct `BudgetComparisonExpression`
+- New struct `BudgetFilter`
+- New struct `BudgetFilterProperties`
+- New struct `BudgetProperties`
+- New struct `BudgetTimePeriod`
+- New struct `BudgetsListResult`
+- New struct `CostAllocationProportion`
+- New struct `CostAllocationRuleCheckNameAvailabilityRequest`
+- New struct `CostAllocationRuleCheckNameAvailabilityResponse`
+- New struct `CostAllocationRuleDefinition`
+- New struct `CostAllocationRuleDetails`
+- New struct `CostAllocationRuleList`
+- New struct `CostAllocationRuleProperties`
+- New struct `CurrentSpend`
+- New struct `EAPriceSheetProperties`
+- New struct `EAPricesheetDownloadProperties`
+- New struct `ForecastSpend`
+- New struct `MCAPriceSheetProperties`
+- New struct `Notification`
+- New struct `OperationStatusAutoGenerated`
+- New struct `PricesheetDownloadProperties`
+- New struct `SettingsListResult`
+- New struct `SourceCostAllocationResource`
+- New struct `SystemAssignedServiceIdentity`
+- New struct `TagInheritanceProperties`
+- New struct `TagInheritanceSetting`
+- New struct `TargetCostAllocationResource`
+- New field `Identity`, `Location` in struct `Export`
+- New anonymous field `PricesheetDownloadProperties` in struct `PriceSheetClientDownloadByBillingProfileResponse`
+
+
 ## 2.1.0 (2023-11-24)
 ### Features Added
 

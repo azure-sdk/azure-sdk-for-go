@@ -17,6 +17,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -40,9 +41,14 @@ func NewReservationTransactionsClient(credential azcore.TokenCredential, options
 	return client, nil
 }
 
-// NewListPager - List of transactions for reserved instances on billing account scope
+// NewListPager - List of transactions for reserved instances on billing account scope. Note: The refund transactions are
+// posted along with its purchase transaction (i.e. in the purchase billing month). For example,
+// The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as
+// April 2020 when the reservation purchase was made. Note: ARM has a payload size
+// limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should
+// be made with smaller date ranges.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - billingAccountID - BillingAccount ID
 //   - options - ReservationTransactionsClientListOptions contains the optional parameters for the ReservationTransactionsClient.NewListPager
 //     method.
@@ -84,7 +90,13 @@ func (client *ReservationTransactionsClient) listCreateRequest(ctx context.Conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
+	if options != nil && options.PreviewMarkupPercentage != nil {
+		reqQP.Set("previewMarkupPercentage", strconv.FormatFloat(*options.PreviewMarkupPercentage, 'f', -1, 64))
+	}
+	if options != nil && options.UseMarkupIfPartner != nil {
+		reqQP.Set("useMarkupIfPartner", strconv.FormatBool(*options.UseMarkupIfPartner))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -99,9 +111,14 @@ func (client *ReservationTransactionsClient) listHandleResponse(resp *http.Respo
 	return result, nil
 }
 
-// NewListByBillingProfilePager - List of transactions for reserved instances on billing account scope
+// NewListByBillingProfilePager - List of transactions for reserved instances on billing profile scope. The refund transactions
+// are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The
+// refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April
+// 2020 when the reservation purchase was made. Note: ARM has a payload size limit
+// of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made
+// with smaller date ranges.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-11-01
 //   - billingAccountID - BillingAccount ID
 //   - billingProfileID - Azure Billing Profile ID.
 //   - options - ReservationTransactionsClientListByBillingProfileOptions contains the optional parameters for the ReservationTransactionsClient.NewListByBillingProfilePager
@@ -148,7 +165,7 @@ func (client *ReservationTransactionsClient) listByBillingProfileCreateRequest(c
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
