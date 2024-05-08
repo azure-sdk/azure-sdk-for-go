@@ -20,6 +20,41 @@ type ExtensionMetadataClientListResponse struct {
 	ExtensionValueListResult
 }
 
+// GatewaysClientCreateOrUpdateResponse contains the response from method GatewaysClient.BeginCreateOrUpdate.
+type GatewaysClientCreateOrUpdateResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
+}
+
+// GatewaysClientDeleteResponse contains the response from method GatewaysClient.BeginDelete.
+type GatewaysClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GatewaysClientGetResponse contains the response from method GatewaysClient.Get.
+type GatewaysClientGetResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
+}
+
+// GatewaysClientListByResourceGroupResponse contains the response from method GatewaysClient.NewListByResourceGroupPager.
+type GatewaysClientListByResourceGroupResponse struct {
+	// The List license operation response.
+	GatewaysListResult
+}
+
+// GatewaysClientListBySubscriptionResponse contains the response from method GatewaysClient.NewListBySubscriptionPager.
+type GatewaysClientListBySubscriptionResponse struct {
+	// The List license operation response.
+	GatewaysListResult
+}
+
+// GatewaysClientUpdateResponse contains the response from method GatewaysClient.Update.
+type GatewaysClientUpdateResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
+}
+
 // MachineExtensionsClientCreateOrUpdateResponse contains the response from method MachineExtensionsClient.BeginCreateOrUpdate.
 type MachineExtensionsClientCreateOrUpdateResponse struct {
 	// Describes a Machine Extension.
@@ -208,4 +243,19 @@ type PrivateLinkScopesClientListResponse struct {
 type PrivateLinkScopesClientUpdateTagsResponse struct {
 	// An Azure Arc PrivateLinkScope definition.
 	PrivateLinkScope
+}
+
+// SettingsClientGetResponse contains the response from method SettingsClient.Get.
+type SettingsClientGetResponse struct {
+	Settings
+}
+
+// SettingsClientPatchResponse contains the response from method SettingsClient.Patch.
+type SettingsClientPatchResponse struct {
+	Settings
+}
+
+// SettingsClientUpdateResponse contains the response from method SettingsClient.Update.
+type SettingsClientUpdateResponse struct {
+	Settings
 }

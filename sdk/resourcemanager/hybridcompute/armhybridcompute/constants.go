@@ -10,7 +10,7 @@ package armhybridcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0-beta.3"
 )
 
 // AgentConfigurationMode - Name of configuration mode to use. Modes are pre-defined configurations of security controls,
@@ -183,6 +183,20 @@ func PossibleExtensionsStatusLevelTypesValues() []ExtensionsStatusLevelTypes {
 		ExtensionsStatusLevelTypesError,
 		ExtensionsStatusLevelTypesInfo,
 		ExtensionsStatusLevelTypesWarning,
+	}
+}
+
+// GatewayType - The type of the Gateway resource.
+type GatewayType string
+
+const (
+	GatewayTypePublic GatewayType = "Public"
+)
+
+// PossibleGatewayTypeValues returns the possible values for the GatewayType const type.
+func PossibleGatewayTypeValues() []GatewayType {
+	return []GatewayType{
+		GatewayTypePublic,
 	}
 }
 
@@ -458,6 +472,24 @@ func PossiblePatchServiceUsedValues() []PatchServiceUsed {
 	}
 }
 
+// ProgramYear - Describes the program year the volume license is for.
+type ProgramYear string
+
+const (
+	ProgramYearYear1 ProgramYear = "Year 1"
+	ProgramYearYear2 ProgramYear = "Year 2"
+	ProgramYearYear3 ProgramYear = "Year 3"
+)
+
+// PossibleProgramYearValues returns the possible values for the ProgramYear const type.
+func PossibleProgramYearValues() []ProgramYear {
+	return []ProgramYear{
+		ProgramYearYear1,
+		ProgramYearYear2,
+		ProgramYearYear3,
+	}
+}
+
 // ProvisioningState - The provisioning state, which only appears in the response.
 type ProvisioningState string
 
@@ -497,6 +529,9 @@ const (
 	// PublicNetworkAccessTypeEnabled - Allows Azure Arc agents to communicate with Azure Arc services over both public (internet)
 	// and private endpoints.
 	PublicNetworkAccessTypeEnabled PublicNetworkAccessType = "Enabled"
+	// PublicNetworkAccessTypeSecuredByPerimeter - Azure Arc agent communication with Azure Arc services over public (internet)
+	// is enforced by Network Security Perimeter (NSP)
+	PublicNetworkAccessTypeSecuredByPerimeter PublicNetworkAccessType = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessTypeValues returns the possible values for the PublicNetworkAccessType const type.
@@ -504,6 +539,7 @@ func PossiblePublicNetworkAccessTypeValues() []PublicNetworkAccessType {
 	return []PublicNetworkAccessType{
 		PublicNetworkAccessTypeDisabled,
 		PublicNetworkAccessTypeEnabled,
+		PublicNetworkAccessTypeSecuredByPerimeter,
 	}
 }
 

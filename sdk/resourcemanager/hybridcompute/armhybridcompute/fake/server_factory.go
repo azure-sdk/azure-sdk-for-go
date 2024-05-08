@@ -20,6 +20,7 @@ import (
 // ServerFactory is a fake server for instances of the armhybridcompute.ClientFactory type.
 type ServerFactory struct {
 	ExtensionMetadataServer          ExtensionMetadataServer
+	GatewaysServer                   GatewaysServer
 	MachineExtensionsServer          MachineExtensionsServer
 	MachineRunCommandsServer         MachineRunCommandsServer
 	MachinesServer                   MachinesServer
@@ -29,6 +30,7 @@ type ServerFactory struct {
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer       PrivateLinkResourcesServer
 	PrivateLinkScopesServer          PrivateLinkScopesServer
+	SettingsServer                   SettingsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -46,6 +48,7 @@ type ServerFactoryTransport struct {
 	srv                                *ServerFactory
 	trMu                               sync.Mutex
 	trExtensionMetadataServer          *ExtensionMetadataServerTransport
+	trGatewaysServer                   *GatewaysServerTransport
 	trMachineExtensionsServer          *MachineExtensionsServerTransport
 	trMachineRunCommandsServer         *MachineRunCommandsServerTransport
 	trMachinesServer                   *MachinesServerTransport
@@ -55,6 +58,7 @@ type ServerFactoryTransport struct {
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
 	trPrivateLinkScopesServer          *PrivateLinkScopesServerTransport
+	trSettingsServer                   *SettingsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -75,6 +79,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewExtensionMetadataServerTransport(&s.srv.ExtensionMetadataServer)
 		})
 		resp, err = s.trExtensionMetadataServer.Do(req)
+	case "GatewaysClient":
+		initServer(s, &s.trGatewaysServer, func() *GatewaysServerTransport { return NewGatewaysServerTransport(&s.srv.GatewaysServer) })
+		resp, err = s.trGatewaysServer.Do(req)
 	case "MachineExtensionsClient":
 		initServer(s, &s.trMachineExtensionsServer, func() *MachineExtensionsServerTransport {
 			return NewMachineExtensionsServerTransport(&s.srv.MachineExtensionsServer)
@@ -114,6 +121,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkScopesServerTransport(&s.srv.PrivateLinkScopesServer)
 		})
 		resp, err = s.trPrivateLinkScopesServer.Do(req)
+	case "SettingsClient":
+		initServer(s, &s.trSettingsServer, func() *SettingsServerTransport { return NewSettingsServerTransport(&s.srv.SettingsServer) })
+		resp, err = s.trSettingsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

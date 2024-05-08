@@ -154,8 +154,9 @@ type ErrorDetail struct {
 
 // EsuKey - ESU key
 type EsuKey struct {
-	// The current status of the license profile key.
-	LicenseStatus *string
+	// The current status of the license profile key. Represented by the same integer value that is presented on the machine itself
+	// when querying the license key status.
+	LicenseStatus *int32
 
 	// SKU number.
 	SKU *string
@@ -172,7 +173,7 @@ type ExtensionValue struct {
 	// The single extension based on search criteria
 	Properties *ExtensionValueProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -219,6 +220,72 @@ type ExtensionsResourceStatus struct {
 
 	// The time of the status.
 	Time *time.Time
+}
+
+// Gateway - Describes an Arc Gateway.
+type Gateway struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Hybrid Compute Gateway properties
+	Properties *GatewayProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GatewayProperties - Describes the properties of a Gateway Profile.
+type GatewayProperties struct {
+	// Specifies the list of features that are enabled for this Gateway.
+	AllowedFeatures []*string
+
+	// The type of the Gateway resource.
+	GatewayType *GatewayType
+
+	// READ-ONLY; The endpoint fqdn for the Gateway.
+	GatewayEndpoint *string
+
+	// READ-ONLY; A unique, immutable, identifier for the Gateway.
+	GatewayID *string
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *ProvisioningState
+}
+
+// GatewayUpdate - Describes a License Update.
+type GatewayUpdate struct {
+	// Gateway Update properties
+	Properties *GatewayUpdateProperties
+
+	// Resource tags
+	Tags map[string]*string
+}
+
+// GatewayUpdateProperties - Describes the Update properties of a Gateway Profile.
+type GatewayUpdateProperties struct {
+	// Specifies the list of features that are enabled for this Gateway.
+	AllowedFeatures []*string
+}
+
+// GatewaysListResult - The List license operation response.
+type GatewaysListResult struct {
+	// REQUIRED; The list of Gateways.
+	Value []*Gateway
+
+	// The URI to fetch the next page of Gateways. Call ListNext() with this URI to fetch the next page of Gateways.
+	NextLink *string
 }
 
 // IPAddress - Describes properties of the IP address.
@@ -285,6 +352,9 @@ type LicenseDetails struct {
 
 	// Describes the license core type (pCore or vCore).
 	Type *LicenseCoreType
+
+	// A list of volume license details.
+	VolumeLicenseDetails []*VolumeLicenseDetails
 
 	// READ-ONLY; Describes the number of assigned licenses.
 	AssignedLicenses *int32
@@ -1274,6 +1344,38 @@ type ServiceStatuses struct {
 	GuestConfigurationService *ServiceStatus
 }
 
+type Settings struct {
+	// Settings properties
+	Properties *SettingsProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SettingsGatewayProperties - Settings Gateway properties
+type SettingsGatewayProperties struct {
+	// Associated Gateway Resource Id
+	GatewayResourceID *string
+}
+
+// SettingsProperties - Settings properties
+type SettingsProperties struct {
+	// Settings Gateway properties
+	GatewayProperties *SettingsGatewayProperties
+
+	// READ-ONLY; Azure resource tenant Id
+	TenantID *string
+}
+
 // Subnet - Describes the subnet.
 type Subnet struct {
 	// Represents address prefix.
@@ -1306,6 +1408,14 @@ type SystemData struct {
 type TagsResource struct {
 	// Resource tags
 	Tags map[string]*string
+}
+
+type VolumeLicenseDetails struct {
+	// The invoice id for the volume license.
+	InvoiceID *string
+
+	// Describes the program year the volume license is for.
+	ProgramYear *ProgramYear
 }
 
 // WindowsParameters - Input for InstallPatches on a Windows VM, as directly received by the API
