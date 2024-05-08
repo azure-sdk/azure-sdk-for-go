@@ -50,7 +50,7 @@ type ControlActivityClassification interface {
 // - *AvroSink, *AzureBlobFSSink, *AzureDataExplorerSink, *AzureDataLakeStoreSink, *AzureDatabricksDeltaLakeSink, *AzureMySQLSink,
 // - *AzurePostgreSQLSink, *AzureQueueSink, *AzureSQLSink, *AzureSearchIndexSink, *AzureTableSink, *BinarySink, *BlobSink,
 // - *CommonDataServiceForAppsSink, *CopySink, *CosmosDbMongoDbAPISink, *CosmosDbSQLAPISink, *DelimitedTextSink, *DocumentDbCollectionSink,
-// - *DynamicsCrmSink, *DynamicsSink, *FileSystemSink, *InformixSink, *JSONSink, *LakeHouseTableSink, *MicrosoftAccessSink,
+// - *DynamicsCrmSink, *DynamicsSink, *FileSystemSink, *InformixSink, *JSONSink, *LakehouseTableSink, *MicrosoftAccessSink,
 // - *MongoDbAtlasSink, *MongoDbV2Sink, *OdbcSink, *OracleSink, *OrcSink, *ParquetSink, *RestSink, *SQLDWSink, *SQLMISink,
 // - *SQLServerSink, *SQLSink, *SalesforceServiceCloudSink, *SalesforceServiceCloudV2Sink, *SalesforceSink, *SalesforceV2Sink,
 // - *SapCloudForCustomerSink, *SnowflakeSink, *SnowflakeV2Sink, *WarehouseSink
@@ -68,7 +68,7 @@ type CopySinkClassification interface {
 // - *ConcurSource, *CopySource, *CosmosDbMongoDbAPISource, *CosmosDbSQLAPISource, *CouchbaseSource, *Db2Source, *DelimitedTextSource,
 // - *DocumentDbCollectionSource, *DrillSource, *DynamicsAXSource, *DynamicsCrmSource, *DynamicsSource, *EloquaSource, *ExcelSource,
 // - *FileSystemSource, *GoogleAdWordsSource, *GoogleBigQuerySource, *GoogleBigQueryV2Source, *GreenplumSource, *HBaseSource,
-// - *HTTPSource, *HdfsSource, *HiveSource, *HubspotSource, *ImpalaSource, *InformixSource, *JSONSource, *JiraSource, *LakeHouseTableSource,
+// - *HTTPSource, *HdfsSource, *HiveSource, *HubspotSource, *ImpalaSource, *InformixSource, *JSONSource, *JiraSource, *LakehouseTableSource,
 // - *MagentoSource, *MariaDBSource, *MarketoSource, *MicrosoftAccessSource, *MongoDbAtlasSource, *MongoDbSource, *MongoDbV2Source,
 // - *MySQLSource, *NetezzaSource, *ODataSource, *OdbcSource, *Office365Source, *OracleServiceCloudSource, *OracleSource,
 // - *OrcSource, *ParquetSource, *PaypalSource, *PhoenixSource, *PostgreSQLSource, *PostgreSQLV2Source, *PrestoSource, *QuickBooksSource,
@@ -122,7 +122,7 @@ type DataFlowClassification interface {
 // - *DrillTableDataset, *DynamicsAXResourceDataset, *DynamicsCrmEntityDataset, *DynamicsEntityDataset, *EloquaObjectDataset,
 // - *ExcelDataset, *FileShareDataset, *GoogleAdWordsObjectDataset, *GoogleBigQueryObjectDataset, *GoogleBigQueryV2ObjectDataset,
 // - *GreenplumTableDataset, *HBaseObjectDataset, *HTTPDataset, *HiveObjectDataset, *HubspotObjectDataset, *ImpalaObjectDataset,
-// - *InformixTableDataset, *JSONDataset, *JiraObjectDataset, *LakeHouseTableDataset, *MagentoObjectDataset, *MariaDBTableDataset,
+// - *InformixTableDataset, *JSONDataset, *JiraObjectDataset, *LakehouseTableDataset, *MagentoObjectDataset, *MariaDBTableDataset,
 // - *MarketoObjectDataset, *MicrosoftAccessTableDataset, *MongoDbAtlasCollectionDataset, *MongoDbCollectionDataset, *MongoDbV2CollectionDataset,
 // - *MySQLTableDataset, *NetezzaTableDataset, *ODataResourceDataset, *OdbcTableDataset, *Office365Dataset, *OracleServiceCloudObjectDataset,
 // - *OracleTableDataset, *OrcDataset, *ParquetDataset, *PaypalObjectDataset, *PhoenixObjectDataset, *PostgreSQLTableDataset,
@@ -143,7 +143,7 @@ type DatasetClassification interface {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AmazonS3CompatibleLocation, *AmazonS3Location, *AzureBlobFSLocation, *AzureBlobStorageLocation, *AzureDataLakeStoreLocation,
 // - *AzureFileStorageLocation, *DatasetLocation, *FileServerLocation, *FtpServerLocation, *GoogleCloudStorageLocation, *HTTPServerLocation,
-// - *HdfsLocation, *LakeHouseLocation, *OracleCloudStorageLocation, *SftpLocation
+// - *HdfsLocation, *LakehouseLocation, *OracleCloudStorageLocation, *SftpLocation
 type DatasetLocationClassification interface {
 	// GetDatasetLocation returns the DatasetLocation content of the underlying type.
 	GetDatasetLocation() *DatasetLocation
@@ -270,7 +270,7 @@ type LinkedIntegrationRuntimeTypeClassification interface {
 // - *FtpServerLinkedService, *GoogleAdWordsLinkedService, *GoogleBigQueryLinkedService, *GoogleBigQueryV2LinkedService, *GoogleCloudStorageLinkedService,
 // - *GoogleSheetsLinkedService, *GreenplumLinkedService, *HBaseLinkedService, *HDInsightLinkedService, *HDInsightOnDemandLinkedService,
 // - *HTTPLinkedService, *HdfsLinkedService, *HiveLinkedService, *HubspotLinkedService, *ImpalaLinkedService, *InformixLinkedService,
-// - *JiraLinkedService, *LakeHouseLinkedService, *LinkedService, *MagentoLinkedService, *MariaDBLinkedService, *MarketoLinkedService,
+// - *JiraLinkedService, *LakehouseLinkedService, *LinkedService, *MagentoLinkedService, *MariaDBLinkedService, *MarketoLinkedService,
 // - *MicrosoftAccessLinkedService, *MongoDbAtlasLinkedService, *MongoDbLinkedService, *MongoDbV2LinkedService, *MySQLLinkedService,
 // - *NetezzaLinkedService, *ODataLinkedService, *OdbcLinkedService, *Office365LinkedService, *OracleCloudStorageLinkedService,
 // - *OracleLinkedService, *OracleServiceCloudLinkedService, *PaypalLinkedService, *PhoenixLinkedService, *PostgreSQLLinkedService,
@@ -320,7 +320,7 @@ type SsisObjectMetadataClassification interface {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AmazonS3CompatibleReadSettings, *AmazonS3ReadSettings, *AzureBlobFSReadSettings, *AzureBlobStorageReadSettings, *AzureDataLakeStoreReadSettings,
 // - *AzureFileStorageReadSettings, *FileServerReadSettings, *FtpReadSettings, *GoogleCloudStorageReadSettings, *HTTPReadSettings,
-// - *HdfsReadSettings, *LakeHouseReadSettings, *OracleCloudStorageReadSettings, *SftpReadSettings, *StoreReadSettings
+// - *HdfsReadSettings, *LakehouseReadSettings, *OracleCloudStorageReadSettings, *SftpReadSettings, *StoreReadSettings
 type StoreReadSettingsClassification interface {
 	// GetStoreReadSettings returns the StoreReadSettings content of the underlying type.
 	GetStoreReadSettings() *StoreReadSettings
@@ -330,7 +330,7 @@ type StoreReadSettingsClassification interface {
 // Call the interface's GetStoreWriteSettings() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureBlobFSWriteSettings, *AzureBlobStorageWriteSettings, *AzureDataLakeStoreWriteSettings, *AzureFileStorageWriteSettings,
-// - *FileServerWriteSettings, *LakeHouseWriteSettings, *SftpWriteSettings, *StoreWriteSettings
+// - *FileServerWriteSettings, *LakehouseWriteSettings, *SftpWriteSettings, *StoreWriteSettings
 type StoreWriteSettingsClassification interface {
 	// GetStoreWriteSettings returns the StoreWriteSettings content of the underlying type.
 	GetStoreWriteSettings() *StoreWriteSettings

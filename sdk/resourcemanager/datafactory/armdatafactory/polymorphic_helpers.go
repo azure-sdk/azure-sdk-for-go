@@ -211,8 +211,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &InformixSink{}
 	case "JsonSink":
 		b = &JSONSink{}
-	case "LakeHouseTableSink":
-		b = &LakeHouseTableSink{}
+	case "LakehouseTableSink":
+		b = &LakehouseTableSink{}
 	case "MicrosoftAccessSink":
 		b = &MicrosoftAccessSink{}
 	case "MongoDbAtlasSink":
@@ -362,8 +362,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &JiraSource{}
 	case "JsonSource":
 		b = &JSONSource{}
-	case "LakeHouseTableSource":
-		b = &LakeHouseTableSource{}
+	case "LakehouseTableSource":
+		b = &LakehouseTableSource{}
 	case "MagentoSource":
 		b = &MagentoSource{}
 	case "MariaDBSource":
@@ -691,8 +691,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &JiraObjectDataset{}
 	case "Json":
 		b = &JSONDataset{}
-	case "LakeHouseTable":
-		b = &LakeHouseTableDataset{}
+	case "LakehouseTable":
+		b = &LakehouseTableDataset{}
 	case "MagentoObject":
 		b = &MagentoObjectDataset{}
 	case "MariaDBTable":
@@ -842,8 +842,8 @@ func unmarshalDatasetLocationClassification(rawMsg json.RawMessage) (DatasetLoca
 		b = &HdfsLocation{}
 	case "HttpServerLocation":
 		b = &HTTPServerLocation{}
-	case "LakeHouseLocation":
-		b = &LakeHouseLocation{}
+	case "LakehouseLocation":
+		b = &LakehouseLocation{}
 	case "OracleCloudStorageLocation":
 		b = &OracleCloudStorageLocation{}
 	case "SftpLocation":
@@ -1187,8 +1187,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &InformixLinkedService{}
 	case "Jira":
 		b = &JiraLinkedService{}
-	case "LakeHouse":
-		b = &LakeHouseLinkedService{}
+	case "Lakehouse":
+		b = &LakehouseLinkedService{}
 	case "Magento":
 		b = &MagentoLinkedService{}
 	case "MariaDB":
@@ -1413,8 +1413,8 @@ func unmarshalStoreReadSettingsClassification(rawMsg json.RawMessage) (StoreRead
 		b = &HdfsReadSettings{}
 	case "HttpReadSettings":
 		b = &HTTPReadSettings{}
-	case "LakeHouseReadSettings":
-		b = &LakeHouseReadSettings{}
+	case "LakehouseReadSettings":
+		b = &LakehouseReadSettings{}
 	case "OracleCloudStorageReadSettings":
 		b = &OracleCloudStorageReadSettings{}
 	case "SftpReadSettings":
@@ -1448,8 +1448,8 @@ func unmarshalStoreWriteSettingsClassification(rawMsg json.RawMessage) (StoreWri
 		b = &AzureFileStorageWriteSettings{}
 	case "FileServerWriteSettings":
 		b = &FileServerWriteSettings{}
-	case "LakeHouseWriteSettings":
-		b = &LakeHouseWriteSettings{}
+	case "LakehouseWriteSettings":
+		b = &LakehouseWriteSettings{}
 	case "SftpWriteSettings":
 		b = &SftpWriteSettings{}
 	default:
