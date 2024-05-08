@@ -46,7 +46,7 @@ func NewMetadataSchemasClient(subscriptionID string, credential azcore.TokenCred
 // CreateOrUpdate - Creates new or updates existing metadata schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-03-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - metadataSchemaName - The name of the metadata schema.
@@ -99,7 +99,7 @@ func (client *MetadataSchemasClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -123,7 +123,7 @@ func (client *MetadataSchemasClient) createOrUpdateHandleResponse(resp *http.Res
 // Delete - Deletes specified metadata schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-03-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - metadataSchemaName - The name of the metadata schema.
@@ -173,7 +173,7 @@ func (client *MetadataSchemasClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -182,7 +182,7 @@ func (client *MetadataSchemasClient) deleteCreateRequest(ctx context.Context, re
 // Get - Returns details of the metadata schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-03-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - metadataSchemaName - The name of the metadata schema.
@@ -233,7 +233,7 @@ func (client *MetadataSchemasClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *MetadataSchemasClient) getHandleResponse(resp *http.Response) (Met
 
 // Head - Checks if specified metadata schema exists.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-03-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - metadataSchemaName - The name of the metadata schema.
@@ -272,7 +272,7 @@ func (client *MetadataSchemasClient) Head(ctx context.Context, resourceGroupName
 	if err != nil {
 		return MetadataSchemasClientHeadResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusNoContent, http.StatusNotFound) {
 		err = runtime.NewResponseError(httpResp)
 		return MetadataSchemasClientHeadResponse{}, err
 	}
@@ -303,7 +303,7 @@ func (client *MetadataSchemasClient) headCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -311,7 +311,7 @@ func (client *MetadataSchemasClient) headCreateRequest(ctx context.Context, reso
 
 // NewListPager - Returns a collection of metadata schemas.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-03-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - options - MetadataSchemasClientListOptions contains the optional parameters for the MetadataSchemasClient.NewListPager
@@ -362,7 +362,7 @@ func (client *MetadataSchemasClient) listCreateRequest(ctx context.Context, reso
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

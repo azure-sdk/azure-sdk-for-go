@@ -41,7 +41,7 @@ type APIDefinitionsServer struct {
 	Get func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, options *armapicenter.APIDefinitionsClientGetOptions) (resp azfake.Responder[armapicenter.APIDefinitionsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// Head is the fake for method APIDefinitionsClient.Head
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusNoContent, http.StatusNotFound
 	Head func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, options *armapicenter.APIDefinitionsClientHeadOptions) (resp azfake.Responder[armapicenter.APIDefinitionsClientHeadResponse], errResp azfake.ErrorResponder)
 
 	// BeginImportSpecification is the fake for method APIDefinitionsClient.BeginImportSpecification
@@ -367,8 +367,8 @@ func (a *APIDefinitionsServerTransport) dispatchHead(req *http.Request) (*http.R
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusNoContent, http.StatusNotFound}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent, http.StatusNotFound", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {

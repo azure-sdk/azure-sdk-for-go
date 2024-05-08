@@ -37,7 +37,7 @@ type MetadataSchemasServer struct {
 	Get func(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, options *armapicenter.MetadataSchemasClientGetOptions) (resp azfake.Responder[armapicenter.MetadataSchemasClientGetResponse], errResp azfake.ErrorResponder)
 
 	// Head is the fake for method MetadataSchemasClient.Head
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusNoContent, http.StatusNotFound
 	Head func(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, options *armapicenter.MetadataSchemasClientHeadOptions) (resp azfake.Responder[armapicenter.MetadataSchemasClientHeadResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method MetadataSchemasClient.NewListPager
@@ -243,8 +243,8 @@ func (m *MetadataSchemasServerTransport) dispatchHead(req *http.Request) (*http.
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusNoContent, http.StatusNotFound}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent, http.StatusNotFound", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {

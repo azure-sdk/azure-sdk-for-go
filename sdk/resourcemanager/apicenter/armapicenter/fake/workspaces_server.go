@@ -37,7 +37,7 @@ type WorkspacesServer struct {
 	Get func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, options *armapicenter.WorkspacesClientGetOptions) (resp azfake.Responder[armapicenter.WorkspacesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// Head is the fake for method WorkspacesClient.Head
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusNoContent, http.StatusNotFound
 	Head func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, options *armapicenter.WorkspacesClientHeadOptions) (resp azfake.Responder[armapicenter.WorkspacesClientHeadResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method WorkspacesClient.NewListPager
@@ -243,8 +243,8 @@ func (w *WorkspacesServerTransport) dispatchHead(req *http.Request) (*http.Respo
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusNoContent, http.StatusNotFound}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent, http.StatusNotFound", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {

@@ -37,7 +37,7 @@ type ApisServer struct {
 	Get func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *armapicenter.ApisClientGetOptions) (resp azfake.Responder[armapicenter.ApisClientGetResponse], errResp azfake.ErrorResponder)
 
 	// Head is the fake for method ApisClient.Head
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusNoContent, http.StatusNotFound
 	Head func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *armapicenter.ApisClientHeadOptions) (resp azfake.Responder[armapicenter.ApisClientHeadResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ApisClient.NewListPager
@@ -259,8 +259,8 @@ func (a *ApisServerTransport) dispatchHead(req *http.Request) (*http.Response, e
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusNoContent, http.StatusNotFound}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent, http.StatusNotFound", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
