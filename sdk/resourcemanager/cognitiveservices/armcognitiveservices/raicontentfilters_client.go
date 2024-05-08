@@ -20,42 +20,42 @@ import (
 	"strings"
 )
 
-// CommitmentTiersClient contains the methods for the CommitmentTiers group.
-// Don't use this type directly, use NewCommitmentTiersClient() instead.
-type CommitmentTiersClient struct {
+// RaiContentFiltersClient contains the methods for the RaiContentFilters group.
+// Don't use this type directly, use NewRaiContentFiltersClient() instead.
+type RaiContentFiltersClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewCommitmentTiersClient creates a new instance of CommitmentTiersClient with the specified values.
+// NewRaiContentFiltersClient creates a new instance of RaiContentFiltersClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewCommitmentTiersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CommitmentTiersClient, error) {
+func NewRaiContentFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RaiContentFiltersClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &CommitmentTiersClient{
+	client := &RaiContentFiltersClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List Commitment Tiers.
+// NewListPager - List Content Filters types.
 //
 // Generated from API version 2024-04-01-preview
 //   - location - Resource location.
-//   - options - CommitmentTiersClientListOptions contains the optional parameters for the CommitmentTiersClient.NewListPager
+//   - options - RaiContentFiltersClientListOptions contains the optional parameters for the RaiContentFiltersClient.NewListPager
 //     method.
-func (client *CommitmentTiersClient) NewListPager(location string, options *CommitmentTiersClientListOptions) *runtime.Pager[CommitmentTiersClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[CommitmentTiersClientListResponse]{
-		More: func(page CommitmentTiersClientListResponse) bool {
+func (client *RaiContentFiltersClient) NewListPager(location string, options *RaiContentFiltersClientListOptions) *runtime.Pager[RaiContentFiltersClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[RaiContentFiltersClientListResponse]{
+		More: func(page RaiContentFiltersClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *CommitmentTiersClientListResponse) (CommitmentTiersClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "CommitmentTiersClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *RaiContentFiltersClientListResponse) (RaiContentFiltersClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "RaiContentFiltersClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -64,7 +64,7 @@ func (client *CommitmentTiersClient) NewListPager(location string, options *Comm
 				return client.listCreateRequest(ctx, location, options)
 			}, nil)
 			if err != nil {
-				return CommitmentTiersClientListResponse{}, err
+				return RaiContentFiltersClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -73,8 +73,8 @@ func (client *CommitmentTiersClient) NewListPager(location string, options *Comm
 }
 
 // listCreateRequest creates the List request.
-func (client *CommitmentTiersClient) listCreateRequest(ctx context.Context, location string, options *CommitmentTiersClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/commitmentTiers"
+func (client *RaiContentFiltersClient) listCreateRequest(ctx context.Context, location string, options *RaiContentFiltersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -95,10 +95,10 @@ func (client *CommitmentTiersClient) listCreateRequest(ctx context.Context, loca
 }
 
 // listHandleResponse handles the List response.
-func (client *CommitmentTiersClient) listHandleResponse(resp *http.Response) (CommitmentTiersClientListResponse, error) {
-	result := CommitmentTiersClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CommitmentTierListResult); err != nil {
-		return CommitmentTiersClientListResponse{}, err
+func (client *RaiContentFiltersClient) listHandleResponse(resp *http.Response) (RaiContentFiltersClientListResponse, error) {
+	result := RaiContentFiltersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.RaiContentFilterListResult); err != nil {
+		return RaiContentFiltersClientListResponse{}, err
 	}
 	return result, nil
 }
