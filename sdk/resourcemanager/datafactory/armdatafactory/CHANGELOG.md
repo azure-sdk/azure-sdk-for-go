@@ -1,5 +1,40 @@
 # Release History
 
+## 8.0.0 (2024-05-09)
+### Breaking Changes
+
+- Type of `DatasetReference.Type` has been changed from `*DatasetReferenceType` to `*string`
+- Type of `IntegrationRuntimeReference.Type` has been changed from `*IntegrationRuntimeReferenceType` to `*string`
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*string`
+- Type of `PipelineReference.Type` has been changed from `*PipelineReferenceType` to `*string`
+- Enum `DatasetReferenceType` has been removed
+- Enum `IntegrationRuntimeReferenceType` has been removed
+- Enum `LinkedServiceReferenceType` has been removed
+- Enum `PipelineReferenceType` has been removed
+- Enum `ScriptType` has been removed
+
+### Features Added
+
+- Type of `ScriptActivityScriptBlock.Type` has been changed from `*ScriptType` to `any`
+- New enum type `AmazonRdsForSQLAuthenticationType` with values `AmazonRdsForSQLAuthenticationTypeSQL`, `AmazonRdsForSQLAuthenticationTypeWindows`
+- New enum type `AzureSQLDWAuthenticationType` with values `AzureSQLDWAuthenticationTypeSQL`, `AzureSQLDWAuthenticationTypeServicePrincipal`, `AzureSQLDWAuthenticationTypeSystemAssignedManagedIdentity`, `AzureSQLDWAuthenticationTypeUserAssignedManagedIdentity`
+- New enum type `AzureSQLDatabaseAuthenticationType` with values `AzureSQLDatabaseAuthenticationTypeSQL`, `AzureSQLDatabaseAuthenticationTypeServicePrincipal`, `AzureSQLDatabaseAuthenticationTypeSystemAssignedManagedIdentity`, `AzureSQLDatabaseAuthenticationTypeUserAssignedManagedIdentity`
+- New enum type `AzureSQLMIAuthenticationType` with values `AzureSQLMIAuthenticationTypeSQL`, `AzureSQLMIAuthenticationTypeServicePrincipal`, `AzureSQLMIAuthenticationTypeSystemAssignedManagedIdentity`, `AzureSQLMIAuthenticationTypeUserAssignedManagedIdentity`
+- New enum type `SQLServerAuthenticationType` with values `SQLServerAuthenticationTypeSQL`, `SQLServerAuthenticationTypeWindows`
+- New function `*DatasetReference.GetReference() *Reference`
+- New function `*IntegrationRuntimeReference.GetReference() *Reference`
+- New function `*LinkedServiceReference.GetReference() *Reference`
+- New function `*PipelineReference.GetReference() *Reference`
+- New function `*Reference.GetReference() *Reference`
+- New struct `ManagedIdentityTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `TrustServerCertificate` in struct `AmazonRdsForSQLServerLinkedServiceTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `ServicePrincipalCredential`, `ServicePrincipalCredentialType`, `TrustServerCertificate`, `UserName` in struct `AzureSQLDWLinkedServiceTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `ServicePrincipalCredential`, `ServicePrincipalCredentialType`, `TrustServerCertificate`, `UserName` in struct `AzureSQLDatabaseLinkedServiceTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `ServicePrincipalCredential`, `ServicePrincipalCredentialType`, `TrustServerCertificate`, `UserName` in struct `AzureSQLMILinkedServiceTypeProperties`
+- New field `TypeProperties` in struct `ManagedIdentityCredential`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `TrustServerCertificate` in struct `SQLServerLinkedServiceTypeProperties`
+
+
 ## 7.0.0 (2024-04-04)
 ### Breaking Changes
 
