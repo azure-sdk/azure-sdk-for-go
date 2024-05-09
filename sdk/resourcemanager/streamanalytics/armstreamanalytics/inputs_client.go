@@ -46,7 +46,7 @@ func NewInputsClient(subscriptionID string, credential azcore.TokenCredential, o
 // CreateOrReplace - Creates an input or replaces an already existing input under an existing streaming job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - inputName - The name of the input.
@@ -99,15 +99,15 @@ func (client *InputsClient) createOrReplaceCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfNoneMatch != nil {
 		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {
 		return nil, err
 	}
@@ -129,7 +129,7 @@ func (client *InputsClient) createOrReplaceHandleResponse(resp *http.Response) (
 // Delete - Deletes an input from the streaming job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - inputName - The name of the input.
@@ -179,7 +179,7 @@ func (client *InputsClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *InputsClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Gets details about the specified input.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - inputName - The name of the input.
@@ -239,7 +239,7 @@ func (client *InputsClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,7 +259,7 @@ func (client *InputsClient) getHandleResponse(resp *http.Response) (InputsClient
 
 // NewListByStreamingJobPager - Lists all of the inputs under the specified streaming job.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - options - InputsClientListByStreamingJobOptions contains the optional parameters for the InputsClient.NewListByStreamingJobPager
@@ -310,7 +310,7 @@ func (client *InputsClient) listByStreamingJobCreateRequest(ctx context.Context,
 	if options != nil && options.Select != nil {
 		reqQP.Set("$select", *options.Select)
 	}
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +328,7 @@ func (client *InputsClient) listByStreamingJobHandleResponse(resp *http.Response
 // BeginTest - Tests whether an input’s datasource is reachable and usable by the Azure Stream Analytics service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - inputName - The name of the input.
@@ -353,7 +353,7 @@ func (client *InputsClient) BeginTest(ctx context.Context, resourceGroupName str
 // Test - Tests whether an input’s datasource is reachable and usable by the Azure Stream Analytics service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 func (client *InputsClient) test(ctx context.Context, resourceGroupName string, jobName string, inputName string, options *InputsClientBeginTestOptions) (*http.Response, error) {
 	var err error
 	const operationName = "InputsClient.BeginTest"
@@ -399,7 +399,7 @@ func (client *InputsClient) testCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Input != nil {
@@ -415,7 +415,7 @@ func (client *InputsClient) testCreateRequest(ctx context.Context, resourceGroup
 // or two properties) an input without affecting the rest the job or input definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - inputName - The name of the input.
@@ -470,12 +470,12 @@ func (client *InputsClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {
 		return nil, err
 	}

@@ -46,7 +46,7 @@ func NewTransformationsClient(subscriptionID string, credential azcore.TokenCred
 // CreateOrReplace - Creates a transformation or replaces an already existing transformation under an existing streaming job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - transformationName - The name of the transformation.
@@ -100,15 +100,15 @@ func (client *TransformationsClient) createOrReplaceCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfNoneMatch != nil {
 		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, transformation); err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ func (client *TransformationsClient) createOrReplaceHandleResponse(resp *http.Re
 // Get - Gets details about the specified transformation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - transformationName - The name of the transformation.
@@ -181,7 +181,7 @@ func (client *TransformationsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *TransformationsClient) getHandleResponse(resp *http.Response) (Tra
 // transformation definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01-preview
+// Generated from API version 2020-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - jobName - The name of the streaming job.
 //   - transformationName - The name of the transformation.
@@ -259,12 +259,12 @@ func (client *TransformationsClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, transformation); err != nil {
 		return nil, err
 	}
