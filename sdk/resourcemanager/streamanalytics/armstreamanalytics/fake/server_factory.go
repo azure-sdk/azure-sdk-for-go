@@ -25,7 +25,6 @@ type ServerFactory struct {
 	OperationsServer       OperationsServer
 	OutputsServer          OutputsServer
 	PrivateEndpointsServer PrivateEndpointsServer
-	SKUServer              SKUServer
 	StreamingJobsServer    StreamingJobsServer
 	SubscriptionsServer    SubscriptionsServer
 	TransformationsServer  TransformationsServer
@@ -51,7 +50,6 @@ type ServerFactoryTransport struct {
 	trOperationsServer       *OperationsServerTransport
 	trOutputsServer          *OutputsServerTransport
 	trPrivateEndpointsServer *PrivateEndpointsServerTransport
-	trSKUServer              *SKUServerTransport
 	trStreamingJobsServer    *StreamingJobsServerTransport
 	trSubscriptionsServer    *SubscriptionsServerTransport
 	trTransformationsServer  *TransformationsServerTransport
@@ -90,9 +88,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateEndpointsServerTransport(&s.srv.PrivateEndpointsServer)
 		})
 		resp, err = s.trPrivateEndpointsServer.Do(req)
-	case "SKUClient":
-		initServer(s, &s.trSKUServer, func() *SKUServerTransport { return NewSKUServerTransport(&s.srv.SKUServer) })
-		resp, err = s.trSKUServer.Do(req)
 	case "StreamingJobsClient":
 		initServer(s, &s.trStreamingJobsServer, func() *StreamingJobsServerTransport {
 			return NewStreamingJobsServerTransport(&s.srv.StreamingJobsServer)
