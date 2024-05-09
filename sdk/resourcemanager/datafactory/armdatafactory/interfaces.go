@@ -297,6 +297,15 @@ type MultiplePipelineTriggerClassification interface {
 	GetMultiplePipelineTrigger() *MultiplePipelineTrigger
 }
 
+// ReferenceClassification provides polymorphic access to related types.
+// Call the interface's GetReference() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *DatasetReference, *IntegrationRuntimeReference, *LinkedServiceReference, *PipelineReference, *Reference
+type ReferenceClassification interface {
+	// GetReference returns the Reference content of the underlying type.
+	GetReference() *Reference
+}
+
 // SecretBaseClassification provides polymorphic access to related types.
 // Call the interface's GetSecretBase() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
