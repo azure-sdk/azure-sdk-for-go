@@ -1014,6 +1014,28 @@ type FirewallPoliciesClientUpdateTagsResponse struct {
 	FirewallPolicy
 }
 
+// FirewallPolicyDeploymentsClientDeployResponse contains the response from method FirewallPolicyDeploymentsClient.BeginDeploy.
+type FirewallPolicyDeploymentsClientDeployResponse struct {
+	// placeholder for future response values
+}
+
+// FirewallPolicyDraftsClientCreateOrUpdateResponse contains the response from method FirewallPolicyDraftsClient.CreateOrUpdate.
+type FirewallPolicyDraftsClientCreateOrUpdateResponse struct {
+	// FirewallPolicy Resource.
+	FirewallPolicyDraft
+}
+
+// FirewallPolicyDraftsClientDeleteResponse contains the response from method FirewallPolicyDraftsClient.Delete.
+type FirewallPolicyDraftsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FirewallPolicyDraftsClientGetResponse contains the response from method FirewallPolicyDraftsClient.Get.
+type FirewallPolicyDraftsClientGetResponse struct {
+	// FirewallPolicy Resource.
+	FirewallPolicyDraft
+}
+
 // FirewallPolicyIdpsSignaturesClientListResponse contains the response from method FirewallPolicyIdpsSignaturesClient.List.
 type FirewallPolicyIdpsSignaturesClientListResponse struct {
 	// Query result
@@ -1048,6 +1070,23 @@ type FirewallPolicyIdpsSignaturesOverridesClientPatchResponse struct {
 type FirewallPolicyIdpsSignaturesOverridesClientPutResponse struct {
 	// Contains all specific policy signatures overrides for the IDPS
 	SignaturesOverrides
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateResponse contains the response from method FirewallPolicyRuleCollectionGroupDraftsClient.CreateOrUpdate.
+type FirewallPolicyRuleCollectionGroupDraftsClientCreateOrUpdateResponse struct {
+	// Rule Collection Group resource.
+	FirewallPolicyRuleCollectionGroupDraft
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientDeleteResponse contains the response from method FirewallPolicyRuleCollectionGroupDraftsClient.Delete.
+type FirewallPolicyRuleCollectionGroupDraftsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// FirewallPolicyRuleCollectionGroupDraftsClientGetResponse contains the response from method FirewallPolicyRuleCollectionGroupDraftsClient.Get.
+type FirewallPolicyRuleCollectionGroupDraftsClientGetResponse struct {
+	// Rule Collection Group resource.
+	FirewallPolicyRuleCollectionGroupDraft
 }
 
 // FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateResponse contains the response from method FirewallPolicyRuleCollectionGroupsClient.BeginCreateOrUpdate.
@@ -1613,6 +1652,16 @@ type ManagementClientGetBastionShareableLinkResponse struct {
 	BastionShareableLinkListResult
 }
 
+// ManagementClientGetSessionRecordingSasURLResponse contains the response from method ManagementClient.BeginGetSessionRecordingSasURL.
+type ManagementClientGetSessionRecordingSasURLResponse struct {
+	Value *string
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagementClientGetSessionRecordingSasURLResponse.
+func (m *ManagementClientGetSessionRecordingSasURLResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &m.Value)
+}
+
 // ManagementClientListActiveConnectivityConfigurationsResponse contains the response from method ManagementClient.ListActiveConnectivityConfigurations.
 type ManagementClientListActiveConnectivityConfigurationsResponse struct {
 	// Result of the request to list active connectivity configurations. It contains a list of active connectivity configurations
@@ -1645,6 +1694,12 @@ type ManagementClientListNetworkManagerEffectiveSecurityAdminRulesResponse struc
 type ManagementClientPutBastionShareableLinkResponse struct {
 	// Response for all the Bastion Shareable Link endpoints.
 	BastionShareableLinkListResult
+}
+
+// ManagementClientSetSessionRecordingSasURLResponse contains the response from method ManagementClient.BeginSetSessionRecordingSasURL.
+type ManagementClientSetSessionRecordingSasURLResponse struct {
+	// Response for SetSessionRecordingSasUrl
+	SetSessionRecordingSasURLResponse
 }
 
 // ManagementClientSupportedSecurityProvidersResponse contains the response from method ManagementClient.SupportedSecurityProviders.
@@ -2981,6 +3036,11 @@ type VirtualAppliancesClientListByResourceGroupResponse struct {
 type VirtualAppliancesClientListResponse struct {
 	// Response for ListNetworkVirtualAppliances API service call.
 	VirtualApplianceListResult
+}
+
+// VirtualAppliancesClientRestartResponse contains the response from method VirtualAppliancesClient.Restart.
+type VirtualAppliancesClientRestartResponse struct {
+	// placeholder for future response values
 }
 
 // VirtualAppliancesClientUpdateTagsResponse contains the response from method VirtualAppliancesClient.UpdateTags.

@@ -57,6 +57,10 @@ type ManagementServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewGetBastionShareableLinkPager func(resourceGroupName string, bastionHostName string, bslRequest armnetwork.BastionShareableLinkListRequest, options *armnetwork.ManagementClientGetBastionShareableLinkOptions) (resp azfake.PagerResponder[armnetwork.ManagementClientGetBastionShareableLinkResponse])
 
+	// BeginGetSessionRecordingSasURL is the fake for method ManagementClient.BeginGetSessionRecordingSasURL
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginGetSessionRecordingSasURL func(ctx context.Context, resourceGroupName string, bastionHostName string, options *armnetwork.ManagementClientBeginGetSessionRecordingSasURLOptions) (resp azfake.PollerResponder[armnetwork.ManagementClientGetSessionRecordingSasURLResponse], errResp azfake.ErrorResponder)
+
 	// ListActiveConnectivityConfigurations is the fake for method ManagementClient.ListActiveConnectivityConfigurations
 	// HTTP status codes to indicate success: http.StatusOK
 	ListActiveConnectivityConfigurations func(ctx context.Context, resourceGroupName string, networkManagerName string, parameters armnetwork.ActiveConfigurationParameter, options *armnetwork.ManagementClientListActiveConnectivityConfigurationsOptions) (resp azfake.Responder[armnetwork.ManagementClientListActiveConnectivityConfigurationsResponse], errResp azfake.ErrorResponder)
@@ -77,6 +81,10 @@ type ManagementServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginPutBastionShareableLink func(ctx context.Context, resourceGroupName string, bastionHostName string, bslRequest armnetwork.BastionShareableLinkListRequest, options *armnetwork.ManagementClientBeginPutBastionShareableLinkOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientPutBastionShareableLinkResponse]], errResp azfake.ErrorResponder)
 
+	// BeginSetSessionRecordingSasURL is the fake for method ManagementClient.BeginSetSessionRecordingSasURL
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginSetSessionRecordingSasURL func(ctx context.Context, resourceGroupName string, bastionHostName string, sasurl string, options *armnetwork.ManagementClientBeginSetSessionRecordingSasURLOptions) (resp azfake.PollerResponder[armnetwork.ManagementClientSetSessionRecordingSasURLResponse], errResp azfake.ErrorResponder)
+
 	// SupportedSecurityProviders is the fake for method ManagementClient.SupportedSecurityProviders
 	// HTTP status codes to indicate success: http.StatusOK
 	SupportedSecurityProviders func(ctx context.Context, resourceGroupName string, virtualWANName string, options *armnetwork.ManagementClientSupportedSecurityProvidersOptions) (resp azfake.Responder[armnetwork.ManagementClientSupportedSecurityProvidersResponse], errResp azfake.ErrorResponder)
@@ -94,7 +102,9 @@ func NewManagementServerTransport(srv *ManagementServer) *ManagementServerTransp
 		beginGeneratevirtualwanvpnserverconfigurationvpnprofile: newTracker[azfake.PollerResponder[armnetwork.ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse]](),
 		beginGetActiveSessions:          newTracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientGetActiveSessionsResponse]]](),
 		newGetBastionShareableLinkPager: newTracker[azfake.PagerResponder[armnetwork.ManagementClientGetBastionShareableLinkResponse]](),
+		beginGetSessionRecordingSasURL:  newTracker[azfake.PollerResponder[armnetwork.ManagementClientGetSessionRecordingSasURLResponse]](),
 		beginPutBastionShareableLink:    newTracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientPutBastionShareableLinkResponse]]](),
+		beginSetSessionRecordingSasURL:  newTracker[azfake.PollerResponder[armnetwork.ManagementClientSetSessionRecordingSasURLResponse]](),
 	}
 }
 
@@ -108,7 +118,9 @@ type ManagementServerTransport struct {
 	beginGeneratevirtualwanvpnserverconfigurationvpnprofile *tracker[azfake.PollerResponder[armnetwork.ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse]]
 	beginGetActiveSessions                                  *tracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientGetActiveSessionsResponse]]]
 	newGetBastionShareableLinkPager                         *tracker[azfake.PagerResponder[armnetwork.ManagementClientGetBastionShareableLinkResponse]]
+	beginGetSessionRecordingSasURL                          *tracker[azfake.PollerResponder[armnetwork.ManagementClientGetSessionRecordingSasURLResponse]]
 	beginPutBastionShareableLink                            *tracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientPutBastionShareableLinkResponse]]]
+	beginSetSessionRecordingSasURL                          *tracker[azfake.PollerResponder[armnetwork.ManagementClientSetSessionRecordingSasURLResponse]]
 }
 
 // Do implements the policy.Transporter interface for ManagementServerTransport.
@@ -139,6 +151,8 @@ func (m *ManagementServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = m.dispatchBeginGetActiveSessions(req)
 	case "ManagementClient.NewGetBastionShareableLinkPager":
 		resp, err = m.dispatchNewGetBastionShareableLinkPager(req)
+	case "ManagementClient.BeginGetSessionRecordingSasURL":
+		resp, err = m.dispatchBeginGetSessionRecordingSasURL(req)
 	case "ManagementClient.ListActiveConnectivityConfigurations":
 		resp, err = m.dispatchListActiveConnectivityConfigurations(req)
 	case "ManagementClient.ListActiveSecurityAdminRules":
@@ -149,6 +163,8 @@ func (m *ManagementServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = m.dispatchListNetworkManagerEffectiveSecurityAdminRules(req)
 	case "ManagementClient.BeginPutBastionShareableLink":
 		resp, err = m.dispatchBeginPutBastionShareableLink(req)
+	case "ManagementClient.BeginSetSessionRecordingSasURL":
+		resp, err = m.dispatchBeginSetSessionRecordingSasURL(req)
 	case "ManagementClient.SupportedSecurityProviders":
 		resp, err = m.dispatchSupportedSecurityProviders(req)
 	default:
@@ -503,6 +519,50 @@ func (m *ManagementServerTransport) dispatchNewGetBastionShareableLinkPager(req 
 	return resp, nil
 }
 
+func (m *ManagementServerTransport) dispatchBeginGetSessionRecordingSasURL(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginGetSessionRecordingSasURL == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginGetSessionRecordingSasURL not implemented")}
+	}
+	beginGetSessionRecordingSasURL := m.beginGetSessionRecordingSasURL.get(req)
+	if beginGetSessionRecordingSasURL == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/bastionHosts/(?P<bastionHostName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getSessionRecordingSasUrl`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		bastionHostNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("bastionHostName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := m.srv.BeginGetSessionRecordingSasURL(req.Context(), resourceGroupNameParam, bastionHostNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginGetSessionRecordingSasURL = &respr
+		m.beginGetSessionRecordingSasURL.add(req, beginGetSessionRecordingSasURL)
+	}
+
+	resp, err := server.PollerResponderNext(beginGetSessionRecordingSasURL, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		m.beginGetSessionRecordingSasURL.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginGetSessionRecordingSasURL) {
+		m.beginGetSessionRecordingSasURL.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (m *ManagementServerTransport) dispatchListActiveConnectivityConfigurations(req *http.Request) (*http.Response, error) {
 	if m.srv.ListActiveConnectivityConfigurations == nil {
 		return nil, &nonRetriableError{errors.New("fake for method ListActiveConnectivityConfigurations not implemented")}
@@ -778,6 +838,54 @@ func (m *ManagementServerTransport) dispatchBeginPutBastionShareableLink(req *ht
 	}
 	if !server.PollerResponderMore(beginPutBastionShareableLink) {
 		m.beginPutBastionShareableLink.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (m *ManagementServerTransport) dispatchBeginSetSessionRecordingSasURL(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginSetSessionRecordingSasURL == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginSetSessionRecordingSasURL not implemented")}
+	}
+	beginSetSessionRecordingSasURL := m.beginSetSessionRecordingSasURL.get(req)
+	if beginSetSessionRecordingSasURL == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/bastionHosts/(?P<bastionHostName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/setSessionRecordingSasUrl`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[string](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		bastionHostNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("bastionHostName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := m.srv.BeginSetSessionRecordingSasURL(req.Context(), resourceGroupNameParam, bastionHostNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginSetSessionRecordingSasURL = &respr
+		m.beginSetSessionRecordingSasURL.add(req, beginSetSessionRecordingSasURL)
+	}
+
+	resp, err := server.PollerResponderNext(beginSetSessionRecordingSasURL, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		m.beginSetSessionRecordingSasURL.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginSetSessionRecordingSasURL) {
+		m.beginSetSessionRecordingSasURL.remove(req)
 	}
 
 	return resp, nil
