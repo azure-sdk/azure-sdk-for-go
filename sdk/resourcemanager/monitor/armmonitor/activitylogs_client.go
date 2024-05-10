@@ -96,11 +96,11 @@ func (client *ActivityLogsClient) listCreateRequest(ctx context.Context, filter 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-04-01")
 	reqQP.Set("$filter", filter)
 	if options != nil && options.Select != nil {
 		reqQP.Set("$select", *options.Select)
 	}
+	reqQP.Set("api-version", "2015-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
