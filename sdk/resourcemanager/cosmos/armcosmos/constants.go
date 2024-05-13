@@ -10,7 +10,7 @@ package armcosmos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos"
-	moduleVersion = "v3.0.0-beta.4"
+	moduleVersion = "v3.0.0-beta.5"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -178,6 +178,46 @@ func PossibleBackupStorageRedundancyValues() []BackupStorageRedundancy {
 		BackupStorageRedundancyGeo,
 		BackupStorageRedundancyLocal,
 		BackupStorageRedundancyZone,
+	}
+}
+
+// CapacityMode - Indicates the capacity mode of the account.
+type CapacityMode string
+
+const (
+	CapacityModeNone        CapacityMode = "None"
+	CapacityModeProvisioned CapacityMode = "Provisioned"
+	CapacityModeServerless  CapacityMode = "Serverless"
+)
+
+// PossibleCapacityModeValues returns the possible values for the CapacityMode const type.
+func PossibleCapacityModeValues() []CapacityMode {
+	return []CapacityMode{
+		CapacityModeNone,
+		CapacityModeProvisioned,
+		CapacityModeServerless,
+	}
+}
+
+// CapacityModeTransitionStatus - The transition status of capacity mode.
+type CapacityModeTransitionStatus string
+
+const (
+	CapacityModeTransitionStatusCompleted   CapacityModeTransitionStatus = "Completed"
+	CapacityModeTransitionStatusFailed      CapacityModeTransitionStatus = "Failed"
+	CapacityModeTransitionStatusInProgress  CapacityModeTransitionStatus = "InProgress"
+	CapacityModeTransitionStatusInitialized CapacityModeTransitionStatus = "Initialized"
+	CapacityModeTransitionStatusInvalid     CapacityModeTransitionStatus = "Invalid"
+)
+
+// PossibleCapacityModeTransitionStatusValues returns the possible values for the CapacityModeTransitionStatus const type.
+func PossibleCapacityModeTransitionStatusValues() []CapacityModeTransitionStatus {
+	return []CapacityModeTransitionStatus{
+		CapacityModeTransitionStatusCompleted,
+		CapacityModeTransitionStatusFailed,
+		CapacityModeTransitionStatusInProgress,
+		CapacityModeTransitionStatusInitialized,
+		CapacityModeTransitionStatusInvalid,
 	}
 }
 
