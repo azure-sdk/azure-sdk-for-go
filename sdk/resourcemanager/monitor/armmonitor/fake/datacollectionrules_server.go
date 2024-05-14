@@ -21,6 +21,7 @@ import (
 	"net/url"
 	"reflect"
 	"regexp"
+	"strconv"
 )
 
 // DataCollectionRulesServer is a fake server for instances of the armmonitor.DataCollectionRulesClient type.
@@ -157,6 +158,7 @@ func (d *DataCollectionRulesServerTransport) dispatchDelete(req *http.Request) (
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	qp := req.URL.Query()
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -165,7 +167,21 @@ func (d *DataCollectionRulesServerTransport) dispatchDelete(req *http.Request) (
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := d.srv.Delete(req.Context(), resourceGroupNameParam, dataCollectionRuleNameParam, nil)
+	deleteAssociationsUnescaped, err := url.QueryUnescape(qp.Get("deleteAssociations"))
+	if err != nil {
+		return nil, err
+	}
+	deleteAssociationsParam, err := parseOptional(deleteAssociationsUnescaped, strconv.ParseBool)
+	if err != nil {
+		return nil, err
+	}
+	var options *armmonitor.DataCollectionRulesClientDeleteOptions
+	if deleteAssociationsParam != nil {
+		options = &armmonitor.DataCollectionRulesClientDeleteOptions{
+			DeleteAssociations: deleteAssociationsParam,
+		}
+	}
+	respr, errRespr := d.srv.Delete(req.Context(), resourceGroupNameParam, dataCollectionRuleNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
