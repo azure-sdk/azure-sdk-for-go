@@ -283,6 +283,9 @@ type Navigation struct {
 	// Combined hash of the guest configuration package and configuration parameters.
 	ContentHash *string
 
+	// Specifies the managed identity that will be used to download the policy packages
+	ContentManagedIdentity *string
+
 	// Uri of the storage where guest configuration package is uploaded.
 	ContentURI *string
 
