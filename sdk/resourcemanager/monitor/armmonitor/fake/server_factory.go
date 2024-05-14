@@ -27,6 +27,7 @@ type ServerFactory struct {
 	AutoscaleSettingsServer               AutoscaleSettingsServer
 	AzureMonitorWorkspacesServer          AzureMonitorWorkspacesServer
 	BaselinesServer                       BaselinesServer
+	Server                                Server
 	DataCollectionEndpointsServer         DataCollectionEndpointsServer
 	DataCollectionRuleAssociationsServer  DataCollectionRuleAssociationsServer
 	DataCollectionRulesServer             DataCollectionRulesServer
@@ -75,6 +76,7 @@ type ServerFactoryTransport struct {
 	trAutoscaleSettingsServer               *AutoscaleSettingsServerTransport
 	trAzureMonitorWorkspacesServer          *AzureMonitorWorkspacesServerTransport
 	trBaselinesServer                       *BaselinesServerTransport
+	trServer                                *ServerTransport
 	trDataCollectionEndpointsServer         *DataCollectionEndpointsServerTransport
 	trDataCollectionRuleAssociationsServer  *DataCollectionRuleAssociationsServerTransport
 	trDataCollectionRulesServer             *DataCollectionRulesServerTransport
@@ -146,6 +148,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "BaselinesClient":
 		initServer(s, &s.trBaselinesServer, func() *BaselinesServerTransport { return NewBaselinesServerTransport(&s.srv.BaselinesServer) })
 		resp, err = s.trBaselinesServer.Do(req)
+	case "Client":
+		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
+		resp, err = s.trServer.Do(req)
 	case "DataCollectionEndpointsClient":
 		initServer(s, &s.trDataCollectionEndpointsServer, func() *DataCollectionEndpointsServerTransport {
 			return NewDataCollectionEndpointsServerTransport(&s.srv.DataCollectionEndpointsServer)
