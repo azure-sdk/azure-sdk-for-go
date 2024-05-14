@@ -10,7 +10,7 @@ package armnotificationhubs
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/notificationhubs/armnotificationhubs"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // AccessRights - Defines values for AccessRights.
