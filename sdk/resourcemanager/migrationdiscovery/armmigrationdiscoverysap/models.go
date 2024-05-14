@@ -250,7 +250,7 @@ type SAPDiscoverySiteListResult struct {
 	// REQUIRED; The SAPDiscoverySite items on this page
 	Value []*SAPDiscoverySite
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -304,7 +304,7 @@ type SAPInstanceListResult struct {
 	// REQUIRED; The SAPInstance items on this page
 	Value []*SAPInstance
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -368,7 +368,7 @@ type ServerInstanceListResult struct {
 	// REQUIRED; The ServerInstance items on this page
 	Value []*ServerInstance
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
