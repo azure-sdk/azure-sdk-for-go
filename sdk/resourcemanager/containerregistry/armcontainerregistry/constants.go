@@ -10,7 +10,7 @@ package armcontainerregistry
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerregistry/armcontainerregistry"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // Action - The action of IP ACL rule.
