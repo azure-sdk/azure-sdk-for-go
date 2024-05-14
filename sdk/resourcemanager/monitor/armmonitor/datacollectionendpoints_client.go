@@ -46,7 +46,7 @@ func NewDataCollectionEndpointsClient(subscriptionID string, credential azcore.T
 // Create - Creates or updates a data collection endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-03-11
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataCollectionEndpointName - The name of the data collection endpoint. The name is case insensitive.
 //   - options - DataCollectionEndpointsClientCreateOptions contains the optional parameters for the DataCollectionEndpointsClient.Create
@@ -93,7 +93,7 @@ func (client *DataCollectionEndpointsClient) createCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-03-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -117,7 +117,7 @@ func (client *DataCollectionEndpointsClient) createHandleResponse(resp *http.Res
 // Delete - Deletes a data collection endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-03-11
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataCollectionEndpointName - The name of the data collection endpoint. The name is case insensitive.
 //   - options - DataCollectionEndpointsClientDeleteOptions contains the optional parameters for the DataCollectionEndpointsClient.Delete
@@ -163,7 +163,7 @@ func (client *DataCollectionEndpointsClient) deleteCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-03-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *DataCollectionEndpointsClient) deleteCreateRequest(ctx context.Con
 // Get - Returns the specified data collection endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-03-11
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataCollectionEndpointName - The name of the data collection endpoint. The name is case insensitive.
 //   - options - DataCollectionEndpointsClientGetOptions contains the optional parameters for the DataCollectionEndpointsClient.Get
@@ -219,7 +219,7 @@ func (client *DataCollectionEndpointsClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-03-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -236,7 +236,7 @@ func (client *DataCollectionEndpointsClient) getHandleResponse(resp *http.Respon
 
 // NewListByResourceGroupPager - Lists all data collection endpoints in the specified resource group.
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-03-11
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - DataCollectionEndpointsClientListByResourceGroupOptions contains the optional parameters for the DataCollectionEndpointsClient.NewListByResourceGroupPager
 //     method.
@@ -279,7 +279,7 @@ func (client *DataCollectionEndpointsClient) listByResourceGroupCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-03-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +296,7 @@ func (client *DataCollectionEndpointsClient) listByResourceGroupHandleResponse(r
 
 // NewListBySubscriptionPager - Lists all data collection endpoints in the specified subscription
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-03-11
 //   - options - DataCollectionEndpointsClientListBySubscriptionOptions contains the optional parameters for the DataCollectionEndpointsClient.NewListBySubscriptionPager
 //     method.
 func (client *DataCollectionEndpointsClient) NewListBySubscriptionPager(options *DataCollectionEndpointsClientListBySubscriptionOptions) *runtime.Pager[DataCollectionEndpointsClientListBySubscriptionResponse] {
@@ -334,7 +334,7 @@ func (client *DataCollectionEndpointsClient) listBySubscriptionCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-03-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,7 +352,7 @@ func (client *DataCollectionEndpointsClient) listBySubscriptionHandleResponse(re
 // Update - Updates part of a data collection endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-03-11
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - dataCollectionEndpointName - The name of the data collection endpoint. The name is case insensitive.
 //   - options - DataCollectionEndpointsClientUpdateOptions contains the optional parameters for the DataCollectionEndpointsClient.Update
@@ -399,7 +399,7 @@ func (client *DataCollectionEndpointsClient) updateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-03-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
