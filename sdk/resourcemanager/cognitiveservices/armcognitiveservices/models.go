@@ -115,7 +115,7 @@ type AccountListResult struct {
 
 // AccountModel - Cognitive Services account Model.
 type AccountModel struct {
-	// Base Model Identifier.
+	// Properties of Cognitive Services account deployment model.
 	BaseModel *DeploymentModel
 
 	// The capabilities.
@@ -175,6 +175,9 @@ type AccountProperties struct {
 	APIProperties   *APIProperties
 	AllowedFqdnList []*string
 
+	// The user owned AML workspace properties.
+	AmlWorkspace *UserOwnedAmlWorkspace
+
 	// Optional subdomain name used for token-based authentication.
 	CustomSubDomainName *string
 	DisableLocalAuth    *bool
@@ -195,7 +198,10 @@ type AccountProperties struct {
 	NetworkACLs *NetworkRuleSet
 
 	// Whether or not public endpoint access is allowed for this account.
-	PublicNetworkAccess           *PublicNetworkAccess
+	PublicNetworkAccess *PublicNetworkAccess
+
+	// Cognitive Services Rai Monitor Config.
+	RaiMonitorConfig              *RaiMonitorConfig
 	Restore                       *bool
 	RestrictOutboundNetworkAccess *bool
 
@@ -279,6 +285,12 @@ type AzureEntityResource struct {
 	Type *string
 }
 
+type BillingMeterInfo struct {
+	MeterID *string
+	Name    *string
+	Unit    *string
+}
+
 // CallRateLimit - The call rate limit Cognitive Services account.
 type CallRateLimit struct {
 	// The count value of Call Rate Limit.
@@ -291,6 +303,9 @@ type CallRateLimit struct {
 
 // CapacityConfig - The capacity configuration.
 type CapacityConfig struct {
+	// The array of allowed values for capacity.
+	AllowedValues []*int32
+
 	// The default capacity.
 	Default *int32
 
@@ -392,6 +407,9 @@ type CommitmentPlan struct {
 type CommitmentPlanAccountAssociation struct {
 	// Properties of Cognitive Services account commitment plan association.
 	Properties *CommitmentPlanAccountAssociationProperties
+
+	// Resource tags.
+	Tags map[string]*string
 
 	// READ-ONLY; Resource Etag.
 	Etag *string
@@ -518,13 +536,13 @@ type CommitmentTierListResult struct {
 	Value []*CommitmentTier
 }
 
-// Deployment - Cognitive Services account deployment.
-type Deployment struct {
-	// Properties of Cognitive Services account deployment.
-	Properties *DeploymentProperties
+// DefenderForAISetting - The Defender for AI resource.
+type DefenderForAISetting struct {
+	// The Defender for AI resource properties.
+	Properties *DefenderForAISettingProperties
 
-	// The resource model definition representing SKU
-	SKU *SKU
+	// Resource tags.
+	Tags map[string]*string
 
 	// READ-ONLY; Resource Etag.
 	Etag *string
@@ -540,6 +558,57 @@ type Deployment struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// DefenderForAISettingProperties - The Defender for AI resource properties.
+type DefenderForAISettingProperties struct {
+	// Defender for AI state on the AI resource.
+	State *DefenderForAISettingState
+}
+
+// DefenderForAISettingResult - The list of cognitive services Defender for AI Settings.
+type DefenderForAISettingResult struct {
+	// The link used to get the next page of Defender for AI Settings.
+	NextLink *string
+
+	// The list of Defender for AI Settings.
+	Value []*DefenderForAISetting
+}
+
+// Deployment - Cognitive Services account deployment.
+type Deployment struct {
+	// Properties of Cognitive Services account deployment.
+	Properties *DeploymentProperties
+
+	// The resource model definition representing SKU
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DeploymentCapacitySettings - Internal use only.
+type DeploymentCapacitySettings struct {
+	// The designated capacity.
+	DesignatedCapacity *int32
+
+	// The priority of this capacity setting.
+	Priority *int32
 }
 
 // DeploymentListResult - The list of cognitive services accounts operation response.
@@ -573,13 +642,19 @@ type DeploymentModel struct {
 
 // DeploymentProperties - Properties of Cognitive Services account deployment.
 type DeploymentProperties struct {
+	// Internal use only.
+	CapacitySettings *DeploymentCapacitySettings
+
+	// The current capacity.
+	CurrentCapacity *int32
+
 	// Properties of Cognitive Services account deployment model.
 	Model *DeploymentModel
 
 	// The name of RAI policy.
 	RaiPolicyName *string
 
-	// Properties of Cognitive Services account deployment model.
+	// Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku instead.)
 	ScaleSettings *DeploymentScaleSettings
 
 	// Deployment model version upgrade option.
@@ -591,6 +666,9 @@ type DeploymentProperties struct {
 	// READ-ONLY; The capabilities.
 	Capabilities map[string]*string
 
+	// READ-ONLY; If the dynamic throttling is enabled.
+	DynamicThrottlingEnabled *bool
+
 	// READ-ONLY; Gets the status of the resource at the time the operation was called.
 	ProvisioningState *DeploymentProvisioningState
 
@@ -598,7 +676,17 @@ type DeploymentProperties struct {
 	RateLimits []*ThrottlingRule
 }
 
-// DeploymentScaleSettings - Properties of Cognitive Services account deployment model.
+// DeploymentSKUListResult - The list of cognitive services accounts operation response.
+type DeploymentSKUListResult struct {
+	// The link used to get the next page of deployment skus.
+	NextLink *string
+
+	// READ-ONLY; Gets the list of Cognitive Services accounts deployment skus.
+	Value []*SKUResource
+}
+
+// DeploymentScaleSettings - Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku
+// instead.)
 type DeploymentScaleSettings struct {
 	// Deployment capacity.
 	Capacity *int32
@@ -635,6 +723,54 @@ type Encryption struct {
 
 	// Properties of KeyVault
 	KeyVaultProperties *KeyVaultProperties
+}
+
+// EncryptionScope - Cognitive Services EncryptionScope
+type EncryptionScope struct {
+	// Properties of Cognitive Services EncryptionScope.
+	Properties *EncryptionScopeProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EncryptionScopeListResult - The list of cognitive services EncryptionScopes.
+type EncryptionScopeListResult struct {
+	// The link used to get the next page of EncryptionScope.
+	NextLink *string
+
+	// The list of EncryptionScope.
+	Value []*EncryptionScope
+}
+
+// EncryptionScopeProperties - Properties to EncryptionScope
+type EncryptionScopeProperties struct {
+	// Enumerates the possible value of keySource for Encryption
+	KeySource *KeySource
+
+	// Properties of KeyVault
+	KeyVaultProperties *KeyVaultProperties
+
+	// The encryptionScope state.
+	State *EncryptionScopeState
+
+	// READ-ONLY; Gets the status of the resource at the time the operation was called.
+	ProvisioningState *EncryptionScopeProvisioningState
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -723,11 +859,37 @@ type Model struct {
 	// The Kind of the Model.
 	Kind *string
 
-	// Model Metadata.
+	// Cognitive Services account Model.
 	Model *AccountModel
 
 	// The SKU of the Model.
 	SKUName *string
+}
+
+// ModelCapacityListResult - The list of cognitive services accounts operation response.
+type ModelCapacityListResult struct {
+	// The link used to get the next page of ModelSkuCapacity.
+	NextLink *string
+
+	// Gets the list of Cognitive Services accounts ModelSkuCapacity.
+	Value []*ModelCapacityListResultValueItem
+}
+
+type ModelCapacityListResultValueItem struct {
+	// The location of the Model Sku Capacity.
+	Location *string
+
+	// Cognitive Services account ModelSkuCapacity.
+	Properties *ModelSKUCapacityProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // ModelDeprecationInfo - Cognitive Services account ModelDeprecationInfo.
@@ -753,6 +915,9 @@ type ModelSKU struct {
 	// The capacity configuration.
 	Capacity *CapacityConfig
 
+	// The list of billing meter info.
+	Cost []*BillingMeterInfo
+
 	// The datetime of deprecation of the model SKU.
 	DeprecationDate *time.Time
 
@@ -766,6 +931,19 @@ type ModelSKU struct {
 	UsageName *string
 }
 
+// ModelSKUCapacityProperties - Cognitive Services account ModelSkuCapacity.
+type ModelSKUCapacityProperties struct {
+	// The available capacity for deployment with this model and sku.
+	AvailableCapacity *float32
+
+	// The available capacity for deployment with a fine-tune version of this model and sku.
+	AvailableFinetuneCapacity *float32
+
+	// Properties of Cognitive Services account deployment model.
+	Model   *DeploymentModel
+	SKUName *string
+}
+
 // MultiRegionSettings - The multiregion settings Cognitive Services account.
 type MultiRegionSettings struct {
 	Regions []*RegionSetting
@@ -776,6 +954,9 @@ type MultiRegionSettings struct {
 
 // NetworkRuleSet - A set of rules governing the network accessibility.
 type NetworkRuleSet struct {
+	// Setting for trusted services.
+	Bypass *ByPassSelection
+
 	// The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property
 	// has been evaluated.
 	DefaultAction *NetworkRuleAction
@@ -785,6 +966,119 @@ type NetworkRuleSet struct {
 
 	// The list of virtual network rules.
 	VirtualNetworkRules []*VirtualNetworkRule
+}
+
+// NetworkSecurityPerimeter - Information about a linked Network Security Perimeter
+type NetworkSecurityPerimeter struct {
+	// Fully qualified identifier of the resource
+	ID *string
+
+	// Location of the resource
+	Location *string
+
+	// Guid of the resource
+	PerimeterGUID *string
+}
+
+// NetworkSecurityPerimeterAccessRule - Network Security Perimeter Access Rule
+type NetworkSecurityPerimeterAccessRule struct {
+	// Network Security Perimeter Access Rule Name
+	Name *string
+
+	// Properties of Network Security Perimeter Access Rule
+	Properties *NetworkSecurityPerimeterAccessRuleProperties
+}
+
+// NetworkSecurityPerimeterAccessRuleProperties - The Properties of Network Security Perimeter Rule
+type NetworkSecurityPerimeterAccessRuleProperties struct {
+	// Address prefixes for inbound rules
+	AddressPrefixes []*string
+
+	// Direction of Access Rule
+	Direction *NspAccessRuleDirection
+
+	// Fully qualified domain name for outbound rules
+	FullyQualifiedDomainNames []*string
+
+	// NetworkSecurityPerimeters for inbound rules
+	NetworkSecurityPerimeters []*NetworkSecurityPerimeter
+
+	// Subscriptions for inbound rules
+	Subscriptions []*NetworkSecurityPerimeterAccessRulePropertiesSubscriptionsItem
+}
+
+// NetworkSecurityPerimeterAccessRulePropertiesSubscriptionsItem - Subscription for inbound rule
+type NetworkSecurityPerimeterAccessRulePropertiesSubscriptionsItem struct {
+	// Fully qualified identifier of subscription
+	ID *string
+}
+
+// NetworkSecurityPerimeterConfiguration - NSP Configuration for an Cognitive Services account.
+type NetworkSecurityPerimeterConfiguration struct {
+	// NSP Configuration properties.
+	Properties *NetworkSecurityPerimeterConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// NetworkSecurityPerimeterConfigurationAssociationInfo - Network Security Perimeter Configuration Association Information
+type NetworkSecurityPerimeterConfigurationAssociationInfo struct {
+	// Access Mode of the resource association
+	AccessMode *string
+
+	// Name of the resource association
+	Name *string
+}
+
+// NetworkSecurityPerimeterConfigurationList - A list of NSP configurations for an Cognitive Services account.
+type NetworkSecurityPerimeterConfigurationList struct {
+	// Link to retrieve next page of results.
+	NextLink *string
+
+	// Array of NSP configurations List Result for an Cognitive Services account.
+	Value []*NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationProperties - The properties of an NSP Configuration.
+type NetworkSecurityPerimeterConfigurationProperties struct {
+	// Information about a linked Network Security Perimeter
+	NetworkSecurityPerimeter *NetworkSecurityPerimeter
+
+	// Network Security Perimeter Profile Information
+	Profile *NetworkSecurityPerimeterProfileInfo
+
+	// List of Provisioning Issues
+	ProvisioningIssues []*ProvisioningIssue
+
+	// Network Security Perimeter Configuration Association Information
+	ResourceAssociation *NetworkSecurityPerimeterConfigurationAssociationInfo
+
+	// READ-ONLY; Provisioning state of NetworkSecurityPerimeter configuration
+	ProvisioningState *string
+}
+
+// NetworkSecurityPerimeterProfileInfo - Network Security Perimeter Profile Information
+type NetworkSecurityPerimeterProfileInfo struct {
+	AccessRules []*NetworkSecurityPerimeterAccessRule
+
+	// Access rules version of the resource profile
+	AccessRulesVersion *int64
+
+	// Current diagnostic settings version
+	DiagnosticSettingsVersion *int64
+
+	// List of enabled log categories
+	EnabledLogCategories []*string
+
+	// Name of the resource profile
+	Name *string
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -951,6 +1245,32 @@ type PrivateLinkServiceConnectionState struct {
 	Status *PrivateEndpointServiceConnectionStatus
 }
 
+type ProvisioningIssue struct {
+	// Name of the NSP provisioning issue
+	Name *string
+
+	// Properties of Provisioning Issue
+	Properties *ProvisioningIssueProperties
+}
+
+// ProvisioningIssueProperties - Properties of Provisioning Issue
+type ProvisioningIssueProperties struct {
+	// Description of the issue
+	Description *string
+
+	// Type of Issue
+	IssueType *string
+
+	// Severity of the issue
+	Severity *string
+
+	// Optional array, suggested access rules
+	SuggestedAccessRules []*NetworkSecurityPerimeterAccessRule
+
+	// IDs of resources that can be associated to the same perimeter to remediate the issue.
+	SuggestedResourceIDs []*string
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -968,6 +1288,206 @@ type QuotaLimit struct {
 	Count         *float32
 	RenewalPeriod *float32
 	Rules         []*ThrottlingRule
+}
+
+// RaiBlockListItemsResult - The list of cognitive services RAI Blocklist Items.
+type RaiBlockListItemsResult struct {
+	// The link used to get the next page of RaiBlocklistItems.
+	NextLink *string
+
+	// The list of RaiBlocklistItems.
+	Value []*RaiBlocklistItem
+}
+
+// RaiBlockListResult - The list of cognitive services RAI Blocklists.
+type RaiBlockListResult struct {
+	// The link used to get the next page of RaiBlocklists.
+	NextLink *string
+
+	// The list of RaiBlocklist.
+	Value []*RaiBlocklist
+}
+
+// RaiBlocklist - Cognitive Services RaiBlocklist.
+type RaiBlocklist struct {
+	// Properties of Cognitive Services RaiBlocklist.
+	Properties *RaiBlocklistProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiBlocklistConfig - Azure OpenAI blocklist config.
+type RaiBlocklistConfig struct {
+	// If blocking would occur.
+	Blocking *bool
+
+	// Name of ContentFilter.
+	BlocklistName *string
+}
+
+// RaiBlocklistItem - Cognitive Services RaiBlocklist Item.
+type RaiBlocklistItem struct {
+	// Properties of Cognitive Services RaiBlocklist Item.
+	Properties *RaiBlocklistItemProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiBlocklistItemBulkRequest - The Cognitive Services RaiBlocklist Item request body.
+type RaiBlocklistItemBulkRequest struct {
+	Name *string
+
+	// Properties of Cognitive Services RaiBlocklist Item.
+	Properties *RaiBlocklistItemProperties
+}
+
+// RaiBlocklistItemProperties - RAI Custom Blocklist Item properties.
+type RaiBlocklistItemProperties struct {
+	// If the pattern is a regex pattern.
+	IsRegex *bool
+
+	// Pattern to match against.
+	Pattern *string
+}
+
+// RaiBlocklistProperties - RAI Custom Blocklist properties.
+type RaiBlocklistProperties struct {
+	// Description of the block list.
+	Description *string
+}
+
+// RaiContentFilter - Azure OpenAI Content Filter.
+type RaiContentFilter struct {
+	// Description of Content Filter.
+	Description *string
+
+	// Content Filter type.
+	FilterType *RaiContentFilterType
+
+	// Name of Content Filter.
+	PolicyName *string
+}
+
+// RaiContentFilterListResult - The list of Content Filters.
+type RaiContentFilterListResult struct {
+	// The link used to get the next page of Content Filters.
+	NextLink *string
+
+	// The list of RaiContentFilter.
+	Value []*RaiContentFilter
+}
+
+// RaiMonitorConfig - Cognitive Services Rai Monitor Config.
+type RaiMonitorConfig struct {
+	// The storage resource Id.
+	AdxStorageResourceID *string
+
+	// The identity client Id to access the storage.
+	IdentityClientID *string
+}
+
+// RaiPolicy - Cognitive Services RaiPolicy.
+type RaiPolicy struct {
+	// Properties of Cognitive Services RaiPolicy.
+	Properties *RaiPolicyProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Etag.
+	Etag *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiPolicyContentFilter - Azure OpenAI Content Filter.
+type RaiPolicyContentFilter struct {
+	// Level at which content is filtered.
+	AllowedContentLevel *AllowedContentLevel
+
+	// If blocking would occur.
+	Blocking *bool
+
+	// If the ContentFilter is enabled.
+	Enabled *bool
+
+	// Name of ContentFilter.
+	Name *string
+
+	// Content source to apply the Content Filters.
+	Source *RaiPolicyContentSource
+}
+
+// RaiPolicyListResult - The list of cognitive services RaiPolicies.
+type RaiPolicyListResult struct {
+	// The link used to get the next page of RaiPolicy.
+	NextLink *string
+
+	// The list of RaiPolicy.
+	Value []*RaiPolicy
+}
+
+// RaiPolicyProperties - Azure OpenAI Content Filters properties.
+type RaiPolicyProperties struct {
+	// Name of the base Content Filters.
+	BasePolicyName *string
+
+	// The list of blocklists for completion.
+	CompletionBlocklists []*RaiBlocklistConfig
+
+	// The list of Content Filters.
+	ContentFilters []*RaiPolicyContentFilter
+
+	// Content Filters mode.
+	Mode *RaiPolicyMode
+
+	// The list of blocklists for prompt.
+	PromptBlocklists []*RaiBlocklistConfig
+
+	// READ-ONLY; Content Filters policy type.
+	PolicyType *RaiPolicyType
 }
 
 // RegenerateKeyParameters - Regenerate key parameters.
@@ -1127,6 +1647,18 @@ type SKUChangeInfo struct {
 	LastChangeDate *string
 }
 
+// SKUResource - Properties of Cognitive Services account resource sku resource properties.
+type SKUResource struct {
+	// The capacity configuration.
+	Capacity *CapacityConfig
+
+	// The resource type name.
+	ResourceType *string
+
+	// The resource model definition representing SKU
+	SKU *SKU
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -1197,6 +1729,15 @@ type UserAssignedIdentity struct {
 
 	// READ-ONLY; Azure Active Directory principal ID associated with this Identity.
 	PrincipalID *string
+}
+
+// UserOwnedAmlWorkspace - The user owned AML workspace for Cognitive Services account.
+type UserOwnedAmlWorkspace struct {
+	// Identity Client id of a AML workspace resource.
+	IdentityClientID *string
+
+	// Full resource id of a AML workspace resource.
+	ResourceID *string
 }
 
 // UserOwnedStorage - The user owned storage for Cognitive Services account.
