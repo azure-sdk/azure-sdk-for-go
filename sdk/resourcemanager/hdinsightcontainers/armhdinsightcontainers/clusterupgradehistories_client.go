@@ -20,44 +20,44 @@ import (
 	"strings"
 )
 
-// ClusterAvailableUpgradesClient contains the methods for the ClusterAvailableUpgrades group.
-// Don't use this type directly, use NewClusterAvailableUpgradesClient() instead.
-type ClusterAvailableUpgradesClient struct {
+// ClusterUpgradeHistoriesClient contains the methods for the ClusterUpgradeHistories group.
+// Don't use this type directly, use NewClusterUpgradeHistoriesClient() instead.
+type ClusterUpgradeHistoriesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewClusterAvailableUpgradesClient creates a new instance of ClusterAvailableUpgradesClient with the specified values.
+// NewClusterUpgradeHistoriesClient creates a new instance of ClusterUpgradeHistoriesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClusterAvailableUpgradesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClusterAvailableUpgradesClient, error) {
+func NewClusterUpgradeHistoriesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClusterUpgradeHistoriesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ClusterAvailableUpgradesClient{
+	client := &ClusterUpgradeHistoriesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List a cluster available upgrade.
+// NewListPager - Returns a list of upgrade history.
 //
 // Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterPoolName - The name of the cluster pool.
 //   - clusterName - The name of the HDInsight cluster.
-//   - options - ClusterAvailableUpgradesClientListOptions contains the optional parameters for the ClusterAvailableUpgradesClient.NewListPager
+//   - options - ClusterUpgradeHistoriesClientListOptions contains the optional parameters for the ClusterUpgradeHistoriesClient.NewListPager
 //     method.
-func (client *ClusterAvailableUpgradesClient) NewListPager(resourceGroupName string, clusterPoolName string, clusterName string, options *ClusterAvailableUpgradesClientListOptions) *runtime.Pager[ClusterAvailableUpgradesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ClusterAvailableUpgradesClientListResponse]{
-		More: func(page ClusterAvailableUpgradesClientListResponse) bool {
+func (client *ClusterUpgradeHistoriesClient) NewListPager(resourceGroupName string, clusterPoolName string, clusterName string, options *ClusterUpgradeHistoriesClientListOptions) *runtime.Pager[ClusterUpgradeHistoriesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ClusterUpgradeHistoriesClientListResponse]{
+		More: func(page ClusterUpgradeHistoriesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ClusterAvailableUpgradesClientListResponse) (ClusterAvailableUpgradesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ClusterAvailableUpgradesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ClusterUpgradeHistoriesClientListResponse) (ClusterUpgradeHistoriesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ClusterUpgradeHistoriesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -66,7 +66,7 @@ func (client *ClusterAvailableUpgradesClient) NewListPager(resourceGroupName str
 				return client.listCreateRequest(ctx, resourceGroupName, clusterPoolName, clusterName, options)
 			}, nil)
 			if err != nil {
-				return ClusterAvailableUpgradesClientListResponse{}, err
+				return ClusterUpgradeHistoriesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -75,8 +75,8 @@ func (client *ClusterAvailableUpgradesClient) NewListPager(resourceGroupName str
 }
 
 // listCreateRequest creates the List request.
-func (client *ClusterAvailableUpgradesClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterPoolName string, clusterName string, options *ClusterAvailableUpgradesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusterpools/{clusterPoolName}/clusters/{clusterName}/availableUpgrades"
+func (client *ClusterUpgradeHistoriesClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterPoolName string, clusterName string, options *ClusterUpgradeHistoriesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusterpools/{clusterPoolName}/clusters/{clusterName}/upgradeHistories"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -105,10 +105,10 @@ func (client *ClusterAvailableUpgradesClient) listCreateRequest(ctx context.Cont
 }
 
 // listHandleResponse handles the List response.
-func (client *ClusterAvailableUpgradesClient) listHandleResponse(resp *http.Response) (ClusterAvailableUpgradesClientListResponse, error) {
-	result := ClusterAvailableUpgradesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterAvailableUpgradeList); err != nil {
-		return ClusterAvailableUpgradesClientListResponse{}, err
+func (client *ClusterUpgradeHistoriesClient) listHandleResponse(resp *http.Response) (ClusterUpgradeHistoriesClientListResponse, error) {
+	result := ClusterUpgradeHistoriesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterUpgradeHistoryListResult); err != nil {
+		return ClusterUpgradeHistoriesClientListResponse{}, err
 	}
 	return result, nil
 }
