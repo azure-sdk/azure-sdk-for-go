@@ -17,64 +17,106 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
+}
+
+// NewCheckNameAvailabilityClient creates a new instance of CheckNameAvailabilityClient.
+func (c *ClientFactory) NewCheckNameAvailabilityClient() *CheckNameAvailabilityClient {
+	return &CheckNameAvailabilityClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDataConnectorsClient creates a new instance of DataConnectorsClient.
+func (c *ClientFactory) NewDataConnectorsClient() *DataConnectorsClient {
+	return &DataConnectorsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDataManagerForAgricultureExtensionsClient creates a new instance of DataManagerForAgricultureExtensionsClient.
+func (c *ClientFactory) NewDataManagerForAgricultureExtensionsClient() *DataManagerForAgricultureExtensionsClient {
+	return &DataManagerForAgricultureExtensionsClient{
+		internal: c.internal,
+	}
+}
+
+// NewDataManagerForAgricultureResourcesClient creates a new instance of DataManagerForAgricultureResourcesClient.
+func (c *ClientFactory) NewDataManagerForAgricultureResourcesClient() *DataManagerForAgricultureResourcesClient {
+	return &DataManagerForAgricultureResourcesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewExtensionsClient creates a new instance of ExtensionsClient.
 func (c *ClientFactory) NewExtensionsClient() *ExtensionsClient {
-	subClient, _ := NewExtensionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ExtensionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewFarmBeatsExtensionsClient creates a new instance of FarmBeatsExtensionsClient.
-func (c *ClientFactory) NewFarmBeatsExtensionsClient() *FarmBeatsExtensionsClient {
-	subClient, _ := NewFarmBeatsExtensionsClient(c.credential, c.options)
-	return subClient
-}
-
-// NewFarmBeatsModelsClient creates a new instance of FarmBeatsModelsClient.
-func (c *ClientFactory) NewFarmBeatsModelsClient() *FarmBeatsModelsClient {
-	subClient, _ := NewFarmBeatsModelsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-// NewLocationsClient creates a new instance of LocationsClient.
-func (c *ClientFactory) NewLocationsClient() *LocationsClient {
-	subClient, _ := NewLocationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewOperationResultsClient creates a new instance of OperationResultsClient.
+func (c *ClientFactory) NewOperationResultsClient() *OperationResultsClient {
+	return &OperationResultsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient.
 func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
-	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateEndpointConnectionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient.
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
-	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PrivateLinkResourcesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSolutionsClient creates a new instance of SolutionsClient.
+func (c *ClientFactory) NewSolutionsClient() *SolutionsClient {
+	return &SolutionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSolutionsDiscoverabilityClient creates a new instance of SolutionsDiscoverabilityClient.
+func (c *ClientFactory) NewSolutionsDiscoverabilityClient() *SolutionsDiscoverabilityClient {
+	return &SolutionsDiscoverabilityClient{
+		internal: c.internal,
+	}
 }
