@@ -37,52 +37,52 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - List all operations available through Azure Alerts Management Resource Provider.
+// NewListTestPager - List all operations available through Azure Alerts Management Resource Provider.
 //
-// Generated from API version 2019-05-05-preview
-//   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[OperationsClientListResponse]{
-		More: func(page OperationsClientListResponse) bool {
+// Generated from API version 2024-01-01-preview
+//   - options - OperationsClientListTestOptions contains the optional parameters for the OperationsClient.NewListTestPager method.
+func (client *OperationsClient) NewListTestPager(options *OperationsClientListTestOptions) *runtime.Pager[OperationsClientListTestResponse] {
+	return runtime.NewPager(runtime.PagingHandler[OperationsClientListTestResponse]{
+		More: func(page OperationsClientListTestResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *OperationsClientListResponse) (OperationsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OperationsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *OperationsClientListTestResponse) (OperationsClientListTestResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OperationsClient.NewListTestPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
+				return client.listTestCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
-				return OperationsClientListResponse{}, err
+				return OperationsClientListTestResponse{}, err
 			}
-			return client.listHandleResponse(resp)
+			return client.listTestHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *OperationsClient) listCreateRequest(ctx context.Context, options *OperationsClientListOptions) (*policy.Request, error) {
+// listTestCreateRequest creates the ListTest request.
+func (client *OperationsClient) listTestCreateRequest(ctx context.Context, options *OperationsClientListTestOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.AlertsManagement/operations"
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-05-05-preview")
+	reqQP.Set("api-version", "2024-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *OperationsClient) listHandleResponse(resp *http.Response) (OperationsClientListResponse, error) {
-	result := OperationsClientListResponse{}
+// listTestHandleResponse handles the ListTest response.
+func (client *OperationsClient) listTestHandleResponse(resp *http.Response) (OperationsClientListTestResponse, error) {
+	result := OperationsClientListTestResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.OperationsList); err != nil {
-		return OperationsClientListResponse{}, err
+		return OperationsClientListTestResponse{}, err
 	}
 	return result, nil
 }
