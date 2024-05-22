@@ -336,6 +336,7 @@ func PossibleResourceStateValues() []ResourceState {
 type SKUName string
 
 const (
+	SKUNameEnterpriseE1         SKUName = "Enterprise_E1"
 	SKUNameEnterpriseE10        SKUName = "Enterprise_E10"
 	SKUNameEnterpriseE100       SKUName = "Enterprise_E100"
 	SKUNameEnterpriseE20        SKUName = "Enterprise_E20"
@@ -349,6 +350,7 @@ const (
 // PossibleSKUNameValues returns the possible values for the SKUName const type.
 func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
+		SKUNameEnterpriseE1,
 		SKUNameEnterpriseE10,
 		SKUNameEnterpriseE100,
 		SKUNameEnterpriseE20,
