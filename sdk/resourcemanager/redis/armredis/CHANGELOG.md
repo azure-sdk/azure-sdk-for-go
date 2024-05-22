@@ -1,5 +1,15 @@
 # Release History
 
+## 3.2.0-beta.1 (2024-05-22)
+### Features Added
+
+- New enum type `ZonalAllocationPolicy` with values `ZonalAllocationPolicyAutomatic`, `ZonalAllocationPolicyNoZones`, `ZonalAllocationPolicyUserDefined`
+- New field `NotifyKeyspaceEvents` in struct `CommonPropertiesRedisConfiguration`
+- New field `DisableAccessKeyAuthentication`, `ZonalAllocationPolicy` in struct `CreateProperties`
+- New field `DisableAccessKeyAuthentication`, `ZonalAllocationPolicy` in struct `Properties`
+- New field `DisableAccessKeyAuthentication`, `ZonalAllocationPolicy` in struct `UpdateProperties`
+
+
 ## 3.1.0 (2023-11-24)
 ### Features Added
 
