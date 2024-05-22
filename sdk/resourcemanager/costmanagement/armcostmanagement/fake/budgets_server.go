@@ -16,46 +16,46 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
 )
 
-// BudgetsServer is a fake server for instances of the armconsumption.BudgetsClient type.
+// BudgetsServer is a fake server for instances of the armcostmanagement.BudgetsClient type.
 type BudgetsServer struct {
 	// CreateOrUpdate is the fake for method BudgetsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, scope string, budgetName string, parameters armconsumption.Budget, options *armconsumption.BudgetsClientCreateOrUpdateOptions) (resp azfake.Responder[armconsumption.BudgetsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, scope string, budgetName string, parameters armcostmanagement.Budget, options *armcostmanagement.BudgetsClientCreateOrUpdateOptions) (resp azfake.Responder[armcostmanagement.BudgetsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method BudgetsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK
-	Delete func(ctx context.Context, scope string, budgetName string, options *armconsumption.BudgetsClientDeleteOptions) (resp azfake.Responder[armconsumption.BudgetsClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, scope string, budgetName string, options *armcostmanagement.BudgetsClientDeleteOptions) (resp azfake.Responder[armcostmanagement.BudgetsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method BudgetsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, scope string, budgetName string, options *armconsumption.BudgetsClientGetOptions) (resp azfake.Responder[armconsumption.BudgetsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, scope string, budgetName string, options *armcostmanagement.BudgetsClientGetOptions) (resp azfake.Responder[armcostmanagement.BudgetsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method BudgetsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(scope string, options *armconsumption.BudgetsClientListOptions) (resp azfake.PagerResponder[armconsumption.BudgetsClientListResponse])
+	NewListPager func(scope string, options *armcostmanagement.BudgetsClientListOptions) (resp azfake.PagerResponder[armcostmanagement.BudgetsClientListResponse])
 }
 
 // NewBudgetsServerTransport creates a new instance of BudgetsServerTransport with the provided implementation.
-// The returned BudgetsServerTransport instance is connected to an instance of armconsumption.BudgetsClient via the
+// The returned BudgetsServerTransport instance is connected to an instance of armcostmanagement.BudgetsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewBudgetsServerTransport(srv *BudgetsServer) *BudgetsServerTransport {
 	return &BudgetsServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armconsumption.BudgetsClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armcostmanagement.BudgetsClientListResponse]](),
 	}
 }
 
-// BudgetsServerTransport connects instances of armconsumption.BudgetsClient to instances of BudgetsServer.
+// BudgetsServerTransport connects instances of armcostmanagement.BudgetsClient to instances of BudgetsServer.
 // Don't use this type directly, use NewBudgetsServerTransport instead.
 type BudgetsServerTransport struct {
 	srv          *BudgetsServer
-	newListPager *tracker[azfake.PagerResponder[armconsumption.BudgetsClientListResponse]]
+	newListPager *tracker[azfake.PagerResponder[armcostmanagement.BudgetsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for BudgetsServerTransport.
@@ -93,13 +93,13 @@ func (b *BudgetsServerTransport) dispatchCreateOrUpdate(req *http.Request) (*htt
 	if b.srv.CreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
 	}
-	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Consumption/budgets/(?P<budgetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/budgets/(?P<budgetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armconsumption.Budget](req)
+	body, err := server.UnmarshalRequestAsJSON[armcostmanagement.Budget](req)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ func (b *BudgetsServerTransport) dispatchDelete(req *http.Request) (*http.Respon
 	if b.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Consumption/budgets/(?P<budgetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/budgets/(?P<budgetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
@@ -163,7 +163,7 @@ func (b *BudgetsServerTransport) dispatchGet(req *http.Request) (*http.Response,
 	if b.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Consumption/budgets/(?P<budgetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/budgets/(?P<budgetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
@@ -198,20 +198,32 @@ func (b *BudgetsServerTransport) dispatchNewListPager(req *http.Request) (*http.
 	}
 	newListPager := b.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Consumption/budgets`
+		const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/budgets`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		qp := req.URL.Query()
 		scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 		if err != nil {
 			return nil, err
 		}
-		resp := b.srv.NewListPager(scopeParam, nil)
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		var options *armcostmanagement.BudgetsClientListOptions
+		if filterParam != nil {
+			options = &armcostmanagement.BudgetsClientListOptions{
+				Filter: filterParam,
+			}
+		}
+		resp := b.srv.NewListPager(scopeParam, options)
 		newListPager = &resp
 		b.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armconsumption.BudgetsClientListResponse, createLink func() string) {
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armcostmanagement.BudgetsClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
