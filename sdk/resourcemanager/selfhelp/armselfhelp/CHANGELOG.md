@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0-beta.5 (2024-05-22)
+### Breaking Changes
+
+- Function `*CheckNameAvailabilityClient.Post` has been removed
+- Function `*ClientFactory.NewDiscoverySolutionNLPSubscriptionScopeClient` has been removed
+- Function `*ClientFactory.NewDiscoverySolutionNLPTenantScopeClient` has been removed
+- Function `NewDiscoverySolutionNLPSubscriptionScopeClient` has been removed
+- Function `*DiscoverySolutionNLPSubscriptionScopeClient.Post` has been removed
+- Function `NewDiscoverySolutionNLPTenantScopeClient` has been removed
+- Function `*DiscoverySolutionNLPTenantScopeClient.Post` has been removed
+
+### Features Added
+
+- New function `*CheckNameAvailabilityClient.CheckAvailability(context.Context, string, *CheckNameAvailabilityClientCheckAvailabilityOptions) (CheckNameAvailabilityClientCheckAvailabilityResponse, error)`
+- New function `*ClientFactory.NewDiscoverySolutionNLPClient() *DiscoverySolutionNLPClient`
+- New function `NewDiscoverySolutionNLPClient(azcore.TokenCredential, *arm.ClientOptions) (*DiscoverySolutionNLPClient, error)`
+- New function `*DiscoverySolutionNLPClient.DiscoverSolutions(context.Context, *DiscoverySolutionNLPClientDiscoverSolutionsOptions) (DiscoverySolutionNLPClientDiscoverSolutionsResponse, error)`
+- New function `*DiscoverySolutionNLPClient.DiscoverSolutionsBySubscription(context.Context, string, *DiscoverySolutionNLPClientDiscoverSolutionsBySubscriptionOptions) (DiscoverySolutionNLPClientDiscoverSolutionsBySubscriptionResponse, error)`
+
+
 ## 2.0.0-beta.4 (2024-04-26)
 ### Breaking Changes
 
