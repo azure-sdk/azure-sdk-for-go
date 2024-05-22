@@ -1,6 +1,6 @@
 # Azure Consumption Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2)
 
 The `armconsumption` module provides operations for working with Azure Consumption.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Consumption module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2
 ```
 
 ## Authorization
