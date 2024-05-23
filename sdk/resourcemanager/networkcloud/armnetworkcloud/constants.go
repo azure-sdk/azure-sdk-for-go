@@ -10,7 +10,7 @@ package armnetworkcloud
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/networkcloud/armnetworkcloud"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -506,15 +506,17 @@ func PossibleCloudServicesNetworkProvisioningStateValues() []CloudServicesNetwor
 type ClusterConnectionStatus string
 
 const (
-	ClusterConnectionStatusConnected ClusterConnectionStatus = "Connected"
-	ClusterConnectionStatusTimeout   ClusterConnectionStatus = "Timeout"
-	ClusterConnectionStatusUndefined ClusterConnectionStatus = "Undefined"
+	ClusterConnectionStatusConnected    ClusterConnectionStatus = "Connected"
+	ClusterConnectionStatusDisconnected ClusterConnectionStatus = "Disconnected"
+	ClusterConnectionStatusTimeout      ClusterConnectionStatus = "Timeout"
+	ClusterConnectionStatusUndefined    ClusterConnectionStatus = "Undefined"
 )
 
 // PossibleClusterConnectionStatusValues returns the possible values for the ClusterConnectionStatus const type.
 func PossibleClusterConnectionStatusValues() []ClusterConnectionStatus {
 	return []ClusterConnectionStatus{
 		ClusterConnectionStatusConnected,
+		ClusterConnectionStatusDisconnected,
 		ClusterConnectionStatusTimeout,
 		ClusterConnectionStatusUndefined,
 	}
@@ -676,6 +678,38 @@ func PossibleClusterProvisioningStateValues() []ClusterProvisioningState {
 	}
 }
 
+// ClusterScanRuntimeParametersScanActivity - The choice of if the scan operation should run the scan.
+type ClusterScanRuntimeParametersScanActivity string
+
+const (
+	ClusterScanRuntimeParametersScanActivityScan ClusterScanRuntimeParametersScanActivity = "Scan"
+	ClusterScanRuntimeParametersScanActivitySkip ClusterScanRuntimeParametersScanActivity = "Skip"
+)
+
+// PossibleClusterScanRuntimeParametersScanActivityValues returns the possible values for the ClusterScanRuntimeParametersScanActivity const type.
+func PossibleClusterScanRuntimeParametersScanActivityValues() []ClusterScanRuntimeParametersScanActivity {
+	return []ClusterScanRuntimeParametersScanActivity{
+		ClusterScanRuntimeParametersScanActivityScan,
+		ClusterScanRuntimeParametersScanActivitySkip,
+	}
+}
+
+// ClusterSecretArchiveEnabled - The indicator if the specified key vault should be used to archive the secrets of the cluster.
+type ClusterSecretArchiveEnabled string
+
+const (
+	ClusterSecretArchiveEnabledFalse ClusterSecretArchiveEnabled = "False"
+	ClusterSecretArchiveEnabledTrue  ClusterSecretArchiveEnabled = "True"
+)
+
+// PossibleClusterSecretArchiveEnabledValues returns the possible values for the ClusterSecretArchiveEnabled const type.
+func PossibleClusterSecretArchiveEnabledValues() []ClusterSecretArchiveEnabled {
+	return []ClusterSecretArchiveEnabled{
+		ClusterSecretArchiveEnabledFalse,
+		ClusterSecretArchiveEnabledTrue,
+	}
+}
+
 // ClusterType - The type of rack configuration for the cluster.
 type ClusterType string
 
@@ -689,6 +723,20 @@ func PossibleClusterTypeValues() []ClusterType {
 	return []ClusterType{
 		ClusterTypeMultiRack,
 		ClusterTypeSingleRack,
+	}
+}
+
+// ClusterUpdateStrategyType - The mode of operation for runtime protection.
+type ClusterUpdateStrategyType string
+
+const (
+	ClusterUpdateStrategyTypeRack ClusterUpdateStrategyType = "Rack"
+)
+
+// PossibleClusterUpdateStrategyTypeValues returns the possible values for the ClusterUpdateStrategyType const type.
+func PossibleClusterUpdateStrategyTypeValues() []ClusterUpdateStrategyType {
+	return []ClusterUpdateStrategyType{
+		ClusterUpdateStrategyTypeRack,
 	}
 }
 
@@ -708,7 +756,7 @@ func PossibleConsoleDetailedStatusValues() []ConsoleDetailedStatus {
 	}
 }
 
-// ConsoleEnabled - The credentials used to login to the image repository that has access to the specified image.
+// ConsoleEnabled - The indicator of whether the console access is enabled.
 type ConsoleEnabled string
 
 const (
@@ -1332,6 +1380,28 @@ func PossibleRemoteVendorManagementStatusValues() []RemoteVendorManagementStatus
 		RemoteVendorManagementStatusDisabled,
 		RemoteVendorManagementStatusEnabled,
 		RemoteVendorManagementStatusUnsupported,
+	}
+}
+
+// RuntimeProtectionEnforcementLevel - The mode of operation for runtime protection.
+type RuntimeProtectionEnforcementLevel string
+
+const (
+	RuntimeProtectionEnforcementLevelAudit    RuntimeProtectionEnforcementLevel = "Audit"
+	RuntimeProtectionEnforcementLevelDisabled RuntimeProtectionEnforcementLevel = "Disabled"
+	RuntimeProtectionEnforcementLevelOnDemand RuntimeProtectionEnforcementLevel = "OnDemand"
+	RuntimeProtectionEnforcementLevelPassive  RuntimeProtectionEnforcementLevel = "Passive"
+	RuntimeProtectionEnforcementLevelRealTime RuntimeProtectionEnforcementLevel = "RealTime"
+)
+
+// PossibleRuntimeProtectionEnforcementLevelValues returns the possible values for the RuntimeProtectionEnforcementLevel const type.
+func PossibleRuntimeProtectionEnforcementLevelValues() []RuntimeProtectionEnforcementLevel {
+	return []RuntimeProtectionEnforcementLevel{
+		RuntimeProtectionEnforcementLevelAudit,
+		RuntimeProtectionEnforcementLevelDisabled,
+		RuntimeProtectionEnforcementLevelOnDemand,
+		RuntimeProtectionEnforcementLevelPassive,
+		RuntimeProtectionEnforcementLevelRealTime,
 	}
 }
 

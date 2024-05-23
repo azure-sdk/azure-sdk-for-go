@@ -1,5 +1,47 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-05-23)
+### Features Added
+
+- New value `ClusterConnectionStatusDisconnected` added to enum type `ClusterConnectionStatus`
+- New enum type `ClusterScanRuntimeParametersScanActivity` with values `ClusterScanRuntimeParametersScanActivityScan`, `ClusterScanRuntimeParametersScanActivitySkip`
+- New enum type `ClusterSecretArchiveEnabled` with values `ClusterSecretArchiveEnabledFalse`, `ClusterSecretArchiveEnabledTrue`
+- New enum type `ClusterUpdateStrategyType` with values `ClusterUpdateStrategyTypeRack`
+- New enum type `RuntimeProtectionEnforcementLevel` with values `RuntimeProtectionEnforcementLevelAudit`, `RuntimeProtectionEnforcementLevelDisabled`, `RuntimeProtectionEnforcementLevelOnDemand`, `RuntimeProtectionEnforcementLevelPassive`, `RuntimeProtectionEnforcementLevelRealTime`
+- New function `*ClustersClient.BeginScanRuntime(context.Context, string, string, *ClustersClientBeginScanRuntimeOptions) (*runtime.Poller[ClustersClientScanRuntimeResponse], error)`
+- New struct `AdministratorConfigurationPatch`
+- New struct `ClusterScanRuntimeParameters`
+- New struct `ClusterSecretArchive`
+- New struct `ClusterUpdateStrategy`
+- New struct `NodePoolAdministratorConfigurationPatch`
+- New struct `RuntimeProtectionConfiguration`
+- New struct `RuntimeProtectionStatus`
+- New field `AdministratorConfiguration` in struct `AgentPoolPatchProperties`
+- New anonymous field `OperationStatusResult` in struct `AgentPoolsClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `BareMetalMachineKeySetsClientDeleteResponse`
+- New field `MachineRoles`, `RuntimeProtectionStatus` in struct `BareMetalMachineProperties`
+- New anonymous field `OperationStatusResult` in struct `BareMetalMachinesClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `BmcKeySetsClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `CloudServicesNetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `ClusterManagersClientDeleteResponse`
+- New field `RuntimeProtectionConfiguration`, `SecretArchive`, `UpdateStrategy` in struct `ClusterPatchProperties`
+- New field `RuntimeProtectionConfiguration`, `SecretArchive`, `UpdateStrategy` in struct `ClusterProperties`
+- New anonymous field `OperationStatusResult` in struct `ClustersClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `ConsolesClientDeleteResponse`
+- New field `AdministratorConfiguration` in struct `ControlPlaneNodePatchConfiguration`
+- New field `UserPrincipalName` in struct `KeySetUser`
+- New field `AdministratorConfiguration` in struct `KubernetesClusterPatchProperties`
+- New anonymous field `OperationStatusResult` in struct `KubernetesClustersClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `L2NetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `L3NetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `MetricsConfigurationsClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `RacksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `StorageAppliancesClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `TrunkedNetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `VirtualMachinesClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `VolumesClientDeleteResponse`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 

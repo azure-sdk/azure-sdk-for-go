@@ -34,7 +34,7 @@ type ClustersServer struct {
 	BeginDelete func(ctx context.Context, resourceGroupName string, clusterName string, options *armnetworkcloud.ClustersClientBeginDeleteOptions) (resp azfake.PollerResponder[armnetworkcloud.ClustersClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// BeginDeploy is the fake for method ClustersClient.BeginDeploy
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginDeploy func(ctx context.Context, resourceGroupName string, clusterName string, options *armnetworkcloud.ClustersClientBeginDeployOptions) (resp azfake.PollerResponder[armnetworkcloud.ClustersClientDeployResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ClustersClient.Get
@@ -49,12 +49,16 @@ type ClustersServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armnetworkcloud.ClustersClientListBySubscriptionOptions) (resp azfake.PagerResponder[armnetworkcloud.ClustersClientListBySubscriptionResponse])
 
+	// BeginScanRuntime is the fake for method ClustersClient.BeginScanRuntime
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginScanRuntime func(ctx context.Context, resourceGroupName string, clusterName string, options *armnetworkcloud.ClustersClientBeginScanRuntimeOptions) (resp azfake.PollerResponder[armnetworkcloud.ClustersClientScanRuntimeResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpdate is the fake for method ClustersClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterName string, clusterUpdateParameters armnetworkcloud.ClusterPatchParameters, options *armnetworkcloud.ClustersClientBeginUpdateOptions) (resp azfake.PollerResponder[armnetworkcloud.ClustersClientUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdateVersion is the fake for method ClustersClient.BeginUpdateVersion
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdateVersion func(ctx context.Context, resourceGroupName string, clusterName string, clusterUpdateVersionParameters armnetworkcloud.ClusterUpdateVersionParameters, options *armnetworkcloud.ClustersClientBeginUpdateVersionOptions) (resp azfake.PollerResponder[armnetworkcloud.ClustersClientUpdateVersionResponse], errResp azfake.ErrorResponder)
 }
 
@@ -69,6 +73,7 @@ func NewClustersServerTransport(srv *ClustersServer) *ClustersServerTransport {
 		beginDeploy:                 newTracker[azfake.PollerResponder[armnetworkcloud.ClustersClientDeployResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armnetworkcloud.ClustersClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armnetworkcloud.ClustersClientListBySubscriptionResponse]](),
+		beginScanRuntime:            newTracker[azfake.PollerResponder[armnetworkcloud.ClustersClientScanRuntimeResponse]](),
 		beginUpdate:                 newTracker[azfake.PollerResponder[armnetworkcloud.ClustersClientUpdateResponse]](),
 		beginUpdateVersion:          newTracker[azfake.PollerResponder[armnetworkcloud.ClustersClientUpdateVersionResponse]](),
 	}
@@ -83,6 +88,7 @@ type ClustersServerTransport struct {
 	beginDeploy                 *tracker[azfake.PollerResponder[armnetworkcloud.ClustersClientDeployResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armnetworkcloud.ClustersClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armnetworkcloud.ClustersClientListBySubscriptionResponse]]
+	beginScanRuntime            *tracker[azfake.PollerResponder[armnetworkcloud.ClustersClientScanRuntimeResponse]]
 	beginUpdate                 *tracker[azfake.PollerResponder[armnetworkcloud.ClustersClientUpdateResponse]]
 	beginUpdateVersion          *tracker[azfake.PollerResponder[armnetworkcloud.ClustersClientUpdateVersionResponse]]
 }
@@ -111,6 +117,8 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = c.dispatchNewListByResourceGroupPager(req)
 	case "ClustersClient.NewListBySubscriptionPager":
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
+	case "ClustersClient.BeginScanRuntime":
+		resp, err = c.dispatchBeginScanRuntime(req)
 	case "ClustersClient.BeginUpdate":
 		resp, err = c.dispatchBeginUpdate(req)
 	case "ClustersClient.BeginUpdateVersion":
@@ -261,9 +269,9 @@ func (c *ClustersServerTransport) dispatchBeginDeploy(req *http.Request) (*http.
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		c.beginDeploy.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDeploy) {
 		c.beginDeploy.remove(req)
@@ -375,6 +383,60 @@ func (c *ClustersServerTransport) dispatchNewListBySubscriptionPager(req *http.R
 	return resp, nil
 }
 
+func (c *ClustersServerTransport) dispatchBeginScanRuntime(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginScanRuntime == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginScanRuntime not implemented")}
+	}
+	beginScanRuntime := c.beginScanRuntime.get(req)
+	if beginScanRuntime == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetworkCloud/clusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/scanRuntime`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetworkcloud.ClusterScanRuntimeParameters](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armnetworkcloud.ClustersClientBeginScanRuntimeOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armnetworkcloud.ClustersClientBeginScanRuntimeOptions{
+				ClusterScanRuntimeParameters: &body,
+			}
+		}
+		respr, errRespr := c.srv.BeginScanRuntime(req.Context(), resourceGroupNameParam, clusterNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginScanRuntime = &respr
+		c.beginScanRuntime.add(req, beginScanRuntime)
+	}
+
+	resp, err := server.PollerResponderNext(beginScanRuntime, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginScanRuntime.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginScanRuntime) {
+		c.beginScanRuntime.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (c *ClustersServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
 	if c.srv.BeginUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
@@ -460,9 +522,9 @@ func (c *ClustersServerTransport) dispatchBeginUpdateVersion(req *http.Request) 
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		c.beginUpdateVersion.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpdateVersion) {
 		c.beginUpdateVersion.remove(req)
