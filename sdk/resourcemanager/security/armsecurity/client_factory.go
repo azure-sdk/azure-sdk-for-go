@@ -571,6 +571,13 @@ func (c *ClientFactory) NewTopologyClient() *TopologyClient {
 	}
 }
 
+// NewTrustedIPsClient creates a new instance of TrustedIPsClient.
+func (c *ClientFactory) NewTrustedIPsClient() *TrustedIPsClient {
+	return &TrustedIPsClient{
+		internal: c.internal,
+	}
+}
+
 // NewWorkspaceSettingsClient creates a new instance of WorkspaceSettingsClient.
 func (c *ClientFactory) NewWorkspaceSettingsClient() *WorkspaceSettingsClient {
 	return &WorkspaceSettingsClient{

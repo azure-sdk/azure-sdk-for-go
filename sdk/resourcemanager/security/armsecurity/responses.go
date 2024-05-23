@@ -1439,6 +1439,29 @@ type TopologyClientListResponse struct {
 	TopologyList
 }
 
+// TrustedIPsClientCreateOrUpdateResponse contains the response from method TrustedIPsClient.CreateOrUpdate.
+type TrustedIPsClientCreateOrUpdateResponse struct {
+	// Trusted IPs over a given scope
+	TrustedIPs
+}
+
+// TrustedIPsClientDeleteResponse contains the response from method TrustedIPsClient.Delete.
+type TrustedIPsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// TrustedIPsClientGetResponse contains the response from method TrustedIPsClient.Get.
+type TrustedIPsClientGetResponse struct {
+	// Trusted IPs over a given scope
+	TrustedIPs
+}
+
+// TrustedIPsClientListResponse contains the response from method TrustedIPsClient.NewListPager.
+type TrustedIPsClientListResponse struct {
+	// Page of a trusted IPs list
+	TrustedIPsList
+}
+
 // WorkspaceSettingsClientCreateResponse contains the response from method WorkspaceSettingsClient.Create.
 type WorkspaceSettingsClientCreateResponse struct {
 	// Configures where to store the OMS agent data for workspaces under a scope

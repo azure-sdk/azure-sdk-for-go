@@ -88,6 +88,7 @@ type ServerFactory struct {
 	SubAssessmentsServer                               SubAssessmentsServer
 	TasksServer                                        TasksServer
 	TopologyServer                                     TopologyServer
+	TrustedIPsServer                                   TrustedIPsServer
 	WorkspaceSettingsServer                            WorkspaceSettingsServer
 }
 
@@ -174,6 +175,7 @@ type ServerFactoryTransport struct {
 	trSubAssessmentsServer                               *SubAssessmentsServerTransport
 	trTasksServer                                        *TasksServerTransport
 	trTopologyServer                                     *TopologyServerTransport
+	trTrustedIPsServer                                   *TrustedIPsServerTransport
 	trWorkspaceSettingsServer                            *WorkspaceSettingsServerTransport
 }
 
@@ -495,6 +497,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "TopologyClient":
 		initServer(s, &s.trTopologyServer, func() *TopologyServerTransport { return NewTopologyServerTransport(&s.srv.TopologyServer) })
 		resp, err = s.trTopologyServer.Do(req)
+	case "TrustedIPsClient":
+		initServer(s, &s.trTrustedIPsServer, func() *TrustedIPsServerTransport { return NewTrustedIPsServerTransport(&s.srv.TrustedIPsServer) })
+		resp, err = s.trTrustedIPsServer.Do(req)
 	case "WorkspaceSettingsClient":
 		initServer(s, &s.trWorkspaceSettingsServer, func() *WorkspaceSettingsServerTransport {
 			return NewWorkspaceSettingsServerTransport(&s.srv.WorkspaceSettingsServer)

@@ -1369,6 +1369,26 @@ type TopologyClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// TrustedIPsClientCreateOrUpdateOptions contains the optional parameters for the TrustedIPsClient.CreateOrUpdate method.
+type TrustedIPsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TrustedIPsClientDeleteOptions contains the optional parameters for the TrustedIPsClient.Delete method.
+type TrustedIPsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TrustedIPsClientGetOptions contains the optional parameters for the TrustedIPsClient.Get method.
+type TrustedIPsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TrustedIPsClientListOptions contains the optional parameters for the TrustedIPsClient.NewListPager method.
+type TrustedIPsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WorkspaceSettingsClientCreateOptions contains the optional parameters for the WorkspaceSettingsClient.Create method.
 type WorkspaceSettingsClientCreateOptions struct {
 	// placeholder for future optional parameters

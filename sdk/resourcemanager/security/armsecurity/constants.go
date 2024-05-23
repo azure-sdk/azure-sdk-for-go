@@ -10,7 +10,7 @@ package armsecurity
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/security/armsecurity"
-	moduleVersion = "v0.14.0"
+	moduleVersion = "v0.15.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
