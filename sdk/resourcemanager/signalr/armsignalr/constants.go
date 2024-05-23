@@ -10,7 +10,7 @@ package armsignalr
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/signalr/armsignalr"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0"
 )
 
 // ACLAction - Azure Networking ACL Action.
