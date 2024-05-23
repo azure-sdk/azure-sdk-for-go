@@ -1179,6 +1179,12 @@ type ServerBackupV2ListResult struct {
 	Value []*ServerBackupV2
 }
 
+// ServerDetachVNetParameter - Parameters to detach Vnet.
+type ServerDetachVNetParameter struct {
+	// Whether or not public network access is allowed for this server. Value is 'Disabled' when server has VNet integration.
+	PublicNetworkAccess *EnableStatusEnum
+}
+
 // ServerEditionCapability - Server edition capabilities.
 type ServerEditionCapability struct {
 	// READ-ONLY; Server edition name
@@ -1224,7 +1230,7 @@ type ServerForUpdate struct {
 	Tags map[string]*string
 }
 
-// ServerGtidSetParameter - Server Gtid set parameters.
+// ServerGtidSetParameter - Server Gtid set parameters: Replication with Global Transaction Identifiers.
 type ServerGtidSetParameter struct {
 	// The Gtid set of server.
 	GtidSet *string
@@ -1367,6 +1373,9 @@ type Storage struct {
 
 	// Enable Log On Disk or not.
 	LogOnDisk *EnableStatusEnum
+
+	// The redundant type of the server storage. The parameter is used for server creation.
+	StorageRedundancy *StorageRedundancyEnum
 
 	// Max storage size allowed for a server.
 	StorageSizeGB *int32
