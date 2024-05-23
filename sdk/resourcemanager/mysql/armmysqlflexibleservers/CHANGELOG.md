@@ -1,5 +1,14 @@
 # Release History
 
+## 2.0.0-beta.4 (2024-05-23)
+### Features Added
+
+- New enum type `StorageRedundancyEnum` with values `StorageRedundancyEnumLocalRedundancy`, `StorageRedundancyEnumZoneRedundancy`
+- New function `*ServersClient.BeginDetachVNet(context.Context, string, string, ServerDetachVNetParameter, *ServersClientBeginDetachVNetOptions) (*runtime.Poller[ServersClientDetachVNetResponse], error)`
+- New struct `ServerDetachVNetParameter`
+- New field `StorageRedundancy` in struct `Storage`
+
+
 ## 2.0.0-beta.3 (2024-04-30)
 ### Breaking Changes
 
