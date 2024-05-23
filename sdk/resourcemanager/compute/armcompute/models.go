@@ -3245,9 +3245,6 @@ type LinuxConfiguration struct {
 	// Specifies whether password authentication should be disabled.
 	DisablePasswordAuthentication *bool
 
-	// Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. Default value is false.
-	EnableVMAgentPlatformUpdates *bool
-
 	// [Preview Feature] Specifies settings related to VM Guest Patching on Linux.
 	PatchSettings *LinuxPatchSettings
 
@@ -3258,6 +3255,9 @@ type LinuxConfiguration struct {
 
 	// Specifies the ssh key configuration for a Linux OS.
 	SSH *SSHConfiguration
+
+	// READ-ONLY; Indicates whether VMAgent Platform Updates are enabled for the Linux Virtual Machine.
+	EnableVMAgentPlatformUpdates *bool
 }
 
 // LinuxParameters - Input for InstallPatches on a Linux VM, as directly received by the API
@@ -8593,9 +8593,6 @@ type WindowsConfiguration struct {
 	// reprovisioning.
 	EnableAutomaticUpdates *bool
 
-	// Indicates whether VMAgent Platform Updates is enabled for the Windows virtual machine. Default value is false.
-	EnableVMAgentPlatformUpdates *bool
-
 	// [Preview Feature] Specifies settings related to VM Guest Patching on Windows.
 	PatchSettings *PatchSettings
 
@@ -8612,6 +8609,9 @@ type WindowsConfiguration struct {
 
 	// Specifies the Windows Remote Management listeners. This enables remote Windows PowerShell.
 	WinRM *WinRMConfiguration
+
+	// READ-ONLY; Indicates whether VMAgent Platform Updates are enabled for the Windows Virtual Machine.
+	EnableVMAgentPlatformUpdates *bool
 }
 
 // WindowsParameters - Input for InstallPatches on a Windows VM, as directly received by the API
