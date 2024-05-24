@@ -3245,7 +3245,7 @@ type LinuxConfiguration struct {
 	// Specifies whether password authentication should be disabled.
 	DisablePasswordAuthentication *bool
 
-	// Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. Default value is false.
+	// Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine.
 	EnableVMAgentPlatformUpdates *bool
 
 	// [Preview Feature] Specifies settings related to VM Guest Patching on Linux.
@@ -8593,7 +8593,7 @@ type WindowsConfiguration struct {
 	// reprovisioning.
 	EnableAutomaticUpdates *bool
 
-	// Indicates whether VMAgent Platform Updates is enabled for the Windows virtual machine. Default value is false.
+	// Indicates whether VMAgent Platform Updates is enabled for the Windows virtual machine.
 	EnableVMAgentPlatformUpdates *bool
 
 	// [Preview Feature] Specifies settings related to VM Guest Patching on Windows.
