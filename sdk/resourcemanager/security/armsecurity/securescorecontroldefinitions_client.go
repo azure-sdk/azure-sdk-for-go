@@ -45,7 +45,7 @@ func NewSecureScoreControlDefinitionsClient(subscriptionID string, credential az
 
 // NewListPager - List the available security controls, their assessments, and the max score
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - SecureScoreControlDefinitionsClientListOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.NewListPager
 //     method.
 func (client *SecureScoreControlDefinitionsClient) NewListPager(options *SecureScoreControlDefinitionsClientListOptions) *runtime.Pager[SecureScoreControlDefinitionsClientListResponse] {
@@ -79,7 +79,7 @@ func (client *SecureScoreControlDefinitionsClient) listCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -97,7 +97,7 @@ func (client *SecureScoreControlDefinitionsClient) listHandleResponse(resp *http
 // NewListBySubscriptionPager - For a specified subscription, list the available security controls, their assessments, and
 // the max score
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - SecureScoreControlDefinitionsClientListBySubscriptionOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.NewListBySubscriptionPager
 //     method.
 func (client *SecureScoreControlDefinitionsClient) NewListBySubscriptionPager(options *SecureScoreControlDefinitionsClientListBySubscriptionOptions) *runtime.Pager[SecureScoreControlDefinitionsClientListBySubscriptionResponse] {
@@ -135,7 +135,7 @@ func (client *SecureScoreControlDefinitionsClient) listBySubscriptionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

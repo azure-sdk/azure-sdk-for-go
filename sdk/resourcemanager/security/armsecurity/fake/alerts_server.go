@@ -48,9 +48,9 @@ type AlertsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListSubscriptionLevelByRegionPager func(ascLocation string, options *armsecurity.AlertsClientListSubscriptionLevelByRegionOptions) (resp azfake.PagerResponder[armsecurity.AlertsClientListSubscriptionLevelByRegionResponse])
 
-	// BeginSimulate is the fake for method AlertsClient.BeginSimulate
-	// HTTP status codes to indicate success: http.StatusAccepted
-	BeginSimulate func(ctx context.Context, ascLocation string, alertSimulatorRequestBody armsecurity.AlertSimulatorRequestBody, options *armsecurity.AlertsClientBeginSimulateOptions) (resp azfake.PollerResponder[armsecurity.AlertsClientSimulateResponse], errResp azfake.ErrorResponder)
+	// Simulate is the fake for method AlertsClient.Simulate
+	// HTTP status codes to indicate success: http.StatusNoContent
+	Simulate func(ctx context.Context, ascLocation string, alertSimulatorRequestBody armsecurity.AlertSimulatorRequestBody, options *armsecurity.AlertsClientSimulateOptions) (resp azfake.Responder[armsecurity.AlertsClientSimulateResponse], errResp azfake.ErrorResponder)
 
 	// UpdateResourceGroupLevelStateToActivate is the fake for method AlertsClient.UpdateResourceGroupLevelStateToActivate
 	// HTTP status codes to indicate success: http.StatusNoContent
@@ -95,7 +95,6 @@ func NewAlertsServerTransport(srv *AlertsServer) *AlertsServerTransport {
 		newListByResourceGroupPager:            newTracker[azfake.PagerResponder[armsecurity.AlertsClientListByResourceGroupResponse]](),
 		newListResourceGroupLevelByRegionPager: newTracker[azfake.PagerResponder[armsecurity.AlertsClientListResourceGroupLevelByRegionResponse]](),
 		newListSubscriptionLevelByRegionPager:  newTracker[azfake.PagerResponder[armsecurity.AlertsClientListSubscriptionLevelByRegionResponse]](),
-		beginSimulate:                          newTracker[azfake.PollerResponder[armsecurity.AlertsClientSimulateResponse]](),
 	}
 }
 
@@ -107,7 +106,6 @@ type AlertsServerTransport struct {
 	newListByResourceGroupPager            *tracker[azfake.PagerResponder[armsecurity.AlertsClientListByResourceGroupResponse]]
 	newListResourceGroupLevelByRegionPager *tracker[azfake.PagerResponder[armsecurity.AlertsClientListResourceGroupLevelByRegionResponse]]
 	newListSubscriptionLevelByRegionPager  *tracker[azfake.PagerResponder[armsecurity.AlertsClientListSubscriptionLevelByRegionResponse]]
-	beginSimulate                          *tracker[azfake.PollerResponder[armsecurity.AlertsClientSimulateResponse]]
 }
 
 // Do implements the policy.Transporter interface for AlertsServerTransport.
@@ -134,8 +132,8 @@ func (a *AlertsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = a.dispatchNewListResourceGroupLevelByRegionPager(req)
 	case "AlertsClient.NewListSubscriptionLevelByRegionPager":
 		resp, err = a.dispatchNewListSubscriptionLevelByRegionPager(req)
-	case "AlertsClient.BeginSimulate":
-		resp, err = a.dispatchBeginSimulate(req)
+	case "AlertsClient.Simulate":
+		resp, err = a.dispatchSimulate(req)
 	case "AlertsClient.UpdateResourceGroupLevelStateToActivate":
 		resp, err = a.dispatchUpdateResourceGroupLevelStateToActivate(req)
 	case "AlertsClient.UpdateResourceGroupLevelStateToDismiss":
@@ -381,47 +379,36 @@ func (a *AlertsServerTransport) dispatchNewListSubscriptionLevelByRegionPager(re
 	return resp, nil
 }
 
-func (a *AlertsServerTransport) dispatchBeginSimulate(req *http.Request) (*http.Response, error) {
-	if a.srv.BeginSimulate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginSimulate not implemented")}
+func (a *AlertsServerTransport) dispatchSimulate(req *http.Request) (*http.Response, error) {
+	if a.srv.Simulate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Simulate not implemented")}
 	}
-	beginSimulate := a.beginSimulate.get(req)
-	if beginSimulate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Security/locations/(?P<ascLocation>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/alerts/default/simulate`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armsecurity.AlertSimulatorRequestBody](req)
-		if err != nil {
-			return nil, err
-		}
-		ascLocationParam, err := url.PathUnescape(matches[regex.SubexpIndex("ascLocation")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := a.srv.BeginSimulate(req.Context(), ascLocationParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginSimulate = &respr
-		a.beginSimulate.add(req, beginSimulate)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Security/locations/(?P<ascLocation>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/alerts/default/simulate`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-
-	resp, err := server.PollerResponderNext(beginSimulate, req)
+	body, err := server.UnmarshalRequestAsJSON[armsecurity.AlertSimulatorRequestBody](req)
 	if err != nil {
 		return nil, err
 	}
-
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
-		a.beginSimulate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	ascLocationParam, err := url.PathUnescape(matches[regex.SubexpIndex("ascLocation")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PollerResponderMore(beginSimulate) {
-		a.beginSimulate.remove(req)
+	respr, errRespr := a.srv.Simulate(req.Context(), ascLocationParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
 	}
-
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

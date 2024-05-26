@@ -46,7 +46,7 @@ func NewSolutionsClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Gets a specific Security Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - securitySolutionName - Name of security solution.
@@ -97,7 +97,7 @@ func (client *SolutionsClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *SolutionsClient) getHandleResponse(resp *http.Response) (Solutions
 
 // NewListPager - Gets a list of Security Solutions for the subscription.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
 func (client *SolutionsClient) NewListPager(options *SolutionsClientListOptions) *runtime.Pager[SolutionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SolutionsClientListResponse]{
@@ -151,7 +151,7 @@ func (client *SolutionsClient) listCreateRequest(ctx context.Context, options *S
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -124,12 +124,6 @@ type AdvancedThreatProtectionClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertsClientBeginSimulateOptions contains the optional parameters for the AlertsClient.BeginSimulate method.
-type AlertsClientBeginSimulateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // AlertsClientGetResourceGroupLevelOptions contains the optional parameters for the AlertsClient.GetResourceGroupLevel method.
 type AlertsClientGetResourceGroupLevelOptions struct {
 	// placeholder for future optional parameters
@@ -160,6 +154,11 @@ type AlertsClientListResourceGroupLevelByRegionOptions struct {
 // AlertsClientListSubscriptionLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListSubscriptionLevelByRegionPager
 // method.
 type AlertsClientListSubscriptionLevelByRegionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AlertsClientSimulateOptions contains the optional parameters for the AlertsClient.Simulate method.
+type AlertsClientSimulateOptions struct {
 	// placeholder for future optional parameters
 }
 

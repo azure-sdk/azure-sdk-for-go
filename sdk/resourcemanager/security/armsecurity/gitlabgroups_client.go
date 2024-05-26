@@ -46,7 +46,7 @@ func NewGitLabGroupsClient(subscriptionID string, credential azcore.TokenCredent
 // Get - Returns a monitored GitLab Group resource for a given fully-qualified name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - groupFQName - The GitLab group fully-qualified name.
@@ -97,7 +97,7 @@ func (client *GitLabGroupsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *GitLabGroupsClient) getHandleResponse(resp *http.Response) (GitLab
 
 // NewListPager - Returns a list of GitLab groups onboarded to the connector.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - options - GitLabGroupsClientListOptions contains the optional parameters for the GitLabGroupsClient.NewListPager method.
@@ -161,7 +161,7 @@ func (client *GitLabGroupsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,7 +179,7 @@ func (client *GitLabGroupsClient) listHandleResponse(resp *http.Response) (GitLa
 // ListAvailable - Returns a list of all GitLab groups accessible by the user token consumed by the connector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - options - GitLabGroupsClientListAvailableOptions contains the optional parameters for the GitLabGroupsClient.ListAvailable
@@ -226,7 +226,7 @@ func (client *GitLabGroupsClient) listAvailableCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

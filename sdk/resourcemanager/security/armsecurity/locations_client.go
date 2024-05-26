@@ -46,7 +46,7 @@ func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential
 // Get - Details of a specific location
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - LocationsClientGetOptions contains the optional parameters for the LocationsClient.Get method.
 func (client *LocationsClient) Get(ctx context.Context, ascLocation string, options *LocationsClientGetOptions) (LocationsClientGetResponse, error) {
@@ -87,7 +87,7 @@ func (client *LocationsClient) getCreateRequest(ctx context.Context, ascLocation
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -106,7 +106,7 @@ func (client *LocationsClient) getHandleResponse(resp *http.Response) (Locations
 // is only one responsible location. The location in the response should be used to read or
 // write other resources in ASC according to their ID.
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - LocationsClientListOptions contains the optional parameters for the LocationsClient.NewListPager method.
 func (client *LocationsClient) NewListPager(options *LocationsClientListOptions) *runtime.Pager[LocationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocationsClientListResponse]{
@@ -143,7 +143,7 @@ func (client *LocationsClient) listCreateRequest(ctx context.Context, options *L
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

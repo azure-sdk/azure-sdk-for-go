@@ -46,7 +46,7 @@ func NewJitNetworkAccessPoliciesClient(subscriptionID string, credential azcore.
 // CreateOrUpdate - Create a policy for protecting resources using Just-in-Time access control
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
@@ -98,7 +98,7 @@ func (client *JitNetworkAccessPoliciesClient) createOrUpdateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -119,7 +119,7 @@ func (client *JitNetworkAccessPoliciesClient) createOrUpdateHandleResponse(resp 
 // Delete - Delete a Just-in-Time access control policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
@@ -170,7 +170,7 @@ func (client *JitNetworkAccessPoliciesClient) deleteCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,7 +179,7 @@ func (client *JitNetworkAccessPoliciesClient) deleteCreateRequest(ctx context.Co
 // Get - Policies for protecting resources using Just-in-Time access control for the subscription, location
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
@@ -231,7 +231,7 @@ func (client *JitNetworkAccessPoliciesClient) getCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +249,7 @@ func (client *JitNetworkAccessPoliciesClient) getHandleResponse(resp *http.Respo
 // Initiate - Initiate a JIT access from a specific Just-in-Time policy configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
@@ -302,7 +302,7 @@ func (client *JitNetworkAccessPoliciesClient) initiateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -322,7 +322,7 @@ func (client *JitNetworkAccessPoliciesClient) initiateHandleResponse(resp *http.
 
 // NewListPager - Policies for protecting resources using Just-in-Time access control.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - JitNetworkAccessPoliciesClientListOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListPager
 //     method.
 func (client *JitNetworkAccessPoliciesClient) NewListPager(options *JitNetworkAccessPoliciesClientListOptions) *runtime.Pager[JitNetworkAccessPoliciesClientListResponse] {
@@ -360,7 +360,7 @@ func (client *JitNetworkAccessPoliciesClient) listCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -377,7 +377,7 @@ func (client *JitNetworkAccessPoliciesClient) listHandleResponse(resp *http.Resp
 
 // NewListByRegionPager - Policies for protecting resources using Just-in-Time access control for the subscription, location
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - JitNetworkAccessPoliciesClientListByRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByRegionPager
 //     method.
@@ -420,7 +420,7 @@ func (client *JitNetworkAccessPoliciesClient) listByRegionCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -438,7 +438,7 @@ func (client *JitNetworkAccessPoliciesClient) listByRegionHandleResponse(resp *h
 // NewListByResourceGroupPager - Policies for protecting resources using Just-in-Time access control for the subscription,
 // location
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - JitNetworkAccessPoliciesClientListByResourceGroupOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByResourceGroupPager
 //     method.
@@ -481,7 +481,7 @@ func (client *JitNetworkAccessPoliciesClient) listByResourceGroupCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -499,7 +499,7 @@ func (client *JitNetworkAccessPoliciesClient) listByResourceGroupHandleResponse(
 // NewListByResourceGroupAndRegionPager - Policies for protecting resources using Just-in-Time access control for the subscription,
 // location
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByResourceGroupAndRegionPager
@@ -547,7 +547,7 @@ func (client *JitNetworkAccessPoliciesClient) listByResourceGroupAndRegionCreate
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

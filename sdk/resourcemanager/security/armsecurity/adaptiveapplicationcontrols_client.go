@@ -47,7 +47,7 @@ func NewAdaptiveApplicationControlsClient(subscriptionID string, credential azco
 // Delete - Delete an application control machine group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - groupName - Name of an application control machine group
 //   - options - AdaptiveApplicationControlsClientDeleteOptions contains the optional parameters for the AdaptiveApplicationControlsClient.Delete
@@ -93,7 +93,7 @@ func (client *AdaptiveApplicationControlsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -102,7 +102,7 @@ func (client *AdaptiveApplicationControlsClient) deleteCreateRequest(ctx context
 // Get - Gets an application control VM/server group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - groupName - Name of an application control machine group
 //   - options - AdaptiveApplicationControlsClientGetOptions contains the optional parameters for the AdaptiveApplicationControlsClient.Get
@@ -149,7 +149,7 @@ func (client *AdaptiveApplicationControlsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -167,7 +167,7 @@ func (client *AdaptiveApplicationControlsClient) getHandleResponse(resp *http.Re
 // List - Gets a list of application control machine groups for the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - AdaptiveApplicationControlsClientListOptions contains the optional parameters for the AdaptiveApplicationControlsClient.List
 //     method.
 func (client *AdaptiveApplicationControlsClient) List(ctx context.Context, options *AdaptiveApplicationControlsClientListOptions) (AdaptiveApplicationControlsClientListResponse, error) {
@@ -204,7 +204,7 @@ func (client *AdaptiveApplicationControlsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	if options != nil && options.IncludePathRecommendations != nil {
 		reqQP.Set("includePathRecommendations", strconv.FormatBool(*options.IncludePathRecommendations))
 	}
@@ -228,7 +228,7 @@ func (client *AdaptiveApplicationControlsClient) listHandleResponse(resp *http.R
 // Put - Update an application control machine group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - groupName - Name of an application control machine group
 //   - options - AdaptiveApplicationControlsClientPutOptions contains the optional parameters for the AdaptiveApplicationControlsClient.Put
@@ -275,7 +275,7 @@ func (client *AdaptiveApplicationControlsClient) putCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {

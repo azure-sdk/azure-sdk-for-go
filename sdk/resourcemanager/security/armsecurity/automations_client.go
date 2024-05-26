@@ -47,7 +47,7 @@ func NewAutomationsClient(subscriptionID string, credential azcore.TokenCredenti
 // request is issued for the same automation id, then it will be updated.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - automationName - The security automation name.
 //   - automation - The security automation resource
@@ -95,7 +95,7 @@ func (client *AutomationsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, automation); err != nil {
@@ -116,7 +116,7 @@ func (client *AutomationsClient) createOrUpdateHandleResponse(resp *http.Respons
 // Delete - Deletes a security automation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - automationName - The security automation name.
 //   - options - AutomationsClientDeleteOptions contains the optional parameters for the AutomationsClient.Delete method.
@@ -161,7 +161,7 @@ func (client *AutomationsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *AutomationsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Retrieves information about the model of a security automation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - automationName - The security automation name.
 //   - options - AutomationsClientGetOptions contains the optional parameters for the AutomationsClient.Get method.
@@ -216,7 +216,7 @@ func (client *AutomationsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *AutomationsClient) getHandleResponse(resp *http.Response) (Automat
 // NewListPager - Lists all the security automations in the specified subscription. Use the 'nextLink' property in the response
 // to get the next page of security automations for the specified subscription.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - AutomationsClientListOptions contains the optional parameters for the AutomationsClient.NewListPager method.
 func (client *AutomationsClient) NewListPager(options *AutomationsClientListOptions) *runtime.Pager[AutomationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AutomationsClientListResponse]{
@@ -271,7 +271,7 @@ func (client *AutomationsClient) listCreateRequest(ctx context.Context, options 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -289,7 +289,7 @@ func (client *AutomationsClient) listHandleResponse(resp *http.Response) (Automa
 // NewListByResourceGroupPager - Lists all the security automations in the specified resource group. Use the 'nextLink' property
 // in the response to get the next page of security automations for the specified resource group.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - AutomationsClientListByResourceGroupOptions contains the optional parameters for the AutomationsClient.NewListByResourceGroupPager
 //     method.
@@ -332,7 +332,7 @@ func (client *AutomationsClient) listByResourceGroupCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,7 +350,7 @@ func (client *AutomationsClient) listByResourceGroupHandleResponse(resp *http.Re
 // Update - Updates a security automation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - automationName - The security automation name.
 //   - automation - The update model of security automation resource
@@ -397,7 +397,7 @@ func (client *AutomationsClient) updateCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, automation); err != nil {
@@ -418,7 +418,7 @@ func (client *AutomationsClient) updateHandleResponse(resp *http.Response) (Auto
 // Validate - Validates the security automation model before create or update. Any validation errors are returned to the client.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - automationName - The security automation name.
 //   - automation - The security automation resource
@@ -465,7 +465,7 @@ func (client *AutomationsClient) validateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, automation); err != nil {

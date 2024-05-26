@@ -44,7 +44,7 @@ func NewPricingsClient(credential azcore.TokenCredential, options *arm.ClientOpt
 // scope (Supported resources are: 'VirtualMachines, VMSS and ARC MachinesS').
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01-preview
 //   - scopeID - The identifier of the resource, (format: 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName})
 //   - pricingName - name of the pricing configuration
 //   - options - PricingsClientDeleteOptions contains the optional parameters for the PricingsClient.Delete method.
@@ -82,7 +82,7 @@ func (client *PricingsClient) deleteCreateRequest(ctx context.Context, scopeID s
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -93,7 +93,7 @@ func (client *PricingsClient) deleteCreateRequest(ctx context.Context, scopeID s
 // ARC Machines'.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01-preview
 //   - scopeID - The scope id of the pricing. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'), or a
 //     specific resource (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName})
@@ -135,7 +135,7 @@ func (client *PricingsClient) getCreateRequest(ctx context.Context, scopeID stri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -157,7 +157,7 @@ func (client *PricingsClient) getHandleResponse(resp *http.Response) (PricingsCl
 // (planName1,planName2)' is provided, the returned list includes the pricings set for 'planName1' and 'planName2' only.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01-preview
 //   - scopeID - The scope id of the pricing. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'), or a
 //     specific resource (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName})
@@ -197,7 +197,7 @@ func (client *PricingsClient) listCreateRequest(ctx context.Context, scopeID str
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -217,7 +217,7 @@ func (client *PricingsClient) listHandleResponse(resp *http.Response) (PricingsC
 // Machines' and only for plan='VirtualMachines' and subPlan='P1').
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01-preview
 //   - scopeID - The scope id of the pricing. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'), or a
 //     specific resource (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName})
@@ -260,7 +260,7 @@ func (client *PricingsClient) updateCreateRequest(ctx context.Context, scopeID s
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, pricing); err != nil {

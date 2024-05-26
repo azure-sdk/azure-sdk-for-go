@@ -46,7 +46,7 @@ func NewAlertsClient(subscriptionID string, credential azcore.TokenCredential, o
 // GetResourceGroupLevel - Get an alert that is associated a resource group or a resource in a resource group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
@@ -98,7 +98,7 @@ func (client *AlertsClient) getResourceGroupLevelCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +116,7 @@ func (client *AlertsClient) getResourceGroupLevelHandleResponse(resp *http.Respo
 // GetSubscriptionLevel - Get an alert that is associated with a subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
 //   - options - AlertsClientGetSubscriptionLevelOptions contains the optional parameters for the AlertsClient.GetSubscriptionLevel
@@ -163,7 +163,7 @@ func (client *AlertsClient) getSubscriptionLevelCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *AlertsClient) getSubscriptionLevelHandleResponse(resp *http.Respon
 
 // NewListPager - List all the alerts that are associated with the subscription
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - AlertsClientListOptions contains the optional parameters for the AlertsClient.NewListPager method.
 func (client *AlertsClient) NewListPager(options *AlertsClientListOptions) *runtime.Pager[AlertsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertsClientListResponse]{
@@ -217,7 +217,7 @@ func (client *AlertsClient) listCreateRequest(ctx context.Context, options *Aler
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *AlertsClient) listHandleResponse(resp *http.Response) (AlertsClien
 
 // NewListByResourceGroupPager - List all the alerts that are associated with the resource group
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - AlertsClientListByResourceGroupOptions contains the optional parameters for the AlertsClient.NewListByResourceGroupPager
 //     method.
@@ -277,7 +277,7 @@ func (client *AlertsClient) listByResourceGroupCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -295,7 +295,7 @@ func (client *AlertsClient) listByResourceGroupHandleResponse(resp *http.Respons
 // NewListResourceGroupLevelByRegionPager - List all the alerts that are associated with the resource group that are stored
 // in a specific location
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - AlertsClientListResourceGroupLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListResourceGroupLevelByRegionPager
@@ -343,7 +343,7 @@ func (client *AlertsClient) listResourceGroupLevelByRegionCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -361,7 +361,7 @@ func (client *AlertsClient) listResourceGroupLevelByRegionHandleResponse(resp *h
 // NewListSubscriptionLevelByRegionPager - List all the alerts that are associated with the subscription that are stored in
 // a specific location
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - AlertsClientListSubscriptionLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListSubscriptionLevelByRegionPager
 //     method.
@@ -404,7 +404,7 @@ func (client *AlertsClient) listSubscriptionLevelByRegionCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -419,58 +419,36 @@ func (client *AlertsClient) listSubscriptionLevelByRegionHandleResponse(resp *ht
 	return result, nil
 }
 
-// BeginSimulate - Simulate security alerts
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2022-01-01
-//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-//   - alertSimulatorRequestBody - Alert Simulator Request Properties
-//   - options - AlertsClientBeginSimulateOptions contains the optional parameters for the AlertsClient.BeginSimulate method.
-func (client *AlertsClient) BeginSimulate(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientBeginSimulateOptions) (*runtime.Poller[AlertsClientSimulateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.simulate(ctx, ascLocation, alertSimulatorRequestBody, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[AlertsClientSimulateResponse]{
-			FinalStateVia: runtime.FinalStateViaOriginalURI,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[AlertsClientSimulateResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
 // Simulate - Simulate security alerts
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
-func (client *AlertsClient) simulate(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientBeginSimulateOptions) (*http.Response, error) {
+// Generated from API version 2024-05-01-preview
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertSimulatorRequestBody - Alert Simulator Request Properties
+//   - options - AlertsClientSimulateOptions contains the optional parameters for the AlertsClient.Simulate method.
+func (client *AlertsClient) Simulate(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientSimulateOptions) (AlertsClientSimulateResponse, error) {
 	var err error
-	const operationName = "AlertsClient.BeginSimulate"
+	const operationName = "AlertsClient.Simulate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.simulateCreateRequest(ctx, ascLocation, alertSimulatorRequestBody, options)
 	if err != nil {
-		return nil, err
+		return AlertsClientSimulateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return AlertsClientSimulateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return AlertsClientSimulateResponse{}, err
 	}
-	return httpResp, nil
+	return AlertsClientSimulateResponse{}, nil
 }
 
 // simulateCreateRequest creates the Simulate request.
-func (client *AlertsClient) simulateCreateRequest(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientBeginSimulateOptions) (*policy.Request, error) {
+func (client *AlertsClient) simulateCreateRequest(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientSimulateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/locations/{ascLocation}/alerts/default/simulate"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -485,7 +463,7 @@ func (client *AlertsClient) simulateCreateRequest(ctx context.Context, ascLocati
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, alertSimulatorRequestBody); err != nil {
@@ -497,7 +475,7 @@ func (client *AlertsClient) simulateCreateRequest(ctx context.Context, ascLocati
 // UpdateResourceGroupLevelStateToActivate - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
@@ -548,7 +526,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -557,7 +535,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest
 // UpdateResourceGroupLevelStateToDismiss - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
@@ -608,7 +586,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -617,7 +595,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(
 // UpdateResourceGroupLevelStateToInProgress - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
@@ -668,7 +646,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -677,7 +655,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateReque
 // UpdateResourceGroupLevelStateToResolve - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
@@ -728,7 +706,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToResolveCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -737,7 +715,7 @@ func (client *AlertsClient) updateResourceGroupLevelStateToResolveCreateRequest(
 // UpdateSubscriptionLevelStateToActivate - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
 //   - options - AlertsClientUpdateSubscriptionLevelStateToActivateOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToActivate
@@ -783,7 +761,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToActivateCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -792,7 +770,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToActivateCreateRequest(
 // UpdateSubscriptionLevelStateToDismiss - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
 //   - options - AlertsClientUpdateSubscriptionLevelStateToDismissOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToDismiss
@@ -838,7 +816,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToDismissCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -847,7 +825,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToDismissCreateRequest(c
 // UpdateSubscriptionLevelStateToInProgress - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
 //   - options - AlertsClientUpdateSubscriptionLevelStateToInProgressOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToInProgress
@@ -893,7 +871,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToInProgressCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -902,7 +880,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToInProgressCreateReques
 // UpdateSubscriptionLevelStateToResolve - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - alertName - Name of the alert object
 //   - options - AlertsClientUpdateSubscriptionLevelStateToResolveOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToResolve
@@ -948,7 +926,7 @@ func (client *AlertsClient) updateSubscriptionLevelStateToResolveCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

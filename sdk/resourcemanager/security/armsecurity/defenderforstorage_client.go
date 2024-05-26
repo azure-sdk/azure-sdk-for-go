@@ -43,7 +43,7 @@ func NewDefenderForStorageClient(credential azcore.TokenCredential, options *arm
 // Create - Creates or updates the Defender for Storage settings on a specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceID - The identifier of the resource.
 //   - settingName - Defender for Storage setting name.
 //   - defenderForStorageSetting - Defender for Storage Settings
@@ -84,7 +84,7 @@ func (client *DefenderForStorageClient) createCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, defenderForStorageSetting); err != nil {
@@ -105,7 +105,7 @@ func (client *DefenderForStorageClient) createHandleResponse(resp *http.Response
 // Get - Gets the Defender for Storage settings for the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceID - The identifier of the resource.
 //   - settingName - Defender for Storage setting name.
 //   - options - DefenderForStorageClientGetOptions contains the optional parameters for the DefenderForStorageClient.Get method.
@@ -144,7 +144,7 @@ func (client *DefenderForStorageClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

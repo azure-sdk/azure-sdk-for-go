@@ -10,7 +10,7 @@ package armsecurity
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/security/armsecurity"
-	moduleVersion = "v0.14.0"
+	moduleVersion = "v0.15.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -1406,21 +1406,23 @@ func PossibleProtocolValues() []Protocol {
 	}
 }
 
-// ProvisioningState - The security family provisioning State
+// ProvisioningState - Gets the provisioning state of the API collection.
 type ProvisioningState string
 
 const (
-	ProvisioningStateFailed    ProvisioningState = "Failed"
-	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	ProvisioningStateUpdating  ProvisioningState = "Updating"
+	ProvisioningStateCanceled   ProvisioningState = "Canceled"
+	ProvisioningStateFailed     ProvisioningState = "Failed"
+	ProvisioningStateInProgress ProvisioningState = "InProgress"
+	ProvisioningStateSucceeded  ProvisioningState = "Succeeded"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
+		ProvisioningStateCanceled,
 		ProvisioningStateFailed,
+		ProvisioningStateInProgress,
 		ProvisioningStateSucceeded,
-		ProvisioningStateUpdating,
 	}
 }
 
@@ -1501,59 +1503,40 @@ func PossibleRecommendationStatusValues() []RecommendationStatus {
 	}
 }
 
-// RecommendationType - The type of IoT Security recommendation.
+// RecommendationType - The type of the rule to be allowed
 type RecommendationType string
 
 const (
-	// RecommendationTypeIoTAcrauthentication - Authentication schema used for pull an edge module from an ACR repository does
-	// not use Service Principal Authentication.
-	RecommendationTypeIoTAcrauthentication RecommendationType = "IoT_ACRAuthentication"
-	// RecommendationTypeIoTAgentSendsUnutilizedMessages - IoT agent message size capacity is currently underutilized, causing
-	// an increase in the number of sent messages. Adjust message intervals for better utilization.
-	RecommendationTypeIoTAgentSendsUnutilizedMessages RecommendationType = "IoT_AgentSendsUnutilizedMessages"
-	// RecommendationTypeIoTBaseline - Identified security related system configuration issues.
-	RecommendationTypeIoTBaseline RecommendationType = "IoT_Baseline"
-	// RecommendationTypeIoTEdgeHubMemOptimize - You can optimize Edge Hub memory usage by turning off protocol heads for any
-	// protocols not used by Edge modules in your solution.
-	RecommendationTypeIoTEdgeHubMemOptimize RecommendationType = "IoT_EdgeHubMemOptimize"
-	// RecommendationTypeIoTEdgeLoggingOptions - Logging is disabled for this edge module.
-	RecommendationTypeIoTEdgeLoggingOptions RecommendationType = "IoT_EdgeLoggingOptions"
-	// RecommendationTypeIoTInconsistentModuleSettings - A minority within a device security group has inconsistent Edge Module
-	// settings with the rest of their group.
-	RecommendationTypeIoTInconsistentModuleSettings RecommendationType = "IoT_InconsistentModuleSettings"
-	// RecommendationTypeIoTInstallAgent - Install the Azure Security of Things Agent.
-	RecommendationTypeIoTInstallAgent RecommendationType = "IoT_InstallAgent"
-	// RecommendationTypeIoTIpfilterDenyAll - IP Filter Configuration should have rules defined for allowed traffic and should
-	// deny all other traffic by default.
-	RecommendationTypeIoTIpfilterDenyAll RecommendationType = "IoT_IPFilter_DenyAll"
-	// RecommendationTypeIoTIpfilterPermissiveRule - An Allow IP Filter rules source IP range is too large. Overly permissive
-	// rules might expose your IoT hub to malicious intenders.
-	RecommendationTypeIoTIpfilterPermissiveRule RecommendationType = "IoT_IPFilter_PermissiveRule"
-	// RecommendationTypeIoTOpenPorts - A listening endpoint was found on the device.
-	RecommendationTypeIoTOpenPorts RecommendationType = "IoT_OpenPorts"
-	// RecommendationTypeIoTPermissiveFirewallPolicy - An Allowed firewall policy was found (INPUT/OUTPUT). The policy should
-	// Deny all traffic by default and define rules to allow necessary communication to/from the device.
-	RecommendationTypeIoTPermissiveFirewallPolicy RecommendationType = "IoT_PermissiveFirewallPolicy"
-	// RecommendationTypeIoTPermissiveInputFirewallRules - A rule in the firewall has been found that contains a permissive pattern
-	// for a wide range of IP addresses or Ports.
-	RecommendationTypeIoTPermissiveInputFirewallRules RecommendationType = "IoT_PermissiveInputFirewallRules"
-	// RecommendationTypeIoTPermissiveOutputFirewallRules - A rule in the firewall has been found that contains a permissive pattern
-	// for a wide range of IP addresses or Ports.
+	RecommendationTypeBinarySignature                  RecommendationType = "BinarySignature"
+	RecommendationTypeFile                             RecommendationType = "File"
+	RecommendationTypeFileHash                         RecommendationType = "FileHash"
+	RecommendationTypeIoTAcrauthentication             RecommendationType = "IoT_ACRAuthentication"
+	RecommendationTypeIoTAgentSendsUnutilizedMessages  RecommendationType = "IoT_AgentSendsUnutilizedMessages"
+	RecommendationTypeIoTBaseline                      RecommendationType = "IoT_Baseline"
+	RecommendationTypeIoTEdgeHubMemOptimize            RecommendationType = "IoT_EdgeHubMemOptimize"
+	RecommendationTypeIoTEdgeLoggingOptions            RecommendationType = "IoT_EdgeLoggingOptions"
+	RecommendationTypeIoTInconsistentModuleSettings    RecommendationType = "IoT_InconsistentModuleSettings"
+	RecommendationTypeIoTInstallAgent                  RecommendationType = "IoT_InstallAgent"
+	RecommendationTypeIoTIpfilterDenyAll               RecommendationType = "IoT_IPFilter_DenyAll"
+	RecommendationTypeIoTIpfilterPermissiveRule        RecommendationType = "IoT_IPFilter_PermissiveRule"
+	RecommendationTypeIoTOpenPorts                     RecommendationType = "IoT_OpenPorts"
+	RecommendationTypeIoTPermissiveFirewallPolicy      RecommendationType = "IoT_PermissiveFirewallPolicy"
+	RecommendationTypeIoTPermissiveInputFirewallRules  RecommendationType = "IoT_PermissiveInputFirewallRules"
 	RecommendationTypeIoTPermissiveOutputFirewallRules RecommendationType = "IoT_PermissiveOutputFirewallRules"
-	// RecommendationTypeIoTPrivilegedDockerOptions - Edge module is configured to run in privileged mode, with extensive Linux
-	// capabilities or with host-level network access (send/receive data to host machine).
-	RecommendationTypeIoTPrivilegedDockerOptions RecommendationType = "IoT_PrivilegedDockerOptions"
-	// RecommendationTypeIoTSharedCredentials - Same authentication credentials to the IoT Hub used by multiple devices. This
-	// could indicate an illegitimate device impersonating a legitimate device. It also exposes the risk of device impersonation
-	// by an attacker.
-	RecommendationTypeIoTSharedCredentials RecommendationType = "IoT_SharedCredentials"
-	// RecommendationTypeIoTVulnerableTLSCipherSuite - Insecure TLS configurations detected. Immediate upgrade recommended.
-	RecommendationTypeIoTVulnerableTLSCipherSuite RecommendationType = "IoT_VulnerableTLSCipherSuite"
+	RecommendationTypeIoTPrivilegedDockerOptions       RecommendationType = "IoT_PrivilegedDockerOptions"
+	RecommendationTypeIoTSharedCredentials             RecommendationType = "IoT_SharedCredentials"
+	RecommendationTypeIoTVulnerableTLSCipherSuite      RecommendationType = "IoT_VulnerableTLSCipherSuite"
+	RecommendationTypeProductSignature                 RecommendationType = "ProductSignature"
+	RecommendationTypePublisherSignature               RecommendationType = "PublisherSignature"
+	RecommendationTypeVersionAndAboveSignature         RecommendationType = "VersionAndAboveSignature"
 )
 
 // PossibleRecommendationTypeValues returns the possible values for the RecommendationType const type.
 func PossibleRecommendationTypeValues() []RecommendationType {
 	return []RecommendationType{
+		RecommendationTypeBinarySignature,
+		RecommendationTypeFile,
+		RecommendationTypeFileHash,
 		RecommendationTypeIoTAcrauthentication,
 		RecommendationTypeIoTAgentSendsUnutilizedMessages,
 		RecommendationTypeIoTBaseline,
@@ -1570,6 +1553,9 @@ func PossibleRecommendationTypeValues() []RecommendationType {
 		RecommendationTypeIoTPrivilegedDockerOptions,
 		RecommendationTypeIoTSharedCredentials,
 		RecommendationTypeIoTVulnerableTLSCipherSuite,
+		RecommendationTypeProductSignature,
+		RecommendationTypePublisherSignature,
+		RecommendationTypeVersionAndAboveSignature,
 	}
 }
 
@@ -2027,7 +2013,7 @@ func PossibleSettingNameAutoGeneratedValues() []SettingNameAutoGenerated {
 	}
 }
 
-// Severity - The sub-assessment severity level
+// Severity - The severity level of the assessment
 type Severity string
 
 const (

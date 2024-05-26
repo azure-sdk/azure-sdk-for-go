@@ -46,7 +46,7 @@ func NewCustomEntityStoreAssignmentsClient(subscriptionID string, credential azc
 // Create - Creates a custom entity store assignment for the provided subscription, if not already exists.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
 //   - customEntityStoreAssignmentRequestBody - Custom entity store assignment body
@@ -94,7 +94,7 @@ func (client *CustomEntityStoreAssignmentsClient) createCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, customEntityStoreAssignmentRequestBody); err != nil {
@@ -115,7 +115,7 @@ func (client *CustomEntityStoreAssignmentsClient) createHandleResponse(resp *htt
 // Delete - Delete a custom entity store assignment by name for a provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
 //   - options - CustomEntityStoreAssignmentsClientDeleteOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Delete
@@ -161,7 +161,7 @@ func (client *CustomEntityStoreAssignmentsClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *CustomEntityStoreAssignmentsClient) deleteCreateRequest(ctx contex
 // Get - Gets a single custom entity store assignment by name for the provided subscription and resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
 //   - options - CustomEntityStoreAssignmentsClientGetOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Get
@@ -217,7 +217,7 @@ func (client *CustomEntityStoreAssignmentsClient) getCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *CustomEntityStoreAssignmentsClient) getHandleResponse(resp *http.R
 
 // NewListByResourceGroupPager - List custom entity store assignments by a provided subscription and resource group
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - CustomEntityStoreAssignmentsClientListByResourceGroupOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListByResourceGroupPager
 //     method.
@@ -277,7 +277,7 @@ func (client *CustomEntityStoreAssignmentsClient) listByResourceGroupCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -294,7 +294,7 @@ func (client *CustomEntityStoreAssignmentsClient) listByResourceGroupHandleRespo
 
 // NewListBySubscriptionPager - List custom entity store assignments by provided subscription
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - CustomEntityStoreAssignmentsClientListBySubscriptionOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListBySubscriptionPager
 //     method.
 func (client *CustomEntityStoreAssignmentsClient) NewListBySubscriptionPager(options *CustomEntityStoreAssignmentsClientListBySubscriptionOptions) *runtime.Pager[CustomEntityStoreAssignmentsClientListBySubscriptionResponse] {
@@ -332,7 +332,7 @@ func (client *CustomEntityStoreAssignmentsClient) listBySubscriptionCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

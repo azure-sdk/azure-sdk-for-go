@@ -47,7 +47,7 @@ func NewCustomAssessmentAutomationsClient(subscriptionID string, credential azco
 // existing custom assessment automation will replace the existing record.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - customAssessmentAutomationName - Name of the Custom Assessment Automation.
 //   - customAssessmentAutomationBody - Custom Assessment Automation body
@@ -95,7 +95,7 @@ func (client *CustomAssessmentAutomationsClient) createCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, customAssessmentAutomationBody); err != nil {
@@ -116,7 +116,7 @@ func (client *CustomAssessmentAutomationsClient) createHandleResponse(resp *http
 // Delete - Deletes a custom assessment automation by name for a provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - customAssessmentAutomationName - Name of the Custom Assessment Automation.
 //   - options - CustomAssessmentAutomationsClientDeleteOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Delete
@@ -162,7 +162,7 @@ func (client *CustomAssessmentAutomationsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,7 +171,7 @@ func (client *CustomAssessmentAutomationsClient) deleteCreateRequest(ctx context
 // Get - Gets a single custom assessment automation by name for the provided subscription and resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - customAssessmentAutomationName - Name of the Custom Assessment Automation.
 //   - options - CustomAssessmentAutomationsClientGetOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Get
@@ -218,7 +218,7 @@ func (client *CustomAssessmentAutomationsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -235,7 +235,7 @@ func (client *CustomAssessmentAutomationsClient) getHandleResponse(resp *http.Re
 
 // NewListByResourceGroupPager - List custom assessment automations by provided subscription and resource group
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - CustomAssessmentAutomationsClientListByResourceGroupOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListByResourceGroupPager
 //     method.
@@ -278,7 +278,7 @@ func (client *CustomAssessmentAutomationsClient) listByResourceGroupCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -295,7 +295,7 @@ func (client *CustomAssessmentAutomationsClient) listByResourceGroupHandleRespon
 
 // NewListBySubscriptionPager - List custom assessment automations by provided subscription
 //
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - CustomAssessmentAutomationsClientListBySubscriptionOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListBySubscriptionPager
 //     method.
 func (client *CustomAssessmentAutomationsClient) NewListBySubscriptionPager(options *CustomAssessmentAutomationsClientListBySubscriptionOptions) *runtime.Pager[CustomAssessmentAutomationsClientListBySubscriptionResponse] {
@@ -333,7 +333,7 @@ func (client *CustomAssessmentAutomationsClient) listBySubscriptionCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

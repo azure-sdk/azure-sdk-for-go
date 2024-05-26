@@ -46,7 +46,7 @@ func NewAutoProvisioningSettingsClient(subscriptionID string, credential azcore.
 // Create - Details of a specific setting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2017-08-01-preview
+// Generated from API version 2024-05-01-preview
 //   - settingName - Auto provisioning setting key
 //   - setting - Auto provisioning setting key
 //   - options - AutoProvisioningSettingsClientCreateOptions contains the optional parameters for the AutoProvisioningSettingsClient.Create
@@ -89,7 +89,7 @@ func (client *AutoProvisioningSettingsClient) createCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-08-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, setting); err != nil {
@@ -110,7 +110,7 @@ func (client *AutoProvisioningSettingsClient) createHandleResponse(resp *http.Re
 // Get - Details of a specific setting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2017-08-01-preview
+// Generated from API version 2024-05-01-preview
 //   - settingName - Auto provisioning setting key
 //   - options - AutoProvisioningSettingsClientGetOptions contains the optional parameters for the AutoProvisioningSettingsClient.Get
 //     method.
@@ -152,7 +152,7 @@ func (client *AutoProvisioningSettingsClient) getCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-08-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -169,7 +169,7 @@ func (client *AutoProvisioningSettingsClient) getHandleResponse(resp *http.Respo
 
 // NewListPager - Exposes the auto provisioning settings of the subscriptions
 //
-// Generated from API version 2017-08-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - AutoProvisioningSettingsClientListOptions contains the optional parameters for the AutoProvisioningSettingsClient.NewListPager
 //     method.
 func (client *AutoProvisioningSettingsClient) NewListPager(options *AutoProvisioningSettingsClientListOptions) *runtime.Pager[AutoProvisioningSettingsClientListResponse] {
@@ -207,7 +207,7 @@ func (client *AutoProvisioningSettingsClient) listCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-08-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
