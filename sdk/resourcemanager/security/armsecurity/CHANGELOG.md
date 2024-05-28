@@ -1,5 +1,33 @@
 # Release History
 
+## 0.15.0 (2024-05-28)
+### Features Added
+
+- New enum type `DescendantBehavior` with values `DescendantBehaviorFallBack`, `DescendantBehaviorOverride`, `DescendantBehaviorUnknown`
+- New enum type `DevOpsPolicySource` with values `DevOpsPolicySourceBuiltIn`, `DevOpsPolicySourceUnknown`, `DevOpsPolicySourceUserDefined`
+- New enum type `DevOpsPolicyType` with values `DevOpsPolicyTypePipeline`, `DevOpsPolicyTypeUnknown`
+- New function `*ClientFactory.NewDevOpsPoliciesClient() *DevOpsPoliciesClient`
+- New function `*ClientFactory.NewDevOpsPolicyAssignmentsClient() *DevOpsPolicyAssignmentsClient`
+- New function `NewDevOpsPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DevOpsPoliciesClient, error)`
+- New function `*DevOpsPoliciesClient.Get(context.Context, string, string, string, *DevOpsPoliciesClientGetOptions) (DevOpsPoliciesClientGetResponse, error)`
+- New function `*DevOpsPoliciesClient.NewListPager(string, string, *DevOpsPoliciesClientListOptions) *runtime.Pager[DevOpsPoliciesClientListResponse]`
+- New function `NewDevOpsPolicyAssignmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DevOpsPolicyAssignmentsClient, error)`
+- New function `*DevOpsPolicyAssignmentsClient.BeginCreateOrUpdate(context.Context, string, string, string, DevOpsPolicyAssignment, *DevOpsPolicyAssignmentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DevOpsPolicyAssignmentsClientCreateOrUpdateResponse], error)`
+- New function `*DevOpsPolicyAssignmentsClient.BeginDelete(context.Context, string, string, string, *DevOpsPolicyAssignmentsClientBeginDeleteOptions) (*runtime.Poller[DevOpsPolicyAssignmentsClientDeleteResponse], error)`
+- New function `*DevOpsPolicyAssignmentsClient.Get(context.Context, string, string, string, *DevOpsPolicyAssignmentsClientGetOptions) (DevOpsPolicyAssignmentsClientGetResponse, error)`
+- New function `*DevOpsPolicyAssignmentsClient.NewListPager(string, string, *DevOpsPolicyAssignmentsClientListOptions) *runtime.Pager[DevOpsPolicyAssignmentsClientListResponse]`
+- New function `*DevOpsPolicyAssignmentsClient.BeginUpdate(context.Context, string, string, string, DevOpsPolicyAssignment, *DevOpsPolicyAssignmentsClientBeginUpdateOptions) (*runtime.Poller[DevOpsPolicyAssignmentsClientUpdateResponse], error)`
+- New struct `DevOpsCapability`
+- New struct `DevOpsPolicy`
+- New struct `DevOpsPolicyAssignment`
+- New struct `DevOpsPolicyAssignmentListResponse`
+- New struct `DevOpsPolicyAssignmentProperties`
+- New struct `DevOpsPolicyDescriptor`
+- New struct `DevOpsPolicyListResponse`
+- New struct `DevOpsPolicyProperties`
+- New field `Capabilities` in struct `DevOpsConfigurationProperties`
+
+
 ## 0.14.0 (2024-04-04)
 ### Breaking Changes
 
