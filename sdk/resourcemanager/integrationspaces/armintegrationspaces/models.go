@@ -45,11 +45,11 @@ type ApplicationListResult struct {
 
 // ApplicationProperties - The properties of application.
 type ApplicationProperties struct {
-	// REQUIRED; The tracking data stores.
-	TrackingDataStores map[string]*TrackingDataStore
-
 	// The description of the resource.
 	Description *string
+
+	// The tracking data stores.
+	TrackingDataStores map[string]*TrackingDataStore
 
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
@@ -544,16 +544,16 @@ type TrackingCorrelationContext struct {
 
 // TrackingDataStore - The properties of tracking data store.
 type TrackingDataStore struct {
-	// REQUIRED; The data store ingestion URI.
+	// The data store ingestion URI.
 	DataStoreIngestionURI *string
 
-	// REQUIRED; The data store resource id.
+	// The data store resource id.
 	DataStoreResourceID *string
 
-	// REQUIRED; The data store URI.
+	// The data store URI.
 	DataStoreURI *string
 
-	// REQUIRED; The database name.
+	// The database name.
 	DatabaseName *string
 }
 
