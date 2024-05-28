@@ -1,5 +1,39 @@
 # Release History
 
+## 8.0.0 (2024-05-28)
+### Breaking Changes
+
+- Enum `ScriptType` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResponse` has been removed
+- Struct `OperationLogSpecification` has been removed
+- Struct `OperationMetricAvailability` has been removed
+- Struct `OperationMetricDimension` has been removed
+- Struct `OperationMetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `OperationServiceSpecification` has been removed
+
+### Features Added
+
+- Type of `ScriptActivityScriptBlock.Type` has been changed from `*ScriptType` to `any`
+- New enum type `AmazonRdsForSQLAuthenticationType` with values `AmazonRdsForSQLAuthenticationTypeSQL`, `AmazonRdsForSQLAuthenticationTypeWindows`
+- New enum type `AzureSQLDWAuthenticationType` with values `AzureSQLDWAuthenticationTypeSQL`, `AzureSQLDWAuthenticationTypeServicePrincipal`, `AzureSQLDWAuthenticationTypeSystemAssignedManagedIdentity`, `AzureSQLDWAuthenticationTypeUserAssignedManagedIdentity`
+- New enum type `AzureSQLDatabaseAuthenticationType` with values `AzureSQLDatabaseAuthenticationTypeSQL`, `AzureSQLDatabaseAuthenticationTypeServicePrincipal`, `AzureSQLDatabaseAuthenticationTypeSystemAssignedManagedIdentity`, `AzureSQLDatabaseAuthenticationTypeUserAssignedManagedIdentity`
+- New enum type `AzureSQLMIAuthenticationType` with values `AzureSQLMIAuthenticationTypeSQL`, `AzureSQLMIAuthenticationTypeServicePrincipal`, `AzureSQLMIAuthenticationTypeSystemAssignedManagedIdentity`, `AzureSQLMIAuthenticationTypeUserAssignedManagedIdentity`
+- New enum type `SQLServerAuthenticationType` with values `SQLServerAuthenticationTypeSQL`, `SQLServerAuthenticationTypeWindows`
+- New struct `ManagedIdentityTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `TrustServerCertificate` in struct `AmazonRdsForSQLServerLinkedServiceTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `ServicePrincipalCredential`, `ServicePrincipalCredentialType`, `TrustServerCertificate`, `UserName` in struct `AzureSQLDWLinkedServiceTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `ServicePrincipalCredential`, `ServicePrincipalCredentialType`, `TrustServerCertificate`, `UserName` in struct `AzureSQLDatabaseLinkedServiceTypeProperties`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `ServicePrincipalCredential`, `ServicePrincipalCredentialType`, `TrustServerCertificate`, `UserName` in struct `AzureSQLMILinkedServiceTypeProperties`
+- New field `TypeProperties` in struct `ManagedIdentityCredential`
+- New field `ApplicationIntent`, `AuthenticationType`, `CommandTimeout`, `ConnectRetryCount`, `ConnectRetryInterval`, `ConnectTimeout`, `Database`, `Encrypt`, `FailoverPartner`, `HostNameInCertificate`, `IntegratedSecurity`, `LoadBalanceTimeout`, `MaxPoolSize`, `MinPoolSize`, `MultiSubnetFailover`, `MultipleActiveResultSets`, `PacketSize`, `Pooling`, `Server`, `TrustServerCertificate` in struct `SQLServerLinkedServiceTypeProperties`
+
+
 ## 7.0.0 (2024-04-04)
 ### Breaking Changes
 
