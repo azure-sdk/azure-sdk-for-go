@@ -301,60 +301,6 @@ func (client *ComponentsClient) getPurgeStatusHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// NewListPager - Gets a list of all Application Insights components within a subscription.
-//
-// Generated from API version 2020-02-02
-//   - options - ComponentsClientListOptions contains the optional parameters for the ComponentsClient.NewListPager method.
-func (client *ComponentsClient) NewListPager(options *ComponentsClientListOptions) *runtime.Pager[ComponentsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ComponentsClientListResponse]{
-		More: func(page ComponentsClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ComponentsClientListResponse) (ComponentsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ComponentsClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
-			}, nil)
-			if err != nil {
-				return ComponentsClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *ComponentsClient) listCreateRequest(ctx context.Context, options *ComponentsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Insights/components"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-02-02")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *ComponentsClient) listHandleResponse(resp *http.Response) (ComponentsClientListResponse, error) {
-	result := ComponentsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ComponentListResult); err != nil {
-		return ComponentsClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListByResourceGroupPager - Gets a list of Application Insights components within a resource group.
 //
 // Generated from API version 2020-02-02
@@ -419,7 +365,11 @@ func (client *ComponentsClient) listByResourceGroupHandleResponse(resp *http.Res
 // In order to manage system resources, purge requests are throttled at 50 requests per hour. You should batch the execution
 // of purge requests by sending a single command whose predicate includes all
 // user identities that require purging. Use the in operator to specify multiple identities. You should run the query prior
-// to using for a purge request to verify that the results are expected.
+// to using for a purge request to verify that the results are expected. Note:
+// this operation is intended for Classic resources, for workspace-based Application Insights resource please run purge operation
+// (directly on the
+// workspace)(https://docs.microsoft.com/en-us/rest/api/loganalytics/workspace-purge/purge) , scoped to specific resource
+// id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-02-02
