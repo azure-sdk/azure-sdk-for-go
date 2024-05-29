@@ -47,7 +47,7 @@ func NewApmsClient(subscriptionID string, credential azcore.TokenCredential, opt
 // BeginCreateOrUpdate - Create or update an APM.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -75,7 +75,7 @@ func (client *ApmsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroup
 // CreateOrUpdate - Create or update an APM.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 func (client *ApmsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apmName string, apmResource ApmResource, options *ApmsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApmsClient.BeginCreateOrUpdate"
@@ -121,7 +121,7 @@ func (client *ApmsClient) createOrUpdateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, apmResource); err != nil {
@@ -133,7 +133,7 @@ func (client *ApmsClient) createOrUpdateCreateRequest(ctx context.Context, resou
 // BeginDelete - Operation to delete an APM
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -160,7 +160,7 @@ func (client *ApmsClient) BeginDelete(ctx context.Context, resourceGroupName str
 // Delete - Operation to delete an APM
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 func (client *ApmsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, apmName string, options *ApmsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ApmsClient.BeginDelete"
@@ -206,7 +206,7 @@ func (client *ApmsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -215,7 +215,7 @@ func (client *ApmsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 // Get - Get the APM by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -267,7 +267,7 @@ func (client *ApmsClient) getCreateRequest(ctx context.Context, resourceGroupNam
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *ApmsClient) getHandleResponse(resp *http.Response) (ApmsClientGetR
 
 // NewListPager - Get collection of APMs.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -332,7 +332,7 @@ func (client *ApmsClient) listCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,7 +350,7 @@ func (client *ApmsClient) listHandleResponse(resp *http.Response) (ApmsClientLis
 // ListSecretKeys - List keys of APM sensitive properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -402,7 +402,7 @@ func (client *ApmsClient) listSecretKeysCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

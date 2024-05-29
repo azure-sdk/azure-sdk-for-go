@@ -44,10 +44,87 @@ func NewConfigServersClient(subscriptionID string, credential azcore.TokenCreden
 	return client, nil
 }
 
+// BeginDelete - Disable the default Config Server, only available in Enterprise Plan.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-07-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - options - ConfigServersClientBeginDeleteOptions contains the optional parameters for the ConfigServersClient.BeginDelete
+//     method.
+func (client *ConfigServersClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, options *ConfigServersClientBeginDeleteOptions) (*runtime.Poller[ConfigServersClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ConfigServersClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ConfigServersClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Delete - Disable the default Config Server, only available in Enterprise Plan.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-07-01-preview
+func (client *ConfigServersClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, options *ConfigServersClientBeginDeleteOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ConfigServersClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// deleteCreateRequest creates the Delete request.
+func (client *ConfigServersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *ConfigServersClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/configServers/default"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-07-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // Get - Get the config server and its properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -94,7 +171,7 @@ func (client *ConfigServersClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -109,10 +186,75 @@ func (client *ConfigServersClient) getHandleResponse(resp *http.Response) (Confi
 	return result, nil
 }
 
+// NewListPager - Handles requests to list all config server resources in a Service.
+//
+// Generated from API version 2024-07-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - options - ConfigServersClientListOptions contains the optional parameters for the ConfigServersClient.NewListPager method.
+func (client *ConfigServersClient) NewListPager(resourceGroupName string, serviceName string, options *ConfigServersClientListOptions) *runtime.Pager[ConfigServersClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ConfigServersClientListResponse]{
+		More: func(page ConfigServersClientListResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ConfigServersClientListResponse) (ConfigServersClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ConfigServersClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceGroupName, serviceName, options)
+			}, nil)
+			if err != nil {
+				return ConfigServersClientListResponse{}, err
+			}
+			return client.listHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listCreateRequest creates the List request.
+func (client *ConfigServersClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *ConfigServersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/configServers"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-07-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listHandleResponse handles the List response.
+func (client *ConfigServersClient) listHandleResponse(resp *http.Response) (ConfigServersClientListResponse, error) {
+	result := ConfigServersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ConfigServerResourceCollection); err != nil {
+		return ConfigServersClientListResponse{}, err
+	}
+	return result, nil
+}
+
 // BeginUpdatePatch - Update the config server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -139,7 +281,7 @@ func (client *ConfigServersClient) BeginUpdatePatch(ctx context.Context, resourc
 // UpdatePatch - Update the config server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 func (client *ConfigServersClient) updatePatch(ctx context.Context, resourceGroupName string, serviceName string, configServerResource ConfigServerResource, options *ConfigServersClientBeginUpdatePatchOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigServersClient.BeginUpdatePatch"
@@ -181,7 +323,7 @@ func (client *ConfigServersClient) updatePatchCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configServerResource); err != nil {
@@ -193,7 +335,7 @@ func (client *ConfigServersClient) updatePatchCreateRequest(ctx context.Context,
 // BeginUpdatePut - Update the config server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -220,7 +362,7 @@ func (client *ConfigServersClient) BeginUpdatePut(ctx context.Context, resourceG
 // UpdatePut - Update the config server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 func (client *ConfigServersClient) updatePut(ctx context.Context, resourceGroupName string, serviceName string, configServerResource ConfigServerResource, options *ConfigServersClientBeginUpdatePutOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigServersClient.BeginUpdatePut"
@@ -262,7 +404,7 @@ func (client *ConfigServersClient) updatePutCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configServerResource); err != nil {
@@ -274,7 +416,7 @@ func (client *ConfigServersClient) updatePutCreateRequest(ctx context.Context, r
 // BeginValidate - Check if the config server settings are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 //     Resource Manager API or the portal.
 //   - serviceName - The name of the Service resource.
@@ -302,7 +444,7 @@ func (client *ConfigServersClient) BeginValidate(ctx context.Context, resourceGr
 // Validate - Check if the config server settings are valid.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-07-01-preview
 func (client *ConfigServersClient) validate(ctx context.Context, resourceGroupName string, serviceName string, configServerSettings ConfigServerSettings, options *ConfigServersClientBeginValidateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigServersClient.BeginValidate"
@@ -344,7 +486,7 @@ func (client *ConfigServersClient) validateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configServerSettings); err != nil {
