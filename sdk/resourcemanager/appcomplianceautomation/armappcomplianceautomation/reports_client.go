@@ -10,12 +10,15 @@ package armappcomplianceautomation
 
 import (
 	"context"
+	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
+	"net/url"
 	"strconv"
+	"strings"
 )
 
 // ReportsClient contains the methods for the Reports group.
@@ -38,9 +41,272 @@ func NewReportsClient(credential azcore.TokenCredential, options *arm.ClientOpti
 	return client, nil
 }
 
+// BeginCreateOrUpdate - Create a new AppComplianceAutomation report or update an exiting AppComplianceAutomation report.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - resource - Parameters for the create or update operation
+//   - options - ReportsClientBeginCreateOrUpdateOptions contains the optional parameters for the ReportsClient.BeginCreateOrUpdate
+//     method.
+func (client *ReportsClient) BeginCreateOrUpdate(ctx context.Context, reportName string, resource ReportResource, options *ReportsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ReportsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, reportName, resource, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReportsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReportsClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// CreateOrUpdate - Create a new AppComplianceAutomation report or update an exiting AppComplianceAutomation report.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+func (client *ReportsClient) createOrUpdate(ctx context.Context, reportName string, resource ReportResource, options *ReportsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ReportsClient.BeginCreateOrUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.createOrUpdateCreateRequest(ctx, reportName, resource, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// createOrUpdateCreateRequest creates the CreateOrUpdate request.
+func (client *ReportsClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, resource ReportResource, options *ReportsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// BeginDelete - Delete an AppComplianceAutomation report.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - options - ReportsClientBeginDeleteOptions contains the optional parameters for the ReportsClient.BeginDelete method.
+func (client *ReportsClient) BeginDelete(ctx context.Context, reportName string, options *ReportsClientBeginDeleteOptions) (*runtime.Poller[ReportsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, reportName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReportsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReportsClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Delete - Delete an AppComplianceAutomation report.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+func (client *ReportsClient) deleteOperation(ctx context.Context, reportName string, options *ReportsClientBeginDeleteOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ReportsClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.deleteCreateRequest(ctx, reportName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// deleteCreateRequest creates the Delete request.
+func (client *ReportsClient) deleteCreateRequest(ctx context.Context, reportName string, options *ReportsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// BeginFix - Fix the AppComplianceAutomation report error. e.g: App Compliance Automation Tool service unregistered, automation
+// removed.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - options - ReportsClientBeginFixOptions contains the optional parameters for the ReportsClient.BeginFix method.
+func (client *ReportsClient) BeginFix(ctx context.Context, reportName string, options *ReportsClientBeginFixOptions) (*runtime.Poller[ReportsClientFixResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.fix(ctx, reportName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReportsClientFixResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReportsClientFixResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Fix - Fix the AppComplianceAutomation report error. e.g: App Compliance Automation Tool service unregistered, automation
+// removed.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+func (client *ReportsClient) fix(ctx context.Context, reportName string, options *ReportsClientBeginFixOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ReportsClient.BeginFix"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.fixCreateRequest(ctx, reportName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// fixCreateRequest creates the Fix request.
+func (client *ReportsClient) fixCreateRequest(ctx context.Context, reportName string, options *ReportsClientBeginFixOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/fix"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// Get - Get the AppComplianceAutomation report and its properties.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - options - ReportsClientGetOptions contains the optional parameters for the ReportsClient.Get method.
+func (client *ReportsClient) Get(ctx context.Context, reportName string, options *ReportsClientGetOptions) (ReportsClientGetResponse, error) {
+	var err error
+	const operationName = "ReportsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getCreateRequest(ctx, reportName, options)
+	if err != nil {
+		return ReportsClientGetResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ReportsClientGetResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ReportsClientGetResponse{}, err
+	}
+	resp, err := client.getHandleResponse(httpResp)
+	return resp, err
+}
+
+// getCreateRequest creates the Get request.
+func (client *ReportsClient) getCreateRequest(ctx context.Context, reportName string, options *ReportsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *ReportsClient) getHandleResponse(resp *http.Response) (ReportsClientGetResponse, error) {
+	result := ReportsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ReportResource); err != nil {
+		return ReportsClientGetResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListPager - Get the AppComplianceAutomation report list for the tenant.
 //
-// Generated from API version 2022-11-16-preview
+// Generated from API version 2024-06-27
 //   - options - ReportsClientListOptions contains the optional parameters for the ReportsClient.NewListPager method.
 func (client *ReportsClient) NewListPager(options *ReportsClientListOptions) *runtime.Pager[ReportsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReportsClientListResponse]{
@@ -73,16 +339,22 @@ func (client *ReportsClient) listCreateRequest(ctx context.Context, options *Rep
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-16-preview")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
+	}
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
-	}
+	reqQP.Set("api-version", "2024-06-27")
 	if options != nil && options.OfferGUID != nil {
 		reqQP.Set("offerGuid", *options.OfferGUID)
 	}
@@ -97,8 +369,212 @@ func (client *ReportsClient) listCreateRequest(ctx context.Context, options *Rep
 // listHandleResponse handles the List response.
 func (client *ReportsClient) listHandleResponse(resp *http.Response) (ReportsClientListResponse, error) {
 	result := ReportsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ReportResourceList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ReportResourceListResult); err != nil {
 		return ReportsClientListResponse{}, err
 	}
 	return result, nil
+}
+
+// NestedResourceCheckNameAvailability - Checks the report's nested resource name availability, e.g: Webhooks, Evidences,
+// Snapshots.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - body - NameAvailabilityRequest object.
+//   - options - ReportsClientNestedResourceCheckNameAvailabilityOptions contains the optional parameters for the ReportsClient.NestedResourceCheckNameAvailability
+//     method.
+func (client *ReportsClient) NestedResourceCheckNameAvailability(ctx context.Context, reportName string, body CheckNameAvailabilityRequest, options *ReportsClientNestedResourceCheckNameAvailabilityOptions) (ReportsClientNestedResourceCheckNameAvailabilityResponse, error) {
+	var err error
+	const operationName = "ReportsClient.NestedResourceCheckNameAvailability"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.nestedResourceCheckNameAvailabilityCreateRequest(ctx, reportName, body, options)
+	if err != nil {
+		return ReportsClientNestedResourceCheckNameAvailabilityResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ReportsClientNestedResourceCheckNameAvailabilityResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ReportsClientNestedResourceCheckNameAvailabilityResponse{}, err
+	}
+	resp, err := client.nestedResourceCheckNameAvailabilityHandleResponse(httpResp)
+	return resp, err
+}
+
+// nestedResourceCheckNameAvailabilityCreateRequest creates the NestedResourceCheckNameAvailability request.
+func (client *ReportsClient) nestedResourceCheckNameAvailabilityCreateRequest(ctx context.Context, reportName string, body CheckNameAvailabilityRequest, options *ReportsClientNestedResourceCheckNameAvailabilityOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/checkNameAvailability"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// nestedResourceCheckNameAvailabilityHandleResponse handles the NestedResourceCheckNameAvailability response.
+func (client *ReportsClient) nestedResourceCheckNameAvailabilityHandleResponse(resp *http.Response) (ReportsClientNestedResourceCheckNameAvailabilityResponse, error) {
+	result := ReportsClientNestedResourceCheckNameAvailabilityResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CheckNameAvailabilityResponse); err != nil {
+		return ReportsClientNestedResourceCheckNameAvailabilityResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginSyncCertRecord - Synchronize attestation record from app compliance.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - body - Parameters for synchronize certification record operation
+//   - options - ReportsClientBeginSyncCertRecordOptions contains the optional parameters for the ReportsClient.BeginSyncCertRecord
+//     method.
+func (client *ReportsClient) BeginSyncCertRecord(ctx context.Context, reportName string, body SyncCertRecordRequest, options *ReportsClientBeginSyncCertRecordOptions) (*runtime.Poller[ReportsClientSyncCertRecordResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.syncCertRecord(ctx, reportName, body, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReportsClientSyncCertRecordResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReportsClientSyncCertRecordResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// SyncCertRecord - Synchronize attestation record from app compliance.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+func (client *ReportsClient) syncCertRecord(ctx context.Context, reportName string, body SyncCertRecordRequest, options *ReportsClientBeginSyncCertRecordOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ReportsClient.BeginSyncCertRecord"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.syncCertRecordCreateRequest(ctx, reportName, body, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// syncCertRecordCreateRequest creates the SyncCertRecord request.
+func (client *ReportsClient) syncCertRecordCreateRequest(ctx context.Context, reportName string, body SyncCertRecordRequest, options *ReportsClientBeginSyncCertRecordOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/syncCertRecord"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// BeginUpdate - Update an exiting AppComplianceAutomation report.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - properties - Parameters for the create or update operation
+//   - options - ReportsClientBeginUpdateOptions contains the optional parameters for the ReportsClient.BeginUpdate method.
+func (client *ReportsClient) BeginUpdate(ctx context.Context, reportName string, properties ReportResourcePatch, options *ReportsClientBeginUpdateOptions) (*runtime.Poller[ReportsClientUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.update(ctx, reportName, properties, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReportsClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReportsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Update - Update an exiting AppComplianceAutomation report.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+func (client *ReportsClient) update(ctx context.Context, reportName string, properties ReportResourcePatch, options *ReportsClientBeginUpdateOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ReportsClient.BeginUpdate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.updateCreateRequest(ctx, reportName, properties, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// updateCreateRequest creates the Update request.
+func (client *ReportsClient) updateCreateRequest(ctx context.Context, reportName string, properties ReportResourcePatch, options *ReportsClientBeginUpdateOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+		return nil, err
+	}
+	return req, nil
 }
