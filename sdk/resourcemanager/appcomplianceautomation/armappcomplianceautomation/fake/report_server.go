@@ -23,21 +23,9 @@ import (
 
 // ReportServer is a fake server for instances of the armappcomplianceautomation.ReportClient type.
 type ReportServer struct {
-	// BeginCreateOrUpdate is the fake for method ReportClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, reportName string, parameters armappcomplianceautomation.ReportResource, options *armappcomplianceautomation.ReportClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armappcomplianceautomation.ReportClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
-	// BeginDelete is the fake for method ReportClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, reportName string, options *armappcomplianceautomation.ReportClientBeginDeleteOptions) (resp azfake.PollerResponder[armappcomplianceautomation.ReportClientDeleteResponse], errResp azfake.ErrorResponder)
-
-	// Get is the fake for method ReportClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, reportName string, options *armappcomplianceautomation.ReportClientGetOptions) (resp azfake.Responder[armappcomplianceautomation.ReportClientGetResponse], errResp azfake.ErrorResponder)
-
-	// BeginUpdate is the fake for method ReportClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, reportName string, parameters armappcomplianceautomation.ReportResourcePatch, options *armappcomplianceautomation.ReportClientBeginUpdateOptions) (resp azfake.PollerResponder[armappcomplianceautomation.ReportClientUpdateResponse], errResp azfake.ErrorResponder)
+	// BeginVerify is the fake for method ReportClient.BeginVerify
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginVerify func(ctx context.Context, reportName string, options *armappcomplianceautomation.ReportClientBeginVerifyOptions) (resp azfake.PollerResponder[armappcomplianceautomation.ReportClientVerifyResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReportServerTransport creates a new instance of ReportServerTransport with the provided implementation.
@@ -45,20 +33,16 @@ type ReportServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewReportServerTransport(srv *ReportServer) *ReportServerTransport {
 	return &ReportServerTransport{
-		srv:                 srv,
-		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientCreateOrUpdateResponse]](),
-		beginDelete:         newTracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientDeleteResponse]](),
-		beginUpdate:         newTracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientUpdateResponse]](),
+		srv:         srv,
+		beginVerify: newTracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientVerifyResponse]](),
 	}
 }
 
 // ReportServerTransport connects instances of armappcomplianceautomation.ReportClient to instances of ReportServer.
 // Don't use this type directly, use NewReportServerTransport instead.
 type ReportServerTransport struct {
-	srv                 *ReportServer
-	beginCreateOrUpdate *tracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientCreateOrUpdateResponse]]
-	beginDelete         *tracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientDeleteResponse]]
-	beginUpdate         *tracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientUpdateResponse]]
+	srv         *ReportServer
+	beginVerify *tracker[azfake.PollerResponder[armappcomplianceautomation.ReportClientVerifyResponse]]
 }
 
 // Do implements the policy.Transporter interface for ReportServerTransport.
@@ -73,14 +57,8 @@ func (r *ReportServerTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch method {
-	case "ReportClient.BeginCreateOrUpdate":
-		resp, err = r.dispatchBeginCreateOrUpdate(req)
-	case "ReportClient.BeginDelete":
-		resp, err = r.dispatchBeginDelete(req)
-	case "ReportClient.Get":
-		resp, err = r.dispatchGet(req)
-	case "ReportClient.BeginUpdate":
-		resp, err = r.dispatchBeginUpdate(req)
+	case "ReportClient.BeginVerify":
+		resp, err = r.dispatchBeginVerify(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -92,57 +70,13 @@ func (r *ReportServerTransport) Do(req *http.Request) (*http.Response, error) {
 	return resp, nil
 }
 
-func (r *ReportServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if r.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
+func (r *ReportServerTransport) dispatchBeginVerify(req *http.Request) (*http.Response, error) {
+	if r.srv.BeginVerify == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginVerify not implemented")}
 	}
-	beginCreateOrUpdate := r.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armappcomplianceautomation.ReportResource](req)
-		if err != nil {
-			return nil, err
-		}
-		reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := r.srv.BeginCreateOrUpdate(req.Context(), reportNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginCreateOrUpdate = &respr
-		r.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		r.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		r.beginCreateOrUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (r *ReportServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if r.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
-	}
-	beginDelete := r.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	beginVerify := r.beginVerify.get(req)
+	if beginVerify == nil {
+		const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/verify`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 1 {
@@ -152,98 +86,25 @@ func (r *ReportServerTransport) dispatchBeginDelete(req *http.Request) (*http.Re
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), reportNameParam, nil)
+		respr, errRespr := r.srv.BeginVerify(req.Context(), reportNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
-		beginDelete = &respr
-		r.beginDelete.add(req, beginDelete)
+		beginVerify = &respr
+		r.beginVerify.add(req, beginVerify)
 	}
 
-	resp, err := server.PollerResponderNext(beginDelete, req)
+	resp, err := server.PollerResponderNext(beginVerify, req)
 	if err != nil {
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		r.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		r.beginVerify.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
-	if !server.PollerResponderMore(beginDelete) {
-		r.beginDelete.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (r *ReportServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if r.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := r.srv.Get(req.Context(), reportNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ReportResource, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (r *ReportServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
-	if r.srv.BeginUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
-	}
-	beginUpdate := r.beginUpdate.get(req)
-	if beginUpdate == nil {
-		const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armappcomplianceautomation.ReportResourcePatch](req)
-		if err != nil {
-			return nil, err
-		}
-		reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := r.srv.BeginUpdate(req.Context(), reportNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginUpdate = &respr
-		r.beginUpdate.add(req, beginUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
-		r.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginUpdate) {
-		r.beginUpdate.remove(req)
+	if !server.PollerResponderMore(beginVerify) {
+		r.beginVerify.remove(req)
 	}
 
 	return resp, nil

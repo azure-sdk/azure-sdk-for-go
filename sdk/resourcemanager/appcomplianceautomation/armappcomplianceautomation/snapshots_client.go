@@ -41,9 +41,145 @@ func NewSnapshotsClient(credential azcore.TokenCredential, options *arm.ClientOp
 	return client, nil
 }
 
+// BeginDownload - Download compliance needs from snapshot, like: Compliance Report, Resource List.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - snapshotName - Snapshot Name.
+//   - body - Parameters for the query operation
+//   - options - SnapshotsClientBeginDownloadOptions contains the optional parameters for the SnapshotsClient.BeginDownload method.
+func (client *SnapshotsClient) BeginDownload(ctx context.Context, reportName string, snapshotName string, body SnapshotDownloadRequest, options *SnapshotsClientBeginDownloadOptions) (*runtime.Poller[SnapshotsClientDownloadResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.download(ctx, reportName, snapshotName, body, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SnapshotsClientDownloadResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SnapshotsClientDownloadResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Download - Download compliance needs from snapshot, like: Compliance Report, Resource List.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+func (client *SnapshotsClient) download(ctx context.Context, reportName string, snapshotName string, body SnapshotDownloadRequest, options *SnapshotsClientBeginDownloadOptions) (*http.Response, error) {
+	var err error
+	const operationName = "SnapshotsClient.BeginDownload"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.downloadCreateRequest(ctx, reportName, snapshotName, body, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// downloadCreateRequest creates the Download request.
+func (client *SnapshotsClient) downloadCreateRequest(ctx context.Context, reportName string, snapshotName string, body SnapshotDownloadRequest, options *SnapshotsClientBeginDownloadOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/snapshots/{snapshotName}/download"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	if snapshotName == "" {
+		return nil, errors.New("parameter snapshotName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{snapshotName}", url.PathEscape(snapshotName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// Get - Get the AppComplianceAutomation snapshot and its properties.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-27
+//   - reportName - Report Name.
+//   - snapshotName - Snapshot Name.
+//   - options - SnapshotsClientGetOptions contains the optional parameters for the SnapshotsClient.Get method.
+func (client *SnapshotsClient) Get(ctx context.Context, reportName string, snapshotName string, options *SnapshotsClientGetOptions) (SnapshotsClientGetResponse, error) {
+	var err error
+	const operationName = "SnapshotsClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getCreateRequest(ctx, reportName, snapshotName, options)
+	if err != nil {
+		return SnapshotsClientGetResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return SnapshotsClientGetResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return SnapshotsClientGetResponse{}, err
+	}
+	resp, err := client.getHandleResponse(httpResp)
+	return resp, err
+}
+
+// getCreateRequest creates the Get request.
+func (client *SnapshotsClient) getCreateRequest(ctx context.Context, reportName string, snapshotName string, options *SnapshotsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/snapshots/{snapshotName}"
+	if reportName == "" {
+		return nil, errors.New("parameter reportName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{reportName}", url.PathEscape(reportName))
+	if snapshotName == "" {
+		return nil, errors.New("parameter snapshotName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{snapshotName}", url.PathEscape(snapshotName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-27")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *SnapshotsClient) getHandleResponse(resp *http.Response) (SnapshotsClientGetResponse, error) {
+	result := SnapshotsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SnapshotResource); err != nil {
+		return SnapshotsClientGetResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListPager - Get the AppComplianceAutomation snapshot list.
 //
-// Generated from API version 2022-11-16-preview
+// Generated from API version 2024-06-27
 //   - reportName - Report Name.
 //   - options - SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.NewListPager method.
 func (client *SnapshotsClient) NewListPager(reportName string, options *SnapshotsClientListOptions) *runtime.Pager[SnapshotsClientListResponse] {
@@ -81,21 +217,27 @@ func (client *SnapshotsClient) listCreateRequest(ctx context.Context, reportName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-16-preview")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
+	}
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
+	reqQP.Set("api-version", "2024-06-27")
+	if options != nil && options.OfferGUID != nil {
+		reqQP.Set("offerGuid", *options.OfferGUID)
 	}
 	if options != nil && options.ReportCreatorTenantID != nil {
 		reqQP.Set("reportCreatorTenantId", *options.ReportCreatorTenantID)
-	}
-	if options != nil && options.OfferGUID != nil {
-		reqQP.Set("offerGuid", *options.OfferGUID)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -105,7 +247,7 @@ func (client *SnapshotsClient) listCreateRequest(ctx context.Context, reportName
 // listHandleResponse handles the List response.
 func (client *SnapshotsClient) listHandleResponse(resp *http.Response) (SnapshotsClientListResponse, error) {
 	result := SnapshotsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SnapshotResourceList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.SnapshotResourceListResult); err != nil {
 		return SnapshotsClientListResponse{}, err
 	}
 	return result, nil

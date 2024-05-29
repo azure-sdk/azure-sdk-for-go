@@ -19,11 +19,16 @@ import (
 
 // ServerFactory is a fake server for instances of the armappcomplianceautomation.ClientFactory type.
 type ServerFactory struct {
-	OperationsServer OperationsServer
-	ReportServer     ReportServer
-	ReportsServer    ReportsServer
-	SnapshotServer   SnapshotServer
-	SnapshotsServer  SnapshotsServer
+	EvidencesServer             EvidencesServer
+	OperationsServer            OperationsServer
+	ProviderActionsServer       ProviderActionsServer
+	ReportServer                ReportServer
+	ReportsServer               ReportsServer
+	ScopingConfigurationServer  ScopingConfigurationServer
+	ScopingConfigurationsServer ScopingConfigurationsServer
+	SnapshotsServer             SnapshotsServer
+	ToolForMicrosoft365Server   ToolForMicrosoft365Server
+	WebhooksServer              WebhooksServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -38,13 +43,18 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armappcomplianceautomation.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                *ServerFactory
-	trMu               sync.Mutex
-	trOperationsServer *OperationsServerTransport
-	trReportServer     *ReportServerTransport
-	trReportsServer    *ReportsServerTransport
-	trSnapshotServer   *SnapshotServerTransport
-	trSnapshotsServer  *SnapshotsServerTransport
+	srv                           *ServerFactory
+	trMu                          sync.Mutex
+	trEvidencesServer             *EvidencesServerTransport
+	trOperationsServer            *OperationsServerTransport
+	trProviderActionsServer       *ProviderActionsServerTransport
+	trReportServer                *ReportServerTransport
+	trReportsServer               *ReportsServerTransport
+	trScopingConfigurationServer  *ScopingConfigurationServerTransport
+	trScopingConfigurationsServer *ScopingConfigurationsServerTransport
+	trSnapshotsServer             *SnapshotsServerTransport
+	trToolForMicrosoft365Server   *ToolForMicrosoft365ServerTransport
+	trWebhooksServer              *WebhooksServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -60,21 +70,44 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "EvidencesClient":
+		initServer(s, &s.trEvidencesServer, func() *EvidencesServerTransport { return NewEvidencesServerTransport(&s.srv.EvidencesServer) })
+		resp, err = s.trEvidencesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "ProviderActionsClient":
+		initServer(s, &s.trProviderActionsServer, func() *ProviderActionsServerTransport {
+			return NewProviderActionsServerTransport(&s.srv.ProviderActionsServer)
+		})
+		resp, err = s.trProviderActionsServer.Do(req)
 	case "ReportClient":
 		initServer(s, &s.trReportServer, func() *ReportServerTransport { return NewReportServerTransport(&s.srv.ReportServer) })
 		resp, err = s.trReportServer.Do(req)
 	case "ReportsClient":
 		initServer(s, &s.trReportsServer, func() *ReportsServerTransport { return NewReportsServerTransport(&s.srv.ReportsServer) })
 		resp, err = s.trReportsServer.Do(req)
-	case "SnapshotClient":
-		initServer(s, &s.trSnapshotServer, func() *SnapshotServerTransport { return NewSnapshotServerTransport(&s.srv.SnapshotServer) })
-		resp, err = s.trSnapshotServer.Do(req)
+	case "ScopingConfigurationClient":
+		initServer(s, &s.trScopingConfigurationServer, func() *ScopingConfigurationServerTransport {
+			return NewScopingConfigurationServerTransport(&s.srv.ScopingConfigurationServer)
+		})
+		resp, err = s.trScopingConfigurationServer.Do(req)
+	case "ScopingConfigurationsClient":
+		initServer(s, &s.trScopingConfigurationsServer, func() *ScopingConfigurationsServerTransport {
+			return NewScopingConfigurationsServerTransport(&s.srv.ScopingConfigurationsServer)
+		})
+		resp, err = s.trScopingConfigurationsServer.Do(req)
 	case "SnapshotsClient":
 		initServer(s, &s.trSnapshotsServer, func() *SnapshotsServerTransport { return NewSnapshotsServerTransport(&s.srv.SnapshotsServer) })
 		resp, err = s.trSnapshotsServer.Do(req)
+	case "ToolForMicrosoft365Client":
+		initServer(s, &s.trToolForMicrosoft365Server, func() *ToolForMicrosoft365ServerTransport {
+			return NewToolForMicrosoft365ServerTransport(&s.srv.ToolForMicrosoft365Server)
+		})
+		resp, err = s.trToolForMicrosoft365Server.Do(req)
+	case "WebhooksClient":
+		initServer(s, &s.trWebhooksServer, func() *WebhooksServerTransport { return NewWebhooksServerTransport(&s.srv.WebhooksServer) })
+		resp, err = s.trWebhooksServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

@@ -9,6 +9,7 @@
 package fake
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
@@ -24,6 +25,14 @@ import (
 
 // SnapshotsServer is a fake server for instances of the armappcomplianceautomation.SnapshotsClient type.
 type SnapshotsServer struct {
+	// BeginDownload is the fake for method SnapshotsClient.BeginDownload
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginDownload func(ctx context.Context, reportName string, snapshotName string, body armappcomplianceautomation.SnapshotDownloadRequest, options *armappcomplianceautomation.SnapshotsClientBeginDownloadOptions) (resp azfake.PollerResponder[armappcomplianceautomation.SnapshotsClientDownloadResponse], errResp azfake.ErrorResponder)
+
+	// Get is the fake for method SnapshotsClient.Get
+	// HTTP status codes to indicate success: http.StatusOK
+	Get func(ctx context.Context, reportName string, snapshotName string, options *armappcomplianceautomation.SnapshotsClientGetOptions) (resp azfake.Responder[armappcomplianceautomation.SnapshotsClientGetResponse], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method SnapshotsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(reportName string, options *armappcomplianceautomation.SnapshotsClientListOptions) (resp azfake.PagerResponder[armappcomplianceautomation.SnapshotsClientListResponse])
@@ -34,16 +43,18 @@ type SnapshotsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewSnapshotsServerTransport(srv *SnapshotsServer) *SnapshotsServerTransport {
 	return &SnapshotsServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armappcomplianceautomation.SnapshotsClientListResponse]](),
+		srv:           srv,
+		beginDownload: newTracker[azfake.PollerResponder[armappcomplianceautomation.SnapshotsClientDownloadResponse]](),
+		newListPager:  newTracker[azfake.PagerResponder[armappcomplianceautomation.SnapshotsClientListResponse]](),
 	}
 }
 
 // SnapshotsServerTransport connects instances of armappcomplianceautomation.SnapshotsClient to instances of SnapshotsServer.
 // Don't use this type directly, use NewSnapshotsServerTransport instead.
 type SnapshotsServerTransport struct {
-	srv          *SnapshotsServer
-	newListPager *tracker[azfake.PagerResponder[armappcomplianceautomation.SnapshotsClientListResponse]]
+	srv           *SnapshotsServer
+	beginDownload *tracker[azfake.PollerResponder[armappcomplianceautomation.SnapshotsClientDownloadResponse]]
+	newListPager  *tracker[azfake.PagerResponder[armappcomplianceautomation.SnapshotsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for SnapshotsServerTransport.
@@ -58,6 +69,10 @@ func (s *SnapshotsServerTransport) Do(req *http.Request) (*http.Response, error)
 	var err error
 
 	switch method {
+	case "SnapshotsClient.BeginDownload":
+		resp, err = s.dispatchBeginDownload(req)
+	case "SnapshotsClient.Get":
+		resp, err = s.dispatchGet(req)
 	case "SnapshotsClient.NewListPager":
 		resp, err = s.dispatchNewListPager(req)
 	default:
@@ -68,6 +83,87 @@ func (s *SnapshotsServerTransport) Do(req *http.Request) (*http.Response, error)
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (s *SnapshotsServerTransport) dispatchBeginDownload(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginDownload == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDownload not implemented")}
+	}
+	beginDownload := s.beginDownload.get(req)
+	if beginDownload == nil {
+		const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/snapshots/(?P<snapshotName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/download`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 2 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armappcomplianceautomation.SnapshotDownloadRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
+		if err != nil {
+			return nil, err
+		}
+		snapshotNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("snapshotName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginDownload(req.Context(), reportNameParam, snapshotNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDownload = &respr
+		s.beginDownload.add(req, beginDownload)
+	}
+
+	resp, err := server.PollerResponderNext(beginDownload, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginDownload.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginDownload) {
+		s.beginDownload.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (s *SnapshotsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if s.srv.Get == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
+	}
+	const regexStr = `/providers/Microsoft\.AppComplianceAutomation/reports/(?P<reportName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/snapshots/(?P<snapshotName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
+	if err != nil {
+		return nil, err
+	}
+	snapshotNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("snapshotName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.Get(req.Context(), reportNameParam, snapshotNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SnapshotResource, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
@@ -84,10 +180,6 @@ func (s *SnapshotsServerTransport) dispatchNewListPager(req *http.Request) (*htt
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
-		if err != nil {
-			return nil, err
-		}
 		skipTokenUnescaped, err := url.QueryUnescape(qp.Get("$skipToken"))
 		if err != nil {
 			return nil, err
@@ -112,24 +204,40 @@ func (s *SnapshotsServerTransport) dispatchNewListPager(req *http.Request) (*htt
 			return nil, err
 		}
 		selectParam := getOptional(selectUnescaped)
-		reportCreatorTenantIDUnescaped, err := url.QueryUnescape(qp.Get("reportCreatorTenantId"))
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
 		}
-		reportCreatorTenantIDParam := getOptional(reportCreatorTenantIDUnescaped)
+		filterParam := getOptional(filterUnescaped)
+		orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+		if err != nil {
+			return nil, err
+		}
+		orderbyParam := getOptional(orderbyUnescaped)
 		offerGUIDUnescaped, err := url.QueryUnescape(qp.Get("offerGuid"))
 		if err != nil {
 			return nil, err
 		}
 		offerGUIDParam := getOptional(offerGUIDUnescaped)
+		reportCreatorTenantIDUnescaped, err := url.QueryUnescape(qp.Get("reportCreatorTenantId"))
+		if err != nil {
+			return nil, err
+		}
+		reportCreatorTenantIDParam := getOptional(reportCreatorTenantIDUnescaped)
+		reportNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("reportName")])
+		if err != nil {
+			return nil, err
+		}
 		var options *armappcomplianceautomation.SnapshotsClientListOptions
-		if skipTokenParam != nil || topParam != nil || selectParam != nil || reportCreatorTenantIDParam != nil || offerGUIDParam != nil {
+		if skipTokenParam != nil || topParam != nil || selectParam != nil || filterParam != nil || orderbyParam != nil || offerGUIDParam != nil || reportCreatorTenantIDParam != nil {
 			options = &armappcomplianceautomation.SnapshotsClientListOptions{
 				SkipToken:             skipTokenParam,
 				Top:                   topParam,
 				Select:                selectParam,
-				ReportCreatorTenantID: reportCreatorTenantIDParam,
+				Filter:                filterParam,
+				Orderby:               orderbyParam,
 				OfferGUID:             offerGUIDParam,
+				ReportCreatorTenantID: reportCreatorTenantIDParam,
 			}
 		}
 		resp := s.srv.NewListPager(reportNameParam, options)
