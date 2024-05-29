@@ -165,6 +165,7 @@ func (v *VolumeGroupsServerTransport) dispatchBeginDelete(req *http.Request) (*h
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		qp := req.URL.Query()
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -177,7 +178,18 @@ func (v *VolumeGroupsServerTransport) dispatchBeginDelete(req *http.Request) (*h
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := v.srv.BeginDelete(req.Context(), resourceGroupNameParam, elasticSanNameParam, volumeGroupNameParam, nil)
+		purgeUnescaped, err := url.QueryUnescape(qp.Get("purge"))
+		if err != nil {
+			return nil, err
+		}
+		purgeParam := getOptional(armelasticsan.Purge(purgeUnescaped))
+		var options *armelasticsan.VolumeGroupsClientBeginDeleteOptions
+		if purgeParam != nil {
+			options = &armelasticsan.VolumeGroupsClientBeginDeleteOptions{
+				Purge: purgeParam,
+			}
+		}
+		respr, errRespr := v.srv.BeginDelete(req.Context(), resourceGroupNameParam, elasticSanNameParam, volumeGroupNameParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -223,7 +235,14 @@ func (v *VolumeGroupsServerTransport) dispatchGet(req *http.Request) (*http.Resp
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := v.srv.Get(req.Context(), resourceGroupNameParam, elasticSanNameParam, volumeGroupNameParam, nil)
+	xMSAccessSoftDeletedResourcesParam := getOptional(armelasticsan.XMSAccessSoftDeletedResources(getHeaderValue(req.Header, "x-ms-access-soft-deleted-resources")))
+	var options *armelasticsan.VolumeGroupsClientGetOptions
+	if xMSAccessSoftDeletedResourcesParam != nil {
+		options = &armelasticsan.VolumeGroupsClientGetOptions{
+			XMSAccessSoftDeletedResources: xMSAccessSoftDeletedResourcesParam,
+		}
+	}
+	respr, errRespr := v.srv.Get(req.Context(), resourceGroupNameParam, elasticSanNameParam, volumeGroupNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -258,7 +277,14 @@ func (v *VolumeGroupsServerTransport) dispatchNewListByElasticSanPager(req *http
 		if err != nil {
 			return nil, err
 		}
-		resp := v.srv.NewListByElasticSanPager(resourceGroupNameParam, elasticSanNameParam, nil)
+		xMSAccessSoftDeletedResourcesParam := getOptional(armelasticsan.XMSAccessSoftDeletedResources(getHeaderValue(req.Header, "x-ms-access-soft-deleted-resources")))
+		var options *armelasticsan.VolumeGroupsClientListByElasticSanOptions
+		if xMSAccessSoftDeletedResourcesParam != nil {
+			options = &armelasticsan.VolumeGroupsClientListByElasticSanOptions{
+				XMSAccessSoftDeletedResources: xMSAccessSoftDeletedResourcesParam,
+			}
+		}
+		resp := v.srv.NewListByElasticSanPager(resourceGroupNameParam, elasticSanNameParam, options)
 		newListByElasticSanPager = &resp
 		v.newListByElasticSanPager.add(req, newListByElasticSanPager)
 		server.PagerResponderInjectNextLinks(newListByElasticSanPager, req, func(page *armelasticsan.VolumeGroupsClientListByElasticSanResponse, createLink func() string) {

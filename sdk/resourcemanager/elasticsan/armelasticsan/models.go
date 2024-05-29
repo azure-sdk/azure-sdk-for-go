@@ -10,6 +10,15 @@ package armelasticsan
 
 import "time"
 
+// DeleteRetentionPolicy - Response for Delete Retention Policy object
+type DeleteRetentionPolicy struct {
+	// The number of days to retain the volume after deletion.
+	Days *int32
+
+	// The flag to enable/disable retention policy.
+	Enabled *bool
+}
+
 // ElasticSan - Response for ElasticSan request.
 type ElasticSan struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -540,6 +549,9 @@ type VolumeGroupList struct {
 
 // VolumeGroupProperties - VolumeGroup response properties.
 type VolumeGroupProperties struct {
+	// The retention policy for the deleted volumes.
+	DeleteRetentionPolicy *DeleteRetentionPolicy
+
 	// Type of encryption
 	Encryption *EncryptionType
 
@@ -570,6 +582,9 @@ type VolumeGroupUpdate struct {
 
 // VolumeGroupUpdateProperties - VolumeGroup response properties.
 type VolumeGroupUpdateProperties struct {
+	// The retention policy for the deleted volumes.
+	DeleteRetentionPolicy *DeleteRetentionPolicy
+
 	// Type of encryption
 	Encryption *EncryptionType
 
@@ -603,6 +618,9 @@ type VolumeProperties struct {
 	// Parent resource information.
 	ManagedBy *ManagedByInfo
 
+	// Indicates whether delete retention is allowed on the volume.
+	SoftDeleteEnabled *bool
+
 	// READ-ONLY; State of the operation on the resource.
 	ProvisioningState *ProvisioningStates
 
@@ -626,4 +644,7 @@ type VolumeUpdateProperties struct {
 
 	// Volume size.
 	SizeGiB *int64
+
+	// Indicates whether delete retention is allowed on the volume.
+	SoftDeleteEnabled *bool
 }

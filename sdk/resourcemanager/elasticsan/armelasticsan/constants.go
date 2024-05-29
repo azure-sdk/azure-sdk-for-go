@@ -10,7 +10,7 @@ package armelasticsan
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // Action - The action of virtual network rule.
@@ -211,6 +211,21 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	}
 }
 
+type Purge string
+
+const (
+	PurgeFalse Purge = "false"
+	PurgeTrue  Purge = "true"
+)
+
+// PossiblePurgeValues returns the possible values for the Purge const type.
+func PossiblePurgeValues() []Purge {
+	return []Purge{
+		PurgeFalse,
+		PurgeTrue,
+	}
+}
+
 // SKUName - The sku name.
 type SKUName string
 
@@ -279,6 +294,21 @@ func PossibleVolumeCreateOptionValues() []VolumeCreateOption {
 		VolumeCreateOptionDiskSnapshot,
 		VolumeCreateOptionNone,
 		VolumeCreateOptionVolumeSnapshot,
+	}
+}
+
+type XMSAccessSoftDeletedResources string
+
+const (
+	XMSAccessSoftDeletedResourcesFalse XMSAccessSoftDeletedResources = "false"
+	XMSAccessSoftDeletedResourcesTrue  XMSAccessSoftDeletedResources = "true"
+)
+
+// PossibleXMSAccessSoftDeletedResourcesValues returns the possible values for the XMSAccessSoftDeletedResources const type.
+func PossibleXMSAccessSoftDeletedResourcesValues() []XMSAccessSoftDeletedResources {
+	return []XMSAccessSoftDeletedResources{
+		XMSAccessSoftDeletedResourcesFalse,
+		XMSAccessSoftDeletedResourcesTrue,
 	}
 }
 

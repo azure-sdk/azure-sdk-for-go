@@ -1,5 +1,26 @@
 # Release History
 
+## 1.1.0-beta.1 (2024-05-29)
+### Features Added
+
+- New enum type `Purge` with values `PurgeFalse`, `PurgeTrue`
+- New enum type `XMSAccessSoftDeletedResources` with values `XMSAccessSoftDeletedResourcesFalse`, `XMSAccessSoftDeletedResourcesTrue`
+- New function `*ClientFactory.NewManagementClient() *ManagementClient`
+- New function `NewManagementClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementClient, error)`
+- New function `*ManagementClient.BeginRestoreVolume(context.Context, string, string, string, string, *ManagementClientBeginRestoreVolumeOptions) (*runtime.Poller[ManagementClientRestoreVolumeResponse], error)`
+- New struct `DeleteRetentionPolicy`
+- New field `DeleteRetentionPolicy` in struct `VolumeGroupProperties`
+- New field `DeleteRetentionPolicy` in struct `VolumeGroupUpdateProperties`
+- New field `Purge` in struct `VolumeGroupsClientBeginDeleteOptions`
+- New field `XMSAccessSoftDeletedResources` in struct `VolumeGroupsClientGetOptions`
+- New field `XMSAccessSoftDeletedResources` in struct `VolumeGroupsClientListByElasticSanOptions`
+- New field `SoftDeleteEnabled` in struct `VolumeProperties`
+- New field `SoftDeleteEnabled` in struct `VolumeUpdateProperties`
+- New field `Purge` in struct `VolumesClientBeginDeleteOptions`
+- New field `XMSAccessSoftDeletedResources` in struct `VolumesClientGetOptions`
+- New field `XMSAccessSoftDeletedResources` in struct `VolumesClientListByVolumeGroupOptions`
+
+
 ## 1.0.0 (2024-01-26)
 ### Other Changes
 
