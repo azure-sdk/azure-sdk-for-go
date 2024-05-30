@@ -27,7 +27,7 @@ type CloudHsmClusterPrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterOptions contains the optional parameters for the CloudHsmClusterPrivateLinkResourcesClient.ListByCloudHsmCluster
+// CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterOptions contains the optional parameters for the CloudHsmClusterPrivateLinkResourcesClient.NewListByCloudHsmClusterPager
 // method.
 type CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterOptions struct {
 	// placeholder for future optional parameters
