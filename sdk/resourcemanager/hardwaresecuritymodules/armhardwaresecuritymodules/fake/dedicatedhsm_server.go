@@ -27,15 +27,15 @@ import (
 type DedicatedHsmServer struct {
 	// BeginCreateOrUpdate is the fake for method DedicatedHsmClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, name string, parameters armhardwaresecuritymodules.DedicatedHsm, options *armhardwaresecuritymodules.DedicatedHsmClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.DedicatedHsmClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, parameters armhardwaresecuritymodules.DedicatedHsm, options *armhardwaresecuritymodules.DedicatedHsmClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.DedicatedHsmClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method DedicatedHsmClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, name string, options *armhardwaresecuritymodules.DedicatedHsmClientBeginDeleteOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.DedicatedHsmClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, options *armhardwaresecuritymodules.DedicatedHsmClientBeginDeleteOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.DedicatedHsmClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method DedicatedHsmClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, name string, options *armhardwaresecuritymodules.DedicatedHsmClientGetOptions) (resp azfake.Responder[armhardwaresecuritymodules.DedicatedHsmClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, options *armhardwaresecuritymodules.DedicatedHsmClientGetOptions) (resp azfake.Responder[armhardwaresecuritymodules.DedicatedHsmClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByResourceGroupPager is the fake for method DedicatedHsmClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -47,11 +47,11 @@ type DedicatedHsmServer struct {
 
 	// NewListOutboundNetworkDependenciesEndpointsPager is the fake for method DedicatedHsmClient.NewListOutboundNetworkDependenciesEndpointsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListOutboundNetworkDependenciesEndpointsPager func(resourceGroupName string, name string, options *armhardwaresecuritymodules.DedicatedHsmClientListOutboundNetworkDependenciesEndpointsOptions) (resp azfake.PagerResponder[armhardwaresecuritymodules.DedicatedHsmClientListOutboundNetworkDependenciesEndpointsResponse])
+	NewListOutboundNetworkDependenciesEndpointsPager func(resourceGroupName string, options *armhardwaresecuritymodules.DedicatedHsmClientListOutboundNetworkDependenciesEndpointsOptions) (resp azfake.PagerResponder[armhardwaresecuritymodules.DedicatedHsmClientListOutboundNetworkDependenciesEndpointsResponse])
 
 	// BeginUpdate is the fake for method DedicatedHsmClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK
-	BeginUpdate func(ctx context.Context, resourceGroupName string, name string, parameters armhardwaresecuritymodules.DedicatedHsmPatchParameters, options *armhardwaresecuritymodules.DedicatedHsmClientBeginUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.DedicatedHsmClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, parameters armhardwaresecuritymodules.DedicatedHsmPatchParameters, options *armhardwaresecuritymodules.DedicatedHsmClientBeginUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.DedicatedHsmClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDedicatedHsmServerTransport creates a new instance of DedicatedHsmServerTransport with the provided implementation.
@@ -138,11 +138,7 @@ func (d *DedicatedHsmServerTransport) dispatchBeginCreateOrUpdate(req *http.Requ
 		if err != nil {
 			return nil, err
 		}
-		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := d.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, nameParam, body, nil)
+		respr, errRespr := d.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -182,11 +178,7 @@ func (d *DedicatedHsmServerTransport) dispatchBeginDelete(req *http.Request) (*h
 		if err != nil {
 			return nil, err
 		}
-		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := d.srv.BeginDelete(req.Context(), resourceGroupNameParam, nameParam, nil)
+		respr, errRespr := d.srv.BeginDelete(req.Context(), resourceGroupNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -224,11 +216,7 @@ func (d *DedicatedHsmServerTransport) dispatchGet(req *http.Request) (*http.Resp
 	if err != nil {
 		return nil, err
 	}
-	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := d.srv.Get(req.Context(), resourceGroupNameParam, nameParam, nil)
+	respr, errRespr := d.srv.Get(req.Context(), resourceGroupNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -371,11 +359,7 @@ func (d *DedicatedHsmServerTransport) dispatchNewListOutboundNetworkDependencies
 		if err != nil {
 			return nil, err
 		}
-		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-		if err != nil {
-			return nil, err
-		}
-		resp := d.srv.NewListOutboundNetworkDependenciesEndpointsPager(resourceGroupNameParam, nameParam, nil)
+		resp := d.srv.NewListOutboundNetworkDependenciesEndpointsPager(resourceGroupNameParam, nil)
 		newListOutboundNetworkDependenciesEndpointsPager = &resp
 		d.newListOutboundNetworkDependenciesEndpointsPager.add(req, newListOutboundNetworkDependenciesEndpointsPager)
 		server.PagerResponderInjectNextLinks(newListOutboundNetworkDependenciesEndpointsPager, req, func(page *armhardwaresecuritymodules.DedicatedHsmClientListOutboundNetworkDependenciesEndpointsResponse, createLink func() string) {
@@ -416,11 +400,7 @@ func (d *DedicatedHsmServerTransport) dispatchBeginUpdate(req *http.Request) (*h
 		if err != nil {
 			return nil, err
 		}
-		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := d.srv.BeginUpdate(req.Context(), resourceGroupNameParam, nameParam, body, nil)
+		respr, errRespr := d.srv.BeginUpdate(req.Context(), resourceGroupNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
