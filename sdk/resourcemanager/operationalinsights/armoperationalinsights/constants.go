@@ -10,8 +10,26 @@ package armoperationalinsights
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/operationalinsights/armoperationalinsights"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
+
+// AccessRuleDirection - Direction of Access Rule
+type AccessRuleDirection string
+
+const (
+	// AccessRuleDirectionInbound - Applies to inbound network traffic to the secured resources.
+	AccessRuleDirectionInbound AccessRuleDirection = "Inbound"
+	// AccessRuleDirectionOutbound - Applies to outbound network traffic from the secured resources
+	AccessRuleDirectionOutbound AccessRuleDirection = "Outbound"
+)
+
+// PossibleAccessRuleDirectionValues returns the possible values for the AccessRuleDirection const type.
+func PossibleAccessRuleDirectionValues() []AccessRuleDirection {
+	return []AccessRuleDirection{
+		AccessRuleDirectionInbound,
+		AccessRuleDirectionOutbound,
+	}
+}
 
 // BillingType - Configures whether billing will be only on the cluster or each workspace will be billed by its proportional
 // use. This does not change the overall billing, only how it will be distributed. Default
@@ -31,22 +49,36 @@ func PossibleBillingTypeValues() []BillingType {
 	}
 }
 
-// Capacity - The capacity value
+// Capacity - The capacity reservation level in Gigabytes for this cluster.
 type Capacity int64
 
 const (
-	CapacityFiveHundred  Capacity = 500
-	CapacityFiveThousand Capacity = 5000
-	CapacityTenHundred   Capacity = 1000
-	CapacityTwoThousand  Capacity = 2000
+	CapacityFiftyThousand      Capacity = 50000
+	CapacityFiveHundred        Capacity = 500
+	CapacityFiveThousand       Capacity = 5000
+	CapacityFourHundred        Capacity = 400
+	CapacityOneHundred         Capacity = 100
+	CapacityTenHundred         Capacity = 1000
+	CapacityTenThousand        Capacity = 10000
+	CapacityThreeHundred       Capacity = 300
+	CapacityTwentyFiveThousand Capacity = 25000
+	CapacityTwoHundred         Capacity = 200
+	CapacityTwoThousand        Capacity = 2000
 )
 
 // PossibleCapacityValues returns the possible values for the Capacity const type.
 func PossibleCapacityValues() []Capacity {
 	return []Capacity{
+		CapacityFiftyThousand,
 		CapacityFiveHundred,
 		CapacityFiveThousand,
+		CapacityFourHundred,
+		CapacityOneHundred,
 		CapacityTenHundred,
+		CapacityTenThousand,
+		CapacityThreeHundred,
+		CapacityTwentyFiveThousand,
+		CapacityTwoHundred,
 		CapacityTwoThousand,
 	}
 }
@@ -55,25 +87,31 @@ func PossibleCapacityValues() []Capacity {
 type CapacityReservationLevel int32
 
 const (
-	CapacityReservationLevelFiveHundred  CapacityReservationLevel = 500
-	CapacityReservationLevelFiveThousand CapacityReservationLevel = 5000
-	CapacityReservationLevelFourHundred  CapacityReservationLevel = 400
-	CapacityReservationLevelOneHundred   CapacityReservationLevel = 100
-	CapacityReservationLevelTenHundred   CapacityReservationLevel = 1000
-	CapacityReservationLevelThreeHundred CapacityReservationLevel = 300
-	CapacityReservationLevelTwoHundred   CapacityReservationLevel = 200
-	CapacityReservationLevelTwoThousand  CapacityReservationLevel = 2000
+	CapacityReservationLevelFiftyThousand      CapacityReservationLevel = 50000
+	CapacityReservationLevelFiveHundred        CapacityReservationLevel = 500
+	CapacityReservationLevelFiveThousand       CapacityReservationLevel = 5000
+	CapacityReservationLevelFourHundred        CapacityReservationLevel = 400
+	CapacityReservationLevelOneHundred         CapacityReservationLevel = 100
+	CapacityReservationLevelTenHundred         CapacityReservationLevel = 1000
+	CapacityReservationLevelTenThousand        CapacityReservationLevel = 10000
+	CapacityReservationLevelThreeHundred       CapacityReservationLevel = 300
+	CapacityReservationLevelTwentyFiveThousand CapacityReservationLevel = 25000
+	CapacityReservationLevelTwoHundred         CapacityReservationLevel = 200
+	CapacityReservationLevelTwoThousand        CapacityReservationLevel = 2000
 )
 
 // PossibleCapacityReservationLevelValues returns the possible values for the CapacityReservationLevel const type.
 func PossibleCapacityReservationLevelValues() []CapacityReservationLevel {
 	return []CapacityReservationLevel{
+		CapacityReservationLevelFiftyThousand,
 		CapacityReservationLevelFiveHundred,
 		CapacityReservationLevelFiveThousand,
 		CapacityReservationLevelFourHundred,
 		CapacityReservationLevelOneHundred,
 		CapacityReservationLevelTenHundred,
+		CapacityReservationLevelTenThousand,
 		CapacityReservationLevelThreeHundred,
+		CapacityReservationLevelTwentyFiveThousand,
 		CapacityReservationLevelTwoHundred,
 		CapacityReservationLevelTwoThousand,
 	}
@@ -105,7 +143,7 @@ func PossibleClusterEntityStatusValues() []ClusterEntityStatus {
 	}
 }
 
-// ClusterSKUNameEnum - The name of the SKU.
+// ClusterSKUNameEnum - The SKU (tier) of a cluster.
 type ClusterSKUNameEnum string
 
 const (
@@ -116,6 +154,78 @@ const (
 func PossibleClusterSKUNameEnumValues() []ClusterSKUNameEnum {
 	return []ClusterSKUNameEnum{
 		ClusterSKUNameEnumCapacityReservation,
+	}
+}
+
+// ColumnDataTypeHintEnum - Column data type logical hint.
+type ColumnDataTypeHintEnum string
+
+const (
+	// ColumnDataTypeHintEnumArmPath - An Azure Resource Model (ARM) path: /subscriptions/{...}/resourceGroups/{...}/providers/Microsoft.{...}/{...}/{...}/{...}...
+	ColumnDataTypeHintEnumArmPath ColumnDataTypeHintEnum = "armPath"
+	// ColumnDataTypeHintEnumGUID - A standard 128-bit GUID following the standard shape, xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+	ColumnDataTypeHintEnumGUID ColumnDataTypeHintEnum = "guid"
+	// ColumnDataTypeHintEnumIP - A standard V4/V6 ip address following the standard shape, x.x.x.x/y:y:y:y:y:y:y:y
+	ColumnDataTypeHintEnumIP ColumnDataTypeHintEnum = "ip"
+	// ColumnDataTypeHintEnumURI - A string that matches the pattern of a URI, for example, scheme://username:password@host:1234/this/is/a/path?k1=v1&k2=v2#fragment
+	ColumnDataTypeHintEnumURI ColumnDataTypeHintEnum = "uri"
+)
+
+// PossibleColumnDataTypeHintEnumValues returns the possible values for the ColumnDataTypeHintEnum const type.
+func PossibleColumnDataTypeHintEnumValues() []ColumnDataTypeHintEnum {
+	return []ColumnDataTypeHintEnum{
+		ColumnDataTypeHintEnumArmPath,
+		ColumnDataTypeHintEnumGUID,
+		ColumnDataTypeHintEnumIP,
+		ColumnDataTypeHintEnumURI,
+	}
+}
+
+// ColumnTypeEnum - Column data type.
+type ColumnTypeEnum string
+
+const (
+	ColumnTypeEnumBoolean  ColumnTypeEnum = "boolean"
+	ColumnTypeEnumDateTime ColumnTypeEnum = "dateTime"
+	ColumnTypeEnumDynamic  ColumnTypeEnum = "dynamic"
+	ColumnTypeEnumGUID     ColumnTypeEnum = "guid"
+	ColumnTypeEnumInt      ColumnTypeEnum = "int"
+	ColumnTypeEnumLong     ColumnTypeEnum = "long"
+	ColumnTypeEnumReal     ColumnTypeEnum = "real"
+	ColumnTypeEnumString   ColumnTypeEnum = "string"
+)
+
+// PossibleColumnTypeEnumValues returns the possible values for the ColumnTypeEnum const type.
+func PossibleColumnTypeEnumValues() []ColumnTypeEnum {
+	return []ColumnTypeEnum{
+		ColumnTypeEnumBoolean,
+		ColumnTypeEnumDateTime,
+		ColumnTypeEnumDynamic,
+		ColumnTypeEnumGUID,
+		ColumnTypeEnumInt,
+		ColumnTypeEnumLong,
+		ColumnTypeEnumReal,
+		ColumnTypeEnumString,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
@@ -234,6 +344,7 @@ const (
 	DataSourceTypeAlerts      DataSourceType = "Alerts"
 	DataSourceTypeAzureWatson DataSourceType = "AzureWatson"
 	DataSourceTypeCustomLogs  DataSourceType = "CustomLogs"
+	DataSourceTypeIngestion   DataSourceType = "Ingestion"
 	DataSourceTypeQuery       DataSourceType = "Query"
 )
 
@@ -243,25 +354,61 @@ func PossibleDataSourceTypeValues() []DataSourceType {
 		DataSourceTypeAlerts,
 		DataSourceTypeAzureWatson,
 		DataSourceTypeCustomLogs,
+		DataSourceTypeIngestion,
 		DataSourceTypeQuery,
 	}
 }
 
-// IdentityType - Type of managed service identity.
+// IdentityType - The type of identity that creates/modifies resources
 type IdentityType string
 
 const (
-	IdentityTypeNone           IdentityType = "None"
-	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
-	IdentityTypeUserAssigned   IdentityType = "UserAssigned"
+	IdentityTypeApplication     IdentityType = "application"
+	IdentityTypeKey             IdentityType = "key"
+	IdentityTypeManagedIdentity IdentityType = "managedIdentity"
+	IdentityTypeNone            IdentityType = "None"
+	IdentityTypeSystemAssigned  IdentityType = "SystemAssigned"
+	IdentityTypeUser            IdentityType = "user"
+	IdentityTypeUserAssigned    IdentityType = "UserAssigned"
 )
 
 // PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
 func PossibleIdentityTypeValues() []IdentityType {
 	return []IdentityType{
+		IdentityTypeApplication,
+		IdentityTypeKey,
+		IdentityTypeManagedIdentity,
 		IdentityTypeNone,
 		IdentityTypeSystemAssigned,
+		IdentityTypeUser,
 		IdentityTypeUserAssigned,
+	}
+}
+
+// IssueType - Type of issue
+type IssueType string
+
+const (
+	// IssueTypeConfigurationPropagationFailure - An error occurred while applying the network security perimeter (NSP) configuration.
+	IssueTypeConfigurationPropagationFailure IssueType = "ConfigurationPropagationFailure"
+	// IssueTypeMissingIdentityConfiguration - An managed identity hasn't been associated with the resource. The resource will
+	// still be able to validate inbound traffic from the network security perimeter (NSP) or matching inbound access rules, but
+	// it won't be able to perform outbound access as a member of the NSP.
+	IssueTypeMissingIdentityConfiguration IssueType = "MissingIdentityConfiguration"
+	// IssueTypeMissingPerimeterConfiguration - A network connectivity issue is happening on the resource which could be addressed
+	// either by adding new resources to the network security perimeter (NSP) or by modifying access rules.
+	IssueTypeMissingPerimeterConfiguration IssueType = "MissingPerimeterConfiguration"
+	// IssueTypeUnknown - Unknown issue type
+	IssueTypeUnknown IssueType = "Unknown"
+)
+
+// PossibleIssueTypeValues returns the possible values for the IssueType const type.
+func PossibleIssueTypeValues() []IssueType {
+	return []IssueType{
+		IssueTypeConfigurationPropagationFailure,
+		IssueTypeMissingIdentityConfiguration,
+		IssueTypeMissingPerimeterConfiguration,
+		IssueTypeUnknown,
 	}
 }
 
@@ -282,6 +429,79 @@ func PossibleLinkedServiceEntityStatusValues() []LinkedServiceEntityStatus {
 		LinkedServiceEntityStatusProvisioningAccount,
 		LinkedServiceEntityStatusSucceeded,
 		LinkedServiceEntityStatusUpdating,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// NetworkSecurityPerimeterConfigurationProvisioningState - Provisioning state of a network security perimeter configuration
+// that is being created or updated.
+type NetworkSecurityPerimeterConfigurationProvisioningState string
+
+const (
+	NetworkSecurityPerimeterConfigurationProvisioningStateAccepted  NetworkSecurityPerimeterConfigurationProvisioningState = "Accepted"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCanceled  NetworkSecurityPerimeterConfigurationProvisioningState = "Canceled"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCreating  NetworkSecurityPerimeterConfigurationProvisioningState = "Creating"
+	NetworkSecurityPerimeterConfigurationProvisioningStateDeleting  NetworkSecurityPerimeterConfigurationProvisioningState = "Deleting"
+	NetworkSecurityPerimeterConfigurationProvisioningStateFailed    NetworkSecurityPerimeterConfigurationProvisioningState = "Failed"
+	NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded NetworkSecurityPerimeterConfigurationProvisioningState = "Succeeded"
+	NetworkSecurityPerimeterConfigurationProvisioningStateUpdating  NetworkSecurityPerimeterConfigurationProvisioningState = "Updating"
+)
+
+// PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues returns the possible values for the NetworkSecurityPerimeterConfigurationProvisioningState const type.
+func PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues() []NetworkSecurityPerimeterConfigurationProvisioningState {
+	return []NetworkSecurityPerimeterConfigurationProvisioningState{
+		NetworkSecurityPerimeterConfigurationProvisioningStateAccepted,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCanceled,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCreating,
+		NetworkSecurityPerimeterConfigurationProvisioningStateDeleting,
+		NetworkSecurityPerimeterConfigurationProvisioningStateFailed,
+		NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded,
+		NetworkSecurityPerimeterConfigurationProvisioningStateUpdating,
+	}
+}
+
+// ProvisioningStateEnum - Table's current provisioning state. If set to 'updating', indicates a resource lock due to ongoing
+// operation, forbidding any update to the table until the ongoing operation is concluded.
+type ProvisioningStateEnum string
+
+const (
+	// ProvisioningStateEnumDeleting - Table state is deleting.
+	ProvisioningStateEnumDeleting ProvisioningStateEnum = "Deleting"
+	// ProvisioningStateEnumInProgress - Table schema is stable and without changes, table data is being updated.
+	ProvisioningStateEnumInProgress ProvisioningStateEnum = "InProgress"
+	// ProvisioningStateEnumSucceeded - Table state is stable and without changes, table is unlocked and open for new updates.
+	ProvisioningStateEnumSucceeded ProvisioningStateEnum = "Succeeded"
+	// ProvisioningStateEnumUpdating - Table schema is still being built and updated, table is currently locked for any changes
+	// till the procedure is done.
+	ProvisioningStateEnumUpdating ProvisioningStateEnum = "Updating"
+)
+
+// PossibleProvisioningStateEnumValues returns the possible values for the ProvisioningStateEnum const type.
+func PossibleProvisioningStateEnumValues() []ProvisioningStateEnum {
+	return []ProvisioningStateEnum{
+		ProvisioningStateEnumDeleting,
+		ProvisioningStateEnumInProgress,
+		ProvisioningStateEnumSucceeded,
+		ProvisioningStateEnumUpdating,
 	}
 }
 
@@ -316,6 +536,29 @@ func PossiblePurgeStateValues() []PurgeState {
 	return []PurgeState{
 		PurgeStateCompleted,
 		PurgeStatePending,
+	}
+}
+
+// ResourceAssociationAccessMode - Access mode of the resource association
+type ResourceAssociationAccessMode string
+
+const (
+	// ResourceAssociationAccessModeAudit - Audit access mode - traffic to the resource that fails access checks is logged but
+	// not blocked
+	ResourceAssociationAccessModeAudit ResourceAssociationAccessMode = "Audit"
+	// ResourceAssociationAccessModeEnforced - Enforced access mode - traffic to the resource that failed access checks is blocked
+	ResourceAssociationAccessModeEnforced ResourceAssociationAccessMode = "Enforced"
+	// ResourceAssociationAccessModeLearning - Learning access mode - traffic to the resource is enabled for analysis but not
+	// blocked
+	ResourceAssociationAccessModeLearning ResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleResourceAssociationAccessModeValues returns the possible values for the ResourceAssociationAccessMode const type.
+func PossibleResourceAssociationAccessModeValues() []ResourceAssociationAccessMode {
+	return []ResourceAssociationAccessMode{
+		ResourceAssociationAccessModeAudit,
+		ResourceAssociationAccessModeEnforced,
+		ResourceAssociationAccessModeLearning,
 	}
 }
 
@@ -361,6 +604,41 @@ func PossibleSearchSortEnumValues() []SearchSortEnum {
 	}
 }
 
+// Severity - Severity of the issue.
+type Severity string
+
+const (
+	SeverityError   Severity = "Error"
+	SeverityWarning Severity = "Warning"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityError,
+		SeverityWarning,
+	}
+}
+
+// SourceEnum - Table's creator.
+type SourceEnum string
+
+const (
+	// SourceEnumCustomer - Tables created by the owner of the Workspace, and only found in this Workspace.
+	SourceEnumCustomer SourceEnum = "customer"
+	// SourceEnumMicrosoft - Tables provisioned by the system, as collected via Diagnostic Settings, the Agents, or any other
+	// standard data collection means.
+	SourceEnumMicrosoft SourceEnum = "microsoft"
+)
+
+// PossibleSourceEnumValues returns the possible values for the SourceEnum const type.
+func PossibleSourceEnumValues() []SourceEnum {
+	return []SourceEnum{
+		SourceEnumCustomer,
+		SourceEnumMicrosoft,
+	}
+}
+
 // StorageInsightState - The state of the storage insight connection to the workspace
 type StorageInsightState string
 
@@ -374,6 +652,73 @@ func PossibleStorageInsightStateValues() []StorageInsightState {
 	return []StorageInsightState{
 		StorageInsightStateERROR,
 		StorageInsightStateOK,
+	}
+}
+
+// TablePlanEnum - Instruct the system how to handle and charge the logs ingested to this table.
+type TablePlanEnum string
+
+const (
+	// TablePlanEnumAnalytics - Logs that allow monitoring and analytics.
+	TablePlanEnumAnalytics TablePlanEnum = "Analytics"
+	// TablePlanEnumBasic - Logs that are adjusted to support high volume low value verbose logs.
+	TablePlanEnumBasic TablePlanEnum = "Basic"
+)
+
+// PossibleTablePlanEnumValues returns the possible values for the TablePlanEnum const type.
+func PossibleTablePlanEnumValues() []TablePlanEnum {
+	return []TablePlanEnum{
+		TablePlanEnumAnalytics,
+		TablePlanEnumBasic,
+	}
+}
+
+// TableSubTypeEnum - The subtype describes what APIs can be used to interact with the table, and what features are available
+// against it.
+type TableSubTypeEnum string
+
+const (
+	// TableSubTypeEnumAny - The default subtype with which built-in tables are created.
+	TableSubTypeEnumAny TableSubTypeEnum = "Any"
+	// TableSubTypeEnumClassic - Indicates a table created through the Data Collector API or with the custom logs feature of the
+	// MMA agent, or any table against which Custom Fields were created.
+	TableSubTypeEnumClassic TableSubTypeEnum = "Classic"
+	// TableSubTypeEnumDataCollectionRuleBased - A table eligible to have data sent into it via any of the means supported by
+	// Data Collection Rules: the Data Collection Endpoint API, ingestion-time transformations, or any other mechanism provided
+	// by Data Collection Rules
+	TableSubTypeEnumDataCollectionRuleBased TableSubTypeEnum = "DataCollectionRuleBased"
+)
+
+// PossibleTableSubTypeEnumValues returns the possible values for the TableSubTypeEnum const type.
+func PossibleTableSubTypeEnumValues() []TableSubTypeEnum {
+	return []TableSubTypeEnum{
+		TableSubTypeEnumAny,
+		TableSubTypeEnumClassic,
+		TableSubTypeEnumDataCollectionRuleBased,
+	}
+}
+
+// TableTypeEnum - Table's creator.
+type TableTypeEnum string
+
+const (
+	// TableTypeEnumCustomLog - Custom log table.
+	TableTypeEnumCustomLog TableTypeEnum = "CustomLog"
+	// TableTypeEnumMicrosoft - Standard data collected by Azure Monitor.
+	TableTypeEnumMicrosoft TableTypeEnum = "Microsoft"
+	// TableTypeEnumRestoredLogs - Restored data.
+	TableTypeEnumRestoredLogs TableTypeEnum = "RestoredLogs"
+	// TableTypeEnumSearchResults - Data collected by a search job.
+	TableTypeEnumSearchResults TableTypeEnum = "SearchResults"
+)
+
+// PossibleTableTypeEnumValues returns the possible values for the TableTypeEnum const type.
+func PossibleTableTypeEnumValues() []TableTypeEnum {
+	return []TableTypeEnum{
+		TableTypeEnumCustomLog,
+		TableTypeEnumMicrosoft,
+		TableTypeEnumRestoredLogs,
+		TableTypeEnumSearchResults,
 	}
 }
 
