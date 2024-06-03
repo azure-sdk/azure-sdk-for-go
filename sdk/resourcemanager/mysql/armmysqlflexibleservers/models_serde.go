@@ -3089,6 +3089,33 @@ func (s *ServerBackupV2ListResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ServerDetachVNetParameter.
+func (s ServerDetachVNetParameter) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ServerDetachVNetParameter.
+func (s *ServerDetachVNetParameter) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "publicNetworkAccess":
+			err = unpopulate(val, "PublicNetworkAccess", &s.PublicNetworkAccess)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ServerEditionCapability.
 func (s ServerEditionCapability) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -3518,6 +3545,7 @@ func (s Storage) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "autoIoScaling", s.AutoIoScaling)
 	populate(objectMap, "iops", s.Iops)
 	populate(objectMap, "logOnDisk", s.LogOnDisk)
+	populate(objectMap, "storageRedundancy", s.StorageRedundancy)
 	populate(objectMap, "storageSku", s.StorageSKU)
 	populate(objectMap, "storageSizeGB", s.StorageSizeGB)
 	return json.Marshal(objectMap)
@@ -3543,6 +3571,9 @@ func (s *Storage) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "logOnDisk":
 			err = unpopulate(val, "LogOnDisk", &s.LogOnDisk)
+			delete(rawMsg, key)
+		case "storageRedundancy":
+			err = unpopulate(val, "StorageRedundancy", &s.StorageRedundancy)
 			delete(rawMsg, key)
 		case "storageSku":
 			err = unpopulate(val, "StorageSKU", &s.StorageSKU)
