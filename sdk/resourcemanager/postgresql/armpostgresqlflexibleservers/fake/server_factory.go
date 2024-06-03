@@ -42,6 +42,8 @@ type ServerFactory struct {
 	ServerCapabilitiesServer                ServerCapabilitiesServer
 	ServerThreatProtectionSettingsServer    ServerThreatProtectionSettingsServer
 	ServersServer                           ServersServer
+	TuningOptionsServer                     TuningOptionsServer
+	TuningRecommendedIndexesServer          TuningRecommendedIndexesServer
 	VirtualEndpointsServer                  VirtualEndpointsServer
 	VirtualNetworkSubnetUsageServer         VirtualNetworkSubnetUsageServer
 }
@@ -83,6 +85,8 @@ type ServerFactoryTransport struct {
 	trServerCapabilitiesServer                *ServerCapabilitiesServerTransport
 	trServerThreatProtectionSettingsServer    *ServerThreatProtectionSettingsServerTransport
 	trServersServer                           *ServersServerTransport
+	trTuningOptionsServer                     *TuningOptionsServerTransport
+	trTuningRecommendedIndexesServer          *TuningRecommendedIndexesServerTransport
 	trVirtualEndpointsServer                  *VirtualEndpointsServerTransport
 	trVirtualNetworkSubnetUsageServer         *VirtualNetworkSubnetUsageServerTransport
 }
@@ -199,6 +203,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ServersClient":
 		initServer(s, &s.trServersServer, func() *ServersServerTransport { return NewServersServerTransport(&s.srv.ServersServer) })
 		resp, err = s.trServersServer.Do(req)
+	case "TuningOptionsClient":
+		initServer(s, &s.trTuningOptionsServer, func() *TuningOptionsServerTransport {
+			return NewTuningOptionsServerTransport(&s.srv.TuningOptionsServer)
+		})
+		resp, err = s.trTuningOptionsServer.Do(req)
+	case "TuningRecommendedIndexesClient":
+		initServer(s, &s.trTuningRecommendedIndexesServer, func() *TuningRecommendedIndexesServerTransport {
+			return NewTuningRecommendedIndexesServerTransport(&s.srv.TuningRecommendedIndexesServer)
+		})
+		resp, err = s.trTuningRecommendedIndexesServer.Do(req)
 	case "VirtualEndpointsClient":
 		initServer(s, &s.trVirtualEndpointsServer, func() *VirtualEndpointsServerTransport {
 			return NewVirtualEndpointsServerTransport(&s.srv.VirtualEndpointsServer)

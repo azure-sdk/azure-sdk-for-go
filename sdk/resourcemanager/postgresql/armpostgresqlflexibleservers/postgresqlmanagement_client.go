@@ -43,7 +43,7 @@ func NewPostgreSQLManagementClient(credential azcore.TokenCredential, options *a
 // CheckMigrationNameAvailability - This method checks whether a proposed migration name is valid and available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01-preview
+// Generated from API version 2024-03-01-privatepreview
 //   - subscriptionID - The subscription ID of the target database server.
 //   - resourceGroupName - The resource group name of the target database server.
 //   - targetDbServerName - The name of the target database server.
@@ -92,7 +92,7 @@ func (client *PostgreSQLManagementClient) checkMigrationNameAvailabilityCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01-preview")
+	reqQP.Set("api-version", "2024-03-01-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -106,6 +106,203 @@ func (client *PostgreSQLManagementClient) checkMigrationNameAvailabilityHandleRe
 	result := PostgreSQLManagementClientCheckMigrationNameAvailabilityResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.MigrationNameAvailabilityResource); err != nil {
 		return PostgreSQLManagementClientCheckMigrationNameAvailabilityResponse{}, err
+	}
+	return result, nil
+}
+
+// GetAutoMigrationFreeSlots - This method gets the available slots for auto migration for a given single server resource
+// id
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-03-01-privatepreview
+//   - subscriptionID - The subscription ID of the target database server.
+//   - locationName - The name of the location.
+//   - migrationScheduleTimeRange - The required parameters for getting available/free slots for auto migration.
+//   - options - PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions contains the optional parameters for the PostgreSQLManagementClient.GetAutoMigrationFreeSlots
+//     method.
+func (client *PostgreSQLManagementClient) GetAutoMigrationFreeSlots(ctx context.Context, subscriptionID string, locationName string, migrationScheduleTimeRange AutoMigrationScheduleTimeRange, options *PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions) (PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse, error) {
+	var err error
+	const operationName = "PostgreSQLManagementClient.GetAutoMigrationFreeSlots"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getAutoMigrationFreeSlotsCreateRequest(ctx, subscriptionID, locationName, migrationScheduleTimeRange, options)
+	if err != nil {
+		return PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse{}, err
+	}
+	resp, err := client.getAutoMigrationFreeSlotsHandleResponse(httpResp)
+	return resp, err
+}
+
+// getAutoMigrationFreeSlotsCreateRequest creates the GetAutoMigrationFreeSlots request.
+func (client *PostgreSQLManagementClient) getAutoMigrationFreeSlotsCreateRequest(ctx context.Context, subscriptionID string, locationName string, migrationScheduleTimeRange AutoMigrationScheduleTimeRange, options *PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/locations/{locationName}/getAutoMigrationFreeSlots"
+	if subscriptionID == "" {
+		return nil, errors.New("parameter subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(subscriptionID))
+	if locationName == "" {
+		return nil, errors.New("parameter locationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{locationName}", url.PathEscape(locationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-03-01-privatepreview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, migrationScheduleTimeRange); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// getAutoMigrationFreeSlotsHandleResponse handles the GetAutoMigrationFreeSlots response.
+func (client *PostgreSQLManagementClient) getAutoMigrationFreeSlotsHandleResponse(resp *http.Response) (PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse, error) {
+	result := PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FreeSlotsResult); err != nil {
+		return PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse{}, err
+	}
+	return result, nil
+}
+
+// GetLatestAutoMigrationSchedule - This method gets the latest auto migration schedule for a given single server resource
+// id
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-03-01-privatepreview
+//   - subscriptionID - The subscription ID of the target database server.
+//   - locationName - The name of the location.
+//   - migrationScheduleResource - The required parameters for getting latest auto migration schedule.
+//   - options - PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions contains the optional parameters for the PostgreSQLManagementClient.GetLatestAutoMigrationSchedule
+//     method.
+func (client *PostgreSQLManagementClient) GetLatestAutoMigrationSchedule(ctx context.Context, subscriptionID string, locationName string, migrationScheduleResource AutoMigrationScheduleResource, options *PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions) (PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse, error) {
+	var err error
+	const operationName = "PostgreSQLManagementClient.GetLatestAutoMigrationSchedule"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getLatestAutoMigrationScheduleCreateRequest(ctx, subscriptionID, locationName, migrationScheduleResource, options)
+	if err != nil {
+		return PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse{}, err
+	}
+	resp, err := client.getLatestAutoMigrationScheduleHandleResponse(httpResp)
+	return resp, err
+}
+
+// getLatestAutoMigrationScheduleCreateRequest creates the GetLatestAutoMigrationSchedule request.
+func (client *PostgreSQLManagementClient) getLatestAutoMigrationScheduleCreateRequest(ctx context.Context, subscriptionID string, locationName string, migrationScheduleResource AutoMigrationScheduleResource, options *PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/locations/{locationName}/getLatestAutoMigrationSchedule"
+	if subscriptionID == "" {
+		return nil, errors.New("parameter subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(subscriptionID))
+	if locationName == "" {
+		return nil, errors.New("parameter locationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{locationName}", url.PathEscape(locationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-03-01-privatepreview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, migrationScheduleResource); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// getLatestAutoMigrationScheduleHandleResponse handles the GetLatestAutoMigrationSchedule response.
+func (client *PostgreSQLManagementClient) getLatestAutoMigrationScheduleHandleResponse(resp *http.Response) (PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse, error) {
+	result := PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AutoMigrationScheduleResource); err != nil {
+		return PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse{}, err
+	}
+	return result, nil
+}
+
+// UpdateAutoMigrationSchedule - This method updates the auto migration schedule for a given single server resource id
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-03-01-privatepreview
+//   - subscriptionID - The subscription ID of the target database server.
+//   - locationName - The name of the location.
+//   - migrationScheduleResource - The required parameters for getting latest auto migration schedule.
+//   - options - PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions contains the optional parameters for the PostgreSQLManagementClient.UpdateAutoMigrationSchedule
+//     method.
+func (client *PostgreSQLManagementClient) UpdateAutoMigrationSchedule(ctx context.Context, subscriptionID string, locationName string, migrationScheduleResource AutoMigrationScheduleResource, options *PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions) (PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse, error) {
+	var err error
+	const operationName = "PostgreSQLManagementClient.UpdateAutoMigrationSchedule"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.updateAutoMigrationScheduleCreateRequest(ctx, subscriptionID, locationName, migrationScheduleResource, options)
+	if err != nil {
+		return PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse{}, err
+	}
+	resp, err := client.updateAutoMigrationScheduleHandleResponse(httpResp)
+	return resp, err
+}
+
+// updateAutoMigrationScheduleCreateRequest creates the UpdateAutoMigrationSchedule request.
+func (client *PostgreSQLManagementClient) updateAutoMigrationScheduleCreateRequest(ctx context.Context, subscriptionID string, locationName string, migrationScheduleResource AutoMigrationScheduleResource, options *PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/locations/{locationName}/updateAutoMigrationSchedule"
+	if subscriptionID == "" {
+		return nil, errors.New("parameter subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(subscriptionID))
+	if locationName == "" {
+		return nil, errors.New("parameter locationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{locationName}", url.PathEscape(locationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-03-01-privatepreview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, migrationScheduleResource); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// updateAutoMigrationScheduleHandleResponse handles the UpdateAutoMigrationSchedule response.
+func (client *PostgreSQLManagementClient) updateAutoMigrationScheduleHandleResponse(resp *http.Response) (PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse, error) {
+	result := PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AutoMigrationScheduleResource); err != nil {
+		return PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse{}, err
 	}
 	return result, nil
 }

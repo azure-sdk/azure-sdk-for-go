@@ -31,6 +31,18 @@ type AdministratorsClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BackupsClientBeginCreateOptions contains the optional parameters for the BackupsClient.BeginCreate method.
+type BackupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BackupsClientBeginDeleteOptions contains the optional parameters for the BackupsClient.BeginDelete method.
+type BackupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
 type BackupsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -201,6 +213,24 @@ type PostgreSQLManagementClientCheckMigrationNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions contains the optional parameters for the PostgreSQLManagementClient.GetAutoMigrationFreeSlots
+// method.
+type PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions contains the optional parameters for the PostgreSQLManagementClient.GetLatestAutoMigrationSchedule
+// method.
+type PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions contains the optional parameters for the PostgreSQLManagementClient.UpdateAutoMigrationSchedule
+// method.
+type PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PrivateEndpointConnectionClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionClient.BeginDelete
 // method.
 type PrivateEndpointConnectionClientBeginDeleteOptions struct {
@@ -325,6 +355,22 @@ type ServersClientListByResourceGroupOptions struct {
 // ServersClientListOptions contains the optional parameters for the ServersClient.NewListPager method.
 type ServersClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientGetOptions contains the optional parameters for the TuningOptionsClient.Get method.
+type TuningOptionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientListByServerOptions contains the optional parameters for the TuningOptionsClient.ListByServer method.
+type TuningOptionsClientListByServerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TuningRecommendedIndexesClientGetOptions contains the optional parameters for the TuningRecommendedIndexesClient.Get method.
+type TuningRecommendedIndexesClientGetOptions struct {
+	// Optional client query parameter which defines the recommendations types to be returned.
+	RecommendationType *RecommendationType
 }
 
 // VirtualEndpointsClientBeginCreateOptions contains the optional parameters for the VirtualEndpointsClient.BeginCreate method.

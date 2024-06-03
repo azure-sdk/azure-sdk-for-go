@@ -26,6 +26,18 @@ type PostgreSQLManagementServer struct {
 	// CheckMigrationNameAvailability is the fake for method PostgreSQLManagementClient.CheckMigrationNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
 	CheckMigrationNameAvailability func(ctx context.Context, subscriptionID string, resourceGroupName string, targetDbServerName string, parameters armpostgresqlflexibleservers.MigrationNameAvailabilityResource, options *armpostgresqlflexibleservers.PostgreSQLManagementClientCheckMigrationNameAvailabilityOptions) (resp azfake.Responder[armpostgresqlflexibleservers.PostgreSQLManagementClientCheckMigrationNameAvailabilityResponse], errResp azfake.ErrorResponder)
+
+	// GetAutoMigrationFreeSlots is the fake for method PostgreSQLManagementClient.GetAutoMigrationFreeSlots
+	// HTTP status codes to indicate success: http.StatusOK
+	GetAutoMigrationFreeSlots func(ctx context.Context, subscriptionID string, locationName string, migrationScheduleTimeRange armpostgresqlflexibleservers.AutoMigrationScheduleTimeRange, options *armpostgresqlflexibleservers.PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions) (resp azfake.Responder[armpostgresqlflexibleservers.PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse], errResp azfake.ErrorResponder)
+
+	// GetLatestAutoMigrationSchedule is the fake for method PostgreSQLManagementClient.GetLatestAutoMigrationSchedule
+	// HTTP status codes to indicate success: http.StatusOK
+	GetLatestAutoMigrationSchedule func(ctx context.Context, subscriptionID string, locationName string, migrationScheduleResource armpostgresqlflexibleservers.AutoMigrationScheduleResource, options *armpostgresqlflexibleservers.PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions) (resp azfake.Responder[armpostgresqlflexibleservers.PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse], errResp azfake.ErrorResponder)
+
+	// UpdateAutoMigrationSchedule is the fake for method PostgreSQLManagementClient.UpdateAutoMigrationSchedule
+	// HTTP status codes to indicate success: http.StatusOK
+	UpdateAutoMigrationSchedule func(ctx context.Context, subscriptionID string, locationName string, migrationScheduleResource armpostgresqlflexibleservers.AutoMigrationScheduleResource, options *armpostgresqlflexibleservers.PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions) (resp azfake.Responder[armpostgresqlflexibleservers.PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPostgreSQLManagementServerTransport creates a new instance of PostgreSQLManagementServerTransport with the provided implementation.
@@ -55,6 +67,12 @@ func (p *PostgreSQLManagementServerTransport) Do(req *http.Request) (*http.Respo
 	switch method {
 	case "PostgreSQLManagementClient.CheckMigrationNameAvailability":
 		resp, err = p.dispatchCheckMigrationNameAvailability(req)
+	case "PostgreSQLManagementClient.GetAutoMigrationFreeSlots":
+		resp, err = p.dispatchGetAutoMigrationFreeSlots(req)
+	case "PostgreSQLManagementClient.GetLatestAutoMigrationSchedule":
+		resp, err = p.dispatchGetLatestAutoMigrationSchedule(req)
+	case "PostgreSQLManagementClient.UpdateAutoMigrationSchedule":
+		resp, err = p.dispatchUpdateAutoMigrationSchedule(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -101,6 +119,117 @@ func (p *PostgreSQLManagementServerTransport) dispatchCheckMigrationNameAvailabi
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MigrationNameAvailabilityResource, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PostgreSQLManagementServerTransport) dispatchGetAutoMigrationFreeSlots(req *http.Request) (*http.Response, error) {
+	if p.srv.GetAutoMigrationFreeSlots == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetAutoMigrationFreeSlots not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getAutoMigrationFreeSlots`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armpostgresqlflexibleservers.AutoMigrationScheduleTimeRange](req)
+	if err != nil {
+		return nil, err
+	}
+	subscriptionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("subscriptionId")])
+	if err != nil {
+		return nil, err
+	}
+	locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetAutoMigrationFreeSlots(req.Context(), subscriptionIDParam, locationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).FreeSlotsResult, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PostgreSQLManagementServerTransport) dispatchGetLatestAutoMigrationSchedule(req *http.Request) (*http.Response, error) {
+	if p.srv.GetLatestAutoMigrationSchedule == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetLatestAutoMigrationSchedule not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getLatestAutoMigrationSchedule`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armpostgresqlflexibleservers.AutoMigrationScheduleResource](req)
+	if err != nil {
+		return nil, err
+	}
+	subscriptionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("subscriptionId")])
+	if err != nil {
+		return nil, err
+	}
+	locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetLatestAutoMigrationSchedule(req.Context(), subscriptionIDParam, locationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AutoMigrationScheduleResource, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PostgreSQLManagementServerTransport) dispatchUpdateAutoMigrationSchedule(req *http.Request) (*http.Response, error) {
+	if p.srv.UpdateAutoMigrationSchedule == nil {
+		return nil, &nonRetriableError{errors.New("fake for method UpdateAutoMigrationSchedule not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DBforPostgreSQL/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/updateAutoMigrationSchedule`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armpostgresqlflexibleservers.AutoMigrationScheduleResource](req)
+	if err != nil {
+		return nil, err
+	}
+	subscriptionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("subscriptionId")])
+	if err != nil {
+		return nil, err
+	}
+	locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.UpdateAutoMigrationSchedule(req.Context(), subscriptionIDParam, locationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AutoMigrationScheduleResource, req)
 	if err != nil {
 		return nil, err
 	}

@@ -10,7 +10,7 @@ package armpostgresqlflexibleservers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresqlflexibleservers"
-	moduleVersion = "v4.0.0-beta.5"
+	moduleVersion = "v4.0.0-beta.6"
 )
 
 // ActiveDirectoryAuthEnum - If Enabled, Azure Active Directory authentication is enabled.
@@ -598,12 +598,14 @@ func PossibleOperationOriginValues() []OperationOrigin {
 type Origin string
 
 const (
-	OriginFull Origin = "Full"
+	OriginCustomerOnDemand Origin = "Customer On-Demand"
+	OriginFull             Origin = "Full"
 )
 
 // PossibleOriginValues returns the possible values for the Origin const type.
 func PossibleOriginValues() []Origin {
 	return []Origin{
+		OriginCustomerOnDemand,
 		OriginFull,
 	}
 }
@@ -713,6 +715,21 @@ func PossibleReadReplicaPromoteModeValues() []ReadReplicaPromoteMode {
 	return []ReadReplicaPromoteMode{
 		ReadReplicaPromoteModeStandalone,
 		ReadReplicaPromoteModeSwitchover,
+	}
+}
+
+type RecommendationType string
+
+const (
+	RecommendationTypeCreateIndex RecommendationType = "CreateIndex"
+	RecommendationTypeDropIndex   RecommendationType = "DropIndex"
+)
+
+// PossibleRecommendationTypeValues returns the possible values for the RecommendationType const type.
+func PossibleRecommendationTypeValues() []RecommendationType {
+	return []RecommendationType{
+		RecommendationTypeCreateIndex,
+		RecommendationTypeDropIndex,
 	}
 }
 
@@ -830,6 +847,26 @@ func PossibleSSLModeValues() []SSLMode {
 		SSLModeRequire,
 		SSLModeVerifyCA,
 		SSLModeVerifyFull,
+	}
+}
+
+// ScheduleState - The automigration schedule state.
+type ScheduleState string
+
+const (
+	ScheduleStateCanceled   ScheduleState = "Canceled"
+	ScheduleStateFailed     ScheduleState = "Failed"
+	ScheduleStateInProgress ScheduleState = "InProgress"
+	ScheduleStateSucceeded  ScheduleState = "Succeeded"
+)
+
+// PossibleScheduleStateValues returns the possible values for the ScheduleState const type.
+func PossibleScheduleStateValues() []ScheduleState {
+	return []ScheduleState{
+		ScheduleStateCanceled,
+		ScheduleStateFailed,
+		ScheduleStateInProgress,
+		ScheduleStateSucceeded,
 	}
 }
 

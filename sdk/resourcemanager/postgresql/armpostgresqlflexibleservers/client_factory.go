@@ -216,6 +216,22 @@ func (c *ClientFactory) NewServersClient() *ServersClient {
 	}
 }
 
+// NewTuningOptionsClient creates a new instance of TuningOptionsClient.
+func (c *ClientFactory) NewTuningOptionsClient() *TuningOptionsClient {
+	return &TuningOptionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewTuningRecommendedIndexesClient creates a new instance of TuningRecommendedIndexesClient.
+func (c *ClientFactory) NewTuningRecommendedIndexesClient() *TuningRecommendedIndexesClient {
+	return &TuningRecommendedIndexesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewVirtualEndpointsClient creates a new instance of VirtualEndpointsClient.
 func (c *ClientFactory) NewVirtualEndpointsClient() *VirtualEndpointsClient {
 	return &VirtualEndpointsClient{
