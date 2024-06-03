@@ -31,6 +31,17 @@ type AdministratorsClientListByServerResponse struct {
 	AdministratorListResult
 }
 
+// BackupsClientCreateResponse contains the response from method BackupsClient.BeginCreate.
+type BackupsClientCreateResponse struct {
+	// Server backup properties
+	ServerBackup
+}
+
+// BackupsClientDeleteResponse contains the response from method BackupsClient.BeginDelete.
+type BackupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // BackupsClientGetResponse contains the response from method BackupsClient.Get.
 type BackupsClientGetResponse struct {
 	// Server backup properties
@@ -211,6 +222,24 @@ type PostgreSQLManagementClientCheckMigrationNameAvailabilityResponse struct {
 	MigrationNameAvailabilityResource
 }
 
+// PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse contains the response from method PostgreSQLManagementClient.GetAutoMigrationFreeSlots.
+type PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse struct {
+	// Capability for the PostgreSQL server
+	FreeSlotsResult
+}
+
+// PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse contains the response from method PostgreSQLManagementClient.GetLatestAutoMigrationSchedule.
+type PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse struct {
+	// The schedule details containing source server details to fetch the latest schedule for.
+	AutoMigrationScheduleResource
+}
+
+// PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse contains the response from method PostgreSQLManagementClient.UpdateAutoMigrationSchedule.
+type PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse struct {
+	// The schedule details containing source server details to fetch the latest schedule for.
+	AutoMigrationScheduleResource
+}
+
 // PrivateEndpointConnectionClientDeleteResponse contains the response from method PrivateEndpointConnectionClient.BeginDelete.
 type PrivateEndpointConnectionClientDeleteResponse struct {
 	// placeholder for future response values
@@ -330,6 +359,24 @@ type ServersClientStopResponse struct {
 type ServersClientUpdateResponse struct {
 	// Represents a server.
 	Server
+}
+
+// TuningOptionsClientGetResponse contains the response from method TuningOptionsClient.Get.
+type TuningOptionsClientGetResponse struct {
+	// Stores property that features impact on some metric if this recommended action is applied.
+	TuningOptionsResource
+}
+
+// TuningOptionsClientListByServerResponse contains the response from method TuningOptionsClient.ListByServer.
+type TuningOptionsClientListByServerResponse struct {
+	// A list of available tuning options.
+	TuningOptionsListResult
+}
+
+// TuningRecommendedIndexesClientGetResponse contains the response from method TuningRecommendedIndexesClient.Get.
+type TuningRecommendedIndexesClientGetResponse struct {
+	// A list of available index recommendations.
+	IndexRecommendationListResult
 }
 
 // VirtualEndpointsClientCreateResponse contains the response from method VirtualEndpointsClient.BeginCreate.

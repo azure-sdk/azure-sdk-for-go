@@ -91,6 +91,39 @@ type AuthConfig struct {
 	TenantID *string
 }
 
+// AutoMigrationScheduleResource - The schedule details containing source server details to fetch the latest schedule for.
+type AutoMigrationScheduleResource struct {
+	// The auto migration schedule end time in UTC.
+	AutoMigrationEndTimeInUTC *time.Time
+
+	// The schedule create time in UTC
+	AutoMigrationScheduleCreateTimeInUTC *time.Time
+
+	// The auto migration schedule start time in UTC.
+	AutoMigrationStartTimeInUTC *time.Time
+
+	// The migration name if the migration has started.
+	MigrationName *string
+
+	// The automigration schedule id
+	ScheduleID *string
+
+	// The automigration schedule state.
+	ScheduleState *ScheduleState
+
+	// The Resource ID for the single server
+	SourceDbServerResourceID *string
+}
+
+// AutoMigrationScheduleTimeRange - The time range between which the slots are required for.
+type AutoMigrationScheduleTimeRange struct {
+	// End time in UTC for migration window
+	EndTimeInUTC *time.Time
+
+	// Start time in UTC for migration window
+	StartTimeInUTC *time.Time
+}
+
 // Backup properties of a server
 type Backup struct {
 	// Backup retention days for the server.
@@ -425,6 +458,11 @@ type FlexibleServerCapability struct {
 	// for geo-back is not supported.
 	GeoBackupSupported *GeoBackupSupportedEnum
 
+	// READ-ONLY; A value indicating whether in this region for the given subscription or server sku/version/replica-role has
+	// index tuning supported. "Enabled" means index tuning is supported. "Disabled" stands for
+	// index tuning is not supported.
+	IndexTuningSupported *FastProvisioningSupportedEnum
+
 	// READ-ONLY; A value indicating whether online resize is supported in this region for the given subscription. "Enabled" means
 	// storage online resize is supported. "Disabled" means storage online resize is not
 	// supported.
@@ -484,6 +522,15 @@ type FlexibleServerEditionCapability struct {
 	SupportedStorageEditions []*StorageEditionCapability
 }
 
+// FreeSlotsResult - Capability for the PostgreSQL server
+type FreeSlotsResult struct {
+	// READ-ONLY; Date where there are slots available
+	SlotDate *time.Time
+
+	// READ-ONLY; A list of available/free slots.
+	TimeSlots []*AutoMigrationScheduleTimeRange
+}
+
 // HighAvailability - High availability properties of a server
 type HighAvailability struct {
 	// The HA mode for the server.
@@ -494,6 +541,114 @@ type HighAvailability struct {
 
 	// READ-ONLY; A state of a HA server that is visible to user.
 	State *ServerHAState
+}
+
+// ImpactRecord - Stores property that features impact on some metric if this recommended action is applied.
+type ImpactRecord struct {
+	// Absolute value
+	AbsoluteValue *float64
+
+	// Dimension name
+	DimensionName *string
+
+	// Optional property that can be used to store the QueryId if the metric is for a specific query.
+	QueryID *int64
+
+	// Dimension unit
+	Unit *string
+}
+
+// ImplementationInfo - The implementation details for the recommended action.
+type ImplementationInfo struct {
+	// Method of implementation for recommended action
+	Method *string
+
+	// Implementation script for the recommended action
+	Script *string
+}
+
+// IndexRecommendationDetails - Recommendation details for the recommended action.
+type IndexRecommendationDetails struct {
+	// Database name.
+	DatabaseName *string
+
+	// Index included columns.
+	IncludedColumns *string
+
+	// Index columns.
+	IndexColumns *string
+
+	// Index name.
+	IndexName *string
+
+	// Index type.
+	IndexType *string
+
+	// Schema name.
+	Schema *string
+
+	// Table name.
+	Table *string
+}
+
+// IndexRecommendationListResult - A list of available index recommendations.
+type IndexRecommendationListResult struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of available operation details
+	Value []*IndexRecommendationResource
+}
+
+// IndexRecommendationResource - Index recommendation properties.
+type IndexRecommendationResource struct {
+	// Workload details for the recommended action
+	AnalyzedWorkload *IndexRecommendationResourceAnalyzedWorkload
+
+	// Specific details of this recommended action
+	Details *IndexRecommendationResourceDetails
+
+	// Implementation details for the recommended action
+	ImplementationDetails *IndexRecommendationResourceImplementationDetails
+
+	// The ImprovedQueryIds. The list will only be populated for CREATE INDEX recommendations.
+	ImprovedQueryIDs []*int64
+
+	// Creation time of this recommendation.
+	InitialRecommendedTime *time.Time
+
+	// The last refresh of this recommendation.
+	LastRecommendedTime *time.Time
+
+	// Reason for this recommendation.
+	RecommendationReason *string
+
+	// Type for this recommendation.
+	RecommendationType *string
+
+	// The number of times this recommendation has encountered.
+	TimesRecommended *int32
+
+	// READ-ONLY; The estimated impact of this recommended action
+	EstimatedImpact []*ImpactRecord
+}
+
+// IndexRecommendationResourceAnalyzedWorkload - Workload details for the recommended action
+type IndexRecommendationResourceAnalyzedWorkload struct {
+	// Stores workload information for the recommended action.
+	Properties *WorkloadExaminedInformation
+}
+
+// IndexRecommendationResourceDetails - Specific details of this recommended action
+type IndexRecommendationResourceDetails struct {
+	// Stores recommendation details for the recommended action.
+	Properties *IndexRecommendationDetails
+}
+
+// IndexRecommendationResourceImplementationDetails - Implementation details for the recommended action
+type IndexRecommendationResourceImplementationDetails struct {
+	// Stores implementation details for the recommended action.
+	Properties *ImplementationInfo
 }
 
 // LogFile - Represents a logFile.
@@ -1530,6 +1685,27 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TuningOptionsListResult - A list of available tuning options.
+type TuningOptionsListResult struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// Collection of available tuning options.
+	Value []*TuningOptionsResource
+}
+
+// TuningOptionsResource - Stores property that features impact on some metric if this recommended action is applied.
+type TuningOptionsResource struct {
+	// Resource id.
+	ID *string
+
+	// The name of the tuning option.
+	Name *string
+
+	// Tuning options type.
+	Type *string
+}
+
 // UserAssignedIdentity - Information describing the identities associated with this application.
 type UserAssignedIdentity struct {
 	// REQUIRED; the types of identities associated with this resource; currently restricted to 'None and UserAssigned'
@@ -1651,4 +1827,16 @@ type VirtualNetworkSubnetUsageResult struct {
 
 	// READ-ONLY; subscriptionId of the delegated subnet usage
 	SubscriptionID *string
+}
+
+// WorkloadExaminedInformation - The workload information for the recommended action.
+type WorkloadExaminedInformation struct {
+	// Workload end time.
+	EndTime *time.Time
+
+	// Workload query examined count. For DROP INDEX will be 0.
+	QueryCount *int32
+
+	// Workload start time.
+	StartTime *time.Time
 }

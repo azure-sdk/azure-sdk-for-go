@@ -1,5 +1,40 @@
 # Release History
 
+## 4.0.0-beta.6 (2024-06-03)
+### Features Added
+
+- New value `OriginCustomerOnDemand` added to enum type `Origin`
+- New enum type `RecommendationType` with values `RecommendationTypeCreateIndex`, `RecommendationTypeDropIndex`
+- New enum type `ScheduleState` with values `ScheduleStateCanceled`, `ScheduleStateFailed`, `ScheduleStateInProgress`, `ScheduleStateSucceeded`
+- New function `*BackupsClient.BeginCreate(context.Context, string, string, string, *BackupsClientBeginCreateOptions) (*runtime.Poller[BackupsClientCreateResponse], error)`
+- New function `*BackupsClient.BeginDelete(context.Context, string, string, string, *BackupsClientBeginDeleteOptions) (*runtime.Poller[BackupsClientDeleteResponse], error)`
+- New function `*ClientFactory.NewTuningOptionsClient() *TuningOptionsClient`
+- New function `*ClientFactory.NewTuningRecommendedIndexesClient() *TuningRecommendedIndexesClient`
+- New function `*PostgreSQLManagementClient.GetAutoMigrationFreeSlots(context.Context, string, string, AutoMigrationScheduleTimeRange, *PostgreSQLManagementClientGetAutoMigrationFreeSlotsOptions) (PostgreSQLManagementClientGetAutoMigrationFreeSlotsResponse, error)`
+- New function `*PostgreSQLManagementClient.GetLatestAutoMigrationSchedule(context.Context, string, string, AutoMigrationScheduleResource, *PostgreSQLManagementClientGetLatestAutoMigrationScheduleOptions) (PostgreSQLManagementClientGetLatestAutoMigrationScheduleResponse, error)`
+- New function `*PostgreSQLManagementClient.UpdateAutoMigrationSchedule(context.Context, string, string, AutoMigrationScheduleResource, *PostgreSQLManagementClientUpdateAutoMigrationScheduleOptions) (PostgreSQLManagementClientUpdateAutoMigrationScheduleResponse, error)`
+- New function `NewTuningOptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TuningOptionsClient, error)`
+- New function `*TuningOptionsClient.Get(context.Context, string, string, string, *TuningOptionsClientGetOptions) (TuningOptionsClientGetResponse, error)`
+- New function `*TuningOptionsClient.ListByServer(context.Context, string, string, *TuningOptionsClientListByServerOptions) (TuningOptionsClientListByServerResponse, error)`
+- New function `NewTuningRecommendedIndexesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TuningRecommendedIndexesClient, error)`
+- New function `*TuningRecommendedIndexesClient.Get(context.Context, string, string, string, *TuningRecommendedIndexesClientGetOptions) (TuningRecommendedIndexesClientGetResponse, error)`
+- New struct `AutoMigrationScheduleResource`
+- New struct `AutoMigrationScheduleTimeRange`
+- New struct `FreeSlotsResult`
+- New struct `ImpactRecord`
+- New struct `ImplementationInfo`
+- New struct `IndexRecommendationDetails`
+- New struct `IndexRecommendationListResult`
+- New struct `IndexRecommendationResource`
+- New struct `IndexRecommendationResourceAnalyzedWorkload`
+- New struct `IndexRecommendationResourceDetails`
+- New struct `IndexRecommendationResourceImplementationDetails`
+- New struct `TuningOptionsListResult`
+- New struct `TuningOptionsResource`
+- New struct `WorkloadExaminedInformation`
+- New field `IndexTuningSupported` in struct `FlexibleServerCapability`
+
+
 ## 4.0.0-beta.5 (2024-04-26)
 ### Features Added
 
