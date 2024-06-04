@@ -25,7 +25,8 @@ type APIDefinitionsClientBeginImportSpecificationOptions struct {
 // APIDefinitionsClientCreateOrUpdateOptions contains the optional parameters for the APIDefinitionsClient.CreateOrUpdate
 // method.
 type APIDefinitionsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // APIDefinitionsClientDeleteOptions contains the optional parameters for the APIDefinitionsClient.Delete method.
@@ -51,7 +52,8 @@ type APIDefinitionsClientListOptions struct {
 
 // APIVersionsClientCreateOrUpdateOptions contains the optional parameters for the APIVersionsClient.CreateOrUpdate method.
 type APIVersionsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // APIVersionsClientDeleteOptions contains the optional parameters for the APIVersionsClient.Delete method.
@@ -77,7 +79,8 @@ type APIVersionsClientListOptions struct {
 
 // ApisClientCreateOrUpdateOptions contains the optional parameters for the ApisClient.CreateOrUpdate method.
 type ApisClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // ApisClientDeleteOptions contains the optional parameters for the ApisClient.Delete method.
@@ -101,9 +104,32 @@ type ApisClientListOptions struct {
 	Filter *string
 }
 
+// DeletedServicesClientDeleteOptions contains the optional parameters for the DeletedServicesClient.Delete method.
+type DeletedServicesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeletedServicesClientGetOptions contains the optional parameters for the DeletedServicesClient.Get method.
+type DeletedServicesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeletedServicesClientListBySubscriptionOptions contains the optional parameters for the DeletedServicesClient.NewListBySubscriptionPager
+// method.
+type DeletedServicesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeletedServicesClientListOptions contains the optional parameters for the DeletedServicesClient.NewListPager method.
+type DeletedServicesClientListOptions struct {
+	// OData filter parameter.
+	Filter *string
+}
+
 // DeploymentsClientCreateOrUpdateOptions contains the optional parameters for the DeploymentsClient.CreateOrUpdate method.
 type DeploymentsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // DeploymentsClientDeleteOptions contains the optional parameters for the DeploymentsClient.Delete method.
@@ -129,7 +155,8 @@ type DeploymentsClientListOptions struct {
 
 // EnvironmentsClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentsClient.CreateOrUpdate method.
 type EnvironmentsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // EnvironmentsClientDeleteOptions contains the optional parameters for the EnvironmentsClient.Delete method.
@@ -156,7 +183,8 @@ type EnvironmentsClientListOptions struct {
 // MetadataSchemasClientCreateOrUpdateOptions contains the optional parameters for the MetadataSchemasClient.CreateOrUpdate
 // method.
 type MetadataSchemasClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // MetadataSchemasClientDeleteOptions contains the optional parameters for the MetadataSchemasClient.Delete method.
@@ -226,7 +254,8 @@ type ServicesClientUpdateOptions struct {
 
 // WorkspacesClientCreateOrUpdateOptions contains the optional parameters for the WorkspacesClient.CreateOrUpdate method.
 type WorkspacesClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
 }
 
 // WorkspacesClientDeleteOptions contains the optional parameters for the WorkspacesClient.Delete method.
