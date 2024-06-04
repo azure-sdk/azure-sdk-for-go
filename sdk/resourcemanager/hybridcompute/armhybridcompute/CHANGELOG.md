@@ -1,5 +1,52 @@
 # Release History
 
+## 2.0.0-beta.3 (2024-06-04)
+### Breaking Changes
+
+- Type of `EsuKey.LicenseStatus` has been changed from `*string` to `*int32`
+
+### Features Added
+
+- New value `LicenseProfileSubscriptionStatusDisabling`, `LicenseProfileSubscriptionStatusFailed` added to enum type `LicenseProfileSubscriptionStatus`
+- New value `PublicNetworkAccessTypeSecuredByPerimeter` added to enum type `PublicNetworkAccessType`
+- New enum type `AccessMode` with values `AccessModeAudit`, `AccessModeEnforced`, `AccessModeLearning`
+- New enum type `AccessRuleDirection` with values `AccessRuleDirectionInbound`, `AccessRuleDirectionOutbound`
+- New enum type `HotpatchEnablementStatus` with values `HotpatchEnablementStatusActionRequired`, `HotpatchEnablementStatusDisabled`, `HotpatchEnablementStatusEnabled`, `HotpatchEnablementStatusPendingEvaluation`, `HotpatchEnablementStatusUnknown`
+- New enum type `ProgramYear` with values `ProgramYearYear1`, `ProgramYearYear2`, `ProgramYearYear3`
+- New enum type `ProvisioningIssueSeverity` with values `ProvisioningIssueSeverityError`, `ProvisioningIssueSeverityWarning`
+- New enum type `ProvisioningIssueType` with values `ProvisioningIssueTypeConfigurationPropagationFailure`, `ProvisioningIssueTypeMissingIdentityConfiguration`, `ProvisioningIssueTypeMissingPerimeterConfiguration`, `ProvisioningIssueTypeOther`
+- New function `*ClientFactory.NewLicensesClient() *LicensesClient`
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `NewLicensesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LicensesClient, error)`
+- New function `*LicensesClient.BeginCreateOrUpdate(context.Context, string, string, License, *LicensesClientBeginCreateOrUpdateOptions) (*runtime.Poller[LicensesClientCreateOrUpdateResponse], error)`
+- New function `*LicensesClient.BeginDelete(context.Context, string, string, *LicensesClientBeginDeleteOptions) (*runtime.Poller[LicensesClientDeleteResponse], error)`
+- New function `*LicensesClient.Get(context.Context, string, string, *LicensesClientGetOptions) (LicensesClientGetResponse, error)`
+- New function `*LicensesClient.NewListByResourceGroupPager(string, *LicensesClientListByResourceGroupOptions) *runtime.Pager[LicensesClientListByResourceGroupResponse]`
+- New function `*LicensesClient.NewListBySubscriptionPager(*LicensesClientListBySubscriptionOptions) *runtime.Pager[LicensesClientListBySubscriptionResponse]`
+- New function `*MachineRunCommandsClient.BeginUpdate(context.Context, string, string, string, MachineRunCommandUpdate, *MachineRunCommandsClientBeginUpdateOptions) (*runtime.Poller[MachineRunCommandsClientUpdateResponse], error)`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.GetByPrivateLinkScope(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeOptions) (NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.NewListByPrivateLinkScopePager(string, string, *NetworkSecurityPerimeterConfigurationsClientListByPrivateLinkScopeOptions) *runtime.Pager[NetworkSecurityPerimeterConfigurationsClientListByPrivateLinkScopeResponse]`
+- New struct `AccessRule`
+- New struct `AccessRuleProperties`
+- New struct `LicensesListResult`
+- New struct `MachineRunCommandUpdate`
+- New struct `NetworkSecurityPerimeter`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationListResult`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `NetworkSecurityPerimeterProfile`
+- New struct `PatchSettingsStatus`
+- New struct `ProvisioningIssue`
+- New struct `ProvisioningIssueProperties`
+- New struct `ResourceAssociation`
+- New struct `VolumeLicenseDetails`
+- New field `VolumeLicenseDetails` in struct `LicenseDetails`
+- New field `BillingEndDate`, `Error` in struct `LicenseProfileArmProductProfileProperties`
+- New field `EnableHotpatching`, `Status` in struct `PatchSettings`
+- New field `BillingEndDate`, `Error` in struct `ProductFeature`
+
+
 ## 2.0.0-beta.2 (2024-04-26)
 ### Breaking Changes
 

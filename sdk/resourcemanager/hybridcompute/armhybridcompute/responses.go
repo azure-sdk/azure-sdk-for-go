@@ -20,6 +20,35 @@ type ExtensionMetadataClientListResponse struct {
 	ExtensionValueListResult
 }
 
+// LicensesClientCreateOrUpdateResponse contains the response from method LicensesClient.BeginCreateOrUpdate.
+type LicensesClientCreateOrUpdateResponse struct {
+	// Describes a license in a hybrid machine.
+	License
+}
+
+// LicensesClientDeleteResponse contains the response from method LicensesClient.BeginDelete.
+type LicensesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// LicensesClientGetResponse contains the response from method LicensesClient.Get.
+type LicensesClientGetResponse struct {
+	// Describes a license in a hybrid machine.
+	License
+}
+
+// LicensesClientListByResourceGroupResponse contains the response from method LicensesClient.NewListByResourceGroupPager.
+type LicensesClientListByResourceGroupResponse struct {
+	// The List license operation response.
+	LicensesListResult
+}
+
+// LicensesClientListBySubscriptionResponse contains the response from method LicensesClient.NewListBySubscriptionPager.
+type LicensesClientListBySubscriptionResponse struct {
+	// The List license operation response.
+	LicensesListResult
+}
+
 // MachineExtensionsClientCreateOrUpdateResponse contains the response from method MachineExtensionsClient.BeginCreateOrUpdate.
 type MachineExtensionsClientCreateOrUpdateResponse struct {
 	// Describes a Machine Extension.
@@ -72,6 +101,12 @@ type MachineRunCommandsClientListResponse struct {
 	MachineRunCommandsListResult
 }
 
+// MachineRunCommandsClientUpdateResponse contains the response from method MachineRunCommandsClient.BeginUpdate.
+type MachineRunCommandsClientUpdateResponse struct {
+	// Describes a Run Command
+	MachineRunCommand
+}
+
 // MachinesClientAssessPatchesResponse contains the response from method MachinesClient.BeginAssessPatches.
 type MachinesClientAssessPatchesResponse struct {
 	// Describes the properties of an AssessPatches result.
@@ -122,6 +157,18 @@ type ManagementClientUpgradeExtensionsResponse struct {
 type NetworkProfileClientGetResponse struct {
 	// Describes the network information on this machine.
 	NetworkProfile
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.GetByPrivateLinkScope.
+type NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeResponse struct {
+	// Properties that define a Network Security Perimeter resource.
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByPrivateLinkScopeResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.NewListByPrivateLinkScopePager.
+type NetworkSecurityPerimeterConfigurationsClientListByPrivateLinkScopeResponse struct {
+	// A list of network security perimeter configurations.
+	NetworkSecurityPerimeterConfigurationListResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.

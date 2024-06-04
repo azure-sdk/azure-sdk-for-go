@@ -18,6 +18,35 @@ type ExtensionMetadataClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// LicensesClientBeginCreateOrUpdateOptions contains the optional parameters for the LicensesClient.BeginCreateOrUpdate method.
+type LicensesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicensesClientBeginDeleteOptions contains the optional parameters for the LicensesClient.BeginDelete method.
+type LicensesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicensesClientGetOptions contains the optional parameters for the LicensesClient.Get method.
+type LicensesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LicensesClientListByResourceGroupOptions contains the optional parameters for the LicensesClient.NewListByResourceGroupPager
+// method.
+type LicensesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LicensesClientListBySubscriptionOptions contains the optional parameters for the LicensesClient.NewListBySubscriptionPager
+// method.
+type LicensesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
 // MachineExtensionsClientBeginCreateOrUpdateOptions contains the optional parameters for the MachineExtensionsClient.BeginCreateOrUpdate
 // method.
 type MachineExtensionsClientBeginCreateOrUpdateOptions struct {
@@ -60,6 +89,13 @@ type MachineRunCommandsClientBeginCreateOrUpdateOptions struct {
 // MachineRunCommandsClientBeginDeleteOptions contains the optional parameters for the MachineRunCommandsClient.BeginDelete
 // method.
 type MachineRunCommandsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MachineRunCommandsClientBeginUpdateOptions contains the optional parameters for the MachineRunCommandsClient.BeginUpdate
+// method.
+type MachineRunCommandsClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -125,6 +161,18 @@ type ManagementClientBeginUpgradeExtensionsOptions struct {
 
 // NetworkProfileClientGetOptions contains the optional parameters for the NetworkProfileClient.Get method.
 type NetworkProfileClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.GetByPrivateLinkScope
+// method.
+type NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByPrivateLinkScopeOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.NewListByPrivateLinkScopePager
+// method.
+type NetworkSecurityPerimeterConfigurationsClientListByPrivateLinkScopeOptions struct {
 	// placeholder for future optional parameters
 }
 

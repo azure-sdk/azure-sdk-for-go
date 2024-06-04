@@ -44,6 +44,14 @@ func (c *ClientFactory) NewExtensionMetadataClient() *ExtensionMetadataClient {
 	}
 }
 
+// NewLicensesClient creates a new instance of LicensesClient.
+func (c *ClientFactory) NewLicensesClient() *LicensesClient {
+	return &LicensesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewMachineExtensionsClient creates a new instance of MachineExtensionsClient.
 func (c *ClientFactory) NewMachineExtensionsClient() *MachineExtensionsClient {
 	return &MachineExtensionsClient{
@@ -79,6 +87,14 @@ func (c *ClientFactory) NewManagementClient() *ManagementClient {
 // NewNetworkProfileClient creates a new instance of NetworkProfileClient.
 func (c *ClientFactory) NewNetworkProfileClient() *NetworkProfileClient {
 	return &NetworkProfileClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNetworkSecurityPerimeterConfigurationsClient creates a new instance of NetworkSecurityPerimeterConfigurationsClient.
+func (c *ClientFactory) NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient {
+	return &NetworkSecurityPerimeterConfigurationsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
