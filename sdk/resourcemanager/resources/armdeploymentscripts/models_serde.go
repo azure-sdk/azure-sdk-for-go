@@ -338,6 +338,7 @@ func (a *AzureResourceBase) UnmarshalJSON(data []byte) error {
 func (c ContainerConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "containerGroupName", c.ContainerGroupName)
+	populate(objectMap, "subnetIds", c.SubnetIDs)
 	return json.Marshal(objectMap)
 }
 
@@ -352,6 +353,40 @@ func (c *ContainerConfiguration) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "containerGroupName":
 			err = unpopulate(val, "ContainerGroupName", &c.ContainerGroupName)
+			delete(rawMsg, key)
+		case "subnetIds":
+			err = unpopulate(val, "SubnetIDs", &c.SubnetIDs)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ContainerGroupSubnetID.
+func (c ContainerGroupSubnetID) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", c.ID)
+	populate(objectMap, "name", c.Name)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ContainerGroupSubnetID.
+func (c *ContainerGroupSubnetID) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &c.Name)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -927,7 +962,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
