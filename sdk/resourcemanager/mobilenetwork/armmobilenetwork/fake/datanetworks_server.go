@@ -9,14 +9,13 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mobilenetwork/armmobilenetwork/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,25 +23,9 @@ import (
 
 // DataNetworksServer is a fake server for instances of the armmobilenetwork.DataNetworksClient type.
 type DataNetworksServer struct {
-	// BeginCreateOrUpdate is the fake for method DataNetworksClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters armmobilenetwork.DataNetwork, options *armmobilenetwork.DataNetworksClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmobilenetwork.DataNetworksClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
-	// BeginDelete is the fake for method DataNetworksClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, options *armmobilenetwork.DataNetworksClientBeginDeleteOptions) (resp azfake.PollerResponder[armmobilenetwork.DataNetworksClientDeleteResponse], errResp azfake.ErrorResponder)
-
-	// Get is the fake for method DataNetworksClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, options *armmobilenetwork.DataNetworksClientGetOptions) (resp azfake.Responder[armmobilenetwork.DataNetworksClientGetResponse], errResp azfake.ErrorResponder)
-
 	// NewListByMobileNetworkPager is the fake for method DataNetworksClient.NewListByMobileNetworkPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByMobileNetworkPager func(resourceGroupName string, mobileNetworkName string, options *armmobilenetwork.DataNetworksClientListByMobileNetworkOptions) (resp azfake.PagerResponder[armmobilenetwork.DataNetworksClientListByMobileNetworkResponse])
-
-	// UpdateTags is the fake for method DataNetworksClient.UpdateTags
-	// HTTP status codes to indicate success: http.StatusOK
-	UpdateTags func(ctx context.Context, resourceGroupName string, mobileNetworkName string, dataNetworkName string, parameters armmobilenetwork.TagsObject, options *armmobilenetwork.DataNetworksClientUpdateTagsOptions) (resp azfake.Responder[armmobilenetwork.DataNetworksClientUpdateTagsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDataNetworksServerTransport creates a new instance of DataNetworksServerTransport with the provided implementation.
@@ -51,8 +34,6 @@ type DataNetworksServer struct {
 func NewDataNetworksServerTransport(srv *DataNetworksServer) *DataNetworksServerTransport {
 	return &DataNetworksServerTransport{
 		srv:                         srv,
-		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armmobilenetwork.DataNetworksClientCreateOrUpdateResponse]](),
-		beginDelete:                 newTracker[azfake.PollerResponder[armmobilenetwork.DataNetworksClientDeleteResponse]](),
 		newListByMobileNetworkPager: newTracker[azfake.PagerResponder[armmobilenetwork.DataNetworksClientListByMobileNetworkResponse]](),
 	}
 }
@@ -61,8 +42,6 @@ func NewDataNetworksServerTransport(srv *DataNetworksServer) *DataNetworksServer
 // Don't use this type directly, use NewDataNetworksServerTransport instead.
 type DataNetworksServerTransport struct {
 	srv                         *DataNetworksServer
-	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armmobilenetwork.DataNetworksClientCreateOrUpdateResponse]]
-	beginDelete                 *tracker[azfake.PollerResponder[armmobilenetwork.DataNetworksClientDeleteResponse]]
 	newListByMobileNetworkPager *tracker[azfake.PagerResponder[armmobilenetwork.DataNetworksClientListByMobileNetworkResponse]]
 }
 
@@ -78,16 +57,8 @@ func (d *DataNetworksServerTransport) Do(req *http.Request) (*http.Response, err
 	var err error
 
 	switch method {
-	case "DataNetworksClient.BeginCreateOrUpdate":
-		resp, err = d.dispatchBeginCreateOrUpdate(req)
-	case "DataNetworksClient.BeginDelete":
-		resp, err = d.dispatchBeginDelete(req)
-	case "DataNetworksClient.Get":
-		resp, err = d.dispatchGet(req)
 	case "DataNetworksClient.NewListByMobileNetworkPager":
 		resp, err = d.dispatchNewListByMobileNetworkPager(req)
-	case "DataNetworksClient.UpdateTags":
-		resp, err = d.dispatchUpdateTags(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -96,143 +67,6 @@ func (d *DataNetworksServerTransport) Do(req *http.Request) (*http.Response, err
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (d *DataNetworksServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if d.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
-	}
-	beginCreateOrUpdate := d.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MobileNetwork/mobileNetworks/(?P<mobileNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/dataNetworks/(?P<dataNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armmobilenetwork.DataNetwork](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		mobileNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("mobileNetworkName")])
-		if err != nil {
-			return nil, err
-		}
-		dataNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataNetworkName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := d.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, mobileNetworkNameParam, dataNetworkNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginCreateOrUpdate = &respr
-		d.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		d.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		d.beginCreateOrUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (d *DataNetworksServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if d.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
-	}
-	beginDelete := d.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MobileNetwork/mobileNetworks/(?P<mobileNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/dataNetworks/(?P<dataNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		mobileNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("mobileNetworkName")])
-		if err != nil {
-			return nil, err
-		}
-		dataNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataNetworkName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := d.srv.BeginDelete(req.Context(), resourceGroupNameParam, mobileNetworkNameParam, dataNetworkNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginDelete = &respr
-		d.beginDelete.add(req, beginDelete)
-	}
-
-	resp, err := server.PollerResponderNext(beginDelete, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		d.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginDelete) {
-		d.beginDelete.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (d *DataNetworksServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if d.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MobileNetwork/mobileNetworks/(?P<mobileNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/dataNetworks/(?P<dataNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	mobileNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("mobileNetworkName")])
-	if err != nil {
-		return nil, err
-	}
-	dataNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataNetworkName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := d.srv.Get(req.Context(), resourceGroupNameParam, mobileNetworkNameParam, dataNetworkNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DataNetwork, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
@@ -273,47 +107,6 @@ func (d *DataNetworksServerTransport) dispatchNewListByMobileNetworkPager(req *h
 	}
 	if !server.PagerResponderMore(newListByMobileNetworkPager) {
 		d.newListByMobileNetworkPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (d *DataNetworksServerTransport) dispatchUpdateTags(req *http.Request) (*http.Response, error) {
-	if d.srv.UpdateTags == nil {
-		return nil, &nonRetriableError{errors.New("fake for method UpdateTags not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MobileNetwork/mobileNetworks/(?P<mobileNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/dataNetworks/(?P<dataNetworkName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armmobilenetwork.TagsObject](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	mobileNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("mobileNetworkName")])
-	if err != nil {
-		return nil, err
-	}
-	dataNetworkNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataNetworkName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := d.srv.UpdateTags(req.Context(), resourceGroupNameParam, mobileNetworkNameParam, dataNetworkNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DataNetwork, req)
-	if err != nil {
-		return nil, err
 	}
 	return resp, nil
 }

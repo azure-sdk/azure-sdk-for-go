@@ -37,33 +37,10 @@ type AttachedDataNetworksClientUpdateTagsResponse struct {
 	AttachedDataNetwork
 }
 
-// DataNetworksClientCreateOrUpdateResponse contains the response from method DataNetworksClient.BeginCreateOrUpdate.
-type DataNetworksClientCreateOrUpdateResponse struct {
-	// Data network resource. Must be created in the same location as its parent mobile network.
-	DataNetwork
-}
-
-// DataNetworksClientDeleteResponse contains the response from method DataNetworksClient.BeginDelete.
-type DataNetworksClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// DataNetworksClientGetResponse contains the response from method DataNetworksClient.Get.
-type DataNetworksClientGetResponse struct {
-	// Data network resource. Must be created in the same location as its parent mobile network.
-	DataNetwork
-}
-
 // DataNetworksClientListByMobileNetworkResponse contains the response from method DataNetworksClient.NewListByMobileNetworkPager.
 type DataNetworksClientListByMobileNetworkResponse struct {
 	// Response for data network API service call.
 	DataNetworkListResult
-}
-
-// DataNetworksClientUpdateTagsResponse contains the response from method DataNetworksClient.UpdateTags.
-type DataNetworksClientUpdateTagsResponse struct {
-	// Data network resource. Must be created in the same location as its parent mobile network.
-	DataNetwork
 }
 
 // DiagnosticsPackagesClientCreateOrUpdateResponse contains the response from method DiagnosticsPackagesClient.BeginCreateOrUpdate.
@@ -122,6 +99,12 @@ type MobileNetworksClientListByResourceGroupResponse struct {
 type MobileNetworksClientListBySubscriptionResponse struct {
 	// Response for mobile networks API service call.
 	ListResult
+}
+
+// MobileNetworksClientListSimGroupsResponse contains the response from method MobileNetworksClient.NewListSimGroupsPager.
+type MobileNetworksClientListSimGroupsResponse struct {
+	// Response for list SIM groups API service call.
+	SimGroupListResult
 }
 
 // MobileNetworksClientUpdateTagsResponse contains the response from method MobileNetworksClient.UpdateTags.
@@ -271,6 +254,18 @@ type PacketCoreDataPlanesClientUpdateTagsResponse struct {
 	PacketCoreDataPlane
 }
 
+// RoutingInfoClientGetResponse contains the response from method RoutingInfoClient.Get.
+type RoutingInfoClientGetResponse struct {
+	// Routing information
+	RoutingInfoModel
+}
+
+// RoutingInfoClientListResponse contains the response from method RoutingInfoClient.NewListPager.
+type RoutingInfoClientListResponse struct {
+	// Response for the list routing information API service call.
+	RoutingInfoListResult
+}
+
 // ServicesClientCreateOrUpdateResponse contains the response from method ServicesClient.BeginCreateOrUpdate.
 type ServicesClientCreateOrUpdateResponse struct {
 	// Service resource. Must be created in the same location as its parent mobile network.
@@ -382,6 +377,12 @@ type SimsClientBulkUploadResponse struct {
 	AsyncOperationStatus
 }
 
+// SimsClientCloneResponse contains the response from method SimsClient.BeginClone.
+type SimsClientCloneResponse struct {
+	// The current status of an async operation.
+	AsyncOperationStatus
+}
+
 // SimsClientCreateOrUpdateResponse contains the response from method SimsClient.BeginCreateOrUpdate.
 type SimsClientCreateOrUpdateResponse struct {
 	// SIM resource.
@@ -403,6 +404,12 @@ type SimsClientGetResponse struct {
 type SimsClientListByGroupResponse struct {
 	// Response for list SIMs API service call.
 	SimListResult
+}
+
+// SimsClientMoveResponse contains the response from method SimsClient.BeginMove.
+type SimsClientMoveResponse struct {
+	// The current status of an async operation.
+	AsyncOperationStatus
 }
 
 // SitesClientCreateOrUpdateResponse contains the response from method SitesClient.BeginCreateOrUpdate.

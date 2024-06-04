@@ -39,32 +39,9 @@ type AttachedDataNetworksClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the DataNetworksClient.BeginCreateOrUpdate
-// method.
-type DataNetworksClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DataNetworksClientBeginDeleteOptions contains the optional parameters for the DataNetworksClient.BeginDelete method.
-type DataNetworksClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DataNetworksClientGetOptions contains the optional parameters for the DataNetworksClient.Get method.
-type DataNetworksClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
 // DataNetworksClientListByMobileNetworkOptions contains the optional parameters for the DataNetworksClient.NewListByMobileNetworkPager
 // method.
 type DataNetworksClientListByMobileNetworkOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DataNetworksClientUpdateTagsOptions contains the optional parameters for the DataNetworksClient.UpdateTags method.
-type DataNetworksClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -125,6 +102,12 @@ type MobileNetworksClientListByResourceGroupOptions struct {
 // MobileNetworksClientListBySubscriptionOptions contains the optional parameters for the MobileNetworksClient.NewListBySubscriptionPager
 // method.
 type MobileNetworksClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MobileNetworksClientListSimGroupsOptions contains the optional parameters for the MobileNetworksClient.NewListSimGroupsPager
+// method.
+type MobileNetworksClientListSimGroupsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -281,6 +264,16 @@ type PacketCoreDataPlanesClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// RoutingInfoClientGetOptions contains the optional parameters for the RoutingInfoClient.Get method.
+type RoutingInfoClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RoutingInfoClientListOptions contains the optional parameters for the RoutingInfoClient.NewListPager method.
+type RoutingInfoClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ServicesClientBeginCreateOrUpdateOptions contains the optional parameters for the ServicesClient.BeginCreateOrUpdate method.
 type ServicesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -392,6 +385,12 @@ type SimsClientBeginBulkUploadOptions struct {
 	ResumeToken string
 }
 
+// SimsClientBeginCloneOptions contains the optional parameters for the SimsClient.BeginClone method.
+type SimsClientBeginCloneOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // SimsClientBeginCreateOrUpdateOptions contains the optional parameters for the SimsClient.BeginCreateOrUpdate method.
 type SimsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -400,6 +399,12 @@ type SimsClientBeginCreateOrUpdateOptions struct {
 
 // SimsClientBeginDeleteOptions contains the optional parameters for the SimsClient.BeginDelete method.
 type SimsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SimsClientBeginMoveOptions contains the optional parameters for the SimsClient.BeginMove method.
+type SimsClientBeginMoveOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
