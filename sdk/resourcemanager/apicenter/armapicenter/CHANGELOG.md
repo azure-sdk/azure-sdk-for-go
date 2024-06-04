@@ -1,5 +1,29 @@
 # Release History
 
+## 1.1.0-beta.1 (2024-06-04)
+### Features Added
+
+- New function `*ClientFactory.NewDeletedServicesClient() *DeletedServicesClient`
+- New function `NewDeletedServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DeletedServicesClient, error)`
+- New function `*DeletedServicesClient.Delete(context.Context, string, string, *DeletedServicesClientDeleteOptions) (DeletedServicesClientDeleteResponse, error)`
+- New function `*DeletedServicesClient.Get(context.Context, string, string, *DeletedServicesClientGetOptions) (DeletedServicesClientGetResponse, error)`
+- New function `*DeletedServicesClient.NewListBySubscriptionPager(*DeletedServicesClientListBySubscriptionOptions) *runtime.Pager[DeletedServicesClientListBySubscriptionResponse]`
+- New function `*DeletedServicesClient.NewListPager(string, *DeletedServicesClientListOptions) *runtime.Pager[DeletedServicesClientListResponse]`
+- New struct `DeletedService`
+- New struct `DeletedServiceListResult`
+- New struct `DeletedServiceProperties`
+- New struct `ServiceUpdateProperties`
+- New field `IfMatch` in struct `APIDefinitionsClientCreateOrUpdateOptions`
+- New field `IfMatch` in struct `APIVersionsClientCreateOrUpdateOptions`
+- New field `IfMatch` in struct `ApisClientCreateOrUpdateOptions`
+- New field `IfMatch` in struct `DeploymentsClientCreateOrUpdateOptions`
+- New field `IfMatch` in struct `EnvironmentsClientCreateOrUpdateOptions`
+- New field `IfMatch` in struct `MetadataSchemasClientCreateOrUpdateOptions`
+- New field `Restore` in struct `ServiceProperties`
+- New field `Properties` in struct `ServiceUpdate`
+- New field `IfMatch` in struct `WorkspacesClientCreateOrUpdateOptions`
+
+
 ## 1.0.0 (2024-02-23)
 ### Breaking Changes
 

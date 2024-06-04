@@ -113,6 +113,7 @@ func (e *EnvironmentsServerTransport) dispatchCreateOrUpdate(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
+	ifMatchParam := getOptional(getHeaderValue(req.Header, "If-Match"))
 	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
 	if err != nil {
 		return nil, err
@@ -125,7 +126,13 @@ func (e *EnvironmentsServerTransport) dispatchCreateOrUpdate(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := e.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, serviceNameParam, workspaceNameParam, environmentNameParam, body, nil)
+	var options *armapicenter.EnvironmentsClientCreateOrUpdateOptions
+	if ifMatchParam != nil {
+		options = &armapicenter.EnvironmentsClientCreateOrUpdateOptions{
+			IfMatch: ifMatchParam,
+		}
+	}
+	respr, errRespr := e.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, serviceNameParam, workspaceNameParam, environmentNameParam, body, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
