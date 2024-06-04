@@ -16,65 +16,127 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	subscriptionID          string
+	policyDefinitionName    string
+	policyDefinitionVersion string
+	policySetDefinitionName string
+	internal                *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - policyDefinitionName - The name of the policy definition.
+//   - policyDefinitionVersion - The policy definition version. The format is x.y.z where x is the major version number, y is
+//     the minor version number, and z is the patch number
+//   - policySetDefinitionName - The name of the policy set definition.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+func NewClientFactory(subscriptionID string, policyDefinitionName string, policyDefinitionVersion string, policySetDefinitionName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID:          subscriptionID,
+		policyDefinitionName:    policyDefinitionName,
+		policyDefinitionVersion: policyDefinitionVersion,
+		policySetDefinitionName: policySetDefinitionName,
+		internal:                internal,
 	}, nil
 }
 
 // NewAssignmentsClient creates a new instance of AssignmentsClient.
 func (c *ClientFactory) NewAssignmentsClient() *AssignmentsClient {
-	subClient, _ := NewAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &AssignmentsClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
 
 // NewDataPolicyManifestsClient creates a new instance of DataPolicyManifestsClient.
 func (c *ClientFactory) NewDataPolicyManifestsClient() *DataPolicyManifestsClient {
-	subClient, _ := NewDataPolicyManifestsClient(c.credential, c.options)
-	return subClient
+	return &DataPolicyManifestsClient{
+		internal: c.internal,
+	}
+}
+
+// NewDefinitionVersionsClient creates a new instance of DefinitionVersionsClient.
+func (c *ClientFactory) NewDefinitionVersionsClient() *DefinitionVersionsClient {
+	return &DefinitionVersionsClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
 
 // NewDefinitionsClient creates a new instance of DefinitionsClient.
 func (c *ClientFactory) NewDefinitionsClient() *DefinitionsClient {
-	subClient, _ := NewDefinitionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &DefinitionsClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
 
 // NewExemptionsClient creates a new instance of ExemptionsClient.
 func (c *ClientFactory) NewExemptionsClient() *ExemptionsClient {
-	subClient, _ := NewExemptionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ExemptionsClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
+}
+
+// NewSetDefinitionVersionsClient creates a new instance of SetDefinitionVersionsClient.
+func (c *ClientFactory) NewSetDefinitionVersionsClient() *SetDefinitionVersionsClient {
+	return &SetDefinitionVersionsClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
 
 // NewSetDefinitionsClient creates a new instance of SetDefinitionsClient.
 func (c *ClientFactory) NewSetDefinitionsClient() *SetDefinitionsClient {
-	subClient, _ := NewSetDefinitionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SetDefinitionsClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
 
 // NewVariableValuesClient creates a new instance of VariableValuesClient.
 func (c *ClientFactory) NewVariableValuesClient() *VariableValuesClient {
-	subClient, _ := NewVariableValuesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &VariableValuesClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
 
 // NewVariablesClient creates a new instance of VariablesClient.
 func (c *ClientFactory) NewVariablesClient() *VariablesClient {
-	subClient, _ := NewVariablesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &VariablesClient{
+		subscriptionID:          c.subscriptionID,
+		policyDefinitionName:    c.policyDefinitionName,
+		policyDefinitionVersion: c.policyDefinitionVersion,
+		policySetDefinitionName: c.policySetDefinitionName,
+		internal:                c.internal,
+	}
 }
