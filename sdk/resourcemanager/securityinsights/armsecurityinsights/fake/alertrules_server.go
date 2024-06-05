@@ -15,8 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -35,27 +34,19 @@ type AlertRulesServer struct {
 	// Get is the fake for method AlertRulesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *armsecurityinsights.AlertRulesClientGetOptions) (resp azfake.Responder[armsecurityinsights.AlertRulesClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method AlertRulesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, workspaceName string, options *armsecurityinsights.AlertRulesClientListOptions) (resp azfake.PagerResponder[armsecurityinsights.AlertRulesClientListResponse])
 }
 
 // NewAlertRulesServerTransport creates a new instance of AlertRulesServerTransport with the provided implementation.
 // The returned AlertRulesServerTransport instance is connected to an instance of armsecurityinsights.AlertRulesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewAlertRulesServerTransport(srv *AlertRulesServer) *AlertRulesServerTransport {
-	return &AlertRulesServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armsecurityinsights.AlertRulesClientListResponse]](),
-	}
+	return &AlertRulesServerTransport{srv: srv}
 }
 
 // AlertRulesServerTransport connects instances of armsecurityinsights.AlertRulesClient to instances of AlertRulesServer.
 // Don't use this type directly, use NewAlertRulesServerTransport instead.
 type AlertRulesServerTransport struct {
-	srv          *AlertRulesServer
-	newListPager *tracker[azfake.PagerResponder[armsecurityinsights.AlertRulesClientListResponse]]
+	srv *AlertRulesServer
 }
 
 // Do implements the policy.Transporter interface for AlertRulesServerTransport.
@@ -76,8 +67,6 @@ func (a *AlertRulesServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = a.dispatchDelete(req)
 	case "AlertRulesClient.Get":
 		resp, err = a.dispatchGet(req)
-	case "AlertRulesClient.NewListPager":
-		resp, err = a.dispatchNewListPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -204,47 +193,6 @@ func (a *AlertRulesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AlertRuleClassification, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (a *AlertRulesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if a.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := a.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/alertRules`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := a.srv.NewListPager(resourceGroupNameParam, workspaceNameParam, nil)
-		newListPager = &resp
-		a.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armsecurityinsights.AlertRulesClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		a.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		a.newListPager.remove(req)
 	}
 	return resp, nil
 }
